@@ -71,6 +71,12 @@ class OSCMessage(object):
 
     ### CLASS VARIABLES ###
 
+    __slots__ = (
+        '_address',
+        '_message',
+        '_type_tags',
+        )
+
     _valid_type_tags = (
         ',',
         'b',
@@ -82,12 +88,12 @@ class OSCMessage(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, address='', expr=None):
+    def __init__(self, address='', message=None):
         self._address = address or ''
         self._message = ''
         self._type_tags = ','
-        if expr is not None:
-            self.extend(expr)
+        if message is not None:
+            self.extend(message)
 
     ### PRIVATE METHODS ###
 
@@ -261,4 +267,3 @@ class OSCMessage(object):
     def extend(self, expr):
         for x in expr:
             self.append(x)
-
