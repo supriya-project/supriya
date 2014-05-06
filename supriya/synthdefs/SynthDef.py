@@ -52,13 +52,20 @@ class SynthDef(object):
         self._parameters.append(value)
 
     def _add_ugen_specification(self, ugen_specification):
+        def resolve(ugen, synthdef):
+            for i in self.inputs:
+                if type(i) == float:
+                    synthdef._add_constant(i)
+                else:
+                    synthdef._add_ugen_specification(i[0])
         if ugen_specification in self._ugen_specifications:
             return
         elif ugen_specification in self._pending_ugen_specifications:
             return
         self._pending_ugen_specifications.add(ugen_specification)
-        ugen_specification._resolve(self)
-        self._ugen_specifications[ugen_specification] = len(self._ugen_specifications)
+        resolve(ugen_specification, self)
+        self._ugen_specifications[ugen_specification] = \
+            len(self._ugen_specifications)
         self._pending_ugen_specifications.remove(ugen_specification)
 
     @staticmethod
