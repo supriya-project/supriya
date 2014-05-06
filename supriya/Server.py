@@ -57,7 +57,6 @@ class Server(object):
             port=server_port,
             samplerate=samplerate,
             )
-        print command
         self._scsynth_process = subprocess.Popen(
             command.split(),
             )
@@ -78,7 +77,8 @@ class Server(object):
         self._scsynth_process.kill()
 
     def send_command(self, arguments):
-        self._send_message(r'/cmd', arguments)
+        if self._osc_controller is not None:
+            self._send_message(r'/cmd', arguments)
 
     def sync(self, reply_int):
         self._send_message(r'/sync', reply_int)
