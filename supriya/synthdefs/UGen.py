@@ -1,4 +1,3 @@
-import abc
 import collections
 import enum
 
@@ -14,15 +13,23 @@ class UGen(object):
         CONTROL_RATE = 1
         SCALAR_RATE = 0
 
-    _special_index = 0
-
     __slots__ = ()
+
+    _argument_specifications = ()
 
     ### INITIALIZER ###
 
-    @abc.abstractmethod
-    def __init__(self):
-        raise NotImplementedError
+    def __init__(
+        self,
+        calculation_rate=None,
+        special_index=0,
+        *args
+        ):
+        from supriya import synthdefs
+        assert isinstance(calculation_rate, synthdefs.UGen.Rate)
+        self._calculation_rate = calculation_rate
+        self._special_index = special_index
+        self._inputs = []
 
     ### PRIVATE METHODS ###
 
@@ -67,9 +74,94 @@ class UGen(object):
         return result
 
     @classmethod
-    def _new(cls, calculation_rate, special_index, **kwargs):
+    def _new(cls, calculation_rate, special_index, *args):
+        from supriya import synthdefs
         assert isinstance(calculation_rate, UGen.Rate)
-        pass
+        argument_lists = UGen._expand_multichannel(args)
+        ugen_specifications = []
+        for argument_list in argument_lists:
+            ugen_specification = cls(
+                calculation_rate=calculation_rate,
+                special_index=special_index,
+                )
+            for i in range(len(cls.argument_specifications)):
+                argument_specification = cls.argument_specifications[i]
+                if i < len(argument_list):
+                    argument = argument_list[i]
+                else:
+                    argument = None
+                argument_specification.configure(ugen_specification, argument)
+            ugen_specifications.append(ugen_specifications)
+        if len(ugen_specifications) == 1:
+            return ugen_specifications[0]
+        return synthdefs.UGenArray(ugen_specifications)
+
+    ### SPECIAL METHODS ###
+
+    def __add__(self, expr):
+        from supriya import ugens
+        calculation_rate = self._compute_binary_rate(self, expr)
+        special_index = ugens.BinaryOpUGen.BinaryOperator.PLUS
+        return ugens.BinaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            expr,
+            )
+
+    def __div__(self, expr):
+        from supriya import ugens
+        calculation_rate = self._compute_binary_rate(self, expr)
+        special_index = ugens.BinaryOpUGen.BinaryOperator.DIVIDE
+        return ugens.BinaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            expr,
+            )
+
+    def __mod__(self, expr):
+        from supriya import ugens
+        calculation_rate = self._compute_binary_rate(self, expr)
+        special_index = ugens.BinaryOpUGen.BinaryOperator.MOD,
+        return ugens.BinaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            expr,
+            )
+
+    def __mul__(self, expr):
+        from supriya import ugens
+        calculation_rate = self._compute_binary_rate(self, expr)
+        special_index = ugens.BinaryOpUGen.BinaryOperator.TIMES
+        return ugens.BinaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            expr,
+            )
+
+    def __neg__(self):
+        from supriya import ugens
+        calculation_rate = self.calculation_rate
+        special_index = ugens.UnaryOpUGen.UnaryOperator.NEG
+        return ugens.UnaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            )
+
+    def __sub__(self, expr):
+        from supriya import ugens
+        calculation_rate = self._compute_binary_rate(self, expr)
+        special_index = ugens.BinaryOpUGen.BinaryOperator.MINUS
+        return ugens.BinaryOpUGen._new(
+            calculation_rate,
+            special_index,
+            self,
+            expr,
+            )
 
     ### PUBLIC METHODS ###
 
