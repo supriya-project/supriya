@@ -33,6 +33,12 @@ class UGen(object):
 
     ### PRIVATE METHODS ###
 
+    def add_constant_input(self, value):
+        self._inputs.append(float(value))
+
+    def _add_ugen_input(self, ugen, output_index):
+        self._inputs.append((ugen, output_index))
+
     @staticmethod
     def _compute_binary_rate(ugen_specification_a, ugen_specification_b):
         if ugen_specification_a.calculation_rate == UGen.Rate.AUDIO_RATE:
@@ -72,6 +78,12 @@ class UGen(object):
                 else:
                     result[i].append(argument)
         return result
+
+    def _get_output_number(self):
+        return 0
+
+    def _get_outputs(self):
+        return [self.calculation_rate]
 
     @classmethod
     def _new(cls, calculation_rate, special_index, *args):
@@ -173,6 +185,35 @@ class UGen(object):
             **kwargs
             )
         return ugen_specification
+
+    def compile(self, synthdef):
+        def compileInput(i, synthdef):
+            result = []
+            if type(i) == float:
+                result.append(SynthDef._encode_unsigned_int_16bit(0xffff))
+                constant_index = synthdef._get_constant_index(i)
+                result.append(SynthDef._encode_unsigned_int_16bit(
+                    constant_index))
+            else:
+                ugen_lookup = synthdef._get_ugen_specification_index(i[0])
+                result.append(SynthDef._encode_unsigned_int_16bit(
+                    ugen_lookup[0]))
+                result.append(SynthDef._encode_unsigned_int_16bit(
+                    ugen_lookup[1]))
+            return ''.join(result)
+        from supriya.synthdefs import SynthDef
+        outputs = self._get_outputs()
+        result = []
+        result.append(SynthDef._encode_string(self.classname))
+        result.append(SynthDef._encode_unsigned_int_8bit(self.calcrate))
+        result.append(SynthDef._encode_unsigned_int_16bit(len(self.inputs)))
+        result.append(SynthDef._encode_unsigned_int_16bit(len(outputs)))
+        result.append(SynthDef._encode_unsigned_int_16bit(self.special_index))
+        for i in self.inputs:
+            result.append(self.compileInput(i, synthdef))
+        for o in outputs:
+            result.append(SynthDef._encode_unsigned_int_8bit(o))
+        return result
 
     @classmethod
     def kr(cls, **kwargs):
