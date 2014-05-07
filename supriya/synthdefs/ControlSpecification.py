@@ -1,7 +1,7 @@
 from supriya.synthdefs.UGen import UGen
 
 
-class Control(UGen):
+class ControlSpecification(UGen):
 
     ### CLASS VARIABLES ###
 
