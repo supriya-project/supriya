@@ -3,6 +3,23 @@ import struct
 
 
 class SynthDef(object):
+    r'''A SuperCollider synth definition.
+
+    ::
+
+        >>> import supriya
+        >>> synth = supriya.synthdefs.SynthDef('test')
+        >>> for string in synth.compile():
+        ...     string
+        ...
+        '\x04test'
+        '\x00\x00'
+        '\x00\x00'
+        '\x00\x00'
+        '\x00\x00'
+
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -36,7 +53,7 @@ class SynthDef(object):
             for name, value in control_definitions:
                 self._add_parameter(name, value)
                 control_names.append(name)
-        self._controls = synthdefs.ControlSpecification(control_names)
+        self._controls = synthdefs.Control(control_names)
         if ugen_specifications is not None:
             for ugen_specification in ugen_specifications:
                 self._add_ugen_specification(ugen_specification)
@@ -98,21 +115,37 @@ class SynthDef(object):
 
     def compile(self):
         result = []
+        # the name of the synth definition
         result.append(SynthDef._encode_string(self.name))
+        # number of constants (K)
         result.append(SynthDef._encode_unsigned_int_16bit(len(self.constants)))
-        for key, value in sorted(self.constants.items(), key=lambda x: x[1]):
+        # constant values 
+        for key, value in sorted(
+            self.constants.items(),
+            key=lambda key, value: value,
+            ):
             result.append(SynthDef._encode_float(key))
+        # number of parameters (P)
         result.append(SynthDef._encode_unsigned_int_16bit(len(self.parameters)))
+        # initial parameter values
         for value in self.parameters:
             result.append(SynthDef._encode_float(value))
+        # number of parameter names (N)
         result.append(SynthDef._encode_unsigned_int_16bit(
             len(self.parameter_names)))
+        # the name of the parameter and its index in the parameter array
         for key, value in self.parameter_names.items():
             result.append(SynthDef._encode_string(key))
             result.append(SynthDef._encode_unsigned_int_16bit(value))
-        result.append(SynthDef._encode_unsigned_int_16bit(len(self.ugens)))
-        for key, value in sorted(self.ugens.items(), key=lambda x: x[1]):
-            result.append(key.compile(self))
+        # number of unit generators (U)
+        result.append(SynthDef._encode_unsigned_int_16bit(len(self.ugen_specifications)))
+        # compiled ugens
+        for ugen, ugen_index in sorted(
+            self.ugen_specifications.items(),
+            key=lambda ugen, ugen_index: ugen_index):
+            result.append(ugen.compile(self))
+        # number of variants (V)
+        result.append(SynthDef._encode_unsigned_int_16bit(0))
         return result
 
     @staticmethod
@@ -128,7 +161,27 @@ class SynthDef(object):
         result.append(SynthDef._encode_unsigned_int_16bit(len(synthdefs)))
         for synthdef in synthdefs:
             result.append(synthdef.compile())
-        result.append(SynthDef._encode_unsigned_int_16bit(0))
         result = flatten(result)
         return result
 
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def constants(self):
+        return self._constants
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def parameter_names(self):
+        return self._parameter_names
+
+    @property
+    def parameters(self):
+        return self._parameters
+
+    @property
+    def ugen_specifications(self):
+        return self._ugen_specifications

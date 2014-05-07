@@ -13,7 +13,11 @@ class UGen(object):
         CONTROL_RATE = 1
         SCALAR_RATE = 0
 
-    __slots__ = ()
+    __slots__ = (
+        '_calculation_rate',
+        '_inputs',
+        '_special_index',
+        )
 
     _argument_specifications = ()
 
@@ -28,8 +32,8 @@ class UGen(object):
         from supriya import synthdefs
         assert isinstance(calculation_rate, synthdefs.UGen.Rate)
         self._calculation_rate = calculation_rate
-        self._special_index = special_index
         self._inputs = []
+        self._special_index = special_index
 
     ### PRIVATE METHODS ###
 
