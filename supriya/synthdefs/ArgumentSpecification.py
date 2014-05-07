@@ -22,7 +22,8 @@ class ArgumentSpecification(object):
     def configure(self, ugen, value):
         if value is None:
             if self.default is None:
-                raise Exception('no default value for argspec', self)
+                raise Exception('no default value for argument {} in {}.'.format(
+                    self.name, type(ugen).__name__))
             ugen._add_constant_input(self.default)
         elif type(value) == float or type(value) == int:
             ugen._add_constant_input(value)

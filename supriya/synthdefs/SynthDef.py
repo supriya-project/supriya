@@ -25,8 +25,9 @@ class SynthDef(object):
         ...     end=[controls['freq_l'], controls['freq_r']],
         ...     )
         >>> sin_osc = synthdefs.SinOsc.ar(freq=line, phase=0) * 0.2
-        >>> out = synthdefs.Out.ar(bus=0, channels=sin_osc)
+        >>> out = synthdefs.Out.ar(bus=0, source=sin_osc)
         >>> synth.add_ugen(out)
+        >>> synth.compile()
 
     '''
 
@@ -126,7 +127,7 @@ class SynthDef(object):
         # constant values
         for key, value in sorted(
             self.constants.items(),
-            key=lambda key, value: value,
+            key=lambda item: item[1],
             ):
             result.append(SynthDef._encode_float(key))
         # number of parameters (P)
@@ -146,7 +147,7 @@ class SynthDef(object):
         # compiled ugens
         for ugen, ugen_index in sorted(
             self.ugens.items(),
-            key=lambda ugen, ugen_index: ugen_index):
+            key=lambda item: item[1]):
             result.append(ugen.compile(self))
         # number of variants (V)
         result.append(SynthDef._encode_unsigned_int_16bit(0))

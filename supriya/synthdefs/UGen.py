@@ -1,3 +1,4 @@
+from __future__ import print_function
 import collections
 import enum
 
@@ -132,7 +133,7 @@ class UGen(object):
     def __add__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.PLUS
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.PLUS.value
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -143,7 +144,7 @@ class UGen(object):
     def __div__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.DIVIDE
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.DIVIDE.value
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -154,7 +155,7 @@ class UGen(object):
     def __mod__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MOD,
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MOD.value
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -165,7 +166,7 @@ class UGen(object):
     def __mul__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.TIMES
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.TIMES.value
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -176,7 +177,7 @@ class UGen(object):
     def __neg__(self):
         from supriya import synthdefs
         calculation_rate = self.calculation_rate
-        special_index = synthdefs.UnaryOpUGen.UnaryOperator.NEG
+        special_index = synthdefs.UnaryOpUGen.UnaryOperator.NEG.value
         return synthdefs.UnaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -186,7 +187,7 @@ class UGen(object):
     def __sub__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MINUS
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MINUS.value
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
@@ -223,13 +224,16 @@ class UGen(object):
         from supriya.synthdefs import SynthDef
         outputs = self._get_outputs()
         result = []
-        result.append(SynthDef._encode_string(self.classname))
-        result.append(SynthDef._encode_unsigned_int_8bit(self.calcrate))
+        result.append(SynthDef._encode_string(type(self).__name__))
+        result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
         result.append(SynthDef._encode_unsigned_int_16bit(len(self.inputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(len(outputs)))
-        result.append(SynthDef._encode_unsigned_int_16bit(self.special_index))
+        try:
+            result.append(SynthDef._encode_unsigned_int_16bit(self.special_index))
+        except:
+            print('FOO:', self.special_index, type(self).__name__)
         for i in self.inputs:
-            result.append(self.compile_input(i, synthdef))
+            result.append(compile_input(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         return result
