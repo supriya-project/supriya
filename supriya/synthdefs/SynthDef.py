@@ -7,10 +7,25 @@ class SynthDef(object):
 
     ::
 
-        >>> import supriya
-        >>> synth = supriya.synthdefs.SynthDef('test')
+        >>> from supriya import synthdefs
+        >>> synth = synthdefs.SynthDef('test')
         >>> synth.compile()
         '\x04test\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+    ::
+
+        >>> synth = synthdefs.SynthDef(
+        ...     'test',
+        ...     freq_l=1200,
+        ...     freq_r=1205,
+        ...     )
+        >>> controls = synth.controls
+        >>> line = synthdefs.Line.kr(
+        ...     start=100,
+        ...     end=[controls['freq_l'], controls['freq_r']],
+        ...     )
+        >>> sin_osc = synthdefs.SinOsc.ar(freq=line)
+        >>> synth.add_ugen(synthdefs.Out.ar(0, sin_osc, 0) * 0.2)
 
     '''
 
@@ -31,8 +46,7 @@ class SynthDef(object):
     def __init__(
         self,
         name,
-        control_definitions=None,
-        ugens=None,
+        **kwargs
         ):
         from supriya import synthdefs
         self._constants = {}
@@ -42,14 +56,10 @@ class SynthDef(object):
         self._pending_ugens = set()
         self._ugens = {}
         control_names = []
-        if control_definitions is not None:
-            for name, value in control_definitions:
-                self._add_parameter(name, value)
-                control_names.append(name)
+        for name, value in kwargs.items():
+            self._add_parameter(name, value)
+            control_names.append(name)
         self._controls = synthdefs.ControlSpecification(control_names)
-        if ugens is not None:
-            for ugen in ugens:
-                self._add_ugen(ugen)
 
     ### PRIVATE METHODS ###
 
@@ -60,23 +70,6 @@ class SynthDef(object):
     def _add_parameter(self, name, value):
         self._parameter_names[name] = len(self._parameters)
         self._parameters.append(value)
-
-    def _add_ugen(self, ugen):
-        def resolve(ugen, synthdef):
-            for i in self.inputs:
-                if type(i) == float:
-                    synthdef._add_constant(i)
-                else:
-                    synthdef._add_ugen(i[0])
-        if ugen in self._ugens:
-            return
-        elif ugen in self._pending_ugens:
-            return
-        self._pending_ugens.add(ugen)
-        resolve(ugen, self)
-        self._ugens[ugen] = \
-            len(self._ugens)
-        self._pending_ugens.remove(ugen)
 
     @staticmethod
     def _encode_float(value):
@@ -105,6 +98,23 @@ class SynthDef(object):
         return self._ugens[ugen]
 
     ### PUBLIC METHODS ###
+
+    def add_ugen(self, ugen):
+        def resolve(ugen, synthdef):
+            for i in self.inputs:
+                if type(i) == float:
+                    synthdef._add_constant(i)
+                else:
+                    synthdef._add_ugen(i[0])
+        if ugen in self._ugens:
+            return
+        elif ugen in self._pending_ugens:
+            return
+        self._pending_ugens.add(ugen)
+        resolve(ugen, self)
+        self._ugens[ugen] = \
+            len(self._ugens)
+        self._pending_ugens.remove(ugen)
 
     def compile(self):
         result = []
@@ -159,6 +169,10 @@ class SynthDef(object):
         return result
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def controls(self):
+        return self._controls
 
     @property
     def constants(self):

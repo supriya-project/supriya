@@ -18,13 +18,14 @@ class ControlSpecification(UGen):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
+        from supriya import synthdefs
         if type(i) == int:
             if len(self.control_names) == 1:
                 return self
             else:
-                return OutputProxy(self, i)
+                return synthdefs.OutputProxy(self, i)
         else:
-            return self[self.lookupControl(i)]
+            return self[self._get_control_index(i)]
 
     def __len__(self):
         return len(self.controlnames)
@@ -42,11 +43,12 @@ class ControlSpecification(UGen):
 
     @property
     def controls(self):
+        from supriya import synthdefs
         if len(self.control_names) == 1:
             result = self
         else:
             result = [
-                OutputProxy(self, i)
+                synthdefs.OutputProxy(self, i)
                 for i in range(len(self.control_names))
                 ]
         return result

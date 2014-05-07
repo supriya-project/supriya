@@ -27,10 +27,10 @@ class UGen(object):
         self,
         calculation_rate=None,
         special_index=0,
-        *args
+        **kwargs
         ):
         from supriya import synthdefs
-        assert isinstance(calculation_rate, synthdefs.UGen.Rate)
+        assert isinstance(calculation_rate, synthdefs.UGen.Rate), calculation_rate
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
@@ -64,23 +64,28 @@ class UGen(object):
         ::
 
             >>> import supriya
-            >>> arguments = (0, [1, 2], [3, 4, 5])
-            >>> supriya.synthdefs.UGen._expand_multichannel(arguments)
-            [[0, 1, 3], [0, 2, 4], [0, 1, 5]]
+            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> result = supriya.synthdefs.UGen._expand_multichannel(arguments)
+            >>> for x in result:
+            ...     x
+            ...
+            {'bar': 1, 'foo': 0, 'baz': 3}
+            {'bar': 2, 'foo': 0, 'baz': 4}
+            {'bar': 1, 'foo': 0, 'baz': 5}
 
         '''
         maximum_length = 1
-        for argument in arguments:
-            if isinstance(argument, collections.Sequence):
-                maximum_length = max(maximum_length, len(argument))
         result = []
+        for name, value in arguments.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
-            result.append([])
-            for argument in arguments:
-                if isinstance(argument, collections.Sequence):
-                    result[i].append(argument[i % len(argument)])
+            result.append({})
+            for name, value in arguments.items():
+                if isinstance(value, collections.Sequence):
+                    result[i][name] = value[i % len(value)]
                 else:
-                    result[i].append(argument)
+                    result[i][name] = value
         return result
 
     def _get_output_number(self):
@@ -93,24 +98,25 @@ class UGen(object):
         return self
 
     @classmethod
-    def _new(cls, calculation_rate, special_index, *args):
+    def _new(cls, calculation_rate, special_index, **kwargs):
         from supriya import synthdefs
         assert isinstance(calculation_rate, UGen.Rate)
-        argument_lists = UGen._expand_multichannel(args)
+        argument_dicts = UGen._expand_multichannel(kwargs)
         ugens = []
-        for argument_list in argument_lists:
+        for argument_dict in argument_dicts:
             ugen = cls(
                 calculation_rate=calculation_rate,
                 special_index=special_index,
+                **argument_dict
                 )
-            for i in range(len(cls.argument_specifications)):
-                argument_specification = cls.argument_specifications[i]
-                if i < len(argument_list):
-                    argument = argument_list[i]
-                else:
-                    argument = None
-                argument_specification.configure(ugen, argument)
-            ugens.append(ugens)
+#            for i in range(len(cls._argument_specifications)):
+#                argument_specification = cls._argument_specifications[i]
+#                if i < len(argument_list):
+#                    argument = argument_list[i]
+#                else:
+#                    argument = None
+#                argument_specification.configure(ugen, argument)
+            ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
         return synthdefs.UGenArray(ugens)
@@ -185,11 +191,11 @@ class UGen(object):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(cls, *args):
+    def ar(cls, **kwargs):
         ugen = cls._new(
             UGen.Rate.AUDIO_RATE,
             cls.special_index,
-            *args
+            **kwargs
             )
         return ugen
 
@@ -223,10 +229,20 @@ class UGen(object):
         return result
 
     @classmethod
-    def kr(cls, *args):
+    def kr(cls, **kwargs):
         ugen = cls._new(
             UGen.Rate.CONTROL_RATE,
             cls.special_index,
-            *args
+            **kwargs
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def calculation_rate(self):
+        return self._calculation_rate
+
+    @property
+    def special_index(self):
+        return self._special_index
