@@ -46,7 +46,7 @@ class UGen(object):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
-            return UGen.RATE.AUDIO_RATE
+            return UGen.Rate.AUDIO_RATE
         if hasattr(ugen_b, 'calculation_rate') and \
             ugen_b.calculation_rate == UGen.RAte.AUDIO_RATE:
             return UGen.Rate.AUDIO_RATE
@@ -130,8 +130,8 @@ class UGen(object):
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
-            expr,
+            left=self,
+            right=expr,
             )
 
     def __div__(self, expr):
@@ -141,8 +141,8 @@ class UGen(object):
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
-            expr,
+            left=self,
+            right=expr,
             )
 
     def __mod__(self, expr):
@@ -152,8 +152,8 @@ class UGen(object):
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
-            expr,
+            left=self,
+            right=expr,
             )
 
     def __mul__(self, expr):
@@ -163,8 +163,8 @@ class UGen(object):
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
-            expr,
+            left=self,
+            right=expr,
             )
 
     def __neg__(self):
@@ -174,7 +174,7 @@ class UGen(object):
         return synthdefs.UnaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
+            in_=self,
             )
 
     def __sub__(self, expr):
@@ -184,8 +184,8 @@ class UGen(object):
         return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
-            self,
-            expr,
+            left=self,
+            right=expr,
             )
 
     ### PUBLIC METHODS ###
@@ -242,6 +242,10 @@ class UGen(object):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def inputs(self):
+        return tuple(self._inputs)
 
     @property
     def special_index(self):
