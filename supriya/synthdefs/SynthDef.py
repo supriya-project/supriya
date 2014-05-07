@@ -46,7 +46,7 @@ class SynthDef(object):
             for name, value in control_definitions:
                 self._add_parameter(name, value)
                 control_names.append(name)
-        self._controls = synthdefs.Control(control_names)
+        self._controls = synthdefs.ControlSpecification(control_names)
         if ugens is not None:
             for ugen in ugens:
                 self._add_ugen(ugen)
