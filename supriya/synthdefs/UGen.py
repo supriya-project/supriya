@@ -37,7 +37,7 @@ class UGen(object):
 
     ### PRIVATE METHODS ###
 
-    def add_constant_input(self, value):
+    def _add_constant_input(self, value):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index):
@@ -89,6 +89,9 @@ class UGen(object):
     def _get_outputs(self):
         return [self.calculation_rate]
 
+    def _get_ugen(self):
+        return self
+
     @classmethod
     def _new(cls, calculation_rate, special_index, *args):
         from supriya import synthdefs
@@ -115,10 +118,10 @@ class UGen(object):
     ### SPECIAL METHODS ###
 
     def __add__(self, expr):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = ugens.BinaryOpUGen.BinaryOperator.PLUS
-        return ugens.BinaryOpUGen._new(
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.PLUS
+        return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
@@ -126,10 +129,10 @@ class UGen(object):
             )
 
     def __div__(self, expr):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = ugens.BinaryOpUGen.BinaryOperator.DIVIDE
-        return ugens.BinaryOpUGen._new(
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.DIVIDE
+        return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
@@ -137,10 +140,10 @@ class UGen(object):
             )
 
     def __mod__(self, expr):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = ugens.BinaryOpUGen.BinaryOperator.MOD,
-        return ugens.BinaryOpUGen._new(
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MOD,
+        return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
@@ -148,10 +151,10 @@ class UGen(object):
             )
 
     def __mul__(self, expr):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = ugens.BinaryOpUGen.BinaryOperator.TIMES
-        return ugens.BinaryOpUGen._new(
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.TIMES
+        return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
@@ -159,20 +162,20 @@ class UGen(object):
             )
 
     def __neg__(self):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self.calculation_rate
-        special_index = ugens.UnaryOpUGen.UnaryOperator.NEG
-        return ugens.UnaryOpUGen._new(
+        special_index = synthdefs.UnaryOpUGen.UnaryOperator.NEG
+        return synthdefs.UnaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
             )
 
     def __sub__(self, expr):
-        from supriya import ugens
+        from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = ugens.BinaryOpUGen.BinaryOperator.MINUS
-        return ugens.BinaryOpUGen._new(
+        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MINUS
+        return synthdefs.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             self,
