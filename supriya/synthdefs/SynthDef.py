@@ -25,7 +25,7 @@ class SynthDef(object):
         ...     end=[controls['freq_l'], controls['freq_r']],
         ...     )
         >>> sin_osc = synthdefs.SinOsc.ar(freq=line, phase=0) * 0.2
-        >>> out = synthdefs.Out.ar(bus=0, input_=sin_osc)
+        >>> out = synthdefs.Out.ar(bus=0, channels=sin_osc)
         >>> synth.add_ugen(out)
 
     '''
@@ -106,7 +106,7 @@ class SynthDef(object):
                 if type(i) == float:
                     synthdef._add_constant(i)
                 else:
-                    synthdef._add_ugen(i[0])
+                    synthdef.add_ugen(i[0])
         if ugen in self._ugens:
             return
         elif ugen in self._pending_ugens:

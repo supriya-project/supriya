@@ -1,3 +1,4 @@
+import collections
 from supriya.synthdefs.UGen import UGen
 from supriya.synthdefs import ArgumentSpecification
 
@@ -10,15 +11,14 @@ class Out(UGen):
         return []
 
     @classmethod
-    def _new(cls, calculation_rate, special_index, bus=0, input_=None):
+    def _new(cls, calculation_rate, special_index, bus=0, channels=None):
         ugen = cls(
             calculation_rate=calculation_rate,
             special_index=special_index,
             )
-#        ArgSpec('bus').configure(spec, bus)
-#        if not is_mc(channels):
-#            channels = [channels]
-#             Just the one!
-#        for channel in channels:
-#            ArgSpec('source').configure(spec, channel)
+        ArgumentSpecification('bus').configure(ugen, bus)
+        if not isinstance(channels, collections.Sequence):
+            channels = [channels]
+        for channel in channels:
+            ArgumentSpecification('source').configure(ugen, channel)
         return ugen

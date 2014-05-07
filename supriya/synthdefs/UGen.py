@@ -34,6 +34,19 @@ class UGen(object):
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
+        for i in range(len(self._argument_specifications)):
+            argument_specification = self._argument_specifications[i]
+            argument_name = argument_specification.name
+            argument_value = kwargs.get(argument_name, None)
+            prototype = (
+                type(None),
+                float,
+                int,
+                UGen,
+                synthdefs.OutputProxy,
+                )
+            assert isinstance(argument_value, prototype), argument_value
+            argument_specification.configure(self, argument_value)
 
     ### PRIVATE METHODS ###
 
@@ -109,13 +122,6 @@ class UGen(object):
                 special_index=special_index,
                 **argument_dict
                 )
-#            for i in range(len(cls._argument_specifications)):
-#                argument_specification = cls._argument_specifications[i]
-#                if i < len(argument_list):
-#                    argument = argument_list[i]
-#                else:
-#                    argument = None
-#                argument_specification.configure(ugen, argument)
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
@@ -200,7 +206,7 @@ class UGen(object):
         return ugen
 
     def compile(self, synthdef):
-        def compileInput(i, synthdef):
+        def compile_input(i, synthdef):
             result = []
             if type(i) == float:
                 result.append(SynthDef._encode_unsigned_int_16bit(0xffff))
@@ -223,7 +229,7 @@ class UGen(object):
         result.append(SynthDef._encode_unsigned_int_16bit(len(outputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(self.special_index))
         for i in self.inputs:
-            result.append(self.compileInput(i, synthdef))
+            result.append(self.compile_input(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         return result
