@@ -44,16 +44,16 @@ class UGen(object):
         self._inputs.append((ugen, output_index))
 
     @staticmethod
-    def _compute_binary_rate(ugen_specification_a, ugen_specification_b):
-        if ugen_specification_a.calculation_rate == UGen.Rate.AUDIO_RATE:
+    def _compute_binary_rate(ugen_a, ugen_b):
+        if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
             return UGen.RATE.AUDIO_RATE
-        if hasattr(ugen_specification_b, 'calculation_rate') and \
-            ugen_specification_b.calculation_rate == UGen.RAte.AUDIO_RATE:
+        if hasattr(ugen_b, 'calculation_rate') and \
+            ugen_b.calculation_rate == UGen.RAte.AUDIO_RATE:
             return UGen.Rate.AUDIO_RATE
-        if ugen_specification_a.calculation_rate == UGen.Rate.CONTROL_RATE:
+        if ugen_a.calculation_rate == UGen.Rate.CONTROL_RATE:
             return UGen.Rate.CONTROL_RATE
-        if hasattr(ugen_specification_b, 'calculation_rate') and \
-            ugen_specification_b.calculation_rate == UGen.Rate.CONTROL_RATE:
+        if hasattr(ugen_b, 'calculation_rate') and \
+            ugen_b.calculation_rate == UGen.Rate.CONTROL_RATE:
             return UGen.Rate.CONTROL_RATE
         return UGen.Rate.SCALAR_RATE
 
@@ -94,9 +94,9 @@ class UGen(object):
         from supriya import synthdefs
         assert isinstance(calculation_rate, UGen.Rate)
         argument_lists = UGen._expand_multichannel(args)
-        ugen_specifications = []
+        ugens = []
         for argument_list in argument_lists:
-            ugen_specification = cls(
+            ugen = cls(
                 calculation_rate=calculation_rate,
                 special_index=special_index,
                 )
@@ -106,11 +106,11 @@ class UGen(object):
                     argument = argument_list[i]
                 else:
                     argument = None
-                argument_specification.configure(ugen_specification, argument)
-            ugen_specifications.append(ugen_specifications)
-        if len(ugen_specifications) == 1:
-            return ugen_specifications[0]
-        return synthdefs.UGenArray(ugen_specifications)
+                argument_specification.configure(ugen, argument)
+            ugens.append(ugens)
+        if len(ugens) == 1:
+            return ugens[0]
+        return synthdefs.UGenArray(ugens)
 
     ### SPECIAL METHODS ###
 
@@ -182,13 +182,13 @@ class UGen(object):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(cls, **kwargs):
-        ugen_specification = cls._new(
+    def ar(cls, *args):
+        ugen = cls._new(
             UGen.Rate.AUDIO_RATE,
             cls.special_index,
-            **kwargs
+            *args
             )
-        return ugen_specification
+        return ugen
 
     def compile(self, synthdef):
         def compileInput(i, synthdef):
@@ -199,7 +199,7 @@ class UGen(object):
                 result.append(SynthDef._encode_unsigned_int_16bit(
                     constant_index))
             else:
-                ugen_lookup = synthdef._get_ugen_specification_index(i[0])
+                ugen_lookup = synthdef._get_ugen_index(i[0])
                 result.append(SynthDef._encode_unsigned_int_16bit(
                     ugen_lookup[0]))
                 result.append(SynthDef._encode_unsigned_int_16bit(
@@ -220,10 +220,10 @@ class UGen(object):
         return result
 
     @classmethod
-    def kr(cls, **kwargs):
-        ugen_specification = cls._new(
+    def kr(cls, *args):
+        ugen = cls._new(
             UGen.Rate.CONTROL_RATE,
             cls.special_index,
-            **kwargs
+            *args
             )
-        return ugen_specification
+        return ugen
