@@ -103,33 +103,44 @@ class SynthDef(object):
 
     def add_ugen(self, ugen):
         def resolve(ugen, synthdef):
-            for i in ugen.inputs:
-                if type(i) == float:
-                    synthdef._add_constant(i)
+            print('INPUTS:', ugen, ugen.inputs)
+            for x in ugen.inputs:
+                if isinstance(x, float):
+                    synthdef._add_constant(x)
                 else:
-                    synthdef.add_ugen(i[0])
-        if ugen in self._ugens:
-            return
-        elif ugen in self._pending_ugens:
-            return
-        self._pending_ugens.add(ugen)
-        resolve(ugen, self)
-        self._ugens[ugen] = \
-            len(self._ugens)
-        self._pending_ugens.remove(ugen)
+                    synthdef.add_ugen(x[0])
+        if isinstance(ugen, collections.Sequence):
+            for x in ugen:
+                self.add_ugen(x)
+        else:
+            if ugen in self._ugens:
+                return
+            elif ugen in self._pending_ugens:
+                return
+            self._pending_ugens.add(ugen)
+            resolve(ugen, self)
+            self._ugens[ugen] = len(self._ugens)
+            self._pending_ugens.remove(ugen)
 
     def compile(self):
         result = []
         # the name of the synth definition
-        result.append(SynthDef._encode_string(self.name))
+        encoded_name = SynthDef._encode_string(self.name)
+        print('ENCODED_NAME:', encoded_name)
+        result.append(encoded_name)
         # number of constants (K)
-        result.append(SynthDef._encode_unsigned_int_16bit(len(self.constants)))
+        encoded_constants_count = SynthDef._encode_unsigned_int_16bit(
+            len(self.constants))
+        print('ENCODED_CONSTANTS_COUNT:', encoded_constants_count)
+        result.append(encoded_constants_count)
         # constant values
         for key, value in sorted(
             self.constants.items(),
             key=lambda item: item[1],
             ):
-            result.append(SynthDef._encode_float(key))
+            encoded_constant = SynthDef._encode_float(key)
+            print('ENCODED_CONSTANT:', encoded_constant)
+            result.append(encoded_constant)
         # number of parameters (P)
         result.append(SynthDef._encode_unsigned_int_16bit(len(self.parameters)))
         # initial parameter values
@@ -162,9 +173,15 @@ class SynthDef(object):
                 return ''.join(flatten(x) for x in value)
             return value
         result = []
-        result.append('SCgf')
-        result.append(SynthDef._encode_unsigned_int_32bit(1))
-        result.append(SynthDef._encode_unsigned_int_16bit(len(synthdefs)))
+        encoded_file_type_id = 'SCgf'
+        print('ENCODED_FILE_TYPE_ID:', encoded_file_type_id)
+        result.append(encoded_file_type_id)
+        encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
+        print('ENCODED_FILE_VERSION:', encoded_file_version)
+        result.append(encoded_file_version)
+        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(len(synthdefs))
+        print('ENCODED_SYNTHDEF_COUNT:', encoded_synthdef_count)
+        result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
             result.append(synthdef.compile())
         result = flatten(result)

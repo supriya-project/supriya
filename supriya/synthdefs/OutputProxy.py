@@ -3,15 +3,15 @@ class OutputProxy(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_index',
+        '_output_index',
         '_ugen',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, ugen, index):
+    def __init__(self, ugen, output_index):
         self._ugen = ugen
-        self._index = index
+        self._output_index = output_index
 
     ### PRIVATE METHODS ###
 
@@ -19,7 +19,7 @@ class OutputProxy(object):
         return self._ugen
 
     def _get_output_number(self):
-        return self._index
+        return self._output_index
 
     ### PUBLIC PROPERTIES ###
 
@@ -28,5 +28,5 @@ class OutputProxy(object):
         return self._ugen
 
     @property
-    def index(self):
-        return self._index
+    def output_index(self):
+        return self._output_index

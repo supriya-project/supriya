@@ -5,6 +5,10 @@ from supriya.synthdefs import ArgumentSpecification
 
 class Out(UGen):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
     ### INITIALIZER ###
 
     def __init__(

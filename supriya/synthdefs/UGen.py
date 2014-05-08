@@ -55,7 +55,12 @@ class UGen(object):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index):
-        self._inputs.append((ugen, output_index))
+        from supriya import synthdefs
+        output_proxy = synthdefs.OutputProxy(
+            output_index=output_index,
+            ugen=ugen,
+            )
+        self._inputs.append(output_proxy)
 
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
@@ -97,7 +102,8 @@ class UGen(object):
             result.append({})
             for name, value in arguments.items():
                 if isinstance(value, collections.Sequence):
-                    result[i][name] = value[i % len(value)]
+                    value = value[i % len(value)]
+                    result[i][name] = value
                 else:
                     result[i][name] = value
         return result
@@ -200,8 +206,8 @@ class UGen(object):
     @classmethod
     def ar(cls, **kwargs):
         ugen = cls._new(
-            UGen.Rate.AUDIO_RATE,
-            cls.special_index,
+            calculation_rate=UGen.Rate.AUDIO_RATE,
+            special_index=0,
             **kwargs
             )
         return ugen
@@ -209,17 +215,15 @@ class UGen(object):
     def compile(self, synthdef):
         def compile_input(i, synthdef):
             result = []
-            if type(i) == float:
+            if isinstance(i, float):
                 result.append(SynthDef._encode_unsigned_int_16bit(0xffff))
                 constant_index = synthdef._get_constant_index(i)
                 result.append(SynthDef._encode_unsigned_int_16bit(
                     constant_index))
             else:
-                ugen_lookup = synthdef._get_ugen_index(i[0])
-                result.append(SynthDef._encode_unsigned_int_16bit(
-                    ugen_lookup[0]))
-                result.append(SynthDef._encode_unsigned_int_16bit(
-                    ugen_lookup[1]))
+                ugen_index = synthdef._get_ugen_index(i[0])
+                result.append(SynthDef._encode_unsigned_int_16bit(ugen_index))
+                result.append(SynthDef._encode_unsigned_int_16bit(i[1]))
             return ''.join(result)
         from supriya.synthdefs import SynthDef
         outputs = self._get_outputs()
@@ -228,21 +232,19 @@ class UGen(object):
         result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
         result.append(SynthDef._encode_unsigned_int_16bit(len(self.inputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(len(outputs)))
-        try:
-            result.append(SynthDef._encode_unsigned_int_16bit(self.special_index))
-        except:
-            print('FOO:', self.special_index, type(self).__name__)
+        result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
             result.append(compile_input(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
+        result = ''.join(result)
         return result
 
     @classmethod
     def kr(cls, **kwargs):
         ugen = cls._new(
-            UGen.Rate.CONTROL_RATE,
-            cls.special_index,
+            calculation_rate=UGen.Rate.CONTROL_RATE,
+            special_index=0,
             **kwargs
             )
         return ugen

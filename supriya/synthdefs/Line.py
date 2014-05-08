@@ -3,8 +3,10 @@ from supriya.synthdefs import ArgumentSpecification
 
 
 class Line(UGen):
-    
+
     ### CLASS VARIABLES ###
+
+    __slots__ = ()
 
     _argument_specifications = (
         ArgumentSpecification('start', 0),
