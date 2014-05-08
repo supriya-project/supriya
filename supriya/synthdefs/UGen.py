@@ -187,7 +187,7 @@ class UGen(object):
         return synthdefs.UnaryOpUGen._new(
             calculation_rate,
             special_index,
-            in_=self,
+            source=self,
             )
 
     def __sub__(self, expr):
@@ -213,28 +213,33 @@ class UGen(object):
         return ugen
 
     def compile(self, synthdef):
-        def compile_input(i, synthdef):
+        def compile_input_spec(i, synthdef):
+            from supriya import synthdefs
             result = []
             if isinstance(i, float):
-                result.append(SynthDef._encode_unsigned_int_16bit(0xffff))
+                result.append(SynthDef._encode_unsigned_int_32bit(0xffffffff))
                 constant_index = synthdef._get_constant_index(i)
-                result.append(SynthDef._encode_unsigned_int_16bit(
+                result.append(SynthDef._encode_unsigned_int_32bit(
                     constant_index))
+            elif isinstance(i, synthdefs.OutputProxy):
+                ugen = i.ugen
+                output_index = i.output_index
+                ugen_index = synthdef._get_ugen_index(ugen)
+                result.append(SynthDef._encode_unsigned_int_32bit(ugen_index))
+                result.append(SynthDef._encode_unsigned_int_32bit(output_index))
             else:
-                ugen_index = synthdef._get_ugen_index(i[0])
-                result.append(SynthDef._encode_unsigned_int_16bit(ugen_index))
-                result.append(SynthDef._encode_unsigned_int_16bit(i[1]))
+                raise Exception('Unhandled input spec: {}'.format(i))
             return ''.join(result)
         from supriya.synthdefs import SynthDef
         outputs = self._get_outputs()
         result = []
         result.append(SynthDef._encode_string(type(self).__name__))
         result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
-        result.append(SynthDef._encode_unsigned_int_16bit(len(self.inputs)))
-        result.append(SynthDef._encode_unsigned_int_16bit(len(outputs)))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
-            result.append(compile_input(i, synthdef))
+            result.append(compile_input_spec(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         result = ''.join(result)
