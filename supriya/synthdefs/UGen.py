@@ -15,9 +15,13 @@ class UGen(object):
         SCALAR_RATE = 0
 
     __slots__ = (
+        '_antecedents',
         '_calculation_rate',
+        '_decendants',
         '_inputs',
         '_special_index',
+        '_synthdef',
+        '_width_first_antecedents',
         )
 
     _argument_specifications = ()
@@ -48,91 +52,9 @@ class UGen(object):
                 )
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
-
-    ### PRIVATE METHODS ###
-
-    def _add_constant_input(self, value):
-        self._inputs.append(float(value))
-
-    def _add_ugen_input(self, ugen, output_index):
-        from supriya import synthdefs
-        output_proxy = synthdefs.OutputProxy(
-            output_index=output_index,
-            ugen=ugen,
-            )
-        self._inputs.append(output_proxy)
-
-    @staticmethod
-    def _compute_binary_rate(ugen_a, ugen_b):
-        if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
-            return UGen.Rate.AUDIO_RATE
-        if hasattr(ugen_b, 'calculation_rate') and \
-            ugen_b.calculation_rate == UGen.RAte.AUDIO_RATE:
-            return UGen.Rate.AUDIO_RATE
-        if ugen_a.calculation_rate == UGen.Rate.CONTROL_RATE:
-            return UGen.Rate.CONTROL_RATE
-        if hasattr(ugen_b, 'calculation_rate') and \
-            ugen_b.calculation_rate == UGen.Rate.CONTROL_RATE:
-            return UGen.Rate.CONTROL_RATE
-        return UGen.Rate.SCALAR_RATE
-
-    @staticmethod
-    def _expand_multichannel(arguments):
-        r'''Expands ugens into multichannel arrays.
-
-        ::
-
-            >>> import supriya
-            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.synthdefs.UGen._expand_multichannel(arguments)
-            >>> for x in result:
-            ...     x
-            ...
-            {'bar': 1, 'foo': 0, 'baz': 3}
-            {'bar': 2, 'foo': 0, 'baz': 4}
-            {'bar': 1, 'foo': 0, 'baz': 5}
-
-        '''
-        maximum_length = 1
-        result = []
-        for name, value in arguments.items():
-            if isinstance(value, collections.Sequence):
-                maximum_length = max(maximum_length, len(value))
-        for i in range(maximum_length):
-            result.append({})
-            for name, value in arguments.items():
-                if isinstance(value, collections.Sequence):
-                    value = value[i % len(value)]
-                    result[i][name] = value
-                else:
-                    result[i][name] = value
-        return result
-
-    def _get_output_number(self):
-        return 0
-
-    def _get_outputs(self):
-        return [self.calculation_rate]
-
-    def _get_ugen(self):
-        return self
-
-    @classmethod
-    def _new(cls, calculation_rate, special_index, **kwargs):
-        from supriya import synthdefs
-        assert isinstance(calculation_rate, UGen.Rate)
-        argument_dicts = UGen._expand_multichannel(kwargs)
-        ugens = []
-        for argument_dict in argument_dicts:
-            ugen = cls(
-                calculation_rate=calculation_rate,
-                special_index=special_index,
-                **argument_dict
-                )
-            ugens.append(ugen)
-        if len(ugens) == 1:
-            return ugens[0]
-        return synthdefs.UGenArray(ugens)
+        self._antecedents = set()
+        self._decendants = set()
+        self._width_first_antecedents = set()
 
     ### SPECIAL METHODS ###
 
@@ -201,6 +123,118 @@ class UGen(object):
             right=expr,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _add_constant_input(self, value):
+        self._inputs.append(float(value))
+
+    def _add_ugen_input(self, ugen, output_index):
+        from supriya import synthdefs
+        output_proxy = synthdefs.OutputProxy(
+            output_index=output_index,
+            source=ugen,
+            )
+        self._inputs.append(output_proxy)
+
+    @staticmethod
+    def _compute_binary_rate(ugen_a, ugen_b):
+        if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
+            return UGen.Rate.AUDIO_RATE
+        if hasattr(ugen_b, 'calculation_rate') and \
+            ugen_b.calculation_rate == UGen.RAte.AUDIO_RATE:
+            return UGen.Rate.AUDIO_RATE
+        if ugen_a.calculation_rate == UGen.Rate.CONTROL_RATE:
+            return UGen.Rate.CONTROL_RATE
+        if hasattr(ugen_b, 'calculation_rate') and \
+            ugen_b.calculation_rate == UGen.Rate.CONTROL_RATE:
+            return UGen.Rate.CONTROL_RATE
+        return UGen.Rate.SCALAR_RATE
+
+    @staticmethod
+    def _expand_multichannel(arguments):
+        r'''Expands ugens into multichannel arrays.
+
+        ::
+
+            >>> import supriya
+            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> result = supriya.synthdefs.UGen._expand_multichannel(arguments)
+            >>> for x in result:
+            ...     x
+            ...
+            {'bar': 1, 'foo': 0, 'baz': 3}
+            {'bar': 2, 'foo': 0, 'baz': 4}
+            {'bar': 1, 'foo': 0, 'baz': 5}
+
+        '''
+        maximum_length = 1
+        result = []
+        for name, value in arguments.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(maximum_length, len(value))
+        for i in range(maximum_length):
+            result.append({})
+            for name, value in arguments.items():
+                if isinstance(value, collections.Sequence):
+                    value = value[i % len(value)]
+                    result[i][name] = value
+                else:
+                    result[i][name] = value
+        return result
+
+    def _get_output_number(self):
+        return 0
+
+    def _get_outputs(self):
+        return [self.calculation_rate]
+
+    def _get_ugen(self):
+        return self
+
+    def _initialize_topological_sort(self):
+        from supriya import synthdefs
+        for input_ in self.inputs:
+            if isinstance(input_, synthdefs.OutputProxy):
+                ugen = input_.source
+                self.antecedents.add(ugen)
+                ugen.descendants.add(self)
+        for ugen in self.width_first_antecedents:
+            self.antecedents.add(ugen)
+            ugen.descendants.add(self)
+
+    def _make_available(self, synthdef):
+        if not self.antecedents:
+            self.synthdef.available_ugens.add(self)
+
+    @classmethod
+    def _new(cls, calculation_rate, special_index, **kwargs):
+        from supriya import synthdefs
+        assert isinstance(calculation_rate, UGen.Rate)
+        argument_dicts = UGen._expand_multichannel(kwargs)
+        ugens = []
+        for argument_dict in argument_dicts:
+            ugen = cls(
+                calculation_rate=calculation_rate,
+                special_index=special_index,
+                **argument_dict
+                )
+            ugens.append(ugen)
+        if len(ugens) == 1:
+            return ugens[0]
+        return synthdefs.UGenArray(ugens)
+
+    def _optimize_graph(self):
+        pass
+
+    def _remove_antecedent(self, ugen):
+        self.antecedents.remove(ugen)
+        self._make_available()
+
+    def _schedule(self, out_stack):
+        for ugen in reversed(self.descendants):
+            ugen._remove_antecedent(self)
+        out_stack.append(self)
+
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -222,7 +256,7 @@ class UGen(object):
                 result.append(SynthDef._encode_unsigned_int_32bit(
                     constant_index))
             elif isinstance(i, synthdefs.OutputProxy):
-                ugen = i.ugen
+                ugen = i.source
                 output_index = i.output_index
                 ugen_index = synthdef._get_ugen_index(ugen)
                 result.append(SynthDef._encode_unsigned_int_32bit(ugen_index))
@@ -257,8 +291,16 @@ class UGen(object):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def antecedents(self):
+        return self._antecedents
+
+    @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def descendants(self):
+        return self._descendants
 
     @property
     def inputs(self):
@@ -267,3 +309,11 @@ class UGen(object):
     @property
     def special_index(self):
         return self._special_index
+
+    @property
+    def synthdef(self):
+        return self._synthdef
+
+    @property
+    def width_first_antecedents(self):
+        return self._width_first_antecedents

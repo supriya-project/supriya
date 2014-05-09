@@ -73,6 +73,29 @@ class SynthDef(object):
         self._parameter_names[name] = len(self._parameters)
         self._parameters.append(value)
 
+    def _add_ugen(self, ugen):
+        def resolve(ugen, synthdef):
+            from supriya import synthdefs
+            for x in ugen.inputs:
+                if isinstance(x, float):
+                    synthdef._add_constant(x)
+                elif isinstance(x, synthdefs.OutputProxy):
+                    synthdef._add_ugen(x.source)
+                else:
+                    raise Exception('Unhandled input spec: {}'.format(x))
+        if isinstance(ugen, collections.Sequence):
+            for x in ugen:
+                self._add_ugen(x)
+        else:
+            if ugen in self._ugens:
+                return
+            elif ugen in self._pending_ugens:
+                return
+            self._pending_ugens.add(ugen)
+            resolve(ugen, self)
+            self._ugens[ugen] = len(self._ugens)
+            self._pending_ugens.remove(ugen)
+
     @staticmethod
     def _encode_float(value):
         return struct.pack('>f', value)
@@ -99,30 +122,14 @@ class SynthDef(object):
     def _get_ugen_index(self, ugen):
         return self._ugens[ugen]
 
+    def _sort_ugens_topologically(self):
+        pass
+
     ### PUBLIC METHODS ###
 
     def add_ugen(self, ugen):
-        def resolve(ugen, synthdef):
-            from supriya import synthdefs
-            for x in ugen.inputs:
-                if isinstance(x, float):
-                    synthdef._add_constant(x)
-                elif isinstance(x, synthdefs.OutputProxy):
-                    synthdef.add_ugen(x.ugen)
-                else:
-                    raise Exception('Unhandled input spec: {}'.format(x))
-        if isinstance(ugen, collections.Sequence):
-            for x in ugen:
-                self.add_ugen(x)
-        else:
-            if ugen in self._ugens:
-                return
-            elif ugen in self._pending_ugens:
-                return
-            self._pending_ugens.add(ugen)
-            resolve(ugen, self)
-            self._ugens[ugen] = len(self._ugens)
-            self._pending_ugens.remove(ugen)
+        self._add_ugen(ugen)
+        self._sort_ugens_topologically()
 
     def compile(self):
         result = []

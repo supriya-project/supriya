@@ -1,4 +1,3 @@
 #import osc
-import synthdefs
-import ugens
+from synthdefs import *
 from Server import Server
