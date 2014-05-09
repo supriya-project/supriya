@@ -52,9 +52,10 @@ class UGen(object):
                 )
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
-        self._antecedents = set()
-        self._decendants = set()
-        self._width_first_antecedents = set()
+        self._antecedents = []
+        self._decendants = []
+        self._synthdef = None
+        self._width_first_antecedents = []
 
     ### SPECIAL METHODS ###
 
@@ -196,15 +197,20 @@ class UGen(object):
         for input_ in self.inputs:
             if isinstance(input_, synthdefs.OutputProxy):
                 ugen = input_.source
-                self.antecedents.add(ugen)
-                ugen.descendants.add(self)
+                if ugen not in self.antecedents:
+                    self.antecedents.append(ugen)
+                if self not in ugen.descendants:
+                    ugen.descendants.append(self)
         for ugen in self.width_first_antecedents:
-            self.antecedents.add(ugen)
-            ugen.descendants.add(self)
+            if ugen not in self.antecedents:
+                self.antecedents.append(ugen)
+            if self not in ugen.descendants:
+                ugen.descendants.append(self)
 
     def _make_available(self, synthdef):
         if not self.antecedents:
-            self.synthdef.available_ugens.add(self)
+            if self not in self.synthdef.available_ugens:
+                self.synthdef.available_ugens.append(self)
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
@@ -313,6 +319,12 @@ class UGen(object):
     @property
     def synthdef(self):
         return self._synthdef
+
+    @synthdef.setter
+    def synthdef(self, synthdef):
+        from supriya import synthdefs
+        assert isinstance(synthdef, synthdefs.SynthDef)
+        self._synthdef = synthdef
 
     @property
     def width_first_antecedents(self):

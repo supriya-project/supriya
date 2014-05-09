@@ -94,6 +94,7 @@ class SynthDef(object):
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
             self._ugens[ugen] = len(self._ugens)
+            ugen.synthdef = self
             self._pending_ugens.remove(ugen)
 
     @staticmethod
