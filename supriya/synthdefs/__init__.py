@@ -4,6 +4,7 @@ from ControlSpecification import ControlSpecification
 from Line import Line
 from Out import Out
 from OutputProxy import OutputProxy
+from SCSynthDef import SCSynthDef
 from SinOsc import SinOsc
 from SynthDef import SynthDef
 from UGen import UGen
