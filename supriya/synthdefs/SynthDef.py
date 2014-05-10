@@ -34,6 +34,7 @@ class SynthDef(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_available_ugens',
         '_constants',
         '_controls',
         '_name',
@@ -51,12 +52,13 @@ class SynthDef(object):
         **kwargs
         ):
         from supriya import synthdefs
+        self._available_ugens = []
         self._constants = {}
         self._name = name
         self._parameter_names = {}
         self._parameters = []
         self._pending_ugens = set()
-        self._ugens = {}
+        self._ugens = []
         control_names = []
         for name, value in kwargs.items():
             self._add_parameter(name, value)
@@ -93,9 +95,15 @@ class SynthDef(object):
                 return
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
-            self._ugens[ugen] = len(self._ugens)
+            self._ugens.append(ugen)
             ugen.synthdef = self
             self._pending_ugens.remove(ugen)
+
+    def _cleanup_topological_sort(self):
+        for ugen in self._ugens:
+            ugen._antecedents = None
+            ugen._descendants = None
+            ugen._width_first_antecedents = None
 
     @staticmethod
     def _encode_float(value):
@@ -121,10 +129,30 @@ class SynthDef(object):
         return self._constants[value]
 
     def _get_ugen_index(self, ugen):
-        return self._ugens[ugen]
+        return self._ugens.index(ugen)
+
+    def _initialize_topological_sort(self):
+        self._available_ugens = []
+        for ugen in self.ugens:
+            ugen._antecedents = []
+            ugen._descendants = []
+        for ugen in self.ugens:
+            ugen._initialize_topological_sort()
+            ugen._descendants = sorted(
+                ugen._descendants,
+                key=lambda x: x.synthdef.ugens.index(ugen),
+                )
+        for ugen in reversed(self.ugens):
+            ugen._make_available()
 
     def _sort_ugens_topologically(self):
-        pass
+        out_stack = []
+        self._initialize_topological_sort()
+        while self._available_ugens:
+            available_ugen = self._available_ugens.pop()
+            available_ugen._schedule(out_stack)
+        self._ugens = out_stack
+        self._cleanup_topological_sort()
 
     ### PUBLIC METHODS ###
 
@@ -167,9 +195,7 @@ class SynthDef(object):
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
 
         # compiled ugens
-        for ugen, ugen_index in sorted(
-            self.ugens.items(),
-            key=lambda item: item[1]):
+        for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
 
         # number of variants (V)

@@ -17,7 +17,7 @@ class UGen(object):
     __slots__ = (
         '_antecedents',
         '_calculation_rate',
-        '_decendants',
+        '_descendants',
         '_inputs',
         '_special_index',
         '_synthdef',
@@ -53,7 +53,7 @@ class UGen(object):
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
         self._antecedents = []
-        self._decendants = []
+        self._descendants = []
         self._synthdef = None
         self._width_first_antecedents = []
 
@@ -207,10 +207,10 @@ class UGen(object):
             if self not in ugen.descendants:
                 ugen.descendants.append(self)
 
-    def _make_available(self, synthdef):
+    def _make_available(self):
         if not self.antecedents:
-            if self not in self.synthdef.available_ugens:
-                self.synthdef.available_ugens.append(self)
+            if self not in self.synthdef._available_ugens:
+                self.synthdef._available_ugens.append(self)
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
