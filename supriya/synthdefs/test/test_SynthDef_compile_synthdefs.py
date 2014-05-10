@@ -189,7 +189,16 @@ def test_SynthDef_compile_synthdefs_03():
                             '\xff\xff\xff\xff'
                             '\x00\x00\x00\x00'
                             '\x02'
-                    '\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00'
+                    '\x03Out'
+                        '\x02'
+                        '\x00\x00\x00\x02'
+                        '\x00\x00\x00\x00'
+                        '\x00\x00'
+                            '\x00\x00\x00\x00'
+                            '\x00\x00\x00\x01'
+                            '\x00\x00\x00\x01'
+                            '\x00\x00\x00\x00'
+                '\x00\x00'
         )
 
     assert py_compiled_synthdef == test_compiled_synthdef
