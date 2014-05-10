@@ -4,6 +4,12 @@ from supriya import synthdefs
 
 def test_SynthDef_compile_synthdefs_01():
 
+    sc_synthdef = synthdefs.SCSynthDef(
+        'foo',
+        'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
+        )
+    sc_compiled_synthdef = sc_synthdef.compile()
+
     py_synthdef = synthdefs.SynthDef('foo')
     sine_one = synthdefs.SinOsc.ar(freq=420)
     sine_two = synthdefs.SinOsc.ar(freq=440)
@@ -66,11 +72,17 @@ def test_SynthDef_compile_synthdefs_01():
                 '\x00\x00'
         )
 
-    assert len(py_compiled_synthdef) == len(test_compiled_synthdef)
     assert py_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == sc_compiled_synthdef
 
 
 def test_SynthDef_compile_synthdefs_02():
+
+    sc_synthdef = synthdefs.SCSynthDef(
+        'test',
+        'Out.ar(99, SinOsc.ar(freq: 440).neg)',
+        )
+    sc_compiled_synthdef = sc_synthdef.compile()
 
     py_synthdef = synthdefs.SynthDef('test')
     sine = synthdefs.SinOsc.ar()
@@ -122,3 +134,4 @@ def test_SynthDef_compile_synthdefs_02():
         )
 
     assert py_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == sc_compiled_synthdef
