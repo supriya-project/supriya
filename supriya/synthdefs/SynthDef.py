@@ -79,12 +79,12 @@ class SynthDef(object):
         def resolve(ugen, synthdef):
             from supriya import synthdefs
             for x in ugen.inputs:
-                if isinstance(x, float):
-                    synthdef._add_constant(x)
-                elif isinstance(x, synthdefs.OutputProxy):
+                #if isinstance(x, float):
+                #    synthdef._add_constant(x)
+                if isinstance(x, synthdefs.OutputProxy):
                     synthdef._add_ugen(x.source)
-                else:
-                    raise Exception('Unhandled input spec: {}'.format(x))
+                #else:
+                #    raise Exception('Unhandled input spec: {}'.format(x))
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)
@@ -104,6 +104,11 @@ class SynthDef(object):
             ugen._antecedents = None
             ugen._descendants = None
             ugen._width_first_antecedents = None
+
+    def _collect_constants(self):
+        self._constants = {}
+        for ugen in self._ugens:
+            ugen._collect_constants()
 
     @staticmethod
     def _encode_float(value):
@@ -136,6 +141,7 @@ class SynthDef(object):
         for ugen in self.ugens:
             ugen._antecedents = []
             ugen._descendants = []
+            ugen._width_first_antecedents = []
         for ugen in self.ugens:
             ugen._initialize_topological_sort()
             ugen._descendants = sorted(
@@ -159,6 +165,7 @@ class SynthDef(object):
     def add_ugen(self, ugen):
         self._add_ugen(ugen)
         self._sort_ugens_topologically()
+        self._collect_constants()
 
     def compile(self):
         result = []

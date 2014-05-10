@@ -137,6 +137,12 @@ class UGen(object):
             )
         self._inputs.append(output_proxy)
 
+    def _collect_constants(self):
+        from supriya import synthdefs
+        for input_ in self._inputs:
+            if not isinstance(input_, synthdefs.OutputProxy):
+                self.synthdef._add_constant(float(input_))
+
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
