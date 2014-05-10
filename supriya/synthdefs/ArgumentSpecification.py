@@ -20,18 +20,21 @@ class ArgumentSpecification(object):
     ### PUBLIC METHODS ###
 
     def configure(self, ugen, value):
+        from supriya import synthdefs
         if value is None:
             if self.default is None:
                 raise Exception('no default value for argument {} in {}.'.format(
                     self.name, type(ugen).__name__))
             ugen._add_constant_input(self.default)
-        elif type(value) == float or type(value) == int:
+        elif isinstance(value, (int, float)):
             ugen._add_constant_input(value)
-        else:
+        elif isinstance(value, (synthdefs.OutputProxy, synthdefs.UGen)):
             ugen._add_ugen_input(
-                value._get_ugen(),
+                value._get_source(),
                 value._get_output_number(),
                 )
+        else:
+            raise Exception(value)
 
     ### PUBLIC PROPERTIES ###
 

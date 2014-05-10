@@ -81,6 +81,16 @@ class UGen(object):
             right=expr,
             )
 
+    def __getattr__(self, attr):
+        try:
+            object.__getattr__(self, attr)
+        except AttributeError:
+            for i, argument_specification in enumerate(
+                self._argument_specifications):
+                if argument_specification.name == attr:
+                    return self.inputs[i]
+        raise AttributeError
+
     def __mod__(self, expr):
         from supriya import synthdefs
         calculation_rate = self._compute_binary_rate(self, expr)
@@ -195,7 +205,7 @@ class UGen(object):
     def _get_outputs(self):
         return [self.calculation_rate]
 
-    def _get_ugen(self):
+    def _get_source(self):
         return self
 
     def _initialize_topological_sort(self):

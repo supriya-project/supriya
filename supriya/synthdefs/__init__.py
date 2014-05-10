@@ -1,6 +1,6 @@
 from ArgumentSpecification import ArgumentSpecification
 from BinaryOpUGen import BinaryOpUGen
-from ControlSpecification import ControlSpecification
+from Control import Control
 from Line import Line
 from Out import Out
 from OutputProxy import OutputProxy

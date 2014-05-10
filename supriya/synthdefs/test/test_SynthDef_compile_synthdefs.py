@@ -16,7 +16,7 @@ def test_SynthDef_compile_synthdefs_01():
     sines = sine_one * sine_two
     out = synthdefs.Out.ar(bus=0, source=sines)
     py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile_synthdefs([py_synthdef])
+    py_compiled_synthdef = py_synthdef.compile()
 
     test_compiled_synthdef = (
         'SCgf'
@@ -89,7 +89,7 @@ def test_SynthDef_compile_synthdefs_02():
     sine = -sine
     out = synthdefs.Out.ar(bus=99, source=sine)
     py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile_synthdefs([py_synthdef])
+    py_compiled_synthdef = py_synthdef.compile()
 
     test_compiled_synthdef = (
         'SCgf'
@@ -135,3 +135,65 @@ def test_SynthDef_compile_synthdefs_02():
 
     assert py_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+
+def test_SynthDef_compile_synthdefs_03():
+
+    sc_synthdef = synthdefs.SCSynthDef(
+        'test',
+        r'''
+        arg freq=1200, out=23;
+        Out.ar(out, SinOsc.ar(freq: freq));
+        '''
+        )
+    sc_compiled_synthdef = sc_synthdef.compile()
+
+    py_synthdef = synthdefs.SynthDef('test', freq=1200, out=23)
+    controls = py_synthdef.controls
+    sine = synthdefs.SinOsc.ar(freq=controls['freq'])
+    out = synthdefs.Out.ar(bus=controls['out'], source=sine)
+    py_synthdef.add_ugen(out)
+    py_compiled_synthdef = py_synthdef.compile()
+
+    test_compiled_synthdef = (
+        'SCgf'
+        '\x00\x00\x00\x02'
+        '\x00\x01'
+            '\x04test'
+                '\x00\x00\x00\x01'
+                    '\x00\x00\x00\x00'
+                '\x00\x00\x00\x02'
+                    'D\x96\x00\x00'
+                    'A\xb8\x00\x00'
+                '\x00\x00\x00\x02'
+                    '\x04freq'
+                    '\x00\x00\x00\x00'
+                    '\x03out'
+                    '\x00\x00\x00\x01'
+                '\x00\x00\x00\x03'
+                    '\x07Control'
+                        '\x01'
+                        '\x00\x00\x00\x00'
+                        '\x00\x00\x00\x02'
+                        '\x00\x00'
+                        '\x01'
+                        '\x01'
+                    '\x06SinOsc'
+                        '\x02'
+                        '\x00\x00\x00\x02'
+                        '\x00\x00\x00\x01'
+                        '\x00\x00'
+                            '\x00\x00\x00\x00'
+                            '\x00\x00\x00\x00'
+                            '\xff\xff\xff\xff'
+                            '\x00\x00\x00\x00'
+                            '\x02'
+                    '\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00'
+        )
+
+    assert py_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+

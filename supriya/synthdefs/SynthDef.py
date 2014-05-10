@@ -8,12 +8,6 @@ class SynthDef(object):
     ::
 
         >>> from supriya import synthdefs
-        >>> synth = synthdefs.SynthDef('test')
-        >>> synth.compile()
-        '\x04test\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-
-    ::
-
         >>> synth = synthdefs.SynthDef(
         ...     'test',
         ...     freq_l=1200,
@@ -27,7 +21,7 @@ class SynthDef(object):
         >>> sin_osc = synthdefs.SinOsc.ar(freq=line, phase=0) * 0.2
         >>> out = synthdefs.Out.ar(bus=0, source=sin_osc)
         >>> synth.add_ugen(out)
-        >>> synth.compile()
+        >>> compiled = synth.compile()
 
     '''
 
@@ -63,7 +57,7 @@ class SynthDef(object):
         for name, value in kwargs.items():
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = synthdefs.ControlSpecification(control_names)
+        self._controls = synthdefs.Control(control_names)
 
     ### PRIVATE METHODS ###
 
@@ -109,6 +103,50 @@ class SynthDef(object):
         self._constants = {}
         for ugen in self._ugens:
             ugen._collect_constants()
+
+    def _compile(self):
+        result = []
+        # the name of the synth definition
+        result.append(SynthDef._encode_string(self.name))
+
+        # number of constants (K)
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
+
+        # constant values
+        for key, value in sorted(
+            self.constants.items(),
+            key=lambda item: item[1],
+            ):
+            result.append(SynthDef._encode_float(key))
+
+        # number of parameters (P)
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
+
+        # initial parameter values
+        for value in self.parameters:
+            result.append(SynthDef._encode_float(value))
+
+        # number of parameter names (N)
+        result.append(SynthDef._encode_unsigned_int_32bit(
+            len(self.parameter_names)))
+
+        # the name of the parameter and its index in the parameter array
+        for key, value in self.parameter_names.items():
+            result.append(SynthDef._encode_string(key))
+            result.append(SynthDef._encode_unsigned_int_32bit(value))
+
+        # number of unit generators (U)
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
+
+        # compiled ugens
+        for ugen_index, ugen in enumerate(self.ugens):
+            result.append(ugen.compile(self))
+
+        # number of variants (V)
+        result.append(SynthDef._encode_unsigned_int_16bit(0))
+
+        result = ''.join(result)
+        return result
 
     @staticmethod
     def _encode_float(value):
@@ -167,66 +205,23 @@ class SynthDef(object):
         self._sort_ugens_topologically()
         self._collect_constants()
 
-    def compile(self):
-        result = []
-        # the name of the synth definition
-        result.append(SynthDef._encode_string(self.name))
-
-        # number of constants (K)
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
-
-        # constant values
-        for key, value in sorted(
-            self.constants.items(),
-            key=lambda item: item[1],
-            ):
-            result.append(SynthDef._encode_float(key))
-
-        # number of parameters (P)
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
-
-        # initial parameter values
-        for value in self.parameters:
-            result.append(SynthDef._encode_float(value))
-
-        # number of parameter names (N)
-        result.append(SynthDef._encode_unsigned_int_32bit(
-            len(self.parameter_names)))
-
-        # the name of the parameter and its index in the parameter array
-        for key, value in self.parameter_names.items():
-            result.append(SynthDef._encode_string(key))
-            result.append(SynthDef._encode_unsigned_int_32bit(value))
-
-        # number of unit generators (U)
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
-
-        # compiled ugens
-        for ugen_index, ugen in enumerate(self.ugens):
-            result.append(ugen.compile(self))
-
-        # number of variants (V)
-        result.append(SynthDef._encode_unsigned_int_16bit(0))
-
-        result = ''.join(result)
-        return result
-
-    @staticmethod
-    def compile_synthdefs(synthdefs):
+    def compile(self, synthdefs=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, str):
                 return ''.join(flatten(x) for x in value)
             return value
+        synthdefs = synthdefs or [self]
         result = []
         encoded_file_type_id = 'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
-        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(len(synthdefs))
+        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
+            len(synthdefs))
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
-            result.append(synthdef.compile())
+            result.append(synthdef._compile())
         result = flatten(result)
         return result
 

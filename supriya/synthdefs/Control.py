@@ -1,7 +1,7 @@
 from supriya.synthdefs.UGen import UGen
 
 
-class ControlSpecification(UGen):
+class Control(UGen):
 
     ### CLASS VARIABLES ###
 
@@ -13,7 +13,7 @@ class ControlSpecification(UGen):
 
     def __init__(self, control_names):
         UGen.__init__(self, UGen.Rate.CONTROL_RATE)
-        self._control_names = tuple(control_names)
+        self._control_names = tuple(sorted(control_names))
 
     ### SPECIAL METHODS ###
 
@@ -34,6 +34,9 @@ class ControlSpecification(UGen):
 
     def _get_control_index(self, controlname):
         return self._control_names.index(controlname)
+
+    def _get_outputs(self):
+        return [self.calculation_rate] * len(self.control_names)
 
     ### PUBLIC PROPERTIES ###
 

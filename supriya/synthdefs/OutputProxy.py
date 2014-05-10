@@ -33,4 +33,3 @@ class OutputProxy(object):
     @property
     def source(self):
         return self._source
-
