@@ -1,3 +1,3 @@
-#import osc
-from synthdefs import *
+import osc
+import audio
 from Server import Server

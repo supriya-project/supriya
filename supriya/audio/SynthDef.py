@@ -7,19 +7,19 @@ class SynthDef(object):
 
     ::
 
-        >>> from supriya import synthdefs
-        >>> synth = synthdefs.SynthDef(
+        >>> from supriya import audio
+        >>> synth = audio.SynthDef(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
         ...     )
         >>> controls = synth.controls
-        >>> line = synthdefs.Line.kr(
+        >>> line = audio.Line.kr(
         ...     start=100,
         ...     end=[controls['freq_l'], controls['freq_r']],
         ...     )
-        >>> sin_osc = synthdefs.SinOsc.ar(freq=line, phase=0) * 0.2
-        >>> out = synthdefs.Out.ar(bus=0, source=sin_osc)
+        >>> sin_osc = audio.SinOsc.ar(freq=line, phase=0) * 0.2
+        >>> out = audio.Out.ar(bus=0, source=sin_osc)
         >>> synth.add_ugen(out)
         >>> compiled = synth.compile()
 
@@ -45,7 +45,7 @@ class SynthDef(object):
         name,
         **kwargs
         ):
-        from supriya import synthdefs
+        from supriya import audio
         self._available_ugens = []
         self._constants = {}
         self._name = name
@@ -57,7 +57,7 @@ class SynthDef(object):
         for name, value in kwargs.items():
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = synthdefs.Control(control_names)
+        self._controls = audio.Control(control_names)
 
     ### PRIVATE METHODS ###
 
@@ -71,11 +71,11 @@ class SynthDef(object):
 
     def _add_ugen(self, ugen):
         def resolve(ugen, synthdef):
-            from supriya import synthdefs
+            from supriya import audio
             for x in ugen.inputs:
                 #if isinstance(x, float):
                 #    synthdef._add_constant(x)
-                if isinstance(x, synthdefs.OutputProxy):
+                if isinstance(x, audio.OutputProxy):
                     synthdef._add_ugen(x.source)
                 #else:
                 #    raise Exception('Unhandled input spec: {}'.format(x))
@@ -205,22 +205,22 @@ class SynthDef(object):
         self._sort_ugens_topologically()
         self._collect_constants()
 
-    def compile(self, synthdefs=None):
+    def compile(self, audio=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, str):
                 return ''.join(flatten(x) for x in value)
             return value
-        synthdefs = synthdefs or [self]
+        audio = audio or [self]
         result = []
         encoded_file_type_id = 'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
         encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
-            len(synthdefs))
+            len(audio))
         result.append(encoded_synthdef_count)
-        for synthdef in synthdefs:
+        for synthdef in audio:
             result.append(synthdef._compile())
         result = flatten(result)
         return result

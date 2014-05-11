@@ -1,5 +1,5 @@
-from supriya.synthdefs.UGen import UGen
-from supriya.synthdefs import ArgumentSpecification
+from supriya.audio.UGen import UGen
+from supriya.audio import ArgumentSpecification
 
 
 class Line(UGen):

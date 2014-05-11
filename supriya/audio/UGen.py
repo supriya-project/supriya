@@ -34,8 +34,8 @@ class UGen(object):
         special_index=0,
         **kwargs
         ):
-        from supriya import synthdefs
-        assert isinstance(calculation_rate, synthdefs.UGen.Rate), calculation_rate
+        from supriya import audio
+        assert isinstance(calculation_rate, audio.UGen.Rate), calculation_rate
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
@@ -48,7 +48,7 @@ class UGen(object):
                 float,
                 int,
                 UGen,
-                synthdefs.OutputProxy,
+                audio.OutputProxy,
                 )
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
@@ -60,10 +60,10 @@ class UGen(object):
     ### SPECIAL METHODS ###
 
     def __add__(self, expr):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.PLUS.value
-        return synthdefs.BinaryOpUGen._new(
+        special_index = audio.BinaryOpUGen.BinaryOperator.PLUS.value
+        return audio.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             left=self,
@@ -71,10 +71,10 @@ class UGen(object):
             )
 
     def __div__(self, expr):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.DIVIDE.value
-        return synthdefs.BinaryOpUGen._new(
+        special_index = audio.BinaryOpUGen.BinaryOperator.DIVIDE.value
+        return audio.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             left=self,
@@ -92,10 +92,10 @@ class UGen(object):
         raise AttributeError
 
     def __mod__(self, expr):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MOD.value
-        return synthdefs.BinaryOpUGen._new(
+        special_index = audio.BinaryOpUGen.BinaryOperator.MOD.value
+        return audio.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             left=self,
@@ -103,10 +103,10 @@ class UGen(object):
             )
 
     def __mul__(self, expr):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.TIMES.value
-        return synthdefs.BinaryOpUGen._new(
+        special_index = audio.BinaryOpUGen.BinaryOperator.TIMES.value
+        return audio.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             left=self,
@@ -114,20 +114,20 @@ class UGen(object):
             )
 
     def __neg__(self):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self.calculation_rate
-        special_index = synthdefs.UnaryOpUGen.UnaryOperator.NEG.value
-        return synthdefs.UnaryOpUGen._new(
+        special_index = audio.UnaryOpUGen.UnaryOperator.NEG.value
+        return audio.UnaryOpUGen._new(
             calculation_rate,
             special_index,
             source=self,
             )
 
     def __sub__(self, expr):
-        from supriya import synthdefs
+        from supriya import audio
         calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = synthdefs.BinaryOpUGen.BinaryOperator.MINUS.value
-        return synthdefs.BinaryOpUGen._new(
+        special_index = audio.BinaryOpUGen.BinaryOperator.MINUS.value
+        return audio.BinaryOpUGen._new(
             calculation_rate,
             special_index,
             left=self,
@@ -140,17 +140,17 @@ class UGen(object):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index):
-        from supriya import synthdefs
-        output_proxy = synthdefs.OutputProxy(
+        from supriya import audio
+        output_proxy = audio.OutputProxy(
             output_index=output_index,
             source=ugen,
             )
         self._inputs.append(output_proxy)
 
     def _collect_constants(self):
-        from supriya import synthdefs
+        from supriya import audio
         for input_ in self._inputs:
-            if not isinstance(input_, synthdefs.OutputProxy):
+            if not isinstance(input_, audio.OutputProxy):
                 self.synthdef._add_constant(float(input_))
 
     @staticmethod
@@ -175,7 +175,7 @@ class UGen(object):
 
             >>> import supriya
             >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.synthdefs.UGen._expand_multichannel(arguments)
+            >>> result = supriya.audio.UGen._expand_multichannel(arguments)
             >>> for x in result:
             ...     x
             ...
@@ -209,9 +209,9 @@ class UGen(object):
         return self
 
     def _initialize_topological_sort(self):
-        from supriya import synthdefs
+        from supriya import audio
         for input_ in self.inputs:
-            if isinstance(input_, synthdefs.OutputProxy):
+            if isinstance(input_, audio.OutputProxy):
                 ugen = input_.source
                 if ugen not in self.antecedents:
                     self.antecedents.append(ugen)
@@ -230,7 +230,7 @@ class UGen(object):
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
-        from supriya import synthdefs
+        from supriya import audio
         assert isinstance(calculation_rate, UGen.Rate)
         argument_dicts = UGen._expand_multichannel(kwargs)
         ugens = []
@@ -243,7 +243,7 @@ class UGen(object):
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
-        return synthdefs.UGenArray(ugens)
+        return audio.UGenArray(ugens)
 
     def _optimize_graph(self):
         pass
@@ -270,14 +270,14 @@ class UGen(object):
 
     def compile(self, synthdef):
         def compile_input_spec(i, synthdef):
-            from supriya import synthdefs
+            from supriya import audio
             result = []
             if isinstance(i, float):
                 result.append(SynthDef._encode_unsigned_int_32bit(0xffffffff))
                 constant_index = synthdef._get_constant_index(i)
                 result.append(SynthDef._encode_unsigned_int_32bit(
                     constant_index))
-            elif isinstance(i, synthdefs.OutputProxy):
+            elif isinstance(i, audio.OutputProxy):
                 ugen = i.source
                 output_index = i.output_index
                 ugen_index = synthdef._get_ugen_index(ugen)
@@ -286,7 +286,7 @@ class UGen(object):
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
             return ''.join(result)
-        from supriya.synthdefs import SynthDef
+        from supriya.audio import SynthDef
         outputs = self._get_outputs()
         result = []
         result.append(SynthDef._encode_string(type(self).__name__))
@@ -338,8 +338,8 @@ class UGen(object):
 
     @synthdef.setter
     def synthdef(self, synthdef):
-        from supriya import synthdefs
-        assert isinstance(synthdef, synthdefs.SynthDef)
+        from supriya import audio
+        assert isinstance(synthdef, audio.SynthDef)
         self._synthdef = synthdef
 
     @property

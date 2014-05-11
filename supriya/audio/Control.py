@@ -1,4 +1,4 @@
-from supriya.synthdefs.UGen import UGen
+from supriya.audio.UGen import UGen
 
 
 class Control(UGen):
@@ -18,12 +18,12 @@ class Control(UGen):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        from supriya import synthdefs
+        from supriya import audio
         if type(i) == int:
             if len(self.control_names) == 1:
                 return self
             else:
-                return synthdefs.OutputProxy(self, i)
+                return audio.OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 
@@ -46,12 +46,12 @@ class Control(UGen):
 
     @property
     def controls(self):
-        from supriya import synthdefs
+        from supriya import audio
         if len(self.control_names) == 1:
             result = self
         else:
             result = [
-                synthdefs.OutputProxy(self, i)
+                audio.OutputProxy(self, i)
                 for i in range(len(self.control_names))
                 ]
         return result
