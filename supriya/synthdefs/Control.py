@@ -59,4 +59,3 @@ class Control(UGen):
     @property
     def outputs(self):
         return [self.calculation_rate for _ in self.control_names]
-

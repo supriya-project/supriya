@@ -203,6 +203,3 @@ def test_SynthDef_compile_synthdefs_03():
 
     assert py_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == sc_compiled_synthdef
-
-
-
