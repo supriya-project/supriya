@@ -11,7 +11,7 @@ class OSCMessage(object):
 
     ::
 
-        >>> message = supriya.osc.OSCMessage()
+        >>> message = supriya.control.OSCMessage()
         >>> message.address = '/foo/bar/baz'
         >>> message.append(42)
         >>> message.append('quux')
@@ -37,7 +37,7 @@ class OSCMessage(object):
 
     ::
 
-        >>> message = supriya.osc.OSCMessage(address='/nothing')                                  
+        >>> message = supriya.control.OSCMessage(address='/nothing')                                  
         >>> message.append('', type_hint='b')                                                  
         >>> message.append('x', type_hint='b')                                                 
         >>> message.append('xx', type_hint='b')                                                

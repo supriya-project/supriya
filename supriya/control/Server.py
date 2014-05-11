@@ -46,7 +46,7 @@ class Server(object):
         ):
         import supriya
         server_port = 57751
-        self._osc_controller = supriya.osc.OSCController(
+        self._osc_controller = supriya.control.OSCController(
             server_ip_address='127.0.0.1',
             server_port=server_port,
             )
