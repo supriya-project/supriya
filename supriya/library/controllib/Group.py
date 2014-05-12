@@ -1,7 +1,7 @@
-from supriya.library.controllib.AbstractGroup import AbstractGroup
+from supriya.library.controllib.Node import Node
 
 
-class Group(AbstractGroup):
+class Group(Node):
 
     ### CLASS VARIABLES ###
 
