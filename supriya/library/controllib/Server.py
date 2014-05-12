@@ -8,8 +8,8 @@ class Server(object):
 
     ::
 
-        >>> from supriya import control
-        >>> server = control.Server()
+        >>> from supriya import controllib
+        >>> server = controllib.Server()
         >>> server.boot()
         >>> server.quit()
         ['/done', '/quit']
@@ -18,8 +18,8 @@ class Server(object):
 
     ::
 
-        >>> server_one = control.Server()
-        >>> server_two = control.Server()
+        >>> server_one = controllib.Server()
+        >>> server_two = controllib.Server()
         >>> server_one is server_two
         True
 
@@ -64,7 +64,7 @@ class Server(object):
         ):
         import supriya
         server_port = 57751
-        self._osc_controller = supriya.control.OSCController(
+        self._osc_controller = supriya.controllib.OSCController(
             server_ip_address='127.0.0.1',
             server_port=server_port,
             )

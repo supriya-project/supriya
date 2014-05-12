@@ -47,7 +47,7 @@ class OSCListener(threading.Thread):
         try:
             data, address = self.socket_instance.recvfrom(2**13)
             if data:
-                return supriya.control.OSCMessage.decode(data)
+                return supriya.controllib.OSCMessage.decode(data)
             return None
         except socket.timeout:
             return None

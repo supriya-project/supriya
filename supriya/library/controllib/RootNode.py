@@ -1,4 +1,4 @@
-from supriya.library.control.Group import Group
+from supriya.library.controllib.Group import Group
 
 
 class RootNode(Group):

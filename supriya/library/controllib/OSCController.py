@@ -10,7 +10,7 @@ class OSCController(object):
     ::
 
         >>> import supriya
-        >>> controller = supriya.control.OSCController(\
+        >>> controller = supriya.controllib.OSCController(\
         ...     server_ip_address='127.0.0.1',
         ...     server_port=57751,
         ...     )
@@ -72,7 +72,7 @@ class OSCController(object):
         self._incoming_message_queue = self.CleanableQueue(
             maximum_length=self._maximum_queue_length,
             )
-        self._listener = supriya.control.OSCListener(self.socket)
+        self._listener = supriya.controllib.OSCListener(self.socket)
         self._listener.register_callback(
             None,
             self._incoming_message_queue.put,
@@ -147,7 +147,7 @@ class OSCController(object):
                     timeout=self.timeout,
                     )
                 if self.debug_messages:
-                    print supriya.control.OSCMessage.decode(message)
+                    print supriya.controllib.OSCMessage.decode(message)
                 if not keys or message[0] in keys:
                     return message
             except Queue.Empty:
@@ -155,18 +155,18 @@ class OSCController(object):
 
     def send(self, message):
         import supriya
-        prototype = (str, tuple, supriya.control.OSCMessage)
+        prototype = (str, tuple, supriya.controllib.OSCMessage)
         assert isinstance(message, prototype)
         if isinstance(message, str):
-            message = supriya.control.OSCMessage(address=message)
+            message = supriya.controllib.OSCMessage(address=message)
         elif isinstance(message, tuple):
             assert len(message)
-            message = supriya.control.OSCMessage(
+            message = supriya.controllib.OSCMessage(
                 address=message[0],
                 expr=message[1:],
                 )
         if self.debug_messages:
-            print supriya.control.OSCMessage.decode(message)
+            print supriya.controllib.OSCMessage.decode(message)
         self.socket.sendto(
             message.encode(),
             (self.server_ip_address, self.server_port),

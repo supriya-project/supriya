@@ -1,3 +1,3 @@
 import audiolib
-import control
+import controllib
 import system
