@@ -48,22 +48,21 @@ class Server(object):
     def __init__(self):
         self._osc_controller = None
         self._scsynth_process = None
-        self._setup()
+        self._create_new_allocators()
 
     ### SPECIAL METHODS ###
-
-    def _cleanup(self):
-        pass
 
     def __del__(self):
         self.quit()
 
-    def _send_message(self, message):
-        self._osc_controller.send(message)
+    ### PRIVATE METHODS ###
 
-    def _setup(self):
+    def _create_new_allocators(self):
         from supriya.library import controllib
         self._node_id_allocator = controllib.NodeIDAllocator()
+
+    def _send_message(self, message):
+        self._osc_controller.send(message)
 
     ### PUBLIC METHODS ###
 
@@ -74,6 +73,7 @@ class Server(object):
         samplerate=48000,
         ):
         import supriya
+        self._create_new_allocators()
         server_port = 57751
         self._osc_controller = supriya.controllib.OSCController(
             server_ip_address='127.0.0.1',
@@ -89,7 +89,6 @@ class Server(object):
         self._scsynth_process = subprocess.Popen(
             command.split(),
             )
-        self._setup()
         time.sleep(0.5)
 
     def dump_osc(self, expr):
@@ -99,13 +98,13 @@ class Server(object):
         self._send_message(r'/notify', expr)
 
     def quit(self):
-        self._cleanup()
         self._send_message(r'/quit')
         self._osc_controller.receive((r'/done', r'/fail'))
         self._osc_controller.__del__()
         self._osc_controller = None
         self._scsynth_process.send_signal(signal.SIGINT)
         self._scsynth_process.kill()
+        self._create_new_allocators()
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
