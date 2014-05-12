@@ -1,2 +1,1 @@
-import audio
-import control
+from tools import *

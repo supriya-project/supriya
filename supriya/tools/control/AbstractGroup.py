@@ -1,4 +1,4 @@
-from supriya.control.Node import Node
+from supriya.tools.control.Node import Node
 
 
 class AbstractGroup(Node):

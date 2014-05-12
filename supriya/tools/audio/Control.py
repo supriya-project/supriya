@@ -1,4 +1,4 @@
-from supriya.audio.UGen import UGen
+from supriya.tools.audio.UGen import UGen
 
 
 class Control(UGen):

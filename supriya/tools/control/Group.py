@@ -1,4 +1,4 @@
-from supriya.control.AbstractGroup import AbstractGroup
+from supriya.tools.control.AbstractGroup import AbstractGroup
 
 
 class Group(AbstractGroup):
