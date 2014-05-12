@@ -28,6 +28,7 @@ class Server(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_node_id_allocator',
         '_osc_controller',
         '_scsynth_process',
         )
@@ -36,23 +37,33 @@ class Server(object):
 
     ### CONSTRUCTOR ###
 
-    def __init__(self):
-        self._osc_controller = None
-        self._scsynth_process = None
-
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
             cls._instance = super(Server, cls).__new__(
                 cls, *args, **kwargs)
         return cls._instance
 
+    ### INITIALIZER ###
+
+    def __init__(self):
+        self._osc_controller = None
+        self._scsynth_process = None
+        self._setup()
+
     ### SPECIAL METHODS ###
+
+    def _cleanup(self):
+        pass
 
     def __del__(self):
         self.quit()
 
     def _send_message(self, message):
         self._osc_controller.send(message)
+
+    def _setup(self):
+        from supriya.library import controllib
+        self._node_id_allocator = controllib.NodeIDAllocator()
 
     ### PUBLIC METHODS ###
 
@@ -78,6 +89,7 @@ class Server(object):
         self._scsynth_process = subprocess.Popen(
             command.split(),
             )
+        self._setup()
         time.sleep(0.5)
 
     def dump_osc(self, expr):
@@ -87,6 +99,7 @@ class Server(object):
         self._send_message(r'/notify', expr)
 
     def quit(self):
+        self._cleanup()
         self._send_message(r'/quit')
         self._osc_controller.receive((r'/done', r'/fail'))
         self._osc_controller.__del__()
