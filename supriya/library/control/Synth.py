@@ -1,4 +1,4 @@
-from supriya.tools.control.Node import Node
+from supriya.library.control.Node import Node
 
 
 class Synth(Node):

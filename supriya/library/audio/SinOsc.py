@@ -1,5 +1,5 @@
-from supriya.tools.audio.UGen import UGen
-from supriya.tools.audio import ArgumentSpecification
+from supriya.library.audio.UGen import UGen
+from supriya.library.audio import ArgumentSpecification
 
 
 class SinOsc(UGen):

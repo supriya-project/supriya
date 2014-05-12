@@ -1,4 +1,4 @@
-from supriya.tools.control.AbstractGroup import AbstractGroup
+from supriya.library.control.AbstractGroup import AbstractGroup
 
 
 class ParGroup(AbstractGroup):

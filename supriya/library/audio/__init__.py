@@ -1,4 +1,4 @@
-from supriya.tools import system
+from supriya.library import system
 
 system.ImportManager.import_structured_package(
     __path__[0],

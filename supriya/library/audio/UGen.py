@@ -286,7 +286,7 @@ class UGen(object):
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
             return ''.join(result)
-        from supriya.tools.audio import SynthDef
+        from supriya.library.audio import SynthDef
         outputs = self._get_outputs()
         result = []
         result.append(SynthDef._encode_string(type(self).__name__))

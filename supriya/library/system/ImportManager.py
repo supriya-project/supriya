@@ -72,7 +72,7 @@ class ImportManager(object):
     def import_public_names_from_path_into_namespace(
         path,
         namespace,
-        delete_systemtools=True,
+        delete_systemlibrary=True,
         **kwargs
         ):
         r'''Inspects the top level of `path`.
@@ -119,9 +119,9 @@ class ImportManager(object):
                 raise ImportError(message)
         ImportManager._import_contents_of_public_packages_in_path_into_namespace(
             path, namespace)
-        if delete_systemtools:
-            if 'systemtools' in namespace:
-                del(namespace['systemtools'])
+        if delete_systemlibrary:
+            if 'systemlibrary' in namespace:
+                del(namespace['systemlibrary'])
         if ImportManager.__name__ in namespace:
             del(namespace[ImportManager.__name__])
 
@@ -129,7 +129,7 @@ class ImportManager(object):
     def import_structured_package(
         path,
         namespace,
-        delete_systemtools=True,
+        delete_systemlibrary=True,
         **kwargs
         ):
         r'''Imports public names from `path` into `namespace`.
@@ -142,10 +142,10 @@ class ImportManager(object):
         ImportManager.import_public_names_from_path_into_namespace(
             path,
             namespace,
-            delete_systemtools=delete_systemtools,
+            delete_systemlibrary=delete_systemlibrary,
             )
-        if delete_systemtools:
-            if 'systemtools' in namespace:
-                del(namespace['systemtools'])
+        if delete_systemlibrary:
+            if 'systemlibrary' in namespace:
+                del(namespace['systemlibrary'])
         if ImportManager.__name__ in namespace:
             del(namespace[ImportManager.__name__])
