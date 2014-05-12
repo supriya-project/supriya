@@ -61,9 +61,6 @@ class Server(object):
         from supriya.library import controllib
         self._node_id_allocator = controllib.NodeIDAllocator()
 
-    def _send_message(self, message):
-        self._osc_controller.send(message)
-
     ### PUBLIC METHODS ###
 
     def boot(
@@ -92,13 +89,13 @@ class Server(object):
         time.sleep(0.5)
 
     def dump_osc(self, expr):
-        self._send_message(r'/dumpOSC', expr)
+        self.send_message(r'/dumpOSC', expr)
 
     def notify(self, expr):
-        self._send_message(r'/notify', expr)
+        self.send_message(r'/notify', expr)
 
     def quit(self):
-        self._send_message(r'/quit')
+        self.send_message(r'/quit')
         self._osc_controller.receive((r'/done', r'/fail'))
         self._osc_controller.__del__()
         self._osc_controller = None
@@ -108,13 +105,16 @@ class Server(object):
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
-            self._send_message(r'/cmd', arguments)
+            self.send_message(r'/cmd', arguments)
+
+    def send_message(self, message):
+        self._osc_controller.send(message)
 
     def sync(self, reply_int):
-        self._send_message(r'/sync', reply_int)
+        self.send_message(r'/sync', reply_int)
 
     def update_status(self):
-        self._send_message(r'/status')
+        self.send_message(r'/status')
 
     ### PUBLIC PROPERTIES ###
 

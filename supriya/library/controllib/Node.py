@@ -49,7 +49,7 @@ class Node(object):
         raise TypeError(expr)
 
     @staticmethod
-    def expr_to_target(expr):
+    def expr_to_target_node(expr):
         from supriya.library import controllib
         if isinstance(expr, (controllib.Server, type(None))):
             return controllib.Group(
