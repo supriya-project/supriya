@@ -73,12 +73,8 @@ class SynthDef(object):
         def resolve(ugen, synthdef):
             from supriya import audiolib
             for x in ugen.inputs:
-                #if isinstance(x, float):
-                #    synthdef._add_constant(x)
                 if isinstance(x, audiolib.OutputProxy):
                     synthdef._add_ugen(x.source)
-                #else:
-                #    raise Exception('Unhandled input spec: {}'.format(x))
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)
@@ -106,45 +102,25 @@ class SynthDef(object):
 
     def _compile(self):
         result = []
-        # the name of the synth definition
         result.append(SynthDef._encode_string(self.name))
-
-        # number of constants (K)
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
-
-        # constant values
         for key, value in sorted(
             self.constants.items(),
             key=lambda item: item[1],
             ):
             result.append(SynthDef._encode_float(key))
-
-        # number of parameters (P)
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
-
-        # initial parameter values
         for value in self.parameters:
             result.append(SynthDef._encode_float(value))
-
-        # number of parameter names (N)
         result.append(SynthDef._encode_unsigned_int_32bit(
             len(self.parameter_names)))
-
-        # the name of the parameter and its index in the parameter array
         for key, value in self.parameter_names.items():
             result.append(SynthDef._encode_string(key))
             result.append(SynthDef._encode_unsigned_int_32bit(value))
-
-        # number of unit generators (U)
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
-
-        # compiled ugens
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
-
-        # number of variants (V)
         result.append(SynthDef._encode_unsigned_int_16bit(0))
-
         result = ''.join(result)
         return result
 
