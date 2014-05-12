@@ -35,13 +35,43 @@ class Node(object):
 
     ### PUBLIC METHODS ###
 
+    @staticmethod
+    def expr_to_node_id(expr):
+        from supriya.library import controllib
+        if isinstance(expr, controllib.Server):
+            return 0
+        elif isinstance(expr, Node):
+            return expr.node_id
+        elif expr is None:
+            return None
+        elif isinstance(expr, int):
+            return expr
+        raise TypeError(expr)
+
+    @staticmethod
+    def expr_to_target(expr):
+        from supriya.library import controllib
+        if isinstance(expr, (controllib.Server, type(None))):
+            return controllib.Group(
+                node_id=1,
+                server=expr,
+                )
+        elif isinstance(expr, Node):
+            return expr
+        elif isinstance(expr, int):
+            return controllib.Group(
+                node_id=expr,
+                server=controllib.Server(),
+                )
+        raise TypeError(expr)
+
     def free(self):
         message = [11, self.node_id]
         self.server.send_message(*message)
         self._group = None
         self._is_playing = False
         self._is_running = False
-        
+
     def run(self):
         message = [12, self.node_id, 0x1]
         self.server.send_message(*message)
