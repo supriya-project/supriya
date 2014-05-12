@@ -5,6 +5,24 @@ import time
 
 class Server(object):
     r'''An scsynth server proxy.
+
+    ::
+
+        >>> from supriya import control
+        >>> server = control.Server()
+        >>> server.boot()
+        >>> server.quit()
+        ['/done', '/quit']
+
+    The server class is a singleton:
+
+    ::
+
+        >>> server_one = control.Server()
+        >>> server_two = control.Server()
+        >>> server_one is server_two
+        True
+
     '''
 
     ### CLASS VARIABLES ###
