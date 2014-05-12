@@ -1,4 +1,6 @@
-from OSCController import OSCController
-from OSCListener import OSCListener
-from OSCMessage import OSCMessage
-from Server import Server
+from supriya import system
+
+system.ImportManager.import_structured_package(
+    __path__[0],
+    globals(),
+    )

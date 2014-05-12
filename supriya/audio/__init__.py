@@ -1,12 +1,6 @@
-from ArgumentSpecification import ArgumentSpecification
-from BinaryOpUGen import BinaryOpUGen
-from Control import Control
-from Line import Line
-from Out import Out
-from OutputProxy import OutputProxy
-from SCSynthDef import SCSynthDef
-from SinOsc import SinOsc
-from SynthDef import SynthDef
-from UGen import UGen
-from UGenArray import UGenArray
-from UnaryOpUGen import UnaryOpUGen
+from supriya import system
+
+system.ImportManager.import_structured_package(
+    __path__[0],
+    globals(),
+    )
