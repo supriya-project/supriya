@@ -35,6 +35,17 @@ class Node(object):
 
     ### PUBLIC METHODS ###
 
+    def free(self):
+        message = [11, self.node_id]
+        self.server.send_message(*message)
+        self._group = None
+        self._is_playing = False
+        self._is_running = False
+        
+    def run(self):
+        message = [12, self.node_id, 0x1]
+        self.server.send_message(*message)
+
     ### PUBLIC PROPERTIES ###
 
     @property

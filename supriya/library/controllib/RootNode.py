@@ -27,3 +27,26 @@ class RootNode(Group):
             node_id=0,
             server=controllib.Server(),
             )
+        self._is_playing = True
+        self._is_running = True
+        self._group = self
+
+    ### PUBLIC METHODS ###
+
+    def free(self):
+        pass
+
+    def move_after(self):
+        pass
+
+    def move_before(self):
+        pass
+
+    def move_to_head(self):
+        pass
+
+    def move_to_tail(self):
+        pass
+
+    def run(self):
+        pass

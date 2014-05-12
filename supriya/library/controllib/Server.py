@@ -115,3 +115,14 @@ class Server(object):
 
     def update_status(self):
         self._send_message(r'/status')
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def default_group(self):
+        from supriya.library import controllib
+        group = controllib.Group(
+            node_id=1,
+            server=self,
+            )
+        return group
