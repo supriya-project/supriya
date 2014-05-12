@@ -26,7 +26,7 @@ class Node(object):
         from supriya.library import controllib
         server = server or controllib.Server()
         if node_id is None:
-            node_id = server.next_node_id()
+            node_id = server.next_node_id
         self._group = None
         self._is_playing = False
         self._is_running = False

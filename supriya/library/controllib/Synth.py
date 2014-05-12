@@ -19,6 +19,7 @@ class Synth(Node):
         ):
         from supriya.library import controllib
         self._synthdef_name = synthdef_name
+        add_action = add_action or 0
         add_action = controllib.Node.AddAction(add_action)
         target_node = controllib.Node.expr_to_target_node(target_node)
         server = target_node.server
@@ -35,10 +36,10 @@ class Synth(Node):
             's_new',
             self.synthdef_name,
             self.node_id,
-            self.add_action.value,
-            self.target_node.node_id,
+            add_action.value,
+            target_node.node_id,
             )
-        self._server.send_message(*message)
+        self._server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 

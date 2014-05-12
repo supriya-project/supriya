@@ -163,7 +163,7 @@ class OSCController(object):
             assert len(message)
             message = supriya.controllib.OSCMessage(
                 address=message[0],
-                expr=message[1:],
+                message=message[1:],
                 )
         if self.debug_messages:
             print supriya.controllib.OSCMessage.decode(message)

@@ -46,6 +46,8 @@ class Server(object):
     ### INITIALIZER ###
 
     def __init__(self):
+        if self._instance is not None:
+            return
         self._osc_controller = None
         self._scsynth_process = None
         self._create_new_allocators()
@@ -87,6 +89,7 @@ class Server(object):
             command.split(),
             )
         time.sleep(0.5)
+        return self
 
     def dump_osc(self, expr):
         self.send_message(r'/dumpOSC', expr)
@@ -108,6 +111,8 @@ class Server(object):
             self.send_message(r'/cmd', arguments)
 
     def send_message(self, message):
+        from supriya.library import controllib
+        assert self is controllib.Server()
         self._osc_controller.send(message)
 
     def sync(self, reply_int):
@@ -126,3 +131,7 @@ class Server(object):
             server=self,
             )
         return group
+
+    @property
+    def next_node_id(self):
+        return self._node_id_allocator.allocate_node_id()
