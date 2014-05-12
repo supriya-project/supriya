@@ -13,4 +13,46 @@ class Node(object):
         ADD_REPLACE = 4
 
     __slots__ = (
+        '_group',
+        '_is_playing',
+        '_is_running',
+        '_node_id',
+        '_server',
         )
+
+    ### INITIALIZER ###
+
+    def __init__(self, node_id=None, server=None):
+        from supriya.library import controllib
+        server = server or controllib.Server()
+        if node_id is None:
+            node_id = server.next_node_id()
+        self._group = None
+        self._is_playing = False
+        self._is_running = False
+        self._node_id = int(node_id)
+        self._server = server
+
+    ### PUBLIC METHODS ###
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def group(self):
+        return self._group
+
+    @property
+    def is_playing(self):
+        return self._is_playing
+
+    @property
+    def is_running(self):
+        return self._is_running
+
+    @property
+    def node_id(self):
+        return self._node_id
+
+    @property
+    def server(self):
+        return self._server
