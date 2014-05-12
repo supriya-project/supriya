@@ -1,4 +1,4 @@
-from supriya.library.audio.UGen import UGen
+from supriya.library.audiolib.UGen import UGen
 
 
 class Control(UGen):
@@ -18,12 +18,12 @@ class Control(UGen):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        from supriya import audio
+        from supriya import audiolib
         if type(i) == int:
             if len(self.control_names) == 1:
                 return self
             else:
-                return audio.OutputProxy(self, i)
+                return audiolib.OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 
@@ -46,12 +46,12 @@ class Control(UGen):
 
     @property
     def controls(self):
-        from supriya import audio
+        from supriya import audiolib
         if len(self.control_names) == 1:
             result = self
         else:
             result = [
-                audio.OutputProxy(self, i)
+                audiolib.OutputProxy(self, i)
                 for i in range(len(self.control_names))
                 ]
         return result

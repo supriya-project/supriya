@@ -10,8 +10,8 @@ class OutputProxy(object):
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):
-        from supriya import audio
-        assert isinstance(source, audio.UGen)
+        from supriya import audiolib
+        assert isinstance(source, audiolib.UGen)
         assert isinstance(output_index, int)
         self._output_index = output_index
         self._source = source

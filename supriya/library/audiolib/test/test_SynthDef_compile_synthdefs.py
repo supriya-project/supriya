@@ -1,20 +1,20 @@
 # -*- encoding: utf-8 -*-
-from supriya import audio
+from supriya import audiolib
 
 
 def test_SynthDef_compile_synthdefs_01():
 
-    sc_synthdef = audio.SCSynthDef(
+    sc_synthdef = audiolib.SCSynthDef(
         'foo',
         'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = audio.SynthDef('foo')
-    sine_one = audio.SinOsc.ar(freq=420)
-    sine_two = audio.SinOsc.ar(freq=440)
+    py_synthdef = audiolib.SynthDef('foo')
+    sine_one = audiolib.SinOsc.ar(freq=420)
+    sine_two = audiolib.SinOsc.ar(freq=440)
     sines = sine_one * sine_two
-    out = audio.Out.ar(bus=0, source=sines)
+    out = audiolib.Out.ar(bus=0, source=sines)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -78,16 +78,16 @@ def test_SynthDef_compile_synthdefs_01():
 
 def test_SynthDef_compile_synthdefs_02():
 
-    sc_synthdef = audio.SCSynthDef(
+    sc_synthdef = audiolib.SCSynthDef(
         'test',
         'Out.ar(99, SinOsc.ar(freq: 440).neg)',
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = audio.SynthDef('test')
-    sine = audio.SinOsc.ar()
+    py_synthdef = audiolib.SynthDef('test')
+    sine = audiolib.SinOsc.ar()
     sine = -sine
-    out = audio.Out.ar(bus=99, source=sine)
+    out = audiolib.Out.ar(bus=99, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -140,7 +140,7 @@ def test_SynthDef_compile_synthdefs_02():
 
 def test_SynthDef_compile_synthdefs_03():
 
-    sc_synthdef = audio.SCSynthDef(
+    sc_synthdef = audiolib.SCSynthDef(
         'test',
         r'''
         arg freq=1200, out=23;
@@ -149,10 +149,10 @@ def test_SynthDef_compile_synthdefs_03():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = audio.SynthDef('test', freq=1200, out=23)
+    py_synthdef = audiolib.SynthDef('test', freq=1200, out=23)
     controls = py_synthdef.controls
-    sine = audio.SinOsc.ar(freq=controls['freq'])
-    out = audio.Out.ar(bus=controls['out'], source=sine)
+    sine = audiolib.SinOsc.ar(freq=controls['freq'])
+    out = audiolib.Out.ar(bus=controls['out'], source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 

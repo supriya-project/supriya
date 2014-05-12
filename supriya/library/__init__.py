@@ -1,3 +1,3 @@
-import audio
+import audiolib
 import control
 import system

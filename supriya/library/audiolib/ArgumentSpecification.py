@@ -20,7 +20,7 @@ class ArgumentSpecification(object):
     ### PUBLIC METHODS ###
 
     def configure(self, ugen, value):
-        from supriya import audio
+        from supriya import audiolib
         if value is None:
             if self.default is None:
                 raise Exception('no default value for argument {} in {}.'.format(
@@ -28,7 +28,7 @@ class ArgumentSpecification(object):
             ugen._add_constant_input(self.default)
         elif isinstance(value, (int, float)):
             ugen._add_constant_input(value)
-        elif isinstance(value, (audio.OutputProxy, audio.UGen)):
+        elif isinstance(value, (audiolib.OutputProxy, audiolib.UGen)):
             ugen._add_ugen_input(
                 value._get_source(),
                 value._get_output_number(),

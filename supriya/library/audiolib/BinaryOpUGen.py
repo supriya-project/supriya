@@ -1,6 +1,6 @@
 import enum
-from supriya.library.audio.UGen import UGen
-from supriya.library.audio import ArgumentSpecification
+from supriya.library.audiolib.UGen import UGen
+from supriya.library.audiolib import ArgumentSpecification
 
 
 class BinaryOpUGen(UGen):
