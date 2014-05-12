@@ -3,6 +3,12 @@ supriya
 
 A Python interface to SuperCollider (very much in progress).
 
-Basic OSC communication to and from scsynth works.
+Current operative functionality:
 
-Currently working on Python-side compilation of synth definitions.
+    - starting the SuperCollider server
+    - basic OSC communication to and from the server
+    - compiling synthesizer definitions identically to how SC would
+
+Currently under development:
+
+    - Server, Node, Group, Synth and NodeWatcher
