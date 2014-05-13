@@ -1,7 +1,5 @@
 import Queue
-import re
 import socket
-import time
 
 
 class OSCController(object):
@@ -98,6 +96,42 @@ class OSCController(object):
     def _print_message(self, message):
         print message
 
+    ### PUBLIC METHODS ###
+
+    def receive(self, keys=None):
+        import supriya
+        assert isinstance(keys, (type(None), tuple))
+        while True:
+            try:
+                message = self.incoming_message_queue.get(
+                    timeout=self.timeout,
+                    )
+                if self.debug_messages:
+                    print supriya.controllib.OSCMessage.decode(message)
+                if not keys or message[0] in keys:
+                    return message
+            except Queue.Empty:
+                raise IOError('Timeout waiting for reply from SC server.')
+
+    def send(self, message):
+        import supriya
+        prototype = (str, tuple, supriya.controllib.OSCMessage)
+        assert isinstance(message, prototype)
+        if isinstance(message, str):
+            message = supriya.controllib.OSCMessage(address=message)
+        elif isinstance(message, tuple):
+            assert len(message)
+            message = supriya.controllib.OSCMessage(
+                address=message[0],
+                message=message[1:],
+                )
+        if self.debug_messages:
+            print supriya.controllib.OSCMessage.decode(message)
+        self.socket.sendto(
+            message.encode(),
+            (self.server_ip_address, self.server_port),
+            )
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -135,39 +169,3 @@ class OSCController(object):
     @property
     def verbose(self):
         return self._verbose
-
-    ### PUBLIC METHODS ###
-
-    def receive(self, keys=None):
-        import supriya
-        assert isinstance(keys, (type(None), tuple))
-        while True:
-            try:
-                message = self.incoming_message_queue.get(
-                    timeout=self.timeout,
-                    )
-                if self.debug_messages:
-                    print supriya.controllib.OSCMessage.decode(message)
-                if not keys or message[0] in keys:
-                    return message
-            except Queue.Empty:
-                raise IOError('Timeout waiting for reply from SC server.')
-
-    def send(self, message):
-        import supriya
-        prototype = (str, tuple, supriya.controllib.OSCMessage)
-        assert isinstance(message, prototype)
-        if isinstance(message, str):
-            message = supriya.controllib.OSCMessage(address=message)
-        elif isinstance(message, tuple):
-            assert len(message)
-            message = supriya.controllib.OSCMessage(
-                address=message[0],
-                message=message[1:],
-                )
-        if self.debug_messages:
-            print supriya.controllib.OSCMessage.decode(message)
-        self.socket.sendto(
-            message.encode(),
-            (self.server_ip_address, self.server_port),
-            )

@@ -176,27 +176,34 @@ class SynthDef(object):
 
     ### PUBLIC METHODS ###
 
+    def add(self):
+        from supriya.library import controllib
+        compiled = self.compile()
+        message = ('d_recv', compiled)
+        server = controllib.Server()
+        server.send_message(message)
+
     def add_ugen(self, ugen):
         self._add_ugen(ugen)
         self._sort_ugens_topologically()
         self._collect_constants()
 
-    def compile(self, audiolib=None):
+    def compile(self, synthdefs=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, str):
                 return ''.join(flatten(x) for x in value)
             return value
-        audiolib = audiolib or [self]
+        synthdefs = synthdefs or [self]
         result = []
         encoded_file_type_id = 'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
         encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
-            len(audiolib))
+            len(synthdefs))
         result.append(encoded_synthdef_count)
-        for synthdef in audiolib:
+        for synthdef in synthdefs:
             result.append(synthdef._compile())
         result = flatten(result)
         return result
