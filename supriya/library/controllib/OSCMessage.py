@@ -125,7 +125,8 @@ class OSCMessage(object):
     @staticmethod
     def _encode_osc_blob(data):
         type_tag, binary_data = '', ''
-        if isinstance(data, str):
+        if isinstance(data, (str, bytearray)):
+            data = str(data)
             actual_length = len(data)
             padded_length = int(math.ceil(actual_length / 4.0) * 4)
             binary_format = '>i{}s'.format(padded_length)
@@ -216,7 +217,7 @@ class OSCMessage(object):
     ### PUBLIC METHODS ###
 
     def append(self, expr, type_hint=None):
-        if type_hint == 'b':
+        if type_hint == 'b' or isinstance(expr, bytearray):
             type_tag, binary_data = self._encode_osc_blob(expr)
         else:
             type_tag, binary_data = self._encode_osc_argument(expr)
