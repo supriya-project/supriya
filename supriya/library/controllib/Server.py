@@ -11,6 +11,10 @@ class Server(object):
         >>> from supriya import controllib
         >>> server = controllib.Server()
         >>> server.boot()
+        <supriya.library.controllib.Server.Server object at 0x...>
+
+    ::
+
         >>> server.quit()
         ['/done', '/quit']
 
@@ -89,6 +93,7 @@ class Server(object):
             command.split(),
             )
         time.sleep(0.5)
+        self.send_message(("/g_new", 1, 0, 0))
         return self
 
     def dump_osc(self, expr):
@@ -129,6 +134,7 @@ class Server(object):
         group = controllib.Group(
             node_id=1,
             server=self,
+            send_to_server=False,
             )
         return group
 

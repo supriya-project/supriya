@@ -21,7 +21,7 @@ class Synth(Node):
         self._synthdef_name = synthdef_name
         add_action = add_action or 0
         add_action = controllib.Node.AddAction(add_action)
-        target_node = controllib.Node.expr_to_target_node(target_node)
+        target_node = controllib.Node.expr_as_target(target_node)
         server = target_node.server
         Node.__init__(
             self,
@@ -32,16 +32,20 @@ class Synth(Node):
         else:
             self._group = target_node.group
         message = (
-            9,
-            's_new',
+            self.creation_command,
             self.synthdef_name,
             self.node_id,
             add_action.value,
             target_node.node_id,
+            0,
             )
         self._server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def creation_command(self):
+        return 9
 
     @property
     def synthdef_name(self):

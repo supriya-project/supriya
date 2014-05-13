@@ -22,7 +22,11 @@ class Node(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, node_id=None, server=None):
+    def __init__(
+        self,
+        node_id=None,
+        server=None,
+        ):
         from supriya.library import controllib
         server = server or controllib.Server()
         if node_id is None:
@@ -36,7 +40,7 @@ class Node(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def expr_to_node_id(expr):
+    def expr_as_node_id(expr):
         from supriya.library import controllib
         if isinstance(expr, controllib.Server):
             return 0
@@ -49,20 +53,20 @@ class Node(object):
         raise TypeError(expr)
 
     @staticmethod
-    def expr_to_target_node(expr):
+    def expr_as_target(expr):
         from supriya.library import controllib
-        if isinstance(expr, (controllib.Server, type(None))):
-            return controllib.Group(
-                node_id=1,
-                server=expr,
-                )
+        if expr is None:
+            return Node.expr_as_target(controllib.Server())
         elif isinstance(expr, Node):
             return expr
         elif isinstance(expr, int):
             return controllib.Group(
                 node_id=expr,
                 server=controllib.Server(),
+                send_to_server=True,
                 )
+        elif isinstance(expr, controllib.Server):
+            return expr.default_group
         raise TypeError(expr)
 
     def free(self):
