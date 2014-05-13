@@ -179,7 +179,7 @@ class SynthDef(object):
     def add(self):
         from supriya.library import controllib
         compiled = self.compile()
-        message = ('d_recv', compiled)
+        message = ('d_recv', compiled, 0)
         server = controllib.Server()
         server.send_message(message)
 
@@ -206,6 +206,7 @@ class SynthDef(object):
         for synthdef in synthdefs:
             result.append(synthdef._compile())
         result = flatten(result)
+        result = bytearray(result)
         return result
 
     ### PUBLIC PROPERTIES ###
