@@ -1,6 +1,6 @@
 import enum
 from supriya.library.audiolib.UGen import UGen
-from supriya.library.audiolib import ArgumentSpecification
+from supriya.library.audiolib import Argument
 
 
 class UnaryOpUGen(UGen):
@@ -10,7 +10,7 @@ class UnaryOpUGen(UGen):
     __slots__ = ()
 
     _argument_specifications = (
-        ArgumentSpecification('source'),
+        Argument('source'),
         )
 
     class UnaryOperator(enum.IntEnum):

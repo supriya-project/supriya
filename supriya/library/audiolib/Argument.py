@@ -1,4 +1,4 @@
-class ArgumentSpecification(object):
+class Argument(object):
 
     ### CLASS VARIABLES ###
 

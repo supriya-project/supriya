@@ -1,6 +1,6 @@
 import collections
 from supriya.library.audiolib.UGen import UGen
-from supriya.library.audiolib import ArgumentSpecification
+from supriya.library.audiolib import Argument
 
 
 class Out(UGen):
@@ -23,11 +23,11 @@ class Out(UGen):
             calculation_rate=calculation_rate,
             special_index=special_index,
             )
-        ArgumentSpecification('bus').configure(self, bus)
+        Argument('bus').configure(self, bus)
         if not isinstance(source, collections.Sequence):
             source = [source]
         for single_source in source:
-            ArgumentSpecification('source').configure(self, single_source)
+            Argument('source').configure(self, single_source)
 
     ### PRIVATE METHODS ###
 

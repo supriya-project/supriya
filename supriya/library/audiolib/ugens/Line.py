@@ -1,5 +1,5 @@
 from supriya.library.audiolib.UGen import UGen
-from supriya.library.audiolib import ArgumentSpecification
+from supriya.library.audiolib import Argument
 
 
 class Line(UGen):
@@ -9,8 +9,8 @@ class Line(UGen):
     __slots__ = ()
 
     _argument_specifications = (
-        ArgumentSpecification('start', 0),
-        ArgumentSpecification('end', 1),
-        ArgumentSpecification('dur', 1),
-        ArgumentSpecification('doneAction', 0),
+        Argument('start', 0),
+        Argument('end', 1),
+        Argument('dur', 1),
+        Argument('doneAction', 0),
         )
