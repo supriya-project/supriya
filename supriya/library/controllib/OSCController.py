@@ -127,7 +127,7 @@ class OSCController(object):
                 )
         if self.debug_messages:
             print supriya.controllib.OSCMessage.decode(message)
-        print '{}: {!r}'.format(len(message.encode()), message.encode())
+        #print '{}: {!r}'.format(len(message.encode()), message.encode())
         self.socket.sendto(
             message.encode(),
             (self.server_ip_address, self.server_port),
