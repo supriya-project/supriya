@@ -1,6 +1,6 @@
 import collections
-from supriya.library.audiolib.UGen import UGen
 from supriya.library.audiolib import Argument
+from supriya.library.audiolib.UGen import UGen
 
 
 class Out(UGen):
