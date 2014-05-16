@@ -71,8 +71,8 @@ class Server(object):
 
     def boot(
         self,
-        inputs=2,
-        outputs=2,
+        inputs=8,
+        outputs=8,
         samplerate=48000,
         ):
         import supriya

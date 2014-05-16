@@ -33,3 +33,27 @@ class Out(UGen):
 
     def _get_outputs(self):
         return []
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(cls, **kwargs):
+        
+        ugen = cls(
+            calculation_rate=UGen.Rate.AUDIO_RATE,
+            special_index=0,
+            bus=kwargs.get('bus'),
+            source=kwargs.get('source'),
+            )
+        return ugen
+
+    @classmethod
+    def kr(cls, **kwargs):
+        ugen = cls(
+            calculation_rate=UGen.Rate.CONTROL_RATE,
+            special_index=0,
+            bus=kwargs.get('bus'),
+            source=kwargs.get('source'),
+            )
+        return ugen
+

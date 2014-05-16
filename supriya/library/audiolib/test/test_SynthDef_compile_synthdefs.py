@@ -203,3 +203,58 @@ def test_SynthDef_compile_synthdefs_03():
 
     assert py_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == sc_compiled_synthdef
+
+
+def test_SynthDef_compile_synthdefs_04():
+
+    sc_synthdef = audiolib.SCSynthDef(
+        'test',
+        r'''
+        Out.ar(0, In.ar(8, 2))
+        '''
+        )
+    sc_compiled_synthdef = sc_synthdef.compile()
+
+    py_synthdef = audiolib.SynthDef('test')
+    inputs = audiolib.In.ar(bus=8, channel_count=2)
+    out = audiolib.Out.ar(bus=0, source=inputs)
+    py_synthdef.add_ugen(out)
+    py_synthdef.add_ugen(out)
+    py_compiled_synthdef = py_synthdef.compile()
+
+    test_compiled_synthdef = (
+        'SCgf'
+        '\x00\x00\x00\x02'
+        '\x00\x01'
+            '\x04test'
+                '\x00\x00\x00\x02'
+                    'A\x00\x00\x00'
+                    '\x00\x00\x00\x00'
+                '\x00\x00\x00\x00'
+                '\x00\x00\x00\x00'
+                '\x00\x00\x00\x02'
+                    '\x02In'
+                        '\x02'
+                        '\x00\x00\x00\x01'
+                        '\x00\x00\x00\x02'
+                        '\x00\x00'
+                            '\xff\xff\xff\xff'
+                            '\x00\x00\x00\x00'
+                            '\x02'
+                            '\x02'
+                    '\x03Out'
+                        '\x02'
+                        '\x00\x00\x00\x03'
+                        '\x00\x00\x00\x00'
+                        '\x00\x00'
+                            '\xff\xff\xff\xff'
+                            '\x00\x00\x00\x01'
+                            '\x00\x00\x00\x00'
+                            '\x00\x00\x00\x00'
+                            '\x00\x00\x00\x00'
+                            '\x00\x00\x00\x01'
+                '\x00\x00'
+        )
+
+    assert sc_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == sc_compiled_synthdef

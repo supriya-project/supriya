@@ -39,6 +39,18 @@ class UGenArray(collections.Sequence):
     def __neg__(self):
         return type(self)([-x for x in self.ugens])
 
+    def __radd__(self, expr):
+        return self.__add__(expr)
+
+    def __rdiv__(self, expr):
+        return self.__div__(expr)
+
+    def __rmul__(self, expr):
+        return self.__mul__(expr)
+
+    def __rsub__(self, expr):
+        return self.__sub__(expr)
+
     def __sub__(self, expr):
         return type(self)([x - expr for x in self.ugens])
 

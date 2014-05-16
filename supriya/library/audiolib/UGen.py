@@ -14,6 +14,10 @@ class UGen(object):
         CONTROL_RATE = 1
         SCALAR_RATE = 0
 
+    class SignalRange(enum.IntEnum):
+        UNIPOLAR = 0
+        BIPOLAR = 1
+
     __slots__ = (
         '_antecedents',
         '_calculation_rate',
@@ -123,6 +127,18 @@ class UGen(object):
             source=self,
             )
 
+    def __radd__(self, expr):
+        return self.__add__(expr)
+
+    def __rdiv__(self, expr):
+        return self.__div__(expr)
+
+    def __rmul__(self, expr):
+        return self.__mul__(expr)
+
+    def __rsub__(self, expr):
+        return self.__sub__(expr)
+
     def __sub__(self, expr):
         from supriya import audiolib
         calculation_rate = self._compute_binary_rate(self, expr)
@@ -139,12 +155,15 @@ class UGen(object):
     def _add_constant_input(self, value):
         self._inputs.append(float(value))
 
-    def _add_ugen_input(self, ugen, output_index):
+    def _add_ugen_input(self, ugen, output_index=None):
         from supriya import audiolib
-        output_proxy = audiolib.OutputProxy(
-            output_index=output_index,
-            source=ugen,
-            )
+        if isinstance(ugen, audiolib.OutputProxy):
+            output_proxy = ugen
+        else:
+            output_proxy = audiolib.OutputProxy(
+                output_index=output_index,
+                source=ugen,
+                )
         self._inputs.append(output_proxy)
 
     def _collect_constants(self):
@@ -327,6 +346,10 @@ class UGen(object):
     @property
     def inputs(self):
         return tuple(self._inputs)
+
+    @property
+    def signal_range(self):
+        return self.SignalRange.BIPOLAR
 
     @property
     def special_index(self):
