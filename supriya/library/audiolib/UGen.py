@@ -30,6 +30,8 @@ class UGen(object):
 
     _argument_specifications = ()
 
+    _unexpanded_argument_names = None
+
     ### INITIALIZER ###
 
     def __init__(
@@ -186,38 +188,6 @@ class UGen(object):
             return UGen.Rate.CONTROL_RATE
         return UGen.Rate.SCALAR_RATE
 
-    @staticmethod
-    def _expand_multichannel(arguments):
-        r'''Expands ugens into multichannel arrays.
-
-        ::
-
-            >>> import supriya
-            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.audiolib.UGen._expand_multichannel(arguments)
-            >>> for x in result:
-            ...     x
-            ...
-            {'bar': 1, 'foo': 0, 'baz': 3}
-            {'bar': 2, 'foo': 0, 'baz': 4}
-            {'bar': 1, 'foo': 0, 'baz': 5}
-
-        '''
-        maximum_length = 1
-        result = []
-        for name, value in arguments.items():
-            if isinstance(value, collections.Sequence):
-                maximum_length = max(maximum_length, len(value))
-        for i in range(maximum_length):
-            result.append({})
-            for name, value in arguments.items():
-                if isinstance(value, collections.Sequence):
-                    value = value[i % len(value)]
-                    result[i][name] = value
-                else:
-                    result[i][name] = value
-        return result
-
     def _get_output_number(self):
         return 0
 
@@ -251,7 +221,8 @@ class UGen(object):
     def _new(cls, calculation_rate, special_index, **kwargs):
         from supriya import audiolib
         assert isinstance(calculation_rate, UGen.Rate)
-        argument_dicts = UGen._expand_multichannel(kwargs)
+        argument_dicts = UGen.expand_arguments(
+            kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
         for argument_dict in argument_dicts:
             ugen = cls(
@@ -318,6 +289,61 @@ class UGen(object):
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         result = ''.join(result)
+        return result
+
+    @staticmethod
+    def expand_arguments(arguments, unexpanded_argument_names=None):
+        r'''Expands ugens into multichannel arrays.
+
+        ::
+
+            >>> import supriya
+            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> result = supriya.audiolib.UGen.expand_arguments(arguments)
+            >>> for x in result:
+            ...     x
+            ...
+            {'bar': 1, 'foo': 0, 'baz': 3}
+            {'bar': 2, 'foo': 0, 'baz': 4}
+            {'bar': 1, 'foo': 0, 'baz': 5}
+
+        ::
+
+            >>> arguments = {'bus': (8, 9), 'source': (1, 2, 3)}
+            >>> result = supriya.audiolib.UGen.expand_arguments(
+            ...     arguments,
+            ...     unexpanded_argument_names=('source',),
+            ...     )
+            >>> for x in result:
+            ...     x
+            ...
+            {'bus': 8, 'source': (1, 2, 3)}
+            {'bus': 9, 'source': (1, 2, 3)}
+
+        '''
+        cached_unexpanded_arguments = {}
+        if unexpanded_argument_names is not None:
+            for argument_name in unexpanded_argument_names:
+                if argument_name not in arguments:
+                    continue
+                cached_unexpanded_arguments[argument_name] = \
+                    arguments[argument_name]
+                del(arguments[argument_name])
+        maximum_length = 1
+        result = []
+        for name, value in arguments.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(maximum_length, len(value))
+        for i in range(maximum_length):
+            result.append({})
+            for name, value in arguments.items():
+                if isinstance(value, collections.Sequence):
+                    value = value[i % len(value)]
+                    result[i][name] = value
+                else:
+                    result[i][name] = value
+        for expanded_arguments in result:
+            expanded_arguments.update(cached_unexpanded_arguments)
         return result
 
     @classmethod
