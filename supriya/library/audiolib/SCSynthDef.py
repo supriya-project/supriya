@@ -38,7 +38,7 @@ class SCSynthDef(object):
         with open(synthdef_file_path, 'r') as f:
             result = f.read()
         shutil.rmtree(directory_path)
-        return result
+        return bytearray(result)
 
     ### PUBLIC PROPERTIES ###
 
