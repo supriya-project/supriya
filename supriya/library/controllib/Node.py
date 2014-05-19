@@ -71,19 +71,27 @@ class Node(object):
 
     def free(self):
         message = (11, self.node_id)
-        self.server.send_message(*message)
+        self.server.send_message(message)
         self._group = None
         self._is_playing = False
         self._is_running = False
 
+    def query(self):
+        message = (46, self.node_id)
+        self.server.send_message(message)
+
     def run(self):
         message = (12, self.node_id, 0x1)
-        self.server.send_message(*message)
+        self.server.send_message(message)
 
     def set(self, **kwargs):
         message = (15, self.node_id)
         for item in kwargs.items():
             message += item
+        self.server.send_message(message)
+
+    def trace(self):
+        message = (10, self.node_id)
         self.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###

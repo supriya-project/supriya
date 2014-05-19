@@ -54,10 +54,12 @@ class SynthDef(object):
         self._pending_ugens = set()
         self._ugens = []
         control_names = []
-        for name, value in kwargs.items():
+        for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
             control_names.append(name)
         self._controls = audiolib.Control(control_names)
+        if control_names:
+            self._add_ugen(self._controls)
 
     ### PRIVATE METHODS ###
 
@@ -114,7 +116,10 @@ class SynthDef(object):
             result.append(SynthDef._encode_float(value))
         result.append(SynthDef._encode_unsigned_int_32bit(
             len(self.parameter_names)))
-        for key, value in self.parameter_names.items():
+        for key, value in sorted(
+            self.parameter_names.items(),
+            key=lambda x: x[1],
+            ):
             result.append(SynthDef._encode_string(key))
             result.append(SynthDef._encode_unsigned_int_32bit(value))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
