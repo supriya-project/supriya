@@ -49,6 +49,10 @@ class UGen(object):
             argument_specification = self._argument_specifications[i]
             argument_name = argument_specification.name
             argument_value = kwargs.get(argument_name, None)
+            argument_value = None
+            if argument_name in kwargs:
+                argument_value = kwargs[argument_name]
+                del(kwargs[argument_name])
             prototype = (
                 type(None),
                 float,
@@ -58,6 +62,8 @@ class UGen(object):
                 )
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
+        if kwargs:
+            raise ValueError(kwargs)
         self._antecedents = []
         self._descendants = []
         self._synthdef = None
