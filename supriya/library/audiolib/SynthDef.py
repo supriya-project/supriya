@@ -16,7 +16,7 @@ class SynthDef(object):
         >>> controls = synth.controls
         >>> line = audiolib.Line.kr(
         ...     start=100,
-        ...     end=[controls['freq_l'], controls['freq_r']],
+        ...     stop=[controls['freq_l'], controls['freq_r']],
         ...     )
         >>> sin_osc = audiolib.SinOsc.ar(freq=line, phase=0) * 0.2
         >>> out = audiolib.Out.ar(bus=0, source=sin_osc)

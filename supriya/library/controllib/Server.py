@@ -32,6 +32,8 @@ class Server(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_audio_bus_allocator',
+        '_control_bus_allocator',
         '_node_id_allocator',
         '_osc_controller',
         '_scsynth_process',
@@ -65,6 +67,8 @@ class Server(object):
 
     def _create_new_allocators(self):
         from supriya.library import controllib
+        self._audio_bus_allocator = None
+        self._control_bus_allocator = None
         self._node_id_allocator = controllib.NodeIDAllocator()
 
     ### PUBLIC METHODS ###
@@ -127,6 +131,14 @@ class Server(object):
         self.send_message(r'/status')
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def audio_bus_allocator(self):
+        return self._audio_bus_allocator
+
+    @property
+    def control_bus_allocator(self):
+        return self._control_bus_allocator
 
     @property
     def default_group(self):
