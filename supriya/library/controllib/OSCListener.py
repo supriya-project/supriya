@@ -1,3 +1,4 @@
+from __future__ import print_function
 import socket
 import sys
 import threading
@@ -24,13 +25,13 @@ class OSCListener(threading.Thread):
     def callbacks(self):
         return self._callbacks
 
-    @apply
-    def running():
-        def fget(self):
-            return self._running
-        def fset(self, expr):
-            self._running = bool(expr)
-        return property(**locals())
+    @property
+    def running(self):
+        return self._running
+
+    @running.setter
+    def running(self, expr):
+        self._running = bool(expr)
     
     @property
     def socket_instance(self):
@@ -47,7 +48,9 @@ class OSCListener(threading.Thread):
         try:
             data, address = self.socket_instance.recvfrom(2**13)
             if data:
-                return supriya.controllib.OSCMessage.decode(data)
+                message = supriya.controllib.OSCMessage.decode(data)
+                message = tuple(message)
+                return message
             return None
         except socket.timeout:
             return None
@@ -71,10 +74,18 @@ class OSCListener(threading.Thread):
                 if message is None:
                     continue
                 key = message[0]
-                callbacks = self.callbacks.get(None, [])
+                callbacks = []
+                callbacks += self.callbacks.get(None, [])
                 callbacks += self.callbacks.get(key, [])
                 for callback in callbacks:
                     callback(message)
         except:
             sys.stderr.write('Exception in listener thread:\n')
             traceback.print_exc()
+
+    def unregister_callback(self, key, callback):
+        if key in self.callbacks:
+            if callback in self.callbacks[key]:
+                self.callbacks[key].remove(callback)
+                if not self.callbacks[key]:
+                    del(self.callbacks[key])
