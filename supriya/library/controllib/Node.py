@@ -69,29 +69,50 @@ class Node(object):
             return expr.default_group
         raise TypeError(expr)
 
-    def free(self):
-        message = (11, self.node_id)
-        self.server.send_message(message)
+    def free(self, send_to_server=True):
+        message = self.make_free_message()
+        if send_to_server:
+            self.server.send_message(message)
         self._group = None
         self._is_playing = False
         self._is_running = False
 
-    def query(self):
+    def make_free_message(self):
+        message = (11, self.node_id)
+        return message
+
+    def make_query_message(self):
         message = (46, self.node_id)
+        return message
+
+    def make_run_message(self, should_run=True):
+        message = (12, self.node_id, int(should_run))
+        return message
+
+    def make_set_message(self, **kwargs):
+        message = (15, self.node_id)
+        for key, value in kwargs.items():
+            message += (key, value)
+        return message
+
+    def make_trace_message(self):
+        message = (10, self.node_id)
+        return message
+
+    def query(self):
+        message = self.make_query_message()
         self.server.send_message(message)
 
-    def run(self):
-        message = (12, self.node_id, 0x1)
+    def run(self, should_run=True):
+        message = self.make_run_message(should_run=should_run)
         self.server.send_message(message)
 
     def set(self, **kwargs):
-        message = (15, self.node_id)
-        for item in kwargs.items():
-            message += item
+        message = self.make_set_message(**kwargs)
         self.server.send_message(message)
 
     def trace(self):
-        message = (10, self.node_id)
+        message = self.make_trace_message()
         self.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
