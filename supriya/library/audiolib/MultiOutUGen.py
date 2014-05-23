@@ -27,15 +27,8 @@ class MultiOutUGen(UGen):
             special_index=special_index,
             **kwargs
             )
-        self._output_proxies = tuple(
-            audiolib.OutputProxy(self, i)
-            for i in range(len(self))
-            )
 
     ### SPECIAL METHODS ###
-
-    def __getitem__(self, i):
-        return self._output_proxies[i]
 
     def __len__(self):
         return self.channel_count

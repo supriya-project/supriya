@@ -23,6 +23,7 @@ class UGen(object):
         '_calculation_rate',
         '_descendants',
         '_inputs',
+        '_output_proxies',
         '_special_index',
         '_synthdef',
         '_width_first_antecedents',
@@ -66,6 +67,10 @@ class UGen(object):
             raise ValueError(kwargs)
         self._antecedents = []
         self._descendants = []
+        self._output_proxies = tuple(
+            audiolib.OutputProxy(self, i)
+            for i in range(len(self))
+            )
         self._synthdef = None
         self._width_first_antecedents = []
 
@@ -102,6 +107,12 @@ class UGen(object):
                 if argument_specification.name == attr:
                     return self.inputs[i]
         raise AttributeError
+
+    def __getitem__(self, i):
+        return self._output_proxies[i]
+
+    def __len__(self):
+        return 1
 
     def __mod__(self, expr):
         from supriya import audiolib
