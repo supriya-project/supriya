@@ -14,7 +14,6 @@ class InfoUGenBase(UGen):
     def ir(cls, **kwargs):
         ugen = cls._new(
             calculation_rate=UGen.Rate.SCALAR_RATE,
-            special_index=0,
             **kwargs
             )
         return ugen

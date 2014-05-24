@@ -11,8 +11,8 @@ def test_SynthDef_compile_synthdefs_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     py_synthdef = audiolib.SynthDef('foo')
-    sine_one = audiolib.SinOsc.ar(freq=420)
-    sine_two = audiolib.SinOsc.ar(freq=440)
+    sine_one = audiolib.SinOsc.ar(frequency=420)
+    sine_two = audiolib.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
     out = audiolib.Out.ar(bus=0, source=sines)
     py_synthdef.add_ugen(out)
@@ -151,7 +151,7 @@ def test_SynthDef_compile_synthdefs_03():
 
     py_synthdef = audiolib.SynthDef('test', freq=1200, out=23)
     controls = py_synthdef.controls
-    sine = audiolib.SinOsc.ar(freq=controls['freq'])
+    sine = audiolib.SinOsc.ar(frequency=controls['freq'])
     out = audiolib.Out.ar(bus=controls['out'], source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
@@ -219,7 +219,6 @@ def test_SynthDef_compile_synthdefs_04():
     inputs = audiolib.In.ar(bus=8, channel_count=2)
     out = audiolib.Out.ar(bus=0, source=inputs)
     py_synthdef.add_ugen(out)
-    py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
     test_compiled_synthdef = bytearray(
@@ -272,7 +271,7 @@ def test_SynthDef_compile_synthdefs_05():
 
     py_synthdef = audiolib.SynthDef('test', freq=440)
     controls = py_synthdef.controls
-    sine = audiolib.SinOsc.ar(freq=controls['freq'])
+    sine = audiolib.SinOsc.ar(frequency=controls['freq'])
     out = audiolib.Out.ar(bus=0, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()

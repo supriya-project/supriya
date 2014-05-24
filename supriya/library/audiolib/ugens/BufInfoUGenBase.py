@@ -13,6 +13,19 @@ class BufInfoUGenBase(InfoUGenBase):
         Argument('buffer_number'),
         )
 
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        buffer_number=None,
+        calculation_rate=None,
+        ):
+        InfoUGenBase.__init__(
+            self,
+            buffer_number=buffer_number,
+            calculation_rate=calculation_rate,
+            )
+
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -20,7 +33,6 @@ class BufInfoUGenBase(InfoUGenBase):
         from supriya.library import audiolib
         ugen = cls._new(
             calculation_rate=audiolib.UGen.Rate.SCALAR_RATE,
-            special_index=0,
             buffer_number=buffer_number,
             )
         return ugen
@@ -30,7 +42,6 @@ class BufInfoUGenBase(InfoUGenBase):
         from supriya.library import audiolib
         ugen = cls._new(
             calculation_rate=audiolib.UGen.Rate.CONTROL_RATE,
-            special_index=0,
             buffer_number=buffer_number,
             )
         return ugen

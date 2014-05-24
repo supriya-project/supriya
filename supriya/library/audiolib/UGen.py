@@ -1,4 +1,5 @@
 from __future__ import print_function
+import abc
 import collections
 import enum
 
@@ -13,10 +14,13 @@ class UGen(object):
         AUDIO_RATE = 2
         CONTROL_RATE = 1
         SCALAR_RATE = 0
+        TRIGGER_RATE = -1
 
     class SignalRange(enum.IntEnum):
         UNIPOLAR = 0
         BIPOLAR = 1
+
+    __metaclass__ = abc.ABCMeta
 
     __slots__ = (
         '_antecedents',
@@ -35,6 +39,7 @@ class UGen(object):
 
     ### INITIALIZER ###
 
+    @abc.abstractmethod
     def __init__(
         self,
         calculation_rate=None,
@@ -152,6 +157,19 @@ class UGen(object):
     def __rdiv__(self, expr):
         return self.__div__(expr)
 
+    def __repr__(self):
+        calculation_abbreviations = {
+            self.Rate.AUDIO_RATE: 'ar',
+            self.Rate.CONTROL_RATE: 'kr',
+            self.Rate.SCALAR_RATE: 'ir',
+            self.Rate.TRIGGER_RATE: 'tr',
+            }
+        string = '{}.{}()'.format(
+            type(self).__name__,
+            calculation_abbreviations[self.calculation_rate]
+            )
+        return string
+
     def __rmul__(self, expr):
         return self.__mul__(expr)
 
@@ -236,17 +254,32 @@ class UGen(object):
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
+        import sys
         from supriya import audiolib
+        if sys.version_info[0] == 2:
+            import funcsigs
+            get_signature = funcsigs.signature
+        else:
+            import inspect
+            get_signature = inspect.signature
         assert isinstance(calculation_rate, UGen.Rate)
         argument_dicts = UGen.expand_arguments(
             kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
+        signature = get_signature(cls.__init__)
+        has_custom_special_index = 'special_index' in signature.parameters
         for argument_dict in argument_dicts:
-            ugen = cls(
-                calculation_rate=calculation_rate,
-                special_index=special_index,
-                **argument_dict
-                )
+            if has_custom_special_index:
+                ugen = cls(
+                    calculation_rate=calculation_rate,
+                    special_index=special_index,
+                    **argument_dict
+                    )
+            else:
+                ugen = cls(
+                    calculation_rate=calculation_rate,
+                    **argument_dict
+                    )
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]

@@ -18,7 +18,8 @@ class SynthDef(object):
         ...     start=100,
         ...     stop=[controls['freq_l'], controls['freq_r']],
         ...     )
-        >>> sin_osc = audiolib.SinOsc.ar(freq=line, phase=0) * 0.2
+        >>> sin_osc = audiolib.SinOsc.ar(
+        ...     frequency=line, phase=0) * 0.2
         >>> out = audiolib.Out.ar(bus=0, source=sin_osc)
         >>> synth.add_ugen(out)
         >>> compiled = synth.compile()

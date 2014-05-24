@@ -11,3 +11,17 @@ class Dust(UGen):
     _argument_specifications = (
         Argument('density', 0.),
         )
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        density=0.,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            density=density,
+            )
+

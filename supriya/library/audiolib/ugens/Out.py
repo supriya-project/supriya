@@ -16,14 +16,12 @@ class Out(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        special_index=0,
         bus=0,
         source=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            special_index=special_index,
             )
         Argument('bus').configure(self, bus)
         if not isinstance(source, collections.Sequence):

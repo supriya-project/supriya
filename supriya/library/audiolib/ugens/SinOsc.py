@@ -9,6 +9,21 @@ class SinOsc(UGen):
     __slots__ = ()
 
     _argument_specifications = (
-        Argument('freq', 440),
+        Argument('frequency', 440),
         Argument('phase', 0),
         )
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        frequency=440.,
+        phase=0.,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            frequency=frequency,
+            phase=phase,
+            )
