@@ -8,7 +8,7 @@ class OSCController(object):
     ::
 
         >>> import supriya
-        >>> controller = supriya.controllib.OSCController(\
+        >>> controller = supriya.controllib.OSCController(
         ...     server_ip_address='127.0.0.1',
         ...     server_port=57751,
         ...     )
