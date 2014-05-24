@@ -325,7 +325,7 @@ class UGen(object):
                 result.append(SynthDef._encode_unsigned_int_32bit(output_index))
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
-            return ''.join(result)
+            return bytearray().join(result)
         from supriya.library.audiolib import SynthDef
         outputs = self._get_outputs()
         result = []
@@ -338,7 +338,7 @@ class UGen(object):
             result.append(compile_input_spec(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
-        result = ''.join(result)
+        result = bytearray().join(result)
         return result
 
     @staticmethod

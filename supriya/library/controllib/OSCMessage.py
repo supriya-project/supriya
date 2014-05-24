@@ -189,30 +189,30 @@ class OSCMessage(object):
 
     ### PUBLIC PROPERTIES ###
 
-    @apply
-    def address():
-        def fget(self):
-            return self._address
-        def fset(self, expr):
-            self._address = str(expr)
-        return property(**locals())
+    @property
+    def address(self):
+        return self._address
 
-    @apply
-    def message():
-        def fget(self):
-            return self._message
-        def fset(self, expr):
-            self._message = str(expr)
-        return property(**locals())
+    @address.setter
+    def address(self, expr):
+        self._address = str(expr)
 
-    @apply
-    def type_tags():
-        def fget(self):
-            return self._type_tags
-        def fset(self, expr):
-            assert all(x in self._valid_type_tags for x in expr), expr
-            self._type_tags = str(expr)
-        return property(**locals())
+    @property
+    def message(self):
+        return self._message
+
+    @message.setter
+    def message(self, expr):
+        self._message = str(expr)
+
+    @property
+    def type_tags(self):
+        return self._type_tags
+
+    @type_tags.setter
+    def type_tags(self, expr):
+        assert all(x in self._valid_type_tags for x in expr), expr
+        self._type_tags = str(expr)
 
     ### PUBLIC METHODS ###
 

@@ -35,7 +35,7 @@ class SCSynthDef(object):
             f.write(input_)
         command = 'sclang {}'.format(sc_file_path)
         subprocess.call(command, shell=True)
-        with open(synthdef_file_path, 'r') as f:
+        with open(synthdef_file_path, 'rb') as f:
             result = f.read()
         shutil.rmtree(directory_path)
         return bytearray(result)

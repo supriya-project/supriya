@@ -1,1 +1,1 @@
-from library import *
+from supriya.library import *

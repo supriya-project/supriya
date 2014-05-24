@@ -1,4 +1,8 @@
-import Queue
+from __future__ import print_function
+try:
+    import queue
+except ImportError:
+    import Queue as queue
 import socket
 
 
@@ -29,10 +33,10 @@ class OSCController(object):
         '_verbose',
         )
 
-    class CleanableQueue(Queue.Queue):
+    class CleanableQueue(queue.Queue):
 
         def __init__(self, maximum_length=0):
-            Queue.Queue.__init__(self)
+            queue.Queue.__init__(self)
             self._maximum_length = int(maximum_length)
 
         def clean(self):
@@ -94,7 +98,7 @@ class OSCController(object):
     ### PRIVATE METHODS ###
 
     def _print_message(self, message):
-        print message
+        print(message)
 
     ### PUBLIC METHODS ###
 
@@ -107,10 +111,10 @@ class OSCController(object):
                     timeout=self.timeout,
                     )
                 if self.debug_messages:
-                    print supriya.controllib.OSCMessage.decode(message)
+                    print(supriya.controllib.OSCMessage.decode(message))
                 if not keys or message[0] in keys:
                     return message
-            except Queue.Empty:
+            except queue.Empty:
                 raise IOError('Timeout waiting for reply from SC server.')
 
     def send(self, message):
@@ -126,8 +130,8 @@ class OSCController(object):
                 message=message[1:],
                 )
         if self.debug_messages:
-            print supriya.controllib.OSCMessage.decode(message)
-        print '{}: {!r}'.format(len(message.encode()), message.encode())
+            print(supriya.controllib.OSCMessage.decode(message))
+        print('{}: {!r}'.format(len(message.encode()), message.encode()))
         self.socket.sendto(
             message.encode(),
             (self.server_ip_address, self.server_port),

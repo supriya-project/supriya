@@ -1,1 +1,1 @@
-from ImportManager import ImportManager
+from supriya.library.systemlib.ImportManager import ImportManager
