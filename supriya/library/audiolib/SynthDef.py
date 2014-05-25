@@ -132,7 +132,7 @@ class SynthDef(object):
 
     @staticmethod
     def _encode_float(value):
-        return struct.pack('>f', value)
+        return bytearray(struct.pack('>f', value))
 
     @staticmethod
     def _encode_string(value):
@@ -142,15 +142,15 @@ class SynthDef(object):
 
     @staticmethod
     def _encode_unsigned_int_8bit(value):
-        return struct.pack('>B', value)
+        return bytearray(struct.pack('>B', value))
 
     @staticmethod
     def _encode_unsigned_int_16bit(value):
-        return struct.pack('>H', value)
+        return bytearray(struct.pack('>H', value))
 
     @staticmethod
     def _encode_unsigned_int_32bit(value):
-        return struct.pack('>I', value)
+        return bytearray(struct.pack('>I', value))
 
     def _get_constant_index(self, value):
         return self._constants[value]
@@ -199,7 +199,7 @@ class SynthDef(object):
     def compile(self, synthdefs=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
-                not isinstance(value, str):
+                not isinstance(value, bytearray):
                 return bytearray().join(flatten(x) for x in value)
             return value
         synthdefs = synthdefs or [self]
