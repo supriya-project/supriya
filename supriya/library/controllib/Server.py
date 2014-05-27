@@ -16,7 +16,7 @@ class Server(object):
     ::
 
         >>> server.quit()
-        ['/done', '/quit']
+        ('/done', '/quit')
 
     The server class is a singleton:
 
@@ -34,7 +34,9 @@ class Server(object):
     __slots__ = (
         '_audio_bus_allocator',
         '_control_bus_allocator',
+        '_is_running',
         '_node_id_allocator',
+        '_options',
         '_osc_controller',
         '_scsynth_process',
         )
@@ -45,18 +47,22 @@ class Server(object):
 
     def __new__(cls, *args, **kwargs):
         if not cls._instance:
-            cls._instance = super(Server, cls).__new__(
+            instance = super(Server, cls).__new__(
                 cls, *args, **kwargs)
+            instance._audio_bus_allocator = None
+            instance._control_bus_allocator = None
+            instance._is_running = None
+            instance._node_id_allocator = None
+            instance._options = None
+            instance._osc_controller = None
+            instance._scsynth_process = None
+            cls._instance = instance
         return cls._instance
 
     ### INITIALIZER ###
 
     def __init__(self):
-        if self._instance is not None:
-            return
-        self._osc_controller = None
-        self._scsynth_process = None
-        self._create_new_allocators()
+        pass
 
     ### SPECIAL METHODS ###
 
@@ -75,29 +81,28 @@ class Server(object):
 
     def boot(
         self,
-        inputs=8,
-        outputs=8,
-        samplerate=48000,
+        options=None,
+        server_port=57751
         ):
-        import supriya
+        from supriya.library import controllib
+        if self.is_running:
+            return
+        options = options or controllib.ServerOptions()
+        assert isinstance(options, controllib.ServerOptions)
+        self._options = options
         self._create_new_allocators()
-        server_port = 57751
-        self._osc_controller = supriya.controllib.OSCController(
+        self._osc_controller = controllib.OSCController(
             server_ip_address='127.0.0.1',
             server_port=server_port,
             )
-        command = 'scsynth -u {port} -S {samplerate} -i {inputs} -o {outputs}'
-        command = command.format(
-            inputs=inputs,
-            outputs=outputs,
-            port=server_port,
-            samplerate=samplerate,
-            )
+        options_string = options.as_options_string(server_port)
+        command = 'scsynth {}'.format(options_string)
         self._scsynth_process = subprocess.Popen(
             command.split(),
             )
         time.sleep(0.5)
         self.send_message(("/g_new", 1, 0, 0))
+        self._is_running = True
         return self
 
     def dump_osc(self, expr):
@@ -114,6 +119,7 @@ class Server(object):
         self._scsynth_process.send_signal(signal.SIGINT)
         self._scsynth_process.kill()
         self._create_new_allocators()
+        self._is_running = False
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
@@ -149,6 +155,10 @@ class Server(object):
             send_to_server=False,
             )
         return group
+
+    @property
+    def is_running(self):
+        return self._is_running
 
     @property
     def next_node_id(self):
