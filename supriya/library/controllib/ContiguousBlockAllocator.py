@@ -50,6 +50,18 @@ class ContiguousBlockAllocator(object):
         ### PUBLIC PROPERTIES ###
 
         @property
+        def address(self):
+            return self._start
+
+        @property
+        def start(self):
+            return self._start
+
+        @property
+        def size(self):
+            return self._size
+
+        @property
         def stop(self):
             return self.start + self.size
 
@@ -66,3 +78,19 @@ class ContiguousBlockAllocator(object):
     def __init__(self, size=None, position=0):
         self._size = size
         self._position = position
+
+    ### PUBLIC METHODS ###
+
+    def alloc(self, size=1):
+        pass
+
+    def reserve(self, address, size=1, warn=True):
+        pass
+
+    def free(self, address):
+        pass
+
+    @property
+    def blocks(self):
+        pass
+

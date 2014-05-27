@@ -1,14 +1,24 @@
 #!/usr/bin/env python
 
+import sys
 from distutils.core import setup
+from distutils.version import StrictVersion
+
+install_requires = [
+    'abjad',
+    ]
+version = '.'.join(str(x) for x in sys.version_info[:3])
+if StrictVersion(version) < StrictVersion('3.4.0'):
+    install_requires.append('enum34')
 
 setup(
-    name='supriya',
-    version='0.1',
-    description='A Python API for SuperCollider',
     author='Josiah Wolf Oberholtzer',
     author_email='josiah.oberholtzer@gmail.com',
-    url='https://github.com/josiah-wolf-oberholtzer/supriya',
+    description='A Python API for SuperCollider',
+    install_requires=install_requires,
+    license='GPL',
+    name='supriya',
     packages=('supriya',),
+    url='https://github.com/josiah-wolf-oberholtzer/supriya',
+    version='0.1',
     )
-
