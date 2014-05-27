@@ -35,28 +35,28 @@ class NodeIDAllocator(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_init_temp',
+        '_initial_node_id',
         '_mask',
-        '_perm',
-        '_perm_freed',
+        '_next_permanent_id',
+        '_freed_permanent_ids',
         '_temp',
-        '_user',
+        '_user_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        user=0,
-        init_temp=1000,
+        user_id=0,
+        initial_node_id=1000,
         ):
-        assert user <= 31
-        self._init_temp = int(init_temp)
-        self._user = int(user)
-        self._mask = self._user << 26
-        self._temp = self._init_temp
-        self._perm = 2
-        self._perm_freed = set()
+        assert user_id <= 31
+        self._initial_node_id = int(initial_node_id)
+        self._user_id = int(user_id)
+        self._mask = self._user_id << 26
+        self._temp = self._initial_node_id
+        self._next_permanent_id = 2
+        self._freed_permanent_ids = set()
 
     ### PUBLIC METHODS ###
 
@@ -64,22 +64,22 @@ class NodeIDAllocator(object):
         x = self._temp
         temp = x + 1
         if 0x03FFFFFF < temp:
-            temp = (temp % 0x03FFFFFF) + self._init_temp
+            temp = (temp % 0x03FFFFFF) + self._initial_node_id
         self._temp = temp
         x = x | self._mask
         return x
 
     def allocate_permanent_node_id(self):
-        if self._perm_freed:
-            x = min(self._perm_freed)
-            self._perm_freed.remove(x)
+        if self._freed_permanent_ids:
+            x = min(self._freed_permanent_ids)
+            self._freed_permanent_ids.remove(x)
         else:
-            x = self._perm
-            self._perm = min(x + 1, self._init_temp - 1)
+            x = self._next_permanent_id
+            self._next_permanent_id = min(x + 1, self._initial_node_id - 1)
         x = x | self._mask
         return x
 
     def free_permanent_node_id(self, node_id):
         node_id = node_id & 0x03FFFFFF
-        if node_id < self._init_temp:
-            self._perm_freed.add(node_id)
+        if node_id < self._initial_node_id:
+            self._freed_permanent_ids.add(node_id)

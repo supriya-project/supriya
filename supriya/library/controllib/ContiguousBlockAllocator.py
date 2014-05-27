@@ -63,6 +63,6 @@ class ContiguousBlockAllocator(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, size, position=0):
+    def __init__(self, size=None, position=0):
         self._size = size
         self._position = position

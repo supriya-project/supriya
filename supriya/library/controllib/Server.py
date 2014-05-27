@@ -33,6 +33,7 @@ class Server(object):
 
     __slots__ = (
         '_audio_bus_allocator',
+        '_buffer_allocator',
         '_control_bus_allocator',
         '_is_running',
         '_node_id_allocator',
@@ -50,6 +51,7 @@ class Server(object):
             instance = super(Server, cls).__new__(
                 cls, *args, **kwargs)
             instance._audio_bus_allocator = None
+            instance._buffer_allocator = None
             instance._control_bus_allocator = None
             instance._is_running = None
             instance._node_id_allocator = None
@@ -73,9 +75,19 @@ class Server(object):
 
     def _create_new_allocators(self):
         from supriya.library import controllib
-        self._audio_bus_allocator = None
-        self._control_bus_allocator = None
-        self._node_id_allocator = controllib.NodeIDAllocator()
+        self._audio_bus_allocator = controllib.ContiguousBlockAllocator(
+            size=self.options.numAudioBusChannels,
+            position=self.options.firstPrivateBus,
+            )
+        self._buffer_allocator = controllib.ContiguousBlockAllocator(
+            size=self.options.numBuffers,
+            )
+        self._control_bus_allocator = controllib.ContiguousBlockAllocator(
+            size=self.options.numControlBusChannels,
+            )
+        self._node_id_allocator = controllib.NodeIDAllocator(
+            initial_node_id=self.options.initialNodeID,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -143,6 +155,10 @@ class Server(object):
         return self._audio_bus_allocator
 
     @property
+    def buffer_allocator(self):
+        return self._buffer_allocator
+
+    @property
     def control_bus_allocator(self):
         return self._control_bus_allocator
 
@@ -161,5 +177,9 @@ class Server(object):
         return self._is_running
 
     @property
-    def next_node_id(self):
-        return self._node_id_allocator.allocate_node_id()
+    def node_id_allocator(self):
+        return self._node_id_allocator
+
+    @property
+    def options(self):
+        return self._options
