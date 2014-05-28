@@ -82,26 +82,10 @@ class UGen(object):
     ### SPECIAL METHODS ###
 
     def __add__(self, expr):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = audiolib.BinaryOpUGen.BinaryOperator.PLUS.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            left=self,
-            right=expr,
-            )
+        return self._compute_binary_op(expr, 'ADD')
 
     def __div__(self, expr):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = audiolib.BinaryOpUGen.BinaryOperator.DIVIDE.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            left=self,
-            right=expr,
-            )
+        return self._compute_binary_op(expr, 'FDIV')
 
     def __getattr__(self, attr):
         try:
@@ -120,36 +104,13 @@ class UGen(object):
         return 1
 
     def __mod__(self, expr):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = audiolib.BinaryOpUGen.BinaryOperator.MOD.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            left=self,
-            right=expr,
-            )
+        return self._compute_binary_op(expr, 'MOD')
 
     def __mul__(self, expr):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = audiolib.BinaryOpUGen.BinaryOperator.TIMES.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            left=self,
-            right=expr,
-            )
+        return self._compute_binary_op(expr, 'MUL')
 
     def __neg__(self):
-        from supriya import audiolib
-        calculation_rate = self.calculation_rate
-        special_index = audiolib.UnaryOpUGen.UnaryOperator.NEG.value
-        return audiolib.UnaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            source=self,
-            )
+        return self._compute_unary_op('NEG')
 
     def __radd__(self, expr):
         return self.__add__(expr)
@@ -177,15 +138,7 @@ class UGen(object):
         return self.__sub__(expr)
 
     def __sub__(self, expr):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        special_index = audiolib.BinaryOpUGen.BinaryOperator.MINUS.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate,
-            special_index,
-            left=self,
-            right=expr,
-            )
+        return self._compute_binary_op(expr, 'SUB')
 
     ### PRIVATE METHODS ###
 
@@ -209,6 +162,18 @@ class UGen(object):
             if not isinstance(input_, audiolib.OutputProxy):
                 self.synthdef._add_constant(float(input_))
 
+    def _compute_binary_op(self, expr, op_name):
+        from supriya import audiolib
+        calculation_rate = self._compute_binary_rate(self, expr)
+        operator = audiolib.BinaryOpUGen.BinaryOperator[op_name]
+        special_index = operator.value
+        return audiolib.BinaryOpUGen._new(
+            calculation_rate=calculation_rate,
+            left=self,
+            right=expr,
+            special_index=special_index,
+            )
+
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
@@ -222,6 +187,16 @@ class UGen(object):
             ugen_b.calculation_rate == UGen.Rate.CONTROL_RATE:
             return UGen.Rate.CONTROL_RATE
         return UGen.Rate.SCALAR_RATE
+
+    def _compute_unary_op(self, op_name):
+        from supriya import audiolib
+        operator = audiolib.UnaryOpUGen.UnaryOperator[op_name]
+        special_index = operator.value
+        return audiolib.UnaryOpUGen._new(
+            calculation_rate=self.calculation_rate,
+            source=self,
+            special_index=special_index,
+            )
 
     def _get_output_number(self):
         return 0
