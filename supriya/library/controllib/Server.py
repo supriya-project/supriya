@@ -111,6 +111,8 @@ class Server(object):
         command = 'scsynth {}'.format(options_string)
         self._scsynth_process = subprocess.Popen(
             command.split(),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
             )
         time.sleep(0.5)
         self.send_message(("/g_new", 1, 0, 0))
