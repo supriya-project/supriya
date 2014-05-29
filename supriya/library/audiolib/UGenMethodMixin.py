@@ -93,15 +93,14 @@ class UGenMethodMixin(object):
     def _compute_unary_op(source, op_name):
         from supriya import audiolib
         result = []
-        if not isinstance(left, collections.Sequence):
+        if not isinstance(source, collections.Sequence):
             source = [source]
-        operator = audiolib.BinaryOpUGen.BinaryOperator[op_name]
+        operator = audiolib.UnaryOpUGen.UnaryOperator[op_name]
         special_index = operator.value
         for single_source in source:
-            calculation_rate = source.calculation_rate
             unary_op_ugen = audiolib.UnaryOpUGen(
-                calculation_rate=source.calculation_rate,
-                source=source,
+                calculation_rate=single_source.calculation_rate,
+                source=single_source,
                 special_index=special_index,
                 )
             result.append(unary_op_ugen)
