@@ -4,9 +4,10 @@ from __future__ import print_function
 import abc
 import collections
 import enum
+from supriya.library.audiolib.UGenMethodMixin import UGenMethodMixin
 
 
-class UGen(object):
+class UGen(UGenMethodMixin):
     r'''A UGen.
     '''
 
@@ -15,14 +16,12 @@ class UGen(object):
     class Rate(enum.IntEnum):
         AUDIO_RATE = 2
         CONTROL_RATE = 1
+        DEMAND_RATE = 3
         SCALAR_RATE = 0
-        TRIGGER_RATE = -1
 
     class SignalRange(enum.IntEnum):
         UNIPOLAR = 0
         BIPOLAR = 1
-
-    __metaclass__ = abc.ABCMeta
 
     __slots__ = (
         '_antecedents',
@@ -83,12 +82,6 @@ class UGen(object):
 
     ### SPECIAL METHODS ###
 
-    def __add__(self, expr):
-        return self._compute_binary_op(expr, 'ADD')
-
-    def __div__(self, expr):
-        return self._compute_binary_op(expr, 'FDIV')
-
     def __getattr__(self, attr):
         try:
             object.__getattr__(self, attr)
@@ -105,42 +98,19 @@ class UGen(object):
     def __len__(self):
         return 1
 
-    def __mod__(self, expr):
-        return self._compute_binary_op(expr, 'MOD')
-
-    def __mul__(self, expr):
-        return self._compute_binary_op(expr, 'MUL')
-
-    def __neg__(self):
-        return self._compute_unary_op('NEG')
-
-    def __radd__(self, expr):
-        return self.__add__(expr)
-
-    def __rdiv__(self, expr):
-        return self.__div__(expr)
-
     def __repr__(self):
+        if self.calculation_rate == self.Rate.DEMAND_RATE:
+            return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
             self.Rate.AUDIO_RATE: 'ar',
             self.Rate.CONTROL_RATE: 'kr',
             self.Rate.SCALAR_RATE: 'ir',
-            self.Rate.TRIGGER_RATE: 'tr',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
             calculation_abbreviations[self.calculation_rate]
             )
         return string
-
-    def __rmul__(self, expr):
-        return self.__mul__(expr)
-
-    def __rsub__(self, expr):
-        return self.__sub__(expr)
-
-    def __sub__(self, expr):
-        return self._compute_binary_op(expr, 'SUB')
 
     ### PRIVATE METHODS ###
 
@@ -163,42 +133,6 @@ class UGen(object):
         for input_ in self._inputs:
             if not isinstance(input_, audiolib.OutputProxy):
                 self.synthdef._add_constant(float(input_))
-
-    def _compute_binary_op(self, expr, op_name):
-        from supriya import audiolib
-        calculation_rate = self._compute_binary_rate(self, expr)
-        operator = audiolib.BinaryOpUGen.BinaryOperator[op_name]
-        special_index = operator.value
-        return audiolib.BinaryOpUGen._new(
-            calculation_rate=calculation_rate,
-            left=self,
-            right=expr,
-            special_index=special_index,
-            )
-
-    @staticmethod
-    def _compute_binary_rate(ugen_a, ugen_b):
-        if ugen_a.calculation_rate == UGen.Rate.AUDIO_RATE:
-            return UGen.Rate.AUDIO_RATE
-        if hasattr(ugen_b, 'calculation_rate') and \
-            ugen_b.calculation_rate == UGen.RAte.AUDIO_RATE:
-            return UGen.Rate.AUDIO_RATE
-        if ugen_a.calculation_rate == UGen.Rate.CONTROL_RATE:
-            return UGen.Rate.CONTROL_RATE
-        if hasattr(ugen_b, 'calculation_rate') and \
-            ugen_b.calculation_rate == UGen.Rate.CONTROL_RATE:
-            return UGen.Rate.CONTROL_RATE
-        return UGen.Rate.SCALAR_RATE
-
-    def _compute_unary_op(self, op_name):
-        from supriya import audiolib
-        operator = audiolib.UnaryOpUGen.UnaryOperator[op_name]
-        special_index = operator.value
-        return audiolib.UnaryOpUGen._new(
-            calculation_rate=self.calculation_rate,
-            source=self,
-            special_index=special_index,
-            )
 
     def _get_output_number(self):
         return 0
@@ -316,61 +250,6 @@ class UGen(object):
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         result = bytearray().join(result)
-        return result
-
-    @staticmethod
-    def expand_arguments(arguments, unexpanded_argument_names=None):
-        r'''Expands ugens into multichannel arrays.
-
-        ::
-
-            >>> import supriya
-            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.audiolib.UGen.expand_arguments(arguments)
-            >>> for x in result:
-            ...     x
-            ...
-            {'bar': 1, 'foo': 0, 'baz': 3}
-            {'bar': 2, 'foo': 0, 'baz': 4}
-            {'bar': 1, 'foo': 0, 'baz': 5}
-
-        ::
-
-            >>> arguments = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = supriya.audiolib.UGen.expand_arguments(
-            ...     arguments,
-            ...     unexpanded_argument_names=('source',),
-            ...     )
-            >>> for x in result:
-            ...     x
-            ...
-            {'bus': 8, 'source': (1, 2, 3)}
-            {'bus': 9, 'source': (1, 2, 3)}
-
-        '''
-        cached_unexpanded_arguments = {}
-        if unexpanded_argument_names is not None:
-            for argument_name in unexpanded_argument_names:
-                if argument_name not in arguments:
-                    continue
-                cached_unexpanded_arguments[argument_name] = \
-                    arguments[argument_name]
-                del(arguments[argument_name])
-        maximum_length = 1
-        result = []
-        for name, value in arguments.items():
-            if isinstance(value, collections.Sequence):
-                maximum_length = max(maximum_length, len(value))
-        for i in range(maximum_length):
-            result.append({})
-            for name, value in arguments.items():
-                if isinstance(value, collections.Sequence):
-                    value = value[i % len(value)]
-                    result[i][name] = value
-                else:
-                    result[i][name] = value
-        for expanded_arguments in result:
-            expanded_arguments.update(cached_unexpanded_arguments)
         return result
 
     @classmethod
