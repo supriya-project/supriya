@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
+from supriya.library.audiolib.UGenMethodMixin import UGenMethodMixin
 
 
-class OutputProxy(object):
+class OutputProxy(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
