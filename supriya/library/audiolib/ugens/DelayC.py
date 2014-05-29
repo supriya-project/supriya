@@ -1,4 +1,4 @@
-from supriya.library.audiolib import Argument
+from supriya.library.audiolib.Argument import Argument
 from supriya.library.audiolib.UGen import UGen
 
 
