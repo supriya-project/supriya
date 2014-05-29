@@ -120,11 +120,11 @@ class UGenMethodMixin(object):
             >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
             >>> result = supriya.audiolib.UGen.expand_arguments(arguments)
             >>> for x in result:
-            ...     x
+            ...     sorted(x.items())
             ...
-            {'bar': 1, 'foo': 0, 'baz': 3}
-            {'bar': 2, 'foo': 0, 'baz': 4}
-            {'bar': 1, 'foo': 0, 'baz': 5}
+            [('bar', 1), ('baz', 3), ('foo', 0)]
+            [('bar', 2), ('baz', 4), ('foo', 0)]
+            [('bar', 1), ('baz', 5), ('foo', 0)]
 
         ::
 
@@ -134,10 +134,10 @@ class UGenMethodMixin(object):
             ...     unexpanded_argument_names=('source',),
             ...     )
             >>> for x in result:
-            ...     x
+            ...     sorted(x.items())
             ...
-            {'bus': 8, 'source': (1, 2, 3)}
-            {'bus': 9, 'source': (1, 2, 3)}
+            [('bus', 8), ('source', (1, 2, 3))]
+            [('bus', 9), ('source', (1, 2, 3))]
 
         '''
         cached_unexpanded_arguments = {}
