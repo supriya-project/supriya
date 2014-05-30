@@ -97,13 +97,14 @@ class Server(object):
         server_port=57751
         ):
         from supriya.library import controllib
+        from supriya.library import osclib
         if self.is_running:
             return
         options = options or controllib.ServerOptions()
         assert isinstance(options, controllib.ServerOptions)
         self._options = options
         self._create_new_allocators()
-        self._osc_controller = controllib.OSCController(
+        self._osc_controller = osclib.OscController(
             server_ip_address='127.0.0.1',
             server_port=server_port,
             )

@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import print_function
 try:
     import queue
@@ -6,13 +7,13 @@ except ImportError:
 import socket
 
 
-class OSCController(object):
+class OscController(object):
     '''An OSC controller.
 
     ::
 
-        >>> import supriya
-        >>> controller = supriya.controllib.OSCController(
+        >>> from supriya import osclib
+        >>> controller = osclib.OscController(
         ...     server_ip_address='127.0.0.1',
         ...     server_port=57751,
         ...     )
@@ -57,7 +58,7 @@ class OSCController(object):
         timeout=2,
         verbose=True,
         ):
-        import supriya
+        from supriya.library import osclib
         assert 0 < int(maximum_queue_length)
         self._maximum_queue_length = int(maximum_queue_length)
         self._server_ip_address = server_ip_address
@@ -74,7 +75,7 @@ class OSCController(object):
         self._incoming_message_queue = self.CleanableQueue(
             maximum_length=self._maximum_queue_length,
             )
-        self._listener = supriya.controllib.OSCListener(self.socket)
+        self._listener = osclib.OscListener(self.socket)
         self._listener.register_callback(
             None,
             self._incoming_message_queue.put,
@@ -103,7 +104,7 @@ class OSCController(object):
     ### PUBLIC METHODS ###
 
     def receive(self, keys=None):
-        import supriya
+        from supriya.library import osclib
         assert isinstance(keys, (type(None), tuple))
         while True:
             try:
@@ -111,7 +112,7 @@ class OSCController(object):
                     timeout=self.timeout,
                     )
                 if self.debug_messages:
-                    print(supriya.osclib.OscMessage.from_datagram(message))
+                    print(osclib.OscMessage.from_datagram(message))
                 if not keys or message.address in keys:
                     return message
             except queue.Empty:

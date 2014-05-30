@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from __future__ import print_function
 import socket
 import sys
@@ -5,8 +6,8 @@ import threading
 import traceback
 
 
-class OSCListener(threading.Thread):
-    r'''An OSC listener.
+class OscListener(threading.Thread):
+    r'''An OSC listener
     '''
 
     ### INITIALIZER ###
