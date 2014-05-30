@@ -5,6 +5,27 @@ import struct
 
 
 class OscMessage(object):
+    r'''An OSC message.
+
+    ::
+
+        >>> from supriya.library import osclib
+        >>> osc_message = osclib.OscMessage('/g_new', 0, 0)
+        >>> osc_message
+        OscMessage('/g_new', 0, 0)
+
+    ::
+
+        >>> datagram = osc_message.to_datagram()
+        >>> print(repr(datagram))
+        '/g_new\x00\x00,ii\x00\x00\x00\x00\x00\x00\x00\x00\x00'
+
+    ::
+
+        >>> osclib.OscMessage.from_datagram(datagram)
+        OscMessage('/g_new', 0, 0)
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -149,7 +170,6 @@ class OscMessage(object):
             'b': OscMessage._decode_blob,
             '[': OscMessage._decode_array,
             }
-        print repr(type_tags), type_tag_offset, repr(payload), payload_offset
         procedure = type_tag_mapping[type_tag]
         result, type_tag_offset, payload_offset = \
             procedure(type_tags, type_tag_offset, payload, payload_offset)
@@ -278,7 +298,6 @@ class OscMessage(object):
         offset = 0
         address, offset = OscMessage._read_string(datagram, offset)
         type_tags, offset = OscMessage._read_string(datagram, offset)
-        print address, type_tags, offset
         assert type_tags[0] == ','
         payload = bytes(datagram[offset:])
         payload_offset = 0

@@ -111,29 +111,29 @@ class OSCController(object):
                     timeout=self.timeout,
                     )
                 if self.debug_messages:
-                    print(supriya.controllib.OSCMessage.decode(message))
-                if not keys or message[0] in keys:
+                    print(supriya.osclib.OscMessage.from_datagram(message))
+                if not keys or message.address in keys:
                     return message
             except queue.Empty:
                 raise IOError('Timeout waiting for reply from SC server.')
 
     def send(self, message):
-        import supriya
-        prototype = (str, tuple, supriya.controllib.OSCMessage)
+        from supriya.library import osclib
+        prototype = (str, tuple, osclib.OscMessage, osclib.OscBundle)
         assert isinstance(message, prototype)
         if isinstance(message, str):
-            message = supriya.controllib.OSCMessage(address=message)
+            message = osclib.OscMessage(message)
         elif isinstance(message, tuple):
             assert len(message)
-            message = supriya.controllib.OSCMessage(
-                address=message[0],
-                message=message[1:],
+            message = osclib.OscMessage(
+                message[0],
+                *message[1:]
                 )
         if self.debug_messages:
-            print(supriya.controllib.OSCMessage.decode(message))
-        #print('{}: {!r}'.format(len(message.encode()), message.encode()))
+            print(osclib.OscMessage.from_datagram(message))
+        datagram = message.to_datagram()
         self.socket.sendto(
-            message.encode(),
+            datagram,
             (self.server_ip_address, self.server_port),
             )
 

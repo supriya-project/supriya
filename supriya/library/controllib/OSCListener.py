@@ -32,7 +32,7 @@ class OSCListener(threading.Thread):
     @running.setter
     def running(self, expr):
         self._running = bool(expr)
-    
+
     @property
     def socket_instance(self):
         return self._socket_instance
@@ -44,12 +44,11 @@ class OSCListener(threading.Thread):
     ### PUBLIC METHODS ###
 
     def get_message(self):
-        import supriya
+        from supriya.library import osclib
         try:
             data, address = self.socket_instance.recvfrom(2**13)
             if data:
-                message = supriya.controllib.OSCMessage.decode(data)
-                message = tuple(message)
+                message = osclib.OscMessage.from_datagram(data)
                 return message
             return None
         except socket.timeout:
@@ -73,7 +72,7 @@ class OSCListener(threading.Thread):
                 message = self.get_message()
                 if message is None:
                     continue
-                key = message[0]
+                key = message.address
                 callbacks = []
                 callbacks += self.callbacks.get(None, [])
                 callbacks += self.callbacks.get(key, [])
