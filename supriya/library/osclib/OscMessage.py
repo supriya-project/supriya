@@ -17,11 +17,45 @@ class OscMessage(object):
 
     def __init__(
         self,
-        address=None,
+        address,
         *arguments
         ):
-        self._address = address
-        self._arguments = arguments
+        def recurse(sequence):
+            sequence = list(sequence)
+            for i, x in enumerate(sequence):
+                if isinstance(x, list):
+                    sequence[i] = tuple(recurse(sequence[i]))
+            return tuple(sequence)
+        self._address = address.encode('utf-8')
+        self._arguments = recurse(arguments)
+
+    ### SPECIAL METHODS ###
+
+    def __eq__(self, expr):
+        if type(expr) != type(self):
+            return False
+        if expr.address != self.address:
+            return False
+        if expr.arguments != self.arguments:
+            return False
+        return True
+
+    def __hash__(self):
+        hash_values = (
+            type(self),
+            self.address,
+            self.arguments,
+            )
+        return hash(hash_values)
+
+    def __repr__(self):
+        items = (self.address,) + self.arguments
+        items = ', '.join(repr(x) for x in items)
+        result = '{}({})'.format(
+            type(self).__name__,
+            items,
+            )
+        return result
 
     ### PRIVATE METHODS ###
 
@@ -40,6 +74,7 @@ class OscMessage(object):
                     )
             array.append(result)
         assert type_tags[type_tag_offset] == ']'
+        array = tuple(array)
         type_tag_offset += 1
         return array, type_tag_offset, payload_offset
 
