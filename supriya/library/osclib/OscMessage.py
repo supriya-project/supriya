@@ -41,7 +41,7 @@ class OscMessage(object):
             array.append(result)
         assert type_tags[type_tag_offset] == ']'
         type_tag_offset += 1
-        return result, type_tag_offset, payload_offset
+        return array, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_blob(type_tags, type_tag_offset, payload, payload_offset):
