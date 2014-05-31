@@ -2,7 +2,6 @@
 import datetime
 import decimal
 import struct
-import time
 
 
 class OscBundle(object):
@@ -18,11 +17,11 @@ class OscBundle(object):
     ::
 
         >>> inner_bundle = osclib.OscBundle(
-        ...     timestamp=100.,
+        ...     timestamp=1401557034.5,
         ...     contents=(message_one, message_two),
         ...     )
         >>> inner_bundle
-        <OscBundle 100.0 {2}>
+        <OscBundle 1401557034.5 {2}>
 
     ::
 
@@ -106,6 +105,7 @@ class OscBundle(object):
 
     @staticmethod
     def _get_ntp_delta():
+        import time
         system_epoch = datetime.date(*time.gmtime(0)[0:3])
         ntp_epoch = datetime.date(1900, 1, 1)
         ntp_delta = (system_epoch - ntp_epoch).days * 24 * 3600
@@ -113,25 +113,26 @@ class OscBundle(object):
 
     @staticmethod
     def _ntp_to_system_time(date):
-        return date - OscBundle._get_ntp_delta()
+        return float(date) - OscBundle._get_ntp_delta()
 
     @staticmethod
     def _read_date(payload, offset):
-        from supriya.library import osclib
         if payload[offset:offset + 8] == OscBundle._immediately:
             date = None
-            offset += 8
         else:
-            seconds, offset = osclib.OscMessage._read_int(payload, offset)
-            fraction, offset = osclib.OscMessage._read_int(payload, offset)
+            seconds, fraction = struct.unpack(
+                '>II',
+                payload[offset:offset + 8],
+                )
             date = decimal.Decimal('{!s}.{!s}'.format(seconds, fraction))
             date = float(date)
             date = OscBundle._ntp_to_system_time(date)
+        offset += 8
         return date, offset
 
     @staticmethod
     def _system_time_to_ntp(date):
-        ntp = date + OscBundle._get_ntp_delta()
+        ntp = float(date) + OscBundle._get_ntp_delta()
         seconds, fraction = str(ntp).split('.')
         result = struct.pack('>I', int(seconds))
         result += struct.pack('>I', int(fraction))
