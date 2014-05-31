@@ -26,7 +26,7 @@ class OscMessage(object):
 
     __slots__ = (
         '_address',
-        '_arguments',
+        '_contents',
         )
 
     ### INITIALIZER ###
@@ -34,7 +34,7 @@ class OscMessage(object):
     def __init__(
         self,
         address,
-        *arguments
+        *contents
         ):
         def recurse(sequence):
             sequence = list(sequence)
@@ -43,7 +43,7 @@ class OscMessage(object):
                     sequence[i] = tuple(recurse(sequence[i]))
             return tuple(sequence)
         self._address = address
-        self._arguments = recurse(arguments)
+        self._contents = recurse(contents)
 
     ### SPECIAL METHODS ###
 
@@ -52,7 +52,7 @@ class OscMessage(object):
             return False
         if expr.address != self.address:
             return False
-        if expr.arguments != self.arguments:
+        if expr.contents != self.contents:
             return False
         return True
 
@@ -60,12 +60,12 @@ class OscMessage(object):
         hash_values = (
             type(self),
             self.address,
-            self.arguments,
+            self.contents,
             )
         return hash(hash_values)
 
     def __repr__(self):
-        items = (self.address,) + self.arguments
+        items = (self.address,) + self.contents
         items = ', '.join(repr(x) for x in items)
         result = '{}({})'.format(
             type(self).__name__,
@@ -302,25 +302,25 @@ class OscMessage(object):
 
     def to_datagram(self):
         datagram = OscMessage._encode_string(self.address)[1]
-        if self.arguments is None:
+        if self.contents is None:
             return datagram
         encoded_type_tags = ','
-        encoded_arguments = b''
-        for argument in self.arguments:
+        encoded_contents = b''
+        for argument in self.contents:
             type_tags, encoded_value = OscMessage._encode_value(argument)
             encoded_type_tags += type_tags
             if encoded_value is not None:
-                encoded_arguments += encoded_value
+                encoded_contents += encoded_value
         encoded_type_tags = OscMessage._encode_string(encoded_type_tags)[1]
         datagram += encoded_type_tags
-        datagram += encoded_arguments
+        datagram += encoded_contents
         datagram = bytes(datagram)
         return datagram
 
     @staticmethod
     def from_datagram(datagram):
         datagram = bytearray(datagram)
-        arguments = []
+        contents = []
         offset = 0
         address, offset = OscMessage._read_string(datagram, offset)
         type_tags, offset = OscMessage._read_string(datagram, offset)
@@ -336,8 +336,8 @@ class OscMessage(object):
                     payload,
                     payload_offset
                     )
-            arguments.append(result)
-        osc_message = OscMessage(address, *arguments)
+            contents.append(result)
+        osc_message = OscMessage(address, *contents)
         return osc_message
 
     ### PUBLIC PROPERTIES ###
@@ -347,5 +347,5 @@ class OscMessage(object):
         return self._address
 
     @property
-    def arguments(self):
-        return self._arguments
+    def contents(self):
+        return self._contents
