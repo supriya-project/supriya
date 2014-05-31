@@ -42,6 +42,7 @@ class OscMessage(object):
                 if isinstance(x, list):
                     sequence[i] = tuple(recurse(sequence[i]))
             return tuple(sequence)
+        assert isinstance(address, (str, int))
         self._address = address
         self._contents = recurse(contents)
 
@@ -301,7 +302,8 @@ class OscMessage(object):
     ### PUBLIC METHODS ###
 
     def to_datagram(self):
-        datagram = OscMessage._encode_string(self.address)[1]
+        # address can be a string or (in SuperCollider) an int
+        datagram = OscMessage._encode_value(self.address)[1]
         if self.contents is None:
             return datagram
         encoded_type_tags = ','
