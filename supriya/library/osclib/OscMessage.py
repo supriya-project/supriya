@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-
 import collections
 import struct
+import sys
 
 
 class OscMessage(object):
@@ -17,11 +17,6 @@ class OscMessage(object):
     ::
 
         >>> datagram = osc_message.to_datagram()
-        >>> print(repr(datagram))
-        '/g_new\x00\x00,ii\x00\x00\x00\x00\x00\x00\x00\x00\x00'
-
-    ::
-
         >>> osclib.OscMessage.from_datagram(datagram)
         OscMessage('/g_new', 0, 0)
 
@@ -47,7 +42,7 @@ class OscMessage(object):
                 if isinstance(x, list):
                     sequence[i] = tuple(recurse(sequence[i]))
             return tuple(sequence)
-        self._address = address.encode('utf-8')
+        self._address = address
         self._arguments = recurse(arguments)
 
     ### SPECIAL METHODS ###
@@ -280,15 +275,18 @@ class OscMessage(object):
     @staticmethod
     def _read_string(payload, payload_offset):
         offset = 0
-        while ord(payload[payload_offset + offset]) != 0:
+        while payload[payload_offset + offset] != 0:
             offset += 1
         if (offset % 4) == 0:
             offset += 4
         else:
             offset += -offset % 4
         result = payload[payload_offset:payload_offset + offset]
-        result = result.replace(b'\x00', '')
+        result = result.replace(b'\x00', b'')
         result = result.decode('utf-8')
+        if sys.version_info[0] == 2:
+            if all(ord(x) < 256 for x in result):
+                result = str(result)
         payload_offset += offset
         return result, payload_offset
 
@@ -321,12 +319,13 @@ class OscMessage(object):
 
     @staticmethod
     def from_datagram(datagram):
+        datagram = bytearray(datagram)
         arguments = []
         offset = 0
         address, offset = OscMessage._read_string(datagram, offset)
         type_tags, offset = OscMessage._read_string(datagram, offset)
         assert type_tags[0] == ','
-        payload = bytes(datagram[offset:])
+        payload = datagram[offset:]
         payload_offset = 0
         type_tag_offset = 1
         while type_tag_offset < len(type_tags):
