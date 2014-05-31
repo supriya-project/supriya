@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.library import systemlib
 
 systemlib.ImportManager.import_structured_package(
