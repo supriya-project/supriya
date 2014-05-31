@@ -1,3 +1,10 @@
+# -*- encoding: utf-8 -*-
+import datetime
+import decimal
+import struct
+import time
+
+
 class OscBundle(object):
 
     ### CLASS VARIABLES ###
@@ -8,6 +15,7 @@ class OscBundle(object):
         )
 
     _bundle_prefix = b'#bundle\x00'
+    _immediately = struct.pack('>q', 1)
 
     ### INITIALIZER ###
 
@@ -26,6 +34,47 @@ class OscBundle(object):
             contents = ()
         self._contents = contents
 
+    ### PRIVATE METHODS ###
+
+    @staticmethod
+    def _get_ntp_delta():
+        system_epoch = datetime.date(*time.gmtime(0)[0:3])
+        ntp_epoch = datetime.date(1900, 1, 1)
+        ntp_delta = (system_epoch - ntp_epoch).days * 24 * 3600
+        return ntp_delta
+
+    @staticmethod
+    def _ntp_to_system_time(date):
+        return date - OscBundle._get_ntp_delta()
+
+    @staticmethod
+    def _read_date(payload, offset):
+        from supriya.library import osclib
+        if payload[offset:offset + 8] == OscBundle._immediately:
+            date = 0
+            offset += 8
+        else:
+            seconds, offset = osclib.OscMessage._read_int(payload, offset)
+            fraction, offset = osclib.OscMessage._read_int(payload, offset)
+            date = decimal.Decimal('{!s}.{!s}'.format(seconds, fraction))
+            date = float(date)
+            date = OscBundle._ntp_to_system_time(date)
+        return date, offset
+
+    @staticmethod
+    def _system_time_to_ntp(date):
+        ntp = date + OscBundle._get_ntp_delta()
+        seconds, fraction = str(ntp).split('.')
+        result = struct.pack('>I', int(seconds))
+        result += struct.pack('>I', int(fraction))
+        return result
+
+    @staticmethod
+    def _write_date(value):
+        if value == 0:
+            return OscBundle._immediately
+        return OscBundle.system_time_to_ntp(value)
+
     ### PUBLIC METHODS ###
 
     @staticmethod
@@ -35,9 +84,17 @@ class OscBundle(object):
     @staticmethod
     def from_datagram(datagram):
         assert OscBundle.datagram_is_bundle(datagram)
-        
+
     def to_datagram(self):
-        pass
+        from supriya.library import osclib
+        datagram = OscBundle._bundle_prefix
+        datagram += OscBundle._write_date(self._timestamp)
+        for content in self.contents:
+            content_datagram = content.to_datagram()
+            content_length = len(content_datagram)
+            datagram += osclib.OscMessage._write_int(content_length)
+            datagram += content_datagram
+        return datagram
 
     ### PUBLIC PROPERTIES ###
 
