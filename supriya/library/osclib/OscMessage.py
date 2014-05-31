@@ -126,21 +126,21 @@ class OscMessage(object):
     @staticmethod
     def _decode_float(type_tags, type_tag_offset, payload, payload_offset):
         assert type_tags[type_tag_offset] == 'f'
-        result = payload[payload_offset:payload_offset + 4]
-        result = struct.unpack('>f', result)
-        result = result[0]
+        result, payload_offset = OscMessage._read_float(
+            payload,
+            payload_offset,
+            )
         type_tag_offset += 1
-        payload_offset += 4
         return result, type_tag_offset, payload_offset
 
     @staticmethod
     def _decode_int(type_tags, type_tag_offset, payload, payload_offset):
         assert type_tags[type_tag_offset] == 'i'
-        result = payload[payload_offset:payload_offset + 4]
-        result = struct.unpack('>i', result)
-        result = result[0]
+        result, payload_offset = OscMessage._read_int(
+            payload,
+            payload_offset,
+            )
         type_tag_offset += 1
-        payload_offset += 4
         return result, type_tag_offset, payload_offset
 
     @staticmethod
@@ -153,8 +153,11 @@ class OscMessage(object):
     @staticmethod
     def _decode_string(type_tags, type_tag_offset, payload, payload_offset):
         assert type_tags[type_tag_offset] == 's'
+        result, payload_offset = OscMessage._read_string(
+            payload,
+            payload_offset,
+            )
         type_tag_offset += 1
-        result, payload_offset = OscMessage._read_string(payload, payload_offset)
         return result, type_tag_offset, payload_offset
 
     @staticmethod
@@ -191,7 +194,7 @@ class OscMessage(object):
     def _encode_blob(value):
         assert isinstance(value, (bytearray, bytes))
         type_tags = 'b'
-        encoded_value = OscMessage._encode_int(len(value))
+        encoded_value = OscMessage._write_int(len(value))
         encoded_value += value
         difference = 4 - (len(encoded_value) % 4)
         padding = b'\x00' * difference
@@ -212,14 +215,14 @@ class OscMessage(object):
     def _encode_float(value):
         assert isinstance(value, float)
         type_tags = 'f'
-        encoded_value = struct.pack('>f', value)
+        encoded_value = OscMessage._write_float(value)
         return type_tags, encoded_value
 
     @staticmethod
     def _encode_int(value):
         assert isinstance(value, int)
         type_tags = 'i'
-        encoded_value = struct.pack('>i', value)
+        encoded_value = OscMessage._write_int(value)
         return type_tags, encoded_value
 
     @staticmethod
@@ -259,6 +262,22 @@ class OscMessage(object):
         return type_tags, encoded_value
 
     @staticmethod
+    def _read_float(payload, payload_offset):
+        result = payload[payload_offset:payload_offset + 4]
+        result = struct.unpack('>f', result)
+        result = result[0]
+        payload_offset += 4
+        return result, payload_offset
+
+    @staticmethod
+    def _read_int(payload, payload_offset):
+        result = payload[payload_offset:payload_offset + 4]
+        result = struct.unpack('>i', result)
+        result = result[0]
+        payload_offset += 4
+        return result, payload_offset
+
+    @staticmethod
     def _read_string(payload, payload_offset):
         offset = 0
         while ord(payload[payload_offset + offset]) != 0:
@@ -272,6 +291,14 @@ class OscMessage(object):
         result = result.decode('utf-8')
         payload_offset += offset
         return result, payload_offset
+
+    @staticmethod
+    def _write_float(value):
+        return struct.pack('>f', value)
+
+    @staticmethod
+    def _write_int(value):
+        return struct.pack('>i', value)
 
     ### PUBLIC METHODS ###
 
