@@ -51,8 +51,8 @@ class OscBundle(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_timestamp',
         '_contents',
+        '_timestamp',
         )
 
     _bundle_prefix = b'#bundle\x00'
@@ -132,17 +132,19 @@ class OscBundle(object):
 
     @staticmethod
     def _system_time_to_ntp(date):
-        ntp = float(date) + OscBundle._get_ntp_delta()
-        seconds, fraction = str(ntp).split('.')
-        result = struct.pack('>I', int(seconds))
-        result += struct.pack('>I', int(fraction))
-        return result
+        return float(date) + OscBundle._get_ntp_delta()
 
     @staticmethod
     def _write_date(value):
         if value is None:
             return OscBundle._immediately
-        return OscBundle._system_time_to_ntp(value)
+        ntp = OscBundle._system_time_to_ntp(value)
+        seconds, fraction = str(ntp).split('.')
+        seconds = int(seconds)
+        fraction = int(fraction)
+        result = struct.pack('>I', seconds)
+        result += struct.pack('>I', fraction)
+        return result
 
     ### PUBLIC METHODS ###
 

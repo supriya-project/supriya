@@ -1,1 +1,2 @@
-
+class OscDispatcher(object):
+    pass

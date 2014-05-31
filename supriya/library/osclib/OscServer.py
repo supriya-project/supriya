@@ -1,1 +1,4 @@
+class OscServer(object):
+    pass
+
 
