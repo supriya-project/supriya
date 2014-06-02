@@ -128,9 +128,9 @@ class TimespanCollection(object):
     ### PRIVATE METHODS ###
 
     def _insert(self, node, start_offset):
-        from supriya.library import controllib
+        from supriya.library import corelib
         if node is None:
-            return controllib.TimespanCollectionNode(start_offset)
+            return corelib.TimespanCollectionNode(start_offset)
         if start_offset < node.start_offset:
             node.left_child = self._insert(node.left_child, start_offset)
         elif node.start_offset < start_offset:
@@ -328,11 +328,11 @@ class TimespanCollection(object):
         return tuple(results)
 
     def get_simultaneity_at(self, offset):
-        from supriya.library import controllib
+        from supriya.library import corelib
         start_timespans = self.find_timespans_starting_at(offset)
         stop_timespans = self.find_timespans_stopping_at(offset)
         overlap_timespans = self.find_timespans_overlapping(offset)
-        simultaneity = controllib.TimespanSimultaneity(
+        simultaneity = corelib.TimespanSimultaneity(
             timespan_collection=self,
             overlap_timespans=overlap_timespans,
             start_timespans=start_timespans,

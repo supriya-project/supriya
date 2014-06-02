@@ -2,6 +2,8 @@
 
 
 class TimespanSimultaneity(object):
+    r'''A simultaneity of timespans in a timespan collection.
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -23,8 +25,8 @@ class TimespanSimultaneity(object):
         start_offset=None,
         stop_timespans=None,
         ):
-        from supriya.library import controllib
-        prototype = (controllib.TimespanCollection, type(None))
+        from supriya.library import corelib
+        prototype = (corelib.TimespanCollection, type(None))
         assert isinstance(timespan_collection, prototype)
         self._timespan_collection = timespan_collection
         self._start_offset = start_offset
@@ -38,6 +40,8 @@ class TimespanSimultaneity(object):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
+        r'''Gets the repr of this simultaneity.
+        '''
         return '<{} {} {{{}}}>'.format(
             type(self).__name__,
             self.start_offset,
@@ -47,15 +51,10 @@ class TimespanSimultaneity(object):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def next_start_offset(self):
-        tree = self._timespan_collection
-        if tree is None:
-            return None
-        start_offset = tree.get_start_offset_after(self.start_offset)
-        return start_offset
-
-    @property
-    def nextSimultaneity(self):
+    def next_simultaneity(self):
+        r'''Gets the next simultaneity in this simultaneity's timespan
+        collection.
+        '''
         tree = self._timespan_collection
         if tree is None:
             return None
@@ -65,11 +64,28 @@ class TimespanSimultaneity(object):
         return tree.get_simultaneity_at(start_offset)
 
     @property
+    def next_start_offset(self):
+        r'''Gets the next simultaneity start offset in this simultaneity's
+        timespan collection.
+        '''
+        tree = self._timespan_collection
+        if tree is None:
+            return None
+        start_offset = tree.get_start_offset_after(self.start_offset)
+        return start_offset
+
+    @property
     def overlap_timespans(self):
+        r'''Gets the timespans in this simultaneity which overlap this
+        simultaneity's start offset.
+        '''
         return self._overlap_timespans
 
     @property
-    def previousSimultaneity(self):
+    def previous_simultaneity(self):
+        r'''Gets the previous simultaneity in this simultaneity's timespan
+        collection.
+        '''
         tree = self._timespan_collection
         if tree is None:
             return None
@@ -79,18 +95,38 @@ class TimespanSimultaneity(object):
         return tree.get_simultaneity_at(start_offset)
 
     @property
+    def previous_start_offset(self):
+        r'''Gets the previous simultaneity start offset in this simultaneity's
+        timespan collection.
+        '''
+        tree = self._timespan_collection
+        if tree is None:
+            return None
+        start_offset = tree.get_start_offset_before(self.start_offset)
+        return start_offset
+
+    @property
     def start_offset(self):
+        r'''Gets this simultaneity's start offset.
+        '''
         return self._start_offset
 
     @property
     def start_timespans(self):
+        r'''Gets the timespans in this simultaneity which start at this
+        simultaneity's start offset.
+        '''
         return self._start_timespans
 
     @property
     def stop_timespans(self):
+        r'''Gets the timespans in this simultaneity which stop at this
+        simultaneity's start offset.
+        '''
         return self._stop_timespans
 
     @property
     def timespan_collection(self):
+        r'''Gets this simultaneity's timespan collection.
+        '''
         return self._timespan_collection
-
