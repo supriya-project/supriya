@@ -42,10 +42,10 @@ class TimespanSimultaneity(object):
     def __repr__(self):
         r'''Gets the repr of this simultaneity.
         '''
-        return '<{} {} {{{}}}>'.format(
+        return '<{}({} <<{}>>)>'.format(
             type(self).__name__,
-            self.start_offset,
-            len(self.timespans),
+            str(self.start_offset),
+            len(self.start_timespans) + len(self.overlap_timespans),
             )
     
     ### PUBLIC PROPERTIES ###

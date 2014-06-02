@@ -515,6 +515,30 @@ class TimespanCollection(object):
         return index
 
     def insert(self, timespans):
+        r'''Inserts `timespans` into this timespan collection.
+
+        ::
+
+            >>> timespan_collection = corelib.TimespanCollection()
+            >>> timespan_collection.insert(timespantools.Timespan(1, 3))
+            >>> timespan_collection.insert((
+            ...     timespantools.Timespan(0, 4),
+            ...     timespantools.Timespan(2, 6),
+            ...     ))
+
+        ::
+
+            >>> for x in timespan_collection:
+            ...     x
+            ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(4, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(6, 1))
+
+        `timespans` may be a single timespan or an iterable of timespans.
+
+        Returns none.
+        '''
         if self._is_timespan(timespans):
             timespans = [timespans]
         for timespan in timespans:
@@ -528,6 +552,43 @@ class TimespanCollection(object):
         self,
         reverse=False,
         ):
+        r'''Iterates simultaneities in this timespan collection.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> for x in timespan_collection.iterate_simultaneities():
+            ...     x
+            ...
+            <TimespanSimultaneity(0 <<1>>)>
+            <TimespanSimultaneity(1 <<3>>)>
+            <TimespanSimultaneity(2 <<3>>)>
+            <TimespanSimultaneity(6 <<1>>)>
+
+        ::
+
+            >>> for x in timespan_collection.iterate_simultaneities(
+            ...     reverse=True):
+            ...     x
+            ...
+            <TimespanSimultaneity(6 <<1>>)>
+            <TimespanSimultaneity(2 <<3>>)>
+            <TimespanSimultaneity(1 <<3>>)>
+            <TimespanSimultaneity(0 <<1>>)>
+
+        Returns generator.
+        '''
+
         if reverse:
             start_offset = self.latest_start_offset
             simultaneity = self.get_simultaneity_at(start_offset)
