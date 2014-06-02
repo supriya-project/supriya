@@ -494,13 +494,46 @@ class TimespanCollection(object):
             )
         return simultaneity
 
-    def get_simultaneity_at_or_before(self, offset):
-        simultaneity = self.get_simultaneity_at(offset)
-        if not simultaneity.start_timespans:
-            simultaneity = simultaneity.previous_simultaneity
-        return simultaneity
-
     def get_start_offset_after(self, offset):
+        r'''Gets start offst in this timespan collection after `offset`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_after(-1)
+            Offset(0, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_after(0)
+            Offset(1, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_after(1)
+            Offset(2, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_after(2)
+            Offset(6, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_after(6) is None
+            True
+
+        '''
         def recurse(node, offset):
             if node is None:
                 return None
@@ -516,6 +549,45 @@ class TimespanCollection(object):
         return result.start_offset
 
     def get_start_offset_before(self, offset):
+        r'''Gets start offst in this timespan collection before `offset`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_before(7)
+            Offset(6, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_before(6)
+            Offset(2, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_before(2)
+            Offset(1, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_before(1)
+            Offset(0, 1)
+
+        ::
+
+            >>> timespan_collection.get_start_offset_before(0) is None
+            True
+
+        '''
         def recurse(node, offset):
             if node is None:
                 return None
