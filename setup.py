@@ -10,6 +10,8 @@ install_requires = [
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
+if StrictVersion(version) < StrictVersion('3.3.0'):
+    install_requires.append('funcsigs')
 
 setup(
     author='Josiah Wolf Oberholtzer',
