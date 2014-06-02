@@ -611,6 +611,41 @@ class TimespanCollection(object):
         n=3,
         reverse=False,
         ):
+        r'''Iterates simultaneities in this timespan collection in groups of
+        `n`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> for x in timespan_collection.iterate_simultaneities_nwise(n=2):
+            ...     x
+            ...
+            (<TimespanSimultaneity(0 <<1>>)>, <TimespanSimultaneity(1 <<3>>)>)
+            (<TimespanSimultaneity(1 <<3>>)>, <TimespanSimultaneity(2 <<3>>)>)
+            (<TimespanSimultaneity(2 <<3>>)>, <TimespanSimultaneity(6 <<1>>)>)
+
+        ::
+
+            >>> for x in timespan_collection.iterate_simultaneities_nwise(
+            ...     n=2, reverse=True):
+            ...     x
+            ...
+            (<TimespanSimultaneity(2 <<3>>)>, <TimespanSimultaneity(6 <<1>>)>)
+            (<TimespanSimultaneity(1 <<3>>)>, <TimespanSimultaneity(2 <<3>>)>)
+            (<TimespanSimultaneity(0 <<1>>)>, <TimespanSimultaneity(1 <<3>>)>)
+
+        Returns generator.
+        '''
         n = int(n)
         assert 0 < n
         if reverse:
@@ -635,6 +670,32 @@ class TimespanCollection(object):
                     yield tuple(reversed(simultaneities))
 
     def remove(self, timespans):
+        r'''Removes timespans from this timespan collection.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection.remove(timespans[1:-1])
+
+        ::
+
+            >>> for timespan in timespan_collection:
+            ...     timespan
+            ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+
+        '''
         if self._is_timespan(timespans):
             timespans = [timespans]
         for timespan in timespans:
@@ -643,18 +704,6 @@ class TimespanCollection(object):
             self._remove_timespan(timespan)
         self._update_indices(self._root_node)
         self._update_offsets(self._root_node)
-
-    def split_at(self, offsets):
-        if not isinstance(offsets, collections.Iterable):
-            offsets = [offsets]
-        for offset in offsets:
-            overlaps = self.find_timespans_overlapping(offset)
-            if not overlaps:
-                continue
-            for overlap in overlaps:
-                self.remove(overlap)
-                shards = overlap.split_at(offset)
-                self.insert(shards)
 
     ### PUBLIC PROPERTIES ###
 
