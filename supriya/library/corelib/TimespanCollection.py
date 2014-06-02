@@ -39,12 +39,67 @@ class TimespanCollection(object):
     ### SPECIAL METHODS ###
 
     def __contains__(self, timespan):
+        r'''Is true if this timespan collection contains `timespan`. Otherwise
+        false.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespans[0] in timespan_collection
+            True
+
+        ::
+
+            >>> timespantools.Timespan(-1, 100) in timespan_collection
+            False
+
+        Returns boolean.
+        '''
         assert TimespanCollection._is_timespan(timespan)
         candidates = self.find_timespans_starting_at(timespan.start_offset)
         result = timespan in candidates
         return result
 
     def __getitem__(self, i):
+        r'''Gets timespan at index `i`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection[-1]
+            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+
+        ::
+
+            >>> for timespan in timespan_collection[:3]:
+            ...     timespan
+            ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+
+        Returns timespan or timespans.
+        '''
         def recurse_by_index(node, index):
             if node.node_start_index <= index < node.node_stop_index:
                 return node.payload[index - node.node_start_index]
@@ -87,6 +142,33 @@ class TimespanCollection(object):
         raise TypeError('Indices must be integers or slices, got {}'.format(i))
 
     def __iter__(self):
+        r'''Iterates timespans in this timespan collection.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> for timespan in timespan_collection:
+            ...     timespan
+            ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))
+            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
+
+        Returns generator.
+        '''
+
         def recurse(node):
             if node is not None:
                 if node.left_child is not None:
@@ -100,27 +182,50 @@ class TimespanCollection(object):
         return recurse(self._root_node)
 
     def __len__(self):
+        r'''Gets length of this timespan collection.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> len(timespan_collection)
+            5
+
+        Returns integer.
+        '''
         if self._root_node is None:
             return 0
         return self._root_node.subtree_stop_index
 
-    def __repr__(self):
-        if self._source is None:
-            return '<{} {{{}}} ({!r} to {!r})>'.format(
-                type(self).__name__,
-                len(self),
-                self.start_offset,
-                self.stop_offset,
-                )
-        else:
-            return '<{} {{{}}} ({!r} to {!r})>'.format(
-                type(self).__name__,
-                len(self),
-                self.start_offset,
-                self.stop_offset,
-                )
-
     def __setitem__(self, i, new):
+        r'''Sets timespans at index `i` to `new`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection[:3] = [timespantools.Timespan(100, 200)]
+
+        Returns none.
+        '''
         if isinstance(i, (int, slice)):
             old = self[i]
             self.remove(old)
@@ -128,16 +233,6 @@ class TimespanCollection(object):
         else:
             message = 'Indices must be ints or slices, got {}'.format(i)
             raise TypeError(message)
-
-    def __str__(self):
-        result = []
-        result.append(repr(self))
-        for x in self:
-            subresult = str(x).splitlines()
-            subresult = ['\t' + x for x in subresult]
-            result.extend(subresult)
-        result = '\n'.join(result)
-        return result
 
     ### PRIVATE METHODS ###
 
@@ -575,3 +670,12 @@ class TimespanCollection(object):
         if self._root_node is not None:
             return self._root_node.stop_offset_high
         return float('inf')
+
+    @property
+    def start_offset(self):
+        return self.earliest_start_offset
+
+    @property
+    def stop_offset(self):
+        return self.latest_stop_offset
+
