@@ -3,7 +3,21 @@ import collections
 
 
 class TimespanCollection(object):
-    r'''A balanced timespan inventory.
+    r'''A mutable always-sorted collection of timespans.
+
+    ::
+
+        >>> from abjad import *
+        >>> from supriya import *
+        >>> timespans = (
+        ...     timespantools.Timespan(0, 3),
+        ...     timespantools.Timespan(1, 3),
+        ...     timespantools.Timespan(1, 2),
+        ...     timespantools.Timespan(2, 5),
+        ...     timespantools.Timespan(6, 9),
+        ...     )
+        >>> timespan_collection = corelib.TimespanCollection(timespans)
+
     '''
 
     ### CLASS VARIABLES ###
@@ -127,15 +141,24 @@ class TimespanCollection(object):
 
     ### PRIVATE METHODS ###
 
-    def _insert(self, node, start_offset):
+    def _insert_node(self, node, start_offset):
         from supriya.library import corelib
         if node is None:
             return corelib.TimespanCollectionNode(start_offset)
         if start_offset < node.start_offset:
-            node.left_child = self._insert(node.left_child, start_offset)
+            node.left_child = self._insert_node(node.left_child, start_offset)
         elif node.start_offset < start_offset:
-            node.right_child = self._insert(node.right_child, start_offset)
+            node.right_child = self._insert_node(node.right_child, start_offset)
         return self._rebalance(node)
+
+    def _insert_timespan(self, timespan):
+        self._root_node = self._insert_node(
+            self._root_node,
+            timespan.start_offset,
+            )
+        node = self._search(self._root_node, timespan.start_offset)
+        node.payload.append(timespan)
+        node.payload.sort(key=lambda x: x.stop_offset)
 
     @staticmethod
     def _is_timespan(expr):
@@ -158,7 +181,7 @@ class TimespanCollection(object):
             assert -1 <= node.balance <= 1
         return node
 
-    def _remove(self, node, start_offset):
+    def _remove_node(self, node, start_offset):
         if node is not None:
             if node.start_offset == start_offset:
                 if node.left_child and node.right_child:
@@ -167,14 +190,22 @@ class TimespanCollection(object):
                         next_node = next_node.left_child
                     node._start_offset = next_node._start_offset
                     node._payload = next_node._payload
-                    node.right_child = self._remove(
-                        node.right_child, next_node.start_offset)
+                    node.right_child = self._remove_node(
+                        node.right_child,
+                        next_node.start_offset,
+                        )
                 else:
                     node = node.left_child or node.right_child
             elif start_offset < node.start_offset:
-                node.left_child = self._remove(node.left_child, start_offset)
+                node.left_child = self._remove_node(
+                    node.left_child,
+                    start_offset,
+                    )
             elif node.start_offset < start_offset:
-                node.right_child = self._remove(node.right_child, start_offset)
+                node.right_child = self._remove_node(
+                    node.right_child,
+                    start_offset,
+                    )
         return self._rebalance(node)
 
     def _remove_timespan(self, timespan, old_start_offset=None):
@@ -187,7 +218,10 @@ class TimespanCollection(object):
         if timespan in node.payload:
             node.payload.remove(timespan)
         if not node.payload:
-            self._root_node = self._remove(self._root_node, start_offset)
+            self._root_node = self._remove_node(
+                self._root_node,
+                start_offset,
+                )
         if isinstance(timespan, TimespanCollection):
             timespan._parents.remove(self)
 
@@ -238,15 +272,15 @@ class TimespanCollection(object):
                     node.left_child,
                     parent_stop_index=parent_stop_index,
                     )
-                node._note_start_index = node.left_child.subtree_stop_index
+                node._node_start_index = node.left_child.subtree_stop_index
                 node._subtree_start_index = node.left_child.subtree_start_index
             elif parent_stop_index is None:
-                node._note_start_index = 0
+                node._node_start_index = 0
                 node._subtree_start_index = 0
             else:
-                node._note_start_index = parent_stop_index
+                node._node_start_index = parent_stop_index
                 node._subtree_start_index = parent_stop_index
-            node._node_stop_index = node.note_start_index + len(node.payload)
+            node._node_stop_index = node.node_start_index + len(node.payload)
             node._subtree_stop_index = node.node_stop_index
             if node.right_child is not None:
                 recurse(
