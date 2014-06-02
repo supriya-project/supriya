@@ -457,6 +457,30 @@ class TimespanCollection(object):
         return tuple(results)
 
     def get_simultaneity_at(self, offset):
+        r'''Gets simultaneity at `offset`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan_collection.get_simultaneity_at(1)
+            <TimespanSimultaneity(1 <<3>>)>
+
+        ::
+
+            >>> timespan_collection.get_simultaneity_at(6.5)
+            <TimespanSimultaneity(6.5 <<1>>)>
+
+        '''
         from supriya.library import corelib
         start_timespans = self.find_timespans_starting_at(offset)
         stop_timespans = self.find_timespans_stopping_at(offset)
