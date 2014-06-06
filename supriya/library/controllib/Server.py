@@ -76,17 +76,17 @@ class Server(object):
     def _create_new_allocators(self):
         from supriya.library import controllib
         self._audio_bus_allocator = controllib.ContiguousBlockAllocator(
-            size=self.options.numAudioBusChannels,
-            initial_position=self.options.firstPrivateBus,
+            size=self.options.audio_bus_channel_count,
+            initial_position=self.options.first_private_bus_id,
             )
         self._buffer_allocator = controllib.ContiguousBlockAllocator(
-            size=self.options.numBuffers,
+            size=self.options.buffer_count,
             )
         self._control_bus_allocator = controllib.ContiguousBlockAllocator(
-            size=self.options.numControlBusChannels,
+            size=self.options.control_bus_channel_count,
             )
         self._node_id_allocator = controllib.NodeIDAllocator(
-            initial_node_id=self.options.initialNodeID,
+            initial_node_id=self.options.initial_node_id,
             )
 
     ### PUBLIC METHODS ###

@@ -11,89 +11,89 @@ class ServerOptions(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_blockSize',
-        '_hardwareBufferSize',
-        '_inDevice',
-        '_initialNodeID',
-        '_inputStreamsEnabled',
-        '_loadDefs',
-        '_maxNodes',
-        '_maxSynthDefs',
-        '_memSize',
-        '_memoryLocking',
-        '_numAudioBusChannels',
-        '_numBuffers',
-        '_numControlBusChannels',
-        '_numInputBusChannels',
-        '_numOutputBusChannels',
-        '_numRGens',
-        '_numWireBufs',
-        '_outDevice',
-        '_outputStreamsEnabled',
+        '_audio_bus_channel_count',
+        '_block_size',
+        '_buffer_count',
+        '_control_bus_channel_count',
+        '_hardware_buffer_size',
+        '_initial_node_id',
+        '_input_bus_channel_count',
+        '_input_device',
+        '_input_stream_mask',
+        '_load_synthdefs',
+        '_maximum_node_count',
+        '_maximum_synthdef_count',
+        '_memory_locking',
+        '_memory_size',
+        '_output_bus_channel_count',
+        '_output_device',
+        '_output_stream_mask',
         '_protocol',
-        '_remoteControlVolume',
-        '_restrictedPath',
-        '_sampleRate',
+        '_random_number_generator_count',
+        '_remote_control_volume',
+        '_restricted_path',
+        '_sample_rate',
         '_verbosity',
-        '_zeroConf',
+        '_wire_buffer_count',
+        '_zero_configuration',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        blockSize=64,
-        hardwareBufferSize=None,
-        inDevice=None,
-        initialNodeID=1000,
-        inputStreamsEnabled=False,
-        loadDefs=True,
-        maxNodes=1024,
-        maxSynthDefs=1024,
-        memSize=8192,
-        memoryLocking=False,
-        numAudioBusChannels=128,
-        numBuffers=1024,
-        numControlBusChannels=4096,
-        numInputBusChannels=8,
-        numOutputBusChannels=8,
-        numRGens=64,
-        numWireBufs=64,
-        outDevice=None,
-        outputStreamsEnabled=False,
+        audio_bus_channel_count=128,
+        block_size=64,
+        buffer_count=1024,
+        control_bus_channel_count=4096,
+        hardware_buffer_size=None,
+        initial_node_id=1000,
+        input_bus_channel_count=8,
+        input_device=None,
+        input_stream_mask=False,
+        load_synthdefs=True,
+        maximum_node_count=1024,
+        maximum_synthdef_count=1024,
+        memory_locking=False,
+        memory_size=8192,
+        output_bus_channel_count=8,
+        output_device=None,
+        output_stream_mask=False,
         protocol='udp',
-        remoteControlVolume=False,
-        restrictedPath=None,
-        sampleRate=None,
+        random_number_generator_count=64,
+        remote_control_volume=False,
+        restricted_path=None,
+        sample_rate=None,
         verbosity=0,
-        zeroConf=False,
+        wire_buffer_count=64,
+        zero_configuration=False,
         ):
-        self._blockSize = int(blockSize)
-        self._hardwareBufferSize = hardwareBufferSize
-        self._inDevice = inDevice
-        self._initialNodeID = int(initialNodeID)
-        self._inputStreamsEnabled = bool(inputStreamsEnabled)
-        self._loadDefs = loadDefs
-        self._maxNodes = int(maxNodes)
-        self._maxSynthDefs = int(maxSynthDefs)
-        self._memSize = int(memSize)
-        self._memoryLocking = bool(memoryLocking)
-        self._numAudioBusChannels = int(numAudioBusChannels)
-        self._numBuffers = int(numBuffers)
-        self._numControlBusChannels = int(numControlBusChannels)
-        self._numControlBusChannels = int(numControlBusChannels)
-        self._numInputBusChannels = int(numInputBusChannels)
-        self._numOutputBusChannels = int(numOutputBusChannels)
-        self._numRGens = int(numRGens)
-        self._numWireBufs = int(numWireBufs)
-        self._outDevice = outDevice
-        self._outputStreamsEnabled = bool(outputStreamsEnabled)
+        self._audio_bus_channel_count = int(audio_bus_channel_count)
+        self._block_size = int(block_size)
+        self._buffer_count = int(buffer_count)
+        self._control_bus_channel_count = int(control_bus_channel_count)
+        self._control_bus_channel_count = int(control_bus_channel_count)
+        self._hardware_buffer_size = hardware_buffer_size
+        self._initial_node_id = int(initial_node_id)
+        self._input_bus_channel_count = int(input_bus_channel_count)
+        self._input_device = input_device
+        self._input_stream_mask = bool(input_stream_mask)
+        self._load_synthdefs = load_synthdefs
+        self._maximum_node_count = int(maximum_node_count)
+        self._maximum_synthdef_count = int(maximum_synthdef_count)
+        self._memory_locking = bool(memory_locking)
+        self._memory_size = int(memory_size)
+        self._output_bus_channel_count = int(output_bus_channel_count)
+        self._output_device = output_device
+        self._output_stream_mask = bool(output_stream_mask)
         self._protocol = protocol
-        self._remoteControlVolume = remoteControlVolume
-        self._restrictedPath = restrictedPath
-        self._sampleRate = sampleRate
+        self._random_number_generator_count = int(random_number_generator_count)
+        self._remote_control_volume = remote_control_volume
+        self._restricted_path = restricted_path
+        self._sample_rate = sample_rate
         self._verbosity = int(verbosity)
-        self._zeroConf = bool(zeroConf)
+        self._wire_buffer_count = int(wire_buffer_count)
+        self._zero_configuration = bool(zero_configuration)
 
     ### PUBLIC METHODS ###
 
@@ -108,88 +108,67 @@ class ServerOptions(object):
 
         result.append('-a')
         result.append(
-            self.numPrivateAudioBusChannels +
-            self.numInputBusChannels +
-            self.numOutputBusChannels
+            self.private_audio_bus_channel_count +
+            self.input_bus_channel_count +
+            self.output_bus_channel_count
             )
 
-        if self.numControlBusChannels != 4096:
-            result.append('-c {}'.format(self.numControlBusChannels))
+        if self.control_bus_channel_count != 4096:
+            result.append('-c {}'.format(self.control_bus_channel_count))
 
-        if self.numInputBusChannels != 8:
-            result.append('-i {}'.format(self.numInputBusChannels))
+        if self.input_bus_channel_count != 8:
+            result.append('-i {}'.format(self.input_bus_channel_count))
 
-        if self.numOutputBusChannels != 8:
-            result.append('-o {}'.format(self.numOutputBusChannels))
+        if self.output_bus_channel_count != 8:
+            result.append('-o {}'.format(self.output_bus_channel_count))
 
-        if self.numBuffers != 1024:
-            result.append('-b {}'.format(self.numBuffers))
+        if self.buffer_count != 1024:
+            result.append('-b {}'.format(self.buffer_count))
 
-        if self.maxNodes != 1024:
-            result.append('-n {}'.format(self.maxNodes))
+        if self.maximum_node_count != 1024:
+            result.append('-n {}'.format(self.maximum_node_count))
 
-        if self.maxSynthDefs != 1024:
-            result.append('-d {}'.format(self.maxSynthDefs))
+        if self.maximum_synthdef_count != 1024:
+            result.append('-d {}'.format(self.maximum_synthdef_count))
 
-        if self.blockSize != 64:
-            result.append('-z {}'.format(self.blockSize))
+        if self.block_size != 64:
+            result.append('-z {}'.format(self.block_size))
 
-        if self.hardwareBufferSize is not None:
-            result.append('-Z {}'.format(int(self.hardwareBufferSize)))
+        if self.hardware_buffer_size is not None:
+            result.append('-Z {}'.format(int(self.hardware_buffer_size)))
 
-        if self.memSize != 8192:
-            result.append('-m {}'.format(self.memSize))
+        if self.memory_size != 8192:
+            result.append('-m {}'.format(self.memory_size))
 
-        if self.numRGens != 64:
-            result.append('-r {}'.format(self.numRGens))
+        if self.random_number_generator_count != 64:
+            result.append('-r {}'.format(self.random_number_generator_count))
 
-        if self.numWireBufs != 64:
-            result.append('-w {}'.format(self.numWireBufs))
+        if self.wire_buffer_count != 64:
+            result.append('-w {}'.format(self.wire_buffer_count))
 
-        if self.sampleRate is not None:
-            result.append('-S {}'.format(int(self.sampleRate)))
+        if self.sample_rate is not None:
+            result.append('-S {}'.format(int(self.sample_rate)))
 
-        if not self.loadDefs:
+        if not self.load_synthdefs:
             result.append('-D 0')
 
-        if self.inputStreamsEnabled:
-            result.append('-I {}'.format(self.inputStreamsEnabled))
+        if self.input_stream_mask:
+            result.append('-I {}'.format(self.input_stream_mask))
 
-        if self.outputStreamsEnabled:
-            result.append('-O {}'.format(self.outputStreamsEnabled))
-
-        r'''
-        if ((thisProcess.platform.name!=\osx) or: {inDevice == outDevice})
-        {
-            if (inDevice.notNil,
-            {
-                result = result ++ " -H %".format(inDevice.quote);
-            });
-        }
-        {
-            result = result ++ " -H % %".format(inDevice.asString.quote, outDevice.asString.quote);
-        };
-        '''
+        if self.output_stream_mask:
+            result.append('-O {}'.format(self.output_stream_mask))
 
         if 0 < self.verbosity:
             result.append('-v {}'.format(self.verbosity))
 
-        if not self.zeroConf:
+        if not self.zero_configuration:
             result.append('-R 0')
 
-        if self.restrictedPath is not None:
-            result.append('-P {}'.format(self.restrictedPath))
+        if self.restricted_path is not None:
+            result.append('-P {}'.format(self.restricted_path))
 
-        if self.memoryLocking:
+        if self.memory_locking:
             result.append('-L')
-
-        r'''
-        if (threads.notNil, {
-            if (Server.program.asString.endsWith("supernova")) {
-                result = result ++ " -T " ++ threads;
-            }
-        });
-        '''
 
         options_string = ' '.join(str(x) for x in result)
         return options_string
@@ -197,112 +176,112 @@ class ServerOptions(object):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def blockSize(self):
-        return self._blockSize
+    def audio_bus_channel_count(self):
+        return self._audio_bus_channel_count
 
     @property
-    def firstPrivateBus(self):
-        return self.numOutputBusChannels + self.numInputBusChannels
+    def block_size(self):
+        return self._block_size
 
     @property
-    def hardwareBufferSize(self):
-        return self._hardwareBufferSize
+    def buffer_count(self):
+        return self._buffer_count
 
     @property
-    def inDevice(self):
-        return self._inDevice
+    def control_bus_channel_count(self):
+        return self._control_bus_channel_count
 
     @property
-    def initialNodeID(self):
-        return self._initialNodeID
+    def first_private_bus_id(self):
+        return self.output_bus_channel_count + self.input_bus_channel_count
 
     @property
-    def inputStreamsEnabled(self):
-        return self._inputStreamsEnabled
+    def hardware_buffer_size(self):
+        return self._hardware_buffer_size
 
     @property
-    def loadDefs(self):
-        return self._loadDefs
+    def initial_node_id(self):
+        return self._initial_node_id
 
     @property
-    def maxNodes(self):
-        return self._maxNodes
+    def input_bus_channel_count(self):
+        return self._input_bus_channel_count
 
     @property
-    def maxSynthDefs(self):
-        return self._maxSynthDefs
+    def input_device(self):
+        return self._input_device
 
     @property
-    def memSize(self):
-        return self._memSize
+    def input_stream_mask(self):
+        return self._input_stream_mask
 
     @property
-    def memoryLocking(self):
-        return self._memoryLocking
+    def load_synthdefs(self):
+        return self._load_synthdefs
 
     @property
-    def numAudioBusChannels(self):
-        return self._numAudioBusChannels
+    def maximum_node_count(self):
+        return self._maximum_node_count
 
     @property
-    def numBuffers(self):
-        return self._numBuffers
+    def maximum_synthdef_count(self):
+        return self._maximum_synthdef_count
 
     @property
-    def numControlBusChannels(self):
-        return self._numControlBusChannels
+    def memory_locking(self):
+        return self._memory_locking
 
     @property
-    def numInputBusChannels(self):
-        return self._numInputBusChannels
+    def memory_size(self):
+        return self._memory_size
 
     @property
-    def numOutputBusChannels(self):
-        return self._numOutputBusChannels
+    def output_bus_channel_count(self):
+        return self._output_bus_channel_count
 
     @property
-    def numPrivateAudioBusChannels(self):
-        numPrivateAudioBusChannels = self.numAudioBusChanneli
-        numPrivateAudioBusChannels -= self.numInputBusChannels
-        numPrivateAudioBusChannels -= self.numOutputBusChannels
-        return numPrivateAudioBusChannels
+    def output_device(self):
+        return self._output_device
 
     @property
-    def numRGens(self):
-        return self._numRGens
+    def output_stream_mask(self):
+        return self._output_stream_mask
 
     @property
-    def numWireBufs(self):
-        return self._numWireBufs
-
-    @property
-    def outDevice(self):
-        return self._outDevice
-
-    @property
-    def outputStreamsEnabled(self):
-        return self._outputStreamsEnabled
+    def private_audio_bus_channel_count(self):
+        private_audio_bus_channel_count = self.audio_bus_channel_count
+        private_audio_bus_channel_count -= self.input_bus_channel_count
+        private_audio_bus_channel_count -= self.output_bus_channel_count
+        return private_audio_bus_channel_count
 
     @property
     def protocol(self):
         return self._protocol
 
     @property
-    def remoteControlVolume(self):
-        return self._remoteControlVolume
+    def random_number_generator_count(self):
+        return self._random_number_generator_count
 
     @property
-    def restrictedPath(self):
-        return self._restrictedPath
+    def remote_control_volume(self):
+        return self._remote_control_volume
 
     @property
-    def sampleRate(self):
-        return self._sampleRate
+    def restricted_path(self):
+        return self._restricted_path
+
+    @property
+    def sample_rate(self):
+        return self._sample_rate
 
     @property
     def verbosity(self):
         return self._verbosity
 
     @property
-    def zeroConf(self):
-        return self._zeroConf
+    def wire_buffer_count(self):
+        return self._wire_buffer_count
+
+    @property
+    def zero_configuration(self):
+        return self._zero_configuration
