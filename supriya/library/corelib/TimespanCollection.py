@@ -458,6 +458,9 @@ class TimespanCollection(object):
             >>> for x in timespan_collection.find_timespans_overlapping(1.5):
             ...     x
             ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
 
         Returns tuple of 0 or more timespans.
         '''
