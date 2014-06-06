@@ -93,6 +93,7 @@ def _run_doctests():
     total_tests = 0
     failed_file_paths = []
     error_messages = []
+    globs = {'print_function': print_function}
     optionflags = (
         doctest.NORMALIZE_WHITESPACE |
         doctest.ELLIPSIS
@@ -104,6 +105,7 @@ def _run_doctests():
         with RedirectedStreams(stdout=string_buffer, stderr=string_buffer):
             failure_count, test_count = doctest.testfile(
                 file_path,
+                globs=globs,
                 module_relative=False,
                 optionflags=optionflags,
                 )
