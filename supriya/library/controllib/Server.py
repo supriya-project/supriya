@@ -77,7 +77,7 @@ class Server(object):
         from supriya.library import controllib
         self._audio_bus_allocator = controllib.ContiguousBlockAllocator(
             size=self.options.numAudioBusChannels,
-            position=self.options.firstPrivateBus,
+            initial_position=self.options.firstPrivateBus,
             )
         self._buffer_allocator = controllib.ContiguousBlockAllocator(
             size=self.options.numBuffers,

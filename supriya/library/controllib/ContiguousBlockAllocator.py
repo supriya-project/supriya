@@ -14,10 +14,10 @@ class ContiguousBlockAllocator(object):
 
         ### INITIALIZER ###
 
-        def __init__(self, start, size):
-            self._start = start
-            self._size = size
-            self._used = False
+        def __init__(self, start, size, used=False):
+            self._start = int(start)
+            self._size = int(size)
+            self._used = bool(used)
 
         ### PUBLIC METHODS ###
 
@@ -33,25 +33,29 @@ class ContiguousBlockAllocator(object):
                 return None
             new_start = min(self.start, block.start)
             new_size = max(self.stop, block.stop) - new_start
-            return type(self)(new_start, new_size)
+            return type(self)(new_start, new_size, used=self.used)
 
-        def split(self, span):
-            if span < self.size:
+        def split(self, size):
+            if size < self.size:
                 result = [
-                    type(self)(self.start, span),
-                    type(self)(self.start + span, self.size - span)
+                    type(self)(
+                        self.start,
+                        size,
+                        used=self.used,
+                        ),
+                    type(self)(
+                        self.start + size,
+                        self.size - size,
+                        used=self.used,
+                        )
                     ]
-            elif span == self.size:
+            elif size == self.size:
                 result = [self, None]
             else:
                 result = []
             return result
 
         ### PUBLIC PROPERTIES ###
-
-        @property
-        def address(self):
-            return self._start
 
         @property
         def start(self):
@@ -65,32 +69,35 @@ class ContiguousBlockAllocator(object):
         def stop(self):
             return self.start + self.size
 
+        @property
+        def used(self):
+            return self._used
+
+        @used.setter
+        def used(self, expr):
+            self._used = bool(expr)
+
     __slots__ = (
         '_size',
-        '_array',
-        '_freed',
-        '_position',
-        '_top',
+        '_blocks',
+        '_freed_blocks',
+        '_initial_position',
+        '_maximum_position',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, size=None, position=0):
+    def __init__(self, size=None, initial_position=0):
+        self._blocks = {}
+        self._freed_blocks = {}
+        self._initial_position = initial_position
+        self._maximum_position = initial_position
         self._size = size
-        self._position = position
 
     ### PUBLIC METHODS ###
 
-    def alloc(self, size=1):
+    def allocate(self, size=1):
         pass
 
-    def reserve(self, address, size=1, warn=True):
+    def free(self, position):
         pass
-
-    def free(self, address):
-        pass
-
-    @property
-    def blocks(self):
-        pass
-
