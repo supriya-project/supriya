@@ -440,6 +440,27 @@ class TimespanCollection(object):
         return tuple(results)
 
     def find_timespans_overlapping(self, offset):
+        r'''Finds timespans overlapping `offset`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = corelib.TimespanCollection(timespans)
+
+        ::
+        
+            >>> for x in timespan_collection.find_timespans_overlapping(1.5):
+            ...     x
+            ...
+
+        Returns tuple of 0 or more timespans.
+        '''
         def recurse(node, offset, indent=0):
             result = []
             if node is not None:
