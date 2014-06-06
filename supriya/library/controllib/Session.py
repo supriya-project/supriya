@@ -20,9 +20,9 @@ class Session(object):
         server_options = server_options or controllib.ServerOptions()
         assert isinstance(server_options, controllib.ServerOptions)
         self._server_options = server_options
-        self._audio_bus_allocator = controllib.ContiguousBlockAllocator()
-        self._buffer_allocator = controllib.ContiguousBlockAllocator()
-        self._control_bus_allocator = controllib.ContiguousBlockAllocator()
+        self._audio_bus_allocator = controllib.BlockAllocator()
+        self._buffer_allocator = controllib.BlockAllocator()
+        self._control_bus_allocator = controllib.BlockAllocator()
         self._node_id_allocator = controllib.NodeIDAllocator()
         self._root_node = controllib.RootNode()
         self._server_process = None

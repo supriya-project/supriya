@@ -1,4 +1,4 @@
-class ContiguousBlockAllocator(object):
+class BlockAllocator(object):
 
     ### CLASS VARIABLES ###
 
