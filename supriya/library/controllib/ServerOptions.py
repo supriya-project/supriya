@@ -26,7 +26,6 @@ class ServerOptions(object):
         '_numControlBusChannels',
         '_numInputBusChannels',
         '_numOutputBusChannels',
-        '_numPrivateAudioBusChannels',
         '_numRGens',
         '_numWireBufs',
         '_outDevice',
@@ -69,19 +68,6 @@ class ServerOptions(object):
         verbosity=0,
         zeroConf=False,
         ):
-        # setup up basic channels
-        self._numAudioBusChannels = 128
-        self._numBuffers = 1026
-        self._numControlBusChannels = 4096
-        self._numInputBusChannels = 8
-        self._numOutputBusChannels = 8
-        self._numPrivateAudioBusChannels = 112
-
-        self.numAudioBusChannels = int(numAudioBusChannels)
-        self.numBuffers = int(numBuffers)
-        self.numInputBusChannels = int(numInputBusChannels)
-        self.numOutputBusChannels = int(numOutputBusChannels)
-
         self._blockSize = int(blockSize)
         self._hardwareBufferSize = hardwareBufferSize
         self._inDevice = inDevice
@@ -92,7 +78,12 @@ class ServerOptions(object):
         self._maxSynthDefs = int(maxSynthDefs)
         self._memSize = int(memSize)
         self._memoryLocking = bool(memoryLocking)
+        self._numAudioBusChannels = int(numAudioBusChannels)
+        self._numBuffers = int(numBuffers)
         self._numControlBusChannels = int(numControlBusChannels)
+        self._numControlBusChannels = int(numControlBusChannels)
+        self._numInputBusChannels = int(numInputBusChannels)
+        self._numOutputBusChannels = int(numOutputBusChannels)
         self._numRGens = int(numRGens)
         self._numWireBufs = int(numWireBufs)
         self._outDevice = outDevice
@@ -103,15 +94,6 @@ class ServerOptions(object):
         self._sampleRate = sampleRate
         self._verbosity = int(verbosity)
         self._zeroConf = bool(zeroConf)
-
-    ### PRIVATE METHODS ###
-
-    def _recalculate_channels(self):
-        self._numAudioBusChannels = (
-            self._numPrivateAudioBusChannels +
-            self._numInputBusChannels +
-            self._numOutputBusChannels
-            )
 
     ### PUBLIC METHODS ###
 
@@ -262,22 +244,9 @@ class ServerOptions(object):
     def numAudioBusChannels(self):
         return self._numAudioBusChannels
 
-    @numAudioBusChannels.setter
-    def numAudioBusChannels(self, expr):
-        self._numAudioBusChannels = int(expr)
-        self._numPrivateAudioBusChannels = (
-            self._numAudioBusChannels -
-            self._numInputBusChannels -
-            self._numOutputBusChannels
-            )
-
     @property
     def numBuffers(self):
-        return self._numBuffers - 2
-
-    @numBuffers.setter
-    def numBuffers(self, expr):
-        self._numBuffers = int(expr) + 2
+        return self._numBuffers
 
     @property
     def numControlBusChannels(self):
@@ -287,28 +256,16 @@ class ServerOptions(object):
     def numInputBusChannels(self):
         return self._numInputBusChannels
 
-    @numInputBusChannels.setter
-    def numInputBusChannels(self, expr):
-        self._numInputBusChannels = int(expr)
-        self._recalculate_channels()
-
     @property
     def numOutputBusChannels(self):
         return self._numOutputBusChannels
 
-    @numOutputBusChannels.setter
-    def numOutputBusChannels(self, expr):
-        self._numOutputBusChannels = int(expr)
-        self._recalculate_channels()
-
     @property
     def numPrivateAudioBusChannels(self):
-        return self._numPrivateAudioBusChannels
-
-    @numPrivateAudioBusChannels.setter
-    def numPrivateAudioBusChannels(self, expr):
-        self._numPrivateAudioBusChannels = int(expr)
-        self._recalculate_channels()
+        numPrivateAudioBusChannels = self.numAudioBusChanneli
+        numPrivateAudioBusChannels -= self.numInputBusChannels
+        numPrivateAudioBusChannels -= self.numOutputBusChannels
+        return numPrivateAudioBusChannels
 
     @property
     def numRGens(self):
