@@ -6,6 +6,7 @@ from distutils.version import StrictVersion
 
 install_requires = [
     'abjad',
+    'rtmidi-python',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
