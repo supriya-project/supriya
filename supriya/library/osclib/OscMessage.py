@@ -120,6 +120,16 @@ class OscMessage(object):
         return result, type_tag_offset, payload_offset
 
     @staticmethod
+    def _decode_double(type_tags, type_tag_offset, payload, payload_offset):
+        assert type_tags[type_tag_offset] == 'd'
+        result, payload_offset = OscMessage._read_double(
+            payload,
+            payload_offset,
+            )
+        type_tag_offset += 1
+        return result, type_tag_offset, payload_offset
+
+    @staticmethod
     def _decode_float(type_tags, type_tag_offset, payload, payload_offset):
         assert type_tags[type_tag_offset] == 'f'
         result, payload_offset = OscMessage._read_float(
@@ -163,6 +173,7 @@ class OscMessage(object):
             'N': OscMessage._decode_none,
             'T': OscMessage._decode_boolean,
             'F': OscMessage._decode_boolean,
+            'd': OscMessage._decode_double,
             'i': OscMessage._decode_int,
             'f': OscMessage._decode_float,
             's': OscMessage._decode_string,
@@ -256,6 +267,14 @@ class OscMessage(object):
         else:
             raise TypeError
         return type_tags, encoded_value
+
+    @staticmethod
+    def _read_double(payload, payload_offset):
+        result = payload[payload_offset:payload_offset + 8]
+        result = struct.unpack('>d', result)
+        result = result[0]
+        payload_offset += 8
+        return result, payload_offset
 
     @staticmethod
     def _read_float(payload, payload_offset):
