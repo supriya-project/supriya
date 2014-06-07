@@ -34,6 +34,7 @@ class Bus(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         if calculation_rate is None:
             calculation_rate = audiolib.CalculationRate.AUDIO
+        calculation_rate = audiolib.CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (
             audiolib.CalculationRate.AUDIO,
             audiolib.CalculationRate.CONTROL,
