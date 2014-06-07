@@ -23,13 +23,12 @@ class OscController(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_debug_messages',
+        '_dispatcher',
         '_incoming_message_queue',
         '_listener',
-        '_maximum_queue_length',
         '_server_ip_address',
         '_server_port',
-        '_socket',
+        '_socket_instance',
         '_timeout',
         '_verbose',
         )
@@ -51,72 +50,36 @@ class OscController(object):
     ### INITIALIZER ###
 
     def __init__(self,
-        maximum_queue_length=3,
         server_ip_address='127.0.0.1',
         server_port=57751,
-        debug_messages=False,
         timeout=2,
         verbose=True,
         ):
         from supriya.library import osclib
-        assert 0 < int(maximum_queue_length)
-        self._maximum_queue_length = int(maximum_queue_length)
         self._server_ip_address = server_ip_address
         self._server_port = int(server_port)
-        self._debug_messages = bool(debug_messages)
         assert 0 < int(timeout)
         self._timeout = int(timeout)
-        self._verbose = bool(verbose)
-        self._socket = socket.socket(
+        self._socket_instance = socket.socket(
             socket.AF_INET,
             socket.SOCK_DGRAM,
             )
-        self._socket.settimeout(self.timeout)
-        self._incoming_message_queue = self.CleanableQueue(
-            maximum_length=self._maximum_queue_length,
-            )
-        self._listener = osclib.OscListener(self.socket)
-        self._listener.register_callback(
-            None,
-            self._incoming_message_queue.put,
-            )
-        if self._verbose:
-            self._listener.register_callback(
-                None,
-                self._print_message,
-                )
+        self._socket_instance.settimeout(self.timeout)
+        self._dispatcher = osclib.OscDispatcher()
+        self._listener = osclib.OscListener(self)
         self._listener.start()
-        # TODO: We need to understand how socket binding actually works.
-        #       It appears we can simply bind to any port, and we'll get
-        #       information back from scsynth.  This seems too much like magic.
-        self._socket.bind(('', 0))
+        self._socket_instance.bind(('', 0))
+        if verbose:
+            self._dispatcher.register_callback(
+                osclib.OscCallback('/*', lambda message: print(message))
+                )
 
     ### SPECIAL METHODS ###
 
     def __del__(self):
         self._listener.quit(wait=True)
 
-    ### PRIVATE METHODS ###
-
-    def _print_message(self, message):
-        print(message)
-
     ### PUBLIC METHODS ###
-
-    def receive(self, keys=None):
-        from supriya.library import osclib
-        assert isinstance(keys, (type(None), tuple))
-        while True:
-            try:
-                message = self.incoming_message_queue.get(
-                    timeout=self.timeout,
-                    )
-                if self.debug_messages:
-                    print(osclib.OscMessage.from_datagram(message))
-                if not keys or message.address in keys:
-                    return message
-            except queue.Empty:
-                raise IOError('Timeout waiting for reply from SC server.')
 
     def send(self, message):
         from supriya.library import osclib
@@ -130,10 +93,8 @@ class OscController(object):
                 message[0],
                 *message[1:]
                 )
-        if self.debug_messages:
-            print(osclib.OscMessage.from_datagram(message))
         datagram = message.to_datagram()
-        self.socket.sendto(
+        self.socket_instance.sendto(
             datagram,
             (self.server_ip_address, self.server_port),
             )
@@ -141,20 +102,12 @@ class OscController(object):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def debug_messages(self):
-        return self._debug_messages
-
-    @property
-    def incoming_message_queue(self):
-        return self._incoming_message_queue
+    def dispatcher(self):
+        return self._dispatcher
 
     @property
     def listener(self):
         return self._listener
-
-    @property
-    def maximum_queue_length(self):
-        return self._maximum_queue_length
 
     @property
     def server_ip_address(self):
@@ -165,13 +118,9 @@ class OscController(object):
         return self._server_port
 
     @property
-    def socket(self):
-        return self._socket
+    def socket_instance(self):
+        return self._socket_instance
 
     @property
     def timeout(self):
         return self._timeout
-
-    @property
-    def verbose(self):
-        return self._verbose

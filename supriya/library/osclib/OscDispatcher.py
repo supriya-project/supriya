@@ -64,6 +64,14 @@ class OscDispatcher(object):
 
     ### PUBLIC METHODS ###
 
+    @staticmethod
+    def compile_address_pattern(pattern):
+        pattern = pattern.replace('.', '\.')
+        pattern = pattern.replace('*', '[.\w|\+]*')
+        pattern += '$'
+        pattern = re.compile(pattern)
+        return pattern
+
     def register_callback(self, callback):
         r'''Registers `callback`.
 
@@ -74,11 +82,8 @@ class OscDispatcher(object):
         if callback.address_pattern in self._address_map:
             regex = self._address_map[callback.address_pattern]
         else:
-            pattern = re.escape(callback.address_pattern)
-            pattern = pattern.replace('\\*', '[\w|\+]*')
-            pattern += '$'
-            regex = re.compile(pattern)
-            self._address_map[callback.address_pattern] = regex
+            pattern = self.compile_address_pattern(callback.address_pattern)
+            self._address_map[callback.address_pattern] = pattern
         if regex not in self._regex_map:
             self._regex_map[regex] = []
         callbacks = self._regex_map[regex]
