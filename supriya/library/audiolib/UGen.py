@@ -18,7 +18,7 @@ class UGen(UGenMethodMixin):
         '_inputs',
         '_output_proxies',
         '_special_index',
-        '_synthdef',
+        '_synth_definition',
         '_width_first_antecedents',
         )
 
@@ -66,7 +66,7 @@ class UGen(UGenMethodMixin):
             audiolib.OutputProxy(self, i)
             for i in range(len(self))
             )
-        self._synthdef = None
+        self._synth_definition = None
         self._width_first_antecedents = []
 
     ### SPECIAL METHODS ###
@@ -122,7 +122,7 @@ class UGen(UGenMethodMixin):
         from supriya import audiolib
         for input_ in self._inputs:
             if not isinstance(input_, audiolib.OutputProxy):
-                self.synthdef._add_constant(float(input_))
+                self.synth_definition._add_constant(float(input_))
 
     def _get_output_number(self):
         return 0
@@ -150,8 +150,8 @@ class UGen(UGenMethodMixin):
 
     def _make_available(self):
         if not self.antecedents:
-            if self not in self.synthdef._available_ugens:
-                self.synthdef._available_ugens.append(self)
+            if self not in self.synth_definition._available_ugens:
+                self.synth_definition._available_ugens.append(self)
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
@@ -210,36 +210,36 @@ class UGen(UGenMethodMixin):
             )
         return ugen
 
-    def compile(self, synthdef):
-        def compile_input_spec(i, synthdef):
+    def compile(self, synth_definition):
+        def compile_input_spec(i, synth_definition):
             from supriya import audiolib
             result = []
             if isinstance(i, float):
-                result.append(SynthDef._encode_unsigned_int_32bit(0xffffffff))
-                constant_index = synthdef._get_constant_index(i)
-                result.append(SynthDef._encode_unsigned_int_32bit(
+                result.append(SynthDefinition._encode_unsigned_int_32bit(0xffffffff))
+                constant_index = synth_definition._get_constant_index(i)
+                result.append(SynthDefinition._encode_unsigned_int_32bit(
                     constant_index))
             elif isinstance(i, audiolib.OutputProxy):
                 ugen = i.source
                 output_index = i.output_index
-                ugen_index = synthdef._get_ugen_index(ugen)
-                result.append(SynthDef._encode_unsigned_int_32bit(ugen_index))
-                result.append(SynthDef._encode_unsigned_int_32bit(output_index))
+                ugen_index = synth_definition._get_ugen_index(ugen)
+                result.append(SynthDefinition._encode_unsigned_int_32bit(ugen_index))
+                result.append(SynthDefinition._encode_unsigned_int_32bit(output_index))
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
             return bytearray().join(result)
-        from supriya.library.audiolib import SynthDef
+        from supriya.library.audiolib import SynthDefinition
         outputs = self._get_outputs()
         result = []
-        result.append(SynthDef._encode_string(type(self).__name__))
-        result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
-        result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
+        result.append(SynthDefinition._encode_string(type(self).__name__))
+        result.append(SynthDefinition._encode_unsigned_int_8bit(self.calculation_rate))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.inputs)))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(len(outputs)))
+        result.append(SynthDefinition._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
-            result.append(compile_input_spec(i, synthdef))
+            result.append(compile_input_spec(i, synth_definition))
         for o in outputs:
-            result.append(SynthDef._encode_unsigned_int_8bit(o))
+            result.append(SynthDefinition._encode_unsigned_int_8bit(o))
         result = bytearray().join(result)
         return result
 
@@ -281,14 +281,14 @@ class UGen(UGenMethodMixin):
         return self._special_index
 
     @property
-    def synthdef(self):
-        return self._synthdef
+    def synth_definition(self):
+        return self._synth_definition
 
-    @synthdef.setter
-    def synthdef(self, synthdef):
+    @synth_definition.setter
+    def synth_definition(self, synth_definition):
         from supriya.library import audiolib
-        assert isinstance(synthdef, audiolib.SynthDef)
-        self._synthdef = synthdef
+        assert isinstance(synth_definition, audiolib.SynthDefinition)
+        self._synth_definition = synth_definition
 
     @property
     def width_first_antecedents(self):

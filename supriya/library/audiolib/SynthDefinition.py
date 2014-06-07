@@ -2,13 +2,13 @@ import collections
 import struct
 
 
-class SynthDef(object):
+class SynthDefinition(object):
     r'''A SuperCollider synth definition.
 
     ::
 
         >>> from supriya import audiolib
-        >>> synth = audiolib.SynthDef(
+        >>> synth = audiolib.SynthDefinition(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
@@ -73,11 +73,11 @@ class SynthDef(object):
         self._parameters.append(value)
 
     def _add_ugen(self, ugen):
-        def resolve(ugen, synthdef):
+        def resolve(ugen, synth_definition):
             from supriya import audiolib
             for x in ugen.inputs:
                 if isinstance(x, audiolib.OutputProxy):
-                    synthdef._add_ugen(x.source)
+                    synth_definition._add_ugen(x.source)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)
@@ -89,7 +89,7 @@ class SynthDef(object):
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
             self._ugens.append(ugen)
-            ugen.synthdef = self
+            ugen.synth_definition = self
             self._pending_ugens.remove(ugen)
 
     def _cleanup_topological_sort(self):
@@ -105,28 +105,28 @@ class SynthDef(object):
 
     def _compile(self):
         result = []
-        result.append(SynthDef._encode_string(self.name))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
+        result.append(SynthDefinition._encode_string(self.name))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.constants)))
         for key, value in sorted(
             self.constants.items(),
             key=lambda item: item[1],
             ):
-            result.append(SynthDef._encode_float(key))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
+            result.append(SynthDefinition._encode_float(key))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.parameters)))
         for value in self.parameters:
-            result.append(SynthDef._encode_float(value))
-        result.append(SynthDef._encode_unsigned_int_32bit(
+            result.append(SynthDefinition._encode_float(value))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(
             len(self.parameter_names)))
         for key, value in sorted(
             self.parameter_names.items(),
             key=lambda x: x[1],
             ):
-            result.append(SynthDef._encode_string(key))
-            result.append(SynthDef._encode_unsigned_int_32bit(value))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
+            result.append(SynthDefinition._encode_string(key))
+            result.append(SynthDefinition._encode_unsigned_int_32bit(value))
+        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.ugens)))
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
-        result.append(SynthDef._encode_unsigned_int_16bit(0))
+        result.append(SynthDefinition._encode_unsigned_int_16bit(0))
         result = bytearray().join(result)
         return result
 
@@ -168,7 +168,7 @@ class SynthDef(object):
             ugen._initialize_topological_sort()
             ugen._descendants = sorted(
                 ugen._descendants,
-                key=lambda x: x.synthdef.ugens.index(ugen),
+                key=lambda x: x.synth_definition.ugens.index(ugen),
                 )
         for ugen in reversed(self.ugens):
             ugen._make_available()
@@ -196,23 +196,23 @@ class SynthDef(object):
         self._sort_ugens_topologically()
         self._collect_constants()
 
-    def compile(self, synthdefs=None):
+    def compile(self, synth_definitions=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, bytearray):
                 return bytearray().join(flatten(x) for x in value)
             return value
-        synthdefs = synthdefs or [self]
+        synth_definitions = synth_definitions or [self]
         result = []
         encoded_file_type_id = bytearray(b'SCgf')
         result.append(encoded_file_type_id)
-        encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
+        encoded_file_version = SynthDefinition._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
-        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
-            len(synthdefs))
-        result.append(encoded_synthdef_count)
-        for synthdef in synthdefs:
-            result.append(synthdef._compile())
+        encoded_synth_definition_count = SynthDefinition._encode_unsigned_int_16bit(
+            len(synth_definitions))
+        result.append(encoded_synth_definition_count)
+        for synth_definition in synth_definitions:
+            result.append(synth_definition._compile())
         result = flatten(result)
         result = bytearray(result)
         return result

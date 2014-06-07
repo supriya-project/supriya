@@ -2,23 +2,23 @@
 from supriya import audiolib
 
 
-def test_SynthDef_compile_synthdefs_01():
+def test_SynthDefinition_compile_synth_definitions_01():
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'foo',
         'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef('foo')
+    py_synth_definition = audiolib.SynthDefinition('foo')
     sine_one = audiolib.SinOsc.ar(frequency=420)
     sine_two = audiolib.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
     out = audiolib.Out.ar(bus=0, source=sines)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -72,26 +72,26 @@ def test_SynthDef_compile_synthdefs_01():
                 b'\x00\x00',
         )
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
 
 
-def test_SynthDef_compile_synthdefs_02():
+def test_SynthDefinition_compile_synth_definitions_02():
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'test',
         'Out.ar(99, SinOsc.ar(freq: 440).neg)',
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef('test')
+    py_synth_definition = audiolib.SynthDefinition('test')
     sine = audiolib.SinOsc.ar()
     sine = -sine
     out = audiolib.Out.ar(bus=99, source=sine)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -133,30 +133,30 @@ def test_SynthDef_compile_synthdefs_02():
                 b'\x00\x00',
         )
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
 
 
 
-def test_SynthDef_compile_synthdefs_03():
+def test_SynthDefinition_compile_synth_definitions_03():
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'test',
         r'''
         arg freq=1200, out=23;
         Out.ar(out, SinOsc.ar(freq: freq));
         '''
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef('test', freq=1200, out=23)
-    controls = py_synthdef.controls
+    py_synth_definition = audiolib.SynthDefinition('test', freq=1200, out=23)
+    controls = py_synth_definition.controls
     sine = audiolib.SinOsc.ar(frequency=controls['freq'])
     out = audiolib.Out.ar(bus=controls['out'], source=sine)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -201,27 +201,27 @@ def test_SynthDef_compile_synthdefs_03():
                 b'\x00\x00',
         )
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
 
 
-def test_SynthDef_compile_synthdefs_04():
+def test_SynthDefinition_compile_synth_definitions_04():
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'test',
         r'''
         Out.ar(0, In.ar(8, 2))
         '''
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef('test')
+    py_synth_definition = audiolib.SynthDefinition('test')
     inputs = audiolib.In.ar(bus=8, channel_count=2)
     out = audiolib.Out.ar(bus=0, source=inputs)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -255,28 +255,28 @@ def test_SynthDef_compile_synthdefs_04():
                 b'\x00\x00',
         )
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
 
 
-def test_SynthDef_compile_synthdefs_05():
+def test_SynthDefinition_compile_synth_definitions_05():
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'test',
         r'''
         | freq = 440 | Out.ar(0, SinOsc.ar(freq))
         '''
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef('test', freq=440)
-    controls = py_synthdef.controls
+    py_synth_definition = audiolib.SynthDefinition('test', freq=440)
+    controls = py_synth_definition.controls
     sine = audiolib.SinOsc.ar(frequency=controls['freq'])
     out = audiolib.Out.ar(bus=0, source=sine)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -317,30 +317,30 @@ def test_SynthDef_compile_synthdefs_05():
                 b'\x00\x00',
         )
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
 
 
-def test_SynthDef_compile_synthdefs_06():
+def test_SynthDefinition_compile_synth_definitions_06():
     r'''Multiple parameters, including unused parameters.
     '''
 
-    sc_synthdef = audiolib.SCSynthDef(
+    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
         'test',
         r'''
         | damping=0.1, delay_time=1.0, room_size=0.9 |
         Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
         '''
         )
-    sc_compiled_synthdef = sc_synthdef.compile()
+    sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synthdef = audiolib.SynthDef(
+    py_synth_definition = audiolib.SynthDefinition(
         'test',
         damping=0.1,
         delay_time=1.0,
         room_size=0.9,
         )
-    controls = py_synthdef.controls
+    controls = py_synth_definition.controls
     microphone = audiolib.In.ar(bus=0)
     delay = audiolib.DelayC.ar(
         source=microphone,
@@ -348,10 +348,10 @@ def test_SynthDef_compile_synthdefs_06():
         delay_time=controls['delay_time'],
         )
     out = audiolib.Out.ar(bus=0, source=delay)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synth_definition.add_ugen(out)
+    py_compiled_synth_definition = py_synth_definition.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synth_definition = bytearray(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -411,10 +411,10 @@ def test_SynthDef_compile_synthdefs_06():
                 b'\x00\x00',
         )
 
-    assert len(py_compiled_synthdef) == len(test_compiled_synthdef)
-    for i in range(len(py_compiled_synthdef)):
-        assert py_compiled_synthdef[i] == test_compiled_synthdef[i], (
-            i, py_compiled_synthdef[i], test_compiled_synthdef[i])
+    assert len(py_compiled_synth_definition) == len(test_compiled_synth_definition)
+    for i in range(len(py_compiled_synth_definition)):
+        assert py_compiled_synth_definition[i] == test_compiled_synth_definition[i], (
+            i, py_compiled_synth_definition[i], test_compiled_synth_definition[i])
 
-    assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert sc_compiled_synth_definition == test_compiled_synth_definition
+    assert py_compiled_synth_definition == test_compiled_synth_definition
