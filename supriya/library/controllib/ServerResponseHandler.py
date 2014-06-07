@@ -15,7 +15,11 @@ class ServerResponseHandler(object):
 
     ::
 
-        >>> message = osclib.OscMessage('/status.reply', 1, 0, 0, 2, 4, 0.040679048746824265, 0.15118031203746796, 44100.0, 44100.00077873274)
+        >>> message = osclib.OscMessage(
+        ...     '/status.reply', 1, 0, 0, 2, 4,
+        ...     0.040679048746824265, 0.15118031203746796,
+        ...     44100.0, 44100.00077873274,
+        ...     )
         >>> handler(message)
         StatusReplyResponse(unused_int=1, ugen_count=0, synth_count=0, group_count=2, synth_definition_count=4, average_cpu_usage=0.040679048746824265, peak_cpu_usage=0.15118031203746796, target_sample_rate=44100.0, actual_sample_rate=44100.00077873274)
 
@@ -388,5 +392,4 @@ class ServerResponseHandler(object):
             response = handler(contents)
         else:
             raise ValueError
-
         return response
