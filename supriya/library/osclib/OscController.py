@@ -30,7 +30,6 @@ class OscController(object):
         '_server_port',
         '_socket_instance',
         '_timeout',
-        '_verbose',
         )
 
     class CleanableQueue(queue.Queue):
@@ -71,7 +70,10 @@ class OscController(object):
         self._socket_instance.bind(('', 0))
         if verbose:
             self._dispatcher.register_callback(
-                osclib.OscCallback('/*', lambda message: print(message))
+                osclib.OscCallback(
+                    address_pattern='/*', 
+                    procedure=lambda message: print(message),
+                    )
                 )
 
     ### SPECIAL METHODS ###

@@ -13,7 +13,10 @@ class OscDispatcher(object):
 
     ::
 
-        >>> callback = osclib.OscCallback('/*', lambda x: print('GOT:', x))
+        >>> callback = osclib.OscCallback(
+        ...     address_pattern='/*',
+        ...     procedure=lambda x: print('GOT:', x),
+        ...     )
         >>> dispatcher.register_callback(callback)
 
     ::
@@ -58,6 +61,15 @@ class OscDispatcher(object):
             if regex.match(message.address):
                 callbacks.extend(self._regex_map[regex])
         for callback in callbacks:
+            if callback.argument_template:
+                is_valid = True
+                generator = zip(message.contents, callback.argument_template)
+                for one, two in generator:
+                    if one != two:
+                        is_valid = False
+                        break
+                if not is_valid:
+                    continue
             callback(message)
             if callback.is_one_shot:
                 self.unregister_callback(callback)
@@ -82,8 +94,8 @@ class OscDispatcher(object):
         if callback.address_pattern in self._address_map:
             regex = self._address_map[callback.address_pattern]
         else:
-            pattern = self.compile_address_pattern(callback.address_pattern)
-            self._address_map[callback.address_pattern] = pattern
+            regex = self.compile_address_pattern(callback.address_pattern)
+            self._address_map[callback.address_pattern] = regex
         if regex not in self._regex_map:
             self._regex_map[regex] = []
         callbacks = self._regex_map[regex]

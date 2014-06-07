@@ -6,46 +6,40 @@ class WaitForServer(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_callbacks',
+        '_callback',
         '_called_back',
-        '_message',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, message=None):
+    def __init__(
+        self,
+        address_pattern=None,
+        argument_template=None,
+        ):
         from supriya import osclib
         self._called_back = False
-        if isinstance(message, (int, str)):
-            message = tuple(message,)
-        else:
-            message = tuple(message)
-        self._message = message
-        self._callbacks = [
-            osclib.OscCallback(x, self.__call__)
-            for x in message
-            ]
+        self._callback = osclib.OscCallback(
+            address_pattern=address_pattern,
+            argument_template=argument_template,
+            is_one_shot=True,
+            procedure=self.__call__,
+            )
 
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        if message.address in self.message:
-            self._called_back = True
+        self._called_back = True
 
     def __enter__(self):
         from supriya import controllib
         server = controllib.Server()
-        for callback in self._callbacks:
-            server._osc_controller.dispatcher.register_callback(callback)
+        server._osc_controller.dispatcher.register_callback(self.callback)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        from supriya import controllib
-        server = controllib.Server()
         while not self.called_back:
-            time.sleep(0.05)
-        for callback in self._callbacks:
-            server._osc_controller.dispatcher.unregister_callback(callback)
+            time.sleep(0.01)
 
     ### PUBLIC PROPERTIES ###
 
@@ -54,11 +48,5 @@ class WaitForServer(object):
         return self._called_back
 
     @property
-    def message(self):
-        return self._message
-
-    @property
-    def message_key(self):
-        if self.message is None:
-            return None
-        return self.message[0]
+    def callback(self):
+        return self._callback

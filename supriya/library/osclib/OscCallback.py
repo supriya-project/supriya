@@ -8,7 +8,10 @@ class OscCallback(object):
     ::
 
         >>> from supriya import osclib
-        >>> callback = osclib.OscCallback('/*', lambda x: print('GOT:', x))
+        >>> callback = osclib.OscCallback(
+        ...     address_pattern='/*', 
+        ...     procedure=lambda x: print('GOT:', x),
+        ...     )
 
     '''
 
@@ -16,14 +19,24 @@ class OscCallback(object):
 
     __slots__ = (
         '_address_pattern',
+        '_argument_template',
         '_is_one_shot',
         '_procedure',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, address_pattern, procedure, is_one_shot=False):
+    def __init__(
+        self,
+        address_pattern=None,
+        argument_template=None,
+        is_one_shot=False,
+        procedure=None,
+        ):
         self._address_pattern = address_pattern
+        if argument_template is not None:
+            argument_template = tuple(argument_template)
+        self._argument_template = argument_template
         self._procedure = procedure
         self._is_one_shot = bool(is_one_shot)
 
@@ -46,6 +59,10 @@ class OscCallback(object):
         Returns string.
         '''
         return self._address_pattern
+
+    @property
+    def argument_template(self):
+        return self._argument_template
 
     @property
     def is_one_shot(self):
