@@ -18,6 +18,12 @@ class ServerResponseHandler(object):
         >>> handler(message)
         BInfoResponse(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0)
 
+    ::
+
+        >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
+        >>> handler(message)
+        NSetResponse(node_id=1023, items=(NSetItem(control_index_or_name='/one', control_value=-1), NSetItem(control_index_or_name='/two', control_value=0)))
+
     '''
 
     ### CLASS VARIABLES ###
@@ -216,7 +222,7 @@ class ServerResponseHandler(object):
 
     def _group_items(self, items, length):
         iterators = [iter(items)] * length
-        iterator = itertools.izip(iterators)
+        iterator = itertools.izip(*iterators)
         return iterator
 
     def _handle_b_set(self, contents):
@@ -277,8 +283,8 @@ class ServerResponseHandler(object):
             else:
                 arguments = contents
             response = template(*arguments)
-        elif address in self.compound_response_handlers:
-            handler = self.compound_response_handlers[address]
+        elif address in self._compound_response_handlers:
+            handler = self._compound_response_handlers[address]
             response = handler(contents)
         else:
             raise ValueError
