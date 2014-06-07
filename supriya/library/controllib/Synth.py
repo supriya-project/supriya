@@ -20,7 +20,7 @@ class Synth(Node):
         from supriya.library import controllib
         self._synthdef_name = synthdef_name
         add_action = add_action or 0
-        add_action = controllib.Node.AddAction(add_action)
+        add_action = controllib.AddAction.from_expr(add_action)
         target_node = controllib.Node.expr_as_target(target_node)
         server = target_node.server
         Node.__init__(

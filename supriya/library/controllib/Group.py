@@ -25,7 +25,7 @@ class Group(Node):
             target_node = self
         server = server or target_node.server
         add_action = add_action or 0
-        add_action = controllib.Node.AddAction(add_action)
+        add_action = controllib.AddAction.from_expr(add_action)
         Node.__init__(
             self,
             node_id=node_id,
