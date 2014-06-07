@@ -5,4 +5,4 @@ systemlib.ImportManager.import_structured_package(
     globals(),
     )
 
-from supriya.library.audiolib.ugens import *
+from supriya.library.ugenlib import *

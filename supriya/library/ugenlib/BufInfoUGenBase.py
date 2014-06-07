@@ -1,5 +1,5 @@
 from supriya.library.audiolib.Argument import Argument
-from supriya.library.audiolib.ugens.InfoUGenBase import InfoUGenBase
+from supriya.library.ugenlib.InfoUGenBase import InfoUGenBase
 
 
 class BufInfoUGenBase(InfoUGenBase):
