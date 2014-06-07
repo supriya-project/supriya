@@ -1,33 +1,53 @@
-class Bus(object):
+# -*- encoding: utf-8 -*-
+from supriya.library.controllib.ServerObjectProxy import ServerObjectProxy
 
+
+class Bus(ServerObjectProxy):
+    r'''A bus.
+
+    ::
+
+        >>> from supriya import audiolib
+        >>> from supriya import controllib
+        >>> bus = controllib.Bus(
+        ...    calculation_rate=audiolib.UGen.Rate.AUDIO_RATE,
+        ...    channel_count=1,
+        ...    )
+
+    '''
     ### CLASS VARIABLES ###
 
     __slots__ = (
         '_bus_index',
         '_calculation_rate',
         '_channel_count',
-        '_server',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        bus_index=0,
         calculation_rate=None,
         channel_count=1,
-        server=None,
         ):
         from supriya.library import audiolib
-        from supriya.library import controllib
-        assert isinstance(calculation_rate, audiolib.UGen.Rate), calculation_rate
+        ServerObjectProxy.__init__(self)
+        if calculation_rate is None:
+            calculation_rate = audiolib.UGen.Rate.AUDIO_RATE
+        assert isinstance(calculation_rate, audiolib.UGen.Rate), \
+            calculation_rate
         assert 0 < calculation_rate
         self._calculation_rate = calculation_rate
         self._channel_count = int(channel_count)
-        self._bus_index = int(bus_index)
-        self._server = server or controllib.Server()
+        self._bus_index = None
 
     ### PUBLIC METHODS ###
+
+    def allocate(self, server_session=None):
+        ServerObjectProxy.allocate(self)
+        self._bus_index = server_session.audio_bus_allocator.allocate(
+            self.channel_count,
+            )
 
     def ar(self):
         from supriya.library import audiolib
@@ -88,13 +108,13 @@ class Bus(object):
 
     def free(self):
         from supriya.library import audiolib
+        ServerObjectProxy.free(self)
         assert self.bus_index is not None
         if self.calculation_rate == audiolib.UGen.Rate.AUDIO_RATE:
             self.server.audio_bus_allocator.free(self.bus_index)
         else:
             self.server.control_bus_allocator.free(self.bus_index)
         self._bus_index = None
-        self._channel_count = None
 
     def kr(self):
         from supriya.library import audiolib
@@ -156,7 +176,3 @@ class Bus(object):
             string = 'c{}'
         string = string.format(self.bus_index)
         return string
-
-    @property
-    def server(self):
-        return self._server
