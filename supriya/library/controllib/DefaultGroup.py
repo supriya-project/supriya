@@ -2,7 +2,7 @@
 from supriya.library.controllib.Group import Group
 
 
-class RootNode(Group):
+class DefaultGroup(Group):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,7 @@ class RootNode(Group):
         from supriya.library import controllib
         controllib.Node.__init__(
             self,
-            node_id=0,
+            node_id=1,
             server=controllib.Server(),
             )
         self._is_playing = True
