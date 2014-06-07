@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+import itertools
 
 
 class ServerResponseHandler(object):
@@ -213,23 +214,53 @@ class ServerResponseHandler(object):
 
     ### PRIVATE METHODS ###
 
+    def _group_items(self, items, length):
+        iterators = [iter(items)] * length
+        iterator = itertools.izip(iterators)
+        return iterator
+
     def _handle_b_set(self, contents):
-        pass
+        buffer_number, remainder = contents[0], contents[1:]
+        items = []
+        for group in self._group_items(remainder, 2):
+            item = self.BSetItem(*group)
+            items.append(item)
+        response = self.BSetResponse(
+            buffer_number=buffer_number,
+            items=tuple(items),
+            )
+        return response
 
     def _handle_b_setn(self, contents):
         pass
 
     def _handle_c_set(self, contents):
-        pass
+        items = []
+        for group in self._group_items(contents, 2):
+            item = self.CSetItem(*group)
+            items.append(item)
+        response = self.CSetResponse(
+            items=tuple(items),
+            )
+        return response
 
     def _handle_c_setn(self, contents):
         pass
 
     def _handle_g_query_tree_reply(self, contents):
-        pass
+        raise NotImplementedError('Not yet implemented.')
 
     def _handle_n_set(self, contents):
-        pass
+        node_id, remainder = contents[0], contents[1:]
+        items = []
+        for group in self._group_items(remainder, 2):
+            item = self.NSetItem(*group)
+            items.append(item)
+        response = self.NSetResponse(
+            node_id=node_id,
+            items=tuple(items),
+            )
+        return response
 
     def _handle_n_setn(self, contents):
         pass
