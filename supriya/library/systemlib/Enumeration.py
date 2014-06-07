@@ -8,7 +8,9 @@ class Enumeration(enum.IntEnum):
 
     @classmethod
     def from_expr(cls, expr):
-        if isinstance(expr, int):
+        if isinstance(expr, cls):
+            return expr
+        elif isinstance(expr, int):
             return cls(expr)
         elif isinstance(expr, str):
             expr = expr.upper()
