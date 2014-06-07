@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import collections
 import itertools
+import sys
 
 
 class ServerResponseHandler(object):
@@ -57,7 +58,7 @@ class ServerResponseHandler(object):
     BSetnItem = collections.namedtuple(
         'BSetnItem',
         (
-            'sample_starting_index',
+            'starting_sample_index',
             'sample_values',
             ),
         )
@@ -222,7 +223,10 @@ class ServerResponseHandler(object):
 
     def _group_items(self, items, length):
         iterators = [iter(items)] * length
-        iterator = itertools.izip(*iterators)
+        if sys.version_info[0] == 2:
+            iterator = itertools.izip(*iterators)
+        else:
+            iterator = zip(*iterators)
         return iterator
 
     def _handle_b_set(self, contents):
@@ -231,14 +235,32 @@ class ServerResponseHandler(object):
         for group in self._group_items(remainder, 2):
             item = self.BSetItem(*group)
             items.append(item)
+        items = tuple(items)
         response = self.BSetResponse(
             buffer_number=buffer_number,
-            items=tuple(items),
+            items=items,
             )
         return response
 
     def _handle_b_setn(self, contents):
-        pass
+        buffer_number, remainder = contents[0], contents[1:]
+        items = []
+        while remainder:
+            starting_sample_index = remainder[0]
+            sample_count = remainder[1]
+            sample_values = tuple(remainder[2:2 + sample_count])
+            item = self.BSetnItem(
+                starting_sample_index=starting_sample_index,
+                sample_values=sample_values,
+                )
+            items.append(item)
+            remainder = remainder[2 + sample_count:]
+        items = tuple(items)
+        response = self.BSetnResponse(
+            buffer_number=buffer_number,
+            items=items,
+            )
+        return response
 
     def _handle_c_set(self, contents):
         items = []
@@ -251,7 +273,22 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_c_setn(self, contents):
-        pass
+        items = []
+        while contents:
+            starting_bus_index = contents[0]
+            bus_count = contents[1]
+            bus_values = tuple(contents[2:2 + bus_count])
+            item = self.CSetnItem(
+                starting_bus_index=starting_bus_index,
+                bus_values=bus_values,
+                )
+            items.append(item)
+            contents = contents[2 + bus_count:]
+        items = tuple(items)
+        response = self.CSetnResponse(
+            items=items,
+            )
+        return response
 
     def _handle_g_query_tree_reply(self, contents):
         raise NotImplementedError('Not yet implemented.')
@@ -269,7 +306,24 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_n_setn(self, contents):
-        pass
+        node_id, remainder = contents[0], contents[1:]
+        items = []
+        while remainder:
+            control_index_or_name = remainder[0]
+            control_count = remainder[1]
+            control_values = tuple(remainder[2:2 + control_count])
+            item = self.NSetnItem(
+                control_index_or_name=control_index_or_name,
+                control_values=control_values,
+                )
+            items.append(item)
+            remainder = remainder[2 + control_count:]
+        items = tuple(items)
+        response = self.NSetnResponse(
+            node_id=node_id,
+            items=items,
+            )
+        return response
 
     ### SPECIAL METHODS ###
 
