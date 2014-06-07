@@ -11,10 +11,6 @@ class UGen(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
-    class SignalRange(enum.IntEnum):
-        UNIPOLAR = 0
-        BIPOLAR = 1
-
     __slots__ = (
         '_antecedents',
         '_calculation_rate',
@@ -277,7 +273,8 @@ class UGen(UGenMethodMixin):
 
     @property
     def signal_range(self):
-        return self.SignalRange.BIPOLAR
+        from supriya.library import audiolib
+        return audiolib.SignalRange.BIPOLAR
 
     @property
     def special_index(self):
@@ -289,7 +286,7 @@ class UGen(UGenMethodMixin):
 
     @synthdef.setter
     def synthdef(self, synthdef):
-        from supriya import audiolib
+        from supriya.library import audiolib
         assert isinstance(synthdef, audiolib.SynthDef)
         self._synthdef = synthdef
 

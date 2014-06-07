@@ -29,4 +29,5 @@ class Dust(UGen):
 
     @property
     def signal_range(self):
-        return self.SignalRange.UNIPOLAR
+        from supriya.library import audiolib
+        return audiolib.SignalRange.UNIPOLAR
