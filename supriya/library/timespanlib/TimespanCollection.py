@@ -16,7 +16,7 @@ class TimespanCollection(object):
         ...     timespantools.Timespan(2, 5),
         ...     timespantools.Timespan(6, 9),
         ...     )
-        >>> timespan_collection = corelib.TimespanCollection(timespans)
+        >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
     '''
 
@@ -51,7 +51,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -82,7 +82,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -153,7 +153,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -193,7 +193,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -218,7 +218,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -237,9 +237,9 @@ class TimespanCollection(object):
     ### PRIVATE METHODS ###
 
     def _insert_node(self, node, start_offset):
-        from supriya.library import corelib
+        from supriya.library import timespanlib
         if node is None:
-            return corelib.TimespanCollectionNode(start_offset)
+            return timespanlib.TimespanCollectionNode(start_offset)
         if start_offset < node.start_offset:
             node.left_child = self._insert_node(node.left_child, start_offset)
         elif node.start_offset < start_offset:
@@ -451,7 +451,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
         
@@ -492,7 +492,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -505,11 +505,11 @@ class TimespanCollection(object):
             <TimespanSimultaneity(6.5 <<1>>)>
 
         '''
-        from supriya.library import corelib
+        from supriya.library import timespanlib
         start_timespans = self.find_timespans_starting_at(offset)
         stop_timespans = self.find_timespans_stopping_at(offset)
         overlap_timespans = self.find_timespans_overlapping(offset)
-        simultaneity = corelib.TimespanSimultaneity(
+        simultaneity = timespanlib.TimespanSimultaneity(
             timespan_collection=self,
             overlap_timespans=overlap_timespans,
             start_timespans=start_timespans,
@@ -530,7 +530,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -584,7 +584,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -639,7 +639,7 @@ class TimespanCollection(object):
 
         ::
 
-            >>> timespan_collection = corelib.TimespanCollection()
+            >>> timespan_collection = timespanlib.TimespanCollection()
             >>> timespan_collection.insert(timespantools.Timespan(1, 3))
             >>> timespan_collection.insert((
             ...     timespantools.Timespan(0, 4),
@@ -683,7 +683,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -743,7 +743,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
@@ -801,7 +801,7 @@ class TimespanCollection(object):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = corelib.TimespanCollection(timespans)
+            >>> timespan_collection = timespanlib.TimespanCollection(timespans)
 
         ::
 
