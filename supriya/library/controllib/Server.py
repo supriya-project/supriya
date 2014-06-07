@@ -98,8 +98,9 @@ class Server(object):
         self.send_message(r'/notify', expr)
 
     def quit(self):
-        self.send_message(r'/quit')
-        self._osc_controller.receive((r'/done', r'/fail'))
+        from supriya.library import controllib
+        with controllib.WaitForServer(('/done', '/fail')):
+            self.send_message(r'/quit')
         self._osc_controller.__del__()
         self._osc_controller = None
         self._server_session.server_process.send_signal(signal.SIGINT)
