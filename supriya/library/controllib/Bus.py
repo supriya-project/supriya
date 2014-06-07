@@ -34,9 +34,10 @@ class Bus(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         if calculation_rate is None:
             calculation_rate = audiolib.UGen.Rate.AUDIO_RATE
-        assert isinstance(calculation_rate, audiolib.UGen.Rate), \
-            calculation_rate
-        assert 0 < calculation_rate
+        assert calculation_rate in (
+            audiolib.UGen.Rate.AUDIO_RATE,
+            audiolib.UGen.Rate.CONTROL_RATE,
+            )
         self._calculation_rate = calculation_rate
         self._channel_count = int(channel_count)
         self._bus_index = None
@@ -44,13 +45,22 @@ class Bus(ServerObjectProxy):
     ### PUBLIC METHODS ###
 
     def allocate(self, server_session=None):
+        from supriya.library import audiolib
         ServerObjectProxy.allocate(self)
-        self._bus_index = server_session.audio_bus_allocator.allocate(
-            self.channel_count,
-            )
+        channel_count = self.channel_count
+        if self.calculation_rate == audiolib.UGen.Rate.AUDIO_RATE:
+            bus_index = server_session.audio_bus_allocator.allocate(
+                channel_count)
+        else:
+            bus_index = server_session.control_bus_allocator.allocate(
+                channel_count)
+        if bus_index is None:
+            raise Exception
+        self._bus_index = bus_index
 
     def ar(self):
         from supriya.library import audiolib
+        assert self.server_session is not None
         if self.calculation_rate == audiolib.UGen.Rate.AUDIO_RATE:
             result = audiolib.In.ar(
                 bus=self.bus_index,
@@ -66,46 +76,6 @@ class Bus(ServerObjectProxy):
                 )
         return result
 
-    @classmethod
-    def audio(
-        cls,
-        channel_count=1,
-        server=None,
-        ):
-        from supriya.library import audiolib
-        from supriya.library import controllib
-        server = server or controllib.Server()
-        bus_index = server.audio_bus_allocator.allocate(channel_count)
-        if bus_index is None:
-            raise Exception
-        bus = cls(
-            bus_index=bus_index,
-            calculation_rate=audiolib.UGen.Rate.AUDIO_RATE,
-            channel_count=channel_count,
-            server=server,
-            )
-        return bus
-
-    @classmethod
-    def control(
-        cls,
-        channel_count=1,
-        server=None,
-        ):
-        from supriya.library import audiolib
-        from supriya.library import controllib
-        server = server or controllib.Server()
-        bus_index = server.control_bus_allocator.allocate(channel_count)
-        if bus_index is None:
-            raise Exception
-        bus = cls(
-            bus_index=bus_index,
-            calculation_rate=audiolib.UGen.Rate.AUDIO_RATE,
-            channel_count=channel_count,
-            server=server,
-            )
-        return bus
-
     def free(self):
         from supriya.library import audiolib
         ServerObjectProxy.free(self)
@@ -118,6 +88,7 @@ class Bus(ServerObjectProxy):
 
     def kr(self):
         from supriya.library import audiolib
+        assert self.server_session is not None
         if self.calculation_rate == audiolib.UGen.Rate.CONTROL_RATE:
             result = audiolib.In.kr(
                 bus=self.bus_index,
@@ -141,9 +112,9 @@ class Bus(ServerObjectProxy):
             index += self.bus_index
             message += (index, value)
         return message
-        self.server.send_message(message)
 
     def set(self, *args):
+        assert self.server_session is not None
         message = self.make_set_message(*args)
         self.server.send_message(message)
 
