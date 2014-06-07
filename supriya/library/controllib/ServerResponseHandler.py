@@ -28,7 +28,76 @@ class ServerResponseHandler(object):
             'frame_count',
             'channel_count',
             'sample_rate',
-            )
+            ),
+        )
+
+    BSetItem = collections.namedtuple(
+        'BSetItem',
+        (
+            'sample_index',
+            'sample_value',
+            ),
+        )
+
+    BSetResponse = collections.namedtuple(
+        'BSetResponse',
+        (
+            'buffer_number',
+            'items',
+            ),
+        )
+
+    BSetnItem = collections.namedtuple(
+        'BSetnItem',
+        (
+            'sample_starting_index',
+            'sample_values',
+            ),
+        )
+
+    BSetnResponse = collections.namedtuple(
+        'BSetnResponse',
+        (
+            'buffer_number',
+            'items',
+            ),
+        )
+
+    CSetItem = collections.namedtuple(
+        'CSetItem',
+        (
+            'bus_index',
+            'bus_value',
+            ),
+        )
+
+    CSetResponse = collections.namedtuple(
+        'CSetResponse',
+        (
+            'items',
+            ),
+        )
+
+    CSetnItem = collections.namedtuple(
+        'CSetnItem',
+        (
+            'starting_bus_index',
+            'bus_values',
+            ),
+        )
+
+    CSetnResponse = collections.namedtuple(
+        'CSetnResponse',
+        (
+            'items',
+            ),
+        )
+
+    DoneResponse = collections.namedtuple(
+        'DoneResponse',
+        (
+            'action',
+            ),
         )
 
     FailResponse = collections.namedtuple(
@@ -36,7 +105,39 @@ class ServerResponseHandler(object):
         (
             'failed_command',
             'failure_reason',
-            )
+            ),
+        )
+
+    NSetItem = collections.namedtuple(
+        'NSetItem',
+        (
+            'control_index_or_name',
+            'control_value',
+            ),
+        )
+
+    NSetResponse = collections.namedtuple(
+        'NSetResponse',
+        (
+            'node_id',
+            'items',
+            ),
+        )
+
+    NSetnItem = collections.namedtuple(
+        'NSetnItem',
+        (
+            'starting_control_index_or_name',
+            'control_values',
+            ),
+        )
+
+    NSetnResponse = collections.namedtuple(
+        'NSetnResponse',
+        (
+            'node_id'
+            'items',
+            ),
         )
 
     NodeResponse = collections.namedtuple(
@@ -50,7 +151,7 @@ class ServerResponseHandler(object):
             'is_group',
             'head_node_id',
             'tail_node_id',
-            )
+            ),
         )
 
     StatusReplyResponse = collections.namedtuple(
@@ -65,14 +166,14 @@ class ServerResponseHandler(object):
             'peak_cpu_usage',
             'target_sample_rate',
             'actual_sample_rate',
-            )
+            ),
         )
 
     SyncedResponse = collections.namedtuple(
         'SyncedResponse',
         (
             'sync_id',
-            )
+            ),
         )
 
     TrResponse = collections.namedtuple(
@@ -81,14 +182,7 @@ class ServerResponseHandler(object):
             'node_id',
             'trigger_id',
             'trigger_value',
-            )
-        )
-
-    DoneResponse = collections.namedtuple(
-        'DoneResponse',
-        (
-            'action',
-            )
+            ),
         )
 
     ### INITIALIZER ###
