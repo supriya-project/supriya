@@ -13,10 +13,11 @@ class Control(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, control_names):
+        from supriya.library import audiolib
         self._control_names = tuple(sorted(control_names))
         MultiOutUGen.__init__(
             self,
-            calculation_rate=self.Rate.CONTROL_RATE,
+            calculation_rate=audiolib.CalculationRate.CONTROL,
             channel_count=len(control_names),
             )
 

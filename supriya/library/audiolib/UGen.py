@@ -31,12 +31,6 @@ class UGen(UGenMethodMixin):
         FREE_SYNTH_AND_ALL_SIBLING_NODES = 13
         FREE_SYNTH_AND_ENCLOSING_GROUP = 14
 
-    class Rate(enum.IntEnum):
-        AUDIO_RATE = 2
-        CONTROL_RATE = 1
-        DEMAND_RATE = 3
-        SCALAR_RATE = 0
-
     class SignalRange(enum.IntEnum):
         UNIPOLAR = 0
         BIPOLAR = 1
@@ -66,7 +60,8 @@ class UGen(UGenMethodMixin):
         **kwargs
         ):
         from supriya import audiolib
-        assert isinstance(calculation_rate, audiolib.UGen.Rate), calculation_rate
+        assert isinstance(calculation_rate, audiolib.CalculationRate), \
+            calculation_rate
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
@@ -117,12 +112,13 @@ class UGen(UGenMethodMixin):
         return 1
 
     def __repr__(self):
-        if self.calculation_rate == self.Rate.DEMAND_RATE:
+        from supriya.library import audiolib
+        if self.calculation_rate == audiolib.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            self.Rate.AUDIO_RATE: 'ar',
-            self.Rate.CONTROL_RATE: 'kr',
-            self.Rate.SCALAR_RATE: 'ir',
+            audiolib.CalculationRate.AUDIO: 'ar',
+            audiolib.CalculationRate.CONTROL: 'kr',
+            audiolib.CalculationRate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
@@ -191,7 +187,7 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
-        assert isinstance(calculation_rate, UGen.Rate)
+        assert isinstance(calculation_rate, audiolib.CalculationRate)
         argument_dicts = UGen.expand_arguments(
             kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
@@ -230,8 +226,9 @@ class UGen(UGenMethodMixin):
 
     @classmethod
     def ar(cls, **kwargs):
+        from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=UGen.Rate.AUDIO_RATE,
+            calculation_rate=audiolib.CalculationRate.AUDIO,
             special_index=0,
             **kwargs
             )
@@ -272,8 +269,9 @@ class UGen(UGenMethodMixin):
 
     @classmethod
     def kr(cls, **kwargs):
+        from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=UGen.Rate.CONTROL_RATE,
+            calculation_rate=audiolib.CalculationRate.CONTROL,
             special_index=0,
             **kwargs
             )

@@ -32,7 +32,7 @@ class BufInfoUGenBase(InfoUGenBase):
     def ir(cls, buffer_number=None):
         from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=audiolib.UGen.Rate.SCALAR_RATE,
+            calculation_rate=audiolib.CalculationRate.SCALAR,
             buffer_number=buffer_number,
             )
         return ugen
@@ -41,7 +41,7 @@ class BufInfoUGenBase(InfoUGenBase):
     def kr(cls, buffer_number=None):
         from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=audiolib.UGen.Rate.CONTROL_RATE,
+            calculation_rate=audiolib.CalculationRate.CONTROL,
             buffer_number=buffer_number,
             )
         return ugen

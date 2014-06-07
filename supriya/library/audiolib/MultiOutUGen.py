@@ -44,7 +44,7 @@ class MultiOutUGen(UGen):
     def ar(cls, **kwargs):
         from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=UGen.Rate.AUDIO_RATE,
+            calculation_rate=audiolib.CalculationRate.AUDIO,
             special_index=0,
             **kwargs
             )
@@ -65,7 +65,7 @@ class MultiOutUGen(UGen):
     def kr(cls, **kwargs):
         from supriya.library import audiolib
         ugen = cls._new(
-            calculation_rate=UGen.Rate.CONTROL_RATE,
+            calculation_rate=audiolib.CalculationRate.CONTROL,
             special_index=0,
             **kwargs
             )

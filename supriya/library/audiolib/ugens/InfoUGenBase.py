@@ -13,7 +13,7 @@ class InfoUGenBase(UGen):
     @classmethod
     def ir(cls, **kwargs):
         ugen = cls._new(
-            calculation_rate=UGen.Rate.SCALAR_RATE,
+            calculation_rate=CalculationRate.SCALAR,
             **kwargs
             )
         return ugen

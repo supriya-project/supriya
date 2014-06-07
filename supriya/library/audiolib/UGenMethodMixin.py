@@ -74,20 +74,22 @@ class UGenMethodMixin(object):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         from supriya import audiolib
-        Rate = audiolib.UGen.Rate
-        a_rate = Rate.SCALAR_RATE
+        a_rate = audiolib.CalculationRate.SCALAR
         if isinstance(ugen_a, (audiolib.OutputProxy, audiolib.UGen)):
             a_rate = ugen_a.calculation_rate
-        b_rate = Rate.SCALAR_RATE
+        b_rate = audiolib.CalculationRate.SCALAR
         if isinstance(ugen_b, (audiolib.OutputProxy, audiolib.UGen)):
             b_rate = ugen_b.calculation_rate
-        if a_rate == Rate.DEMAND_RATE or a_rate == Rate.DEMAND_RATE:
-            return Rate.DEMAND_RATE
-        elif a_rate == Rate.AUDIO_RATE or b_rate == Rate.AUDIO_RATE:
-            return Rate.AUDIO_RATE
-        elif a_rate == Rate.CONTROL_RATE or b_rate == Rate.CONTROL_RATE:
-            return Rate.CONTROL_RATE
-        return Rate.SCALAR_RATE
+        if a_rate == audiolib.CalculationRate.DEMAND \
+            or a_rate == audiolib.CalculationRate.DEMAND:
+            return audiolib.CalculationRate.DEMAND
+        elif a_rate == audiolib.CalculationRate.AUDIO \
+            or b_rate == audiolib.CalculationRate.AUDIO:
+            return audiolib.CalculationRate.AUDIO
+        elif a_rate == audiolib.CalculationRate.CONTROL \
+            or b_rate == audiolib.CalculationRate.CONTROL:
+            return audiolib.CalculationRate.CONTROL
+        return audiolib.CalculationRate.SCALAR
 
     @staticmethod
     def _compute_unary_op(source, op_name):
