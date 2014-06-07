@@ -15,6 +15,12 @@ class ServerResponseHandler(object):
 
     ::
 
+        >>> message = osclib.OscMessage('/status.reply', 1, 0, 0, 2, 4, 0.040679048746824265, 0.15118031203746796, 44100.0, 44100.00077873274)
+        >>> handler(message)
+        StatusReplyResponse(unused_int=1, ugen_count=0, synth_count=0, group_count=2, synth_definition_count=4, average_cpu_usage=0.040679048746824265, peak_cpu_usage=0.15118031203746796, target_sample_rate=44100.0, actual_sample_rate=44100.00077873274)
+
+    ::
+
         >>> message = osclib.OscMessage('/b_info', 1100, 512, 1, 44100.0)
         >>> handler(message)
         BInfoResponse(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0)
@@ -24,6 +30,12 @@ class ServerResponseHandler(object):
         >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> handler(message)
         NSetResponse(node_id=1023, items=(NSetItem(control_index_or_name='/one', control_value=-1), NSetItem(control_index_or_name='/two', control_value=0)))
+
+    ::
+
+        >>> message = osclib.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        >>> handler(message)
+        BSetnResponse(buffer_number=1, items=(BSetnItem(starting_sample_index=0, sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)),))
 
     '''
 
