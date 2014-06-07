@@ -116,6 +116,40 @@ class ServerResponseHandler(object):
             ),
         )
 
+    GQueryTreeControlItem = collections.namedtuple(
+        'GQueryTreeControlItem',
+        (
+            'control_name_or_index',
+            'control_value',
+            ),
+        )
+
+    GQueryTreeGroupItem = collections.namedtuple(
+        'GQueryTreeSynthItem',
+        (
+            'node_id',
+            'child_count',
+            ),
+        )
+
+    GQueryTreeSynthItem = collections.namedtuple(
+        'GQueryTreeSynthItem',
+        (
+            'node_id',
+            'synth_definition_name',
+            'controls',
+            ),
+        )
+
+    GQueryTreeResponse = collections.namedtuple(
+        'GQueryTreeResponse',
+        (
+            'node_id',
+            'child_count',
+            'items',
+            ),
+        )
+
     NSetItem = collections.namedtuple(
         'NSetItem',
         (
