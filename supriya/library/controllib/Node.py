@@ -1,7 +1,8 @@
-import enum
+# -*- encoding: utf-8 -*-
+from supriya.library.controllib.ServerObjectProxy import ServerObjectProxy
 
 
-class Node(object):
+class Node(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 

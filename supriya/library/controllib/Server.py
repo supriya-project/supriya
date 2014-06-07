@@ -32,14 +32,8 @@ class Server(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_audio_bus_allocator',
-        '_buffer_allocator',
-        '_control_bus_allocator',
-        '_is_running',
-        '_node_id_allocator',
-        '_options',
         '_osc_controller',
-        '_scsynth_process',
+        '_server_session',
         )
 
     _instance = None
@@ -50,14 +44,8 @@ class Server(object):
         if not cls._instance:
             instance = super(Server, cls).__new__(
                 cls, *args, **kwargs)
-            instance._audio_bus_allocator = None
-            instance._buffer_allocator = None
-            instance._control_bus_allocator = None
-            instance._is_running = None
-            instance._node_id_allocator = None
-            instance._options = None
             instance._osc_controller = None
-            instance._scsynth_process = None
+            instance._server_session = None
             cls._instance = instance
         return cls._instance
 
@@ -71,53 +59,36 @@ class Server(object):
     def __del__(self):
         self.quit()
 
-    ### PRIVATE METHODS ###
-
-    def _create_new_allocators(self):
-        from supriya.library import controllib
-        self._audio_bus_allocator = controllib.BlockAllocator(
-            size=self.options.audio_bus_channel_count,
-            initial_position=self.options.first_private_bus_id,
-            )
-        self._buffer_allocator = controllib.BlockAllocator(
-            size=self.options.buffer_count,
-            )
-        self._control_bus_allocator = controllib.BlockAllocator(
-            size=self.options.control_bus_channel_count,
-            )
-        self._node_id_allocator = controllib.NodeIDAllocator(
-            initial_node_id=self.options.initial_node_id,
-            )
-
     ### PUBLIC METHODS ###
 
     def boot(
         self,
-        options=None,
+        server_options=None,
         server_port=57751
         ):
         from supriya.library import controllib
         from supriya.library import osclib
-        if self.is_running:
+        if self.server_session is not None:
             return
-        options = options or controllib.ServerOptions()
-        assert isinstance(options, controllib.ServerOptions)
-        self._options = options
-        self._create_new_allocators()
         self._osc_controller = osclib.OscController(
             server_ip_address='127.0.0.1',
             server_port=server_port,
             )
-        options_string = options.as_options_string(server_port)
+        server_options = server_options or controllib.ServerOptions()
+        options_string = server_options.as_options_string(server_port)
         command = 'scsynth {}'.format(options_string)
-        self._scsynth_process = subprocess.Popen(
+        server_process = subprocess.Popen(
             command.split(),
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             )
-        time.sleep(0.5)
+        server_session = controllib.ServerSession(
+            server_options=server_options,
+            server_process=server_process,
+            )
+        time.sleep(0.25)
         self.send_message(("/g_new", 1, 0, 0))
-        self._is_running = True
+        self._server_session = server_session
         return self
 
     def dump_osc(self, expr):
@@ -131,10 +102,9 @@ class Server(object):
         self._osc_controller.receive((r'/done', r'/fail'))
         self._osc_controller.__del__()
         self._osc_controller = None
-        self._scsynth_process.send_signal(signal.SIGINT)
-        self._scsynth_process.kill()
-        self._create_new_allocators()
-        self._is_running = False
+        self._server_session.server_process.send_signal(signal.SIGINT)
+        self._server_session.server_process.kill()
+        self._server_session.free()
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
@@ -154,35 +124,5 @@ class Server(object):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def audio_bus_allocator(self):
-        return self._audio_bus_allocator
-
-    @property
-    def buffer_allocator(self):
-        return self._buffer_allocator
-
-    @property
-    def control_bus_allocator(self):
-        return self._control_bus_allocator
-
-    @property
-    def default_group(self):
-        from supriya.library import controllib
-        group = controllib.Group(
-            node_id=1,
-            server=self,
-            send_to_server=False,
-            )
-        return group
-
-    @property
-    def is_running(self):
-        return self._is_running
-
-    @property
-    def node_id_allocator(self):
-        return self._node_id_allocator
-
-    @property
-    def options(self):
-        return self._options
+    def server_session(self):
+        return self._server_session
