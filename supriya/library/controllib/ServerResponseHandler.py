@@ -21,7 +21,16 @@ class ServerResponseHandler(object):
         ...     44100.0, 44100.00077873274,
         ...     )
         >>> handler(message)
-        StatusReplyResponse(ugen_count=0, synth_count=0, group_count=2, synth_definition_count=4, average_cpu_usage=0.040679048746824265, peak_cpu_usage=0.15118031203746796, target_sample_rate=44100.0, actual_sample_rate=44100.00077873274)
+        StatusReplyResponse(
+            ugen_count=0,
+            synth_count=0,
+            group_count=2,
+            synth_definition_count=4,
+            average_cpu_usage=0.040679048746824265,
+            peak_cpu_usage=0.15118031203746796,
+            target_sample_rate=44100.0,
+            actual_sample_rate=44100.00077873274
+            )
 
     ::
 
@@ -212,20 +221,6 @@ class ServerResponseHandler(object):
             ),
         )
 
-    StatusReplyResponse = collections.namedtuple(
-        'StatusReplyResponse',
-        (
-            'ugen_count',
-            'synth_count',
-            'group_count',
-            'synth_definition_count',
-            'average_cpu_usage',
-            'peak_cpu_usage',
-            'target_sample_rate',
-            'actual_sample_rate',
-            ),
-        )
-
     SyncedResponse = collections.namedtuple(
         'SyncedResponse',
         (
@@ -388,8 +383,9 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_status_reply(self, command, contents):
+        from supriya.library import controllib
         arguments = contents[1:]
-        response = self.StatusReplyResponse(*arguments)
+        response = controllib.StatusReplyResponse(*arguments)
         return response
 
     def _handle_synced(self, command, contents):
