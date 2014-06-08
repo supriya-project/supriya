@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.library.controllib.ServerResponse import ServerResponse
+from supriya.library.responselib.ServerResponse import ServerResponse
 
 
 class NodeResponse(ServerResponse):

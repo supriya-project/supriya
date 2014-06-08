@@ -244,9 +244,9 @@ class ServerResponseHandler(object):
         return iterator
 
     def _handle_b_info(self, command, contents):
-        from supriya.library import controllib
+        from supriya.library import responselib
         arguments = contents
-        response = controllib.BInfoResponse(*arguments)
+        response = responselib.BInfoResponse(*arguments)
         return response
 
     def _handle_b_set(self, command, contents):
@@ -319,9 +319,9 @@ class ServerResponseHandler(object):
         raise NotImplementedError('Not yet implemented.')
 
     def _handle_n_info(self, command, contents):
-        from supriya.library import controllib
+        from supriya.library import responselib
         arguments = (command,) + contents
-        response = controllib.NodeResponse(*arguments)
+        response = responselib.NodeResponse(*arguments)
         return response
 
     def _handle_n_set(self, command, contents):
@@ -357,9 +357,9 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_status_reply(self, command, contents):
-        from supriya.library import controllib
+        from supriya.library import responselib
         arguments = contents[1:]
-        response = controllib.StatusReplyResponse(*arguments)
+        response = responselib.StatusReplyResponse(*arguments)
         return response
 
     def _handle_synced(self, command, contents):
@@ -368,9 +368,9 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_tr(self, command, contents):
-        from supriya.library import controllib
+        from supriya.library import responselib
         arguments = contents
-        response = controllib.TrResponse(*arguments)
+        response = responselib.TrResponse(*arguments)
         return response
 
     ### SPECIAL METHODS ###
