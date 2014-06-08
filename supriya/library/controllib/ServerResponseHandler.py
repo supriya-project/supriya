@@ -47,94 +47,37 @@ class ServerResponseHandler(object):
 
         >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> handler(message)
-        NSetResponse(node_id=1023, items=(NSetItem(control_index_or_name='/one', control_value=-1), NSetItem(control_index_or_name='/two', control_value=0)))
+        NSetResponse(
+            node_id=1023,
+            items=(
+                NSetItem(
+                    control_index_or_name='/one',
+                    control_value=-1
+                    ),
+                NSetItem(
+                    control_index_or_name='/two',
+                    control_value=0
+                    ),
+                )
+            )
 
     ::
 
         >>> message = osclib.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         >>> handler(message)
-        BSetnResponse(buffer_number=1, items=(BSetnItem(starting_sample_index=0, sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)),))
+        BSetnResponse(
+            items=(
+                BSetnItem(
+                    starting_sample_index=0,
+                    sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+                    ),
+                ),
+            buffer_number=1
+            )
 
     '''
 
     ### CLASS VARIABLES ###
-
-    BSetItem = collections.namedtuple(
-        'BSetItem',
-        (
-            'sample_index',
-            'sample_value',
-            ),
-        )
-
-    BSetResponse = collections.namedtuple(
-        'BSetResponse',
-        (
-            'buffer_number',
-            'items',
-            ),
-        )
-
-    BSetnItem = collections.namedtuple(
-        'BSetnItem',
-        (
-            'starting_sample_index',
-            'sample_values',
-            ),
-        )
-
-    BSetnResponse = collections.namedtuple(
-        'BSetnResponse',
-        (
-            'buffer_number',
-            'items',
-            ),
-        )
-
-    CSetItem = collections.namedtuple(
-        'CSetItem',
-        (
-            'bus_index',
-            'bus_value',
-            ),
-        )
-
-    CSetResponse = collections.namedtuple(
-        'CSetResponse',
-        (
-            'items',
-            ),
-        )
-
-    CSetnItem = collections.namedtuple(
-        'CSetnItem',
-        (
-            'starting_bus_index',
-            'bus_values',
-            ),
-        )
-
-    CSetnResponse = collections.namedtuple(
-        'CSetnResponse',
-        (
-            'items',
-            ),
-        )
-
-    DoneResponse = collections.namedtuple(
-        'DoneResponse',
-        (
-            'action',
-            ),
-        )
-
-    FailResponse = collections.namedtuple(
-        'FailResponse',
-        (
-            'failed_command',
-            'failure_reason',
-            ),
-        )
 
     GQueryTreeControlItem = collections.namedtuple(
         'GQueryTreeControlItem',
@@ -170,45 +113,6 @@ class ServerResponseHandler(object):
             ),
         )
 
-    NSetItem = collections.namedtuple(
-        'NSetItem',
-        (
-            'control_index_or_name',
-            'control_value',
-            ),
-        )
-
-    NSetResponse = collections.namedtuple(
-        'NSetResponse',
-        (
-            'node_id',
-            'items',
-            ),
-        )
-
-    NSetnItem = collections.namedtuple(
-        'NSetnItem',
-        (
-            'starting_control_index_or_name',
-            'control_values',
-            ),
-        )
-
-    NSetnResponse = collections.namedtuple(
-        'NSetnResponse',
-        (
-            'node_id'
-            'items',
-            ),
-        )
-
-    SyncedResponse = collections.namedtuple(
-        'SyncedResponse',
-        (
-            'sync_id',
-            ),
-        )
-
     ### INITIALIZER ###
 
     def __init__(self):
@@ -218,6 +122,7 @@ class ServerResponseHandler(object):
             '/b_setn': self._handle_b_setn,
             '/c_set': self._handle_c_set,
             '/c_setn': self._handle_c_setn,
+            '/done': self._handle_done,
             '/fail': self._handle_fail,
             '/g_queryTree.reply': self._handle_g_query_tree_reply,
             '/n_end': self._handle_n_info,
@@ -250,69 +155,80 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_b_set(self, command, contents):
+        from supriya.library import responselib
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = self.BSetItem(*group)
+            item = responselib.BSetItem(*group)
             items.append(item)
         items = tuple(items)
-        response = self.BSetResponse(
+        response = responselib.BSetResponse(
             buffer_number=buffer_number,
             items=items,
             )
         return response
 
     def _handle_b_setn(self, command, contents):
+        from supriya.library import responselib
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = self.BSetnItem(
+            item = responselib.BSetnItem(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )
             items.append(item)
             remainder = remainder[2 + sample_count:]
         items = tuple(items)
-        response = self.BSetnResponse(
+        response = responselib.BSetnResponse(
             buffer_number=buffer_number,
             items=items,
             )
         return response
 
     def _handle_c_set(self, command, contents):
+        from supriya.library import responselib
         items = []
         for group in self._group_items(contents, 2):
-            item = self.CSetItem(*group)
+            item = responselib.CSetItem(*group)
             items.append(item)
-        response = self.CSetResponse(
+        response = responselib.CSetResponse(
             items=tuple(items),
             )
         return response
 
     def _handle_c_setn(self, command, contents):
+        from supriya.library import responselib
         items = []
         while contents:
             starting_bus_index = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
-            item = self.CSetnItem(
+            item = responselib.CSetnItem(
                 starting_bus_index=starting_bus_index,
                 bus_values=bus_values,
                 )
             items.append(item)
             contents = contents[2 + bus_count:]
         items = tuple(items)
-        response = self.CSetnResponse(
+        response = responselib.CSetnResponse(
             items=items,
             )
         return response
 
-    def _handle_fail(self, command, contents):
+    def _handle_done(self, command, contents):
+        from supriya.library import responselib
         arguments = contents
-        response = self.FailResponse(*arguments)
+        response = responselib.DoneResponse(*arguments)
+        return response
+
+    def _handle_fail(self, command, contents):
+        from supriya.library import responselib
+        arguments = contents
+        response = responselib.FailResponse(*arguments)
         return response
 
     def _handle_g_query_tree_reply(self, command, contents):
@@ -325,32 +241,34 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_n_set(self, command, contents):
+        from supriya.library import responselib
         node_id, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = self.NSetItem(*group)
+            item = responselib.NSetItem(*group)
             items.append(item)
-        response = self.NSetResponse(
+        response = responselib.NSetResponse(
             node_id=node_id,
             items=tuple(items),
             )
         return response
 
     def _handle_n_setn(self, command, contents):
+        from supriya.library import responselib
         node_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             control_index_or_name = remainder[0]
             control_count = remainder[1]
             control_values = tuple(remainder[2:2 + control_count])
-            item = self.NSetnItem(
+            item = responselib.NSetnItem(
                 control_index_or_name=control_index_or_name,
                 control_values=control_values,
                 )
             items.append(item)
             remainder = remainder[2 + control_count:]
         items = tuple(items)
-        response = self.NSetnResponse(
+        response = responselib.NSetnResponse(
             node_id=node_id,
             items=items,
             )
@@ -363,8 +281,9 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_synced(self, command, contents):
+        from supriya.library import responselib
         arguments = contents
-        response = self.SyncedResponse(*arguments)
+        response = responselib.SyncedResponse(*arguments)
         return response
 
     def _handle_tr(self, command, contents):
