@@ -16,7 +16,7 @@ class Server(object):
     ::
 
         >>> server.quit()
-        OscMessage('/done', '/quit')
+        RECV: OscMessage('/done', '/quit')
 
     The server class is a singleton:
 

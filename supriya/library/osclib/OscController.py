@@ -72,7 +72,7 @@ class OscController(object):
             self._dispatcher.register_callback(
                 osclib.OscCallback(
                     address_pattern='/*', 
-                    procedure=lambda message: print(message),
+                    procedure=lambda message: print('RECV:', message),
                     )
                 )
 
