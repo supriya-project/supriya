@@ -36,7 +36,12 @@ class ServerResponseHandler(object):
 
         >>> message = osclib.OscMessage('/b_info', 1100, 512, 1, 44100.0)
         >>> handler(message)
-        BInfoResponse(buffer_id=1100, frame_count=512, channel_count=1, sample_rate=44100.0)
+        BInfoResponse(
+            buffer_id=1100,
+            frame_count=512,
+            channel_count=1,
+            sample_rate=44100.0
+            )
 
     ::
 
@@ -53,16 +58,6 @@ class ServerResponseHandler(object):
     '''
 
     ### CLASS VARIABLES ###
-
-    BInfoResponse = collections.namedtuple(
-        'BInfoResponse',
-        (
-            'buffer_id',
-            'frame_count',
-            'channel_count',
-            'sample_rate',
-            ),
-        )
 
     BSetItem = collections.namedtuple(
         'BSetItem',
@@ -207,33 +202,10 @@ class ServerResponseHandler(object):
             ),
         )
 
-    NodeResponse = collections.namedtuple(
-        'NodeResponse',
-        (
-            'message_head',
-            'node_id',
-            'parent_group_id',
-            'previous_node_id',
-            'next_node_id',
-            'is_group',
-            'head_node_id',
-            'tail_node_id',
-            ),
-        )
-
     SyncedResponse = collections.namedtuple(
         'SyncedResponse',
         (
             'sync_id',
-            ),
-        )
-
-    TrResponse = collections.namedtuple(
-        'TrResponse',
-        (
-            'node_id',
-            'trigger_id',
-            'trigger_value',
             ),
         )
 
@@ -272,8 +244,9 @@ class ServerResponseHandler(object):
         return iterator
 
     def _handle_b_info(self, command, contents):
+        from supriya.library import controllib
         arguments = contents
-        response = self.BInfoResponse(*arguments)
+        response = controllib.BInfoResponse(*arguments)
         return response
 
     def _handle_b_set(self, command, contents):
@@ -346,8 +319,9 @@ class ServerResponseHandler(object):
         raise NotImplementedError('Not yet implemented.')
 
     def _handle_n_info(self, command, contents):
+        from supriya.library import controllib
         arguments = (command,) + contents
-        response = self.NodeResponse(*arguments)
+        response = controllib.NodeResponse(*arguments)
         return response
 
     def _handle_n_set(self, command, contents):
@@ -394,8 +368,9 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_tr(self, command, contents):
+        from supriya.library import controllib
         arguments = contents
-        response = self.TrResponse(*arguments)
+        response = controllib.TrResponse(*arguments)
         return response
 
     ### SPECIAL METHODS ###
