@@ -44,7 +44,7 @@ class SupriyaObject(AbstractBase):
 
     def __repr__(self):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.get_storage_format(self)
+        return systemtools.StorageFormatManager.get_repr_format(self)
 
     def __setstate__(self, state):
         for key, value in state.items():
@@ -54,11 +54,7 @@ class SupriyaObject(AbstractBase):
 
     @property
     def _repr_specification(self):
-        from abjad.tools.topleveltools import new
-        return new(
-            self._storage_format_specification,
-            is_indented=True,
-            )
+        return self._storage_format_specification
 
     @property
     def _storage_format_specification(self):
