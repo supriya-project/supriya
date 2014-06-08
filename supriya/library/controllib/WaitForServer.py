@@ -8,6 +8,7 @@ class WaitForServer(object):
     __slots__ = (
         '_callback',
         '_called_back',
+        '_server',
         )
 
     ### INITIALIZER ###
@@ -16,7 +17,9 @@ class WaitForServer(object):
         self,
         address_pattern=None,
         argument_template=None,
+        server=None
         ):
+        from supriya import controllib
         from supriya import osclib
         self._called_back = False
         self._callback = osclib.OscCallback(
@@ -25,6 +28,10 @@ class WaitForServer(object):
             is_one_shot=True,
             procedure=self.__call__,
             )
+        if server is None:
+            server = controllib.Server.get_default_server()
+        assert isinstance(server, controllib.Server), server
+        self._server = server
 
     ### SPECIAL METHODS ###
 
@@ -32,9 +39,7 @@ class WaitForServer(object):
         self._called_back = True
 
     def __enter__(self):
-        from supriya import controllib
-        server = controllib.Server()
-        server._osc_controller.dispatcher.register_callback(self.callback)
+        self.server._osc_controller.dispatcher.register_callback(self.callback)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
@@ -50,3 +55,7 @@ class WaitForServer(object):
     @property
     def callback(self):
         return self._callback
+
+    @property
+    def server(self):
+        return self._server

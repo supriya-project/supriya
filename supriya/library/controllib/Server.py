@@ -9,7 +9,7 @@ class Server(object):
     ::
 
         >>> from supriya import controllib
-        >>> server = controllib.Server()
+        >>> server = controllib.Server.get_default_server()
         >>> server.boot()
         <supriya.library.controllib.Server.Server object at 0x...>
 
@@ -18,41 +18,26 @@ class Server(object):
         >>> server.quit()
         RECV: OscMessage('/done', '/quit')
 
-    The server class is a singleton:
-
-    ::
-
-        >>> server_one = controllib.Server()
-        >>> server_two = controllib.Server()
-        >>> server_one is server_two
-        True
-
     '''
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_ip_address',
+        '_port',
         '_osc_controller',
         '_server_session',
         )
 
-    _instance = None
-
-    ### CONSTRUCTOR ###
-
-    def __new__(cls, *args, **kwargs):
-        if not cls._instance:
-            instance = super(Server, cls).__new__(
-                cls, *args, **kwargs)
-            instance._osc_controller = None
-            instance._server_session = None
-            cls._instance = instance
-        return cls._instance
+    _default_server = None
 
     ### INITIALIZER ###
 
-    def __init__(self):
-        pass
+    def __init__(self, ip_address='127.0.0.1', port=57751):
+        self._ip_address = ip_address
+        self._port = port
+        self._osc_controller = None
+        self._server_session = None
 
     ### SPECIAL METHODS ###
 
@@ -64,18 +49,17 @@ class Server(object):
     def boot(
         self,
         server_options=None,
-        server_port=57751
         ):
         from supriya.library import controllib
         from supriya.library import osclib
         if self.server_session is not None:
             return
         self._osc_controller = osclib.OscController(
-            server_ip_address='127.0.0.1',
-            server_port=server_port,
+            server_ip_address=self.ip_address,
+            server_port=self.port,
             )
         server_options = server_options or controllib.ServerOptions()
-        options_string = server_options.as_options_string(server_port)
+        options_string = server_options.as_options_string(self.port)
         command = 'scsynth {}'.format(options_string)
         server_process = subprocess.Popen(
             command.split(),
@@ -94,6 +78,12 @@ class Server(object):
     def dump_osc(self, expr):
         self.send_message(r'/dumpOSC', expr)
 
+    @staticmethod
+    def get_default_server():
+        if Server._default_server is None:
+            Server._default_server = Server()
+        return Server._default_server
+
     def notify(self, expr):
         self.send_message(r'/notify', expr)
 
@@ -110,8 +100,6 @@ class Server(object):
             self.send_message(r'/cmd', arguments)
 
     def send_message(self, message):
-        from supriya.library import controllib
-        assert self is controllib.Server()
         self._osc_controller.send(message)
 
     def sync(self, reply_int):
@@ -121,6 +109,14 @@ class Server(object):
         self.send_message(r'/status')
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def ip_address(self):
+        return self._ip_address
+
+    @property
+    def port(self):
+        return self._port
 
     @property
     def server_session(self):
