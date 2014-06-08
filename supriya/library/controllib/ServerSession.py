@@ -44,7 +44,7 @@ class ServerSession(object):
 
         self._root_node = controllib.RootNode()
         self._default_group = controllib.DefaultGroup()
-        self._default_group._group = self._root_node
+        self._default_group._parent_group = self._root_node
 
     ### PUBLIC METHODS ###
 

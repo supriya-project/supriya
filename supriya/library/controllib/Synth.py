@@ -17,20 +17,31 @@ class Synth(Node):
         add_action=None,
         target_node=None,
         ):
-        from supriya.library import controllib
+        Node.__init__(self)
         self._synth_definition_name = synth_definition_name
-        add_action = add_action or 0
-        add_action = controllib.AddAction.from_expr(add_action)
+
+    ### PUBLIC METHODS ###
+
+    def allocate(
+        self,
+        add_action=None,
+        target_node=None,
+        server_session=None,
+        ):
+        from supriya.library import controllib
         target_node = controllib.Node.expr_as_target(target_node)
-        server = target_node.server
-        Node.__init__(
-            self,
-            server=server,
-            )
         if add_action.value < 2:
             self._group = target_node
         else:
             self._group = target_node.group
+        server_session = target_node.server_session
+        controllib.ServerObjectProxy.allocate(
+            self,
+            server_session=server_session,
+            )
+        add_action = add_action or 0
+        add_action = controllib.AddAction.from_expr(add_action)
+        self._server_session = server_session
         message = (
             self.creation_command,
             self.synth_definition_name,

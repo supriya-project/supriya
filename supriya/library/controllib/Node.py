@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import abc
 from supriya.library.controllib.ServerObjectProxy import ServerObjectProxy
 
 
@@ -7,29 +8,21 @@ class Node(ServerObjectProxy):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_group',
         '_is_playing',
         '_is_running',
         '_node_id',
-        '_server',
+        '_parent_group',
         )
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        node_id=None,
-        server=None,
-        ):
-        from supriya.library import controllib
-        server = server or controllib.Server()
-        if node_id is None:
-            node_id = server.next_node_id
-        self._group = None
+    @abc.abstractmethod
+    def __init__(self):
+        ServerObjectProxy.__init__(self)
+        self._parent_group = None
         self._is_playing = False
         self._is_running = False
-        self._node_id = int(node_id)
-        self._server = server
+        self._node_id = None
 
     ### PUBLIC METHODS ###
 
@@ -67,9 +60,10 @@ class Node(ServerObjectProxy):
         message = self.make_free_message()
         if send_to_server:
             self.server.send_message(message)
-        self._group = None
         self._is_playing = False
         self._is_running = False
+        self._node_id = None
+        self._parent_group = None
 
     def make_free_message(self):
         message = (11, self.node_id)
@@ -112,10 +106,6 @@ class Node(ServerObjectProxy):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def group(self):
-        return self._group
-
-    @property
     def is_playing(self):
         return self._is_playing
 
@@ -128,5 +118,5 @@ class Node(ServerObjectProxy):
         return self._node_id
 
     @property
-    def server(self):
-        return self._server
+    def parent_group(self):
+        return self._parent_group

@@ -13,14 +13,11 @@ class RootNode(Group):
 
     def __init__(self):
         from supriya.library import controllib
-        controllib.Node.__init__(
-            self,
-            node_id=0,
-            server=controllib.Server(),
-            )
+        controllib.Node.__init__(self)
         self._is_playing = True
         self._is_running = True
-        self._group = self
+        self._node_id = 0
+        self._parent_group = self
 
     ### PUBLIC METHODS ###
 
