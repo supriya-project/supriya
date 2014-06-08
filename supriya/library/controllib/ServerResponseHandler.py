@@ -21,7 +21,7 @@ class ServerResponseHandler(object):
         ...     44100.0, 44100.00077873274,
         ...     )
         >>> handler(message)
-        StatusReplyResponse(unused_int=1, ugen_count=0, synth_count=0, group_count=2, synth_definition_count=4, average_cpu_usage=0.040679048746824265, peak_cpu_usage=0.15118031203746796, target_sample_rate=44100.0, actual_sample_rate=44100.00077873274)
+        StatusReplyResponse(ugen_count=0, synth_count=0, group_count=2, synth_definition_count=4, average_cpu_usage=0.040679048746824265, peak_cpu_usage=0.15118031203746796, target_sample_rate=44100.0, actual_sample_rate=44100.00077873274)
 
     ::
 
@@ -215,7 +215,6 @@ class ServerResponseHandler(object):
     StatusReplyResponse = collections.namedtuple(
         'StatusReplyResponse',
         (
-            'unused_int',
             'ugen_count',
             'synth_count',
             'group_count',
@@ -246,27 +245,25 @@ class ServerResponseHandler(object):
     ### INITIALIZER ###
 
     def __init__(self):
-        self._basic_response_templates = {
-            '/b_info': (self.BInfoResponse, False),
-            '/fail': (self.FailResponse, False),
-            '/n_end': (self.NodeResponse, True),
-            '/n_go': (self.NodeResponse, True),
-            '/n_info': (self.NodeResponse, True),
-            '/n_move': (self.NodeResponse, True),
-            '/n_off': (self.NodeResponse, True),
-            '/n_on': (self.NodeResponse, True),
-            '/status.reply': (self.StatusReplyResponse, False),
-            '/synced': (self.SyncedResponse, False),
-            '/tr': (self.TrResponse, False),
-            }
-        self._compound_response_handlers = {
+        self._response_handlers = {
+            '/b_info': self._handle_b_info,
             '/b_set': self._handle_b_set,
             '/b_setn': self._handle_b_setn,
             '/c_set': self._handle_c_set,
             '/c_setn': self._handle_c_setn,
+            '/fail': self._handle_fail,
+            '/g_queryTree.reply': self._handle_g_query_tree_reply,
+            '/n_end': self._handle_n_info,
+            '/n_go': self._handle_n_info,
+            '/n_info': self._handle_n_info,
+            '/n_move': self._handle_n_info,
+            '/n_off': self._handle_n_info,
+            '/n_on': self._handle_n_info,
             '/n_set': self._handle_n_set,
             '/n_setn': self._handle_n_setn,
-            '/g_queryTree.reply': self._handle_g_query_tree_reply,
+            '/status.reply': self._handle_status_reply,
+            '/synced': self._handle_synced,
+            '/tr': self._handle_tr,
             }
 
     ### PRIVATE METHODS ###
@@ -279,7 +276,12 @@ class ServerResponseHandler(object):
             iterator = zip(*iterators)
         return iterator
 
-    def _handle_b_set(self, contents):
+    def _handle_b_info(self, command, contents):
+        arguments = contents
+        response = self.BInfoResponse(*arguments)
+        return response
+
+    def _handle_b_set(self, command, contents):
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
@@ -292,7 +294,7 @@ class ServerResponseHandler(object):
             )
         return response
 
-    def _handle_b_setn(self, contents):
+    def _handle_b_setn(self, command, contents):
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         while remainder:
@@ -312,7 +314,7 @@ class ServerResponseHandler(object):
             )
         return response
 
-    def _handle_c_set(self, contents):
+    def _handle_c_set(self, command, contents):
         items = []
         for group in self._group_items(contents, 2):
             item = self.CSetItem(*group)
@@ -322,7 +324,7 @@ class ServerResponseHandler(object):
             )
         return response
 
-    def _handle_c_setn(self, contents):
+    def _handle_c_setn(self, command, contents):
         items = []
         while contents:
             starting_bus_index = contents[0]
@@ -340,10 +342,20 @@ class ServerResponseHandler(object):
             )
         return response
 
-    def _handle_g_query_tree_reply(self, contents):
+    def _handle_fail(self, command, contents):
+        arguments = contents
+        response = self.FailResponse(*arguments)
+        return response
+
+    def _handle_g_query_tree_reply(self, command, contents):
         raise NotImplementedError('Not yet implemented.')
 
-    def _handle_n_set(self, contents):
+    def _handle_n_info(self, command, contents):
+        arguments = (command,) + contents
+        response = self.NodeResponse(*arguments)
+        return response
+
+    def _handle_n_set(self, command, contents):
         node_id, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
@@ -355,7 +367,7 @@ class ServerResponseHandler(object):
             )
         return response
 
-    def _handle_n_setn(self, contents):
+    def _handle_n_setn(self, command, contents):
         node_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
@@ -375,21 +387,28 @@ class ServerResponseHandler(object):
             )
         return response
 
+    def _handle_status_reply(self, command, contents):
+        arguments = contents[1:]
+        response = self.StatusReplyResponse(*arguments)
+        return response
+
+    def _handle_synced(self, command, contents):
+        arguments = contents
+        response = self.SyncedResponse(*arguments)
+        return response
+
+    def _handle_tr(self, command, contents):
+        arguments = contents
+        response = self.TrResponse(*arguments)
+        return response
+
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
         address, contents = message.address, message.contents
-        if address in self._basic_response_templates:
-            template, keep_message_head = \
-                self._basic_response_templates[address]
-            if keep_message_head:
-                arguments = (address,) + contents
-            else:
-                arguments = contents
-            response = template(*arguments)
-        elif address in self._compound_response_handlers:
-            handler = self._compound_response_handlers[address]
-            response = handler(contents)
+        if address in self._response_handlers:
+            handler = self._response_handlers[address]
+            response = handler(address, contents)
         else:
             raise ValueError
         return response
