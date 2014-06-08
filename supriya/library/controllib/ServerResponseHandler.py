@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import collections
 import itertools
 import sys
 
@@ -79,38 +78,8 @@ class ServerResponseHandler(object):
 
     ### CLASS VARIABLES ###
 
-    GQueryTreeControlItem = collections.namedtuple(
-        'GQueryTreeControlItem',
-        (
-            'control_name_or_index',
-            'control_value',
-            ),
-        )
-
-    GQueryTreeGroupItem = collections.namedtuple(
-        'GQueryTreeSynthItem',
-        (
-            'node_id',
-            'child_count',
-            ),
-        )
-
-    GQueryTreeSynthItem = collections.namedtuple(
-        'GQueryTreeSynthItem',
-        (
-            'node_id',
-            'synth_definition_name',
-            'controls',
-            ),
-        )
-
-    GQueryTreeResponse = collections.namedtuple(
-        'GQueryTreeResponse',
-        (
-            'node_id',
-            'child_count',
-            'items',
-            ),
+    __slots__ = (
+        '_response_handlers'
         )
 
     ### INITIALIZER ###
@@ -232,7 +201,51 @@ class ServerResponseHandler(object):
         return response
 
     def _handle_g_query_tree_reply(self, command, contents):
-        raise NotImplementedError('Not yet implemented.')
+        from supriya.library import responselib
+        control_flag = contents[0]
+        node_id = contents[1]
+        child_count = contents[2]
+        contents = contents[3:]
+        items = []
+        while contents:
+            child_node_id = contents[0]
+            child_child_count = contents[1]
+            contents = contents[2:]
+            if 0 <= child_count:
+                item = responselib.GQueryTreeGroupItem(
+                    node_id=child_node_id,
+                    child_count=child_child_count,
+                    )
+            else:
+                synth_definition_name = contents[0]
+                contents = contents[1:]
+                control_items = []
+                if control_flag:
+                    control_count = contents[0]
+                    contents = contents[1:]
+                    for _ in control_count:
+                        control_name_or_index = contents[0]
+                        control_value = contents[1]
+                        contents = contents[2:]
+                        control_item = responselib.GQueryTreeControlItem(
+                            control_name_or_index=control_name_or_index,
+                            control_value=control_value,
+                            )
+                        control_items.append(control_item)
+                control_items = tuple(control_items)
+                item = responselib.GQueryTreeSynthItem(
+                    node_id=child_node_id,
+                    synth_definition_name=synth_definition_name,
+                    control_items=control_items,
+                    )
+            items.append(item)
+        items = tuple(items)
+        response = responselib.GQueryTreeResponse(
+            node_id=node_id,
+            child_count=child_count,
+            items=items,
+            )
+        return response
 
     def _handle_n_info(self, command, contents):
         from supriya.library import responselib
