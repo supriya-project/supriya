@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class NSetnResponse(ServerResponse):
+class NodeSetContiguousResponse(ServerResponse):
 
     ### CLASS VARIABLES ###
 

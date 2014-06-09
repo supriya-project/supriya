@@ -46,14 +46,14 @@ class ServerResponseHandler(object):
 
         >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> handler(message)
-        NSetResponse(
+        NodeSetResponse(
             node_id=1023,
             items=(
-                NSetItem(
+                NodeSetItem(
                     control_index_or_name='/one',
                     control_value=-1
                     ),
-                NSetItem(
+                NodeSetItem(
                     control_index_or_name='/two',
                     control_value=0
                     ),
@@ -258,9 +258,9 @@ class ServerResponseHandler(object):
         node_id, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = responselib.NSetItem(*group)
+            item = responselib.NodeSetItem(*group)
             items.append(item)
-        response = responselib.NSetResponse(
+        response = responselib.NodeSetResponse(
             node_id=node_id,
             items=tuple(items),
             )
@@ -274,14 +274,14 @@ class ServerResponseHandler(object):
             control_index_or_name = remainder[0]
             control_count = remainder[1]
             control_values = tuple(remainder[2:2 + control_count])
-            item = responselib.NSetnItem(
+            item = responselib.NodeSetContiguousItem(
                 control_index_or_name=control_index_or_name,
                 control_values=control_values,
                 )
             items.append(item)
             remainder = remainder[2 + control_count:]
         items = tuple(items)
-        response = responselib.NSetnResponse(
+        response = responselib.NodeSetContiguousResponse(
             node_id=node_id,
             items=items,
             )
