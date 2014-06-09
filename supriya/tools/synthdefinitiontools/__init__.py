@@ -5,4 +5,4 @@ systemlib.ImportManager.import_structured_package(
     globals(),
     )
 
-from supriya.tools.ugenlib import *
+from supriya.tools.ugentools import *

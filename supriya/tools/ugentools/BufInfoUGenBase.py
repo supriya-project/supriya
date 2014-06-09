@@ -1,5 +1,5 @@
 from supriya.tools.synthdefinitiontools.Argument import Argument
-from supriya.tools.ugenlib.InfoUGenBase import InfoUGenBase
+from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class BufInfoUGenBase(InfoUGenBase):
