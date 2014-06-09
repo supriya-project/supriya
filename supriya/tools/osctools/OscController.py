@@ -12,8 +12,8 @@ class OscController(object):
 
     ::
 
-        >>> from supriya import osclib
-        >>> controller = osclib.OscController(
+        >>> from supriya import osctools
+        >>> controller = osctools.OscController(
         ...     server_ip_address='127.0.0.1',
         ...     server_port=57751,
         ...     )
@@ -54,7 +54,7 @@ class OscController(object):
         timeout=2,
         verbose=True,
         ):
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         self._server_ip_address = server_ip_address
         self._server_port = int(server_port)
         assert 0 < int(timeout)
@@ -64,13 +64,13 @@ class OscController(object):
             socket.SOCK_DGRAM,
             )
         self._socket_instance.settimeout(self.timeout)
-        self._dispatcher = osclib.OscDispatcher()
-        self._listener = osclib.OscListener(self)
+        self._dispatcher = osctools.OscDispatcher()
+        self._listener = osctools.OscListener(self)
         self._listener.start()
         self._socket_instance.bind(('', 0))
         if verbose:
             self._dispatcher.register_callback(
-                osclib.OscCallback(
+                osctools.OscCallback(
                     address_pattern='/*', 
                     procedure=lambda message: print('RECV:', message),
                     )
@@ -84,14 +84,14 @@ class OscController(object):
     ### PUBLIC METHODS ###
 
     def send(self, message):
-        from supriya.tools import osclib
-        prototype = (str, tuple, osclib.OscMessage, osclib.OscBundle)
+        from supriya.tools import osctools
+        prototype = (str, tuple, osctools.OscMessage, osctools.OscBundle)
         assert isinstance(message, prototype)
         if isinstance(message, str):
-            message = osclib.OscMessage(message)
+            message = osctools.OscMessage(message)
         elif isinstance(message, tuple):
             assert len(message)
-            message = osclib.OscMessage(
+            message = osctools.OscMessage(
                 message[0],
                 *message[1:]
                 )

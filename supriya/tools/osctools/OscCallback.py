@@ -7,8 +7,8 @@ class OscCallback(object):
 
     ::
 
-        >>> from supriya import osclib
-        >>> callback = osclib.OscCallback(
+        >>> from supriya import osctools
+        >>> callback = osctools.OscCallback(
         ...     address_pattern='/*', 
         ...     procedure=lambda x: print('GOT:', x),
         ...     )

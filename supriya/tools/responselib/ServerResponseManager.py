@@ -8,13 +8,13 @@ class ServerResponseManager(object):
 
     ::
 
-        >>> from supriya import osclib
+        >>> from supriya import osctools
         >>> from supriya import responselib
         >>> manager = responselib.ServerResponseManager()
 
     ::
 
-        >>> message = osclib.OscMessage(
+        >>> message = osctools.OscMessage(
         ...     '/status.reply', 1, 0, 0, 2, 4,
         ...     0.040679048746824265, 0.15118031203746796,
         ...     44100.0, 44100.00077873274,
@@ -33,7 +33,7 @@ class ServerResponseManager(object):
 
     ::
 
-        >>> message = osclib.OscMessage('/b_info', 1100, 512, 1, 44100.0)
+        >>> message = osctools.OscMessage('/b_info', 1100, 512, 1, 44100.0)
         >>> manager(message)
         BufferInfoResponse(
             buffer_id=1100,
@@ -44,7 +44,7 @@ class ServerResponseManager(object):
 
     ::
 
-        >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
+        >>> message = osctools.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> manager(message)
         NodeSetResponse(
             node_id=1023,
@@ -62,7 +62,7 @@ class ServerResponseManager(object):
 
     ::
 
-        >>> message = osclib.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        >>> message = osctools.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         >>> manager(message)
         BufferSetContiguousResponse(
             items=(

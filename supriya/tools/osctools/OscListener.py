@@ -22,11 +22,11 @@ class OscListener(threading.Thread):
     ### PUBLIC METHODS ###
 
     def get_message(self):
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         try:
             data, address = self.client.socket_instance.recvfrom(2**13)
             if data:
-                message = osclib.OscMessage.from_datagram(data)
+                message = osctools.OscMessage.from_datagram(data)
                 return message
             return None
         except socket.timeout:

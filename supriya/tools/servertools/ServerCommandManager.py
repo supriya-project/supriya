@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools import osclib
+from supriya.tools import osctools
 
 
 class ServerCommandManager(object):
@@ -12,7 +12,7 @@ class ServerCommandManager(object):
         command_type = servertools.ServerCommandType.from_expr('dump_osc')
         osc_status = int(osc_status)
         assert 0 <= osc_status <= 4
-        message = osclib.OscMessage(
+        message = osctools.OscMessage(
             command_type,
             osc_status,
             )
@@ -23,7 +23,7 @@ class ServerCommandManager(object):
         from supriya.tools import servertools
         command_type = servertools.ServerCommandType.from_expr('notify')
         notify_status = int(bool(notify_status))
-        message = osclib.OscMessage(
+        message = osctools.OscMessage(
             command_type,
             notify_status,
             )
@@ -33,7 +33,7 @@ class ServerCommandManager(object):
     def make_status_message():
         from supriya.tools import servertools
         command_type = servertools.ServerCommandType.from_expr('status')
-        message = osclib.OscMessage(
+        message = osctools.OscMessage(
             command_type,
             )
         return message
@@ -43,7 +43,7 @@ class ServerCommandManager(object):
         from supriya.tools import servertools
         command_type = servertools.ServerCommandType.from_expr('sync')
         sync_id = int(sync_id)
-        message = osclib.OscMessage(
+        message = osctools.OscMessage(
             command_type,
             sync_id,
             )
@@ -53,7 +53,7 @@ class ServerCommandManager(object):
     def make_quit_message():
         from supriya.tools import servertools
         command_type = servertools.ServerCommandType.from_expr('quit')
-        message = osclib.OscMessage(
+        message = osctools.OscMessage(
             command_type,
             )
         return message

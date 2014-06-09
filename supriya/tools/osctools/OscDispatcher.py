@@ -8,12 +8,12 @@ class OscDispatcher(object):
 
     ::
 
-        >>> from supriya import osclib
-        >>> dispatcher = osclib.OscDispatcher()
+        >>> from supriya import osctools
+        >>> dispatcher = osctools.OscDispatcher()
 
     ::
 
-        >>> callback = osclib.OscCallback(
+        >>> callback = osctools.OscCallback(
         ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
@@ -21,7 +21,7 @@ class OscDispatcher(object):
 
     ::
 
-        >>> message = osclib.OscMessage('/okay', 1, 2, 3)
+        >>> message = osctools.OscMessage('/okay', 1, 2, 3)
         >>> dispatcher(message)
         GOT: OscMessage('/okay', 1, 2, 3)
 
@@ -54,8 +54,8 @@ class OscDispatcher(object):
 
         Returns none.
         '''
-        from supriya.tools import osclib
-        assert isinstance(message, osclib.OscMessage)
+        from supriya.tools import osctools
+        assert isinstance(message, osctools.OscMessage)
         callbacks = []
         for regex in self._regex_map:
             if regex.match(message.address):
@@ -89,8 +89,8 @@ class OscDispatcher(object):
 
         Returns none.
         '''
-        from supriya.tools import osclib
-        assert isinstance(callback, osclib.OscCallback)
+        from supriya.tools import osctools
+        assert isinstance(callback, osctools.OscCallback)
         if callback.address_pattern in self._address_map:
             regex = self._address_map[callback.address_pattern]
         else:
@@ -107,8 +107,8 @@ class OscDispatcher(object):
 
         Returns none.
         '''
-        from supriya.tools import osclib
-        assert isinstance(callback, osclib.OscCallback)
+        from supriya.tools import osctools
+        assert isinstance(callback, osctools.OscCallback)
         if callback.address_pattern not in self._address_map:
             return
         regex = self._address_map[callback.address_pattern]

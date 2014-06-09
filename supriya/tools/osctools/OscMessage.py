@@ -9,15 +9,15 @@ class OscMessage(object):
 
     ::
 
-        >>> from supriya.tools import osclib
-        >>> osc_message = osclib.OscMessage('/g_new', 0, 0)
+        >>> from supriya.tools import osctools
+        >>> osc_message = osctools.OscMessage('/g_new', 0, 0)
         >>> osc_message
         OscMessage('/g_new', 0, 0)
 
     ::
 
         >>> datagram = osc_message.to_datagram()
-        >>> osclib.OscMessage.from_datagram(datagram)
+        >>> osctools.OscMessage.from_datagram(datagram)
         OscMessage('/g_new', 0, 0)
 
     '''

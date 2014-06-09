@@ -20,9 +20,9 @@ class WaitForServer(object):
         server=None
         ):
         from supriya import servertools
-        from supriya import osclib
+        from supriya import osctools
         self._called_back = False
-        self._callback = osclib.OscCallback(
+        self._callback = osctools.OscCallback(
             address_pattern=address_pattern,
             argument_template=argument_template,
             is_one_shot=True,

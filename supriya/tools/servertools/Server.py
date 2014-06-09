@@ -51,10 +51,10 @@ class Server(object):
         server_options=None,
         ):
         from supriya.tools import servertools
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         if self.server_session is not None:
             return
-        self._osc_controller = osclib.OscController(
+        self._osc_controller = osctools.OscController(
             server_ip_address=self.ip_address,
             server_port=self.port,
             )

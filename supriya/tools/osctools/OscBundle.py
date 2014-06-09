@@ -9,14 +9,14 @@ class OscBundle(object):
 
     ::
 
-        >>> from supriya.tools import osclib
-        >>> message_one = osclib.OscMessage('/one', 1)
-        >>> message_two = osclib.OscMessage('/two', 2)
-        >>> message_three = osclib.OscMessage('/three', 3)
+        >>> from supriya.tools import osctools
+        >>> message_one = osctools.OscMessage('/one', 1)
+        >>> message_two = osctools.OscMessage('/two', 2)
+        >>> message_three = osctools.OscMessage('/three', 3)
 
     ::
 
-        >>> inner_bundle = osclib.OscBundle(
+        >>> inner_bundle = osctools.OscBundle(
         ...     timestamp=1401557034.5,
         ...     contents=(message_one, message_two),
         ...     )
@@ -25,7 +25,7 @@ class OscBundle(object):
 
     ::
 
-        >>> outer_bundle = osclib.OscBundle(
+        >>> outer_bundle = osctools.OscBundle(
         ...     contents=(inner_bundle, message_three),
         ...     )
         >>> outer_bundle
@@ -37,7 +37,7 @@ class OscBundle(object):
 
     ::
 
-        >>> decoded_bundle = osclib.OscBundle.from_datagram(datagram)
+        >>> decoded_bundle = osctools.OscBundle.from_datagram(datagram)
         >>> decoded_bundle
         <OscBundle None {2}>
 
@@ -65,10 +65,10 @@ class OscBundle(object):
         timestamp=None,
         contents=None,
         ):
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         self._timestamp = timestamp
         if contents is not None:
-            prototype = (osclib.OscMessage, osclib.OscBundle)
+            prototype = (osctools.OscMessage, osctools.OscBundle)
             assert all(isinstance(x, prototype) for x in contents)
             contents = tuple(contents)
         else:
@@ -154,18 +154,18 @@ class OscBundle(object):
 
     @staticmethod
     def from_datagram(datagram):
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         assert OscBundle.datagram_is_bundle(datagram)
         offset = 8
         timestamp, offset = OscBundle._read_date(datagram, offset)
         contents = []
         while offset < len(datagram):
-            length, offset = osclib.OscMessage._read_int(datagram, offset)
+            length, offset = osctools.OscMessage._read_int(datagram, offset)
             data = datagram[offset:offset + length]
             if OscBundle.datagram_is_bundle(data):
                 item = OscBundle.from_datagram(data)
             else:
-                item = osclib.OscMessage.from_datagram(data)
+                item = osctools.OscMessage.from_datagram(data)
             contents.append(item)
             offset += length
         osc_bundle = OscBundle(
@@ -175,13 +175,13 @@ class OscBundle(object):
         return osc_bundle
 
     def to_datagram(self):
-        from supriya.tools import osclib
+        from supriya.tools import osctools
         datagram = OscBundle._bundle_prefix
         datagram += OscBundle._write_date(self._timestamp)
         for content in self.contents:
             content_datagram = content.to_datagram()
             content_length = len(content_datagram)
-            datagram += osclib.OscMessage._write_int(content_length)
+            datagram += osctools.OscMessage._write_int(content_length)
             datagram += content_datagram
         return datagram
 
