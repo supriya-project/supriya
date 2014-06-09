@@ -25,16 +25,16 @@ class ServerSession(object):
         server_options=None,
         server_process=None,
         ):
-        from supriya.tools import controllib
-        server_options = server_options or controllib.ServerOptions()
-        assert isinstance(server_options, controllib.ServerOptions)
+        from supriya.tools import servertools
+        server_options = server_options or servertools.ServerOptions()
+        assert isinstance(server_options, servertools.ServerOptions)
         self._server_options = server_options
         self._server_process = server_process
 
-        self._audio_bus_allocator = controllib.BlockAllocator()
-        self._buffer_allocator = controllib.BlockAllocator()
-        self._control_bus_allocator = controllib.BlockAllocator()
-        self._node_id_allocator = controllib.NodeIDAllocator()
+        self._audio_bus_allocator = servertools.BlockAllocator()
+        self._buffer_allocator = servertools.BlockAllocator()
+        self._control_bus_allocator = servertools.BlockAllocator()
+        self._node_id_allocator = servertools.NodeIDAllocator()
 
         self._audio_busses = {}
         self._buffers = {}
@@ -42,8 +42,8 @@ class ServerSession(object):
         self._nodes = {}
         self._synth_definitions = {}
 
-        self._root_node = controllib.RootNode()
-        self._default_group = controllib.DefaultGroup()
+        self._root_node = servertools.RootNode()
+        self._default_group = servertools.DefaultGroup()
         self._default_group._parent_group = self._root_node
 
     ### PUBLIC METHODS ###

@@ -8,10 +8,10 @@ class Server(object):
 
     ::
 
-        >>> from supriya import controllib
-        >>> server = controllib.Server.get_default_server()
+        >>> from supriya import servertools
+        >>> server = servertools.Server.get_default_server()
         >>> server.boot()
-        <supriya.tools.controllib.Server.Server object at 0x...>
+        <supriya.tools.servertools.Server.Server object at 0x...>
 
     ::
 
@@ -50,7 +50,7 @@ class Server(object):
         self,
         server_options=None,
         ):
-        from supriya.tools import controllib
+        from supriya.tools import servertools
         from supriya.tools import osclib
         if self.server_session is not None:
             return
@@ -58,7 +58,7 @@ class Server(object):
             server_ip_address=self.ip_address,
             server_port=self.port,
             )
-        server_options = server_options or controllib.ServerOptions()
+        server_options = server_options or servertools.ServerOptions()
         options_string = server_options.as_options_string(self.port)
         command = 'scsynth {}'.format(options_string)
         server_process = subprocess.Popen(
@@ -66,7 +66,7 @@ class Server(object):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             )
-        server_session = controllib.ServerSession(
+        server_session = servertools.ServerSession(
             server_options=server_options,
             server_process=server_process,
             )
@@ -88,10 +88,10 @@ class Server(object):
         self.send_message(r'/notify', expr)
 
     def quit(self):
-        from supriya.tools import controllib
+        from supriya.tools import servertools
         if self._server_session is None:
             return
-        with controllib.WaitForServer('/(done|fail)', ['/quit']):
+        with servertools.WaitForServer('/(done|fail)', ['/quit']):
             self.send_message(r'/quit')
         self._server_session.server_process.send_signal(signal.SIGINT)
         self._server_session.server_process.kill()

@@ -19,7 +19,7 @@ class WaitForServer(object):
         argument_template=None,
         server=None
         ):
-        from supriya import controllib
+        from supriya import servertools
         from supriya import osclib
         self._called_back = False
         self._callback = osclib.OscCallback(
@@ -29,8 +29,8 @@ class WaitForServer(object):
             procedure=self.__call__,
             )
         if server is None:
-            server = controllib.Server.get_default_server()
-        assert isinstance(server, controllib.Server), server
+            server = servertools.Server.get_default_server()
+        assert isinstance(server, servertools.Server), server
         self._server = server
 
     ### SPECIAL METHODS ###

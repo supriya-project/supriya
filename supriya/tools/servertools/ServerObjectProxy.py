@@ -26,11 +26,11 @@ class ServerObjectProxy(object):
 
     @abc.abstractmethod
     def allocate(self, server_session=None):
-        from supriya import controllib
+        from supriya import servertools
         assert self.server_session is None
         if server_session is None:
-            server_session = controllib.Server.get_default_session()
-        assert isinstance(server_session, controllib.ServerSession)
+            server_session = servertools.Server.get_default_session()
+        assert isinstance(server_session, servertools.ServerSession)
         assert server_session.is_running
         self._server_session = server_session
 

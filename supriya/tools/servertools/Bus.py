@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.controllib.ServerObjectProxy import ServerObjectProxy
+from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Bus(ServerObjectProxy):
@@ -8,8 +8,8 @@ class Bus(ServerObjectProxy):
     ::
 
         >>> from supriya import synthdefinitiontools
-        >>> from supriya import controllib
-        >>> bus = controllib.Bus(
+        >>> from supriya import servertools
+        >>> bus = servertools.Bus(
         ...    calculation_rate=synthdefinitiontools.CalculationRate.AUDIO,
         ...    channel_count=1,
         ...    )

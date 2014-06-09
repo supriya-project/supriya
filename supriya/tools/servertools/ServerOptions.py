@@ -3,8 +3,8 @@ class ServerOptions(object):
 
     ::
 
-        >>> from supriya import controllib
-        >>> options = controllib.ServerOptions()
+        >>> from supriya import servertools
+        >>> options = servertools.ServerOptions()
 
     '''
 

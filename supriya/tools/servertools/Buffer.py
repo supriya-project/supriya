@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.controllib.ServerObjectProxy import ServerObjectProxy
+from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Buffer(ServerObjectProxy):
@@ -7,8 +7,8 @@ class Buffer(ServerObjectProxy):
 
     ::
 
-        >>> from supriya import controllib
-        >>> stereo_buffer = controllib.Buffer(
+        >>> from supriya import servertools
+        >>> stereo_buffer = servertools.Buffer(
         ...     frame_count=1024,
         ...     channel_count=2,
         ...     )

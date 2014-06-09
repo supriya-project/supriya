@@ -3,8 +3,8 @@ class NodeIDAllocator(object):
 
     ::
 
-        >>> from supriya.tools import controllib
-        >>> allocator = controllib.NodeIDAllocator()
+        >>> from supriya.tools import servertools
+        >>> allocator = servertools.NodeIDAllocator()
         >>> for _ in range(3):
         ...     allocator.allocate_node_id()
         ...

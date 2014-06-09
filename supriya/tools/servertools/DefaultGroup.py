@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*0
-from supriya.tools.controllib.Group import Group
+from supriya.tools.servertools.Group import Group
 
 
 class DefaultGroup(Group):
@@ -12,8 +12,8 @@ class DefaultGroup(Group):
     ### INITIALIZER ###
 
     def __init__(self):
-        from supriya.tools import controllib
-        controllib.Node.__init__(self)
+        from supriya.tools import servertools
+        servertools.Node.__init__(self)
         self._is_playing = True
         self._is_running = True
         self._node_id = 1

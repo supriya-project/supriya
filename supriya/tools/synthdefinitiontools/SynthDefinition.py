@@ -185,10 +185,10 @@ class SynthDefinition(object):
     ### PUBLIC METHODS ###
 
     def add(self):
-        from supriya.tools import controllib
+        from supriya.tools import servertools
         compiled = self.compile()
         message = ('d_recv', compiled, 0)
-        server = controllib.Server()
+        server = servertools.Server()
         server.send_message(message)
 
     def add_ugen(self, ugen):

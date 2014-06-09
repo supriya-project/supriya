@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import abc
-from supriya.tools.controllib.ServerObjectProxy import ServerObjectProxy
+from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Node(ServerObjectProxy):
@@ -28,8 +28,8 @@ class Node(ServerObjectProxy):
 
     @staticmethod
     def expr_as_node_id(expr):
-        from supriya.tools import controllib
-        if isinstance(expr, controllib.Server):
+        from supriya.tools import servertools
+        if isinstance(expr, servertools.Server):
             return 0
         elif isinstance(expr, Node):
             return expr.node_id
@@ -41,18 +41,18 @@ class Node(ServerObjectProxy):
 
     @staticmethod
     def expr_as_target(expr):
-        from supriya.tools import controllib
+        from supriya.tools import servertools
         if expr is None:
-            return Node.expr_as_target(controllib.Server())
+            return Node.expr_as_target(servertools.Server())
         elif isinstance(expr, Node):
             return expr
         elif isinstance(expr, int):
-            return controllib.Group(
+            return servertools.Group(
                 node_id=expr,
-                server=controllib.Server(),
+                server=servertools.Server(),
                 send_to_server=True,
                 )
-        elif isinstance(expr, controllib.Server):
+        elif isinstance(expr, servertools.Server):
             return expr.default_group
         raise TypeError(expr)
 
