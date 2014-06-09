@@ -162,9 +162,9 @@ class ServerResponseHandler(object):
         from supriya.library import responselib
         items = []
         for group in self._group_items(contents, 2):
-            item = responselib.CSetItem(*group)
+            item = responselib.ControlBusSetResponseItem(*group)
             items.append(item)
-        response = responselib.CSetResponse(
+        response = responselib.ControlBusSetResponse(
             items=tuple(items),
             )
         return response
@@ -176,7 +176,7 @@ class ServerResponseHandler(object):
             starting_bus_index = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
-            item = responselib.CSetnItem(
+            item = responselib.ControlBusSetContiguousResponseItem(
                 starting_bus_index=starting_bus_index,
                 bus_values=bus_values,
                 )
