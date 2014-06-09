@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class BInfoResponse(ServerResponse):
+class BufferInfoResponse(ServerResponse):
 
     ### CLASS VARIABLES ###
 

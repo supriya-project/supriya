@@ -35,7 +35,7 @@ class ServerResponseHandler(object):
 
         >>> message = osclib.OscMessage('/b_info', 1100, 512, 1, 44100.0)
         >>> handler(message)
-        BInfoResponse(
+        BufferInfoResponse(
             buffer_id=1100,
             frame_count=512,
             channel_count=1,
@@ -64,9 +64,9 @@ class ServerResponseHandler(object):
 
         >>> message = osclib.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         >>> handler(message)
-        BSetnResponse(
+        BufferSetContiguousResponse(
             items=(
-                BSetnItem(
+                BufferSetContiguousResponseItem(
                     starting_sample_index=0,
                     sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                     ),
@@ -120,7 +120,7 @@ class ServerResponseHandler(object):
     def _handle_b_info(self, command, contents):
         from supriya.library import responselib
         arguments = contents
-        response = responselib.BInfoResponse(*arguments)
+        response = responselib.BufferInfoResponse(*arguments)
         return response
 
     def _handle_b_set(self, command, contents):
@@ -128,10 +128,10 @@ class ServerResponseHandler(object):
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = responselib.BSetItem(*group)
+            item = responselib.BufferSetResponseItem(*group)
             items.append(item)
         items = tuple(items)
-        response = responselib.BSetResponse(
+        response = responselib.BufferSetResponse(
             buffer_number=buffer_number,
             items=items,
             )
@@ -145,14 +145,14 @@ class ServerResponseHandler(object):
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = responselib.BSetnItem(
+            item = responselib.BufferSetContiguousResponseItem(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )
             items.append(item)
             remainder = remainder[2 + sample_count:]
         items = tuple(items)
-        response = responselib.BSetnResponse(
+        response = responselib.BufferSetContiguousResponse(
             buffer_number=buffer_number,
             items=items,
             )

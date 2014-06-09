@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class BSetnItem(ServerResponse):
+class BufferSetContiguousResponseItem(ServerResponse):
 
     ### CLASS VARIABLES ###
 
