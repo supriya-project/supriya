@@ -8,9 +8,9 @@ class ServerResponseHandler(object):
 
     ::
 
-        >>> from supriya import controllib
         >>> from supriya import osclib
-        >>> handler = controllib.ServerResponseHandler()
+        >>> from supriya import responselib
+        >>> handler = responselib.ServerResponseHandler()
 
     ::
 
