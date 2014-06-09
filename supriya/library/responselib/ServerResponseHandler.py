@@ -250,7 +250,7 @@ class ServerResponseHandler(object):
     def _handle_n_info(self, command, contents):
         from supriya.library import responselib
         arguments = (command,) + contents
-        response = responselib.NodeResponse(*arguments)
+        response = responselib.NodeInfoResponse(*arguments)
         return response
 
     def _handle_n_set(self, command, contents):
