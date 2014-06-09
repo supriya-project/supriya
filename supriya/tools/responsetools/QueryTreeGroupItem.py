@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.serverresponsetools.ServerResponse import ServerResponse
+from supriya.tools.responsetools.ServerResponse import ServerResponse
 
 
-class NodeSetResponse(ServerResponse):
+class QueryTreeGroupItem(ServerResponse):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_items',
+        '_child_count',
         '_node_id',
         )
 
@@ -16,17 +16,17 @@ class NodeSetResponse(ServerResponse):
     def __init__(
         self,
         node_id=None,
-        items=None,
+        child_count=None,
         ):
-        self._items = items
+        self._child_count = child_count
         self._node_id = node_id
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def items(self):
-        return self._items
-
-    @property
     def node_id(self):
         return self._node_id
+
+    @property
+    def child_count(self):
+        return self._child_count
