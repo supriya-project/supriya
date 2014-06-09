@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class ControlBusSetContiguousResponseItem(ServerResponse):
+class ControlBusSetContiguousItem(ServerResponse):
 
     ### CLASS VARIABLES ###
 

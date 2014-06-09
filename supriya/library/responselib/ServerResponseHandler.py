@@ -66,7 +66,7 @@ class ServerResponseHandler(object):
         >>> handler(message)
         BufferSetContiguousResponse(
             items=(
-                BufferSetContiguousResponseItem(
+                BufferSetContiguousItem(
                     starting_sample_index=0,
                     sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                     ),
@@ -128,7 +128,7 @@ class ServerResponseHandler(object):
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = responselib.BufferSetResponseItem(*group)
+            item = responselib.BufferSetItem(*group)
             items.append(item)
         items = tuple(items)
         response = responselib.BufferSetResponse(
@@ -145,7 +145,7 @@ class ServerResponseHandler(object):
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = responselib.BufferSetContiguousResponseItem(
+            item = responselib.BufferSetContiguousItem(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )
@@ -162,7 +162,7 @@ class ServerResponseHandler(object):
         from supriya.library import responselib
         items = []
         for group in self._group_items(contents, 2):
-            item = responselib.ControlBusSetResponseItem(*group)
+            item = responselib.ControlBusSetItem(*group)
             items.append(item)
         response = responselib.ControlBusSetResponse(
             items=tuple(items),
@@ -176,7 +176,7 @@ class ServerResponseHandler(object):
             starting_bus_index = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
-            item = responselib.ControlBusSetContiguousResponseItem(
+            item = responselib.ControlBusSetContiguousItem(
                 starting_bus_index=starting_bus_index,
                 bus_values=bus_values,
                 )
