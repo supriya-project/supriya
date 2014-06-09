@@ -25,8 +25,8 @@ class TimespanSimultaneity(object):
         start_offset=None,
         stop_timespans=None,
         ):
-        from supriya.tools import timespanlib
-        prototype = (timespanlib.TimespanCollection, type(None))
+        from supriya.tools import timetools
+        prototype = (timetools.TimespanCollection, type(None))
         assert isinstance(timespan_collection, prototype)
         self._timespan_collection = timespan_collection
         self._start_offset = start_offset
