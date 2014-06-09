@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemlib.Enumeration import Enumeration
+from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class ServerCommandType(Enumeration):

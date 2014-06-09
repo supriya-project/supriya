@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemlib.SupriyaObject import SupriyaObject
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class ServerResponse(SupriyaObject):
