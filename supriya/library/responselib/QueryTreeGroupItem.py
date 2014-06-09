@@ -2,14 +2,13 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class GQueryTreeSynthItem(ServerResponse):
+class QueryTreeGroupItem(ServerResponse):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_controls',
+        '_child_count',
         '_node_id',
-        '_synth_definition_name',
         )
 
     ### INITIALIZER ###
@@ -17,23 +16,17 @@ class GQueryTreeSynthItem(ServerResponse):
     def __init__(
         self,
         node_id=None,
-        synth_definition_name=None,
-        controls=None,
+        child_count=None,
         ):
-        self._controls = controls
+        self._child_count = child_count
         self._node_id = node_id
-        self._synth_definition_name = synth_definition_name
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def controls(self):
-        return self._controls
 
     @property
     def node_id(self):
         return self._node_id
 
     @property
-    def synth_definition_name(self):
-        return self._synth_definition_name
+    def child_count(self):
+        return self._child_count

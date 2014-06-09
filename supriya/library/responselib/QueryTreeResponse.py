@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class GQueryTreeResponse(ServerResponse):
+class QueryTreeResponse(ServerResponse):
 
     ### CLASS VARIABLES ###
 

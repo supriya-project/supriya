@@ -212,7 +212,7 @@ class ServerResponseHandler(object):
             child_child_count = contents[1]
             contents = contents[2:]
             if 0 <= child_count:
-                item = responselib.GQueryTreeGroupItem(
+                item = responselib.QueryTreeGroupItem(
                     node_id=child_node_id,
                     child_count=child_child_count,
                     )
@@ -227,20 +227,20 @@ class ServerResponseHandler(object):
                         control_name_or_index = contents[0]
                         control_value = contents[1]
                         contents = contents[2:]
-                        control_item = responselib.GQueryTreeControlItem(
+                        control_item = responselib.QueryTreeSynthControlItem(
                             control_name_or_index=control_name_or_index,
                             control_value=control_value,
                             )
                         control_items.append(control_item)
                 control_items = tuple(control_items)
-                item = responselib.GQueryTreeSynthItem(
+                item = responselib.QueryTreeSynthItem(
                     node_id=child_node_id,
                     synth_definition_name=synth_definition_name,
                     control_items=control_items,
                     )
             items.append(item)
         items = tuple(items)
-        response = responselib.GQueryTreeResponse(
+        response = responselib.QueryTreeResponse(
             node_id=node_id,
             child_count=child_count,
             items=items,
