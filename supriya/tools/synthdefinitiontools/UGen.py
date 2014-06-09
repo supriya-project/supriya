@@ -2,7 +2,7 @@
 from __future__ import print_function
 import abc
 import enum
-from supriya.tools.audiotools.UGenMethodMixin import UGenMethodMixin
+from supriya.tools.synthdefinitiontools.UGenMethodMixin import UGenMethodMixin
 
 
 class UGen(UGenMethodMixin):
@@ -35,8 +35,8 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
-        from supriya import audiotools
-        assert isinstance(calculation_rate, audiotools.CalculationRate), \
+        from supriya import synthdefinitiontools
+        assert isinstance(calculation_rate, synthdefinitiontools.CalculationRate), \
             calculation_rate
         self._calculation_rate = calculation_rate
         self._inputs = []
@@ -54,7 +54,7 @@ class UGen(UGenMethodMixin):
                 float,
                 int,
                 UGen,
-                audiotools.OutputProxy,
+                synthdefinitiontools.OutputProxy,
                 )
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
@@ -63,7 +63,7 @@ class UGen(UGenMethodMixin):
         self._antecedents = []
         self._descendants = []
         self._output_proxies = tuple(
-            audiotools.OutputProxy(self, i)
+            synthdefinitiontools.OutputProxy(self, i)
             for i in range(len(self))
             )
         self._synth_definition = None
@@ -88,13 +88,13 @@ class UGen(UGenMethodMixin):
         return 1
 
     def __repr__(self):
-        from supriya.tools import audiotools
-        if self.calculation_rate == audiotools.CalculationRate.DEMAND:
+        from supriya.tools import synthdefinitiontools
+        if self.calculation_rate == synthdefinitiontools.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            audiotools.CalculationRate.AUDIO: 'ar',
-            audiotools.CalculationRate.CONTROL: 'kr',
-            audiotools.CalculationRate.SCALAR: 'ir',
+            synthdefinitiontools.CalculationRate.AUDIO: 'ar',
+            synthdefinitiontools.CalculationRate.CONTROL: 'kr',
+            synthdefinitiontools.CalculationRate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
@@ -108,20 +108,20 @@ class UGen(UGenMethodMixin):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index=None):
-        from supriya import audiotools
-        if isinstance(ugen, audiotools.OutputProxy):
+        from supriya import synthdefinitiontools
+        if isinstance(ugen, synthdefinitiontools.OutputProxy):
             output_proxy = ugen
         else:
-            output_proxy = audiotools.OutputProxy(
+            output_proxy = synthdefinitiontools.OutputProxy(
                 output_index=output_index,
                 source=ugen,
                 )
         self._inputs.append(output_proxy)
 
     def _collect_constants(self):
-        from supriya import audiotools
+        from supriya import synthdefinitiontools
         for input_ in self._inputs:
-            if not isinstance(input_, audiotools.OutputProxy):
+            if not isinstance(input_, synthdefinitiontools.OutputProxy):
                 self.synth_definition._add_constant(float(input_))
 
     def _get_output_number(self):
@@ -134,9 +134,9 @@ class UGen(UGenMethodMixin):
         return self
 
     def _initialize_topological_sort(self):
-        from supriya import audiotools
+        from supriya import synthdefinitiontools
         for input_ in self.inputs:
-            if isinstance(input_, audiotools.OutputProxy):
+            if isinstance(input_, synthdefinitiontools.OutputProxy):
                 ugen = input_.source
                 if ugen not in self.antecedents:
                     self.antecedents.append(ugen)
@@ -156,14 +156,14 @@ class UGen(UGenMethodMixin):
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
         import sys
-        from supriya import audiotools
+        from supriya import synthdefinitiontools
         if sys.version_info[0] == 2:
             import funcsigs
             get_signature = funcsigs.signature
         else:
             import inspect
             get_signature = inspect.signature
-        assert isinstance(calculation_rate, audiotools.CalculationRate)
+        assert isinstance(calculation_rate, synthdefinitiontools.CalculationRate)
         argument_dicts = UGen.expand_arguments(
             kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
@@ -184,7 +184,7 @@ class UGen(UGenMethodMixin):
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
-        return audiotools.UGenArray(ugens)
+        return synthdefinitiontools.UGenArray(ugens)
 
     def _optimize_graph(self):
         pass
@@ -202,9 +202,9 @@ class UGen(UGenMethodMixin):
 
     @classmethod
     def ar(cls, **kwargs):
-        from supriya.tools import audiotools
+        from supriya.tools import synthdefinitiontools
         ugen = cls._new(
-            calculation_rate=audiotools.CalculationRate.AUDIO,
+            calculation_rate=synthdefinitiontools.CalculationRate.AUDIO,
             special_index=0,
             **kwargs
             )
@@ -212,14 +212,14 @@ class UGen(UGenMethodMixin):
 
     def compile(self, synth_definition):
         def compile_input_spec(i, synth_definition):
-            from supriya import audiotools
+            from supriya import synthdefinitiontools
             result = []
             if isinstance(i, float):
                 result.append(SynthDefinition._encode_unsigned_int_32bit(0xffffffff))
                 constant_index = synth_definition._get_constant_index(i)
                 result.append(SynthDefinition._encode_unsigned_int_32bit(
                     constant_index))
-            elif isinstance(i, audiotools.OutputProxy):
+            elif isinstance(i, synthdefinitiontools.OutputProxy):
                 ugen = i.source
                 output_index = i.output_index
                 ugen_index = synth_definition._get_ugen_index(ugen)
@@ -228,7 +228,7 @@ class UGen(UGenMethodMixin):
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
             return bytearray().join(result)
-        from supriya.tools.audiotools import SynthDefinition
+        from supriya.tools.synthdefinitiontools import SynthDefinition
         outputs = self._get_outputs()
         result = []
         result.append(SynthDefinition._encode_string(type(self).__name__))
@@ -245,9 +245,9 @@ class UGen(UGenMethodMixin):
 
     @classmethod
     def kr(cls, **kwargs):
-        from supriya.tools import audiotools
+        from supriya.tools import synthdefinitiontools
         ugen = cls._new(
-            calculation_rate=audiotools.CalculationRate.CONTROL,
+            calculation_rate=synthdefinitiontools.CalculationRate.CONTROL,
             special_index=0,
             **kwargs
             )
@@ -273,8 +273,8 @@ class UGen(UGenMethodMixin):
 
     @property
     def signal_range(self):
-        from supriya.tools import audiotools
-        return audiotools.SignalRange.BIPOLAR
+        from supriya.tools import synthdefinitiontools
+        return synthdefinitiontools.SignalRange.BIPOLAR
 
     @property
     def special_index(self):
@@ -286,8 +286,8 @@ class UGen(UGenMethodMixin):
 
     @synth_definition.setter
     def synth_definition(self, synth_definition):
-        from supriya.tools import audiotools
-        assert isinstance(synth_definition, audiotools.SynthDefinition)
+        from supriya.tools import synthdefinitiontools
+        assert isinstance(synth_definition, synthdefinitiontools.SynthDefinition)
         self._synth_definition = synth_definition
 
     @property

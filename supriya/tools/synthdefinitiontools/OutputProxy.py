@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.audiotools.UGenMethodMixin import UGenMethodMixin
+from supriya.tools.synthdefinitiontools.UGenMethodMixin import UGenMethodMixin
 
 
 class OutputProxy(UGenMethodMixin):
@@ -14,8 +14,8 @@ class OutputProxy(UGenMethodMixin):
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):
-        from supriya import audiotools
-        assert isinstance(source, audiotools.UGen)
+        from supriya import synthdefinitiontools
+        assert isinstance(source, synthdefinitiontools.UGen)
         assert isinstance(output_index, int)
         self._output_index = output_index
         self._source = source

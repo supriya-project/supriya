@@ -1,5 +1,5 @@
-from supriya.tools.audiotools.Argument import Argument
-from supriya.tools.audiotools.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdefinitiontools.Argument import Argument
+from supriya.tools.synthdefinitiontools.MultiOutUGen import MultiOutUGen
 
 
 class In(MultiOutUGen):

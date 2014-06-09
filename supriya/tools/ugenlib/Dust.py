@@ -1,5 +1,5 @@
-from supriya.tools.audiotools.Argument import Argument
-from supriya.tools.audiotools.UGen import UGen
+from supriya.tools.synthdefinitiontools.Argument import Argument
+from supriya.tools.synthdefinitiontools.UGen import UGen
 
 
 class Dust(UGen):
@@ -29,5 +29,5 @@ class Dust(UGen):
 
     @property
     def signal_range(self):
-        from supriya.tools import audiotools
-        return audiotools.SignalRange.UNIPOLAR
+        from supriya.tools import synthdefinitiontools
+        return synthdefinitiontools.SignalRange.UNIPOLAR

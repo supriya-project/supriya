@@ -7,20 +7,20 @@ class SynthDefinition(object):
 
     ::
 
-        >>> from supriya import audiotools
-        >>> synth = audiotools.SynthDefinition(
+        >>> from supriya import synthdefinitiontools
+        >>> synth = synthdefinitiontools.SynthDefinition(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
         ...     )
         >>> controls = synth.controls
-        >>> line = audiotools.Line.kr(
+        >>> line = synthdefinitiontools.Line.kr(
         ...     start=100,
         ...     stop=[controls['freq_l'], controls['freq_r']],
         ...     )
-        >>> sin_osc = audiotools.SinOsc.ar(
+        >>> sin_osc = synthdefinitiontools.SinOsc.ar(
         ...     frequency=line, phase=0) * 0.2
-        >>> out = audiotools.Out.ar(bus=0, source=sin_osc)
+        >>> out = synthdefinitiontools.Out.ar(bus=0, source=sin_osc)
         >>> synth.add_ugen(out)
         >>> compiled = synth.compile()
 
@@ -46,7 +46,7 @@ class SynthDefinition(object):
         name,
         **kwargs
         ):
-        from supriya import audiotools
+        from supriya import synthdefinitiontools
         self._available_ugens = []
         self._constants = {}
         self._name = name
@@ -58,7 +58,7 @@ class SynthDefinition(object):
         for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = audiotools.Control(control_names)
+        self._controls = synthdefinitiontools.Control(control_names)
         if control_names:
             self._add_ugen(self._controls)
 
@@ -74,9 +74,9 @@ class SynthDefinition(object):
 
     def _add_ugen(self, ugen):
         def resolve(ugen, synth_definition):
-            from supriya import audiotools
+            from supriya import synthdefinitiontools
             for x in ugen.inputs:
-                if isinstance(x, audiotools.OutputProxy):
+                if isinstance(x, synthdefinitiontools.OutputProxy):
                     synth_definition._add_ugen(x.source)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
