@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class ServerResponse(SupriyaObject):
+class Response(SupriyaObject):
 
     ### CLASS VARIABLES ###
 

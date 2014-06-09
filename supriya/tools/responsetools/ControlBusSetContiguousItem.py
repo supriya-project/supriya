@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.responsetools.ServerResponse import ServerResponse
+from supriya.tools.responsetools.Response import Response
 
 
-class ControlBusSetContiguousItem(ServerResponse):
+class ControlBusSetContiguousItem(Response):
 
     ### CLASS VARIABLES ###
 

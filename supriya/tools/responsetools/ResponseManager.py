@@ -3,14 +3,14 @@ import itertools
 import sys
 
 
-class ServerResponseManager(object):
+class ResponseManager(object):
     r'''Handles OSC responses from scsynth.
 
     ::
 
         >>> from supriya import osctools
         >>> from supriya import responsetools
-        >>> manager = responsetools.ServerResponseManager()
+        >>> manager = responsetools.ResponseManager()
 
     ::
 
