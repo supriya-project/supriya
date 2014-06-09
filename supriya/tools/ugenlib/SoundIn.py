@@ -1,6 +1,6 @@
 import abc
 import collections
-from supriya.tools.audiolib.MultiOutUGen import MultiOutUGen
+from supriya.tools.audiotools.MultiOutUGen import MultiOutUGen
 
 
 class SoundIn(MultiOutUGen):
@@ -20,8 +20,8 @@ class SoundIn(MultiOutUGen):
 
     @classmethod
     def ar(cls, bus=0, **kwargs):
-        from supriya.tools import audiolib
-        channel_offset = audiolib.NumOutputBuses.ir()
+        from supriya.tools import audiotools
+        channel_offset = audiotools.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
             assert all(isinstance(x, int) for x in bus)
             bus = tuple(sorted(bus))
@@ -34,7 +34,7 @@ class SoundIn(MultiOutUGen):
         else:
             channel_count = 1
         bus = bus + channel_offset
-        return audiolib.In.ar(
+        return audiotools.In.ar(
             bus=bus,
             channel_count=channel_count,
             )

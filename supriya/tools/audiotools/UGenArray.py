@@ -1,6 +1,6 @@
 import collections
 import operator
-from supriya.tools.audiolib.UGenMethodMixin import UGenMethodMixin
+from supriya.tools.audiotools.UGenMethodMixin import UGenMethodMixin
 
 
 class UGenArray(UGenMethodMixin, collections.Sequence):

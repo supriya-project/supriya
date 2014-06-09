@@ -7,13 +7,13 @@ class CalculationRate(Enumeration):
 
     ::
 
-        >>> from supriya.tools import audiolib
-        >>> audiolib.CalculationRate.AUDIO
+        >>> from supriya.tools import audiotools
+        >>> audiotools.CalculationRate.AUDIO
         <CalculationRate.AUDIO: 2>
 
     ::
 
-        >>> audiolib.CalculationRate.from_expr('demand')
+        >>> audiotools.CalculationRate.from_expr('demand')
         <CalculationRate.DEMAND: 3>
 
     '''

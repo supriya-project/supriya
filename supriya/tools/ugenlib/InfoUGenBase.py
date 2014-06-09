@@ -1,4 +1,4 @@
-from supriya.tools.audiolib.UGen import UGen
+from supriya.tools.audiotools.UGen import UGen
 
 
 class InfoUGenBase(UGen):

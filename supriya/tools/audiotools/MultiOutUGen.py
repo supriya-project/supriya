@@ -1,4 +1,4 @@
-from supriya.tools.audiolib.UGen import UGen
+from supriya.tools.audiotools.UGen import UGen
 
 
 class MultiOutUGen(UGen):
@@ -19,7 +19,7 @@ class MultiOutUGen(UGen):
         channel_count=1,
         **kwargs
         ):
-        from supriya.tools import audiolib
+        from supriya.tools import audiotools
         self._channel_count = int(channel_count)
         UGen.__init__(
             self,
@@ -42,19 +42,19 @@ class MultiOutUGen(UGen):
 
     @classmethod
     def ar(cls, **kwargs):
-        from supriya.tools import audiolib
+        from supriya.tools import audiotools
         ugen = cls._new(
-            calculation_rate=audiolib.CalculationRate.AUDIO,
+            calculation_rate=audiotools.CalculationRate.AUDIO,
             special_index=0,
             **kwargs
             )
         output_proxies = []
-        if isinstance(ugen, audiolib.UGen):
+        if isinstance(ugen, audiotools.UGen):
             output_proxies.extend(ugen[:])
         else:
             for x in ugen:
                 output_proxies.extend(x[:])
-        result = audiolib.UGenArray(output_proxies)
+        result = audiotools.UGenArray(output_proxies)
         return result
 
     @property
@@ -63,19 +63,19 @@ class MultiOutUGen(UGen):
 
     @classmethod
     def kr(cls, **kwargs):
-        from supriya.tools import audiolib
+        from supriya.tools import audiotools
         ugen = cls._new(
-            calculation_rate=audiolib.CalculationRate.CONTROL,
+            calculation_rate=audiotools.CalculationRate.CONTROL,
             special_index=0,
             **kwargs
             )
         output_proxies = []
-        if isinstance(ugen, audiolib.UGen):
+        if isinstance(ugen, audiotools.UGen):
             output_proxies.extend(ugen[:])
         else:
             for x in ugen:
                 output_proxies.extend(x[:])
-        result = audiolib.UgenArray(output_proxies)
+        result = audiotools.UgenArray(output_proxies)
         return result
 
     @property

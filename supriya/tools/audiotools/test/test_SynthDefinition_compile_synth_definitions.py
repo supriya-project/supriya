@@ -1,20 +1,20 @@
 # -*- encoding: utf-8 -*-
-from supriya import audiolib
+from supriya import audiotools
 
 
 def test_SynthDefinition_compile_synth_definitions_01():
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'foo',
         'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition('foo')
-    sine_one = audiolib.SinOsc.ar(frequency=420)
-    sine_two = audiolib.SinOsc.ar(frequency=440)
+    py_synth_definition = audiotools.SynthDefinition('foo')
+    sine_one = audiotools.SinOsc.ar(frequency=420)
+    sine_two = audiotools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
-    out = audiolib.Out.ar(bus=0, source=sines)
+    out = audiotools.Out.ar(bus=0, source=sines)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 
@@ -78,16 +78,16 @@ def test_SynthDefinition_compile_synth_definitions_01():
 
 def test_SynthDefinition_compile_synth_definitions_02():
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'test',
         'Out.ar(99, SinOsc.ar(freq: 440).neg)',
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition('test')
-    sine = audiolib.SinOsc.ar()
+    py_synth_definition = audiotools.SynthDefinition('test')
+    sine = audiotools.SinOsc.ar()
     sine = -sine
-    out = audiolib.Out.ar(bus=99, source=sine)
+    out = audiotools.Out.ar(bus=99, source=sine)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 
@@ -140,7 +140,7 @@ def test_SynthDefinition_compile_synth_definitions_02():
 
 def test_SynthDefinition_compile_synth_definitions_03():
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'test',
         r'''
         arg freq=1200, out=23;
@@ -149,10 +149,10 @@ def test_SynthDefinition_compile_synth_definitions_03():
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition('test', freq=1200, out=23)
+    py_synth_definition = audiotools.SynthDefinition('test', freq=1200, out=23)
     controls = py_synth_definition.controls
-    sine = audiolib.SinOsc.ar(frequency=controls['freq'])
-    out = audiolib.Out.ar(bus=controls['out'], source=sine)
+    sine = audiotools.SinOsc.ar(frequency=controls['freq'])
+    out = audiotools.Out.ar(bus=controls['out'], source=sine)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 
@@ -207,7 +207,7 @@ def test_SynthDefinition_compile_synth_definitions_03():
 
 def test_SynthDefinition_compile_synth_definitions_04():
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'test',
         r'''
         Out.ar(0, In.ar(8, 2))
@@ -215,9 +215,9 @@ def test_SynthDefinition_compile_synth_definitions_04():
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition('test')
-    inputs = audiolib.In.ar(bus=8, channel_count=2)
-    out = audiolib.Out.ar(bus=0, source=inputs)
+    py_synth_definition = audiotools.SynthDefinition('test')
+    inputs = audiotools.In.ar(bus=8, channel_count=2)
+    out = audiotools.Out.ar(bus=0, source=inputs)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 
@@ -261,7 +261,7 @@ def test_SynthDefinition_compile_synth_definitions_04():
 
 def test_SynthDefinition_compile_synth_definitions_05():
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'test',
         r'''
         | freq = 440 | Out.ar(0, SinOsc.ar(freq))
@@ -269,10 +269,10 @@ def test_SynthDefinition_compile_synth_definitions_05():
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition('test', freq=440)
+    py_synth_definition = audiotools.SynthDefinition('test', freq=440)
     controls = py_synth_definition.controls
-    sine = audiolib.SinOsc.ar(frequency=controls['freq'])
-    out = audiolib.Out.ar(bus=0, source=sine)
+    sine = audiotools.SinOsc.ar(frequency=controls['freq'])
+    out = audiotools.Out.ar(bus=0, source=sine)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 
@@ -325,7 +325,7 @@ def test_SynthDefinition_compile_synth_definitions_06():
     r'''Multiple parameters, including unused parameters.
     '''
 
-    sc_synth_definition = audiolib.SuperColliderSynthDefinition(
+    sc_synth_definition = audiotools.SuperColliderSynthDefinition(
         'test',
         r'''
         | damping=0.1, delay_time=1.0, room_size=0.9 |
@@ -334,20 +334,20 @@ def test_SynthDefinition_compile_synth_definitions_06():
         )
     sc_compiled_synth_definition = sc_synth_definition.compile()
 
-    py_synth_definition = audiolib.SynthDefinition(
+    py_synth_definition = audiotools.SynthDefinition(
         'test',
         damping=0.1,
         delay_time=1.0,
         room_size=0.9,
         )
     controls = py_synth_definition.controls
-    microphone = audiolib.In.ar(bus=0)
-    delay = audiolib.DelayC.ar(
+    microphone = audiotools.In.ar(bus=0)
+    delay = audiotools.DelayC.ar(
         source=microphone,
         maximum_delay_time=5.0,
         delay_time=controls['delay_time'],
         )
-    out = audiolib.Out.ar(bus=0, source=delay)
+    out = audiotools.Out.ar(bus=0, source=delay)
     py_synth_definition.add_ugen(out)
     py_compiled_synth_definition = py_synth_definition.compile()
 

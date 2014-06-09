@@ -1,4 +1,4 @@
-from supriya.tools.audiolib.Argument import Argument
+from supriya.tools.audiotools.Argument import Argument
 from supriya.tools.ugenlib.InfoUGenBase import InfoUGenBase
 
 
@@ -30,18 +30,18 @@ class BufInfoUGenBase(InfoUGenBase):
 
     @classmethod
     def ir(cls, buffer_number=None):
-        from supriya.tools import audiolib
+        from supriya.tools import audiotools
         ugen = cls._new(
-            calculation_rate=audiolib.CalculationRate.SCALAR,
+            calculation_rate=audiotools.CalculationRate.SCALAR,
             buffer_number=buffer_number,
             )
         return ugen
 
     @classmethod
     def kr(cls, buffer_number=None):
-        from supriya.tools import audiolib
+        from supriya.tools import audiotools
         ugen = cls._new(
-            calculation_rate=audiolib.CalculationRate.CONTROL,
+            calculation_rate=audiotools.CalculationRate.CONTROL,
             buffer_number=buffer_number,
             )
         return ugen

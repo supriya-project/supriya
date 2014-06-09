@@ -1,6 +1,6 @@
 import enum
-from supriya.tools.audiolib.Argument import Argument
-from supriya.tools.audiolib.UGen import UGen
+from supriya.tools.audiotools.Argument import Argument
+from supriya.tools.audiotools.UGen import UGen
 
 
 class UnaryOpUGen(UGen):

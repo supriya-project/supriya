@@ -7,13 +7,13 @@ class SignalRange(Enumeration):
 
     ::
 
-        >>> from supriya.tools import audiolib
-        >>> audiolib.SignalRange.UNIPOLAR
+        >>> from supriya.tools import audiotools
+        >>> audiotools.SignalRange.UNIPOLAR
         <SignalRange.UNIPOLAR: 0>
 
     ::
 
-        >>> audiolib.SignalRange.from_expr('bipolar')
+        >>> audiotools.SignalRange.from_expr('bipolar')
         <SignalRange.BIPOLAR: 1>
 
     '''
