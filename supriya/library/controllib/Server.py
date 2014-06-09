@@ -89,11 +89,14 @@ class Server(object):
 
     def quit(self):
         from supriya.library import controllib
+        if self._server_session is None:
+            return
         with controllib.WaitForServer('/(done|fail)', ['/quit']):
             self.send_message(r'/quit')
         self._server_session.server_process.send_signal(signal.SIGINT)
         self._server_session.server_process.kill()
         self._server_session.free()
+        self._server_session = None
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
