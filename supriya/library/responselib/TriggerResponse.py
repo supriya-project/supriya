@@ -2,7 +2,7 @@
 from supriya.library.responselib.ServerResponse import ServerResponse
 
 
-class TrResponse(ServerResponse):
+class TriggerResponse(ServerResponse):
 
     ### CLASS VARIABLES ###
 
