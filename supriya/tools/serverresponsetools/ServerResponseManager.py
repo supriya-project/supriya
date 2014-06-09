@@ -9,8 +9,8 @@ class ServerResponseManager(object):
     ::
 
         >>> from supriya import osctools
-        >>> from supriya import responselib
-        >>> manager = responselib.ServerResponseManager()
+        >>> from supriya import serverresponsetools
+        >>> manager = serverresponsetools.ServerResponseManager()
 
     ::
 
@@ -118,90 +118,90 @@ class ServerResponseManager(object):
         return iterator
 
     def _handle_b_info(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents
-        response = responselib.BufferInfoResponse(*arguments)
+        response = serverresponsetools.BufferInfoResponse(*arguments)
         return response
 
     def _handle_b_set(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = responselib.BufferSetItem(*group)
+            item = serverresponsetools.BufferSetItem(*group)
             items.append(item)
         items = tuple(items)
-        response = responselib.BufferSetResponse(
+        response = serverresponsetools.BufferSetResponse(
             buffer_number=buffer_number,
             items=items,
             )
         return response
 
     def _handle_b_setn(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         buffer_number, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = responselib.BufferSetContiguousItem(
+            item = serverresponsetools.BufferSetContiguousItem(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )
             items.append(item)
             remainder = remainder[2 + sample_count:]
         items = tuple(items)
-        response = responselib.BufferSetContiguousResponse(
+        response = serverresponsetools.BufferSetContiguousResponse(
             buffer_number=buffer_number,
             items=items,
             )
         return response
 
     def _handle_c_set(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         items = []
         for group in self._group_items(contents, 2):
-            item = responselib.ControlBusSetItem(*group)
+            item = serverresponsetools.ControlBusSetItem(*group)
             items.append(item)
-        response = responselib.ControlBusSetResponse(
+        response = serverresponsetools.ControlBusSetResponse(
             items=tuple(items),
             )
         return response
 
     def _handle_c_setn(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         items = []
         while contents:
             starting_bus_index = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
-            item = responselib.ControlBusSetContiguousItem(
+            item = serverresponsetools.ControlBusSetContiguousItem(
                 starting_bus_index=starting_bus_index,
                 bus_values=bus_values,
                 )
             items.append(item)
             contents = contents[2 + bus_count:]
         items = tuple(items)
-        response = responselib.CSetnResponse(
+        response = serverresponsetools.CSetnResponse(
             items=items,
             )
         return response
 
     def _handle_done(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents
-        response = responselib.DoneResponse(*arguments)
+        response = serverresponsetools.DoneResponse(*arguments)
         return response
 
     def _handle_fail(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents
-        response = responselib.FailResponse(*arguments)
+        response = serverresponsetools.FailResponse(*arguments)
         return response
 
     def _handle_g_query_tree_reply(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         control_flag = contents[0]
         node_id = contents[1]
         child_count = contents[2]
@@ -212,7 +212,7 @@ class ServerResponseManager(object):
             child_child_count = contents[1]
             contents = contents[2:]
             if 0 <= child_count:
-                item = responselib.QueryTreeGroupItem(
+                item = serverresponsetools.QueryTreeGroupItem(
                     node_id=child_node_id,
                     child_count=child_child_count,
                     )
@@ -227,20 +227,20 @@ class ServerResponseManager(object):
                         control_name_or_index = contents[0]
                         control_value = contents[1]
                         contents = contents[2:]
-                        control_item = responselib.QueryTreeSynthControlItem(
+                        control_item = serverresponsetools.QueryTreeSynthControlItem(
                             control_name_or_index=control_name_or_index,
                             control_value=control_value,
                             )
                         control_items.append(control_item)
                 control_items = tuple(control_items)
-                item = responselib.QueryTreeSynthItem(
+                item = serverresponsetools.QueryTreeSynthItem(
                     node_id=child_node_id,
                     synth_definition_name=synth_definition_name,
                     control_items=control_items,
                     )
             items.append(item)
         items = tuple(items)
-        response = responselib.QueryTreeResponse(
+        response = serverresponsetools.QueryTreeResponse(
             node_id=node_id,
             child_count=child_count,
             items=items,
@@ -248,61 +248,61 @@ class ServerResponseManager(object):
         return response
 
     def _handle_n_info(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = (command,) + contents
-        response = responselib.NodeInfoResponse(*arguments)
+        response = serverresponsetools.NodeInfoResponse(*arguments)
         return response
 
     def _handle_n_set(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         node_id, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
-            item = responselib.NodeSetItem(*group)
+            item = serverresponsetools.NodeSetItem(*group)
             items.append(item)
-        response = responselib.NodeSetResponse(
+        response = serverresponsetools.NodeSetResponse(
             node_id=node_id,
             items=tuple(items),
             )
         return response
 
     def _handle_n_setn(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         node_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             control_index_or_name = remainder[0]
             control_count = remainder[1]
             control_values = tuple(remainder[2:2 + control_count])
-            item = responselib.NodeSetContiguousItem(
+            item = serverresponsetools.NodeSetContiguousItem(
                 control_index_or_name=control_index_or_name,
                 control_values=control_values,
                 )
             items.append(item)
             remainder = remainder[2 + control_count:]
         items = tuple(items)
-        response = responselib.NodeSetContiguousResponse(
+        response = serverresponsetools.NodeSetContiguousResponse(
             node_id=node_id,
             items=items,
             )
         return response
 
     def _handle_status_reply(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents[1:]
-        response = responselib.StatusResponse(*arguments)
+        response = serverresponsetools.StatusResponse(*arguments)
         return response
 
     def _handle_synced(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents
-        response = responselib.SyncedResponse(*arguments)
+        response = serverresponsetools.SyncedResponse(*arguments)
         return response
 
     def _handle_tr(self, command, contents):
-        from supriya.tools import responselib
+        from supriya.tools import serverresponsetools
         arguments = contents
-        response = responselib.TriggerResponse(*arguments)
+        response = serverresponsetools.TriggerResponse(*arguments)
         return response
 
     ### SPECIAL METHODS ###

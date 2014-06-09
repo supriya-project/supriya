@@ -4,4 +4,4 @@ from supriya.tools import osctools
 from supriya.tools import systemlib
 from supriya.tools import timespanlib
 from supriya.tools import ugentools
-from supriya.tools import responselib
+from supriya.tools import serverresponsetools

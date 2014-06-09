@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.responselib.ServerResponse import ServerResponse
+from supriya.tools.serverresponsetools.ServerResponse import ServerResponse
 
 
-class BufferSetResponse(ServerResponse):
+class BufferSetContiguousResponse(ServerResponse):
 
     ### CLASS VARIABLES ###
 
@@ -15,8 +15,8 @@ class BufferSetResponse(ServerResponse):
 
     def __init__(
         self,
-        buffer_number=None,
         items=None,
+        buffer_number=None
         ):
         self._buffer_number = buffer_number
         self._items = items

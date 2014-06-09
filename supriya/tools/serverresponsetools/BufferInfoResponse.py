@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.responselib.ServerResponse import ServerResponse
+from supriya.tools.serverresponsetools.ServerResponse import ServerResponse
 
 
 class BufferInfoResponse(ServerResponse):
