@@ -3,14 +3,14 @@ import itertools
 import sys
 
 
-class ServerResponseHandler(object):
+class ServerResponseManager(object):
     r'''Handles OSC responses from scsynth.
 
     ::
 
         >>> from supriya import osclib
         >>> from supriya import responselib
-        >>> handler = responselib.ServerResponseHandler()
+        >>> manager = responselib.ServerResponseManager()
 
     ::
 
@@ -19,7 +19,7 @@ class ServerResponseHandler(object):
         ...     0.040679048746824265, 0.15118031203746796,
         ...     44100.0, 44100.00077873274,
         ...     )
-        >>> handler(message)
+        >>> manager(message)
         StatusResponse(
             ugen_count=0,
             synth_count=0,
@@ -34,7 +34,7 @@ class ServerResponseHandler(object):
     ::
 
         >>> message = osclib.OscMessage('/b_info', 1100, 512, 1, 44100.0)
-        >>> handler(message)
+        >>> manager(message)
         BufferInfoResponse(
             buffer_id=1100,
             frame_count=512,
@@ -45,7 +45,7 @@ class ServerResponseHandler(object):
     ::
 
         >>> message = osclib.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
-        >>> handler(message)
+        >>> manager(message)
         NodeSetResponse(
             node_id=1023,
             items=(
@@ -63,7 +63,7 @@ class ServerResponseHandler(object):
     ::
 
         >>> message = osclib.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-        >>> handler(message)
+        >>> manager(message)
         BufferSetContiguousResponse(
             items=(
                 BufferSetContiguousItem(
