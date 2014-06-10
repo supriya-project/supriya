@@ -97,7 +97,7 @@ class UGenMethodMixin(SupriyaObject):
         result = []
         if not isinstance(source, collections.Sequence):
             source = [source]
-        operator = synthesistools.UnaryOpUGen.UnaryOperator[op_name]
+        operator = synthesistools.UnaryOperator[op_name]
         special_index = operator.value
         for single_source in source:
             unary_op_ugen = synthesistools.UnaryOpUGen(
