@@ -2,9 +2,10 @@
 import datetime
 import decimal
 import struct
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscBundle(object):
+class OscBundle(SupriyaObject):
     r'''An OSC bundle.
 
     ::
