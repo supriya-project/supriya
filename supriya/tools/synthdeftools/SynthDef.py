@@ -48,6 +48,7 @@ class SynthDefinition(ServerObjectProxy):
         '_parameters',
         '_pending_ugens',
         '_ugens',
+        '_width_first_ugens',
         )
 
     ### INITIALIZER ###
@@ -65,6 +66,7 @@ class SynthDefinition(ServerObjectProxy):
         self._parameters = []
         self._pending_ugens = set()
         self._ugens = []
+        self._width_first_ugens = []
         control_names = []
         for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
@@ -84,8 +86,8 @@ class SynthDefinition(ServerObjectProxy):
         self._parameters.append(value)
 
     def _add_ugen(self, ugen):
+        from supriya import synthdeftools
         def resolve(ugen, synthdef):
-            from supriya import synthdeftools
             for x in ugen.inputs:
                 if isinstance(x, synthdeftools.OutputProxy):
                     synthdef._add_ugen(x.source)
@@ -100,6 +102,8 @@ class SynthDefinition(ServerObjectProxy):
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
             self._ugens.append(ugen)
+            if isinstance(ugen, synthdeftools.WidthFirstUGen):
+                self._width_first_ugens.append(ugen)
             ugen.synthdef = self
             self._pending_ugens.remove(ugen)
 
