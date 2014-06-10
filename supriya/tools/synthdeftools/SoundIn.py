@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
-from supriya.tools.synthdeftools.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdeftools.PseudoUGen import PseudoUGen
 
 
-class SoundIn(MultiOutUGen):
+class SoundIn(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
@@ -19,8 +19,8 @@ class SoundIn(MultiOutUGen):
 
     ### PUBLIC METHODS ###
 
-    @classmethod
-    def ar(cls, bus=0, **kwargs):
+    @staticmethod
+    def ar(bus=0, **kwargs):
         from supriya.tools import synthdeftools
         channel_offset = synthdeftools.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
