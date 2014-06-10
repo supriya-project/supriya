@@ -5,9 +5,10 @@ try:
 except ImportError:
     import Queue as queue
 import socket
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscController(object):
+class OscController(SupriyaObject):
     '''An OSC controller.
 
     ::
