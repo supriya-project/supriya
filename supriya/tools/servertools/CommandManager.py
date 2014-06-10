@@ -30,6 +30,20 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_release_message(node):
+        from supriya.tools import servertools
+        assert isinstance(node, servertools.Node)
+        assert node.node_id is not None
+        command_type = servertools.CommandNumber.from_expr('node_set')
+        message = osctools.OscMessage(
+            command_type,
+            node.node_id,
+            'gate',
+            0,
+            )
+        return message
+
+    @staticmethod
     def make_status_message():
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('status')

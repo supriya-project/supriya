@@ -72,4 +72,3 @@ class CommandNumber(Enumeration):
     SYNTH_NEWARGS = 59
     SYNTH_NOID = 49
     UGEN_COMMAND = 20
-
