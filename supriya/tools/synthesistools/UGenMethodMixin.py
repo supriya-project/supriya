@@ -53,7 +53,7 @@ class UGenMethodMixin(SupriyaObject):
         if not isinstance(right, collections.Sequence):
             right = [right]
         arguments = {'left': left, 'right': right}
-        operator = synthesistools.BinaryOpUGen.BinaryOperator[op_name]
+        operator = synthesistools.BinaryOperator[op_name]
         special_index = operator.value
         for expanded_arguments in UGenMethodMixin.expand_arguments(arguments):
             left = expanded_arguments['left']
