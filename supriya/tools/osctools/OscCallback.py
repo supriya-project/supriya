@@ -1,15 +1,16 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscCallback(object):
+class OscCallback(SupriyaObject):
     r'''An OSC callback.
 
     ::
 
         >>> from supriya import osctools
         >>> callback = osctools.OscCallback(
-        ...     address_pattern='/*', 
+        ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
 
