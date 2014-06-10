@@ -2,9 +2,10 @@
 import collections
 import struct
 import sys
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscMessage(object):
+class OscMessage(SupriyaObject):
     r'''An OSC message.
 
     ::
