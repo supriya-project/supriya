@@ -2,7 +2,7 @@
 from supriya.tools import osctools
 
 
-class ServerCommandManager(object):
+class CommandManager(object):
 
     ### PUBLIC METHODS ###
 
