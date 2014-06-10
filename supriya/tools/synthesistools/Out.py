@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.synthesistools.Argument import Argument
 from supriya.tools.synthesistools.UGen import UGen
@@ -7,7 +8,8 @@ class Out(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        )
 
     _unexpanded_argument_names = ('source',)
 

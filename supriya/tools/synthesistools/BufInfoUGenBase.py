@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.tools.synthesistools.Argument import Argument
 from supriya.tools.synthesistools.InfoUGenBase import InfoUGenBase
 

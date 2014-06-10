@@ -1,16 +1,15 @@
 # -*- encoding: utf-8 -*-
 import abc
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class ServerObjectProxy(object):
+class ServerObjectProxy(SupriyaObject):
     r'''A proxy of an object on a server.
 
     Server objects can be allocated and freed.
     '''
 
     ### CLASS VARIABLES ###
-
-    __metaclass__ = abc.ABCMeta
 
     __slots__ = (
         '_session',

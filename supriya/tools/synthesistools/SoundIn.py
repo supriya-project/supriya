@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import abc
 import collections
 from supriya.tools.synthesistools.MultiOutUGen import MultiOutUGen

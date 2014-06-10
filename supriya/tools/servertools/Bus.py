@@ -47,7 +47,7 @@ class Bus(ServerObjectProxy):
 
     def allocate(self, session=None):
         from supriya.tools import synthesistools
-        ServerObjectProxy.allocate(self)
+        ServerObjectProxy.allocate(self, session=session)
         channel_count = self.channel_count
         if self.calculation_rate == synthesistools.CalculationRate.AUDIO:
             bus_index = session.audio_bus_allocator.allocate(

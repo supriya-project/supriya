@@ -1,4 +1,8 @@
-class Argument(object):
+# -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+
+
+class Argument(SupriyaObject):
 
     ### CLASS VARIABLES ###
 

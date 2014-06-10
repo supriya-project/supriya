@@ -1,13 +1,14 @@
+# -*- encoding: utf-8 -*-
 import collections
 import struct
+from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class SynthDefinition(object):
+class SynthDefinition(ServerObjectProxy):
     r'''A SuperCollider synth definition.
 
     ::
 
-        >>> from supriya import synthesistools
         >>> from supriya import synthesistools
         >>> synth = synthesistools.SynthDefinition(
         ...     'test',
@@ -194,8 +195,9 @@ class SynthDefinition(object):
 
     ### PUBLIC METHODS ###
 
-    def add(self):
+    def allocate(self, session=None):
         from supriya.tools import servertools
+        ServerObjectProxy.allocate(self, session=session)
         compiled = self.compile()
         message = ('d_recv', compiled, 0)
         server = servertools.Server()
@@ -226,6 +228,9 @@ class SynthDefinition(object):
         result = flatten(result)
         result = bytearray(result)
         return result
+
+    def free(self):
+        pass
 
     ### PUBLIC PROPERTIES ###
 

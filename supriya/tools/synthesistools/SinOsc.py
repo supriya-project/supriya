@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.tools.synthesistools.Argument import Argument
 from supriya.tools.synthesistools.UGen import UGen
 
@@ -6,7 +7,8 @@ class SinOsc(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        )
 
     _argument_specifications = (
         Argument('frequency', 440),

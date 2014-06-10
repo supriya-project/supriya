@@ -1,10 +1,12 @@
+# -*- encoding: utf-8 -*-
 import os
 import shutil
 import subprocess
 import tempfile
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class SuperColliderSynthDefinition(object):
+class SuperColliderSynthDefinition(SupriyaObject):
 
     ### INITIALIZER ###
 

@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
-
-import abc
 import collections
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class UGenMethodMixin(object):
+class UGenMethodMixin(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __metaclass__ = abc.ABCMeta
+    __slots__ = (
+        )
 
     ### SPECIAL METHODS ###
 

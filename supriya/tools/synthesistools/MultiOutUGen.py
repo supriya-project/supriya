@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.tools.synthesistools.UGen import UGen
 
 
@@ -19,7 +20,6 @@ class MultiOutUGen(UGen):
         channel_count=1,
         **kwargs
         ):
-        from supriya.tools import synthesistools
         self._channel_count = int(channel_count)
         UGen.__init__(
             self,

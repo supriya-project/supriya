@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.tools.synthesistools.MultiOutUGen import MultiOutUGen
 
 

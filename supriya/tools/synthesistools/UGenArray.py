@@ -1,5 +1,5 @@
+# -*- encoding: utf-8 -*-
 import collections
-import operator
 from supriya.tools.synthesistools.UGenMethodMixin import UGenMethodMixin
 
 

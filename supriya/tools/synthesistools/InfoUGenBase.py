@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from supriya.tools.synthesistools.UGen import UGen
 
 
@@ -12,8 +13,9 @@ class InfoUGenBase(UGen):
 
     @classmethod
     def ir(cls, **kwargs):
+        from supriya.tools import synthesistools
         ugen = cls._new(
-            calculation_rate=CalculationRate.SCALAR,
+            calculation_rate=synthesistools.CalculationRate.SCALAR,
             **kwargs
             )
         return ugen
