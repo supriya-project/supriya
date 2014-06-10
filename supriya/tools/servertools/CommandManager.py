@@ -9,7 +9,7 @@ class CommandManager(object):
     @staticmethod
     def make_dump_osc_message(osc_status):
         from supriya.tools import servertools
-        command_type = servertools.ServerCommandType.from_expr('dump_osc')
+        command_type = servertools.CommandNumber.from_expr('dump_osc')
         osc_status = int(osc_status)
         assert 0 <= osc_status <= 4
         message = osctools.OscMessage(
@@ -21,7 +21,7 @@ class CommandManager(object):
     @staticmethod
     def make_notify_message(notify_status):
         from supriya.tools import servertools
-        command_type = servertools.ServerCommandType.from_expr('notify')
+        command_type = servertools.CommandNumber.from_expr('notify')
         notify_status = int(bool(notify_status))
         message = osctools.OscMessage(
             command_type,
@@ -32,7 +32,7 @@ class CommandManager(object):
     @staticmethod
     def make_status_message():
         from supriya.tools import servertools
-        command_type = servertools.ServerCommandType.from_expr('status')
+        command_type = servertools.CommandNumber.from_expr('status')
         message = osctools.OscMessage(
             command_type,
             )
@@ -41,7 +41,7 @@ class CommandManager(object):
     @staticmethod
     def make_sync_message(sync_id):
         from supriya.tools import servertools
-        command_type = servertools.ServerCommandType.from_expr('sync')
+        command_type = servertools.CommandNumber.from_expr('sync')
         sync_id = int(sync_id)
         message = osctools.OscMessage(
             command_type,
@@ -52,7 +52,7 @@ class CommandManager(object):
     @staticmethod
     def make_quit_message():
         from supriya.tools import servertools
-        command_type = servertools.ServerCommandType.from_expr('quit')
+        command_type = servertools.CommandNumber.from_expr('quit')
         message = osctools.OscMessage(
             command_type,
             )

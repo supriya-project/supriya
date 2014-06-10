@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.Enumeration import Enumeration
 
 
-class ServerCommandType(Enumeration):
+class CommandNumber(Enumeration):
     r'''An enumeration of scsynth message types.
     '''
 
