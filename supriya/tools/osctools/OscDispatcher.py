@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import re
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscDispatcher(object):
+class OscDispatcher(SupriyaObject):
     r'''An OSC message dispatcher.
 
     ::
