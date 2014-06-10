@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscServer(object):
+class OscServer(SupriyaObject):
     pass
-
-
