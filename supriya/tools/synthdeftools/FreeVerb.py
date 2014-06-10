@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class DelayC(UGen):
+class FreeVerb(UGen):
 
     ### CLASS VARIABLES ###
 
@@ -12,8 +12,9 @@ class DelayC(UGen):
 
     _argument_specifications = (
         Argument('source'),
-        Argument('maximum_delay_time', 0.2),
-        Argument('delay_time', 0.2),
+        Argument('mix', 0.33),
+        Argument('room_size', 0.5),
+        Argument('damping', 0.5),
         )
 
     ### INITIALIZER ###
@@ -21,14 +22,16 @@ class DelayC(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        delay_time=0.2,
-        maximum_delay_time=0.2,
+        damping=0.5,
+        mix=0.33,
+        room_size=0.5,
         source=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            delay_time=delay_time,
-            maximum_delay_time=maximum_delay_time,
+            damping=damping,
+            mix=mix,
+            room_size=room_size,
             source=source,
             )

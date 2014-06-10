@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.MultiOutUGen import MultiOutUGen
 
 
 class In(MultiOutUGen):

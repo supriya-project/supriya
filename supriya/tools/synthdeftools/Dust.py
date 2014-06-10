@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Dust(UGen):
@@ -26,3 +26,10 @@ class Dust(UGen):
             calculation_rate=calculation_rate,
             density=density,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def signal_range(self):
+        from supriya.tools import synthdeftools
+        return synthdeftools.SignalRange.UNIPOLAR

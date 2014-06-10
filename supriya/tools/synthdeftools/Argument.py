@@ -24,7 +24,7 @@ class Argument(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def configure(self, ugen, value):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         if value is None:
             if self.default is None:
                 raise Exception('no default value for argument {} in {}.'.format(
@@ -32,7 +32,7 @@ class Argument(SupriyaObject):
             ugen._add_constant_input(self.default)
         elif isinstance(value, (int, float)):
             ugen._add_constant_input(value)
-        elif isinstance(value, (synthesistools.OutputProxy, synthesistools.UGen)):
+        elif isinstance(value, (synthdeftools.OutputProxy, synthdeftools.UGen)):
             ugen._add_ugen_input(
                 value._get_source(),
                 value._get_output_number(),

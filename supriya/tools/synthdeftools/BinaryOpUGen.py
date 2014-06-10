@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import enum
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.UGen import UGen
 
 
 class BinaryOpUGen(UGen):

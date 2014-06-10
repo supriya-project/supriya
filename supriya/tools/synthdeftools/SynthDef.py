@@ -9,26 +9,26 @@ class SynthDefinition(ServerObjectProxy):
 
     ::
 
-        >>> from supriya import synthesistools
-        >>> synth = synthesistools.SynthDefinition(
+        >>> from supriya import synthdeftools
+        >>> synth = synthdeftools.SynthDefinition(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
         ...     )
         >>> controls = synth.controls
-        >>> line = synthesistools.Line.kr(
+        >>> line = synthdeftools.Line.kr(
         ...     start=100,
         ...     stop=(
         ...         controls['freq_l'],
         ...         controls['freq_r'],
         ...         ),
         ...     )
-        >>> sin_osc = synthesistools.SinOsc.ar(
+        >>> sin_osc = synthdeftools.SinOsc.ar(
         ...     frequency=line,
         ...     phase=0,
         ...     )
         >>> sin_osc = sin_osc * 0.2
-        >>> out = synthesistools.Out.ar(
+        >>> out = synthdeftools.Out.ar(
         ...     bus=0,
         ...     source=sin_osc,
         ...     )
@@ -57,7 +57,7 @@ class SynthDefinition(ServerObjectProxy):
         name,
         **kwargs
         ):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         self._available_ugens = []
         self._constants = {}
         self._name = name
@@ -69,7 +69,7 @@ class SynthDefinition(ServerObjectProxy):
         for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = synthesistools.Control(control_names)
+        self._controls = synthdeftools.Control(control_names)
         if control_names:
             self._add_ugen(self._controls)
 
@@ -85,9 +85,9 @@ class SynthDefinition(ServerObjectProxy):
 
     def _add_ugen(self, ugen):
         def resolve(ugen, synthdef):
-            from supriya import synthesistools
+            from supriya import synthdeftools
             for x in ugen.inputs:
-                if isinstance(x, synthesistools.OutputProxy):
+                if isinstance(x, synthdeftools.OutputProxy):
                     synthdef._add_ugen(x.source)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:

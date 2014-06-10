@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdeftools.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):
@@ -14,23 +14,23 @@ class Control(MultiOutUGen):
     ### INITIALIZER ###
 
     def __init__(self, control_names):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         self._control_names = tuple(sorted(control_names))
         MultiOutUGen.__init__(
             self,
-            calculation_rate=synthesistools.CalculationRate.CONTROL,
+            calculation_rate=synthdeftools.CalculationRate.CONTROL,
             channel_count=len(control_names),
             )
 
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         if type(i) == int:
             if len(self.control_names) == 1:
                 return self
             else:
-                return synthesistools.OutputProxy(self, i)
+                return synthdeftools.OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 
@@ -53,12 +53,12 @@ class Control(MultiOutUGen):
 
     @property
     def controls(self):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         if len(self.control_names) == 1:
             result = self
         else:
             result = [
-                synthesistools.OutputProxy(self, i)
+                synthdeftools.OutputProxy(self, i)
                 for i in range(len(self.control_names))
                 ]
         return result

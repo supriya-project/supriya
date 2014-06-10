@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
 class InfoUGenBase(UGen):
@@ -13,9 +13,9 @@ class InfoUGenBase(UGen):
 
     @classmethod
     def ir(cls, **kwargs):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ugen = cls._new(
-            calculation_rate=synthesistools.CalculationRate.SCALAR,
+            calculation_rate=synthdeftools.CalculationRate.SCALAR,
             **kwargs
             )
         return ugen

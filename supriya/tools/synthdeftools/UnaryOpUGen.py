@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class SinOsc(UGen):
+class UnaryOpUGen(UGen):
 
     ### CLASS VARIABLES ###
 
@@ -11,8 +11,7 @@ class SinOsc(UGen):
         )
 
     _argument_specifications = (
-        Argument('frequency', 440),
-        Argument('phase', 0),
+        Argument('source'),
         )
 
     ### INITIALIZER ###
@@ -20,12 +19,12 @@ class SinOsc(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        frequency=440.,
-        phase=0.,
+        source=None,
+        special_index=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            frequency=frequency,
-            phase=phase,
+            source=source,
+            special_index=special_index,
             )

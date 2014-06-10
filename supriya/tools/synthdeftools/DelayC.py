@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.Argument import Argument
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.Argument import Argument
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class UnaryOpUGen(UGen):
+class DelayC(UGen):
 
     ### CLASS VARIABLES ###
 
@@ -12,6 +12,8 @@ class UnaryOpUGen(UGen):
 
     _argument_specifications = (
         Argument('source'),
+        Argument('maximum_delay_time', 0.2),
+        Argument('delay_time', 0.2),
         )
 
     ### INITIALIZER ###
@@ -19,12 +21,14 @@ class UnaryOpUGen(UGen):
     def __init__(
         self,
         calculation_rate=None,
+        delay_time=0.2,
+        maximum_delay_time=0.2,
         source=None,
-        special_index=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            delay_time=delay_time,
+            maximum_delay_time=maximum_delay_time,
             source=source,
-            special_index=special_index,
             )

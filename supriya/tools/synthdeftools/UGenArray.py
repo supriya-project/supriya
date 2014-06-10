@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.synthesistools.UGenMethodMixin import UGenMethodMixin
+from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
 class UGenArray(UGenMethodMixin, collections.Sequence):

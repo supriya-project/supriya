@@ -1,20 +1,20 @@
 # -*- encoding: utf-8 -*-
-from supriya import synthesistools
+from supriya import synthdeftools
 
 
 def test_SynthDefinition_compile_synthdefs_01():
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'foo',
         'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition('foo')
-    sine_one = synthesistools.SinOsc.ar(frequency=420)
-    sine_two = synthesistools.SinOsc.ar(frequency=440)
+    py_synthdef = synthdeftools.SynthDefinition('foo')
+    sine_one = synthdeftools.SinOsc.ar(frequency=420)
+    sine_two = synthdeftools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
-    out = synthesistools.Out.ar(bus=0, source=sines)
+    out = synthdeftools.Out.ar(bus=0, source=sines)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -78,16 +78,16 @@ def test_SynthDefinition_compile_synthdefs_01():
 
 def test_SynthDefinition_compile_synthdefs_02():
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         'Out.ar(99, SinOsc.ar(freq: 440).neg)',
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition('test')
-    sine = synthesistools.SinOsc.ar()
+    py_synthdef = synthdeftools.SynthDefinition('test')
+    sine = synthdeftools.SinOsc.ar()
     sine = -sine
-    out = synthesistools.Out.ar(bus=99, source=sine)
+    out = synthdeftools.Out.ar(bus=99, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -140,7 +140,7 @@ def test_SynthDefinition_compile_synthdefs_02():
 
 def test_SynthDefinition_compile_synthdefs_03():
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         r'''
         arg freq=1200, out=23;
@@ -149,10 +149,10 @@ def test_SynthDefinition_compile_synthdefs_03():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition('test', freq=1200, out=23)
+    py_synthdef = synthdeftools.SynthDefinition('test', freq=1200, out=23)
     controls = py_synthdef.controls
-    sine = synthesistools.SinOsc.ar(frequency=controls['freq'])
-    out = synthesistools.Out.ar(bus=controls['out'], source=sine)
+    sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
+    out = synthdeftools.Out.ar(bus=controls['out'], source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -207,7 +207,7 @@ def test_SynthDefinition_compile_synthdefs_03():
 
 def test_SynthDefinition_compile_synthdefs_04():
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         r'''
         Out.ar(0, In.ar(8, 2))
@@ -215,9 +215,9 @@ def test_SynthDefinition_compile_synthdefs_04():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition('test')
-    inputs = synthesistools.In.ar(bus=8, channel_count=2)
-    out = synthesistools.Out.ar(bus=0, source=inputs)
+    py_synthdef = synthdeftools.SynthDefinition('test')
+    inputs = synthdeftools.In.ar(bus=8, channel_count=2)
+    out = synthdeftools.Out.ar(bus=0, source=inputs)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -261,7 +261,7 @@ def test_SynthDefinition_compile_synthdefs_04():
 
 def test_SynthDefinition_compile_synthdefs_05():
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         r'''
         | freq = 440 | Out.ar(0, SinOsc.ar(freq))
@@ -269,10 +269,10 @@ def test_SynthDefinition_compile_synthdefs_05():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition('test', freq=440)
+    py_synthdef = synthdeftools.SynthDefinition('test', freq=440)
     controls = py_synthdef.controls
-    sine = synthesistools.SinOsc.ar(frequency=controls['freq'])
-    out = synthesistools.Out.ar(bus=0, source=sine)
+    sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
+    out = synthdeftools.Out.ar(bus=0, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -325,7 +325,7 @@ def test_SynthDefinition_compile_synthdefs_06():
     r'''Multiple parameters, including unused parameters.
     '''
 
-    sc_synthdef = synthesistools.SuperColliderSynthDef(
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         r'''
         | damping=0.1, delay_time=1.0, room_size=0.9 |
@@ -334,20 +334,20 @@ def test_SynthDefinition_compile_synthdefs_06():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthesistools.SynthDefinition(
+    py_synthdef = synthdeftools.SynthDefinition(
         'test',
         damping=0.1,
         delay_time=1.0,
         room_size=0.9,
         )
     controls = py_synthdef.controls
-    microphone = synthesistools.In.ar(bus=0)
-    delay = synthesistools.DelayC.ar(
+    microphone = synthdeftools.In.ar(bus=0)
+    delay = synthdeftools.DelayC.ar(
         source=microphone,
         maximum_delay_time=5.0,
         delay_time=controls['delay_time'],
         )
-    out = synthesistools.Out.ar(bus=0, source=delay)
+    out = synthdeftools.Out.ar(bus=0, source=delay)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 

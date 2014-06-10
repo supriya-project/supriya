@@ -46,21 +46,21 @@ class UGenMethodMixin(SupriyaObject):
 
     @staticmethod
     def _compute_binary_op(left, right, op_name):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         result = []
         if not isinstance(left, collections.Sequence):
             left = [left]
         if not isinstance(right, collections.Sequence):
             right = [right]
         arguments = {'left': left, 'right': right}
-        operator = synthesistools.BinaryOperator[op_name]
+        operator = synthdeftools.BinaryOperator[op_name]
         special_index = operator.value
         for expanded_arguments in UGenMethodMixin.expand_arguments(arguments):
             left = expanded_arguments['left']
             right = expanded_arguments['right']
             calculation_rate = UGenMethodMixin._compute_binary_rate(
                 left, right)
-            binary_op_ugen = synthesistools.BinaryOpUGen(
+            binary_op_ugen = synthdeftools.BinaryOpUGen(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
@@ -69,38 +69,38 @@ class UGenMethodMixin(SupriyaObject):
             result.append(binary_op_ugen)
         if len(result) == 1:
             return result[0]
-        return synthesistools.UGenArray(result)
+        return synthdeftools.UGenArray(result)
 
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
-        from supriya import synthesistools
-        a_rate = synthesistools.CalculationRate.SCALAR
-        if isinstance(ugen_a, (synthesistools.OutputProxy, synthesistools.UGen)):
+        from supriya import synthdeftools
+        a_rate = synthdeftools.CalculationRate.SCALAR
+        if isinstance(ugen_a, (synthdeftools.OutputProxy, synthdeftools.UGen)):
             a_rate = ugen_a.calculation_rate
-        b_rate = synthesistools.CalculationRate.SCALAR
-        if isinstance(ugen_b, (synthesistools.OutputProxy, synthesistools.UGen)):
+        b_rate = synthdeftools.CalculationRate.SCALAR
+        if isinstance(ugen_b, (synthdeftools.OutputProxy, synthdeftools.UGen)):
             b_rate = ugen_b.calculation_rate
-        if a_rate == synthesistools.CalculationRate.DEMAND \
-            or a_rate == synthesistools.CalculationRate.DEMAND:
-            return synthesistools.CalculationRate.DEMAND
-        elif a_rate == synthesistools.CalculationRate.AUDIO \
-            or b_rate == synthesistools.CalculationRate.AUDIO:
-            return synthesistools.CalculationRate.AUDIO
-        elif a_rate == synthesistools.CalculationRate.CONTROL \
-            or b_rate == synthesistools.CalculationRate.CONTROL:
-            return synthesistools.CalculationRate.CONTROL
-        return synthesistools.CalculationRate.SCALAR
+        if a_rate == synthdeftools.CalculationRate.DEMAND \
+            or a_rate == synthdeftools.CalculationRate.DEMAND:
+            return synthdeftools.CalculationRate.DEMAND
+        elif a_rate == synthdeftools.CalculationRate.AUDIO \
+            or b_rate == synthdeftools.CalculationRate.AUDIO:
+            return synthdeftools.CalculationRate.AUDIO
+        elif a_rate == synthdeftools.CalculationRate.CONTROL \
+            or b_rate == synthdeftools.CalculationRate.CONTROL:
+            return synthdeftools.CalculationRate.CONTROL
+        return synthdeftools.CalculationRate.SCALAR
 
     @staticmethod
     def _compute_unary_op(source, op_name):
-        from supriya import synthesistools
+        from supriya import synthdeftools
         result = []
         if not isinstance(source, collections.Sequence):
             source = [source]
-        operator = synthesistools.UnaryOperator[op_name]
+        operator = synthdeftools.UnaryOperator[op_name]
         special_index = operator.value
         for single_source in source:
-            unary_op_ugen = synthesistools.UnaryOpUGen(
+            unary_op_ugen = synthdeftools.UnaryOpUGen(
                 calculation_rate=single_source.calculation_rate,
                 source=single_source,
                 special_index=special_index,
@@ -108,7 +108,7 @@ class UGenMethodMixin(SupriyaObject):
             result.append(unary_op_ugen)
         if len(result) == 1:
             return result[0]
-        return synthesistools.UGenArray(result)
+        return synthdeftools.UGenArray(result)
 
     ### PUBLIC METHODS ###
 
@@ -120,7 +120,7 @@ class UGenMethodMixin(SupriyaObject):
 
             >>> import supriya
             >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.synthesistools.UGen.expand_arguments(arguments)
+            >>> result = supriya.synthdeftools.UGen.expand_arguments(arguments)
             >>> for x in result:
             ...     sorted(x.items())
             ...
@@ -131,7 +131,7 @@ class UGenMethodMixin(SupriyaObject):
         ::
 
             >>> arguments = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = supriya.synthesistools.UGen.expand_arguments(
+            >>> result = supriya.synthdeftools.UGen.expand_arguments(
             ...     arguments,
             ...     unexpanded_argument_names=('source',),
             ...     )

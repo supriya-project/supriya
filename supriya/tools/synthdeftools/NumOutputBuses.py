@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.InfoUGenBase import InfoUGenBase
+from supriya.tools.synthdeftools.InfoUGenBase import InfoUGenBase
 
 
 class NumOutputBuses(InfoUGenBase):

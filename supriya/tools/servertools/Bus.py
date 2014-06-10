@@ -7,10 +7,10 @@ class Bus(ServerObjectProxy):
 
     ::
 
-        >>> from supriya import synthesistools
+        >>> from supriya import synthdeftools
         >>> from supriya import servertools
         >>> bus = servertools.Bus(
-        ...    calculation_rate=synthesistools.CalculationRate.AUDIO,
+        ...    calculation_rate=synthdeftools.CalculationRate.AUDIO,
         ...    channel_count=1,
         ...    )
 
@@ -30,14 +30,14 @@ class Bus(ServerObjectProxy):
         calculation_rate=None,
         channel_count=1,
         ):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
         if calculation_rate is None:
-            calculation_rate = synthesistools.CalculationRate.AUDIO
-        calculation_rate = synthesistools.CalculationRate.from_expr(calculation_rate)
+            calculation_rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.from_expr(calculation_rate)
         assert calculation_rate in (
-            synthesistools.CalculationRate.AUDIO,
-            synthesistools.CalculationRate.CONTROL,
+            synthdeftools.CalculationRate.AUDIO,
+            synthdeftools.CalculationRate.CONTROL,
             )
         self._calculation_rate = calculation_rate
         self._channel_count = int(channel_count)
@@ -46,10 +46,10 @@ class Bus(ServerObjectProxy):
     ### PUBLIC METHODS ###
 
     def allocate(self, session=None):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ServerObjectProxy.allocate(self, session=session)
         channel_count = self.channel_count
-        if self.calculation_rate == synthesistools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             bus_index = session.audio_bus_allocator.allocate(
                 channel_count)
         else:
@@ -60,47 +60,47 @@ class Bus(ServerObjectProxy):
         self._bus_index = bus_index
 
     def ar(self):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         assert self.session is not None
-        if self.calculation_rate == synthesistools.CalculationRate.AUDIO:
-            result = synthesistools.In.ar(
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            result = synthdeftools.In.ar(
                 bus=self.bus_index,
                 channel_count=self.channel_count,
                 )
         else:
-            result = synthesistools.In.kr(
+            result = synthdeftools.In.kr(
                 bus=self.bus_index,
                 channel_count=self.channel_count,
                 )
-            result = synthesistools.K2A.ar(
+            result = synthdeftools.K2A.ar(
                 source=result,
                 )
         return result
 
     def free(self):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ServerObjectProxy.free(self)
         assert self.bus_index is not None
-        if self.calculation_rate == synthesistools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             self.server.audio_bus_allocator.free(self.bus_index)
         else:
             self.server.control_bus_allocator.free(self.bus_index)
         self._bus_index = None
 
     def kr(self):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         assert self.session is not None
-        if self.calculation_rate == synthesistools.CalculationRate.CONTROL:
-            result = synthesistools.In.kr(
+        if self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
+            result = synthdeftools.In.kr(
                 bus=self.bus_index,
                 channel_count=self.channel_count,
                 )
         else:
-            result = synthesistools.In.ar(
+            result = synthdeftools.In.ar(
                 bus=self.bus_index,
                 channel_count=self.channel_count,
                 )
-            result = synthesistools.A2K.ar(
+            result = synthdeftools.A2K.ar(
                 source=result,
                 )
         return result
@@ -135,14 +135,14 @@ class Bus(ServerObjectProxy):
 
     @property
     def is_settable(self):
-        from supriya.tools import synthesistools
-        return self.calculation_rate != synthesistools.CalculationRate.AUDIO
+        from supriya.tools import synthdeftools
+        return self.calculation_rate != synthdeftools.CalculationRate.AUDIO
 
     @property
     def map_symbol(self):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         assert self.bus_index is not None
-        if self.calculation_rate == synthesistools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             string = 'a{}'
         else:
             string = 'c{}'

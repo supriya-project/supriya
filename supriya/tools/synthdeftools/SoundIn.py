@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
-from supriya.tools.synthesistools.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdeftools.MultiOutUGen import MultiOutUGen
 
 
 class SoundIn(MultiOutUGen):
@@ -21,8 +21,8 @@ class SoundIn(MultiOutUGen):
 
     @classmethod
     def ar(cls, bus=0, **kwargs):
-        from supriya.tools import synthesistools
-        channel_offset = synthesistools.NumOutputBuses.ir()
+        from supriya.tools import synthdeftools
+        channel_offset = synthdeftools.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
             assert all(isinstance(x, int) for x in bus)
             bus = tuple(sorted(bus))
@@ -35,7 +35,7 @@ class SoundIn(MultiOutUGen):
         else:
             channel_count = 1
         bus = bus + channel_offset
-        return synthesistools.In.ar(
+        return synthdeftools.In.ar(
             bus=bus,
             channel_count=channel_count,
             )

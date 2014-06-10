@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthesistools.UGen import UGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MultiOutUGen(UGen):
@@ -42,19 +42,19 @@ class MultiOutUGen(UGen):
 
     @classmethod
     def ar(cls, **kwargs):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ugen = cls._new(
-            calculation_rate=synthesistools.CalculationRate.AUDIO,
+            calculation_rate=synthdeftools.CalculationRate.AUDIO,
             special_index=0,
             **kwargs
             )
         output_proxies = []
-        if isinstance(ugen, synthesistools.UGen):
+        if isinstance(ugen, synthdeftools.UGen):
             output_proxies.extend(ugen[:])
         else:
             for x in ugen:
                 output_proxies.extend(x[:])
-        result = synthesistools.UGenArray(output_proxies)
+        result = synthdeftools.UGenArray(output_proxies)
         return result
 
     @property
@@ -63,19 +63,19 @@ class MultiOutUGen(UGen):
 
     @classmethod
     def kr(cls, **kwargs):
-        from supriya.tools import synthesistools
+        from supriya.tools import synthdeftools
         ugen = cls._new(
-            calculation_rate=synthesistools.CalculationRate.CONTROL,
+            calculation_rate=synthdeftools.CalculationRate.CONTROL,
             special_index=0,
             **kwargs
             )
         output_proxies = []
-        if isinstance(ugen, synthesistools.UGen):
+        if isinstance(ugen, synthdeftools.UGen):
             output_proxies.extend(ugen[:])
         else:
             for x in ugen:
                 output_proxies.extend(x[:])
-        result = synthesistools.UgenArray(output_proxies)
+        result = synthdeftools.UgenArray(output_proxies)
         return result
 
     @property
