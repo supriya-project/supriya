@@ -26,7 +26,7 @@ class Server(object):
         '_ip_address',
         '_port',
         '_osc_controller',
-        '_server_session',
+        '_session',
         )
 
     _default_server = None
@@ -37,7 +37,7 @@ class Server(object):
         self._ip_address = ip_address
         self._port = port
         self._osc_controller = None
-        self._server_session = None
+        self._session = None
 
     ### SPECIAL METHODS ###
 
@@ -52,7 +52,7 @@ class Server(object):
         ):
         from supriya.tools import servertools
         from supriya.tools import osctools
-        if self.server_session is not None:
+        if self.session is not None:
             return
         self._osc_controller = osctools.OscController(
             server_ip_address=self.ip_address,
@@ -66,13 +66,13 @@ class Server(object):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             )
-        server_session = servertools.ServerSession(
+        session = servertools.Session(
             server_options=server_options,
             server_process=server_process,
             )
         time.sleep(0.25)
         self.send_message(("/g_new", 1, 0, 0))
-        self._server_session = server_session
+        self._session = session
         return self
 
     def dump_osc(self, expr):
@@ -89,14 +89,14 @@ class Server(object):
 
     def quit(self):
         from supriya.tools import servertools
-        if self._server_session is None:
+        if self._session is None:
             return
         with servertools.WaitForServer('/(done|fail)', ['/quit']):
             self.send_message(r'/quit')
-        self._server_session.server_process.send_signal(signal.SIGINT)
-        self._server_session.server_process.kill()
-        self._server_session.free()
-        self._server_session = None
+        self._session.server_process.send_signal(signal.SIGINT)
+        self._session.server_process.kill()
+        self._session.free()
+        self._session = None
 
     def send_command(self, arguments):
         if self._osc_controller is not None:
@@ -122,5 +122,5 @@ class Server(object):
         return self._port
 
     @property
-    def server_session(self):
-        return self._server_session
+    def session(self):
+        return self._session

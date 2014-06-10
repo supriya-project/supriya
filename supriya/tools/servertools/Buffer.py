@@ -33,9 +33,9 @@ class Buffer(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server_session=None):
+    def allocate(self, session=None):
         ServerObjectProxy.allocate(self)
-        self._buffer_index = server_session.buffer_allocator.allocate(1)
+        self._buffer_index = session.buffer_allocator.allocate(1)
 
     def free(self):
         ServerObjectProxy.free(self)

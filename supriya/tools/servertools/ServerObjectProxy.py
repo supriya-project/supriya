@@ -13,33 +13,33 @@ class ServerObjectProxy(object):
     __metaclass__ = abc.ABCMeta
 
     __slots__ = (
-        '_server_session',
+        '_session',
         )
 
     ### INITIALIZER ###
 
     @abc.abstractmethod
     def __init__(self):
-        self._server_session = None
+        self._session = None
 
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def allocate(self, server_session=None):
+    def allocate(self, session=None):
         from supriya import servertools
-        assert self.server_session is None
-        if server_session is None:
-            server_session = servertools.Server.get_default_session()
-        assert isinstance(server_session, servertools.ServerSession)
-        assert server_session.is_running
-        self._server_session = server_session
+        assert self.session is None
+        if session is None:
+            session = servertools.Server.get_default_session()
+        assert isinstance(session, servertools.Session)
+        assert session.is_running
+        self._session = session
 
     @abc.abstractmethod
     def free(self):
-        self._server_session = None
+        self._session = None
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def server_session(self):
-        return self._server_session
+    def session(self):
+        return self._session

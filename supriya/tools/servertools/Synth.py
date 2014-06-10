@@ -26,7 +26,7 @@ class Synth(Node):
         self,
         add_action=None,
         target_node=None,
-        server_session=None,
+        session=None,
         ):
         from supriya.tools import servertools
         target_node = servertools.Node.expr_as_target(target_node)
@@ -34,14 +34,14 @@ class Synth(Node):
             self._group = target_node
         else:
             self._group = target_node.group
-        server_session = target_node.server_session
+        session = target_node.session
         servertools.ServerObjectProxy.allocate(
             self,
-            server_session=server_session,
+            session=session,
             )
         add_action = add_action or 0
         add_action = servertools.AddAction.from_expr(add_action)
-        self._server_session = server_session
+        self._session = session
         message = (
             self.creation_command,
             self.synth_definition_name,

@@ -1,4 +1,4 @@
-class ServerSession(object):
+class Session(object):
 
     ### CLASS VARIABLES ###
 
