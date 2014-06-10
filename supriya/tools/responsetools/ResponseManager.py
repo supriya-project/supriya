@@ -25,7 +25,7 @@ class ResponseManager(SupriyaObject):
             ugen_count=0,
             synth_count=0,
             group_count=2,
-            synth_definition_count=4,
+            synthdef_count=4,
             average_cpu_usage=0.040679048746824265,
             peak_cpu_usage=0.15118031203746796,
             target_sample_rate=44100.0,
@@ -218,7 +218,7 @@ class ResponseManager(SupriyaObject):
                     child_count=child_child_count,
                     )
             else:
-                synth_definition_name = contents[0]
+                synthdef_name = contents[0]
                 contents = contents[1:]
                 control_items = []
                 if control_flag:
@@ -236,7 +236,7 @@ class ResponseManager(SupriyaObject):
                 control_items = tuple(control_items)
                 item = responsetools.QueryTreeSynthItem(
                     node_id=child_node_id,
-                    synth_definition_name=synth_definition_name,
+                    synthdef_name=synthdef_name,
                     control_items=control_items,
                     )
             items.append(item)

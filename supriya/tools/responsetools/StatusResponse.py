@@ -12,7 +12,7 @@ class StatusResponse(Response):
         '_group_count',
         '_peak_cpu_usage',
         '_synth_count',
-        '_synth_definition_count',
+        '_synthdef_count',
         '_target_sample_rate',
         '_ugen_count',
         )
@@ -24,7 +24,7 @@ class StatusResponse(Response):
         ugen_count=None,
         synth_count=None,
         group_count=None,
-        synth_definition_count=None,
+        synthdef_count=None,
         average_cpu_usage=None,
         peak_cpu_usage=None,
         target_sample_rate=None,
@@ -35,7 +35,7 @@ class StatusResponse(Response):
         self._group_count = group_count
         self._peak_cpu_usage = peak_cpu_usage
         self._synth_count = synth_count
-        self._synth_definition_count = synth_definition_count
+        self._synthdef_count = synthdef_count
         self._target_sample_rate = target_sample_rate
         self._ugen_count = ugen_count
 
@@ -62,8 +62,8 @@ class StatusResponse(Response):
         return self._synth_count
 
     @property
-    def synth_definition_count(self):
-        return self._synth_definition_count
+    def synthdef_count(self):
+        return self._synthdef_count
 
     @property
     def target_sample_rate(self):

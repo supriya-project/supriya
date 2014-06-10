@@ -6,19 +6,19 @@ class Synth(Node):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_synth_definition_name',
+        '_synthdef_name',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        synth_definition_name,
+        synthdef_name,
         add_action=None,
         target_node=None,
         ):
         Node.__init__(self)
-        self._synth_definition_name = synth_definition_name
+        self._synthdef_name = synthdef_name
 
     ### PUBLIC METHODS ###
 
@@ -44,7 +44,7 @@ class Synth(Node):
         self._session = session
         message = (
             self.creation_command,
-            self.synth_definition_name,
+            self.synthdef_name,
             self.node_id,
             add_action.value,
             target_node.node_id,
@@ -59,5 +59,5 @@ class Synth(Node):
         return 9
 
     @property
-    def synth_definition_name(self):
-        return self._synth_definition_name
+    def synthdef_name(self):
+        return self._synthdef_name

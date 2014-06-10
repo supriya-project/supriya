@@ -84,11 +84,11 @@ class SynthDefinition(ServerObjectProxy):
         self._parameters.append(value)
 
     def _add_ugen(self, ugen):
-        def resolve(ugen, synth_definition):
+        def resolve(ugen, synthdef):
             from supriya import synthesistools
             for x in ugen.inputs:
                 if isinstance(x, synthesistools.OutputProxy):
-                    synth_definition._add_ugen(x.source)
+                    synthdef._add_ugen(x.source)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)
@@ -100,7 +100,7 @@ class SynthDefinition(ServerObjectProxy):
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
             self._ugens.append(ugen)
-            ugen.synth_definition = self
+            ugen.synthdef = self
             self._pending_ugens.remove(ugen)
 
     def _cleanup_topological_sort(self):
@@ -179,7 +179,7 @@ class SynthDefinition(ServerObjectProxy):
             ugen._initialize_topological_sort()
             ugen._descendants = sorted(
                 ugen._descendants,
-                key=lambda x: x.synth_definition.ugens.index(ugen),
+                key=lambda x: x.synthdef.ugens.index(ugen),
                 )
         for ugen in reversed(self.ugens):
             ugen._make_available()
@@ -208,23 +208,23 @@ class SynthDefinition(ServerObjectProxy):
         self._sort_ugens_topologically()
         self._collect_constants()
 
-    def compile(self, synth_definitions=None):
+    def compile(self, synthdefs=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, bytearray):
                 return bytearray().join(flatten(x) for x in value)
             return value
-        synth_definitions = synth_definitions or [self]
+        synthdefs = synthdefs or [self]
         result = []
         encoded_file_type_id = bytearray(b'SCgf')
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDefinition._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
-        encoded_synth_definition_count = SynthDefinition._encode_unsigned_int_16bit(
-            len(synth_definitions))
-        result.append(encoded_synth_definition_count)
-        for synth_definition in synth_definitions:
-            result.append(synth_definition._compile())
+        encoded_synthdef_count = SynthDefinition._encode_unsigned_int_16bit(
+            len(synthdefs))
+        result.append(encoded_synthdef_count)
+        for synthdef in synthdefs:
+            result.append(synthdef._compile())
         result = flatten(result)
         result = bytearray(result)
         return result

@@ -15,7 +15,7 @@ class Session(object):
         '_root_node',
         '_server_options',
         '_server_process',
-        '_synth_definitions',
+        '_synthdefs',
         )
 
     ### INITIALIZER ###
@@ -40,7 +40,7 @@ class Session(object):
         self._buffers = {}
         self._control_busses = {}
         self._nodes = {}
-        self._synth_definitions = {}
+        self._synthdefs = {}
 
         self._root_node = servertools.RootNode()
         self._default_group = servertools.DefaultGroup()
@@ -105,5 +105,5 @@ class Session(object):
         return self._server_process
 
     @property
-    def synth_definitions(self):
-        return self._synth_definitions
+    def synthdefs(self):
+        return self._synthdefs

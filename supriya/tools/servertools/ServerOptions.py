@@ -20,9 +20,9 @@ class ServerOptions(object):
         '_input_bus_channel_count',
         '_input_device',
         '_input_stream_mask',
-        '_load_synth_definitions',
+        '_load_synthdefs',
         '_maximum_node_count',
-        '_maximum_synth_definition_count',
+        '_maximum_synthdef_count',
         '_memory_locking',
         '_memory_size',
         '_output_bus_channel_count',
@@ -51,9 +51,9 @@ class ServerOptions(object):
         input_bus_channel_count=8,
         input_device=None,
         input_stream_mask=False,
-        load_synth_definitions=True,
+        load_synthdefs=True,
         maximum_node_count=1024,
-        maximum_synth_definition_count=1024,
+        maximum_synthdef_count=1024,
         memory_locking=False,
         memory_size=8192,
         output_bus_channel_count=8,
@@ -78,9 +78,9 @@ class ServerOptions(object):
         self._input_bus_channel_count = int(input_bus_channel_count)
         self._input_device = input_device
         self._input_stream_mask = bool(input_stream_mask)
-        self._load_synth_definitions = load_synth_definitions
+        self._load_synthdefs = load_synthdefs
         self._maximum_node_count = int(maximum_node_count)
-        self._maximum_synth_definition_count = int(maximum_synth_definition_count)
+        self._maximum_synthdef_count = int(maximum_synthdef_count)
         self._memory_locking = bool(memory_locking)
         self._memory_size = int(memory_size)
         self._output_bus_channel_count = int(output_bus_channel_count)
@@ -128,8 +128,8 @@ class ServerOptions(object):
         if self.maximum_node_count != 1024:
             result.append('-n {}'.format(self.maximum_node_count))
 
-        if self.maximum_synth_definition_count != 1024:
-            result.append('-d {}'.format(self.maximum_synth_definition_count))
+        if self.maximum_synthdef_count != 1024:
+            result.append('-d {}'.format(self.maximum_synthdef_count))
 
         if self.block_size != 64:
             result.append('-z {}'.format(self.block_size))
@@ -149,7 +149,7 @@ class ServerOptions(object):
         if self.sample_rate is not None:
             result.append('-S {}'.format(int(self.sample_rate)))
 
-        if not self.load_synth_definitions:
+        if not self.load_synthdefs:
             result.append('-D 0')
 
         if self.input_stream_mask:
@@ -216,16 +216,16 @@ class ServerOptions(object):
         return self._input_stream_mask
 
     @property
-    def load_synth_definitions(self):
-        return self._load_synth_definitions
+    def load_synthdefs(self):
+        return self._load_synthdefs
 
     @property
     def maximum_node_count(self):
         return self._maximum_node_count
 
     @property
-    def maximum_synth_definition_count(self):
-        return self._maximum_synth_definition_count
+    def maximum_synthdef_count(self):
+        return self._maximum_synthdef_count
 
     @property
     def memory_locking(self):

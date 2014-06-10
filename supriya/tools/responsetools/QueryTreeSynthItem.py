@@ -9,7 +9,7 @@ class QueryTreeSynthItem(Response):
     __slots__ = (
         '_controls',
         '_node_id',
-        '_synth_definition_name',
+        '_synthdef_name',
         )
 
     ### INITIALIZER ###
@@ -17,12 +17,12 @@ class QueryTreeSynthItem(Response):
     def __init__(
         self,
         node_id=None,
-        synth_definition_name=None,
+        synthdef_name=None,
         controls=None,
         ):
         self._controls = controls
         self._node_id = node_id
-        self._synth_definition_name = synth_definition_name
+        self._synthdef_name = synthdef_name
 
     ### PUBLIC PROPERTIES ###
 
@@ -35,5 +35,5 @@ class QueryTreeSynthItem(Response):
         return self._node_id
 
     @property
-    def synth_definition_name(self):
-        return self._synth_definition_name
+    def synthdef_name(self):
+        return self._synthdef_name

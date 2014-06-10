@@ -18,7 +18,7 @@ class UGen(UGenMethodMixin):
         '_inputs',
         '_output_proxies',
         '_special_index',
-        '_synth_definition',
+        '_synthdef',
         '_width_first_antecedents',
         )
 
@@ -66,7 +66,7 @@ class UGen(UGenMethodMixin):
             synthesistools.OutputProxy(self, i)
             for i in range(len(self))
             )
-        self._synth_definition = None
+        self._synthdef = None
         self._width_first_antecedents = []
 
     ### SPECIAL METHODS ###
@@ -122,7 +122,7 @@ class UGen(UGenMethodMixin):
         from supriya import synthesistools
         for input_ in self._inputs:
             if not isinstance(input_, synthesistools.OutputProxy):
-                self.synth_definition._add_constant(float(input_))
+                self.synthdef._add_constant(float(input_))
 
     def _get_output_number(self):
         return 0
@@ -150,8 +150,8 @@ class UGen(UGenMethodMixin):
 
     def _make_available(self):
         if not self.antecedents:
-            if self not in self.synth_definition._available_ugens:
-                self.synth_definition._available_ugens.append(self)
+            if self not in self.synthdef._available_ugens:
+                self.synthdef._available_ugens.append(self)
 
     @classmethod
     def _new(cls, calculation_rate, special_index, **kwargs):
@@ -210,19 +210,19 @@ class UGen(UGenMethodMixin):
             )
         return ugen
 
-    def compile(self, synth_definition):
-        def compile_input_spec(i, synth_definition):
+    def compile(self, synthdef):
+        def compile_input_spec(i, synthdef):
             from supriya import synthesistools
             result = []
             if isinstance(i, float):
                 result.append(SynthDefinition._encode_unsigned_int_32bit(0xffffffff))
-                constant_index = synth_definition._get_constant_index(i)
+                constant_index = synthdef._get_constant_index(i)
                 result.append(SynthDefinition._encode_unsigned_int_32bit(
                     constant_index))
             elif isinstance(i, synthesistools.OutputProxy):
                 ugen = i.source
                 output_index = i.output_index
-                ugen_index = synth_definition._get_ugen_index(ugen)
+                ugen_index = synthdef._get_ugen_index(ugen)
                 result.append(SynthDefinition._encode_unsigned_int_32bit(ugen_index))
                 result.append(SynthDefinition._encode_unsigned_int_32bit(output_index))
             else:
@@ -237,7 +237,7 @@ class UGen(UGenMethodMixin):
         result.append(SynthDefinition._encode_unsigned_int_32bit(len(outputs)))
         result.append(SynthDefinition._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
-            result.append(compile_input_spec(i, synth_definition))
+            result.append(compile_input_spec(i, synthdef))
         for o in outputs:
             result.append(SynthDefinition._encode_unsigned_int_8bit(o))
         result = bytearray().join(result)
@@ -281,14 +281,14 @@ class UGen(UGenMethodMixin):
         return self._special_index
 
     @property
-    def synth_definition(self):
-        return self._synth_definition
+    def synthdef(self):
+        return self._synthdef
 
-    @synth_definition.setter
-    def synth_definition(self, synth_definition):
+    @synthdef.setter
+    def synthdef(self, synthdef):
         from supriya.tools import synthesistools
-        assert isinstance(synth_definition, synthesistools.SynthDefinition)
-        self._synth_definition = synth_definition
+        assert isinstance(synthdef, synthesistools.SynthDefinition)
+        self._synthdef = synthdef
 
     @property
     def width_first_antecedents(self):

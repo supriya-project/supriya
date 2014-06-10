@@ -6,7 +6,7 @@ import tempfile
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class SuperColliderSynthDefinition(SupriyaObject):
+class SuperColliderSynthDef(SupriyaObject):
 
     ### INITIALIZER ###
 
@@ -31,8 +31,8 @@ class SuperColliderSynthDefinition(SupriyaObject):
         input_ = '\n'.join(input_)
         sc_file_name = '{}.sc'.format(self.name)
         sc_file_path = os.path.join(directory_path, sc_file_name)
-        synth_definition_file_name = '{}.scsyndef'.format(self.name)
-        synth_definition_file_path = os.path.join(directory_path, synth_definition_file_name)
+        synthdef_file_name = '{}.scsyndef'.format(self.name)
+        synthdef_file_path = os.path.join(directory_path, synthdef_file_name)
         with open(sc_file_path, 'w') as f:
             f.write(input_)
         command = ['sclang', sc_file_path]
@@ -42,7 +42,7 @@ class SuperColliderSynthDefinition(SupriyaObject):
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             )
-        with open(synth_definition_file_path, 'rb') as f:
+        with open(synthdef_file_path, 'rb') as f:
             result = f.read()
         shutil.rmtree(directory_path)
         return bytearray(result)
