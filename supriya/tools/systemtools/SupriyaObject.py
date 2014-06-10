@@ -42,6 +42,9 @@ class SupriyaObject(AbstractBase):
                 state[slot] = getattr(self, slot, None)
         return state
 
+    def __hash__(self):
+        return id(self) 
+
     def __repr__(self):
         from abjad.tools import systemtools
         return systemtools.StorageFormatManager.get_repr_format(self)
