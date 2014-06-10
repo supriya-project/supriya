@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 import itertools
 import sys
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class ResponseManager(object):
+class ResponseManager(SupriyaObject):
     r'''Handles OSC responses from scsynth.
 
     ::
