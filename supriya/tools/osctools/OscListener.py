@@ -4,9 +4,10 @@ import socket
 import sys
 import threading
 import traceback
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class OscListener(threading.Thread):
+class OscListener(SupriyaObject, threading.Thread):
     r'''An OSC listener
     '''
 
