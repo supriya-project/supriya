@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import abc
-import enum
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
@@ -56,6 +55,9 @@ class UGen(UGenMethodMixin):
                 UGen,
                 synthdeftools.OutputProxy,
                 )
+            if self._unexpanded_argument_names and \
+                argument_name in self._unexpanded_argument_names:
+                prototype += (tuple,)
             assert isinstance(argument_value, prototype), argument_value
             argument_specification.configure(self, argument_value)
         if kwargs:
@@ -154,7 +156,12 @@ class UGen(UGenMethodMixin):
                 self.synthdef._available_ugens.append(self)
 
     @classmethod
-    def _new(cls, calculation_rate, special_index, **kwargs):
+    def _new(
+        cls,
+        calculation_rate=None,
+        special_index=None,
+        **kwargs
+        ):
         import sys
         from supriya import synthdeftools
         if sys.version_info[0] == 2:

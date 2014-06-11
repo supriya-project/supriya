@@ -37,6 +37,12 @@ class Argument(SupriyaObject):
                 value._get_source(),
                 value._get_output_number(),
                 )
+        elif isinstance(value, tuple) and \
+            all(isinstance(_, (int, float)) for _ in value):
+            assert ugen._unexpanded_argument_names
+            assert self.name in ugen._unexpanded_argument_names
+            for x in value:
+                ugen._add_constant_input(x)
         else:
             raise Exception(value)
 
