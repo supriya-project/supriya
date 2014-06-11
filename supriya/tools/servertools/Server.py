@@ -11,7 +11,7 @@ class Server(object):
         >>> from supriya import servertools
         >>> server = servertools.Server.get_default_server()
         >>> server.boot()
-        <supriya.tools.servertools.Server.Server object at 0x...>
+        <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
@@ -31,6 +31,21 @@ class Server(object):
 
     _default_server = None
 
+    _servers = {}
+
+    ### CONSTRUCTOR ###
+
+    def __new__(cls, ip_address='127.0.0.1', port=57751):
+        key = (ip_address, port)
+        if key not in cls._servers:
+            instance = object.__new__(cls)
+            instance.__init__(
+                ip_address=ip_address,
+                port=port,
+                )
+            cls._servers[key] = instance
+        return cls._servers[key]
+
     ### INITIALIZER ###
 
     def __init__(self, ip_address='127.0.0.1', port=57751):
@@ -41,8 +56,18 @@ class Server(object):
 
     ### SPECIAL METHODS ###
 
-    def __del__(self):
-        self.quit()
+    def __repr__(self):
+        if not self.session:
+            return '<Server: offline>'
+        string = '<Server: {protocol}://{ip}:{port}, '
+        string += '{inputs}i{outputs}o>'
+        return string.format(
+            protocol=self.session.server_options.protocol,
+            ip=self.ip_address,
+            port=self.port,
+            inputs=self.session.server_options.input_bus_channel_count,
+            outputs=self.session.server_options.output_bus_channel_count,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -81,7 +106,10 @@ class Server(object):
     @staticmethod
     def get_default_server():
         if Server._default_server is None:
-            Server._default_server = Server()
+            Server._default_server = Server(
+                ip_address='127.0.0.1',
+                port=57751,
+                )
         return Server._default_server
 
     def notify(self, expr):

@@ -15,6 +15,7 @@ class Session(object):
         '_root_node',
         '_server_options',
         '_server_process',
+        '_server_status',
         '_synthdefs',
         )
 
