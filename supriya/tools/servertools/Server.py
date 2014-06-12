@@ -130,11 +130,14 @@ class Server(object):
         self._control_busses = {}
         self._nodes = {}
         self._synthdefs = {}
-        self._root_node = servertools.RootNode()
-        self._default_group = servertools.DefaultGroup()
+        self._root_node = servertools.RootNode(server=self)
+        self._default_group = servertools.Group()
+        self._default_group._node_id = 1
         self._default_group._parent = self._root_node
+        self._default_group._server = self
+        self._root_node._children.append(self._default_group)
+        self.send_message(('/g_new', 1, 0, 0))
         self._server_status = None
-        self.send_message(("/g_new", 1, 0, 0))
 
     def _teardown_server_state(self):
         self._audio_bus_allocator = None
@@ -215,10 +218,7 @@ class Server(object):
     @staticmethod
     def get_default_server():
         if Server._default_server is None:
-            Server._default_server = Server(
-                ip_address='127.0.0.1',
-                port=57751,
-                )
+            Server._default_server = Server()
         return Server._default_server
 
     def quit(self):
@@ -237,7 +237,7 @@ class Server(object):
         self._osc_controller.register_callback(osc_callback)
 
     def send_message(self, message):
-        if not self.is_running:
+        if not message or not self.is_running:
             return
         self._osc_controller.send(message)
 
