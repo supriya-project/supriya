@@ -9,7 +9,6 @@ class Node(ServerObjectProxy):
 
     __slots__ = (
         '_is_playing',
-        '_is_running',
         '_node_id',
         '_parent',
         )
@@ -21,71 +20,72 @@ class Node(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         self._parent = None
         self._is_playing = False
-        self._is_running = False
         self._node_id = None
 
     ### PRIVATE METHODS ###
 
-    def add_to_group_head(self, group):
-        from supriya.tools import servertools
-        assert isinstance(group, servertools.Group)
-        assert self.server is None
-        assert group.server is self.server
+    def _remove_from_parent(self):
+        if self._parent is not None:
+            self._parent._children.remove(self)
+        self._parent = None
 
-    def add_to_group_tail(self, group):
-        from supriya.tools import servertools
-        assert isinstance(group, servertools.Group)
-        assert group.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def add_before_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert not isinstance(node, servertools.RootNode)
-        assert node.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def move_after_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert not isinstance(node, servertools.RootNode)
-        assert node.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def move_before_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert not isinstance(node, servertools.RootNode)
-        assert node.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def move_to_head_node(self, group):
-        from supriya.tools import servertools
-        assert isinstance(group, servertools.Group)
-        assert group.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def move_to_tail_node(self, group):
-        from supriya.tools import servertools
-        assert isinstance(group, servertools.Group)
-        assert group.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def add_after_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert not isinstance(node, servertools.RootNode)
-        assert node.server is self.server
-        assert self.server is not None and self.server.is_running
-
-    def replace_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert not isinstance(node, servertools.RootNode)
-        assert node.server is self.server
-        assert self.server is not None and self.server.is_running
+    def _set_parent(self, new_parent):
+        self._remove_from_parent()
+        self._parent = new_parent
 
     ### PUBLIC METHODS ###
+
+    @abc.abstractmethod
+    def allocate(
+        self,
+        add_action=None,
+        target_node=None,
+        ):
+        from supriya.tools import servertools
+        if self.server is not None:
+            raise ValueError
+
+        target_node = Node.as_target_node(target_node)
+        server = target_node.server
+        if server is None or not server.is_running:
+            raise ValueError
+
+        node_id = server.node_id_allocator.allocate_node_id()
+        if node_id is None:
+            raise ValueError
+        elif node_id in server._nodes:
+            raise ValueError
+        ServerObjectProxy.allocate(self, server=server)
+        self._server._nodes[self._node_id] = self
+        self._node_id = node_id
+
+        add_action = servertools.AddAction.from_expr(add_action)
+        if add_action == servertools.AddAction['ADD_TO_HEAD']:
+            assert isinstance(target_node, servertools.GroupMixin)
+            self._set_parent(target_node)
+            target_node._children.insert(0, self)
+        elif add_action == servertools.AddAction['ADD_TO_TAIL']:
+            assert isinstance(target_node, servertools.GroupMixin)
+            self._set_parent(target_node)
+            target_node._children.append(self)
+        elif add_action == servertools.AddAction['ADD_BEFORE']:
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            self._parent._children.insert(index, self)
+        elif add_action == servertools.AddAction['ADD_AFTER']:
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            self._parent._children.insert(index + 1, self)
+        elif add_action == servertools.AddAction['REPLACE']:
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            target_node.free()
+        else:
+            raise ValueError
+
+        self._is_playing = True
+
+        return add_action, node_id, target_node.node_id
 
     @staticmethod
     def expr_as_node_id(expr):
@@ -114,13 +114,18 @@ class Node(ServerObjectProxy):
         raise TypeError(expr)
 
     def free(self, send_to_server=True):
-        message = self.make_free_message()
-        if send_to_server:
-            self.server.send_message(message)
+        from supriya.tools import servertools
+        self._parent._children.remove(self)
+        self._set_parent(None)
         self._is_playing = False
-        self._is_running = False
+        del(self._server._nodes[self._node_id])
         self._node_id = None
-        self._parent = None
+        ServerObjectProxy.free(self)
+        if send_to_server:
+            message = servertools.CommandManager.make_node_free_message(
+                self.node_id,
+                )
+            self.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 
@@ -130,7 +135,7 @@ class Node(ServerObjectProxy):
 
     @property
     def is_running(self):
-        return self._is_running
+        return self.server is not None
 
     @property
     def node_id(self):

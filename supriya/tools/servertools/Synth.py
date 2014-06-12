@@ -26,9 +26,22 @@ class Synth(Node):
         self,
         add_action=None,
         target_node=None,
-        server=None,
+        **kwargs
         ):
-        pass
+        from supriya.tools import servertools
+        add_action, node_id, target_node_id = Node.allocate(
+            self,
+            add_action=add_action,
+            target_node=target_node,
+            )
+        message = servertools.CommandManager.make_synth_new_message(
+            add_action=add_action,
+            node_id=node_id,
+            synthdef_name=self.synthdef.name,
+            target_node_id=target_node_id,
+            **kwargs
+            )
+        self.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 
