@@ -17,5 +17,7 @@ class Enumeration(enum.IntEnum):
             expr = expr.strip()
             expr = expr.replace(' ', '_')
             return cls[expr]
+        elif expr is None:
+            return cls(0)
         message = 'Cannot instantiate {} from {}.'.format(cls.__name__, expr)
         raise ValueError(message)
