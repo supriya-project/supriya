@@ -18,6 +18,7 @@ class Buffer(ServerObjectProxy):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_buffer_id',
         '_channel_count',
         '_frame_count',
         )
@@ -28,19 +29,31 @@ class Buffer(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         assert 0 < frame_count
         assert 0 < channel_count
+        self._buffer_id = None
         self._frame_count = int(frame_count)
         self._channel_count = int(channel_count)
 
     ### PUBLIC METHODS ###
 
     def allocate(self, server=None):
-        ServerObjectProxy.allocate(self)
-        self._buffer_index = self.server.buffer_allocator.allocate(1)
+        ServerObjectProxy.allocate(self, server=server)
+        buffer_id = self.server.buffer_allocator.allocate(1)
+        if buffer_id is None:
+            raise Exception
+        self._buffer_id = buffer_id
 
     def free(self):
+        if self.server is not None:
+            self.server.buffer_allocator.free(self.buffer_id)
+            del(self.server.buffers[self.buffer_id])
+        self._buffer_id = None
         ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        return self._buffer_id
 
     @property
     def channel_count(self):

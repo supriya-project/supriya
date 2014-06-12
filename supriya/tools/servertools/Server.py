@@ -104,6 +104,21 @@ class Server(object):
 
     ### PRIVATE METHODS ###
 
+    def _register_buffer(self, buffer_):
+        from supriya.tools import servertools
+        assert isinstance(buffer_, servertools.Buffer)
+        assert buffer_.server is None
+
+    def _register_control_bus(self, control_bus):
+        from supriya.tools import servertools
+        assert isinstance(control_bus, servertools.ControlBus)
+        assert control_bus.server is None
+
+    def _register_node(self, node):
+        from supriya.tools import servertools
+        assert isinstance(node, servertools.Node)
+        assert node.server is None
+
     def _setup_server_state(self):
         from supriya.tools import servertools
         self._audio_bus_allocator = servertools.BlockAllocator()
@@ -137,6 +152,38 @@ class Server(object):
         self._default_group = None
         self._root_node = None
         self._server_status = None
+
+    def _unregister_audio_bus(self, audio_bus):
+        from supriya.tools import servertools
+        assert isinstance(audio_bus, servertools.AudioBus)
+        if audio_bus.server is None:
+            return
+        elif audio_bus.server is not self:
+            raise ValueError
+
+    def _unregister_buffer(self, buffer_):
+        from supriya.tools import servertools
+        assert isinstance(buffer_, servertools.Buffer)
+        if buffer_.server is None:
+            return
+        elif buffer_.server is not self:
+            raise ValueError
+
+    def _unregister_control_bus(self, control_bus):
+        from supriya.tools import servertools
+        assert isinstance(control_bus, servertools.ControlBus)
+        if control_bus.server is None:
+            return
+        elif control_bus.server is not self:
+            raise ValueError
+
+    def _unregister_node(self, node):
+        from supriya.tools import servertools
+        assert isinstance(node, servertools.Node)
+        if node.server is None:
+            return
+        elif node.server is not self:
+            raise ValueError
 
     ### PUBLIC METHODS ###
 
