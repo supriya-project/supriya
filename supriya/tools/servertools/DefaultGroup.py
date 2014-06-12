@@ -17,7 +17,7 @@ class DefaultGroup(Group):
         self._is_playing = True
         self._is_running = True
         self._node_id = 1
-        self._parent_group = self
+        self._parent = self
 
     ### PUBLIC METHODS ###
 
@@ -25,18 +25,6 @@ class DefaultGroup(Group):
         pass
 
     def free(self):
-        pass
-
-    def move_after(self):
-        pass
-
-    def move_before(self):
-        pass
-
-    def move_to_head(self):
-        pass
-
-    def move_to_tail(self):
         pass
 
     def run(self):

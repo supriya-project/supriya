@@ -132,7 +132,7 @@ class Server(object):
         self._synthdefs = {}
         self._root_node = servertools.RootNode()
         self._default_group = servertools.DefaultGroup()
-        self._default_group._parent_group = self._root_node
+        self._default_group._parent = self._root_node
         self._server_status = None
         self.send_message(("/g_new", 1, 0, 0))
 
