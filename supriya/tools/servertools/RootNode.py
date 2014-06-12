@@ -1,23 +1,22 @@
 # -*- encoding: utf-8 -*0
-from supriya.tools.servertools.Group import Group
+from supriya.tools.servertools.GroupMixin import GroupMixin
 
 
-class RootNode(Group):
+class RootNode(GroupMixin):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_children',
+        '_server',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, server=None):
         from supriya.tools import servertools
-        servertools.Node.__init__(self)
-        self._is_playing = True
-        self._is_running = True
-        self._node_id = 0
-        self._parent = self
+        servertools.GroupMixin.__init__(self)
+        self._server = server
 
     ### PUBLIC METHODS ###
 
@@ -29,3 +28,13 @@ class RootNode(Group):
 
     def run(self):
         pass
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def node_id(self):
+        return 0
+
+    @property
+    def server(self):
+        return self._server
