@@ -39,8 +39,11 @@ class Buffer(ServerObjectProxy):
         ServerObjectProxy.allocate(self, server=server)
         buffer_id = self.server.buffer_allocator.allocate(1)
         if buffer_id is None:
-            raise Exception
+            raise ValueError
+        elif buffer_id in self._server._buffers:
+            raise ValueError
         self._buffer_id = buffer_id
+        self._server._buffers[self._buffer_id] = self
 
     def free(self):
         if self.server is not None:
