@@ -28,8 +28,7 @@ class WaitForServer(object):
             is_one_shot=True,
             procedure=self.__call__,
             )
-        if server is None:
-            server = servertools.Server.get_default_server()
+        server = server or servertools.Server.get_default_server()
         assert isinstance(server, servertools.Server), server
         self._server = server
 
