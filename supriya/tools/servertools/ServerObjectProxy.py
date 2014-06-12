@@ -12,33 +12,32 @@ class ServerObjectProxy(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_session',
+        '_server',
         )
 
     ### INITIALIZER ###
 
     @abc.abstractmethod
     def __init__(self):
-        self._session = None
+        self._server = None
 
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def allocate(self, session=None):
+    def allocate(self, server=None):
         from supriya import servertools
-        assert self.session is None
-        if session is None:
-            session = servertools.Server.get_default_session()
-        assert isinstance(session, servertools.Session)
-        assert session.is_running
-        self._session = session
+        assert self.server is None
+        server = server or servertools.Server.get_default_server()
+        assert isinstance(server, servertools.Server)
+        assert server.is_running
+        self._server = server
 
     @abc.abstractmethod
     def free(self):
-        self._session = None
+        self._server = None
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def session(self):
-        return self._session
+    def server(self):
+        return self._server

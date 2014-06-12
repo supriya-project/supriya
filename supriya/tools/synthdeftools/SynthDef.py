@@ -199,9 +199,9 @@ class SynthDefinition(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, session=None):
+    def allocate(self, server=None):
         from supriya.tools import servertools
-        ServerObjectProxy.allocate(self, session=session)
+        ServerObjectProxy.allocate(self, server=server)
         compiled = self.compile()
         message = ('d_recv', compiled, 0)
         server = servertools.Server()

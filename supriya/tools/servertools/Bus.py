@@ -45,15 +45,15 @@ class Bus(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, session=None):
+    def allocate(self, server=None):
         from supriya.tools import synthdeftools
-        ServerObjectProxy.allocate(self, session=session)
+        ServerObjectProxy.allocate(self, server=server)
         channel_count = self.channel_count
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            bus_index = session.audio_bus_allocator.allocate(
+            bus_index = server.audio_bus_allocator.allocate(
                 channel_count)
         else:
-            bus_index = session.control_bus_allocator.allocate(
+            bus_index = server.control_bus_allocator.allocate(
                 channel_count)
         if bus_index is None:
             raise Exception
@@ -61,7 +61,7 @@ class Bus(ServerObjectProxy):
 
     def ar(self):
         from supriya.tools import synthdeftools
-        assert self.session is not None
+        assert self.server is not None
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             result = synthdeftools.In.ar(
                 bus=self.bus_index,
@@ -89,7 +89,7 @@ class Bus(ServerObjectProxy):
 
     def kr(self):
         from supriya.tools import synthdeftools
-        assert self.session is not None
+        assert self.server is not None
         if self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
             result = synthdeftools.In.kr(
                 bus=self.bus_index,
@@ -115,7 +115,7 @@ class Bus(ServerObjectProxy):
         return message
 
     def set(self, *args):
-        assert self.session is not None
+        assert self.server is not None
         message = self.make_set_message(*args)
         self.server.send_message(message)
 
