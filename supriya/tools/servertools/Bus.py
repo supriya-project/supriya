@@ -30,6 +30,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
     ::
 
         >>> bus[0].map_symbol
+        'a0'
 
     ::
 
