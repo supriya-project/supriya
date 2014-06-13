@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class BusId(SupriyaObject):
+class BlockId(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
