@@ -1,4 +1,8 @@
-class TimespanCollectionNode(object):
+# -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+
+
+class TimespanCollectionNode(SupriyaObject):
     r'''A node in a timespan collection.
     '''
 

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-import collections
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class TimespanCollection(object):
+class TimespanCollection(SupriyaObject):
     r'''A mutable always-sorted collection of timespans.
 
     ::
@@ -413,6 +413,23 @@ class TimespanCollection(object):
         node._stop_offset_high = stop_offset_high
         return node
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        positional_argument_values = ()
+        timespans = [x for x in self]
+        if timespans:
+            positional_argument_values = (timespans,)
+        keyword_argument_names = ()
+        return systemtools.StorageFormatSpecification(
+            self,
+            keyword_argument_names=keyword_argument_names,
+            positional_argument_values=positional_argument_values,
+            )
+
+    
     ### PUBLIC METHODS ###
 
     def find_timespans_starting_at(self, offset):
@@ -908,4 +925,3 @@ class TimespanCollection(object):
     @property
     def stop_offset(self):
         return self.latest_stop_offset
-

@@ -1,7 +1,8 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class TimespanSimultaneity(object):
+class TimespanSimultaneity(SupriyaObject):
     r'''A simultaneity of timespans in a timespan collection.
     '''
 
@@ -47,7 +48,7 @@ class TimespanSimultaneity(object):
             str(self.start_offset),
             len(self.start_timespans) + len(self.overlap_timespans),
             )
-    
+
     ### PUBLIC PROPERTIES ###
 
     @property
