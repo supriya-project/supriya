@@ -9,6 +9,7 @@ class WaitForServer(object):
         '_callback',
         '_called_back',
         '_server',
+        '_timeout',
         )
 
     ### INITIALIZER ###
@@ -17,7 +18,8 @@ class WaitForServer(object):
         self,
         address_pattern=None,
         argument_template=None,
-        server=None
+        server=None,
+        timeout=1.,
         ):
         from supriya import servertools
         from supriya import osctools
@@ -31,6 +33,7 @@ class WaitForServer(object):
         server = server or servertools.Server.get_default_server()
         assert isinstance(server, servertools.Server), server
         self._server = server
+        self._timeout = float(timeout)
 
     ### SPECIAL METHODS ###
 
@@ -42,8 +45,13 @@ class WaitForServer(object):
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        total_time = 0.
+        sleep_time = 0.01
         while not self.called_back:
-            time.sleep(0.01)
+            if self.timeout <= total_time:
+                raise Exception('Ran out of time.')
+            total_time += sleep_time
+            time.sleep(sleep_time)
 
     ### PUBLIC PROPERTIES ###
 
@@ -58,3 +66,7 @@ class WaitForServer(object):
     @property
     def server(self):
         return self._server
+
+    @property
+    def timeout(self):
+        return self._timeout
