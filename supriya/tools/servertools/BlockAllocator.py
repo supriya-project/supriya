@@ -115,15 +115,16 @@ class BlockAllocator(SupriyaObject):
                 block_id = used_block.start_offset
         if self.id_class is not None:
             block_id = self.id_class(
+                index=block_id,
+                length=desired_block_size,
                 server=self.server,
-                value=block_id,
                 )
         return block_id
 
     def free(self, block_id):
         from supriya.tools import servertools
         if self.id_class is not None and isinstance(block_id, self.id_class):
-            block_id = block_id.value
+            block_id = block_id.index
         elif not isinstance(block_id, int):
             raise ValueError
         with self._lock:
