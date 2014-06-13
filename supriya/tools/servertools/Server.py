@@ -135,6 +135,8 @@ class Server(object):
         self._default_group._node_id = 1
         self._default_group._parent = self._root_node
         self._default_group._server = self
+        self._nodes[0] = self._root_node
+        self._nodes[1] = self._default_group
         self._root_node._children.append(self._default_group)
         self.send_message(('/g_new', 1, 0, 0))
         self._server_status = None
@@ -144,13 +146,13 @@ class Server(object):
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
-        for x in self._audio_busses.values():
+        for x in tuple(self._audio_busses.values()):
             x.free()
-        for x in self._buffers.values():
+        for x in tuple(self._buffers.values()):
             x.free()
-        for x in self._control_busses.values():
+        for x in tuple(self._control_busses.values()):
             x.free()
-        for x in self._nodes.values():
+        for x in tuple(self._nodes.values()):
             x.free()
         self._default_group = None
         self._root_node = None

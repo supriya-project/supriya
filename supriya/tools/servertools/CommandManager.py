@@ -53,6 +53,20 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_node_free_message(node_id):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('node_free')
+        command_type = int(command_type)
+        if not isinstance(node_id, int):
+            node_id = node_id.node_id
+        node_id = int(node_id)
+        message = osctools.OscMessage(
+            command_type,
+            node_id,
+            )
+        return message
+
+    @staticmethod
     def make_notify_message(notify_status):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('notify')
@@ -124,10 +138,10 @@ class CommandManager(object):
             ...     node_id=1001,
             ...     synthdef_name='test',
             ...     target_node_id=1000,
-            ...     frequency=0.5,
+            ...     frequency=443,
             ...     phase=0.2,
             ...     )
-            OscMessage(9, 'test', 1001, 1, 1000, 'phase', 0.2, 'frequency', 0.5)
+            OscMessage(9, 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
 
         '''
         from supriya.tools import servertools
@@ -137,7 +151,7 @@ class CommandManager(object):
         node_id = int(node_id)
         target_node_id = int(target_node_id)
         arguments = []
-        for key, value in kwargs.items():
+        for key, value in sorted(kwargs.items()):
             arguments.append(key)
             arguments.append(value)
         message = osctools.OscMessage(

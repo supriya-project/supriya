@@ -25,8 +25,8 @@ class Node(ServerObjectProxy):
     ### PRIVATE METHODS ###
 
     def _remove_from_parent(self):
-        if self._parent is not None:
-            self._parent._children.remove(self)
+        if self.parent is not None:
+            self.parent._children.remove(self)
         self._parent = None
 
     def _set_parent(self, new_parent):
@@ -115,17 +115,16 @@ class Node(ServerObjectProxy):
 
     def free(self, send_to_server=True):
         from supriya.tools import servertools
-        self._parent._children.remove(self)
         self._set_parent(None)
         self._is_playing = False
         del(self._server._nodes[self._node_id])
-        self._node_id = None
-        ServerObjectProxy.free(self)
         if send_to_server:
             message = servertools.CommandManager.make_node_free_message(
                 self.node_id,
                 )
             self.server.send_message(message)
+        self._node_id = None
+        ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
 
