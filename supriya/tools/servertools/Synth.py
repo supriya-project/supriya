@@ -2,6 +2,40 @@ from supriya.tools.servertools.Node import Node
 
 
 class Synth(Node):
+    r'''A synth.
+
+    ::
+
+        >>> from supriya import servertools
+        >>> from supriya import synthdeftools
+        >>> server = servertools.Server().boot()
+
+    ::
+
+        >>> synthdef = synthdeftools.SynthDef('test', frequency=440)
+        >>> controls = synthdef.controls
+        >>> sin_osc = synthdeftools.SinOsc.ar(
+        ...     frequency=controls['frequency'],
+        ...     ) * 0.0
+        >>> out = synthdeftools.Out.ar(bus=(0, 1), source=sin_osc)
+        >>> synthdef.add_ugen(out)
+        >>> with servertools.WaitForServer('/synced', (1000,)):
+        ...     synthdef.allocate()
+        ...     server.send_message(('/sync', 1000))
+        ...
+        RECV: OscMessage('/done', '/d_recv')
+        RECV: OscMessage('/synced', 1000)
+
+    ::
+
+        >>> synth = servertools.Synth(synthdef=synthdef).allocate()
+
+    ::
+
+        >>> server = server.quit()
+        RECV: OscMessage('/done', '/quit')
+
+    '''
 
     ### CLASS VARIABLES ###
 

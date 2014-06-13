@@ -8,26 +8,20 @@ class Group(Node):
     ::
 
         >>> from supriya import servertools
-        >>> server = servertools.Server.get_default_server()
-        >>> server.boot()
-        <Server: udp://127.0.0.1:57751, 8i8o>
-
-    ::
-
+        >>> server = servertools.Server().boot()
         >>> group = servertools.Group()
         >>> group.allocate()
-        Group()
+        <Group: 1000>
 
     ::
 
         >>> group.free()
-        Group()
+        <Group: ???>
 
     ::
 
-        >>> server.quit()
+        >>> server = server.quit()
         RECV: OscMessage('/done', '/quit')
-        <Server: offline>
 
     '''
 

@@ -66,6 +66,8 @@ class Server(object):
     ### INITIALIZER ###
 
     def __init__(self, ip_address='127.0.0.1', port=57751):
+        if hasattr(self, 'is_running') and self.is_running:
+            return
         self._audio_bus_allocator = None
         self._audio_busses = None
         self._buffer_allocator = None

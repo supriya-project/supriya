@@ -22,6 +22,17 @@ class Node(ServerObjectProxy):
         self._is_playing = False
         self._node_id = None
 
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        class_name = type(self).__name__
+        node_id = self.node_id or '???'
+        string = '<{class_name}: {node_id}>'.format(
+            class_name=class_name,
+            node_id=node_id,
+            )
+        return string
+
     ### PRIVATE METHODS ###
 
     def _remove_from_parent(self):
@@ -105,7 +116,7 @@ class Node(ServerObjectProxy):
     def expr_as_target(expr):
         from supriya.tools import servertools
         if expr is None:
-            return Node.expr_as_target(servertools.Server.get_default_server())
+            return Node.expr_as_target(servertools.Server())
         elif isinstance(expr, servertools.Server):
             return expr.default_group
         elif isinstance(expr, Node):
@@ -118,12 +129,13 @@ class Node(ServerObjectProxy):
         from supriya.tools import servertools
         self._set_parent(None)
         self._is_playing = False
-        del(self._server._nodes[self._node_id])
-        if send_to_server:
-            message = servertools.CommandManager.make_node_free_message(
-                self.node_id,
-                )
-            self.server.send_message(message)
+        if self.server is not None:
+            del(self._server._nodes[self._node_id])
+            if send_to_server:
+                message = servertools.CommandManager.make_node_free_message(
+                    self.node_id,
+                    )
+                self.server.send_message(message)
         self._node_id = None
         ServerObjectProxy.free(self)
         return self
