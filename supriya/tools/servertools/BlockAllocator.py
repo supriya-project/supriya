@@ -6,6 +6,40 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class BlockAllocator(SupriyaObject):
     r'''A block allocator.
+
+    ::
+
+        >>> from supriya.tools import servertools
+        >>> allocator = servertools.BlockAllocator(
+        ...     heap_maximum=16,
+        ...     )
+
+    ::
+
+        >>> allocator.allocate(4)
+        0
+
+    ::
+
+        >>> allocator.allocate(4)
+        4
+
+    ::
+
+        >>> allocator.allocate(4)
+        8
+
+    ::
+
+        >>> allocator.allocate(8) is None
+        True
+
+    ::
+
+        >>> allocator.free(8)
+        >>> allocator.allocate(8)
+        8
+
     '''
 
     ### CLASS VARIABLES ###
@@ -88,7 +122,7 @@ class BlockAllocator(SupriyaObject):
 
     def free(self, block_id):
         from supriya.tools import servertools
-        if isinstance(block_id, self.id_class):
+        if self.id_class is not None and isinstance(block_id, self.id_class):
             block_id = block_id.value
         elif not isinstance(block_id, int):
             raise ValueError
