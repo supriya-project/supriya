@@ -10,7 +10,7 @@ def test_SynthDefinition_compile_synthdefs_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition('foo')
+    py_synthdef = synthdeftools.SynthDef('foo')
     sine_one = synthdeftools.SinOsc.ar(frequency=420)
     sine_two = synthdeftools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
@@ -84,7 +84,7 @@ def test_SynthDefinition_compile_synthdefs_02():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition('test')
+    py_synthdef = synthdeftools.SynthDef('test')
     sine = synthdeftools.SinOsc.ar()
     sine = -sine
     out = synthdeftools.Out.ar(bus=99, source=sine)
@@ -149,7 +149,7 @@ def test_SynthDefinition_compile_synthdefs_03():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition('test', freq=1200, out=23)
+    py_synthdef = synthdeftools.SynthDef('test', freq=1200, out=23)
     controls = py_synthdef.controls
     sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
     out = synthdeftools.Out.ar(bus=controls['out'], source=sine)
@@ -215,7 +215,7 @@ def test_SynthDefinition_compile_synthdefs_04():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition('test')
+    py_synthdef = synthdeftools.SynthDef('test')
     inputs = synthdeftools.In.ar(bus=8, channel_count=2)
     out = synthdeftools.Out.ar(bus=0, source=inputs)
     py_synthdef.add_ugen(out)
@@ -269,7 +269,7 @@ def test_SynthDefinition_compile_synthdefs_05():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition('test', freq=440)
+    py_synthdef = synthdeftools.SynthDef('test', freq=440)
     controls = py_synthdef.controls
     sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
     out = synthdeftools.Out.ar(bus=0, source=sine)
@@ -334,7 +334,7 @@ def test_SynthDefinition_compile_synthdefs_06():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDefinition(
+    py_synthdef = synthdeftools.SynthDef(
         'test',
         damping=0.1,
         delay_time=1.0,

@@ -4,13 +4,13 @@ import struct
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class SynthDefinition(ServerObjectProxy):
+class SynthDef(ServerObjectProxy):
     r'''A SuperCollider synth definition.
 
     ::
 
         >>> from supriya import synthdeftools
-        >>> synth = synthdeftools.SynthDefinition(
+        >>> synth = synthdeftools.SynthDef(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
@@ -59,6 +59,7 @@ class SynthDefinition(ServerObjectProxy):
         **kwargs
         ):
         from supriya import synthdeftools
+        ServerObjectProxy.__init__(self)
         self._available_ugens = []
         self._constants = {}
         self._name = name
@@ -120,28 +121,28 @@ class SynthDefinition(ServerObjectProxy):
 
     def _compile(self):
         result = []
-        result.append(SynthDefinition._encode_string(self.name))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.constants)))
+        result.append(SynthDef._encode_string(self.name))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
         for key, value in sorted(
             self.constants.items(),
             key=lambda item: item[1],
             ):
-            result.append(SynthDefinition._encode_float(key))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.parameters)))
+            result.append(SynthDef._encode_float(key))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
         for value in self.parameters:
-            result.append(SynthDefinition._encode_float(value))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(
+            result.append(SynthDef._encode_float(value))
+        result.append(SynthDef._encode_unsigned_int_32bit(
             len(self.parameter_names)))
         for key, value in sorted(
             self.parameter_names.items(),
             key=lambda x: x[1],
             ):
-            result.append(SynthDefinition._encode_string(key))
-            result.append(SynthDefinition._encode_unsigned_int_32bit(value))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.ugens)))
+            result.append(SynthDef._encode_string(key))
+            result.append(SynthDef._encode_unsigned_int_32bit(value))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
-        result.append(SynthDefinition._encode_unsigned_int_16bit(0))
+        result.append(SynthDef._encode_unsigned_int_16bit(0))
         result = bytearray().join(result)
         return result
 
@@ -200,12 +201,10 @@ class SynthDefinition(ServerObjectProxy):
     ### PUBLIC METHODS ###
 
     def allocate(self, server=None):
-        from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
         compiled = self.compile()
         message = ('d_recv', compiled, 0)
-        server = servertools.Server()
-        server.send_message(message)
+        self.server.send_message(message)
 
     def add_ugen(self, ugen):
         self._add_ugen(ugen)
@@ -222,9 +221,9 @@ class SynthDefinition(ServerObjectProxy):
         result = []
         encoded_file_type_id = bytearray(b'SCgf')
         result.append(encoded_file_type_id)
-        encoded_file_version = SynthDefinition._encode_unsigned_int_32bit(2)
+        encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
-        encoded_synthdef_count = SynthDefinition._encode_unsigned_int_16bit(
+        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
             len(synthdefs))
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:

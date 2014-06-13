@@ -222,31 +222,31 @@ class UGen(UGenMethodMixin):
             from supriya import synthdeftools
             result = []
             if isinstance(i, float):
-                result.append(SynthDefinition._encode_unsigned_int_32bit(0xffffffff))
+                result.append(SynthDef._encode_unsigned_int_32bit(0xffffffff))
                 constant_index = synthdef._get_constant_index(i)
-                result.append(SynthDefinition._encode_unsigned_int_32bit(
+                result.append(SynthDef._encode_unsigned_int_32bit(
                     constant_index))
             elif isinstance(i, synthdeftools.OutputProxy):
                 ugen = i.source
                 output_index = i.output_index
                 ugen_index = synthdef._get_ugen_index(ugen)
-                result.append(SynthDefinition._encode_unsigned_int_32bit(ugen_index))
-                result.append(SynthDefinition._encode_unsigned_int_32bit(output_index))
+                result.append(SynthDef._encode_unsigned_int_32bit(ugen_index))
+                result.append(SynthDef._encode_unsigned_int_32bit(output_index))
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
             return bytearray().join(result)
-        from supriya.tools.synthdeftools import SynthDefinition
+        from supriya.tools.synthdeftools import SynthDef
         outputs = self._get_outputs()
         result = []
-        result.append(SynthDefinition._encode_string(type(self).__name__))
-        result.append(SynthDefinition._encode_unsigned_int_8bit(self.calculation_rate))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(len(self.inputs)))
-        result.append(SynthDefinition._encode_unsigned_int_32bit(len(outputs)))
-        result.append(SynthDefinition._encode_unsigned_int_16bit(int(self.special_index)))
+        result.append(SynthDef._encode_string(type(self).__name__))
+        result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
+        result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
+        result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
             result.append(compile_input_spec(i, synthdef))
         for o in outputs:
-            result.append(SynthDefinition._encode_unsigned_int_8bit(o))
+            result.append(SynthDef._encode_unsigned_int_8bit(o))
         result = bytearray().join(result)
         return result
 
@@ -294,7 +294,7 @@ class UGen(UGenMethodMixin):
     @synthdef.setter
     def synthdef(self, synthdef):
         from supriya.tools import synthdeftools
-        assert isinstance(synthdef, synthdeftools.SynthDefinition)
+        assert isinstance(synthdef, synthdeftools.SynthDef)
         self._synthdef = synthdef
 
     @property
