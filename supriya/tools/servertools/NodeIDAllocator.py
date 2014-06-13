@@ -1,4 +1,9 @@
-class NodeIDAllocator(object):
+# -*- encoding: utf-8 -*-
+import threading
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+
+
+class NodeIDAllocator(SupriyaObject):
     r'''A node ID allocator.
 
     ::
@@ -35,10 +40,11 @@ class NodeIDAllocator(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_freed_permanent_ids',
         '_initial_node_id',
+        '_lock',
         '_mask',
         '_next_permanent_id',
-        '_freed_permanent_ids',
         '_temp',
         '_user_id',
         )
@@ -57,29 +63,35 @@ class NodeIDAllocator(object):
         self._temp = self._initial_node_id
         self._next_permanent_id = 2
         self._freed_permanent_ids = set()
+        self._lock = threading.Lock()
 
     ### PUBLIC METHODS ###
 
     def allocate_node_id(self):
-        x = self._temp
-        temp = x + 1
-        if 0x03FFFFFF < temp:
-            temp = (temp % 0x03FFFFFF) + self._initial_node_id
-        self._temp = temp
-        x = x | self._mask
+        x = None
+        with self._lock:
+            x = self._temp
+            temp = x + 1
+            if 0x03FFFFFF < temp:
+                temp = (temp % 0x03FFFFFF) + self._initial_node_id
+            self._temp = temp
+            x = x | self._mask
         return x
 
     def allocate_permanent_node_id(self):
-        if self._freed_permanent_ids:
-            x = min(self._freed_permanent_ids)
-            self._freed_permanent_ids.remove(x)
-        else:
-            x = self._next_permanent_id
-            self._next_permanent_id = min(x + 1, self._initial_node_id - 1)
-        x = x | self._mask
+        x = None
+        with self._lock:
+            if self._freed_permanent_ids:
+                x = min(self._freed_permanent_ids)
+                self._freed_permanent_ids.remove(x)
+            else:
+                x = self._next_permanent_id
+                self._next_permanent_id = min(x + 1, self._initial_node_id - 1)
+            x = x | self._mask
         return x
 
     def free_permanent_node_id(self, node_id):
-        node_id = node_id & 0x03FFFFFF
-        if node_id < self._initial_node_id:
-            self._freed_permanent_ids.add(node_id)
+        with self._lock:
+            node_id = node_id & 0x03FFFFFF
+            if node_id < self._initial_node_id:
+                self._freed_permanent_ids.add(node_id)
