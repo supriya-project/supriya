@@ -42,6 +42,7 @@ class Synth(Node):
             **kwargs
             )
         self.server.send_message(message)
+        return self
 
     ### PUBLIC PROPERTIES ###
 

@@ -45,7 +45,7 @@ class Node(ServerObjectProxy):
         if self.server is not None:
             raise ValueError
 
-        target_node = Node.as_target_node(target_node)
+        target_node = Node.expr_as_target(target_node)
         server = target_node.server
         if server is None or not server.is_running:
             raise ValueError
@@ -56,16 +56,16 @@ class Node(ServerObjectProxy):
         elif node_id in server._nodes:
             raise ValueError
         ServerObjectProxy.allocate(self, server=server)
-        self._server._nodes[self._node_id] = self
         self._node_id = node_id
+        self._server._nodes[self._node_id] = self
 
         add_action = servertools.AddAction.from_expr(add_action)
         if add_action == servertools.AddAction['ADD_TO_HEAD']:
-            assert isinstance(target_node, servertools.GroupMixin)
+            assert isinstance(target_node, servertools.Group)
             self._set_parent(target_node)
             target_node._children.insert(0, self)
         elif add_action == servertools.AddAction['ADD_TO_TAIL']:
-            assert isinstance(target_node, servertools.GroupMixin)
+            assert isinstance(target_node, servertools.Group)
             self._set_parent(target_node)
             target_node._children.append(self)
         elif add_action == servertools.AddAction['ADD_BEFORE']:
@@ -77,6 +77,7 @@ class Node(ServerObjectProxy):
             index = self.parent._children.index(target_node)
             self._parent._children.insert(index + 1, self)
         elif add_action == servertools.AddAction['REPLACE']:
+            assert target_node.parent is not self.server.root_node
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
             target_node.free()
@@ -125,6 +126,7 @@ class Node(ServerObjectProxy):
             self.server.send_message(message)
         self._node_id = None
         ServerObjectProxy.free(self)
+        return self
 
     ### PUBLIC PROPERTIES ###
 

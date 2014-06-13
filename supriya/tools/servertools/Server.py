@@ -223,6 +223,12 @@ class Server(object):
             Server._default_server = Server()
         return Server._default_server
 
+    def query_local_state(self):
+        pass
+
+    def query_server_state(self):
+        pass
+
     def quit(self):
         from supriya.tools import servertools
         if not self.is_running:
@@ -259,6 +265,10 @@ class Server(object):
     @property
     def control_bus_allocator(self):
         return self._control_bus_allocator
+
+    @property
+    def default_group(self):
+        return self._default_group
 
     @property
     def ip_address(self):

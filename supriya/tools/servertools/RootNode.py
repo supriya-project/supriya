@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*0
-from supriya.tools.servertools.GroupMixin import GroupMixin
+from supriya.tools.servertools.Group import Group
 
 
-class RootNode(GroupMixin):
+class RootNode(Group):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,7 @@ class RootNode(GroupMixin):
 
     def __init__(self, server=None):
         from supriya.tools import servertools
-        servertools.GroupMixin.__init__(self)
+        servertools.Group.__init__(self)
         self._server = server
 
     ### PUBLIC METHODS ###
@@ -36,5 +36,5 @@ class RootNode(GroupMixin):
         return 0
 
     @property
-    def server(self):
-        return self._server
+    def parent(self):
+        return self
