@@ -3,6 +3,26 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class SampleFormat(Enumeration):
+    r'''An enumeration of soundfile sample formats.
+
+    ::
+
+        >>> from supriya.tools import servertools
+        >>> servertools.SampleFormat.INT24
+        <SampleFormat.INT24: 0>
+
+    ::
+
+        >>> servertools.SampleFormat.from_expr('float')
+        <SampleFormat.FLOAT: 3>
+
+    ::
+
+        >>> sample_format = servertools.SampleFormat.INT24
+        >>> sample_format.name.lower()
+        'int24'
+
+    '''
 
     ### CLASS VARIABLES ###
 
