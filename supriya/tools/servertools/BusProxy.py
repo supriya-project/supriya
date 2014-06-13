@@ -45,7 +45,7 @@ class BusProxy(SupriyaObject):
     def bus_id(self):
         if self.bus.bus_id is None:
             return None
-        return self.bus.bus_id + self.index
+        return self.bus.bus_id.index + self.index
 
     @property
     def calculation_rate(self):

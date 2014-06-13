@@ -17,17 +17,26 @@ class BlockAllocator(SupriyaObject):
     ::
 
         >>> allocator.allocate(4)
-        0
+        BlockId(
+            index=0,
+            length=4
+            )
 
     ::
 
         >>> allocator.allocate(4)
-        4
+        BlockId(
+            index=4,
+            length=4
+            )
 
     ::
 
         >>> allocator.allocate(4)
-        8
+        BlockId(
+            index=8,
+            length=4
+            )
 
     ::
 
@@ -38,7 +47,10 @@ class BlockAllocator(SupriyaObject):
 
         >>> allocator.free(8)
         >>> allocator.allocate(8)
-        8
+        BlockId(
+            index=8,
+            length=8
+            )
 
     '''
 
@@ -48,7 +60,6 @@ class BlockAllocator(SupriyaObject):
         '_free_heap',
         '_heap_maximum',
         '_heap_minimum',
-        '_id_class',
         '_lock',
         '_server',
         '_used_heap',
@@ -60,7 +71,6 @@ class BlockAllocator(SupriyaObject):
         self,
         heap_maximum=None,
         heap_minimum=0,
-        id_class=None,
         server=None,
         ):
         from supriya.tools import servertools
@@ -68,7 +78,6 @@ class BlockAllocator(SupriyaObject):
         self._free_heap = timetools.TimespanCollection()
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
-        self._id_class = id_class
         self._lock = threading.Lock()
         self._server = server
         self._used_heap = timetools.TimespanCollection()
@@ -82,6 +91,7 @@ class BlockAllocator(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def allocate(self, desired_block_size=1):
+        from supriya.tools import servertools
         desired_block_size = int(desired_block_size)
         assert 0 < desired_block_size
         block_id = None
@@ -113,17 +123,18 @@ class BlockAllocator(SupriyaObject):
                         )
                 self._used_heap.insert(used_block)
                 block_id = used_block.start_offset
-        if self.id_class is not None:
-            block_id = self.id_class(
-                index=block_id,
-                length=desired_block_size,
-                server=self.server,
-                )
+        if block_id is None:
+            return None
+        block_id = servertools.BlockId(
+            index=block_id,
+            length=desired_block_size,
+            server=self.server,
+            )
         return block_id
 
     def free(self, block_id):
         from supriya.tools import servertools
-        if self.id_class is not None and isinstance(block_id, self.id_class):
+        if isinstance(block_id, servertools.BlockId):
             block_id = block_id.index
         elif not isinstance(block_id, int):
             raise ValueError
@@ -165,10 +176,6 @@ class BlockAllocator(SupriyaObject):
     @property
     def heap_minimum(self):
         return self._heap_minimum
-
-    @property
-    def id_class(self):
-        return self._id_class
 
     @property
     def server(self):
