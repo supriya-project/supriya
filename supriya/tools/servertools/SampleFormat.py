@@ -6,11 +6,11 @@ class SampleFormat(Enumeration):
 
     ### CLASS VARIABLES ###
 
-    ALAW = 0
-    DOUBLE = 1
-    FLOAT = 2
-    INT8 = 3
-    INT16 = 4
-    INT24 = 5
+    INT24 = 0
+    ALAW = 1
+    DOUBLE = 2
+    FLOAT = 3
+    INT8 = 4
+    INT16 = 5
     INT32 = 6
     MULAW = 7
