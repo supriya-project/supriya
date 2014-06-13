@@ -3,13 +3,13 @@ import threading
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class NodeIDAllocator(SupriyaObject):
+class NodeIdAllocator(SupriyaObject):
     r'''A node ID allocator.
 
     ::
 
         >>> from supriya.tools import servertools
-        >>> allocator = servertools.NodeIDAllocator()
+        >>> allocator = servertools.NodeIdAllocator()
         >>> for _ in range(3):
         ...     allocator.allocate_node_id()
         ...

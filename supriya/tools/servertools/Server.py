@@ -126,7 +126,7 @@ class Server(object):
         self._audio_bus_allocator = servertools.BlockAllocator()
         self._buffer_allocator = servertools.BlockAllocator()
         self._control_bus_allocator = servertools.BlockAllocator()
-        self._node_id_allocator = servertools.NodeIDAllocator()
+        self._node_id_allocator = servertools.NodeIdAllocator()
         self._audio_busses = {}
         self._buffers = {}
         self._control_busses = {}
