@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class NodeId(SupriyaObject):
+class IndexId(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
