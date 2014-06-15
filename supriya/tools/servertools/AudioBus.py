@@ -3,6 +3,35 @@ from supriya.tools.servertools.Bus import Bus
 
 
 class AudioBus(Bus):
+    r'''An audio bus.
+
+    ::
+
+        >>> from supriya.tools import servertools
+        >>> server = servertools.Server().boot()
+
+    ::
+
+        >>> audio_bus = servertools.AudioBus(channel_count=4)
+        >>> audio_bus.allocate()
+        >>> audio_bus.bus_id
+        16
+
+    ::
+
+        >>> audio_bus.map_symbol
+        'a16'
+
+    ::
+
+        >>> audio_bus.free()
+        >>> server.quit()
+        RECV: OscMessage('/done', '/quit')
+        <Server: offline>
+
+    '''
+
+    ### INITIALIZER ###
 
     def __init__(
         self,
@@ -16,7 +45,7 @@ class AudioBus(Bus):
     ### PUBLIC METHODS ###
 
     def allocate(self, server=None):
-        super(self, Bus).allocate(self, server=server)
+        Bus.allocate(self, server=server)
         bus_id = self.server.audio_bus_allocator.allocate()
         if bus_id is None:
             raise Exception
@@ -29,7 +58,7 @@ class AudioBus(Bus):
             self.server.audio_bus_allocator.free(self.bus_id)
             del(self.server._audio_busses[self._bus_id])
         self._bus_id = None
-        super(self, Bus).free(self)
+        Bus.free(self)
 
     ### PUBLIC PROPERTIES ###
 

@@ -26,6 +26,8 @@ class Server(object):
     __slots__ = (
         '_audio_bus_allocator',
         '_audio_busses',
+        '_audio_input_bus',
+        '_audio_output_bus',
         '_buffer_allocator',
         '_buffers',
         '_control_bus_allocator',
@@ -69,6 +71,8 @@ class Server(object):
             return
         self._audio_bus_allocator = None
         self._audio_busses = None
+        self._audio_input_bus = None
+        self._audio_output_bus = None
         self._buffer_allocator = None
         self._buffers = None
         self._control_bus_allocator = None
@@ -121,10 +125,22 @@ class Server(object):
 
     def _setup_server_state(self):
         from supriya.tools import servertools
-        self._audio_bus_allocator = servertools.BlockAllocator()
-        self._buffer_allocator = servertools.BlockAllocator()
-        self._control_bus_allocator = servertools.BlockAllocator()
-        self._node_id_allocator = servertools.NodeIdAllocator()
+        options = self.server_options
+        self._audio_bus_allocator = servertools.BlockAllocator(
+            heap_maximum=options.audio_bus_channel_count,
+            heap_minimum=options.first_private_bus_id,
+            )
+        self._audio_input_bus = servertools.AudioInputBus(self)
+        self._audio_output_bus = servertools.AudioOutputBus(self)
+        self._buffer_allocator = servertools.BlockAllocator(
+            heap_maximum=options.buffer_count,
+            )
+        self._control_bus_allocator = servertools.BlockAllocator(
+            heap_maximum=options.control_bus_channel_count,
+            )
+        self._node_id_allocator = servertools.NodeIdAllocator(
+            initial_node_id=options.initial_node_id,
+            )
         self._audio_busses = {}
         self._buffers = {}
         self._control_busses = {}
@@ -143,6 +159,8 @@ class Server(object):
 
     def _teardown_server_state(self):
         self._audio_bus_allocator = None
+        self._audio_input_bus = None
+        self._audio_output_bus = None
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
@@ -268,6 +286,14 @@ class Server(object):
     @property
     def audio_bus_allocator(self):
         return self._audio_bus_allocator
+
+    @property
+    def audio_input_bus(self):
+        return self._audio_input_bus
+
+    @property
+    def audio_output_bus(self):
+        return self._audio_output_bus
 
     @property
     def buffer_allocator(self):

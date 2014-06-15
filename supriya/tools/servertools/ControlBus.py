@@ -3,6 +3,35 @@ from supriya.tools.servertools.Bus import Bus
 
 
 class ControlBus(Bus):
+    r'''A control bus.
+
+    ::
+
+        >>> from supriya.tools import servertools
+        >>> server = servertools.Server().boot()
+
+    ::
+
+        >>> control_bus = servertools.ControlBus(channel_count=4)
+        >>> control_bus.allocate()
+        >>> control_bus.bus_id
+        0
+
+    ::
+
+        >>> control_bus.map_symbol
+        'c0'
+
+    ::
+
+        >>> control_bus.free()
+        >>> server.quit()
+        RECV: OscMessage('/done', '/quit')
+        <Server: offline>
+
+    '''
+
+    ### INITIALIZER ###
 
     def __init__(
         self,
@@ -16,7 +45,7 @@ class ControlBus(Bus):
     ### PUBLIC METHODS ###
 
     def allocate(self, server=None):
-        super(self, Bus).allocate(self, server=server)
+        Bus.allocate(self, server=server)
         bus_id = self.server.control_bus_allocator.allocate()
         if bus_id is None:
             raise Exception
@@ -29,11 +58,11 @@ class ControlBus(Bus):
             self.server.control_bus_allocator.free(self.bus_id)
             del(self.server._control_busses[self._bus_id])
         self._bus_id = None
-        super(self, Bus).free(self)
+        Bus.free(self)
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def calculation_rate(self):
         from supriya.tools import synthdeftools
-        return synthdeftools.CalculationRate.AUDIO
+        return synthdeftools.CalculationRate.CONTROL
