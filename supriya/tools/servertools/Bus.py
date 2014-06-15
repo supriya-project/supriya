@@ -39,6 +39,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
         RECV: OscMessage('/done', '/quit')
 
     '''
+
     ### CLASS VARIABLES ###
 
     __slots__ = (
