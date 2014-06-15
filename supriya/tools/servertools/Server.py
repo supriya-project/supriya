@@ -36,7 +36,6 @@ class Server(object):
         '_node_id_allocator',
         '_nodes',
         '_osc_controller',
-        '_osc_dispatcher',
         '_port',
         '_root_node',
         '_server_options',
@@ -80,7 +79,6 @@ class Server(object):
         self._node_id_allocator = None
         self._nodes = None
         self._osc_controller = None
-        self._osc_dispatcher = None
         self._port = port
         self._root_node = None
         self._server_options = None
@@ -241,7 +239,12 @@ class Server(object):
         from supriya.tools import servertools
         if not self.is_running:
             return
-        with servertools.WaitForServer('/(done|fail)', ['/quit']):
+        wait = servertools.WaitForServer(
+            address_pattern='/(done|fail)',
+            argument_template=('/quit',),
+            server=self,
+            )
+        with wait:
             self.send_message(r'/quit')
         self._is_running = False
         self._server_process.send_signal(signal.SIGINT)
