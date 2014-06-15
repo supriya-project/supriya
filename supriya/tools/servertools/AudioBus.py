@@ -35,7 +35,7 @@ class AudioBus(Bus):
 
     def __init__(
         self,
-        channel_count,
+        channel_count=1,
         ):
         Bus.__init__(
             self,
@@ -64,5 +64,15 @@ class AudioBus(Bus):
 
     @property
     def calculation_rate(self):
+        r'''Gets this bus' calculation rate.
+        
+        ::
+
+            >>> audio_bus = servertools.AudioBus()
+            >>> audio_bus.calculation_rate
+            <CalculationRate.AUDIO: 2>
+
+        Returns calculation rate.
+        '''
         from supriya.tools import synthdeftools
         return synthdeftools.CalculationRate.AUDIO

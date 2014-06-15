@@ -35,7 +35,7 @@ class ControlBus(Bus):
 
     def __init__(
         self,
-        channel_count,
+        channel_count=1,
         ):
         Bus.__init__(
             self,
@@ -64,5 +64,15 @@ class ControlBus(Bus):
 
     @property
     def calculation_rate(self):
+        r'''Gets this bus' calculation rate.
+        
+        ::
+
+            >>> control_bus = servertools.ControlBus()
+            >>> control_bus.calculation_rate
+            <CalculationRate.CONTROL: 1>
+
+        Returns calculation rate.
+        '''
         from supriya.tools import synthdeftools
         return synthdeftools.CalculationRate.CONTROL
