@@ -17,26 +17,17 @@ class BlockAllocator(SupriyaObject):
     ::
 
         >>> allocator.allocate(4)
-        BlockId(
-            index=0,
-            length=4
-            )
+        0
 
     ::
 
         >>> allocator.allocate(4)
-        BlockId(
-            index=4,
-            length=4
-            )
+        4
 
     ::
 
         >>> allocator.allocate(4)
-        BlockId(
-            index=8,
-            length=4
-            )
+        8
 
     ::
 
@@ -47,10 +38,7 @@ class BlockAllocator(SupriyaObject):
 
         >>> allocator.free(8)
         >>> allocator.allocate(8)
-        BlockId(
-            index=8,
-            length=8
-            )
+        8
 
     '''
 
@@ -61,7 +49,6 @@ class BlockAllocator(SupriyaObject):
         '_heap_maximum',
         '_heap_minimum',
         '_lock',
-        '_server',
         '_used_heap',
         )
 
@@ -71,7 +58,6 @@ class BlockAllocator(SupriyaObject):
         self,
         heap_maximum=None,
         heap_minimum=0,
-        server=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import timetools
@@ -79,7 +65,6 @@ class BlockAllocator(SupriyaObject):
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
         self._lock = threading.Lock()
-        self._server = server
         self._used_heap = timetools.TimespanCollection()
         free_block = servertools.Block(
             start_offset=heap_minimum,
@@ -123,21 +108,11 @@ class BlockAllocator(SupriyaObject):
                         )
                 self._used_heap.insert(used_block)
                 block_id = used_block.start_offset
-        if block_id is None:
-            return None
-        block_id = servertools.BlockId(
-            index=block_id,
-            length=desired_block_size,
-            server=self.server,
-            )
         return block_id
 
     def free(self, block_id):
         from supriya.tools import servertools
-        if isinstance(block_id, servertools.BlockId):
-            block_id = block_id.index
-        elif not isinstance(block_id, int):
-            raise ValueError
+        block_id = int(block_id)
         with self._lock:
             cursor = self._used_heap.get_simultaneity_at(block_id)
             blocks = cursor.start_timespans + cursor.overlap_timespans
@@ -176,7 +151,3 @@ class BlockAllocator(SupriyaObject):
     @property
     def heap_minimum(self):
         return self._heap_minimum
-
-    @property
-    def server(self):
-        return self._server

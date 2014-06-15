@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from abjad.tools.topleveltools import new
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -34,6 +35,14 @@ class BlockId(SupriyaObject):
         from abjad.tools import systemtools
         hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _repr_specification(self):
+        return new(self._storage_format_specification,
+            is_indented=False,
+            )
 
     ### PUBLIC PROPERTIES ###
 
