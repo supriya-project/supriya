@@ -30,6 +30,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
     ::
 
         >>> bus[0].map_symbol
+        'a0'
 
     ::
 
@@ -38,6 +39,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
         RECV: OscMessage('/done', '/quit')
 
     '''
+
     ### CLASS VARIABLES ###
 
     __slots__ = (

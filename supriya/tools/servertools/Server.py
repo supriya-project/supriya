@@ -215,6 +215,12 @@ class Server(object):
             stderr=subprocess.PIPE,
             )
         time.sleep(0.25)
+        stdout = ''
+        if self._server_process.poll():
+            stdout = self._server_process.stdout.read()
+        error = 'Exception in World_OpenUDP: bind: Address already in use'
+        if error in stdout:
+            raise Exception(error)
         self._is_running = True
         self._setup_server_state()
         return self

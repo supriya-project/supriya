@@ -88,7 +88,7 @@ class BlockAllocator(SupriyaObject):
 
     def free(self, block_id):
         from supriya.tools import servertools
-        if isinstance(block_id, self.id_class):
+        if self.id_class and isinstance(block_id, self.id_class):
             block_id = block_id.value
         elif not isinstance(block_id, int):
             raise ValueError
