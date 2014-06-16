@@ -155,30 +155,30 @@ class SynthDef(ServerObjectProxy):
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
         result.append(SynthDef._encode_unsigned_int_16bit(0))
-        result = bytearray().join(result)
+        result = bytes().join(result)
         return result
 
     @staticmethod
     def _encode_float(value):
-        return bytearray(struct.pack('>f', value))
+        return bytes(struct.pack('>f', value))
 
     @staticmethod
     def _encode_string(value):
-        result = struct.pack('>B', len(value))
-        result += bytearray(value, encoding='ascii')
+        result = bytes(struct.pack('>B', len(value)))
+        result += bytes(bytearray(value, encoding='ascii'))
         return result
 
     @staticmethod
     def _encode_unsigned_int_8bit(value):
-        return bytearray(struct.pack('>B', value))
+        return bytes(struct.pack('>B', value))
 
     @staticmethod
     def _encode_unsigned_int_16bit(value):
-        return bytearray(struct.pack('>H', value))
+        return bytes(struct.pack('>H', value))
 
     @staticmethod
     def _encode_unsigned_int_32bit(value):
-        return bytearray(struct.pack('>I', value))
+        return bytes(struct.pack('>I', value))
 
     def _get_constant_index(self, value):
         return self._constants[value]
@@ -234,11 +234,11 @@ class SynthDef(ServerObjectProxy):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, (bytes, bytearray)):
-                return bytearray().join(flatten(x) for x in value)
+                return bytes().join(flatten(x) for x in value)
             return value
         synthdefs = synthdefs or [self]
         result = []
-        encoded_file_type_id = bytearray(b'SCgf')
+        encoded_file_type_id = b'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
@@ -251,7 +251,7 @@ class SynthDef(ServerObjectProxy):
             else:
                 result.append(synthdef._compile_anonymously())
         result = flatten(result)
-        result = bytearray(result)
+        result = bytes(result)
         return result
 
     def free(self):

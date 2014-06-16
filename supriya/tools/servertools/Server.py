@@ -102,24 +102,10 @@ class Server(object):
             return False
         elif expr.server is not self:
             return False
-        if isinstance(expr, servertools.Node):
+        elif isinstance(expr, servertools.Node):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, servertools.Buffer):
-            buffer_id = expr.buffer_id
-            if buffer_id in self._buffers and self._buffers[buffer_id] is expr:
-                return True
-        elif isinstance(expr, servertools.Bus):
-            bus_id = expr.bus_id
-            if isinstance(expr, servertools.AudioBus):
-                if bus_id in self._audio_busses and \
-                    self._audio_busses[bus_id] is expr:
-                    return True
-            elif isinstance(expr, servertools.ControlBus):
-                if bus_id in self._control_busses and \
-                    self._control_busses[bus_id] is expr:
-                    return True
         elif isinstance(expr, synthdeftools.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] is expr:

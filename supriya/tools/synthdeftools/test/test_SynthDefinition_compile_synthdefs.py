@@ -18,7 +18,7 @@ def test_SynthDefinition_compile_synthdefs_01():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -91,7 +91,7 @@ def test_SynthDefinition_compile_synthdefs_02():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -156,7 +156,7 @@ def test_SynthDefinition_compile_synthdefs_03():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -221,7 +221,7 @@ def test_SynthDefinition_compile_synthdefs_04():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -276,7 +276,7 @@ def test_SynthDefinition_compile_synthdefs_05():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'
@@ -351,7 +351,7 @@ def test_SynthDefinition_compile_synthdefs_06():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
-    test_compiled_synthdef = bytearray(
+    test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
         b'\x00\x01'

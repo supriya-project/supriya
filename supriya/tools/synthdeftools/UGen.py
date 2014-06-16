@@ -234,7 +234,7 @@ class UGen(UGenMethodMixin):
                 result.append(SynthDef._encode_unsigned_int_32bit(output_index))
             else:
                 raise Exception('Unhandled input spec: {}'.format(i))
-            return bytearray().join(result)
+            return bytes().join(result)
         from supriya.tools.synthdeftools import SynthDef
         outputs = self._get_outputs()
         result = []
@@ -247,7 +247,7 @@ class UGen(UGenMethodMixin):
             result.append(compile_input_spec(i, synthdef))
         for o in outputs:
             result.append(SynthDef._encode_unsigned_int_8bit(o))
-        result = bytearray().join(result)
+        result = bytes().join(result)
         return result
 
     @classmethod

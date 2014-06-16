@@ -143,10 +143,11 @@ class CommandManager(object):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        prototype = (synthdeftools.SynthDef, bytes)
+        prototype = (synthdeftools.SynthDef, bytes, bytearray)
         assert isinstance(synthdef, prototype)
         if isinstance(synthdef, synthdeftools.SynthDef):
             synthdef = synthdef.compile()
+        synthdef = bytearray(synthdef)
         command_type = servertools.CommandNumber.from_expr('synthdef_receive')
         message = osctools.OscMessage(
             command_type,
