@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+import hashlib
 import struct
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
@@ -41,6 +42,7 @@ class SynthDef(ServerObjectProxy):
 
     __slots__ = (
         '_available_ugens',
+        '_compiled_ugen_graph',
         '_constants',
         '_controls',
         '_name',
@@ -55,7 +57,7 @@ class SynthDef(ServerObjectProxy):
 
     def __init__(
         self,
-        name,
+        name=None,
         **kwargs
         ):
         from supriya import synthdeftools
@@ -75,6 +77,7 @@ class SynthDef(ServerObjectProxy):
         self._controls = synthdeftools.Control(control_names)
         if control_names:
             self._add_ugen(self._controls)
+        self._compiled_ugen_graph = self._compile_ugen_graph()
 
     ### PRIVATE METHODS ###
 
@@ -120,8 +123,17 @@ class SynthDef(ServerObjectProxy):
             ugen._collect_constants()
 
     def _compile(self):
+        result = SynthDef._encode_string(self.name)
+        result += self._compiled_ugen_graph
+        return result
+
+    def _compile_anonymously(self):
+        result = SynthDef._encode_string(self.anonymous_name)
+        result += self._compiled_ugen_graph
+        return result
+
+    def _compile_ugen_graph(self):
         result = []
-        result.append(SynthDef._encode_string(self.name))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
         for key, value in sorted(
             self.constants.items(),
@@ -210,6 +222,7 @@ class SynthDef(ServerObjectProxy):
         self._add_ugen(ugen)
         self._sort_ugens_topologically()
         self._collect_constants()
+        self._compiled_ugen_graph = self._compile_ugen_graph()
 
     def compile(self, synthdefs=None):
         def flatten(value):
@@ -227,7 +240,10 @@ class SynthDef(ServerObjectProxy):
             len(synthdefs))
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
-            result.append(synthdef._compile())
+            if synthdef.name:
+                result.append(synthdef._compile())
+            else:
+                result.append(synthdef._compile_anonymously())
         result = flatten(result)
         result = bytearray(result)
         return result
@@ -236,6 +252,13 @@ class SynthDef(ServerObjectProxy):
         pass
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def anonymous_name(self):
+        md5 = hashlib.md5()
+        md5.update(self._compiled_ugen_graph)
+        anonymous_name = md5.hexdigest()
+        return anonymous_name
 
     @property
     def controls(self):
