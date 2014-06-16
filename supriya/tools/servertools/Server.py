@@ -108,7 +108,7 @@ class Server(object):
                 return True
         elif isinstance(expr, synthdeftools.SynthDef):
             name = expr.actual_name
-            if name in self._synthdefs and self._synthdefs[name] is expr:
+            if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
         return False
 

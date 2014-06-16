@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+import copy
 import hashlib
 import struct
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
@@ -11,12 +12,12 @@ class SynthDef(ServerObjectProxy):
     ::
 
         >>> from supriya import synthdeftools
-        >>> synth = synthdeftools.SynthDef(
+        >>> synthdef = synthdeftools.SynthDef(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
         ...     )
-        >>> controls = synth.controls
+        >>> controls = synthdef.controls
         >>> line = synthdeftools.Line.kr(
         ...     start=100,
         ...     stop=(
@@ -33,8 +34,30 @@ class SynthDef(ServerObjectProxy):
         ...     bus=0,
         ...     source=sin_osc,
         ...     )
-        >>> synth.add_ugen(out)
-        >>> compiled = synth.compile()
+        >>> synthdef.add_ugen(out)
+
+    ::
+
+        >>> from supriya import servertools
+        >>> server = servertools.Server().boot()
+        >>> with servertools.WaitForServer('/done', ['/d_recv']):
+        ...     synthdef.allocate(server=server)
+        ...
+        RECV: OscMessage('/done', '/d_recv')
+
+    ::
+
+        >>> synthdef in server
+        True
+
+    ::
+
+        >>> synthdef.free()
+
+    ::
+
+        >>> server = server.quit()
+        RECV: OscMessage('/done', '/quit')
 
     '''
 
@@ -78,6 +101,25 @@ class SynthDef(ServerObjectProxy):
         if control_names:
             self._add_ugen(self._controls)
         self._compiled_ugen_graph = self._compile_ugen_graph()
+
+    ### SPECIAL METHODS ###
+
+    def __eq__(self, expr):
+        if type(expr) != type(self):
+            return False
+        if expr.name != self.name:
+            return False
+        if expr._compiled_ugen_graph != self._compiled_ugen_graph:
+            return False
+        return True
+
+    def __hash__(self):
+        hash_values = (
+            type(self),
+            self._name,
+            self._compiled_ugen_graph,
+            )
+        return hash(hash_values)
 
     ### PRIVATE METHODS ###
 
@@ -215,10 +257,10 @@ class SynthDef(ServerObjectProxy):
     def allocate(self, server=None):
         from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
-        synthdef_name = self.name or self.anonymous_name
+        synthdef_name = self.actual_name
         if synthdef_name in self.server._synthdefs:
             self.server._synthdefs[synthdef_name].free()
-        self.server._synthdefs[synthdef_name] = self
+        self.server._synthdefs[synthdef_name] = copy.copy(self)
         message = servertools.CommandManager.make_synthdef_receive_message(
             synthdef=self,
             )
