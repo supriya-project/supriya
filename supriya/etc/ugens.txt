@@ -1,85 +1,102 @@
-class APF(TwoPole):
-class AbstractIn(MultiOutUGen):
-class AbstractMDPlugin
-class AbstractOut(UGen):
-class AllpassC(CombN):
-class AllpassL(CombN):
-class AllpassN(CombN):
-class AmpComp(PureUGen):
-class AmpCompA(AmpComp):
-class Amplitude(UGen):
-class AudioControl(MultiOutUGen):
+### AudioIn.sc ###
+
 class AudioIn(SoundIn):
+class SoundIn(???):
+
+### BasicOpsUGen.sc ###
+
+class BasicOpUGen(UGen):
+class BinaryOpUGen(BasicOpUGen):
+class MulAdd(UGen):
+class Sum3(UGen):
+class Sum4(UGen):
+class UnaryOpUGen(BasicOpUGen):
+
+### BEQSuite.sc ###
+
 class BAllPass(BEQSuite):
 class BBandPass(BEQSuite):
 class BBandStop(BEQSuite):
 class BEQSuite(Filter):
 class BHiPass(BEQSuite):
-class BHiPass4(PseudoUGen):
+class BHiPass4(???):
 class BHiShelf(BEQSuite):
 class BLowPass(BEQSuite):
-class BLowPass4(PseudoUGen):
+class BLowPass4(???):
 class BLowShelf(BEQSuite):
-class BPF(Filter):
-class BPZ2(LPZ2):
 class BPeakEQ(BEQSuite):
-class BRF(BPF):
-class BRZ2(LPZ2):
-class Balance2(MultiOutUGen):
-class Ball(UGen):
-class BasicOpUGen(UGen):
-class BeatTrack(MultiOutUGen):
-class BeatTrack2(MultiOutUGen):
-class BiPanB2(MultiOutUGen):
-class BinaryOpUGen(BasicOpUGen):
-class Blip(UGen):
-class BrownNoise(WhiteNoise):
+
+### BufIO.sc ###
+
+class BufRd(MultiOutUGen):
+class BufWr(UGen):
+class ClearBuf(WidthFirstUGen):
+class LocalBuf(WidthFirstUGen):
+class MaxLocalBufs(UGen):
+class PlayBuf(MultiOutUGen):
+class RecordBuf(UGen):
+class ScopeOut(UGen):
+class ScopeOut2(UGen):
+class SetBuf(WidthFirstUGen):
+class SimpleLoopBuf(MultiOutUGen):
+class TGrains(MultiOutUGen):
+class Tap(UGen):
+
+### Chaos.sc ###
+
+class ChaosGen(UGen):
+class CuspL(CuspN):
+class CuspN(ChaosGen):
+class FBSineC(FBSineN):
+class FBSineL(FBSineN):
+class FBSineN(ChaosGen):
+class GbmanL(GbmanN):
+class GbmanN(ChaosGen):
+class HenonC(HenonN):
+class HenonL(HenonN):
+class HenonN(ChaosGen):
+class LatoocarfianC(LatoocarfianN):
+class LatoocarfianL(LatoocarfianN):
+class LatoocarfianN(ChaosGen):
+class LinCongC(LinCongN):
+class LinCongL(LinCongN):
+class LinCongN(ChaosGen):
+class LorenzL(ChaosGen):
+class QuadC(QuadN):
+class QuadL(QuadN):
+class QuadN(ChaosGen):
+class StandardL(StandardN):
+class StandardN(ChaosGen):
+
+### CheckBadValues.sc ###
+
+class CheckBadValues(UGen):
+
+### Compander.sc ###
+
+class Amplitude(UGen):
+class Compander(UGen):
+class CompanderD(UGen):
+class Limiter(Normalizer):
+class Normalizer(UGen):
+
+### Delays.sc ###
+
+class AllpassC(CombN):
+class AllpassL(CombN):
+class AllpassN(CombN):
 class BufAllpassC(BufCombN):
 class BufAllpassL(BufCombN):
 class BufAllpassN(BufCombN):
-class BufChannels(BufInfoUGenBase):
 class BufCombC(BufCombN):
 class BufCombL(BufCombN):
 class BufCombN(UGen):
 class BufDelayC(BufDelayN):
 class BufDelayL(BufDelayN):
 class BufDelayN(UGen):
-class BufDur(BufInfoUGenBase):
-class BufFrames(BufInfoUGenBase):
-class BufInfoUGenBase(UGen):
-class BufRateScale(BufInfoUGenBase):
-class BufRd(MultiOutUGen):
-class BufSampleRate(BufInfoUGenBase):
-class BufSamples(BufInfoUGenBase):
-class BufWr(UGen):
-class COsc(PureUGen):
-class Changed(Filter):
-class ChaosGen(UGen):
-class CheckBadValues(UGen):
-class ClearBuf(WidthFirstUGen):
-class Clip(InRange):
-class ClipNoise(WhiteNoise):
-class CoinGate(UGen):
 class CombC(CombN):
 class CombL(CombN):
 class CombN(PureUGen):
-class Compander(UGen):
-class CompanderD(UGen):
-class Control(MultiOutUGen):
-class ControlDur(InfoUGenBase):
-class ControlRate(InfoUGenBase):
-class Crackle(UGen):
-class CuspL(CuspN):
-class CuspN(ChaosGen):
-class DC(MultiOutUGen):
-class DUGen(UGen):
-class Dbrown(DUGen):
-class Dbufrd(DUGen):
-class Dbufwr(DUGen):
-class Decay(Filter):
-class Decay2(Filter):
-class DecodeB2(MultiOutUGen):
-class DegreeToKey(PureUGen):
 class DelTapRd(UGen):
 class DelTapWr(UGen):
 class Delay1(PureUGen):
@@ -87,17 +104,26 @@ class Delay2(Delay1):
 class DelayC(DelayN):
 class DelayL(DelayN):
 class DelayN(PureUGen):
+class GrainTap(MultiOutUGen):
+
+### DelayWr.sc ###
+
+class DelayProcess(???):
+class PingPong(???):
+class PingPong(???):
+
+### Demand.sc ###
+
+class DUGen(UGen):
+class Dbrown(DUGen):
+class Dbufrd(DUGen):
+class Dbufwr(DUGen):
 class Demand(MultiOutUGen):
 class DemandEnvGen(UGen):
-class DetectIndex(Index):
-class DetectSilence(Filter):
 class Dgeom(DUGen):
 class Dibrown(Dbrown):
-class DiskIn(MultiOutUGen):
-class DiskOut(UGen):
 class Diwhite(Dwhite):
 class Donce(DUGen):
-class Done(UGen):
 class Dpoll(DUGen):
 class Drand(ListDUGen):
 class Dreset(DUGen):
@@ -109,147 +135,38 @@ class Dstutter(DUGen):
 class Dswitch(Dswitch1):
 class Dswitch1(DUGen):
 class Dunique(UGen):
-class Dust(UGen):
-class Dust2(UGen):
 class Duty(UGen):
 class Dwhite(DUGen):
 class Dwrand(DUGen):
 class Dxrand(ListDUGen):
-class DynKlang(UGen):
-class DynKlank(UGen):
-class Env(SupriyaObject):
-class ExpRand(UGen):
-class FBSineC(FBSineN):
-class FBSineL(FBSineN):
-class FBSineN(ChaosGen):
-class FOS(Filter):
-class FSinOsc(UGen):
-class Filter(PureUGen):
-class Fold(InRange):
-class Formant(PureUGen):
-class Formlet(Filter):
+class ListDUGen(DUGen):
+class TDuty(Duty):
+class TDuty_old(???):
+
+### DiskIO.sc ###
+
+class DiskIn(MultiOutUGen):
+class DiskOut(UGen):
+class VDiskIn(MultiOutUGen):
+
+### Env.sc ###
+
+class Env(???):
+
+### EnvGen.sc ###
+
+class Done(UGen):
 class Free(UGen):
 class FreeSelf(UGen):
 class FreeSelfWhenDone(UGen):
-class FreeVerb(Filter):
-class FreeVerb2(MultiOutUGen):
-class FreqShift(UGen):
-class GVerb(MultiOutUGen):
-class Gate(Latch):
-class GbmanL(GbmanN):
-class GbmanN(ChaosGen):
-class Gendy1(UGen):
-class Gendy2(UGen):
-class Gendy3(UGen):
-class GrainBuf(MultiOutUGen):
-class GrainFM(MultiOutUGen):
-class GrainIn(MultiOutUGen):
-class GrainSin(MultiOutUGen):
-class GrainTap(MultiOutUGen):
-class GrayNoise(WhiteNoise):
-class HPF(LPF):
-class HPZ1(LPZ1):
-class HPZ2(LPZ2):
-class Hasher(UGen):
-class HenonC(HenonN):
-class HenonL(HenonN):
-class HenonN(ChaosGen):
-class Hilbert(MultiOutUGen):
-class HilbertFIR(UGen):
-class IRand(UGen):
-class Impulse(PureUGen):
-class In(AbstractIn):
-class InFeedback(AbstractIn):
-class InTrig(AbstractIn):
-class Index(PureUGen):
-class IndexInBetween(Index):
-class IndexL(Index):
-class InfoUGenBase(UGen):
-class Integrator(Filter):
-class KeyState(UGen):
-class KeyTrack(UGen):
-class Klang(UGen):
-class Klank(UGen):
-class LFClipNoise(LFNoise0):
-class LFDClipNoise(LFNoise0):
-class LFDNoise0(LFNoise0):
-class LFDNoise1(LFNoise0):
-class LFDNoise3(LFNoise0):
-class LFGauss(UGen):
-class LFNoise0(UGen):
-class LFNoise1(LFNoise0):
-class LFNoise2(LFNoise0):
-class LFPulse(PureUGen):
-class LFSaw(PureUGen):
-class LPF(Filter):
-class LPZ1(Filter):
-class LPZ2(Filter):
-class Lag(Filter):
-class Lag2(Lag):
-class Lag2UD(LagUD):
-class Lag3(Lag):
-class Lag3UD(LagUD):
-class LagControl(Control):
-class LagIn(AbstractIn):
-class LagUD(Filter):
-class LastValue(UGen):
-class Latch(UGen):
-class LatoocarfianC(LatoocarfianN):
-class LatoocarfianL(LatoocarfianN):
-class LatoocarfianN(ChaosGen):
-class LeakDC(Filter):
-class LeastChange(MostChange):
-class Limiter(Normalizer):
-class LinCong(UGen):
-class LinCongC(LinCongN):
-class LinCongL(LinCongN):
-class LinCongN(ChaosGen):
-class LinExp(PureUGen):
-class LinLin(PseudoUGen):
-class LinPan2(Pan2):
-class LinRand(UGen):
-class LinSelectX(SelectX):
-class LinXFade2(UGen):
-class Line(UGen):
 class Linen(UGen):
-class ListDUGen(DUGen):
-class LocalBuf(WidthFirstUGen):
-class LocalIn(AbstractIn):
-class LocalOut(AbstractOut):
-class Logistic(UGen):
-class LorenzL(ChaosGen):
-class Loudness(UGen):
-class MFCC(MultiOutUGen):
-class MantissaMask(UGen):
-class MaxLocalBufs(UGen):
-class Median(Filter):
-class MidEQ(Filter):
-class Mix(PseudoUGen):
-class MoogFF(Filter):
-class MouseButton(UGen):
-class MouseY(MouseX):
-class MulAdd(UGen):
-class MultiOutUGen(UGen):
-class NRand(UGen):
-class Normalizer(UGen):
-class NumAudioBuses(InfoUGenBase):
-class NumBuffers(InfoUGenBase):
-class NumChannels(PseudoUGen):
-class NumControlBuses(InfoUGenBase):
-class NumInputBuses(InfoUGenBase):
-class NumOutputBuses(InfoUGenBase):
-class NumRunningSynths(InfoUGenBase):
-class OffsetOut(Out):
-class OnePole(Filter):
-class OneZero(OnePole):
-class Onsets(UGen):
-class Osc(PureUGen):
-class OscN(PureUGen):
-class Out(AbstractOut):
-class OutputProxy(UGen):
-class PSinGrain(UGen):
+class Pause(UGen):
+class PauseSelf(UGen):
+class PauseSelfWhenDone(UGen):
+
+### FFT.sc ###
+
 class PV_Add(PV_MagMul):
-class PV_ChainUGen(WidthFirstUGen):
 class PV_Conj(PV_MagSquared):
 class PV_Copy(PV_MagMul):
 class PV_CopyPhase(PV_MagMul):
@@ -267,118 +184,329 @@ class PV_PhaseShift90(PV_MagSquared):
 class PV_Scope(PV_ChainUGen):
 class PV_TimeAverageScope(PV_Scope):
 class PV_TimeSmear(PV_MagSmear):
+
+### FFTUnpacking.sc ###
+
+class PV_ChainUGen(WidthFirstUGen):
 class PackFFT(PV_ChainUGen):
+class Unpack1FFT(UGen):
+class UnpackFFT(MultiOutUGen):
+
+### Filter.sc ###
+
+class APF(TwoPole):
+class BPF(Filter):
+class BPZ2(LPZ2):
+class BRF(BPF):
+class BRZ2(LPZ2):
+class Changed(Filter):
+class Decay(Filter):
+class Decay2(Filter):
+class DetectSilence(Filter):
+class FOS(Filter):
+class Filter(PureUGen):
+class Formlet(Filter):
+class HPF(LPF):
+class HPZ1(LPZ1):
+class HPZ2(LPZ2):
+class Integrator(Filter):
+class LPF(Filter):
+class LPZ1(Filter):
+class LPZ2(Filter):
+class Lag(Filter):
+class Lag2(Lag):
+class Lag2UD(LagUD):
+class Lag3(Lag):
+class Lag3UD(LagUD):
+class LagUD(Filter):
+class LeakDC(Filter):
+class Median(Filter):
+class MidEQ(Filter):
+class OnePole(Filter):
+class OneZero(OnePole):
+class RHPF(RLPF):
+class RLPF(Filter):
+class Ramp(Lag):
+class Resonz(Filter):
+class Ringz(Filter):
+class SOS(Filter):
+class Slew(Filter):
+class Slope(Filter):
+class TwoPole(Filter):
+class TwoZero(TwoPole):
+class VarLag(Filter):
+
+### FreeVerb.sc ###
+
+class FreeVerb(Filter):
+class FreeVerb2(MultiOutUGen):
+
+### FSinOsc.sc ###
+
+class Blip(UGen):
+class DynKlang(UGen):
+class DynKlank(UGen):
+class FSinOsc(UGen):
+class Klang(UGen):
+class Klank(UGen):
+class Pulse(UGen):
+class Saw(UGen):
+
+### Gendyn.sc ###
+
+class Gendy1(UGen):
+class Gendy2(UGen):
+class Gendy3(UGen):
+
+### GrainUGens.sc ###
+
+class GrainBuf(MultiOutUGen):
+class GrainFM(MultiOutUGen):
+class GrainIn(MultiOutUGen):
+class GrainSin(MultiOutUGen):
+class Warp1(MultiOutUGen):
+
+### GVerb.sc ###
+
+class GVerb(MultiOutUGen):
+class SynthDef(\test,(???):
+
+### Hilbert.sc ###
+
+class FreqShift(UGen):
+class Hilbert(MultiOutUGen):
+class HilbertFIR(UGen):
+
+### InfoUGens.sc ###
+
+class BufChannels(BufInfoUGenBase):
+class BufDur(BufInfoUGenBase):
+class BufFrames(BufInfoUGenBase):
+class BufInfoUGenBase(UGen):
+class BufRateScale(BufInfoUGenBase):
+class BufSampleRate(BufInfoUGenBase):
+class BufSamples(BufInfoUGenBase):
+class ControlDur(InfoUGenBase):
+class ControlRate(InfoUGenBase):
+class InfoUGenBase(UGen):
+class NumAudioBuses(InfoUGenBase):
+class NumBuffers(InfoUGenBase):
+class NumControlBuses(InfoUGenBase):
+class NumInputBuses(InfoUGenBase):
+class NumOutputBuses(InfoUGenBase):
+class NumRunningSynths(InfoUGenBase):
+class RadiansPerSample(InfoUGenBase):
+class SampleDur(InfoUGenBase):
+class SampleRate(InfoUGenBase):
+class SubsampleOffset(InfoUGenBase):
+
+### InOut.sc ###
+
+class AbstractIn(MultiOutUGen):
+class AbstractOut(UGen):
+class AudioControl(MultiOutUGen):
+class Control(MultiOutUGen):
+class In(AbstractIn):
+class InFeedback(AbstractIn):
+class InTrig(AbstractIn):
+class LagControl(Control):
+class LagIn(AbstractIn):
+class LocalIn(AbstractIn):
+class LocalOut(AbstractOut):
+class OffsetOut(Out):
+class Out(AbstractOut):
+class ReplaceOut(Out):
+class SharedIn(AbstractIn):
+class SharedOut(AbstractOut):
+class TrigControl(Control):
+class XOut(AbstractOut):
+
+### InterplEnv.sc ###
+
+class InterplChord(???):
+class InterplEnv(???):
+class InterplPairs(???):
+class InterplXYC(???):
+
+### Line.sc ###
+
+class AmpComp(PureUGen):
+class AmpCompA(AmpComp):
+class DC(MultiOutUGen):
+class LinExp(PureUGen):
+class LinLin(???):
+class Line(UGen):
+class Silent(???):
+class XLine(UGen):
+
+### MachineListening.sc ###
+
+class BeatTrack(MultiOutUGen):
+class BeatTrack2(MultiOutUGen):
+class KeyTrack(UGen):
+class Loudness(UGen):
+class MFCC(MultiOutUGen):
+class Onsets(UGen):
+
+### MacUGens.sc ###
+
+class KeyState(UGen):
+class MouseButton(UGen):
+class MouseY(MouseX):
+
+### Mix.sc ###
+
+class Mix(???):
+class NumChannels(???):
+
+### MoogFF.sc ###
+
+class MoogFF(Filter):
+
+### Noise.sc ###
+
+class BrownNoise(WhiteNoise):
+class ClipNoise(WhiteNoise):
+class CoinGate(UGen):
+class Crackle(UGen):
+class Dust(UGen):
+class Dust2(UGen):
+class ExpRand(UGen):
+class GrayNoise(WhiteNoise):
+class Hasher(UGen):
+class IRand(UGen):
+class LFClipNoise(LFNoise0):
+class LFDClipNoise(LFNoise0):
+class LFDNoise0(LFNoise0):
+class LFDNoise1(LFNoise0):
+class LFDNoise3(LFNoise0):
+class LFNoise0(UGen):
+class LFNoise1(LFNoise0):
+class LFNoise2(LFNoise0):
+class LinCong(UGen):
+class LinRand(UGen):
+class Logistic(UGen):
+class MantissaMask(UGen):
+class NRand(UGen):
+class PinkNoise(WhiteNoise):
+class Rand(UGen):
+class RandID(WidthFirstUGen):
+class RandSeed(WidthFirstUGen):
+class Rossler(UGen):
+class TExpRand(UGen):
+class TIRand(UGen):
+class TRand(UGen):
+class TWindex(UGen):
+class WhiteNoise(UGen):
+
+### Osc.sc ###
+
+class COsc(PureUGen):
+class DegreeToKey(PureUGen):
+class DetectIndex(Index):
+class Formant(PureUGen):
+class Impulse(PureUGen):
+class Index(PureUGen):
+class IndexInBetween(Index):
+class IndexL(Index):
+class LFGauss(UGen):
+class LFPulse(PureUGen):
+class LFSaw(PureUGen):
+class LinSelectX(SelectX):
+class Osc(PureUGen):
+class OscN(PureUGen):
+class Select(PureUGen):
+class SelectX(???):
+class Shaper(Index):
+class SinOsc(PureUGen):
+class SinOscFB(PureUGen):
+class SyncSaw(PureUGen):
+class TChoose(???):
+class TWChoose(???):
+class VOsc(PureUGen):
+class VOsc3(PureUGen):
+class VarSaw(PureUGen):
+class Vibrato(PureUGen):
+class WrapIndex(Index):
+
+### Pan.sc ###
+
+class Balance2(MultiOutUGen):
+class BiPanB2(MultiOutUGen):
+class DecodeB2(MultiOutUGen):
+class LinPan2(Pan2):
+class LinXFade2(UGen):
 class Pan2(MultiOutUGen):
 class Pan4(MultiOutUGen):
 class PanAz(MultiOutUGen):
 class PanB(MultiOutUGen):
 class PanB2(MultiOutUGen):
-class Pause(UGen):
-class PauseSelf(UGen):
-class PauseSelfWhenDone(UGen):
+class Rotate2(MultiOutUGen):
+class XFade2(UGen):
+
+### PhysicalModel.sc ###
+
+class Ball(UGen):
+class Spring(UGen):
+class TBall(UGen):
+
+### PitchShift.sc ###
+
+class PitchShift(UGen):
+
+### Pluck.sc ###
+
+class Pluck(UGen):
+
+### Poll.sc ###
+
+class Poll(UGen):
+
+### PSinGrain.sc ###
+
+class PSinGrain(UGen):
+
+### Splay.sc ###
+
+class Splay(UGen):
+class SplayAz(UGen):
+class SplayZ(???):
+
+### Trig.sc ###
+
+class Clip(InRange):
+class Fold(InRange):
+class Gate(Latch):
+class LastValue(UGen):
+class Latch(UGen):
+class LeastChange(MostChange):
 class Peak(UGen):
 class PeakFollower(UGen):
 class Phasor(UGen):
-class PingPong(PseudoUGen):
-class PingPong(PseudoUGen):
-class PinkNoise(WhiteNoise):
 class Pitch(MultiOutUGen):
-class PitchShift(UGen):
-class PlayBuf(MultiOutUGen):
-class Pluck(UGen):
-class Poll(UGen):
-class Pulse(UGen):
 class PulseCount(UGen):
 class PulseDivider(UGen):
-class PureUGen(UGen):
-class QuadC(QuadN):
-class QuadL(QuadN):
-class QuadN(ChaosGen):
-class RHPF(RLPF):
-class RLPF(Filter):
-class RadiansPerSample(InfoUGenBase):
-class Ramp(Lag):
-class Rand(UGen):
-class RandID(WidthFirstUGen):
-class RandSeed(WidthFirstUGen):
-class RecordBuf(UGen):
-class ReplaceOut(Out):
-class Resonz(Filter):
-class Ringz(Filter):
-class Rossler(UGen):
-class Rotate2(MultiOutUGen):
 class RunningMax(Peak):
 class RunningMin(Peak):
-class SOS(Filter):
-class SampleDur(InfoUGenBase):
-class SampleRate(InfoUGenBase):
-class Saw(UGen):
 class Schmidt(InRange):
-class ScopeOut(UGen):
-class ScopeOut2(UGen):
-class Select(PureUGen):
-class SelectX(PseudoUGen):
 class SendPeakRMS(UGen):
 class SendReply(SendTrig):
 class SendTrig(UGen):
-class SetBuf(WidthFirstUGen):
 class SetResetFF(PulseCount):
-class Shaper(Index):
-class SharedIn(AbstractIn):
-class SharedOut(AbstractOut):
-class Silent(PseudoUgen):
-class SimpleLoopBuf(MultiOutUGen):
-class SinOsc(PureUGen):
-class SinOscFB(PureUGen):
-class Slew(Filter):
-class Slope(Filter):
-class SoundIn(PseudoUGen):
-class Splay(UGen):
-class SplayAz(UGen):
-class SplayZ(PseudoUGen):
-class Spring(UGen):
-class StandardL(StandardN):
-class StandardN(ChaosGen):
 class Stepper(UGen):
-class SubsampleOffset(InfoUGenBase):
-class Sum3(UGen):
-class Sum4(UGen):
 class Sweep(UGen):
-class SyncSaw(PureUGen):
-class TBall(UGen):
-class TChoose(PseudoUGen):
 class TDelay(Trig1):
-class TDuty(Duty):
-class TExpRand(UGen):
-class TGrains(MultiOutUGen):
-class TIRand(UGen):
-class TRand(UGen):
-class TWChoose(PseudoUGen):
-class TWindex(UGen):
-class Tap(UGen):
-class TextArchiveMDPlugin(AbstractMDPlugin):
 class Timer(UGen):
 class ToggleFF(UGen):
 class Trig(Trig1):
 class Trig1(UGen):
-class TrigControl(Control):
-class TwoPole(Filter):
-class TwoZero(TwoPole):
-class UGen(SupriyaObject):
-class UnaryOpUGen(BasicOpUGen):
-class Unpack1FFT(UGen):
-class UnpackFFT(MultiOutUGen):
-class VDiskIn(MultiOutUGen):
-class VOsc(PureUGen):
-class VOsc3(PureUGen):
-class VarLag(Filter):
-class VarSaw(PureUGen):
-class Vibrato(PureUGen):
-class Warp1(MultiOutUGen):
-class WhiteNoise(UGen):
 class Wrap(InRange):
-class WrapIndex(Index):
-class XFade2(UGen):
-class XLine(UGen):
-class XOut(AbstractOut):
 class ZeroCrossing(UGen):
+
+### UGen.sc ###
+
+class MultiOutUGen(UGen):
+class OutputProxy(UGen):
+class PureUGen(UGen):
+class UGen(AbstractFunction):
+
