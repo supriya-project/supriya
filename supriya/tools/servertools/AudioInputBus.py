@@ -42,6 +42,23 @@ class AudioInputBus(AudioBus):
             channel_count=input_bus_channel_count,
             )
         self._bus_id = output_bus_channel_count
+        self._server = server
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        if isinstance(item, int):
+            return self.bus_proxies.__getitem__(item)
+        elif isinstance(item, slice):
+            indices = item.indices(len(self))
+            start = indices[0]
+            bus_id = self.bus_id + start
+            channel_count = indices[1] - indices[0]
+            return AudioBus(
+                bus_id=bus_id,
+                channel_count=channel_count,
+                )
+        raise TypeError
 
     ### PUBLIC METHODS ###
 

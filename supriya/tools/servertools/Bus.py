@@ -12,6 +12,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
 
     __slots__ = (
         '_bus_id',
+        '_bus_id_was_set_manually',
         '_bus_proxies',
         '_channel_count',
         )
@@ -21,6 +22,7 @@ class Bus(ServerObjectProxy, collections.Sequence):
     @abc.abstractmethod
     def __init__(
         self,
+        bus_id=None,
         channel_count=1,
         ):
         from supriya.tools import servertools
@@ -28,7 +30,12 @@ class Bus(ServerObjectProxy, collections.Sequence):
         channel_count = int(channel_count)
         assert 0 < channel_count
         self._channel_count = channel_count
-        self._bus_id = None
+        assert isinstance(bus_id, (type(None), int))
+        self._bus_id = bus_id
+        self._bus_id_was_set_manually = False
+        if bus_id is not None:
+            assert 0 <= bus_id
+            self._bus_id_was_set_manually = True
         self._bus_proxies = tuple(
             servertools.BusProxy(bus=self, index=i)
             for i in range(self.channel_count)
@@ -37,7 +44,18 @@ class Bus(ServerObjectProxy, collections.Sequence):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        return self.bus_proxies.__getitem__(item)
+        if isinstance(item, int):
+            return self.bus_proxies.__getitem__(item)
+        elif isinstance(item, slice):
+            indices = item.indices(len(self))
+            start = indices[0]
+            bus_id = self.bus_id + start
+            channel_count = indices[1] - indices[0]
+            return type(self)(
+                bus_id=bus_id,
+                channel_count=channel_count,
+                )
+        raise TypeError
 
     def __float__(self):
         return float(self.bus_id)
