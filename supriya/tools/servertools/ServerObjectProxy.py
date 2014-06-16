@@ -38,6 +38,10 @@ class ServerObjectProxy(SupriyaObject):
 
     ### PUBLIC PROPERTIES ###
 
+    @abc.abstractproperty
+    def is_allocated(self):
+        raise NotImplementedError
+
     @property
     def server(self):
         return self._server

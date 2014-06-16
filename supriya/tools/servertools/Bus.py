@@ -105,6 +105,10 @@ class Bus(ServerObjectProxy, collections.Sequence):
         return self._channel_count
 
     @property
+    def is_allocated(self):
+        return self.server is not None
+
+    @property
     def map_symbol(self):
         assert self.bus_id is not None
         return Bus._as_map(

@@ -143,6 +143,12 @@ class Node(ServerObjectProxy):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def is_allocated(self):
+        if self.server is not None:
+            return self in self.server
+        return False
+
+    @property
     def is_playing(self):
         return self._is_playing
 

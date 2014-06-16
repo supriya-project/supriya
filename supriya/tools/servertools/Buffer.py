@@ -65,3 +65,7 @@ class Buffer(ServerObjectProxy):
     @property
     def frame_count(self):
         return self._frame_count
+
+    @property
+    def is_allocated(self):
+        return self.server is not None

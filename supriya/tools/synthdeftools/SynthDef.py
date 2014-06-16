@@ -258,9 +258,7 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
-        if synthdef_name in self.server._synthdefs:
-            self.server._synthdefs[synthdef_name].free()
-        self.server._synthdefs[synthdef_name] = copy.copy(self)
+        self.server._synthdefs[synthdef_name] = self
         message = servertools.CommandManager.make_synthdef_receive_message(
             synthdef=self,
             )
@@ -326,6 +324,12 @@ class SynthDef(ServerObjectProxy):
     @property
     def constants(self):
         return self._constants
+
+    @property
+    def is_allocated(self):
+        if self.server is not None:
+            return self in self.server
+        return False
 
     @property
     def name(self):
