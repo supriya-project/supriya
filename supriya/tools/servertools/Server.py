@@ -93,6 +93,37 @@ class Server(object):
 
     ### SPECIAL METHODS ###
 
+    def __contains__(self, expr):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        if not isinstance(expr, servertools.ServerObjectProxy):
+            return False
+        elif expr.server is not self:
+            return False
+        if isinstance(expr, servertools.Node):
+            node_id = expr.node_id
+            if node_id in self._nodes and self._nodes[node_id] is expr:
+                return True
+        elif isinstance(expr, servertools.Buffer):
+            buffer_id = expr.buffer_id
+            if buffer_id in self._buffers and self._buffers[buffer_id] is expr:
+                return True
+        elif isinstance(expr, servertools.Bus):
+            bus_id = expr.bus_id
+            if isinstance(expr, servertools.AudioBus):
+                if bus_id in self._audio_busses and \
+                    self._audio_busses[bus_id] is expr:
+                    return True
+            elif isinstance(expr, servertools.ControlBus):
+                if bus_id in self._control_busses and \
+                    self._control_busses[bus_id] is expr:
+                    return True
+        elif isinstance(expr, synthdeftools.SynthDef):
+            name = expr.actual_name
+            if name in self._synthdefs and self._synthdefs[name] is expr:
+                return True
+        return False
+
     def __repr__(self):
         if not self.is_running:
             return '<Server: offline>'
@@ -218,26 +249,33 @@ class Server(object):
         from supriya.tools import osctools
         if self.is_running:
             return
+        server_options = server_options or servertools.ServerOptions()
+        options_string = server_options.as_options_string(self.port)
+        command = 'scsynth {}'.format(options_string)
+        server_process = subprocess.Popen(
+            command.split(),
+            bufsize=1,
+            stderr=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            )
+
+        error = 'Exception in World_OpenUDP: bind: Address already in use'
+        success = 'SuperCollider 3 server ready.'
+        while True:
+            line = server_process.stdout.readline()
+            if error in line:
+                raise Exception(error)
+            elif success in line:
+                break
+            time.sleep(0.01)
+
+        self._is_running = True
         self._osc_controller = osctools.OscController(
             server_ip_address=self.ip_address,
             server_port=self.port,
             )
-        self._server_options = server_options or servertools.ServerOptions()
-        options_string = self._server_options.as_options_string(self.port)
-        command = 'scsynth {}'.format(options_string)
-        self._server_process = subprocess.Popen(
-            command.split(),
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            )
-        time.sleep(0.25)
-        stdout = ''
-        if self._server_process.poll():
-            stdout = self._server_process.stdout.read()
-        error = 'Exception in World_OpenUDP: bind: Address already in use'
-        if error in stdout:
-            raise Exception(error)
-        self._is_running = True
+        self._server_options = server_options
+        self._server_process = server_process
         self._setup_server_state()
         return self
 
@@ -263,7 +301,7 @@ class Server(object):
             server=self,
             )
         with wait:
-            self.send_message(r'/quit')
+            self.send_message('/quit')
         self._is_running = False
         self._server_process.send_signal(signal.SIGINT)
         self._server_process.kill()
