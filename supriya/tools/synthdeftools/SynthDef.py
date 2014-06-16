@@ -233,7 +233,7 @@ class SynthDef(ServerObjectProxy):
     def compile(self, synthdefs=None):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
-                not isinstance(value, bytearray):
+                not isinstance(value, (bytes, bytearray)):
                 return bytearray().join(flatten(x) for x in value)
             return value
         synthdefs = synthdefs or [self]

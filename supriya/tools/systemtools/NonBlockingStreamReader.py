@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import threading
+import time
 try:
     import queue
 except ImportError:
@@ -20,24 +21,24 @@ class NonBlockingStreamReader(object):
     ### INITIALIZER ###
 
     def __init__(self, stream):
-        self._stream = stream
         self._reading = False
+        self._stream = stream
         self._queue = queue.Queue()
         self._thread = None
 
     ### SPECIAL METHODS ###
 
     def __enter__(self):
-        self._reading = True
         self._thread = threading.Thread(
             target=self._populate_queue,
             args=(self._stream, self._queue),
             )
-        self._thread.daemon = True
+        self._reading = True
+        #self._thread.daemon = True
         self._thread.start()
         return self
 
-    def __exit__(self):
+    def __exit__(self, exc_type, exc_value, traceback):
         self._reading = False
         self._thread.join()
 
@@ -50,6 +51,7 @@ class NonBlockingStreamReader(object):
                 queue.put(line)
             else:
                 raise UnexpectedEndOfStream
+            time.sleep(0.01)
 
     ### PUBLIC METHODS ###
 

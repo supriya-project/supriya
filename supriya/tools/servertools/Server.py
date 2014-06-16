@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+from __future__ import print_function
 import signal
 import subprocess
 import time
@@ -245,8 +247,9 @@ class Server(object):
         self,
         server_options=None,
         ):
-        from supriya.tools import servertools
         from supriya.tools import osctools
+        from supriya.tools import servertools
+        from supriya.tools import systemtools
         if self.is_running:
             return
         server_options = server_options or servertools.ServerOptions()
@@ -254,20 +257,24 @@ class Server(object):
         command = 'scsynth {}'.format(options_string)
         server_process = subprocess.Popen(
             command.split(),
-            bufsize=1,
+            bufsize=0,
             stderr=subprocess.PIPE,
             stdout=subprocess.PIPE,
             )
 
-        error = 'Exception in World_OpenUDP: bind: Address already in use'
-        success = 'SuperCollider 3 server ready.'
-        while True:
-            line = server_process.stdout.readline()
-            if error in line:
-                raise Exception(error)
-            elif success in line:
-                break
-            time.sleep(0.01)
+        error = b'Exception in World_OpenUDP: bind: Address already in use'
+        success = b'SuperCollider 3 server ready.'
+        reader = systemtools.NonBlockingStreamReader(server_process.stdout)
+        with reader:
+            while True:
+                time.sleep(0.01)
+                line = reader.readline(timeout=0.01)
+                if line is None:
+                    continue
+                elif error in line:
+                    raise Exception(error)
+                elif success in line:
+                    break
 
         self._is_running = True
         self._osc_controller = osctools.OscController(
