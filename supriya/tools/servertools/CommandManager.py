@@ -121,6 +121,40 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_synthdef_free_message(
+        synthdef=None,
+        ):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        prototype = (synthdeftools.SynthDef, str)
+        assert isinstance(synthdef, prototype)
+        if isinstance(synthdef, synthdeftools.SynthDef):
+            synthdef = synthdef.name or synthdef.anonymous_name
+        command_type = servertools.CommandNumber.from_expr('synthdef_free')
+        message = osctools.OscMessage(
+            command_type,
+            synthdef,
+            )
+        return message
+
+    @staticmethod
+    def make_synthdef_receive_message(
+        synthdef=None,
+        ):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        prototype = (synthdeftools.SynthDef, bytes)
+        assert isinstance(synthdef, prototype)
+        if isinstance(synthdef, synthdeftools.SynthDef):
+            synthdef = synthdef.compile()
+        command_type = servertools.CommandNumber.from_expr('synthdef_receive')
+        message = osctools.OscMessage(
+            command_type,
+            synthdef,
+            )
+        return message
+
+    @staticmethod
     def make_synth_new_message(
         add_action=None,
         node_id=None,

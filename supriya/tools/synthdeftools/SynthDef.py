@@ -60,7 +60,7 @@ class SynthDef(ServerObjectProxy):
         name=None,
         **kwargs
         ):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
         self._available_ugens = []
         self._constants = {}
@@ -213,9 +213,13 @@ class SynthDef(ServerObjectProxy):
     ### PUBLIC METHODS ###
 
     def allocate(self, server=None):
+        from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
-        compiled = self.compile()
-        message = ('d_recv', compiled, 0)
+        synthdef_name = self.name or self.anonymous_name
+        self.server._synthdefs[synthdef_name] = self
+        message = servertools.CommandManager.make_synthdef_receive_message(
+            synthdef=self,
+            )
         self.server.send_message(message)
 
     def add_ugen(self, ugen):
@@ -249,7 +253,14 @@ class SynthDef(ServerObjectProxy):
         return result
 
     def free(self):
-        pass
+        from supriya.tools import servertools
+        synthdef_name = self.name or self.anonymous_name
+        del(self.server._synthdefs[synthdef_name])
+        message = servertools.CommandManager.make_synthdef_free_message(
+            synthdef=self,
+            )
+        self.server.send_message(message)
+        ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
 
