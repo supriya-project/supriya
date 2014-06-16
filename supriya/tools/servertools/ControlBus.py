@@ -53,6 +53,13 @@ class ControlBus(Bus):
         self.server._control_busses[bus_id] = self
         self._bus_id = bus_id
 
+    def ar(self):
+        from supriya.tools import synthdeftools
+        bus_ids = [x.bus_id for x in self]
+        result = synthdeftools.In.kr(bus=bus_ids)
+        result = synthdeftools.K2A.ar(source=result)
+        return result
+
     def free(self):
         if self.server is not None:
             self.server.control_bus_allocator.free(self.bus_id)
@@ -60,12 +67,18 @@ class ControlBus(Bus):
         self._bus_id = None
         Bus.free(self)
 
+    def kr(self):
+        from supriya.tools import synthdeftools
+        bus_ids = [x.bus_id for x in self]
+        result = synthdeftools.In.kr(bus=bus_ids)
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property
     def calculation_rate(self):
         r'''Gets this bus' calculation rate.
-        
+
         ::
 
             >>> control_bus = servertools.ControlBus()

@@ -53,6 +53,12 @@ class AudioBus(Bus):
         self.server._audio_busses[bus_id] = self
         self._bus_id = bus_id
 
+    def ar(self):
+        from supriya.tools import synthdeftools
+        bus_ids = [x.bus_id for x in self]
+        result = synthdeftools.In.ar(bus=bus_ids)
+        return result
+
     def free(self):
         if self.server is not None:
             self.server.audio_bus_allocator.free(self.bus_id)
@@ -60,12 +66,19 @@ class AudioBus(Bus):
         self._bus_id = None
         Bus.free(self)
 
+    def kr(self):
+        from supriya.tools import synthdeftools
+        bus_ids = [x.bus_id for x in self]
+        result = synthdeftools.In.ar(bus=bus_ids)
+        result = synthdeftools.A2K.ar(source=result)
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property
     def calculation_rate(self):
         r'''Gets this bus' calculation rate.
-        
+
         ::
 
             >>> audio_bus = servertools.AudioBus()

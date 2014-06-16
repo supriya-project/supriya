@@ -39,8 +39,17 @@ class Bus(ServerObjectProxy, collections.Sequence):
     def __getitem__(self, item):
         return self.bus_proxies.__getitem__(item)
 
+    def __float__(self):
+        return float(self.bus_id)
+
+    def __int__(self):
+        return int(self.bus_id)
+
     def __len__(self):
         return len(self.bus_proxies)
+
+    def __str__(self):
+        return self.map_symbol
 
     ### PRIVATE METHODS ###
 
@@ -58,30 +67,6 @@ class Bus(ServerObjectProxy, collections.Sequence):
             raise ValueError
         string = string.format(bus_id)
         return string
-
-    ### PUBLIC METHODS ###
-
-    def ar(self):
-        from supriya.tools import synthdeftools
-        assert self.server is not None
-        bus_ids = [x.bus_id for x in self]
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            result = synthdeftools.In.ar(bus=bus_ids)
-        else:
-            result = synthdeftools.In.kr(bus=bus_ids)
-            result = synthdeftools.K2A.ar(source=result)
-        return result
-
-    def kr(self):
-        from supriya.tools import synthdeftools
-        assert self.server is not None
-        bus_ids = [x.bus_id for x in self]
-        if self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
-            result = synthdeftools.In.kr(bus=bus_ids)
-        else:
-            result = synthdeftools.In.ar(bus=bus_ids)
-            result = synthdeftools.A2K.ar(source=result)
-        return result
 
     ### PUBLIC PROPERTIES ###
 
