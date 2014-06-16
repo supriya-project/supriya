@@ -216,6 +216,8 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.name or self.anonymous_name
+        if synthdef_name in self.server._synthdefs:
+            self.server._synthdefs[synthdef_name].free()
         self.server._synthdefs[synthdef_name] = self
         message = servertools.CommandManager.make_synthdef_receive_message(
             synthdef=self,
@@ -263,6 +265,10 @@ class SynthDef(ServerObjectProxy):
         ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def actual_name(self):
+        return self.name or self.anonymous_name
 
     @property
     def anonymous_name(self):
