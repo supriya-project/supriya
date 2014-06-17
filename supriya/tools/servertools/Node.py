@@ -10,6 +10,7 @@ class Node(ServerObjectProxy):
     __slots__ = (
         '_is_playing',
         '_node_id',
+        '_node_id_is_permanent',
         '_parent',
         )
 
@@ -21,6 +22,7 @@ class Node(ServerObjectProxy):
         self._parent = None
         self._is_playing = False
         self._node_id = None
+        self._node_id_is_permanent = None
 
     ### SPECIAL METHODS ###
 
@@ -50,8 +52,10 @@ class Node(ServerObjectProxy):
     def allocate(
         self,
         add_action=None,
+        node_id_is_permanent=False,
         target_node=None,
         ):
+
         from supriya.tools import servertools
         if self.server is not None:
             raise ValueError
@@ -61,13 +65,18 @@ class Node(ServerObjectProxy):
         if server is None or not server.is_running:
             raise ValueError
 
-        node_id = server.node_id_allocator.allocate_node_id()
+        id_allocator = server.node_id_allocator
+        if node_id_is_permanent:
+            node_id = id_allocator.allocate_permanent_node_id()
+        else:
+            node_id = server.node_id_allocator.allocate_node_id()
         if node_id is None:
             raise ValueError
         elif node_id in server._nodes:
             raise ValueError
         ServerObjectProxy.allocate(self, server=server)
         self._node_id = node_id
+        self._node_id_is_permanent = bool(node_id_is_permanent)
         self._server._nodes[self._node_id] = self
 
         add_action = servertools.AddAction.from_expr(add_action)
@@ -136,7 +145,12 @@ class Node(ServerObjectProxy):
                     self.node_id,
                     )
                 self.server.send_message(message)
+            if self.node_id_is_permanent:
+                self.server.node_id_allocator.free_permanent_node_id(
+                    self.node_id,
+                    )
         self._node_id = None
+        self._node_id_is_permanent = None
         ServerObjectProxy.free(self)
         return self
 
@@ -159,6 +173,10 @@ class Node(ServerObjectProxy):
     @property
     def node_id(self):
         return self._node_id
+
+    @property
+    def node_id_is_permanent(self):
+        return self._node_id_is_permanent
 
     @property
     def parent(self):

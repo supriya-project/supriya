@@ -22,9 +22,9 @@ class NodeIdAllocator(SupriyaObject):
         >>> for _ in range(3):
         ...     allocator.allocate_permanent_node_id()
         ...
+        1
         2
         3
-        4
 
     ::
 
@@ -61,7 +61,7 @@ class NodeIdAllocator(SupriyaObject):
         self._user_id = int(user_id)
         self._mask = self._user_id << 26
         self._temp = self._initial_node_id
-        self._next_permanent_id = 2
+        self._next_permanent_id = 1
         self._freed_permanent_ids = set()
         self._lock = threading.Lock()
 
