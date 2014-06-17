@@ -53,6 +53,24 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_group_query_tree_message(node_id, list_controls=False):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('group_query_tree')
+        command_type = int(command_type)
+        if isinstance(node_id, servertools.Node):
+            assert node_id.node_id is not None
+            node_id = node_id.node_id
+        elif isinstance(node_id, int):
+            node_id = node_id
+        list_controls = int(bool(list_controls))
+        message = osctools.OscMessage(
+            command_type,
+            node_id,
+            list_controls,
+            )
+        return message
+
+    @staticmethod
     def make_node_free_message(node_id):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('node_free')
