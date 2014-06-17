@@ -87,6 +87,13 @@ class Server(object):
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
         self._response_manager = responsetools.ResponseManager()
+        for callback in (
+            responsetools.BufferResponseCallback(self),
+            responsetools.ControlBusResponseCallback(self),
+            responsetools.NodeResponseCallback(self),
+            responsetools.SynthDefResponseCallback(self),
+            ):
+            self.register_osc_callback(callback)
 
         ### ALLOCATORS ###
 

@@ -36,6 +36,9 @@ class ServerObjectProxy(SupriyaObject):
     def free(self):
         self._server = None
 
+    def handle_response(self, response):
+        pass
+
     ### PUBLIC PROPERTIES ###
 
     @abc.abstractproperty

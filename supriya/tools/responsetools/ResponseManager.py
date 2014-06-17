@@ -109,6 +109,17 @@ class ResponseManager(SupriyaObject):
             '/tr': self._handle_tr,
             }
 
+    ### SPECIAL METHODS ###
+
+    def __call__(self, message):
+        address, contents = message.address, message.contents
+        if address in self._response_handlers:
+            handler = self._response_handlers[address]
+            response = handler(address, contents)
+        else:
+            raise ValueError(message)
+        return response
+
     ### PRIVATE METHODS ###
 
     def _group_items(self, items, length):
@@ -319,15 +330,4 @@ class ResponseManager(SupriyaObject):
         from supriya.tools import responsetools
         arguments = contents
         response = responsetools.TriggerResponse(*arguments)
-        return response
-
-    ### SPECIAL METHODS ###
-
-    def __call__(self, message):
-        address, contents = message.address, message.contents
-        if address in self._response_handlers:
-            handler = self._response_handlers[address]
-            response = handler(address, contents)
-        else:
-            raise ValueError(message)
         return response
