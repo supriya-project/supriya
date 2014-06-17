@@ -56,10 +56,9 @@ def _get_terminal_size():
     return height, width
 
 
-def _collect_file_paths():
+def _collect_file_paths(path):
     file_paths = []
-    for root_directory, directory_names, file_names in os.walk(
-        supriya.__path__[0]):
+    for root_directory, directory_names, file_names in os.walk(path):
         directory_names[:] = [x for x in directory_names
             if not x.startswith((
                 '.',
@@ -77,7 +76,7 @@ def _collect_file_paths():
     return file_paths
 
 
-def _run_doctests():
+def _run_doctests(path):
     terminal_height, terminal_width = _get_terminal_size()
     string = ' doctest session starts '
     string = string.center(terminal_width, '=')
@@ -98,7 +97,7 @@ def _run_doctests():
         doctest.NORMALIZE_WHITESPACE |
         doctest.ELLIPSIS
         )
-    for file_path in _collect_file_paths():
+    for file_path in _collect_file_paths(path):
         total_modules += 1
         relative_path = os.path.relpath(file_path)
         string_buffer = StringIO()
@@ -167,5 +166,7 @@ def _run_doctests():
 
 
 if __name__ == '__main__':
-    _run_doctests()
-
+    path = '.'
+    if 1 < len(sys.argv):
+        path = os.path.curdir
+    _run_doctests(path)
