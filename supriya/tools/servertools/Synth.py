@@ -9,6 +9,9 @@ class Synth(Node):
         >>> from supriya import servertools
         >>> from supriya import synthdeftools
         >>> server = servertools.Server().boot()
+        RECV: DoneResponse(
+            action=('/notify', 0)
+            )
 
     ::
 
@@ -23,8 +26,18 @@ class Synth(Node):
         ...     synthdef.allocate()
         ...     server.send_message(('/sync', 1000))
         ...
-        RECV: OscMessage('/done', '/d_recv')
-        RECV: OscMessage('/synced', 1000)
+        RECV: NodeInfoResponse(
+            action=<NodeAction.NODE_CREATED: 0>,
+            node_id=1,
+            parent_group_id=0,
+            is_group=True
+            )
+        RECV: DoneResponse(
+            action=('/d_recv',)
+            )
+        RECV: SyncedResponse(
+            sync_id=1000
+            )
 
     ::
 
@@ -33,7 +46,15 @@ class Synth(Node):
     ::
 
         >>> server = server.quit()
-        RECV: OscMessage('/done', '/quit')
+        RECV: NodeInfoResponse(
+            action=<NodeAction.NODE_CREATED: 0>,
+            node_id=1000,
+            parent_group_id=1,
+            is_group=False
+            )
+        RECV: DoneResponse(
+            action=('/quit',)
+            )
 
     '''
 

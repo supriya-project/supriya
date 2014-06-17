@@ -92,6 +92,7 @@ class ResponseManager(SupriyaObject):
             '/b_setn': self._handle_b_setn,
             '/c_set': self._handle_c_set,
             '/c_setn': self._handle_c_setn,
+            '/d_removed': self._handle_d_removed,
             '/done': self._handle_done,
             '/fail': self._handle_fail,
             '/g_queryTree.reply': self._handle_g_query_tree_reply,
@@ -189,10 +190,18 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
+    def _handle_d_removed(self, command, contents):
+        from supriya.tools import responsetools
+        synthdef_name = contents[0] 
+        response = responsetools.SynthDefRemovedResponse(
+            synthdef_name=synthdef_name,
+            )
+        return response
+
     def _handle_done(self, command, contents):
         from supriya.tools import responsetools
         arguments = contents
-        response = responsetools.DoneResponse(*arguments)
+        response = responsetools.DoneResponse(action=tuple(arguments))
         return response
 
     def _handle_fail(self, command, contents):
@@ -314,5 +323,5 @@ class ResponseManager(SupriyaObject):
             handler = self._response_handlers[address]
             response = handler(address, contents)
         else:
-            raise ValueError
+            raise ValueError(message)
         return response

@@ -40,10 +40,24 @@ class SynthDef(ServerObjectProxy):
 
         >>> from supriya import servertools
         >>> server = servertools.Server().boot()
+        RECV: DoneResponse(
+            action=('/notify', 0)
+            )
+
+    ::
+
         >>> with servertools.WaitForServer('/done', ['/d_recv']):
         ...     synthdef.allocate(server=server)
         ...
-        RECV: OscMessage('/done', '/d_recv')
+        RECV: NodeInfoResponse(
+            action=<NodeAction.NODE_CREATED: 0>,
+            node_id=1,
+            parent_group_id=0,
+            is_group=True
+            )
+        RECV: DoneResponse(
+            action=('/d_recv',)
+            )
 
     ::
 
@@ -57,7 +71,12 @@ class SynthDef(ServerObjectProxy):
     ::
 
         >>> server = server.quit()
-        RECV: OscMessage('/done', '/quit')
+        RECV: SynthDefRemovedResponse(
+            synthdef_name='test'
+            )
+        RECV: DoneResponse(
+            action=('/quit',)
+            )
 
     '''
 

@@ -13,12 +13,23 @@ class Server(object):
         >>> from supriya import servertools
         >>> server = servertools.Server.get_default_server()
         >>> server.boot()
+        RECV: DoneResponse(
+            action=('/notify', 0)
+            )
         <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
         >>> server.quit()
-        RECV: OscMessage('/done', '/quit')
+        RECV: NodeInfoResponse(
+            action=<NodeAction.NODE_CREATED: 0>,
+            node_id=1,
+            parent_group_id=0,
+            is_group=True
+            )
+        RECV: DoneResponse(
+            action=('/quit',)
+            )
         <Server: offline>
 
     '''
@@ -40,6 +51,7 @@ class Server(object):
         '_node_id_allocator',
         '_nodes',
         '_osc_controller',
+        '_osc_dispatcher',
         '_port',
         '_response_manager',
         '_root_node',
@@ -70,9 +82,19 @@ class Server(object):
     ### INITIALIZER ###
 
     def __init__(self, ip_address='127.0.0.1', port=57751):
+        from supriya.tools import osctools
         from supriya.tools import responsetools
+
         if hasattr(self, 'is_running') and self.is_running:
             return
+
+        self._ip_address = ip_address
+        self._port = port
+
+        self._osc_dispatcher = osctools.OscDispatcher()
+        self._osc_controller = osctools.OscController(server=self)
+        self._response_manager = responsetools.ResponseManager()
+
         self._audio_bus_allocator = None
         self._audio_busses = None
         self._audio_input_bus = None
@@ -82,13 +104,9 @@ class Server(object):
         self._control_bus_allocator = None
         self._control_busses = None
         self._default_group = None
-        self._ip_address = ip_address
         self._is_running = False
         self._node_id_allocator = None
         self._nodes = None
-        self._osc_controller = None
-        self._port = port
-        self._response_manager = responsetools.ResponseManager()
         self._root_node = None
         self._server_options = None
         self._server_process = None
@@ -153,18 +171,29 @@ class Server(object):
         self._control_busses = {}
         self._nodes = {}
         self._synthdefs = {}
+
         self._root_node = servertools.RootNode(server=self)
+        self._nodes[0] = self._root_node
+
+        self._server_status = None
+        self._status_watcher = servertools.StatusWatcher(self)
+        self._status_watcher.start()
+
+        notify_message = servertools.CommandManager.make_notify_message(1)
+        with servertools.WaitForServer(
+            address_pattern='/done',
+            argument_template=('/notify', 0),
+            server=self,
+            ):
+            self.send_message(notify_message)
+
         self._default_group = servertools.Group()
         self._default_group._node_id = 1
         self._default_group._parent = self._root_node
         self._default_group._server = self
-        self._nodes[0] = self._root_node
         self._nodes[1] = self._default_group
         self._root_node._children.append(self._default_group)
         self.send_message(('/g_new', 1, 0, 0))
-        self._server_status = None
-        self._status_watcher = servertools.StatusWatcher(self)
-        self._status_watcher.start()
 
     def _teardown_server_state(self):
         self._status_watcher.active = False
@@ -193,7 +222,6 @@ class Server(object):
         self,
         server_options=None,
         ):
-        from supriya.tools import osctools
         from supriya.tools import servertools
         from supriya.tools import systemtools
         if self.is_running:
@@ -223,10 +251,6 @@ class Server(object):
                     break
 
         self._is_running = True
-        self._osc_controller = osctools.OscController(
-            server_ip_address=self.ip_address,
-            server_port=self.port,
-            )
         self._server_options = server_options
         self._server_process = server_process
         self._setup_server_state()
@@ -237,12 +261,6 @@ class Server(object):
         if Server._default_server is None:
             Server._default_server = Server()
         return Server._default_server
-
-    def query_local_state(self):
-        pass
-
-    def query_server_state(self):
-        pass
 
     def quit(self):
         from supriya.tools import servertools
@@ -262,7 +280,7 @@ class Server(object):
         return self
 
     def register_osc_callback(self, osc_callback):
-        self._osc_controller.register_osc_callback(osc_callback)
+        self._osc_dispatcher.register_osc_callback(osc_callback)
 
     def send_message(self, message):
         if not message or not self.is_running:
@@ -270,9 +288,7 @@ class Server(object):
         self._osc_controller.send(message)
 
     def unregister_osc_callback(self, osc_callback):
-        if self._osc_controller is None:
-            return
-        self._osc_controller.unregister_osc_callback(osc_callback)
+        self._osc_dispatcher.unregister_osc_callback(osc_callback)
 
     ### PUBLIC PROPERTIES ###
 

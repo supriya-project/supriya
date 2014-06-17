@@ -31,6 +31,8 @@ class StatusWatcher(threading.Thread):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
+        if not self.active:
+            return
         response = self._server.response_manager(message)
         self._server._server_status = response
         self._attempts -= 1

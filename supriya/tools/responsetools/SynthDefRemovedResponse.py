@@ -2,24 +2,24 @@
 from supriya.tools.responsetools.Response import Response
 
 
-class DoneResponse(Response):
+class SynthDefRemovedResponse(Response):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_action',
+        '_synthdef_name',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        action=None,
+        synthdef_name=None,
         ):
-        self._action = action
+        self._synthdef_name = synthdef_name
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def action(self):
-        return self._action
+    def synthdef_name(self):
+        return self._synthdef_name

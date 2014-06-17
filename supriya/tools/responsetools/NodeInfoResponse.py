@@ -7,9 +7,9 @@ class NodeInfoResponse(Response):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_action',
         '_head_node_id',
         '_is_group',
-        '_message_head',
         '_next_node_id',
         '_node_id',
         '_parent_group_id',
@@ -21,7 +21,7 @@ class NodeInfoResponse(Response):
 
     def __init__(
         self,
-        message_head=None,
+        action=None,
         node_id=None,
         parent_group_id=None,
         previous_node_id=None,
@@ -30,16 +30,28 @@ class NodeInfoResponse(Response):
         head_node_id=None,
         tail_node_id=None,
         ):
-        self._head_node_id = head_node_id
-        self._is_group = is_group
-        self._message_head = message_head
-        self._next_node_id = next_node_id
-        self._node_id = node_id
-        self._parent_group_id = parent_group_id
-        self._previous_node_id = previous_node_id
-        self._tail_node_id = tail_node_id
+        from supriya.tools import responsetools
+        self._action = responsetools.NodeAction.from_address(action)
+        self._is_group = bool(is_group)
+        self._head_node_id = self._coerce_node_id(head_node_id)
+        self._next_node_id = self._coerce_node_id(next_node_id)
+        self._node_id = self._coerce_node_id(node_id)
+        self._parent_group_id = self._coerce_node_id(parent_group_id)
+        self._previous_node_id = self._coerce_node_id(previous_node_id)
+        self._tail_node_id = self._coerce_node_id(tail_node_id)
+
+    ### PRIVATE METHODS ###
+
+    def _coerce_node_id(self, node_id):
+        if node_id is not None and -1 < node_id:
+            return node_id
+        return None
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def action(self):
+        return self._action
 
     @property
     def head_node_id(self):
@@ -48,10 +60,6 @@ class NodeInfoResponse(Response):
     @property
     def is_group(self):
         return self._is_group
-
-    @property
-    def message_head(self):
-        return self._message_head
 
     @property
     def next_node_id(self):

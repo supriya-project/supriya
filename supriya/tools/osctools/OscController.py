@@ -10,25 +10,14 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class OscController(SupriyaObject):
     '''An OSC controller.
-
-    ::
-
-        >>> from supriya import osctools
-        >>> controller = osctools.OscController(
-        ...     server_ip_address='127.0.0.1',
-        ...     server_port=57751,
-        ...     )
-
     '''
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_dispatcher',
         '_incoming_message_queue',
         '_listener',
-        '_server_ip_address',
-        '_server_port',
+        '_server',
         '_socket_instance',
         '_timeout',
         )
@@ -50,14 +39,12 @@ class OscController(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self,
-        server_ip_address='127.0.0.1',
-        server_port=57751,
+        server=None,
         timeout=2,
         verbose=True,
         ):
         from supriya.tools import osctools
-        self._server_ip_address = server_ip_address
-        self._server_port = int(server_port)
+        self._server = server
         assert 0 < int(timeout)
         self._timeout = int(timeout)
         self._socket_instance = socket.socket(
@@ -65,12 +52,11 @@ class OscController(SupriyaObject):
             socket.SOCK_DGRAM,
             )
         self._socket_instance.settimeout(self.timeout)
-        self._dispatcher = osctools.OscDispatcher()
         self._listener = osctools.OscListener(self)
         self._listener.start()
         self._socket_instance.bind(('', 0))
         if verbose:
-            self._dispatcher.register_osc_callback(
+            self.server.register_osc_callback(
                 osctools.OscCallback(
                     address_pattern='/*', 
                     procedure=self._print_message,
@@ -86,12 +72,10 @@ class OscController(SupriyaObject):
 
     def _print_message(self, message):
         if message.address != '/status.reply':
-            print('RECV:', message)
+            response = self.server._response_manager(message)
+            print('RECV:', response)
 
     ### PUBLIC METHODS ###
-
-    def register_osc_callback(self, osc_callback):
-        self._dispatcher.register_osc_callback(osc_callback)
 
     def send(self, message):
         from supriya.tools import osctools
@@ -108,29 +92,18 @@ class OscController(SupriyaObject):
         datagram = message.to_datagram()
         self.socket_instance.sendto(
             datagram,
-            (self.server_ip_address, self.server_port),
+            (self.server.ip_address, self.server.port),
             )
 
-    def unregister_osc_callback(self, osc_callback):
-        self._dispatcher.unregister_osc_callback(osc_callback)
-
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def dispatcher(self):
-        return self._dispatcher
 
     @property
     def listener(self):
         return self._listener
 
     @property
-    def server_ip_address(self):
-        return self._server_ip_address
-
-    @property
-    def server_port(self):
-        return self._server_port
+    def server(self):
+        return self._server
 
     @property
     def socket_instance(self):

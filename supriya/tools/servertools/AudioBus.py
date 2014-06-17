@@ -9,6 +9,9 @@ class AudioBus(Bus):
 
         >>> from supriya.tools import servertools
         >>> server = servertools.Server().boot()
+        RECV: DoneResponse(
+            action=('/notify', 0)
+            )
 
     ::
 
@@ -26,7 +29,15 @@ class AudioBus(Bus):
 
         >>> audio_bus.free()
         >>> server.quit()
-        RECV: OscMessage('/done', '/quit')
+        RECV: NodeInfoResponse(
+            action=<NodeAction.NODE_CREATED: 0>,
+            node_id=1,
+            parent_group_id=0,
+            is_group=True
+            )
+        RECV: DoneResponse(
+            action=('/quit',)
+            )
         <Server: offline>
 
     '''
