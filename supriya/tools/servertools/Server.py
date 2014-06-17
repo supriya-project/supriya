@@ -77,31 +77,46 @@ class Server(object):
         if hasattr(self, 'is_running') and self.is_running:
             return
 
+        ### NET ADDRESS ###
+
         self._ip_address = ip_address
         self._port = port
+
+        ### OSC MESSAGING ###
 
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
         self._response_manager = responsetools.ResponseManager()
 
+        ### ALLOCATORS ###
+
         self._audio_bus_allocator = None
-        self._audio_busses = None
-        self._audio_input_bus = None
-        self._audio_output_bus = None
         self._buffer_allocator = None
-        self._buffers = None
         self._control_bus_allocator = None
-        self._control_busses = None
-        self._default_group = None
-        self._is_running = False
         self._node_id_allocator = None
-        self._nodes = None
-        self._root_node = None
+
+        ### SERVER PROCESS ###
+
+        self._is_running = False
         self._server_options = None
         self._server_process = None
         self._server_status = None
         self._status_watcher = None
-        self._synthdefs = None
+
+        ### PROXIES ###
+
+        self._audio_input_bus = None
+        self._audio_output_bus = None
+        self._default_group = None
+        self._root_node = None
+
+        ### PROXY MAPPINGS ###
+
+        self._audio_busses = {}
+        self._control_busses = {}
+        self._buffers = {}
+        self._nodes = {}
+        self._synthdefs = {}
 
     ### SPECIAL METHODS ###
 
@@ -137,39 +152,31 @@ class Server(object):
 
     ### PRIVATE METHODS ###
 
-    def _setup_server_state(self):
+    def _setup(self):
+        self._setup_allocators(self.server_options)
+        self._setup_proxies()
+        self._setup_notifications()
+        self._setup_status_watcher()
+
+    def _setup_allocators(self, server_options):
         from supriya.tools import servertools
-        options = self.server_options
         self._audio_bus_allocator = servertools.BlockAllocator(
-            heap_maximum=options.audio_bus_channel_count,
-            heap_minimum=options.first_private_bus_id,
+            heap_maximum=server_options.audio_bus_channel_count,
+            heap_minimum=server_options.first_private_bus_id,
             )
-        self._audio_input_bus = servertools.AudioInputBus(self)
-        self._audio_output_bus = servertools.AudioOutputBus(self)
         self._buffer_allocator = servertools.BlockAllocator(
-            heap_maximum=options.buffer_count,
+            heap_maximum=server_options.buffer_count,
             )
         self._control_bus_allocator = servertools.BlockAllocator(
-            heap_maximum=options.control_bus_channel_count,
+            heap_maximum=server_options.control_bus_channel_count,
             )
         self._node_id_allocator = servertools.NodeIdAllocator(
-            initial_node_id=options.initial_node_id,
+            initial_node_id=server_options.initial_node_id,
             )
         self._sync_id = 0
 
-        self._audio_busses = {}
-        self._buffers = {}
-        self._control_busses = {}
-        self._nodes = {}
-        self._synthdefs = {}
-
-        self._root_node = servertools.RootNode(server=self)
-        self._nodes[0] = self._root_node
-
-        self._server_status = None
-        self._status_watcher = servertools.StatusWatcher(self)
-        self._status_watcher.start()
-
+    def _setup_notifications(self):
+        from supriya.tools import servertools
         notify_message = servertools.CommandManager.make_notify_message(1)
         with servertools.WaitForServer(
             address_pattern='/done',
@@ -178,6 +185,12 @@ class Server(object):
             ):
             self.send_message(notify_message)
 
+    def _setup_proxies(self):
+        from supriya.tools import servertools
+        self._audio_input_bus = servertools.AudioInputBus(self)
+        self._audio_output_bus = servertools.AudioOutputBus(self)
+        self._root_node = servertools.RootNode(server=self)
+        self._nodes[0] = self._root_node
         default_group = servertools.Group()
         default_group.allocate(
             add_action=servertools.AddAction.ADD_TO_HEAD,
@@ -186,15 +199,25 @@ class Server(object):
             )
         self._default_group = default_group
 
-    def _teardown_server_state(self):
-        self._status_watcher.active = False
-        self._status_watcher = None
+    def _setup_status_watcher(self):
+        from supriya.tools import servertools
+        self._server_status = None
+        self._status_watcher = servertools.StatusWatcher(self)
+        self._status_watcher.start()
+
+    def _teardown(self):
+        self._teardown_proxies()
+        self._teardown_allocators()
+        self._teardown_status_watcher()
+
+    def _teardown_allocators(self):
         self._audio_bus_allocator = None
-        self._audio_input_bus = None
-        self._audio_output_bus = None
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
+        self._sync_id = 0
+
+    def _teardown_proxies(self):
         for x in tuple(self._audio_busses.values()):
             x.free()
         for x in tuple(self._buffers.values()):
@@ -205,6 +228,12 @@ class Server(object):
             x.free()
         self._default_group = None
         self._root_node = None
+        self._audio_input_bus = None
+        self._audio_output_bus = None
+
+    def _teardown_status_watcher(self):
+        self._status_watcher.active = False
+        self._status_watcher = None
         self._server_status = None
 
     ### PUBLIC METHODS ###
@@ -244,7 +273,7 @@ class Server(object):
         self._is_running = True
         self._server_options = server_options
         self._server_process = server_process
-        self._setup_server_state()
+        self._setup()
         self.sync()
         return self
 
@@ -268,7 +297,7 @@ class Server(object):
         self._is_running = False
         self._server_process.send_signal(signal.SIGINT)
         self._server_process.kill()
-        self._teardown_server_state()
+        self._teardown()
         return self
 
     def register_osc_callback(self, osc_callback):
@@ -279,19 +308,23 @@ class Server(object):
             return
         self._osc_controller.send(message)
 
-    def sync(self):
+    def sync(self, sync_id=None):
         from supriya.tools import servertools
         if not self.is_running:
             return
-        message = servertools.CommandManager.make_sync_message(self._sync_id)
+        if sync_id is None:
+            sync_id = self._sync_id
+            self._sync_id += 1
+        else:
+            sync_id = int(sync_id)
+        message = servertools.CommandManager.make_sync_message(sync_id)
         wait = servertools.WaitForServer(
             address_pattern='/synced',
-            argument_template=(self._sync_id,),
+            argument_template=(sync_id,),
             server=self,
             )
         with wait:
             self.send_message(message)
-        self._sync_id += 1
         return self
 
     def unregister_osc_callback(self, osc_callback):
