@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
+import atexit
 import signal
 import subprocess
 import time
@@ -124,6 +125,10 @@ class Server(object):
         self._buffers = {}
         self._nodes = {}
         self._synthdefs = {}
+
+        ### REGISTER WITH ATEXIT ###
+
+        atexit.register(self.quit)
 
     ### SPECIAL METHODS ###
 
@@ -311,8 +316,11 @@ class Server(object):
         self._osc_dispatcher.register_osc_callback(osc_callback)
 
     def send_message(self, message):
+        from supriya.tools import osctools
         if not message or not self.is_running:
             return
+        if isinstance(message, osctools.OscMessage) and message.address != 2:
+            print('SEND:', message)
         self._osc_controller.send(message)
 
     def sync(self, sync_id=None):
