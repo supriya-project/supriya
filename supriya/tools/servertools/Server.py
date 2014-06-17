@@ -96,6 +96,12 @@ class Server(object):
             ):
             self.register_osc_callback(callback)
 
+        fail_callback = osctools.OscCallback(
+            address_pattern='/fail',
+            procedure=lambda message: print('FAILED:', message),
+            )
+        self.register_osc_callback(fail_callback)
+
         ### ALLOCATORS ###
 
         self._audio_bus_allocator = None
@@ -298,7 +304,60 @@ class Server(object):
     def query_local_nodes(self):
         pass
 
-    def query_synth_nodes(self):
+    def query_remote_nodes(self):
+        r'''Queries all nodes on scsynth.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> server = servertools.Server()
+            >>> server.boot()
+            <Server: udp://127.0.0.1:57751, 8i8o>
+
+        ::
+
+            >>> group_a = servertools.Group().allocate()
+            >>> group_b = servertools.Group().allocate()
+            >>> group_c = servertools.Group().allocate(target_node=group_a)
+
+        ::
+
+            >>> from supriya import synthdeftools
+            >>> synthdef = synthdeftools.SynthDef()
+            >>> synthdef.add_ugen(
+            ...     synthdeftools.Out.ar(
+            ...         bus=(0, 1),
+            ...         source=synthdeftools.SinOsc.ar() * 0.0,
+            ...         ),
+            ...     )
+            >>> synthdef.allocate()
+            >>> server.sync()
+            <Server: udp://127.0.0.1:57751, 8i8o>
+
+        ::
+
+            >>> synth = servertools.Synth(synthdef).allocate(
+            ...     target_node=group_b,
+            ...     )
+
+        ::
+
+            >>> response = server.query_remote_nodes()
+            >>> print(response)
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                        1003 bb6ed70950cc996bf5b4a8fa25935d58
+                    1000 group
+                        1002 group
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        Returns server query-tree group response.
+        '''
         from supriya.tools import servertools
         wait = servertools.WaitForServer(
             address_pattern='/g_queryTree.reply',
