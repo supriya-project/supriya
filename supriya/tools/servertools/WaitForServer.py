@@ -6,8 +6,8 @@ class WaitForServer(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_called_back',
         '_osc_callback',
+        '_received_message',
         '_server',
         '_timeout',
         )
@@ -23,7 +23,7 @@ class WaitForServer(object):
         ):
         from supriya import servertools
         from supriya import osctools
-        self._called_back = False
+        self._received_message = None
         self._osc_callback = osctools.OscCallback(
             address_pattern=address_pattern,
             argument_template=argument_template,
@@ -38,7 +38,7 @@ class WaitForServer(object):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        self._called_back = True
+        self._received_message = message
 
     def __enter__(self):
         self.server.register_osc_callback(self.osc_callback)
@@ -47,7 +47,7 @@ class WaitForServer(object):
     def __exit__(self, exc_type, exc_value, traceback):
         total_time = 0.
         sleep_time = 0.01
-        while not self.called_back:
+        while self.received_message is None:
             if self.timeout <= total_time:
                 print('TIMEOUT:', self)
                 break
@@ -57,12 +57,12 @@ class WaitForServer(object):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def called_back(self):
-        return self._called_back
-
-    @property
     def osc_callback(self):
         return self._osc_callback
+
+    @property
+    def received_message(self):
+        return self._received_message
 
     @property
     def server(self):
