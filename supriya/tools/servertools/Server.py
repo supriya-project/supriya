@@ -13,23 +13,11 @@ class Server(object):
         >>> from supriya import servertools
         >>> server = servertools.Server.get_default_server()
         >>> server.boot()
-        RECV: DoneResponse(
-            action=('/notify', 0)
-            )
         <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
         >>> server.quit()
-        RECV: NodeInfoResponse(
-            action=<NodeAction.NODE_CREATED: 0>,
-            node_id=1,
-            parent_group_id=0,
-            is_group=True
-            )
-        RECV: DoneResponse(
-            action=('/quit',)
-            )
         <Server: offline>
 
     '''
@@ -59,6 +47,7 @@ class Server(object):
         '_server_process',
         '_server_status',
         '_status_watcher',
+        '_sync_id',
         '_synthdefs',
         )
 
@@ -166,6 +155,8 @@ class Server(object):
         self._node_id_allocator = servertools.NodeIdAllocator(
             initial_node_id=options.initial_node_id,
             )
+        self._sync_id = 0
+
         self._audio_busses = {}
         self._buffers = {}
         self._control_busses = {}
@@ -254,6 +245,7 @@ class Server(object):
         self._server_options = server_options
         self._server_process = server_process
         self._setup_server_state()
+        self.sync()
         return self
 
     @staticmethod
@@ -286,6 +278,21 @@ class Server(object):
         if not message or not self.is_running:
             return
         self._osc_controller.send(message)
+
+    def sync(self):
+        from supriya.tools import servertools
+        if not self.is_running:
+            return
+        message = servertools.CommandManager.make_sync_message(self._sync_id)
+        wait = servertools.WaitForServer(
+            address_pattern='/synced',
+            argument_template=(self._sync_id,),
+            server=self,
+            )
+        with wait:
+            self.send_message(message)
+        self._sync_id += 1
+        return self
 
     def unregister_osc_callback(self, osc_callback):
         self._osc_dispatcher.unregister_osc_callback(osc_callback)

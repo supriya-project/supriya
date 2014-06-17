@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 import collections
-import copy
 import hashlib
 import struct
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
@@ -40,24 +39,10 @@ class SynthDef(ServerObjectProxy):
 
         >>> from supriya import servertools
         >>> server = servertools.Server().boot()
-        RECV: DoneResponse(
-            action=('/notify', 0)
-            )
 
     ::
 
-        >>> with servertools.WaitForServer('/done', ['/d_recv']):
-        ...     synthdef.allocate(server=server)
-        ...
-        RECV: NodeInfoResponse(
-            action=<NodeAction.NODE_CREATED: 0>,
-            node_id=1,
-            parent_group_id=0,
-            is_group=True
-            )
-        RECV: DoneResponse(
-            action=('/d_recv',)
-            )
+        >>> synthdef.allocate(server=server)
 
     ::
 
@@ -70,13 +55,13 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> server = server.quit()
-        RECV: SynthDefRemovedResponse(
-            synthdef_name='test'
-            )
-        RECV: DoneResponse(
-            action=('/quit',)
-            )
+        >>> synthdef in server
+        False
+
+    ::
+
+        >>> server.quit()
+        <Server: offline>
 
     '''
 

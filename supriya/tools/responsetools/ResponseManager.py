@@ -192,7 +192,7 @@ class ResponseManager(SupriyaObject):
 
     def _handle_d_removed(self, command, contents):
         from supriya.tools import responsetools
-        synthdef_name = contents[0] 
+        synthdef_name = contents[0]
         response = responsetools.SynthDefRemovedResponse(
             synthdef_name=synthdef_name,
             )
@@ -206,8 +206,14 @@ class ResponseManager(SupriyaObject):
 
     def _handle_fail(self, command, contents):
         from supriya.tools import responsetools
-        arguments = contents
-        response = responsetools.FailResponse(*arguments)
+        failed_command = contents[0]
+        failed_reason = contents[1:]
+        if failed_reason:
+            failed_reason = tuple(failed_reason)
+        response = responsetools.FailResponse(
+            failed_command=failed_command,
+            failed_reason=failed_reason,
+            )
         return response
 
     def _handle_g_query_tree_reply(self, command, contents):

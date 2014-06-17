@@ -49,6 +49,7 @@ class WaitForServer(object):
         sleep_time = 0.01
         while not self.called_back:
             if self.timeout <= total_time:
+                print('TIMEOUT:', self)
                 break
             total_time += sleep_time
             time.sleep(sleep_time)

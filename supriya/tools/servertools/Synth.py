@@ -8,10 +8,9 @@ class Synth(Node):
 
         >>> from supriya import servertools
         >>> from supriya import synthdeftools
-        >>> server = servertools.Server().boot()
-        RECV: DoneResponse(
-            action=('/notify', 0)
-            )
+        >>> server = servertools.Server()
+        >>> server.boot()
+        <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
@@ -22,22 +21,9 @@ class Synth(Node):
         ...     ) * 0.0
         >>> out = synthdeftools.Out.ar(bus=(0, 1), source=sin_osc)
         >>> synthdef.add_ugen(out)
-        >>> with servertools.WaitForServer('/synced', (1000,)):
-        ...     synthdef.allocate()
-        ...     server.send_message(('/sync', 1000))
-        ...
-        RECV: NodeInfoResponse(
-            action=<NodeAction.NODE_CREATED: 0>,
-            node_id=1,
-            parent_group_id=0,
-            is_group=True
-            )
-        RECV: DoneResponse(
-            action=('/d_recv',)
-            )
-        RECV: SyncedResponse(
-            sync_id=1000
-            )
+        >>> synthdef.allocate()
+        >>> server.sync()
+        <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
@@ -45,16 +31,8 @@ class Synth(Node):
 
     ::
 
-        >>> server = server.quit()
-        RECV: NodeInfoResponse(
-            action=<NodeAction.NODE_CREATED: 0>,
-            node_id=1000,
-            parent_group_id=1,
-            is_group=False
-            )
-        RECV: DoneResponse(
-            action=('/quit',)
-            )
+        >>> server.quit()
+        <Server: offline>
 
     '''
 

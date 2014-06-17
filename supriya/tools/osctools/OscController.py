@@ -41,7 +41,6 @@ class OscController(SupriyaObject):
     def __init__(self,
         server=None,
         timeout=2,
-        verbose=True,
         ):
         from supriya.tools import osctools
         self._server = server
@@ -55,25 +54,11 @@ class OscController(SupriyaObject):
         self._listener = osctools.OscListener(self)
         self._listener.start()
         self._socket_instance.bind(('', 0))
-        if verbose:
-            self.server.register_osc_callback(
-                osctools.OscCallback(
-                    address_pattern='/*', 
-                    procedure=self._print_message,
-                    )
-                )
 
     ### SPECIAL METHODS ###
 
     def __del__(self):
         self._listener.quit(wait=True)
-
-    ### PRIVATE METHODS ###
-
-    def _print_message(self, message):
-        if message.address != '/status.reply':
-            response = self.server._response_manager(message)
-            print('RECV:', response)
 
     ### PUBLIC METHODS ###
 

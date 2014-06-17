@@ -8,10 +8,9 @@ class ControlBus(Bus):
     ::
 
         >>> from supriya.tools import servertools
-        >>> server = servertools.Server().boot()
-        RECV: DoneResponse(
-            action=('/notify', 0)
-            )
+        >>> server = servertools.Server()
+        >>> server.boot()
+        <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
@@ -29,15 +28,6 @@ class ControlBus(Bus):
 
         >>> control_bus.free()
         >>> server.quit()
-        RECV: NodeInfoResponse(
-            action=<NodeAction.NODE_CREATED: 0>,
-            node_id=1,
-            parent_group_id=0,
-            is_group=True
-            )
-        RECV: DoneResponse(
-            action=('/quit',)
-            )
         <Server: offline>
 
     '''
