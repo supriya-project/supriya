@@ -14,11 +14,11 @@ class OscDispatcher(SupriyaObject):
 
     ::
 
-        >>> callback = osctools.OscCallback(
+        >>> osc_callback = osctools.OscCallback(
         ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
-        >>> dispatcher.register_callback(callback)
+        >>> dispatcher.register_osc_callback(osc_callback)
 
     ::
 
@@ -28,7 +28,7 @@ class OscDispatcher(SupriyaObject):
 
     ::
 
-        >>> dispatcher.unregister_callback(callback)
+        >>> dispatcher.unregister_osc_callback(osc_callback)
         >>> dispatcher(message)
 
     '''
@@ -73,7 +73,7 @@ class OscDispatcher(SupriyaObject):
                     continue
             callback(message)
             if callback.is_one_shot:
-                self.unregister_callback(callback)
+                self.unregister_osc_callback(callback)
 
     ### PUBLIC METHODS ###
 
@@ -85,40 +85,40 @@ class OscDispatcher(SupriyaObject):
         pattern = re.compile(pattern)
         return pattern
 
-    def register_callback(self, callback):
-        r'''Registers `callback`.
+    def register_osc_callback(self, osc_callback):
+        r'''Registers `osc_callback`.
 
         Returns none.
         '''
         from supriya.tools import osctools
-        assert isinstance(callback, osctools.OscCallback)
-        if callback.address_pattern in self._address_map:
-            regex = self._address_map[callback.address_pattern]
+        assert isinstance(osc_callback, osctools.OscCallback)
+        if osc_callback.address_pattern in self._address_map:
+            regex = self._address_map[osc_callback.address_pattern]
         else:
-            regex = self.compile_address_pattern(callback.address_pattern)
-            self._address_map[callback.address_pattern] = regex
+            regex = self.compile_address_pattern(osc_callback.address_pattern)
+            self._address_map[osc_callback.address_pattern] = regex
         if regex not in self._regex_map:
             self._regex_map[regex] = []
-        callbacks = self._regex_map[regex]
-        if callback not in callbacks:
-            callbacks.append(callback)
+        osc_callbacks = self._regex_map[regex]
+        if osc_callback not in osc_callbacks:
+            osc_callbacks.append(osc_callback)
 
-    def unregister_callback(self, callback):
-        r'''Unregisters `callback`.
+    def unregister_osc_callback(self, osc_callback):
+        r'''Unregisters `osc_callback`.
 
         Returns none.
         '''
         from supriya.tools import osctools
-        assert isinstance(callback, osctools.OscCallback)
-        if callback.address_pattern not in self._address_map:
+        assert isinstance(osc_callback, osctools.OscCallback)
+        if osc_callback.address_pattern not in self._address_map:
             return
-        regex = self._address_map[callback.address_pattern]
+        regex = self._address_map[osc_callback.address_pattern]
         if regex not in self._regex_map:
             return
-        callbacks = self._regex_map[regex]
-        if callback not in callbacks:
+        osc_callbacks = self._regex_map[regex]
+        if osc_callback not in osc_callbacks:
             return
-        callbacks.remove(callback)
-        if not callbacks:
+        osc_callbacks.remove(osc_callback)
+        if not osc_callbacks:
             del(self._regex_map[regex])
-            del(self._address_map[callback.address_pattern])
+            del(self._address_map[osc_callback.address_pattern])

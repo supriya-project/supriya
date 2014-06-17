@@ -41,6 +41,7 @@ class Server(object):
         '_nodes',
         '_osc_controller',
         '_port',
+        '_response_manager',
         '_root_node',
         '_server_options',
         '_server_process',
@@ -69,6 +70,7 @@ class Server(object):
     ### INITIALIZER ###
 
     def __init__(self, ip_address='127.0.0.1', port=57751):
+        from supriya.tools import responsetools
         if hasattr(self, 'is_running') and self.is_running:
             return
         self._audio_bus_allocator = None
@@ -86,6 +88,7 @@ class Server(object):
         self._nodes = None
         self._osc_controller = None
         self._port = port
+        self._response_manager = responsetools.ResponseManager()
         self._root_node = None
         self._server_options = None
         self._server_process = None
@@ -127,21 +130,6 @@ class Server(object):
 
     ### PRIVATE METHODS ###
 
-    def _register_buffer(self, buffer_):
-        from supriya.tools import servertools
-        assert isinstance(buffer_, servertools.Buffer)
-        assert buffer_.server is None
-
-    def _register_control_bus(self, control_bus):
-        from supriya.tools import servertools
-        assert isinstance(control_bus, servertools.ControlBus)
-        assert control_bus.server is None
-
-    def _register_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        assert node.server is None
-
     def _setup_server_state(self):
         from supriya.tools import servertools
         options = self.server_options
@@ -175,8 +163,12 @@ class Server(object):
         self._root_node._children.append(self._default_group)
         self.send_message(('/g_new', 1, 0, 0))
         self._server_status = None
+        self._status_watcher = servertools.StatusWatcher(self)
+        self._status_watcher.start()
 
     def _teardown_server_state(self):
+        self._status_watcher.active = False
+        self._status_watcher = None
         self._audio_bus_allocator = None
         self._audio_input_bus = None
         self._audio_output_bus = None
@@ -194,38 +186,6 @@ class Server(object):
         self._default_group = None
         self._root_node = None
         self._server_status = None
-
-    def _unregister_audio_bus(self, audio_bus):
-        from supriya.tools import servertools
-        assert isinstance(audio_bus, servertools.AudioBus)
-        if audio_bus.server is None:
-            return
-        elif audio_bus.server is not self:
-            raise ValueError
-
-    def _unregister_buffer(self, buffer_):
-        from supriya.tools import servertools
-        assert isinstance(buffer_, servertools.Buffer)
-        if buffer_.server is None:
-            return
-        elif buffer_.server is not self:
-            raise ValueError
-
-    def _unregister_control_bus(self, control_bus):
-        from supriya.tools import servertools
-        assert isinstance(control_bus, servertools.ControlBus)
-        if control_bus.server is None:
-            return
-        elif control_bus.server is not self:
-            raise ValueError
-
-    def _unregister_node(self, node):
-        from supriya.tools import servertools
-        assert isinstance(node, servertools.Node)
-        if node.server is None:
-            return
-        elif node.server is not self:
-            raise ValueError
 
     ### PUBLIC METHODS ###
 
@@ -302,7 +262,7 @@ class Server(object):
         return self
 
     def register_osc_callback(self, osc_callback):
-        self._osc_controller.register_callback(osc_callback)
+        self._osc_controller.register_osc_callback(osc_callback)
 
     def send_message(self, message):
         if not message or not self.is_running:
@@ -310,7 +270,9 @@ class Server(object):
         self._osc_controller.send(message)
 
     def unregister_osc_callback(self, osc_callback):
-        self._osc_controller.unregister_callback(osc_callback)
+        if self._osc_controller is None:
+            return
+        self._osc_controller.unregister_osc_callback(osc_callback)
 
     ### PUBLIC PROPERTIES ###
 
@@ -355,9 +317,17 @@ class Server(object):
         return self._port
 
     @property
+    def response_manager(self):
+        return self._response_manager
+
+    @property
     def root_node(self):
         return self._root_node
 
     @property
     def server_options(self):
         return self._server_options
+
+    @property
+    def server_status(self):
+        return self._server_status

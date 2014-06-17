@@ -70,10 +70,10 @@ class OscController(SupriyaObject):
         self._listener.start()
         self._socket_instance.bind(('', 0))
         if verbose:
-            self._dispatcher.register_callback(
+            self._dispatcher.register_osc_callback(
                 osctools.OscCallback(
                     address_pattern='/*', 
-                    procedure=lambda message: print('RECV:', message),
+                    procedure=self._print_message,
                     )
                 )
 
@@ -82,7 +82,16 @@ class OscController(SupriyaObject):
     def __del__(self):
         self._listener.quit(wait=True)
 
+    ### PRIVATE METHODS ###
+
+    def _print_message(self, message):
+        if message.address != '/status.reply':
+            print('RECV:', message)
+
     ### PUBLIC METHODS ###
+
+    def register_osc_callback(self, osc_callback):
+        self._dispatcher.register_osc_callback(osc_callback)
 
     def send(self, message):
         from supriya.tools import osctools
@@ -101,6 +110,9 @@ class OscController(SupriyaObject):
             datagram,
             (self.server_ip_address, self.server_port),
             )
+
+    def unregister_osc_callback(self, osc_callback):
+        self._dispatcher.unregister_osc_callback(osc_callback)
 
     ### PUBLIC PROPERTIES ###
 
