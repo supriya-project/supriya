@@ -35,21 +35,21 @@ class StatusWatcher(threading.Thread):
             return
         response = self._server.response_manager(message)
         self._server._server_status = response
-        self._attempts -= 1
+        self._attempts = 0
 
     ### PUBLIC METHODS ###
-    
+
     def run(self):
         from supriya.tools import servertools
         self.server.register_osc_callback(self.osc_callback)
         message = servertools.CommandManager.make_status_message()
         while self._active:
-            if 4 < self.attempts:
+            if 5 < self.attempts:
                 self.server.quit()
                 break
             self.server.send_message(message)
             self._attempts += 1
-            time.sleep(0.05)
+            time.sleep(0.2)
         self.server.unregister_osc_callback(self.osc_callback)
 
     ### PUBLIC PROPERTIES ###
@@ -73,6 +73,6 @@ class StatusWatcher(threading.Thread):
     @property
     def server(self):
         return self._server
-             
-            
-        
+
+
+
