@@ -319,8 +319,8 @@ class Server(object):
         from supriya.tools import osctools
         if not message or not self.is_running:
             return
-        if isinstance(message, osctools.OscMessage) and message.address != 2:
-            print('SEND:', message)
+        #if isinstance(message, osctools.OscMessage) and message.address != 2:
+        #    print('SEND:', message)
         self._osc_controller.send(message)
 
     def sync(self, sync_id=None):
