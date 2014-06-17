@@ -75,6 +75,43 @@ class ResponseManager(SupriyaObject):
             buffer_number=1
             )
 
+    ::
+
+        >>> message = osctools.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
+        >>> manager(message)
+        QueryTreeGroup(
+            node_id=0,
+            children=(
+                QueryTreeGroup(
+                    node_id=1,
+                    children=(
+                        QueryTreeGroup(
+                            node_id=1001,
+                            children=()
+                            ),
+                        QueryTreeGroup(
+                            node_id=1000,
+                            children=(
+                                QueryTreeGroup(
+                                    node_id=1002,
+                                    children=()
+                                    ),
+                                )
+                            ),
+                        )
+                    ),
+                )
+            )
+
+    ::
+
+        >>> print(manager(message))
+        NODE TREE 0 group
+            1 group
+                1001 group
+                1000 group
+                    1002 group
+
     '''
 
     ### CLASS VARIABLES ###
@@ -228,50 +265,42 @@ class ResponseManager(SupriyaObject):
         return response
 
     def _handle_g_query_tree_reply(self, command, contents):
-        from supriya.tools import responsetools
-        control_flag = contents[0]
-        node_id = contents[1]
-        child_count = contents[2]
-        contents = contents[3:]
-        items = []
-        while contents:
-            child_node_id = contents[0]
-            child_child_count = contents[1]
-            contents = contents[2:]
-            if 0 <= child_count:
-                item = responsetools.QueryTreeGroupItem(
-                    node_id=child_node_id,
-                    child_count=child_child_count,
-                    )
-            else:
-                synthdef_name = contents[0]
-                contents = contents[1:]
-                control_items = []
+        def recurse(contents, control_flag):
+            node_id = contents.pop(0)
+            child_count = contents.pop(0)
+            if child_count == -1:
+                controls = []
+                synthdef_name = contents.pop(0)
                 if control_flag:
-                    control_count = contents[0]
-                    contents = contents[1:]
-                    for _ in control_count:
-                        control_name_or_index = contents[0]
-                        control_value = contents[1]
-                        contents = contents[2:]
-                        control_item = responsetools.QueryTreeSynthControlItem(
+                    control_count = contents.pop(0)
+                    for i in range(control_count):
+                        control_name_or_index = contents.pop(0)
+                        control_value = contents.pop(0)
+                        control = responsetools.QueryTreeControl(
                             control_name_or_index=control_name_or_index,
                             control_value=control_value,
                             )
-                        control_items.append(control_item)
-                control_items = tuple(control_items)
-                item = responsetools.QueryTreeSynthItem(
-                    node_id=child_node_id,
+                        controls.append(control)
+                controls = tuple(controls)
+                result = responsetools.QueryTreeSynth(
+                    node_id=node_id,
                     synthdef_name=synthdef_name,
-                    control_items=control_items,
+                    controls=controls,
                     )
-            items.append(item)
-        items = tuple(items)
-        response = responsetools.QueryTreeResponse(
-            node_id=node_id,
-            child_count=child_count,
-            items=items,
-            )
+            else:
+                children = []
+                for i in range(child_count):
+                    children.append(recurse(contents, control_flag))
+                children = tuple(children)
+                result = responsetools.QueryTreeGroup(
+                    node_id=node_id,
+                    children=children,
+                    )
+            return result
+        from supriya.tools import responsetools
+        contents = list(contents)
+        control_flag = bool(contents.pop(0))
+        response = recurse(contents, control_flag)
         return response
 
     def _handle_n_info(self, command, contents):

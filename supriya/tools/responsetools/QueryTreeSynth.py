@@ -2,7 +2,7 @@
 from supriya.tools.responsetools.Response import Response
 
 
-class QueryTreeSynthItem(Response):
+class QueryTreeSynth(Response):
 
     ### CLASS VARIABLES ###
 
@@ -23,6 +23,29 @@ class QueryTreeSynthItem(Response):
         self._controls = controls
         self._node_id = node_id
         self._synthdef_name = synthdef_name
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        result = self._get_str_format_pieces()
+        result = '\n'.join(result)
+        return result
+
+    ### PRIVATE METHODS ###
+
+    def _get_str_format_pieces(self):
+        result = []
+        synth_string = '{} {}'.format(
+            self.node_id,
+            self.synthdef_name,
+            )
+        result.append(synth_string)
+        control_string = ', '.join(
+            str(control) for control in self.controls
+            )
+        control_string = '\t' + control_string
+        result.append(control_string)
+        return result
 
     ### PUBLIC PROPERTIES ###
 

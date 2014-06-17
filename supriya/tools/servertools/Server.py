@@ -295,6 +295,22 @@ class Server(object):
             Server._default_server = Server()
         return Server._default_server
 
+    def query_local_nodes(self):
+        pass
+
+    def query_synth_nodes(self):
+        from supriya.tools import servertools
+        wait = servertools.WaitForServer(
+            address_pattern='/g_queryTree.reply',
+            server=self,
+            )
+        message = servertools.CommandManager.make_group_query_tree_message(0)
+        with wait:
+            self.send_message(message)
+        reply = wait.received_message
+        response = self._response_manager(reply)
+        return response
+
     def quit(self):
         from supriya.tools import servertools
         if not self.is_running:

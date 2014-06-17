@@ -2,7 +2,7 @@
 from supriya.tools.responsetools.Response import Response
 
 
-class QueryTreeSynthControlItem(Response):
+class QueryTreeControl(Response):
 
     ### CLASS VARIABLES ###
 
@@ -20,6 +20,15 @@ class QueryTreeSynthControlItem(Response):
         ):
         self._control_value = control_value
         self._control_name_or_index = control_name_or_index
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        string = '{}: {}'.format(
+            self._control_name_or_index,
+            self._control_value,
+            )
+        return string
 
     ### PUBLIC PROPERTIES ###
 
