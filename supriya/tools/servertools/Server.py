@@ -304,7 +304,7 @@ class Server(object):
     def query_local_nodes(self):
         pass
 
-    def query_remote_nodes(self):
+    def query_remote_nodes(self, include_controls=False):
         r'''Queries all nodes on scsynth.
 
         ::
@@ -323,13 +323,20 @@ class Server(object):
         ::
 
             >>> from supriya import synthdeftools
-            >>> synthdef = synthdeftools.SynthDef()
-            >>> synthdef.add_ugen(
-            ...     synthdeftools.Out.ar(
-            ...         bus=(0, 1),
-            ...         source=synthdeftools.SinOsc.ar() * 0.0,
-            ...         ),
+            >>> synthdef = synthdeftools.SynthDef(
+            ...     amplitude=0.0,
+            ...     frequency=440.0,
             ...     )
+            >>> controls = synthdef.controls
+            >>> sin_osc = synthdeftools.SinOsc.ar(
+            ...     frequency=controls['frequency'],
+            ...     )
+            >>> sin_osc *= controls['amplitude']
+            >>> out = synthdeftools.Out.ar(
+            ...     bus=(0, 1),
+            ...     source=sin_osc,
+            ...     )
+            >>> synthdef.add_ugen(out)
             >>> synthdef.allocate()
             >>> server.sync()
             <Server: udp://127.0.0.1:57751, 8i8o>
@@ -342,12 +349,13 @@ class Server(object):
 
         ::
 
-            >>> response = server.query_remote_nodes()
+            >>> response = server.query_remote_nodes(include_controls=True)
             >>> print(response)
             NODE TREE 0 group
                 1 group
                     1001 group
-                        1003 bb6ed70950cc996bf5b4a8fa25935d58
+                        1003 f1c3ea5063065be20688f82b415c1108
+                            amplitude: 0.0, frequency: 440.0
                     1000 group
                         1002 group
 
@@ -363,7 +371,10 @@ class Server(object):
             address_pattern='/g_queryTree.reply',
             server=self,
             )
-        message = servertools.CommandManager.make_group_query_tree_message(0)
+        message = servertools.CommandManager.make_group_query_tree_message(
+            node_id=0,
+            include_controls=include_controls,
+            )
         with wait:
             self.send_message(message)
         reply = wait.received_message

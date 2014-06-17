@@ -53,7 +53,7 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_group_query_tree_message(node_id, list_controls=False):
+    def make_group_query_tree_message(node_id, include_controls=False):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('group_query_tree')
         command_type = int(command_type)
@@ -62,11 +62,11 @@ class CommandManager(object):
             node_id = node_id.node_id
         elif isinstance(node_id, int):
             node_id = node_id
-        list_controls = int(bool(list_controls))
+        include_controls = int(bool(include_controls))
         message = osctools.OscMessage(
             command_type,
             node_id,
-            list_controls,
+            include_controls,
             )
         return message
 
