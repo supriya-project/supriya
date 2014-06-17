@@ -80,6 +80,7 @@ class Synth(Node):
     def allocate(
         self,
         add_action=None,
+        node_id_is_permanent=False,
         target_node=None,
         **kwargs
         ):
@@ -87,6 +88,7 @@ class Synth(Node):
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
+            node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
         message = servertools.CommandManager.make_synth_new_message(

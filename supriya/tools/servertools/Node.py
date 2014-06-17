@@ -28,7 +28,9 @@ class Node(ServerObjectProxy):
 
     def __repr__(self):
         class_name = type(self).__name__
-        node_id = self.node_id or '???'
+        node_id = '???'
+        if self.node_id is not None:
+            node_id = self.node_id
         string = '<{class_name}: {node_id}>'.format(
             class_name=class_name,
             node_id=node_id,
@@ -145,7 +147,7 @@ class Node(ServerObjectProxy):
                     self.node_id,
                     )
                 self.server.send_message(message)
-            if self.node_id_is_permanent:
+            if self.node_id_is_permanent and self.server.node_id_allocator:
                 self.server.node_id_allocator.free_permanent_node_id(
                     self.node_id,
                     )

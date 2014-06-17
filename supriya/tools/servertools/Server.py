@@ -187,13 +187,13 @@ class Server(object):
             ):
             self.send_message(notify_message)
 
-        self._default_group = servertools.Group()
-        self._default_group._node_id = 1
-        self._default_group._parent = self._root_node
-        self._default_group._server = self
-        self._nodes[1] = self._default_group
-        self._root_node._children.append(self._default_group)
-        self.send_message(('/g_new', 1, 0, 0))
+        default_group = servertools.Group()
+        default_group.allocate(
+            add_action=servertools.AddAction.ADD_TO_HEAD,
+            node_id_is_permanent=True,
+            target_node=self.root_node,
+            )
+        self._default_group = default_group
 
     def _teardown_server_state(self):
         self._status_watcher.active = False
