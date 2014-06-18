@@ -10,7 +10,7 @@ class Dust(UGen):
     __slots__ = ()
 
     _argument_specifications = (
-        Argument('density', 0.),
+        Argument('density'),
         )
 
     ### INITIALIZER ###

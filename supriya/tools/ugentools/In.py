@@ -54,7 +54,7 @@ class In(MultiOutUGen):
     __slots__ = ()
 
     _argument_specifications = (
-        Argument('bus', 0),
+        Argument('bus'),
         )
 
     ### INITIALIZER ###

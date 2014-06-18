@@ -11,9 +11,9 @@ class FreeVerb(UGen):
 
     _argument_specifications = (
         Argument('source'),
-        Argument('mix', 0.33),
-        Argument('room_size', 0.5),
-        Argument('damping', 0.5),
+        Argument('mix'),
+        Argument('room_size'),
+        Argument('damping'),
         )
 
     ### INITIALIZER ###

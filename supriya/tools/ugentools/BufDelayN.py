@@ -27,8 +27,8 @@ class BufDelayN(PureUGen):
     _argument_specifications = (
         Argument('buffer_id'),
         Argument('source'),
-        Argument('maximum_delay_time', 0.2),
-        Argument('delay_time', 0.2),
+        Argument('maximum_delay_time'),
+        Argument('delay_time'),
         )
 
     ### INITIALIZER ###

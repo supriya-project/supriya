@@ -26,9 +26,9 @@ class BufCombN(PureUGen):
     _argument_specifications = (
         Argument('buffer_id'),
         Argument('source'),
-        Argument('maximum_delay_time', 0.2),
-        Argument('delay_time', 0.2),
-        Argument('decay_time', 1.0),
+        Argument('maximum_delay_time'),
+        Argument('delay_time'),
+        Argument('decay_time'),
         )
 
     ### INITIALIZER ###

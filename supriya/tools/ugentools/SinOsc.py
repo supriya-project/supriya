@@ -19,8 +19,8 @@ class SinOsc(PureUGen):
     __slots__ = ()
 
     _argument_specifications = (
-        Argument('frequency', 440),
-        Argument('phase', 0),
+        Argument('frequency'),
+        Argument('phase'),
         )
 
     ### INITIALIZER ###
