@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumAudioBuses(InfoUGenBase):
-    r'''Number of audio busses info unit generator.
+    r'''Number of audio buses info unit generator.
 
     ::
 

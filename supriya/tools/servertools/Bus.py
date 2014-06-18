@@ -5,7 +5,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Bus(ServerObjectProxy, collections.Sequence):
-    r'''Abstract parent class for busses.
+    r'''Abstract parent class for buses.
     '''
 
     ### CLASS VARIABLES ###

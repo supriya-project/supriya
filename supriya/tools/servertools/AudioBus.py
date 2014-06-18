@@ -52,8 +52,8 @@ class AudioBus(Bus):
         bus_id = self.server.audio_bus_allocator.allocate()
         if bus_id is None:
             raise Exception
-        assert bus_id not in self.server._audio_busses
-        self.server._audio_busses[bus_id] = self
+        assert bus_id not in self.server._audio_buses
+        self.server._audio_buses[bus_id] = self
         self._bus_id = bus_id
 
     def ar(self):
@@ -67,7 +67,7 @@ class AudioBus(Bus):
             return
         if self.server is not None:
             self.server.audio_bus_allocator.free(self.bus_id)
-            del(self.server._audio_busses[self._bus_id])
+            del(self.server._audio_buses[self._bus_id])
         self._bus_id = None
         Bus.free(self)
 

@@ -27,13 +27,13 @@ class Server(object):
 
     __slots__ = (
         '_audio_bus_allocator',
-        '_audio_busses',
+        '_audio_buses',
         '_audio_input_bus',
         '_audio_output_bus',
         '_buffer_allocator',
         '_buffers',
         '_control_bus_allocator',
-        '_control_busses',
+        '_control_buses',
         '_default_group',
         '_ip_address',
         '_is_running',
@@ -126,8 +126,8 @@ class Server(object):
 
         ### PROXY MAPPINGS ###
 
-        self._audio_busses = {}
-        self._control_busses = {}
+        self._audio_buses = {}
+        self._control_buses = {}
         self._buffers = {}
         self._nodes = {}
         self._synthdefs = {}
@@ -236,11 +236,11 @@ class Server(object):
         self._sync_id = 0
 
     def _teardown_proxies(self):
-        for x in tuple(self._audio_busses.values()):
+        for x in tuple(self._audio_buses.values()):
             x.free()
         for x in tuple(self._buffers.values()):
             x.free()
-        for x in tuple(self._control_busses.values()):
+        for x in tuple(self._control_buses.values()):
             x.free()
         for x in tuple(self._nodes.values()):
             x.free()

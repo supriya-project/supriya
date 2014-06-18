@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumControlBuses(InfoUGenBase):
-    r'''Number of control busses info unit generator.
+    r'''Number of control buses info unit generator.
 
     ::
 
