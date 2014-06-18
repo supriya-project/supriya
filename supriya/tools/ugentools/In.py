@@ -4,6 +4,50 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class In(MultiOutUGen):
+    r'''A bus input unit generator.
+
+    ::
+
+        >>> from supriya.tools import ugentools
+        >>> ugentools.In.ar(bus=0, channel_count=4)
+        UGenArray(
+            (
+                OutputProxy(
+                    source=In(
+                        bus=0.0,
+                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        channel_count=4
+                        ),
+                    output_index=0
+                    ),
+                OutputProxy(
+                    source=In(
+                        bus=0.0,
+                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        channel_count=4
+                        ),
+                    output_index=1
+                    ),
+                OutputProxy(
+                    source=In(
+                        bus=0.0,
+                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        channel_count=4
+                        ),
+                    output_index=2
+                    ),
+                OutputProxy(
+                    source=In(
+                        bus=0.0,
+                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        channel_count=4
+                        ),
+                    output_index=3
+                    ),
+                )
+            )
+
+    '''
 
     ### CLASS VARIABLES ###
 
