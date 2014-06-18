@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.synthdeftools.Argument import Argument
-from supriya.tools.synthdeftools.ugens.PureUGen import PureUGen
+from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SinOsc(PureUGen):
@@ -8,8 +8,8 @@ class SinOsc(PureUGen):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> synthdeftools.SinOsc.ar()
+        >>> from supriya.tools import ugentools
+        >>> ugentools.SinOsc.ar()
         SinOsc.ar()
 
     '''
@@ -50,8 +50,8 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> synthdeftools.SinOsc.ar(
+            >>> from supriya.tools import ugentools
+            >>> ugentools.SinOsc.ar(
             ...     frequency=443,
             ...     phase=0.25,
             ...     )
@@ -79,8 +79,8 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> synthdeftools.SinOsc.kr(
+            >>> from supriya.tools import ugentools
+            >>> ugentools.SinOsc.kr(
             ...     frequency=443,
             ...     phase=0.25,
             ...     )

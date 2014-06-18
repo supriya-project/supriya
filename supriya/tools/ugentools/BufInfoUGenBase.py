@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.synthdeftools.Argument import Argument
-from supriya.tools.synthdeftools.ugens.InfoUGenBase import InfoUGenBase
+from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class BufInfoUGenBase(InfoUGenBase):

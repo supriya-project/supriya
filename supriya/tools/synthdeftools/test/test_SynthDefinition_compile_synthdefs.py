@@ -11,10 +11,10 @@ def test_SynthDefinition_compile_synthdefs_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     py_synthdef = synthdeftools.SynthDef('foo')
-    sine_one = synthdeftools.SinOsc.ar(frequency=420)
-    sine_two = synthdeftools.SinOsc.ar(frequency=440)
+    sine_one = ugentools.SinOsc.ar(frequency=420)
+    sine_two = ugentools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
-    out = synthdeftools.Out.ar(bus=0, source=sines)
+    out = ugentools.Out.ar(bus=0, source=sines)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -85,9 +85,9 @@ def test_SynthDefinition_compile_synthdefs_02():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     py_synthdef = synthdeftools.SynthDef('test')
-    sine = synthdeftools.SinOsc.ar()
+    sine = ugentools.SinOsc.ar()
     sine = -sine
-    out = synthdeftools.Out.ar(bus=99, source=sine)
+    out = ugentools.Out.ar(bus=99, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -151,8 +151,8 @@ def test_SynthDefinition_compile_synthdefs_03():
 
     py_synthdef = synthdeftools.SynthDef('test', freq=1200, out=23)
     controls = py_synthdef.controls
-    sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
-    out = synthdeftools.Out.ar(bus=controls['out'], source=sine)
+    sine = ugentools.SinOsc.ar(frequency=controls['freq'])
+    out = ugentools.Out.ar(bus=controls['out'], source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -217,7 +217,7 @@ def test_SynthDefinition_compile_synthdefs_04():
 
     py_synthdef = synthdeftools.SynthDef('test')
     inputs = synthdeftools.In.ar(bus=8, channel_count=2)
-    out = synthdeftools.Out.ar(bus=0, source=inputs)
+    out = ugentools.Out.ar(bus=0, source=inputs)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -271,8 +271,8 @@ def test_SynthDefinition_compile_synthdefs_05():
 
     py_synthdef = synthdeftools.SynthDef('test', freq=440)
     controls = py_synthdef.controls
-    sine = synthdeftools.SinOsc.ar(frequency=controls['freq'])
-    out = synthdeftools.Out.ar(bus=0, source=sine)
+    sine = ugentools.SinOsc.ar(frequency=controls['freq'])
+    out = ugentools.Out.ar(bus=0, source=sine)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -347,7 +347,7 @@ def test_SynthDefinition_compile_synthdefs_06():
         maximum_delay_time=5.0,
         delay_time=controls['delay_time'],
         )
-    out = synthdeftools.Out.ar(bus=0, source=delay)
+    out = ugentools.Out.ar(bus=0, source=delay)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 

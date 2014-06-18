@@ -7,4 +7,4 @@ systemtools.ImportManager.import_structured_package(
     globals(),
     )
 
-from supriya.tools.synthdeftools.ugens import *
+from supriya.tools.ugentools import *

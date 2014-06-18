@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
-from supriya.tools.synthdeftools.ugens.PseudoUGen import PseudoUGen
+from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class SoundIn(PseudoUGen):

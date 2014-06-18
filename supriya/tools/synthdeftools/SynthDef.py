@@ -11,25 +11,26 @@ class SynthDef(ServerObjectProxy):
     ::
 
         >>> from supriya import synthdeftools
+        >>> from supriya import ugentools
         >>> synthdef = synthdeftools.SynthDef(
         ...     'test',
         ...     freq_l=1200,
         ...     freq_r=1205,
         ...     )
         >>> controls = synthdef.controls
-        >>> line = synthdeftools.Line.kr(
+        >>> line = ugentools.Line.kr(
         ...     start=100,
         ...     stop=(
         ...         controls['freq_l'],
         ...         controls['freq_r'],
         ...         ),
         ...     )
-        >>> sin_osc = synthdeftools.SinOsc.ar(
+        >>> sin_osc = ugentools.SinOsc.ar(
         ...     frequency=line,
         ...     phase=0,
         ...     )
         >>> sin_osc = sin_osc * 0.2
-        >>> out = synthdeftools.Out.ar(
+        >>> out = ugentools.Out.ar(
         ...     bus=0,
         ...     source=sin_osc,
         ...     )

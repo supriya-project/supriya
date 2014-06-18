@@ -7,19 +7,20 @@ class Synth(Node):
     ::
 
         >>> from supriya import servertools
-        >>> from supriya import synthdeftools
         >>> server = servertools.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
+        >>> from supriya import synthdeftools
+        >>> from supriya import ugentools
         >>> synthdef = synthdeftools.SynthDef('test', frequency=440)
         >>> controls = synthdef.controls
-        >>> sin_osc = synthdeftools.SinOsc.ar(
+        >>> sin_osc = ugentools.SinOsc.ar(
         ...     frequency=controls['frequency'],
         ...     ) * 0.0
-        >>> out = synthdeftools.Out.ar(bus=(0, 1), source=sin_osc)
+        >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
         >>> synthdef.add_ugen(out)
         >>> synthdef.allocate()
         >>> server.sync()

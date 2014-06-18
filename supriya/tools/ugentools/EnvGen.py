@@ -9,8 +9,9 @@ class EnvGen(UGen):
     ::
 
         >>> from supriya.tools import synthdeftools
+        >>> from supriya.tools import ugentools
         >>> envelope = synthdeftools.Envelope.percussive()
-        >>> synthdeftools.EnvGen.ar(envelope=envelope)
+        >>> ugentools.EnvGen.ar(envelope=envelope)
         EnvGen.ar()
 
     '''
@@ -90,8 +91,9 @@ class EnvGen(UGen):
         ::
 
             >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
             >>> envelope = synthdeftools.Envelope.percussive()
-            >>> synthdeftools.EnvGen.ar(
+            >>> ugentools.EnvGen.ar(
             ...     envelope=envelope,
             ...     )
             EnvGen.ar()
@@ -119,8 +121,9 @@ class EnvGen(UGen):
         ::
 
             >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
             >>> envelope = synthdeftools.Envelope.percussive()
-            >>> synthdeftools.EnvGen.kr(
+            >>> ugentools.EnvGen.kr(
             ...     envelope=envelope,
             ...     )
             EnvGen.kr()

@@ -323,16 +323,17 @@ class Server(object):
         ::
 
             >>> from supriya import synthdeftools
+            >>> from supriya import ugentools
             >>> synthdef = synthdeftools.SynthDef(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     )
             >>> controls = synthdef.controls
-            >>> sin_osc = synthdeftools.SinOsc.ar(
+            >>> sin_osc = ugentools.SinOsc.ar(
             ...     frequency=controls['frequency'],
             ...     )
             >>> sin_osc *= controls['amplitude']
-            >>> out = synthdeftools.Out.ar(
+            >>> out = ugentools.Out.ar(
             ...     bus=(0, 1),
             ...     source=sin_osc,
             ...     )
@@ -402,7 +403,7 @@ class Server(object):
         self._osc_dispatcher.register_osc_callback(osc_callback)
 
     def send_message(self, message):
-        from supriya.tools import osctools
+        #from supriya.tools import osctools
         if not message or not self.is_running:
             return
         #if isinstance(message, osctools.OscMessage) and message.address != 2:
