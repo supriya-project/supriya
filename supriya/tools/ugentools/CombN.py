@@ -56,7 +56,7 @@ class CombN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate non-interpolating delay line.
+        r'''Create an audio-rate non-interpolating comb delay line.
 
         ::
 
@@ -92,7 +92,7 @@ class CombN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate non-interpolating delay line.
+        r'''Create a control-rate non-interpolating comb delay line.
 
         ::
 
