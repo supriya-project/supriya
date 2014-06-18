@@ -10,6 +10,22 @@ class DC(PureMultiOutUGen):
     ::
 
         >>> from supriya.tools import ugentools
+        >>> ugentools.DC.ar(source=0)
+        UGenArray(
+            (
+                OutputProxy(
+                    source=DC(
+                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        channel_count=1,
+                        source=0.0
+                        ),
+                    output_index=0
+                    ),
+                )
+            )
+
+    ::
+
         >>> ugentools.DC.ar(source=(1, 2, 3))
         UGenArray(
             (
@@ -79,7 +95,7 @@ class DC(PureMultiOutUGen):
         source=None,
         ):
         if not isinstance(source, collections.Sequence):
-            source = [source]
+            source = (source,)
         channel_count = len(source)
         return super(DC, cls)._new(
             calculation_rate=calculation_rate,
