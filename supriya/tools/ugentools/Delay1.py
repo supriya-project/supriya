@@ -49,9 +49,9 @@ class Delay1(PureUGen):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.ar(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.Delay1.ar(
-            ...     source=in_,
+            ...     source=source,
             ...     )
             Delay1.ar()
 
@@ -75,9 +75,9 @@ class Delay1(PureUGen):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.Delay1.kr(
-            ...     source=in_,
+            ...     source=source,
             ...     )
             Delay1.ar()
 

@@ -32,9 +32,9 @@ class Delay2(Delay1):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.ar(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.Delay2.ar(
-            ...     source=in_,
+            ...     source=source,
             ...     )
             Delay2.ar()
 
@@ -54,9 +54,9 @@ class Delay2(Delay1):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.Delay2.kr(
-            ...     source=in_,
+            ...     source=source,
             ...     )
             Delay2.ar()
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DelayN import DelayN
 
 
 class DelayL(DelayN):
-    r'''Linear interpolating delay line unit generator.
+    r'''Linear-interpolating delay line unit generator.
 
     ::
 
@@ -32,11 +32,11 @@ class DelayL(DelayN):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.ar(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.DelayL.ar(
             ...     delay_time=0.5,
             ...     maximum_delay_time=1.0,
-            ...     source=in_,
+            ...     source=source,
             ...     )
             DelayL.ar()
 
@@ -60,11 +60,11 @@ class DelayL(DelayN):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> in_ = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.DelayL.kr(
             ...     delay_time=0.5,
             ...     maximum_delay_time=1.0,
-            ...     source=in_,
+            ...     source=source,
             ...     )
             DelayL.ar()
 
