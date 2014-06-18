@@ -214,7 +214,7 @@ class UGen(UGenMethodMixin):
         from supriya.tools import ugentools
         if isinstance(expr, (int, float)):
             if expr == 0:
-                return ugentools.Silent.ar()
+                return ugentools.Silence.ar()
             return ugentools.DC.ar(expr)
         elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
             if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:

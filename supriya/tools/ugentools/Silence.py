@@ -2,13 +2,13 @@
 from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
-class Silent(PseudoUGen):
+class Silence(PseudoUGen):
     r'''Audio-rate silence pseudo-unit generator.
 
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.Silent.ar(channel_count=2)
+        >>> ugentools.Silence.ar(channel_count=2)
         UGenArray(
             (
                 OutputProxy(
