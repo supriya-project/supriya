@@ -2,15 +2,15 @@
 from supriya.tools.ugentools.DelayN import DelayN
 
 
-class DelayC(DelayN):
-    r'''Cubic-interpolating delay line unit generator.
+class DelayL(DelayN):
+    r'''Linear interpolating delay line unit generator.
 
     ::
 
         >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
-        >>> ugentools.DelayC.ar(source=source)
-        DelayC.ar()
+        >>> ugentools.DelayL.ar(source=source)
+        DelayL.ar()
 
     '''
 
@@ -33,16 +33,16 @@ class DelayC(DelayN):
 
             >>> from supriya.tools import ugentools
             >>> in_ = ugentools.In.ar(bus=0)
-            >>> ugentools.DelayC.ar(
+            >>> ugentools.DelayL.ar(
             ...     delay_time=0.5,
             ...     maximum_delay_time=1.0,
             ...     source=in_,
             ...     )
-            DelayC.ar()
+            DelayL.ar()
 
         Returns unit generator graph.
         '''
-        return super(DelayC, cls).ar(
+        return super(DelayL, cls).ar(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -61,16 +61,16 @@ class DelayC(DelayN):
 
             >>> from supriya.tools import ugentools
             >>> in_ = ugentools.In.kr(bus=0)
-            >>> ugentools.DelayC.kr(
+            >>> ugentools.DelayL.kr(
             ...     delay_time=0.5,
             ...     maximum_delay_time=1.0,
             ...     source=in_,
             ...     )
-            DelayC.ar()
+            DelayL.ar()
 
         Returns unit generator graph.
         '''
-        return super(DelayC, cls).kr(
+        return super(DelayL, cls).kr(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,

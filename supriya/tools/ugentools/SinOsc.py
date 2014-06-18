@@ -65,7 +65,6 @@ class SinOsc(PureUGen):
             calculation_rate=calculation_rate,
             frequency=frequency,
             phase=phase,
-            special_index=0,
             )
         return ugen
 
@@ -94,6 +93,5 @@ class SinOsc(PureUGen):
             calculation_rate=calculation_rate,
             frequency=frequency,
             phase=phase,
-            special_index=0,
             )
         return ugen

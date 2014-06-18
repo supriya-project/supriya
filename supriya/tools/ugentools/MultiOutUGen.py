@@ -38,14 +38,17 @@ class MultiOutUGen(UGen):
     def _get_outputs(self):
         return [self.calculation_rate] * len(self)
 
-    ### PUBLIC PROPERTIES ###
-
     @classmethod
-    def ar(cls, **kwargs):
+    def _new(
+        cls,
+        calculation_rate=None,
+        special_index=0,
+        **kwargs
+        ):
         from supriya.tools import synthdeftools
-        ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.AUDIO,
-            special_index=0,
+        ugen = super(MultiOutUGen, cls)._new(
+            calculation_rate=calculation_rate,
+            special_index=special_index,
             **kwargs
             )
         output_proxies = []
@@ -57,6 +60,18 @@ class MultiOutUGen(UGen):
         result = synthdeftools.UGenArray(output_proxies)
         return result
 
+    ### PUBLIC PROPERTIES ###
+
+    @classmethod
+    def ar(cls, **kwargs):
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        return cls._new(
+            calculation_rate=calculation_rate,
+            special_index=0,
+            **kwargs
+            )
+
     @property
     def channel_count(self):
         return self._channel_count
@@ -64,19 +79,12 @@ class MultiOutUGen(UGen):
     @classmethod
     def kr(cls, **kwargs):
         from supriya.tools import synthdeftools
-        ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        return cls._new(
+            calculation_rate=calculation_rate,
             special_index=0,
             **kwargs
             )
-        output_proxies = []
-        if isinstance(ugen, synthdeftools.UGen):
-            output_proxies.extend(ugen[:])
-        else:
-            for x in ugen:
-                output_proxies.extend(x[:])
-        result = synthdeftools.UgenArray(output_proxies)
-        return result
 
     @property
     def outputs(self):
