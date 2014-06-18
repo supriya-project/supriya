@@ -8,8 +8,7 @@ class Out(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _unexpanded_argument_names = ('source',)
 

@@ -21,8 +21,7 @@ class BufCombN(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _argument_specifications = (
         Argument('buffer_id'),

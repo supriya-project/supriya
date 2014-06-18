@@ -8,8 +8,7 @@ class SoundIn(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 

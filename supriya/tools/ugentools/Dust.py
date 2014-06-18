@@ -7,8 +7,7 @@ class Dust(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _argument_specifications = (
         Argument('density', 0.),
