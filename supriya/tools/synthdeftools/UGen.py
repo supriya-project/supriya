@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import abc
+import collections
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
@@ -206,6 +207,25 @@ class UGen(UGenMethodMixin):
         out_stack.append(self)
 
     ### PUBLIC METHODS ###
+
+    @staticmethod
+    def as_audio_rate_input(expr):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        if isinstance(expr, (int, float)):
+            if expr == 0:
+                return ugentools.Silent.ar()
+            return ugentools.DC.ar(expr)
+        elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
+            if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+                return expr
+            return ugentools.K2A.ar(source=expr)
+        elif isinstance(expr, collections.Sequence):
+            return synthdeftools.UGenArray(
+                UGen.as_audio_rate_input(x)
+                for x in expr
+                )
+        raise ValueError(expr)
 
     def compile(self, synthdef):
         def compile_input_spec(i, synthdef):
