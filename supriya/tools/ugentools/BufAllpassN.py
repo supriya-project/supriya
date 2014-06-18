@@ -24,7 +24,7 @@ class BufAllpassN(PureUGen):
     __slots__ = (
         )
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('buffer_id'),
         Argument('source'),
         Argument('maximum_delay_time'),

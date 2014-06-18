@@ -11,7 +11,7 @@ class BinaryOpUGen(UGen):
     __slots__ = (
         )
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('left'),
         Argument('right'),
         )

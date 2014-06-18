@@ -9,7 +9,7 @@ class UnaryOpUGen(UGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('source'),
         )
 

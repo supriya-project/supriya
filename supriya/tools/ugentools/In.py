@@ -53,7 +53,7 @@ class In(MultiOutUGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('bus'),
         )
 

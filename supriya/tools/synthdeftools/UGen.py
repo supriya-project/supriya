@@ -22,7 +22,7 @@ class UGen(UGenMethodMixin):
         '_width_first_antecedents',
         )
 
-    _argument_specifications = ()
+    _ordered_argument_names = ()
 
     _unexpanded_argument_names = None
 
@@ -41,11 +41,9 @@ class UGen(UGenMethodMixin):
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
-        for i in range(len(self._argument_specifications)):
-            argument_specification = self._argument_specifications[i]
-            argument_name = argument_specification.name
+        for i in range(len(self._ordered_argument_names)):
+            argument_name = self._ordered_argument_names[i].name
             argument_value = kwargs.get(argument_name, None)
-            argument_value = None
             if argument_name in kwargs:
                 argument_value = kwargs[argument_name]
                 del(kwargs[argument_name])
@@ -60,7 +58,7 @@ class UGen(UGenMethodMixin):
                 argument_name in self._unexpanded_argument_names:
                 prototype += (tuple,)
             assert isinstance(argument_value, prototype), argument_value
-            argument_specification.configure(self, argument_value)
+            self._configure_argument(argument_name, argument_value)
         if kwargs:
             raise ValueError(kwargs)
         self._antecedents = []
@@ -79,7 +77,7 @@ class UGen(UGenMethodMixin):
             object.__getattr__(self, attr)
         except AttributeError:
             for i, argument_specification in enumerate(
-                self._argument_specifications):
+                self._ordered_argument_names):
                 if argument_specification.name == attr:
                     return self.inputs[i]
         raise AttributeError
@@ -126,6 +124,24 @@ class UGen(UGenMethodMixin):
         for input_ in self._inputs:
             if not isinstance(input_, synthdeftools.OutputProxy):
                 self.synthdef._add_constant(float(input_))
+
+    def _configure_argument(self, name, value):
+        from supriya import synthdeftools
+        if isinstance(value, (int, float)):
+            self._add_constant_input(value)
+        elif isinstance(value, (synthdeftools.OutputProxy, synthdeftools.UGen)):
+            self._add_ugen_input(
+                value._get_source(),
+                value._get_output_number(),
+                )
+        elif isinstance(value, tuple) and \
+            all(isinstance(_, (int, float)) for _ in value):
+            assert self._unexpanded_argument_names
+            assert name in self._unexpanded_argument_names
+            for x in value:
+                self._add_constant_input(x)
+        else:
+            raise Exception(value)
 
     def _get_output_number(self):
         return 0

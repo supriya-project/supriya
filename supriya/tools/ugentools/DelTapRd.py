@@ -41,7 +41,7 @@ class DelTapRd(UGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('buffer_id'),
         Argument('phase'),
         Argument('delay_time'),

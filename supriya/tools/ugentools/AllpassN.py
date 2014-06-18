@@ -20,7 +20,7 @@ class AllpassN(PureUGen):
     __slots__ = (
         )
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('source'),
         Argument('maximum_delay_time'),
         Argument('delay_time'),

@@ -18,7 +18,7 @@ class Line(UGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('start'),
         Argument('stop'),
         Argument('duration'),

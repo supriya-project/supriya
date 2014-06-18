@@ -20,7 +20,7 @@ class EnvGen(UGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('gate'),
         Argument('level_scale'),
         Argument('level_bias'),

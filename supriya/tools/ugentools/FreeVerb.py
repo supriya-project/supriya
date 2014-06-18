@@ -9,7 +9,7 @@ class FreeVerb(UGen):
 
     __slots__ = ()
 
-    _argument_specifications = (
+    _ordered_argument_names = (
         Argument('source'),
         Argument('mix'),
         Argument('room_size'),
