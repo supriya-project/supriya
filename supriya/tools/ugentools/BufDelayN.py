@@ -60,7 +60,7 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate non-interpolating delay line.
+        r'''Create an audio-rate buffer-based non-interpolating delay line.
 
         ::
 
