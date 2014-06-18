@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import abc
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -13,6 +14,7 @@ class MultiOutUGen(UGen):
 
     ### INTIALIZER ###
 
+    @abc.abstractmethod
     def __init__(
         self,
         calculation_rate=None,
@@ -62,29 +64,9 @@ class MultiOutUGen(UGen):
 
     ### PUBLIC PROPERTIES ###
 
-    @classmethod
-    def ar(cls, **kwargs):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
-        return cls._new(
-            calculation_rate=calculation_rate,
-            special_index=0,
-            **kwargs
-            )
-
     @property
     def channel_count(self):
         return self._channel_count
-
-    @classmethod
-    def kr(cls, **kwargs):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
-        return cls._new(
-            calculation_rate=calculation_rate,
-            special_index=0,
-            **kwargs
-            )
 
     @property
     def outputs(self):

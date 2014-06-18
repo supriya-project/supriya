@@ -28,3 +28,37 @@ class In(MultiOutUGen):
             calculation_rate=calculation_rate,
             channel_count=channel_count,
             )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        bus=None,
+        channel_count=1,
+        ):
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new(
+            calculation_rate=calculation_rate,
+            special_index=0,
+            bus=bus,
+            channel_count=channel_count,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        bus=None,
+        channel_count=1,
+        ):
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new(
+            calculation_rate=calculation_rate,
+            special_index=0,
+            bus=bus,
+            channel_count=channel_count,
+            )
+        return ugen
