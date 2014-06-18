@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-import enum
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -12,8 +10,8 @@ class BinaryOpUGen(UGen):
         )
 
     _ordered_argument_names = (
-        Argument('left'),
-        Argument('right'),
+        'left',
+        'right',
         )
 
     ### INITIALIZER ###

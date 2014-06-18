@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.PureUGen import PureUGen
 
 
@@ -21,9 +20,9 @@ class DelayN(PureUGen):
         )
 
     _ordered_argument_names = (
-        Argument('source'),
-        Argument('maximum_delay_time'),
-        Argument('delay_time'),
+        'source',
+        'maximum_delay_time',
+        'delay_time',
         )
 
     ### INITIALIZER ###

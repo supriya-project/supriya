@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -21,12 +20,12 @@ class EnvGen(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('gate'),
-        Argument('level_scale'),
-        Argument('level_bias'),
-        Argument('time_scale'),
-        Argument('done_action'),
-        Argument('envelope'),
+        'gate',
+        'level_scale',
+        'level_bias',
+        'time_scale',
+        'done_action',
+        'envelope',
         )
 
     _unexpanded_argument_names = (

@@ -42,7 +42,7 @@ class UGen(UGenMethodMixin):
         self._inputs = []
         self._special_index = special_index
         for i in range(len(self._ordered_argument_names)):
-            argument_name = self._ordered_argument_names[i].name
+            argument_name = self._ordered_argument_names[i]
             argument_value = kwargs.get(argument_name, None)
             if argument_name in kwargs:
                 argument_value = kwargs[argument_name]
@@ -76,9 +76,9 @@ class UGen(UGenMethodMixin):
         try:
             object.__getattr__(self, attr)
         except AttributeError:
-            for i, argument_specification in enumerate(
+            for i, argument_name in enumerate(
                 self._ordered_argument_names):
-                if argument_specification.name == attr:
+                if argument_name == attr:
                     return self.inputs[i]
         raise AttributeError
 

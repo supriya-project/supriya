@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
-from supriya import synthdeftools
+from supriya.tools import synthdeftools
+from supriya.tools import ugentools
 
 
 def test_SynthDefinition_compile_synthdefs_01():

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -10,7 +9,7 @@ class UnaryOpUGen(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('source'),
+        'source',
         )
 
     ### INITIALIZER ###

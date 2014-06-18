@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -42,10 +41,10 @@ class DelTapRd(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('buffer_id'),
-        Argument('phase'),
-        Argument('delay_time'),
-        Argument('interpolation'),
+        'buffer_id',
+        'phase',
+        'delay_time',
+        'interpolation',
         )
 
     ### INITIALIZER ###

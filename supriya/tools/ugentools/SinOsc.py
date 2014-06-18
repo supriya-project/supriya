@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.PureUGen import PureUGen
 
 
@@ -19,8 +18,8 @@ class SinOsc(PureUGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('frequency'),
-        Argument('phase'),
+        'frequency',
+        'phase',
         )
 
     ### INITIALIZER ###

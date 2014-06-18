@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -10,10 +9,10 @@ class FreeVerb(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('source'),
-        Argument('mix'),
-        Argument('room_size'),
-        Argument('damping'),
+        'source',
+        'mix',
+        'room_size',
+        'damping',
         )
 
     ### INITIALIZER ###

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
@@ -54,7 +53,7 @@ class In(MultiOutUGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('bus'),
+        'bus',
         )
 
     ### INITIALIZER ###

@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 import abc
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
@@ -11,7 +10,7 @@ class BufInfoUGenBase(InfoUGenBase):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('buffer_number'),
+        'buffer_number',
         )
 
     ### INITIALIZER ###

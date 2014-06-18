@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -24,11 +23,11 @@ class Out(UGen):
             self,
             calculation_rate=calculation_rate,
             )
-        Argument('bus').configure(self, bus)
+        self._configure_argument('bus', bus)
         if not isinstance(source, collections.Sequence):
             source = [source]
         for single_source in source:
-            Argument('source').configure(self, single_source)
+            self._configure_argument('source', single_source)
 
     ### PRIVATE METHODS ###
 

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.PureUGen import PureUGen
 
 
@@ -24,11 +23,11 @@ class BufCombN(PureUGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('buffer_id'),
-        Argument('source'),
-        Argument('maximum_delay_time'),
-        Argument('delay_time'),
-        Argument('decay_time'),
+        'buffer_id',
+        'source',
+        'maximum_delay_time',
+        'delay_time',
+        'decay_time',
         )
 
     ### INITIALIZER ###

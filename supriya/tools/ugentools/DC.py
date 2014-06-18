@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.PureMultiOutUGen import PureMultiOutUGen
 
 
@@ -63,7 +62,7 @@ class DC(PureMultiOutUGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('source'),
+        'source',
         )
 
     _unexpanded_argument_names = (

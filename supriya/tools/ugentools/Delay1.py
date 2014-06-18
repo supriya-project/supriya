@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.PureUGen import PureUGen
 
 
@@ -20,7 +19,7 @@ class Delay1(PureUGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('source'),
+        'source',
         )
 
     ### INITIALIZER ###

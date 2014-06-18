@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -19,10 +18,10 @@ class Line(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('start'),
-        Argument('stop'),
-        Argument('duration'),
-        Argument('done_action'),
+        'start',
+        'stop',
+        'duration',
+        'done_action',
         )
 
     ### INITIALIZER ###

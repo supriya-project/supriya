@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -42,8 +41,8 @@ class DelTapWr(UGen):
     __slots__ = ()
 
     _ordered_argument_names = (
-        Argument('buffer_id'),
-        Argument('source'),
+        'buffer_id',
+        'source',
         )
 
     ### INITIALIZER ###
