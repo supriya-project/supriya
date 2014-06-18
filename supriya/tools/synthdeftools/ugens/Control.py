@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.coreugens.MultiOutUGen import MultiOutUGen
+from supriya.tools.synthdeftools.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):

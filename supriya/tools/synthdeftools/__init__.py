@@ -7,11 +7,4 @@ systemtools.ImportManager.import_structured_package(
     globals(),
     )
 
-from supriya.tools.synthdeftools.coreugens import *
-from supriya.tools.synthdeftools.controlugens import *
-from supriya.tools.synthdeftools.delayugens import *
-from supriya.tools.synthdeftools.infougens import *
-from supriya.tools.synthdeftools.iougens import *
-from supriya.tools.synthdeftools.noiseugens import *
-from supriya.tools.synthdeftools.oscillatorugens import *
-from supriya.tools.synthdeftools.reverbugens import *
+from supriya.tools.synthdeftools.ugens import *

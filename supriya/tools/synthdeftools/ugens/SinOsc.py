@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.synthdeftools.Argument import Argument
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.synthdeftools.ugens.PureUGen import PureUGen
 
 
-class SinOsc(UGen):
+class SinOsc(PureUGen):
     r'''A sinusoid oscillator unit generator.
 
     ::
@@ -16,8 +16,7 @@ class SinOsc(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _argument_specifications = (
         Argument('frequency', 440),
@@ -32,7 +31,7 @@ class SinOsc(UGen):
         frequency=440.,
         phase=0.,
         ):
-        UGen.__init__(
+        PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
