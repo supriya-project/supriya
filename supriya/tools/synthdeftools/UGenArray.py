@@ -14,9 +14,10 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
     ### INITIALIZER ###
 
     def __init__(self, ugens):
-        assert isinstance(ugens, collections.Sequence)
+        assert isinstance(ugens, collections.Iterable)
+        ugens = tuple(ugens)
         assert len(ugens)
-        self._ugens = tuple(ugens)
+        self._ugens = ugens
 
     ### SPECIAL METHODS ###
 

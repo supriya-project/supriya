@@ -220,7 +220,7 @@ class UGen(UGenMethodMixin):
             if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:
                 return expr
             return ugentools.K2A.ar(source=expr)
-        elif isinstance(expr, collections.Sequence):
+        elif isinstance(expr, collections.Iterable):
             return synthdeftools.UGenArray(
                 UGen.as_audio_rate_input(x)
                 for x in expr
