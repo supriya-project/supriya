@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import abc
 from supriya.tools.synthdeftools.Argument import Argument
 from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
@@ -7,8 +8,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _argument_specifications = (
         Argument('buffer_number'),
@@ -16,6 +16,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     ### INITIALIZER ###
 
+    @abc.abstractmethod
     def __init__(
         self,
         buffer_number=None,
@@ -32,17 +33,19 @@ class BufInfoUGenBase(InfoUGenBase):
     @classmethod
     def ir(cls, buffer_number=None):
         from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.SCALAR,
             buffer_number=buffer_number,
+            calculation_rate=calculation_rate,
             )
         return ugen
 
     @classmethod
     def kr(cls, buffer_number=None):
         from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
             buffer_number=buffer_number,
+            calculation_rate=calculation_rate,
             )
         return ugen

@@ -2,14 +2,14 @@
 from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
-class NumOutputBuses(InfoUGenBase):
-    r'''Number of output busses info unit generator.
+class RadiansPerSample(InfoUGenBase):
+    r'''Radians-per-sample info unit generator.
 
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.NumOutputBuses.ir()
-        NumOutputBuses.ir()
+        >>> ugentools.RadiansPerSample.ir()
+        RadiansPerSample.ir()
 
     '''
 

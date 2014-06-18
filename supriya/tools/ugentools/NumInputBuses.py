@@ -2,14 +2,14 @@
 from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
-class NumOutputBuses(InfoUGenBase):
-    r'''Number of output busses info unit generator.
+class NumInputBuses(InfoUGenBase):
+    r'''Number of input busses info unit generator.
 
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.NumOutputBuses.ir()
-        NumOutputBuses.ir()
+        >>> ugentools.NumInputBuses.ir()
+        NumInputBuses.ir()
 
     '''
 
