@@ -159,7 +159,7 @@ class UGen(UGenMethodMixin):
     def _new(
         cls,
         calculation_rate=None,
-        special_index=None,
+        special_index=0,
         **kwargs
         ):
         import sys
@@ -207,16 +207,6 @@ class UGen(UGenMethodMixin):
 
     ### PUBLIC METHODS ###
 
-    @classmethod
-    def ar(cls, **kwargs):
-        from supriya.tools import synthdeftools
-        ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.AUDIO,
-            special_index=0,
-            **kwargs
-            )
-        return ugen
-
     def compile(self, synthdef):
         def compile_input_spec(i, synthdef):
             from supriya import synthdeftools
@@ -249,16 +239,6 @@ class UGen(UGenMethodMixin):
             result.append(SynthDef._encode_unsigned_int_8bit(o))
         result = bytes().join(result)
         return result
-
-    @classmethod
-    def kr(cls, **kwargs):
-        from supriya.tools import synthdeftools
-        ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
-            special_index=0,
-            **kwargs
-            )
-        return ugen
 
     ### PUBLIC PROPERTIES ###
 

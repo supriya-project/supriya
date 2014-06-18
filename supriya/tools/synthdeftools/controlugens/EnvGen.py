@@ -10,8 +10,7 @@ class EnvGen(UGen):
 
         >>> from supriya.tools import synthdeftools
         >>> envelope = synthdeftools.Envelope.percussive()
-        >>> envelope_generator = synthdeftools.EnvGen.ar(envelope=envelope)
-        >>> envelope_generator
+        >>> synthdeftools.EnvGen.ar(envelope=envelope)
         EnvGen.ar()
 
     '''
@@ -56,6 +55,27 @@ class EnvGen(UGen):
             time_scale=time_scale,
             )
 
+    ### PRIVATE METHODS ###
+
+    @classmethod
+    def _new(
+        cls,
+        calculation_rate=None,
+        done_action=None,
+        envelope=None,
+        ):
+        from supriya.tools import synthdeftools
+        done_action = synthdeftools.DoneAction.from_expr(done_action)
+        if envelope is None:
+            envelope = synthdeftools.Envelope()
+        assert isinstance(envelope, synthdeftools.Envelope)
+        envelope = tuple(envelope)
+        return super(EnvGen, cls)._new(
+            calculation_rate=calculation_rate,
+            done_action=done_action,
+            envelope=envelope,
+            )
+
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -65,17 +85,53 @@ class EnvGen(UGen):
         envelope=None,
         **kwargs
         ):
+        r'''Creates an audio-rate envelope generator.
+
+        ::
+
+            >>> from supriya.tools import synthdeftools
+            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> synthdeftools.EnvGen.ar(
+            ...     envelope=envelope,
+            ...     )
+            EnvGen.ar()
+
+        Returns unit generator graph.
+        '''
         from supriya.tools import synthdeftools
-        done_action = synthdeftools.DoneAction.from_expr(done_action)
-        if envelope is None:
-            envelope = synthdeftools.Envelope()
-        assert isinstance(envelope, synthdeftools.Envelope)
-        envelope = tuple(envelope)
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new(
-            calculation_rate=synthdeftools.CalculationRate.AUDIO,
-            special_index=0,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
-            **kwargs
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        done_action=0,
+        envelope=None,
+        **kwargs
+        ):
+        r'''Creates an control-rate envelope generator.
+
+        ::
+
+            >>> from supriya.tools import synthdeftools
+            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> synthdeftools.EnvGen.kr(
+            ...     envelope=envelope,
+            ...     )
+            EnvGen.kr()
+
+        Returns unit generator graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new(
+            calculation_rate=calculation_rate,
+            done_action=done_action,
+            envelope=envelope,
             )
         return ugen
