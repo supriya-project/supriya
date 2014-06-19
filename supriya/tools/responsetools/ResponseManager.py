@@ -35,7 +35,7 @@ class ResponseManager(SupriyaObject):
     ::
 
         >>> message = osctools.OscMessage('/b_info', 1100, 512, 1, 44100.0)
-        >>> manager(message)
+        >>> manager(message)[0]
         BufferInfoResponse(
             buffer_id=1100,
             frame_count=512,
@@ -169,9 +169,12 @@ class ResponseManager(SupriyaObject):
 
     def _handle_b_info(self, command, contents):
         from supriya.tools import responsetools
-        arguments = contents
-        response = responsetools.BufferInfoResponse(*arguments)
-        return response
+        responses = []
+        for group in self._group_items(contents, 4):
+            response = responsetools.BufferInfoResponse(*group)
+            responses.append(response)
+        responses = tuple(responses)
+        return responses
 
     def _handle_b_set(self, command, contents):
         from supriya.tools import responsetools

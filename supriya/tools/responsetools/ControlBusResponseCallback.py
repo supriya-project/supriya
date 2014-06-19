@@ -28,8 +28,11 @@ class ControlBusResponseCallback(OscCallback):
 
     def __call__(self, message):
         response = self._response_manager(message)
-        bus_id = response.bus_id
-        bus = self._server._control_buses.get(bus_id)
-        if bus is None:
-            return
-        bus.handle_response(response)
+        if not isinstance(response, tuple):
+            response = (response,)
+        for x in response:
+            bus_id = x.bus_id
+            bus = self._server._control_buses.get(bus_id)
+            if bus is None:
+                continue
+            bus.handle_response(x)

@@ -28,8 +28,11 @@ class NodeResponseCallback(OscCallback):
 
     def __call__(self, message):
         response = self._response_manager(message)
-        node_id = response.node_id
-        node = self._server._nodes.get(node_id)
-        if node is None:
-            return
-        node.handle_response(response)
+        if not isinstance(response, tuple):
+            response = (response,)
+        for x in response:
+            node_id = x.node_id
+            node = self._server._nodes.get(node_id)
+            if node is None:
+                continue
+            node.handle_response(x)

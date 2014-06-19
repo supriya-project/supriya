@@ -28,8 +28,11 @@ class BufferResponseCallback(OscCallback):
 
     def __call__(self, message):
         response = self._response_manager(message)
-        buffer_id = response.buffer_id
-        buffer_ = self._server._buffers.get(buffer_id)
-        if buffer_ is None:
-            return
-        buffer_.handle_response(response)
+        if not isinstance(response, tuple):
+            response = (response,)
+        for x in response:
+            buffer_id = x.buffer_id
+            buffer_ = self._server._buffers.get(buffer_id)
+            if buffer_ is None:
+                continue
+            buffer_.handle_response(x)

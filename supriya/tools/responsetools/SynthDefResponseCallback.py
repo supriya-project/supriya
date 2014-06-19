@@ -28,8 +28,11 @@ class SynthDefResponseCallback(OscCallback):
 
     def __call__(self, message):
         response = self._response_manager(message)
-        synthdef_name = response.synthdef_name
-        synthdef = self._server._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef.handle_response(response)
+        if not isinstance(response, tuple):
+            response = (response,)
+        for x in response:
+            synthdef_name = x.synthdef_name
+            synthdef = self._server._synthdefs.get(synthdef_name)
+            if synthdef is None:
+                return
+            synthdef.handle_response(x)
