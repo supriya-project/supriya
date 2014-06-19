@@ -8,7 +8,7 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_allocate_message(
-        buffer_number,
+        buffer_id,
         frame_count,
         channel_count=1,
         completion_message=None,
@@ -16,14 +16,14 @@ class CommandManager(object):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('buffer_allocate')
         command_type = int(command_type)
-        buffer_number = int(buffer_number)
+        buffer_id = int(buffer_id)
         frame_count = int(frame_count)
         channel_count = int(channel_count)
         if completion_message is not None:
             assert isinstance(completion_message, osctools.OscMessage)
             message = osctools.OscMessage(
                 command_type,
-                buffer_number,
+                buffer_id,
                 frame_count,
                 channel_count,
                 bytearray(completion_message.to_datagram())
@@ -31,7 +31,7 @@ class CommandManager(object):
         else:
             message = osctools.OscMessage(
                 command_type,
-                buffer_number,
+                buffer_id,
                 frame_count,
                 channel_count,
                 )
@@ -39,25 +39,37 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_free_message(
-        buffer_number,
+        buffer_id,
         completion_message=None,
         ):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('buffer_free')
         command_type = int(command_type)
-        buffer_number = int(buffer_number)
+        buffer_id = int(buffer_id)
         if completion_message is not None:
             assert isinstance(completion_message, osctools.OscMessage)
             message = osctools.OscMessage(
                 command_type,
-                buffer_number,
+                buffer_id,
                 bytearray(completion_message.to_datagram())
                 )
         else:
             message = osctools.OscMessage(
                 command_type,
-                buffer_number,
+                buffer_id,
                 )
+        return message
+
+    @staticmethod
+    def make_buffer_query_message(*buffer_ids):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_query')
+        command_type = int(command_type)
+        buffer_ids = [int(x) for x in buffer_ids]
+        message = osctools.OscMessage(
+            command_type,
+            *buffer_ids
+            )
         return message
 
     @staticmethod
