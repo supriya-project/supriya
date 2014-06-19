@@ -5,8 +5,23 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
+Installation
+------------
+
+To install, simply clone *supriya* and run the included `setup.py`:
+
+    ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+    ~$ cd supriya
+    supriya$ sudo python setup.py install
+
+To run the test suite:
+
+    supriya$ tox 
+
 Dependencies
 ------------
+
+For all Python versions:
 
 - abjad
 - pexpect
@@ -27,7 +42,7 @@ On Python 3.3:
 Example
 -------
 
-Import packages from `supriya`:
+Import packages from *supriya*:
 
     >>> from supriya import servertools
     >>> from supriya import synthdeftools
@@ -107,7 +122,16 @@ Current Roadmap
     - [ ] Implement Control class (model a single control name, value, rate)
     - [ ] Implement AudioControls and TriggerControls UGens
 - [ ] Implement complete Buffer API
-- [ ] Implement complete Bus API
+    - [ ] `/b_alloc`
+    - [ ] `/b_allocRead`, `/b_allocReadChannel`
+    - [ ] `/b_read`, `/b_readChannel`
+    - [ ] `/b_write`, `/b_close`
+    - [ ] `/b_get`, `/b_getn`
+    - [ ] `/b_set`, `/b_setn`
+    - [ ] `/b_query`
+    - [ ] `/b_gen`, `/b_fill`, `/b_zero`
+    - [ ] `/b_free`
+- [ ] Implement complete Bus(-related) API
     - [ ] `/c_set`, `/c_setn `
     - [ ] `/c_fill`
     - [ ] `/c_get`, `/c_getn`
