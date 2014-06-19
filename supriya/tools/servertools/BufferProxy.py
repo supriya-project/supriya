@@ -7,18 +7,32 @@ class BufferProxy(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_',
-        '_index',
+        '_buffer_id',
+        '_channel_count',
+        '_frame_count',
+        '_sample_rate',
+        '_server',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self,
-        buffer_=None,
-        index=None,
+    def __init__(
+        self,
+        buffer_id=None,
+        channel_count=0,
+        frame_count=0,
+        sample_rate=0,
+        server=None,
         ):
-        self._buffer_ = buffer_
-        self._index = index
+        from supriya.tools import servertools
+        buffer_id = int(buffer_id)
+        assert 0 <= buffer_id
+        assert isinstance(server, servertools.Server)
+        self._buffer_id = int(buffer_id)
+        self._channel_count = int(channel_count)
+        self._frame_count = int(frame_count)
+        self._sample_rate = int(sample_rate)
+        self._server = server
 
     ### SPECIAL METHODS ###
 
@@ -31,12 +45,34 @@ class BufferProxy(SupriyaObject):
         hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
 
+    ### PUBLIC METHODS ###
+
+    def handle_response(self, response):
+        from supriya.tools import responsetools
+        assert response.buffer_id == self.buffer_id
+        if isinstance(response, responsetools.BufferInfoResponse):
+            self._channel_count = response.channel_count
+            self._frame_count = response.frame_count
+            self._sample_rate = response.sample_rate
+
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_(self):
-        return self._buffer_
+    def buffer_id(self):
+        return self._buffer_id
 
     @property
-    def index(self):
-        return self._index
+    def channel_count(self):
+        return self._channel_count
+
+    @property
+    def frame_count(self):
+        return self._frame_count
+
+    @property
+    def sample_rate(self):
+        return self._sample_rate
+
+    @property
+    def server(self):
+        return self._server

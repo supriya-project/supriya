@@ -58,13 +58,24 @@ class Buffer(ServerObjectProxy):
         frame_count = int(frame_count)
         assert 0 < channel_count
         assert 0 < frame_count
-        buffer_id = self.server.buffer_allocator.allocate(1)
-        if buffer_id is None:
-            raise ValueError
-        self._buffer_id = buffer_id
+        if self.buffer_id is None:
+            buffer_id = self.server.buffer_allocator.allocate(1)
+            if buffer_id is None:
+                ServerObjectProxy.free(self)
+                raise ValueError
+            self._buffer_id = buffer_id
+
         if buffer_id not in self.server._buffers:
             self.server._buffers[buffer_id] = set()
         self.server._buffers[buffer_id].add(self)
+
+        if buffer_id not in self.server._buffer_proxies:
+            buffer_proxy = servertools.BufferProxy(
+                buffer_id=buffer_id,
+                server=self.server,
+                )
+            self.server._buffer_proxies[buffer_id] = buffer_proxy
+
         on_done = servertools.CommandManager.make_buffer_query_message(
             buffer_id,
             )
