@@ -6,6 +6,7 @@ from distutils.version import StrictVersion
 
 install_requires = [
     'abjad',
+    'pexpect',
     'rtmidi-python',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])

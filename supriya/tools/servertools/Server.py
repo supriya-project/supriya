@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-import signal
-import subprocess
+import pexpect
+import sys
 import time
 
 
@@ -261,32 +261,30 @@ class Server(object):
         server_options=None,
         ):
         from supriya.tools import servertools
-        from supriya.tools import systemtools
         if self.is_running:
             return
         server_options = server_options or servertools.ServerOptions()
         options_string = server_options.as_options_string(self.port)
         command = 'scsynth {}'.format(options_string)
-        server_process = subprocess.Popen(
-            command.split(),
-            bufsize=0,
-            stderr=subprocess.PIPE,
-            stdout=subprocess.PIPE,
-            )
 
-        error = b'Exception in World_OpenUDP: bind: Address already in use'
-        success = b'SuperCollider 3 server ready.'
-        reader = systemtools.NonBlockingStreamReader(server_process.stdout)
-        with reader:
-            while True:
-                time.sleep(0.01)
-                line = reader.readline(timeout=0.01)
-                if line is None:
-                    continue
-                elif error in line:
-                    raise Exception(error)
-                elif success in line:
-                    break
+        server_process = pexpect.spawn(command)
+        time.sleep(0.1)
+        error = 'Exception in World_OpenUDP: bind: Address already in use'
+        success = 'SuperCollider 3 server ready.'
+        string = server_process.read(1)
+        if 2 < sys.version_info[0]:
+            string = str(string, 'utf-8')
+        while True:
+            try:
+                char = server_process.read_nonblocking(timeout=0.1)
+                if 2 < sys.version_info[0]:
+                    char = str(char, 'utf-8')
+                string += char
+            except (pexpect.TIMEOUT, pexpect.EOF):
+                break
+        if error in string:
+            raise Exception(error)
+        assert success in string
 
         self._is_running = True
         self._server_options = server_options
@@ -394,8 +392,10 @@ class Server(object):
         with wait:
             self.send_message('/quit')
         self._is_running = False
-        self._server_process.send_signal(signal.SIGINT)
-        self._server_process.kill()
+        if not self._server_process.terminate():
+            self._server_process.wait()
+        #self._server_process.send_signal(signal.SIGINT)
+        #self._server_process.kill()
         self._teardown()
         return self
 

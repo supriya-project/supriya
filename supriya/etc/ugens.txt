@@ -1,7 +1,7 @@
 ### AudioIn.sc ###
 
 class AudioIn(SoundIn):
-class SoundIn(???):
++++ class SoundIn(???):
 
 ### BasicOpsUGen.sc ###
 
@@ -82,29 +82,29 @@ class Normalizer(UGen):
 
 ### Delays.sc ###
 
-class AllpassC(CombN):
-class AllpassL(CombN):
-class AllpassN(CombN):
-class BufAllpassC(BufCombN):
-class BufAllpassL(BufCombN):
-class BufAllpassN(BufCombN):
-class BufCombC(BufCombN):
-class BufCombL(BufCombN):
-class BufCombN(UGen):
-class BufDelayC(BufDelayN):
-class BufDelayL(BufDelayN):
-class BufDelayN(UGen):
-class CombC(CombN):
-class CombL(CombN):
-class CombN(PureUGen):
-class DelTapRd(UGen):
-class DelTapWr(UGen):
-class Delay1(PureUGen):
-class Delay2(Delay1):
-class DelayC(DelayN):
-class DelayL(DelayN):
-class DelayN(PureUGen):
-class GrainTap(MultiOutUGen):
++++ class AllpassC(CombN):
++++ class AllpassL(CombN):
++++ class AllpassN(CombN):
++++ class BufAllpassC(BufCombN):
++++ class BufAllpassL(BufCombN):
++++ class BufAllpassN(BufCombN):
++++ class BufCombC(BufCombN):
++++ class BufCombL(BufCombN):
++++ class BufCombN(UGen):
++++ class BufDelayC(BufDelayN):
++++ class BufDelayL(BufDelayN):
++++ class BufDelayN(UGen):
++++ class CombC(CombN):
++++ class CombL(CombN):
++++ class CombN(PureUGen):
++++ class DelTapRd(UGen):
++++ class DelTapWr(UGen):
++++ class Delay1(PureUGen):
++++ class Delay2(Delay1):
++++ class DelayC(DelayN):
++++ class DelayL(DelayN):
++++ class DelayN(PureUGen):
++++ class GrainTap(MultiOutUGen):
 
 ### DelayWr.sc ###
 
@@ -151,11 +151,12 @@ class VDiskIn(MultiOutUGen):
 
 ### Env.sc ###
 
-class Env(???):
++++ class Env(???):
 
 ### EnvGen.sc ###
 
 class Done(UGen):
+class EnvGen(UGen):
 class Free(UGen):
 class FreeSelf(UGen):
 class FreeSelfWhenDone(UGen):
@@ -279,26 +280,26 @@ class HilbertFIR(UGen):
 
 ### InfoUGens.sc ###
 
-class BufChannels(BufInfoUGenBase):
-class BufDur(BufInfoUGenBase):
-class BufFrames(BufInfoUGenBase):
-class BufInfoUGenBase(UGen):
-class BufRateScale(BufInfoUGenBase):
-class BufSampleRate(BufInfoUGenBase):
-class BufSamples(BufInfoUGenBase):
-class ControlDur(InfoUGenBase):
-class ControlRate(InfoUGenBase):
-class InfoUGenBase(UGen):
-class NumAudioBuses(InfoUGenBase):
-class NumBuffers(InfoUGenBase):
-class NumControlBuses(InfoUGenBase):
-class NumInputBuses(InfoUGenBase):
-class NumOutputBuses(InfoUGenBase):
-class NumRunningSynths(InfoUGenBase):
-class RadiansPerSample(InfoUGenBase):
-class SampleDur(InfoUGenBase):
-class SampleRate(InfoUGenBase):
-class SubsampleOffset(InfoUGenBase):
++++ class BufChannels(BufInfoUGenBase):
++++ class BufDur(BufInfoUGenBase):
++++ class BufFrames(BufInfoUGenBase):
++++ class BufInfoUGenBase(UGen):
++++ class BufRateScale(BufInfoUGenBase):
++++ class BufSampleRate(BufInfoUGenBase):
++++ class BufSamples(BufInfoUGenBase):
++++ class ControlDur(InfoUGenBase):
++++ class ControlRate(InfoUGenBase):
++++ class InfoUGenBase(UGen):
++++ class NumAudioBuses(InfoUGenBase):
++++ class NumBuffers(InfoUGenBase):
++++ class NumControlBuses(InfoUGenBase):
++++ class NumInputBuses(InfoUGenBase):
++++ class NumOutputBuses(InfoUGenBase):
++++ class NumRunningSynths(InfoUGenBase):
++++ class RadiansPerSample(InfoUGenBase):
++++ class SampleDur(InfoUGenBase):
++++ class SampleRate(InfoUGenBase):
++++ class SubsampleOffset(InfoUGenBase):
 
 ### InOut.sc ###
 
@@ -306,7 +307,7 @@ class AbstractIn(MultiOutUGen):
 class AbstractOut(UGen):
 class AudioControl(MultiOutUGen):
 class Control(MultiOutUGen):
-class In(AbstractIn):
++++ class In(AbstractIn):
 class InFeedback(AbstractIn):
 class InTrig(AbstractIn):
 class LagControl(Control):
@@ -314,10 +315,8 @@ class LagIn(AbstractIn):
 class LocalIn(AbstractIn):
 class LocalOut(AbstractOut):
 class OffsetOut(Out):
-class Out(AbstractOut):
++++ class Out(AbstractOut):
 class ReplaceOut(Out):
-class SharedIn(AbstractIn):
-class SharedOut(AbstractOut):
 class TrigControl(Control):
 class XOut(AbstractOut):
 
@@ -418,7 +417,7 @@ class OscN(PureUGen):
 class Select(PureUGen):
 class SelectX(???):
 class Shaper(Index):
-class SinOsc(PureUGen):
++++ class SinOsc(PureUGen):
 class SinOscFB(PureUGen):
 class SyncSaw(PureUGen):
 class TChoose(???):
@@ -505,8 +504,8 @@ class ZeroCrossing(UGen):
 
 ### UGen.sc ###
 
-class MultiOutUGen(UGen):
-class OutputProxy(UGen):
-class PureUGen(UGen):
-class UGen(AbstractFunction):
++++ class MultiOutUGen(UGen):
++++ class OutputProxy(UGen):
++++ class PureUGen(UGen):
++++ class UGen(AbstractFunction):
 
