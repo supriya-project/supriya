@@ -4,6 +4,19 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Out(UGen):
+    r'''Bus output unit generator.
+
+    ::
+
+        >>> from supriya.tools import ugentools
+        >>> source = ugentools.SinOsc.ar()
+        >>> ugentools.Out.ar(
+        ...     bus=0,
+        ...     source=source,
+        ...     )
+        Out.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
