@@ -32,8 +32,10 @@ class Server(object):
         '_audio_output_bus',
         '_buffer_allocator',
         '_buffers',
+        '_buffer_proxies',
         '_control_bus_allocator',
         '_control_buses',
+        '_control_bus_proxies',
         '_default_group',
         '_ip_address',
         '_is_running',
@@ -128,7 +130,9 @@ class Server(object):
 
         self._audio_buses = {}
         self._control_buses = {}
+        self._control_bus_proxies = {}
         self._buffers = {}
+        self._buffer_proxies = {}
         self._nodes = {}
         self._synthdefs = {}
 
@@ -244,6 +248,8 @@ class Server(object):
             x.free()
         for x in tuple(self._nodes.values()):
             x.free()
+        self._control_bus_proxies = None
+        self._buffer_proxies = None
         self._default_group = None
         self._root_node = None
         self._audio_input_bus = None
