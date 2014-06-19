@@ -59,6 +59,8 @@ class MultiOutUGen(UGen):
         else:
             for x in ugen:
                 output_proxies.extend(x[:])
+        if len(output_proxies) == 1:
+            return output_proxies[0]
         result = synthdeftools.UGenArray(output_proxies)
         return result
 
