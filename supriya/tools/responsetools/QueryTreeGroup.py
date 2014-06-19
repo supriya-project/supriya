@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.responsetools.Response import Response
 
 
-class QueryTreeGroup(Response):
+class QueryTreeGroup(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -23,6 +24,12 @@ class QueryTreeGroup(Response):
 
     ### SPECIAL METHODS ###
 
+    def __getitem__(self, item):
+        return self._children[item]
+
+    def __len__(self):
+        return len(self._children)
+
     def __str__(self):
         result = self._get_str_format_pieces()
         result = '\n'.join(result)
@@ -39,6 +46,36 @@ class QueryTreeGroup(Response):
             for line in child._get_str_format_pieces():
                 result.append('\t{}'.format(line))
         return result
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_group(cls, group, include_controls=False):
+        from supriya.tools import responsetools
+        from supriya.tools import servertools
+        assert isinstance(group, servertools.Group)
+        node_id = group.node_id
+        children = []
+        for child in group.children:
+            if isinstance(child, servertools.Group):
+                child = QueryTreeGroup.from_group(
+                    child,
+                    include_controls=include_controls,
+                    )
+            elif isinstance(child, servertools.Synth):
+                child = responsetools.QueryTreeSynth.from_synth(
+                    child,
+                    include_controls=include_controls,
+                    )
+            else:
+                raise ValueError(child)
+            children.append(child)
+        children = tuple(children)
+        query_tree_group = QueryTreeGroup(
+            node_id=node_id,
+            children=children,
+            )
+        return query_tree_group
 
     ### PUBLIC PROPERTIES ###
 
