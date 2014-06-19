@@ -38,6 +38,29 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_buffer_free_message(
+        buffer_number,
+        completion_message=None,
+        ):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_free')
+        command_type = int(command_type)
+        buffer_number = int(buffer_number)
+        if completion_message is not None:
+            assert isinstance(completion_message, osctools.OscMessage)
+            message = osctools.OscMessage(
+                command_type,
+                buffer_number,
+                bytearray(completion_message.to_datagram())
+                )
+        else:
+            message = osctools.OscMessage(
+                command_type,
+                buffer_number,
+                )
+        return message
+
+    @staticmethod
     def make_dump_osc_message(osc_status):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('dump_osc')
