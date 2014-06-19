@@ -7,6 +7,37 @@ class CommandManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
+    def make_buffer_allocate_message(
+        buffer_number,
+        frame_count,
+        channel_count=1,
+        completion_message=None,
+        ):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_allocate')
+        command_type = int(command_type)
+        buffer_number = int(buffer_number)
+        frame_count = int(frame_count)
+        channel_count = int(channel_count)
+        if completion_message is not None:
+            assert isinstance(completion_message, osctools.OscMessage)
+            message = osctools.OscMessage(
+                command_type,
+                buffer_number,
+                frame_count,
+                channel_count,
+                bytearray(completion_message.to_datagram())
+                )
+        else:
+            message = osctools.OscMessage(
+                command_type,
+                buffer_number,
+                frame_count,
+                channel_count,
+                )
+        return message
+
+    @staticmethod
     def make_dump_osc_message(osc_status):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('dump_osc')
