@@ -6,12 +6,21 @@ A Python interface to SuperCollider.
 Example
 -------
 
-    >>> from supriya import servertools
+Import `supriya`:
+
+    >>> from supriya import *
+
+Boot the SuperCollider server:
+
     >>> server = servertools.Server()
     >>> server.boot()
     <Server: udp://127.0.0.1:57751, 8i8o>
 
+Create and allocate a group:
+
     >>> group_a = servertools.Group().allocate()
+
+Make a synthesizer definition:
 
     >>> from supriya import synthdeftools
     >>> from supriya import ugentools
@@ -29,13 +38,24 @@ Example
     ...     source=sin_osc,
     ...     )
     >>> synthdef.add_ugen(out)
+
+Send the synthesizer definition to the server:
+
     >>> synthdef.allocate()
+
+Synchronize with the server:
+
     >>> server.sync()
     <Server: udp://127.0.0.1:57751, 8i8o>
+
+Create a synthesizer with the previously defined synthesizer definition, and
+allocate it on the server as a child of the previously created group:
 
     >>> synth = servertools.Synth(synthdef).allocate(
     ...     target_node=group_a,
     ...     )
+
+Query the server's node tree:
 
     >>> response = server.query_remote_nodes(include_controls=True)
     >>> print(response)
@@ -46,6 +66,8 @@ Example
                     amplitude: 0.0, frequency: 440.0
             1000 group
                 1002 group
+
+Quit the server:
 
     >>> server.quit()
     <Server: offline>
