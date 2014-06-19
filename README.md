@@ -1,13 +1,54 @@
 supriya
 =======
 
-A Python interface to SuperCollider (very much in progress).
+A Python interface to SuperCollider.
 
-Current operative functionality:
+Example
+-------
 
-- starting the SuperCollider server
-- OSC communication to and from the server
-- compiling synthesizer definitions identically to how SC would
+    >>> from supriya import servertools
+    >>> server = servertools.Server()
+    >>> server.boot()
+    <Server: udp://127.0.0.1:57751, 8i8o>
+
+    >>> group_a = servertools.Group().allocate()
+
+    >>> from supriya import synthdeftools
+    >>> from supriya import ugentools
+    >>> synthdef = synthdeftools.SynthDef(
+    ...     amplitude=0.0,
+    ...     frequency=440.0,
+    ...     )
+    >>> controls = synthdef.controls
+    >>> sin_osc = ugentools.SinOsc.ar(
+    ...     frequency=controls['frequency'],
+    ...     )
+    >>> sin_osc *= controls['amplitude']
+    >>> out = ugentools.Out.ar(
+    ...     bus=(0, 1),
+    ...     source=sin_osc,
+    ...     )
+    >>> synthdef.add_ugen(out)
+    >>> synthdef.allocate()
+    >>> server.sync()
+    <Server: udp://127.0.0.1:57751, 8i8o>
+
+    >>> synth = servertools.Synth(synthdef).allocate(
+    ...     target_node=group_a,
+    ...     )
+
+    >>> response = server.query_remote_nodes(include_controls=True)
+    >>> print(response)
+    NODE TREE 0 group
+        1 group
+            1001 group
+                1003 f1c3ea5063065be20688f82b415c1108
+                    amplitude: 0.0, frequency: 440.0
+            1000 group
+                1002 group
+
+    >>> server.quit()
+    <Server: offline>
 
 Current Roadmap
 ---------------
