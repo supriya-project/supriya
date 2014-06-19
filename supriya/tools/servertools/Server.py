@@ -299,11 +299,8 @@ class Server(object):
             Server._default_server = Server()
         return Server._default_server
 
-    def query_local_nodes(self):
-        pass
-
-    def query_remote_nodes(self, include_controls=False):
-        r'''Queries all nodes on scsynth.
+    def query_local_nodes(self, include_controls=False):
+        r'''Queries all node proxies in Python.
 
         ::
 
@@ -355,6 +352,75 @@ class Server(object):
                     1001 group
                         1003 f1c3ea5063065be20688f82b415c1108
                             amplitude: 0.0, frequency: 440.0
+                    1000 group
+                        1002 group
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        Returns server query-tree group response.
+        '''
+        from supriya.tools import responsetools
+        query_tree_group = responsetools.QueryTreeGroup.from_group(
+            self.root_node,
+            include_controls=include_controls,
+            )
+        return query_tree_group
+
+    def query_remote_nodes(self, include_controls=False):
+        r'''Queries all nodes on scsynth.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> server = servertools.Server()
+            >>> server.boot()
+            <Server: udp://127.0.0.1:57751, 8i8o>
+
+        ::
+
+            >>> group_a = servertools.Group().allocate()
+            >>> group_b = servertools.Group().allocate()
+            >>> group_c = servertools.Group().allocate(target_node=group_a)
+
+        ::
+
+            >>> from supriya import synthdeftools
+            >>> from supriya import ugentools
+            >>> synthdef = synthdeftools.SynthDef(
+            ...     amplitude=0.0,
+            ...     frequency=440.0,
+            ...     )
+            >>> controls = synthdef.controls
+            >>> sin_osc = ugentools.SinOsc.ar(
+            ...     frequency=controls['frequency'],
+            ...     )
+            >>> sin_osc *= controls['amplitude']
+            >>> out = ugentools.Out.ar(
+            ...     bus=(0, 1),
+            ...     source=sin_osc,
+            ...     )
+            >>> synthdef.add_ugen(out)
+            >>> synthdef.allocate()
+            >>> server.sync()
+            <Server: udp://127.0.0.1:57751, 8i8o>
+
+        ::
+
+            >>> synth = servertools.Synth(synthdef).allocate(
+            ...     target_node=group_b,
+            ...     )
+
+        ::
+
+            >>> response = server.query_local_nodes(include_controls=False)
+            >>> print(response)
+            NODE TREE 0 group
+                1 group
+                    1001 group
+                        1003 f1c3ea5063065be20688f82b415c1108
                     1000 group
                         1002 group
 
