@@ -8,7 +8,7 @@ Tested and compatible with Python 2.7, 3.3 and 3.4.
 Installation
 ------------
 
-To install, simply clone *supriya* and run the included `setup.py`:
+To install, simply clone **supriya** and run the included `setup.py`:
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
     ~$ cd supriya
@@ -42,7 +42,7 @@ On Python 3.3:
 Example
 -------
 
-Import packages from *supriya*:
+Import packages from **supriya**:
 
     >>> from supriya import servertools
     >>> from supriya import synthdeftools
