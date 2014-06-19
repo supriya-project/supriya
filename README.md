@@ -27,9 +27,11 @@ On Python 3.3:
 Example
 -------
 
-Import `supriya`:
+Import packages from `supriya`:
 
-    >>> from supriya import *
+    >>> from supriya import servertools
+    >>> from supriya import synthdeftools
+    >>> from supriya import ugentools
 
 Boot the SuperCollider server:
 
@@ -39,12 +41,10 @@ Boot the SuperCollider server:
 
 Create and allocate a group:
 
-    >>> group_a = servertools.Group().allocate()
+    >>> group = servertools.Group().allocate()
 
 Make a synthesizer definition:
 
-    >>> from supriya import synthdeftools
-    >>> from supriya import ugentools
     >>> synthdef = synthdeftools.SynthDef(
     ...     amplitude=0.0,
     ...     frequency=440.0,
@@ -73,7 +73,7 @@ Create a synthesizer with the previously defined synthesizer definition, and
 allocate it on the server as a child of the previously created group:
 
     >>> synth = servertools.Synth(synthdef).allocate(
-    ...     target_node=group_a,
+    ...     target_node=group,
     ...     )
 
 Query the server's node tree:
