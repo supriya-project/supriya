@@ -4,68 +4,142 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 class Buffer(ServerObjectProxy):
     r'''A buffer.
-
-    ::
-
-        >>> from supriya import servertools
-        >>> stereo_buffer = servertools.Buffer(
-        ...     frame_count=1024,
-        ...     channel_count=2,
-        ...     )
-
     '''
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_buffer_group',
         '_buffer_id',
-        '_channel_count',
-        '_frame_count',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, frame_count=512, channel_count=1):
+    def __init__(
+        self,
+        buffer_group_or_index=None,
+        ):
+        from supriya.tools import servertools
         ServerObjectProxy.__init__(self)
-        assert 0 < frame_count
-        assert 0 < channel_count
-        self._buffer_id = None
-        self._frame_count = int(frame_count)
-        self._channel_count = int(channel_count)
+        buffer_group = None
+        buffer_id = None
+        if buffer_group_or_index is not None:
+            if isinstance(buffer_group_or_index, servertools.BufferGroup):
+                buffer_group = buffer_group_or_index
+            elif isinstance(buffer_group_or_index, int):
+                buffer_id = int(buffer_group_or_index)
+        self._buffer_group = buffer_group
+        self._buffer_id = buffer_id
+
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        string = '<{}: {}>'.format(
+            type(self).__name__,
+            self.buffer_id
+            )
+        return string
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server=None):
+    def allocate(
+        self,
+        channel_count=1,
+        frame_count=None,
+        server=None,
+        ):
+        from supriya.tools import servertools
+        if self.buffer_group is not None:
+            return
+        if self.is_allocated:
+            return
         ServerObjectProxy.allocate(self, server=server)
+        channel_count = int(channel_count)
+        frame_count = int(frame_count)
+        assert 0 < channel_count
+        assert 0 < frame_count
         buffer_id = self.server.buffer_allocator.allocate(1)
         if buffer_id is None:
             raise ValueError
-        elif buffer_id in self._server._buffers:
-            raise ValueError
         self._buffer_id = buffer_id
-        self._server._buffers[self._buffer_id] = self
+        if buffer_id not in self.server._buffers:
+            self.server._buffers[buffer_id] = set()
+        self.server._buffers[buffer_id].add(self)
+        on_done = servertools.CommandManager.make_buffer_query_message(
+            buffer_id,
+            )
+        message = servertools.CommandManager.make_buffer_allocate_message(
+            buffer_id=buffer_id,
+            frame_count=frame_count,
+            channel_count=channel_count,
+            completion_message=on_done,
+            )
+        self.server.send_message(message)
 
     def free(self):
-        if self.server is not None:
-            self.server.buffer_allocator.free(self.buffer_id)
-            del(self.server.buffers[self.buffer_id])
-        self._buffer_id = None
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            return
+        buffer_id = self.buffer_id
+        buffers = self.server._buffers[buffer_id]
+        buffers.remove(self)
+        if not buffers:
+            del(self.server._buffers[buffer_id])
+        on_done = servertools.CommandManager.make_buffer_query_message(
+            buffer_id,
+            )
+        message = servertools.CommandManager.make_buffer_free_message(
+            buffer_id=buffer_id,
+            completion_message=on_done,
+            )
+        self.server.send_message(message)
         ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
 
     @property
+    def buffer_group(self):
+        return self._buffer_group
+
+    @property
     def buffer_id(self):
+        if self._buffer_group is not None:
+            if self._buffer_group.buffer_id is not None:
+                group_id = self._buffer_group.buffer_id
+                index = self._buffer_group.buffers.index(self)
+                buffer_id = group_id + index
+                return buffer_id
         return self._buffer_id
 
     @property
     def channel_count(self):
-        return self._channel_count
+        if self.is_allocated:
+            proxy = self.server._buffer_proxies[self.buffer_id]
+            return proxy.channel_count
+        return 0
 
     @property
     def frame_count(self):
-        return self._frame_count
+        if self.is_allocated:
+            proxy = self.server._buffer_proxies[self.buffer_id]
+            return proxy.frame_count
+        return 0
+
+    @property
+    def sample_rate(self):
+        if self.is_allocated:
+            proxy = self.server._buffer_proxies[self.buffer_id]
+            return proxy.sample_rate
+        return 0
 
     @property
     def is_allocated(self):
+        if self.buffer_group is not None:
+            return self.buffer_group.is_allocated
         return self.server is not None
+
+    @property
+    def server(self):
+        if self.buffer_group is not None:
+            return self.buffer_group.server
+        return self._server
