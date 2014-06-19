@@ -34,8 +34,7 @@ class BufferResponseCallback(OscCallback):
         for x in response:
             #print(x)
             buffer_id = x.buffer_id
-            buffers = self._server._buffers.get(buffer_id)
-            if not buffers:
+            buffer_proxy = self._server._buffer_proxies.get(buffer_id)
+            if not buffer_proxy:
                 continue
-            for buffer_ in buffers:
-                buffer_.handle_response(x)
+            buffer_proxy.handle_response(x)
