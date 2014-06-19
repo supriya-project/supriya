@@ -24,11 +24,11 @@ Current Roadmap
     - [ ] Implement AudioControls and TriggerControls UGens
 - [ ] Implement complete Buffer API
 - [ ] Implement complete Bus API
-    - [ ] `c_set`, `c_setn `
-    - [ ] `c_fill`
-    - [ ] `c_get`, `c_getn`
-    - [ ] `n_map`, `n_mapn`
-    - [ ] `n_mapa`, `n_mapan`
+    - [ ] `/c_set`, `/c_setn `
+    - [ ] `/c_fill`
+    - [ ] `/c_get`, `/c_getn`
+    - [ ] `/n_map`, `/n_mapn`
+    - [ ] `/n_mapa`, `/n_mapan`
 - [ ] MIDI callbacks
 - [ ] Port all UGens
     - [ ] AudioIn.sc
