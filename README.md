@@ -3,6 +3,27 @@ supriya
 
 A Python interface to SuperCollider.
 
+Tested and compatible with Python 2.7, 3.3 and 3.4.
+
+Dependencies
+------------
+
+- abjad
+- pexpect
+- pytest
+- rtmidi-python
+- sphinx
+- tox
+
+On Python 2.7:
+
+- funcsigs
+- enum34
+
+On Python 3.3:
+
+- enum34
+
 Example
 -------
 
