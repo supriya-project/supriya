@@ -10,17 +10,13 @@ class DC(PureMultiOutUGen):
 
         >>> from supriya.tools import ugentools
         >>> ugentools.DC.ar(source=0)
-        UGenArray(
-            (
-                OutputProxy(
-                    source=DC(
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
-                        channel_count=1,
-                        source=0.0
-                        ),
-                    output_index=0
-                    ),
-                )
+        OutputProxy(
+            source=DC(
+                calculation_rate=<CalculationRate.AUDIO: 2>,
+                channel_count=1,
+                source=0.0
+                ),
+            output_index=0
             )
 
     ::
