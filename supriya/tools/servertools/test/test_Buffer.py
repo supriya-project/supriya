@@ -31,7 +31,7 @@ def test_Buffer_01(server):
     assert buffer_.buffer_group is None
     assert buffer_.channel_count == 1
     assert buffer_.frame_count == 512
-    assert buffer_.sample_rate == server.server_options.sample_rate
+    assert buffer_.sample_rate == 48000
     assert buffer_.is_allocated
     assert buffer_.server is server
 
@@ -66,7 +66,7 @@ def test_Buffer_02(server):
     assert buffer_.buffer_group is None
     assert buffer_.channel_count == 1
     assert buffer_.frame_count == 512
-    assert buffer_.sample_rate == server.server_options.sample_rate
+    assert buffer_.sample_rate == 48000
     assert buffer_.is_allocated
     assert buffer_.server is server
 

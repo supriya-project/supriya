@@ -78,7 +78,7 @@ class Sum4(UGen):
             'input_four': input_four,
             }
         ugens = []
-        argument_dicts = UGen.expand_arguments(kwargs)
+        argument_dicts = UGen.expand_dictionary(kwargs)
         for argument_dict in argument_dicts:
             input_one = argument_dict['input_one']    
             input_two = argument_dict['input_two']    

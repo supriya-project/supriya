@@ -55,7 +55,7 @@ class UGenMethodMixin(SupriyaObject):
         arguments = {'left': left, 'right': right}
         operator = synthdeftools.BinaryOperator[op_name]
         special_index = operator.value
-        for expanded_arguments in synthdeftools.UGen.expand_arguments(
+        for expanded_arguments in synthdeftools.UGen.expand_dictionary(
             arguments):
             left = expanded_arguments['left']
             right = expanded_arguments['right']
