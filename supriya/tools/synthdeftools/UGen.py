@@ -42,11 +42,11 @@ class UGen(UGenMethodMixin):
         self._inputs = []
         self._special_index = special_index
         for i in range(len(self._ordered_input_names)):
-            argument_name = self._ordered_input_names[i]
-            argument_value = kwargs.get(argument_name, None)
-            if argument_name in kwargs:
-                argument_value = kwargs[argument_name]
-                del(kwargs[argument_name])
+            input_name = self._ordered_input_names[i]
+            input_value = kwargs.get(input_name, None)
+            if input_name in kwargs:
+                input_value = kwargs[input_name]
+                del(kwargs[input_name])
             prototype = (
                 type(None),
                 float,
@@ -55,10 +55,10 @@ class UGen(UGenMethodMixin):
                 synthdeftools.OutputProxy,
                 )
             if self._unexpanded_input_names and \
-                argument_name in self._unexpanded_input_names:
+                input_name in self._unexpanded_input_names:
                 prototype += (tuple,)
-            assert isinstance(argument_value, prototype), argument_value
-            self._configure_input(argument_name, argument_value)
+            assert isinstance(input_value, prototype), input_value
+            self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
         self._validate_inputs()
@@ -77,9 +77,9 @@ class UGen(UGenMethodMixin):
         try:
             object.__getattr__(self, attr)
         except AttributeError:
-            for i, argument_name in enumerate(
+            for i, input_name in enumerate(
                 self._ordered_input_names):
-                if argument_name == attr:
+                if input_name == attr:
                     return self.inputs[i]
         raise AttributeError
 
@@ -206,22 +206,22 @@ class UGen(UGenMethodMixin):
             import inspect
             get_signature = inspect.signature
         assert isinstance(calculation_rate, synthdeftools.CalculationRate)
-        argument_dicts = UGen.expand_dictionary(
-            kwargs, unexpanded_argument_names=cls._unexpanded_input_names)
+        input_dicts = UGen.expand_dictionary(
+            kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
         signature = get_signature(cls.__init__)
         has_custom_special_index = 'special_index' in signature.parameters
-        for argument_dict in argument_dicts:
+        for input_dict in input_dicts:
             if has_custom_special_index:
                 ugen = cls(
                     calculation_rate=calculation_rate,
                     special_index=special_index,
-                    **argument_dict
+                    **input_dict
                     )
             else:
                 ugen = cls(
                     calculation_rate=calculation_rate,
-                    **argument_dict
+                    **input_dict
                     )
             ugens.append(ugen)
         if len(ugens) == 1:
@@ -298,15 +298,15 @@ class UGen(UGenMethodMixin):
         return result
 
     @staticmethod
-    def expand_dictionary(dictionary, unexpanded_argument_names=None):
-        r'''Expands arguments into multichannel dictionaries.
+    def expand_dictionary(dictionary, unexpanded_input_names=None):
+        r'''Expands a dictionary into multichannel dictionaries.
 
         ::
 
             >>> import supriya
-            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
             >>> result = supriya.synthdeftools.UGen.expand_dictionary(
-            ...     arguments)
+            ...     dictionary)
             >>> for x in result:
             ...     sorted(x.items())
             ...
@@ -316,10 +316,10 @@ class UGen(UGenMethodMixin):
 
         ::
 
-            >>> arguments = {'bus': (8, 9), 'source': (1, 2, 3)}
+            >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
             >>> result = supriya.synthdeftools.UGen.expand_dictionary(
-            ...     arguments,
-            ...     unexpanded_argument_names=('source',),
+            ...     dictionary,
+            ...     unexpanded_input_names=('source',),
             ...     )
             >>> for x in result:
             ...     sorted(x.items())
@@ -329,14 +329,14 @@ class UGen(UGenMethodMixin):
 
         '''
         dictionary = dictionary.copy()
-        cached_unexpanded_arguments = {}
-        if unexpanded_argument_names is not None:
-            for argument_name in unexpanded_argument_names:
-                if argument_name not in dictionary:
+        cached_unexpanded_inputs = {}
+        if unexpanded_input_names is not None:
+            for input_name in unexpanded_input_names:
+                if input_name not in dictionary:
                     continue
-                cached_unexpanded_arguments[argument_name] = \
-                    dictionary[argument_name]
-                del(dictionary[argument_name])
+                cached_unexpanded_inputs[input_name] = \
+                    dictionary[input_name]
+                del(dictionary[input_name])
         maximum_length = 1
         result = []
         for name, value in dictionary.items():
@@ -350,9 +350,10 @@ class UGen(UGenMethodMixin):
                     result[i][name] = value
                 else:
                     result[i][name] = value
-        for expanded_arguments in result:
-            expanded_arguments.update(cached_unexpanded_arguments)
+        for expanded_inputs in result:
+            expanded_inputs.update(cached_unexpanded_inputs)
         return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

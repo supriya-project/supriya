@@ -78,12 +78,12 @@ class Sum4(UGen):
             'input_four': input_four,
             }
         ugens = []
-        argument_dicts = UGen.expand_dictionary(kwargs)
-        for argument_dict in argument_dicts:
-            input_one = argument_dict['input_one']    
-            input_two = argument_dict['input_two']    
-            input_three = argument_dict['input_three']    
-            input_four = argument_dict['input_four']    
+        input_dicts = UGen.expand_dictionary(kwargs)
+        for input_dict in input_dicts:
+            input_one = input_dict['input_one']    
+            input_two = input_dict['input_two']    
+            input_three = input_dict['input_three']    
+            input_four = input_dict['input_four']    
             if input_one == 0:
                 ugen = ugentools.Sum3.new(
                     input_one=input_two,

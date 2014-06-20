@@ -19,7 +19,7 @@ class Sum3(UGen):
         Sum3.ar()
 
     '''
-    
+
     ### CLASS VARIABLES ###
 
     __slots__ = ()
@@ -70,13 +70,13 @@ class Sum3(UGen):
             'input_three': input_three,
             }
         ugens = []
-        argument_dicts = UGen.expand_dictionary(kwargs)
-        for argument_dict in argument_dicts:
-            input_one = argument_dict['input_one']    
-            input_two = argument_dict['input_two']    
-            input_three = argument_dict['input_three']    
+        input_dicts = UGen.expand_dictionary(kwargs)
+        for input_dict in input_dicts:
+            input_one = input_dict['input_one']
+            input_two = input_dict['input_two']
+            input_three = input_dict['input_three']
             if input_three == 0:
-                ugen = input_one + input_two 
+                ugen = input_one + input_two
             elif input_two == 0:
                 ugen = input_one + input_three
             elif input_one == 0:
