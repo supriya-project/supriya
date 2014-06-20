@@ -177,6 +177,9 @@ Current Roadmap
     - [ ] Splay.sc
     - [ ] Trig.sc
     - [ ] UGen.sc
+- [ ] Implement appropriate UGen input checking
+- [ ] Port all UGen examples
+- [ ] Write SynthDef compilation/sending tests to scsynth for all UGens
 
 Distant Roadmap
 ---------------
