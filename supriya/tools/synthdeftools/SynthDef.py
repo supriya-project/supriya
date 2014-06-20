@@ -229,6 +229,8 @@ class SynthDef(ServerObjectProxy):
             for x in ugen.inputs:
                 if isinstance(x, synthdeftools.OutputProxy):
                     synthdef._add_ugen(x.source)
+            for x in ugen.descendants:
+                synthdef._add_ugen(x)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)

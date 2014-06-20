@@ -419,3 +419,88 @@ def test_SynthDefinition_compile_synthdefs_06():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
+
+
+def test_SynthDefinition_compile_synthdefs_07():
+    r'''FreeSelf.
+    '''
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        'test',
+        r'''
+        Out.ar(0, FreeSelf.kr(SinOsc.ar()))
+        '''
+        )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+
+    py_synthdef = synthdeftools.SynthDef('test')
+    sin_osc = ugentools.SinOsc.ar()
+    ugentools.FreeSelf.kr(sin_osc)
+    out = ugentools.Out.ar(bus=0, source=sin_osc)
+    py_synthdef.add_ugen(out)
+    py_compiled_synthdef = py_synthdef.compile()
+
+    test_compiled_synthdef = bytes(
+        b'SCgf'
+        b'\x00\x00\x00\x02'
+        b'\x00\x01'
+            b'\x04test'
+                b'\x00\x00\x00\x02'
+                    b'C\xdc\x00\x00'
+                    b'\x00\x00\x00\x00'
+                b'\x00\x00\x00\x00'
+                b'\x00\x00\x00\x00'
+                b'\x00\x00\x00\x03'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x01'
+                            b'\x02'
+                    b'\x08FreeSelf'
+                        b'\x01'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x01'
+                    b'\x03Out'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x01'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                b'\x00\x00',
+        )
+
+    assert len(py_compiled_synthdef) == len(test_compiled_synthdef)
+    for i in range(len(py_compiled_synthdef)):
+        assert py_compiled_synthdef[i] == test_compiled_synthdef[i], (
+            i, py_compiled_synthdef[i], test_compiled_synthdef[i])
+
+    assert sc_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
