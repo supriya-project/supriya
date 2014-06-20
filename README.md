@@ -141,12 +141,12 @@ Current Roadmap
     - [ ] `/n_map`, `/n_mapn`
     - [ ] `/n_mapa`, `/n_mapan`
 - [ ] Implement all UGen binary operators
-    - [ ] `ADD = 0`
-    - [ ] `SUB = 1`
-    - [ ] `MUL = 2`
-    - [ ] `IDIV = 3`
-    - [ ] `FDIV = 4`
-    - [ ] `MOD = 5`
+    - [X] `ADD = 0`
+    - [X] `SUB = 1`
+    - [X] `MUL = 2`
+    - [X] `IDIV = 3`
+    - [X] `FDIV = 4`
+    - [X] `MOD = 5`
     - [ ] `EQ = 6`
     - [ ] `NE = 7`
     - [ ] `LT = 8`
@@ -191,7 +191,7 @@ Current Roadmap
     - [ ] `RANDRANGE = 47`
     - [ ] `EXPRANDRANGE = 48`
 - [ ] Implement all UGen unary operators
-    - [ ] `NEG = 0`
+    - [X] `NEG = 0`
     - [ ] `NOT = 1`
     - [ ] `IS_NIL = 2`
     - [ ] `NOT_NIL = 3`
@@ -245,17 +245,16 @@ Current Roadmap
     - [ ] `TRIANGLE_WINDOW = 51`
     - [ ] `RAMP = 52`
     - [ ] `SCURVE = 53`
-
 - [ ] MIDI callbacks
 - [ ] Port all UGens
-    - [x] AudioIn.sc
+    - [X] AudioIn.sc
     - [ ] BasicOpsUGen.sc
     - [ ] BEQSuite.sc
     - [ ] BufIO.sc
     - [ ] Chaos.sc
     - [ ] CheckBadValues.sc
     - [ ] Compander.sc
-    - [x] Delays.sc
+    - [X] Delays.sc
     - [ ] DelayWr.sc
     - [ ] Demand.sc
     - [ ] DiskIO.sc
@@ -268,7 +267,7 @@ Current Roadmap
     - [ ] GrainUGens.sc
     - [ ] GVerb.sc
     - [ ] Hilbert.sc
-    - [x] InfoUGens.sc
+    - [X] InfoUGens.sc
     - [ ] InOut.sc
     - [ ] Line.sc
     - [ ] MachineListening.sc
@@ -279,7 +278,7 @@ Current Roadmap
     - [ ] Osc.sc
     - [ ] Pan.sc
     - [ ] PhysicalModel.sc
-    - [x] PitchShift.sc
+    - [X] PitchShift.sc
     - [ ] Pluck.sc
     - [ ] Poll.sc
     - [ ] PSinGraph.sc
