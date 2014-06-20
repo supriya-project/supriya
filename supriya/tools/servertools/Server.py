@@ -240,12 +240,15 @@ class Server(object):
         self._sync_id = 0
 
     def _teardown_proxies(self):
-        for x in tuple(self._audio_buses.values()):
-            x.free()
-        for x in tuple(self._buffers.values()):
-            x.free()
-        for x in tuple(self._control_buses.values()):
-            x.free()
+        for set_ in tuple(self._audio_buses.values()):
+            for x in tuple(set_):
+                x.free()
+        for set_ in tuple(self._buffers.values()):
+            for x in tuple(set_):
+                x.free()
+        for set_ in tuple(self._control_buses.values()):
+            for x in tuple(set_):
+                x.free()
         for x in tuple(self._nodes.values()):
             x.free()
         self._control_bus_proxies = None

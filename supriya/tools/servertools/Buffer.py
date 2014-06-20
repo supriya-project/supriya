@@ -11,6 +11,7 @@ class Buffer(ServerObjectProxy):
     __slots__ = (
         '_buffer_group',
         '_buffer_id',
+        '_buffer_id_was_set_manually',
         )
 
     ### INITIALIZER ###
@@ -23,7 +24,9 @@ class Buffer(ServerObjectProxy):
         ServerObjectProxy.__init__(self)
         buffer_group = None
         buffer_id = None
+        self._buffer_id_was_set_manually = False
         if buffer_group_or_index is not None:
+            self._buffer_id_was_set_manually = True
             if isinstance(buffer_group_or_index, servertools.BufferGroup):
                 buffer_group = buffer_group_or_index
             elif isinstance(buffer_group_or_index, int):
@@ -65,22 +68,22 @@ class Buffer(ServerObjectProxy):
                 raise ValueError
             self._buffer_id = buffer_id
 
-        if buffer_id not in self.server._buffers:
-            self.server._buffers[buffer_id] = set()
-        self.server._buffers[buffer_id].add(self)
+        if self.buffer_id not in self.server._buffers:
+            self.server._buffers[self.buffer_id] = set()
+        self.server._buffers[self.buffer_id].add(self)
 
-        if buffer_id not in self.server._buffer_proxies:
+        if self.buffer_id not in self.server._buffer_proxies:
             buffer_proxy = servertools.BufferProxy(
-                buffer_id=buffer_id,
+                buffer_id=self.buffer_id,
                 server=self.server,
                 )
-            self.server._buffer_proxies[buffer_id] = buffer_proxy
+            self.server._buffer_proxies[self.buffer_id] = buffer_proxy
 
         on_done = servertools.CommandManager.make_buffer_query_message(
-            buffer_id,
+            self.buffer_id,
             )
         message = servertools.CommandManager.make_buffer_allocate_message(
-            buffer_id=buffer_id,
+            buffer_id=self.buffer_id,
             frame_count=frame_count,
             channel_count=channel_count,
             completion_message=on_done,
@@ -104,6 +107,8 @@ class Buffer(ServerObjectProxy):
             completion_message=on_done,
             )
         self.server.send_message(message)
+        if not self._buffer_id_was_set_manually:
+            self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
 
