@@ -174,6 +174,30 @@ class Server(object):
 
     ### PRIVATE METHODS ###
 
+    def _get_buffer_proxy(self, buffer_id):
+        from supriya.tools import servertools
+        buffer_proxy = self._buffer_proxies.get(buffer_id)
+        if not buffer_proxy:
+            buffer_proxy = servertools.BufferProxy(
+                buffer_id=buffer_id,
+                server=self,
+                )
+            self._buffer_proxies[buffer_id] = buffer_proxy
+        return buffer_proxy
+
+    def _get_control_bus_proxy(self, bus_id):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        control_bus_proxy = self._control_bus_proxies.get(bus_id)
+        if not control_bus_proxy:
+            control_bus_proxy = servertools.BusProxy(
+                bus_id=bus_id,
+                calculation_rate=synthdeftools.CalculationRate.CONTROL,
+                server=self,
+                )
+            self._control_bus_proxies[bus_id] = control_bus_proxy
+        return control_bus_proxy
+
     def _setup(self):
         self._setup_allocators(self.server_options)
         self._setup_proxies()

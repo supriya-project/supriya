@@ -90,12 +90,7 @@ class Buffer(ServerObjectProxy):
         if self.buffer_id not in self.server._buffers:
             self.server._buffers[self.buffer_id] = set()
         self.server._buffers[self.buffer_id].add(self)
-        if self.buffer_id not in self.server._buffer_proxies:
-            buffer_proxy = servertools.BufferProxy(
-                buffer_id=self.buffer_id,
-                server=self.server,
-                )
-            self.server._buffer_proxies[self.buffer_id] = buffer_proxy
+        self.server._get_buffer_proxy(self.buffer_id)
         on_done = servertools.CommandManager.make_buffer_query_message(
             self.buffer_id,
             )
