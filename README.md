@@ -112,8 +112,8 @@ Current Roadmap
 ---------------
 
 - [ ] Cleanup server object proxies
-    - [ ] BusGroup
     - [ ] BufferGroup
+    - [ ] BusGroup
     - [ ] SynthControl
         - [ ] QueryTreeControl.from_control()
 - [ ] Make SynthDef immutable
@@ -139,7 +139,7 @@ Current Roadmap
     - [ ] `/n_mapa`, `/n_mapan`
 - [ ] MIDI callbacks
 - [ ] Port all UGens
-    - [ ] AudioIn.sc
+    - [x] AudioIn.sc
     - [ ] BasicOpsUGen.sc
     - [ ] BEQSuite.sc
     - [ ] BufIO.sc
@@ -170,7 +170,7 @@ Current Roadmap
     - [ ] Osc.sc
     - [ ] Pan.sc
     - [ ] PhysicalModel.sc
-    - [ ] PitchShift.sc
+    - [x] PitchShift.sc
     - [ ] Pluck.sc
     - [ ] Poll.sc
     - [ ] PSinGraph.sc
