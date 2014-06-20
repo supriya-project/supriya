@@ -27,12 +27,18 @@ class ControlBusResponseCallback(OscCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
+        from supriya.tools import servertools
         response = self._response_manager(message)
         if not isinstance(response, tuple):
             response = (response,)
         for x in response:
             bus_id = x.bus_id
-            bus = self._server._control_buses.get(bus_id)
-            if bus is None:
-                continue
-            bus.handle_response(x)
+            bus_proxy = self._server._control_bus_proxies.get(bus_id)
+            if not bus_proxy:
+                bus_proxy = servertools.BusProxy(
+                    bus_id=bus_id,
+                    calculation_rate='control',
+                    server=self._server,
+                    )
+                self._server._control_bus_proxies[bus_id] = bus_proxy
+            bus_proxy.handle_response(x)
