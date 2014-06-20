@@ -206,7 +206,7 @@ class UGen(UGenMethodMixin):
             import inspect
             get_signature = inspect.signature
         assert isinstance(calculation_rate, synthdeftools.CalculationRate)
-        argument_dicts = UGenMethodMixin.expand_arguments(
+        argument_dicts = UGen.expand_arguments(
             kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
         signature = get_signature(cls.__init__)
@@ -297,6 +297,60 @@ class UGen(UGenMethodMixin):
         result = bytes().join(result)
         return result
 
+    @staticmethod
+    def expand_arguments(arguments, unexpanded_argument_names=None):
+        r'''Expands arguments into multichannel dictionaries.
+
+        ::
+
+            >>> import supriya
+            >>> arguments = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> result = supriya.synthdeftools.UGen.expand_arguments(arguments)
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bar', 1), ('baz', 3), ('foo', 0)]
+            [('bar', 2), ('baz', 4), ('foo', 0)]
+            [('bar', 1), ('baz', 5), ('foo', 0)]
+
+        ::
+
+            >>> arguments = {'bus': (8, 9), 'source': (1, 2, 3)}
+            >>> result = supriya.synthdeftools.UGen.expand_arguments(
+            ...     arguments,
+            ...     unexpanded_argument_names=('source',),
+            ...     )
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bus', 8), ('source', (1, 2, 3))]
+            [('bus', 9), ('source', (1, 2, 3))]
+
+        '''
+        cached_unexpanded_arguments = {}
+        if unexpanded_argument_names is not None:
+            for argument_name in unexpanded_argument_names:
+                if argument_name not in arguments:
+                    continue
+                cached_unexpanded_arguments[argument_name] = \
+                    arguments[argument_name]
+                del(arguments[argument_name])
+        maximum_length = 1
+        result = []
+        for name, value in arguments.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(maximum_length, len(value))
+        for i in range(maximum_length):
+            result.append({})
+            for name, value in arguments.items():
+                if isinstance(value, collections.Sequence):
+                    value = value[i % len(value)]
+                    result[i][name] = value
+                else:
+                    result[i][name] = value
+        for expanded_arguments in result:
+            expanded_arguments.update(cached_unexpanded_arguments)
+        return result
     ### PUBLIC PROPERTIES ###
 
     @property
