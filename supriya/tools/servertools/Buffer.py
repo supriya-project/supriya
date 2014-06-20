@@ -6,7 +6,7 @@ class Buffer(ServerObjectProxy):
     r'''A buffer.
 
     ::
-        
+
         >>> from supriya.tools import servertools
         >>> buffer_ = servertools.Buffer()
         >>> buffer_
