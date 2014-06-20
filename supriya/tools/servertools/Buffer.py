@@ -4,6 +4,42 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 class Buffer(ServerObjectProxy):
     r'''A buffer.
+
+    ::
+        
+        >>> from supriya.tools import servertools
+        >>> buffer_ = servertools.Buffer()
+        >>> buffer_
+        <Buffer: None>
+
+    ::
+
+        >>> server = servertools.Server()
+        >>> server.boot()
+        <Server: udp://127.0.0.1:57751, 8i8o>
+
+    ::
+
+        >>> buffer_.allocate(frame_count=8192)
+        >>> server.sync()
+        <Server: udp://127.0.0.1:57751, 8i8o>
+
+    ::
+
+        >>> buffer_
+        <Buffer: 0>
+
+    ::
+
+        >>> buffer_.free()
+        >>> server.sync()
+        <Server: udp://127.0.0.1:57751, 8i8o>
+
+    ::
+
+        >>> server.quit()
+        <Server: offline>
+
     '''
 
     ### CLASS VARIABLES ###
