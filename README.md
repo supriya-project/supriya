@@ -140,6 +140,112 @@ Current Roadmap
     - [ ] `/c_get`, `/c_getn`
     - [ ] `/n_map`, `/n_mapn`
     - [ ] `/n_mapa`, `/n_mapan`
+- [ ] Implement all UGen binary operators
+    - [ ] `ADD = 0`
+    - [ ] `SUB = 1`
+    - [ ] `MUL = 2`
+    - [ ] `IDIV = 3`
+    - [ ] `FDIV = 4`
+    - [ ] `MOD = 5`
+    - [ ] `EQ = 6`
+    - [ ] `NE = 7`
+    - [ ] `LT = 8`
+    - [ ] `GT = 9`
+    - [ ] `LE = 10`
+    - [ ] `GE = 11`
+    - [ ] `MIN = 12`
+    - [ ] `MAX = 13`
+    - [ ] `BIT_AND = 14`
+    - [ ] `BIT_OR = 15`
+    - [ ] `BIT_XOR = 16`
+    - [ ] `LCM = 17`
+    - [ ] `GCD = 18`
+    - [ ] `ROUND = 19`
+    - [ ] `ROUND_UP = 20`
+    - [ ] `TRUNC = 21`
+    - [ ] `ATAN2 = 22`
+    - [ ] `HYPOT = 23`
+    - [ ] `HYPOTX = 24`
+    - [ ] `POW = 25`
+    - [ ] `SHIFT_LEFT = 26`
+    - [ ] `SHIFT_RIGHT = 27`
+    - [ ] `UNSIGNED_SHIFT = 28`
+    - [ ] `FILL = 29`
+    - [ ] `RING1 = 30  # a * (b + 1) == a * b + a`
+    - [ ] `RING2 = 31  # a * b + a + b`
+    - [ ] `RING3 = 32  # a*a*b`
+    - [ ] `RING4 = 33  # a*a*b - a*b*b`
+    - [ ] `DIFFERENCE_OF_SQUARES = 34  # a*a - b*b`
+    - [ ] `SUM_OF_SQUARES = 35  # a*a + b*b`
+    - [ ] `SQUARE_OF_SUM = 36  # (a + b)^2`
+    - [ ] `SQUARE_OF_DIFFERENCE = 37  # (a - b)^2`
+    - [ ] `ABSDIFF = 38  # |a - b|`
+    - [ ] `THRESH = 39`
+    - [ ] `AMCLIP = 40`
+    - [ ] `SCALE_NEG = 41`
+    - [ ] `CLIP2 = 42`
+    - [ ] `EXCESS = 43`
+    - [ ] `FOLD2 = 44`
+    - [ ] `WRAP2 = 45`
+    - [ ] `FIRST_ARG = 46`
+    - [ ] `RANDRANGE = 47`
+    - [ ] `EXPRANDRANGE = 48`
+- [ ] Implement all UGen unary operators
+    - [ ] `NEG = 0`
+    - [ ] `NOT = 1`
+    - [ ] `IS_NIL = 2`
+    - [ ] `NOT_NIL = 3`
+    - [ ] `BIT_NOT = 4`
+    - [ ] `ABS = 5`
+    - [ ] `AS_FLOAT = 6`
+    - [ ] `AS_INT = 7`
+    - [ ] `CEIL = 8`
+    - [ ] `FLOOR = 9`
+    - [ ] `FRACTION = 10`
+    - [ ] `SIGN = 11`
+    - [ ] `SQUARED = 12`
+    - [ ] `CUBED = 13`
+    - [ ] `SQRT = 14`
+    - [ ] `EXP = 15`
+    - [ ] `RECIPROCAL = 16`
+    - [ ] `MIDI_TO_FREQ = 17`
+    - [ ] `FREQ_TO_MIDI = 18`
+    - [ ] `MIDI_TO_RATIO = 19`
+    - [ ] `RATIO_TO_MIDI = 20`
+    - [ ] `DB_TO_AMP = 21`
+    - [ ] `AMP_TO_DB = 22`
+    - [ ] `OCTAVE_TO_FREQ = 23`
+    - [ ] `FREQ_TO_OCTAVE = 24`
+    - [ ] `LOG = 25`
+    - [ ] `LOG2 = 26`
+    - [ ] `LOG10 = 27`
+    - [ ] `SIN = 28`
+    - [ ] `COS = 29`
+    - [ ] `TAN = 30`
+    - [ ] `ARCSIN = 31`
+    - [ ] `ARCCOS = 32`
+    - [ ] `ARCTAN = 33`
+    - [ ] `SINH = 34`
+    - [ ] `COSH = 35`
+    - [ ] `TANH = 36`
+    - [ ] `RAND = 37`
+    - [ ] `RAND2 = 38`
+    - [ ] `LINRAND = 39`
+    - [ ] `BILINRAND = 40`
+    - [ ] `SUM3RAND = 41`
+    - [ ] `DISTORT = 42`
+    - [ ] `SOFTCLIP = 43`
+    - [ ] `COIN = 44`
+    - [ ] `DIGIT_VALUE = 45`
+    - [ ] `SILENCE = 46`
+    - [ ] `THRU = 47`
+    - [ ] `RECTANGLE_WINDOW = 48`
+    - [ ] `HANNING_WINDOW = 49`
+    - [ ] `WELCH_WINDOW = 50`
+    - [ ] `TRIANGLE_WINDOW = 51`
+    - [ ] `RAMP = 52`
+    - [ ] `SCURVE = 53`
+
 - [ ] MIDI callbacks
 - [ ] Port all UGens
     - [x] AudioIn.sc
