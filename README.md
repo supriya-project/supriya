@@ -21,7 +21,10 @@ To run the test suite:
 Dependencies
 ------------
 
-For all Python versions:
+Make sure that SuperCollider is installed, and that `scsynth` is available from
+the command-line.
+
+Python dependencies for all Python versions:
 
 - abjad
 - pexpect
