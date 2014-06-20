@@ -43,6 +43,50 @@ class Buffer(ServerObjectProxy):
             )
         return string
 
+    ### PRIVATE METHODS ###
+
+    def _register_with_server(
+        self,
+        channel_count=None,
+        frame_count=None,
+        ):
+        from supriya.tools import servertools
+        if self.buffer_id not in self.server._buffers:
+            self.server._buffers[self.buffer_id] = set()
+        self.server._buffers[self.buffer_id].add(self)
+        if self.buffer_id not in self.server._buffer_proxies:
+            buffer_proxy = servertools.BufferProxy(
+                buffer_id=self.buffer_id,
+                server=self.server,
+                )
+            self.server._buffer_proxies[self.buffer_id] = buffer_proxy
+        on_done = servertools.CommandManager.make_buffer_query_message(
+            self.buffer_id,
+            )
+        message = servertools.CommandManager.make_buffer_allocate_message(
+            buffer_id=self.buffer_id,
+            frame_count=frame_count,
+            channel_count=channel_count,
+            completion_message=on_done,
+            )
+        self.server.send_message(message)
+
+    def _unregister_with_server(self):
+        from supriya.tools import servertools
+        buffer_id = self.buffer_id
+        buffers = self.server._buffers[buffer_id]
+        buffers.remove(self)
+        if not buffers:
+            del(self.server._buffers[buffer_id])
+        on_done = servertools.CommandManager.make_buffer_query_message(
+            buffer_id,
+            )
+        message = servertools.CommandManager.make_buffer_free_message(
+            buffer_id=buffer_id,
+            completion_message=on_done,
+            )
+        self.server.send_message(message)
+
     ### PUBLIC METHODS ###
 
     def allocate(
@@ -51,7 +95,6 @@ class Buffer(ServerObjectProxy):
         frame_count=None,
         server=None,
         ):
-        from supriya.tools import servertools
         if self.buffer_group is not None:
             return
         if self.is_allocated:
@@ -67,46 +110,15 @@ class Buffer(ServerObjectProxy):
                 ServerObjectProxy.free(self)
                 raise ValueError
             self._buffer_id = buffer_id
-
-        if self.buffer_id not in self.server._buffers:
-            self.server._buffers[self.buffer_id] = set()
-        self.server._buffers[self.buffer_id].add(self)
-
-        if self.buffer_id not in self.server._buffer_proxies:
-            buffer_proxy = servertools.BufferProxy(
-                buffer_id=self.buffer_id,
-                server=self.server,
-                )
-            self.server._buffer_proxies[self.buffer_id] = buffer_proxy
-
-        on_done = servertools.CommandManager.make_buffer_query_message(
-            self.buffer_id,
-            )
-        message = servertools.CommandManager.make_buffer_allocate_message(
-            buffer_id=self.buffer_id,
-            frame_count=frame_count,
+        self._register_with_server(
             channel_count=channel_count,
-            completion_message=on_done,
+            frame_count=frame_count,
             )
-        self.server.send_message(message)
 
     def free(self):
-        from supriya.tools import servertools
         if not self.is_allocated:
             return
-        buffer_id = self.buffer_id
-        buffers = self.server._buffers[buffer_id]
-        buffers.remove(self)
-        if not buffers:
-            del(self.server._buffers[buffer_id])
-        on_done = servertools.CommandManager.make_buffer_query_message(
-            buffer_id,
-            )
-        message = servertools.CommandManager.make_buffer_free_message(
-            buffer_id=buffer_id,
-            completion_message=on_done,
-            )
-        self.server.send_message(message)
+        self._unregister_with_server()
         if not self._buffer_id_was_set_manually:
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
