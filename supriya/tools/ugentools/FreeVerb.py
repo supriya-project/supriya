@@ -73,7 +73,7 @@ class FreeVerb(UGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             damping=damping,
             mix=mix,

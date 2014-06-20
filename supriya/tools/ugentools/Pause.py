@@ -36,7 +36,7 @@ class Pause(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             gate=gate,
             node_id=node_id,

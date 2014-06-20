@@ -46,7 +46,7 @@ class Line(UGen):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _new(
+    def _new_expanded(
         cls,
         calculation_rate=None,
         done_action=None,
@@ -56,7 +56,7 @@ class Line(UGen):
         ):
         from supriya.tools import synthdeftools
         done_action = synthdeftools.DoneAction.from_expr(done_action)
-        return super(Line, cls)._new(
+        return super(Line, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
@@ -92,7 +92,7 @@ class Line(UGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        return cls._new(
+        return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
@@ -126,7 +126,7 @@ class Line(UGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        return cls._new(
+        return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,

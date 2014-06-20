@@ -60,7 +60,7 @@ class SinOsc(PureUGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
             phase=phase,
@@ -88,7 +88,7 @@ class SinOsc(PureUGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
             phase=phase,

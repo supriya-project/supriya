@@ -80,7 +80,7 @@ class DelTapRd(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             phase=phase,
@@ -99,7 +99,7 @@ class DelTapRd(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             phase=phase,

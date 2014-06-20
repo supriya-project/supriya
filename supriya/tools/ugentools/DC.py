@@ -84,7 +84,7 @@ class DC(PureMultiOutUGen):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _new(
+    def _new_expanded(
         cls,
         calculation_rate=None,
         source=None,
@@ -92,7 +92,7 @@ class DC(PureMultiOutUGen):
         if not isinstance(source, collections.Sequence):
             source = (source,)
         channel_count = len(source)
-        return super(DC, cls)._new(
+        return super(DC, cls)._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
             source=source,
@@ -107,7 +107,7 @@ class DC(PureMultiOutUGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
             )
@@ -120,7 +120,7 @@ class DC(PureMultiOutUGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
             )

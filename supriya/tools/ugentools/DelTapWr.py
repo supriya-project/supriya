@@ -72,7 +72,7 @@ class DelTapWr(UGen):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls.as_audio_rate_input(source)
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             source=source,
@@ -88,7 +88,7 @@ class DelTapWr(UGen):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         source = cls.as_audio_rate_input(source)
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             source=source,

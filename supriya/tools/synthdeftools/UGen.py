@@ -191,7 +191,7 @@ class UGen(UGenMethodMixin):
                 self.synthdef._available_ugens.append(self)
 
     @classmethod
-    def _new(
+    def _new_expanded(
         cls,
         calculation_rate=None,
         special_index=0,
@@ -205,7 +205,7 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
-        assert isinstance(calculation_rate, synthdeftools.CalculationRate)
+        #assert isinstance(calculation_rate, synthdeftools.CalculationRate)
         input_dicts = UGen.expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
@@ -213,13 +213,13 @@ class UGen(UGenMethodMixin):
         has_custom_special_index = 'special_index' in signature.parameters
         for input_dict in input_dicts:
             if has_custom_special_index:
-                ugen = cls(
+                ugen = cls._new_single(
                     calculation_rate=calculation_rate,
                     special_index=special_index,
                     **input_dict
                     )
             else:
-                ugen = cls(
+                ugen = cls._new_single(
                     calculation_rate=calculation_rate,
                     **input_dict
                     )
@@ -227,6 +227,18 @@ class UGen(UGenMethodMixin):
         if len(ugens) == 1:
             return ugens[0]
         return synthdeftools.UGenArray(ugens)
+
+    @classmethod
+    def _new_single(
+        cls,
+        calculation_rate=None,
+        **kwargs
+        ):
+        ugen = cls(
+            calculation_rate=calculation_rate,
+            **kwargs
+            )
+        return ugen
 
     def _optimize_graph(self):
         pass

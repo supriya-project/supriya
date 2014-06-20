@@ -79,7 +79,7 @@ class BufDelayN(PureUGen):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls.as_audio_rate_input(source)
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             delay_time=delay_time,
@@ -115,7 +115,7 @@ class BufDelayN(PureUGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_id=buffer_id,
             calculation_rate=calculation_rate,
             delay_time=delay_time,

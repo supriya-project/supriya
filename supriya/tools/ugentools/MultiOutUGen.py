@@ -41,14 +41,14 @@ class MultiOutUGen(UGen):
         return [self.calculation_rate] * len(self)
 
     @classmethod
-    def _new(
+    def _new_expanded(
         cls,
         calculation_rate=None,
         special_index=0,
         **kwargs
         ):
         from supriya.tools import synthdeftools
-        ugen = super(MultiOutUGen, cls)._new(
+        ugen = super(MultiOutUGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             special_index=special_index,
             **kwargs

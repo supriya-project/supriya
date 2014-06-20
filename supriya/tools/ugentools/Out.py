@@ -57,7 +57,7 @@ class Out(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        return cls._new(
+        return cls._new_expanded(
             bus=bus,
             calculation_rate=calculation_rate,
             source=source,
@@ -71,7 +71,7 @@ class Out(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        return cls._new(
+        return cls._new_expanded(
             bus=bus,
             calculation_rate=calculation_rate,
             source=source,

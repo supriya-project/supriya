@@ -32,7 +32,7 @@ class PauseSelf(UGen):
         ):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        cls._new(
+        cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
             )

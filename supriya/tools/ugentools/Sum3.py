@@ -58,36 +58,39 @@ class Sum3(UGen):
     ### PRIVATE METHODS ###
 
     @classmethod
+    def _new_single(
+        cls,
+        input_one=None,
+        input_two=None,
+        input_three=None,
+        **kwargs
+        ):
+        if input_three == 0:
+            ugen = input_one + input_two
+        elif input_two == 0:
+            ugen = input_one + input_three
+        elif input_one == 0:
+            ugen = input_two + input_three
+        else:
+            ugen = cls(
+                input_one=input_one,
+                input_two=input_two,
+                input_three=input_three,
+                )
+        return ugen
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
     def new(
         cls,
         input_one=None,
         input_two=None,
         input_three=None,
         ):
-        kwargs = {
-            'input_one': input_one,
-            'input_two': input_two,
-            'input_three': input_three,
-            }
-        ugens = []
-        input_dicts = UGen.expand_dictionary(kwargs)
-        for input_dict in input_dicts:
-            input_one = input_dict['input_one']
-            input_two = input_dict['input_two']
-            input_three = input_dict['input_three']
-            if input_three == 0:
-                ugen = input_one + input_two
-            elif input_two == 0:
-                ugen = input_one + input_three
-            elif input_one == 0:
-                ugen = input_two + input_three
-            else:
-                ugen = cls(
-                    input_one=input_one,
-                    input_two=input_two,
-                    input_three=input_three,
-                    )
-            ugens.append(ugen)
-        if len(ugens) == 1:
-            return ugens[0]
-        return synthdeftools.UGenArray(ugens)
+        ugen = cls._new_expanded(
+            input_one=input_one,
+            input_two=input_two,
+            input_three=input_three,
+            )
+        return ugen

@@ -14,7 +14,7 @@ class InfoUGenBase(UGen):
     def ir(cls, **kwargs):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             **kwargs
             )

@@ -58,7 +58,7 @@ class EnvGen(UGen):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _new(
+    def _new_expanded(
         cls,
         calculation_rate=None,
         done_action=None,
@@ -70,7 +70,7 @@ class EnvGen(UGen):
             envelope = synthdeftools.Envelope()
         assert isinstance(envelope, synthdeftools.Envelope)
         envelope = tuple(envelope)
-        return super(EnvGen, cls)._new(
+        return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
@@ -101,7 +101,7 @@ class EnvGen(UGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
@@ -131,7 +131,7 @@ class EnvGen(UGen):
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,

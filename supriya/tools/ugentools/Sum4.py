@@ -63,6 +63,51 @@ class Sum4(UGen):
     ### PRIVATE METHODS ###
 
     @classmethod
+    def _new_single(
+        cls,
+        input_one=None,
+        input_two=None,
+        input_three=None,
+        input_four=None,
+        **kwargs
+        ):
+        from supriya.tools import ugentools
+        if input_one == 0:
+            ugen = ugentools.Sum3.new(
+                input_one=input_two,
+                input_two=input_three,
+                input_three=input_four,
+                )
+        elif input_two == 0:
+            ugen = ugentools.Sum3.new(
+                input_one=input_one,
+                input_two=input_three,
+                input_three=input_four,
+                )
+        elif input_three == 0:
+            ugen = ugentools.Sum3.new(
+                input_one=input_one,
+                input_two=input_two,
+                input_three=input_four,
+                )
+        elif input_four == 0:
+            ugen = ugentools.Sum3.new(
+                input_one=input_one,
+                input_two=input_two,
+                input_three=input_three,
+                )
+        else:
+            ugen = cls(
+                input_one=input_one,
+                input_two=input_two,
+                input_three=input_three,
+                input_four=input_four,
+                )
+        return ugen
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
     def new(
         cls,
         input_one=None,
@@ -70,52 +115,10 @@ class Sum4(UGen):
         input_three=None,
         input_four=None,
         ):
-        from supriya.tools import ugentools
-        kwargs = {
-            'input_one': input_one,
-            'input_two': input_two,
-            'input_three': input_three,
-            'input_four': input_four,
-            }
-        ugens = []
-        input_dicts = UGen.expand_dictionary(kwargs)
-        for input_dict in input_dicts:
-            input_one = input_dict['input_one']    
-            input_two = input_dict['input_two']    
-            input_three = input_dict['input_three']    
-            input_four = input_dict['input_four']    
-            if input_one == 0:
-                ugen = ugentools.Sum3.new(
-                    input_one=input_two,
-                    input_two=input_three,
-                    input_three=input_four,
-                    )
-            elif input_two == 0:
-                ugen = ugentools.Sum3.new(
-                    input_one=input_one,
-                    input_two=input_three,
-                    input_three=input_four,
-                    )
-            elif input_three == 0:
-                ugen = ugentools.Sum3.new(
-                    input_one=input_one,
-                    input_two=input_two,
-                    input_three=input_four,
-                    )
-            elif input_four == 0:
-                ugen = ugentools.Sum3.new(
-                    input_one=input_one,
-                    input_two=input_two,
-                    input_three=input_three,
-                    )
-            else:
-                ugen = cls(
-                    input_one=input_one,
-                    input_two=input_two,
-                    input_three=input_three,
-                    input_four=input_four,
-                    )
-            ugens.append(ugen)
-        if len(ugens) == 1:
-            return ugens[0]
-        return synthdeftools.UGenArray(ugens)
+        ugen = cls._new_expanded(
+            input_one=input_one,
+            input_two=input_two,
+            input_three=input_three,
+            input_four=input_four,
+            )
+        return ugen

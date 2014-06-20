@@ -33,7 +33,7 @@ class BufInfoUGenBase(InfoUGenBase):
     def ir(cls, buffer_number=None):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_number=buffer_number,
             calculation_rate=calculation_rate,
             )
@@ -43,7 +43,7 @@ class BufInfoUGenBase(InfoUGenBase):
     def kr(cls, buffer_number=None):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new(
+        ugen = cls._new_expanded(
             buffer_number=buffer_number,
             calculation_rate=calculation_rate,
             )
