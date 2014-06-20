@@ -52,12 +52,16 @@ class Bus(ServerObjectProxy, BusMixin):
 
     ### PRIVATE METHODS ###
 
-    def _get_allocator(self):
+    @staticmethod
+    def _get_allocator(
+        calculation_rate=None,
+        server=None,
+        ):
         from supriya.tools import synthdeftools
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            allocator = self.server.audio_bus_allocator
+        if calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            allocator = server.audio_bus_allocator
         else:
-            allocator = self.server.control_bus_allocator
+            allocator = server.control_bus_allocator
         return allocator
 
     ### PUBLIC METHODS ###
@@ -72,7 +76,10 @@ class Bus(ServerObjectProxy, BusMixin):
             return
         ServerObjectProxy.allocate(self, server=server)
         if self.bus_id is None:
-            allocator = self._get_allocator()
+            allocator = self._get_allocator(
+                calculation_rate=self.calculation_rate,
+                server=self.server,
+                )
             bus_id = allocator.allocate(1)
             if bus_id is None:
                 ServerObjectProxy.free(self)
@@ -83,7 +90,10 @@ class Bus(ServerObjectProxy, BusMixin):
         if not self.is_allocated:
             return
         if not self._bus_id_was_set_manually:
-            allocator = self._get_allocator()
+            allocator = self._get_allocator(
+                calculation_rate=self.calculation_rate,
+                server=self.server,
+                )
             allocator.free(self.bus_id)
         self._bus_id = None
         ServerObjectProxy.free(self)
