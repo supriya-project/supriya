@@ -61,6 +61,7 @@ class UGen(UGenMethodMixin):
             self._configure_argument(argument_name, argument_value)
         if kwargs:
             raise ValueError(kwargs)
+        self._validate_inputs()
         self._antecedents = []
         self._descendants = []
         self._output_proxies = tuple(
@@ -118,6 +119,23 @@ class UGen(UGenMethodMixin):
                 source=ugen,
                 )
         self._inputs.append(output_proxy)
+
+    def _check_self_rate_as_first_input_rate(self):
+        from supriya import synthdeftools
+        first_input_rate = synthdeftools.CalculationRate.from_input(
+            self.inputs[0],
+            )
+        return self.calculation_rate == first_input_rate
+
+    def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
+        from supriya import synthdeftools
+        if self.calculation_rate != synthdeftools.CalculationRate.AUDIO:
+            return True
+        for input_ in self.inputs[start:stop]:
+            rate = synthdeftools.CalculationRate.from_input(input_)
+            if rate != synthdeftools.CalculationRate.AUDIO:
+                return False
+        return True
 
     def _collect_constants(self):
         from supriya import synthdeftools
@@ -221,6 +239,9 @@ class UGen(UGenMethodMixin):
         for ugen in reversed(self.descendants):
             ugen._remove_antecedent(self)
         out_stack.append(self)
+
+    def _validate_inputs(self):
+        pass
 
     ### PUBLIC METHODS ###
 
