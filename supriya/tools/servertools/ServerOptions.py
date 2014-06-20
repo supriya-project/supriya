@@ -63,7 +63,7 @@ class ServerOptions(object):
         random_number_generator_count=64,
         remote_control_volume=False,
         restricted_path=None,
-        sample_rate=None,
+        sample_rate=48000,
         verbosity=0,
         wire_buffer_count=64,
         zero_configuration=False,
@@ -90,6 +90,8 @@ class ServerOptions(object):
         self._random_number_generator_count = int(random_number_generator_count)
         self._remote_control_volume = remote_control_volume
         self._restricted_path = restricted_path
+        if sample_rate is None:
+            sample_rate = 48000
         self._sample_rate = sample_rate
         self._verbosity = int(verbosity)
         self._wire_buffer_count = int(wire_buffer_count)

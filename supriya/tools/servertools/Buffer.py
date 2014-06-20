@@ -104,6 +104,7 @@ class Buffer(ServerObjectProxy):
             completion_message=on_done,
             )
         self.server.send_message(message)
+        self._buffer_id = None
         ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
