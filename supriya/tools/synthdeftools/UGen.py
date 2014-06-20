@@ -312,6 +312,10 @@ class UGen(UGenMethodMixin):
         return self._descendants
 
     @property
+    def has_done_action(self):
+        return 'done_action' in self._ordered_argument_names
+
+    @property
     def inputs(self):
         return tuple(self._inputs)
 
