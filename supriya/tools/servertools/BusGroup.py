@@ -99,5 +99,9 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
         return self._buses
 
     @property
+    def calculation_rate(self):
+        return self._calculation_rate
+
+    @property
     def is_allocated(self):
         return self.server is not None

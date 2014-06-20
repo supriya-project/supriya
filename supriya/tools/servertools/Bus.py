@@ -115,6 +115,10 @@ class Bus(ServerObjectProxy, BusMixin):
         return self._bus_id
 
     @property
+    def calculation_rate(self):
+        return self._calculation_rate
+
+    @property
     def is_allocated(self):
         if self.bus_group is not None:
             return self.bus_group.is_allocated
