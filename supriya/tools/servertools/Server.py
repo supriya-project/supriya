@@ -209,8 +209,8 @@ class Server(object):
 
     def _setup_proxies(self):
         from supriya.tools import servertools
-        self._audio_input_bus = servertools.AudioInputBus(self)
-        self._audio_output_bus = servertools.AudioOutputBus(self)
+        #self._audio_input_bus = servertools.AudioInputBus(self)
+        #self._audio_output_bus = servertools.AudioOutputBus(self)
         self._root_node = servertools.RootNode(server=self)
         self._nodes[0] = self._root_node
         default_group = servertools.Group()
