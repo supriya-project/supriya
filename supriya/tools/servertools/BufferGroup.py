@@ -93,15 +93,15 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         if self.is_allocated:
             return
         ServerObjectProxy.allocate(self, server=server)
-        channel_count = int(channel_count)
-        frame_count = int(frame_count)
-        assert 0 < channel_count
-        assert 0 < frame_count
         buffer_id = self.server.buffer_allocator.allocate(len(self))
         if buffer_id is None:
             ServerObjectProxy.free(self)
             raise ValueError
         self._buffer_id = buffer_id
+        channel_count = int(channel_count)
+        frame_count = int(frame_count)
+        assert 0 < channel_count
+        assert 0 < frame_count
         for i in range(len(self)):
             buffer_id = self.buffer_id + i
             self[i]._register_with_server(
