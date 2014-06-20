@@ -28,7 +28,7 @@ class EnvGen(UGen):
         'envelope',
         )
 
-    _unexpanded_argument_names = (
+    _unexpanded_input_names = (
         'envelope',
         )
 

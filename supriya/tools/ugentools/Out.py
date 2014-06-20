@@ -22,7 +22,7 @@ class Out(UGen):
 
     __slots__ = ()
 
-    _unexpanded_argument_names = ('source',)
+    _unexpanded_input_names = ('source',)
 
     ### INITIALIZER ###
 

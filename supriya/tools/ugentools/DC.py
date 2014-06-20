@@ -61,7 +61,7 @@ class DC(PureMultiOutUGen):
         'source',
         )
 
-    _unexpanded_argument_names = (
+    _unexpanded_input_names = (
         'source',
         'channel_count',
         )

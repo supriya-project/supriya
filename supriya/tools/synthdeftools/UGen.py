@@ -24,7 +24,7 @@ class UGen(UGenMethodMixin):
 
     _ordered_input_names = ()
 
-    _unexpanded_argument_names = None
+    _unexpanded_input_names = None
 
     ### INITIALIZER ###
 
@@ -54,8 +54,8 @@ class UGen(UGenMethodMixin):
                 UGen,
                 synthdeftools.OutputProxy,
                 )
-            if self._unexpanded_argument_names and \
-                argument_name in self._unexpanded_argument_names:
+            if self._unexpanded_input_names and \
+                argument_name in self._unexpanded_input_names:
                 prototype += (tuple,)
             assert isinstance(argument_value, prototype), argument_value
             self._configure_argument(argument_name, argument_value)
@@ -154,8 +154,8 @@ class UGen(UGenMethodMixin):
                 )
         elif isinstance(value, tuple) and \
             all(isinstance(_, (int, float)) for _ in value):
-            assert self._unexpanded_argument_names
-            assert name in self._unexpanded_argument_names
+            assert self._unexpanded_input_names
+            assert name in self._unexpanded_input_names
             for x in value:
                 self._add_constant_input(x)
         else:
@@ -207,7 +207,7 @@ class UGen(UGenMethodMixin):
             get_signature = inspect.signature
         assert isinstance(calculation_rate, synthdeftools.CalculationRate)
         argument_dicts = UGen.expand_arguments(
-            kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
+            kwargs, unexpanded_argument_names=cls._unexpanded_input_names)
         ugens = []
         signature = get_signature(cls.__init__)
         has_custom_special_index = 'special_index' in signature.parameters
