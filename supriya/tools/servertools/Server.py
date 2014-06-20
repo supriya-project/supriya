@@ -28,8 +28,8 @@ class Server(object):
     __slots__ = (
         '_audio_bus_allocator',
         '_audio_buses',
-        '_audio_input_bus',
-        '_audio_output_bus',
+        '_audio_input_bus_group',
+        '_audio_output_bus_group',
         '_buffer_allocator',
         '_buffers',
         '_buffer_proxies',
@@ -121,8 +121,8 @@ class Server(object):
 
         ### PROXIES ###
 
-        self._audio_input_bus = None
-        self._audio_output_bus = None
+        self._audio_input_bus_group = None
+        self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
 
@@ -233,8 +233,8 @@ class Server(object):
 
     def _setup_proxies(self):
         from supriya.tools import servertools
-        #self._audio_input_bus = servertools.AudioInputBus(self)
-        #self._audio_output_bus = servertools.AudioOutputBus(self)
+        self._audio_input_bus_group = servertools.AudioInputBusGroup(self)
+        self._audio_output_bus_group = servertools.AudioOutputBusGroup(self)
         self._root_node = servertools.RootNode(server=self)
         self._nodes[0] = self._root_node
         default_group = servertools.Group()
@@ -279,8 +279,8 @@ class Server(object):
         self._buffer_proxies = None
         self._default_group = None
         self._root_node = None
-        self._audio_input_bus = None
-        self._audio_output_bus = None
+        self._audio_input_bus_group = None
+        self._audio_output_bus_group = None
 
     def _teardown_status_watcher(self):
         self._status_watcher.active = False
@@ -296,38 +296,34 @@ class Server(object):
         from supriya.tools import servertools
         if self.is_running:
             return
-        try:
-            server_options = server_options or servertools.ServerOptions()
-            options_string = server_options.as_options_string(self.port)
-            command = 'scsynth {}'.format(options_string)
-            server_process = pexpect.spawn(command)
-            time.sleep(0.1)
-            error = 'Exception in World_OpenUDP: bind: Address already in use'
-            success = 'SuperCollider 3 server ready.'
-            string = server_process.read(1)
-            if 2 < sys.version_info[0]:
-                string = str(string, 'utf-8')
-            while True:
-                try:
-                    char = server_process.read_nonblocking(timeout=0.1)
-                    if 2 < sys.version_info[0]:
-                        char = str(char, 'utf-8')
-                    string += char
-                except (pexpect.TIMEOUT, pexpect.EOF):
-                    break
-            if error in string:
-                raise Exception(error)
-            assert success in string
+        server_options = server_options or servertools.ServerOptions()
+        options_string = server_options.as_options_string(self.port)
+        command = 'scsynth {}'.format(options_string)
+        server_process = pexpect.spawn(command)
+        time.sleep(0.1)
+        error = 'Exception in World_OpenUDP: bind: Address already in use'
+        success = 'SuperCollider 3 server ready.'
+        string = server_process.read(1)
+        if 2 < sys.version_info[0]:
+            string = str(string, 'utf-8')
+        while True:
+            try:
+                char = server_process.read_nonblocking(timeout=0.1)
+                if 2 < sys.version_info[0]:
+                    char = str(char, 'utf-8')
+                string += char
+            except (pexpect.TIMEOUT, pexpect.EOF):
+                break
+        if error in string:
+            raise Exception(error)
+        assert success in string
 
-            self._is_running = True
-            self._server_options = server_options
-            self._server_process = server_process
-            self._setup()
-            self.sync()
-            return self
-        except Exception as e:
-            self.quit()
-            raise e
+        self._is_running = True
+        self._server_options = server_options
+        self._server_process = server_process
+        self._setup()
+        self.sync()
+        return self
 
     @staticmethod
     def get_default_server():
@@ -541,12 +537,12 @@ class Server(object):
         return self._audio_bus_allocator
 
     @property
-    def audio_input_bus(self):
-        return self._audio_input_bus
+    def audio_input_bus_group(self):
+        return self._audio_input_bus_group
 
     @property
-    def audio_output_bus(self):
-        return self._audio_output_bus
+    def audio_output_bus_group(self):
+        return self._audio_output_bus_group
 
     @property
     def buffer_allocator(self):
