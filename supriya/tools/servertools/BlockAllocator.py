@@ -76,7 +76,6 @@ class BlockAllocator(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def allocate(self, desired_block_size=1):
-        from supriya.tools import servertools
         desired_block_size = int(desired_block_size)
         assert 0 < desired_block_size
         block_id = None
@@ -180,8 +179,12 @@ class BlockAllocator(SupriyaObject):
 
     @property
     def heap_maximum(self):
+        r'''Maximum allocatable index.
+        '''
         return self._heap_maximum
 
     @property
     def heap_minimum(self):
+        r'''Minimum allocatable index.
+        '''
         return self._heap_minimum
