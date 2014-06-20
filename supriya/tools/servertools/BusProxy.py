@@ -10,6 +10,7 @@ class BusProxy(SupriyaObject):
         '_bus_id'
         '_calculation_rate',
         '_server',
+        '_value',
         )
 
     ### INITIALIZER ###
@@ -19,6 +20,7 @@ class BusProxy(SupriyaObject):
         bus_id=None,
         calculation_rate=None,
         server=None,
+        value=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -30,6 +32,7 @@ class BusProxy(SupriyaObject):
         self._bus_id = int(bus_id)
         self._calculation_rate = calculation_rate
         self._server = server
+        self._value = None
 
     ### SPECIAL METHODS ###
 
@@ -84,3 +87,7 @@ class BusProxy(SupriyaObject):
     @property
     def server(self):
         return self._server
+
+    @property
+    def value(self):
+        return self._value
