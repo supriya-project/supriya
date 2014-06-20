@@ -166,7 +166,7 @@ class Buffer(ServerObjectProxy):
         if self._buffer_group is not None:
             if self._buffer_group.buffer_id is not None:
                 group_id = self._buffer_group.buffer_id
-                index = self._buffer_group.buffers.index(self)
+                index = self._buffer_group.index(self)
                 buffer_id = group_id + index
                 return buffer_id
         return self._buffer_id
