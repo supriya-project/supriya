@@ -362,7 +362,7 @@ class Server(object):
             NODE TREE 0 group
                 1 group
                     1001 group
-                        1003 f1c3ea5063065be20688f82b415c1108
+                        1003 b6e8411ae28dab0bd373dfd85c8a3cca
                             amplitude: 0.0, frequency: 440.0
                     1000 group
                         1002 group
@@ -432,7 +432,7 @@ class Server(object):
             NODE TREE 0 group
                 1 group
                     1001 group
-                        1003 f1c3ea5063065be20688f82b415c1108
+                        1003 b6e8411ae28dab0bd373dfd85c8a3cca
                     1000 group
                         1002 group
 
