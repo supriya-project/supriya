@@ -206,7 +206,7 @@ class UGen(UGenMethodMixin):
             import inspect
             get_signature = inspect.signature
         assert isinstance(calculation_rate, synthdeftools.CalculationRate)
-        argument_dicts = UGen.expand_arguments(
+        argument_dicts = UGenMethodMixin.expand_arguments(
             kwargs, unexpanded_argument_names=cls._unexpanded_argument_names)
         ugens = []
         signature = get_signature(cls.__init__)
