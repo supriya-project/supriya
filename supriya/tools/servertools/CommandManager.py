@@ -20,7 +20,8 @@ class CommandManager(object):
         frame_count = int(frame_count)
         channel_count = int(channel_count)
         if completion_message is not None:
-            assert isinstance(completion_message, osctools.OscMessage)
+            prototype = (osctools.OscBundle, osctools.OscMessage)
+            assert isinstance(completion_message, prototype)
             message = osctools.OscMessage(
                 command_type,
                 buffer_id,
@@ -47,7 +48,8 @@ class CommandManager(object):
         command_type = int(command_type)
         buffer_id = int(buffer_id)
         if completion_message is not None:
-            assert isinstance(completion_message, osctools.OscMessage)
+            prototype = (osctools.OscBundle, osctools.OscMessage)
+            assert isinstance(completion_message, prototype)
             message = osctools.OscMessage(
                 command_type,
                 buffer_id,
