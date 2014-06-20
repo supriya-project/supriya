@@ -36,11 +36,11 @@ class Out(UGen):
             self,
             calculation_rate=calculation_rate,
             )
-        self._configure_argument('bus', bus)
+        self._configure_input('bus', bus)
         if not isinstance(source, collections.Sequence):
             source = [source]
         for single_source in source:
-            self._configure_argument('source', single_source)
+            self._configure_input('source', single_source)
 
     ### PRIVATE METHODS ###
 

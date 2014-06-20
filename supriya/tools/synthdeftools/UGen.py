@@ -58,7 +58,7 @@ class UGen(UGenMethodMixin):
                 argument_name in self._unexpanded_input_names:
                 prototype += (tuple,)
             assert isinstance(argument_value, prototype), argument_value
-            self._configure_argument(argument_name, argument_value)
+            self._configure_input(argument_name, argument_value)
         if kwargs:
             raise ValueError(kwargs)
         self._validate_inputs()
@@ -143,7 +143,7 @@ class UGen(UGenMethodMixin):
             if not isinstance(input_, synthdeftools.OutputProxy):
                 self.synthdef._add_constant(float(input_))
 
-    def _configure_argument(self, name, value):
+    def _configure_input(self, name, value):
         from supriya import synthdeftools
         if isinstance(value, (int, float)):
             self._add_constant_input(value)
