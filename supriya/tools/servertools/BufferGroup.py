@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 import collections
+from supriya.tools.servertools.BufferMixin import BufferMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BufferGroup(ServerObjectProxy, collections.Sequence):
+class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
     r'''A buffer group.
 
     ::

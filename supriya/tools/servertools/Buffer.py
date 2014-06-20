@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.servertools.BufferMixin import BufferMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Buffer(ServerObjectProxy):
+class Buffer(ServerObjectProxy, BufferMixin):
     r'''A buffer.
 
     ::

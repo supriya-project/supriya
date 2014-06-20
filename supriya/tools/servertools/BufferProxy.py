@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.servertools.BufferMixin import BufferMixin
 
 
-class BufferProxy(SupriyaObject):
+class BufferProxy(BufferMixin):
 
     ### CLASS VARIABLES ###
 
