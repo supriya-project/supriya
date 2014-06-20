@@ -55,4 +55,3 @@ class BinaryOperator(Enumeration):
     FIRST_ARG = 46
     RANDRANGE = 47
     EXPRANDRANGE = 48
-

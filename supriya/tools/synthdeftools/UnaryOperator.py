@@ -60,4 +60,3 @@ class UnaryOperator(Enumeration):
     TRIANGLE_WINDOW = 51
     RAMP = 52
     SCURVE = 53
-
