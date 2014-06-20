@@ -272,35 +272,38 @@ class Server(object):
         from supriya.tools import servertools
         if self.is_running:
             return
-        server_options = server_options or servertools.ServerOptions()
-        options_string = server_options.as_options_string(self.port)
-        command = 'scsynth {}'.format(options_string)
+        try:
+            server_options = server_options or servertools.ServerOptions()
+            options_string = server_options.as_options_string(self.port)
+            command = 'scsynth {}'.format(options_string)
+            server_process = pexpect.spawn(command)
+            time.sleep(0.1)
+            error = 'Exception in World_OpenUDP: bind: Address already in use'
+            success = 'SuperCollider 3 server ready.'
+            string = server_process.read(1)
+            if 2 < sys.version_info[0]:
+                string = str(string, 'utf-8')
+            while True:
+                try:
+                    char = server_process.read_nonblocking(timeout=0.1)
+                    if 2 < sys.version_info[0]:
+                        char = str(char, 'utf-8')
+                    string += char
+                except (pexpect.TIMEOUT, pexpect.EOF):
+                    break
+            if error in string:
+                raise Exception(error)
+            assert success in string
 
-        server_process = pexpect.spawn(command)
-        time.sleep(0.1)
-        error = 'Exception in World_OpenUDP: bind: Address already in use'
-        success = 'SuperCollider 3 server ready.'
-        string = server_process.read(1)
-        if 2 < sys.version_info[0]:
-            string = str(string, 'utf-8')
-        while True:
-            try:
-                char = server_process.read_nonblocking(timeout=0.1)
-                if 2 < sys.version_info[0]:
-                    char = str(char, 'utf-8')
-                string += char
-            except (pexpect.TIMEOUT, pexpect.EOF):
-                break
-        if error in string:
-            raise Exception(error)
-        assert success in string
-
-        self._is_running = True
-        self._server_options = server_options
-        self._server_process = server_process
-        self._setup()
-        self.sync()
-        return self
+            self._is_running = True
+            self._server_options = server_options
+            self._server_process = server_process
+            self._setup()
+            self.sync()
+            return self
+        except Exception as e:
+            self.quit()
+            raise e
 
     @staticmethod
     def get_default_server():
