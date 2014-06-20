@@ -110,6 +110,40 @@ class BlockAllocator(SupriyaObject):
                 block_id = used_block.start_offset
         return block_id
 
+    def allocate_at(self, index=None, desired_block_size=1):
+        from supriya.tools import servertools
+        index = int(index)
+        desired_block_size = int(desired_block_size)
+        block_id = None
+        with self._lock:
+            start_offset = index
+            stop_offset = index + desired_block_size
+            start_cursor = self._free_heap.get_simultaneity_at(start_offset)
+            starting_blocks = sorted(
+                start_cursor.start_timespans +
+                start_cursor.overlap_timespans
+                )
+            stop_cursor = self._free_heap.get_simultaneity_at(stop_offset)
+            stop_blocks = sorted(
+                stop_cursor.overlap_timespans +
+                stop_cursor.stop_timespans
+                )
+            if starting_blocks == stop_blocks:
+                assert len(starting_blocks) == 1
+                free_block = starting_blocks[0]
+                used_block = servertools.Block(
+                    start_offset=start_offset,
+                    stop_offset=stop_offset,
+                    used=True,
+                    )
+                self._used_heap.insert(used_block)
+                self._free_heap.remove(free_block)
+                free_blocks = free_block - used_block
+                for free_block in free_blocks:
+                    self._free_heap.insert(free_block)
+                block_id = index
+        return block_id
+
     def free(self, block_id):
         from supriya.tools import servertools
         block_id = int(block_id)
