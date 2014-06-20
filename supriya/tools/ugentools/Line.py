@@ -17,7 +17,7 @@ class Line(UGen):
 
     __slots__ = ()
 
-    _ordered_argument_names = (
+    _ordered_input_names = (
         'start',
         'stop',
         'duration',

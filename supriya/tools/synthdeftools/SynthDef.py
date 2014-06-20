@@ -191,8 +191,8 @@ class SynthDef(ServerObjectProxy):
             ugen_name = get_ugen_name(ugen)
             for i, input_ in enumerate(ugen.inputs):
                 argument_name = None
-                if i < len(ugen._ordered_argument_names):
-                    argument_name = ugen._ordered_argument_names[i]
+                if i < len(ugen._ordered_input_names):
+                    argument_name = ugen._ordered_input_names[i]
                 if isinstance(input_, float):
                     input_index = self._get_constant_index(input_)
                     input_name = 'const_{}:{}'.format(input_index, input_)

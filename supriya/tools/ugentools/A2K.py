@@ -20,7 +20,7 @@ class A2K(PureUGen):
 
     __slots__ = ()
 
-    _ordered_argument_names = (
+    _ordered_input_names = (
         'source',
         )
 

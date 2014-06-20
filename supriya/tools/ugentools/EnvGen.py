@@ -19,7 +19,7 @@ class EnvGen(UGen):
 
     __slots__ = ()
 
-    _ordered_argument_names = (
+    _ordered_input_names = (
         'gate',
         'level_scale',
         'level_bias',

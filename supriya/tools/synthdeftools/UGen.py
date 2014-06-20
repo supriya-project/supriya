@@ -22,7 +22,7 @@ class UGen(UGenMethodMixin):
         '_width_first_antecedents',
         )
 
-    _ordered_argument_names = ()
+    _ordered_input_names = ()
 
     _unexpanded_argument_names = None
 
@@ -41,8 +41,8 @@ class UGen(UGenMethodMixin):
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
-        for i in range(len(self._ordered_argument_names)):
-            argument_name = self._ordered_argument_names[i]
+        for i in range(len(self._ordered_input_names)):
+            argument_name = self._ordered_input_names[i]
             argument_value = kwargs.get(argument_name, None)
             if argument_name in kwargs:
                 argument_value = kwargs[argument_name]
@@ -78,7 +78,7 @@ class UGen(UGenMethodMixin):
             object.__getattr__(self, attr)
         except AttributeError:
             for i, argument_name in enumerate(
-                self._ordered_argument_names):
+                self._ordered_input_names):
                 if argument_name == attr:
                     return self.inputs[i]
         raise AttributeError
@@ -367,7 +367,7 @@ class UGen(UGenMethodMixin):
 
     @property
     def has_done_action(self):
-        return 'done_action' in self._ordered_argument_names
+        return 'done_action' in self._ordered_input_names
 
     @property
     def inputs(self):

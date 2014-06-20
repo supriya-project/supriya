@@ -9,7 +9,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     __slots__ = ()
 
-    _ordered_argument_names = (
+    _ordered_input_names = (
         'buffer_number',
         )
 

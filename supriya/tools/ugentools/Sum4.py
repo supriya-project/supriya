@@ -26,7 +26,7 @@ class Sum4(UGen):
 
     __slots__ = ()
 
-    _ordered_argument_names = (
+    _ordered_input_names = (
         'input_one',
         'input_two',
         'input_three',
