@@ -7,67 +7,69 @@ class UGenMethodMixin(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### SPECIAL METHODS ###
 
+    def __abs__(self):
+        return UGenMethodMixin._compute_unary_op(self, 'abs')
+
     def __add__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'ADD')
+        return UGenMethodMixin._compute_binary_op(self, expr, 'add')
 
     def __div__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'FDIV')
+        return UGenMethodMixin._compute_binary_op(self, expr, 'fdiv')
 
     def __mod__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'MOD')
+        return UGenMethodMixin._compute_binary_op(self, expr, 'mod')
 
     def __mul__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'MUL')
+        return UGenMethodMixin._compute_binary_op(self, expr, 'mul')
 
     def __neg__(self):
-        return UGenMethodMixin._compute_unary_op(self, 'NEG')
+        return UGenMethodMixin._compute_unary_op(self, 'neg')
 
     def __radd__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'ADD')
+        return UGenMethodMixin._compute_binary_op(expr, self, 'add')
 
     def __rdiv__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'FDIV')
+        return UGenMethodMixin._compute_binary_op(expr, self, 'fdiv')
 
     def __rmul__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'MUL')
+        return UGenMethodMixin._compute_binary_op(expr, self, 'mul')
 
     def __rsub__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'SUB')
+        return UGenMethodMixin._compute_binary_op(expr, self, 'sub')
 
     def __sub__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'SUB')
+        return UGenMethodMixin._compute_binary_op(self, expr, 'sub')
 
     ### PRIVATE METHODS ###
 
     @staticmethod
-    def _compute_binary_op(left, right, op_name):
+    def _compute_binary_op(left, right, operator):
         from supriya import synthdeftools
+        from supriya import ugentools
         result = []
         if not isinstance(left, collections.Sequence):
-            left = [left]
+            left = (left,)
         if not isinstance(right, collections.Sequence):
-            right = [right]
-        arguments = {'left': left, 'right': right}
-        operator = synthdeftools.BinaryOperator[op_name]
+            right = (right,)
+        dictionary = {'left': left, 'right': right}
+        operator = synthdeftools.BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_arguments in synthdeftools.UGen.expand_dictionary(
-            arguments):
-            left = expanded_arguments['left']
-            right = expanded_arguments['right']
+        for expanded_dict in synthdeftools.UGen.expand_dictionary(dictionary):
+            left = expanded_dict['left']
+            right = expanded_dict['right']
             calculation_rate = UGenMethodMixin._compute_binary_rate(
                 left, right)
-            binary_op_ugen = synthdeftools.BinaryOpUGen(
+            ugen = ugentools.BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
                 special_index=special_index,
                 )
-            result.append(binary_op_ugen)
+            result.append(ugen)
         if len(result) == 1:
             return result[0]
         return synthdeftools.UGenArray(result)
@@ -93,20 +95,21 @@ class UGenMethodMixin(SupriyaObject):
         return synthdeftools.CalculationRate.SCALAR
 
     @staticmethod
-    def _compute_unary_op(source, op_name):
+    def _compute_unary_op(source, operator):
         from supriya import synthdeftools
+        from supriya import ugentools
         result = []
         if not isinstance(source, collections.Sequence):
-            source = [source]
-        operator = synthdeftools.UnaryOperator[op_name]
+            source = (source,)
+        operator = synthdeftools.UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
-            unary_op_ugen = synthdeftools.UnaryOpUGen(
+            ugen = ugentools.UnaryOpUGen._new_single(
                 calculation_rate=single_source.calculation_rate,
                 source=single_source,
                 special_index=special_index,
                 )
-            result.append(unary_op_ugen)
+            result.append(ugen)
         if len(result) == 1:
             return result[0]
         return synthdeftools.UGenArray(result)
