@@ -16,7 +16,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'absdiff',
+            synthdeftools.BinaryOperator.ABSDIFF,
             )
 
     @staticmethod
@@ -24,7 +24,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'amplitude_to_db',
+            synthdeftools.UnaryOperator.AMPLITUDE_TO_DB,
             )
 
     @staticmethod
@@ -32,7 +32,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'ceiling',
+            synthdeftools.UnaryOperator.CEILING,
             )
 
     @staticmethod
@@ -40,7 +40,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'cubed',
+            synthdeftools.UnaryOperator.CUBED,
             )
 
     @staticmethod
@@ -48,7 +48,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'db_to_amplitude',
+            synthdeftools.UnaryOperator.DB_TO_AMPLITUDE,
             )
 
     @staticmethod
@@ -56,7 +56,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'exponential',
+            synthdeftools.UnaryOperator.EXPONENTIAL,
             )
 
     @staticmethod
@@ -64,7 +64,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'floor',
+            synthdeftools.UnaryOperator.FLOOR,
             )
 
     @staticmethod
@@ -72,7 +72,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'fractional_part',
+            synthdeftools.UnaryOperator.FRACTIONAL_PART,
             )
 
     @staticmethod
@@ -80,7 +80,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'hz_to_midi',
+            synthdeftools.UnaryOperator.HZ_TO_MIDI,
             )
 
     @staticmethod
@@ -88,7 +88,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'hz_to_octave',
+            synthdeftools.UnaryOperator.HZ_TO_OCTAVE,
             )
 
     @staticmethod
@@ -97,7 +97,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'eq',
+            synthdeftools.BinaryOperator.EQ,
             )
 
     @staticmethod
@@ -106,7 +106,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'ne',
+            synthdeftools.BinaryOperator.NE,
             )
 
     @staticmethod
@@ -114,7 +114,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'log',
+            synthdeftools.UnaryOperator.LOG,
             )
 
     @staticmethod
@@ -122,7 +122,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'log2',
+            synthdeftools.UnaryOperator.LOG2,
             )
 
     @staticmethod
@@ -130,7 +130,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'log10',
+            synthdeftools.UnaryOperator.LOG10,
             )
 
     @staticmethod
@@ -139,7 +139,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'max',
+            synthdeftools.BinaryOperator.MAX,
             )
 
     @staticmethod
@@ -147,7 +147,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'midi_to_hz',
+            synthdeftools.UnaryOperator.MIDI_TO_HZ,
             )
 
     @staticmethod
@@ -156,7 +156,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'min',
+            synthdeftools.BinaryOperator.MIN,
             )
 
     @staticmethod
@@ -164,7 +164,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'octave_to_hz',
+            synthdeftools.UnaryOperator.OCTAVE_TO_HZ,
             )
 
     @staticmethod
@@ -173,7 +173,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            'pow',
+            synthdeftools.BinaryOperator.POW,
             )
 
     @staticmethod
@@ -181,7 +181,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'ratio_to_semitones',
+            synthdeftools.UnaryOperator.RATIO_TO_SEMITONES,
             )
 
     @staticmethod
@@ -189,7 +189,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'reciprocal',
+            synthdeftools.UnaryOperator.RECIPROCAL,
             )
 
     @staticmethod
@@ -197,7 +197,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'semitones_to_ratio',
+            synthdeftools.UnaryOperator.SEMITONES_TO_RATIO,
             )
 
     @staticmethod
@@ -205,7 +205,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'sign',
+            synthdeftools.UnaryOperator.SIGN,
             )
 
     @staticmethod
@@ -213,7 +213,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'softclip',
+            synthdeftools.UnaryOperator.SOFTCLIP,
             )
 
     @staticmethod
@@ -221,7 +221,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'square_root',
+            synthdeftools.UnaryOperator.SQUARE_ROOT,
             )
 
     @staticmethod
@@ -229,7 +229,7 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'squared',
+            synthdeftools.UnaryOperator.SQUARED,
             )
 
     @staticmethod
@@ -237,5 +237,5 @@ class Op(SupriyaObject):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
-            'tanh',
+            synthdeftools.UnaryOperator.TANH,
             )
