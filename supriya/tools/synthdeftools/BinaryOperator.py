@@ -6,8 +6,8 @@ class BinaryOperator(Enumeration):
 
     ### CLASS VARIABLES ###
 
-    ABSDIFF = 38  # |a - b|
-    ADD = 0
+    ABSOLUTE_DIFFERENCE = 38  # |a - b|
+    ADDITION = 0
     AMCLIP = 40
     ATAN2 = 22
     BIT_AND = 14
@@ -15,27 +15,27 @@ class BinaryOperator(Enumeration):
     BIT_XOR = 16
     CLIP2 = 42
     DIFFERENCE_OF_SQUARES = 34  # a*a - b*b
-    EQ = 6
+    EQUAL = 6
     EXCESS = 43
     EXPRANDRANGE = 48
-    FDIV = 4
+    FLOAT_DIVISION = 4
     FILL = 29
     FIRST_ARG = 46
     FOLD2 = 44
-    GCD = 18
-    GE = 11
-    GT = 9
+    GREATEST_COMMON_DIVISOR = 18
+    GREATER_THAN_OR_EQUAL = 11
+    GREATER_THAN = 9
     HYPOT = 23
     HYPOTX = 24
-    IDIV = 3
-    LCM = 17
-    LE = 10
-    LT = 8
-    MAX = 13
-    MIN = 12
-    MOD = 5
-    MUL = 2
-    NE = 7
+    INTEGER_DIVISION = 3
+    LEAST_COMMON_MULTIPLE = 17
+    LESS_THAN_OR_EQUAL = 10
+    LESS_THAN = 8
+    MAXIMUM = 13
+    MINIMUM = 12
+    MODULO = 5
+    MULTIPLICATION = 2
+    NOT_EQUAL = 7
     POW = 25
     RANDRANGE = 47
     RING1 = 30  # a * (b + 1) == a * b + a
@@ -49,9 +49,9 @@ class BinaryOperator(Enumeration):
     SHIFT_RIGHT = 27
     SQUARE_OF_DIFFERENCE = 37  # (a - b)^2
     SQUARE_OF_SUM = 36  # (a + b)^2
-    SUB = 1
+    SUBTRACTION = 1
     SUM_OF_SQUARES = 35  # a*a + b*b
-    THRESH = 39
-    TRUNC = 21
+    THRESHOLD = 39
+    TRUNCATION = 21
     UNSIGNED_SHIFT = 28
     WRAP2 = 45
