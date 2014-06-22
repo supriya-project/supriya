@@ -6,7 +6,7 @@ class UnaryOperator(Enumeration):
 
     ### CLASS VARIABLES ###
 
-    ABS = 5
+    ABSOLUTE_VALUE = 5
     AMPLITUDE_TO_DB = 22
     ARCCOS = 32
     ARCSIN = 31
@@ -36,7 +36,7 @@ class UnaryOperator(Enumeration):
     LOG2 = 26
     MIDI_TO_HZ = 17
     SEMITONES_TO_RATIO = 19
-    NEG = 0
+    NEGATIVE = 0
     NOT = 1
     NOT_NIL = 3
     OCTAVE_TO_HZ = 23
