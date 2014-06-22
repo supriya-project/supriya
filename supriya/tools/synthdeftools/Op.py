@@ -16,7 +16,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            synthdeftools.BinaryOperator.ABSDIFF,
+            synthdeftools.BinaryOperator.ABSOLUTE_DIFFERENCE,
             )
 
     @staticmethod
@@ -97,7 +97,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            synthdeftools.BinaryOperator.EQ,
+            synthdeftools.BinaryOperator.EQUAL,
             )
 
     @staticmethod
@@ -106,7 +106,7 @@ class Op(SupriyaObject):
         return synthdeftools.UGenMethodMixin._compute_binary_op(
             left,
             right,
-            synthdeftools.BinaryOperator.NE,
+            synthdeftools.BinaryOperator.NOT_EQUAL,
             )
 
     @staticmethod
