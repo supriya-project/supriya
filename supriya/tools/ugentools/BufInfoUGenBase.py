@@ -19,12 +19,12 @@ class BufInfoUGenBase(InfoUGenBase):
     def __init__(
         self,
         buffer_number=None,
-        calculation_rate=None,
+        rate=None,
         ):
         InfoUGenBase.__init__(
             self,
             buffer_number=buffer_number,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
 
     ### PUBLIC METHODS ###
@@ -32,19 +32,19 @@ class BufInfoUGenBase(InfoUGenBase):
     @classmethod
     def ir(cls, buffer_number=None):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        rate = synthdeftools.Rate.SCALAR
         ugen = cls._new_expanded(
             buffer_number=buffer_number,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
         return ugen
 
     @classmethod
     def kr(cls, buffer_number=None):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
             buffer_number=buffer_number,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
         return ugen

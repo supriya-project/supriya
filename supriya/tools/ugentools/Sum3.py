@@ -39,9 +39,9 @@ class Sum3(UGen):
         input_three=None,
         ):
         from supriya.tools import synthdeftools
-        Rate = synthdeftools.CalculationRate
+        Rate = synthdeftools.Rate
         inputs = [input_one, input_two, input_three]
-        calculation_rate = Rate.from_collection(inputs)
+        rate = Rate.from_collection(inputs)
         inputs.sort(
             key=lambda x: Rate.from_input(x),
             reverse=True,
@@ -49,7 +49,7 @@ class Sum3(UGen):
         inputs = tuple(inputs)
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             input_one=input_one,
             input_two=input_two,
             input_three=input_three,

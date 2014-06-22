@@ -17,13 +17,13 @@ class Free(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         trigger=None,
         node_id=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             trigger=trigger,
             node_id=node_id,
             )
@@ -37,9 +37,9 @@ class Free(UGen):
         node_id=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             trigger=trigger,
             node_id=node_id,
             )

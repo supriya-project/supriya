@@ -14,12 +14,12 @@ class PauseSelf(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         source=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
 
@@ -31,9 +31,9 @@ class PauseSelf(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
         return source

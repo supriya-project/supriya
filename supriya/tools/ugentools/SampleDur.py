@@ -21,9 +21,9 @@ class SampleDur(InfoUGenBase):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )

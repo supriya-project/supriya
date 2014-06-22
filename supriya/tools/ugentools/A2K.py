@@ -29,12 +29,12 @@ class A2K(PureUGen):
     def __init__(
         self,
         source=None,
-        calculation_rate=None,
+        rate=None,
         ):
         PureUGen.__init__(
             self,
             source=source,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
 
     ### PUBLIC METHODS ###
@@ -45,9 +45,9 @@ class A2K(PureUGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
         return ugen

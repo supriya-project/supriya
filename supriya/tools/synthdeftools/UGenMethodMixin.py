@@ -114,10 +114,10 @@ class UGenMethodMixin(SupriyaObject):
         for expanded_dict in synthdeftools.UGen.expand_dictionary(dictionary):
             left = expanded_dict['left']
             right = expanded_dict['right']
-            calculation_rate = UGenMethodMixin._compute_binary_rate(
+            rate = UGenMethodMixin._compute_binary_rate(
                 left, right)
             ugen = ugentools.BinaryOpUGen._new_single(
-                calculation_rate=calculation_rate,
+                rate=rate,
                 left=left,
                 right=right,
                 special_index=special_index,
@@ -130,22 +130,22 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         from supriya import synthdeftools
-        a_rate = synthdeftools.CalculationRate.SCALAR
+        a_rate = synthdeftools.Rate.SCALAR
         if isinstance(ugen_a, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-            a_rate = ugen_a.calculation_rate
-        b_rate = synthdeftools.CalculationRate.SCALAR
+            a_rate = ugen_a.rate
+        b_rate = synthdeftools.Rate.SCALAR
         if isinstance(ugen_b, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-            b_rate = ugen_b.calculation_rate
-        if a_rate == synthdeftools.CalculationRate.DEMAND \
-            or a_rate == synthdeftools.CalculationRate.DEMAND:
-            return synthdeftools.CalculationRate.DEMAND
-        elif a_rate == synthdeftools.CalculationRate.AUDIO \
-            or b_rate == synthdeftools.CalculationRate.AUDIO:
-            return synthdeftools.CalculationRate.AUDIO
-        elif a_rate == synthdeftools.CalculationRate.CONTROL \
-            or b_rate == synthdeftools.CalculationRate.CONTROL:
-            return synthdeftools.CalculationRate.CONTROL
-        return synthdeftools.CalculationRate.SCALAR
+            b_rate = ugen_b.rate
+        if a_rate == synthdeftools.Rate.DEMAND \
+            or a_rate == synthdeftools.Rate.DEMAND:
+            return synthdeftools.Rate.DEMAND
+        elif a_rate == synthdeftools.Rate.AUDIO \
+            or b_rate == synthdeftools.Rate.AUDIO:
+            return synthdeftools.Rate.AUDIO
+        elif a_rate == synthdeftools.Rate.CONTROL \
+            or b_rate == synthdeftools.Rate.CONTROL:
+            return synthdeftools.Rate.CONTROL
+        return synthdeftools.Rate.SCALAR
 
     @staticmethod
     def _compute_unary_op(source, operator):
@@ -158,7 +158,7 @@ class UGenMethodMixin(SupriyaObject):
         special_index = operator.value
         for single_source in source:
             ugen = ugentools.UnaryOpUGen._new_single(
-                calculation_rate=single_source.calculation_rate,
+                rate=single_source.rate,
                 source=single_source,
                 special_index=special_index,
                 )

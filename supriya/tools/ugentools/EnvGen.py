@@ -36,7 +36,7 @@ class EnvGen(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         done_action=0,
         envelope=None,
         gate=1.0,
@@ -46,7 +46,7 @@ class EnvGen(UGen):
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             done_action=done_action,
             envelope=envelope,
             gate=gate,
@@ -60,7 +60,7 @@ class EnvGen(UGen):
     @classmethod
     def _new_expanded(
         cls,
-        calculation_rate=None,
+        rate=None,
         done_action=None,
         envelope=None,
         ):
@@ -71,7 +71,7 @@ class EnvGen(UGen):
         assert isinstance(envelope, synthdeftools.Envelope)
         envelope = tuple(envelope)
         return super(EnvGen, cls)._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             done_action=done_action,
             envelope=envelope,
             )
@@ -100,9 +100,9 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             done_action=done_action,
             envelope=envelope,
             )
@@ -130,9 +130,9 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             done_action=done_action,
             envelope=envelope,
             )

@@ -14,7 +14,7 @@ class In(MultiOutUGen):
                 OutputProxy(
                     source=In(
                         bus=0.0,
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=4
                         ),
                     output_index=0
@@ -22,7 +22,7 @@ class In(MultiOutUGen):
                 OutputProxy(
                     source=In(
                         bus=0.0,
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=4
                         ),
                     output_index=1
@@ -30,7 +30,7 @@ class In(MultiOutUGen):
                 OutputProxy(
                     source=In(
                         bus=0.0,
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=4
                         ),
                     output_index=2
@@ -38,7 +38,7 @@ class In(MultiOutUGen):
                 OutputProxy(
                     source=In(
                         bus=0.0,
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=4
                         ),
                     output_index=3
@@ -61,13 +61,13 @@ class In(MultiOutUGen):
     def __init__(
         self,
         bus=0,
-        calculation_rate=None,
+        rate=None,
         channel_count=1,
         ):
         MultiOutUGen.__init__(
             self,
             bus=bus,
-            calculation_rate=calculation_rate,
+            rate=rate,
             channel_count=channel_count,
             )
 
@@ -80,9 +80,9 @@ class In(MultiOutUGen):
         channel_count=1,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             special_index=0,
             bus=bus,
             channel_count=channel_count,
@@ -96,9 +96,9 @@ class In(MultiOutUGen):
         channel_count=1,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             special_index=0,
             bus=bus,
             channel_count=channel_count,

@@ -28,13 +28,13 @@ class BusMixin(SupriyaObject):
         raise NotImplementedError
 
     @abc.abstractproperty
-    def calculation_rate(self):
+    def rate(self):
         raise NotImplementedError
 
     @property
     def map_symbol(self):
         from supriya.tools import synthdeftools
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        if self.rate == synthdeftools.Rate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

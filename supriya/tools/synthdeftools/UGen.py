@@ -31,14 +31,14 @@ class UGen(UGenMethodMixin):
     @abc.abstractmethod
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         special_index=0,
         **kwargs
         ):
         from supriya import synthdeftools
-        assert isinstance(calculation_rate, synthdeftools.CalculationRate), \
-            calculation_rate
-        self._calculation_rate = calculation_rate
+        assert isinstance(rate, synthdeftools.Rate), \
+            rate
+        self._calculation_rate = rate
         self._inputs = []
         self._special_index = special_index
         for i in range(len(self._ordered_input_names)):
@@ -91,16 +91,16 @@ class UGen(UGenMethodMixin):
 
     def __repr__(self):
         from supriya.tools import synthdeftools
-        if self.calculation_rate == synthdeftools.CalculationRate.DEMAND:
+        if self.rate == synthdeftools.Rate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            synthdeftools.CalculationRate.AUDIO: 'ar',
-            synthdeftools.CalculationRate.CONTROL: 'kr',
-            synthdeftools.CalculationRate.SCALAR: 'ir',
+            synthdeftools.Rate.AUDIO: 'ar',
+            synthdeftools.Rate.CONTROL: 'kr',
+            synthdeftools.Rate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
-            calculation_abbreviations[self.calculation_rate]
+            calculation_abbreviations[self.rate]
             )
         return string
 
@@ -125,18 +125,18 @@ class UGen(UGenMethodMixin):
 
     def _check_self_rate_as_first_input_rate(self):
         from supriya import synthdeftools
-        first_input_rate = synthdeftools.CalculationRate.from_input(
+        first_input_rate = synthdeftools.Rate.from_input(
             self.inputs[0],
             )
-        return self.calculation_rate == first_input_rate
+        return self.rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
         from supriya import synthdeftools
-        if self.calculation_rate != synthdeftools.CalculationRate.AUDIO:
+        if self.rate != synthdeftools.Rate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
-            rate = synthdeftools.CalculationRate.from_input(input_)
-            if rate != synthdeftools.CalculationRate.AUDIO:
+            rate = synthdeftools.Rate.from_input(input_)
+            if rate != synthdeftools.Rate.AUDIO:
                 return False
         return True
 
@@ -168,7 +168,7 @@ class UGen(UGenMethodMixin):
         return 0
 
     def _get_outputs(self):
-        return [self.calculation_rate]
+        return [self.rate]
 
     def _get_source(self):
         return self
@@ -196,7 +196,7 @@ class UGen(UGenMethodMixin):
     @classmethod
     def _new_expanded(
         cls,
-        calculation_rate=None,
+        rate=None,
         special_index=0,
         **kwargs
         ):
@@ -208,7 +208,7 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
-        #assert isinstance(calculation_rate, synthdeftools.CalculationRate)
+        #assert isinstance(rate, synthdeftools.Rate)
         input_dicts = UGen.expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
@@ -217,13 +217,13 @@ class UGen(UGenMethodMixin):
         for input_dict in input_dicts:
             if has_custom_special_index:
                 ugen = cls._new_single(
-                    calculation_rate=calculation_rate,
+                    rate=rate,
                     special_index=special_index,
                     **input_dict
                     )
             else:
                 ugen = cls._new_single(
-                    calculation_rate=calculation_rate,
+                    rate=rate,
                     **input_dict
                     )
             ugens.append(ugen)
@@ -234,11 +234,11 @@ class UGen(UGenMethodMixin):
     @classmethod
     def _new_single(
         cls,
-        calculation_rate=None,
+        rate=None,
         **kwargs
         ):
         ugen = cls(
-            calculation_rate=calculation_rate,
+            rate=rate,
             **kwargs
             )
         return ugen
@@ -269,7 +269,7 @@ class UGen(UGenMethodMixin):
                 return ugentools.Silence.ar()
             return ugentools.DC.ar(expr)
         elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
-            if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            if expr.rate == synthdeftools.Rate.AUDIO:
                 return expr
             return ugentools.K2A.ar(source=expr)
         elif isinstance(expr, collections.Iterable):
@@ -301,7 +301,7 @@ class UGen(UGenMethodMixin):
         outputs = self._get_outputs()
         result = []
         result.append(SynthDef._encode_string(type(self).__name__))
-        result.append(SynthDef._encode_unsigned_int_8bit(self.calculation_rate))
+        result.append(SynthDef._encode_unsigned_int_8bit(self.rate))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
         result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
@@ -376,7 +376,7 @@ class UGen(UGenMethodMixin):
         return self._antecedents
 
     @property
-    def calculation_rate(self):
+    def rate(self):
         return self._calculation_rate
 
     @property

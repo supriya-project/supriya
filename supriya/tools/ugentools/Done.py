@@ -16,14 +16,14 @@ class Done(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         source=None,
         ):
         assert isinstance(source, UGen)
         assert source.has_done_action
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
 
@@ -35,9 +35,9 @@ class Done(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
         return ugen

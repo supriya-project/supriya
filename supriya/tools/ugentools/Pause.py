@@ -15,13 +15,13 @@ class Pause(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         gate=None,
         node_id=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             gate=gate,
             node_id=node_id,
             )
@@ -35,9 +35,9 @@ class Pause(UGen):
         node_id=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             gate=gate,
             node_id=node_id,
             )

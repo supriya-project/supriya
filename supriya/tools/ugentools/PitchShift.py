@@ -32,7 +32,7 @@ class PitchShift(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         pitch_dispersion=0.0,
         pitch_ratio=1.0,
         source=None,
@@ -41,7 +41,7 @@ class PitchShift(UGen):
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             pitch_dispersion=pitch_dispersion,
             pitch_ratio=pitch_ratio,
             source=source,
@@ -77,9 +77,9 @@ class PitchShift(UGen):
 
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             pitch_dispersion=pitch_dispersion,
             pitch_ratio=pitch_ratio,
             source=source,

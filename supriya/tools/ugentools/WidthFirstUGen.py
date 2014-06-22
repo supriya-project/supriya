@@ -14,13 +14,13 @@ class WidthFirstUGen(UGen):
     @abc.abstractmethod
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         special_index=0,
         **kwargs
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             special_index=special_index,
             **kwargs
             )

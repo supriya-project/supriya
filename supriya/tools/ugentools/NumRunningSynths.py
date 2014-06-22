@@ -21,11 +21,11 @@ class NumRunningSynths(InfoUGenBase):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
 
     ### PUBLIC METHODS ###
@@ -33,9 +33,9 @@ class NumRunningSynths(InfoUGenBase):
     @classmethod
     def kr(cls, **kwargs):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             **kwargs
             )
         return ugen

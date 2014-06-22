@@ -20,7 +20,7 @@ def test_Bus_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id is None
-    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.rate == synthdeftools.Rate.CONTROL
     assert control_bus.server is None
     assert not control_bus.is_allocated
 
@@ -28,7 +28,7 @@ def test_Bus_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id == 0
-    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.rate == synthdeftools.Rate.CONTROL
     assert control_bus.server is server
     assert control_bus.is_allocated
     assert control_bus.map_symbol == 'c0'
@@ -37,7 +37,7 @@ def test_Bus_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id is None
-    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.rate == synthdeftools.Rate.CONTROL
     assert control_bus.server is None
     assert not control_bus.is_allocated
 
@@ -48,7 +48,7 @@ def test_Bus_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id is None
-    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.rate == synthdeftools.Rate.AUDIO
     assert audio_bus.server is None
     assert not audio_bus.is_allocated
 
@@ -56,7 +56,7 @@ def test_Bus_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id == 16
-    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.rate == synthdeftools.Rate.AUDIO
     assert audio_bus.server is server
     assert audio_bus.is_allocated
     assert audio_bus.map_symbol == 'a16'
@@ -65,6 +65,6 @@ def test_Bus_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id is None
-    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.rate == synthdeftools.Rate.AUDIO
     assert audio_bus.server is None
     assert not audio_bus.is_allocated

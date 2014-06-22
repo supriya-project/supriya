@@ -21,7 +21,7 @@ class Bus(ServerObjectProxy, BusMixin):
     def __init__(
         self,
         bus_group_or_index=None,
-        calculation_rate=None,
+        rate=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -37,9 +37,9 @@ class Bus(ServerObjectProxy, BusMixin):
                 bus_id = int(bus_group_or_index)
         self._bus_group = bus_group
         self._bus_id = bus_id
-        calculation_rate = synthdeftools.CalculationRate.from_expr(
-            calculation_rate)
-        self._calculation_rate = calculation_rate
+        rate = synthdeftools.Rate.from_expr(
+            rate)
+        self._calculation_rate = rate
 
     ### SPECIAL METHODS ###
 
@@ -54,11 +54,11 @@ class Bus(ServerObjectProxy, BusMixin):
 
     @staticmethod
     def _get_allocator(
-        calculation_rate=None,
+        rate=None,
         server=None,
         ):
         from supriya.tools import synthdeftools
-        if calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        if rate == synthdeftools.Rate.AUDIO:
             allocator = server.audio_bus_allocator
         else:
             allocator = server.control_bus_allocator
@@ -77,7 +77,7 @@ class Bus(ServerObjectProxy, BusMixin):
         ServerObjectProxy.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
-                calculation_rate=self.calculation_rate,
+                rate=self.rate,
                 server=self.server,
                 )
             bus_id = allocator.allocate(1)
@@ -90,14 +90,14 @@ class Bus(ServerObjectProxy, BusMixin):
     def audio():
         from supriya.tools import synthdeftools
         return Bus(
-            calculation_rate=synthdeftools.CalculationRate.AUDIO,
+            rate=synthdeftools.Rate.AUDIO,
             )
 
     @staticmethod
     def control():
         from supriya.tools import synthdeftools
         return Bus(
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+            rate=synthdeftools.Rate.CONTROL,
             )
 
     def free(self):
@@ -105,7 +105,7 @@ class Bus(ServerObjectProxy, BusMixin):
             return
         if not self._bus_id_was_set_manually:
             allocator = self._get_allocator(
-                calculation_rate=self.calculation_rate,
+                rate=self.rate,
                 server=self.server,
                 )
             allocator.free(self.bus_id)
@@ -129,7 +129,7 @@ class Bus(ServerObjectProxy, BusMixin):
         return self._bus_id
 
     @property
-    def calculation_rate(self):
+    def rate(self):
         return self._calculation_rate
 
     @property
@@ -148,7 +148,7 @@ class Bus(ServerObjectProxy, BusMixin):
     def value(self):
         from supriya.tools import synthdeftools
         if self.is_allocated:
-            if self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
+            if self.rate == synthdeftools.Rate.CONTROL:
                 proxy = self.server._get_control_bus_proxy(self.bus_id)
                 return proxy.value
         return None
