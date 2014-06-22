@@ -86,6 +86,20 @@ class Bus(ServerObjectProxy, BusMixin):
                 raise ValueError
             self._bus_id = bus_id
 
+    @staticmethod
+    def audio():
+        from supriya.tools import synthdeftools
+        return Bus(
+            calculation_rate=synthdeftools.CalculationRate.AUDIO,
+            )
+
+    @staticmethod
+    def control():
+        from supriya.tools import synthdeftools
+        return Bus(
+            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+            )
+
     def free(self):
         if not self.is_allocated:
             return
