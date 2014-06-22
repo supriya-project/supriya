@@ -28,8 +28,8 @@ class Mix(PseudoUGen):
             2_DC[0] -> 4_Sum4[2:input_three]
             3_DC[0] -> 4_Sum4[3:input_four]
             const_0:1.0 -> 5_DC[0:source]
-            4_Sum4[0] -> 6_BinaryOpUGen:ADD[0:left]
-            5_DC[0] -> 6_BinaryOpUGen:ADD[1:right]
+            4_Sum4[0] -> 6_BinaryOpUGen:ADDITION[0:left]
+            5_DC[0] -> 6_BinaryOpUGen:ADDITION[1:right]
         }
 
     ::

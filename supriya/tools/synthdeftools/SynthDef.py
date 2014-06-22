@@ -151,10 +151,10 @@ class SynthDef(ServerObjectProxy):
                 const_1:0.0 -> 0_SinOsc[1:phase]
                 const_2:443.0 -> 1_SinOsc[0:frequency]
                 const_1:0.0 -> 1_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:ADD[0:left]
-                1_SinOsc[0] -> 2_BinaryOpUGen:ADD[1:right]
+                0_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[0:left]
+                1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
                 const_1:0.0 -> 3_Out[0]
-                2_BinaryOpUGen:ADD[0] -> 3_Out[1]
+                2_BinaryOpUGen:ADDITION[0] -> 3_Out[1]
             }
 
         Returns string.

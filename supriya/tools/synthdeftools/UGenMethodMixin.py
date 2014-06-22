@@ -12,37 +12,90 @@ class UGenMethodMixin(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __abs__(self):
-        return UGenMethodMixin._compute_unary_op(self, 'abs')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.ABSOLUTE_VALUE,
+            )
 
     def __add__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'add')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.ADDITION,
+            )
 
     def __div__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'fdiv')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.FLOAT_DIVISION,
+            )
 
     def __mod__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'mod')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.MODULO,
+            )
 
     def __mul__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'mul')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.MULTIPLICATION,
+            )
 
     def __neg__(self):
-        return UGenMethodMixin._compute_unary_op(self, 'neg')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.NEGATIVE,
+            )
 
     def __radd__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'add')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            expr,
+            self,
+            synthdeftools.BinaryOperator.ADDITION,
+            )
 
     def __rdiv__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'fdiv')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            expr,
+            self,
+            synthdeftools.BinaryOperator.FLOAT_DIVISION,
+            )
 
     def __rmul__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'mul')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            expr,
+            self,
+            synthdeftools.BinaryOperator.MULTIPLICATION,
+            )
 
     def __rsub__(self, expr):
-        return UGenMethodMixin._compute_binary_op(expr, self, 'sub')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            expr,
+            self,
+            synthdeftools.BinaryOperator.SUBRACTION,
+            )
 
     def __sub__(self, expr):
-        return UGenMethodMixin._compute_binary_op(self, expr, 'sub')
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.SUBRACTION,
+            )
 
     ### PRIVATE METHODS ###
 
