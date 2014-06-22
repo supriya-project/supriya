@@ -68,3 +68,77 @@ def test_Bus_02(server):
     assert audio_bus.rate == synthdeftools.Rate.AUDIO
     assert audio_bus.server is None
     assert not audio_bus.is_allocated
+
+
+def test_Bus_03(server):
+
+    bus = servertools.Bus(
+        bus_group_or_index=23,
+        rate=synthdeftools.Rate.CONTROL,
+        )
+
+    assert bus.bus_id == 23
+    assert bus.bus_group is None
+    assert not bus.is_allocated
+    assert bus.server is None
+
+    bus.allocate()
+    server.sync()
+
+    assert bus.bus_id == 23
+    assert bus.bus_group is None
+    assert bus.is_allocated
+    assert bus.server is server
+
+    bus.free()
+    server.sync()
+
+    assert bus.bus_id is None
+    assert bus.bus_group is None
+    assert not bus.is_allocated
+    assert bus.server is None
+
+
+def test_Buffer_03(server):
+
+    bus_a = servertools.Bus.control()
+    bus_b = servertools.Bus.control()
+    bus_c = servertools.Bus.control()
+    bus_d = servertools.Bus.control()
+
+    assert bus_a.bus_id is None
+    assert bus_b.bus_id is None
+    assert bus_c.bus_id is None
+    assert bus_d.bus_id is None
+    assert bus_a.server is None
+    assert bus_b.server is None
+    assert bus_c.server is None
+    assert bus_d.server is None
+
+    bus_a.allocate()
+    bus_b.allocate()
+    bus_c.allocate()
+    server.sync()
+
+    assert bus_a.bus_id == 0
+    assert bus_b.bus_id == 1
+    assert bus_c.bus_id == 2
+    assert bus_d.bus_id is None
+    assert bus_a.server is server
+    assert bus_b.server is server
+    assert bus_c.server is server
+    assert bus_d.server is None
+
+    bus_c.free()
+    bus_a.free()
+    bus_d.allocate()
+    server.sync()
+
+    assert bus_a.bus_id is None
+    assert bus_b.bus_id == 1
+    assert bus_c.bus_id is None
+    assert bus_d.bus_id == 0
+    assert bus_a.server is None
+    assert bus_b.server is server
+    assert bus_c.server is None
+    assert bus_d.server is server
