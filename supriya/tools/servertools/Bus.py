@@ -37,8 +37,8 @@ class Bus(ServerObjectProxy, BusMixin):
                 bus_id = int(bus_group_or_index)
         self._bus_group = bus_group
         self._bus_id = bus_id
-        rate = synthdeftools.Rate.from_expr(
-            rate)
+        assert rate is not None
+        rate = synthdeftools.Rate.from_expr(rate)
         self._calculation_rate = rate
 
     ### SPECIAL METHODS ###
