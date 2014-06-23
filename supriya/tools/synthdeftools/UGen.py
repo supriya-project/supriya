@@ -12,14 +12,11 @@ class UGen(UGenMethodMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_antecedents',
         '_calculation_rate',
-        '_descendants',
         '_inputs',
         '_output_proxies',
         '_special_index',
-        '_synthdef',
-        '_width_first_antecedents',
+        '_ugen_sort_bundle',
         )
 
     _ordered_input_names = ()
@@ -62,14 +59,11 @@ class UGen(UGenMethodMixin):
         if kwargs:
             raise ValueError(kwargs)
         self._validate_inputs()
-        self._antecedents = []
-        self._descendants = []
         self._output_proxies = tuple(
             synthdeftools.OutputProxy(self, i)
             for i in range(len(self))
             )
-        self._synthdef = None
-        self._width_first_antecedents = []
+        self._ugen_sort_bundle = synthdeftools.UGenSortBundle(self)
 
     ### SPECIAL METHODS ###
 
@@ -81,7 +75,7 @@ class UGen(UGenMethodMixin):
                 self._ordered_input_names):
                 if input_name == attr:
                     return self.inputs[i]
-        raise AttributeError
+        raise AttributeError(attr)
 
     def __getitem__(self, i):
         return self._output_proxies[i]
@@ -120,8 +114,8 @@ class UGen(UGenMethodMixin):
                 )
         source_ugen = output_proxy.source
         self._inputs.append(output_proxy)
-        if self not in source_ugen.descendants:
-            source_ugen.descendants.append(self)
+        if self not in source_ugen.ugen_sort_bundle.descendants:
+            source_ugen.ugen_sort_bundle.descendants.append(self)
 
     def _check_self_rate_as_first_input_rate(self):
         from supriya import synthdeftools
@@ -144,7 +138,7 @@ class UGen(UGenMethodMixin):
         from supriya import synthdeftools
         for input_ in self._inputs:
             if not isinstance(input_, synthdeftools.OutputProxy):
-                self.synthdef._add_constant(float(input_))
+                self.ugen_sort_bundle.synthdef._add_constant(float(input_))
 
     def _configure_input(self, name, value):
         from supriya import synthdeftools
@@ -178,20 +172,20 @@ class UGen(UGenMethodMixin):
         for input_ in self.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
                 ugen = input_.source
-                if ugen not in self.antecedents:
-                    self.antecedents.append(ugen)
-                if self not in ugen.descendants:
-                    ugen.descendants.append(self)
-        for ugen in self.width_first_antecedents:
-            if ugen not in self.antecedents:
-                self.antecedents.append(ugen)
-            if self not in ugen.descendants:
-                ugen.descendants.append(self)
+                if ugen not in self.ugen_sort_bundle.antecedents:
+                    self.ugen_sort_bundle.antecedents.append(ugen)
+                if self not in ugen.ugen_sort_bundle.descendants:
+                    ugen.ugen_sort_bundle.descendants.append(self)
+        for ugen in self.ugen_sort_bundle.width_first_antecedents:
+            if ugen not in self.ugen_sort_bundle.antecedents:
+                self.ugen_sort_bundle.antecedents.append(ugen)
+            if self not in ugen.ugen_sort_bundle.descendants:
+                ugen.ugen_sort_bundle.descendants.append(self)
 
     def _make_available(self):
-        if not self.antecedents:
-            if self not in self.synthdef._available_ugens:
-                self.synthdef._available_ugens.append(self)
+        if not self.ugen_sort_bundle.antecedents:
+            if self not in self.ugen_sort_bundle.synthdef._available_ugens:
+                self.ugen_sort_bundle.synthdef._available_ugens.append(self)
 
     @classmethod
     def _new_expanded(
@@ -247,11 +241,11 @@ class UGen(UGenMethodMixin):
         pass
 
     def _remove_antecedent(self, ugen):
-        self.antecedents.remove(ugen)
+        self.ugen_sort_bundle.antecedents.remove(ugen)
         self._make_available()
 
     def _schedule(self, out_stack):
-        for ugen in reversed(self.descendants):
+        for ugen in reversed(self.ugen_sort_bundle.descendants):
             ugen._remove_antecedent(self)
         out_stack.append(self)
 
@@ -372,16 +366,8 @@ class UGen(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def antecedents(self):
-        return self._antecedents
-
-    @property
     def calculation_rate(self):
         return self._calculation_rate
-
-    @property
-    def descendants(self):
-        return self._descendants
 
     @property
     def has_done_action(self):
@@ -401,15 +387,5 @@ class UGen(UGenMethodMixin):
         return self._special_index
 
     @property
-    def synthdef(self):
-        return self._synthdef
-
-    @synthdef.setter
-    def synthdef(self, synthdef):
-        from supriya.tools import synthdeftools
-        assert isinstance(synthdef, synthdeftools.SynthDef)
-        self._synthdef = synthdef
-
-    @property
-    def width_first_antecedents(self):
-        return self._width_first_antecedents
+    def ugen_sort_bundle(self):
+        return self._ugen_sort_bundle
