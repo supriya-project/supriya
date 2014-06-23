@@ -25,7 +25,7 @@ class UGenSortBundle(SupriyaObject):
 
     ### PRIVATE METHODS ###
 
-    def _initialize_topological_sort(self):
+    def _initialize_topological_sort(self, sort_bundles):
         from supriya import synthdeftools
         for input_ in self.ugen.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
@@ -42,15 +42,15 @@ class UGenSortBundle(SupriyaObject):
             if self.ugen not in ugen_sort_bundle.descendants:
                 ugen_sort_bundle.descendants.append(self)
 
-    def _make_available(self):
+    def _make_available(self, available_ugens):
         if not self.antecedents:
-            if self.ugen not in self.synthdef._available_ugens:
-                self.synthdef._available_ugens.append(self.ugen)
+            if self.ugen not in available_ugens:
+                available_ugens.append(self.ugen)
 
-    def _schedule(self, out_stack):
+    def _schedule(self, available_ugens, out_stack):
         for ugen in reversed(self.descendants):
             ugen.sort_bundle.antecedents.remove(self.ugen)
-            ugen.sort_bundle._make_available()
+            ugen.sort_bundle._make_available(available_ugens)
         out_stack.append(self.ugen)
 
     ### PUBLIC METHODS ###

@@ -69,7 +69,6 @@ class SynthDef(ServerObjectProxy):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_available_ugens',
         '_compiled_ugen_graph',
         '_constants',
         '_controls',
@@ -90,7 +89,6 @@ class SynthDef(ServerObjectProxy):
         ):
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
-        self._available_ugens = []
         self._constants = {}
         self._name = name
         self._parameter_names = {}
@@ -247,10 +245,6 @@ class SynthDef(ServerObjectProxy):
             ugen.sort_bundle.synthdef = self
             self._pending_ugens.remove(ugen)
 
-    def _cleanup_topological_sort(self):
-        for ugen in self._ugens:
-            ugen.sort_bundle.clear()
-
     def _collect_constants(self):
         from supriya import synthdeftools
         self._constants = {}
@@ -323,27 +317,25 @@ class SynthDef(ServerObjectProxy):
     def _get_ugen_index(self, ugen):
         return self._ugens.index(ugen)
 
-    def _initialize_topological_sort(self):
-        self._available_ugens = []
+    def _sort_ugens_topologically(self):
+        from supriya.tools import synthdeftools
+        available_ugens = []
+        sort_bundles = {}
         for ugen in self.ugens:
-            ugen.sort_bundle.clear()
+            sort_bundles[ugen] = synthdeftools.UGenSortBundle(ugen)
         for ugen in self.ugens:
-            ugen.sort_bundle._initialize_topological_sort()
+            ugen.sort_bundle._initialize_topological_sort(sort_bundles)
             ugen.sort_bundle.descendants[:] = sorted(
                 ugen.sort_bundle.descendants,
                 key=lambda x: x.sort_bundle.synthdef.ugens.index(ugen),
                 )
         for ugen in reversed(self.ugens):
-            ugen.sort_bundle._make_available()
-
-    def _sort_ugens_topologically(self):
+            ugen.sort_bundle._make_available(available_ugens)
         out_stack = []
-        self._initialize_topological_sort()
-        while self._available_ugens:
-            available_ugen = self._available_ugens.pop()
-            available_ugen.sort_bundle._schedule(out_stack)
+        while available_ugens:
+            available_ugen = available_ugens.pop()
+            available_ugen.sort_bundle._schedule(available_ugens, out_stack)
         self._ugens = out_stack
-        self._cleanup_topological_sort()
 
     ### PUBLIC METHODS ###
 
