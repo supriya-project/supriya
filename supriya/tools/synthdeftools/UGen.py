@@ -102,10 +102,10 @@ class UGen(UGenMethodMixin):
                 output_index=output_index,
                 source=ugen,
                 )
-        source_ugen = output_proxy.source
+        #source_ugen = output_proxy.source
         self._inputs.append(output_proxy)
-        if self not in source_ugen.sort_bundle.descendants:
-            source_ugen.sort_bundle.descendants.append(self)
+        #if self not in source_ugen.sort_bundle.descendants:
+        #    source_ugen.sort_bundle.descendants.append(self)
 
     def _check_self_rate_as_first_input_rate(self):
         from supriya import synthdeftools

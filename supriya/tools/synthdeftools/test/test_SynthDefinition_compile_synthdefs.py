@@ -434,8 +434,9 @@ def test_SynthDefinition_compile_synthdefs_07():
 
     py_synthdef = synthdeftools.SynthDef('test')
     sin_osc = ugentools.SinOsc.ar()
-    ugentools.FreeSelf.kr(sin_osc)
+    free_self = ugentools.FreeSelf.kr(sin_osc)
     out = ugentools.Out.ar(bus=0, source=sin_osc)
+    py_synthdef.add_ugen(free_self)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 

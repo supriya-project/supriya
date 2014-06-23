@@ -34,8 +34,8 @@ class FreeSelf(UGen):
         ):
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
-        cls._new_expanded(
+        ugen = cls._new_expanded(
             rate=rate,
             source=source,
             )
-        return source
+        return ugen

@@ -227,8 +227,6 @@ class SynthDef(ServerObjectProxy):
             for x in ugen.inputs:
                 if isinstance(x, synthdeftools.OutputProxy):
                     synthdef._add_ugen(x.source)
-            for x in ugen.sort_bundle.descendants:
-                synthdef._add_ugen(x)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
                 self._add_ugen(x)
@@ -242,7 +240,6 @@ class SynthDef(ServerObjectProxy):
             self._ugens.append(ugen)
             if isinstance(ugen, synthdeftools.WidthFirstUGen):
                 self._width_first_ugens.append(ugen)
-            ugen.sort_bundle.synthdef = self
             self._pending_ugens.remove(ugen)
 
     def _collect_constants(self):
@@ -321,20 +318,23 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import synthdeftools
         available_ugens = []
         sort_bundles = {}
-        for ugen in self.ugens:
+        ugens = tuple(self.ugens)
+        for ugen in ugens:
             sort_bundles[ugen] = synthdeftools.UGenSortBundle(ugen)
-        for ugen in self.ugens:
-            ugen.sort_bundle._initialize_topological_sort(sort_bundles)
-            ugen.sort_bundle.descendants[:] = sorted(
-                ugen.sort_bundle.descendants,
-                key=lambda x: x.sort_bundle.synthdef.ugens.index(ugen),
+        for ugen in ugens:
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle._initialize_topological_sort(sort_bundles)
+            sort_bundle.descendants[:] = sorted(
+                sort_bundles[ugen].descendants,
+                key=lambda x: ugens.index(ugen),
                 )
-        for ugen in reversed(self.ugens):
-            ugen.sort_bundle._make_available(available_ugens)
+        for ugen in reversed(ugens):
+            sort_bundles[ugen]._make_available(available_ugens)
         out_stack = []
         while available_ugens:
             available_ugen = available_ugens.pop()
-            available_ugen.sort_bundle._schedule(available_ugens, out_stack)
+            sort_bundles[available_ugen]._schedule(
+                available_ugens, out_stack, sort_bundles)
         self._ugens = out_stack
 
     ### PUBLIC METHODS ###

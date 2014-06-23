@@ -9,7 +9,6 @@ class UGenSortBundle(SupriyaObject):
     __slots__ = (
         '_antecedents',
         '_descendants',
-        '_synthdef',
         '_ugen',
         '_width_first_antecedents',
         )
@@ -19,7 +18,6 @@ class UGenSortBundle(SupriyaObject):
     def __init__(self, ugen):
         self._antecedents = []
         self._descendants = []
-        self._synthdef = None
         self._ugen = ugen
         self._width_first_antecedents = []
 
@@ -30,13 +28,13 @@ class UGenSortBundle(SupriyaObject):
         for input_ in self.ugen.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
                 ugen = input_.source
-                ugen_sort_bundle = ugen.sort_bundle
+                ugen_sort_bundle = sort_bundles[ugen]
                 if ugen not in self.antecedents:
                     self.antecedents.append(ugen)
                 if self.ugen not in ugen_sort_bundle.descendants:
                     ugen_sort_bundle.descendants.append(self.ugen)
         for ugen in self.width_first_antecedents:
-            ugen_sort_bundle = ugen.sort_bundle
+            ugen_sort_bundle = sort_bundles[ugen]
             if ugen not in self.antecedents:
                 self.antecedents.append(ugen)
             if self.ugen not in ugen_sort_bundle.descendants:
@@ -47,10 +45,11 @@ class UGenSortBundle(SupriyaObject):
             if self.ugen not in available_ugens:
                 available_ugens.append(self.ugen)
 
-    def _schedule(self, available_ugens, out_stack):
+    def _schedule(self, available_ugens, out_stack, sort_bundles):
         for ugen in reversed(self.descendants):
-            ugen.sort_bundle.antecedents.remove(self.ugen)
-            ugen.sort_bundle._make_available(available_ugens)
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle.antecedents.remove(self.ugen)
+            sort_bundle._make_available(available_ugens)
         out_stack.append(self.ugen)
 
     ### PUBLIC METHODS ###
@@ -69,16 +68,6 @@ class UGenSortBundle(SupriyaObject):
     @property
     def descendants(self):
         return self._descendants
-
-    @property
-    def synthdef(self):
-        return self._synthdef
-
-    @synthdef.setter
-    def synthdef(self, synthdef):
-        from supriya.tools import synthdeftools
-        assert isinstance(synthdef, synthdeftools.SynthDef)
-        self._synthdef = synthdef
 
     @property
     def ugen(self):
