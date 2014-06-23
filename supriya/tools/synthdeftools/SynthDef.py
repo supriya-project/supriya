@@ -318,7 +318,7 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import synthdeftools
         available_ugens = []
         sort_bundles = {}
-        ugens = tuple(self.ugens)
+        ugens = list(self.ugens)
         for ugen in ugens:
             sort_bundles[ugen] = synthdeftools.UGenSortBundle(ugen)
         for ugen in ugens:

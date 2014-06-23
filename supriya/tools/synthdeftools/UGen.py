@@ -16,7 +16,6 @@ class UGen(UGenMethodMixin):
         '_inputs',
         '_output_proxies',
         '_special_index',
-        '_sort_bundle',
         )
 
     _ordered_input_names = ()
@@ -63,7 +62,6 @@ class UGen(UGenMethodMixin):
             synthdeftools.OutputProxy(self, i)
             for i in range(len(self))
             )
-        self._sort_bundle = synthdeftools.UGenSortBundle(self)
 
     ### SPECIAL METHODS ###
 
@@ -102,10 +100,7 @@ class UGen(UGenMethodMixin):
                 output_index=output_index,
                 source=ugen,
                 )
-        #source_ugen = output_proxy.source
         self._inputs.append(output_proxy)
-        #if self not in source_ugen.sort_bundle.descendants:
-        #    source_ugen.sort_bundle.descendants.append(self)
 
     def _check_self_rate_as_first_input_rate(self):
         from supriya import synthdeftools
@@ -339,7 +334,3 @@ class UGen(UGenMethodMixin):
     @property
     def special_index(self):
         return self._special_index
-
-    @property
-    def sort_bundle(self):
-        return self._sort_bundle
