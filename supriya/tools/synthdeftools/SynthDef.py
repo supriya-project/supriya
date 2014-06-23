@@ -249,9 +249,7 @@ class SynthDef(ServerObjectProxy):
 
     def _cleanup_topological_sort(self):
         for ugen in self._ugens:
-            ugen.sort_bundle.antecedents[:] = []
-            ugen.sort_bundle.descendants[:] = []
-            ugen.sort_bundle.width_first_antecedents[:] = []
+            ugen.sort_bundle.clear()
 
     def _collect_constants(self):
         self._constants = {}
@@ -325,9 +323,7 @@ class SynthDef(ServerObjectProxy):
     def _initialize_topological_sort(self):
         self._available_ugens = []
         for ugen in self.ugens:
-            ugen.sort_bundle.antecedents[:] = []
-            ugen.sort_bundle.descendants[:] = []
-            ugen.sort_bundle.width_first_antecedents[:] = []
+            ugen.sort_bundle.clear()
         for ugen in self.ugens:
             ugen._initialize_topological_sort()
             ugen.sort_bundle.descendants[:] = sorted(
@@ -335,7 +331,7 @@ class SynthDef(ServerObjectProxy):
                 key=lambda x: x.sort_bundle.synthdef.ugens.index(ugen),
                 )
         for ugen in reversed(self.ugens):
-            ugen._make_available()
+            ugen.sort_bundle._make_available()
 
     def _sort_ugens_topologically(self):
         out_stack = []

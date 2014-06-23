@@ -23,6 +23,20 @@ class UGenSortBundle(SupriyaObject):
         self._ugen = ugen
         self._width_first_antecedents = []
 
+    ### PRIVATE METHODS ###
+
+    def _make_available(self):
+        if not self.antecedents:
+            if self.ugen not in self.synthdef._available_ugens:
+                self.synthdef._available_ugens.append(self.ugen)
+
+    ### PUBLIC METHODS ###
+
+    def clear(self):
+        self.antecedents[:] = []
+        self.descendants[:] = []
+        self.width_first_antecedents[:] = []
+
     ### PUBLIC PROPERTIES ###
 
     @property

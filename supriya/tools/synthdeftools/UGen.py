@@ -182,11 +182,6 @@ class UGen(UGenMethodMixin):
             if self not in ugen.sort_bundle.descendants:
                 ugen.sort_bundle.descendants.append(self)
 
-    def _make_available(self):
-        if not self.sort_bundle.antecedents:
-            if self not in self.sort_bundle.synthdef._available_ugens:
-                self.sort_bundle.synthdef._available_ugens.append(self)
-
     @classmethod
     def _new_expanded(
         cls,
@@ -242,7 +237,7 @@ class UGen(UGenMethodMixin):
 
     def _remove_antecedent(self, ugen):
         self.sort_bundle.antecedents.remove(ugen)
-        self._make_available()
+        self.sort_bundle._make_available()
 
     def _schedule(self, out_stack):
         for ugen in reversed(self.sort_bundle.descendants):
