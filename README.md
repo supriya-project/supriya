@@ -116,7 +116,7 @@ Current Roadmap
 
 - [ ] Cleanup server object proxies
     - [X] BufferGroup, Buffer, BufferProxy
-    - [ ] BusGroup, Bus, BusProxy (for both Audio and Control buses)
+    - [X] BusGroup, Bus, BusProxy (for both Audio and Control buses)
     - [ ] SynthControl
         - [ ] QueryTreeControl.from_control()
 - [ ] Make SynthDef immutable
