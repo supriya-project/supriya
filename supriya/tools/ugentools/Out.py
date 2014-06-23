@@ -28,13 +28,13 @@ class Out(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         bus=0,
         source=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )
         self._configure_input('bus', bus)
         if not isinstance(source, collections.Sequence):
@@ -56,10 +56,10 @@ class Out(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         return cls._new_expanded(
             bus=bus,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
 
@@ -70,9 +70,9 @@ class Out(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         return cls._new_expanded(
             bus=bus,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )

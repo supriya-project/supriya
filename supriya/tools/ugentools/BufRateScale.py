@@ -22,10 +22,10 @@ class BufRateScale(BufInfoUGenBase):
     def __init__(
         self,
         buffer_number=None,
-        calculation_rate=None,
+        rate=None,
         ):
         BufInfoUGenBase.__init__(
             self,
             buffer_number=buffer_number,
-            calculation_rate=calculation_rate,
+            rate=rate,
             )

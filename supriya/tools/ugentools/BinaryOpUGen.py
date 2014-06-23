@@ -20,12 +20,12 @@ class BinaryOpUGen(UGen):
         self,
         left=None,
         right=None,
-        calculation_rate=None,
+        rate=None,
         special_index=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             left=left,
             right=right,
             special_index=special_index,

@@ -13,7 +13,7 @@ class Silence(PseudoUGen):
             (
                 OutputProxy(
                     source=DC(
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=1,
                         source=0.0
                         ),
@@ -21,7 +21,7 @@ class Silence(PseudoUGen):
                     ),
                 OutputProxy(
                     source=DC(
-                        calculation_rate=<CalculationRate.AUDIO: 2>,
+                        rate=<Rate.AUDIO: 2>,
                         channel_count=1,
                         source=0.0
                         ),

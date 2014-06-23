@@ -50,14 +50,14 @@ class DelTapWr(UGen):
     def __init__(
         self,
         buffer_id=None,
-        calculation_rate=None,
+        rate=None,
         source=None,
         ):
         buffer_id = int(buffer_id)
         UGen.__init__(
             self,
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
 
@@ -70,11 +70,11 @@ class DelTapWr(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         source = cls.as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
         return ugen
@@ -86,11 +86,11 @@ class DelTapWr(UGen):
         source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         source = cls.as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             )
         return ugen

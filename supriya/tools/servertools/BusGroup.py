@@ -21,21 +21,21 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
     def __init__(
         self,
         bus_count=1,
-        calculation_rate=None,
+        rate=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
         self._bus_id = None
-        calculation_rate = synthdeftools.CalculationRate.from_expr(
-            calculation_rate)
-        self._calculation_rate = calculation_rate
+        rate = synthdeftools.Rate.from_expr(
+            rate)
+        self._calculation_rate = rate
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
             servertools.Bus(
                 bus_group_or_index=self,
-                calculation_rate=self.calculation_rate,
+                rate=self.rate,
                 )
             for _ in range(bus_count)
             )
@@ -67,7 +67,7 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
             return
         ServerObjectProxy.allocate(self, server=server)
         allocator = servertools.Bus._get_allocator(
-            calculation_rate=self.calculation_rate,
+            rate=self.rate,
             server=self.server,
             )
         bus_id = allocator.allocate(len(self))
@@ -81,7 +81,7 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
         if not self.is_allocated:
             return
         allocator = servertools.Bus._get_allocator(
-            calculation_rate=self.calculation_rate,
+            rate=self.rate,
             server=self.server,
             )
         allocator.free(self.bus_id)
@@ -99,7 +99,7 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
         return self._buses
 
     @property
-    def calculation_rate(self):
+    def rate(self):
         return self._calculation_rate
 
     @property

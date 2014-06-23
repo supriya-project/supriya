@@ -29,14 +29,14 @@ class DelayN(PureUGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         delay_time=0.2,
         maximum_delay_time=0.2,
         source=None,
         ):
         PureUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -67,10 +67,10 @@ class DelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         source = cls.as_audio_rate_input(source)
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -100,9 +100,9 @@ class DelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,

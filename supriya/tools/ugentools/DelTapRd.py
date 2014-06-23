@@ -51,7 +51,7 @@ class DelTapRd(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         buffer_id=None,
         phase=None,
         delay_time=None,
@@ -61,7 +61,7 @@ class DelTapRd(UGen):
         interpolation = int(bool(interpolation))
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             buffer_id=buffer_id,
             phase=phase,
             delay_time=delay_time,
@@ -79,10 +79,10 @@ class DelTapRd(UGen):
         interpolation=True,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             phase=phase,
             delay_time=delay_time,
             interpolation=interpolation,
@@ -98,10 +98,10 @@ class DelTapRd(UGen):
         interpolation=True,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        rate = synthdeftools.Rate.SCALAR
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             phase=phase,
             delay_time=delay_time,
             interpolation=interpolation,

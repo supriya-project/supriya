@@ -35,7 +35,7 @@ class BufCombN(PureUGen):
     def __init__(
         self,
         buffer_id=None,
-        calculation_rate=None,
+        rate=None,
         decay_time=1.0,
         delay_time=0.2,
         maximum_delay_time=0.2,
@@ -44,7 +44,7 @@ class BufCombN(PureUGen):
         PureUGen.__init__(
             self,
             buffer_id=int(buffer_id),
-            calculation_rate=calculation_rate,
+            rate=rate,
             decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -82,11 +82,11 @@ class BufCombN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         source = cls.as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -123,10 +123,10 @@ class BufCombN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            calculation_rate=calculation_rate,
+            rate=rate,
             decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,

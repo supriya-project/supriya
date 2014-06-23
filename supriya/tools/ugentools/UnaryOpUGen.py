@@ -16,13 +16,13 @@ class UnaryOpUGen(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         source=None,
         special_index=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             source=source,
             special_index=special_index,
             )

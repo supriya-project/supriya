@@ -26,13 +26,13 @@ class SinOsc(PureUGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         frequency=440.,
         phase=0.,
         ):
         PureUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             frequency=frequency,
             phase=phase,
             )
@@ -59,9 +59,9 @@ class SinOsc(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             frequency=frequency,
             phase=phase,
             )
@@ -87,9 +87,9 @@ class SinOsc(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
+            rate=rate,
             frequency=frequency,
             phase=phase,
             )

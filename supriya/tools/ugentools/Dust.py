@@ -16,12 +16,12 @@ class Dust(UGen):
 
     def __init__(
         self,
-        calculation_rate=None,
+        rate=None,
         density=0.,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            rate=rate,
             density=density,
             )
 

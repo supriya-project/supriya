@@ -18,7 +18,7 @@ class Control(MultiOutUGen):
         self._control_names = tuple(sorted(control_names))
         MultiOutUGen.__init__(
             self,
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+            rate=synthdeftools.Rate.CONTROL,
             channel_count=len(control_names),
             )
 
@@ -43,7 +43,7 @@ class Control(MultiOutUGen):
         return self._control_names.index(control_name)
 
     def _get_outputs(self):
-        return [self.calculation_rate] * len(self)
+        return [self.rate] * len(self)
 
     ### PUBLIC PROPERTIES ###
 
