@@ -252,9 +252,12 @@ class SynthDef(ServerObjectProxy):
             ugen.sort_bundle.clear()
 
     def _collect_constants(self):
+        from supriya import synthdeftools
         self._constants = {}
         for ugen in self._ugens:
-            ugen._collect_constants()
+            for input_ in ugen._inputs:
+                if not isinstance(input_, synthdeftools.OutputProxy):
+                    self._add_constant(float(input_))
 
     def _compile(self):
         result = SynthDef._encode_string(self.name)
@@ -325,7 +328,7 @@ class SynthDef(ServerObjectProxy):
         for ugen in self.ugens:
             ugen.sort_bundle.clear()
         for ugen in self.ugens:
-            ugen._initialize_topological_sort()
+            ugen.sort_bundle._initialize_topological_sort()
             ugen.sort_bundle.descendants[:] = sorted(
                 ugen.sort_bundle.descendants,
                 key=lambda x: x.sort_bundle.synthdef.ugens.index(ugen),

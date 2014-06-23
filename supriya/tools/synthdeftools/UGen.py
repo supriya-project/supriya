@@ -134,12 +134,6 @@ class UGen(UGenMethodMixin):
                 return False
         return True
 
-    def _collect_constants(self):
-        from supriya import synthdeftools
-        for input_ in self._inputs:
-            if not isinstance(input_, synthdeftools.OutputProxy):
-                self.sort_bundle.synthdef._add_constant(float(input_))
-
     def _configure_input(self, name, value):
         from supriya import synthdeftools
         if isinstance(value, (int, float)):
@@ -167,21 +161,6 @@ class UGen(UGenMethodMixin):
     def _get_source(self):
         return self
 
-    def _initialize_topological_sort(self):
-        from supriya import synthdeftools
-        for input_ in self.inputs:
-            if isinstance(input_, synthdeftools.OutputProxy):
-                ugen = input_.source
-                if ugen not in self.sort_bundle.antecedents:
-                    self.sort_bundle.antecedents.append(ugen)
-                if self not in ugen.sort_bundle.descendants:
-                    ugen.sort_bundle.descendants.append(self)
-        for ugen in self.sort_bundle.width_first_antecedents:
-            if ugen not in self.sort_bundle.antecedents:
-                self.sort_bundle.antecedents.append(ugen)
-            if self not in ugen.sort_bundle.descendants:
-                ugen.sort_bundle.descendants.append(self)
-
     @classmethod
     def _new_expanded(
         cls,
@@ -197,7 +176,6 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
-        #assert isinstance(rate, synthdeftools.Rate)
         input_dicts = UGen.expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
