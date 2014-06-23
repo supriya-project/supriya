@@ -235,12 +235,6 @@ class UGen(UGenMethodMixin):
     def _optimize_graph(self):
         pass
 
-    def _schedule(self, out_stack):
-        for ugen in reversed(self.sort_bundle.descendants):
-            ugen.sort_bundle.antecedents.remove(self)
-            ugen.sort_bundle._make_available()
-        out_stack.append(self)
-
     def _validate_inputs(self):
         pass
 

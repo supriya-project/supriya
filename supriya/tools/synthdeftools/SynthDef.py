@@ -338,7 +338,7 @@ class SynthDef(ServerObjectProxy):
         self._initialize_topological_sort()
         while self._available_ugens:
             available_ugen = self._available_ugens.pop()
-            available_ugen._schedule(out_stack)
+            available_ugen.sort_bundle._schedule(out_stack)
         self._ugens = out_stack
         self._cleanup_topological_sort()
 

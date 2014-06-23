@@ -30,6 +30,12 @@ class UGenSortBundle(SupriyaObject):
             if self.ugen not in self.synthdef._available_ugens:
                 self.synthdef._available_ugens.append(self.ugen)
 
+    def _schedule(self, out_stack):
+        for ugen in reversed(self.descendants):
+            ugen.sort_bundle.antecedents.remove(self.ugen)
+            ugen.sort_bundle._make_available()
+        out_stack.append(self.ugen)
+
     ### PUBLIC METHODS ###
 
     def clear(self):
