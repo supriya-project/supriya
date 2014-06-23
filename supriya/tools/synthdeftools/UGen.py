@@ -67,16 +67,6 @@ class UGen(UGenMethodMixin):
 
     ### SPECIAL METHODS ###
 
-    def __getattr__(self, attr):
-        try:
-            object.__getattr__(self, attr)
-        except AttributeError:
-            for i, input_name in enumerate(
-                self._ordered_input_names):
-                if input_name == attr:
-                    return self.inputs[i]
-        raise AttributeError(attr)
-
     def __getitem__(self, i):
         return self._output_proxies[i]
 

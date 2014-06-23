@@ -104,3 +104,9 @@ class In(MultiOutUGen):
             channel_count=channel_count,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def bus(self):
+        return self._inputs[self._ordered_input_names.index('bus')]

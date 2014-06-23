@@ -125,3 +125,9 @@ class DC(PureMultiOutUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        return self._inputs[self._ordered_input_names.index('source')]

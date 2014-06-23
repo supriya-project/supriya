@@ -199,7 +199,7 @@ class SynthDef(ServerObjectProxy):
                 else:
                     output_index = 0
                     if isinstance(input_, synthdeftools.OutputProxy):
-                        output_index = input_.output_index 
+                        output_index = input_.output_index
                         input_ = input_.source
                     input_name = get_ugen_name(input_)
                     input_name += '[{}]'.format(output_index)
@@ -212,7 +212,7 @@ class SynthDef(ServerObjectProxy):
         result.append('}')
         result = '\n'.join(result)
         return result
-            
+
     ### PRIVATE METHODS ###
 
     def _add_constant(self, value):
