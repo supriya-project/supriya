@@ -229,7 +229,7 @@ class SynthDef(ServerObjectProxy):
             for x in ugen.inputs:
                 if isinstance(x, synthdeftools.OutputProxy):
                     synthdef._add_ugen(x.source)
-            for x in ugen.ugen_sort_bundle.descendants:
+            for x in ugen.sort_bundle.descendants:
                 synthdef._add_ugen(x)
         if isinstance(ugen, collections.Sequence):
             for x in ugen:
@@ -244,14 +244,14 @@ class SynthDef(ServerObjectProxy):
             self._ugens.append(ugen)
             if isinstance(ugen, synthdeftools.WidthFirstUGen):
                 self._width_first_ugens.append(ugen)
-            ugen.ugen_sort_bundle.synthdef = self
+            ugen.sort_bundle.synthdef = self
             self._pending_ugens.remove(ugen)
 
     def _cleanup_topological_sort(self):
         for ugen in self._ugens:
-            ugen.ugen_sort_bundle.antecedents[:] = []
-            ugen.ugen_sort_bundle.descendants[:] = []
-            ugen.ugen_sort_bundle.width_first_antecedents[:] = []
+            ugen.sort_bundle.antecedents[:] = []
+            ugen.sort_bundle.descendants[:] = []
+            ugen.sort_bundle.width_first_antecedents[:] = []
 
     def _collect_constants(self):
         self._constants = {}
@@ -325,14 +325,14 @@ class SynthDef(ServerObjectProxy):
     def _initialize_topological_sort(self):
         self._available_ugens = []
         for ugen in self.ugens:
-            ugen.ugen_sort_bundle.antecedents[:] = []
-            ugen.ugen_sort_bundle.descendants[:] = []
-            ugen.ugen_sort_bundle.width_first_antecedents[:] = []
+            ugen.sort_bundle.antecedents[:] = []
+            ugen.sort_bundle.descendants[:] = []
+            ugen.sort_bundle.width_first_antecedents[:] = []
         for ugen in self.ugens:
             ugen._initialize_topological_sort()
-            ugen.ugen_sort_bundle.descendants[:] = sorted(
-                ugen.ugen_sort_bundle.descendants,
-                key=lambda x: x.ugen_sort_bundle.synthdef.ugens.index(ugen),
+            ugen.sort_bundle.descendants[:] = sorted(
+                ugen.sort_bundle.descendants,
+                key=lambda x: x.sort_bundle.synthdef.ugens.index(ugen),
                 )
         for ugen in reversed(self.ugens):
             ugen._make_available()
