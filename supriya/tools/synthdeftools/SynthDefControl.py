@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
-class SynthControl(SupriyaObject):
+class SynthDefControl(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
@@ -30,7 +30,15 @@ class SynthControl(SupriyaObject):
         self._range = servertools.Range(range_)
         self._rate = synthdeftools.Rate.from_expr(rate)
         self._unit = unit
-        self._value = value
+        self._value = float(value)
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, i):
+        return self
+
+    def __len__(self):
+        return 1
 
     ### PUBLIC PROPERTIES ###
 
@@ -53,11 +61,3 @@ class SynthControl(SupriyaObject):
     @property
     def value(self):
         return self._value
-
-    @value.setter
-    def value(self, expr):
-        from supriya.tools import servertools
-        if isinstance(expr, servertools.Bus):
-            self._value = expr
-        else:
-            self._value = float(expr)
