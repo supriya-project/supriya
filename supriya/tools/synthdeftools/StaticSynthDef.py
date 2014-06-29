@@ -14,9 +14,7 @@ class StaticSynthDef(ServerObjectProxy):
         '_name',
         '_parameter_names',
         '_parameters',
-        '_pending_ugens',
         '_ugens',
-        '_width_first_ugens',
         )
 
     ### INITIALIZER ###
@@ -27,17 +25,13 @@ class StaticSynthDef(ServerObjectProxy):
         ):
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
-
         ugens, control_proxies = self._extract_control_proxies(ugens)
-
         control_ugens, control_mapping = self._collect_controls(
             control_proxies,
             )
         ugens = self._remap_controls(ugens, control_mapping)
-
         ugens = self._optimize_ugen_graph(ugens)
         ugens = self._sort_ugens_topologically(ugens)
-
         self._ugens = ugens
 
     ### PRIVATE METHODS ###
@@ -45,7 +39,8 @@ class StaticSynthDef(ServerObjectProxy):
     def _collect_constants(self, ugens):
         pass
 
-    def _collect_controls(self, control_proxies):
+    @staticmethod
+    def _collect_controls(control_proxies):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         control_mapping = collections.OrderedDict()
@@ -107,7 +102,8 @@ class StaticSynthDef(ServerObjectProxy):
     def _collect_parameters(self, controls):
         pass
 
-    def _extract_control_proxies(self, ugens):
+    @staticmethod
+    def _extract_control_proxies(ugens):
         from supriya.tools import synthdeftools
         control_proxies = set()
         for ugen in ugens:
@@ -116,7 +112,8 @@ class StaticSynthDef(ServerObjectProxy):
         ugens = ugens.difference(control_proxies)
         return ugens
 
-    def _flatten_ugens(self, ugens):
+    @staticmethod
+    def _flatten_ugens(ugens):
         def recurse(ugen):
             for input_ in ugen.inputs:
                 if isinstance(input_, synthdeftools.SynthDefControl):
@@ -133,15 +130,17 @@ class StaticSynthDef(ServerObjectProxy):
             recurse(ugen)
         return flattened_ugens
 
-    def _optimize_ugen_graph(self, ugens):
+    def _optimize_ugen_graph(ugens):
         pass
 
-    def _remap_controls(self, ugens):
-        from supriya.tools import synthdeftools
-        prototype = synthdeftools.SynthDefControl
-        synthdef_controls = [x for x in ugens
-            if isinstance(x, prototype)]
-        synthdef_controls.sort(key=lambda x: x.rate)
+    def _remap_controls(ugens, control_mapping):
+        for ugen in ugens:
+            inputs = list(ugen.inputs)
+            for i, input_ in enumerate(inputs):
+                if input_ in control_mapping:
+                    output_proxy = control_mapping[input_]
+                    inputs[i] = output_proxy
+            ugen._inputs = tuple(inputs)
 
-    def _sort_ugens_topologically(self, ugens):
+    def _sort_ugens_topologically(ugens):
         pass
