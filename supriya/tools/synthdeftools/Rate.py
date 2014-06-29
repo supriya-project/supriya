@@ -24,6 +24,7 @@ class Rate(Enumeration):
     CONTROL = 1
     DEMAND = 3
     SCALAR = 0
+    TRIGGER = 1
 
     ### PUBLIC METHODS ###
 
@@ -68,4 +69,3 @@ class Rate(Enumeration):
         elif isinstance(input_, prototype):
             return input_.rate
         raise ValueError(input_)
-
