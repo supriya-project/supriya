@@ -490,18 +490,137 @@ def test_SynthDefinition_compile_synthdefs_07():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
+def test_SynthDefinition_compile_synthdefs_08():
+    r'''Different calculation rates.'''
 
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        'trigTest',
+        r'''
+        |
+            freq=440,
+            i_decay_time = 1.0,
+            t_trig_a=0,
+            t_trig_b=0
+        |
+        var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
+        Out.ar(0, SinOsc.ar(freq, 0) * decay);
+        '''
+        )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
+    test_compiled_synthdef = bytes(
+        b'SCgf'
+        b'\x00\x00\x00\x02'
+        b'\x00\x01'
+            b'\x08trigTest'
+                b'\x00\x00\x00\x02'
+                    b';\xa3\xd7\n'
+                    b'\x00\x00\x00\x00'
+                b'\x00\x00\x00\x04'
+                    b'?\x80\x00\x00'
+                    b'\x00\x00\x00\x00'
+                    b'\x00\x00\x00\x00'
+                    b'C\xdc\x00\x00'
+                b'\x00\x00\x00\x04'
+                    b'\x04freq'
+                    b'\x00\x00\x00\x03'
+                    b'\x0ci_decay_time'
+                    b'\x00\x00\x00\x00'
+                    b'\x08t_trig_a'
+                    b'\x00\x00\x00\x01'
+                    b'\x08t_trig_b'
+                    b'\x00\x00\x00\x02'
+                b'\x00\x00\x00\t'
+                    b'\x07Control'
+                        b'\x00'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00'
+                    b'\x0bTrigControl'
+                        b'\x01'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x01'
+                            b'\x01'
+                            b'\x01'
+                    b'\x06Decay2'
+                        b'\x01'
+                        b'\x00\x00\x00\x03'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x01'
+                            b'\x00\x00\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x01'
+                    b'\x06Decay2'
+                        b'\x01'
+                        b'\x00\x00\x00\x03'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x01'
+                            b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                            b'\x01'
+                    b'\x07Control'
+                        b'\x01'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x03'
+                        b'\x01'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x04'
+                            b'\x00\x00\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x01'
+                            b'\x02'
+                    b'\x0cBinaryOpUGen'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x02'
+                            b'\x00\x00\x00\x05'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x02'
+                            b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x0cBinaryOpUGen'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x02'
+                            b'\x00\x00\x00\x05'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x03'
+                            b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x03Out'
+                        b'\x02'
+                        b'\x00\x00\x00\x03'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                            b'\x00\x00\x00\x01'
+                            b'\x00\x00\x00\x06'
+                            b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x07'
+                            b'\x00\x00\x00\x00'
+                b'\x00\x00'
+        )
 
+    for i, pair in enumerate(zip(sc_compiled_synthdef, test_compiled_synthdef)):
+        x, y = pair
+        assert x == y, (i, repr(x), repr(y))
+    assert sc_compiled_synthdef == test_compiled_synthdef
 
-
-
-
-
-
-
-
-
-
-
-
+    b'SCgf\x00\x00\x00\x02\x00\x01\x08trigTest\x00\x00\x00\x02;\xa3\xd7\n\x00\x00\x00\x00\x00\x00\x00\x04?\x80\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00C\xdc\x00\x00\x00\x00\x00\x04\x04freq\x00\x00\x00\x03\x0ci_decay_time\x00\x00\x00\x00\x08t_trig_a\x00\x00\x00\x01\x08t_trig_b\x00\x00\x00\x02\x00\x00\x00\t\x07Control\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x0bTrigControl\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x01\x01\x01\x06Decay2\x01\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x06Decay2\x01\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x03\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x05\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x05\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x07\x00\x00\x00\x00\x00\x00' 
