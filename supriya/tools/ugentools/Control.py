@@ -13,13 +13,18 @@ class Control(MultiOutUGen):
 
     ### INITIALIZER ###
 
-    def __init__(self, control_names):
-        from supriya.tools import synthdeftools
-        self._control_names = tuple(sorted(control_names))
+    def __init__(
+        self,
+        control_names,
+        rate=None,
+        starting_control_index=0,
+        ):
+        self._control_names = tuple(sorted(str(x) for x in control_names))
         MultiOutUGen.__init__(
             self,
-            rate=synthdeftools.Rate.CONTROL,
             channel_count=len(control_names),
+            rate=rate,
+            special_index=starting_control_index,
             )
 
     ### SPECIAL METHODS ###
