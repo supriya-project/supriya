@@ -26,6 +26,7 @@ class SynthDefControl(UGenMethodMixin):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
+        assert name
         self._name = str(name)
         self._range = servertools.Range(range_)
         self._rate = synthdeftools.Rate.from_expr(rate)
@@ -34,8 +35,21 @@ class SynthDefControl(UGenMethodMixin):
 
     ### SPECIAL METHODS ###
 
+    def __eq__(self, expr):
+        if type(self) != type(expr):
+            return False
+        elif self.name != expr.name:
+            return False
+        elif self.rate != expr.rate:
+            return False
+        return True
+
     def __getitem__(self, i):
         return self
+
+    def __hash__(self):
+        hash_values = (type(self), self.name, self.rate)
+        return hash(hash_values)
 
     def __len__(self):
         return 1
