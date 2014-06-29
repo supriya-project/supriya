@@ -100,7 +100,10 @@ class SynthDef(ServerObjectProxy):
         for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = synthdeftools.Control(control_names)
+        self._controls = synthdeftools.Control(
+            control_names,
+            rate=synthdeftools.Rate.CONTROL,
+            )
         if control_names:
             self._add_ugen(self._controls)
         self._compiled_ugen_graph = self._compile_ugen_graph()
