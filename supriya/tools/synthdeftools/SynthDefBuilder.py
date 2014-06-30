@@ -95,5 +95,8 @@ class SynthDefBuilder(SupriyaObject):
 
     def build(self, name=None):
         from supriya.tools import synthdeftools
-        synthdef = synthdeftools.StaticSynthDef(self._ugens)
+        synthdef = synthdeftools.StaticSynthDef(
+            self._ugens,
+            name=name,
+            )
         return synthdef
