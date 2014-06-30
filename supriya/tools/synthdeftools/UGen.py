@@ -22,6 +22,8 @@ class UGen(UGenMethodMixin):
 
     _unexpanded_input_names = None
 
+    _valid_rates = None
+
     ### INITIALIZER ###
 
     @abc.abstractmethod
@@ -34,6 +36,8 @@ class UGen(UGenMethodMixin):
         from supriya import synthdeftools
         assert isinstance(rate, synthdeftools.Rate), \
             rate
+        if self._valid_rates is not None:
+            assert rate in self._valid_rates
         self._calculation_rate = rate
         self._inputs = []
         self._special_index = special_index
