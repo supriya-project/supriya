@@ -217,7 +217,7 @@ def test_SynthDefinition_compile_synthdefs_04():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     py_synthdef = synthdeftools.SynthDef('test')
-    inputs = synthdeftools.In.ar(bus=8, channel_count=2)
+    inputs = ugentools.In.ar(bus=8, channel_count=2)
     out = ugentools.Out.ar(bus=0, source=inputs)
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
@@ -342,8 +342,8 @@ def test_SynthDefinition_compile_synthdefs_06():
         room_size=0.9,
         )
     controls = py_synthdef.controls
-    microphone = synthdeftools.In.ar(bus=0)
-    delay = synthdeftools.DelayC.ar(
+    microphone = ugentools.In.ar(bus=0)
+    delay = ugentools.DelayC.ar(
         source=microphone,
         maximum_delay_time=5.0,
         delay_time=controls['delay_time'],
