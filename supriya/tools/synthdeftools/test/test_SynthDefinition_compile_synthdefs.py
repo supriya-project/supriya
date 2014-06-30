@@ -19,6 +19,10 @@ def test_SynthDefinition_compile_synthdefs_01():
     py_synthdef.add_ugen(out)
     py_compiled_synthdef = py_synthdef.compile()
 
+    builder = synthdeftools.SynthDefBuilder()
+    builder.add_ugen(out)
+    py_compiled_synthdef_2 = builder.build('foo').compile()
+
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
