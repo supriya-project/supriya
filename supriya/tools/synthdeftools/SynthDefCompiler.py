@@ -25,3 +25,7 @@ class SynthDefCompiler(SupriyaObject):
     def encode_unsigned_int_16bit(value):
         return bytes(struct.pack('>H', value))
 
+    @staticmethod
+    def encode_unsigned_int_32bit(value):
+        return bytes(struct.pack('>I', value))
+

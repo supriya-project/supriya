@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
 import hashlib
-import struct
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
@@ -270,33 +269,29 @@ class SynthDef(ServerObjectProxy):
     def _compile_ugen_graph(self):
         from supriya.tools import synthdeftools
         result = []
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
+        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.constants)))
         for key, value in sorted(
             self.constants.items(),
             key=lambda item: item[1],
             ):
             result.append(synthdeftools.SynthDefCompiler.encode_float(key))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
+        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.parameters)))
         for value in self.parameters:
             result.append(synthdeftools.SynthDefCompiler.encode_float(value))
-        result.append(SynthDef._encode_unsigned_int_32bit(
+        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(
             len(self.parameter_names)))
         for key, value in sorted(
             self.parameter_names.items(),
             key=lambda x: x[1],
             ):
             result.append(synthdeftools.SynthDefCompiler.encode_string(key))
-            result.append(SynthDef._encode_unsigned_int_32bit(value))
-        result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
+            result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(value))
+        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.ugens)))
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
         result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_16bit(0))
         result = bytes().join(result)
         return result
-
-    @staticmethod
-    def _encode_unsigned_int_32bit(value):
-        return bytes(struct.pack('>I', value))
 
     def _get_constant_index(self, value):
         return self._constants[value]
@@ -356,7 +351,7 @@ class SynthDef(ServerObjectProxy):
         result = []
         encoded_file_type_id = b'SCgf'
         result.append(encoded_file_type_id)
-        encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
+        encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
         encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
             len(synthdefs))
