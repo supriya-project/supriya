@@ -11,17 +11,18 @@ def test_SynthDefinition_compile_synthdefs_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef = synthdeftools.SynthDef('foo')
+    py_synthdef_old = synthdeftools.SynthDef('foo')
     sine_one = ugentools.SinOsc.ar(frequency=420)
     sine_two = ugentools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
     out = ugentools.Out.ar(bus=0, source=sines)
-    py_synthdef.add_ugen(out)
-    py_compiled_synthdef = py_synthdef.compile()
+    py_synthdef_old.add_ugen(out)
+    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder()
     builder.add_ugen(out)
-    py_compiled_synthdef_2 = builder.build('foo').compile()
+    py_synthdef_new = builder.build('foo')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -78,7 +79,8 @@ def test_SynthDefinition_compile_synthdefs_01():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef_old == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
 def test_SynthDefinition_compile_synthdefs_02():
