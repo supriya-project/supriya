@@ -39,9 +39,9 @@ class StaticSynthDef(SupriyaObject):
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
         ugens = self._optimize_ugen_graph(ugens)
-        ugens, control_proxies = self._extract_control_proxies(ugens)
+        ugens, parameters = self._extract_parameters(ugens)
         control_ugens, control_mapping = self._collect_controls(
-            control_proxies,
+            parameters,
             )
         self._remap_controls(ugens, control_mapping)
         ugens.update(control_ugens)
@@ -63,78 +63,78 @@ class StaticSynthDef(SupriyaObject):
         return tuple(constants)
 
     @staticmethod
-    def _collect_controls(control_proxies):
+    def _collect_controls(parameters):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         control_mapping = collections.OrderedDict()
-        scalar_control_proxies = []
-        trigger_control_proxies = []
-        audio_control_proxies = []
-        control_control_proxies = []
+        scalar_parameters = []
+        trigger_parameters = []
+        audio_parameters = []
+        control_parameters = []
         mapping = {
-            synthdeftools.ParameterRate.AUDIO: audio_control_proxies,
-            synthdeftools.ParameterRate.CONTROL: control_control_proxies,
-            synthdeftools.ParameterRate.SCALAR: scalar_control_proxies,
-            synthdeftools.ParameterRate.TRIGGER: trigger_control_proxies,
+            synthdeftools.ParameterRate.AUDIO: audio_parameters,
+            synthdeftools.ParameterRate.CONTROL: control_parameters,
+            synthdeftools.ParameterRate.SCALAR: scalar_parameters,
+            synthdeftools.ParameterRate.TRIGGER: trigger_parameters,
             }
-        for control_proxy in control_proxies:
-            mapping[control_proxy.parameter_rate].append(control_proxy)
-        for control_proxies in mapping.values():
-            control_proxies.sort(key=lambda x: x.name)
+        for parameter in parameters:
+            mapping[parameter.parameter_rate].append(parameter)
+        for parameters in mapping.values():
+            parameters.sort(key=lambda x: x.name)
         control_ugens = []
         starting_control_index = 0
-        if scalar_control_proxies:
+        if scalar_parameters:
             control = ugentools.Control(
-                control_names=scalar_control_proxies,
+                control_names=scalar_parameters,
                 rate=synthdeftools.Rate.SCALAR,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(scalar_control_proxies)
-            for i, control_proxy in enumerate(scalar_control_proxies):
-                control_mapping[control_proxy] = control[i]
-        if trigger_control_proxies:
+            starting_control_index += len(scalar_parameters)
+            for i, parameter in enumerate(scalar_parameters):
+                control_mapping[parameter] = control[i]
+        if trigger_parameters:
             control = ugentools.TrigControl(
-                control_names=trigger_control_proxies,
+                control_names=trigger_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(trigger_control_proxies)
-            for i, control_proxy in enumerate(trigger_control_proxies):
-                control_mapping[control_proxy] = control[i]
-        if audio_control_proxies:
+            starting_control_index += len(trigger_parameters)
+            for i, parameter in enumerate(trigger_parameters):
+                control_mapping[parameter] = control[i]
+        if audio_parameters:
             control = ugentools.AudioControl(
-                control_names=audio_control_proxies,
+                control_names=audio_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(audio_control_proxies)
-            for i, control_proxy in enumerate(audio_control_proxies):
-                control_mapping[control_proxy] = control[i]
-        if control_control_proxies:
+            starting_control_index += len(audio_parameters)
+            for i, parameter in enumerate(audio_parameters):
+                control_mapping[parameter] = control[i]
+        if control_parameters:
             control = ugentools.Control(
-                control_names=control_control_proxies,
+                control_names=control_parameters,
                 rate=synthdeftools.Rate.CONTROL,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(control_control_proxies)
-            for i, control_proxy in enumerate(control_control_proxies):
-                control_mapping[control_proxy] = control[i]
+            starting_control_index += len(control_parameters)
+            for i, parameter in enumerate(control_parameters):
+                control_mapping[parameter] = control[i]
         return control_ugens, control_mapping
 
     def _collect_parameters(self, controls):
         pass
 
     @staticmethod
-    def _extract_control_proxies(ugens):
+    def _extract_parameters(ugens):
         from supriya.tools import synthdeftools
-        control_proxies = set()
+        parameters = set()
         for ugen in ugens:
             if isinstance(ugen, synthdeftools.Parameter):
-                control_proxies.add(ugen)
-        ugens = ugens.difference(control_proxies)
-        return ugens, control_proxies
+                parameters.add(ugen)
+        ugens = ugens.difference(parameters)
+        return ugens, parameters
 
     @staticmethod
     def _flatten_ugens(ugens):
