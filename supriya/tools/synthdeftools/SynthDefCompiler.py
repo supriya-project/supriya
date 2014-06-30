@@ -13,3 +13,7 @@ class SynthDefCompiler(SupriyaObject):
         result += bytes(bytearray(value, encoding='ascii'))
         return result
 
+    @staticmethod
+    def encode_float(value):
+        return bytes(struct.pack('>f', value))
+

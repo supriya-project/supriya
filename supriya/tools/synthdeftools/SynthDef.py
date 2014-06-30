@@ -275,10 +275,10 @@ class SynthDef(ServerObjectProxy):
             self.constants.items(),
             key=lambda item: item[1],
             ):
-            result.append(SynthDef._encode_float(key))
+            result.append(synthdeftools.SynthDefCompiler.encode_float(key))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.parameters)))
         for value in self.parameters:
-            result.append(SynthDef._encode_float(value))
+            result.append(synthdeftools.SynthDefCompiler.encode_float(value))
         result.append(SynthDef._encode_unsigned_int_32bit(
             len(self.parameter_names)))
         for key, value in sorted(
@@ -293,10 +293,6 @@ class SynthDef(ServerObjectProxy):
         result.append(SynthDef._encode_unsigned_int_16bit(0))
         result = bytes().join(result)
         return result
-
-    @staticmethod
-    def _encode_float(value):
-        return bytes(struct.pack('>f', value))
 
     @staticmethod
     def _encode_unsigned_int_8bit(value):
