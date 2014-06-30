@@ -95,7 +95,7 @@ class SynthDefCompiler(SupriyaObject):
         elif isinstance(input_, synthdeftools.OutputProxy):
             ugen = input_.source
             output_index = input_.output_index
-            ugen_index = synthdef._get_ugen_index(ugen)
+            ugen_index = synthdef._ugens.index(ugen)
             result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
             result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(output_index))
         else:

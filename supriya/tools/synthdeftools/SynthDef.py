@@ -162,7 +162,7 @@ class SynthDef(ServerObjectProxy):
         Returns string.
         '''
         def get_ugen_name(ugen):
-            ugen_index = self._get_ugen_index(ugen)
+            ugen_index = self._ugens.index(ugen)
             ugen_class = type(ugen).__name__
             if isinstance(ugen, ugentools.BinaryOpUGen):
                 ugen_op = synthdeftools.BinaryOperator.from_expr(
@@ -257,9 +257,6 @@ class SynthDef(ServerObjectProxy):
 
     def _get_constant_index(self, value):
         return self._constants[value]
-
-    def _get_ugen_index(self, ugen):
-        return self._ugens.index(ugen)
 
     def _sort_ugens_topologically(self):
         from supriya.tools import synthdeftools
