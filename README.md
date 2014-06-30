@@ -120,7 +120,7 @@ Current Roadmap
 - [X] Make SynthDef immutable
     - [X] Implement SynthDefBuilder
     - [X] Implement Parameter class (model a single control name, value, rate)
-    - [X] Implement AudioControls and TriggerControls UGens
+    - [X] Implement AudioControl and TrigControl UGens
 - [ ] Implement complete Buffer API
     - [ ] `/b_alloc`
     - [ ] `/b_allocRead`, `/b_allocReadChannel`
