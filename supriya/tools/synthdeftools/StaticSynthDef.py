@@ -35,7 +35,9 @@ class StaticSynthDef(SupriyaObject):
     def __init__(
         self,
         ugens,
+        name=None,
         ):
+        self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
         ugens = self._optimize_ugen_graph(ugens)

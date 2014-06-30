@@ -256,16 +256,19 @@ class SynthDef(ServerObjectProxy):
                     self._add_constant(float(input_))
 
     def _compile(self):
-        result = SynthDef._encode_string(self.name)
+        from supriya.tools import synthdeftools
+        result = synthdeftools.SynthDefCompiler.encode_string(self.name)
         result += self._compiled_ugen_graph
         return result
 
     def _compile_anonymously(self):
-        result = SynthDef._encode_string(self.anonymous_name)
+        from supriya.tools import synthdeftools
+        result = synthdeftools.SynthDefCompiler.encode_string(self.anonymous_name)
         result += self._compiled_ugen_graph
         return result
 
     def _compile_ugen_graph(self):
+        from supriya.tools import synthdeftools
         result = []
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.constants)))
         for key, value in sorted(
@@ -282,7 +285,7 @@ class SynthDef(ServerObjectProxy):
             self.parameter_names.items(),
             key=lambda x: x[1],
             ):
-            result.append(SynthDef._encode_string(key))
+            result.append(synthdeftools.SynthDefCompiler.encode_string(key))
             result.append(SynthDef._encode_unsigned_int_32bit(value))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
         for ugen_index, ugen in enumerate(self.ugens):
@@ -294,12 +297,6 @@ class SynthDef(ServerObjectProxy):
     @staticmethod
     def _encode_float(value):
         return bytes(struct.pack('>f', value))
-
-    @staticmethod
-    def _encode_string(value):
-        result = bytes(struct.pack('>B', len(value)))
-        result += bytes(bytearray(value, encoding='ascii'))
-        return result
 
     @staticmethod
     def _encode_unsigned_int_8bit(value):
