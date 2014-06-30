@@ -248,12 +248,12 @@ class SynthDef(ServerObjectProxy):
             self._pending_ugens.remove(ugen)
 
     def _collect_constants(self):
-        from supriya import synthdeftools
         self._constants = {}
         for ugen in self._ugens:
             for input_ in ugen._inputs:
-                if not isinstance(input_, synthdeftools.OutputProxy):
-                    self._add_constant(float(input_))
+                if not isinstance(input_, float):
+                    continue
+                self._add_constant(float(input_))
 
     def _get_constant_index(self, value):
         return self._constants[value]
