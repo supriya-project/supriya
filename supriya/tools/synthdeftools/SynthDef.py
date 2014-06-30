@@ -196,7 +196,7 @@ class SynthDef(ServerObjectProxy):
                 if i < len(ugen._ordered_input_names):
                     argument_name = ugen._ordered_input_names[i]
                 if isinstance(input_, float):
-                    input_index = self._get_constant_index(input_)
+                    input_index = self._constants.index(input_)
                     input_name = 'const_{}:{}'.format(input_index, input_)
                 else:
                     output_index = 0
@@ -252,9 +252,6 @@ class SynthDef(ServerObjectProxy):
                 if input_ not in constants:
                     constants.append(input_)
         self._constants = tuple(constants)
-
-    def _get_constant_index(self, value):
-        return self._constants.index(value)
 
     def _sort_ugens_topologically(self):
         from supriya.tools import synthdeftools

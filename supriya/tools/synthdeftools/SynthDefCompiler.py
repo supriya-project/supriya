@@ -86,7 +86,7 @@ class SynthDefCompiler(SupriyaObject):
         result = []
         if isinstance(input_, float):
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xffffffff))
-            constant_index = synthdef._get_constant_index(input_)
+            constant_index = synthdef._constants.index(input_)
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(
                 constant_index))
         elif isinstance(input_, synthdeftools.OutputProxy):
