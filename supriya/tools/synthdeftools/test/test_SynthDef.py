@@ -3,7 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-def test_SynthDefinition_compile_synthdefs_01():
+def test_SynthDef_01():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'foo',
@@ -83,7 +83,7 @@ def test_SynthDefinition_compile_synthdefs_01():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_02():
+def test_SynthDef_02():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -145,7 +145,7 @@ def test_SynthDefinition_compile_synthdefs_02():
 
 
 
-def test_SynthDefinition_compile_synthdefs_03():
+def test_SynthDef_03():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -212,7 +212,7 @@ def test_SynthDefinition_compile_synthdefs_03():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_04():
+def test_SynthDef_04():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -266,7 +266,7 @@ def test_SynthDefinition_compile_synthdefs_04():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_05():
+def test_SynthDef_05():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -328,7 +328,7 @@ def test_SynthDefinition_compile_synthdefs_05():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_06():
+def test_SynthDef_06():
     r'''Multiple parameters, including unused parameters.
     '''
 
@@ -427,7 +427,7 @@ def test_SynthDefinition_compile_synthdefs_06():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_07():
+def test_SynthDef_07():
     r'''FreeSelf.
     '''
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
@@ -496,7 +496,7 @@ def test_SynthDefinition_compile_synthdefs_07():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDefinition_compile_synthdefs_08():
+def test_SynthDef_08():
     r'''Different calculation rates.'''
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
