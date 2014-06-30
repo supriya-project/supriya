@@ -8,6 +8,12 @@ class SynthDefCompiler(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @staticmethod
+    def compile_synthdef(synthdef, name):
+        result = SynthDefCompiler.encode_string(name)
+        result += synthdef._compiled_ugen_graph
+        return result
+
+    @staticmethod
     def compile_ugen_graph(synthdef):
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants)))

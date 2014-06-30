@@ -335,10 +335,11 @@ class SynthDef(ServerObjectProxy):
             len(synthdefs))
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
-            if synthdef.name:
-                result.append(synthdef._compile())
-            else:
-                result.append(synthdef._compile_anonymously())
+            name = synthdef.name
+            if not name:
+                name = synthdef.anonymous_name
+            result.append(SynthDefCompiler.compile_synthdef(
+                synthdef, name))
         result = flatten(result)
         result = bytes(result)
         return result
