@@ -17,3 +17,8 @@ class SynthDefCompiler(SupriyaObject):
     def encode_float(value):
         return bytes(struct.pack('>f', value))
 
+    @staticmethod
+    def encode_unsigned_int_8bit(value):
+        return bytes(struct.pack('>B', value))
+
+

@@ -252,14 +252,14 @@ class UGen(UGenMethodMixin):
         outputs = self._get_outputs()
         result = []
         result.append(SynthDefCompiler.encode_string(type(self).__name__))
-        result.append(SynthDef._encode_unsigned_int_8bit(self.rate))
+        result.append(SynthDefCompiler.encode_unsigned_int_8bit(self.rate))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
         result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
         result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
             result.append(compile_input_spec(i, synthdef))
         for o in outputs:
-            result.append(SynthDef._encode_unsigned_int_8bit(o))
+            result.append(SynthDefCompiler.encode_unsigned_int_8bit(o))
         result = bytes().join(result)
         return result
 
