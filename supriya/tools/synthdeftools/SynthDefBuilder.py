@@ -13,7 +13,7 @@ class SynthDefBuilder(SupriyaObject):
         >>> builder = synthdeftools.SynthDefBuilder()
         >>> builder.add_parameter('frequency', 440)
         >>> builder.add_parameter(
-        ...     'trigger', 0, synthdeftools.ControlRate.TRIGGER,
+        ...     'trigger', 0, synthdeftools.ParameterRate.TRIGGER,
         ...     )
         >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
         >>> decay = ugentools.Decay.kr(
@@ -58,25 +58,25 @@ class SynthDefBuilder(SupriyaObject):
             raise ValueError(args)
         if len(args) == 1:
             assert isinstance(args[0], synthdeftools.Parameter)
-            name, value, control_rate = \
-                args[0].name, args[0], args[0].control_rate
+            name, value, parameter_rate = \
+                args[0].name, args[0], args[0].parameter_rate
         elif len(args) == 2:
             name, value = args
             if not isinstance(value, synthdeftools.Parameter):
-                control_rate = synthdeftools.ControlRate.CONTROL
+                parameter_rate = synthdeftools.ParameterRate.CONTROL
         elif len(args) == 3:
-            name, value, control_rate = args
-            control_rate = synthdeftools.ControlRate.from_expr(control_rate)
+            name, value, parameter_rate = args
+            parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
         if not isinstance(value, synthdeftools.Parameter):
             parameter = synthdeftools.Parameter(
                 name=name,
-                control_rate=control_rate,
+                parameter_rate=parameter_rate,
                 value=value,
                 )
         else:
             parameter = new(
                 value,
-                control_rate=control_rate,
+                parameter_rate=parameter_rate,
                 name=name,
                 )
         self._parameters[name] = parameter

@@ -69,7 +69,7 @@ class Rate(Enumeration):
             synthdeftools.OutputProxy, synthdeftools.UGen)):
             return input_.rate
         elif isinstance(input_, synthdeftools.Parameter):
-            name = input_.control_rate.name
+            name = input_.parameter_rate.name
             if name == 'TRIGGER':
                 return Rate.CONTROL
             return Rate.from_expr(name)

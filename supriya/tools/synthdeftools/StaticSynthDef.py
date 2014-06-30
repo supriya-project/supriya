@@ -72,13 +72,13 @@ class StaticSynthDef(SupriyaObject):
         audio_control_proxies = []
         control_control_proxies = []
         mapping = {
-            synthdeftools.ControlRate.AUDIO: audio_control_proxies,
-            synthdeftools.ControlRate.CONTROL: control_control_proxies,
-            synthdeftools.ControlRate.SCALAR: scalar_control_proxies,
-            synthdeftools.ControlRate.TRIGGER: trigger_control_proxies,
+            synthdeftools.ParameterRate.AUDIO: audio_control_proxies,
+            synthdeftools.ParameterRate.CONTROL: control_control_proxies,
+            synthdeftools.ParameterRate.SCALAR: scalar_control_proxies,
+            synthdeftools.ParameterRate.TRIGGER: trigger_control_proxies,
             }
         for control_proxy in control_proxies:
-            mapping[control_proxy.control_rate].append(control_proxy)
+            mapping[control_proxy.parameter_rate].append(control_proxy)
         for control_proxies in mapping.values():
             control_proxies.sort(key=lambda x: x.name)
         control_ugens = []

@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.Enumeration import Enumeration
 
 
-class ControlRate(Enumeration):
+class ParameterRate(Enumeration):
     r'''An enumeration of synthdef control rates.
     '''
 

@@ -7,7 +7,7 @@ class Parameter(UGenMethodMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_control_rate',
+        '_parameter_rate',
         '_name',
         '_range',
         '_unit',
@@ -18,7 +18,7 @@ class Parameter(UGenMethodMixin):
 
     def __init__(
         self,
-        control_rate=None,
+        parameter_rate=None,
         name=None,
         range_=None,
         unit=None,
@@ -26,7 +26,7 @@ class Parameter(UGenMethodMixin):
         ):
         from supriya.tools import synthdeftools
         assert name
-        self._control_rate = synthdeftools.ControlRate.from_expr(control_rate)
+        self._parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
         self._name = str(name)
         self._range = synthdeftools.Range(range_)
         self._unit = unit
@@ -39,7 +39,7 @@ class Parameter(UGenMethodMixin):
             return False
         elif self.name != expr.name:
             return False
-        elif self.control_rate != expr.control_rate:
+        elif self.parameter_rate != expr.parameter_rate:
             return False
         return True
 
@@ -49,7 +49,7 @@ class Parameter(UGenMethodMixin):
     def __hash__(self):
         hash_values = (
             type(self),
-            self.control_rate,
+            self.parameter_rate,
             self.name,
             )
         return hash(hash_values)
@@ -68,8 +68,8 @@ class Parameter(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def control_rate(self):
-        return self._control_rate
+    def parameter_rate(self):
+        return self._parameter_rate
 
     @property
     def name(self):
