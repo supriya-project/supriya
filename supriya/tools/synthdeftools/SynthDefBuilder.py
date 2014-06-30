@@ -29,7 +29,7 @@ class SynthDefBuilder(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_synthdef_controls',
+        '_parameters',
         '_ugens',
         )
 
@@ -40,7 +40,7 @@ class SynthDefBuilder(SupriyaObject):
         name=None,
         **kwargs
         ):
-        self._synthdef_controls = {}
+        self._parameters = {}
         for key, value in kwargs.items():
             self.add_control(key, value)
         self._ugens = set()
@@ -48,7 +48,7 @@ class SynthDefBuilder(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        return self._synthdef_controls[item]
+        return self._parameters[item]
 
     ### PUBLIC METHODS ###
 
@@ -57,18 +57,18 @@ class SynthDefBuilder(SupriyaObject):
         if 3 < len(args):
             raise ValueError(args)
         if len(args) == 1:
-            assert isinstance(args[0], synthdeftools.SynthDefControl)
+            assert isinstance(args[0], synthdeftools.Parameter)
             name, value, control_rate = \
                 args[0].name, args[0], args[0].control_rate
         elif len(args) == 2:
             name, value = args
-            if not isinstance(value, synthdeftools.SynthDefControl):
+            if not isinstance(value, synthdeftools.Parameter):
                 control_rate = synthdeftools.ControlRate.CONTROL
         elif len(args) == 3:
             name, value, control_rate = args
             control_rate = synthdeftools.ControlRate.from_expr(control_rate)
-        if not isinstance(value, synthdeftools.SynthDefControl):
-            control = synthdeftools.SynthDefControl(
+        if not isinstance(value, synthdeftools.Parameter):
+            control = synthdeftools.Parameter(
                 name=name,
                 control_rate=control_rate,
                 value=value,
@@ -79,7 +79,7 @@ class SynthDefBuilder(SupriyaObject):
                 control_rate=control_rate,
                 name=name,
                 )
-        self._synthdef_controls[name] = control
+        self._parameters[name] = control
 
     def add_ugen(self, ugen):
         from supriya.tools import synthdeftools

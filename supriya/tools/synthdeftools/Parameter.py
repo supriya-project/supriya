@@ -2,7 +2,7 @@
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
-class SynthDefControl(UGenMethodMixin):
+class Parameter(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 

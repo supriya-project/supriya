@@ -131,7 +131,7 @@ class StaticSynthDef(SupriyaObject):
         from supriya.tools import synthdeftools
         control_proxies = set()
         for ugen in ugens:
-            if isinstance(ugen, synthdeftools.SynthDefControl):
+            if isinstance(ugen, synthdeftools.Parameter):
                 control_proxies.add(ugen)
         ugens = ugens.difference(control_proxies)
         return ugens, control_proxies
@@ -141,7 +141,7 @@ class StaticSynthDef(SupriyaObject):
         def recurse(ugen):
             flattened_ugens.add(ugen)
             for input_ in ugen.inputs:
-                if isinstance(input_, synthdeftools.SynthDefControl):
+                if isinstance(input_, synthdeftools.Parameter):
                     flattened_ugens.add(input_)
                 elif isinstance(input_, synthdeftools.OutputProxy):
                     flattened_ugens.add(input_.source)
