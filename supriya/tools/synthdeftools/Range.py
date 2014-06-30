@@ -27,3 +27,13 @@ class Range(SupriyaObject):
         assert minimum <= maximum
         self._minimum = minimum
         self._maximum = maximum
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        return self._maximum
+
+    @property
+    def minimum(self):
+        return self._minimum
