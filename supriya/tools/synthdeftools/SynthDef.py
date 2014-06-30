@@ -290,17 +290,9 @@ class SynthDef(ServerObjectProxy):
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.ugens)))
         for ugen_index, ugen in enumerate(self.ugens):
             result.append(ugen.compile(self))
-        result.append(SynthDef._encode_unsigned_int_16bit(0))
+        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_16bit(0))
         result = bytes().join(result)
         return result
-
-    @staticmethod
-    def _encode_unsigned_int_8bit(value):
-        return bytes(struct.pack('>B', value))
-
-    @staticmethod
-    def _encode_unsigned_int_16bit(value):
-        return bytes(struct.pack('>H', value))
 
     @staticmethod
     def _encode_unsigned_int_32bit(value):
@@ -359,13 +351,14 @@ class SynthDef(ServerObjectProxy):
                 not isinstance(value, (bytes, bytearray)):
                 return bytes().join(flatten(x) for x in value)
             return value
+        from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = synthdefs or [self]
         result = []
         encoded_file_type_id = b'SCgf'
         result.append(encoded_file_type_id)
         encoded_file_version = SynthDef._encode_unsigned_int_32bit(2)
         result.append(encoded_file_version)
-        encoded_synthdef_count = SynthDef._encode_unsigned_int_16bit(
+        encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
             len(synthdefs))
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:

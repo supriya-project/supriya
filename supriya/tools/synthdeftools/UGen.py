@@ -255,7 +255,7 @@ class UGen(UGenMethodMixin):
         result.append(SynthDefCompiler.encode_unsigned_int_8bit(self.rate))
         result.append(SynthDef._encode_unsigned_int_32bit(len(self.inputs)))
         result.append(SynthDef._encode_unsigned_int_32bit(len(outputs)))
-        result.append(SynthDef._encode_unsigned_int_16bit(int(self.special_index)))
+        result.append(SynthDefCompiler.encode_unsigned_int_16bit(int(self.special_index)))
         for i in self.inputs:
             result.append(compile_input_spec(i, synthdef))
         for o in outputs:
