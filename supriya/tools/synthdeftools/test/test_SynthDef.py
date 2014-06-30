@@ -570,6 +570,31 @@ def test_SynthDef_08():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
+    builder = synthdeftools.SynthDefBuilder(
+        a_phase=0.0,
+        freq=440,
+        i_decay_time=1.0,
+        t_trig_a=0,
+        t_trig_b=0,
+        )
+    decay = ugentools.Decay2.kr(
+        source=(builder['t_trig_a'], builder['t_trig_b']),
+        attack_time=0.005,
+        decay_time=builder['i_decay_time'],
+        )
+    sin_osc = ugentools.SinOsc.ar(
+        frequency=builder['freq'],
+        phase=builder['a_phase'],
+        )
+    enveloped_sin_osc = sin_osc * decay
+    out = ugentools.Out.ar(
+        bus=0,
+        source=enveloped_sin_osc,
+        )
+    builder.add_ugen(out)
+    py_synthdef_new = builder.build('trigTest')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
+
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -692,4 +717,6 @@ def test_SynthDef_08():
     for i, pair in enumerate(zip(sc_compiled_synthdef, test_compiled_synthdef)):
         x, y = pair
         assert x == y, (i, repr(x), repr(y))
+
     assert sc_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef

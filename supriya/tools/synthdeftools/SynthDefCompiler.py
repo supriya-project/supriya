@@ -24,7 +24,10 @@ class SynthDefCompiler(SupriyaObject):
             result.append(SynthDefCompiler.encode_float(value))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
             len(synthdef.parameters)))
-        for index, parameter in enumerate(synthdef.parameters):
+        for index, parameter in sorted(
+            enumerate(synthdef.parameters),
+            key=lambda x: x[1].name,
+            ):
             name = parameter.name
             result.append(SynthDefCompiler.encode_string(name))
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(index))
