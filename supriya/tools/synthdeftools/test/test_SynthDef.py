@@ -491,6 +491,15 @@ def test_SynthDef_07():
     py_synthdef_old.add_ugen(out)
     py_compiled_synthdef_old = py_synthdef_old.compile()
 
+    builder = synthdeftools.SynthDefBuilder()
+    sin_osc = ugentools.SinOsc.ar()
+    free_self = ugentools.FreeSelf.kr(sin_osc)
+    out = ugentools.Out.ar(bus=0, source=sin_osc)
+    builder.add_ugen(free_self)
+    builder.add_ugen(out)
+    py_synthdef_new = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
+
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -539,6 +548,7 @@ def test_SynthDef_07():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef_old == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
 def test_SynthDef_08():
