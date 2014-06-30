@@ -296,9 +296,9 @@ class SynthDef(ServerObjectProxy):
         self._compiled_ugen_graph = \
             synthdeftools.SynthDefCompiler.compile_ugen_graph(self)
 
-    def compile(self, synthdefs=None):
+    def compile(self):
         from supriya.tools.synthdeftools import SynthDefCompiler
-        synthdefs = synthdefs or [self]
+        synthdefs = [self]
         result = SynthDefCompiler.compile_synthdefs(synthdefs)
         return result
 
