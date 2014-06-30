@@ -1,10 +1,23 @@
 # -*- encoding: utf-8 -*-
 import collections
 import copy
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class StaticSynthDef(ServerObjectProxy):
+class StaticSynthDef(SupriyaObject):
+    r'''A synth definition.
+
+    ::
+
+        >>> from supriya.tools import synthdeftools
+        >>> from supriya.tools import ugentools
+        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
+        >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
+        >>> out = ugentools.Out.ar(bus=0, source=sin_osc)
+        >>> builder.add_ugen(out)
+        >>> synthdef = builder.build()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -25,14 +38,15 @@ class StaticSynthDef(ServerObjectProxy):
         ):
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
+        ugens = self._optimize_ugen_graph(ugens)
         ugens, control_proxies = self._extract_control_proxies(ugens)
         control_ugens, control_mapping = self._collect_controls(
             control_proxies,
             )
-        ugens = self._remap_controls(ugens, control_mapping)
-        ugens = self._optimize_ugen_graph(ugens)
+        self._remap_controls(ugens, control_mapping)
+        ugens.update(control_ugens)
         ugens = self._sort_ugens_topologically(ugens)
-        self._ugens = ugens
+        self._ugens = tuple(ugens)
 
     ### PRIVATE METHODS ###
 
@@ -55,7 +69,7 @@ class StaticSynthDef(ServerObjectProxy):
             synthdeftools.Rate.TRIGGER: trigger_control_proxies,
             }
         for control_proxy in control_proxies:
-            mapping[control_proxy.rate].add(control_proxy)
+            mapping[control_proxy.rate].append(control_proxy)
         for control_proxies in mapping.values():
             control_proxies.sort(key=lambda x: x.name)
         control_ugens = []
@@ -68,7 +82,7 @@ class StaticSynthDef(ServerObjectProxy):
                 )
             control_ugens.append(control)
             starting_control_index += len(scalar_control_proxies)
-            for i, control_proxy in scalar_control_proxies:
+            for i, control_proxy in enumerate(scalar_control_proxies):
                 control_mapping[control_proxy] = control[i]
         if trigger_control_proxies:
             control = ugentools.TrigControl(
@@ -77,7 +91,7 @@ class StaticSynthDef(ServerObjectProxy):
                 )
             control_ugens.append(control)
             starting_control_index += len(trigger_control_proxies)
-            for i, control_proxy in trigger_control_proxies:
+            for i, control_proxy in enumerate(trigger_control_proxies):
                 control_mapping[control_proxy] = control[i]
         if audio_control_proxies:
             control = ugentools.AudioControl(
@@ -86,7 +100,7 @@ class StaticSynthDef(ServerObjectProxy):
                 )
             control_ugens.append(control)
             starting_control_index += len(audio_control_proxies)
-            for i, control_proxy in audio_control_proxies:
+            for i, control_proxy in enumerate(audio_control_proxies):
                 control_mapping[control_proxy] = control[i]
         if control_control_proxies:
             control = ugentools.Control(
@@ -95,7 +109,7 @@ class StaticSynthDef(ServerObjectProxy):
                 )
             control_ugens.append(control)
             starting_control_index += len(control_control_proxies)
-            for i, control_proxy in control_control_proxies:
+            for i, control_proxy in enumerate(control_control_proxies):
                 control_mapping[control_proxy] = control[i]
         return control_ugens, control_mapping
 
@@ -110,7 +124,7 @@ class StaticSynthDef(ServerObjectProxy):
             if isinstance(ugen, synthdeftools.SynthDefControl):
                 control_proxies.add(ugen)
         ugens = ugens.difference(control_proxies)
-        return ugens
+        return ugens, control_proxies
 
     @staticmethod
     def _flatten_ugens(ugens):
@@ -130,9 +144,11 @@ class StaticSynthDef(ServerObjectProxy):
             recurse(ugen)
         return flattened_ugens
 
+    @staticmethod
     def _optimize_ugen_graph(ugens):
-        pass
+        return ugens
 
+    @staticmethod
     def _remap_controls(ugens, control_mapping):
         for ugen in ugens:
             inputs = list(ugen.inputs)
@@ -142,5 +158,6 @@ class StaticSynthDef(ServerObjectProxy):
                     inputs[i] = output_proxy
             ugen._inputs = tuple(inputs)
 
+    @staticmethod
     def _sort_ugens_topologically(ugens):
-        pass
+        return list(ugens)

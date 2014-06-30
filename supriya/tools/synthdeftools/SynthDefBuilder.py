@@ -9,9 +9,18 @@ class SynthDefBuilder(SupriyaObject):
     ::
 
         >>> from supriya.tools import synthdeftools
+        >>> from supriya.tools import ugentools
         >>> builder = synthdeftools.SynthDefBuilder()
         >>> builder.add_control('frequency', 440)
         >>> builder.add_control('trigger', 0, synthdeftools.Rate.TRIGGER)
+        >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
+        >>> decay = ugentools.Decay.kr(
+        ...     decay_time=0.5,
+        ...     source=builder['trigger'],
+        ...     )
+        >>> enveloped_sin = sin_osc * decay
+        >>> out = ugentools.Out.ar(bus=0, source=enveloped_sin)
+        >>> builder.add_ugen(out)
 
     '''
 
@@ -32,7 +41,7 @@ class SynthDefBuilder(SupriyaObject):
         self._synthdef_controls = {}
         for key, value in kwargs.items():
             self.add_control(key, value)
-        self._ugens = []
+        self._ugens = set()
 
     ### SPECIAL METHODS ###
 
@@ -66,7 +75,11 @@ class SynthDefBuilder(SupriyaObject):
         self._synthdef_controls[name] = control
 
     def add_ugen(self, ugen):
-        pass
+        from supriya.tools import synthdeftools
+        assert isinstance(ugen, synthdeftools.UGen)
+        self._ugens.add(ugen)
 
-    def build_synthdef(self, name=None):
-        pass
+    def build(self, name=None):
+        from supriya.tools import synthdeftools
+        synthdef = synthdeftools.StaticSynthDef(self._ugens)
+        return synthdef
