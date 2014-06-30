@@ -49,6 +49,7 @@ class UGen(UGenMethodMixin):
                 int,
                 UGen,
                 synthdeftools.OutputProxy,
+                synthdeftools.SynthDefControl,
                 )
             if self._unexpanded_input_names and \
                 input_name in self._unexpanded_input_names:
@@ -93,7 +94,9 @@ class UGen(UGenMethodMixin):
 
     def _add_ugen_input(self, ugen, output_index=None):
         from supriya import synthdeftools
-        if isinstance(ugen, synthdeftools.OutputProxy):
+        if isinstance(ugen, synthdeftools.SynthDefControl):
+            output_proxy = ugen
+        elif isinstance(ugen, synthdeftools.OutputProxy):
             output_proxy = ugen
         else:
             output_proxy = synthdeftools.OutputProxy(
@@ -123,7 +126,11 @@ class UGen(UGenMethodMixin):
         from supriya import synthdeftools
         if isinstance(value, (int, float)):
             self._add_constant_input(value)
-        elif isinstance(value, (synthdeftools.OutputProxy, synthdeftools.UGen)):
+        elif isinstance(value, (
+            synthdeftools.OutputProxy,
+            synthdeftools.SynthDefControl,
+            synthdeftools.UGen,
+            )):
             self._add_ugen_input(
                 value._get_source(),
                 value._get_output_number(),
