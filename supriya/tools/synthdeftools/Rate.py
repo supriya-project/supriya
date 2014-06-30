@@ -63,7 +63,11 @@ class Rate(Enumeration):
     @staticmethod
     def from_input(input_):
         from supriya.tools import synthdeftools
-        prototype = (synthdeftools.OutputProxy, synthdeftools.UGen)
+        prototype = (
+            synthdeftools.OutputProxy,
+            synthdeftools.SynthDefControl,
+            synthdeftools.UGen,
+            )
         if isinstance(input_, (int, float)):
             return Rate.SCALAR
         elif isinstance(input_, prototype):
