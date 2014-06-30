@@ -11,8 +11,8 @@ class SynthDefBuilder(SupriyaObject):
         >>> from supriya.tools import synthdeftools
         >>> from supriya.tools import ugentools
         >>> builder = synthdeftools.SynthDefBuilder()
-        >>> builder.add_control('frequency', 440)
-        >>> builder.add_control(
+        >>> builder.add_parameter('frequency', 440)
+        >>> builder.add_parameter(
         ...     'trigger', 0, synthdeftools.ControlRate.TRIGGER,
         ...     )
         >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
@@ -42,7 +42,7 @@ class SynthDefBuilder(SupriyaObject):
         ):
         self._parameters = {}
         for key, value in kwargs.items():
-            self.add_control(key, value)
+            self.add_parameter(key, value)
         self._ugens = set()
 
     ### SPECIAL METHODS ###
@@ -52,7 +52,7 @@ class SynthDefBuilder(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def add_control(self, *args):
+    def add_parameter(self, *args):
         from supriya.tools import synthdeftools
         if 3 < len(args):
             raise ValueError(args)
@@ -68,18 +68,18 @@ class SynthDefBuilder(SupriyaObject):
             name, value, control_rate = args
             control_rate = synthdeftools.ControlRate.from_expr(control_rate)
         if not isinstance(value, synthdeftools.Parameter):
-            control = synthdeftools.Parameter(
+            parameter = synthdeftools.Parameter(
                 name=name,
                 control_rate=control_rate,
                 value=value,
                 )
         else:
-            control = new(
+            parameter = new(
                 value,
                 control_rate=control_rate,
                 name=name,
                 )
-        self._parameters[name] = control
+        self._parameters[name] = parameter
 
     def add_ugen(self, ugen):
         from supriya.tools import synthdeftools

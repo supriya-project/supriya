@@ -26,7 +26,7 @@ class StaticSynthDef(SupriyaObject):
         '_constants',
         '_name',
         '_parameter_names',
-        '_parameters',
+        '_parameters_values',
         '_ugens',
         )
 
