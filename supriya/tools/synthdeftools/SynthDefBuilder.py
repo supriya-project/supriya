@@ -63,7 +63,14 @@ class SynthDefBuilder(SupriyaObject):
         elif len(args) == 2:
             name, value = args
             if not isinstance(value, synthdeftools.Parameter):
-                parameter_rate = synthdeftools.ParameterRate.CONTROL
+                if name.startswith('a_'):
+                    parameter_rate = synthdeftools.ParameterRate.AUDIO
+                elif name.startswith('i_'):
+                    parameter_rate = synthdeftools.ParameterRate.SCALAR
+                elif name.startswith('t_'):
+                    parameter_rate = synthdeftools.ParameterRate.TRIGGER
+                else:
+                    parameter_rate = synthdeftools.ParameterRate.CONTROL
         elif len(args) == 3:
             name, value, parameter_rate = args
             parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
