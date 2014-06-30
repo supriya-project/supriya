@@ -153,7 +153,7 @@ class Server(object):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, synthdeftools.StaticSynthDef):
+        elif isinstance(expr, synthdeftools.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True

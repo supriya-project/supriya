@@ -65,7 +65,7 @@ class QueryTreeSynth(Response, collections.Sequence):
         assert isinstance(synth, servertools.Synth)
         node_id = synth.node_id
         synthdef_name = synth.synthdef
-        if isinstance(synthdef_name, synthdeftools.StaticSynthDef):
+        if isinstance(synthdef_name, synthdeftools.SynthDef):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:

@@ -102,7 +102,7 @@ class SynthDefBuilder(SupriyaObject):
     def build(self, name=None):
         from supriya.tools import synthdeftools
         ugens = list(self._parameters.values()) + list(self._ugens)
-        synthdef = synthdeftools.StaticSynthDef(
+        synthdef = synthdeftools.SynthDef(
             ugens,
             name=name,
             )

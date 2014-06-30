@@ -44,7 +44,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
     @staticmethod
     def from_synthdef(synthdef):
         from supriya.tools import synthdeftools
-        assert isinstance(synthdef, synthdeftools.StaticSynthDef)
+        assert isinstance(synthdef, synthdeftools.SynthDef)
 
     ### PUBLIC PROPERTIES ###
 

@@ -5,7 +5,7 @@ import hashlib
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class StaticSynthDef(ServerObjectProxy):
+class SynthDef(ServerObjectProxy):
     r'''A synth definition.
 
     ::

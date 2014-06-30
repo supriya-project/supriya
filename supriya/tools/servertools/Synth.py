@@ -50,7 +50,7 @@ class Synth(Node):
         synthdef,
         ):
         from supriya.tools import synthdeftools
-        assert isinstance(synthdef, (str, synthdeftools.StaticSynthDef))
+        assert isinstance(synthdef, (str, synthdeftools.SynthDef))
         Node.__init__(self)
         self._synthdef = synthdef
 
@@ -72,7 +72,7 @@ class Synth(Node):
             target_node=target_node,
             )
         synthdef_name = self.synthdef
-        if isinstance(self.synthdef, synthdeftools.StaticSynthDef):
+        if isinstance(self.synthdef, synthdeftools.SynthDef):
             synthdef_name = synthdef_name.actual_name
         message = servertools.CommandManager.make_synth_new_message(
             add_action=add_action,
