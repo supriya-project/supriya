@@ -15,6 +15,27 @@ class SynthDefCompiler(SupriyaObject):
         return result
 
     @staticmethod
+    def compile_parameters_new(synthdef):
+        return bytes()
+
+    @staticmethod
+    def compile_parameters_old(synthdef):
+        result = []
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
+            len(synthdef.parameters)))
+        for value in synthdef.parameters:
+            result.append(SynthDefCompiler.encode_float(value))
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
+            len(synthdef.parameter_names)))
+        for key, value in sorted(
+            synthdef.parameter_names.items(),
+            key=lambda x: x[1],
+            ):
+            result.append(SynthDefCompiler.encode_string(key))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(value))
+        return bytes().join(result)
+
+    @staticmethod
     def compile_synthdefs(synthdefs):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
@@ -41,7 +62,6 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_ugen(ugen, synthdef):
-        from supriya.tools.synthdeftools import SynthDefCompiler
         outputs = ugen._get_outputs()
         result = []
         result.append(SynthDefCompiler.encode_string(type(ugen).__name__))
@@ -58,21 +78,15 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_ugen_graph(synthdef):
+        from supriya.tools import synthdeftools
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants)))
         for constant in synthdef.constants:
             result.append(SynthDefCompiler.encode_float(constant))
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.parameters)))
-        for value in synthdef.parameters:
-            result.append(SynthDefCompiler.encode_float(value))
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            len(synthdef.parameter_names)))
-        for key, value in sorted(
-            synthdef.parameter_names.items(),
-            key=lambda x: x[1],
-            ):
-            result.append(SynthDefCompiler.encode_string(key))
-            result.append(SynthDefCompiler.encode_unsigned_int_32bit(value))
+        if isinstance(synthdef, synthdeftools.SynthDef):
+            result.append(SynthDefCompiler.compile_parameters_old(synthdef))
+        else:
+            result.append(SynthDefCompiler.compile_parameters_new(synthdef))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.ugens)))
         for ugen_index, ugen in enumerate(synthdef.ugens):
             result.append(SynthDefCompiler.compile_ugen(ugen, synthdef))
@@ -93,8 +107,8 @@ class SynthDefCompiler(SupriyaObject):
             ugen = input_.source
             output_index = input_.output_index
             ugen_index = synthdef._ugens.index(ugen)
-            result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
-            result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(output_index))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(output_index))
         else:
             raise Exception('Unhandled input spec: {}'.format(input_))
         return bytes().join(result)
