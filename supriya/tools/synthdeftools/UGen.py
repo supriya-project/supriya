@@ -229,39 +229,6 @@ class UGen(UGenMethodMixin):
                 )
         raise ValueError(expr)
 
-    def compile(self, synthdef):
-        def compile_input_spec(i, synthdef):
-            from supriya.tools import synthdeftools
-            result = []
-            if isinstance(i, float):
-                result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xffffffff))
-                constant_index = synthdef._get_constant_index(i)
-                result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-                    constant_index))
-            elif isinstance(i, synthdeftools.OutputProxy):
-                ugen = i.source
-                output_index = i.output_index
-                ugen_index = synthdef._get_ugen_index(ugen)
-                result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(ugen_index))
-                result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(output_index))
-            else:
-                raise Exception('Unhandled input spec: {}'.format(i))
-            return bytes().join(result)
-        from supriya.tools.synthdeftools import SynthDefCompiler
-        outputs = self._get_outputs()
-        result = []
-        result.append(SynthDefCompiler.encode_string(type(self).__name__))
-        result.append(SynthDefCompiler.encode_unsigned_int_8bit(self.rate))
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(self.inputs)))
-        result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(outputs)))
-        result.append(SynthDefCompiler.encode_unsigned_int_16bit(int(self.special_index)))
-        for i in self.inputs:
-            result.append(compile_input_spec(i, synthdef))
-        for o in outputs:
-            result.append(SynthDefCompiler.encode_unsigned_int_8bit(o))
-        result = bytes().join(result)
-        return result
-
     @staticmethod
     def expand_dictionary(dictionary, unexpanded_input_names=None):
         r'''Expands a dictionary into multichannel dictionaries.
