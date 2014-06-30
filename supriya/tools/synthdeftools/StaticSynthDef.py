@@ -47,11 +47,20 @@ class StaticSynthDef(SupriyaObject):
         ugens.update(control_ugens)
         ugens = self._sort_ugens_topologically(ugens)
         self._ugens = tuple(ugens)
+        self._constants = self._collect_constants(self._ugens)
 
     ### PRIVATE METHODS ###
 
-    def _collect_constants(self, ugens):
-        pass
+    @staticmethod
+    def _collect_constants(ugens):
+        constants = []
+        for ugen in ugens:
+            for input_ in ugen._inputs:
+                if not isinstance(input_, float):
+                    continue
+                if input_ not in constants:
+                    constants.append(input_)
+        return tuple(constants)
 
     @staticmethod
     def _collect_controls(control_proxies):
