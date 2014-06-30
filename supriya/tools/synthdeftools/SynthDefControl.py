@@ -53,6 +53,14 @@ class SynthDefControl(UGenMethodMixin):
     def __len__(self):
         return 1
 
+    ### PRIVATE METHODS ###
+
+    def _get_source(self):
+        return self
+
+    def _get_output_number(self):
+        return 0
+
     ### PUBLIC PROPERTIES ###
 
     @property
