@@ -303,12 +303,12 @@ class Server(object):
         time.sleep(0.1)
         error = 'Exception in World_OpenUDP: bind: Address already in use'
         success = 'SuperCollider 3 server ready.'
-        string = server_process.read(1)
+        string = server_process.read_nonblocking(timeout=1.0)
         if 2 < sys.version_info[0]:
             string = str(string, 'utf-8')
         while True:
             try:
-                char = server_process.read_nonblocking(timeout=0.1)
+                char = server_process.read_nonblocking(timeout=1.0)
                 if 2 < sys.version_info[0]:
                     char = str(char, 'utf-8')
                 string += char
@@ -316,7 +316,7 @@ class Server(object):
                 break
         if error in string:
             raise Exception(error)
-        assert success in string
+        assert success in string, string
 
         self._is_running = True
         self._server_options = server_options
