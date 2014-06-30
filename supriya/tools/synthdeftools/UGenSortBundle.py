@@ -27,18 +27,20 @@ class UGenSortBundle(SupriyaObject):
         from supriya import synthdeftools
         for input_ in self.ugen.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
-                ugen = input_.source
-                ugen_sort_bundle = sort_bundles[ugen]
-                if ugen not in self.antecedents:
-                    self.antecedents.append(ugen)
-                if self.ugen not in ugen_sort_bundle.descendants:
-                    ugen_sort_bundle.descendants.append(self.ugen)
-        for ugen in self.width_first_antecedents:
-            ugen_sort_bundle = sort_bundles[ugen]
-            if ugen not in self.antecedents:
-                self.antecedents.append(ugen)
-            if self.ugen not in ugen_sort_bundle.descendants:
-                ugen_sort_bundle.descendants.append(self)
+                input_ = input_.source
+            elif not isinstance(input_, synthdeftools.UGen):
+                continue
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
+        for input_ in self.width_first_antecedents:
+            input_sort_bundle = sort_bundles[input_]
+            if input_ not in self.antecedents:
+                self.antecedents.append(input_)
+            if self.ugen not in input_sort_bundle.descendants:
+                input_sort_bundle.descendants.append(self.ugen)
 
     def _make_available(self, available_ugens):
         if not self.antecedents:
