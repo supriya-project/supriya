@@ -217,10 +217,6 @@ class SynthDef(ServerObjectProxy):
 
     ### PRIVATE METHODS ###
 
-    def _add_constant(self, value):
-        if value not in self._constants:
-            self._constants[value] = len(self.constants)
-
     def _add_parameter(self, name, value):
         self._parameter_names[name] = len(self._parameters)
         self._parameters.append(value)
@@ -253,7 +249,8 @@ class SynthDef(ServerObjectProxy):
             for input_ in ugen._inputs:
                 if not isinstance(input_, float):
                     continue
-                self._add_constant(float(input_))
+                if input_ not in self._constants:
+                    self._constants[input_] = len(self.constants)
 
     def _get_constant_index(self, value):
         return self._constants[value]
