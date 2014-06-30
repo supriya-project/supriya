@@ -212,9 +212,17 @@ class CommandManager(object):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        prototype = (synthdeftools.SynthDef, str)
+        prototype = (
+            synthdeftools.StaticSynthDef,
+            synthdeftools.SynthDef,
+            str,
+            )
         assert isinstance(synthdef, prototype)
-        if isinstance(synthdef, synthdeftools.SynthDef):
+        prototype = (
+            synthdeftools.StaticSynthDef,
+            synthdeftools.SynthDef,
+            )
+        if isinstance(synthdef, prototype):
             synthdef = synthdef.name or synthdef.anonymous_name
         command_type = servertools.CommandNumber.from_expr('synthdef_free')
         message = osctools.OscMessage(
@@ -229,9 +237,18 @@ class CommandManager(object):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        prototype = (synthdeftools.SynthDef, bytes, bytearray)
+        prototype = (
+            synthdeftools.StaticSynthDef,
+            synthdeftools.SynthDef,
+            bytes,
+            bytearray,
+            )
         assert isinstance(synthdef, prototype)
-        if isinstance(synthdef, synthdeftools.SynthDef):
+        prototype = (
+            synthdeftools.StaticSynthDef,
+            synthdeftools.SynthDef,
+            )
+        if isinstance(synthdef, prototype):
             synthdef = synthdef.compile()
         synthdef = bytearray(synthdef)
         command_type = servertools.CommandNumber.from_expr('synthdef_receive')

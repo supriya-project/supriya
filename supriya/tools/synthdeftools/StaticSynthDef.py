@@ -2,10 +2,10 @@
 import collections
 import copy
 import hashlib
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class StaticSynthDef(SupriyaObject):
+class StaticSynthDef(ServerObjectProxy):
     r'''A synth definition.
 
     ::
@@ -17,6 +17,34 @@ class StaticSynthDef(SupriyaObject):
         >>> out = ugentools.Out.ar(bus=0, source=sin_osc)
         >>> builder.add_ugen(out)
         >>> synthdef = builder.build()
+
+    ::
+
+        >>> from supriya import servertools
+        >>> server = servertools.Server().boot()
+
+    ::
+
+        >>> synthdef.allocate(server=server)
+
+    ::
+
+        >>> synthdef in server
+        True
+
+    ::
+
+        >>> synthdef.free()
+
+    ::
+
+        >>> synthdef in server
+        False
+
+    ::
+
+        >>> server.quit()
+        <Server: offline>
 
     '''
 
@@ -38,6 +66,7 @@ class StaticSynthDef(SupriyaObject):
         name=None,
         ):
         from supriya.tools import synthdeftools
+        ServerObjectProxy.__init__(self)
         compiler = synthdeftools.SynthDefCompiler
         self._name = name
         ugens = copy.deepcopy(ugens)
@@ -54,6 +83,25 @@ class StaticSynthDef(SupriyaObject):
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)
         self._compiled_ugen_graph = compiler.compile_ugen_graph(self)
+
+    ### SPECIAL METHODS ###
+
+    def __eq__(self, expr):
+        if type(expr) != type(self):
+            return False
+        if expr.name != self.name:
+            return False
+        if expr._compiled_ugen_graph != self._compiled_ugen_graph:
+            return False
+        return True
+
+    def __hash__(self):
+        hash_values = (
+            type(self),
+            self._name,
+            self._compiled_ugen_graph,
+            )
+        return hash(hash_values)
 
     ### PRIVATE METHODS ###
 
@@ -208,11 +256,31 @@ class StaticSynthDef(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    def allocate(self, server=None):
+        from supriya.tools import servertools
+        ServerObjectProxy.allocate(self, server=server)
+        synthdef_name = self.actual_name
+        self.server._synthdefs[synthdef_name] = self
+        message = servertools.CommandManager.make_synthdef_receive_message(
+            synthdef=self,
+            )
+        self.server.send_message(message)
+
     def compile(self):
         from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = [self]
         result = SynthDefCompiler.compile_synthdefs(synthdefs)
         return result
+
+    def free(self):
+        from supriya.tools import servertools
+        synthdef_name = self.actual_name
+        del(self.server._synthdefs[synthdef_name])
+        message = servertools.CommandManager.make_synthdef_free_message(
+            synthdef=self,
+            )
+        self.server.send_message(message)
+        ServerObjectProxy.free(self)
 
     ### PUBLIC PROPERTIES ###
 
@@ -230,6 +298,12 @@ class StaticSynthDef(SupriyaObject):
     @property
     def constants(self):
         return self._constants
+
+    @property
+    def is_allocated(self):
+        if self.server is not None:
+            return self in self.server
+        return False
 
     @property
     def name(self):
