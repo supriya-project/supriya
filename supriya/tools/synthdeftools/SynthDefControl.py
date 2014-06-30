@@ -7,8 +7,8 @@ class SynthDefControl(UGenMethodMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_control_rate',
         '_name',
-        '_rate',
         '_range',
         '_unit',
         '_value',
@@ -18,17 +18,17 @@ class SynthDefControl(UGenMethodMixin):
 
     def __init__(
         self,
+        control_rate=None,
         name=None,
         range_=None,
-        rate=None,
         unit=None,
         value=None,
         ):
         from supriya.tools import synthdeftools
         assert name
+        self._control_rate = synthdeftools.ControlRate.from_expr(control_rate)
         self._name = str(name)
         self._range = synthdeftools.Range(range_)
-        self._rate = synthdeftools.Rate.from_expr(rate)
         self._unit = unit
         self._value = float(value)
 
@@ -39,7 +39,7 @@ class SynthDefControl(UGenMethodMixin):
             return False
         elif self.name != expr.name:
             return False
-        elif self.rate != expr.rate:
+        elif self.control_rate != expr.control_rate:
             return False
         return True
 
@@ -47,7 +47,11 @@ class SynthDefControl(UGenMethodMixin):
         return self
 
     def __hash__(self):
-        hash_values = (type(self), self.name, self.rate)
+        hash_values = (
+            type(self),
+            self.control_rate,
+            self.name,
+            )
         return hash(hash_values)
 
     def __len__(self):
@@ -64,16 +68,16 @@ class SynthDefControl(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def control_rate(self):
+        return self._control_rate
+
+    @property
     def name(self):
         return self._name
 
     @property
     def range_(self):
         return self._range
-
-    @property
-    def rate(self):
-        return self._rate
 
     @property
     def unit(self):

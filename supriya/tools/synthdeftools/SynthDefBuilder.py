@@ -12,7 +12,9 @@ class SynthDefBuilder(SupriyaObject):
         >>> from supriya.tools import ugentools
         >>> builder = synthdeftools.SynthDefBuilder()
         >>> builder.add_control('frequency', 440)
-        >>> builder.add_control('trigger', 0, synthdeftools.Rate.TRIGGER)
+        >>> builder.add_control(
+        ...     'trigger', 0, synthdeftools.ControlRate.TRIGGER,
+        ...     )
         >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
         >>> decay = ugentools.Decay.kr(
         ...     decay_time=0.5,
@@ -56,22 +58,27 @@ class SynthDefBuilder(SupriyaObject):
             raise ValueError(args)
         if len(args) == 1:
             assert isinstance(args[0], synthdeftools.SynthDefControl)
-            name, value, rate = args[0].name, args[0], args[0].rate
+            name, value, control_rate = \
+                args[0].name, args[0], args[0].control_rate
         elif len(args) == 2:
             name, value = args
             if not isinstance(value, synthdeftools.SynthDefControl):
-                rate = synthdeftools.Rate.CONTROL
+                control_rate = synthdeftools.ControlRate.CONTROL
         elif len(args) == 3:
-            name, value, rate = args
-            rate = synthdeftools.Rate.from_expr(rate)
+            name, value, control_rate = args
+            control_rate = synthdeftools.ControlRate.from_expr(control_rate)
         if not isinstance(value, synthdeftools.SynthDefControl):
             control = synthdeftools.SynthDefControl(
                 name=name,
-                rate=rate,
+                control_rate=control_rate,
                 value=value,
                 )
         else:
-            control = new(value, name=name, rate=rate)
+            control = new(
+                value,
+                control_rate=control_rate,
+                name=name,
+                )
         self._synthdef_controls[name] = control
 
     def add_ugen(self, ugen):

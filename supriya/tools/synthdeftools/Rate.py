@@ -24,7 +24,6 @@ class Rate(Enumeration):
     CONTROL = 1
     DEMAND = 3
     SCALAR = 0
-    TRIGGER = 1
 
     ### PUBLIC METHODS ###
 
@@ -35,19 +34,20 @@ class Rate(Enumeration):
         ::
 
             >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
 
         ::
 
             >>> collection = []
-            >>> collection.append(synthdeftools.DC.ar(0))
-            >>> collection.append(synthdeftools.DC.kr(1))
+            >>> collection.append(ugentools.DC.ar(0))
+            >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.Rate.from_collection(collection)
             <Rate.AUDIO: 2>
 
         ::
             >>> collection = []
-            >>> collection.append(synthdeftools.DC.kr(1))
+            >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.Rate.from_collection(collection)
             <Rate.CONTROL: 1>
@@ -63,13 +63,14 @@ class Rate(Enumeration):
     @staticmethod
     def from_input(input_):
         from supriya.tools import synthdeftools
-        prototype = (
-            synthdeftools.OutputProxy,
-            synthdeftools.SynthDefControl,
-            synthdeftools.UGen,
-            )
         if isinstance(input_, (int, float)):
             return Rate.SCALAR
-        elif isinstance(input_, prototype):
+        elif isinstance(input_, (
+            synthdeftools.OutputProxy, synthdeftools.UGen)):
             return input_.rate
+        elif isinstance(input_, synthdeftools.SynthDefControl):
+            name = input_.control_rate.name
+            if name == 'TRIGGER':
+                return Rate.CONTROL
+            return Rate.from_expr(name)
         raise ValueError(input_)

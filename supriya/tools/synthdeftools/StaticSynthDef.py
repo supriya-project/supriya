@@ -63,13 +63,13 @@ class StaticSynthDef(SupriyaObject):
         audio_control_proxies = []
         control_control_proxies = []
         mapping = {
-            synthdeftools.Rate.AUDIO: audio_control_proxies,
-            synthdeftools.Rate.CONTROL: control_control_proxies,
-            synthdeftools.Rate.SCALAR: scalar_control_proxies,
-            synthdeftools.Rate.TRIGGER: trigger_control_proxies,
+            synthdeftools.ControlRate.AUDIO: audio_control_proxies,
+            synthdeftools.ControlRate.CONTROL: control_control_proxies,
+            synthdeftools.ControlRate.SCALAR: scalar_control_proxies,
+            synthdeftools.ControlRate.TRIGGER: trigger_control_proxies,
             }
         for control_proxy in control_proxies:
-            mapping[control_proxy.rate].append(control_proxy)
+            mapping[control_proxy.control_rate].append(control_proxy)
         for control_proxies in mapping.values():
             control_proxies.sort(key=lambda x: x.name)
         control_ugens = []
@@ -105,6 +105,7 @@ class StaticSynthDef(SupriyaObject):
         if control_control_proxies:
             control = ugentools.Control(
                 control_names=control_control_proxies,
+                rate=synthdeftools.Rate.CONTROL,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -129,6 +130,7 @@ class StaticSynthDef(SupriyaObject):
     @staticmethod
     def _flatten_ugens(ugens):
         def recurse(ugen):
+            flattened_ugens.add(ugen)
             for input_ in ugen.inputs:
                 if isinstance(input_, synthdeftools.SynthDefControl):
                     flattened_ugens.add(input_)

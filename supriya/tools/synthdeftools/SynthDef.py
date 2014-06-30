@@ -88,6 +88,7 @@ class SynthDef(ServerObjectProxy):
         **kwargs
         ):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         ServerObjectProxy.__init__(self)
         self._constants = {}
         self._name = name
@@ -100,7 +101,7 @@ class SynthDef(ServerObjectProxy):
         for name, value in sorted(kwargs.items()):
             self._add_parameter(name, value)
             control_names.append(name)
-        self._controls = synthdeftools.Control(
+        self._controls = ugentools.Control(
             control_names,
             rate=synthdeftools.Rate.CONTROL,
             )
@@ -226,6 +227,7 @@ class SynthDef(ServerObjectProxy):
 
     def _add_ugen(self, ugen):
         from supriya import synthdeftools
+        from supriya import ugentools
         def resolve(ugen, synthdef):
             for x in ugen.inputs:
                 if isinstance(x, synthdeftools.OutputProxy):
@@ -241,7 +243,7 @@ class SynthDef(ServerObjectProxy):
             self._pending_ugens.add(ugen)
             resolve(ugen, self)
             self._ugens.append(ugen)
-            if isinstance(ugen, synthdeftools.WidthFirstUGen):
+            if isinstance(ugen, ugentools.WidthFirstUGen):
                 self._width_first_ugens.append(ugen)
             self._pending_ugens.remove(ugen)
 
