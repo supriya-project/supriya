@@ -162,4 +162,24 @@ class StaticSynthDef(SupriyaObject):
 
     @staticmethod
     def _sort_ugens_topologically(ugens):
-        return list(ugens)
+        from supriya.tools import synthdeftools
+        ugens = list(ugens)
+        available_ugens = []
+        sort_bundles = {}
+        for ugen in ugens:
+            sort_bundles[ugen] = synthdeftools.UGenSortBundle(ugen)
+        for ugen in ugens:
+            sort_bundle = sort_bundles[ugen]
+            sort_bundle._initialize_topological_sort(sort_bundles)
+            sort_bundle.descendants[:] = sorted(
+                sort_bundles[ugen].descendants,
+                key=lambda x: ugens.index(ugen),
+                )
+        for ugen in reversed(ugens):
+            sort_bundles[ugen]._make_available(available_ugens)
+        out_stack = []
+        while available_ugens:
+            available_ugen = available_ugens.pop()
+            sort_bundles[available_ugen]._schedule(
+                available_ugens, out_stack, sort_bundles)
+        return out_stack
