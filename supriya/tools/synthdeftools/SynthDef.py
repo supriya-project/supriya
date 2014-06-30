@@ -106,7 +106,8 @@ class SynthDef(ServerObjectProxy):
             )
         if control_names:
             self._add_ugen(self._controls)
-        self._compiled_ugen_graph = self._compile_ugen_graph()
+        self._compiled_ugen_graph = \
+            synthdeftools.SynthDefCompiler.compile_ugen_graph(self)
 
     ### SPECIAL METHODS ###
 
@@ -268,34 +269,6 @@ class SynthDef(ServerObjectProxy):
         result += self._compiled_ugen_graph
         return result
 
-    def _compile_ugen_graph(self):
-        from supriya.tools import synthdeftools
-#        result = []
-#        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.constants)))
-#        for key, value in sorted(
-#            self.constants.items(),
-#            key=lambda item: item[1],
-#            ):
-#            result.append(synthdeftools.SynthDefCompiler.encode_float(key))
-#        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.parameters)))
-#        for value in self.parameters:
-#            result.append(synthdeftools.SynthDefCompiler.encode_float(value))
-#        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(
-#            len(self.parameter_names)))
-#        for key, value in sorted(
-#            self.parameter_names.items(),
-#            key=lambda x: x[1],
-#            ):
-#            result.append(synthdeftools.SynthDefCompiler.encode_string(key))
-#            result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(value))
-#        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_32bit(len(self.ugens)))
-#        for ugen_index, ugen in enumerate(self.ugens):
-#            result.append(ugen.compile(self))
-#        result.append(synthdeftools.SynthDefCompiler.encode_unsigned_int_16bit(0))
-#        result = bytes().join(result)
-        result = synthdeftools.SynthDefCompiler.compile_ugen_graph(self)
-        return result
-
     def _get_constant_index(self, value):
         return self._constants[value]
 
@@ -338,10 +311,12 @@ class SynthDef(ServerObjectProxy):
         self.server.send_message(message)
 
     def add_ugen(self, ugen):
+        from supriya.tools import synthdeftools
         self._add_ugen(ugen)
         self._sort_ugens_topologically()
         self._collect_constants()
-        self._compiled_ugen_graph = self._compile_ugen_graph()
+        self._compiled_ugen_graph = \
+            synthdeftools.SynthDefCompiler.compile_ugen_graph(self)
 
     def compile(self, synthdefs=None):
         def flatten(value):
