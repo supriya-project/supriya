@@ -391,6 +391,22 @@ def test_SynthDef_06():
     py_synthdef_old.add_ugen(out)
     py_compiled_synthdef_old = py_synthdef_old.compile()
 
+    builder = synthdeftools.SynthDefBuilder(
+        damping=0.1,
+        delay_time=1.0,
+        room_size=0.9,
+        )
+    microphone = ugentools.In.ar(bus=0)
+    delay = ugentools.DelayC.ar(
+        source=microphone,
+        maximum_delay_time=5.0,
+        delay_time=builder['delay_time'],
+        )
+    out = ugentools.Out.ar(bus=0, source=delay)
+    builder.add_ugen(out)
+    py_synthdef_new = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
+
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -451,13 +467,9 @@ def test_SynthDef_06():
                 b'\x00\x00',
         )
 
-    assert len(py_compiled_synthdef_old) == len(test_compiled_synthdef)
-    for i in range(len(py_compiled_synthdef_old)):
-        assert py_compiled_synthdef_old[i] == test_compiled_synthdef[i], (
-            i, py_compiled_synthdef_old[i], test_compiled_synthdef[i])
-
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef_old == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
 def test_SynthDef_07():

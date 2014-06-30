@@ -43,7 +43,7 @@ class SynthDefBuilder(SupriyaObject):
         self._parameters = {}
         for key, value in kwargs.items():
             self.add_parameter(key, value)
-        self._ugens = set()
+        self._ugens = []
 
     ### SPECIAL METHODS ###
 
@@ -91,12 +91,14 @@ class SynthDefBuilder(SupriyaObject):
     def add_ugen(self, ugen):
         from supriya.tools import synthdeftools
         assert isinstance(ugen, synthdeftools.UGen)
-        self._ugens.add(ugen)
+        if ugen not in self._ugens:
+            self._ugens.append(ugen)
 
     def build(self, name=None):
         from supriya.tools import synthdeftools
+        ugens = list(self._parameters.values()) + list(self._ugens)
         synthdef = synthdeftools.StaticSynthDef(
-            self._ugens,
+            ugens,
             name=name,
             )
         return synthdef
