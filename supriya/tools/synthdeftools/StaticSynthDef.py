@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import collections
 import copy
+import hashlib
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -37,6 +38,8 @@ class StaticSynthDef(SupriyaObject):
         ugens,
         name=None,
         ):
+        from supriya.tools import synthdeftools
+        compiler = synthdeftools.SynthDefCompiler
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
@@ -50,6 +53,7 @@ class StaticSynthDef(SupriyaObject):
         ugens = self._sort_ugens_topologically(ugens)
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)
+        self._compiled_ugen_graph = compiler.compile_ugen_graph(self)
 
     ### PRIVATE METHODS ###
 
@@ -194,3 +198,36 @@ class StaticSynthDef(SupriyaObject):
             sort_bundles[available_ugen]._schedule(
                 available_ugens, out_stack, sort_bundles)
         return out_stack
+
+    ### PUBLIC METHODS ###
+
+    def compile(self):
+        from supriya.tools.synthdeftools import SynthDefCompiler
+        synthdefs = [self]
+        result = SynthDefCompiler.compile_synthdefs(synthdefs)
+        return result
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def actual_name(self):
+        return self.name or self.anonymous_name
+
+    @property
+    def anonymous_name(self):
+        md5 = hashlib.md5()
+        md5.update(self._compiled_ugen_graph)
+        anonymous_name = md5.hexdigest()
+        return anonymous_name
+
+    @property
+    def constants(self):
+        return self._constants
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
+    def ugens(self):
+        return self._ugens
