@@ -20,8 +20,8 @@ class SoundIn(PseudoUGen):
 
     @staticmethod
     def ar(bus=0, **kwargs):
-        from supriya.tools import synthdeftools
-        channel_offset = synthdeftools.NumOutputBuses.ir()
+        from supriya.tools import ugentools
+        channel_offset = ugentools.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
             assert all(isinstance(x, int) for x in bus)
             bus = tuple(sorted(bus))
@@ -34,7 +34,7 @@ class SoundIn(PseudoUGen):
         else:
             channel_count = 1
         bus = bus + channel_offset
-        return synthdeftools.In.ar(
+        return ugentools.In.ar(
             bus=bus,
             channel_count=channel_count,
             )

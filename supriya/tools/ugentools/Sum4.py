@@ -7,12 +7,12 @@ class Sum4(UGen):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> input_one = synthdeftools.SinOsc.ar()
-        >>> input_two = synthdeftools.SinOsc.ar(phase=0.1)
-        >>> input_three = synthdeftools.SinOsc.ar(phase=0.2)
-        >>> input_four = synthdeftools.SinOsc.ar(phase=0.3)
-        >>> synthdeftools.Sum4.new(
+        >>> from supriya.tools import ugentools
+        >>> input_one = ugentools.SinOsc.ar()
+        >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+        >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+        >>> input_four = ugentools.SinOsc.ar(phase=0.3)
+        >>> ugentools.Sum4.new(
         ...     input_one=input_one,
         ...     input_two=input_two,
         ...     input_three=input_three,
@@ -21,7 +21,7 @@ class Sum4(UGen):
         Sum4.ar()
 
     '''
-    
+
     ### CLASS VARIABLES ###
 
     __slots__ = ()

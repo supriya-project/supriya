@@ -7,11 +7,11 @@ class Sum3(UGen):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> input_one = synthdeftools.SinOsc.ar()
-        >>> input_two = synthdeftools.SinOsc.ar(phase=0.1)
-        >>> input_three = synthdeftools.SinOsc.ar(phase=0.2)
-        >>> synthdeftools.Sum3.new(
+        >>> from supriya.tools import ugentools
+        >>> input_one = ugentools.SinOsc.ar()
+        >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+        >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+        >>> ugentools.Sum3.new(
         ...     input_one=input_one,
         ...     input_two=input_two,
         ...     input_three=input_three,
