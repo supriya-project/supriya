@@ -11,15 +11,11 @@ def test_SynthDef_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef_old = synthdeftools.SynthDef('foo')
+    builder = synthdeftools.SynthDefBuilder()
     sine_one = ugentools.SinOsc.ar(frequency=420)
     sine_two = ugentools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
     out = ugentools.Out.ar(bus=0, source=sines)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
-
-    builder = synthdeftools.SynthDefBuilder()
     builder.add_ugen(out)
     py_synthdef_new = builder.build('foo')
     py_compiled_synthdef_new = py_synthdef_new.compile()
@@ -79,7 +75,6 @@ def test_SynthDef_01():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -91,14 +86,10 @@ def test_SynthDef_02():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    py_synthdef_old = synthdeftools.SynthDef('test')
+    builder = synthdeftools.SynthDefBuilder()
     sine = ugentools.SinOsc.ar()
     sine = -sine
     out = ugentools.Out.ar(bus=99, source=sine)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
-
-    builder = synthdeftools.SynthDefBuilder()
     builder.add_ugen(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
@@ -146,7 +137,6 @@ def test_SynthDef_02():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -160,13 +150,6 @@ def test_SynthDef_03():
         '''
         )
     sc_compiled_synthdef = sc_synthdef.compile()
-
-    py_synthdef_old = synthdeftools.SynthDef('test', freq=1200, out=23)
-    controls = py_synthdef_old.controls
-    sine = ugentools.SinOsc.ar(frequency=controls['freq'])
-    out = ugentools.Out.ar(bus=controls['out'], source=sine)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder(
         freq=1200,
@@ -224,7 +207,6 @@ def test_SynthDef_03():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -237,12 +219,6 @@ def test_SynthDef_04():
         '''
         )
     sc_compiled_synthdef = sc_synthdef.compile()
-
-    py_synthdef_old = synthdeftools.SynthDef('test')
-    inputs = ugentools.In.ar(bus=8, channel_count=2)
-    out = ugentools.Out.ar(bus=0, source=inputs)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder()
     inputs = ugentools.In.ar(bus=8, channel_count=2)
@@ -286,7 +262,6 @@ def test_SynthDef_04():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -300,13 +275,6 @@ def test_SynthDef_05():
         '''
         )
     sc_compiled_synthdef = sc_synthdef.compile()
-
-    py_synthdef_old = synthdeftools.SynthDef('test', freq=440)
-    controls = py_synthdef_old.controls
-    sine = ugentools.SinOsc.ar(frequency=controls['freq'])
-    out = ugentools.Out.ar(bus=0, source=sine)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder(freq=440)
     sine = ugentools.SinOsc.ar(frequency=builder['freq'])
@@ -357,7 +325,6 @@ def test_SynthDef_05():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -373,23 +340,6 @@ def test_SynthDef_06():
         '''
         )
     sc_compiled_synthdef = sc_synthdef.compile()
-
-    py_synthdef_old = synthdeftools.SynthDef(
-        'test',
-        damping=0.1,
-        delay_time=1.0,
-        room_size=0.9,
-        )
-    controls = py_synthdef_old.controls
-    microphone = ugentools.In.ar(bus=0)
-    delay = ugentools.DelayC.ar(
-        source=microphone,
-        maximum_delay_time=5.0,
-        delay_time=controls['delay_time'],
-        )
-    out = ugentools.Out.ar(bus=0, source=delay)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder(
         damping=0.1,
@@ -468,7 +418,6 @@ def test_SynthDef_06():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
@@ -482,14 +431,6 @@ def test_SynthDef_07():
         '''
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
-
-    py_synthdef_old = synthdeftools.SynthDef('test')
-    sin_osc = ugentools.SinOsc.ar()
-    free_self = ugentools.FreeSelf.kr(sin_osc)
-    out = ugentools.Out.ar(bus=0, source=sin_osc)
-    py_synthdef_old.add_ugen(free_self)
-    py_synthdef_old.add_ugen(out)
-    py_compiled_synthdef_old = py_synthdef_old.compile()
 
     builder = synthdeftools.SynthDefBuilder()
     sin_osc = ugentools.SinOsc.ar()
@@ -541,13 +482,7 @@ def test_SynthDef_07():
                 b'\x00\x00',
         )
 
-    assert len(py_compiled_synthdef_old) == len(test_compiled_synthdef)
-    for i in range(len(py_compiled_synthdef_old)):
-        assert py_compiled_synthdef_old[i] == test_compiled_synthdef[i], (
-            i, py_compiled_synthdef_old[i], test_compiled_synthdef[i])
-
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_old == test_compiled_synthdef
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 

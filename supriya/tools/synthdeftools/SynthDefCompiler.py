@@ -93,15 +93,11 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_ugen_graph(synthdef):
-        from supriya.tools import synthdeftools
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants)))
         for constant in synthdef.constants:
             result.append(SynthDefCompiler.encode_float(constant))
-        if isinstance(synthdef, synthdeftools.SynthDef):
-            result.append(SynthDefCompiler.compile_parameters_old(synthdef))
-        else:
-            result.append(SynthDefCompiler.compile_parameters_new(synthdef))
+        result.append(SynthDefCompiler.compile_parameters_new(synthdef))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.ugens)))
         for ugen_index, ugen in enumerate(synthdef.ugens):
             result.append(SynthDefCompiler.compile_ugen(ugen, synthdef))

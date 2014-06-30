@@ -214,14 +214,10 @@ class CommandManager(object):
         from supriya.tools import synthdeftools
         prototype = (
             synthdeftools.StaticSynthDef,
-            synthdeftools.SynthDef,
             str,
             )
         assert isinstance(synthdef, prototype)
-        prototype = (
-            synthdeftools.StaticSynthDef,
-            synthdeftools.SynthDef,
-            )
+        prototype = synthdeftools.StaticSynthDef
         if isinstance(synthdef, prototype):
             synthdef = synthdef.name or synthdef.anonymous_name
         command_type = servertools.CommandNumber.from_expr('synthdef_free')
@@ -239,15 +235,11 @@ class CommandManager(object):
         from supriya.tools import synthdeftools
         prototype = (
             synthdeftools.StaticSynthDef,
-            synthdeftools.SynthDef,
             bytes,
             bytearray,
             )
         assert isinstance(synthdef, prototype)
-        prototype = (
-            synthdeftools.StaticSynthDef,
-            synthdeftools.SynthDef,
-            )
+        prototype = synthdeftools.StaticSynthDef
         if isinstance(synthdef, prototype):
             synthdef = synthdef.compile()
         synthdef = bytearray(synthdef)

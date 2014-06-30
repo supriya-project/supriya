@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from abjad.tools.topleveltools import new
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -90,9 +91,13 @@ class SynthDefBuilder(SupriyaObject):
 
     def add_ugen(self, ugen):
         from supriya.tools import synthdeftools
-        assert isinstance(ugen, synthdeftools.UGen)
-        if ugen not in self._ugens:
-            self._ugens.append(ugen)
+        ugens = ugen
+        if not isinstance(ugens, collections.Sequence):
+            ugens = [ugens]
+        for ugen in ugens:
+            assert isinstance(ugen, synthdeftools.UGen)
+            if ugen not in self._ugens:
+                self._ugens.append(ugen)
 
     def build(self, name=None):
         from supriya.tools import synthdeftools

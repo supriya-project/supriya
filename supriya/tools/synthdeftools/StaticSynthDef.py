@@ -103,6 +103,94 @@ class StaticSynthDef(ServerObjectProxy):
             )
         return hash(hash_values)
 
+    def __str__(self):
+        r'''Gets string representation of synth definition.
+
+        ::
+
+            >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
+
+        ::
+
+            >>> builder = synthdeftools.SynthDefBuilder()
+            >>> sin_one = ugentools.SinOsc.ar()
+            >>> sin_two = ugentools.SinOsc.ar(frequency=443)
+            >>> sum = sin_one + sin_two
+            >>> out = ugentools.Out.ar(bus=0, source=sum)
+            >>> builder.add_ugen(out)
+            >>> synthdef = builder.build(name='test')
+
+        ::
+
+            >>> print(synthdef)
+            SynthDef test {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                const_2:443.0 -> 1_SinOsc[0:frequency]
+                const_1:0.0 -> 1_SinOsc[1:phase]
+                0_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[0:left]
+                1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
+                const_1:0.0 -> 3_Out[0]
+                2_BinaryOpUGen:ADDITION[0] -> 3_Out[1]
+            }
+
+        Returns string.
+        '''
+        def get_ugen_name(ugen):
+            ugen_index = self._ugens.index(ugen)
+            ugen_class = type(ugen).__name__
+            if isinstance(ugen, ugentools.BinaryOpUGen):
+                ugen_op = synthdeftools.BinaryOperator.from_expr(
+                    ugen.special_index)
+                ugen_op_name = ugen_op.name
+                ugen_name = '{}_{}:{}'.format(
+                    ugen_index,
+                    ugen_class,
+                    ugen_op_name,
+                    )
+            elif isinstance(ugen, ugentools.UnaryOpUGen):
+                ugen_op = synthdeftools.UnaryOperator.from_expr(
+                    ugen.special_index)
+                ugen_op_name = ugen_op.name
+                ugen_name = '{}_{}:{}'.format(
+                    ugen_index,
+                    ugen_class,
+                    ugen_op_name,
+                    )
+            else:
+                ugen_name = '{}_{}'.format(ugen_index, ugen_class)
+            return ugen_name
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        result = []
+        result.append('SynthDef {} {{'.format(self.actual_name))
+        for ugen in self._ugens:
+            ugen_name = get_ugen_name(ugen)
+            for i, input_ in enumerate(ugen.inputs):
+                argument_name = None
+                if i < len(ugen._ordered_input_names):
+                    argument_name = ugen._ordered_input_names[i]
+                if isinstance(input_, float):
+                    input_index = self._constants.index(input_)
+                    input_name = 'const_{}:{}'.format(input_index, input_)
+                else:
+                    output_index = 0
+                    if isinstance(input_, synthdeftools.OutputProxy):
+                        output_index = input_.output_index
+                        input_ = input_.source
+                    input_name = get_ugen_name(input_)
+                    input_name += '[{}]'.format(output_index)
+                wire = '\t{} -> {}'.format(input_name, ugen_name)
+                if argument_name:
+                    wire += '[{}:{}]'.format(i, argument_name)
+                else:
+                    wire += '[{}]'.format(i)
+                result.append(wire)
+        result.append('}')
+        result = '\n'.join(result)
+        return result
+
     ### PRIVATE METHODS ###
 
     @staticmethod

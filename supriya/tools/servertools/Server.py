@@ -153,11 +153,7 @@ class Server(object):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, (
-            synthdeftools.StaticSynthDef,
-            synthdeftools.SynthDef,
-            )
-            ):
+        elif isinstance(expr, synthdeftools.StaticSynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
@@ -355,20 +351,20 @@ class Server(object):
 
             >>> from supriya import synthdeftools
             >>> from supriya import ugentools
-            >>> synthdef = synthdeftools.SynthDef(
+            >>> builder = synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     )
-            >>> controls = synthdef.controls
             >>> sin_osc = ugentools.SinOsc.ar(
-            ...     frequency=controls['frequency'],
+            ...     frequency=builder['frequency'],
             ...     )
-            >>> sin_osc *= controls['amplitude']
+            >>> sin_osc *= builder['amplitude']
             >>> out = ugentools.Out.ar(
             ...     bus=(0, 1),
             ...     source=sin_osc,
             ...     )
-            >>> synthdef.add_ugen(out)
+            >>> builder.add_ugen(out)
+            >>> synthdef = builder.build()
             >>> synthdef.allocate()
             >>> server.sync()
             <Server: udp://127.0.0.1:57751, 8i8o>
@@ -425,20 +421,20 @@ class Server(object):
 
             >>> from supriya import synthdeftools
             >>> from supriya import ugentools
-            >>> synthdef = synthdeftools.SynthDef(
+            >>> builder = synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     )
-            >>> controls = synthdef.controls
             >>> sin_osc = ugentools.SinOsc.ar(
-            ...     frequency=controls['frequency'],
+            ...     frequency=builder['frequency'],
             ...     )
-            >>> sin_osc *= controls['amplitude']
+            >>> sin_osc *= builder['amplitude']
             >>> out = ugentools.Out.ar(
             ...     bus=(0, 1),
             ...     source=sin_osc,
             ...     )
-            >>> synthdef.add_ugen(out)
+            >>> builder.add_ugen(out)
+            >>> synthdef = builder.build()
             >>> synthdef.allocate()
             >>> server.sync()
             <Server: udp://127.0.0.1:57751, 8i8o>

@@ -15,13 +15,13 @@ class Synth(Node):
 
         >>> from supriya import synthdeftools
         >>> from supriya import ugentools
-        >>> synthdef = synthdeftools.SynthDef('test', frequency=440)
-        >>> controls = synthdef.controls
+        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
         >>> sin_osc = ugentools.SinOsc.ar(
-        ...     frequency=controls['frequency'],
+        ...     frequency=builder['frequency'],
         ...     ) * 0.0
         >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
-        >>> synthdef.add_ugen(out)
+        >>> builder.add_ugen(out)
+        >>> synthdef = builder.build()
         >>> synthdef.allocate()
         >>> server.sync()
         <Server: udp://127.0.0.1:57751, 8i8o>
@@ -50,7 +50,7 @@ class Synth(Node):
         synthdef,
         ):
         from supriya.tools import synthdeftools
-        assert isinstance(synthdef, (str, synthdeftools.SynthDef))
+        assert isinstance(synthdef, (str, synthdeftools.StaticSynthDef))
         Node.__init__(self)
         self._synthdef = synthdef
 
@@ -72,7 +72,7 @@ class Synth(Node):
             target_node=target_node,
             )
         synthdef_name = self.synthdef
-        if isinstance(self.synthdef, synthdeftools.SynthDef):
+        if isinstance(self.synthdef, synthdeftools.StaticSynthDef):
             synthdef_name = synthdef_name.actual_name
         message = servertools.CommandManager.make_synth_new_message(
             add_action=add_action,
