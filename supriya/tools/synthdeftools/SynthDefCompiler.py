@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 import struct
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -11,6 +12,31 @@ class SynthDefCompiler(SupriyaObject):
     def compile_synthdef(synthdef, name):
         result = SynthDefCompiler.encode_string(name)
         result += synthdef._compiled_ugen_graph
+        return result
+
+    @staticmethod
+    def compile_synthdefs(synthdefs):
+        def flatten(value):
+            if isinstance(value, collections.Sequence) and \
+                not isinstance(value, (bytes, bytearray)):
+                return bytes().join(flatten(x) for x in value)
+            return value
+        result = []
+        encoded_file_type_id = b'SCgf'
+        result.append(encoded_file_type_id)
+        encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
+        result.append(encoded_file_version)
+        encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
+            len(synthdefs))
+        result.append(encoded_synthdef_count)
+        for synthdef in synthdefs:
+            name = synthdef.name
+            if not name:
+                name = synthdef.anonymous_name
+            result.append(SynthDefCompiler.compile_synthdef(
+                synthdef, name))
+        result = flatten(result)
+        result = bytes(result)
         return result
 
     @staticmethod
@@ -61,4 +87,3 @@ class SynthDefCompiler(SupriyaObject):
     @staticmethod
     def encode_unsigned_int_32bit(value):
         return bytes(struct.pack('>I', value))
-

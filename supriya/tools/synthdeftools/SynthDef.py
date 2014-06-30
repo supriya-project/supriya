@@ -255,20 +255,6 @@ class SynthDef(ServerObjectProxy):
                 if not isinstance(input_, synthdeftools.OutputProxy):
                     self._add_constant(float(input_))
 
-    def _compile(self):
-        from supriya.tools import synthdeftools
-        name = self.name
-        result = synthdeftools.SynthDefCompiler.encode_string(name)
-        result += self._compiled_ugen_graph
-        return result
-
-    def _compile_anonymously(self):
-        from supriya.tools import synthdeftools
-        name = self.anonymous_name
-        result = synthdeftools.SynthDefCompiler.encode_string(name)
-        result += self._compiled_ugen_graph
-        return result
-
     def _get_constant_index(self, value):
         return self._constants[value]
 
@@ -319,29 +305,9 @@ class SynthDef(ServerObjectProxy):
             synthdeftools.SynthDefCompiler.compile_ugen_graph(self)
 
     def compile(self, synthdefs=None):
-        def flatten(value):
-            if isinstance(value, collections.Sequence) and \
-                not isinstance(value, (bytes, bytearray)):
-                return bytes().join(flatten(x) for x in value)
-            return value
         from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = synthdefs or [self]
-        result = []
-        encoded_file_type_id = b'SCgf'
-        result.append(encoded_file_type_id)
-        encoded_file_version = SynthDefCompiler.encode_unsigned_int_32bit(2)
-        result.append(encoded_file_version)
-        encoded_synthdef_count = SynthDefCompiler.encode_unsigned_int_16bit(
-            len(synthdefs))
-        result.append(encoded_synthdef_count)
-        for synthdef in synthdefs:
-            name = synthdef.name
-            if not name:
-                name = synthdef.anonymous_name
-            result.append(SynthDefCompiler.compile_synthdef(
-                synthdef, name))
-        result = flatten(result)
-        result = bytes(result)
+        result = SynthDefCompiler.compile_synthdefs(synthdefs)
         return result
 
     def free(self):
