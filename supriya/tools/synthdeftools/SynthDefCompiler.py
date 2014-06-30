@@ -60,11 +60,8 @@ class SynthDefCompiler(SupriyaObject):
     def compile_ugen_graph(synthdef):
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.constants)))
-        for key, value in sorted(
-            synthdef.constants.items(),
-            key=lambda item: item[1],
-            ):
-            result.append(SynthDefCompiler.encode_float(key))
+        for constant in synthdef.constants:
+            result.append(SynthDefCompiler.encode_float(constant))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(synthdef.parameters)))
         for value in synthdef.parameters:
             result.append(SynthDefCompiler.encode_float(value))

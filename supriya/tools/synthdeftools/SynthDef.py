@@ -244,16 +244,17 @@ class SynthDef(ServerObjectProxy):
             self._pending_ugens.remove(ugen)
 
     def _collect_constants(self):
-        self._constants = {}
+        constants = []
         for ugen in self._ugens:
             for input_ in ugen._inputs:
                 if not isinstance(input_, float):
                     continue
-                if input_ not in self._constants:
-                    self._constants[input_] = len(self.constants)
+                if input_ not in constants:
+                    constants.append(input_)
+        self._constants = tuple(constants)
 
     def _get_constant_index(self, value):
-        return self._constants[value]
+        return self._constants.index(value)
 
     def _sort_ugens_topologically(self):
         from supriya.tools import synthdeftools
