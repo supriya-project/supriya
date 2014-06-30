@@ -33,7 +33,7 @@ class Control(MultiOutUGen):
         from supriya import synthdeftools
         if type(i) == int:
             if len(self.control_names) == 1:
-                return self
+                return synthdeftools.OutputProxy(self, 0)
             else:
                 return synthdeftools.OutputProxy(self, i)
         else:
@@ -67,3 +67,7 @@ class Control(MultiOutUGen):
                 for i in range(len(self.control_names))
                 ]
         return result
+
+    @property
+    def starting_control_index(self):
+        return self._special_index
