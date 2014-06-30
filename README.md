@@ -63,20 +63,20 @@ Create and allocate a group:
 
 Make a synthesizer definition:
 
-    >>> synthdef = synthdeftools.SynthDef(
+    >>> synthdef_builder = synthdeftools.SynthDefBuilder(
     ...     amplitude=0.0,
     ...     frequency=440.0,
     ...     )
-    >>> controls = synthdef.controls
     >>> sin_osc = ugentools.SinOsc.ar(
-    ...     frequency=controls['frequency'],
+    ...     frequency=synthdef_builder['frequency'],
     ...     )
-    >>> sin_osc *= controls['amplitude']
+    >>> sin_osc *= synthdef_builder['amplitude']
     >>> out = ugentools.Out.ar(
     ...     bus=(0, 1),
     ...     source=sin_osc,
     ...     )
-    >>> synthdef.add_ugen(out)
+    >>> synthdef_builder.add_ugen(out)
+    >>> synthdef = synthdef_builder.build()
 
 Send the synthesizer definition to the server:
 
@@ -90,9 +90,9 @@ Synchronize with the server:
 Create a synthesizer with the previously defined synthesizer definition, and
 allocate it on the server as a child of the previously created group:
 
-    >>> synth = servertools.Synth(synthdef).allocate(
-    ...     target_node=group,
-    ...     )
+    >>> synth = servertools.Synth(synthdef)
+    >>> synth.allocate(target_node=group)
+    <Synth: 1001>
 
 Query the server's node tree:
 
@@ -100,11 +100,9 @@ Query the server's node tree:
     >>> print(response)
     NODE TREE 0 group
         1 group
-            1001 group
-                1003 f1c3ea5063065be20688f82b415c1108
-                    amplitude: 0.0, frequency: 440.0
             1000 group
-                1002 group
+                1001 f1c3ea5063065be20688f82b415c1108
+                    amplitude: 0.0, frequency: 440.0
 
 Quit the server:
 
@@ -119,11 +117,10 @@ Current Roadmap
     - [X] BusGroup, Bus, BusProxy (for both Audio and Control buses)
     - [ ] SynthControl
         - [ ] QueryTreeControl.from_control()
-- [ ] Make SynthDef immutable
-    - [ ] Implement SynthDefBuilder
-    - [ ] Implement SynthDefControls aggregate
-    - [ ] Implement Control class (model a single control name, value, rate)
-    - [ ] Implement AudioControls and TriggerControls UGens
+- [X] Make SynthDef immutable
+    - [X] Implement SynthDefBuilder
+    - [X] Implement Parameter class (model a single control name, value, rate)
+    - [X] Implement AudioControls and TriggerControls UGens
 - [ ] Implement complete Buffer API
     - [ ] `/b_alloc`
     - [ ] `/b_allocRead`, `/b_allocReadChannel`
