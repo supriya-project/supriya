@@ -16,7 +16,12 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_parameters_new(synthdef):
-        return bytes()
+        result = []
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
+            len(synthdef.parameters)))
+        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
+            len(synthdef.parameters)))
+        return bytes().join(result)
 
     @staticmethod
     def compile_parameters_old(synthdef):
