@@ -19,8 +19,15 @@ class SynthDefCompiler(SupriyaObject):
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
             len(synthdef.parameters)))
+        for parameter in synthdef.parameters:
+            value = parameter.value
+            result.append(SynthDefCompiler.encode_float(value))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
             len(synthdef.parameters)))
+        for index, parameter in enumerate(synthdef.parameters):
+            name = parameter.name
+            result.append(SynthDefCompiler.encode_string(name))
+            result.append(SynthDefCompiler.encode_unsigned_int_32bit(index))
         return bytes().join(result)
 
     @staticmethod
