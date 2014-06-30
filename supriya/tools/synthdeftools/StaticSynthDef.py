@@ -26,8 +26,7 @@ class StaticSynthDef(SupriyaObject):
         '_compiled_ugen_graph',
         '_constants',
         '_name',
-        '_parameter_names',
-        '_parameters_values',
+        '_parameters',
         '_ugens',
         )
 
@@ -48,8 +47,9 @@ class StaticSynthDef(SupriyaObject):
         control_ugens, control_mapping = self._collect_controls(
             parameters,
             )
+        self._parameters = tuple(control_mapping.keys())
         self._remap_controls(ugens, control_mapping)
-        ugens.update(control_ugens)
+        ugens = control_ugens + ugens
         ugens = self._sort_ugens_topologically(ugens)
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)
@@ -127,6 +127,7 @@ class StaticSynthDef(SupriyaObject):
             starting_control_index += len(control_parameters)
             for i, parameter in enumerate(control_parameters):
                 control_mapping[parameter] = control[i]
+        control_ugens = tuple(control_ugens)
         return control_ugens, control_mapping
 
     def _collect_parameters(self, controls):
@@ -139,24 +140,28 @@ class StaticSynthDef(SupriyaObject):
         for ugen in ugens:
             if isinstance(ugen, synthdeftools.Parameter):
                 parameters.add(ugen)
-        ugens = ugens.difference(parameters)
+        ugens = tuple(ugen for ugen in ugens if ugen not in parameters)
+        parameters = tuple(sorted(parameters, key=lambda x: x.name))
         return ugens, parameters
 
     @staticmethod
     def _flatten_ugens(ugens):
         def recurse(ugen):
-            flattened_ugens.add(ugen)
+            flattened_ugens.append(ugen)
             for input_ in ugen.inputs:
                 if isinstance(input_, synthdeftools.Parameter):
-                    flattened_ugens.add(input_)
+                    if input_ not in flattened_ugens:
+                        flattened_ugens.append(input_)
                 elif isinstance(input_, synthdeftools.OutputProxy):
-                    flattened_ugens.add(input_.source)
-                    recurse(input_.source)
+                    if input_.source not in flattened_ugens:
+                        flattened_ugens.append(input_.source)
+                        recurse(input_.source)
                 elif isinstance(input_, synthdeftools.UGen):
-                    flattened_ugens.add(input_)
-                    recurse(input_)
+                    if input_ not in flattened_ugens:
+                        flattened_ugens.append(input_)
+                        recurse(input_)
         from supriya.tools import synthdeftools
-        flattened_ugens = set()
+        flattened_ugens = []
         for ugen in ugens:
             recurse(ugen)
         return flattened_ugens
@@ -227,6 +232,10 @@ class StaticSynthDef(SupriyaObject):
     @property
     def name(self):
         return self._name
+
+    @property
+    def parameters(self):
+        return self._parameters
 
     @property
     def ugens(self):
