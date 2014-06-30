@@ -102,7 +102,7 @@ class UGen(UGenMethodMixin):
                 )
         self._inputs.append(output_proxy)
 
-    def _check_self_rate_as_first_input_rate(self):
+    def _check_rate_same_as_first_input_rate(self):
         from supriya import synthdeftools
         first_input_rate = synthdeftools.Rate.from_input(
             self.inputs[0],
