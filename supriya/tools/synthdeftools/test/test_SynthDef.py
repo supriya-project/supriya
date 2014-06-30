@@ -244,6 +244,13 @@ def test_SynthDef_04():
     py_synthdef_old.add_ugen(out)
     py_compiled_synthdef_old = py_synthdef_old.compile()
 
+    builder = synthdeftools.SynthDefBuilder()
+    inputs = ugentools.In.ar(bus=8, channel_count=2)
+    out = ugentools.Out.ar(bus=0, source=inputs)
+    builder.add_ugen(out)
+    py_synthdef_new = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
+
     test_compiled_synthdef = bytes(
         b'SCgf'
         b'\x00\x00\x00\x02'
@@ -280,6 +287,7 @@ def test_SynthDef_04():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef_old == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
 def test_SynthDef_05():
@@ -287,7 +295,8 @@ def test_SynthDef_05():
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
         r'''
-        | freq = 440 | Out.ar(0, SinOsc.ar(freq))
+        | freq = 440 |
+        Out.ar(0, SinOsc.ar(freq: freq))
         '''
         )
     sc_compiled_synthdef = sc_synthdef.compile()
@@ -298,6 +307,13 @@ def test_SynthDef_05():
     out = ugentools.Out.ar(bus=0, source=sine)
     py_synthdef_old.add_ugen(out)
     py_compiled_synthdef_old = py_synthdef_old.compile()
+
+    builder = synthdeftools.SynthDefBuilder(freq=440)
+    sine = ugentools.SinOsc.ar(frequency=builder['freq'])
+    out = ugentools.Out.ar(bus=0, source=sine)
+    builder.add_ugen(out)
+    py_synthdef_new = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef_new.compile()
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -342,6 +358,7 @@ def test_SynthDef_05():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef_old == test_compiled_synthdef
+    assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
 def test_SynthDef_06():
