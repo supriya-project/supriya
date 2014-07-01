@@ -154,7 +154,7 @@ class CommandManager(object):
         node_id = int(node_id)
         contents = []
         for synth_control, setting in sorted(settings.items(),
-            key=lambda synth_control: synth_control.name):
+            key=lambda synth_control: str(synth_control)):
             contents.append(synth_control.name)
             contents.append(float(setting))
         message = osctools.OscMessage(
@@ -173,7 +173,7 @@ class CommandManager(object):
         node_id = int(node_id)
         contents = []
         for synth_control, bus in sorted(settings.items(),
-            key=lambda synth_control: synth_control.name):
+            key=lambda synth_control: str(synth_control)):
             contents.append(synth_control.name)
             contents.append(int(bus))
         message = osctools.OscMessage(
@@ -191,7 +191,7 @@ class CommandManager(object):
         command_type = int(command_type)
         node_id = int(node_id)
         for synth_control, bus in sorted(settings.items(),
-            key=lambda synth_control: synth_control.name):
+            key=lambda synth_control: str(synth_control)):
             contents.append(synth_control.name)
             contents.append(int(bus))
         message = osctools.OscMessage(

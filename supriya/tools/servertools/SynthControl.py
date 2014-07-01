@@ -36,6 +36,11 @@ class SynthControl(SupriyaObject):
         self._value = value
         self._default_value = value
 
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        return self.name
+
     ### PUBLIC METHODS ###
 
     @classmethod
