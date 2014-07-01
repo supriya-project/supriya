@@ -146,6 +146,7 @@ class CommandManager(object):
             )
         return message
 
+    @staticmethod
     def make_node_set_message(node_id, **settings):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('node_set')
@@ -163,6 +164,7 @@ class CommandManager(object):
             )
         return message
 
+    @staticmethod
     def make_node_map_to_control_bus_message(node_id, **settings):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr(
@@ -181,6 +183,7 @@ class CommandManager(object):
             )
         return message
 
+    @staticmethod
     def make_node_map_to_audio_bus_message(node_id, **settings):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr(
