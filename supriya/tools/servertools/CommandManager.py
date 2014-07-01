@@ -125,11 +125,7 @@ class CommandManager(object):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('group_query_tree')
         command_type = int(command_type)
-        if isinstance(node_id, servertools.Node):
-            assert node_id.node_id is not None
-            node_id = node_id.node_id
-        elif isinstance(node_id, int):
-            node_id = node_id
+        node_id = int(node_id)
         include_controls = int(bool(include_controls))
         message = osctools.OscMessage(
             command_type,
@@ -143,12 +139,62 @@ class CommandManager(object):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('node_free')
         command_type = int(command_type)
-        if not isinstance(node_id, int):
-            node_id = node_id.node_id
         node_id = int(node_id)
         message = osctools.OscMessage(
             command_type,
             node_id,
+            )
+        return message
+
+    def make_node_set_message(node_id, **settings):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('node_set')
+        command_type = int(command_type)
+        node_id = int(node_id)
+        contents = []
+        for synth_control, setting in sorted(settings.items(),
+            key=lambda synth_control: synth_control.name):
+            contents.append(synth_control.name)
+            contents.append(float(setting))
+        message = osctools.OscMessage(
+            command,
+            node_id,
+            *contents
+            )
+        return message
+
+    def make_node_map_to_control_bus_message(node_id, **settings):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr(
+            'node_map_to_control_bus')
+        command_type = int(command_type)
+        node_id = int(node_id)
+        contents = []
+        for synth_control, bus in sorted(settings.items(),
+            key=lambda synth_control: synth_control.name):
+            contents.append(synth_control.name)
+            contents.append(int(bus))
+        message = osctools.OscMessage(
+            command,
+            node_id,
+            *contents
+            )
+        return message
+
+    def make_node_map_to_audio_bus_message(node_id, **settings):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr(
+            'node_map_to_audio_bus')
+        command_type = int(command_type)
+        node_id = int(node_id)
+        for synth_control, bus in sorted(settings.items(),
+            key=lambda synth_control: synth_control.name):
+            contents.append(synth_control.name)
+            contents.append(int(bus))
+        message = osctools.OscMessage(
+            command,
+            node_id,
+            *contents
             )
         return message
 
@@ -165,17 +211,11 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_release_message(node):
+    def make_release_message(node_id):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('node_set')
         command_type = int(command_type)
-        if isinstance(node, servertools.Node):
-            assert node.node_id is not None
-            node_id = node.node_id
-        elif isinstance(node, int):
-            node_id = node
-        else:
-            raise ValueError(node)
+        node_id = int(node_id)
         message = osctools.OscMessage(
             command_type,
             node_id,
