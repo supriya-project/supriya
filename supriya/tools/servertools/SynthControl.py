@@ -7,6 +7,7 @@ class SynthControl(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_default_value',
         '_name',
         '_rate',
         '_range',
@@ -33,6 +34,7 @@ class SynthControl(SupriyaObject):
         self._rate = synthdeftools.Rate.from_expr(rate)
         self._unit = unit
         self._value = value
+        self._default_value = value
 
     ### PUBLIC METHODS ###
 
@@ -53,6 +55,9 @@ class SynthControl(SupriyaObject):
             value=value,
             )
         return synth_control
+
+    def reset(self):
+        self._value = self._default_value
 
     ### PUBLIC PROPERTIES ###
 
