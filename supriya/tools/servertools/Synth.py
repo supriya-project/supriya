@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import collections
 from supriya.tools.servertools.Node import Node
 
 
@@ -57,12 +56,21 @@ class Synth(Node):
         assert isinstance(synthdef, synthdeftools.SynthDef)
         Node.__init__(self)
         self._synthdef = synthdef
-        self._synth_control_group = servertools.SynthControl(self._synthdef)
+        self._synth_control_group = servertools.SynthControlGroup(
+            client=self,
+            synthdef=self._synthdef,
+            )
 
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
         return self._synth_control_group[item]
+
+    def __setitem__(self, items, values):
+        if not self.is_allocated:
+            return
+        message = self._synth_control_group.__setitem__(items, values)
+        self.server.send_message(message)
 
     ### PUBLIC METHODS ###
 
@@ -92,6 +100,13 @@ class Synth(Node):
             )
         self.server.send_message(message)
         return self
+
+    def free(self, send_to_server=True):
+        Node.free(
+            self,
+            send_to_server=send_to_server,
+            )
+        self._synth_control_group.reset()
 
     ### PUBLIC PROPERTIES ###
 
