@@ -33,6 +33,7 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
+        from supriya import servertools
         from supriya import synthdeftools
         assert isinstance(rate, synthdeftools.Rate), \
             rate
@@ -48,10 +49,14 @@ class UGen(UGenMethodMixin):
                 input_value = kwargs[input_name]
                 del(kwargs[input_name])
             prototype = (
-                type(None),
+                UGen,
                 float,
                 int,
-                UGen,
+                servertools.Buffer,
+                servertools.BufferGroup,
+                servertools.Bus,
+                servertools.BusGroup,
+                servertools.Node,
                 synthdeftools.OutputProxy,
                 synthdeftools.Parameter,
                 )
@@ -127,6 +132,7 @@ class UGen(UGenMethodMixin):
         return True
 
     def _configure_input(self, name, value):
+        from supriya import servertools
         from supriya import synthdeftools
         if isinstance(value, (int, float)):
             self._add_constant_input(value)
@@ -139,6 +145,14 @@ class UGen(UGenMethodMixin):
                 value._get_source(),
                 value._get_output_number(),
                 )
+        elif isinstance(value, (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.Buffer,
+            servertools.BufferGroup,
+            servertools.Node,
+            )):
+            self._add_constant_input(float(value))
         elif isinstance(value, tuple) and \
             all(isinstance(_, (int, float)) for _ in value):
             assert self._unexpanded_input_names
