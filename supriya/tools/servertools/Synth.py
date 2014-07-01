@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.servertools.Node import Node
 
 
@@ -41,6 +43,7 @@ class Synth(Node):
 
     __slots__ = (
         '_synthdef',
+        '_synth_control_group',
         )
 
     ### INITIALIZER ###
@@ -49,10 +52,17 @@ class Synth(Node):
         self,
         synthdef,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        assert isinstance(synthdef, (str, synthdeftools.SynthDef))
+        assert isinstance(synthdef, synthdeftools.SynthDef)
         Node.__init__(self)
         self._synthdef = synthdef
+        self._synth_control_group = servertools.SynthControl(self._synthdef)
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        return self._synth_control_group[item]
 
     ### PUBLIC METHODS ###
 
@@ -64,16 +74,15 @@ class Synth(Node):
         **kwargs
         ):
         from supriya.tools import servertools
-        from supriya.tools import synthdeftools
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
-        synthdef_name = self.synthdef
-        if isinstance(self.synthdef, synthdeftools.SynthDef):
-            synthdef_name = synthdef_name.actual_name
+        if not self.synthdef.is_allocated:
+            self.synthdef.allocate(self.server)
+        synthdef_name = self.synthdef.actual_name
         message = servertools.CommandManager.make_synth_new_message(
             add_action=add_action,
             node_id=node_id,
