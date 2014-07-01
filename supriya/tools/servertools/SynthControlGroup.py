@@ -8,6 +8,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_client',
         '_synthdef',
         '_synth_controls',
         '_synth_control_map',
@@ -17,16 +18,21 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
 
     def __init__(
         self,
-        synthdef,
+        client=None,
+        synthdef=None,
         ):
         from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        self._client = client
         synth_controls = []
         synth_control_map = collections.OrderedDict()
-        for parameter in synthdef.parameters:
-            synth_control = servertools.SynthControl.from_parameter(parameter)
-            synth_controls.append(synth_control)
-            synth_control_map[synth_control.name] = synth_control
-        self._synth_controls = tuple(synth_controls)
+        if synthdef is not None:
+            assert isinstance(synthdef, synthdeftools.SynthDef)
+            for parameter in synthdef.parameters:
+                synth_control = servertools.SynthControl.from_parameter(parameter)
+                synth_controls.append(synth_control)
+                synth_control_map[synth_control.name] = synth_control
+            self._synth_controls = tuple(synth_controls)
         self._synth_control_map = synth_control_map
 
     ### SPECIAL METHODS ###
@@ -43,7 +49,76 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
             return tuple(result)
         return ValueError(item)
 
+    def __iter__(self):
+        return iter(self._synth_controls)
+
+    def __len__(self):
+        return len(self._synth_controls)
+
+    def __setitem__(self, items, values):
+        from supriya.tools import osctools
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        if not isinstance(items, tuple):
+            items = (items,)
+        if not isinstance(values, tuple):
+            values = (values,)
+        assert len(items) == len(values)
+        synth_controls = self.__getitem__(items)
+        pairs = zip(synth_controls, values)
+        n_set_pairs = []
+        n_map_pairs = []
+        n_mapa_pairs = []
+        for synth_control, value in pairs:
+            if isinstance(value, (int, float)):
+                n_set_pairs.append((synth_control, value))
+            elif isinstance(value, servertools.Bus):
+                if value.rate == synthdeftools.Rate.CONTROL:
+                    n_map_pairs.append((synth_control, value))
+                else:
+                    n_mapa_pairs.append((synth_control, value))
+            else:
+                raise ValueError(value)
+        osc_messages = []
+        manager = servertools.CommandManager
+        if n_set_pairs:
+            osc_message = manager.make_node_set_message(
+                self.node_id,
+                *n_set_pairs
+                )
+            osc_messages.append(osc_message)
+        if n_map_pairs:
+            osc_message = manager.make_node_map_to_control_bus_message(
+                self.node_id,
+                *n_map_pairs
+                )
+            osc_messages.append(osc_message)
+        if n_mapa_pairs:
+            osc_message = manager.make_node_map_to_audio_bus_message(
+                self.node_id,
+                *n_mapa_pairs
+                )
+            osc_messages.append(osc_message)
+        if 1 == len(osc_message):
+            return osc_message[0]
+        osc_bundle = osctools.OscBundle(contents=osc_messages)
+        return osc_bundle
+
+    ### PUBLIC METHODS ###
+
+    def reset(self):
+        for synth_control in self._synth_controls:
+            synth_control.reset()
+
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def client(self):
+        return self._client
+
+    @property
+    def node_id(self):
+        return int(self.client)
 
     @property
     def synthdef(self):
