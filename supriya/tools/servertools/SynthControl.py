@@ -32,6 +32,26 @@ class SynthControl(SupriyaObject):
         self._unit = unit
         self._value = value
 
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_parameter(cls, parameter):
+        from supriya.tools import synthdeftools
+        assert isinstance(parameter, synthdeftools.Parameter)
+        name = parameter.name
+        range_ = parameter.range_,
+        rate = synthdeftools.Rate.from_expr(parameter.rate)
+        unit = parameter.unit_,
+        value = parameter.value
+        synth_control = SynthControl(
+            name=name,
+            range_=range_,
+            rate=rate,
+            unit=unit,
+            value=value,
+            )
+        return synth_control
+
     ### PUBLIC PROPERTIES ###
 
     @property
