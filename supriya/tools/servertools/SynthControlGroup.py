@@ -66,37 +66,37 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         assert len(items) == len(values)
         synth_controls = self.__getitem__(items)
         pairs = zip(synth_controls, values)
-        n_set_pairs = []
-        n_map_pairs = []
-        n_mapa_pairs = []
-        for synth_control, value in pairs:
+        n_set_settings = {}
+        n_map_settings = {}
+        n_mapa_settings = {}
+        for synth_control, value in settings:
             if isinstance(value, (int, float)):
-                n_set_pairs.append((synth_control, value))
+                n_set_settings[synth_control] = value
             elif isinstance(value, servertools.Bus):
                 if value.rate == synthdeftools.Rate.CONTROL:
-                    n_map_pairs.append((synth_control, value))
+                    n_map_settings[synth_control] = value
                 else:
-                    n_mapa_pairs.append((synth_control, value))
+                    n_mapa_settings[synth_control] = value
             else:
                 raise ValueError(value)
         osc_messages = []
         manager = servertools.CommandManager
-        if n_set_pairs:
+        if n_set_settings:
             osc_message = manager.make_node_set_message(
                 self.node_id,
-                *n_set_pairs
+                **n_set_settings
                 )
             osc_messages.append(osc_message)
-        if n_map_pairs:
+        if n_map_settings:
             osc_message = manager.make_node_map_to_control_bus_message(
                 self.node_id,
-                *n_map_pairs
+                **n_map_settings
                 )
             osc_messages.append(osc_message)
-        if n_mapa_pairs:
+        if n_mapa_settings:
             osc_message = manager.make_node_map_to_audio_bus_message(
                 self.node_id,
-                *n_mapa_pairs
+                **n_mapa_settings
                 )
             osc_messages.append(osc_message)
         if 1 == len(osc_message):
