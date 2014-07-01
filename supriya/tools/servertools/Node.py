@@ -26,6 +26,12 @@ class Node(ServerObjectProxy):
 
     ### SPECIAL METHODS ###
 
+    def __float__(self):
+        return float(self.node_id)
+
+    def __int__(self):
+        return int(self.node_id)
+
     def __repr__(self):
         class_name = type(self).__name__
         node_id = '???'
