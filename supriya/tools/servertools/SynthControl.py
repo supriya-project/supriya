@@ -24,10 +24,12 @@ class SynthControl(SupriyaObject):
         unit=None,
         value=None,
         ):
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         self._name = str(name)
-        self._range = servertools.Range(range_)
+        if isinstance(range_, synthdeftools.Range):
+            self._range = range_
+        else:
+            self._range = None
         self._rate = synthdeftools.Rate.from_expr(rate)
         self._unit = unit
         self._value = value
@@ -39,9 +41,9 @@ class SynthControl(SupriyaObject):
         from supriya.tools import synthdeftools
         assert isinstance(parameter, synthdeftools.Parameter)
         name = parameter.name
-        range_ = parameter.range_,
-        rate = synthdeftools.Rate.from_expr(parameter.rate)
-        unit = parameter.unit_,
+        range_ = parameter.range_
+        rate = synthdeftools.Rate.from_input(parameter)
+        unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
             name=name,
@@ -78,6 +80,7 @@ class SynthControl(SupriyaObject):
     def value(self, expr):
         from supriya.tools import servertools
         if isinstance(expr, servertools.Bus):
+            assert expr.rate == self.rate
             self._value = expr
         else:
             self._value = float(expr)
