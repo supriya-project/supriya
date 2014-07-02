@@ -153,12 +153,11 @@ class CommandManager(object):
         command_type = int(command_type)
         node_id = int(node_id)
         contents = []
-        for synth_control, setting in sorted(settings.items(),
-            key=lambda synth_control: str(synth_control)):
-            contents.append(synth_control.name)
-            contents.append(float(setting))
+        for name, value in sorted(settings.items()):
+            contents.append(name)
+            contents.append(float(value))
         message = osctools.OscMessage(
-            command,
+            command_type,
             node_id,
             *contents
             )
@@ -172,12 +171,11 @@ class CommandManager(object):
         command_type = int(command_type)
         node_id = int(node_id)
         contents = []
-        for synth_control, bus in sorted(settings.items(),
-            key=lambda synth_control: str(synth_control)):
-            contents.append(synth_control.name)
-            contents.append(int(bus))
+        for name, bus in sorted(settings.items()):
+            contents.append(name)
+            contents.append(float(bus))
         message = osctools.OscMessage(
-            command,
+            command_type,
             node_id,
             *contents
             )
@@ -190,12 +188,12 @@ class CommandManager(object):
             'node_map_to_audio_bus')
         command_type = int(command_type)
         node_id = int(node_id)
-        for synth_control, bus in sorted(settings.items(),
-            key=lambda synth_control: str(synth_control)):
-            contents.append(synth_control.name)
-            contents.append(int(bus))
+        contents = []
+        for name, bus in sorted(settings.items()):
+            contents.append(name)
+            contents.append(float(bus))
         message = osctools.OscMessage(
-            command,
+            command_type,
             node_id,
             *contents
             )
