@@ -80,6 +80,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                     n_mapa_settings[name] = value
             else:
                 raise ValueError(value)
+            synth_control._value = value
         osc_messages = []
         manager = servertools.CommandManager
         if n_set_settings:
