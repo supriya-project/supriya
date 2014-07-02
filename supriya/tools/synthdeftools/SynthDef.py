@@ -350,7 +350,7 @@ class SynthDef(ServerObjectProxy):
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
         message = servertools.CommandManager.make_synthdef_receive_message(
-            synthdef=self,
+            self,
             )
         self.server.send_message(message)
 

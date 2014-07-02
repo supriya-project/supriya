@@ -14,8 +14,8 @@ class CommandManager(object):
         completion_message=None,
         ):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_ALLOCATE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_ALLOCATE
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         frame_count = int(frame_count)
         channel_count = int(channel_count)
@@ -23,7 +23,7 @@ class CommandManager(object):
             prototype = (osctools.OscBundle, osctools.OscMessage)
             assert isinstance(completion_message, prototype)
             message = osctools.OscMessage(
-                command_type,
+                command_number,
                 buffer_id,
                 frame_count,
                 channel_count,
@@ -31,7 +31,7 @@ class CommandManager(object):
                 )
         else:
             message = osctools.OscMessage(
-                command_type,
+                command_number,
                 buffer_id,
                 frame_count,
                 channel_count,
@@ -49,11 +49,11 @@ class CommandManager(object):
     @staticmethod
     def make_buffer_close_message(buffer_id):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_CLOSE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_CLOSE
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             buffer_id,
             )
         return message
@@ -64,11 +64,11 @@ class CommandManager(object):
         *index_count_value_triples
         ):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_FILL
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_FILL
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         for index, count, value in index_count_value_triples:
@@ -84,11 +84,11 @@ class CommandManager(object):
         completion_message=None,
         ):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_FREE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_FREE
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if completion_message is not None:
@@ -128,11 +128,11 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_GET
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_GET
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if indices:
@@ -168,11 +168,11 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_GET_CONTIGUOUS
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_GET_CONTIGUOUS
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if index_count_pairs:
@@ -202,10 +202,10 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_QUERY
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_QUERY
+        command_number = int(command_number)
         contents = [
-            command_type,
+            command_number,
             ]
         for buffer_id in buffer_ids:
             contents.append(int(buffer_id))
@@ -250,11 +250,11 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_SET
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_SET
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if index_value_pairs:
@@ -294,11 +294,11 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_SET_CONTIGUOUS
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_SET_CONTIGUOUS
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if index_values_pairs:
@@ -346,8 +346,8 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_WRITE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_WRITE
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         file_path = str(file_path)
         header_format = servertools.HeaderFormat.from_expr(header_format)
@@ -364,7 +364,7 @@ class CommandManager(object):
         assert 0 <= starting_frame
         leave_open = int(bool(leave_open))
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             file_path,
             header_format,
@@ -385,11 +385,11 @@ class CommandManager(object):
         completion_message=None,
         ):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.BUFFER_ZERO
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.BUFFER_ZERO
+        command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
-            command_type,
+            command_number,
             buffer_id,
             ]
         if completion_message is not None:
@@ -402,12 +402,12 @@ class CommandManager(object):
     @staticmethod
     def make_dump_osc_message(osc_status):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.DUMP_OSC
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.DUMP_OSC
+        command_number = int(command_number)
         osc_status = int(osc_status)
         assert 0 <= osc_status <= 4
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             osc_status,
             )
         return message
@@ -440,13 +440,13 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.GROUP_NEW
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.GROUP_NEW
+        command_number = int(command_number)
         add_action = int(add_action)
         node_id = int(node_id)
         target_node_id = int(target_node_id)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             add_action,
             target_node_id,
@@ -456,12 +456,12 @@ class CommandManager(object):
     @staticmethod
     def make_group_query_tree_message(node_id, include_controls=False):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.GROUP_QUERY_TREE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.GROUP_QUERY_TREE
+        command_number = int(command_number)
         node_id = int(node_id)
         include_controls = int(bool(include_controls))
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             include_controls,
             )
@@ -470,11 +470,11 @@ class CommandManager(object):
     @staticmethod
     def make_node_free_message(node_id):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NODE_FREE
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NODE_FREE
+        command_number = int(command_number)
         node_id = int(node_id)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             )
         return message
@@ -482,15 +482,15 @@ class CommandManager(object):
     @staticmethod
     def make_node_set_message(node_id, **settings):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NODE_SET
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NODE_SET
+        command_number = int(command_number)
         node_id = int(node_id)
         contents = []
         for name, value in sorted(settings.items()):
             contents.append(name)
             contents.append(float(value))
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             *contents
             )
@@ -499,15 +499,15 @@ class CommandManager(object):
     @staticmethod
     def make_node_map_to_control_bus_message(node_id, **settings):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NODE_MAP_TO_CONTROL_BUS
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NODE_MAP_TO_CONTROL_BUS
+        command_number = int(command_number)
         node_id = int(node_id)
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
             contents.append(float(bus))
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             *contents
             )
@@ -516,15 +516,15 @@ class CommandManager(object):
     @staticmethod
     def make_node_map_to_audio_bus_message(node_id, **settings):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NODE_MAP_TO_AUDIO_BUS
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NODE_MAP_TO_AUDIO_BUS
+        command_number = int(command_number)
         node_id = int(node_id)
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
             contents.append(float(bus))
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             *contents
             )
@@ -533,11 +533,11 @@ class CommandManager(object):
     @staticmethod
     def make_notify_message(notify_status):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NOTIFY
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NOTIFY
+        command_number = int(command_number)
         notify_status = int(bool(notify_status))
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             notify_status,
             )
         return message
@@ -545,11 +545,11 @@ class CommandManager(object):
     @staticmethod
     def make_release_message(node_id):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.NODE_SET
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.NODE_SET
+        command_number = int(command_number)
         node_id = int(node_id)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             node_id,
             'gate',
             0,
@@ -559,21 +559,21 @@ class CommandManager(object):
     @staticmethod
     def make_status_message():
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.STATUS
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.STATUS
+        command_number = int(command_number)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             )
         return message
 
     @staticmethod
     def make_sync_message(sync_id):
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.SYNC
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.SYNC
+        command_number = int(command_number)
         sync_id = int(sync_id)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             sync_id,
             )
         return message
@@ -592,33 +592,28 @@ class CommandManager(object):
         prototype = synthdeftools.SynthDef
         if isinstance(synthdef, prototype):
             synthdef = synthdef.name or synthdef.anonymous_name
-        command_type = servertools.CommandNumber.SYNTHDEF_FREE
+        command_number = servertools.CommandNumber.SYNTHDEF_FREE
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             synthdef,
             )
         return message
 
     @staticmethod
     def make_synthdef_receive_message(
-        synthdef=None,
+        *synthdefs
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        prototype = (
-            synthdeftools.SynthDef,
-            bytes,
-            bytearray,
+        command_number = servertools.CommandNumber.SYNTHDEF_RECEIVE
+        command_number = int(command_number)
+        compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
+            synthdefs,
             )
-        assert isinstance(synthdef, prototype)
-        prototype = synthdeftools.SynthDef
-        if isinstance(synthdef, prototype):
-            synthdef = synthdef.compile()
-        synthdef = bytearray(synthdef)
-        command_type = servertools.CommandNumber.SYNTHDEF_RECEIVE
+        compiled_synthdefs = bytearray(compiled_synthdefs)
         message = osctools.OscMessage(
-            command_type,
-            synthdef,
+            command_number,
+            compiled_synthdefs,
             )
         return message
 
@@ -655,8 +650,8 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.SYNTH_NEW
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.SYNTH_NEW
+        command_number = int(command_number)
         add_action = int(add_action)
         node_id = int(node_id)
         target_node_id = int(target_node_id)
@@ -665,7 +660,7 @@ class CommandManager(object):
             arguments.append(key)
             arguments.append(value)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             synthdef_name,
             node_id,
             add_action,
@@ -676,10 +671,27 @@ class CommandManager(object):
 
     @staticmethod
     def make_quit_message():
+        r'''Makes a /quit message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_quit_message()
+            >>> message
+            OscMessage(3)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.QUIT
+            True
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
-        command_type = servertools.CommandNumber.QUIT
-        command_type = int(command_type)
+        command_number = servertools.CommandNumber.QUIT
+        command_number = int(command_number)
         message = osctools.OscMessage(
-            command_type,
+            command_number,
             )
         return message
