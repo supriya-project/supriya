@@ -370,6 +370,77 @@ class SynthDef(ServerObjectProxy):
         self.server.send_message(message)
         ServerObjectProxy.free(self)
 
+    @staticmethod
+    def from_ugens(ugens):
+        r'''Makes a synthdef from `ugens`.
+
+        ::
+
+            >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
+            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.5)
+            >>> synthdef = synthdeftools.SynthDef.from_ugens(ugen)
+
+        ::
+
+            >>> print(synthdef)
+            SynthDef e0041b72f3e50206267d5f426f7c592f {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                0_SinOsc[0] -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
+                const_2:0.5 -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
+                const_1:0.0 -> 2_Out[0]
+                1_BinaryOpUGen:MULTIPLICATION[0] -> 2_Out[1]
+            }
+
+        Returns synthdef.
+        '''
+        from supriya.tools import synthdeftools
+        builder = synthdeftools.SynthDefBuilder()
+        if isinstance(ugens, collections.Sequence):
+            for ugen in ugens:
+                builder.add_ugen(ugen)
+        elif isinstance(ugens, synthdeftools.UGenMethodMixin):
+            builder.add_ugen(ugens)
+        synthdef = builder.build()
+        return synthdef
+
+    def play(self, server=None, **kwargs):
+        r'''Plays the synthdef on the server.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> from supriya.tools import synthdeftools
+            >>> from supriya.tools import ugentools
+
+        ::
+
+            >>> server = servertools.Server()
+            >>> server.boot()
+            <Server: udp://127.0.0.1:57751, 8i8o>
+
+        ::
+
+            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.0)
+            >>> synthdef = synthdeftools.SynthDef.from_ugens(ugen)
+            >>> synth = synthdef.play()
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        '''
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            self.allocate(server=server)
+            self.server.sync()
+        synth = servertools.Synth(self, **kwargs)
+        synth.allocate(target_node=self.server)
+        self.server.sync()
+        return synth
+
     ### PUBLIC PROPERTIES ###
 
     @property
