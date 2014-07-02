@@ -112,10 +112,12 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_get_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_get_message(
             ...     buffer_id=23,
             ...     indices=(0, 4, 8, 16),
             ...     )
+            >>> message
             OscMessage(42, 23, 0, 4, 8, 16)
 
         Returns OSC message.
@@ -144,10 +146,12 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_get_contiguous_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_get_contiguous_message(
             ...     buffer_id=23,
             ...     index_count_pairs=[(0, 3), (8, 11)],
             ...     )
+            >>> message
             OscMessage(43, 23, 0, 3, 8, 11)
 
         Returns OSC message.
@@ -174,7 +178,9 @@ class CommandManager(object):
         r'''Makes a /b_query message.
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_query_message(1, 23, 41)
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_query_message(1, 23, 41)
+            >>> message
             OscMessage(47, 1, 23, 41)
 
         Returns OSC message.
@@ -208,7 +214,8 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_set_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_set_message(
             ...     buffer_id=23,
             ...     index_value_pairs=(
             ...         (0, 1.0),
@@ -216,6 +223,7 @@ class CommandManager(object):
             ...         (17, 19.3),
             ...         ),
             ...     )
+            >>> message
             OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)
 
         Returns OSC message.
@@ -245,13 +253,15 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_set_contiguous_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_set_contiguous_message(
             ...     buffer_id=23,
             ...     index_values_pairs=(
             ...         (0, (1, 2, 3)),
             ...         (10, (17.1, 18.2))
             ...         ),
             ...     )
+            >>> message
             OscMessage(36, 23, 0, 3, 1.0, 2.0, 3.0, 10, 2, 17.1, 18.2)
 
         Returns OSC message.
@@ -291,13 +301,20 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_buffer_write_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_write_message(
             ...     buffer_id=23,
             ...     file_path='test.aiff',
             ...     header_format=servertools.HeaderFormat.AIFF,
             ...     sample_format=servertools.SampleFormat.INT24,
             ...     )
+            >>> message
             OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_WRITE
+            True
 
         Returns OSC message.
         '''
@@ -379,11 +396,13 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_group_new_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_group_new_message(
             ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
             ...     node_id=1001,
             ...     target_node_id=1000,
             ...     )
+            >>> message
             OscMessage(21, 1001, 1, 1000)
 
         Returns OSC message.
@@ -584,7 +603,8 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> servertools.CommandManager.make_synth_new_message(
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_synth_new_message(
             ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
             ...     node_id=1001,
             ...     synthdef_name='test',
@@ -592,6 +612,7 @@ class CommandManager(object):
             ...     frequency=443,
             ...     phase=0.2,
             ...     )
+            >>> message
             OscMessage(9, 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
 
         Returns OSC message.
