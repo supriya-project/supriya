@@ -103,23 +103,81 @@ class CommandManager(object):
         raise NotImplementedError
 
     @staticmethod
-    def make_buffer_get_message():
-        raise NotImplementedError
+    def make_buffer_get_message(
+        buffer_id=None,
+        indices=None,
+        ):
+        r'''Makes a /b_get message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> servertools.CommandManager.make_buffer_get_message(
+            ...     buffer_id=23,
+            ...     indices=(0, 4, 8, 16),
+            ...     )
+            OscMessage(32, 23, 0, 4, 8, 16)
+
+        '''
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_free')
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        contents = [
+            command_type,
+            buffer_id,
+            ]
+        if indices:
+            for index in indices:
+                contents.append(int(index))
+        message = osctools.OscMessage(*contents)
+        return message
 
     @staticmethod
-    def make_buffer_get_contiguous_message():
-        raise NotImplementedError
+    def make_buffer_get_contiguous_message(
+        buffer_id=None,
+        index_count_pairs=None
+        ):
+        r'''Makes a /b_getn message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> servertools.CommandManager.make_buffer_get_contiguous_message(
+            ...     buffer_id=23,
+            ...     index_count_pairs=[(0, 3), (8, 11)],
+            ...     )
+            OscMessage(32, 23, 0, 3, 8, 11)
+
+        '''
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_free')
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        contents = [
+            command_type,
+            buffer_id,
+            ]
+        if index_count_pairs:
+            for index, count in index_count_pairs:
+                contents.append(int(index))
+                contents.append(int(count))
+        message = osctools.OscMessage(*contents)
+        return message
 
     @staticmethod
-    def make_buffer_query_message(*buffer_ids):
+    def make_buffer_query_message(
+        *buffer_ids
+        ):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('buffer_query')
         command_type = int(command_type)
-        buffer_ids = [int(x) for x in buffer_ids]
-        message = osctools.OscMessage(
+        contents = [
             command_type,
-            *buffer_ids
-            )
+            ]
+        for buffer_id in buffer_ids:
+            contents.append(int(buffer_id))
+        message = osctools.OscMessage(*contents)
         return message
 
     @staticmethod
