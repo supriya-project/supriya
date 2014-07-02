@@ -59,8 +59,24 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_buffer_fill_message():
-        raise NotImplementedError
+    def make_buffer_fill_message(
+        buffer_id,
+        *index_count_value_triples
+        ):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_fill')
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        contents = [
+            command_type,
+            buffer_id,
+            ]
+        for index, count, value in index_count_value_triples:
+            contents.append(int(index))
+            contents.append(int(count))
+            contents.append(float(value))
+        message = osctools.OscMessage(*contents)
+        return message
 
     @staticmethod
     def make_buffer_free_message(
