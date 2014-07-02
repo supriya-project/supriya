@@ -151,6 +151,19 @@ class CommandManager(object):
         ):
         r'''Makes a /b_free message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_free_message(23)
+            >>> message
+            OscMessage(32, 23)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_FREE
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -468,6 +481,19 @@ class CommandManager(object):
         ):
         r'''Makes a /b_zero message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_zero_message(23)
+            >>> message
+            OscMessage(34, 23)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_ZERO
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -488,6 +514,19 @@ class CommandManager(object):
     @staticmethod
     def make_dump_osc_message(osc_status):
         r'''Makes a /dumpOSC message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_dump_osc_message(1)
+            >>> message
+            OscMessage(39, 1)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.DUMP_OSC
+            True
 
         Returns OSC message.
         '''
@@ -544,8 +583,27 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_group_query_tree_message(node_id, include_controls=False):
+    def make_group_query_tree_message(
+        node_id=None,
+        include_controls=False,
+        ):
         r'''Makes a /g_queryTree message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_group_query_tree_message(
+            ...     node_id=0,
+            ...     include_controls=True,
+            ...     )
+            >>> message
+            OscMessage(57, 0, 1)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.GROUP_QUERY_TREE
+            True
 
         Returns OSC message.
         '''
