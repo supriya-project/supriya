@@ -47,8 +47,16 @@ class CommandManager(object):
         raise NotImplementedError
 
     @staticmethod
-    def make_buffer_close_message():
-        raise NotImplementedError
+    def make_buffer_close_message(buffer_id):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_close')
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        message = osctools.OscMessage(
+            command_type,
+            buffer_id,
+            )
+        return message
 
     @staticmethod
     def make_buffer_fill_message():
@@ -63,19 +71,15 @@ class CommandManager(object):
         command_type = servertools.CommandNumber.from_expr('buffer_free')
         command_type = int(command_type)
         buffer_id = int(buffer_id)
+        contents = [
+            command_type,
+            buffer_id,
+            ]
         if completion_message is not None:
             prototype = (osctools.OscBundle, osctools.OscMessage)
             assert isinstance(completion_message, prototype)
-            message = osctools.OscMessage(
-                command_type,
-                buffer_id,
-                bytearray(completion_message.to_datagram())
-                )
-        else:
-            message = osctools.OscMessage(
-                command_type,
-                buffer_id,
-                )
+            contents.append(bytearray(completion_message.to_datagram()))
+        message = osctools.OscMessage(*contents)
         return message
 
     @staticmethod
@@ -123,8 +127,24 @@ class CommandManager(object):
         raise NotImplementedError
 
     @staticmethod
-    def make_buffer_zero_message():
-        raise NotImplementedError
+    def make_buffer_zero_message(
+        buffer_id,
+        completion_message=None,
+        ):
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.from_expr('buffer_zero')
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        contents = [
+            command_type,
+            buffer_id,
+            ]
+        if completion_message is not None:
+            prototype = (osctools.OscBundle, osctools.OscMessage)
+            assert isinstance(completion_message, prototype)
+            contents.append(bytearray(completion_message.to_datagram()))
+        message = osctools.OscMessage(*contents)
+        return message
 
     @staticmethod
     def make_dump_osc_message(osc_status):
