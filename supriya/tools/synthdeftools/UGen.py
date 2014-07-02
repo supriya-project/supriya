@@ -96,6 +96,39 @@ class UGen(UGenMethodMixin):
             )
         return string
 
+    def __str__(self):
+        r'''Gets string format of ugen.
+
+        ::
+
+            >>> from supriya.tools import ugentools
+            >>> sin_osc_a = ugentools.SinOsc.ar()
+            >>> sin_osc_b = ugentools.SinOsc.ar(frequency=443)
+            >>> multiplied = sin_osc_a * sin_osc_b
+            >>> output = ugentools.Out.ar(source=multiplied)
+
+        ::
+
+            >>> print(str(output))
+            SynthDef 221d0a5d0c162c5b9d3d1fd74ffb83ff {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                const_2:443.0 -> 1_SinOsc[0:frequency]
+                const_1:0.0 -> 1_SinOsc[1:phase]
+                0_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
+                1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
+                const_1:0.0 -> 3_Out[0]
+                2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1]
+            }
+
+        '''
+        from supriya.tools import synthdeftools
+        builder = synthdeftools.SynthDefBuilder()
+        builder.add_ugen(self)
+        synthdef = builder.build()
+        result = str(synthdef)
+        return result
+
     ### PRIVATE METHODS ###
 
     def _add_constant_input(self, value):
