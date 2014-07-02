@@ -1,4 +1,8 @@
-class ServerOptions(object):
+# -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+
+
+class ServerOptions(SupriyaObject):
     r'''SuperCollider server option configuration.
 
     ::
