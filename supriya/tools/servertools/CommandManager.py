@@ -39,6 +39,22 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_buffer_allocate_read_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_allocate_read_channel_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_close_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_fill_message():
+        raise NotImplementedError
+
+    @staticmethod
     def make_buffer_free_message(
         buffer_id,
         completion_message=None,
@@ -63,6 +79,18 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_buffer_generate_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_get_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_get_contiguous_message():
+        raise NotImplementedError
+
+    @staticmethod
     def make_buffer_query_message(*buffer_ids):
         from supriya.tools import servertools
         command_type = servertools.CommandNumber.from_expr('buffer_query')
@@ -73,6 +101,30 @@ class CommandManager(object):
             *buffer_ids
             )
         return message
+
+    @staticmethod
+    def make_buffer_read_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_read_contiguous_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_set_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_set_contiguous_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_write_message():
+        raise NotImplementedError
+
+    @staticmethod
+    def make_buffer_zero_message():
+        raise NotImplementedError
 
     @staticmethod
     def make_dump_osc_message(osc_status):
