@@ -7,7 +7,10 @@ from distutils.version import StrictVersion
 install_requires = [
     'abjad',
     'pexpect',
+    'pytest',
     'rtmidi-python',
+    'sphinx',
+    'tox',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
