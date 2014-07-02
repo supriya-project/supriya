@@ -54,6 +54,10 @@ def test_Synth_01(server, synthdef):
                         amplitude: 1.0, frequency: 440.0
         '''
         ), server_state
+    assert synth_a['frequency'].value == 440.0
+    assert synth_a['amplitude'].value == 1.0
+    assert synth_b['frequency'].value == 440.0
+    assert synth_b['amplitude'].value == 1.0
 
     synth_a['frequency'] = 443
     synth_a['amplitude'] = 0.5
@@ -72,6 +76,10 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: 443.0
         '''
         ), server_state
+    assert synth_a['frequency'].value == 443.0
+    assert synth_a['amplitude'].value == 0.5
+    assert synth_b['frequency'].value == 440.0
+    assert synth_b['amplitude'].value == 1.0
 
     synth_b['frequency', 'amplitude'] = 441, 0.25
 
@@ -89,6 +97,10 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: 443.0
         '''
         ), server_state
+    assert synth_a['frequency'].value == 443.0
+    assert synth_a['amplitude'].value == 0.5
+    assert synth_b['frequency'].value == 441.0
+    assert synth_b['amplitude'].value == 0.25
 
     bus_a = servertools.Bus(rate='control')
     bus_a.allocate()
@@ -111,3 +123,7 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: c0
         '''
         ), server_state
+    assert synth_a['frequency'].value == bus_a
+    assert synth_a['amplitude'].value == 0.5
+    assert synth_b['frequency'].value == 441.0
+    assert synth_b['amplitude'].value == bus_b
