@@ -120,6 +120,11 @@ class CommandManager(object):
             >>> message
             OscMessage(42, 23, 0, 4, 8, 16)
 
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_GET
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -154,6 +159,12 @@ class CommandManager(object):
             >>> message
             OscMessage(43, 23, 0, 3, 8, 11)
 
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.BUFFER_GET_CONTIGUOUS
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -182,6 +193,11 @@ class CommandManager(object):
             >>> message = manager.make_buffer_query_message(1, 23, 41)
             >>> message
             OscMessage(47, 1, 23, 41)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_QUERY
+            True
 
         Returns OSC message.
         '''
@@ -226,6 +242,11 @@ class CommandManager(object):
             >>> message
             OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)
 
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_SET
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -263,6 +284,12 @@ class CommandManager(object):
             ...     )
             >>> message
             OscMessage(36, 23, 0, 3, 1.0, 2.0, 3.0, 10, 2, 17.1, 18.2)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.BUFFER_SET_CONTIGUOUS
+            True
 
         Returns OSC message.
         '''
@@ -404,6 +431,11 @@ class CommandManager(object):
             ...     )
             >>> message
             OscMessage(21, 1001, 1, 1000)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.GROUP_NEW
+            True
 
         Returns OSC message.
         '''
@@ -614,6 +646,11 @@ class CommandManager(object):
             ...     )
             >>> message
             OscMessage(9, 'test', 1001, 1, 1000, 'frequency', 443, 'phase', 0.2)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.SYNTH_NEW
+            True
 
         Returns OSC message.
         '''
