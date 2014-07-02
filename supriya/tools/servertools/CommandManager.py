@@ -276,8 +276,64 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_buffer_write_message():
-        raise NotImplementedError
+    def make_buffer_write_message(
+        buffer_id=None,
+        file_path=None,
+        header_format='aiff',
+        sample_format='int24',
+        frame_count=None,
+        starting_frame=None,
+        leave_open=False,
+        completion_message=None,
+        ):
+        r'''Makes a /b_write message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> servertools.CommandManager.make_buffer_write_message(
+            ...     buffer_id=23,
+            ...     file_path='test.aiff',
+            ...     header_format=servertools.HeaderFormat.AIFF,
+            ...     sample_format=servertools.SampleFormat.INT24,
+            ...     )
+            OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0)
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_type = servertools.CommandNumber.BUFFER_WRITE
+        command_type = int(command_type)
+        buffer_id = int(buffer_id)
+        file_path = str(file_path)
+        header_format = servertools.HeaderFormat.from_expr(header_format)
+        header_format = header_format.name.lower()
+        sample_format = servertools.SampleFormat.from_expr(sample_format)
+        sample_format = sample_format.name.lower()
+        if frame_count is None:
+            frame_count = -1
+        frame_count = int(frame_count)
+        assert -1 <= frame_count
+        if starting_frame is None:
+            starting_frame = 0
+        starting_frame = int(starting_frame)
+        assert 0 <= starting_frame
+        leave_open = int(bool(leave_open))
+        contents = [
+            command_type,
+            buffer_id,
+            file_path,
+            header_format,
+            sample_format,
+            frame_count,
+            leave_open,
+            ]
+        if completion_message is not None:
+            prototype = (osctools.OscBundle, osctools.OscMessage)
+            assert isinstance(completion_message, prototype)
+            contents.append(bytearray(completion_message.to_datagram()))
+        message = osctools.OscMessage(*contents)
+        return message
 
     @staticmethod
     def make_buffer_zero_message(
