@@ -833,6 +833,19 @@ class CommandManager(object):
     def make_status_message():
         r'''Makes a /status message
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_status_message()
+            >>> message
+            OscMessage(2)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.STATUS
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -846,6 +859,19 @@ class CommandManager(object):
     @staticmethod
     def make_sync_message(sync_id):
         r'''Makes a /sync message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_sync_message(1999)
+            >>> message
+            OscMessage(52, 1999)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.SYNC
+            True
 
         Returns OSC message.
         '''
@@ -865,6 +891,19 @@ class CommandManager(object):
         ):
         r'''Makes a /d_free message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_synthdef_free_message('test')
+            >>> message
+            OscMessage(53, 'test')
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.SYNTHDEF_FREE
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -876,8 +915,9 @@ class CommandManager(object):
         assert isinstance(synthdef, prototype)
         prototype = synthdeftools.SynthDef
         if isinstance(synthdef, prototype):
-            synthdef = synthdef.name or synthdef.anonymous_name
+            synthdef = synthdef.actual_name
         command_number = servertools.CommandNumber.SYNTHDEF_FREE
+        command_number = int(command_number)
         message = osctools.OscMessage(
             command_number,
             synthdef,
