@@ -65,18 +65,19 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
             values = (values,)
         assert len(items) == len(values)
         synth_controls = self.__getitem__(items)
-        pairs = zip(synth_controls, values)
+        settings = zip(synth_controls, values)
         n_set_settings = {}
         n_map_settings = {}
         n_mapa_settings = {}
         for synth_control, value in settings:
+            name = synth_control.name
             if isinstance(value, (int, float)):
-                n_set_settings[synth_control] = value
+                n_set_settings[name] = value
             elif isinstance(value, servertools.Bus):
                 if value.rate == synthdeftools.Rate.CONTROL:
-                    n_map_settings[synth_control] = value
+                    n_map_settings[name] = value
                 else:
-                    n_mapa_settings[synth_control] = value
+                    n_mapa_settings[name] = value
             else:
                 raise ValueError(value)
         osc_messages = []
@@ -99,8 +100,8 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 **n_mapa_settings
                 )
             osc_messages.append(osc_message)
-        if 1 == len(osc_message):
-            return osc_message[0]
+        if 1 == len(osc_messages):
+            return osc_messages[0]
         osc_bundle = osctools.OscBundle(contents=osc_messages)
         return osc_bundle
 
