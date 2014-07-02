@@ -13,6 +13,10 @@ class CommandManager(object):
         channel_count=1,
         completion_message=None,
         ):
+        r'''Makes a /b_alloc message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.BUFFER_ALLOCATE
         command_number = int(command_number)
@@ -40,14 +44,26 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_allocate_read_message():
+        r'''Makes a /b_allocRead message.
+
+        Returns OSC message.
+        '''
         raise NotImplementedError
 
     @staticmethod
     def make_buffer_allocate_read_channel_message():
+        r'''Makes a /b_allocReadChannel message.
+
+        Returns OSC message.
+        '''
         raise NotImplementedError
 
     @staticmethod
     def make_buffer_close_message(buffer_id):
+        r'''Makes a /b_close message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.BUFFER_CLOSE
         command_number = int(command_number)
@@ -63,6 +79,10 @@ class CommandManager(object):
         buffer_id,
         *index_count_value_triples
         ):
+        r'''Makes a /b_fill message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.BUFFER_FILL
         command_number = int(command_number)
@@ -83,6 +103,10 @@ class CommandManager(object):
         buffer_id,
         completion_message=None,
         ):
+        r'''Makes a /b_free message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.BUFFER_FREE
         command_number = int(command_number)
@@ -100,6 +124,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_generate_message():
+        r'''Makes a /b_gen message.
+
+        Returns OSC message.
+        '''
         raise NotImplementedError
 
     @staticmethod
@@ -214,10 +242,18 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_read_message():
+        r'''Makes a /b_read message.
+
+        Returns OSC message.
+        '''
         raise NotImplementedError
 
     @staticmethod
-    def make_buffer_read_contiguous_message():
+    def make_buffer_read_channel_message():
+        r'''Makes a /b_readChannel message.
+
+        Returns OSC message.
+        '''
         raise NotImplementedError
 
     @staticmethod
@@ -384,6 +420,10 @@ class CommandManager(object):
         buffer_id=None,
         completion_message=None,
         ):
+        r'''Makes a /b_zero message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.BUFFER_ZERO
         command_number = int(command_number)
@@ -401,6 +441,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_dump_osc_message(osc_status):
+        r'''Makes a /dumpOSC message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.DUMP_OSC
         command_number = int(command_number)
@@ -455,6 +499,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_group_query_tree_message(node_id, include_controls=False):
+        r'''Makes a /g_queryTree message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.GROUP_QUERY_TREE
         command_number = int(command_number)
@@ -469,6 +517,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_node_free_message(node_id):
+        r'''Makes a /n_free message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NODE_FREE
         command_number = int(command_number)
@@ -481,6 +533,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_node_set_message(node_id, **settings):
+        r'''Makes a /n_set message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NODE_SET
         command_number = int(command_number)
@@ -498,6 +554,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_node_map_to_control_bus_message(node_id, **settings):
+        r'''Makes a /n_map message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NODE_MAP_TO_CONTROL_BUS
         command_number = int(command_number)
@@ -515,6 +575,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_node_map_to_audio_bus_message(node_id, **settings):
+        r'''Makes a /n_mapa message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NODE_MAP_TO_AUDIO_BUS
         command_number = int(command_number)
@@ -531,19 +595,11 @@ class CommandManager(object):
         return message
 
     @staticmethod
-    def make_notify_message(notify_status):
-        from supriya.tools import servertools
-        command_number = servertools.CommandNumber.NOTIFY
-        command_number = int(command_number)
-        notify_status = int(bool(notify_status))
-        message = osctools.OscMessage(
-            command_number,
-            notify_status,
-            )
-        return message
+    def make_node_release_message(node_id):
+        r'''Makes a node release message.
 
-    @staticmethod
-    def make_release_message(node_id):
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NODE_SET
         command_number = int(command_number)
@@ -557,7 +613,23 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_notify_message(notify_status):
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.NOTIFY
+        command_number = int(command_number)
+        notify_status = int(bool(notify_status))
+        message = osctools.OscMessage(
+            command_number,
+            notify_status,
+            )
+        return message
+
+    @staticmethod
     def make_status_message():
+        r'''Makes a /status message
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.STATUS
         command_number = int(command_number)
@@ -568,6 +640,10 @@ class CommandManager(object):
 
     @staticmethod
     def make_sync_message(sync_id):
+        r'''Makes a /sync message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.SYNC
         command_number = int(command_number)
@@ -582,6 +658,10 @@ class CommandManager(object):
     def make_synthdef_free_message(
         synthdef=None,
         ):
+        r'''Makes a /d_free message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         prototype = (
@@ -603,6 +683,10 @@ class CommandManager(object):
     def make_synthdef_receive_message(
         *synthdefs
         ):
+        r'''Makes a /d_recv message.
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         command_number = servertools.CommandNumber.SYNTHDEF_RECEIVE
