@@ -82,6 +82,20 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     ### PRIVATE METHODS ###
 
+    def _generate(
+        self,
+        generate_command=None,
+        frequencies=None,
+        amplitudes=None,
+        phases=None,
+        as_wavetable=True,
+        clear_first=True,
+        normalize=True,
+        ):
+        r'''Analogous to SuperCollider's Buffer.gen family of commands.
+        '''
+        raise NotImplementedError
+
     def _register_with_server(
         self,
         channel_count=None,
@@ -147,6 +161,22 @@ class Buffer(ServerObjectProxy, BufferMixin):
             frame_count=frame_count,
             )
 
+    def allocate_from_file(self):
+        r'''Analogous to SuperCollider's Buffer.allocRead.
+        '''
+        raise NotImplementedError
+
+    def allocate_from_sequence(self):
+        r'''Analogous to SuperCollider's Buffer.loadCollection.
+        '''
+        raise NotImplementedError
+
+    def close(self):
+        raise NotImplementedError
+
+    def copy_data(self):
+        raise NotImplementedError
+
     def free(self):
         if not self.is_allocated:
             return
@@ -155,6 +185,61 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
+
+    @classmethod
+    def from_file(cls):
+        raise NotImplementedError
+
+    def generate_from_sines(self):
+        raise NotImplementedError
+
+    def generate_from_chebyshev(self):
+        raise NotImplementedError
+
+    def get(
+        self,
+        index,
+        completion_callback=None,
+        ):
+        pass
+
+    def get_contiguous(
+        self,
+        index,
+        count,
+        completion_callback=None,
+        ):
+        pass
+
+    def query(self):
+        raise NotImplementedError
+
+    def read(self):
+        raise NotImplementedError
+
+    def set(
+        self,
+        *index_value_pairs
+        ):
+        raise NotImplementedError
+
+    def set_contiguous(
+        self,
+        index,
+        *values
+        ):
+        raise NotImplementedError
+
+    def write(self):
+        raise NotImplementedError
+
+    def zero(
+        self,
+        completion_message=None,
+        ):
+        r'''Analogous to SuperCollider's Buffer.zero.
+        '''
+        raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
 

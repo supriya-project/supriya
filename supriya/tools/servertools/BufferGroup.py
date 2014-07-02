@@ -118,6 +118,18 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         self._buffer_id = None
         ServerObjectProxy.free(self)
 
+    @classmethod
+    def from_files(cls):
+        raise NotImplementedError
+
+    def query(self):
+        raise NotImplementedError
+
+    def zero(self):
+        r'''Analogous to SuperCollider's Buffer.zero.
+        '''
+        raise NotImplementedError
+
     ### PUBLIC PROPERTIES ###
 
     @property
