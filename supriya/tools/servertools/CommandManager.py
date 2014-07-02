@@ -623,6 +623,19 @@ class CommandManager(object):
     def make_node_free_message(node_id):
         r'''Makes a /n_free message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_node_free_message(1000)
+            >>> message
+            OscMessage(11, 1000)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.NODE_FREE
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -638,6 +651,24 @@ class CommandManager(object):
     @staticmethod
     def make_node_set_message(node_id, **settings):
         r'''Makes a /n_set message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_node_set_message(
+            ...     1000,
+            ...     frequency=443.1,
+            ...     phase=0.5,
+            ...     amplitude=0.1,
+            ...     )
+            >>> message
+            OscMessage(15, 1000, 'amplitude', 0.1, 'frequency', 443.1, 'phase', 0.5)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.NODE_SET
+            True
 
         Returns OSC message.
         '''
@@ -660,6 +691,25 @@ class CommandManager(object):
     def make_node_map_to_control_bus_message(node_id, **settings):
         r'''Makes a /n_map message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_node_map_to_control_bus_message(
+            ...     1000,
+            ...     frequency=servertools.Bus(9, 'control'),
+            ...     phase=servertools.Bus(10, 'control'),
+            ...     amplitude=servertools.Bus(11, 'control'),
+            ...     )
+            >>> message
+            OscMessage(14, 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.NODE_MAP_TO_CONTROL_BUS
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -669,7 +719,7 @@ class CommandManager(object):
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
-            contents.append(float(bus))
+            contents.append(int(bus))
         message = osctools.OscMessage(
             command_number,
             node_id,
@@ -681,6 +731,25 @@ class CommandManager(object):
     def make_node_map_to_audio_bus_message(node_id, **settings):
         r'''Makes a /n_mapa message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_node_map_to_audio_bus_message(
+            ...     1000,
+            ...     frequency=servertools.Bus(9, 'audio'),
+            ...     phase=servertools.Bus(10, 'audio'),
+            ...     amplitude=servertools.Bus(11, 'audio'),
+            ...     )
+            >>> message
+            OscMessage(60, 1000, 'amplitude', 11, 'frequency', 9, 'phase', 10)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.NODE_MAP_TO_AUDIO_BUS
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -690,7 +759,7 @@ class CommandManager(object):
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
-            contents.append(float(bus))
+            contents.append(int(bus))
         message = osctools.OscMessage(
             command_number,
             node_id,
@@ -701,6 +770,21 @@ class CommandManager(object):
     @staticmethod
     def make_node_release_message(node_id):
         r'''Makes a node release message.
+
+        ..  note:: This assumes that the node has a control named *gate*.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_node_release_message(1000)
+            >>> message
+            OscMessage(15, 1000, 'gate', 0)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.NODE_SET
+            True
 
         Returns OSC message.
         '''
@@ -718,6 +802,23 @@ class CommandManager(object):
 
     @staticmethod
     def make_notify_message(notify_status):
+        r'''Makes a /notify message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_notify_message(True)
+            >>> message
+            OscMessage(1, 1)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.NOTIFY
+            True
+
+        Returns OSC message.
+        '''
         from supriya.tools import servertools
         command_number = servertools.CommandNumber.NOTIFY
         command_number = int(command_number)
