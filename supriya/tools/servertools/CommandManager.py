@@ -8,12 +8,29 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_allocate_message(
-        buffer_id,
-        frame_count,
+        buffer_id=None,
+        frame_count=None,
         channel_count=1,
         completion_message=None,
         ):
         r'''Makes a /b_alloc message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_allocate_message(
+            ...    buffer_id=23,
+            ...    frame_count=512,
+            ...    channel_count=2,
+            ...    )
+            >>> message
+            OscMessage(28, 23, 512, 2)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_ALLOCATE
+            True
 
         Returns OSC message.
         '''
@@ -23,23 +40,18 @@ class CommandManager(object):
         buffer_id = int(buffer_id)
         frame_count = int(frame_count)
         channel_count = int(channel_count)
+        contents = [
+            command_number,
+            buffer_id,
+            frame_count,
+            channel_count,
+            ]
         if completion_message is not None:
             prototype = (osctools.OscBundle, osctools.OscMessage)
             assert isinstance(completion_message, prototype)
-            message = osctools.OscMessage(
-                command_number,
-                buffer_id,
-                frame_count,
-                channel_count,
-                bytearray(completion_message.to_datagram())
-                )
-        else:
-            message = osctools.OscMessage(
-                command_number,
-                buffer_id,
-                frame_count,
-                channel_count,
-                )
+            completion_message = bytearray(completion_message.to_datagram())
+            contents.append(completion_message)
+        message = osctools.OscMessage(*contents)
         return message
 
     @staticmethod
@@ -62,6 +74,21 @@ class CommandManager(object):
     def make_buffer_close_message(buffer_id):
         r'''Makes a /b_close message.
 
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_close_message(
+            ...     buffer_id=23,
+            ...     )
+            >>> message
+            OscMessage(33, 23)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_CLOSE
+            True
+
         Returns OSC message.
         '''
         from supriya.tools import servertools
@@ -76,10 +103,29 @@ class CommandManager(object):
 
     @staticmethod
     def make_buffer_fill_message(
-        buffer_id,
-        *index_count_value_triples
+        buffer_id=None,
+        index_count_value_triples=None,
         ):
         r'''Makes a /b_fill message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_buffer_fill_message(
+            ...     buffer_id=23,
+            ...     index_count_value_triples=(
+            ...         (0, 8, 0.1),
+            ...         (11, 4, 0.2),
+            ...         ),
+            ...     )
+            >>> message
+            OscMessage(37, 23, 0, 8, 0.1, 11, 4, 0.2)
+
+        ::
+
+            >>> message.address == servertools.CommandNumber.BUFFER_FILL
+            True
 
         Returns OSC message.
         '''
