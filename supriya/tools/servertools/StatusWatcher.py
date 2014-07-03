@@ -31,9 +31,10 @@ class StatusWatcher(threading.Thread):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
+        from supriya.tools import responsetools
         if not self.active:
             return
-        response = self._server.response_manager(message)
+        response = responsetools.ResponseManager.handle_message(message)
         self._server._server_status = response
         self._attempts = 0
 
