@@ -145,21 +145,24 @@ class Buffer(ServerObjectProxy, BufferMixin):
             return
         if self.is_allocated:
             return
-        ServerObjectProxy.allocate(self, server=server)
-        channel_count = int(channel_count)
-        frame_count = int(frame_count)
-        assert 0 < channel_count
-        assert 0 < frame_count
-        if self.buffer_id is None:
-            buffer_id = self.server.buffer_allocator.allocate(1)
-            if buffer_id is None:
-                ServerObjectProxy.free(self)
-                raise ValueError
-            self._buffer_id = buffer_id
-        self._register_with_server(
-            channel_count=channel_count,
-            frame_count=frame_count,
-            )
+        try:
+            ServerObjectProxy.allocate(self, server=server)
+            channel_count = int(channel_count)
+            frame_count = int(frame_count)
+            assert 0 < channel_count
+            assert 0 < frame_count
+            if self.buffer_id is None:
+                buffer_id = self.server.buffer_allocator.allocate(1)
+                if buffer_id is None:
+                    ServerObjectProxy.free(self)
+                    raise ValueError
+                self._buffer_id = buffer_id
+            self._register_with_server(
+                channel_count=channel_count,
+                frame_count=frame_count,
+                )
+        except:
+            self.free()
 
     def allocate_from_file(self):
         r'''Analogous to SuperCollider's Buffer.allocRead.
@@ -198,15 +201,34 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def get(
         self,
-        index,
+        indices=None,
         completion_callback=None,
         ):
-        pass
+        from supriya.tools import responsetools
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            raise Exception
+        message = servertools.CommandManager.make_buffer_get_message(
+            buffer_id=self,
+            indices=indices,
+            )
+        if callable(completion_callback):
+            pass
+        else:
+            wait = servertools.WaitForServer(
+                address_pattern='/b_set',
+                argument_template=(int(self),),
+                server=self.server,
+                )
+            with wait:
+                self.server.send_message(message)
+            received_message = wait.received_message
+            response = responsetools.ResponseManager()(received_message)
+            return response
 
     def get_contiguous(
         self,
-        index,
-        count,
+        index_count_pairs=None,
         completion_callback=None,
         ):
         pass
