@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
+import collections
 import pytest
-from supriya import responsetools
 from supriya import servertools
 
 
@@ -20,67 +20,28 @@ def test_Buffer_get_01(server):
     server.sync()
 
     response = buffer_.get((0,))
-    assert response == \
-        responsetools.BufferSetResponse(
-            buffer_id=0,
-            items=(
-                responsetools.BufferSetItem(
-                    sample_index=0,
-                    sample_value=0.0
-                    ),
-                )
-            )
+    result = response.as_dict()
+    assert result == collections.OrderedDict([
+        (0, 0),
+        ])
 
     response = buffer_.get((0, 1, 2, 3))
-    assert response == \
-        responsetools.BufferSetResponse(
-            buffer_id=0,
-            items=(
-                responsetools.BufferSetItem(
-                    sample_index=0,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=1,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=2,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=3,
-                    sample_value=0.0
-                    ),
-                )
-            )
+    result = response.as_dict()
+    assert result == collections.OrderedDict([
+        (0, 0),
+        (1, 0),
+        (2, 0),
+        (3, 0),
+        ])
 
     response = buffer_.get((7, 6, 2, 5, 1))
-    assert response == \
-        responsetools.BufferSetResponse(
-            buffer_id=0,
-            items=(
-                responsetools.BufferSetItem(
-                    sample_index=7,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=6,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=2,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=5,
-                    sample_value=0.0
-                    ),
-                responsetools.BufferSetItem(
-                    sample_index=1,
-                    sample_value=0.0
-                    ),
-                )
-            )
+    result = response.as_dict()
+    assert result == collections.OrderedDict([
+        (7, 0),
+        (6, 0),
+        (2, 0),
+        (5, 0),
+        (1, 0),
+        ])
 
     buffer_.free()

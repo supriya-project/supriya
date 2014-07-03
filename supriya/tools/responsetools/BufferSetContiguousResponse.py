@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.responsetools.Response import Response
 
 
-class BufferSetContiguousResponse(Response):
+class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -20,6 +21,22 @@ class BufferSetContiguousResponse(Response):
         ):
         self._buffer_id = buffer_id
         self._items = items
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        return self._items[item]
+
+    def __len__(self):
+        return len(self._items)
+
+    ### PUBLIC METHODS ###
+
+    def as_dict(self):
+        result = collections.OrderedDict()
+        for item in self:
+            result[item.starting_sample_index] = item.sample_values
+        return result
 
     ### PUBLIC PROPERTIES ###
 
