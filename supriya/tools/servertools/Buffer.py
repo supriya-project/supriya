@@ -222,8 +222,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
                 )
             with wait:
                 self.server.send_message(message)
-            received_message = wait.received_message
-            response = responsetools.ResponseManager()(received_message)
+            message = wait.received_message
+            response = responsetools.ResponseManager.handle_message(message)
             return response
 
     def get_contiguous(
