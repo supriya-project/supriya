@@ -44,7 +44,6 @@ class Server(object):
         '_osc_controller',
         '_osc_dispatcher',
         '_port',
-        '_response_manager',
         '_root_node',
         '_server_options',
         '_server_process',
@@ -89,7 +88,6 @@ class Server(object):
 
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
-        self._response_manager = responsetools.ResponseManager()
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
@@ -463,6 +461,7 @@ class Server(object):
 
         Returns server query-tree group response.
         '''
+        from supriya.tools import responsetools
         from supriya.tools import servertools
         wait = servertools.WaitForServer(
             address_pattern='/g_queryTree.reply',
@@ -474,8 +473,8 @@ class Server(object):
             )
         with wait:
             self.send_message(message)
-        reply = wait.received_message
-        response = self._response_manager(reply)
+        message = wait.received_message
+        response = responsetools.ResponseManager.handle_message(message)
         return response
 
     def quit(self):
@@ -571,10 +570,6 @@ class Server(object):
     @property
     def port(self):
         return self._port
-
-    @property
-    def response_manager(self):
-        return self._response_manager
 
     @property
     def root_node(self):
