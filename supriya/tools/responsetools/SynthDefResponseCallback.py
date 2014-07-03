@@ -8,7 +8,6 @@ class SynthDefResponseCallback(OscCallback):
 
     __slots__ = (
         '_server',
-        '_response_manager',
         )
 
     ### INITIALIZER ###
@@ -22,12 +21,12 @@ class SynthDefResponseCallback(OscCallback):
             )
         assert isinstance(server, servertools.Server)
         self._server = server
-        self._response_manager = server._response_manager
 
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        response = self._response_manager(message)
+        from supriya.tools import responsetools
+        response = responsetools.ResponseManager.handle_message(message)
         if not isinstance(response, tuple):
             response = (response,)
         for x in response:
