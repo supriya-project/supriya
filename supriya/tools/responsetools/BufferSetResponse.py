@@ -7,7 +7,7 @@ class BufferSetResponse(Response):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_number',
+        '_buffer_id',
         '_items',
         )
 
@@ -15,17 +15,17 @@ class BufferSetResponse(Response):
 
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         items=None,
         ):
-        self._buffer_number = buffer_number
+        self._buffer_id = buffer_id
         self._items = items
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_number(self):
-        return self._buffer_number
+    def buffer_id(self):
+        return self._buffer_id
 
     @property
     def items(self):

@@ -72,7 +72,7 @@ class ResponseManager(SupriyaObject):
                     sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                     ),
                 ),
-            buffer_number=1
+            buffer_id=1
             )
 
     ::
@@ -178,21 +178,21 @@ class ResponseManager(SupriyaObject):
 
     def _handle_b_set(self, command, contents):
         from supriya.tools import responsetools
-        buffer_number, remainder = contents[0], contents[1:]
+        buffer_id, remainder = contents[0], contents[1:]
         items = []
         for group in self._group_items(remainder, 2):
             item = responsetools.BufferSetItem(*group)
             items.append(item)
         items = tuple(items)
         response = responsetools.BufferSetResponse(
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             items=items,
             )
         return response
 
     def _handle_b_setn(self, command, contents):
         from supriya.tools import responsetools
-        buffer_number, remainder = contents[0], contents[1:]
+        buffer_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             starting_sample_index = remainder[0]
@@ -206,7 +206,7 @@ class ResponseManager(SupriyaObject):
             remainder = remainder[2 + sample_count:]
         items = tuple(items)
         response = responsetools.BufferSetContiguousResponse(
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             items=items,
             )
         return response
