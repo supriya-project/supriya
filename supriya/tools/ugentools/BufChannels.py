@@ -8,7 +8,7 @@ class BufChannels(BufInfoUGenBase):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.BufChannels.kr(buffer_number=0)
+        >>> ugentools.BufChannels.kr(buffer_id=0)
         BufChannels.kr()
 
     '''
@@ -21,11 +21,11 @@ class BufChannels(BufInfoUGenBase):
 
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         rate=None,
         ):
         BufInfoUGenBase.__init__(
             self,
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )

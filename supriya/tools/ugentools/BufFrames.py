@@ -8,7 +8,7 @@ class BufFrames(BufInfoUGenBase):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.BufFrames.kr(buffer_number=0)
+        >>> ugentools.BufFrames.kr(buffer_id=0)
         BufFrames.kr()
 
     '''
@@ -21,11 +21,11 @@ class BufFrames(BufInfoUGenBase):
 
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         rate=None,
         ):
         BufInfoUGenBase.__init__(
             self,
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )

@@ -10,7 +10,7 @@ class BufInfoUGenBase(InfoUGenBase):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_number',
+        'buffer_id',
         )
 
     ### INITIALIZER ###
@@ -18,33 +18,33 @@ class BufInfoUGenBase(InfoUGenBase):
     @abc.abstractmethod
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )
 
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ir(cls, buffer_number=None):
+    def ir(cls, buffer_id=None):
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.SCALAR
         ugen = cls._new_expanded(
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )
         return ugen
 
     @classmethod
-    def kr(cls, buffer_number=None):
+    def kr(cls, buffer_id=None):
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )
         return ugen

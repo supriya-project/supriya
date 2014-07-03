@@ -8,7 +8,7 @@ class BufRateScale(BufInfoUGenBase):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.BufRateScale.kr(buffer_number=0)
+        >>> ugentools.BufRateScale.kr(buffer_id=0)
         BufRateScale.kr()
 
     '''
@@ -21,11 +21,11 @@ class BufRateScale(BufInfoUGenBase):
 
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         rate=None,
         ):
         BufInfoUGenBase.__init__(
             self,
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )

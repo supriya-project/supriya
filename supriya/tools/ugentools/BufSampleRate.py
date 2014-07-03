@@ -8,7 +8,7 @@ class BufSampleRate(BufInfoUGenBase):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.BufSampleRate.kr(buffer_number=0)
+        >>> ugentools.BufSampleRate.kr(buffer_id=0)
         BufSampleRate.kr()
 
     '''
@@ -21,11 +21,11 @@ class BufSampleRate(BufInfoUGenBase):
 
     def __init__(
         self,
-        buffer_number=None,
+        buffer_id=None,
         rate=None,
         ):
         BufInfoUGenBase.__init__(
             self,
-            buffer_number=buffer_number,
+            buffer_id=buffer_id,
             rate=rate,
             )
