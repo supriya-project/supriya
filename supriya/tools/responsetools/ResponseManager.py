@@ -11,7 +11,7 @@ class ResponseManager(SupriyaObject):
 
         >>> from supriya import osctools
         >>> from supriya import responsetools
-        >>> manager = responsetools.ResponseManager()
+        >>> manager = responsetools.ResponseManager
 
     ::
 
@@ -20,7 +20,7 @@ class ResponseManager(SupriyaObject):
         ...     0.040679048746824265, 0.15118031203746796,
         ...     44100.0, 44100.00077873274,
         ...     )
-        >>> manager(message)
+        >>> manager.handle_message(message)
         StatusResponse(
             ugen_count=0,
             synth_count=0,
@@ -35,7 +35,7 @@ class ResponseManager(SupriyaObject):
     ::
 
         >>> message = osctools.OscMessage('/b_info', 1100, 512, 1, 44100.0)
-        >>> manager(message)[0]
+        >>> manager.handle_message(message)[0]
         BufferInfoResponse(
             buffer_id=1100,
             frame_count=512,
@@ -46,7 +46,7 @@ class ResponseManager(SupriyaObject):
     ::
 
         >>> message = osctools.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
-        >>> manager(message)
+        >>> manager.handle_message(message)
         NodeSetResponse(
             node_id=1023,
             items=(
@@ -64,7 +64,7 @@ class ResponseManager(SupriyaObject):
     ::
 
         >>> message = osctools.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-        >>> manager(message)
+        >>> manager.handle_message(message)
         BufferSetContiguousResponse(
             items=(
                 BufferSetContiguousItem(
@@ -78,7 +78,7 @@ class ResponseManager(SupriyaObject):
     ::
 
         >>> message = osctools.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
-        >>> manager(message)
+        >>> manager.handle_message(message)
         QueryTreeGroup(
             node_id=0,
             children=(
@@ -105,7 +105,7 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> print(manager(message))
+        >>> print(manager.handle_message(message))
         NODE TREE 0 group
             1 group
                 1001 group
@@ -114,52 +114,10 @@ class ResponseManager(SupriyaObject):
 
     '''
 
-    ### CLASS VARIABLES ###
+    ### PUBLIC METHODS ###
 
-    __slots__ = (
-        '_response_handlers'
-        )
-
-    ### INITIALIZER ###
-
-    def __init__(self):
-        self._response_handlers = {
-            '/b_info': self._handle_b_info,
-            '/b_set': self._handle_b_set,
-            '/b_setn': self._handle_b_setn,
-            '/c_set': self._handle_c_set,
-            '/c_setn': self._handle_c_setn,
-            '/d_removed': self._handle_d_removed,
-            '/done': self._handle_done,
-            '/fail': self._handle_fail,
-            '/g_queryTree.reply': self._handle_g_query_tree_reply,
-            '/n_end': self._handle_n_info,
-            '/n_go': self._handle_n_info,
-            '/n_info': self._handle_n_info,
-            '/n_move': self._handle_n_info,
-            '/n_off': self._handle_n_info,
-            '/n_on': self._handle_n_info,
-            '/n_set': self._handle_n_set,
-            '/n_setn': self._handle_n_setn,
-            '/status.reply': self._handle_status_reply,
-            '/synced': self._handle_synced,
-            '/tr': self._handle_tr,
-            }
-
-    ### SPECIAL METHODS ###
-
-    def __call__(self, message):
-        address, contents = message.address, message.contents
-        if address in self._response_handlers:
-            handler = self._response_handlers[address]
-            response = handler(address, contents)
-        else:
-            raise ValueError(message)
-        return response
-
-    ### PRIVATE METHODS ###
-
-    def _group_items(self, items, length):
+    @staticmethod
+    def group_items(items, length):
         iterators = [iter(items)] * length
         if sys.version_info[0] == 2:
             iterator = itertools.izip(*iterators)
@@ -167,20 +125,32 @@ class ResponseManager(SupriyaObject):
             iterator = zip(*iterators)
         return iterator
 
-    def _handle_b_info(self, command, contents):
+    @staticmethod
+    def handle_message(message):
+        address, contents = message.address, message.contents
+        if address in _response_handlers:
+            handler = _response_handlers[address]
+            response = handler(address, contents)
+        else:
+            raise ValueError(message)
+        return response
+
+    @staticmethod
+    def handle_b_info(command, contents):
         from supriya.tools import responsetools
         responses = []
-        for group in self._group_items(contents, 4):
+        for group in ResponseManager.group_items(contents, 4):
             response = responsetools.BufferInfoResponse(*group)
             responses.append(response)
         responses = tuple(responses)
         return responses
 
-    def _handle_b_set(self, command, contents):
+    @staticmethod
+    def handle_b_set(command, contents):
         from supriya.tools import responsetools
         buffer_id, remainder = contents[0], contents[1:]
         items = []
-        for group in self._group_items(remainder, 2):
+        for group in ResponseManager.group_items(remainder, 2):
             item = responsetools.BufferSetItem(*group)
             items.append(item)
         items = tuple(items)
@@ -190,7 +160,8 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_b_setn(self, command, contents):
+    @staticmethod
+    def handle_b_setn(command, contents):
         from supriya.tools import responsetools
         buffer_id, remainder = contents[0], contents[1:]
         items = []
@@ -211,10 +182,11 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_c_set(self, command, contents):
+    @staticmethod
+    def handle_c_set(command, contents):
         from supriya.tools import responsetools
         items = []
-        for group in self._group_items(contents, 2):
+        for group in ResponseManager.group_items(contents, 2):
             item = responsetools.ControlBusSetItem(*group)
             items.append(item)
         response = responsetools.ControlBusSetResponse(
@@ -222,7 +194,8 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_c_setn(self, command, contents):
+    @staticmethod
+    def handle_c_setn(command, contents):
         from supriya.tools import responsetools
         items = []
         while contents:
@@ -241,7 +214,8 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_d_removed(self, command, contents):
+    @staticmethod
+    def handle_d_removed(command, contents):
         from supriya.tools import responsetools
         synthdef_name = contents[0]
         response = responsetools.SynthDefRemovedResponse(
@@ -249,13 +223,15 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_done(self, command, contents):
+    @staticmethod
+    def handle_done(command, contents):
         from supriya.tools import responsetools
         arguments = contents
         response = responsetools.DoneResponse(action=tuple(arguments))
         return response
 
-    def _handle_fail(self, command, contents):
+    @staticmethod
+    def handle_fail(command, contents):
         from supriya.tools import responsetools
         failed_command = contents[0]
         failed_reason = contents[1:]
@@ -267,7 +243,8 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_g_query_tree_reply(self, command, contents):
+    @staticmethod
+    def handle_g_query_tree_reply(command, contents):
         def recurse(contents, control_flag):
             node_id = contents.pop(0)
             child_count = contents.pop(0)
@@ -306,17 +283,19 @@ class ResponseManager(SupriyaObject):
         response = recurse(contents, control_flag)
         return response
 
-    def _handle_n_info(self, command, contents):
+    @staticmethod
+    def handle_n_info(command, contents):
         from supriya.tools import responsetools
         arguments = (command,) + contents
         response = responsetools.NodeInfoResponse(*arguments)
         return response
 
-    def _handle_n_set(self, command, contents):
+    @staticmethod
+    def handle_n_set(command, contents):
         from supriya.tools import responsetools
         node_id, remainder = contents[0], contents[1:]
         items = []
-        for group in self._group_items(remainder, 2):
+        for group in ResponseManager.group_items(remainder, 2):
             item = responsetools.NodeSetItem(*group)
             items.append(item)
         response = responsetools.NodeSetResponse(
@@ -325,7 +304,8 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_n_setn(self, command, contents):
+    @staticmethod
+    def handle_n_setn(command, contents):
         from supriya.tools import responsetools
         node_id, remainder = contents[0], contents[1:]
         items = []
@@ -346,20 +326,47 @@ class ResponseManager(SupriyaObject):
             )
         return response
 
-    def _handle_status_reply(self, command, contents):
+    @staticmethod
+    def handle_status_reply(command, contents):
         from supriya.tools import responsetools
         arguments = contents[1:]
         response = responsetools.StatusResponse(*arguments)
         return response
 
-    def _handle_synced(self, command, contents):
+    @staticmethod
+    def handle_synced(command, contents):
         from supriya.tools import responsetools
         arguments = contents
         response = responsetools.SyncedResponse(*arguments)
         return response
 
-    def _handle_tr(self, command, contents):
+    @staticmethod
+    def handle_tr(command, contents):
         from supriya.tools import responsetools
         arguments = contents
         response = responsetools.TriggerResponse(*arguments)
         return response
+
+
+_response_handlers = {
+    '/b_info': ResponseManager.handle_b_info,
+    '/b_set': ResponseManager.handle_b_set,
+    '/b_setn': ResponseManager.handle_b_setn,
+    '/c_set': ResponseManager.handle_c_set,
+    '/c_setn': ResponseManager.handle_c_setn,
+    '/d_removed': ResponseManager.handle_d_removed,
+    '/done': ResponseManager.handle_done,
+    '/fail': ResponseManager.handle_fail,
+    '/g_queryTree.reply': ResponseManager.handle_g_query_tree_reply,
+    '/n_end': ResponseManager.handle_n_info,
+    '/n_go': ResponseManager.handle_n_info,
+    '/n_info': ResponseManager.handle_n_info,
+    '/n_move': ResponseManager.handle_n_info,
+    '/n_off': ResponseManager.handle_n_info,
+    '/n_on': ResponseManager.handle_n_info,
+    '/n_set': ResponseManager.handle_n_set,
+    '/n_setn': ResponseManager.handle_n_setn,
+    '/status.reply': ResponseManager.handle_status_reply,
+    '/synced': ResponseManager.handle_synced,
+    '/tr': ResponseManager.handle_tr,
+    }
