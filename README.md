@@ -47,85 +47,67 @@ Example
 
 Import packages from **supriya**:
 
-```python
->>> from supriya import servertools
->>> from supriya import synthdeftools
->>> from supriya import ugentools
-```
+    >>> from supriya import servertools
+    >>> from supriya import synthdeftools
+    >>> from supriya import ugentools
 
 Boot the SuperCollider server:
 
-```python
->>> server = servertools.Server()
->>> server.boot()
-<Server: udp://127.0.0.1:57751, 8i8o>
-```
+    >>> server = servertools.Server()
+    >>> server.boot()
+    <Server: udp://127.0.0.1:57751, 8i8o>
 
 Create and allocate a group:
 
-```python
->>> group = servertools.Group().allocate()
-```
+    >>> group = servertools.Group().allocate()
 
 Make a synthesizer definition:
 
-```python
->>> synthdef_builder = synthdeftools.SynthDefBuilder(
-...     amplitude=0.0,
-...     frequency=440.0,
-...     )
->>> sin_osc = ugentools.SinOsc.ar(
-...     frequency=synthdef_builder['frequency'],
-...     )
->>> sin_osc *= synthdef_builder['amplitude']
->>> out = ugentools.Out.ar(
-...     bus=(0, 1),
-...     source=sin_osc,
-...     )
->>> synthdef_builder.add_ugen(out)
->>> synthdef = synthdef_builder.build()
-```
+    >>> synthdef_builder = synthdeftools.SynthDefBuilder(
+    ...     amplitude=0.0,
+    ...     frequency=440.0,
+    ...     )
+    >>> sin_osc = ugentools.SinOsc.ar(
+    ...     frequency=synthdef_builder['frequency'],
+    ...     )
+    >>> sin_osc *= synthdef_builder['amplitude']
+    >>> out = ugentools.Out.ar(
+    ...     bus=(0, 1),
+    ...     source=sin_osc,
+    ...     )
+    >>> synthdef_builder.add_ugen(out)
+    >>> synthdef = synthdef_builder.build()
 
 Send the synthesizer definition to the server:
 
-```python
->>> synthdef.allocate()
-```
+    >>> synthdef.allocate()
 
 Synchronize with the server:
 
-```python
->>> server.sync()
-<Server: udp://127.0.0.1:57751, 8i8o>
-```
+    >>> server.sync()
+    <Server: udp://127.0.0.1:57751, 8i8o>
 
 Create a synthesizer with the previously defined synthesizer definition, and
 allocate it on the server as a child of the previously created group:
 
-```python
->>> synth = servertools.Synth(synthdef)
->>> synth.allocate(target_node=group)
-<Synth: 1001>
-```
+    >>> synth = servertools.Synth(synthdef)
+    >>> synth.allocate(target_node=group)
+    <Synth: 1001>
 
 Query the server's node tree:
 
-```python
->>> response = server.query_remote_nodes(include_controls=True)
->>> print(response)
-NODE TREE 0 group
-    1 group
-        1000 group
-            1001 f1c3ea5063065be20688f82b415c1108
-                amplitude: 0.0, frequency: 440.0
-```
+    >>> response = server.query_remote_nodes(include_controls=True)
+    >>> print(response)
+    NODE TREE 0 group
+        1 group
+            1000 group
+                1001 f1c3ea5063065be20688f82b415c1108
+                    amplitude: 0.0, frequency: 440.0
 
 Quit the server:
 
-```python
 >>> server.quit()
 <Server: offline>
-```
 
 Current Roadmap
 ---------------
@@ -150,7 +132,7 @@ Current Roadmap
     - [ ] `/b_gen`, `/b_fill`, `/b_zero`
     - [ ] `/b_free`
 - [ ] Implement complete Bus(-related) API
-    - [ ] `/c_set`, `/c_setn `
+    - [ ] `/c_set`, `/c_setn`
     - [ ] `/c_fill`
     - [ ] `/c_get`, `/c_getn`
     - [ ] `/n_map`, `/n_mapn`
