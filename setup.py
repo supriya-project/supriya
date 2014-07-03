@@ -18,12 +18,17 @@ if StrictVersion(version) < StrictVersion('3.4.0'):
 if StrictVersion(version) < StrictVersion('3.3.0'):
     install_requires.append('funcsigs')
 
+long_description = ''
+with open('README.md', 'r') as file_pointer:
+    long_description = file_pointer.read()
+
 setup(
     author='Josiah Wolf Oberholtzer',
     author_email='josiah.oberholtzer@gmail.com',
     description='A Python API for SuperCollider',
     install_requires=install_requires,
     license='GPL',
+    long_description=long_description,
     name='supriya',
     packages=('supriya',),
     url='https://github.com/josiah-wolf-oberholtzer/supriya',
