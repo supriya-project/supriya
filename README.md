@@ -108,8 +108,8 @@ Query the server's node tree:
 
 Quit the server:
 
->>> server.quit()
-<Server: offline>
+    >>> server.quit()
+    <Server: offline>
 
 Current Roadmap
 ---------------
