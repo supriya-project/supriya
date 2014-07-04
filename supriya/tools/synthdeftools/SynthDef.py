@@ -103,6 +103,12 @@ class SynthDef(ServerObjectProxy):
             )
         return hash(hash_values)
 
+    def __repr__(self):
+        return '<{}: {}>'.format(
+            type(self).__name__,
+            self.actual_name,
+            )
+
     def __str__(self):
         r'''Gets string representation of synth definition.
 
