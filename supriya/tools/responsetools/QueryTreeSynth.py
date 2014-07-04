@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.responsetools.Response import Response
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class QueryTreeSynth(Response, collections.Sequence):
+class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 

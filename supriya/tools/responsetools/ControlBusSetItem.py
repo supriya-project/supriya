@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.responsetools.Response import Response
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class ControlBusSetItem(Response):
+class ControlBusSetItem(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 

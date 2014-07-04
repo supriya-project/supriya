@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.responsetools.Response import Response
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class NodeSetContiguousItem(Response):
+class NodeSetContiguousItem(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 

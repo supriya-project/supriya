@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.responsetools.Response import Response
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class BufferSetContiguousResponse(Response, collections.Sequence):
+class BufferSetContiguousResponse(SupriyaValueObject, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
