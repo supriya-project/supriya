@@ -11,9 +11,7 @@ Installation
 To install, simply clone **supriya** and run the included `setup.py`:
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
-
     ~$ cd supriya
-
     supriya$ sudo python setup.py install
 
 To run the test suite:
@@ -63,7 +61,7 @@ Create and allocate a group:
 
     >>> group = servertools.Group().allocate()
 
-Make a synthesizer definition:
+Make a synthesizer definition and send it to the server:
 
     >>> synthdef_builder = synthdeftools.SynthDefBuilder(
     ...     amplitude=0.0,
@@ -78,11 +76,7 @@ Make a synthesizer definition:
     ...     source=sin_osc,
     ...     )
     >>> synthdef_builder.add_ugen(out)
-    >>> synthdef = synthdef_builder.build()
-
-Send the synthesizer definition to the server:
-
-    >>> synthdef.allocate()
+    >>> synthdef = synthdef_builder.build().allocate(sync=True)
 
 Synchronize with the server:
 
