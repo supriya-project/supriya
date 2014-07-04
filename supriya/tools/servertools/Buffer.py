@@ -208,30 +208,50 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        message = servertools.CommandManager.make_buffer_get_message(
+        manager = servertools.CommandManager
+        message = manager.make_buffer_get_message(
             buffer_id=self,
             indices=indices,
             )
         if callable(completion_callback):
-            pass
-        else:
-            wait = servertools.WaitForServer(
-                address_pattern='/b_set',
-                argument_template=(int(self),),
-                server=self.server,
-                )
-            with wait:
-                self.server.send_message(message)
-            message = wait.received_message
-            response = responsetools.ResponseManager.handle_message(message)
-            return response
+            raise NotImplementedError
+        wait = servertools.WaitForServer(
+            address_pattern='/b_set',
+            argument_template=(int(self),),
+            server=self.server,
+            )
+        with wait:
+            self.server.send_message(message)
+        message = wait.received_message
+        response = responsetools.ResponseManager.handle_message(message)
+        return response
 
     def get_contiguous(
         self,
         index_count_pairs=None,
         completion_callback=None,
         ):
-        pass
+        from supriya.tools import responsetools
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            raise Exception
+        manager = servertools.CommandManager
+        message = manager.make_buffer_get_contiguous_message(
+            buffer_id=self,
+            index_count_pairs=index_count_pairs,
+            )
+        if callable(completion_callback):
+            raise NotImplementedError
+        wait = servertools.WaitForServer(
+            address_pattern='/b_setn',
+            argument_template=(int(self),),
+            server=self.server,
+            )
+        with wait:
+            self.server.send_message(message)
+        message = wait.received_message
+        response = responsetools.ResponseManager.handle_message(message)
+        return response
 
     def query(self):
         raise NotImplementedError

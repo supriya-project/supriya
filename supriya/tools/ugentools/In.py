@@ -109,4 +109,5 @@ class In(MultiOutUGen):
 
     @property
     def bus(self):
-        return self._inputs[self._ordered_input_names.index('bus')]
+        index = self._ordered_input_names.index('bus')
+        return self._inputs[index]

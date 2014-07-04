@@ -130,4 +130,5 @@ class DC(PureMultiOutUGen):
 
     @property
     def source(self):
-        return self._inputs[self._ordered_input_names.index('source')]
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
