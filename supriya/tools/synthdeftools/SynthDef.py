@@ -25,7 +25,8 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> synthdef.allocate(server=server)
+        >>> synthdef.allocate(server=server, sync=True)
+        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19>
 
     ::
 
@@ -350,7 +351,11 @@ class SynthDef(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server=None):
+    def allocate(
+        self,
+        server=None,
+        sync=False,
+        ):
         from supriya.tools import servertools
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
@@ -359,6 +364,9 @@ class SynthDef(ServerObjectProxy):
             self,
             )
         self.server.send_message(message)
+        if sync:
+            self.server.sync()
+        return self
 
     def compile(self):
         from supriya.tools.synthdeftools import SynthDefCompiler

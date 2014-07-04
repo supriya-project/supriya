@@ -59,6 +59,7 @@ class Group(Node):
         self,
         add_action=None,
         node_id_is_permanent=False,
+        sync=False,
         target_node=None,
         ):
         from supriya.tools import servertools
@@ -74,6 +75,8 @@ class Group(Node):
             target_node_id=target_node_id,
             )
         self.server.send_message(message)
+        if sync:
+            self.server.sync()
         return self
 
     def free(self, send_to_server=True):

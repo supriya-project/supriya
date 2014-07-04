@@ -363,9 +363,8 @@ class Server(object):
             ...     )
             >>> builder.add_ugen(out)
             >>> synthdef = builder.build()
-            >>> synthdef.allocate()
-            >>> server.sync()
-            <Server: udp://127.0.0.1:57751, 8i8o>
+            >>> synthdef.allocate(sync=True)
+            <SynthDef: f1c3ea5063065be20688f82b415c1108>
 
         ::
 
@@ -433,9 +432,8 @@ class Server(object):
             ...     )
             >>> builder.add_ugen(out)
             >>> synthdef = builder.build()
-            >>> synthdef.allocate()
-            >>> server.sync()
-            <Server: udp://127.0.0.1:57751, 8i8o>
+            >>> synthdef.allocate(sync=True)
+            <SynthDef: f1c3ea5063065be20688f82b415c1108>
 
         ::
 

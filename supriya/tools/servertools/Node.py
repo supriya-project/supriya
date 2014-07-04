@@ -63,7 +63,6 @@ class Node(ServerObjectProxy):
         node_id_is_permanent=False,
         target_node=None,
         ):
-
         from supriya.tools import servertools
         if self.server is not None:
             raise ValueError

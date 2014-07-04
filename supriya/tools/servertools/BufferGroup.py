@@ -22,9 +22,12 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
 
     ::
 
-        >>> buffer_group.allocate(frame_count=8192)
-        >>> server.sync()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        >>> buffer_group.allocate(
+        ...     frame_count=8192,
+        ...     server=server,
+        ...     sync=True,
+        ...     )
+        <BufferGroup: {4} @ 0>
 
     ::
 
@@ -90,6 +93,7 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         channel_count=1,
         frame_count=None,
         server=None,
+        sync=False,
         ):
         if self.is_allocated:
             return
@@ -109,6 +113,9 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
                 channel_count=channel_count,
                 frame_count=frame_count,
                 )
+        if sync:
+            self.server.sync()
+        return self
 
     def free(self):
         if not self.is_allocated:

@@ -23,9 +23,8 @@ class Synth(Node):
         >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
         >>> builder.add_ugen(out)
         >>> synthdef = builder.build()
-        >>> synthdef.allocate()
-        >>> server.sync()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        >>> synthdef.allocate(sync=True)
+        <SynthDef: 1fc2eec3eea3e5d30146f9c32097e429>
 
     ::
 
@@ -78,6 +77,7 @@ class Synth(Node):
         self,
         add_action=None,
         node_id_is_permanent=False,
+        sync=False,
         target_node=None,
         **kwargs
         ):
@@ -99,6 +99,8 @@ class Synth(Node):
             **kwargs
             )
         self.server.send_message(message)
+        if sync:
+            self.server.sync()
         return self
 
     def free(self, send_to_server=True):

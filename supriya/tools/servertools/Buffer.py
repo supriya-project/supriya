@@ -21,7 +21,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     ::
 
-        >>> buffer_.allocate(frame_count=8192)
+        >>> buffer_ = buffer_.allocate(frame_count=8192)
         >>> server.sync()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -140,6 +140,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         channel_count=1,
         frame_count=None,
         server=None,
+        sync=False,
         ):
         if self.buffer_group is not None:
             return
@@ -163,13 +164,24 @@ class Buffer(ServerObjectProxy, BufferMixin):
                 )
         except:
             self.free()
+        if sync:
+            self.server.sync()
+        return self
 
-    def allocate_from_file(self):
+    def allocate_from_file(
+        self,
+        server=None,
+        sync=False,
+        ):
         r'''Analogous to SuperCollider's Buffer.allocRead.
         '''
         raise NotImplementedError
 
-    def allocate_from_sequence(self):
+    def allocate_from_sequence(
+        self,
+        server=None,
+        sync=False,
+        ):
         r'''Analogous to SuperCollider's Buffer.loadCollection.
         '''
         raise NotImplementedError
@@ -204,6 +216,27 @@ class Buffer(ServerObjectProxy, BufferMixin):
         indices=None,
         completion_callback=None,
         ):
+        r'''Gets sample values at `indices`.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> server = servertools.Server().boot()
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=4,
+            ...     server=server,
+            ...     sync=True,
+            ...     )
+            >>> response = buffer_.get(indices=(1, 2))
+            >>> response.as_dict()
+            OrderedDict([(1, 0.0), (2, 0.0)])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        '''
         from supriya.tools import responsetools
         from supriya.tools import servertools
         if not self.is_allocated:
@@ -231,6 +264,30 @@ class Buffer(ServerObjectProxy, BufferMixin):
         index_count_pairs=None,
         completion_callback=None,
         ):
+        r'''Gets contiguous sample values.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> server = servertools.Server().boot()
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=4,
+            ...     server=server,
+            ...     sync=True,
+            ...     )
+            >>> response = buffer_.get_contiguous(
+            ...     index_count_pairs=((0, 2), (1, 3))
+            ...     )
+            >>> response.as_dict()
+            OrderedDict([(0, (0.0, 0.0)), (1, (0.0, 0.0, 0.0))])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        '''
+
         from supriya.tools import responsetools
         from supriya.tools import servertools
         if not self.is_allocated:

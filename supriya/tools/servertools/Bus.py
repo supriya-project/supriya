@@ -69,6 +69,7 @@ class Bus(ServerObjectProxy, BusMixin):
     def allocate(
         self,
         server=None,
+        sync=False,
         ):
         if self.bus_group is not None:
             return
@@ -85,6 +86,9 @@ class Bus(ServerObjectProxy, BusMixin):
                 ServerObjectProxy.free(self)
                 raise ValueError
             self._bus_id = bus_id
+        if sync:
+            self.server.sync()
+        return self
 
     @staticmethod
     def audio():

@@ -61,6 +61,7 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
     def allocate(
         self,
         server=None,
+        sync=False,
         ):
         from supriya.tools import servertools
         if self.is_allocated:
@@ -75,6 +76,9 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
             ServerObjectProxy.free(self)
             raise ValueError
         self._bus_id = bus_id
+        if sync:
+            self.server.sync()
+        return self
 
     def free(self):
         from supriya.tools import servertools
