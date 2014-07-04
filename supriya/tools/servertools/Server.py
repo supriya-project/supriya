@@ -157,6 +157,14 @@ class Server(object):
                 return True
         return False
 
+    def __enter__(self):
+        self.boot()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.sync()
+        self.quit()
+
     def __repr__(self):
         if not self.is_running:
             return '<Server: offline>'
