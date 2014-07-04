@@ -6,8 +6,10 @@ from distutils.version import StrictVersion
 
 install_requires = [
     'abjad',
+    'numpy',
     'pexpect',
     'pytest',
+    'python-wavefile',
     'rtmidi-python',
     'sphinx',
     'tox',
@@ -52,8 +54,10 @@ the command-line.
 Python dependencies for all Python versions:
 
 - abjad
+- numpy
 - pexpect
 - pytest
+- python-wavefile
 - rtmidi-python
 - sphinx
 - tox
