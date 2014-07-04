@@ -221,21 +221,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
         ::
 
             >>> from supriya import servertools
-            >>> server = servertools.Server().boot()
-            >>> buffer_ = servertools.Buffer().allocate(
-            ...     frame_count=4,
-            ...     server=server,
-            ...     sync=True,
-            ...     )
-            >>> response = buffer_.get(indices=(1, 2))
-            >>> response.as_dict()
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=4,
+            ...         server=server,
+            ...         sync=True,
+            ...         )
+            ...     response = buffer_.get(indices=(1, 2))
+            ...     response.as_dict()
+            ... 
             OrderedDict([(1, 0.0), (2, 0.0)])
 
-        ::
-
-            >>> server.quit()
-            <Server: offline>
-
+        Returns response.
         '''
         from supriya.tools import responsetools
         from supriya.tools import servertools
@@ -269,23 +266,20 @@ class Buffer(ServerObjectProxy, BufferMixin):
         ::
 
             >>> from supriya import servertools
-            >>> server = servertools.Server().boot()
-            >>> buffer_ = servertools.Buffer().allocate(
-            ...     frame_count=4,
-            ...     server=server,
-            ...     sync=True,
-            ...     )
-            >>> response = buffer_.get_contiguous(
-            ...     index_count_pairs=((0, 2), (1, 3))
-            ...     )
-            >>> response.as_dict()
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=4,
+            ...         server=server,
+            ...         sync=True,
+            ...         )
+            ...     response = buffer_.get_contiguous(
+            ...         index_count_pairs=((0, 2), (1, 3))
+            ...         )
+            ...     response.as_dict()
+            ...
             OrderedDict([(0, (0.0, 0.0)), (1, (0.0, 0.0, 0.0))])
 
-        ::
-
-            >>> server.quit()
-            <Server: offline>
-
+        Returns response.
         '''
 
         from supriya.tools import responsetools
@@ -318,16 +312,31 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def set(
         self,
-        *index_value_pairs
+        index_value_pairs=None,
         ):
-        raise NotImplementedError
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            raise Exception
+        manager = servertools.CommandManager
+        message = manager.make_buffer_set_message(
+            buffer_id=self,
+            index_value_pairs=index_value_pairs,
+            )
+        self.server.send_message(message)
 
     def set_contiguous(
         self,
-        index,
-        *values
+        index_values_pairs=None,
         ):
-        raise NotImplementedError
+        from supriya.tools import servertools
+        if not self.is_allocated:
+            raise Exception
+        manager = servertools.CommandManager
+        message = manager.make_buffer_set_contiguous_message(
+            buffer_id=self,
+            index_values_pairs=index_values_pairs,
+            )
+        self.server.send_message(message)
 
     def write(self):
         raise NotImplementedError
