@@ -72,8 +72,16 @@ class BufferProxy(BufferMixin):
         return self._channel_count
 
     @property
+    def duration_in_seconds(self):
+        return float(self._frame_count) / float(self.sample_rate)
+
+    @property
     def frame_count(self):
         return self._frame_count
+
+    @property
+    def sample_count(self):
+        return self._channel_count * self._frame_count
 
     @property
     def sample_rate(self):

@@ -373,10 +373,24 @@ class Buffer(ServerObjectProxy, BufferMixin):
         return 0
 
     @property
+    def duration_in_seconds(self):
+        if self.is_allocated:
+            proxy = self.server._buffer_proxies[self.buffer_id]
+            return proxy.duration_in_seconds
+        return 0
+
+    @property
     def frame_count(self):
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.frame_count
+        return 0
+
+    @property
+    def sample_count(self):
+        if self.is_allocated:
+            proxy = self.server._buffer_proxies[self.buffer_id]
+            return proxy.sample_count
         return 0
 
     @property
