@@ -423,12 +423,13 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
+            >>> from supriya.tools import soundfiletools
             >>> manager = servertools.CommandManager
             >>> message = manager.make_buffer_write_message(
             ...     buffer_id=23,
             ...     file_path='test.aiff',
-            ...     header_format=servertools.HeaderFormat.AIFF,
-            ...     sample_format=servertools.SampleFormat.INT24,
+            ...     header_format=soundfiletools.HeaderFormat.AIFF,
+            ...     sample_format=soundfiletools.SampleFormat.INT24,
             ...     )
             >>> message
             OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0)
@@ -441,13 +442,14 @@ class CommandManager(object):
         Returns OSC message.
         '''
         from supriya.tools import servertools
+        from supriya.tools import soundfiletools
         command_number = servertools.CommandNumber.BUFFER_WRITE
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         file_path = str(file_path)
-        header_format = servertools.HeaderFormat.from_expr(header_format)
+        header_format = soundfiletools.HeaderFormat.from_expr(header_format)
         header_format = header_format.name.lower()
-        sample_format = servertools.SampleFormat.from_expr(sample_format)
+        sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
         sample_format = sample_format.name.lower()
         if frame_count is None:
             frame_count = -1

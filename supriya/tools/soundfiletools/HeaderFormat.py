@@ -7,18 +7,18 @@ class HeaderFormat(Enumeration):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> servertools.HeaderFormat.AIFF
+        >>> from supriya.tools import soundfiletools
+        >>> soundfiletools.HeaderFormat.AIFF
         <HeaderFormat.AIFF: 0>
 
     ::
 
-        >>> servertools.HeaderFormat.from_expr('wav')
+        >>> soundfiletools.HeaderFormat.from_expr('wav')
         <HeaderFormat.WAV: 4>
 
     ::
 
-        >>> header_format = servertools.HeaderFormat.from_expr('wav')
+        >>> header_format = soundfiletools.HeaderFormat.from_expr('wav')
         >>> header_format.name.lower()
         'wav'
 

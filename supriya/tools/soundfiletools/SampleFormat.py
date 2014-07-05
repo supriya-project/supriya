@@ -7,18 +7,18 @@ class SampleFormat(Enumeration):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> servertools.SampleFormat.INT24
+        >>> from supriya.tools import soundfiletools
+        >>> soundfiletools.SampleFormat.INT24
         <SampleFormat.INT24: 0>
 
     ::
 
-        >>> servertools.SampleFormat.from_expr('float')
+        >>> soundfiletools.SampleFormat.from_expr('float')
         <SampleFormat.FLOAT: 3>
 
     ::
 
-        >>> sample_format = servertools.SampleFormat.INT24
+        >>> sample_format = soundfiletools.SampleFormat.INT24
         >>> sample_format.name.lower()
         'int24'
 
