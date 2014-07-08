@@ -199,11 +199,11 @@ class ResponseManager(SupriyaObject):
         from supriya.tools import responsetools
         items = []
         while contents:
-            starting_bus_index = contents[0]
+            starting_bus_id = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
             item = responsetools.ControlBusSetContiguousItem(
-                starting_bus_index=starting_bus_index,
+                starting_bus_id=starting_bus_id,
                 bus_values=bus_values,
                 )
             items.append(item)
