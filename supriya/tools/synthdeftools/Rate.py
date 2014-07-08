@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.systemtools.Enumeration import Enumeration
 
 
@@ -74,3 +75,9 @@ class Rate(Enumeration):
                 return Rate.CONTROL
             return Rate.from_expr(name)
         raise ValueError(input_)
+
+    @staticmethod
+    def from_ugen_method_mixin(expr):
+        if isinstance(expr, collections.Sequence):
+            return Rate.from_collection(expr)
+        return Rate.from_input(expr)
