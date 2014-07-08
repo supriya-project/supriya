@@ -17,12 +17,13 @@ def test_Bus_set_01(server):
     control_bus = servertools.Bus.control()
     control_bus.allocate()
 
-    response = control_bus.get()
+    result = control_bus.get()
+    assert result == 0.0
 
     control_bus.set(0.5)
-
-    response = control_bus.get()
+    result = control_bus.get()
+    assert result == 0.5
 
     control_bus.set(0.25)
-
-    response = control_bus.get()
+    result = control_bus.get()
+    assert result == 0.25

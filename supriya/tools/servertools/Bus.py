@@ -142,7 +142,9 @@ class Bus(ServerObjectProxy, BusMixin):
             self.server.send_message(message)
         message = wait.received_message
         response = responsetools.ResponseManager.handle_message(message)
-        return response
+        assert len(response) == 1
+        value = response[0].bus_value
+        return value
 
     def set(self, value):
         from supriya.tools import servertools
