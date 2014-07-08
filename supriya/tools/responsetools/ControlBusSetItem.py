@@ -7,7 +7,7 @@ class ControlBusSetItem(SupriyaValueObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_bus_index',
+        '_bus_id',
         '_bus_value',
         )
 
@@ -15,17 +15,17 @@ class ControlBusSetItem(SupriyaValueObject):
 
     def __init__(
         self,
-        bus_index=None,
+        bus_id=None,
         bus_value=None,
         ):
-        self._bus_index = bus_index
+        self._bus_id = bus_id
         self._bus_value = bus_value
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus_index(self):
-        return self._bus_index
+    def bus_id(self):
+        return self._bus_id
 
     @property
     def bus_value(self):

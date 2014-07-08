@@ -8,18 +8,18 @@ class ControlBusSetContiguousItem(SupriyaValueObject):
 
     __slots__ = (
         '_bus_values',
-        '_starting_bus_index',
+        '_starting_bus_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        starting_bus_index=None,
+        starting_bus_id=None,
         bus_values=None
         ):
         self._bus_values = bus_values
-        self._starting_bus_index = starting_bus_index
+        self._starting_bus_id = starting_bus_id
 
     ### PUBLIC PROPERTIES ###
 
@@ -28,5 +28,5 @@ class ControlBusSetContiguousItem(SupriyaValueObject):
         return self._bus_values
 
     @property
-    def starting_bus_index(self):
-        return self._starting_bus_index
+    def starting_bus_id(self):
+        return self._starting_bus_id
