@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class FailResponse(SupriyaValueObject):
+class FailResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -17,7 +17,12 @@ class FailResponse(SupriyaValueObject):
         self,
         failed_command=None,
         failure_reason=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._failed_command = failed_command
         self._failure_reason = failure_reason
 

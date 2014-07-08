@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class DoneResponse(SupriyaValueObject):
+class DoneResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,12 @@ class DoneResponse(SupriyaValueObject):
     def __init__(
         self,
         action=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._action = action
 
     ### PUBLIC PROPERTIES ###

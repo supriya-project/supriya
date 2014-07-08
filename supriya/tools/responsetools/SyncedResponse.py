@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class SyncedResponse(SupriyaValueObject):
+class SyncedResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,12 @@ class SyncedResponse(SupriyaValueObject):
     def __init__(
         self,
         sync_id=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._sync_id = sync_id
 
     ### PUBLIC PROPERTIES ###

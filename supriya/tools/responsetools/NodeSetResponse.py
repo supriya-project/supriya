@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class NodeSetResponse(SupriyaValueObject):
+class NodeSetResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -17,7 +17,12 @@ class NodeSetResponse(SupriyaValueObject):
         self,
         node_id=None,
         items=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._items = items
         self._node_id = node_id
 

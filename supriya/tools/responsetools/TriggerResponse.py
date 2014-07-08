@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class TriggerResponse(SupriyaValueObject):
+class TriggerResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -19,7 +19,12 @@ class TriggerResponse(SupriyaValueObject):
         node_id=None,
         trigger_id=None,
         trigger_value=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._node_id = node_id
         self._trigger_id = trigger_id
         self._trigger_value = trigger_value

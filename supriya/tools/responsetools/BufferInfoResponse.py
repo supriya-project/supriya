@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class BufferInfoResponse(SupriyaValueObject):
+class BufferInfoResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -21,7 +21,12 @@ class BufferInfoResponse(SupriyaValueObject):
         frame_count=None,
         channel_count=None,
         sample_rate=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._buffer_id = buffer_id
         self._frame_count = frame_count
         self._channel_count = channel_count

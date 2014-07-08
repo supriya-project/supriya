@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class SynthDefRemovedResponse(SupriyaValueObject):
+class SynthDefRemovedResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -15,7 +15,12 @@ class SynthDefRemovedResponse(SupriyaValueObject):
     def __init__(
         self,
         synthdef_name=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._synthdef_name = synthdef_name
 
     ### PUBLIC PROPERTIES ###

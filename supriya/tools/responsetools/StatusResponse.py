@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class StatusResponse(SupriyaValueObject):
+class StatusResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -29,7 +29,12 @@ class StatusResponse(SupriyaValueObject):
         peak_cpu_usage=None,
         target_sample_rate=None,
         actual_sample_rate=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._actual_sample_rate = actual_sample_rate
         self._average_cpu_usage = average_cpu_usage
         self._group_count = group_count

@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class BufferSetContiguousResponse(SupriyaValueObject, collections.Sequence):
+class BufferSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -17,8 +17,13 @@ class BufferSetContiguousResponse(SupriyaValueObject, collections.Sequence):
     def __init__(
         self,
         items=None,
-        buffer_id=None
+        buffer_id=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._buffer_id = buffer_id
         self._items = items
 

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class NodeInfoResponse(SupriyaValueObject):
+class NodeInfoResponse(Response):
 
     ### CLASS VARIABLES ###
 
@@ -29,8 +29,13 @@ class NodeInfoResponse(SupriyaValueObject):
         is_group=None,
         head_node_id=None,
         tail_node_id=None,
+        osc_message=None,
         ):
         from supriya.tools import responsetools
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._action = responsetools.NodeAction.from_address(action)
         self._is_group = bool(is_group)
         self._head_node_id = self._coerce_node_id(head_node_id)

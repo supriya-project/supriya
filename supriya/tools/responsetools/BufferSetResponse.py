@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class BufferSetResponse(SupriyaValueObject, collections.Sequence):
+class BufferSetResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -18,7 +18,12 @@ class BufferSetResponse(SupriyaValueObject, collections.Sequence):
         self,
         buffer_id=None,
         items=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._buffer_id = buffer_id
         self._items = items
 

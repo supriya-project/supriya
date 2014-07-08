@@ -26,10 +26,10 @@ class BufferResponseCallback(OscCallback):
 
     def __call__(self, message):
         from supriya.tools import responsetools
-        response = responsetools.ResponseManager.handle_message(message)
-        if not isinstance(response, tuple):
-            response = (response,)
-        for x in response:
-            buffer_id = x.buffer_id
+        responses = responsetools.ResponseManager.handle_message(message)
+        if not isinstance(responses, tuple):
+            responses = (responses,)
+        for response in responses:
+            buffer_id = response.buffer_id
             buffer_proxy = self._server._get_buffer_proxy(buffer_id)
-            buffer_proxy.handle_response(x)
+            buffer_proxy.handle_response(response)

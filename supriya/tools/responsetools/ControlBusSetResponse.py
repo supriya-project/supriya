@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.tools.responsetools.Response import Response
 
 
-class ControlBusSetResponse(SupriyaValueObject, collections.Sequence):
+class ControlBusSetResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
@@ -16,7 +16,12 @@ class ControlBusSetResponse(SupriyaValueObject, collections.Sequence):
     def __init__(
         self,
         items=None,
+        osc_message=None,
         ):
+        Response.__init__(
+            self,
+            osc_message=osc_message,
+            )
         self._items = items
 
     ### SPECIAL METHODS ###

@@ -27,11 +27,8 @@ class NodeResponseCallback(OscCallback):
     def __call__(self, message):
         from supriya.tools import responsetools
         response = responsetools.ResponseManager.handle_message(message)
-        if not isinstance(response, tuple):
-            response = (response,)
-        for x in response:
-            node_id = x.node_id
-            node = self._server._nodes.get(node_id)
-            if node is None:
-                continue
-            node.handle_response(x)
+        node_id = response.node_id
+        node = self._server._nodes.get(node_id)
+        if node is None:
+            return
+        node.handle_response(response)
