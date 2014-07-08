@@ -27,9 +27,16 @@ class ControlBusResponseCallback(OscCallback):
     def __call__(self, message):
         from supriya.tools import responsetools
         response = responsetools.ResponseManager.handle_message(message)
-        if not isinstance(response, tuple):
-            response = (response,)
-        for x in response:
-            bus_id = x.bus_id
-            bus_proxy = self._server._get_control_bus_proxy(bus_id)
-            bus_proxy.handle_response(x)
+        if isinstance(response, responsetools.ControlBusSetResponse):
+            for item in response:
+                bus_id = item.bus_id
+                bus_proxy = self._server._get_control_bus_proxy(bus_id)
+                bus_proxy._value = item.bus_value
+        elif isinstance(response,
+            responsetools.ControlBusSetContiguousResponse):
+            for item in response:
+                starting_bus_id = item.starting_bus_id
+                for i, value in enumerate(item.bus_values):
+                    bus_id = starting_bus_id + i
+                    bus_proxy = self._server._get_control_bus_proxy(bus_id)
+                    bus_proxy._value = value

@@ -116,6 +116,47 @@ class Bus(ServerObjectProxy, BusMixin):
         self._bus_id = None
         ServerObjectProxy.free(self)
 
+    def get(
+        self,
+        completion_callback=None,
+        ):
+        from supriya.tools import responsetools
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        if not self.is_allocated:
+            raise servertools.NotAllocatedError(self)
+        elif not self.rate == synthdeftools.Rate.CONTROL:
+            raise synthdeftools.RateError
+        manager = servertools.CommandManager
+        message = manager.make_control_bus_get_message(
+            indices=(self,),
+            )
+        if callable(completion_callback):
+            raise NotImplementedError
+        wait = servertools.WaitForServer(
+            address_pattern='/c_set',
+            argument_template=(int(self),),
+            server=self.server,
+            )
+        with wait:
+            self.server.send_message(message)
+        message = wait.received_message
+        response = responsetools.ResponseManager.handle_message(message)
+        return response
+
+    def set(self, value):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        if not self.is_allocated:
+            raise servertools.NotAllocatedError(self)
+        elif not self.rate == synthdeftools.Rate.CONTROL:
+            raise synthdeftools.RateError
+        manager = servertools.CommandManager
+        message = manager.make_control_bus_set_message(
+            index_value_pairs=((self, value,),),
+            )
+        self.server.send_message(message)
+
     ### PUBLIC PROPERTIES ###
 
     @property
