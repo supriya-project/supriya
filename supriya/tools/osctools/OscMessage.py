@@ -266,7 +266,8 @@ class OscMessage(SupriyaObject):
         elif isinstance(value, collections.Sequence):
             type_tags, encoded_value = OscMessage._encode_array(value)
         else:
-            raise TypeError
+            message = 'Cannot encode {!r}'.format(value)
+            raise TypeError(message)
         return type_tags, encoded_value
 
     @staticmethod
