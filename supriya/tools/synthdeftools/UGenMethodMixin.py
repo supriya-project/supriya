@@ -166,3 +166,24 @@ class UGenMethodMixin(SupriyaObject):
         if len(result) == 1:
             return result[0]
         return synthdeftools.UGenArray(result)
+
+    ### PUBLIC METHODS ###
+
+    def lag(self, time_one=0.1, time_two=None):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        rate = synthdeftools.Rate.from_ugen_method_mixin(self)
+        if time_two is None:
+            result = ugentools.Lag._new_expanded(
+                rate=rate,
+                source=self,
+                lag_time=time_one,
+                )
+        else:
+            result = ugentools.LagUD._new_expanded(
+                rate=rate,
+                source=self,
+                lag_time_up=time_one,
+                lag_time_down=time_two,
+                )
+        return result
