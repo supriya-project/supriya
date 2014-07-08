@@ -7,7 +7,7 @@ class BusProxy(BusMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_bus_id'
+        '_bus_id',
         '_calculation_rate',
         '_server',
         '_value',
@@ -44,16 +44,6 @@ class BusProxy(BusMixin):
         from abjad.tools import systemtools
         hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
-
-    ### PUBLIC METHODS ###
-
-    def handle_response(self, response):
-        from supriya.tools import responsetools
-        assert response.buffer_id == self.buffer_id
-        if isinstance(response, responsetools.ControlBusSetContiguousResponse):
-            pass
-        elif isinstance(response, responsetools.ControlBusSetResponse):
-            pass
 
     ### PUBLIC PROPERTIES ###
 
