@@ -13,7 +13,6 @@ def server(request):
     return server
 
 
-
 def test_Bus_01(server):
 
     control_bus = servertools.Bus.control()
