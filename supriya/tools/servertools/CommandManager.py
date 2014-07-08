@@ -559,7 +559,7 @@ class CommandManager(object):
 
     @staticmethod
     def make_control_bus_get_message(
-        bus_indices=None,
+        indices=None,
         ):
         r'''Makes a /c_get message.
 
@@ -568,7 +568,7 @@ class CommandManager(object):
             >>> from supriya.tools import servertools
             >>> manager = servertools.CommandManager
             >>> message = manager.make_control_bus_get_message(
-            ...     bus_indices=(0, 4, 8, 12),
+            ...     indices=(0, 4, 8, 12),
             ...     )
             >>> message
             OscMessage(40, 0, 4, 8, 12)
@@ -585,11 +585,11 @@ class CommandManager(object):
         command_number = servertools.CommandNumber.CONTROL_BUS_GET
         command_number = int(command_number)
         contents = [command_number]
-        if bus_indices:
-            for bus_index in bus_indices:
-                bus_index = int(bus_index)
-                assert 0 <= bus_index
-                contents.append(bus_index)
+        if indices:
+            for index in indices:
+                index = int(index)
+                assert 0 <= index
+                contents.append(index)
         message = osctools.OscMessage(*contents)
         return message
 
