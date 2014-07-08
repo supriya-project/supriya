@@ -6,8 +6,7 @@ class SupriyaValueObject(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### SPECIAL METHODS ###
 
