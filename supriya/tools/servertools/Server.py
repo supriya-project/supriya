@@ -481,7 +481,7 @@ class Server(object):
             self.send_message(message)
         message = wait.received_message
         response = responsetools.ResponseManager.handle_message(message)
-        return response
+        return response.query_tree_group
 
     def quit(self):
         from supriya.tools import servertools

@@ -79,27 +79,29 @@ class ResponseManager(SupriyaObject):
 
         >>> message = osctools.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
         >>> manager.handle_message(message)
-        QueryTreeGroup(
-            node_id=0,
-            children=(
-                QueryTreeGroup(
-                    node_id=1,
-                    children=(
-                        QueryTreeGroup(
-                            node_id=1001,
-                            children=()
-                            ),
-                        QueryTreeGroup(
-                            node_id=1000,
-                            children=(
-                                QueryTreeGroup(
-                                    node_id=1002,
-                                    children=()
-                                    ),
-                                )
-                            ),
-                        )
-                    ),
+        QueryTreeResponse(
+            query_tree_group=QueryTreeGroup(
+                node_id=0,
+                children=(
+                    QueryTreeGroup(
+                        node_id=1,
+                        children=(
+                            QueryTreeGroup(
+                                node_id=1001,
+                                children=()
+                                ),
+                            QueryTreeGroup(
+                                node_id=1000,
+                                children=(
+                                    QueryTreeGroup(
+                                        node_id=1002,
+                                        children=()
+                                        ),
+                                    )
+                                ),
+                            )
+                        ),
+                    )
                 )
             )
 
@@ -280,7 +282,10 @@ class ResponseManager(SupriyaObject):
         from supriya.tools import responsetools
         contents = list(contents)
         control_flag = bool(contents.pop(0))
-        response = recurse(contents, control_flag)
+        query_tree_group = recurse(contents, control_flag)
+        response = responsetools.QueryTreeResponse(
+            query_tree_group=query_tree_group,
+            )
         return response
 
     @staticmethod
