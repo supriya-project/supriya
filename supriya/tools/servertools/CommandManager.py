@@ -514,6 +514,217 @@ class CommandManager(object):
         return message
 
     @staticmethod
+    def make_control_bus_fill_message(
+        index_count_value_triples=None,
+        ):
+        r'''Makes a /c_fill message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_control_bus_fill_message(
+            ...     index_count_value_triples=[
+            ...         (0, 8, 0.5),
+            ...         (8, 8, 0.25),
+            ...         ],
+            ...     )
+            >>> message
+            OscMessage(27, 0, 8, 0.5, 8, 8, 0.25)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.CONTROL_BUS_FILL
+            True
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.CONTROL_BUS_FILL
+        command_number = int(command_number)
+        contents = [command_number]
+        if index_count_value_triples:
+            for index, count, value in index_count_value_triples:
+                index = int(index)
+                count = int(count)
+                value = float(value)
+                assert 0 <= index
+                assert 0 < count
+                contents.append(index)
+                contents.append(count)
+                contents.append(value)
+        message = osctools.OscMessage(*contents)
+        return message
+
+    @staticmethod
+    def make_control_bus_get_message(
+        bus_indices=None,
+        ):
+        r'''Makes a /c_get message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_control_bus_get_message(
+            ...     bus_indices=(0, 4, 8, 12),
+            ...     )
+            >>> message
+            OscMessage(40, 0, 4, 8, 12)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.CONTROL_BUS_GET
+            True
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.CONTROL_BUS_GET
+        command_number = int(command_number)
+        contents = [command_number]
+        if bus_indices:
+            for bus_index in bus_indices:
+                bus_index = int(bus_index)
+                assert 0 <= bus_index
+                contents.append(bus_index)
+        message = osctools.OscMessage(*contents)
+        return message
+
+    @staticmethod
+    def make_control_bus_get_contiguous_message(
+        index_count_pairs=None,
+        ):
+        r'''Makes a /c_getn message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_control_bus_get_contiguous_message(
+            ...     index_count_pairs=[
+            ...         (0, 2),
+            ...         (4, 2),
+            ...         (8, 2),
+            ...         (12, 2),
+            ...         ],
+            ...     )
+            >>> message
+            OscMessage(41, 0, 2, 4, 2, 8, 2, 12, 2)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.CONTROL_BUS_GET_CONTIGUOUS
+            True
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.CONTROL_BUS_GET_CONTIGUOUS
+        command_number = int(command_number)
+        contents = [command_number]
+        if index_count_pairs:
+            for index, count in index_count_pairs:
+                index = int(index)
+                count = int(count)
+                contents.append(index)
+                contents.append(count)
+        message = osctools.OscMessage(*contents)
+        return message
+
+    @staticmethod
+    def make_control_bus_set_message(
+        index_value_pairs=None,
+        ):
+        r'''Makes a /c_set message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_control_bus_set_message(
+            ...     index_value_pairs=[
+            ...         (0, 0.1),
+            ...         (1, 0.2),
+            ...         (1, 0.3),
+            ...         (1, 0.4),
+            ...         ],
+            ...     )
+            >>> message
+            OscMessage(25, 0, 0.1, 1, 0.2, 1, 0.3, 1, 0.4)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.CONTROL_BUS_SET
+            True
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.CONTROL_BUS_SET
+        command_number = int(command_number)
+        contents = [command_number]
+        if index_value_pairs:
+            for index, value in index_value_pairs:
+                index = int(index)
+                assert 0 <= index
+                value = float(value)
+                contents.append(index)
+                contents.append(value)
+        message = osctools.OscMessage(*contents)
+        return message
+
+    @staticmethod
+    def make_control_bus_set_contiguous_message(
+        index_values_pairs=None,
+        ):
+        r'''Makes a /c_setn message.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> manager = servertools.CommandManager
+            >>> message = manager.make_control_bus_set_contiguous_message(
+            ...     index_values_pairs=[
+            ...         (0, (0.1, 0.2, 0.3)),
+            ...         (4, (0.4, 0.5, 0.6)),
+            ...         ],
+            ...     )
+            >>> message
+            OscMessage(26, 0, 3, 0.1, 0.2, 0.3, 4, 3, 0.4, 0.5, 0.6)
+
+        ::
+
+            >>> message.address == \
+            ...     servertools.CommandNumber.CONTROL_BUS_SET_CONTIGUOUS
+            True
+
+        Returns OSC message.
+        '''
+        from supriya.tools import servertools
+        command_number = servertools.CommandNumber.CONTROL_BUS_SET_CONTIGUOUS
+        command_number = int(command_number)
+        contents = [command_number]
+        if index_values_pairs:
+            for index, values in index_values_pairs:
+                index = int(index)
+                assert 0 <= index
+                count = len(values)
+                if not count:
+                    continue
+                contents.append(index)
+                contents.append(count)
+                for value in values:
+                    value = float(value)
+                    contents.append(value)
+        message = osctools.OscMessage(*contents)
+        return message
+
+    @staticmethod
     def make_dump_osc_message(osc_status):
         r'''Makes a /dumpOSC message.
 
