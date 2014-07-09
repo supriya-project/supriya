@@ -11,7 +11,6 @@ class Response(SupriyaValueObject):
         )
 
     _address = None
-    _request_prototype = None
 
     ### INITIALIZER ###
 
