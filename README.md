@@ -33,12 +33,12 @@ it may work with earlier versions as well.
 
 **supriya** has the following Python dependencies for all Python versions:
 
-- abjad
-- pexpect
-- pytest
-- rtmidi-python
-- sphinx
-- tox
+- `abjad`
+- `pexpect`
+- `pytest`
+- `rtmidi-python`
+- `sphinx`
+- `tox`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.
