@@ -118,7 +118,7 @@ class UGen(UGenMethodMixin):
                 const_1:0.0 -> 1_SinOsc[1:phase]
                 0_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
                 1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
-                const_1:0.0 -> 3_Out[0]
+                const_1:0.0 -> 3_Out[0:bus]
                 2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1]
             }
 
