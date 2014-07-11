@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.osctools.OscCallback import OscCallback
+from supriya.tools.responsetools.ResponseCallback import ResponseCallback
 
 
-class ControlBusResponseCallback(OscCallback):
+class ControlBusResponseCallback(ResponseCallback):
 
     ### CLASS VARIABLES ###
 
@@ -13,20 +13,24 @@ class ControlBusResponseCallback(OscCallback):
     ### INITIALIZER ###
 
     def __init__(self, server):
+        from supriya.tools import responsetools
         from supriya.tools import servertools
-        OscCallback.__init__(
+        ResponseCallback.__init__(
             self,
-            address_pattern='/c_(set|setn)',
+            #address_pattern='/c_(set|setn)',
             procedure=self.__call__,
+            response_prototype=(
+                responsetools.ControlBusSetContiguousResponse,
+                responsetools.ControlBusSetResponse,
+                ),
             )
         assert isinstance(server, servertools.Server)
         self._server = server
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, message):
+    def __call__(self, response):
         from supriya.tools import responsetools
-        response = responsetools.ResponseManager.handle_message(message)
         if isinstance(response, responsetools.ControlBusSetResponse):
             for item in response:
                 bus_id = item.bus_id
@@ -40,3 +44,9 @@ class ControlBusResponseCallback(OscCallback):
                     bus_id = starting_bus_id + i
                     bus_proxy = self._server._get_control_bus_proxy(bus_id)
                     bus_proxy._value = value
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def server(self):
+        return self._server

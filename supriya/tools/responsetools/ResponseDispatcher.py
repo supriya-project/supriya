@@ -18,13 +18,19 @@ class ResponseDispatcher(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, response):
-        callbacks = self._response_map.get(None)
-        callbacks += self._response_map.get(type(response), [])
-        for callback in callbacks:
-            callback(response)
-            if callback.is_one_shot:
-                self.unregister_callback(callback)
+    def __call__(self, expr):
+        from supriya.tools import responsetools
+        if not isinstance(expr, responsetools.Response):
+            response = responsetools.ResponseManager.handle_message(expr)
+        if not isinstance(response, tuple):
+            response = (response,)
+        for x in response:
+            callbacks = self._response_map.get(None, [])
+            callbacks += self._response_map.get(type(x), [])
+            for callback in callbacks:
+                callback(x)
+                if callback.is_one_shot:
+                    self.unregister_callback(callback)
 
     ### PUBLIC METHODS ###
 
