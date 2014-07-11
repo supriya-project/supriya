@@ -419,6 +419,85 @@ class SynthDef(ServerObjectProxy):
         synthdef = builder.build()
         return synthdef
 
+    @property
+    def graphviz_format(self):
+        graphviz_graph = self.graphviz_graph
+        graphviz_format = graphviz_graph.graphviz_format
+        return graphviz_format
+
+    @property
+    def graphviz_graph(self):
+        from abjad.tools import documentationtools
+        from supriya.tools import synthdeftools
+        graph = documentationtools.GraphvizGraph(
+            name=self.actual_name,
+            )
+        graph.node_attributes['shape'] = 'Mrecord'
+        ugens = {}
+        for ugen in self.ugens:
+            ugen_index = self.ugens.index(ugen)
+            node = documentationtools.GraphvizNode(
+                name='ugen_{}'.format(ugen_index),
+                )
+            group = documentationtools.GraphvizGroup()
+            if ugen.inputs:
+                inputs = documentationtools.GraphvizGroup(
+                    name='inputs'.format(ugen_index),
+                    )
+                for i, input_ in enumerate(ugen.inputs):
+                    label = ''
+                    input_name = None 
+                    if i < len(ugen._ordered_input_names):
+                        input_name = ugen._ordered_input_names[i]
+                    if input_name:
+                        if isinstance(input_, float):
+                            label = r'{}:\n{}'.format(input_name, input_)
+                        else:
+                            label = input_name
+                    elif isinstance(input_, float):
+                        label = str(input_)
+                    label = label or None
+                    field = documentationtools.GraphvizField(
+                        label=label,
+                        name='ugen_{}_input_{}'.format(ugen_index, i),
+                        )
+                    inputs.append(field)
+                group.append(inputs)
+            title = documentationtools.GraphvizField(
+                label='{}.{}'.format(
+                    type(ugen).__name__,
+                    ugen.rate.name.lower(),
+                    ),
+                )
+            group.append(title)
+            if ugen.outputs:
+                outputs = documentationtools.GraphvizGroup(
+                    name='outputs'.format(ugen_index),
+                    )
+                for i, output in enumerate(ugen.outputs):
+                    field = documentationtools.GraphvizField(
+                        label=str(i),
+                        name='ugen_{}_output_{}'.format(ugen_index, i),
+                        )
+                    outputs.append(field)
+                group.append(outputs)
+            node.append(group)
+            ugens[ugen] = node
+            graph.append(node)
+        for ugen in self.ugens:
+            tail_node = ugens[ugen]
+            for i, input_ in enumerate(ugen.inputs):
+                if not isinstance(input_, synthdeftools.OutputProxy):
+                    continue
+                tail_field = tail_node['inputs'][i]
+                head_node = ugens[input_.source]
+                head_field = head_node['outputs'][input_.output_index]
+                edge = documentationtools.GraphvizEdge()
+                edge(head_field, tail_field)
+                edge.head_port_position = 'n'
+                edge.tail_port_position = 's'
+        return graph
+
     def play(self, server=None, **kwargs):
         r'''Plays the synthdef on the server.
 
