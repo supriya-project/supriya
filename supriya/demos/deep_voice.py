@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # -*- encoding: utf-8 -*-
+from abjad import *
 from supriya import servertools
 from supriya import synthdeftools
 from supriya import ugentools
@@ -63,3 +64,4 @@ def run_demo():
 
 if __name__ == '__main__':
     server, synthdef, synth = run_demo()
+    topleveltools.graph(synthdef)
