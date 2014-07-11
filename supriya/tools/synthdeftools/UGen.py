@@ -63,7 +63,8 @@ class UGen(UGenMethodMixin):
             if self._unexpanded_input_names and \
                 input_name in self._unexpanded_input_names:
                 prototype += (tuple,)
-            assert isinstance(input_value, prototype), input_value
+            assert isinstance(input_value, prototype), \
+                (input_name, input_value)
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
@@ -348,13 +349,17 @@ class UGen(UGenMethodMixin):
         return tuple(self._inputs)
 
     @property
-    def signal_range(self):
-        from supriya.tools import synthdeftools
-        return synthdeftools.SignalRange.BIPOLAR
+    def outputs(self):
+        return tuple(self._get_outputs())
 
     @property
     def rate(self):
         return self._calculation_rate
+
+    @property
+    def signal_range(self):
+        from supriya.tools import synthdeftools
+        return synthdeftools.SignalRange.BIPOLAR
 
     @property
     def special_index(self):

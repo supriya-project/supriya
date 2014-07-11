@@ -22,7 +22,13 @@ class Out(UGen):
 
     __slots__ = ()
 
-    _unexpanded_input_names = ('source',)
+    _ordered_input_names = (
+        'bus',
+        )
+
+    _unexpanded_input_names = (
+        'source',
+        )
 
     ### INITIALIZER ###
 
@@ -34,9 +40,9 @@ class Out(UGen):
         ):
         UGen.__init__(
             self,
+            bus=bus,
             rate=rate,
             )
-        self._configure_input('bus', bus)
         if not isinstance(source, collections.Sequence):
             source = [source]
         for single_source in source:
@@ -55,8 +61,11 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
+        if isinstance(bus, servertools.BusMixin):
+            bus = int(bus)
         return cls._new_expanded(
             bus=bus,
             rate=rate,
@@ -69,8 +78,11 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
+        if isinstance(bus, servertools.BusMixin):
+            bus = int(bus)
         return cls._new_expanded(
             bus=bus,
             rate=rate,

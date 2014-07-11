@@ -79,13 +79,19 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
+        if isinstance(bus, servertools.BusMixin):
+            if isinstance(bus, servertools.BusGroup):
+                channel_count = len(bus)
+            else:
+                channel_count = 1
+            bus = int(bus)
         ugen = cls._new_expanded(
-            rate=rate,
-            special_index=0,
             bus=bus,
             channel_count=channel_count,
+            rate=rate,
             )
         return ugen
 
@@ -95,13 +101,19 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
+        if isinstance(bus, servertools.BusMixin):
+            if isinstance(bus, servertools.BusGroup):
+                channel_count = len(bus)
+            else:
+                channel_count = 1
+            bus = int(bus)
         ugen = cls._new_expanded(
-            rate=rate,
-            special_index=0,
             bus=bus,
             channel_count=channel_count,
+            rate=rate,
             )
         return ugen
 
