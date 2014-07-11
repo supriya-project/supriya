@@ -63,7 +63,8 @@ class UGen(UGenMethodMixin):
             if self._unexpanded_input_names and \
                 input_name in self._unexpanded_input_names:
                 prototype += (tuple,)
-            assert isinstance(input_value, prototype), input_value
+            assert isinstance(input_value, prototype), \
+                (input_name, input_value)
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
