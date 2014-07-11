@@ -5,6 +5,8 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
+![SynthDef Graph](/graph.png)
+
 Installation
 ------------
 
@@ -290,4 +292,3 @@ Distant Roadmap
 - [ ] Non-realtime composition
     - [ ] NRTScore
     - [ ] NRT node graph time slicing?
-
