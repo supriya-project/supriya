@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Supriya by Pulgama</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Supriya</h1>
+        <p>A Python interface to SuperCollider</p>
+
+        <p class="view"><a href="https://github.com/Pulgama/supriya">View the Project on GitHub <small>Pulgama/supriya</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/Pulgama/supriya/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/Pulgama/supriya/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/Pulgama/supriya">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a name="supriya" class="anchor" href="#supriya"><span class="octicon octicon-link"></span></a>supriya</h1>
+
+<p>A Python interface to SuperCollider.</p>
+
+<p>Tested and compatible with Python 2.7, 3.3 and 3.4.</p>
+
+<p><img src="/graph.png" alt="SynthDef Graph"></p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>To install, simply clone <strong>supriya</strong> and run the included <code>setup.py</code>:</p>
+
+<pre><code>~$ git clone https://github.com/Pulgama/supriya.git
+~$ cd supriya
+supriya$ sudo python setup.py install
+</code></pre>
+
+<p>To run the test suite:</p>
+
+<pre><code>supriya$ tox 
+</code></pre>
+
+<h2>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
+
+<p>Make sure that SuperCollider is installed, and that <code>scsynth</code> is available from
+the command-line.</p>
+
+<p>Python dependencies for all Python versions:</p>
+
+<ul>
+<li>abjad</li>
+<li>pexpect</li>
+<li>pytest</li>
+<li>rtmidi-python</li>
+<li>sphinx</li>
+<li>tox</li>
+</ul><p>On Python 2.7:</p>
+
+<ul>
+<li>funcsigs</li>
+<li>enum34</li>
+</ul><p>On Python 3.3:</p>
+
+<ul>
+<li>enum34</li>
+</ul><h2>
+<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<p>Import packages from <strong>supriya</strong>:</p>
+
+<pre><code>&gt;&gt;&gt; from supriya import servertools
+&gt;&gt;&gt; from supriya import synthdeftools
+&gt;&gt;&gt; from supriya import ugentools
+</code></pre>
+
+<p>Boot the SuperCollider server:</p>
+
+<pre><code>&gt;&gt;&gt; server = servertools.Server()
+&gt;&gt;&gt; server.boot()
+&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;
+</code></pre>
+
+<p>Create and allocate a group:</p>
+
+<pre><code>&gt;&gt;&gt; group = servertools.Group().allocate()
+</code></pre>
+
+<p>Make a synthesizer definition and send it to the server:</p>
+
+<pre><code>&gt;&gt;&gt; synthdef_builder = synthdeftools.SynthDefBuilder(
+...     amplitude=0.0,
+...     frequency=440.0,
+...     )
+&gt;&gt;&gt; sin_osc = ugentools.SinOsc.ar(
+...     frequency=synthdef_builder['frequency'],
+...     )
+&gt;&gt;&gt; sin_osc *= synthdef_builder['amplitude']
+&gt;&gt;&gt; out = ugentools.Out.ar(
+...     bus=(0, 1),
+...     source=sin_osc,
+...     )
+&gt;&gt;&gt; synthdef_builder.add_ugen(out)
+&gt;&gt;&gt; synthdef = synthdef_builder.build().allocate(sync=True)
+</code></pre>
+
+<p>Synchronize with the server:</p>
+
+<pre><code>&gt;&gt;&gt; server.sync()
+&lt;Server: udp://127.0.0.1:57751, 8i8o&gt;
+</code></pre>
+
+<p>Create a synthesizer with the previously defined synthesizer definition, and
+allocate it on the server as a child of the previously created group:</p>
+
+<pre><code>&gt;&gt;&gt; synth = servertools.Synth(synthdef)
+&gt;&gt;&gt; synth.allocate(target_node=group)
+&lt;Synth: 1001&gt;
+</code></pre>
+
+<p>Query the server's node tree:</p>
+
+<pre><code>&gt;&gt;&gt; response = server.query_remote_nodes(include_controls=True)
+&gt;&gt;&gt; print(response)
+NODE TREE 0 group
+    1 group
+        1000 group
+            1001 f1c3ea5063065be20688f82b415c1108
+                amplitude: 0.0, frequency: 440.0
+</code></pre>
+
+<p>Quit the server:</p>
+
+<pre><code>&gt;&gt;&gt; server.quit()
+&lt;Server: offline&gt;
+</code></pre>
+
+<h2>
+<a name="current-roadmap" class="anchor" href="#current-roadmap"><span class="octicon octicon-link"></span></a>Current Roadmap</h2>
+
+<ul>
+<li>[X] Cleanup server object proxies
+
+<ul>
+<li>[X] BufferGroup, Buffer, BufferProxy</li>
+<li>[X] BusGroup, Bus, BusProxy (for both Audio and Control buses)</li>
+<li>[X] SynthControl
+
+<ul>
+<li>[X] QueryTreeControl.from_control()</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>[X] Make SynthDef immutable
+
+<ul>
+<li>[X] Implement SynthDefBuilder</li>
+<li>[X] Implement Parameter class (model a single control name, value, rate)</li>
+<li>[X] Implement AudioControl and TrigControl UGens</li>
+</ul>
+</li>
+<li>[ ] Explicitly object model Server requests</li>
+<li>[ ] Implement complete Buffer API
+
+<ul>
+<li>[ ] <code>/b_alloc</code>
+</li>
+<li>[ ] <code>/b_allocRead</code>, <code>/b_allocReadChannel</code>
+</li>
+<li>[ ] <code>/b_read</code>, <code>/b_readChannel</code>
+</li>
+<li>[ ] <code>/b_write</code>, <code>/b_close</code>
+</li>
+<li>[ ] <code>/b_get</code>, <code>/b_getn</code>
+</li>
+<li>[ ] <code>/b_set</code>, <code>/b_setn</code>
+</li>
+<li>[ ] <code>/b_query</code>
+</li>
+<li>[ ] <code>/b_gen</code>, <code>/b_fill</code>, <code>/b_zero</code>
+</li>
+<li>[ ] <code>/b_free</code>
+</li>
+</ul>
+</li>
+<li>[ ] Implement complete Bus(-related) API
+
+<ul>
+<li>[ ] <code>/c_set</code>, <code>/c_setn</code>
+</li>
+<li>[ ] <code>/c_fill</code>
+</li>
+<li>[ ] <code>/c_get</code>, <code>/c_getn</code>
+</li>
+<li>[ ] <code>/n_map</code>, <code>/n_mapn</code>
+</li>
+<li>[ ] <code>/n_mapa</code>, <code>/n_mapan</code>
+</li>
+</ul>
+</li>
+<li>[ ] Implement all UGen binary operators</li>
+<li>[ ] Implement all UGen unary operators</li>
+<li>[ ] MIDI callbacks</li>
+<li>[ ] Port all UGens
+
+<ul>
+<li>[X] AudioIn.sc</li>
+<li>[ ] BasicOpsUGen.sc</li>
+<li>[ ] BEQSuite.sc</li>
+<li>[ ] BufIO.sc</li>
+<li>[ ] Chaos.sc</li>
+<li>[ ] CheckBadValues.sc</li>
+<li>[ ] Compander.sc</li>
+<li>[X] Delays.sc</li>
+<li>[ ] DelayWr.sc</li>
+<li>[ ] Demand.sc</li>
+<li>[ ] DiskIO.sc</li>
+<li>[ ] EnvGen.sc</li>
+<li>[ ] FFT.sc</li>
+<li>[ ] Filter.sc</li>
+<li>[ ] FreeVerb.sc</li>
+<li>[ ] FSinOsc.sc</li>
+<li>[ ] Gendyn.sc</li>
+<li>[ ] GrainUGens.sc</li>
+<li>[ ] GVerb.sc</li>
+<li>[ ] Hilbert.sc</li>
+<li>[X] InfoUGens.sc</li>
+<li>[ ] InOut.sc</li>
+<li>[ ] Line.sc</li>
+<li>[ ] MachineListening.sc</li>
+<li>[ ] MacUGens.sc</li>
+<li>[ ] Mix.sc</li>
+<li>[ ] MoogFF.sc</li>
+<li>[ ] Noise.sc</li>
+<li>[ ] Osc.sc</li>
+<li>[ ] Pan.sc</li>
+<li>[ ] PhysicalModel.sc</li>
+<li>[X] PitchShift.sc</li>
+<li>[ ] Pluck.sc</li>
+<li>[ ] Poll.sc</li>
+<li>[ ] PSinGraph.sc</li>
+<li>[ ] Splay.sc</li>
+<li>[ ] Trig.sc</li>
+<li>[ ] UGen.sc</li>
+</ul>
+</li>
+<li>[ ] Implement appropriate UGen input checking</li>
+<li>[ ] Port all UGen examples</li>
+<li>[ ] Write SynthDef compilation/sending tests to scsynth for all UGens</li>
+<li>[ ] Implement tempo-accurate clocks and scheduled OSCBundle logic</li>
+</ul><h2>
+<a name="distant-roadmap" class="anchor" href="#distant-roadmap"><span class="octicon octicon-link"></span></a>Distant Roadmap</h2>
+
+<ul>
+<li>[ ] PySide-based GUI generation</li>
+<li>[ ] Kivy-based GUI generation</li>
+<li>[ ] Non-realtime composition
+
+<ul>
+<li>[ ] NRTScore</li>
+<li>[ ] NRT node graph time slicing?</li>
+</ul>
+</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/Pulgama">Pulgama</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
