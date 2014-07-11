@@ -430,7 +430,7 @@ class SynthDef(ServerObjectProxy):
         from abjad.tools import documentationtools
         from supriya.tools import synthdeftools
         graph = documentationtools.GraphvizGraph(
-            name=self.actual_name,
+            name='synthdef_{}'.format(self.actual_name),
             )
         graph.node_attributes['shape'] = 'Mrecord'
         ugens = {}
