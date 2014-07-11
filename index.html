@@ -35,7 +35,7 @@
 
 <p>Tested and compatible with Python 2.7, 3.3 and 3.4.</p>
 
-<p><img src="/graph.png" alt="SynthDef Graph"></p>
+<p><img src="/images/graph.png" alt="SynthDef Graph"></p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -56,27 +56,29 @@ supriya$ sudo python setup.py install
 <a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h2>
 
 <p>Make sure that SuperCollider is installed, and that <code>scsynth</code> is available from
-the command-line.</p>
+the command-line. <strong>supriya</strong> targets SuperCollider 3.6.5 and above, although
+it may work with earlier versions as well.</p>
 
-<p>Python dependencies for all Python versions:</p>
+<pre><code>~$ scsynth -h
+supercollider_synth  options:
+...
+</code></pre>
 
-<ul>
-<li>abjad</li>
-<li>pexpect</li>
-<li>pytest</li>
-<li>rtmidi-python</li>
-<li>sphinx</li>
-<li>tox</li>
-</ul><p>On Python 2.7:</p>
+<p><strong>supriya</strong> has the following Python dependencies for all Python versions:</p>
 
 <ul>
-<li>funcsigs</li>
-<li>enum34</li>
-</ul><p>On Python 3.3:</p>
+<li><code>abjad</code></li>
+<li><code>pexpect</code></li>
+<li><code>pytest</code></li>
+<li><code>rtmidi-python</code></li>
+<li><code>sphinx</code></li>
+<li><code>tox</code></li>
+</ul><p>Additionally, <strong>supriya</strong> requires <code>funcsigs</code> with Python 2.7, and <code>enum34</code> for
+both Python 2.7 and Python 3.3.</p>
 
-<ul>
-<li>enum34</li>
-</ul><h2>
+<p><strong>supriya</strong> has not been tested with Python 3.x versions earlier than 3.3.</p>
+
+<h2>
 <a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h2>
 
 <p>Import packages from <strong>supriya</strong>:</p>
