@@ -64,4 +64,5 @@ def run_demo():
 
 if __name__ == '__main__':
     server, synthdef, synth = run_demo()
-    topleveltools.graph(synthdef)
+    graph = synthdef.as_graphviz_graph()
+    topleveltools.graph(graph)
