@@ -368,6 +368,11 @@ class SynthDef(ServerObjectProxy):
             self.server.sync()
         return self
 
+    def as_graphviz_graph(self):
+        from supriya.tools import graphviztools
+        graphviz_graph = graphviztools.SynthDefGrapher.graph(self)
+        return graphviz_graph
+
     def compile(self):
         from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = [self]
@@ -418,11 +423,6 @@ class SynthDef(ServerObjectProxy):
             builder.add_ugen(ugens)
         synthdef = builder.build()
         return synthdef
-
-    def as_graphviz_graph(self):
-        from supriya.tools import graphviztools
-        graphviz_graph = graphviztools.SynthDefGrapher.graph(self)
-        return graphviz_graph
 
     def play(self, server=None, **kwargs):
         r'''Plays the synthdef on the server.
