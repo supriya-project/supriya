@@ -3,7 +3,7 @@ import collections
 from supriya.tools.responsetools.Response import Response
 
 
-class CSetnResponse(Response, collections.Sequence):
+class ControlBusSetContiguousResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
