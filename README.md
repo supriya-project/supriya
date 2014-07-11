@@ -31,7 +31,7 @@ it may work with earlier versions as well.
     supercollider_synth  options:
     ...
 
-Python dependencies for all Python versions:
+**supriya** has the following Python dependencies for all Python versions:
 
 - abjad
 - pexpect
@@ -40,14 +40,10 @@ Python dependencies for all Python versions:
 - sphinx
 - tox
 
-On Python 2.7:
+Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
+both Python 2.7 and Python 3.3.
 
-- funcsigs
-- enum34
-
-On Python 3.3:
-
-- enum34
+**supriya** has not been tested with Python 3.x versions earlier than 3.3.
 
 Example
 -------
