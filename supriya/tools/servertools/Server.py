@@ -44,6 +44,7 @@ class Server(object):
         '_osc_controller',
         '_osc_dispatcher',
         '_port',
+        '_response_dispatcher',
         '_root_node',
         '_server_options',
         '_server_process',
@@ -88,13 +89,14 @@ class Server(object):
 
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
+        self._response_dispatcher = responsetools.ResponseDispatcher()
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
             responsetools.NodeResponseCallback(self),
             responsetools.SynthDefResponseCallback(self),
             ):
-            self.register_osc_callback(callback)
+            self.register_response_callback(callback)
 
         fail_callback = osctools.OscCallback(
             address_pattern='/fail',
@@ -505,6 +507,9 @@ class Server(object):
     def register_osc_callback(self, osc_callback):
         self._osc_dispatcher.register_osc_callback(osc_callback)
 
+    def register_response_callback(self, response_callback):
+        self._response_dispatcher.register_response_callback(response_callback)
+
     def send_message(self, message):
         #from supriya.tools import osctools
         if not message or not self.is_running:
@@ -534,6 +539,10 @@ class Server(object):
 
     def unregister_osc_callback(self, osc_callback):
         self._osc_dispatcher.unregister_osc_callback(osc_callback)
+
+    def unregister_response_callback(self, response_callback):
+        self._response_dispatcher.unregister_response_callback(
+            response_callback)
 
     ### PUBLIC PROPERTIES ###
 
