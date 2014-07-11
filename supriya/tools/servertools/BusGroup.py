@@ -21,12 +21,12 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
     def __init__(
         self,
         bus_count=1,
+        bus_id=None,
         rate=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
-        self._bus_id = None
         rate = synthdeftools.Rate.from_expr(
             rate)
         self._calculation_rate = rate
@@ -39,11 +39,23 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
                 )
             for _ in range(bus_count)
             )
+        assert isinstance(bus_id, (type(None), int))
+        self._bus_id = bus_id
 
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        return self._buses[item]
+        if isinstance(item, int):
+            return self._buses[item]
+        elif isinstance(item, slice):
+            indices = item.indices(len(self))
+            bus_count = indices[1] - indices[0]
+            bus_group = BusGroup(
+                bus_count=bus_count,
+                bus_id=self.bus_id,
+                rate=self.rate,
+                )
+            return bus_group
 
     def __len__(self):
         return len(self._buses)
