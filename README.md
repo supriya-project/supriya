@@ -24,7 +24,12 @@ Dependencies
 ------------
 
 Make sure that SuperCollider is installed, and that `scsynth` is available from
-the command-line.
+the command-line. **supriya** targets SuperCollider 3.6.5 and above, although
+it may work with earlier versions as well.
+
+    ~$ scsynth -h
+    supercollider_synth  options:
+    ...
 
 Python dependencies for all Python versions:
 
