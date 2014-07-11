@@ -18,7 +18,7 @@ class OscDispatcher(SupriyaObject):
         ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
-        >>> dispatcher.register_osc_callback(osc_callback)
+        >>> dispatcher.register_callback(osc_callback)
 
     ::
 
@@ -28,7 +28,7 @@ class OscDispatcher(SupriyaObject):
 
     ::
 
-        >>> dispatcher.unregister_osc_callback(osc_callback)
+        >>> dispatcher.unregister_callback(osc_callback)
         >>> dispatcher(message)
 
     '''
@@ -73,7 +73,7 @@ class OscDispatcher(SupriyaObject):
                     continue
             callback(message)
             if callback.is_one_shot:
-                self.unregister_osc_callback(callback)
+                self.unregister_callback(callback)
 
     ### PUBLIC METHODS ###
 
@@ -85,7 +85,7 @@ class OscDispatcher(SupriyaObject):
         pattern = re.compile(pattern)
         return pattern
 
-    def register_osc_callback(self, osc_callback):
+    def register_callback(self, osc_callback):
         r'''Registers `osc_callback`.
 
         Returns none.
@@ -103,7 +103,7 @@ class OscDispatcher(SupriyaObject):
         if osc_callback not in osc_callbacks:
             osc_callbacks.append(osc_callback)
 
-    def unregister_osc_callback(self, osc_callback):
+    def unregister_callback(self, osc_callback):
         r'''Unregisters `osc_callback`.
 
         Returns none.

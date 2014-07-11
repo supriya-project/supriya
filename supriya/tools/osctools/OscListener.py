@@ -41,13 +41,15 @@ class OscListener(SupriyaObject, threading.Thread):
     def run(self):
         self.running = True
         self.client.socket_instance.settimeout(0.5)
-        dispatcher = self.client.server._osc_dispatcher
+        osc_dispatcher = self.client.server._osc_dispatcher
+        response_dispatcher = self.client.server._response_dispatcher
         try:
             while self.running:
                 message = self.get_message()
                 if message is None:
                     continue
-                dispatcher(message)
+                osc_dispatcher(message)
+                response_dispatcher(message)
         except:
             sys.stderr.write('Exception in listener thread:\n')
             traceback.print_exc()

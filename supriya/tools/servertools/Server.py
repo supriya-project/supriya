@@ -87,9 +87,9 @@ class Server(object):
 
         ### OSC MESSAGING ###
 
+        self._response_dispatcher = responsetools.ResponseDispatcher()
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
-        self._response_dispatcher = responsetools.ResponseDispatcher()
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
@@ -505,10 +505,10 @@ class Server(object):
         return self
 
     def register_osc_callback(self, osc_callback):
-        self._osc_dispatcher.register_osc_callback(osc_callback)
+        self._osc_dispatcher.register_callback(osc_callback)
 
     def register_response_callback(self, response_callback):
-        self._response_dispatcher.register_response_callback(response_callback)
+        self._response_dispatcher.register_callback(response_callback)
 
     def send_message(self, message):
         #from supriya.tools import osctools
@@ -538,11 +538,10 @@ class Server(object):
         return self
 
     def unregister_osc_callback(self, osc_callback):
-        self._osc_dispatcher.unregister_osc_callback(osc_callback)
+        self._osc_dispatcher.unregister_callback(osc_callback)
 
     def unregister_response_callback(self, response_callback):
-        self._response_dispatcher.unregister_response_callback(
-            response_callback)
+        self._response_dispatcher.unregister_callback(response_callback)
 
     ### PUBLIC PROPERTIES ###
 
