@@ -19,7 +19,14 @@ class Control(MultiOutUGen):
         rate=None,
         starting_control_index=0,
         ):
-        self._control_names = tuple(sorted(str(x) for x in control_names))
+        from supriya.tools import synthdeftools
+        names = [] 
+        for x in control_names:
+            if isinstance(x, synthdeftools.Parameter):
+                x = x.name
+            names.append(str(x))
+        names.sort()
+        self._control_names = tuple(names)
         MultiOutUGen.__init__(
             self,
             channel_count=len(control_names),
