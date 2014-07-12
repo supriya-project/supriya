@@ -90,6 +90,51 @@ class Bus(ServerObjectProxy, BusMixin):
             self.server.sync()
         return self
 
+    def ar(self):
+        r'''Creates an audio-rate input ugen subgraph.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> audio_bus = servertools.Bus(8, 'audio')
+            >>> ugen = audio_bus.ar()
+            >>> print(str(ugen))
+            SynthDef fb63450852ac2df2fad1242e27a913d6 {
+                const_0:8.0 -> 0_In[0:bus]
+            }
+
+        ::
+
+            >>> control_bus = servertools.Bus(8, 'control')
+            >>> ugen = control_bus.ar()
+            >>> print(str(ugen))
+            SynthDef d48f76506e364201100db95a248cc8e2 {
+                const_0:8.0 -> 0_In[0:bus]
+                0_In[0] -> 1_K2A[0:source]
+            }
+
+        Returns ugen.
+        '''
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        bus = self.bus_id
+        channel_count = 1
+        if self.rate == synthdeftools.Rate.AUDIO:
+            ugen = ugentools.In.ar(
+                bus=self.bus_id,
+                channel_count=channel_count,
+                )
+        else:
+            ugen = ugentools.In.kr(
+                bus=self.bus_id,
+                channel_count=channel_count,
+                )
+            ugen = ugentools.K2A.ar(
+                source=ugen,
+                )
+        return ugen
+
     @staticmethod
     def audio():
         from supriya.tools import synthdeftools
@@ -145,6 +190,51 @@ class Bus(ServerObjectProxy, BusMixin):
         assert len(response) == 1
         value = response[0].bus_value
         return value
+
+    def kr(self):
+        r'''Creates a control-rate input ugen subgraph.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> audio_bus = servertools.Bus(8, 'audio')
+            >>> ugen = audio_bus.kr()
+            >>> print(str(ugen))
+            SynthDef 65ceebd3294ae43fa3dd12035e1895fd {
+                const_0:8.0 -> 0_In[0:bus]
+                0_In[0] -> 1_A2K[0:source]
+            }
+
+        ::
+
+            >>> control_bus = servertools.Bus(8, 'control')
+            >>> ugen = control_bus.kr()
+            >>> print(str(ugen))
+            SynthDef ef2c11e55da5af28e2ae77c5c8934f3d {
+                const_0:8.0 -> 0_In[0:bus]
+            }
+
+        Returns ugen.
+        '''
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        bus = self.bus_id
+        channel_count = 1
+        if self.rate == synthdeftools.Rate.AUDIO:
+            ugen = ugentools.In.ar(
+                bus=self.bus_id,
+                channel_count=channel_count,
+                )
+            ugen = ugentools.A2K.kr(
+                source=ugen,
+                )
+        else:
+            ugen = ugentools.In.kr(
+                bus=self.bus_id,
+                channel_count=channel_count,
+                )
+        return ugen
 
     def set(self, value):
         from supriya.tools import servertools
