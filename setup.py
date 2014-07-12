@@ -28,6 +28,8 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
+![SynthDef Graph](/graph.png)
+
 Installation
 ------------
 
@@ -43,33 +45,34 @@ To run the test suite:
 
 ::
 
-    supriya$ tox
+    supriya$ tox 
 
 Dependencies
 ------------
 
 Make sure that SuperCollider is installed, and that `scsynth` is available from
-the command-line.
+the command-line. **supriya** targets SuperCollider 3.6.5 and above, although
+it may work with earlier versions as well.
 
-Python dependencies for all Python versions:
+::
 
-- abjad
-- numpy
-- pexpect
-- pytest
-- python-wavefile
-- rtmidi-python
-- sphinx
-- tox
+    ~$ scsynth -h
+    supercollider_synth  options:
+    ...
 
-On Python 2.7:
+**supriya** has the following Python dependencies for all Python versions:
 
-- funcsigs
-- enum34
+- `abjad`
+- `pexpect`
+- `pytest`
+- `rtmidi-python`
+- `sphinx`
+- `tox`
 
-On Python 3.3:
+Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
+both Python 2.7 and Python 3.3.
 
-- enum34
+**supriya** has not been tested with Python 3.x versions earlier than 3.3.
 
 Example
 -------
@@ -115,6 +118,13 @@ Make a synthesizer definition and send it to the server:
     >>> synthdef_builder.add_ugen(out)
     >>> synthdef = synthdef_builder.build().allocate(sync=True)
 
+Synchronize with the server:
+
+::
+
+    >>> server.sync()
+    <Server: udp://127.0.0.1:57751, 8i8o>
+
 Create a synthesizer with the previously defined synthesizer definition, and
 allocate it on the server as a child of the previously created group:
 
@@ -143,6 +153,90 @@ Quit the server:
     >>> server.quit()
     <Server: offline>
 
+Current Roadmap
+---------------
+
+- [X] Cleanup server object proxies
+    - [X] BufferGroup, Buffer, BufferProxy
+    - [X] BusGroup, Bus, BusProxy (for both Audio and Control buses)
+    - [X] SynthControl
+        - [X] QueryTreeControl.from_control()
+- [X] Make SynthDef immutable
+    - [X] Implement SynthDefBuilder
+    - [X] Implement Parameter class (model a single control name, value, rate)
+    - [X] Implement AudioControl and TrigControl UGens
+- [ ] Explicitly object model Server requests
+- [ ] Implement complete Buffer API
+    - [ ] `/b_alloc`
+    - [ ] `/b_allocRead`, `/b_allocReadChannel`
+    - [ ] `/b_read`, `/b_readChannel`
+    - [ ] `/b_write`, `/b_close`
+    - [ ] `/b_get`, `/b_getn`
+    - [ ] `/b_set`, `/b_setn`
+    - [ ] `/b_query`
+    - [ ] `/b_gen`, `/b_fill`, `/b_zero`
+    - [ ] `/b_free`
+- [ ] Implement complete Bus(-related) API
+    - [ ] `/c_set`, `/c_setn`
+    - [ ] `/c_fill`
+    - [ ] `/c_get`, `/c_getn`
+    - [ ] `/n_map`, `/n_mapn`
+    - [ ] `/n_mapa`, `/n_mapan`
+- [ ] Implement all UGen binary operators
+- [ ] Implement all UGen unary operators
+- [ ] MIDI callbacks
+- [ ] Port all UGens
+    - [X] AudioIn.sc
+    - [ ] BasicOpsUGen.sc
+    - [ ] BEQSuite.sc
+    - [ ] BufIO.sc
+    - [ ] Chaos.sc
+    - [ ] CheckBadValues.sc
+    - [ ] Compander.sc
+    - [X] Delays.sc
+    - [ ] DelayWr.sc
+    - [ ] Demand.sc
+    - [ ] DiskIO.sc
+    - [ ] EnvGen.sc
+    - [ ] FFT.sc
+    - [ ] Filter.sc
+    - [ ] FreeVerb.sc
+    - [ ] FSinOsc.sc
+    - [ ] Gendyn.sc
+    - [ ] GrainUGens.sc
+    - [ ] GVerb.sc
+    - [ ] Hilbert.sc
+    - [X] InfoUGens.sc
+    - [ ] InOut.sc
+    - [ ] Line.sc
+    - [ ] MachineListening.sc
+    - [ ] MacUGens.sc
+    - [ ] Mix.sc
+    - [ ] MoogFF.sc
+    - [ ] Noise.sc
+    - [ ] Osc.sc
+    - [ ] Pan.sc
+    - [ ] PhysicalModel.sc
+    - [X] PitchShift.sc
+    - [ ] Pluck.sc
+    - [ ] Poll.sc
+    - [ ] PSinGraph.sc
+    - [ ] Splay.sc
+    - [ ] Trig.sc
+    - [ ] UGen.sc
+- [ ] Implement appropriate UGen input checking
+- [ ] Port all UGen examples
+- [ ] Write SynthDef compilation/sending tests to scsynth for all UGens
+- [ ] Implement tempo-accurate clocks and scheduled OSCBundle logic
+
+Distant Roadmap
+---------------
+
+- [ ] PySide-based GUI generation
+- [ ] Kivy-based GUI generation
+- [ ] Non-realtime composition
+    - [ ] NRTScore
+    - [ ] NRT node graph time slicing?
 '''
 
 setup(
