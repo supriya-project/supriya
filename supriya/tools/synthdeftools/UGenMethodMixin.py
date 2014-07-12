@@ -89,6 +89,14 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.BinaryOperator.SUBRACTION,
             )
 
+    def __str__(self):
+        from supriya.tools import synthdeftools
+        builder = synthdeftools.SynthDefBuilder()
+        builder.add_ugen(self)
+        synthdef = builder.build()
+        result = str(synthdef)
+        return result
+
     def __sub__(self, expr):
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
