@@ -94,8 +94,15 @@ class SynthDefBuilder(SupriyaObject):
         ugens = ugen
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
+        prototype = (
+            synthdeftools.UGen,
+            synthdeftools.OutputProxy,
+            synthdeftools.Parameter,
+            )
         for ugen in ugens:
-            assert isinstance(ugen, synthdeftools.UGen)
+            assert isinstance(ugen, prototype), type(ugen)
+            if isinstance(ugen, synthdeftools.OutputProxy):
+                ugen = ugen.source
             if ugen not in self._ugens:
                 self._ugens.append(ugen)
 

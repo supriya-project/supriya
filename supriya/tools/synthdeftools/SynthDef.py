@@ -293,6 +293,12 @@ class SynthDef(ServerObjectProxy):
             flattened_ugens.append(ugen)
             if isinstance(ugen, synthdeftools.Parameter):
                 return
+            elif isinstance(ugen, synthdeftools.OutputProxy):
+                source = ugen.source
+                if source not in flattened_ugens:
+                    flattened_ugens.append(source)
+                    recurse(source)
+                return
             for input_ in ugen.inputs:
                 if isinstance(input_, synthdeftools.Parameter):
                     if input_ not in flattened_ugens:
