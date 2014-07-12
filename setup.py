@@ -28,8 +28,6 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
-![SynthDef Graph](/graph.png)
-
 Installation
 ------------
 
@@ -248,6 +246,6 @@ setup(
     long_description=long_description,
     name='supriya',
     packages=('supriya',),
-    url='https://github.com/josiah-wolf-oberholtzer/supriya',
+    url='https://github.com/Pulgama/supriya',
     version='0.1',
     )
