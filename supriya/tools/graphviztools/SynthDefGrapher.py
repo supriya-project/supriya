@@ -24,7 +24,7 @@ class SynthDefGrapher(SupriyaObject):
                 edge.head_port_position = 'w'
                 edge.tail_port_position = 'e'
                 if source.rate == synthdeftools.Rate.CONTROL:
-                    edge.attributes['color'] = 'palevioletred'
+                    edge.attributes['color'] = 'goldenrod'
                 else:
                     edge.attributes['color'] = 'steelblue'
 
@@ -68,7 +68,7 @@ class SynthDefGrapher(SupriyaObject):
                 name='ugen_{}'.format(ugen_index),
                 )
             if ugen.rate == synthdeftools.Rate.CONTROL:
-                node.attributes['fillcolor'] = 'mistyrose2'
+                node.attributes['fillcolor'] = 'lightgoldenrod2'
             else:
                 node.attributes['fillcolor'] = 'lightsteelblue2'
             title_field = SynthDefGrapher._create_ugen_title_field(ugen)
