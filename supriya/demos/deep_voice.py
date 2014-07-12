@@ -16,17 +16,15 @@ def run_demo():
     synthdef_builder = synthdeftools.SynthDefBuilder(
         pitch_ratio=5. / 7.,
         )
-    microphone_input = ugentools.In.ar(
-        bus=stereo_input_buses,
-        )
+    microphone_input = stereo_input_buses.ar()
     compressor = ugentools.Compander.ar(
         source=microphone_input,
         control=ugentools.Mix.new(microphone_input),
-        thresh=0.25,
-        slope_below=1,
-        slope_above=0.5,
         clamp_time=0.01,
         relax_time=0.01,
+        slope_above=0.5,
+        slope_below=1,
+        thresh=0.25,
         )
     pitch_shift = ugentools.PitchShift.ar(
         pitch_dispersion=0.05,
