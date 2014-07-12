@@ -123,12 +123,7 @@ class UGen(UGenMethodMixin):
             }
 
         '''
-        from supriya.tools import synthdeftools
-        builder = synthdeftools.SynthDefBuilder()
-        builder.add_ugen(self)
-        synthdef = builder.build()
-        result = str(synthdef)
-        return result
+        return UGenMethodMixin.__str__(self)
 
     ### PRIVATE METHODS ###
 
