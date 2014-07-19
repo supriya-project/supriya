@@ -1,3 +1,4 @@
+from supriya.tools import miditools
 from supriya.tools import osctools
 from supriya.tools import responsetools
 from supriya.tools import servertools
