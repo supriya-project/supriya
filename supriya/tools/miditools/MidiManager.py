@@ -9,15 +9,39 @@ class MidiManager(SupriyaObject):
 
     @staticmethod
     def handle_controller_change_message(channel_number, data, timestamp):
-        pass
+        from supriya.tools import miditools
+        controller_number, controller_value = data
+        message = miditools.ControllerChangeMessage(
+            channel_number=channel_number,
+            controller_number=controller_number,
+            controller_value=controller_value,
+            timestamp=timestamp,
+            )
+        return message
 
     @staticmethod
     def handle_note_off_message(channel_number, data, timestamp):
-        pass
+        from supriya.tools import miditools
+        note_number, velocity = data
+        message = miditools.NoteOffMessage(
+            channel_number=channel_number,
+            note_number=note_number,
+            timestamp=timestamp,
+            velocity=velocity,
+            )
+        return message
 
     @staticmethod
     def handle_note_on_message(channel_number, data, timestamp):
-        pass
+        from supriya.tools import miditools
+        note_number, velocity = data
+        message = miditools.NoteOnMessage(
+            channel_number=channel_number,
+            note_number=note_number,
+            timestamp=timestamp,
+            velocity=velocity,
+            )
+        return message
 
     @staticmethod
     def handle_message(message, timestamp):
