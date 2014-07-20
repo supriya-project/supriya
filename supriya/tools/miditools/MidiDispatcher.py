@@ -7,40 +7,51 @@ class MidiDispatcher(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    _midi_map = {}
-    _midi_inputs = None
+    __slots__ = (
+        '_midi_map',
+        '_midi_in',
+        )
+
+    ### CLASS VARIABLES ###
+
+    def __init__(self):
+        self._midi_map = {}
+        self._midi_in = None
 
     ### SPECIAL METHODS ###
 
     def __call__(self, message, timestamp):
         from supriya.tools import miditools
-        message = miditools.MidiManager.handle_message(message, timestamp)
-        callbacks = self._response_map.get(None, [])
-        callbacks += self._response_map.get(type(message), [])
+        midi_message = miditools.MidiManager.handle_message(message, timestamp)
+        callbacks = self._midi_map.get(None, [])
+        callbacks += self._midi_map.get(type(midi_message), [])
         for callback in callbacks:
-            callback(message)
+            if callback.channel_number is not None:
+                if callback.channel_number != midi_message.channel_number:
+                    continue
+            callback(midi_message)
             if callback.is_one_shot:
                 self.unregister_callback(callback)
 
     ### PUBLIC METHODS ###
 
-    @staticmethod
-    def initialize():
+    def initialize(self):
         import rtmidi_python
-        midi_in = MidiDispatcher._midi_in
+        midi_in = self._midi_in
         if midi_in is not None:
             midi_in.close_port()
             midi_in.callback = None
         else:
-            MidiDispatcher._midi_in = rtmidi_python.MidiIn()
-            midi_in = MidiDispatcher._midi_in
+            self._midi_in = rtmidi_python.MidiIn()
+            midi_in = self._midi_in
         midi_in.ignore_types(
             midi_sense=True,
             midi_sysex=True,
             midi_time=True,
             )
         midi_in.open_port()
-        midi_in.callback = MidiDispatcher.__call__
+        midi_in.callback = self.__call__
+        return self
 
     def register_callback(self, callback):
         from supriya.tools import miditools

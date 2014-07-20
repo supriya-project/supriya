@@ -8,7 +8,7 @@ class ControllerChangeMessage(MidiMessage):
 
     __slots__ = (
         '_controller_number',
-        '_value',
+        '_controller_value',
         )
 
     ### INITIALIZER ###
@@ -17,8 +17,8 @@ class ControllerChangeMessage(MidiMessage):
         self,
         channel_number=None,
         controller_number=None,
+        controller_value=None,
         timestamp=None,
-        value=None,
         ):
         MidiMessage.__init__(
             self,
@@ -26,7 +26,7 @@ class ControllerChangeMessage(MidiMessage):
             timestamp=timestamp,
             )
         self._controller_number = controller_number
-        self._value = value
+        self._controller_value = controller_value
 
     ### PUBLIC PROPERTIES ###
 
@@ -35,5 +35,5 @@ class ControllerChangeMessage(MidiMessage):
         return self._controller_number
 
     @property
-    def value(self):
-        return self._value
+    def controller_value(self):
+        return self._controller_value
