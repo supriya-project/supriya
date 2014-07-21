@@ -23,7 +23,7 @@ class StatusWatcher(threading.Thread):
         self._server = server
         self._response_callback = responsetools.ResponseCallback(
             procedure=lambda message: self.__call__(message),
-            response_prototype=(
+            prototype=(
                 responsetools.StatusResponse,
                 ),
             )

@@ -19,7 +19,7 @@ class NodeResponseCallback(ResponseCallback):
             self,
             #address_pattern='/n_(end|go|info|move|off|on|set|setn)',
             procedure=self.__call__,
-            response_prototype=(
+            prototype=(
                 responsetools.NodeInfoResponse,
                 responsetools.NodeSetContiguousResponse,
                 responsetools.NodeSetResponse,

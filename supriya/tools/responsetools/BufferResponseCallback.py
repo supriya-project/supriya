@@ -19,7 +19,7 @@ class BufferResponseCallback(ResponseCallback):
             self,
             #address_pattern='/b_(info|set|setn)',
             procedure=self.__call__,
-            response_prototype=(
+            prototype=(
                 responsetools.BufferInfoResponse,
                 responsetools.BufferSetResponse,
                 responsetools.BufferSetContiguousResponse,

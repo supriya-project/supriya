@@ -9,7 +9,7 @@ class ResponseCallback(SupriyaObject):
     __slots__ = (
         '_is_one_shot',
         '_procedure',
-        '_response_prototype',
+        '_prototype',
         )
 
     ### INITIALIZER ###
@@ -17,18 +17,18 @@ class ResponseCallback(SupriyaObject):
     def __init__(
         self,
         procedure=None,
-        response_prototype=None,
+        prototype=None,
         is_one_shot=False,
         ):
         #from supriya.tools import responsetools
         assert callable(procedure)
-        if response_prototype is not None:
-            if not isinstance(response_prototype, tuple):
-                response_prototype = (response_prototype,)
+        if prototype is not None:
+            if not isinstance(prototype, tuple):
+                prototype = (prototype,)
             #prototype = responsetools.Response
-            #assert all(issubclass(x, prototype) for x in response_prototype)
+            #assert all(issubclass(x, prototype) for x in prototype)
         self._procedure = procedure
-        self._response_prototype = response_prototype
+        self._prototype = prototype
         self._is_one_shot = bool(is_one_shot)
 
     ### SPECIAL METHODS ###
@@ -47,5 +47,5 @@ class ResponseCallback(SupriyaObject):
         return self._procedure
 
     @property
-    def response_prototype(self):
-        return self._response_prototype
+    def prototype(self):
+        return self._prototype

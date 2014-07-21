@@ -19,7 +19,7 @@ class SynthDefResponseCallback(ResponseCallback):
             self,
             #address_pattern='/d_removed',
             procedure=self.__call__,
-            response_prototype=(
+            prototype=(
                 responsetools.SynthDefRemovedResponse,
                 ),
             )

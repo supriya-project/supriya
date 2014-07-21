@@ -19,7 +19,7 @@ class ControlBusResponseCallback(ResponseCallback):
             self,
             #address_pattern='/c_(set|setn)',
             procedure=self.__call__,
-            response_prototype=(
+            prototype=(
                 responsetools.ControlBusSetContiguousResponse,
                 responsetools.ControlBusSetResponse,
                 ),
