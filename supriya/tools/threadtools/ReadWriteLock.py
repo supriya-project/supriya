@@ -8,8 +8,6 @@ class ReadWriteLock(object):
 
     DEBUG = False
 
-    __slots__ = ()
-
     class _ReadAccess:
 
         def __init__(self, rwlock):
