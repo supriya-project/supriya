@@ -39,6 +39,7 @@ class Server(object):
         '_default_group',
         '_ip_address',
         '_is_running',
+        '_latency',
         '_node_id_allocator',
         '_nodes',
         '_osc_controller',
@@ -87,6 +88,7 @@ class Server(object):
 
         ### OSC MESSAGING ###
 
+        self._latency = 100
         self._response_dispatcher = responsetools.ResponseDispatcher()
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
@@ -576,6 +578,14 @@ class Server(object):
     @property
     def is_running(self):
         return self._is_running
+
+    @property
+    def latency(self):
+        return self._latency
+
+    @latency.setter
+    def latency(self, latency):
+        self._latency = float(latency)
 
     @property
     def node_id_allocator(self):
