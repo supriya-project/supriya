@@ -10,7 +10,7 @@ class MidiCallback(SupriyaObject):
         '_channel_number',
         '_is_one_shot',
         '_procedure',
-        '_midi_prototype',
+        '_prototype',
         )
 
     ### INITIALIZER ###
@@ -19,20 +19,20 @@ class MidiCallback(SupriyaObject):
         self,
         procedure=None,
         channel_number=None,
-        midi_prototype=None,
+        prototype=None,
         is_one_shot=False,
         ):
         assert callable(procedure)
         if channel_number is not None:
             channel_number = int(channel_number)
             assert 0 < channel_number < 16
-        if midi_prototype is not None:
-            if not isinstance(midi_prototype, tuple):
-                midi_prototype = (midi_prototype,)
+        if prototype is not None:
+            if not isinstance(prototype, tuple):
+                prototype = (prototype,)
         assert callable(procedure)
         self._channel_number = channel_number
         self._is_one_shot = bool(is_one_shot)
-        self._midi_prototype = midi_prototype
+        self._prototype = prototype
         self._procedure = procedure
 
     ### SPECIAL METHODS ###
@@ -55,5 +55,5 @@ class MidiCallback(SupriyaObject):
         return self._procedure
 
     @property
-    def midi_prototype(self):
-        return self._midi_prototype
+    def prototype(self):
+        return self._prototype
