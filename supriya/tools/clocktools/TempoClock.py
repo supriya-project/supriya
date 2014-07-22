@@ -48,12 +48,24 @@ class TempoClock(Clock):
 
     __slots__ = (
         '_beats_per_minute',
+        '_start_beat',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, beats_per_minute=60):
-        Clock.__init__(self)
+    def __init__(
+        self,
+        beats_per_minute=60,
+        start_beat=None,
+        start_time=None,
+        ):
+        Clock.__init__(
+            self,
+            start_time=start_time,
+            )
+        if start_beat is None:
+            start_beat = 0
+        self._start_beat = int(start_beat)
         self._beats_per_minute = float(beats_per_minute)
 
     ### PRIVATE METHODS ###
@@ -95,7 +107,7 @@ class TempoClock(Clock):
 
     def _time_to_beats(self, time):
         delta = time - self.start_time
-        beats = delta / self.beat_duration
+        beats = (delta / self.beat_duration) + self.start_beat
         return beats
 
     ### PUBLIC METHODS ###
@@ -134,8 +146,8 @@ class TempoClock(Clock):
     @property
     def current_beat(self):
         current_time = time.time()
-        time_delta = current_time - self._start_time
-        return time_delta / self.beat_duration
+        time_delta = current_time - self.start_time
+        return (time_delta / self.beat_duration) + self.start_beat
 
     @property
     def last_beat(self):
@@ -154,5 +166,5 @@ class TempoClock(Clock):
         return self.start_time + (self.next_beat * self.beat_duration)
 
     @property
-    def start_time(self):
-        return self._start_time
+    def start_beat(self):
+        return self._start_beat

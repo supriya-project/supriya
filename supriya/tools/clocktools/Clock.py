@@ -19,10 +19,12 @@ class Clock(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self):
-        self._start_time = time.time()
+    def __init__(self, start_time=None):
+        if start_time is None:
+            start_time = time.time()
+        self._start_time = float(start_time)
         self._lock = threading.RLock()
-        self._next_event_time = -1
+        self._next_event_time = start_time
         self._queue = []
         self._timer = None
 
@@ -83,3 +85,11 @@ class Clock(SupriyaObject):
             else:
                 self._queue.append((absolute_time, event))
                 self._queue.sort(key=lambda x: x[0])
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def start_time(self):
+        return self._start_time
+
+
