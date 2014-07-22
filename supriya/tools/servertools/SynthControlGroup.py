@@ -29,7 +29,10 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         if synthdef is not None:
             assert isinstance(synthdef, synthdeftools.SynthDef)
             for parameter in synthdef.parameters:
-                synth_control = servertools.SynthControl.from_parameter(parameter)
+                synth_control = servertools.SynthControl.from_parameter(
+                    parameter,
+                    client=self,
+                    )
                 synth_controls.append(synth_control)
                 synth_control_map[synth_control.name] = synth_control
             self._synth_controls = tuple(synth_controls)
@@ -56,31 +59,35 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         return len(self._synth_controls)
 
     def __setitem__(self, items, values):
-        from supriya.tools import osctools
-        from supriya.tools import servertools
-        from supriya.tools import synthdeftools
         if not isinstance(items, tuple):
             items = (items,)
         if not isinstance(values, tuple):
             values = (values,)
         assert len(items) == len(values)
         synth_controls = self.__getitem__(items)
-        settings = zip(synth_controls, values)
+        synth_control_names = [x.name for x in synth_controls]
+        settings = dict(zip(synth_control_names, values))
+        self._set(**settings)
+
+    ### PRIVATE METHODS ###
+
+    def _set(self, execution_context=None, **settings):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
         n_set_settings = {}
         n_map_settings = {}
         n_mapa_settings = {}
-        for synth_control, value in settings:
-            name = synth_control.name
+        for synth_control_name, value in settings.items():
             if isinstance(value, (int, float)):
-                n_set_settings[name] = value
+                n_set_settings[synth_control_name] = value
             elif isinstance(value, servertools.Bus):
                 if value.rate == synthdeftools.Rate.CONTROL:
-                    n_map_settings[name] = value
+                    n_map_settings[synth_control_name] = value
                 else:
-                    n_mapa_settings[name] = value
+                    n_mapa_settings[synth_control_name] = value
             else:
                 raise ValueError(value)
-            synth_control._value = value
+            self[synth_control_name]._value = value
         osc_messages = []
         manager = servertools.CommandManager
         if n_set_settings:
@@ -101,16 +108,21 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 **n_mapa_settings
                 )
             osc_messages.append(osc_message)
-        if 1 == len(osc_messages):
-            return osc_messages[0]
-        osc_bundle = osctools.OscBundle(contents=osc_messages)
-        return osc_bundle
+        execution_context = execution_context or self.client.server
+        for message in osc_messages:
+            execution_context.send_message(message)
 
     ### PUBLIC METHODS ###
 
     def reset(self):
         for synth_control in self._synth_controls:
             synth_control.reset()
+
+    def set(self, execution_context=None, **kwargs):
+        self._set(
+            execution_context=execution_context,
+            **kwargs
+            )
 
     ### PUBLIC PROPERTIES ###
 

@@ -525,8 +525,7 @@ class Server(object):
         if not self.is_running:
             return
         if sync_id is None:
-            sync_id = self._sync_id
-            self._sync_id += 1
+            sync_id = self.next_sync_id
         else:
             sync_id = int(sync_id)
         message = servertools.CommandManager.make_sync_message(sync_id)
@@ -586,6 +585,12 @@ class Server(object):
     @latency.setter
     def latency(self, latency):
         self._latency = float(latency)
+
+    @property
+    def next_sync_id(self):
+        sync_id = self._sync_id
+        self._sync_id += 1
+        return sync_id
 
     @property
     def node_id_allocator(self):

@@ -54,13 +54,13 @@ def test_Synth_01(server, synthdef):
                         amplitude: 1.0, frequency: 440.0
         '''
         ), server_state
-    assert synth_a['frequency'].value == 440.0
-    assert synth_a['amplitude'].value == 1.0
-    assert synth_b['frequency'].value == 440.0
-    assert synth_b['amplitude'].value == 1.0
+    assert synth_a['frequency'].get() == 440.0
+    assert synth_a['amplitude'].get() == 1.0
+    assert synth_b['frequency'].get() == 440.0
+    assert synth_b['amplitude'].get() == 1.0
 
-    synth_a['frequency'] = 443
-    synth_a['amplitude'] = 0.5
+    synth_a.controls['frequency'].set(443)
+    synth_a.controls['amplitude'].set(0.5)
 
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
@@ -76,12 +76,12 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: 443.0
         '''
         ), server_state
-    assert synth_a['frequency'].value == 443.0
-    assert synth_a['amplitude'].value == 0.5
-    assert synth_b['frequency'].value == 440.0
-    assert synth_b['amplitude'].value == 1.0
+    assert synth_a['frequency'].get() == 443.0
+    assert synth_a['amplitude'].get() == 0.5
+    assert synth_b['frequency'].get() == 440.0
+    assert synth_b['amplitude'].get() == 1.0
 
-    synth_b['frequency', 'amplitude'] = 441, 0.25
+    synth_b.controls['frequency', 'amplitude'] = 441, 0.25
 
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
@@ -97,17 +97,17 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: 443.0
         '''
         ), server_state
-    assert synth_a['frequency'].value == 443.0
-    assert synth_a['amplitude'].value == 0.5
-    assert synth_b['frequency'].value == 441.0
-    assert synth_b['amplitude'].value == 0.25
+    assert synth_a['frequency'].get() == 443.0
+    assert synth_a['amplitude'].get() == 0.5
+    assert synth_b['frequency'].get() == 441.0
+    assert synth_b['amplitude'].get() == 0.25
 
     bus_a = servertools.Bus(rate='control')
     bus_a.allocate()
     bus_b = servertools.Bus(rate='audio')
     bus_b.allocate()
-    synth_a['frequency'] = bus_a
-    synth_b['amplitude'] = bus_b
+    synth_a['frequency'].set(bus_a)
+    synth_b['amplitude'].set(bus_b)
 
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
@@ -123,7 +123,7 @@ def test_Synth_01(server, synthdef):
                         amplitude: 0.5, frequency: c0
         '''
         ), server_state
-    assert synth_a['frequency'].value == bus_a
-    assert synth_a['amplitude'].value == 0.5
-    assert synth_b['frequency'].value == 441.0
-    assert synth_b['amplitude'].value == bus_b
+    assert synth_a['frequency'].get() == bus_a
+    assert synth_a['amplitude'].get() == 0.5
+    assert synth_b['frequency'].get() == 441.0
+    assert synth_b['amplitude'].get() == bus_b

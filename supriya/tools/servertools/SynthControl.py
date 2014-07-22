@@ -7,10 +7,11 @@ class SynthControl(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_client',
         '_default_value',
         '_name',
-        '_rate',
         '_range',
+        '_rate',
         '_unit',
         '_value',
         )
@@ -19,6 +20,7 @@ class SynthControl(SupriyaObject):
 
     def __init__(
         self,
+        client=None,
         name=None,
         range_=None,
         rate=None,
@@ -26,6 +28,7 @@ class SynthControl(SupriyaObject):
         value=None,
         ):
         from supriya.tools import synthdeftools
+        self._client = client
         self._name = str(name)
         if isinstance(range_, synthdeftools.Range):
             self._range = range_
@@ -44,7 +47,7 @@ class SynthControl(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_parameter(cls, parameter):
+    def from_parameter(cls, parameter, client=None):
         from supriya.tools import synthdeftools
         assert isinstance(parameter, synthdeftools.Parameter)
         name = parameter.name
@@ -53,6 +56,7 @@ class SynthControl(SupriyaObject):
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
+            client=client,
             name=name,
             range_=range_,
             rate=rate,
@@ -61,10 +65,42 @@ class SynthControl(SupriyaObject):
             )
         return synth_control
 
+    def get(self):
+        return self._value
+
     def reset(self):
         self._value = self._default_value
 
+    def set(self, expr, execution_context=None):
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        manager = servertools.CommandManager
+        if isinstance(expr, servertools.Bus):
+            self._value = expr
+            if expr.rate == synthdeftools.Rate.CONTROL:
+                message = manager.make_node_map_to_control_bus_message(
+                    self.client.client,
+                    **{self.name: self._value}
+                    )
+            else:
+                message = manager.make_node_map_to_audio_bus_message(
+                    self.client.client,
+                    **{self.name: self._value}
+                    )
+        else:
+            self._value = float(expr)
+            message = manager.make_node_set_message(
+                self.client.client,
+                **{self.name: self._value}
+                )
+        execution_context = execution_context or self.client.client.server
+        execution_context.send_message(message)
+
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def client(self):
+        return self._client
 
     @property
     def name(self):
@@ -85,12 +121,3 @@ class SynthControl(SupriyaObject):
     @property
     def value(self):
         return self._value
-
-    @value.setter
-    def value(self, expr):
-        from supriya.tools import servertools
-        if isinstance(expr, servertools.Bus):
-            assert expr.rate == self.rate
-            self._value = expr
-        else:
-            self._value = float(expr)

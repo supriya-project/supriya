@@ -65,17 +65,12 @@ class Synth(Node):
     def __getitem__(self, item):
         return self._synth_control_group[item]
 
-    def __setitem__(self, items, values):
-        if not self.is_allocated:
-            return
-        message = self._synth_control_group.__setitem__(items, values)
-        self.server.send_message(message)
-
     ### PUBLIC METHODS ###
 
     def allocate(
         self,
         add_action=None,
+        execution_context=None,
         node_id_is_permanent=False,
         sync=False,
         target_node=None,
@@ -98,19 +93,31 @@ class Synth(Node):
             target_node_id=target_node_id,
             **kwargs
             )
-        self.server.send_message(message)
+        for key, value in kwargs:
+            self[key].set(value, execution_context=execution_context)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
         if sync:
-            self.server.sync()
+            execution_context.sync()
         return self
 
-    def free(self, send_to_server=True):
+    def free(
+        self,
+        execution_context=None,
+        send_to_server=True,
+        ):
         Node.free(
             self,
+            execution_context=execution_context,
             send_to_server=send_to_server,
             )
         self._synth_control_group.reset()
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def controls(self):
+        return self._synth_control_group
 
     @property
     def synthdef(self):

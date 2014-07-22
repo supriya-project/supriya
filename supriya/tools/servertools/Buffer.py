@@ -99,6 +99,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def _register_with_server(
         self,
         channel_count=None,
+        execution_context=None,
         frame_count=None,
         ):
         from supriya.tools import servertools
@@ -115,9 +116,13 @@ class Buffer(ServerObjectProxy, BufferMixin):
             channel_count=channel_count,
             completion_message=on_done,
             )
-        self.server.send_message(message)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
 
-    def _unregister_with_server(self):
+    def _unregister_with_server(
+        self,
+        execution_context=None,
+        ):
         from supriya.tools import servertools
         buffer_id = self.buffer_id
         buffers = self.server._buffers[buffer_id]
@@ -131,7 +136,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=buffer_id,
             completion_message=on_done,
             )
-        self.server.send_message(message)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
 
     ### PUBLIC METHODS ###
 
@@ -312,6 +318,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def set(
         self,
+        execution_context=None,
         index_value_pairs=None,
         ):
         from supriya.tools import servertools
@@ -322,10 +329,12 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             index_value_pairs=index_value_pairs,
             )
-        self.server.send_message(message)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
 
     def set_contiguous(
         self,
+        execution_context=None,
         index_values_pairs=None,
         ):
         from supriya.tools import servertools
@@ -336,7 +345,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             index_values_pairs=index_values_pairs,
             )
-        self.server.send_message(message)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
 
     def write(self):
         raise NotImplementedError

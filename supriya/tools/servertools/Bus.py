@@ -236,7 +236,11 @@ class Bus(ServerObjectProxy, BusMixin):
                 )
         return ugen
 
-    def set(self, value):
+    def set(
+        self,
+        value,
+        execution_context=None,
+        ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         if not self.is_allocated:
@@ -247,7 +251,8 @@ class Bus(ServerObjectProxy, BusMixin):
         message = manager.make_control_bus_set_message(
             index_value_pairs=((self, value,),),
             )
-        self.server.send_message(message)
+        execution_context = execution_context or self.server
+        execution_context.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 
