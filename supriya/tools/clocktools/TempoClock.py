@@ -26,7 +26,7 @@ class TempoClock(Clock):
         >>> clock.schedule(Event('kick', 1), 1)
         >>> clock.schedule(Event('\that', 1), 1.5)
         >>> clock.schedule(Event('snare', 2), 2)
-        >>> time.sleep(2.25)
+        >>> time.sleep(2.3)
         kick
             hat
         snare
