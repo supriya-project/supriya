@@ -52,6 +52,14 @@ class Op(SupriyaObject):
             )
 
     @staticmethod
+    def distort(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.DISTORT,
+            )
+
+    @staticmethod
     def exponential(source):
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
