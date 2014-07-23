@@ -16,8 +16,7 @@ class AllpassN(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     _ordered_input_names = (
         'source',
@@ -91,7 +90,7 @@ class AllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate non-interpolating allpass delay line.
+        r'''Creates a control-rate non-interpolating allpass delay line.
 
         ::
 
