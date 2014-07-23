@@ -14,15 +14,12 @@ class NodeFillRequest(Request):
     def __init__(
         self,
         ):
-        pass
+        raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
-        from supriya.tools import requesttools
-        manager = requesttools.RequestManager
-        message = manager.make_node_fill_message()
-        return message
+        raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
 
