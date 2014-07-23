@@ -35,12 +35,12 @@ class BufferAllocateRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import osctools
-        request_number = int(self.request_number)
+        request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         frame_count = int(self.frame_count)
         channel_count = int(self.channel_count)
         contents = [
-            request_number,
+            request_id,
             buffer_id,
             frame_count,
             channel_count,
@@ -71,7 +71,7 @@ class BufferAllocateRequest(Request):
         return self._frame_count
 
     @property
-    def request_number(self):
+    def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.BUFFER_ALLOCATE
 

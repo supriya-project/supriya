@@ -82,13 +82,10 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_CLOSE
-        command_number = int(command_number)
-        buffer_id = int(buffer_id)
-        message = osctools.OscMessage(
-            command_number,
-            buffer_id,
+        request = requesttools.BufferCloseRequest(
+            buffer_id=buffer_id,
             )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
@@ -120,11 +117,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_FILL
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_FILL
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         for index, count, value in index_count_value_triples:
@@ -157,11 +154,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_FREE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_FREE
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if completion_message is not None:
@@ -205,11 +202,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_GET
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_GET
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if indices:
@@ -245,11 +242,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_GET_CONTIGUOUS
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_GET_CONTIGUOUS
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if index_count_pairs:
@@ -279,10 +276,10 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_QUERY
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_QUERY
+        request_id = int(request_id)
         contents = [
-            command_number,
+            request_id,
             ]
         for buffer_id in buffer_ids:
             contents.append(int(buffer_id))
@@ -335,11 +332,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_SET
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_SET
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if index_value_pairs:
@@ -379,11 +376,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_SET_CONTIGUOUS
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_SET_CONTIGUOUS
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if index_values_pairs:
@@ -433,8 +430,8 @@ class RequestManager(object):
         '''
         from supriya.tools import requesttools
         from supriya.tools import soundfiletools
-        command_number = requesttools.RequestId.BUFFER_WRITE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_WRITE
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         file_path = str(file_path)
         header_format = soundfiletools.HeaderFormat.from_expr(header_format)
@@ -451,7 +448,7 @@ class RequestManager(object):
         assert 0 <= starting_frame
         leave_open = int(bool(leave_open))
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             file_path,
             header_format,
@@ -489,11 +486,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.BUFFER_ZERO
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.BUFFER_ZERO
+        request_id = int(request_id)
         buffer_id = int(buffer_id)
         contents = [
-            command_number,
+            request_id,
             buffer_id,
             ]
         if completion_message is not None:
@@ -531,9 +528,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.CONTROL_BUS_FILL
-        command_number = int(command_number)
-        contents = [command_number]
+        request_id = requesttools.RequestId.CONTROL_BUS_FILL
+        request_id = int(request_id)
+        contents = [request_id]
         if index_count_value_triples:
             for index, count, value in index_count_value_triples:
                 index = int(index)
@@ -572,9 +569,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.CONTROL_BUS_GET
-        command_number = int(command_number)
-        contents = [command_number]
+        request_id = requesttools.RequestId.CONTROL_BUS_GET
+        request_id = int(request_id)
+        contents = [request_id]
         if indices:
             for index in indices:
                 index = int(index)
@@ -613,9 +610,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
-        command_number = int(command_number)
-        contents = [command_number]
+        request_id = requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
+        request_id = int(request_id)
+        contents = [request_id]
         if index_count_pairs:
             for index, count in index_count_pairs:
                 index = int(index)
@@ -655,9 +652,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.CONTROL_BUS_SET
-        command_number = int(command_number)
-        contents = [command_number]
+        request_id = requesttools.RequestId.CONTROL_BUS_SET
+        request_id = int(request_id)
+        contents = [request_id]
         if index_value_pairs:
             for index, value in index_value_pairs:
                 index = int(index)
@@ -696,9 +693,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
-        command_number = int(command_number)
-        contents = [command_number]
+        request_id = requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
+        request_id = int(request_id)
+        contents = [request_id]
         if index_values_pairs:
             for index, values in index_values_pairs:
                 index = int(index)
@@ -734,12 +731,12 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.DUMP_OSC
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.DUMP_OSC
+        request_id = int(request_id)
         osc_status = int(osc_status)
         assert 0 <= osc_status <= 4
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             osc_status,
             )
         return message
@@ -773,13 +770,13 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.GROUP_NEW
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.GROUP_NEW
+        request_id = int(request_id)
         add_action = int(add_action)
         node_id = int(node_id)
         target_node_id = int(target_node_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             add_action,
             target_node_id,
@@ -812,12 +809,12 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.GROUP_QUERY_TREE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.GROUP_QUERY_TREE
+        request_id = int(request_id)
         node_id = int(node_id)
         include_controls = int(bool(include_controls))
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             include_controls,
             )
@@ -843,11 +840,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NODE_FREE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NODE_FREE
+        request_id = int(request_id)
         node_id = int(node_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             )
         return message
@@ -877,15 +874,15 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NODE_SET
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NODE_SET
+        request_id = int(request_id)
         node_id = int(node_id)
         contents = []
         for name, value in sorted(settings.items()):
             contents.append(name)
             contents.append(float(value))
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             *contents
             )
@@ -918,15 +915,15 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
+        request_id = int(request_id)
         node_id = int(node_id)
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
             contents.append(int(bus))
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             *contents
             )
@@ -959,15 +956,15 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
+        request_id = int(request_id)
         node_id = int(node_id)
         contents = []
         for name, bus in sorted(settings.items()):
             contents.append(name)
             contents.append(int(bus))
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             *contents
             )
@@ -995,11 +992,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NODE_SET
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NODE_SET
+        request_id = int(request_id)
         node_id = int(node_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             node_id,
             'gate',
             0,
@@ -1026,11 +1023,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.NOTIFY
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.NOTIFY
+        request_id = int(request_id)
         notify_status = int(bool(notify_status))
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             notify_status,
             )
         return message
@@ -1055,10 +1052,10 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.STATUS
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.STATUS
+        request_id = int(request_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             )
         return message
 
@@ -1082,11 +1079,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.SYNC
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.SYNC
+        request_id = int(request_id)
         sync_id = int(sync_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             sync_id,
             )
         return message
@@ -1122,10 +1119,10 @@ class RequestManager(object):
         prototype = synthdeftools.SynthDef
         if isinstance(synthdef, prototype):
             synthdef = synthdef.actual_name
-        command_number = requesttools.RequestId.SYNTHDEF_FREE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.SYNTHDEF_FREE
+        request_id = int(request_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             synthdef,
             )
         return message
@@ -1140,14 +1137,14 @@ class RequestManager(object):
         '''
         from supriya.tools import requesttools
         from supriya.tools import synthdeftools
-        command_number = requesttools.RequestId.SYNTHDEF_RECEIVE
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.SYNTHDEF_RECEIVE
+        request_id = int(request_id)
         compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
             synthdefs,
             )
         compiled_synthdefs = bytearray(compiled_synthdefs)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             compiled_synthdefs,
             )
         return message
@@ -1186,8 +1183,8 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.SYNTH_NEW
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.SYNTH_NEW
+        request_id = int(request_id)
         add_action = int(add_action)
         node_id = int(node_id)
         target_node_id = int(target_node_id)
@@ -1196,7 +1193,7 @@ class RequestManager(object):
             arguments.append(key)
             arguments.append(value)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             synthdef_name,
             node_id,
             add_action,
@@ -1225,9 +1222,9 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        command_number = requesttools.RequestId.QUIT
-        command_number = int(command_number)
+        request_id = requesttools.RequestId.QUIT
+        request_id = int(request_id)
         message = osctools.OscMessage(
-            command_number,
+            request_id,
             )
         return message

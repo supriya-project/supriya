@@ -7,30 +7,40 @@ class BufferCloseRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_buffer_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
+        buffer_id=None,
         ):
-        pass
+        self._buffer_id = buffer_id
 
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import requesttools
-        manager = requesttools.RequestManager
-        message = manager.make_buffer_close_message()
+        from supriya.tools import osctools
+        request_id = int(self.request_id)
+        buffer_id = int(self.buffer_id)
+        message = osctools.OscMessage(
+            request_id,
+            buffer_id,
+            )
         return message
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        return self._buffer_id
 
     @property
     def response_prototype(self):
         return None
 
     @property
-    def request_number(self):
+    def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.BUFFER_CLOSE

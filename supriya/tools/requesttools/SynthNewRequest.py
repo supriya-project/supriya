@@ -31,6 +31,6 @@ class SynthNewRequest(Request):
         return None
 
     @property
-    def request_number(self):
+    def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.SYNTH_NEW
