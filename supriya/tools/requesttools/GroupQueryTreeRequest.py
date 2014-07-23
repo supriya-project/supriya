@@ -33,4 +33,4 @@ class GroupQueryTreeRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.GROUP_QUERY_TREE
+        return requesttools.RequestId.GROUP_QUERY_TREE

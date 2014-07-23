@@ -33,4 +33,4 @@ class NodeTraceRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.NODE_TRACE
+        return requesttools.RequestId.NODE_TRACE

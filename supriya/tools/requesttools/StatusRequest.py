@@ -33,4 +33,4 @@ class StatusRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.STATUS
+        return requesttools.RequestId.STATUS

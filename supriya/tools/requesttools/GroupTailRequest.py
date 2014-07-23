@@ -33,4 +33,4 @@ class GroupTailRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.GROUP_TAIL
+        return requesttools.RequestId.GROUP_TAIL

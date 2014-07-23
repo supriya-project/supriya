@@ -33,4 +33,4 @@ class ErrorRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.ERROR
+        return requesttools.RequestId.ERROR

@@ -33,4 +33,4 @@ class BufferQueryRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.BUFFER_QUERY
+        return requesttools.RequestId.BUFFER_QUERY

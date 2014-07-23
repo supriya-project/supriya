@@ -33,4 +33,4 @@ class NodeFreeRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.NODE_FREE
+        return requesttools.RequestId.NODE_FREE

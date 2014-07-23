@@ -33,4 +33,4 @@ class SynthdefLoadRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.SYNTHDEF_LOAD
+        return requesttools.RequestId.SYNTHDEF_LOAD

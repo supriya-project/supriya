@@ -33,4 +33,4 @@ class SynthNewRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.SYNTH_NEW
+        return requesttools.RequestId.SYNTH_NEW

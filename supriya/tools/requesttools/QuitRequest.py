@@ -33,4 +33,4 @@ class QuitRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.QUIT
+        return requesttools.RequestId.QUIT

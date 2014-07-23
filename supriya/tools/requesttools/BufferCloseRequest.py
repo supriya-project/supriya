@@ -33,4 +33,4 @@ class BufferCloseRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.BUFFER_CLOSE
+        return requesttools.RequestId.BUFFER_CLOSE

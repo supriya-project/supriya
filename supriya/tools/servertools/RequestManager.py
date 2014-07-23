@@ -17,6 +17,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_allocate_message(
@@ -29,7 +30,7 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_ALLOCATE
+            >>> message.address == requesttools.RequestId.BUFFER_ALLOCATE
             True
 
         Returns OSC message.
@@ -66,6 +67,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_close_message(
@@ -76,13 +78,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_CLOSE
+            >>> message.address == requesttools.RequestId.BUFFER_CLOSE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_CLOSE
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_CLOSE
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         message = osctools.OscMessage(
@@ -100,6 +102,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_fill_message(
@@ -114,13 +117,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_FILL
+            >>> message.address == requesttools.RequestId.BUFFER_FILL
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_FILL
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_FILL
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -143,6 +146,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_free_message(23)
@@ -151,13 +155,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_FREE
+            >>> message.address == requesttools.RequestId.BUFFER_FREE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_FREE
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_FREE
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -188,6 +192,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_get_message(
@@ -199,13 +204,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_GET
+            >>> message.address == requesttools.RequestId.BUFFER_GET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_GET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_GET
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -227,6 +232,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_get_contiguous_message(
@@ -239,13 +245,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.BUFFER_GET_CONTIGUOUS
+            ...     requesttools.RequestId.BUFFER_GET_CONTIGUOUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_GET_CONTIGUOUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_GET_CONTIGUOUS
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -265,6 +271,7 @@ class RequestManager(object):
         ):
         r'''Makes a /b_query message.
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_query_message(1, 23, 41)
@@ -273,13 +280,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_QUERY
+            >>> message.address == requesttools.RequestId.BUFFER_QUERY
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_QUERY
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_QUERY
         command_number = int(command_number)
         contents = [
             command_number,
@@ -314,6 +321,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_set_message(
@@ -329,13 +337,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_SET
+            >>> message.address == requesttools.RequestId.BUFFER_SET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_SET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_SET
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -358,6 +366,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_set_contiguous_message(
@@ -373,13 +382,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.BUFFER_SET_CONTIGUOUS
+            ...     requesttools.RequestId.BUFFER_SET_CONTIGUOUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_SET_CONTIGUOUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_SET_CONTIGUOUS
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -412,6 +421,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> from supriya.tools import soundfiletools
             >>> manager = servertools.RequestManager
@@ -426,14 +436,14 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_WRITE
+            >>> message.address == requesttools.RequestId.BUFFER_WRITE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         from supriya.tools import soundfiletools
-        command_number = servertools.RequestId.BUFFER_WRITE
+        command_number = requesttools.RequestId.BUFFER_WRITE
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         file_path = str(file_path)
@@ -475,6 +485,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_zero_message(23)
@@ -483,13 +494,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.BUFFER_ZERO
+            >>> message.address == requesttools.RequestId.BUFFER_ZERO
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.BUFFER_ZERO
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.BUFFER_ZERO
         command_number = int(command_number)
         buffer_id = int(buffer_id)
         contents = [
@@ -511,6 +522,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_fill_message(
@@ -525,13 +537,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.CONTROL_BUS_FILL
+            ...     requesttools.RequestId.CONTROL_BUS_FILL
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.CONTROL_BUS_FILL
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.CONTROL_BUS_FILL
         command_number = int(command_number)
         contents = [command_number]
         if index_count_value_triples:
@@ -555,6 +567,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_get_message(
@@ -566,13 +579,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.CONTROL_BUS_GET
+            ...     requesttools.RequestId.CONTROL_BUS_GET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.CONTROL_BUS_GET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.CONTROL_BUS_GET
         command_number = int(command_number)
         contents = [command_number]
         if indices:
@@ -591,6 +604,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_get_contiguous_message(
@@ -607,13 +621,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
+            ...     requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
         command_number = int(command_number)
         contents = [command_number]
         if index_count_pairs:
@@ -633,6 +647,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_set_message(
@@ -649,13 +664,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.CONTROL_BUS_SET
+            ...     requesttools.RequestId.CONTROL_BUS_SET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.CONTROL_BUS_SET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.CONTROL_BUS_SET
         command_number = int(command_number)
         contents = [command_number]
         if index_value_pairs:
@@ -676,6 +691,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_set_contiguous_message(
@@ -690,13 +706,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
+            ...     requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
         command_number = int(command_number)
         contents = [command_number]
         if index_values_pairs:
@@ -720,6 +736,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_dump_osc_message(1)
@@ -728,13 +745,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.DUMP_OSC
+            >>> message.address == requesttools.RequestId.DUMP_OSC
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.DUMP_OSC
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.DUMP_OSC
         command_number = int(command_number)
         osc_status = int(osc_status)
         assert 0 <= osc_status <= 4
@@ -754,6 +771,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_group_new_message(
@@ -766,13 +784,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.GROUP_NEW
+            >>> message.address == requesttools.RequestId.GROUP_NEW
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.GROUP_NEW
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.GROUP_NEW
         command_number = int(command_number)
         add_action = int(add_action)
         node_id = int(node_id)
@@ -794,6 +812,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_group_query_tree_message(
@@ -805,13 +824,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.GROUP_QUERY_TREE
+            >>> message.address == requesttools.RequestId.GROUP_QUERY_TREE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.GROUP_QUERY_TREE
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.GROUP_QUERY_TREE
         command_number = int(command_number)
         node_id = int(node_id)
         include_controls = int(bool(include_controls))
@@ -828,6 +847,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_node_free_message(1000)
@@ -836,13 +856,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.NODE_FREE
+            >>> message.address == requesttools.RequestId.NODE_FREE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NODE_FREE
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NODE_FREE
         command_number = int(command_number)
         node_id = int(node_id)
         message = osctools.OscMessage(
@@ -857,6 +877,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_node_set_message(
@@ -870,13 +891,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.NODE_SET
+            >>> message.address == requesttools.RequestId.NODE_SET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NODE_SET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NODE_SET
         command_number = int(command_number)
         node_id = int(node_id)
         contents = []
@@ -896,6 +917,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_node_map_to_control_bus_message(
@@ -910,13 +932,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.NODE_MAP_TO_CONTROL_BUS
+            ...     requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NODE_MAP_TO_CONTROL_BUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
         command_number = int(command_number)
         node_id = int(node_id)
         contents = []
@@ -936,6 +958,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_node_map_to_audio_bus_message(
@@ -950,13 +973,13 @@ class RequestManager(object):
         ::
 
             >>> message.address == \
-            ...     servertools.RequestId.NODE_MAP_TO_AUDIO_BUS
+            ...     requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NODE_MAP_TO_AUDIO_BUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
         command_number = int(command_number)
         node_id = int(node_id)
         contents = []
@@ -978,6 +1001,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_node_release_message(1000)
@@ -986,13 +1010,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.NODE_SET
+            >>> message.address == requesttools.RequestId.NODE_SET
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NODE_SET
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NODE_SET
         command_number = int(command_number)
         node_id = int(node_id)
         message = osctools.OscMessage(
@@ -1009,6 +1033,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_notify_message(True)
@@ -1017,13 +1042,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.NOTIFY
+            >>> message.address == requesttools.RequestId.NOTIFY
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.NOTIFY
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.NOTIFY
         command_number = int(command_number)
         notify_status = int(bool(notify_status))
         message = osctools.OscMessage(
@@ -1038,6 +1063,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_status_message()
@@ -1046,13 +1072,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.STATUS
+            >>> message.address == requesttools.RequestId.STATUS
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.STATUS
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.STATUS
         command_number = int(command_number)
         message = osctools.OscMessage(
             command_number,
@@ -1065,6 +1091,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_sync_message(1999)
@@ -1073,13 +1100,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.SYNC
+            >>> message.address == requesttools.RequestId.SYNC
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.SYNC
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.SYNC
         command_number = int(command_number)
         sync_id = int(sync_id)
         message = osctools.OscMessage(
@@ -1096,6 +1123,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_synthdef_free_message('test')
@@ -1104,12 +1132,12 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.SYNTHDEF_FREE
+            >>> message.address == requesttools.RequestId.SYNTHDEF_FREE
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         from supriya.tools import synthdeftools
         prototype = (
             synthdeftools.SynthDef,
@@ -1119,7 +1147,7 @@ class RequestManager(object):
         prototype = synthdeftools.SynthDef
         if isinstance(synthdef, prototype):
             synthdef = synthdef.actual_name
-        command_number = servertools.RequestId.SYNTHDEF_FREE
+        command_number = requesttools.RequestId.SYNTHDEF_FREE
         command_number = int(command_number)
         message = osctools.OscMessage(
             command_number,
@@ -1135,9 +1163,9 @@ class RequestManager(object):
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         from supriya.tools import synthdeftools
-        command_number = servertools.RequestId.SYNTHDEF_RECEIVE
+        command_number = requesttools.RequestId.SYNTHDEF_RECEIVE
         command_number = int(command_number)
         compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
             synthdefs,
@@ -1161,6 +1189,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_synth_new_message(
@@ -1176,13 +1205,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.SYNTH_NEW
+            >>> message.address == requesttools.RequestId.SYNTH_NEW
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.SYNTH_NEW
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.SYNTH_NEW
         command_number = int(command_number)
         add_action = int(add_action)
         node_id = int(node_id)
@@ -1207,6 +1236,7 @@ class RequestManager(object):
 
         ::
 
+            >>> from supriya.tools import requesttools
             >>> from supriya.tools import servertools
             >>> manager = servertools.RequestManager
             >>> message = manager.make_quit_message()
@@ -1215,13 +1245,13 @@ class RequestManager(object):
 
         ::
 
-            >>> message.address == servertools.RequestId.QUIT
+            >>> message.address == requesttools.RequestId.QUIT
             True
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.RequestId.QUIT
+        from supriya.tools import requesttools
+        command_number = requesttools.RequestId.QUIT
         command_number = int(command_number)
         message = osctools.OscMessage(
             command_number,

@@ -33,4 +33,4 @@ class NotifyRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.RequestId.NOTIFY
+        return requesttools.RequestId.NOTIFY
