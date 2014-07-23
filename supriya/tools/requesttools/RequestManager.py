@@ -977,32 +977,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_sync_message(sync_id):
-        r'''Makes a /sync message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_sync_message(1999)
-            >>> message
-            OscMessage(52, 1999)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.SYNC
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.SyncRequest(
-            sync_id=sync_id,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_synthdef_free_message(
         synthdef=None,
         ):

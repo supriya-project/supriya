@@ -529,9 +529,9 @@ class Server(object):
             return
         if sync_id is None:
             sync_id = self.next_sync_id
-        else:
-            sync_id = int(sync_id)
-        message = requesttools.RequestManager.make_sync_message(sync_id)
+        sync_id = int(sync_id)
+        request = requesttools.SyncRequest(sync_id=sync_id)
+        message = request.to_osc_message()
         wait = servertools.WaitForServer(
             address_pattern='/synced',
             argument_template=(sync_id,),
