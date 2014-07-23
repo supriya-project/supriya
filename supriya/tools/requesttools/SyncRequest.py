@@ -4,6 +4,31 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SyncRequest(Request):
+    r'''A /sync request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.SyncRequest(
+        ...     sync_id=1999,
+        ...     )
+        >>> request
+        SyncRequest(
+            sync_id=1999
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(52, 1999)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.SYNC
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 
