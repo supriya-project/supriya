@@ -169,6 +169,12 @@ class Node(ServerObjectProxy):
             )
         return self
 
+    def handle_response(self, response):
+        from supriya.tools import responsetools
+        if isinstance(response, responsetools.NodeInfoResponse):
+            if response.action == responsetools.NodeAction.NODE_REMOVED:
+                self.free(send_to_server=False)
+
     ### PUBLIC PROPERTIES ###
 
     @property
