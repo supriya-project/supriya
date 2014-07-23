@@ -416,18 +416,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_ZERO
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-            contents.append(bytearray(completion_message.to_datagram()))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferZeroRequest(
+            buffer_id=buffer_id,
+            completion_message=completion_message,
+            )
+        message = request.to_osc_message()
         return message
 
     @staticmethod
