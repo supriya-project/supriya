@@ -7,3 +7,4 @@ from supriya.tools.servertools import Group
 from supriya.tools.servertools import Server
 from supriya.tools.servertools import Synth
 from supriya.tools.synthdeftools import SynthDefBuilder
+import synthdefs
