@@ -348,13 +348,13 @@ class RequestManager(object):
     @staticmethod
     def make_buffer_write_message(
         buffer_id=None,
-        file_path=None,
-        header_format='aiff',
-        sample_format='int24',
-        frame_count=None,
-        starting_frame=None,
-        leave_open=False,
         completion_message=None,
+        file_path=None,
+        frame_count=None,
+        header_format='aiff',
+        leave_open=False,
+        sample_format='int24',
+        starting_frame=None,
         ):
         r'''Makes a /b_write message.
 
@@ -370,7 +370,7 @@ class RequestManager(object):
             ...     sample_format=soundfiletools.SampleFormat.INT24,
             ...     )
             >>> message
-            OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0)
+            OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
 
         ::
 
@@ -380,38 +380,17 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        from supriya.tools import soundfiletools
-        request_id = requesttools.RequestId.BUFFER_WRITE
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        file_path = str(file_path)
-        header_format = soundfiletools.HeaderFormat.from_expr(header_format)
-        header_format = header_format.name.lower()
-        sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
-        sample_format = sample_format.name.lower()
-        if frame_count is None:
-            frame_count = -1
-        frame_count = int(frame_count)
-        assert -1 <= frame_count
-        if starting_frame is None:
-            starting_frame = 0
-        starting_frame = int(starting_frame)
-        assert 0 <= starting_frame
-        leave_open = int(bool(leave_open))
-        contents = [
-            request_id,
-            buffer_id,
-            file_path,
-            header_format,
-            sample_format,
-            frame_count,
-            leave_open,
-            ]
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-            contents.append(bytearray(completion_message.to_datagram()))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferWriteRequest(
+            buffer_id=buffer_id,
+            completion_message=completion_message,
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format=header_format,
+            leave_open=leave_open,
+            sample_format=sample_format,
+            starting_frame=starting_frame,
+            )
+        message = request.to_osc_message()
         return message
 
     @staticmethod
