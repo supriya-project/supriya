@@ -76,7 +76,7 @@ class Synth(Node):
         target_node=None,
         **kwargs
         ):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
@@ -86,7 +86,7 @@ class Synth(Node):
         if not self.synthdef.is_allocated:
             self.synthdef.allocate(self.server)
         synthdef_name = self.synthdef.actual_name
-        message = servertools.RequestManager.make_synth_new_message(
+        message = requesttools.RequestManager.make_synth_new_message(
             add_action=add_action,
             node_id=node_id,
             synthdef_name=synthdef_name,

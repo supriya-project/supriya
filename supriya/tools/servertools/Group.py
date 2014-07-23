@@ -63,14 +63,14 @@ class Group(Node):
         sync=False,
         target_node=None,
         ):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
-        message = servertools.RequestManager.make_group_new_message(
+        message = requesttools.RequestManager.make_group_new_message(
             add_action=add_action,
             node_id=node_id,
             target_node_id=target_node_id,

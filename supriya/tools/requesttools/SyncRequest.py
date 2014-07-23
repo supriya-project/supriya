@@ -19,8 +19,8 @@ class SyncRequest(Request):
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import servertools
-        manager = servertools.RequestManager
+        from supriya.tools import requesttools
+        manager = requesttools.RequestManager
         message = manager.make_sync_message()
         return message
 
@@ -32,5 +32,5 @@ class SyncRequest(Request):
 
     @property
     def request_number(self):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         return requesttools.RequestId.SYNC

@@ -232,8 +232,9 @@ class Server(object):
         self._sync_id = 0
 
     def _setup_notifications(self):
+        from supriya.tools import requesttools
         from supriya.tools import servertools
-        notify_message = servertools.RequestManager.make_notify_message(1)
+        notify_message = requesttools.RequestManager.make_notify_message(1)
         with servertools.WaitForServer(
             address_pattern='/done',
             argument_template=('/notify', 0),
@@ -471,13 +472,14 @@ class Server(object):
 
         Returns server query-tree group response.
         '''
+        from supriya.tools import requesttools
         from supriya.tools import responsetools
         from supriya.tools import servertools
         wait = servertools.WaitForServer(
             address_pattern='/g_queryTree.reply',
             server=self,
             )
-        message = servertools.RequestManager.make_group_query_tree_message(
+        message = requesttools.RequestManager.make_group_query_tree_message(
             node_id=0,
             include_controls=include_controls,
             )
@@ -521,6 +523,7 @@ class Server(object):
         self._osc_controller.send(message)
 
     def sync(self, sync_id=None):
+        from supriya.tools import requesttools
         from supriya.tools import servertools
         if not self.is_running:
             return
@@ -528,7 +531,7 @@ class Server(object):
             sync_id = self.next_sync_id
         else:
             sync_id = int(sync_id)
-        message = servertools.RequestManager.make_sync_message(sync_id)
+        message = requesttools.RequestManager.make_sync_message(sync_id)
         wait = servertools.WaitForServer(
             address_pattern='/synced',
             argument_template=(sync_id,),

@@ -19,8 +19,8 @@ class ControlBusGetContiguousRequest(Request):
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import servertools
-        manager = servertools.RequestManager
+        from supriya.tools import requesttools
+        manager = requesttools.RequestManager
         message = manager.make_control_bus_get_contiguous_message()
         return message
 
@@ -32,5 +32,5 @@ class ControlBusGetContiguousRequest(Request):
 
     @property
     def request_number(self):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         return requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS

@@ -72,9 +72,10 @@ class SynthControl(SupriyaObject):
         self._value = self._default_value
 
     def set(self, expr, execution_context=None):
+        from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        manager = servertools.RequestManager
+        manager = requesttools.RequestManager
         if isinstance(expr, servertools.Bus):
             self._value = expr
             if expr.rate == synthdeftools.Rate.CONTROL:

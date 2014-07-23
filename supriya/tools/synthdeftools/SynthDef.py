@@ -363,11 +363,11 @@ class SynthDef(ServerObjectProxy):
         server=None,
         sync=False,
         ):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
-        message = servertools.RequestManager.make_synthdef_receive_message(
+        message = requesttools.RequestManager.make_synthdef_receive_message(
             self,
             )
         execution_context = execution_context or self.server
@@ -388,10 +388,10 @@ class SynthDef(ServerObjectProxy):
         return result
 
     def free(self, execution_context=None):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
-        message = servertools.RequestManager.make_synthdef_free_message(
+        message = requesttools.RequestManager.make_synthdef_free_message(
             synthdef=self,
             )
         execution_context = execution_context or self.server

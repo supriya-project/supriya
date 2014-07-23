@@ -165,6 +165,7 @@ class Bus(ServerObjectProxy, BusMixin):
         self,
         completion_callback=None,
         ):
+        from supriya.tools import requesttools
         from supriya.tools import responsetools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -172,7 +173,7 @@ class Bus(ServerObjectProxy, BusMixin):
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = servertools.RequestManager
+        manager = requesttools.RequestManager
         message = manager.make_control_bus_get_message(
             indices=(self,),
             )
@@ -241,13 +242,14 @@ class Bus(ServerObjectProxy, BusMixin):
         value,
         execution_context=None,
         ):
+        from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         if not self.is_allocated:
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = servertools.RequestManager
+        manager = requesttools.RequestManager
         message = manager.make_control_bus_set_message(
             index_value_pairs=((self, value,),),
             )

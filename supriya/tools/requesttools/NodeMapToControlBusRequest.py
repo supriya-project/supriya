@@ -19,8 +19,8 @@ class NodeMapToControlBusRequest(Request):
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import servertools
-        manager = servertools.RequestManager
+        from supriya.tools import requesttools
+        manager = requesttools.RequestManager
         message = manager.make_node_map_to_control_bus_message()
         return message
 
@@ -32,5 +32,5 @@ class NodeMapToControlBusRequest(Request):
 
     @property
     def request_number(self):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         return requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS

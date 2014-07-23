@@ -72,6 +72,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
     ### PRIVATE METHODS ###
 
     def _set(self, execution_context=None, **settings):
+        from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         n_set_settings = {}
@@ -89,7 +90,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 raise ValueError(value)
             self[synth_control_name]._value = value
         osc_messages = []
-        manager = servertools.RequestManager
+        manager = requesttools.RequestManager
         if n_set_settings:
             osc_message = manager.make_node_set_message(
                 self.node_id,
