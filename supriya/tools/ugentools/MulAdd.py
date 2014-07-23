@@ -101,7 +101,7 @@ class MulAdd(UGen):
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
-            added=addend,
+            addend=addend,
             multiplier=multiplier,
             rate=rate,
             source=source,
