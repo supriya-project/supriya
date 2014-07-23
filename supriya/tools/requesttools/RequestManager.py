@@ -996,13 +996,10 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.SYNC
-        request_id = int(request_id)
-        sync_id = int(sync_id)
-        message = osctools.OscMessage(
-            request_id,
-            sync_id,
+        request = requesttools.SyncRequest(
+            sync_id=sync_id,
             )
+        message = request.to_osc_message()
         return message
 
     @staticmethod

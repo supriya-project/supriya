@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
@@ -7,19 +8,27 @@ class SyncRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_sync_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
+        sync_id=None,
         ):
-        raise NotImplementedError
+        self._sync_id = int(sync_id)
 
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
-        raise NotImplementedError
+        request_id = int(self.request_id)
+        sync_id = int(self.sync_id)
+        message = osctools.OscMessage(
+            request_id,
+            sync_id,
+            )
+        return message
 
     ### PUBLIC PROPERTIES ###
 
@@ -31,3 +40,7 @@ class SyncRequest(Request):
     def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.SYNC
+
+    @property
+    def sync_id(self):
+        return self._sync_id
