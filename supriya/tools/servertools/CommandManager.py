@@ -34,24 +34,14 @@ class CommandManager(object):
 
         Returns OSC message.
         '''
-        from supriya.tools import servertools
-        command_number = servertools.CommandNumber.BUFFER_ALLOCATE
-        command_number = int(command_number)
-        buffer_id = int(buffer_id)
-        frame_count = int(frame_count)
-        channel_count = int(channel_count)
-        contents = [
-            command_number,
-            buffer_id,
-            frame_count,
-            channel_count,
-            ]
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-            completion_message = bytearray(completion_message.to_datagram())
-            contents.append(completion_message)
-        message = osctools.OscMessage(*contents)
+        from supriya.tools import requesttools
+        request = requesttools.BufferAllocateRequest(
+            buffer_id=buffer_id,
+            frame_count=frame_count,
+            channel_count=channel_count,
+            completion_message=completion_message,
+            )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
