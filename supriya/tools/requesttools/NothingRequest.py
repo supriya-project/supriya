@@ -33,4 +33,4 @@ class NothingRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.NOTHING
+        return servertools.RequestId.NOTHING

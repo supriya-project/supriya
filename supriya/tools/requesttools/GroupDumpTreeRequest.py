@@ -33,4 +33,4 @@ class GroupDumpTreeRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.GROUP_DUMP_TREE
+        return servertools.RequestId.GROUP_DUMP_TREE

@@ -33,4 +33,4 @@ class BufferSetContiguousRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.BUFFER_SET_CONTIGUOUS
+        return servertools.RequestId.BUFFER_SET_CONTIGUOUS

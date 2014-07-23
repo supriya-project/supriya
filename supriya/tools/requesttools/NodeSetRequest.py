@@ -33,4 +33,4 @@ class NodeSetRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.NODE_SET
+        return servertools.RequestId.NODE_SET

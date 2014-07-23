@@ -33,4 +33,4 @@ class BufferGenerateRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.BUFFER_GENERATE
+        return servertools.RequestId.BUFFER_GENERATE

@@ -33,4 +33,4 @@ class BufferReadRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.BUFFER_READ
+        return servertools.RequestId.BUFFER_READ

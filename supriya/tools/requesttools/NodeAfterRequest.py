@@ -33,4 +33,4 @@ class NodeAfterRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.NODE_AFTER
+        return servertools.RequestId.NODE_AFTER

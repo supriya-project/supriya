@@ -33,4 +33,4 @@ class GroupFreeAllRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.GROUP_FREE_ALL
+        return servertools.RequestId.GROUP_FREE_ALL

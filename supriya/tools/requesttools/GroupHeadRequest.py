@@ -33,4 +33,4 @@ class GroupHeadRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.GROUP_HEAD
+        return servertools.RequestId.GROUP_HEAD

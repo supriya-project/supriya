@@ -33,4 +33,4 @@ class NodeMapToAudioBusRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.NODE_MAP_TO_AUDIO_BUS
+        return servertools.RequestId.NODE_MAP_TO_AUDIO_BUS

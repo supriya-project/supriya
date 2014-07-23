@@ -33,4 +33,4 @@ class UgenCommandRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.UGEN_COMMAND
+        return servertools.RequestId.UGEN_COMMAND

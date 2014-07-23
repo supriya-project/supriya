@@ -33,4 +33,4 @@ class SynthdefFreeRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.SYNTHDEF_FREE
+        return servertools.RequestId.SYNTHDEF_FREE

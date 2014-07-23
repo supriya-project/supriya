@@ -33,4 +33,4 @@ class SynthdefLoadDirRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.SYNTHDEF_LOAD_DIR
+        return servertools.RequestId.SYNTHDEF_LOAD_DIR

@@ -33,4 +33,4 @@ class ControlBusGetContiguousRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.CONTROL_BUS_GET_CONTIGUOUS
+        return servertools.RequestId.CONTROL_BUS_GET_CONTIGUOUS

@@ -33,4 +33,4 @@ class GroupDeepFreeRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.GROUP_DEEP_FREE
+        return servertools.RequestId.GROUP_DEEP_FREE

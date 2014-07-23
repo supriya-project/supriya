@@ -33,4 +33,4 @@ class DumpOscRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.DUMP_OSC
+        return servertools.RequestId.DUMP_OSC

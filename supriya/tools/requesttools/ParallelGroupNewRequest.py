@@ -33,4 +33,4 @@ class ParallelGroupNewRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.PARALLEL_GROUP_NEW
+        return servertools.RequestId.PARALLEL_GROUP_NEW

@@ -33,4 +33,4 @@ class ControlBusFillRequest(Request):
     @property
     def request_number(self):
         from supriya.tools import servertools
-        return servertools.CommandNumber.CONTROL_BUS_FILL
+        return servertools.RequestId.CONTROL_BUS_FILL
