@@ -54,6 +54,14 @@ class WaitForServer(object):
             total_time += sleep_time
             time.sleep(sleep_time)
 
+    def __repr__(self):
+        result = '<{}: {!r} {}>'.format(
+            type(self).__name__,
+            self.address_pattern,
+            self.argument_template,
+            )
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property
