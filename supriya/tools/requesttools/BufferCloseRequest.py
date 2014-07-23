@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
@@ -21,7 +22,6 @@ class BufferCloseRequest(Request):
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import osctools
         request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         message = osctools.OscMessage(

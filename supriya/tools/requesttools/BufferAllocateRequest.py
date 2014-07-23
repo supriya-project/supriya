@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
@@ -22,7 +23,6 @@ class BufferAllocateRequest(Request):
         channel_count=1,
         completion_message=None,
         ):
-        from supriya.tools import osctools
         self._buffer_id = buffer_id
         self._frame_count = frame_count
         self._channel_count = channel_count
@@ -34,7 +34,6 @@ class BufferAllocateRequest(Request):
     ### PUBLIC METHODS ###
 
     def as_osc_message(self):
-        from supriya.tools import osctools
         request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         frame_count = int(self.frame_count)

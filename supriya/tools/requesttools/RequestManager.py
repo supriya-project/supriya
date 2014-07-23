@@ -117,18 +117,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_FILL
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        for index, count, value in index_count_value_triples:
-            contents.append(int(index))
-            contents.append(int(count))
-            contents.append(float(value))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferFillRequest(
+            buffer_id=buffer_id,
+            index_count_value_triples=index_count_value_triples,
+            )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
@@ -154,18 +147,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_FREE
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-            contents.append(bytearray(completion_message.to_datagram()))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferFreeRequest(
+            buffer_id=buffer_id,
+            completion_message=completion_message,
+            )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
@@ -202,17 +188,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_GET
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if indices:
-            for index in indices:
-                contents.append(int(index))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferGetRequest(
+            buffer_id=buffer_id,
+            indices=indices,
+            )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
@@ -242,18 +222,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_GET_CONTIGUOUS
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if index_count_pairs:
-            for index, count in index_count_pairs:
-                contents.append(int(index))
-                contents.append(int(count))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferGetContiguousRequest(
+            buffer_id=buffer_id,
+            index_count_pairs=index_count_pairs,
+            )
+        message = request.as_osc_message()
         return message
 
     @staticmethod
