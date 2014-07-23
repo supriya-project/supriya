@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
@@ -6,20 +7,23 @@ class StatusRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         ):
-        raise NotImplementedError
+        pass
 
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
-        raise NotImplementedError
+        request_id = int(self.request_id)
+        message = osctools.OscMessage(
+            request_id,
+            )
+        return message
 
     ### PUBLIC PROPERTIES ###
 
