@@ -10,8 +10,8 @@ def _build_kick_synthdef():
         )
 
     envelope = synthdeftools.Envelope.percussive(
-        attack_time=0.0001,
-        release_time=0.4,
+        attack_time=0.001,
+        release_time=0.5,
         )
     envelope = ugentools.EnvGen.ar(
         envelope=envelope,
@@ -23,9 +23,9 @@ def _build_kick_synthdef():
     noise = ugentools.RLPF.ar(
         source=noise,
         frequency=ugentools.LinLin.ar(
-            source=synthdeftools.Op.squared(envelope),
-            out_min=40,
-            out_max=220,
+            source=envelope,
+            out_min=20,
+            out_max=120,
             ),
         reciprocal_of_q=10,
         )
@@ -33,7 +33,8 @@ def _build_kick_synthdef():
         source=noise,
         frequency=200,
         )
-    noise = noise * envelope * 40
+    noise = noise * envelope * 10
+    noise = noise + synthdeftools.Op.distort(noise)
     noise = synthdeftools.Op.tanh(noise)
 
     saw_a = ugentools.LFSaw.ar(frequency=40)
@@ -47,9 +48,9 @@ def _build_kick_synthdef():
         reciprocal_of_q=0.001,
         )
     saw_a = saw_a * envelope * 0.1
-    saw_a = synthdeftools.Op.tanh(saw_a)
+    saw_a = synthdeftools.Op.distort(saw_a)
 
-    saw_b = ugentools.LFSaw.ar(frequency=39)
+    saw_b = ugentools.LFTri.ar(frequency=39)
     saw_b = ugentools.RLPF.ar(
         source=saw_b,
         frequency=ugentools.LinLin.ar(
@@ -68,10 +69,12 @@ def _build_kick_synthdef():
     mix += saw_b
     mix *= 2.0
     mix = ugentools.CompanderD.ar(
+        clamp_time=0.001,
         source=mix,
-        relax_time=0.1,
+        relax_time=0.2,
+        slope_above=0.125,
         slope_below=0.5,
-        thresh=0.3,
+        thresh=0.5,
         )
 
     out = ugentools.Out.ar(builder['out'], (mix, mix))
