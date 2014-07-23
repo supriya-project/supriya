@@ -69,28 +69,3 @@ class Compander(UGen):
             thresh=thresh,
             )
         return ugen
-
-    @classmethod
-    def kr(
-        cls,
-        clamp_time=0.01,
-        control=0.,
-        relax_time=0.1,
-        slope_above=1.,
-        slope_below=1.,
-        source=0.,
-        thresh=0.5,
-        ):
-        from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
-        ugen = cls._new_expanded(
-            clamp_time=clamp_time,
-            control=control,
-            rate=rate,
-            relax_time=relax_time,
-            slope_above=slope_above,
-            slope_below=slope_below,
-            source=source,
-            thresh=thresh,
-            )
-        return ugen
