@@ -99,9 +99,7 @@ def _build_clap_synthdef():
         )
 
     builder.add_ugen(output)
-
     synthdef = builder.build()
-
     return synthdef
 
 clap = _build_clap_synthdef()
