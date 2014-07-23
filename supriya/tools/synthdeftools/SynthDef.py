@@ -465,8 +465,7 @@ class SynthDef(ServerObjectProxy):
             self.allocate(server=server)
             self.server.sync()
         synth = servertools.Synth(self, **kwargs)
-        synth.allocate(target_node=self.server)
-        self.server.sync()
+        synth.allocate(target_node=self.server, sync=True)
         return synth
 
     ### PUBLIC PROPERTIES ###
