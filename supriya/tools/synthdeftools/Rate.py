@@ -67,13 +67,17 @@ class Rate(Enumeration):
         if isinstance(input_, (int, float)):
             return Rate.SCALAR
         elif isinstance(input_, (
-            synthdeftools.OutputProxy, synthdeftools.UGen)):
+            synthdeftools.OutputProxy,
+            synthdeftools.UGen,
+            )):
             return input_.rate
         elif isinstance(input_, synthdeftools.Parameter):
             name = input_.parameter_rate.name
             if name == 'TRIGGER':
                 return Rate.CONTROL
             return Rate.from_expr(name)
+        elif isinstance(input_, collections.Sequence):
+            return Rate.from_collection(input_)
         raise ValueError(input_)
 
     @staticmethod
