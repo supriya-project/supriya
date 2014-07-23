@@ -18,7 +18,7 @@ class SynthNewargsRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def as_osc_message(self):
+    def to_osc_message(self):
         from supriya.tools import requesttools
         manager = requesttools.RequestManager
         message = manager.make_synth_newargs_message()

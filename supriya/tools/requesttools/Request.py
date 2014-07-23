@@ -21,5 +21,5 @@ class Request(SupriyaValueObject):
     ### PUBLIC METHODS ###
 
     @abc.abstractmethod
-    def as_osc_message(self):
+    def to_osc_message(self):
         raise NotImplementedError

@@ -41,7 +41,7 @@ class RequestManager(object):
             channel_count=channel_count,
             completion_message=completion_message,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -85,7 +85,7 @@ class RequestManager(object):
         request = requesttools.BufferCloseRequest(
             buffer_id=buffer_id,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -121,7 +121,7 @@ class RequestManager(object):
             buffer_id=buffer_id,
             index_count_value_triples=index_count_value_triples,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -151,7 +151,7 @@ class RequestManager(object):
             buffer_id=buffer_id,
             completion_message=completion_message,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -192,7 +192,7 @@ class RequestManager(object):
             buffer_id=buffer_id,
             indices=indices,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -226,7 +226,7 @@ class RequestManager(object):
             buffer_id=buffer_id,
             index_count_pairs=index_count_pairs,
             )
-        message = request.as_osc_message()
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -249,14 +249,10 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_QUERY
-        request_id = int(request_id)
-        contents = [
-            request_id,
-            ]
-        for buffer_id in buffer_ids:
-            contents.append(int(buffer_id))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferQueryRequest(
+            buffer_ids=buffer_ids,
+            )
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -305,18 +301,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_SET
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if index_value_pairs:
-            for index, value in index_value_pairs:
-                contents.append(int(index))
-                contents.append(float(value))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferSetRequest(
+            buffer_id=buffer_id,
+            index_value_pairs=index_value_pairs,
+            )
+        message = request.to_osc_message()
         return message
 
     @staticmethod
@@ -349,22 +338,11 @@ class RequestManager(object):
         Returns OSC message.
         '''
         from supriya.tools import requesttools
-        request_id = requesttools.RequestId.BUFFER_SET_CONTIGUOUS
-        request_id = int(request_id)
-        buffer_id = int(buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            ]
-        if index_values_pairs:
-            for index, values in index_values_pairs:
-                if not values:
-                    continue
-                contents.append(int(index))
-                contents.append(len(values))
-                for value in values:
-                    contents.append(float(value))
-        message = osctools.OscMessage(*contents)
+        request = requesttools.BufferSetContiguousRequest(
+            buffer_id=buffer_id,
+            index_values_pairs=index_values_pairs,
+            )
+        message = request.to_osc_message()
         return message
 
     @staticmethod

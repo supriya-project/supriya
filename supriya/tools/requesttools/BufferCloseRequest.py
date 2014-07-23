@@ -21,7 +21,7 @@ class BufferCloseRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def as_osc_message(self):
+    def to_osc_message(self):
         request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         message = osctools.OscMessage(
