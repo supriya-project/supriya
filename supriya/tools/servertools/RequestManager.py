@@ -2,7 +2,7 @@
 from supriya.tools import osctools
 
 
-class CommandManager(object):
+class RequestManager(object):
 
     ### PUBLIC METHODS ###
 
@@ -18,7 +18,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_allocate_message(
             ...    buffer_id=23,
             ...    frame_count=512,
@@ -67,7 +67,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_close_message(
             ...     buffer_id=23,
             ...     )
@@ -101,7 +101,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_fill_message(
             ...     buffer_id=23,
             ...     index_count_value_triples=(
@@ -144,7 +144,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_free_message(23)
             >>> message
             OscMessage(32, 23)
@@ -189,7 +189,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_get_message(
             ...     buffer_id=23,
             ...     indices=(0, 4, 8, 16),
@@ -228,7 +228,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_get_contiguous_message(
             ...     buffer_id=23,
             ...     index_count_pairs=[(0, 3), (8, 11)],
@@ -266,7 +266,7 @@ class CommandManager(object):
         r'''Makes a /b_query message.
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_query_message(1, 23, 41)
             >>> message
             OscMessage(47, 1, 23, 41)
@@ -315,7 +315,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_set_message(
             ...     buffer_id=23,
             ...     index_value_pairs=(
@@ -359,7 +359,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_set_contiguous_message(
             ...     buffer_id=23,
             ...     index_values_pairs=(
@@ -414,7 +414,7 @@ class CommandManager(object):
 
             >>> from supriya.tools import servertools
             >>> from supriya.tools import soundfiletools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_write_message(
             ...     buffer_id=23,
             ...     file_path='test.aiff',
@@ -476,7 +476,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_buffer_zero_message(23)
             >>> message
             OscMessage(34, 23)
@@ -512,7 +512,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_fill_message(
             ...     index_count_value_triples=[
             ...         (0, 8, 0.5),
@@ -556,7 +556,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_get_message(
             ...     indices=(0, 4, 8, 12),
             ...     )
@@ -592,7 +592,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_get_contiguous_message(
             ...     index_count_pairs=[
             ...         (0, 2),
@@ -634,7 +634,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_set_message(
             ...     index_value_pairs=[
             ...         (0, 0.1),
@@ -677,7 +677,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_control_bus_set_contiguous_message(
             ...     index_values_pairs=[
             ...         (0, (0.1, 0.2, 0.3)),
@@ -721,7 +721,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_dump_osc_message(1)
             >>> message
             OscMessage(39, 1)
@@ -755,7 +755,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_group_new_message(
             ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
             ...     node_id=1001,
@@ -795,7 +795,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_group_query_tree_message(
             ...     node_id=0,
             ...     include_controls=True,
@@ -829,7 +829,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_node_free_message(1000)
             >>> message
             OscMessage(11, 1000)
@@ -858,7 +858,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_node_set_message(
             ...     1000,
             ...     frequency=443.1,
@@ -897,7 +897,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_node_map_to_control_bus_message(
             ...     1000,
             ...     frequency=servertools.Bus(9, 'control'),
@@ -937,7 +937,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_node_map_to_audio_bus_message(
             ...     1000,
             ...     frequency=servertools.Bus(9, 'audio'),
@@ -979,7 +979,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_node_release_message(1000)
             >>> message
             OscMessage(15, 1000, 'gate', 0)
@@ -1010,7 +1010,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_notify_message(True)
             >>> message
             OscMessage(1, 1)
@@ -1039,7 +1039,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_status_message()
             >>> message
             OscMessage(2)
@@ -1066,7 +1066,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_sync_message(1999)
             >>> message
             OscMessage(52, 1999)
@@ -1097,7 +1097,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_synthdef_free_message('test')
             >>> message
             OscMessage(53, 'test')
@@ -1162,7 +1162,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_synth_new_message(
             ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
             ...     node_id=1001,
@@ -1208,7 +1208,7 @@ class CommandManager(object):
         ::
 
             >>> from supriya.tools import servertools
-            >>> manager = servertools.CommandManager
+            >>> manager = servertools.RequestManager
             >>> message = manager.make_quit_message()
             >>> message
             OscMessage(3)

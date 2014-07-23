@@ -20,7 +20,7 @@ class SynthdefLoadDirRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import servertools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_synthdef_load_dir_message()
         return message
 

@@ -20,7 +20,7 @@ class ControlBusSetRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import servertools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_control_bus_set_message()
         return message
 

@@ -153,7 +153,7 @@ class Node(ServerObjectProxy):
             execution_context = execution_context or self.server
             del(self._server._nodes[self._node_id])
             if send_to_server:
-                message = servertools.CommandManager.make_node_free_message(
+                message = servertools.RequestManager.make_node_free_message(
                     self,
                     )
                 execution_context.send_message(message)

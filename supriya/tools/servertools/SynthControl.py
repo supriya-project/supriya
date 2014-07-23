@@ -74,7 +74,7 @@ class SynthControl(SupriyaObject):
     def set(self, expr, execution_context=None):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         if isinstance(expr, servertools.Bus):
             self._value = expr
             if expr.rate == synthdeftools.Rate.CONTROL:

@@ -233,7 +233,7 @@ class Server(object):
 
     def _setup_notifications(self):
         from supriya.tools import servertools
-        notify_message = servertools.CommandManager.make_notify_message(1)
+        notify_message = servertools.RequestManager.make_notify_message(1)
         with servertools.WaitForServer(
             address_pattern='/done',
             argument_template=('/notify', 0),
@@ -477,7 +477,7 @@ class Server(object):
             address_pattern='/g_queryTree.reply',
             server=self,
             )
-        message = servertools.CommandManager.make_group_query_tree_message(
+        message = servertools.RequestManager.make_group_query_tree_message(
             node_id=0,
             include_controls=include_controls,
             )
@@ -528,7 +528,7 @@ class Server(object):
             sync_id = self.next_sync_id
         else:
             sync_id = int(sync_id)
-        message = servertools.CommandManager.make_sync_message(sync_id)
+        message = servertools.RequestManager.make_sync_message(sync_id)
         wait = servertools.WaitForServer(
             address_pattern='/synced',
             argument_template=(sync_id,),

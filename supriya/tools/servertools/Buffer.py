@@ -107,10 +107,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server._buffers[self.buffer_id] = set()
         self.server._buffers[self.buffer_id].add(self)
         self.server._get_buffer_proxy(self.buffer_id)
-        on_done = servertools.CommandManager.make_buffer_query_message(
+        on_done = servertools.RequestManager.make_buffer_query_message(
             self.buffer_id,
             )
-        message = servertools.CommandManager.make_buffer_allocate_message(
+        message = servertools.RequestManager.make_buffer_allocate_message(
             buffer_id=self.buffer_id,
             frame_count=frame_count,
             channel_count=channel_count,
@@ -129,10 +129,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
         buffers.remove(self)
         if not buffers:
             del(self.server._buffers[buffer_id])
-        on_done = servertools.CommandManager.make_buffer_query_message(
+        on_done = servertools.RequestManager.make_buffer_query_message(
             buffer_id,
             )
-        message = servertools.CommandManager.make_buffer_free_message(
+        message = servertools.RequestManager.make_buffer_free_message(
             buffer_id=buffer_id,
             completion_message=on_done,
             )
@@ -244,7 +244,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_buffer_get_message(
             buffer_id=self,
             indices=indices,
@@ -292,7 +292,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_buffer_get_contiguous_message(
             buffer_id=self,
             index_count_pairs=index_count_pairs,
@@ -324,7 +324,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_buffer_set_message(
             buffer_id=self,
             index_value_pairs=index_value_pairs,
@@ -340,7 +340,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_buffer_set_contiguous_message(
             buffer_id=self,
             index_values_pairs=index_values_pairs,

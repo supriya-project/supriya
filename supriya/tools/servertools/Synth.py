@@ -86,7 +86,7 @@ class Synth(Node):
         if not self.synthdef.is_allocated:
             self.synthdef.allocate(self.server)
         synthdef_name = self.synthdef.actual_name
-        message = servertools.CommandManager.make_synth_new_message(
+        message = servertools.RequestManager.make_synth_new_message(
             add_action=add_action,
             node_id=node_id,
             synthdef_name=synthdef_name,

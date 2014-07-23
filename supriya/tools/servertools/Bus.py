@@ -172,7 +172,7 @@ class Bus(ServerObjectProxy, BusMixin):
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_control_bus_get_message(
             indices=(self,),
             )
@@ -247,7 +247,7 @@ class Bus(ServerObjectProxy, BusMixin):
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_control_bus_set_message(
             index_value_pairs=((self, value,),),
             )

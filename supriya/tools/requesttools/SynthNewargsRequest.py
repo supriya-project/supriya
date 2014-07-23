@@ -20,7 +20,7 @@ class SynthNewargsRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import servertools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_synth_newargs_message()
         return message
 

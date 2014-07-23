@@ -89,7 +89,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 raise ValueError(value)
             self[synth_control_name]._value = value
         osc_messages = []
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         if n_set_settings:
             osc_message = manager.make_node_set_message(
                 self.node_id,

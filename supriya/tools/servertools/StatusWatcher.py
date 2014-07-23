@@ -43,7 +43,7 @@ class StatusWatcher(threading.Thread):
     def run(self):
         from supriya.tools import servertools
         self.server.register_response_callback(self.response_callback)
-        message = servertools.CommandManager.make_status_message()
+        message = servertools.RequestManager.make_status_message()
         while self._active:
             if 5 < self.attempts:
                 self.server.quit()

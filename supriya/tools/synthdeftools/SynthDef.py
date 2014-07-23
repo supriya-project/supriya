@@ -367,7 +367,7 @@ class SynthDef(ServerObjectProxy):
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
-        message = servertools.CommandManager.make_synthdef_receive_message(
+        message = servertools.RequestManager.make_synthdef_receive_message(
             self,
             )
         execution_context = execution_context or self.server
@@ -391,7 +391,7 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import servertools
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
-        message = servertools.CommandManager.make_synthdef_free_message(
+        message = servertools.RequestManager.make_synthdef_free_message(
             synthdef=self,
             )
         execution_context = execution_context or self.server

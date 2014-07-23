@@ -20,7 +20,7 @@ class BufferSetContiguousRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import servertools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_buffer_set_contiguous_message()
         return message
 

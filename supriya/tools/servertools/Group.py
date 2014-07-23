@@ -70,7 +70,7 @@ class Group(Node):
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
-        message = servertools.CommandManager.make_group_new_message(
+        message = servertools.RequestManager.make_group_new_message(
             add_action=add_action,
             node_id=node_id,
             target_node_id=target_node_id,

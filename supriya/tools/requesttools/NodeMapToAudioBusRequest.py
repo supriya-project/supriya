@@ -20,7 +20,7 @@ class NodeMapToAudioBusRequest(Request):
 
     def as_osc_message(self):
         from supriya.tools import servertools
-        manager = servertools.CommandManager
+        manager = servertools.RequestManager
         message = manager.make_node_map_to_audio_bus_message()
         return message
 
