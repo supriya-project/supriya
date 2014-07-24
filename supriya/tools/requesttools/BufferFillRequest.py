@@ -4,6 +4,39 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferFillRequest(Request):
+    r'''A /b_fill request.
+    
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferFillRequest(
+        ...     buffer_id=23,
+        ...     index_count_value_triples=(
+        ...         (0, 8, 0.1),
+        ...         (11, 4, 0.2),
+        ...         ),
+        ...     )
+        >>> request
+        BufferFillRequest(
+            buffer_id=23,
+            index_count_value_triples=(
+                (0, 8, 0.1),
+                (11, 4, 0.2),
+                )
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(37, 23, 0, 8, 0.1, 11, 4, 0.2)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_FILL
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

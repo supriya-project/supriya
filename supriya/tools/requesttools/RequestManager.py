@@ -7,42 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_fill_message(
-        buffer_id=None,
-        index_count_value_triples=None,
-        ):
-        r'''Makes a /b_fill message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_fill_message(
-            ...     buffer_id=23,
-            ...     index_count_value_triples=(
-            ...         (0, 8, 0.1),
-            ...         (11, 4, 0.2),
-            ...         ),
-            ...     )
-            >>> message
-            OscMessage(37, 23, 0, 8, 0.1, 11, 4, 0.2)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_FILL
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferFillRequest(
-            buffer_id=buffer_id,
-            index_count_value_triples=index_count_value_triples,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_free_message(
         buffer_id,
         completion_message=None,
