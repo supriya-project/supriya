@@ -4,6 +4,31 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferQueryRequest(Request):
+    r'''A /b_query request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferQueryRequest(
+        ...     buffer_ids=(1, 23, 41)
+        ...     )
+        >>> request
+        BufferQueryRequest(
+            buffer_ids=(1, 23, 41)
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(47, 1, 23, 41)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_QUERY
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

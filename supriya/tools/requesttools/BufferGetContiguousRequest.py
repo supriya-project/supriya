@@ -4,6 +4,36 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGetContiguousRequest(Request):
+    r'''A /b_getn request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferGetContiguousRequest(
+        ...     buffer_id=23,
+        ...     index_count_pairs=[(0, 3), (8, 11)],
+        ...     )
+        >>> request
+        BufferGetContiguousRequest(
+            buffer_id=23,
+            index_count_pairs=(
+                (0, 3),
+                (8, 11),
+                )
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(43, 23, 0, 3, 8, 11)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_GET_CONTIGUOUS
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 
