@@ -190,45 +190,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_synthdef_free_message(
-        synthdef=None,
-        ):
-        r'''Makes a /d_free message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_synthdef_free_message('test')
-            >>> message
-            OscMessage(53, 'test')
-
-        ::
-
-            >>> message.address == requesttools.RequestId.SYNTHDEF_FREE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        from supriya.tools import synthdeftools
-        prototype = (
-            synthdeftools.SynthDef,
-            str,
-            )
-        assert isinstance(synthdef, prototype)
-        prototype = synthdeftools.SynthDef
-        if isinstance(synthdef, prototype):
-            synthdef = synthdef.actual_name
-        request_id = requesttools.RequestId.SYNTHDEF_FREE
-        request_id = int(request_id)
-        message = osctools.OscMessage(
-            request_id,
-            synthdef,
-            )
-        return message
-
-    @staticmethod
     def make_synthdef_receive_message(
         *synthdefs
         ):

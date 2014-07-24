@@ -391,9 +391,10 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import requesttools
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
-        message = requesttools.RequestManager.make_synthdef_free_message(
-            synthdef=self,
+        request = requesttools.SynthdefFreeRequest(
+            synthdef_name=self.actual_name,
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
         ServerObjectProxy.free(self)
