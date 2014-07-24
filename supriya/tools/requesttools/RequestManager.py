@@ -7,35 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_node_free_message(node_id):
-        r'''Makes a /n_free message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_node_free_message(1000)
-            >>> message
-            OscMessage(11, 1000)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.NODE_FREE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request_id = requesttools.RequestId.NODE_FREE
-        request_id = int(request_id)
-        node_id = int(node_id)
-        message = osctools.OscMessage(
-            request_id,
-            node_id,
-            )
-        return message
-
-    @staticmethod
     def make_node_set_message(node_id, **settings):
         r'''Makes a /n_set message.
 

@@ -153,9 +153,10 @@ class Node(ServerObjectProxy):
             execution_context = execution_context or self.server
             del(self._server._nodes[self._node_id])
             if send_to_server:
-                message = requesttools.RequestManager.make_node_free_message(
-                    self,
+                request = requesttools.NodeFreeRequest(
+                    node_id=self,
                     )
+                message = request.to_osc_message()
                 execution_context.send_message(message)
             if self.node_id_is_permanent and self.server.node_id_allocator:
                 self.server.node_id_allocator.free_permanent_node_id(
