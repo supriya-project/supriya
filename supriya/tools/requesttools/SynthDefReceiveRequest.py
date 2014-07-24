@@ -3,7 +3,7 @@ from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
-class SynthdefReceiveRequest(Request):
+class SynthDefReceiveRequest(Request):
     r'''A /d_recv request.
     '''
 

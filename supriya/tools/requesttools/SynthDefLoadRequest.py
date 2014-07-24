@@ -2,7 +2,7 @@
 from supriya.tools.requesttools.Request import Request
 
 
-class SynthdefLoadDirRequest(Request):
+class SynthDefLoadRequest(Request):
 
     ### CLASS VARIABLES ###
 
@@ -30,4 +30,4 @@ class SynthdefLoadDirRequest(Request):
     @property
     def request_id(self):
         from supriya.tools import requesttools
-        return requesttools.RequestId.SYNTHDEF_LOAD_DIR
+        return requesttools.RequestId.SYNTHDEF_LOAD

@@ -2,7 +2,7 @@
 from supriya.tools.requesttools.Request import Request
 
 
-class SynthdefFreeAllRequest(Request):
+class SynthDefFreeAllRequest(Request):
 
     ### CLASS VARIABLES ###
 

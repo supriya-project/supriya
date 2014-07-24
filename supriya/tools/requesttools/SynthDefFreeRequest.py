@@ -3,17 +3,17 @@ from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
-class SynthdefFreeRequest(Request):
+class SynthDefFreeRequest(Request):
     r'''A /d_free request.
 
     ::
 
         >>> from supriya.tools import requesttools
-        >>> request = requesttools.SynthdefFreeRequest(
+        >>> request = requesttools.SynthDefFreeRequest(
         ...     synthdef='test',
         ...     )
         >>> request
-        SynthdefFreeRequest(
+        SynthDefFreeRequest(
             synthdef='test'
             )
 
