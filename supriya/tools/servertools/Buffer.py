@@ -330,11 +330,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
-        manager = requesttools.RequestManager
-        message = manager.make_buffer_set_message(
+        request = requesttools.BufferSetRequest(
             buffer_id=self,
             index_value_pairs=index_value_pairs,
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
 
@@ -346,11 +346,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
-        manager = requesttools.RequestManager
-        message = manager.make_buffer_set_contiguous_message(
+        request = requesttools.BufferSetContiguousRequest(
             buffer_id=self,
             index_values_pairs=index_values_pairs,
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
 
