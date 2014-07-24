@@ -67,10 +67,8 @@ class BufferWriteRequest(Request):
         ):
         from supriya.tools import soundfiletools
         self._buffer_id = buffer_id
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-        self._completion_message = completion_message
+        self._completion_message = self._coerce_completion_message_input(
+            completion_message)
         self._file_path = str(file_path)
         if frame_count is None:
             frame_count = -1
@@ -107,10 +105,7 @@ class BufferWriteRequest(Request):
             self.starting_frame,
             leave_open,
             ]
-        if self.completion_message is not None:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message
 

@@ -45,10 +45,8 @@ class BufferFreeRequest(Request):
         completion_message=None,
         ):
         self._buffer_id = buffer_id
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-        self._completion_message = completion_message
+        self._completion_message = self._coerce_completion_message_input(
+            completion_message)
 
     ### PUBLIC METHODS ###
 
@@ -59,10 +57,7 @@ class BufferFreeRequest(Request):
             request_id,
             buffer_id,
             ]
-        if self.completion_message is not None:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message
 

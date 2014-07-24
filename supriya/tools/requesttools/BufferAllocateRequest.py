@@ -55,10 +55,8 @@ class BufferAllocateRequest(Request):
         self._buffer_id = buffer_id
         self._frame_count = frame_count
         self._channel_count = channel_count
-        if completion_message is not None:
-            prototype = (osctools.OscBundle, osctools.OscMessage)
-            assert isinstance(completion_message, prototype)
-        self._completion_message = completion_message
+        self._completion_message = self._coerce_completion_message_input(
+            completion_message)
 
     ### PUBLIC METHODS ###
 
@@ -73,10 +71,7 @@ class BufferAllocateRequest(Request):
             frame_count,
             channel_count,
             ]
-        if self.completion_message is not None:
-            completion_message = self.completion_message.to_datagram()
-            completion_message = bytearray(completion_message)
-            contents.append(completion_message)
+        self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message
 
