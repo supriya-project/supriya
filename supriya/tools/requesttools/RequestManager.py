@@ -157,39 +157,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_node_release_message(node_id):
-        r'''Makes a node release message.
-
-        ..  note:: This assumes that the node has a control named *gate*.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_node_release_message(1000)
-            >>> message
-            OscMessage(15, 1000, 'gate', 0)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.NODE_SET
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request_id = requesttools.RequestId.NODE_SET
-        request_id = int(request_id)
-        node_id = int(node_id)
-        message = osctools.OscMessage(
-            request_id,
-            node_id,
-            'gate',
-            0,
-            )
-        return message
-
-    @staticmethod
     def make_synth_new_message(
         add_action=None,
         node_id=None,
