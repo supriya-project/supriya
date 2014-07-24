@@ -7,36 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_free_message(
-        buffer_id,
-        completion_message=None,
-        ):
-        r'''Makes a /b_free message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_free_message(23)
-            >>> message
-            OscMessage(32, 23)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_FREE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferFreeRequest(
-            buffer_id=buffer_id,
-            completion_message=completion_message,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_get_message(
         buffer_id=None,
         indices=None,

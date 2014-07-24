@@ -4,6 +4,31 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferFreeRequest(Request):
+    r'''A /b_free request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferFreeRequest(
+        ...     buffer_id=23,
+        ...     )
+        >>> request
+        BufferFreeRequest(
+            buffer_id=23
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(32, 23)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_FREE
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

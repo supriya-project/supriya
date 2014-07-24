@@ -133,10 +133,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
         on_done = requesttools.RequestManager.make_buffer_query_message(
             buffer_id,
             )
-        message = requesttools.RequestManager.make_buffer_free_message(
+        request = requesttools.BufferFreeRequest(
             buffer_id=buffer_id,
             completion_message=on_done,
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
 
