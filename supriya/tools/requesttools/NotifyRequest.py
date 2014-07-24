@@ -4,6 +4,32 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NotifyRequest(Request):
+    r'''A /notify message.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+
+        >>> request = requesttools.NotifyRequest(
+        ...     notify_status=True,
+        ...     )
+        >>> request
+        NotifyRequest(
+            notify_status=True
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(1, 1)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.NOTIFY
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 
