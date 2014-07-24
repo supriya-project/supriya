@@ -45,22 +45,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_buffer_allocate_read_message():
-        r'''Makes a /b_allocRead message.
-
-        Returns OSC message.
-        '''
-        raise NotImplementedError
-
-    @staticmethod
-    def make_buffer_allocate_read_channel_message():
-        r'''Makes a /b_allocReadChannel message.
-
-        Returns OSC message.
-        '''
-        raise NotImplementedError
-
-    @staticmethod
     def make_buffer_close_message(buffer_id):
         r'''Makes a /b_close message.
 
@@ -155,14 +139,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_buffer_generate_message():
-        r'''Makes a /b_gen message.
-
-        Returns OSC message.
-        '''
-        raise NotImplementedError
-
-    @staticmethod
     def make_buffer_get_message(
         buffer_id=None,
         indices=None,
@@ -254,22 +230,6 @@ class RequestManager(object):
             )
         message = request.to_osc_message()
         return message
-
-    @staticmethod
-    def make_buffer_read_message():
-        r'''Makes a /b_read message.
-
-        Returns OSC message.
-        '''
-        raise NotImplementedError
-
-    @staticmethod
-    def make_buffer_read_channel_message():
-        r'''Makes a /b_readChannel message.
-
-        Returns OSC message.
-        '''
-        raise NotImplementedError
 
     @staticmethod
     def make_buffer_set_message(
