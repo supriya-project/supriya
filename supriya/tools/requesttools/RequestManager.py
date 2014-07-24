@@ -7,66 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_get_contiguous_message(
-        buffer_id=None,
-        index_count_pairs=None
-        ):
-        r'''Makes a /b_getn message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_get_contiguous_message(
-            ...     buffer_id=23,
-            ...     index_count_pairs=[(0, 3), (8, 11)],
-            ...     )
-            >>> message
-            OscMessage(43, 23, 0, 3, 8, 11)
-
-        ::
-
-            >>> message.address == \
-            ...     requesttools.RequestId.BUFFER_GET_CONTIGUOUS
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferGetContiguousRequest(
-            buffer_id=buffer_id,
-            index_count_pairs=index_count_pairs,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
-    def make_buffer_query_message(
-        *buffer_ids
-        ):
-        r'''Makes a /b_query message.
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_query_message(1, 23, 41)
-            >>> message
-            OscMessage(47, 1, 23, 41)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_QUERY
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferQueryRequest(
-            buffer_ids=buffer_ids,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_set_message(
         buffer_id=None,
         index_value_pairs=None,

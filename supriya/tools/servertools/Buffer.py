@@ -107,9 +107,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server._buffers[self.buffer_id] = set()
         self.server._buffers[self.buffer_id].add(self)
         self.server._get_buffer_proxy(self.buffer_id)
-        on_done = requesttools.RequestManager.make_buffer_query_message(
-            self.buffer_id,
+        on_done = requesttools.BufferQueryRequest(
+            buffer_ids=(self.buffer_id,),
             )
+        on_done = on_done.to_osc_message()
         request = requesttools.BufferAllocateRequest(
             buffer_id=self.buffer_id,
             frame_count=frame_count,
@@ -130,9 +131,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
         buffers.remove(self)
         if not buffers:
             del(self.server._buffers[buffer_id])
-        on_done = requesttools.RequestManager.make_buffer_query_message(
-            buffer_id,
+        on_done = requesttools.BufferQueryRequest(
+            buffer_ids=(buffer_id,),
             )
+        on_done = on_done.to_osc_message()
         request = requesttools.BufferFreeRequest(
             buffer_id=buffer_id,
             completion_message=on_done,
@@ -296,11 +298,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = requesttools.RequestManager
-        message = manager.make_buffer_get_contiguous_message(
+        request = requesttools.BufferGetContiguousRequest(
             buffer_id=self,
             index_count_pairs=index_count_pairs,
             )
+        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
         wait = servertools.WaitForServer(
