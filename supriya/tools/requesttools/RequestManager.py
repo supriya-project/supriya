@@ -81,54 +81,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_buffer_write_message(
-        buffer_id=None,
-        completion_message=None,
-        file_path=None,
-        frame_count=None,
-        header_format='aiff',
-        leave_open=False,
-        sample_format='int24',
-        starting_frame=None,
-        ):
-        r'''Makes a /b_write message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> from supriya.tools import soundfiletools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_write_message(
-            ...     buffer_id=23,
-            ...     file_path='test.aiff',
-            ...     header_format=soundfiletools.HeaderFormat.AIFF,
-            ...     sample_format=soundfiletools.SampleFormat.INT24,
-            ...     )
-            >>> message
-            OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_WRITE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferWriteRequest(
-            buffer_id=buffer_id,
-            completion_message=completion_message,
-            file_path=file_path,
-            frame_count=frame_count,
-            header_format=header_format,
-            leave_open=leave_open,
-            sample_format=sample_format,
-            starting_frame=starting_frame,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_control_bus_fill_message(
         index_count_value_triples=None,
         ):
