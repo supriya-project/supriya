@@ -4,6 +4,40 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferWriteRequest(Request):
+    r'''A /b_write request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> from supriya.tools import soundfiletools
+        >>> request = requesttools.BufferWriteRequest(
+        ...     buffer_id=23,
+        ...     file_path='test.aiff',
+        ...     header_format=soundfiletools.HeaderFormat.AIFF,
+        ...     sample_format=soundfiletools.SampleFormat.INT24,
+        ...     )
+        >>> request
+        BufferWriteRequest(
+            buffer_id=23,
+            file_path='test.aiff',
+            frame_count=-1,
+            header_format=<HeaderFormat.AIFF: 0>,
+            leave_open=False,
+            sample_format=<SampleFormat.INT24: 0>,
+            starting_frame=0
+            )
+
+    ::
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(31, 23, 'test.aiff', 'aiff', 'int24', -1, 0, 0)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_WRITE
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

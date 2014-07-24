@@ -4,6 +4,40 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferSetRequest(Request):
+    r'''A /b_set request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferSetRequest(
+        ...     buffer_id=23,
+        ...     index_value_pairs=(
+        ...         (0, 1.0),
+        ...         (10, 13.2),
+        ...         (17, 19.3),
+        ...         ),
+        ...     )
+        >>> request
+        BufferSetRequest(
+            buffer_id=23,
+            index_value_pairs=(
+                (0, 1.0),
+                (10, 13.2),
+                (17, 19.3),
+                )
+            )
+
+    ::
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_SET
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 
