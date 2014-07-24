@@ -129,36 +129,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_buffer_zero_message(
-        buffer_id=None,
-        completion_message=None,
-        ):
-        r'''Makes a /b_zero message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_zero_message(23)
-            >>> message
-            OscMessage(34, 23)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_ZERO
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferZeroRequest(
-            buffer_id=buffer_id,
-            completion_message=completion_message,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_control_bus_fill_message(
         index_count_value_triples=None,
         ):
