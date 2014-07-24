@@ -73,7 +73,7 @@ def _build_clap_synthdef():
     noise_one = ugentools.BPF.ar(
         source=noise_one,
         frequency=2000,
-        reciprocal_q=3,
+        reciprocal_of_q=3,
         )
 
     noise_two = ugentools.WhiteNoise.ar() * envelope_generator_two
@@ -84,7 +84,7 @@ def _build_clap_synthdef():
     noise_two = ugentools.BPF.ar(
         source=noise_two,
         frequency=1200,
-        reciprocal_q=0.7,
+        reciprocal_of_q=0.7,
         )
     noise_two = noise_two * 0.7
 
