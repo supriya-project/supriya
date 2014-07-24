@@ -4,6 +4,31 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferCloseRequest(Request):
+    r'''A /b_close request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferCloseRequest(
+        ...     buffer_id=23,
+        ...     )
+        >>> request
+        BufferCloseRequest(
+            buffer_id=23
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(33, 23)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_CLOSE
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

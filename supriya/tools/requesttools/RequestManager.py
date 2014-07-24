@@ -7,34 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_close_message(buffer_id):
-        r'''Makes a /b_close message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_close_message(
-            ...     buffer_id=23,
-            ...     )
-            >>> message
-            OscMessage(33, 23)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_CLOSE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferCloseRequest(
-            buffer_id=buffer_id,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_fill_message(
         buffer_id=None,
         index_count_value_triples=None,
