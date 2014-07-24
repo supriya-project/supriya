@@ -479,10 +479,11 @@ class Server(object):
             address_pattern='/g_queryTree.reply',
             server=self,
             )
-        message = requesttools.RequestManager.make_group_query_tree_message(
+        request = requesttools.GroupQueryTreeRequest(
             node_id=0,
             include_controls=include_controls,
             )
+        message = request.to_osc_message()
         with wait:
             self.send_message(message)
         message = wait.received_message
