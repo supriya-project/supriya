@@ -85,14 +85,14 @@ class Synth(Node):
             )
         if not self.synthdef.is_allocated:
             self.synthdef.allocate(self.server)
-        synthdef_name = self.synthdef.actual_name
-        message = requesttools.RequestManager.make_synth_new_message(
+        request = requesttools.SynthNewRequest(
             add_action=add_action,
             node_id=node_id,
-            synthdef_name=synthdef_name,
+            synthdef=self.synthdef,
             target_node_id=target_node_id,
             **kwargs
             )
+        message = request.to_osc_message()
         for key, value in kwargs:
             self[key].set(value, execution_context=execution_context)
         execution_context = execution_context or self.server
