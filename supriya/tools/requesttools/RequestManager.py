@@ -7,45 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_node_set_message(node_id, **settings):
-        r'''Makes a /n_set message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_node_set_message(
-            ...     1000,
-            ...     frequency=443.1,
-            ...     phase=0.5,
-            ...     amplitude=0.1,
-            ...     )
-            >>> message
-            OscMessage(15, 1000, 'amplitude', 0.1, 'frequency', 443.1, 'phase', 0.5)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.NODE_SET
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request_id = requesttools.RequestId.NODE_SET
-        request_id = int(request_id)
-        node_id = int(node_id)
-        contents = []
-        for name, value in sorted(settings.items()):
-            contents.append(name)
-            contents.append(float(value))
-        message = osctools.OscMessage(
-            request_id,
-            node_id,
-            *contents
-            )
-        return message
-
-    @staticmethod
     def make_node_map_to_control_bus_message(node_id, **settings):
         r'''Makes a /n_map message.
 

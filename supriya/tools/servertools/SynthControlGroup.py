@@ -89,28 +89,29 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
             else:
                 raise ValueError(value)
             self[synth_control_name]._value = value
-        osc_messages = []
+        messages = []
         manager = requesttools.RequestManager
         if n_set_settings:
-            osc_message = manager.make_node_set_message(
+            request = requesttools.NodeSetRequest(
                 self.node_id,
                 **n_set_settings
                 )
-            osc_messages.append(osc_message)
+            message = request.to_osc_message()
+            messages.append(message)
         if n_map_settings:
-            osc_message = manager.make_node_map_to_control_bus_message(
+            message = manager.make_node_map_to_control_bus_message(
                 self.node_id,
                 **n_map_settings
                 )
-            osc_messages.append(osc_message)
+            messages.append(message)
         if n_mapa_settings:
-            osc_message = manager.make_node_map_to_audio_bus_message(
+            message = manager.make_node_map_to_audio_bus_message(
                 self.node_id,
                 **n_mapa_settings
                 )
-            osc_messages.append(osc_message)
+            messages.append(message)
         execution_context = execution_context or self.client.server
-        for message in osc_messages:
+        for message in messages:
             execution_context.send_message(message)
 
     ### PUBLIC METHODS ###

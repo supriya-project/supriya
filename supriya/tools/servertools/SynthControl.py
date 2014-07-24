@@ -90,10 +90,11 @@ class SynthControl(SupriyaObject):
                     )
         else:
             self._value = float(expr)
-            message = manager.make_node_set_message(
+            request = requesttools.NodeSetRequest(
                 self.client.client,
                 **{self.name: self._value}
                 )
+            message = request.to_osc_message()
         execution_context = execution_context or self.client.client.server
         execution_context.send_message(message)
 
