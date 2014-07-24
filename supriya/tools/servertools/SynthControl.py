@@ -75,19 +75,20 @@ class SynthControl(SupriyaObject):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        manager = requesttools.RequestManager
         if isinstance(expr, servertools.Bus):
             self._value = expr
             if expr.rate == synthdeftools.Rate.CONTROL:
-                message = manager.make_node_map_to_control_bus_message(
+                request = requesttools.NodeMapToControlBusRequest(
                     self.client.client,
                     **{self.name: self._value}
                     )
+                message = request.to_osc_message()
             else:
-                message = manager.make_node_map_to_audio_bus_message(
+                request = requesttools.NodeMapToAudioBusRequest(
                     self.client.client,
                     **{self.name: self._value}
                     )
+                message = request.to_osc_message()
         else:
             self._value = float(expr)
             request = requesttools.NodeSetRequest(
