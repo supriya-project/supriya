@@ -367,9 +367,10 @@ class SynthDef(ServerObjectProxy):
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
-        message = requesttools.RequestManager.make_synthdef_receive_message(
-            self,
+        request = requesttools.SynthDefReceiveRequest(
+            synthdefs=(self,),
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
         if sync:
@@ -391,8 +392,8 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import requesttools
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
-        request = requesttools.SynthdefFreeRequest(
-            synthdef_name=self.actual_name,
+        request = requesttools.SynthDefFreeRequest(
+            synthdef=self,
             )
         message = request.to_osc_message()
         execution_context = execution_context or self.server

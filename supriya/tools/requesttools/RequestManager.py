@@ -190,28 +190,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_synthdef_receive_message(
-        *synthdefs
-        ):
-        r'''Makes a /d_recv message.
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        from supriya.tools import synthdeftools
-        request_id = requesttools.RequestId.SYNTHDEF_RECEIVE
-        request_id = int(request_id)
-        compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
-            synthdefs,
-            )
-        compiled_synthdefs = bytearray(compiled_synthdefs)
-        message = osctools.OscMessage(
-            request_id,
-            compiled_synthdefs,
-            )
-        return message
-
-    @staticmethod
     def make_synth_new_message(
         add_action=None,
         node_id=None,
