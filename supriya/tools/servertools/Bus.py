@@ -173,10 +173,10 @@ class Bus(ServerObjectProxy, BusMixin):
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = requesttools.RequestManager
-        message = manager.make_control_bus_get_message(
+        request = requesttools.ControlBusGetRequest(
             indices=(self,),
             )
+        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
         wait = servertools.WaitForServer(
@@ -249,10 +249,10 @@ class Bus(ServerObjectProxy, BusMixin):
             raise servertools.NotAllocatedError(self)
         elif not self.rate == synthdeftools.Rate.CONTROL:
             raise synthdeftools.RateError
-        manager = requesttools.RequestManager
-        message = manager.make_control_bus_set_message(
+        request = requesttools.ControlBusSetRequest(
             index_value_pairs=((self, value,),),
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
 

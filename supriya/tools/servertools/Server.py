@@ -234,13 +234,14 @@ class Server(object):
     def _setup_notifications(self):
         from supriya.tools import requesttools
         from supriya.tools import servertools
-        notify_message = requesttools.RequestManager.make_notify_message(1)
+        request = requesttools.NotifyRequest(True)
+        message = request.to_osc_message()
         with servertools.WaitForServer(
             address_pattern='/done',
             argument_template=('/notify', 0),
             server=self,
             ):
-            self.send_message(notify_message)
+            self.send_message(message)
 
     def _setup_proxies(self):
         from supriya.tools import servertools

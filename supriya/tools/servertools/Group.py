@@ -70,11 +70,12 @@ class Group(Node):
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
-        message = requesttools.RequestManager.make_group_new_message(
+        request = requesttools.GroupNewRequest(
             add_action=add_action,
             node_id=node_id,
             target_node_id=target_node_id,
             )
+        message = request.to_osc_message()
         execution_context = execution_context or self.server
         execution_context.send_message(message)
         if sync:
