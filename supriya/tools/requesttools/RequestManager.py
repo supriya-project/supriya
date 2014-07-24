@@ -7,44 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_allocate_message(
-        buffer_id=None,
-        frame_count=None,
-        channel_count=1,
-        completion_message=None,
-        ):
-        r'''Makes a /b_alloc message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_allocate_message(
-            ...    buffer_id=23,
-            ...    frame_count=512,
-            ...    channel_count=2,
-            ...    )
-            >>> message
-            OscMessage(28, 23, 512, 2)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_ALLOCATE
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferAllocateRequest(
-            buffer_id=buffer_id,
-            frame_count=frame_count,
-            channel_count=channel_count,
-            completion_message=completion_message,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_close_message(buffer_id):
         r'''Makes a /b_close message.
 

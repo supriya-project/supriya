@@ -4,6 +4,35 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferAllocateRequest(Request):
+    r'''A /b_alloc request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferAllocateRequest(
+        ...     buffer_id=23,
+        ...     frame_count=512,
+        ...     channel_count=2,
+        ...     )
+        >>> request
+        BufferAllocateRequest(
+            buffer_id=23,
+            frame_count=512,
+            channel_count=2
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(28, 23, 512, 2)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_ALLOCATE
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 
