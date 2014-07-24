@@ -4,6 +4,27 @@ from supriya.tools.requesttools.Request import Request
 
 
 class StatusRequest(Request):
+    r'''A /status request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.StatusRequest()
+        >>> request
+        StatusRequest()
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(2)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.STATUS
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

@@ -688,30 +688,6 @@ class RequestManager(object):
         return message
 
     @staticmethod
-    def make_status_message():
-        r'''Makes a /status message
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_status_message()
-            >>> message
-            OscMessage(2)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.STATUS
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.StatusRequest()
-        message = request.to_osc_message() 
-        return message
-
-    @staticmethod
     def make_synthdef_free_message(
         synthdef=None,
         ):
