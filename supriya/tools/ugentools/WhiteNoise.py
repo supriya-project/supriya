@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class WhiteNoise(UGen):
-    r'''White noise unit generator.
+    r'''A white noise unit generator.
 
     ::
 

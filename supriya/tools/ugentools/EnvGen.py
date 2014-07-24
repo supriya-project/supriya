@@ -63,6 +63,10 @@ class EnvGen(UGen):
         rate=None,
         done_action=None,
         envelope=None,
+        gate=1.0,
+        level_bias=0.0,
+        level_scale=1.0,
+        time_scale=1.0,
         ):
         from supriya.tools import synthdeftools
         done_action = synthdeftools.DoneAction.from_expr(done_action)
@@ -74,6 +78,10 @@ class EnvGen(UGen):
             rate=rate,
             done_action=done_action,
             envelope=envelope,
+            gate=gate,
+            level_bias=level_bias,
+            level_scale=level_scale,
+            time_scale=time_scale,
             )
 
     ### PUBLIC METHODS ###
@@ -83,7 +91,10 @@ class EnvGen(UGen):
         cls,
         done_action=0,
         envelope=None,
-        **kwargs
+        gate=1.0,
+        level_bias=0.0,
+        level_scale=1.0,
+        time_scale=1.0,
         ):
         r'''Creates an audio-rate envelope generator.
 
@@ -105,6 +116,10 @@ class EnvGen(UGen):
             rate=rate,
             done_action=done_action,
             envelope=envelope,
+            gate=gate,
+            level_bias=level_bias,
+            level_scale=level_scale,
+            time_scale=time_scale,
             )
         return ugen
 
@@ -113,7 +128,10 @@ class EnvGen(UGen):
         cls,
         done_action=0,
         envelope=None,
-        **kwargs
+        gate=1.0,
+        level_bias=0.0,
+        level_scale=1.0,
+        time_scale=1.0,
         ):
         r'''Creates an control-rate envelope generator.
 
@@ -135,5 +153,9 @@ class EnvGen(UGen):
             rate=rate,
             done_action=done_action,
             envelope=envelope,
+            gate=gate,
+            level_bias=level_bias,
+            level_scale=level_scale,
+            time_scale=time_scale,
             )
         return ugen
