@@ -21,7 +21,7 @@ class BRF(Filter):
     _ordered_input_names = (
         'source',
         'frequency',
-        'reciprocal_q',
+        'reciprocal_of_q',
         )
 
     ### PUBLIC METHODS ###
@@ -30,14 +30,14 @@ class BRF(Filter):
         self,
         frequency=440,
         rate=None,
-        reciprocal_q=1.0,
+        reciprocal_of_q=1.0,
         source=None,
         ):
         Filter.__init__(
             self,
             frequency=frequency,
             rate=rate,
-            reciprocal_q=reciprocal_q,
+            reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
 
@@ -47,7 +47,7 @@ class BRF(Filter):
     def ar(
         cls,
         frequency=440,
-        reciprocal_q=1.0,
+        reciprocal_of_q=1.0,
         source=None,
         ):
         r'''Creates an audio-rate band-reject filter.
@@ -58,7 +58,7 @@ class BRF(Filter):
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.BRF.ar(
             ...     frequency=440,
-            ...     reciprocal_q=1.0,
+            ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
             BRF.ar()
@@ -70,7 +70,7 @@ class BRF(Filter):
         ugen = cls._new_expanded(
             frequency=frequency,
             rate=rate,
-            reciprocal_q=reciprocal_q,
+            reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
         return ugen
@@ -79,7 +79,7 @@ class BRF(Filter):
     def kr(
         cls,
         frequency=440,
-        reciprocal_q=1.0,
+        reciprocal_of_q=1.0,
         source=None,
         ):
         r'''Creates a control-rate band-reject filter.
@@ -90,7 +90,7 @@ class BRF(Filter):
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.BRF.kr(
             ...     frequency=440,
-            ...     reciprocal_q=1.0,
+            ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
             BRF.kr()
@@ -102,7 +102,7 @@ class BRF(Filter):
         ugen = cls._new_expanded(
             frequency=frequency,
             rate=rate,
-            reciprocal_q=reciprocal_q,
+            reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
         return ugen
