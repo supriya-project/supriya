@@ -7,39 +7,6 @@ class RequestManager(object):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def make_buffer_get_message(
-        buffer_id=None,
-        indices=None,
-        ):
-        r'''Makes a /b_get message.
-
-        ::
-
-            >>> from supriya.tools import requesttools
-            >>> manager = requesttools.RequestManager
-            >>> message = manager.make_buffer_get_message(
-            ...     buffer_id=23,
-            ...     indices=(0, 4, 8, 16),
-            ...     )
-            >>> message
-            OscMessage(42, 23, 0, 4, 8, 16)
-
-        ::
-
-            >>> message.address == requesttools.RequestId.BUFFER_GET
-            True
-
-        Returns OSC message.
-        '''
-        from supriya.tools import requesttools
-        request = requesttools.BufferGetRequest(
-            buffer_id=buffer_id,
-            indices=indices,
-            )
-        message = request.to_osc_message()
-        return message
-
-    @staticmethod
     def make_buffer_get_contiguous_message(
         buffer_id=None,
         index_count_pairs=None

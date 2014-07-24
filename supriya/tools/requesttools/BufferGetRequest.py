@@ -4,6 +4,33 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGetRequest(Request):
+    r'''A /b_get request.
+
+    ::
+
+        >>> from supriya.tools import requesttools
+        >>> request = requesttools.BufferGetRequest(
+        ...     buffer_id=23,
+        ...     indices=(0, 4, 8, 16),
+        ...     )
+        >>> request
+        BufferGetRequest(
+            buffer_id=23,
+            indices=(0, 4, 8, 16)
+            )
+
+    ::
+
+        >>> message = request.to_osc_message()
+        >>> message
+        OscMessage(42, 23, 0, 4, 8, 16)
+
+    ::
+
+        >>> message.address == requesttools.RequestId.BUFFER_GET
+        True
+
+    '''
 
     ### CLASS VARIABLES ###
 

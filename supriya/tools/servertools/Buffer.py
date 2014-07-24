@@ -247,11 +247,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
-        manager = requesttools.RequestManager
-        message = manager.make_buffer_get_message(
+        request = requesttools.BufferGetRequest(
             buffer_id=self,
             indices=indices,
             )
+        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
         wait = servertools.WaitForServer(
