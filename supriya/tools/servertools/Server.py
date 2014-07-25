@@ -533,7 +533,7 @@ class Server(object):
         self._osc_dispatcher.register_callback(osc_callback)
 
     def register_response_callback(self, response_callback):
-        self._response_dispatcher.register_callback(response_callback)
+        self.response_dispatcher.register_callback(response_callback)
 
     def send_message(self, message):
         #from supriya.tools import osctools
@@ -566,7 +566,7 @@ class Server(object):
         self._osc_dispatcher.unregister_callback(osc_callback)
 
     def unregister_response_callback(self, response_callback):
-        self._response_dispatcher.unregister_callback(response_callback)
+        self.response_dispatcher.unregister_callback(response_callback)
 
     ### PUBLIC PROPERTIES ###
 
@@ -632,6 +632,10 @@ class Server(object):
     @property
     def port(self):
         return self._port
+
+    @property
+    def response_dispatcher(self):
+        return self._response_dispatcher
 
     @property
     def root_node(self):
