@@ -236,12 +236,12 @@ class ResponseManager(SupriyaObject):
     def handle_fail(command, contents):
         from supriya.tools import responsetools
         failed_command = contents[0]
-        failed_reason = contents[1:]
-        if failed_reason:
-            failed_reason = tuple(failed_reason)
+        failure_reason = contents[1:]
+        if failure_reason:
+            failure_reason = tuple(failure_reason)
         response = responsetools.FailResponse(
             failed_command=failed_command,
-            failed_reason=failed_reason,
+            failure_reason=failure_reason,
             )
         return response
 

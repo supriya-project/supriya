@@ -13,8 +13,14 @@ class OscListener(SupriyaObject, threading.Thread):
 
     ### INITIALIZER ###
 
-    def __init__(self, client, timeout=1):
+    def __init__(
+        self,
+        client=None,
+        debug=False,
+        timeout=1,
+        ):
         threading.Thread.__init__(self)
+        self.debug = bool(debug)
         self.client = client
         self.setDaemon(True)
         self.running = False
@@ -48,6 +54,9 @@ class OscListener(SupriyaObject, threading.Thread):
                 message = self.get_message()
                 if message is None:
                     continue
+                if self.debug:
+                    if message.address != '/status.reply':
+                        print('RECV', message)
                 osc_dispatcher(message)
                 response_dispatcher(message)
         except:

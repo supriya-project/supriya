@@ -65,6 +65,14 @@ class WaitForServer(object):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def address_pattern(self):
+        return self._address_pattern
+
+    @property
+    def argument_template(self):
+        return self._argument_template
+
+    @property
     def osc_callback(self):
         return self._osc_callback
 

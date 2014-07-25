@@ -36,6 +36,7 @@ class Server(object):
         '_control_bus_allocator',
         '_control_buses',
         '_control_bus_proxies',
+        '_debug',
         '_default_group',
         '_ip_address',
         '_is_running',
@@ -61,20 +62,31 @@ class Server(object):
 
     ### CONSTRUCTOR ###
 
-    def __new__(cls, ip_address='127.0.0.1', port=57751):
+    def __new__(
+        cls,
+        ip_address='127.0.0.1',
+        port=57751,
+        **kwargs
+        ):
         key = (ip_address, port)
         if key not in cls._servers:
             instance = object.__new__(cls)
             instance.__init__(
                 ip_address=ip_address,
                 port=port,
+                **kwargs
                 )
             cls._servers[key] = instance
         return cls._servers[key]
 
     ### INITIALIZER ###
 
-    def __init__(self, ip_address='127.0.0.1', port=57751):
+    def __init__(
+        self,
+        ip_address='127.0.0.1',
+        port=57751,
+        debug=False,
+        ):
         from supriya.tools import osctools
         from supriya.tools import responsetools
 
@@ -91,7 +103,10 @@ class Server(object):
         self._latency = 100
         self._response_dispatcher = responsetools.ResponseDispatcher()
         self._osc_dispatcher = osctools.OscDispatcher()
-        self._osc_controller = osctools.OscController(server=self)
+        self._osc_controller = osctools.OscController(
+            debug=debug,
+            server=self,
+            )
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
@@ -141,6 +156,10 @@ class Server(object):
         ### REGISTER WITH ATEXIT ###
 
         atexit.register(self.quit)
+
+        ### DEBUGGING ###
+
+        self.debug = debug
 
     ### SPECIAL METHODS ###
 
@@ -570,6 +589,15 @@ class Server(object):
     @property
     def control_bus_allocator(self):
         return self._control_bus_allocator
+
+    @property
+    def debug(self):
+        return self._debug
+
+    @debug.setter
+    def debug(self, expr):
+        self._debug = bool(expr)
+        self._osc_controller.debug = self.debug
 
     @property
     def default_group(self):

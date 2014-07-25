@@ -15,6 +15,7 @@ class OscController(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_debug',
         '_incoming_message_queue',
         '_listener',
         '_server',
@@ -38,11 +39,14 @@ class OscController(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self,
+    def __init__(
+        self,
+        debug=False,
         server=None,
         timeout=2,
         ):
         from supriya.tools import osctools
+        self._debug = bool(debug)
         self._server = server
         assert 0 < int(timeout)
         self._timeout = int(timeout)
@@ -51,7 +55,10 @@ class OscController(SupriyaObject):
             socket.SOCK_DGRAM,
             )
         self._socket_instance.settimeout(self.timeout)
-        self._listener = osctools.OscListener(self)
+        self._listener = osctools.OscListener(
+            client=self,
+            debug=self.debug,
+            )
         self._listener.start()
         self._socket_instance.bind(('', 0))
 
@@ -64,6 +71,7 @@ class OscController(SupriyaObject):
 
     def send(self, message):
         from supriya.tools import osctools
+        from supriya.tools import requesttools
         prototype = (str, tuple, osctools.OscMessage, osctools.OscBundle)
         assert isinstance(message, prototype)
         if isinstance(message, str):
@@ -74,6 +82,12 @@ class OscController(SupriyaObject):
                 message[0],
                 *message[1:]
                 )
+        if self.debug:
+            if message.address not in (
+                '/status',
+                requesttools.RequestId.STATUS
+                ):
+                print('SEND', message)
         datagram = message.to_datagram()
         self.socket_instance.sendto(
             datagram,
@@ -81,6 +95,15 @@ class OscController(SupriyaObject):
             )
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def debug(self):
+        return self._debug
+
+    @debug.setter
+    def debug(self, expr):
+        self._debug = bool(expr)
+        self.listener.debug = self.debug
 
     @property
     def listener(self):
