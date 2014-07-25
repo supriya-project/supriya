@@ -59,7 +59,11 @@ class SyncRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        return {
+            responsetools.SyncedResponse: {
+                'sync_id': self.sync_id,
+                },
+            } 
 
     @property
     def request_id(self):
