@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
+import threading
 from supriya.tools import osctools
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -9,7 +10,10 @@ class Request(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        '_condition',
+        '_response',
+        )
 
     _prototype = None
 
@@ -18,7 +22,8 @@ class Request(SupriyaValueObject):
     def __init__(
         self,
         ):
-        pass
+        self._condition = threading.Condition()
+        self._response = None
 
     ### PRIVATE METHODS ###
 
@@ -38,10 +43,57 @@ class Request(SupriyaValueObject):
             completion_message = self.completion_message.to_datagram()
             completion_message = bytearray(completion_message)
             contents.append(completion_message)
-    
 
     ### PUBLIC METHODS ###
+
+    def communicate(self, server=None):
+        from supriya.tools import servertools
+        server = server or servertools.Server.get_default_server()
+        assert isinstance(server, servertools.Server)
+        assert server.is_running
+        if self.response_specification is not None:
+            with self.condition:
+                with server.response_dispatcher.lock:
+                    callback = self.response_callback
+                    message = self.to_osc_message()
+                    server.register_response_callback(callback)
+                    server.send_message(message)
+                while self.response is None:
+                    self.condition.wait()
+            return self._response
+        return None
 
     @abc.abstractmethod
     def to_osc_message(self):
         raise NotImplementedError
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def condition(self):
+        return self._condition
+
+    @property
+    def response(self):
+        return self._response
+
+    @response.setter
+    def response(self, response):
+        from supriya.tools import responsetools
+        assert isinstance(response, responsetools.Response)
+        with self.condition:
+            self._response = response
+            self.condition.notify()
+
+    @property
+    def response_callback(self):
+        from supriya.tools import requesttools
+        return requesttools.RequestCallback(
+            is_one_shot=True,
+            request=self,
+            response_specification=self.response_specification,
+            )
+
+    @property
+    def response_specification(self):
+        return None
