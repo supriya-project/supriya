@@ -72,7 +72,7 @@ class BufferFreeRequest(Request):
         return self._completion_message
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

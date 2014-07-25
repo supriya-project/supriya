@@ -89,7 +89,7 @@ class ControlBusSetContiguousRequest(Request):
         return self._index_values_pairs
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

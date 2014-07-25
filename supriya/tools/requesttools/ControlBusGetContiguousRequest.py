@@ -83,7 +83,7 @@ class ControlBusGetContiguousRequest(Request):
         return self._index_count_pairs
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

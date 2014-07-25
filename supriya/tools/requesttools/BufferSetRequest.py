@@ -91,7 +91,7 @@ class BufferSetRequest(Request):
         return self._index_value_pairs
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

@@ -61,7 +61,7 @@ class DumpOscRequest(Request):
         return self._osc_status
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

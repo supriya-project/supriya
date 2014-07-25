@@ -65,7 +65,7 @@ class ControlBusGetRequest(Request):
         return self._indices
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

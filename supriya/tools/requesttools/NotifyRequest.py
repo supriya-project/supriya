@@ -63,7 +63,7 @@ class NotifyRequest(Request):
         return self._notify_status
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

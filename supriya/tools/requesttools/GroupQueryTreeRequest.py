@@ -73,7 +73,7 @@ class GroupQueryTreeRequest(Request):
         return self._node_id
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

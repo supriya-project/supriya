@@ -86,7 +86,7 @@ class GroupNewRequest(Request):
         return self._target_node_id
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

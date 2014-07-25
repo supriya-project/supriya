@@ -58,7 +58,7 @@ class SyncRequest(Request):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property

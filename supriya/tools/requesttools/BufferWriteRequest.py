@@ -136,7 +136,7 @@ class BufferWriteRequest(Request):
         return self._leave_open
 
     @property
-    def response_prototype(self):
+    def response_specification(self):
         return None
 
     @property
