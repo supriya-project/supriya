@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
 import abc
-#import concurrent.futures
 import threading
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -18,8 +17,7 @@ class Dispatcher(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self):
-        #self._executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
         self._callback_map = {}
 
     ### SPECIAL METHODS ###
@@ -36,7 +34,6 @@ class Dispatcher(SupriyaObject):
                         self._unregister_one_callback(callback)
         for callback, x in callback_pairs:
             callback(x)
-            #self._executor.submit(callback, x)
 
     ### PRIVATE METHODS ###
 
