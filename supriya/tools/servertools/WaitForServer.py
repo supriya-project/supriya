@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+import threading
 import time
 
 
@@ -6,6 +8,7 @@ class WaitForServer(object):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_condition',
         '_osc_callback',
         '_received_message',
         '_server',
@@ -23,6 +26,7 @@ class WaitForServer(object):
         ):
         from supriya import servertools
         from supriya import osctools
+        self._condition = threading.Condition()
         self._received_message = None
         self._osc_callback = osctools.OscCallback(
             address_pattern=address_pattern,
@@ -38,21 +42,22 @@ class WaitForServer(object):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        self._received_message = message
+        with self.condition:
+            self._received_message = message
+            self.condition.notify()
 
     def __enter__(self):
         self.server.register_osc_callback(self.osc_callback)
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        total_time = 0.
-        sleep_time = 0.01
-        while self.received_message is None:
-            if self.timeout <= total_time:
-                print('TIMEOUT:', self)
-                break
-            total_time += sleep_time
-            time.sleep(sleep_time)
+        start_time = time.time()
+        with self.condition:
+            while self.received_message is None:
+                self.condition.wait(0.001)
+                if self.timeout <= time.time() - start_time:
+                    print('TIMEOUT:', self)
+                    break
 
     def __repr__(self):
         result = '<{}: {!r} {}>'.format(
@@ -71,6 +76,10 @@ class WaitForServer(object):
     @property
     def argument_template(self):
         return self._argument_template
+
+    @property
+    def condition(self):
+        return self._condition
 
     @property
     def osc_callback(self):
