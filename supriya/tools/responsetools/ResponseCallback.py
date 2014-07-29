@@ -36,6 +36,11 @@ class ResponseCallback(SupriyaObject):
     def __call__(self, message):
         self._procedure(message)
 
+    ### PUBLIC METHODS ###
+
+    def matches(self, response):
+        return True
+
     ### PUBLIC PROPERTIES ###
 
     @property

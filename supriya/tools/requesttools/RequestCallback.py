@@ -25,12 +25,17 @@ class RequestCallback(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        specification = self.response_specification.get(type(response), None)
+        self.request.response = response
+
+    ### PUBLIC METHODS ###
+
+    def matches(self, expr):
+        specification = self.response_specification.get(type(expr), None)
         if specification is not None:
             for key, value in specification.items():
-                if getattr(response, key) != value:
-                    return
-        self.request.response = response
+                if getattr(expr, key) != value:
+                    return False
+        return True
 
     ### PUBLIC PROPERTIES ###
 
