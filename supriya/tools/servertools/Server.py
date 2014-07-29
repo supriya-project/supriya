@@ -545,21 +545,12 @@ class Server(object):
 
     def sync(self, sync_id=None):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
         if not self.is_running:
             return
         if sync_id is None:
             sync_id = self.next_sync_id
-        sync_id = int(sync_id)
         request = requesttools.SyncRequest(sync_id=sync_id)
-        message = request.to_osc_message()
-        wait = servertools.WaitForServer(
-            address_pattern='/synced',
-            argument_template=(sync_id,),
-            server=self,
-            )
-        with wait:
-            self.send_message(message)
+        request.communicate(server=self)
         return self
 
     def unregister_osc_callback(self, osc_callback):
