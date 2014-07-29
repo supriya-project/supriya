@@ -65,7 +65,12 @@ class NotifyRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.DoneResponse: {
+                'action': ('/notify', 0),
+                },
+            }
 
     @property
     def request_id(self):
