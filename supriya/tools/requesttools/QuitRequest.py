@@ -29,7 +29,15 @@ class QuitRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.DoneResponse: {
+                'action': ('/quit',),
+                },
+#            responsetools.FailResponse: {
+#                'failed_command': '/quit',
+#                }
+            }
 
     @property
     def request_id(self):
