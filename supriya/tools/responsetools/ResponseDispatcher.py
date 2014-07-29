@@ -23,5 +23,10 @@ class ResponseDispatcher(Dispatcher):
 
     @property
     def callback_class(self):
+        from supriya.tools import requesttools
         from supriya.tools import responsetools
-        return responsetools.ResponseCallback
+        prototype = (
+            requesttools.RequestCallback,
+            responsetools.ResponseCallback,
+            )
+        return prototype
