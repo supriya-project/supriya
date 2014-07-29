@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 import abc
 import threading
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
@@ -10,7 +11,6 @@ class Dispatcher(SupriyaObject):
 
     __slots__ = (
         '_callback_map',
-        '_executor',
         '_lock',
         )
 
@@ -45,10 +45,12 @@ class Dispatcher(SupriyaObject):
         callbacks = []
         for callback in self._callback_map.get(None, []):
             if callback not in callbacks:
-                callbacks.append(callback)
+                if callback.matches(expr):
+                    callbacks.append(callback)
         for callback in self._callback_map.get(type(expr), []):
             if callback not in callbacks:
-                callbacks.append(callback)
+                if callback.matches(expr):
+                    callbacks.append(callback)
         return callbacks
 
     def _unregister_one_callback(self, callback):
