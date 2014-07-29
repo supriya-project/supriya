@@ -49,6 +49,7 @@ class BufferGetContiguousRequest(Request):
         buffer_id=None,
         index_count_pairs=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         self._index_count_pairs = tuple(
             (int(index), int(count))

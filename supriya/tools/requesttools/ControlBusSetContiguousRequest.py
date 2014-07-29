@@ -55,6 +55,7 @@ class ControlBusSetContiguousRequest(Request):
         self,
         index_values_pairs=None,
         ):
+        Request.__init__(self)
         if index_values_pairs:
             pairs = []
             for index, values in index_values_pairs:

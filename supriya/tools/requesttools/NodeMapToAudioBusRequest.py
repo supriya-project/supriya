@@ -52,6 +52,7 @@ class NodeMapToAudioBusRequest(Request):
         node_id=None,
         **kwargs
         ):
+        Request.__init__(self)
         self._node_id = node_id
         self._kwargs = dict(
             (name, int(value))

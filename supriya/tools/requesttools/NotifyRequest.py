@@ -43,6 +43,7 @@ class NotifyRequest(Request):
         self,
         notify_status=None,
         ):
+        Request.__init__(self)
         self._notify_status = bool(notify_status)
 
     ### PUBLIC METHODS ###

@@ -58,6 +58,7 @@ class BufferSetContiguousRequest(Request):
         buffer_id=None,
         index_values_pairs=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         if index_values_pairs:
             pairs = []

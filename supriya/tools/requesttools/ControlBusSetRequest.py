@@ -53,6 +53,7 @@ class ControlBusSetRequest(Request):
         self,
         index_value_pairs=None,
         ):
+        Request.__init__(self)
         if index_value_pairs:
             pairs = []
             for index, value in index_value_pairs:

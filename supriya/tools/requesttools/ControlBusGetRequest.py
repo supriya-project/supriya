@@ -43,6 +43,7 @@ class ControlBusGetRequest(Request):
         self,
         indices=None,
         ):
+        Request.__init__(self)
         if indices:
             indices = tuple(int(index) for index in indices)
             assert all(0 <= index for index in indices)

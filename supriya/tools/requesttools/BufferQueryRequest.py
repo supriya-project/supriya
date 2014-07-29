@@ -42,6 +42,7 @@ class BufferQueryRequest(Request):
         self,
         buffer_ids=None,
         ):
+        Request.__init__(self)
         if buffer_ids:
             buffer_ids = tuple(int(buffer_id) for buffer_id in buffer_ids)
         self._buffer_ids = buffer_ids

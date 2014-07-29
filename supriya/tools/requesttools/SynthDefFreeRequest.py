@@ -33,7 +33,7 @@ class SynthDefFreeRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_synthdef', 
+        '_synthdef',
         )
 
     ### INITIALIZER ###
@@ -43,6 +43,7 @@ class SynthDefFreeRequest(Request):
         synthdef=None,
         ):
         from supriya.tools import synthdeftools
+        Request.__init__(self)
         prototype = (str, synthdeftools.SynthDef)
         assert isinstance(synthdef, prototype)
         self._synthdef = synthdef

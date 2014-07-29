@@ -40,6 +40,7 @@ class DumpOscRequest(Request):
         self,
         osc_status=None,
         ):
+        Request.__init__(self)
         self._osc_status = int(osc_status)
 
     ### PUBLIC METHODS ###

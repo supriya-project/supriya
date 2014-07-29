@@ -49,6 +49,7 @@ class ControlBusFillRequest(Request):
         self,
         index_count_value_triples=None,
         ):
+        Request.__init__(self)
         if index_count_value_triples:
             triples = []
             for index, count, value in index_count_value_triples:

@@ -53,6 +53,7 @@ class BufferSetRequest(Request):
         buffer_id=None,
         index_value_pairs=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         if index_value_pairs:
             pairs = []

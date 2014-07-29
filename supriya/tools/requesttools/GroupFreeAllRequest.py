@@ -14,6 +14,7 @@ class GroupFreeAllRequest(Request):
     def __init__(
         self,
         ):
+        Request.__init__(self)
         raise NotImplementedError
 
     ### PUBLIC METHODS ###

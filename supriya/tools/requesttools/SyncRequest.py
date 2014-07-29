@@ -42,6 +42,7 @@ class SyncRequest(Request):
         self,
         sync_id=None,
         ):
+        Request.__init__(self)
         self._sync_id = int(sync_id)
 
     ### PUBLIC METHODS ###
@@ -59,6 +60,7 @@ class SyncRequest(Request):
 
     @property
     def response_specification(self):
+        from supriya.tools import responsetools
         return {
             responsetools.SyncedResponse: {
                 'sync_id': self.sync_id,

@@ -14,6 +14,7 @@ class GroupDumpTreeRequest(Request):
     def __init__(
         self,
         ):
+        Request.__init__(self)
         raise NotImplementedError
 
     ### PUBLIC METHODS ###

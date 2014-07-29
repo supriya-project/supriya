@@ -46,6 +46,7 @@ class BufferGetRequest(Request):
         buffer_id=None,
         indices=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         self._indices = tuple(int(index) for index in indices)
 

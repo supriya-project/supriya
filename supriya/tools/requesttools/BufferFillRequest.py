@@ -52,6 +52,7 @@ class BufferFillRequest(Request):
         buffer_id=None,
         index_count_value_triples=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         triples = []
         for index, count, value in index_count_value_triples:

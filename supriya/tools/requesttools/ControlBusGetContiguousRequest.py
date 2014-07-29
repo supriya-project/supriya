@@ -53,6 +53,7 @@ class ControlBusGetContiguousRequest(Request):
         self,
         index_count_pairs=None,
         ):
+        Request.__init__(self)
         if index_count_pairs:
             pairs = []
             for index, count in index_count_pairs:

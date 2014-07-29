@@ -35,7 +35,7 @@ class StatusRequest(Request):
     def __init__(
         self,
         ):
-        pass
+        Request.__init__(self)
 
     ### PUBLIC METHODS ###
 

@@ -46,6 +46,7 @@ class GroupQueryTreeRequest(Request):
         include_controls=False,
         node_id=None,
         ):
+        Request.__init__(self)
         self._node_id = node_id
         self._include_controls = bool(include_controls)
 

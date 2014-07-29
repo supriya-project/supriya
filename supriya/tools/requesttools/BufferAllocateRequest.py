@@ -52,6 +52,7 @@ class BufferAllocateRequest(Request):
         channel_count=1,
         completion_message=None,
         ):
+        Request.__init__(self)
         self._buffer_id = buffer_id
         self._frame_count = frame_count
         self._channel_count = channel_count

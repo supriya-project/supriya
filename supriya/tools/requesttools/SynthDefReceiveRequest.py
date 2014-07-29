@@ -20,6 +20,7 @@ class SynthDefReceiveRequest(Request):
         synthdefs=None,
         ):
         from supriya.tools import synthdeftools
+        Request.__init__(self)
         if synthdefs:
             prototype = synthdeftools.SynthDef 
             assert all(isinstance(x, prototype) for x in synthdefs)

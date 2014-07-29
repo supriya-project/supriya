@@ -63,6 +63,7 @@ class SynthNewRequest(Request):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
+        Request.__init__(self)
         self._add_action = servertools.AddAction.from_expr(add_action)
         self._node_id = node_id
         prototype = (str, synthdeftools.SynthDef)

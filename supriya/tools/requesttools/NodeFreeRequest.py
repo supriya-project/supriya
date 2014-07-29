@@ -42,6 +42,7 @@ class NodeFreeRequest(Request):
         self,
         node_id=None
         ):
+        Request.__init__(self)
         self._node_id = node_id
 
     ### PUBLIC METHODS ###

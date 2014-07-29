@@ -52,6 +52,7 @@ class GroupNewRequest(Request):
         target_node_id=None,
         ):
         from supriya.tools import servertools
+        Request.__init__(self)
         self._add_action = servertools.AddAction.from_expr(add_action)
         self._node_id = node_id
         self._target_node_id = target_node_id
