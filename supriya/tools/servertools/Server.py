@@ -252,16 +252,8 @@ class Server(object):
 
     def _setup_notifications(self):
         from supriya.tools import requesttools
-#        from supriya.tools import servertools
         request = requesttools.NotifyRequest(True)
         request.communicate(server=self)
-#        message = request.to_osc_message()
-#        with servertools.WaitForServer(
-#            address_pattern='/done',
-#            argument_template=('/notify', 0),
-#            server=self,
-#            ):
-#            self.send_message(message)
 
     def _setup_proxies(self):
         from supriya.tools import servertools
@@ -512,21 +504,14 @@ class Server(object):
         return response.query_tree_group
 
     def quit(self):
-        from supriya.tools import servertools
+        from supriya.tools import requesttools
         if not self.is_running:
             return
-        wait = servertools.WaitForServer(
-            address_pattern='/(done|fail)',
-            argument_template=('/quit',),
-            server=self,
-            )
-        with wait:
-            self.send_message('/quit')
+        request = requesttools.QuitRequest()
+        request.communicate(server=self)
         self._is_running = False
         if not self._server_process.terminate():
             self._server_process.wait()
-        #self._server_process.send_signal(signal.SIGINT)
-        #self._server_process.kill()
         self._teardown()
         return self
 
