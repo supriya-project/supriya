@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import abc
+import copy
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
@@ -9,6 +10,7 @@ class Node(ServerObjectProxy):
 
     __slots__ = (
         '_is_playing',
+        '_name',
         '_node_id',
         '_node_id_is_permanent',
         '_parent',
@@ -17,10 +19,11 @@ class Node(ServerObjectProxy):
     ### INITIALIZER ###
 
     @abc.abstractmethod
-    def __init__(self):
+    def __init__(self, name=None):
         ServerObjectProxy.__init__(self)
         self._parent = None
         self._is_playing = False
+        self._name = name
         self._node_id = None
         self._node_id_is_permanent = None
 
@@ -45,14 +48,58 @@ class Node(ServerObjectProxy):
 
     ### PRIVATE METHODS ###
 
+    def _cache_named_children(self):
+        name_dictionary = {}
+        if hasattr(self, '_named_children'):
+            for name, children in self._named_children.items():
+                name_dictionary[name] = copy.copy(children)
+        if hasattr(self, 'name') and self.name is not None:
+            if self.name not in name_dictionary:
+                name_dictionary[self.name] = set([])
+            name_dictionary[self.name].add(self)
+        return name_dictionary
+
+    def _get_node_state_flags(self):
+        state_flags = {}
+        for name in self._state_flag_names:
+            state_flags[name] = True
+            for node in self.improper_parentage:
+                if not getattr(node, name):
+                    state_flags[name] = False
+                    break
+        return state_flags
+
     def _remove_from_parent(self):
-        if self.parent is not None:
-            self.parent._children.remove(self)
-        self._parent = None
+        if self._parent is not None:
+            index = self._parent.index(self)
+            self._parent._children.pop(index)
+
+    def _remove_named_children_from_parentage(self, name_dictionary):
+        if self._parent is not None and name_dictionary:
+            for parent in self.proper_parentage:
+                named_children = parent._named_children
+                for name in name_dictionary:
+                    for node in name_dictionary[name]:
+                        named_children[name].remove(node)
+                    if not named_children[name]:
+                        del named_children[name]
 
     def _set_parent(self, new_parent):
+        named_children = self._cache_named_children()
+        self._remove_named_children_from_parentage(named_children)
         self._remove_from_parent()
         self._parent = new_parent
+        self._restore_named_children_to_parentage(named_children)
+
+    def _restore_named_children_to_parentage(self, name_dictionary):
+        if self._parent is not None and name_dictionary:
+            for parent in self.proper_parentage:
+                named_children = parent._named_children
+                for name in name_dictionary:
+                    if name in named_children:
+                        named_children[name].update(name_dictionary[name])
+                    else:
+                        named_children[name] = copy.copy(name_dictionary[name])
 
     ### PUBLIC METHODS ###
 
@@ -188,6 +235,10 @@ class Node(ServerObjectProxy):
     @property
     def is_running(self):
         return self.server is not None
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def node_id(self):

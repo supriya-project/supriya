@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.servertools.Node import Node
 
 
-class Group(Node):
+class Group(Node, collections.Sequence):
     r'''A group.
 
     ::
@@ -34,6 +35,7 @@ class Group(Node):
 
     __slots__ = (
         '_children',
+        '_named_children',
         )
 
     ### INITIALIZER ###
@@ -41,6 +43,15 @@ class Group(Node):
     def __init__(self):
         Node.__init__(self)
         self._children = []
+        self._named_children = {}
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        return self._children[item]
+
+    def __len__(self):
+        return len(self._children)
 
     ### PRIVATE METHODS ###
 

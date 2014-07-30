@@ -37,4 +37,4 @@ class RootNode(Group):
 
     @property
     def parent(self):
-        return self
+        return None
