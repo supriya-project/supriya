@@ -67,7 +67,10 @@ class ControlBusGetRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.ControlBusSetResponse: None,
+            }
 
     @property
     def request_id(self):

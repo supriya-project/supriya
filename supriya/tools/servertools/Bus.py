@@ -166,7 +166,6 @@ class Bus(ServerObjectProxy, BusMixin):
         completion_callback=None,
         ):
         from supriya.tools import requesttools
-        from supriya.tools import responsetools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         if not self.is_allocated:
@@ -176,18 +175,9 @@ class Bus(ServerObjectProxy, BusMixin):
         request = requesttools.ControlBusGetRequest(
             indices=(self,),
             )
-        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
-        wait = servertools.WaitForServer(
-            address_pattern='/c_set',
-            argument_template=(int(self),),
-            server=self.server,
-            )
-        with wait:
-            self.server.send_message(message)
-        message = wait.received_message
-        response = responsetools.ResponseManager.handle_message(message)
+        response = request.communicate(server=self.server)
         assert len(response) == 1
         value = response[0].bus_value
         return value
