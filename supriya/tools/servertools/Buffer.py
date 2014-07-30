@@ -143,6 +143,19 @@ class Buffer(ServerObjectProxy, BufferMixin):
         execution_context = execution_context or self.server
         execution_context.send_message(message)
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            is_bracketted=True,
+            keyword_argument_names=(
+                'buffer_id',
+                ),
+            )
+
     ### PUBLIC METHODS ###
 
     def allocate(
@@ -239,32 +252,21 @@ class Buffer(ServerObjectProxy, BufferMixin):
             ...         )
             ...     response = buffer_.get(indices=(1, 2))
             ...     response.as_dict()
-            ... 
+            ...
             OrderedDict([(1, 0.0), (2, 0.0)])
 
         Returns response.
         '''
         from supriya.tools import requesttools
-        from supriya.tools import responsetools
-        from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
         request = requesttools.BufferGetRequest(
             buffer_id=self,
             indices=indices,
             )
-        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
-        wait = servertools.WaitForServer(
-            address_pattern='/b_set',
-            argument_template=(int(self),),
-            server=self.server,
-            )
-        with wait:
-            self.server.send_message(message)
-        message = wait.received_message
-        response = responsetools.ResponseManager.handle_message(message)
+        response = request.communicate(server=self.server)
         return response
 
     def get_contiguous(

@@ -78,7 +78,6 @@ class BufferGetRequest(Request):
     @property
     def response_specification(self):
         from supriya.tools import responsetools
-        print('REQUESTING', self)
         return {
             responsetools.BufferSetResponse: {
                 'buffer_id': self.buffer_id,
