@@ -59,7 +59,7 @@ class BufferSetContiguousRequest(Request):
         index_values_pairs=None,
         ):
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
         if index_values_pairs:
             pairs = []
             for index, values in index_values_pairs:

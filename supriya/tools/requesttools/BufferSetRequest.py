@@ -54,7 +54,7 @@ class BufferSetRequest(Request):
         index_value_pairs=None,
         ):
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
         if index_value_pairs:
             pairs = []
             for index, value in index_value_pairs:

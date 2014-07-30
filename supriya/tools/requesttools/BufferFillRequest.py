@@ -53,7 +53,7 @@ class BufferFillRequest(Request):
         index_count_value_triples=None,
         ):
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
         triples = []
         for index, count, value in index_count_value_triples:
             triple = (int(index), int(count), float(value))

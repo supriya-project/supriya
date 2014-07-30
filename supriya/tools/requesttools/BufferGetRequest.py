@@ -47,7 +47,7 @@ class BufferGetRequest(Request):
         indices=None,
         ):
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
         self._indices = tuple(int(index) for index in indices)
 
     ### PUBLIC METHODS ###
@@ -77,7 +77,13 @@ class BufferGetRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        print('REQUESTING', self)
+        return {
+            responsetools.BufferSetResponse: {
+                'buffer_id': self.buffer_id,
+                }
+            }
 
     @property
     def request_id(self):

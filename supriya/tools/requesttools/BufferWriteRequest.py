@@ -67,7 +67,7 @@ class BufferWriteRequest(Request):
         ):
         from supriya.tools import soundfiletools
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
             completion_message)
         self._file_path = str(file_path)

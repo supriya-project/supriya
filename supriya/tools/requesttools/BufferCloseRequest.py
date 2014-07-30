@@ -43,7 +43,7 @@ class BufferCloseRequest(Request):
         buffer_id=None,
         ):
         Request.__init__(self)
-        self._buffer_id = buffer_id
+        self._buffer_id = int(buffer_id)
 
     ### PUBLIC METHODS ###
 
