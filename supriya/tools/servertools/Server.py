@@ -486,21 +486,11 @@ class Server(object):
         Returns server query-tree group response.
         '''
         from supriya.tools import requesttools
-        from supriya.tools import responsetools
-        from supriya.tools import servertools
-        wait = servertools.WaitForServer(
-            address_pattern='/g_queryTree.reply',
-            server=self,
-            )
         request = requesttools.GroupQueryTreeRequest(
             node_id=0,
             include_controls=include_controls,
             )
-        message = request.to_osc_message()
-        with wait:
-            self.send_message(message)
-        message = wait.received_message
-        response = responsetools.ResponseManager.handle_message(message)
+        response = request.communicate(server=self)
         return response.query_tree_group
 
     def quit(self):

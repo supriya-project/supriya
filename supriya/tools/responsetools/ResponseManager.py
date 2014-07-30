@@ -284,6 +284,7 @@ class ResponseManager(SupriyaObject):
         control_flag = bool(contents.pop(0))
         query_tree_group = recurse(contents, control_flag)
         response = responsetools.QueryTreeResponse(
+            node_id=query_tree_group.node_id,
             query_tree_group=query_tree_group,
             )
         return response
