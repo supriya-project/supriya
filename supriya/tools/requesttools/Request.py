@@ -48,18 +48,27 @@ class Request(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server=None, timeout=1.0):
+    def communicate(
+        self,
+        message=None,
+        server=None,
+        sync=True,
+        timeout=1.0,
+        ):
         from supriya.tools import servertools
         server = server or servertools.Server.get_default_server()
         assert isinstance(server, servertools.Server)
         assert server.is_running
-        if self.response_specification is not None:
+        message = message or self.to_osc_message()
+        if not sync:
+            server.send_message(message)
+            return None
+        elif self.response_specification is not None:
             start_time = time.time()
             timed_out = False
             with self.condition:
                 with server.response_dispatcher.lock:
                     callback = self.response_callback
-                    message = self.to_osc_message()
                     server.register_response_callback(callback)
                     server.send_message(message)
                 while self.response is None:
