@@ -99,7 +99,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def _register_with_server(
         self,
         channel_count=None,
-        execution_context=None,
         frame_count=None,
         ):
         from supriya.tools import requesttools
@@ -117,13 +116,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             channel_count=channel_count,
             completion_message=on_done,
             )
-        message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        return request
 
     def _unregister_with_server(
         self,
-        execution_context=None,
         ):
         from supriya.tools import requesttools
         buffer_id = self.buffer_id
@@ -139,9 +135,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=buffer_id,
             completion_message=on_done,
             )
-        message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        return request
 
     ### PRIVATE PROPERTIES ###
 
@@ -182,15 +176,16 @@ class Buffer(ServerObjectProxy, BufferMixin):
                     ServerObjectProxy.free(self)
                     raise ValueError
                 self._buffer_id = buffer_id
-            self._register_with_server(
+            request = self._register_with_server(
                 channel_count=channel_count,
-                execution_context=None,
                 frame_count=frame_count,
+                )
+            request.communicate(
+                server=self.server,
+                sync=sync,
                 )
         except:
             self.free()
-        if sync:
-            self.server.sync()
         return self
 
     def allocate_from_file(
@@ -220,7 +215,12 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def free(self):
         if not self.is_allocated:
             return
-        self._unregister_with_server()
+        request = self._unregister_with_server()
+        if self.server.is_running:
+            request.communicate(
+                server=self.server,
+                sync=False,
+                )
         if not self._buffer_id_was_set_manually:
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
