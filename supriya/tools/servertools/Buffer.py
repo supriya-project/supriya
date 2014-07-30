@@ -296,26 +296,15 @@ class Buffer(ServerObjectProxy, BufferMixin):
         '''
 
         from supriya.tools import requesttools
-        from supriya.tools import responsetools
-        from supriya.tools import servertools
         if not self.is_allocated:
             raise Exception
         request = requesttools.BufferGetContiguousRequest(
             buffer_id=self,
             index_count_pairs=index_count_pairs,
             )
-        message = request.to_osc_message()
         if callable(completion_callback):
             raise NotImplementedError
-        wait = servertools.WaitForServer(
-            address_pattern='/b_setn',
-            argument_template=(int(self),),
-            server=self.server,
-            )
-        with wait:
-            self.server.send_message(message)
-        message = wait.received_message
-        response = responsetools.ResponseManager.handle_message(message)
+        response = request.communicate(server=self.server)
         return response
 
     def query(self):
