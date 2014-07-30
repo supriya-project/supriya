@@ -161,6 +161,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def allocate(
         self,
         channel_count=1,
+        execution_context=None,
         frame_count=None,
         server=None,
         sync=False,
@@ -183,6 +184,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
                 self._buffer_id = buffer_id
             self._register_with_server(
                 channel_count=channel_count,
+                execution_context=None,
                 frame_count=frame_count,
                 )
         except:

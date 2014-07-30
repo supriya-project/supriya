@@ -101,4 +101,9 @@ class BufferAllocateRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.DoneResponse: {
+                'action': ('/b_alloc', self.buffer_id),
+                },
+            }
