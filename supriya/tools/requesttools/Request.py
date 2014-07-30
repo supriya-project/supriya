@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 import abc
 import collections
 import threading
+import time
 from supriya.tools import osctools
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -46,12 +48,14 @@ class Request(SupriyaValueObject):
 
     ### PUBLIC METHODS ###
 
-    def communicate(self, server=None):
+    def communicate(self, server=None, timeout=1.0):
         from supriya.tools import servertools
         server = server or servertools.Server.get_default_server()
         assert isinstance(server, servertools.Server)
         assert server.is_running
         if self.response_specification is not None:
+            start_time = time.time()
+            timed_out = False
             with self.condition:
                 with server.response_dispatcher.lock:
                     callback = self.response_callback
@@ -59,7 +63,14 @@ class Request(SupriyaValueObject):
                     server.register_response_callback(callback)
                     server.send_message(message)
                 while self.response is None:
-                    self.condition.wait()
+                    self.condition.wait(timeout)
+                    current_time = time.time()
+                    delta_time = current_time - start_time
+                    if timeout <= delta_time:
+                        timed_out = True
+                        break
+            if timed_out:
+                raise Exception
             return self._response
         return None
 
