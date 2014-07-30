@@ -98,7 +98,10 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         from supriya.tools import servertools
         if self.is_allocated:
             return
-        ServerObjectProxy.allocate(self, server=server)
+        ServerObjectProxy.allocate(
+            self,
+            server=server,
+            )
         buffer_id = self.server.buffer_allocator.allocate(len(self))
         if buffer_id is None:
             ServerObjectProxy.free(self)
@@ -108,15 +111,18 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         frame_count = int(frame_count)
         assert 0 < channel_count
         assert 0 < frame_count
-        with servertools.ExecutionContext() as context:
+        message_bundler = servertools.MessageBundler(
+            server=server,
+            sync=sync,
+            )
+        with message_bundler:
             for i in range(len(self)):
                 buffer_id = self.buffer_id + i
                 request = self[i]._register_with_server(
                     channel_count=channel_count,
                     frame_count=frame_count,
                     )
-                context.send_message(request)
-            context.sync(sync=sync)
+                message_bundler.add_message(request)
         return self
 
     def free(self):

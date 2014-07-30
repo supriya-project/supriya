@@ -71,7 +71,7 @@ class SynthControl(SupriyaObject):
     def reset(self):
         self._value = self._default_value
 
-    def set(self, expr, execution_context=None):
+    def set(self, expr):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -96,8 +96,7 @@ class SynthControl(SupriyaObject):
                 **{self.name: self._value}
                 )
             message = request.to_osc_message()
-        execution_context = execution_context or self.client.client.server
-        execution_context.send_message(message)
+        self.client.client.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 

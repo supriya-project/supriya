@@ -230,7 +230,6 @@ class Bus(ServerObjectProxy, BusMixin):
     def set(
         self,
         value,
-        execution_context=None,
         ):
         from supriya.tools import requesttools
         from supriya.tools import servertools
@@ -243,8 +242,7 @@ class Bus(ServerObjectProxy, BusMixin):
             index_value_pairs=((self, value,),),
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
 
     ### PUBLIC PROPERTIES ###
 

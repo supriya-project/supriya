@@ -71,7 +71,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
 
     ### PRIVATE METHODS ###
 
-    def _set(self, execution_context=None, **settings):
+    def _set(self, **settings):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -111,9 +111,8 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 )
             message = request.to_osc_message()
             messages.append(message)
-        execution_context = execution_context or self.client.server
         for message in messages:
-            execution_context.send_message(message)
+            self.client.server.send_message(message)
 
     ### PUBLIC METHODS ###
 
@@ -121,9 +120,8 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         for synth_control in self._synth_controls:
             synth_control.reset()
 
-    def set(self, execution_context=None, **kwargs):
+    def set(self, **kwargs):
         self._set(
-            execution_context=execution_context,
             **kwargs
             )
 

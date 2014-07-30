@@ -155,7 +155,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def allocate(
         self,
         channel_count=1,
-        execution_context=None,
         frame_count=None,
         server=None,
         sync=False,
@@ -317,7 +316,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def set(
         self,
-        execution_context=None,
         index_value_pairs=None,
         ):
         from supriya.tools import requesttools
@@ -328,12 +326,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             index_value_pairs=index_value_pairs,
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
 
     def set_contiguous(
         self,
-        execution_context=None,
         index_values_pairs=None,
         ):
         from supriya.tools import requesttools
@@ -344,8 +340,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
             index_values_pairs=index_values_pairs,
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
 
     def write(self):
         raise NotImplementedError

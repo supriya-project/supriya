@@ -359,7 +359,6 @@ class SynthDef(ServerObjectProxy):
 
     def allocate(
         self,
-        execution_context=None,
         server=None,
         sync=False,
         ):
@@ -371,10 +370,9 @@ class SynthDef(ServerObjectProxy):
             synthdefs=(self,),
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
         if sync:
-            execution_context.sync()
+            self.server.sync()
         return self
 
     def as_graphviz_graph(self):
@@ -388,7 +386,7 @@ class SynthDef(ServerObjectProxy):
         result = SynthDefCompiler.compile_synthdefs(synthdefs)
         return result
 
-    def free(self, execution_context=None):
+    def free(self):
         from supriya.tools import requesttools
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
@@ -396,8 +394,7 @@ class SynthDef(ServerObjectProxy):
             synthdef=self,
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
         ServerObjectProxy.free(self)
 
     @staticmethod

@@ -1,4 +1,10 @@
-class ExecutionContext(object):
+# -*- encoding: utf-8 -*-
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+
+
+class MessageBundler(SupriyaObject):
+
+    ### CLASS VARIABLES ###
 
     __slots__ = (
         '_messages',
@@ -17,9 +23,8 @@ class ExecutionContext(object):
         ):
         from supriya.tools import servertools
         server = server or servertools.Server()
-        assert isinstance(server, servertools.Server)
-        self._messages = []
         self._server = server
+        self._messages = []
         self._sync = bool(sync)
         if timestamp is not None:
             timestamp = float(timestamp)
@@ -61,7 +66,7 @@ class ExecutionContext(object):
 
     ### PUBLIC METHODS ###
 
-    def send_message(self, message):
+    def add_message(self, message):
         from supriya.tools import osctools
         from supriya.tools import requesttools
         prototype = (
@@ -71,6 +76,3 @@ class ExecutionContext(object):
             )
         assert isinstance(message, prototype)
         self._messages.append(message)
-
-    def sync(self, sync=True):
-        self._sync = bool(sync)

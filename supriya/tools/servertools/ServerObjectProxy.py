@@ -27,7 +27,6 @@ class ServerObjectProxy(SupriyaObject):
     def allocate(
         self,
         server=None,
-        execution_context=None,
         ):
         from supriya import servertools
         assert self.server is None
@@ -39,7 +38,6 @@ class ServerObjectProxy(SupriyaObject):
     @abc.abstractmethod
     def free(
         self,
-        execution_context=None,
         ):
         self._server = None
 

@@ -70,7 +70,6 @@ class Synth(Node):
     def allocate(
         self,
         add_action=None,
-        execution_context=None,
         node_id_is_permanent=False,
         sync=False,
         target_node=None,
@@ -94,21 +93,18 @@ class Synth(Node):
             )
         message = request.to_osc_message()
         for key, value in kwargs:
-            self[key].set(value, execution_context=execution_context)
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+            self[key].set(value)
+        self.server.send_message(message)
         if sync:
-            execution_context.sync()
+            self.server.sync()
         return self
 
     def free(
         self,
-        execution_context=None,
         send_to_server=True,
         ):
         Node.free(
             self,
-            execution_context=execution_context,
             send_to_server=send_to_server,
             )
         self._synth_control_group.reset()

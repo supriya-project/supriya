@@ -58,7 +58,6 @@ class Group(Node):
     def allocate(
         self,
         add_action=None,
-        execution_context=None,
         node_id_is_permanent=False,
         sync=False,
         target_node=None,
@@ -76,25 +75,21 @@ class Group(Node):
             target_node_id=target_node_id,
             )
         message = request.to_osc_message()
-        execution_context = execution_context or self.server
-        execution_context.send_message(message)
+        self.server.send_message(message)
         if sync:
-            execution_context.sync()
+            self.server.sync()
         return self
 
     def free(
         self,
         send_to_server=True,
-        execution_context=None,
         ):
         for child in self.children:
             child.free(
-                execution_context=execution_context,
                 send_to_server=False,
                 )
         Node.free(
-            self, 
-            execution_context=execution_context,
+            self,
             send_to_server=send_to_server,
             )
         return self

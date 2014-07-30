@@ -143,21 +143,19 @@ class Node(ServerObjectProxy):
 
     def free(
         self,
-        execution_context=None,
         send_to_server=True,
         ):
         from supriya.tools import requesttools
         self._set_parent(None)
         self._is_playing = False
         if self.server is not None:
-            execution_context = execution_context or self.server
             del(self._server._nodes[self._node_id])
             if send_to_server:
                 request = requesttools.NodeFreeRequest(
                     node_id=self,
                     )
                 message = request.to_osc_message()
-                execution_context.send_message(message)
+                self.server.send_message(message)
             if self.node_id_is_permanent and self.server.node_id_allocator:
                 self.server.node_id_allocator.free_permanent_node_id(
                     self.node_id,
@@ -166,7 +164,6 @@ class Node(ServerObjectProxy):
         self._node_id_is_permanent = None
         ServerObjectProxy.free(
             self,
-            execution_context=execution_context,
             )
         return self
 
