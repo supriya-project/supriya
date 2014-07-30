@@ -80,6 +80,7 @@ class ResponseManager(SupriyaObject):
         >>> message = osctools.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
         >>> manager.handle_message(message)
         QueryTreeResponse(
+            node_id=0,
             query_tree_group=QueryTreeGroup(
                 node_id=0,
                 children=(
