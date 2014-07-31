@@ -59,16 +59,6 @@ class Node(ServerObjectProxy):
             name_dictionary[self.name].add(self)
         return name_dictionary
 
-    def _get_node_state_flags(self):
-        state_flags = {}
-        for name in self._state_flag_names:
-            state_flags[name] = True
-            for node in self.improper_parentage:
-                if not getattr(node, name):
-                    state_flags[name] = False
-                    break
-        return state_flags
-
     def _remove_from_parent(self):
         if self._parent is not None:
             index = self._parent.index(self)
@@ -76,7 +66,7 @@ class Node(ServerObjectProxy):
 
     def _remove_named_children_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
-            for parent in self.proper_parentage:
+            for parent in self.parentage[1:]:
                 named_children = parent._named_children
                 for name in name_dictionary:
                     for node in name_dictionary[name]:
@@ -93,7 +83,7 @@ class Node(ServerObjectProxy):
 
     def _restore_named_children_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
-            for parent in self.proper_parentage:
+            for parent in self.parentage[1:]:
                 named_children = parent._named_children
                 for name in name_dictionary:
                     if name in named_children:
@@ -240,6 +230,23 @@ class Node(ServerObjectProxy):
     def name(self):
         return self._name
 
+    @name.setter
+    def name(self, expr):
+        assert isinstance(expr, (str, type(None)))
+        old_name = self._name
+        for parent in self.parentage[1:]:
+            named_children = parent._named_children
+            if old_name is not None:
+                named_children[old_name].remove(self)
+                if not named_children[old_name]:
+                    del named_children[old_name]
+            if expr is not None:
+                if expr not in named_children:
+                    named_children[expr] = set([self])
+                else:
+                    named_children[expr].add(self)
+        self._name = expr
+
     @property
     def node_id(self):
         return self._node_id
@@ -251,3 +258,12 @@ class Node(ServerObjectProxy):
     @property
     def parent(self):
         return self._parent
+
+    @property
+    def parentage(self):
+        parentage = []
+        node = self
+        while node.parent is not None:
+            parentage.append(node)
+            node = node.parent
+        return tuple(parentage)
