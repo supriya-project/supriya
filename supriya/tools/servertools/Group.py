@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-import collections
 from supriya.tools.servertools.Node import Node
 
 
-class Group(Node, collections.Sequence):
+class Group(Node):
     r'''A group.
 
     ::
@@ -47,11 +46,27 @@ class Group(Node, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(self, item):
-        return self._children[item]
+    def __contains__(self, expr):
+        for x in self._children:
+            if x is expr:
+                return True
+        return False
+
+    def __delitem__(self, expr):
+        raise NotImplementedError
+
+    def __getitem__(self, expr):
+        return self._children[expr]
+
+    def __iter__(self):
+        for child in self._children:
+            yield child
 
     def __len__(self):
         return len(self._children)
+
+    def __setitem__(self, i, expr):
+        raise NotImplementedError
 
     ### PRIVATE METHODS ###
 
@@ -91,6 +106,18 @@ class Group(Node, collections.Sequence):
             self.server.sync()
         return self
 
+    def append(self, expr):
+        self.__setitem__(
+            slice(len(self), len(self)),
+            [expr]
+            )
+
+    def extend(self, expr):
+        self.__setitem__(
+            slice(len(self), len(self)),
+            expr
+            )
+
     def free(
         self,
         send_to_server=True,
@@ -104,6 +131,30 @@ class Group(Node, collections.Sequence):
             send_to_server=send_to_server,
             )
         return self
+
+    def index(self, expr):
+        for i, child in enumerate(self._children):
+            if child is expr:
+                return i
+        else:
+            message = '{!r} not in {!r}.'
+            message = message.format(expr, self)
+            raise ValueError(message)
+
+    def insert(self, i, expr):
+        self.__setitem__(
+            slice(i, i),
+            [expr]
+            )
+
+    def pop(self, i=-1):
+        node = self[i]
+        del(self[i])
+        return node
+
+    def remove(self, node):
+        i = self.index(node)
+        del(self[i])
 
     ### PUBLIC PROPERTIES ###
 
