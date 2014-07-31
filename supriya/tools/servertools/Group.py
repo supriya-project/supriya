@@ -53,7 +53,7 @@ class Group(Node):
         return False
 
     def __delitem__(self, expr):
-        raise NotImplementedError
+        expr.free()
 
     def __getitem__(self, expr):
         return self._children[expr]
