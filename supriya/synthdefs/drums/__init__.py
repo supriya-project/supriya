@@ -1,3 +1,8 @@
 # -*- encoding: utf-8 -*-
-from .claps import *
-from .kicks import *
+from abjad.tools import systemtools
+
+
+systemtools.ImportManager.import_nominative_modules(
+    __path__[0],
+    globals(),
+    )
