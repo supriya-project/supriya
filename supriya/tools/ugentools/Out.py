@@ -4,7 +4,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Out(UGen):
-    r'''Bus output unit generator.
+    r'''A bus output unit generator.
 
     ::
 
