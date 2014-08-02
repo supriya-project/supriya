@@ -8,8 +8,8 @@ class Rand(UGen):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> ugentools.Rand.ar()
-        Rand.ar()
+        >>> ugentools.Rand.ir()
+        Rand.ir()
 
     '''
 
@@ -50,11 +50,11 @@ class Rand(UGen):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> ugentools.Rand.ar(
+            >>> ugentools.Rand.ir(
             ...     minimum=0.,
             ...     maximum=1.,
             ...     )
-            Rand.ar()
+            Rand.ir()
 
         Returns unit generator graph.
         '''
