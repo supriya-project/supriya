@@ -7,13 +7,18 @@ class MidiDispatcher(Dispatcher):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ('_midi_in')
+    __slots__ = (
+        '_midi_in',
+        )
 
     ### CLASS VARIABLES ###
 
-    def __init__(self):
+    def __init__(self, debug=False):
         import rtmidi_python
-        Dispatcher.__init__(self)
+        Dispatcher.__init__(
+            self,
+            debug=debug,
+            )
         self._midi_in = rtmidi_python.MidiIn()
         self._midi_in.ignore_types(
             midi_sense=True,
