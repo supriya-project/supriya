@@ -28,7 +28,9 @@ class Parameter(UGenMethodMixin):
         assert name
         self._name = str(name)
         self._parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
-        self._range = synthdeftools.Range(range_)
+        if range_ is not None:
+            assert isinstance(range_, synthdeftools.Range)
+        self._range = range_
         self._unit = unit
         self._value = float(value)
 
