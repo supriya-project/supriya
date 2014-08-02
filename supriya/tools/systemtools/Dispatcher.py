@@ -11,20 +11,26 @@ class Dispatcher(SupriyaObject):
 
     __slots__ = (
         '_callback_map',
+        '_debug',
         '_lock',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self):
-        self._lock = threading.RLock()
+    def __init__(self, debug=False):
         self._callback_map = {}
+        self._debug = bool(debug)
+        self._lock = threading.RLock()
 
     ### SPECIAL METHODS ###
 
     def __call__(self, expr):
         callback_pairs = []
         input_ = self._coerce_input(expr)
+        if self.debug:
+            print('RECV', type(self))
+            for line in repr(input_).splitlines():
+                print('\t' + line)
         with self.lock:
             for x in input_:
                 callbacks = self._collect_callbacks(x)
@@ -83,6 +89,10 @@ class Dispatcher(SupriyaObject):
     @abc.abstractproperty
     def callback_class(self):
         return NotImplementedError
+
+    @property
+    def debug(self):
+        return self._debug
 
     @property
     def lock(self):
