@@ -2,7 +2,7 @@
 from abjad.tools import systemtools
 
 
-systemtools.ImportManager.import_structured_package(
+systemtools.ImportManager.import_nominative_modules(
     __path__[0],
     globals(),
     )
