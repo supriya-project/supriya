@@ -200,6 +200,21 @@ class SynthDef(ServerObjectProxy):
 
     ### PRIVATE METHODS ###
 
+    def _allocate(
+        self,
+        completion_message=None,
+        server=None,
+        ):
+        from supriya.tools import requesttools
+        ServerObjectProxy.allocate(self, server=server)
+        synthdef_name = self.actual_name
+        self.server._synthdefs[synthdef_name] = self
+        request = requesttools.SynthDefReceiveRequest(
+            completion_message=completion_message,
+            synthdefs=(self,),
+            )
+        return request
+
     @staticmethod
     def _collect_constants(ugens):
         constants = []
@@ -359,20 +374,21 @@ class SynthDef(ServerObjectProxy):
 
     def allocate(
         self,
+        completion_message=None,
         server=None,
         sync=False,
         ):
-        from supriya.tools import requesttools
-        ServerObjectProxy.allocate(self, server=server)
-        synthdef_name = self.actual_name
-        self.server._synthdefs[synthdef_name] = self
-        request = requesttools.SynthDefReceiveRequest(
-            synthdefs=(self,),
+        from supriya.tools import servertools
+        request = self._allocate(
+            completion_message=completion_message,
+            server=server,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
-        if sync:
-            self.server.sync()
+        message_bundler = servertools.MessageBundler(
+            server=self.server,
+            sync=sync,
+            )
+        with message_bundler:
+            message_bundler.add_message(request)
         return self
 
     def as_graphviz_graph(self):
