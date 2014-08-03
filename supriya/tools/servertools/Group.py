@@ -53,7 +53,11 @@ class Group(Node):
         return False
 
     def __delitem__(self, expr):
-        expr.free()
+        if isinstance(expr, int):
+            self._children[expr].free()
+        elif isinstance(expr, slice):
+            for child in self._children[expr]:
+                expr.free()
 
     def __getitem__(self, expr):
         return self._children[expr]
@@ -70,7 +74,6 @@ class Group(Node):
         from supriya.tools import servertools
 
         assert self.is_allocated
-        raise NotImplementedError
 
         if isinstance(i, int):
             if i < 0:
@@ -82,13 +85,25 @@ class Group(Node):
 
         del(self[start:stop])
         self._children.__setitem__(slice(start, start), expr)
-        for node in expr:
-            node._set_parent(self)
 
         message_bundler = servertools.MessageBundler(
             server=self.server,
             sync=True,
             )
+
+        synthdefs = []
+        for node in expr:
+            if not isinstance(node, servertools.Synth):
+                continue
+            if node.synthdef.is_allocated:
+                continue
+            synthdefs.append(node.synthdef)
+            node.synthdef._allocate(server=self.server)
+        if synthdefs:
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                )
+            request.communicate(server=self.server)
 
         with message_bundler:
 
@@ -102,8 +117,10 @@ class Group(Node):
                 if node.is_allocated:
                     if target_node is self:
                         request = requesttools.GroupHeadRequest(
-                            group_id=self.node_id,
-                            node_id=node.node_id,
+                            node_id_pairs=requesttools.NodeIdPair(
+                                target_node_id=self.node_id,
+                                node_id=node.node_id,
+                                ),
                             )
                     else:
                         request = requesttools.NodeAfterRequest(

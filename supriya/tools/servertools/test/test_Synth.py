@@ -18,11 +18,11 @@ def test_Synth_01(server):
 
     group = servertools.Group().allocate()
 
-    synth_a = servertools.Synth(synthdefs.etc.test)
+    synth_a = servertools.Synth(synthdefs.test)
     synth_a.allocate(
         target_node=group,
         )
-    synth_b = servertools.Synth(synthdefs.etc.test)
+    synth_b = servertools.Synth(synthdefs.test)
     synth_b.allocate(
         target_node=group,
         )
