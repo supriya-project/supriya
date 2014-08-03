@@ -36,9 +36,6 @@ def _build_default_synthdef():
         pan=0.5,
         )
 
-
-
-                
     low_pass = ugentools.LPF.ar(
         source=ugentools.Mix.new(
             ugentools.VarSaw.ar(
