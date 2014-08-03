@@ -1,8 +1,7 @@
 # -*- encoding: utf-8 -*-
 import pytest
-from supriya import servertools
-from supriya import synthdeftools
-from supriya import ugentools
+from supriya import synthdefs
+from supriya.tools import servertools
 from abjad.tools import systemtools
 
 
@@ -15,30 +14,18 @@ def server(request):
     return server
 
 
-@pytest.fixture(scope='function')
-def synthdef(request):
-    builder = synthdeftools.SynthDefBuilder()
-    builder.add_parameter('frequency', 440)
-    builder.add_parameter('amplitude', 1.0, 'audio')
-    sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
-    enveloped_sin = sin_osc * builder['amplitude']
-    out = ugentools.Out.ar(bus=0, source=enveloped_sin)
-    builder.add_ugen(out)
-    synthdef = builder.build(name='test')
-    synthdef.allocate()
-    return synthdef
-
-
 def test_Synth_01(server, synthdef):
 
-    group = servertools.Group().allocate() 
+    group = servertools.Group().allocate(sync=True)
 
-    server.sync()
-
-    synth_a = servertools.Synth(synthdef)
-    synth_a.allocate(target_node=group)
-    synth_b = servertools.Synth(synthdef)
-    synth_b.allocate(target_node=group)
+    synth_a = servertools.Synth(synthdefs.etc.test)
+    synth_a.allocate(
+        target_node=group,
+        )
+    synth_b = servertools.Synth(synthdefs.etc.test)
+    synth_b.allocate(
+        target_node=group,
+        )
 
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
