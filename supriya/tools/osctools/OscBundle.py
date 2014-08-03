@@ -23,15 +23,6 @@ class OscBundle(SupriyaObject):
         ...     )
         >>> inner_bundle
         OscBundle(
-            1401557034.5,
-            OscMessage(
-                '/one',
-                1
-                ),
-            OscMessage(
-                '/two',
-                2
-                ),
             timestamp=1401557034.5,
             contents=(
                 OscMessage(
@@ -52,44 +43,8 @@ class OscBundle(SupriyaObject):
         ...     )
         >>> outer_bundle
         OscBundle(
-            None,
-            OscBundle(
-                1401557034.5,
-                OscMessage(
-                    '/one',
-                    1
-                    ),
-                OscMessage(
-                    '/two',
-                    2
-                    ),
-                timestamp=1401557034.5,
-                contents=(
-                    OscMessage(
-                        '/one',
-                        1
-                        ),
-                    OscMessage(
-                        '/two',
-                        2
-                        ),
-                    )
-                ),
-            OscMessage(
-                '/three',
-                3
-                ),
             contents=(
                 OscBundle(
-                    1401557034.5,
-                    OscMessage(
-                        '/one',
-                        1
-                        ),
-                    OscMessage(
-                        '/two',
-                        2
-                        ),
                     timestamp=1401557034.5,
                     contents=(
                         OscMessage(
@@ -118,44 +73,8 @@ class OscBundle(SupriyaObject):
         >>> decoded_bundle = osctools.OscBundle.from_datagram(datagram)
         >>> decoded_bundle
         OscBundle(
-            None,
-            OscBundle(
-                1401557034.5,
-                OscMessage(
-                    '/one',
-                    1
-                    ),
-                OscMessage(
-                    '/two',
-                    2
-                    ),
-                timestamp=1401557034.5,
-                contents=(
-                    OscMessage(
-                        '/one',
-                        1
-                        ),
-                    OscMessage(
-                        '/two',
-                        2
-                        ),
-                    )
-                ),
-            OscMessage(
-                '/three',
-                3
-                ),
             contents=(
                 OscBundle(
-                    1401557034.5,
-                    OscMessage(
-                        '/one',
-                        1
-                        ),
-                    OscMessage(
-                        '/two',
-                        2
-                        ),
                     timestamp=1401557034.5,
                     contents=(
                         OscMessage(
@@ -264,16 +183,6 @@ class OscBundle(SupriyaObject):
         result = struct.pack('>I', seconds)
         result += struct.pack('>I', fraction)
         return result
-
-    ### PRIVATE PROPERTIES ###
-
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            positional_argument_values=(self.timestamp,) + self.contents,
-            )
 
     ### PUBLIC METHODS ###
 
