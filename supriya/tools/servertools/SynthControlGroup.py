@@ -59,6 +59,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         return len(self._synth_controls)
 
     def __setitem__(self, items, values):
+        from supriya.tools import servertools
         if not isinstance(items, tuple):
             items = (items,)
         if not isinstance(values, tuple):
@@ -67,7 +68,14 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         synth_controls = self.__getitem__(items)
         synth_control_names = [x.name for x in synth_controls]
         settings = dict(zip(synth_control_names, values))
-        self._set(**settings)
+        messages = self._set(**settings)
+        message_bundler = servertools.MessageBundler(
+            server=self.client.server,
+            sync=True,
+            )
+        with message_bundler:
+            for message in messages:
+                message_bundler.add_message(message)
 
     ### PRIVATE METHODS ###
 
@@ -111,19 +119,13 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
                 )
             message = request.to_osc_message()
             messages.append(message)
-        for message in messages:
-            self.client.server.send_message(message)
+        return tuple(messages)
 
     ### PUBLIC METHODS ###
 
     def reset(self):
         for synth_control in self._synth_controls:
             synth_control.reset()
-
-    def set(self, **kwargs):
-        self._set(
-            **kwargs
-            )
 
     ### PUBLIC PROPERTIES ###
 
