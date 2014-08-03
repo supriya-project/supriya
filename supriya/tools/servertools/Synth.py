@@ -71,32 +71,49 @@ class Synth(Node):
         self,
         add_action=None,
         node_id_is_permanent=False,
-        sync=False,
+        sync=True,
         target_node=None,
         **kwargs
         ):
         from supriya.tools import requesttools
+        from supriya.tools import servertools
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
-        if not self.synthdef.is_allocated:
-            self.synthdef.allocate(self.server)
-        request = requesttools.SynthNewRequest(
-            add_action=add_action,
-            node_id=node_id,
-            synthdef=self.synthdef,
-            target_node_id=target_node_id,
-            **kwargs
+        message_bundler = servertools.MessageBundler(
+            server=self.server,
+            sync=sync,
             )
-        message = request.to_osc_message()
-        for key, value in kwargs:
-            self[key].set(value)
-        self.server.send_message(message)
-        if sync:
-            self.server.sync()
+        with message_bundler:
+            synth_request = requesttools.SynthNewRequest(
+                add_action=add_action,
+                node_id=node_id,
+                synthdef=self.synthdef,
+                target_node_id=target_node_id,
+                )
+            settings = self.controls._set(**kwargs)
+            if not self.synthdef.is_allocated:
+                with servertools.MessageBundler(
+                    send_to_server=False,
+                    ) as synth_bundler:
+                    synth_bundler.add_message(synth_request)
+                    for setting in settings:
+                        synth_bundler.add_message(setting)
+                completion_message = synth_bundler.result
+                synthdef_request = self.synthdef._allocate(
+                    completion_message=completion_message,
+                    server=self.server,
+                    )
+                message_bundler.add_message(synthdef_request)
+                message_bundler.add_synchronizing_request(synthdef_request)
+            else:
+                message_bundler.add_message(synth_request)
+                for setting in settings:
+                    message_bundler.add_message(setting)
+                message_bundler.add_synchronizing_request(synth_request)
         return self
 
     def free(
