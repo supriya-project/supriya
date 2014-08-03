@@ -172,10 +172,10 @@ class Group(Node):
             node_id=node_id,
             target_node_id=target_node_id,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
-        if sync:
-            self.server.sync()
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
         return self
 
     def append(self, expr):
