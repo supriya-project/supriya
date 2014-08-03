@@ -88,7 +88,13 @@ class GroupNewRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.NodeInfoResponse: {
+                'action': responsetools.NodeAction.NODE_CREATED,
+                'node_id': self.node_id,
+                },
+            }
 
     @property
     def request_id(self):
