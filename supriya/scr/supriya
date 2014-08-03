@@ -1,0 +1,5 @@
+#! /usr/bin/env python
+
+if __name__ == '__main__':
+    from supriya.tools.systemtools.run_supriya import run_supriya
+    run_supriya()
