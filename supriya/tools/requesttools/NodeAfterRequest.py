@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -17,15 +18,14 @@ class NodeAfterRequest(Request):
         self,
         node_id_pairs=None,
         ):
+        from supriya.tools import requesttools
         Request.__init__(self)
         if node_id_pairs:
-            pairs = []
-            for node_id, target_node_id in node_id_pairs:
-                node_id = int(node_id)
-                target_node_id = int(target_node_id)
-                pair = (node_id, target_node_id)
-                pairs.append(pair)
-            node_id_pairs = tuple(pairs)
+            if not isinstance(node_id_pairs, collections.Sequence):
+                node_id_pairs = [node_id_pairs]
+            prototype = requesttools.NodeIdPair
+            assert all(isinstance(x, prototype) for x in node_id_pairs)
+            node_id_pairs = tuple(node_id_pairs)
         self._node_id_pairs = node_id_pairs
 
     ### PUBLIC METHODS ###
@@ -34,8 +34,9 @@ class NodeAfterRequest(Request):
         request_id = int(self.request_id)
         contents = [request_id]
         if self.node_id_pairs:
-            for pair in self.node_id_pairs:
-                contents.extend(pair)
+            for node_id_pair in self.node_id_pairs:
+                contents.append(node_id_pair.node_id)
+                contents.append(node_id_pair.target_node_id)
         message = osctools.OscMessage(*contents)
         return message
 
