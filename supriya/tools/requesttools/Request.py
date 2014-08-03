@@ -60,28 +60,26 @@ class Request(SupriyaValueObject):
         assert isinstance(server, servertools.Server)
         assert server.is_running
         message = message or self.to_osc_message()
-        if not sync:
+        if not sync or self.response_specification is None:
             server.send_message(message)
             return None
-        elif self.response_specification is not None:
-            start_time = time.time()
-            timed_out = False
-            with self.condition:
-                with server.response_dispatcher.lock:
-                    callback = self.response_callback
-                    server.register_response_callback(callback)
-                    server.send_message(message)
-                while self.response is None:
-                    self.condition.wait(timeout)
-                    current_time = time.time()
-                    delta_time = current_time - start_time
-                    if timeout <= delta_time:
-                        timed_out = True
-                        break
-            if timed_out:
-                raise Exception
-            return self._response
-        return None
+        start_time = time.time()
+        timed_out = False
+        with self.condition:
+            with server.response_dispatcher.lock:
+                callback = self.response_callback
+                server.register_response_callback(callback)
+                server.send_message(message)
+            while self.response is None:
+                self.condition.wait(timeout)
+                current_time = time.time()
+                delta_time = current_time - start_time
+                if timeout <= delta_time:
+                    timed_out = True
+                    break
+        if timed_out:
+            raise Exception
+        return self._response
 
     @abc.abstractmethod
     def to_osc_message(self):
