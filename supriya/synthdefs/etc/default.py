@@ -33,57 +33,53 @@ def _build_default_synthdef():
             parameter_rate=synthdeftools.ParameterRate.SCALAR,
             value=0,
             ),
-        pan=0,
+        pan=0.5,
         )
 
-    var_saw = ugentools.VarSaw.ar(
-        frequency=builder['frequency'] + (
-            0,
-            ugentools.Rand.ir(
-                minimum=-0.4,
-                maximum=0.,
-                ),
-            ugentools.Rand.ir(
-                minimum=0.,
-                maximum=0.4,
-                ),
-            ),
-        width=0.3,
-        )
-    var_saw *= 0.3
 
-    mix = ugentools.Mix.new(var_saw)
 
-    x_line = ugentools.XLine.kr(
-        start=ugentools.Rand.ir(
-            minimum=4000,
-            maximum=5000,
-            ),
-        stop=ugentools.Rand.ir(
-            minimum=2500,
-            maximum=3200,
-            ),
-        )
                 
     low_pass = ugentools.LPF.ar(
-        source=mix,
-        frequency=x_line,
+        source=ugentools.Mix.new(
+            ugentools.VarSaw.ar(
+                frequency=builder['frequency'] + (
+                    0,
+                    ugentools.Rand.ir(
+                        minimum=-0.4,
+                        maximum=0.,
+                        ),
+                    ugentools.Rand.ir(
+                        minimum=0.,
+                        maximum=0.4,
+                        ),
+                    ),
+                width=0.3,
+                ),
+            ) * 0.3,
+        frequency=ugentools.XLine.kr(
+            start=ugentools.Rand.ir(
+                minimum=4000,
+                maximum=5000,
+                ),
+            stop=ugentools.Rand.ir(
+                minimum=2500,
+                maximum=3200,
+                ),
+            )
         )
 
     linen = ugentools.Linen.kr(
-        builder['gate'],
-        0.01,
-        0.7,
-        0.3,
-        2,
+        attack_time=0.01,
+        done_action=2,
+        gate=builder['gate'],
+        release_time=0.3,
+        sustain_level=0.7,
         )
 
     pan = ugentools.Pan2.ar(
-        source=low_pass * linen,
+        source=low_pass * linen * builder['amplitude'],
         position=builder['pan'],
         )
-
-    pan *= builder['amplitude']
 
     output = ugentools.OffsetOut.ar(
         bus=builder['out'],
