@@ -196,9 +196,10 @@ class OscMessage(OscMixin):
         type_tags = 'b'
         encoded_value = OscMessage._write_int(len(value))
         encoded_value += value
-        difference = 4 - (len(encoded_value) % 4)
-        padding = b'\x00' * difference
-        encoded_value += padding
+        if len(encoded_value) % 4:
+            difference = 4 - (len(encoded_value) % 4)
+            padding = b'\x00' * difference
+            encoded_value += padding
         return type_tags, encoded_value
 
     @staticmethod

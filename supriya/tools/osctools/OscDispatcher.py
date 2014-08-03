@@ -24,7 +24,9 @@ class OscDispatcher(SupriyaObject):
 
         >>> message = osctools.OscMessage('/okay', 1, 2, 3)
         >>> dispatcher(message)
-        GOT: OscMessage('/okay', 1, 2, 3)
+        GOT: size 28
+           0   2f 6f 6b 61  79 00 00 00  2c 69 69 69  00 00 00 00   |/okay...,iii....|
+          16   00 00 00 01  00 00 00 02  00 00 00 03                |............|
 
     ::
 
