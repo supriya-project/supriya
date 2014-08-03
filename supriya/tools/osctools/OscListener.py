@@ -56,7 +56,9 @@ class OscListener(SupriyaObject, threading.Thread):
                     continue
                 if self.debug:
                     if message.address != '/status.reply':
-                        print('RECV', message)
+                        print('RECV', repr(message))
+                        for line in str(message).splitlines():
+                            print('\t' + line)
                 osc_dispatcher(message)
                 response_dispatcher(message)
         except:

@@ -88,7 +88,9 @@ class OscController(SupriyaObject):
                     '/status',
                     requesttools.RequestId.STATUS
                     ):
-                print('SEND', message)
+                print('SEND', repr(message))
+                for line in str(message).splitlines():
+                    print('\t' + line)
         datagram = message.to_datagram()
         self.socket_instance.sendto(
             datagram,
