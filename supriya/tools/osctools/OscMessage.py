@@ -50,20 +50,12 @@ class OscMessage(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        if type(expr) != type(self):
-            return False
-        if expr.address != self.address:
-            return False
-        if expr.contents != self.contents:
-            return False
-        return True
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatManager.compare(self, expr)
 
     def __hash__(self):
-        hash_values = (
-            type(self),
-            self.address,
-            self.contents,
-            )
+        from abjad.tools import systemtools
+        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
 
     def __repr__(self):
@@ -319,6 +311,16 @@ class OscMessage(SupriyaObject):
     @staticmethod
     def _write_int(value):
         return struct.pack('>i', value)
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            positional_argument_values=(self.address,) + self.contents,
+            )
 
     ### PUBLIC METHODS ###
 

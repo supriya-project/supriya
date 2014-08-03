@@ -22,7 +22,28 @@ class OscBundle(SupriyaObject):
         ...     contents=(message_one, message_two),
         ...     )
         >>> inner_bundle
-        <OscBundle 1401557034.5 {2}>
+        OscBundle(
+            1401557034.5,
+            OscMessage(
+                '/one',
+                1
+                ),
+            OscMessage(
+                '/two',
+                2
+                ),
+            timestamp=1401557034.5,
+            contents=(
+                OscMessage(
+                    '/one',
+                    1
+                    ),
+                OscMessage(
+                    '/two',
+                    2
+                    ),
+                )
+            )
 
     ::
 
@@ -30,7 +51,63 @@ class OscBundle(SupriyaObject):
         ...     contents=(inner_bundle, message_three),
         ...     )
         >>> outer_bundle
-        <OscBundle None {2}>
+        OscBundle(
+            None,
+            OscBundle(
+                1401557034.5,
+                OscMessage(
+                    '/one',
+                    1
+                    ),
+                OscMessage(
+                    '/two',
+                    2
+                    ),
+                timestamp=1401557034.5,
+                contents=(
+                    OscMessage(
+                        '/one',
+                        1
+                        ),
+                    OscMessage(
+                        '/two',
+                        2
+                        ),
+                    )
+                ),
+            OscMessage(
+                '/three',
+                3
+                ),
+            contents=(
+                OscBundle(
+                    1401557034.5,
+                    OscMessage(
+                        '/one',
+                        1
+                        ),
+                    OscMessage(
+                        '/two',
+                        2
+                        ),
+                    timestamp=1401557034.5,
+                    contents=(
+                        OscMessage(
+                            '/one',
+                            1
+                            ),
+                        OscMessage(
+                            '/two',
+                            2
+                            ),
+                        )
+                    ),
+                OscMessage(
+                    '/three',
+                    3
+                    ),
+                )
+            )
 
     ::
 
@@ -40,7 +117,63 @@ class OscBundle(SupriyaObject):
 
         >>> decoded_bundle = osctools.OscBundle.from_datagram(datagram)
         >>> decoded_bundle
-        <OscBundle None {2}>
+        OscBundle(
+            None,
+            OscBundle(
+                1401557034.5,
+                OscMessage(
+                    '/one',
+                    1
+                    ),
+                OscMessage(
+                    '/two',
+                    2
+                    ),
+                timestamp=1401557034.5,
+                contents=(
+                    OscMessage(
+                        '/one',
+                        1
+                        ),
+                    OscMessage(
+                        '/two',
+                        2
+                        ),
+                    )
+                ),
+            OscMessage(
+                '/three',
+                3
+                ),
+            contents=(
+                OscBundle(
+                    1401557034.5,
+                    OscMessage(
+                        '/one',
+                        1
+                        ),
+                    OscMessage(
+                        '/two',
+                        2
+                        ),
+                    timestamp=1401557034.5,
+                    contents=(
+                        OscMessage(
+                            '/one',
+                            1
+                            ),
+                        OscMessage(
+                            '/two',
+                            2
+                            ),
+                        )
+                    ),
+                OscMessage(
+                    '/three',
+                    3
+                    ),
+                )
+            )
 
     ::
 
@@ -79,28 +212,13 @@ class OscBundle(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        if type(expr) != type(self):
-            return False
-        if expr.timestamp != self.timestamp:
-            return False
-        if expr.contents != self.contents:
-            return False
-        return True
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatManager.compare(self, expr)
 
     def __hash__(self):
-        hash_values = (
-            type(self),
-            self.timestamp,
-            self.contents,
-            )
+        from abjad.tools import systemtools
+        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
-
-    def __repr__(self):
-        return '<{} {} {{{}}}>'.format(
-            type(self).__name__,
-            self.timestamp,
-            len(self.contents),
-            )
 
     ### PRIVATE METHODS ###
 
@@ -146,6 +264,16 @@ class OscBundle(SupriyaObject):
         result = struct.pack('>I', seconds)
         result += struct.pack('>I', fraction)
         return result
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            positional_argument_values=(self.timestamp,) + self.contents,
+            )
 
     ### PUBLIC METHODS ###
 

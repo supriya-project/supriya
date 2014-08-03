@@ -83,10 +83,11 @@ class OscController(SupriyaObject):
                 *message[1:]
                 )
         if self.debug:
-            if message.address not in (
-                '/status',
-                requesttools.RequestId.STATUS
-                ):
+            if not isinstance(message, osctools.OscMessage) or \
+                message.address not in (
+                    '/status',
+                    requesttools.RequestId.STATUS
+                    ):
                 print('SEND', message)
         datagram = message.to_datagram()
         self.socket_instance.sendto(
