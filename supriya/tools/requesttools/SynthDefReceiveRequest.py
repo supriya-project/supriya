@@ -58,7 +58,12 @@ class SynthDefReceiveRequest(Request):
     
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.DoneResponse: {
+                'action': ('/d_recv',),
+                },
+            }
 
     @property
     def request_id(self):
