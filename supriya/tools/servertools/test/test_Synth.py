@@ -14,9 +14,9 @@ def server(request):
     return server
 
 
-def test_Synth_01(server, synthdef):
+def test_Synth_01(server):
 
-    group = servertools.Group().allocate(sync=True)
+    group = servertools.Group().allocate()
 
     synth_a = servertools.Synth(synthdefs.etc.test)
     synth_a.allocate(
@@ -27,7 +27,6 @@ def test_Synth_01(server, synthdef):
         target_node=group,
         )
 
-    server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert systemtools.TestManager.compare(
         server_state,
@@ -49,7 +48,6 @@ def test_Synth_01(server, synthdef):
     synth_a.controls['frequency'].set(443)
     synth_a.controls['amplitude'].set(0.5)
 
-    server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert systemtools.TestManager.compare(
         server_state,
@@ -70,7 +68,6 @@ def test_Synth_01(server, synthdef):
 
     synth_b.controls['frequency', 'amplitude'] = 441, 0.25
 
-    server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert systemtools.TestManager.compare(
         server_state,
@@ -96,7 +93,6 @@ def test_Synth_01(server, synthdef):
     synth_a['frequency'].set(bus_a)
     synth_b['amplitude'].set(bus_b)
 
-    server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert systemtools.TestManager.compare(
         server_state,
