@@ -1,7 +1,7 @@
 from supriya import servertools
 
 
-def test_Server_boot():
+def test_Server_bo01o01():
 
     server = servertools.Server(port=57757)
     for i in range(4):

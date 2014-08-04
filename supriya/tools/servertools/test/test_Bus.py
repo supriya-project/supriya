@@ -98,7 +98,7 @@ def test_Bus_03(server):
     assert bus.server is None
 
 
-def test_Buffer_03(server):
+def test_Bus_04(server):
 
     bus_a = servertools.Bus.control()
     bus_b = servertools.Bus.control()

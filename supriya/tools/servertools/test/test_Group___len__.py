@@ -14,7 +14,7 @@ def server(request):
     return server
 
 
-def test_Group_append_01(server):
+def test_Group___len___01(server):
 
     group_a = servertools.Group()
     group_a.allocate()
