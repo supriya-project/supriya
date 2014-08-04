@@ -409,8 +409,8 @@ class SynthDef(ServerObjectProxy):
         request = requesttools.SynthDefFreeRequest(
             synthdef=self,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
+        if self.server.is_running:
+            request.communicate(server=self.server)
         ServerObjectProxy.free(self)
 
     @staticmethod

@@ -299,6 +299,8 @@ class Server(object):
                 x.free()
         for x in tuple(self._nodes.values()):
             x.free()
+        for x in tuple(self._synthdefs.values()):
+            x.free()
         self._control_bus_proxies = None
         self._buffer_proxies = None
         self._default_group = None

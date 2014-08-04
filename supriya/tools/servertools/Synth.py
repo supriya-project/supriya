@@ -103,6 +103,7 @@ class Synth(Node):
                     for setting in settings:
                         synth_bundler.add_message(setting)
                 completion_message = synth_bundler.result
+                print(repr(self.synthdef.server))
                 synthdef_request = self.synthdef._allocate(
                     completion_message=completion_message,
                     server=self.server,

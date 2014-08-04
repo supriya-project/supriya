@@ -91,17 +91,19 @@ class Group(Node):
             sync=True,
             )
 
-        synthdefs = []
+        synthdefs = set()
         for node in expr:
             if not isinstance(node, servertools.Synth):
                 continue
             if node.synthdef.is_allocated:
                 continue
-            synthdefs.append(node.synthdef)
-            node.synthdef._allocate(server=self.server)
+            if node.synthdef in synthdefs:
+                continue
+            synthdefs.add(node.synthdef)
         if synthdefs:
+            node.synthdef._allocate(server=self.server)
             request = requesttools.SynthDefReceiveRequest(
-                synthdefs=synthdefs,
+                synthdefs=tuple(synthdefs),
                 )
             request.communicate(server=self.server)
 
