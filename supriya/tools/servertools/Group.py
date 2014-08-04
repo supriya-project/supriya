@@ -156,7 +156,7 @@ class Group(Node):
                         # handle synth control settings too?
                         # handle synth controls which are buses?
                     message_bundler.add_message(request)
-                            
+
                 target_node = node
 
     ### PRIVATE METHODS ###

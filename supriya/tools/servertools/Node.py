@@ -145,6 +145,7 @@ class Node(ServerObjectProxy):
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
             target_node.free()
+            self._parent._children.insert(index, self)
         else:
             raise ValueError
 
