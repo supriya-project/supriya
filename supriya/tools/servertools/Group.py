@@ -58,9 +58,17 @@ class Group(Node):
         elif isinstance(expr, slice):
             for child in self._children[expr]:
                 expr.free()
+        elif isinstance(expr, str):
+            self._named_children[expr].free()
+        else:
+            raise ValueError(expr)
 
     def __getitem__(self, expr):
-        return self._children[expr]
+        if isinstance(expr, (int, slice)):
+            return self._children[expr]
+        elif isinstance(expr, str):
+            return self._named_children[expr]
+        raise ValueError(expr)
 
     def __iter__(self):
         for child in self._children:
