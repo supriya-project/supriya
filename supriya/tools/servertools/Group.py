@@ -118,14 +118,16 @@ class Group(Node):
                     if target_node is self:
                         request = requesttools.GroupHeadRequest(
                             node_id_pairs=requesttools.NodeIdPair(
-                                target_node_id=self.node_id,
                                 node_id=node.node_id,
+                                target_node_id=target_node.node_id,
                                 ),
                             )
                     else:
                         request = requesttools.NodeAfterRequest(
-                            node_id=node.node_id,
-                            target_node_id=target_node.node_id,
+                            node_id_pairs=requesttools.NodeIdPair(
+                                node_id=node.node_id,
+                                target_node_id=target_node.node_id,
+                                )
                             )
                     message_bundler.add_message(request)
                 else:
