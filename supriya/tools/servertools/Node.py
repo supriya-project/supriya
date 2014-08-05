@@ -218,6 +218,12 @@ class Node(ServerObjectProxy):
         index = self.parent.index(self)
         self.parent[index:index] = expr
 
+    def replace(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index:index + 1] = expr
+
     def succede(self, expr):
         if not isinstance(expr, collections.Sequence):
             expr = [expr]
