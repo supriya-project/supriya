@@ -283,7 +283,7 @@ class Node(ServerObjectProxy):
     def parentage(self):
         parentage = []
         node = self
-        while node.parent is not None:
+        while node is not None:
             parentage.append(node)
             node = node.parent
         return tuple(parentage)
