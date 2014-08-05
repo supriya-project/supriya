@@ -57,7 +57,7 @@ class Group(Node):
             self._children[expr].free()
         elif isinstance(expr, slice):
             for child in self._children[expr]:
-                expr.free()
+                child.free()
         elif isinstance(expr, str):
             self._named_children[expr].free()
         else:
@@ -91,8 +91,10 @@ class Group(Node):
         assert all(isinstance(_, servertools.Node) for _ in expr)
         start, stop, _ = i.indices(len(self))
 
-        del(self[start:stop])
-        self._children.__setitem__(slice(start, start), expr)
+        old_children = tuple(self[start:stop])
+        for child in old_children:
+            if child not in expr:
+                child.free()
 
         message_bundler = servertools.MessageBundler(
             server=self.server,
@@ -123,8 +125,8 @@ class Group(Node):
                 target_node = self[start - 1]
 
             for node in expr:
-                node._set_parent(self)
                 if node.is_allocated:
+                    node._set_parent(self)
                     if target_node is self:
                         request = requesttools.GroupHeadRequest(
                             node_id_pairs=requesttools.NodeIdPair(
@@ -140,6 +142,11 @@ class Group(Node):
                                 )
                             )
                     message_bundler.add_message(request)
+                    if target_node is self:
+                        self._children.append(node)
+                    else:
+                        index = self._children.index(target_node)
+                        self._children.insert(index + 1, node)
                 else:
                     if target_node is self:
                         add_action = servertools.AddAction.ADD_TO_HEAD
