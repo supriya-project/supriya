@@ -121,7 +121,50 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
             messages.append(message)
         return tuple(messages)
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            is_bracketed=True,
+            positional_argument_values=self._synth_controls,
+            keyword_argument_names=(),
+            )
+
     ### PUBLIC METHODS ###
+
+    def make_synth_new_settings(self):
+        from supriya.tools import requesttools
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        audio_map = {}
+        control_map = {}
+        node_id = self.client.node_id
+        requests = []
+        settings = {}
+        for synth_control in self.synth_controls:
+            if isinstance(synth_control.value, servertools.Bus):
+                if synth_control.value.rate == synthdeftools.Rate.AUDIO:
+                    audio_map[synth_control.name] = synth_control.value
+                else:
+                    control_map[synth_control.name] = synth_control.value
+            elif synth_control.value != synth_control.default_value:
+                settings[synth_control.name] = synth_control.value
+        if audio_map:
+            request = requesttools.NodeMapToAudioBusRequest(
+                node_id=node_id,
+                **audio_map
+                )
+            requests.append(request)
+        if control_map:
+            request = requesttools.NodeMapToControlBusRequest(
+                node_id=node_id,
+                **control_map
+                )
+            requests.append(request)
+        return settings, requests
 
     def reset(self):
         for synth_control in self._synth_controls:
@@ -140,3 +183,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
     @property
     def synthdef(self):
         return self._synthdef
+
+    @property
+    def synth_controls(self):
+        return self._synth_controls
