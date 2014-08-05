@@ -36,7 +36,7 @@ def test_Node_replace_01(server):
         ''',
         ), server_state
 
-    synth_a.replace(synth_c) 
+    synth_a.replace_with(synth_c) 
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
@@ -49,7 +49,7 @@ def test_Node_replace_01(server):
         ''',
         ), server_state
 
-    synth_b.replace([synth_d, synth_e])
+    synth_b.replace_with([synth_d, synth_e])
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
@@ -63,7 +63,7 @@ def test_Node_replace_01(server):
         ''',
         ), server_state
 
-    synth_c.replace([synth_a, synth_e])
+    synth_c.replace_with([synth_a, synth_e])
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
