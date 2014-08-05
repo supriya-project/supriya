@@ -212,7 +212,7 @@ class Node(ServerObjectProxy):
             if response.action == responsetools.NodeAction.NODE_REMOVED:
                 self.free(send_to_server=False)
 
-    def precede(self, expr):
+    def precede_by(self, expr):
         if not isinstance(expr, collections.Sequence):
             expr = [expr]
         index = self.parent.index(self)

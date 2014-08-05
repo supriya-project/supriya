@@ -14,7 +14,7 @@ def server(request):
     return server
 
 
-def test_Node_replace_01(server):
+def test_Node_replace_with_01(server):
 
     synth_a = servertools.Synth(synthdefs.test)
     synth_b = servertools.Synth(synthdefs.test)
