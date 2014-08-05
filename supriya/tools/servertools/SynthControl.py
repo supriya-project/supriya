@@ -44,6 +44,22 @@ class SynthControl(SupriyaObject):
     def __str__(self):
         return self.name
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            keyword_argument_names=(
+                'name',
+                'range_',
+                'rate',
+                'unit',
+                'value',
+                ),
+            )
+
     ### PUBLIC METHODS ###
 
     @classmethod
@@ -79,30 +95,32 @@ class SynthControl(SupriyaObject):
             self._value = expr
             if expr.rate == synthdeftools.Rate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
-                    self.client.client,
+                    self.synth,
                     **{self.name: self._value}
                     )
-                message = request.to_osc_message()
             else:
                 request = requesttools.NodeMapToAudioBusRequest(
-                    self.client.client,
+                    self.synth,
                     **{self.name: self._value}
                     )
-                message = request.to_osc_message()
         else:
             self._value = float(expr)
             request = requesttools.NodeSetRequest(
-                self.client.client,
+                self.synth,
                 **{self.name: self._value}
                 )
-            message = request.to_osc_message()
-        self.client.client.server.send_message(message)
+        if self.synth.is_allocated:
+            request.communicate(server=self.synth.server)
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def client(self):
         return self._client
+
+    @property
+    def default_value(self):
+        return self._default_value
 
     @property
     def name(self):
@@ -115,6 +133,10 @@ class SynthControl(SupriyaObject):
     @property
     def rate(self):
         return self._rate
+
+    @property
+    def synth(self):
+        return self.client.client
 
     @property
     def unit(self):
