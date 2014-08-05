@@ -91,6 +91,12 @@ class Group(Node):
         assert all(isinstance(_, servertools.Node) for _ in expr)
         start, stop, _ = i.indices(len(self))
 
+        parentage = self.parentage
+        for x in expr:
+            assert isinstance(x, servertools.Node)
+            if isinstance(x, servertools.Group):
+                assert x not in parentage
+
         old_children = tuple(self[start:stop])
         for child in old_children:
             if child not in expr:

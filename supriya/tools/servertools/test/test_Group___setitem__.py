@@ -154,7 +154,6 @@ def test_Group___setitem___01(server):
 
     group_b[len(group_b):] = [group_a]
 
-
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
         server_state,

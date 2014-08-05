@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import abc
+import collections
 import copy
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
@@ -210,6 +211,18 @@ class Node(ServerObjectProxy):
         if isinstance(response, responsetools.NodeInfoResponse):
             if response.action == responsetools.NodeAction.NODE_REMOVED:
                 self.free(send_to_server=False)
+
+    def precede(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index:index] = expr
+
+    def succede(self, expr):
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
+        index = self.parent.index(self)
+        self.parent[index + 1:index + 1] = expr
 
     ### PUBLIC PROPERTIES ###
 
