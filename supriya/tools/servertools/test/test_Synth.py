@@ -110,3 +110,58 @@ def test_Synth_01(server):
     assert synth_a['amplitude'].get() == 0.5
     assert synth_b['frequency'].get() == 441.0
     assert synth_b['amplitude'].get() == bus_b
+
+
+def test_Synth_02(server):
+
+    synth = servertools.Synth(synthdefs.test)
+    synth['frequency'].set(443)
+    synth['amplitude'].set(0.5)
+
+    assert synth['frequency'].get() == 443
+    assert synth['amplitude'].get() == 0.5
+
+    synth.allocate()
+
+    server_state = str(server.query_remote_nodes(include_controls=True))
+    assert systemtools.TestManager.compare(
+        server_state,
+        r'''
+        NODE TREE 0 group
+            1 group
+                1000 test
+                    amplitude: 0.5, frequency: 443.0
+        ''',
+        ), server_state
+
+    synth.free()
+
+    assert synth['frequency'].get() == 443
+    assert synth['amplitude'].get() == 0.5
+
+    control_bus = servertools.Bus(0, rate='control')
+    audio_bus = servertools.Bus(0, rate='audio')
+
+    synth['frequency'].set(control_bus)
+    synth['amplitude'].set(audio_bus)
+
+    assert synth['frequency'].get() == control_bus
+    assert synth['amplitude'].get() == audio_bus
+
+    synth.allocate()
+
+    server_state = str(server.query_remote_nodes(include_controls=True))
+    assert systemtools.TestManager.compare(
+        server_state,
+        r'''
+        NODE TREE 0 group
+            1 group
+                1001 test
+                    amplitude: a0, frequency: c0
+        ''',
+        ), server_state
+
+    synth.free()
+
+    assert synth['frequency'].get() == control_bus
+    assert synth['amplitude'].get() == audio_bus

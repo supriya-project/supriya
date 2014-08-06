@@ -115,7 +115,7 @@ class Synth(Node):
             else:
                 message_bundler.add_message(synth_request)
                 for map_request in map_requests:
-                    synth_bundler.add_message(map_request)
+                    message_bundler.add_message(map_request)
                 message_bundler.add_synchronizing_request(synth_request)
         return self
 
