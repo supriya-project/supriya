@@ -2,7 +2,7 @@
 from supriya.tools import servertools
 
 
-def test_BlockAllocator_01():
+def test_BlockAllocator_allocate_01():
 
     allocator = servertools.BlockAllocator(
         heap_minimum=0,

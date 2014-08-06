@@ -13,7 +13,7 @@ def server(request):
     return server
 
 
-def test_Bus_01(server):
+def test_Bus_allocate_01(server):
 
     control_bus = servertools.Bus.control()
 
@@ -41,7 +41,7 @@ def test_Bus_01(server):
     assert not control_bus.is_allocated
 
 
-def test_Bus_02(server):
+def test_Bus_allocate_02(server):
 
     audio_bus = servertools.Bus.audio()
 
@@ -69,7 +69,7 @@ def test_Bus_02(server):
     assert not audio_bus.is_allocated
 
 
-def test_Bus_03(server):
+def test_Bus_allocate_03(server):
 
     bus = servertools.Bus(
         bus_group_or_index=23,
@@ -98,7 +98,7 @@ def test_Bus_03(server):
     assert bus.server is None
 
 
-def test_Bus_04(server):
+def test_Bus_allocate_04(server):
 
     bus_a = servertools.Bus.control()
     bus_b = servertools.Bus.control()

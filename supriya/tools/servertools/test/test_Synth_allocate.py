@@ -14,7 +14,7 @@ def server(request):
     return server
 
 
-def test_Synth_01(server):
+def test_Synth_allocate_01(server):
 
     group = servertools.Group().allocate()
 
@@ -112,7 +112,7 @@ def test_Synth_01(server):
     assert synth_b['amplitude'].get() == bus_b
 
 
-def test_Synth_02(server):
+def test_Synth_allocate_02(server):
 
     synth = servertools.Synth(synthdefs.test)
     synth['frequency'].set(443)

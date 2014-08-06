@@ -12,7 +12,7 @@ def server(request):
     return server
 
 
-def test_BufferGroup_01(server):
+def test_BufferGroup_allocate_01(server):
 
     buffer_group_one = servertools.BufferGroup(buffer_count=4)
 

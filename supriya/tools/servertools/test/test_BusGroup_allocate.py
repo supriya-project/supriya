@@ -13,7 +13,7 @@ def server(request):
     return server
 
 
-def test_BusGroup_01(server):
+def test_BusGroup_allocate_01(server):
 
     bus_group_one = servertools.BusGroup(
         bus_count=4,

@@ -12,7 +12,7 @@ def server(request):
     return server
 
 
-def test_Buffer_01(server):
+def test_Buffer_allocate_01(server):
 
     buffer_ = servertools.Buffer()
 
@@ -47,7 +47,7 @@ def test_Buffer_01(server):
     assert buffer_.server is None
 
 
-def test_Buffer_02(server):
+def test_Buffer_allocate_02(server):
 
     buffer_ = servertools.Buffer(buffer_group_or_index=23)
 
@@ -82,7 +82,7 @@ def test_Buffer_02(server):
     assert buffer_.server is None
 
 
-def test_Buffer_03(server):
+def test_Buffer_allocate_03(server):
 
     buffer_a = servertools.Buffer()
     buffer_b = servertools.Buffer()
