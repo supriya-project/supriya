@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from abjad.tools import timespantools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -169,3 +170,10 @@ class TimespanCollectionNode(SupriyaObject):
         collection node.
         '''
         return self._subtree_stop_index
+
+    @property
+    def timespan(self):
+        return timespantools.Timespan(
+            start_offset=self.start_offset,
+            stop_offset=self.stop_offset_high,
+            )

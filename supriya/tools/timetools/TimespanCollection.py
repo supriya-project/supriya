@@ -429,7 +429,7 @@ class TimespanCollection(SupriyaObject):
             positional_argument_values=positional_argument_values,
             )
 
-    
+
     ### PUBLIC METHODS ###
 
     def find_timespans_starting_at(self, offset):
@@ -456,7 +456,7 @@ class TimespanCollection(SupriyaObject):
         results.sort(key=lambda x: (x.start_offset, x.stop_offset))
         return tuple(results)
 
-    def find_timespans_overlapping(self, offset):
+    def find_timespans_overlapping_offset(self, offset):
         r'''Finds timespans overlapping `offset`.
 
         ::
@@ -471,8 +471,8 @@ class TimespanCollection(SupriyaObject):
             >>> timespan_collection = timetools.TimespanCollection(timespans)
 
         ::
-        
-            >>> for x in timespan_collection.find_timespans_overlapping(1.5):
+
+            >>> for x in timespan_collection.find_timespans_overlapping_offset(1.5):
             ...     x
             ...
             Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
@@ -494,6 +494,49 @@ class TimespanCollection(SupriyaObject):
                     result.extend(recurse(node.left_child, offset, indent + 1))
             return result
         results = recurse(self._root_node, offset)
+        results.sort(key=lambda x: (x.start_offset, x.stop_offset))
+        return tuple(results)
+
+    def find_timespans_intersecting_timespan(self, timespan):
+        r'''Finds timespans overlapping `timespan`.
+
+        ::
+
+            >>> timespans = (
+            ...     timespantools.Timespan(0, 3),
+            ...     timespantools.Timespan(1, 3),
+            ...     timespantools.Timespan(1, 2),
+            ...     timespantools.Timespan(2, 5),
+            ...     timespantools.Timespan(6, 9),
+            ...     )
+            >>> timespan_collection = timetools.TimespanCollection(timespans)
+
+        ::
+
+            >>> timespan = timespantools.Timespan(2, 4)
+            >>> for x in timespan_collection.find_timespans_intersecting_timespan(timespan):
+            ...     x
+            ...
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
+            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))
+
+        Returns tuple of 0 or more timespans.
+        '''
+        def recurse(node, timespan):
+            result = []
+            if node is not None:
+                if timespan.intersects_timespan(node):
+                    result.extend(recurse(node.left_child, timespan))
+                    for candidate_timespan in node.payload:
+                        if candidate_timespan.intersects_timespan(timespan):
+                            result.append(candidate_timespan)
+                    result.extend(recurse(node.right_child, timespan))
+                elif (timespan.start_offset <= node.start_offset) or \
+                    (timespan.stop_offset <= node.start_offset):
+                    result.extend(recurse(node.left_child, timespan))
+            return result
+        results = recurse(self._root_node, timespan)
         results.sort(key=lambda x: (x.start_offset, x.stop_offset))
         return tuple(results)
 
@@ -525,7 +568,7 @@ class TimespanCollection(SupriyaObject):
         from supriya.tools import timetools
         start_timespans = self.find_timespans_starting_at(offset)
         stop_timespans = self.find_timespans_stopping_at(offset)
-        overlap_timespans = self.find_timespans_overlapping(offset)
+        overlap_timespans = self.find_timespans_overlapping_offset(offset)
         simultaneity = timetools.TimespanSimultaneity(
             timespan_collection=self,
             overlap_timespans=overlap_timespans,
