@@ -234,6 +234,55 @@ class TimespanCollection(SupriyaObject):
             message = 'Indices must be ints or slices, got {}'.format(i)
             raise TypeError(message)
 
+    def __sub__(self, timespan):
+        r'''Delete material that intersects `timespan`:
+
+        ::
+
+            >>> timespan_collection = timetools.TimespanCollection([
+            ...     timespantools.Timespan(0, 16),
+            ...     timespantools.Timespan(5, 12),
+            ...     timespantools.Timespan(-2, 8),
+            ...     ])
+
+        ::
+
+            >>> timespan = timespantools.Timespan(5, 10)
+            >>> result = timespan_collection - timespan
+
+        ::
+
+            >>> print(format(timespan_collection))
+            supriya.tools.timetools.TimespanCollection(
+                [
+                    timespantools.Timespan(
+                        start_offset=durationtools.Offset(-2, 1),
+                        stop_offset=durationtools.Offset(5, 1),
+                        ),
+                    timespantools.Timespan(
+                        start_offset=durationtools.Offset(0, 1),
+                        stop_offset=durationtools.Offset(5, 1),
+                        ),
+                    timespantools.Timespan(
+                        start_offset=durationtools.Offset(10, 1),
+                        stop_offset=durationtools.Offset(12, 1),
+                        ),
+                    timespantools.Timespan(
+                        start_offset=durationtools.Offset(10, 1),
+                        stop_offset=durationtools.Offset(16, 1),
+                        ),
+                    ]
+                )
+
+        Operates in place and returns timespan collection.
+        '''
+        intersecting_timespans = self.find_timespans_intersecting_timespan(
+            timespan)
+        self.remove(intersecting_timespans)
+        for intersecting_timespan in intersecting_timespans:
+            for x in (intersecting_timespan - timespan):
+                self.insert(x)
+
     ### PRIVATE METHODS ###
 
     def _insert_node(self, node, start_offset):
