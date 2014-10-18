@@ -14,4 +14,4 @@ from supriya.tools.synthdeftools import Op
 from supriya.tools.synthdeftools import Rate
 from supriya.tools.synthdeftools import SynthDef
 from supriya.tools.synthdeftools import SynthDefBuilder
-import synthdefs
+from supriya import synthdefs
