@@ -5,8 +5,11 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
-This project is still under *heavy* development, is *not* yet stable, and is
-not intended for deployment in the field.
+Please note: this project is still under **heavy** development, is **not** yet
+stable, and is **not** intended for deployment in the field.
+
+Sends compliments or complaints to josiah.oberholtzer@gmail.com, or register
+an issue at https://github.com/Pulgama/supriya/issues.
 
 Basta.
 
