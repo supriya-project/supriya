@@ -282,6 +282,7 @@ class TimespanCollection(SupriyaObject):
         for intersecting_timespan in intersecting_timespans:
             for x in (intersecting_timespan - timespan):
                 self.insert(x)
+        return self
 
     ### PRIVATE METHODS ###
 
