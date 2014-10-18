@@ -13,6 +13,7 @@ class SoundFile(SupriyaObject):
     ### INITIALIZER ###
 
     def __init__(self, file_path):
+        import wavefile
         file_path = os.path.abspath(file_path)
         assert os.path.exists(file_path)
         self._file_path = file_path
