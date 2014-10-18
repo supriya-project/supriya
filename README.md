@@ -5,6 +5,11 @@ A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
 
+This project is still under *heavy* development, is *not* yet stable, and is
+not intended for deployment in the field.
+
+Basta.
+
 ![SynthDef Graph](/graph.png)
 
 Installation
@@ -27,18 +32,26 @@ Make sure that SuperCollider is installed, and that `scsynth` is available from
 the command-line. **supriya** targets SuperCollider 3.6.5 and above, although
 it may work with earlier versions as well.
 
+::
+
     ~$ scsynth -h
     supercollider_synth  options:
     ...
 
+SuperCollider may be found at http://supercollider.sourceforge.net/ for all
+platforms. Alternatively, many Linux distributions will allow you to install
+SuperCollider via their package manager.
+
 **supriya** has the following Python dependencies for all Python versions:
 
 - `abjad`
+- `numpy`
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
 - `sphinx`
 - `tox`
+- `wavefile`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.

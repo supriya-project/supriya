@@ -9,10 +9,10 @@ install_requires = [
     'numpy',
     'pexpect',
     'pytest',
-    'python-wavefile',
     'rtmidi-python',
     'sphinx',
     'tox',
+    'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
@@ -27,6 +27,11 @@ supriya
 A Python interface to SuperCollider.
 
 Tested and compatible with Python 2.7, 3.3 and 3.4.
+
+This project is still under *heavy* development, is *not* yet stable, and is
+not intended for deployment in the field.
+
+Basta.
 
 Installation
 ------------
@@ -43,7 +48,7 @@ To run the test suite:
 
 ::
 
-    supriya$ tox 
+    supriya$ tox
 
 Dependencies
 ------------
@@ -58,14 +63,20 @@ it may work with earlier versions as well.
     supercollider_synth  options:
     ...
 
+SuperCollider may be found at http://supercollider.sourceforge.net/ for all
+platforms. Alternatively, many Linux distributions will allow you to install
+SuperCollider via their package manager.
+
 **supriya** has the following Python dependencies for all Python versions:
 
 - `abjad`
+- `numpy`
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
 - `sphinx`
 - `tox`
+- `wavefile`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.
