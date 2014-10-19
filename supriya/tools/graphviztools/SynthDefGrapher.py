@@ -69,8 +69,10 @@ class SynthDefGrapher(SupriyaObject):
                 )
             if ugen.rate == synthdeftools.Rate.CONTROL:
                 node.attributes['fillcolor'] = 'lightgoldenrod2'
-            else:
+            elif ugen.rate == synthdeftools.Rate.AUDIO:
                 node.attributes['fillcolor'] = 'lightsteelblue2'
+            else:
+                node.attributes['fillcolor'] = 'lightsalmon2'
             title_field = SynthDefGrapher._create_ugen_title_field(ugen)
             node.append(title_field)
             group = documentationtools.GraphvizGroup()
@@ -116,11 +118,23 @@ class SynthDefGrapher(SupriyaObject):
     @staticmethod
     def _create_ugen_title_field(ugen):
         from abjad.tools import documentationtools
-
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        name = type(ugen).__name__
+        rate = ugen.rate.name.lower()
+        label_template = r'{name}\n({rate})'
+        operator = None
+        if isinstance(ugen, ugentools.BinaryOpUGen):
+            operator = synthdeftools.BinaryOperator(ugen.special_index).name
+            label_template = r'{name}\n[{operator}]\n({rate})'
+        elif isinstance(ugen, ugentools.UnaryOpUGen):
+            operator = synthdeftools.UnaryOperator(ugen.special_index).name
+            label_template = r'{name}\n[{operator}]\n({rate})'
         title_field = documentationtools.GraphvizField(
-            label=r'{}\n({})'.format(
-                type(ugen).__name__,
-                ugen.rate.name.lower(),
+            label=label_template.format(
+                name=name,
+                operator=operator,
+                rate=rate,
                 ),
             )
         return title_field
