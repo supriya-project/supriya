@@ -31,6 +31,54 @@ class BinaryOpUGen(UGen):
             special_index=special_index,
             )
 
+    ### PRIVATE METHODS ###
+
+    @classmethod
+    def _new_single(
+        cls,
+        rate=None,
+        special_index=None,
+        **kwargs
+        ):
+        from supriya.tools import synthdeftools
+        a = kwargs['left']
+        b = kwargs['right']
+        if special_index == synthdeftools.BinaryOperator.MULTIPLICATION:
+            if a == 0:
+                return 0
+            if b == 0:
+                return 0
+            if a == 1:
+                return b
+            if a == 1:
+                return -b
+            if b == 1:
+                return a
+            if b == -1:
+                return -a
+        if special_index == synthdeftools.BinaryOperator.ADDITION:
+            if a == 0:
+                return b
+            if b == 0:
+                return a
+        if special_index == synthdeftools.BinaryOperator.SUBTRACTION:
+            if a == 0:
+                return -b
+            if b == 0:
+                return a
+        if special_index == synthdeftools.BinaryOperator.FLOAT_DIVISION:
+            if b == 1:
+                return a
+            if b == -1:
+                return -a
+        ugen = cls(
+            rate=rate,
+            special_index=special_index,
+            left=a,
+            right=b,
+            )
+        return ugen
+
     ### PUBLIC PROPERTIES ###
 
     @property

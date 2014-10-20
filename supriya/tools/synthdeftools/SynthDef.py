@@ -465,7 +465,7 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.0)
+            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.01)
             >>> synthdef = synthdeftools.SynthDef.from_ugens(ugen)
             >>> synth = synthdef.play()
 
