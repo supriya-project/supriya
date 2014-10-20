@@ -84,6 +84,9 @@ SuperCollider via their package manager.
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.
 
+When installed via the included `setup.py` file (`sudo python setup.py
+install`) all of the above dependencies will be installed automatically.
+
 **supriya** has not been tested with Python 3.x versions earlier than 3.3.
 
 Example
