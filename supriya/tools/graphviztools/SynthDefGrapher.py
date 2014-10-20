@@ -25,8 +25,10 @@ class SynthDefGrapher(SupriyaObject):
                 edge.tail_port_position = 'e'
                 if source.rate == synthdeftools.Rate.CONTROL:
                     edge.attributes['color'] = 'goldenrod'
-                else:
+                elif source.rate == synthdeftools.Rate.AUDIO:
                     edge.attributes['color'] = 'steelblue'
+                else:
+                    edge.attributes['color'] = 'salmon'
 
     @staticmethod
     def _create_ugen_input_group(ugen, ugen_index):
