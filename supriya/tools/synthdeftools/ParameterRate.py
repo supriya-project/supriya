@@ -12,4 +12,3 @@ class ParameterRate(Enumeration):
     CONTROL = 3
     SCALAR = 0
     TRIGGER = 1
-

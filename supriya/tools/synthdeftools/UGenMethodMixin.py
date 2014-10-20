@@ -138,12 +138,21 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         from supriya import synthdeftools
-        a_rate = synthdeftools.Rate.SCALAR
-        if isinstance(ugen_a, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-            a_rate = ugen_a.rate
-        b_rate = synthdeftools.Rate.SCALAR
-        if isinstance(ugen_b, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-            b_rate = ugen_b.rate
+
+        a_rate = synthdeftools.Rate.from_input(ugen_a)
+        #a_rate = synthdeftools.Rate.SCALAR
+        #if isinstance(ugen_a, (synthdeftools.OutputProxy, synthdeftools.UGen)):
+        #    a_rate = ugen_a.rate
+        #elif isinstance(ugen_a, synthdeftools.Parameter):
+        #    a_rate = synthdeftools.Rate.from_input(ugen_a)
+
+        b_rate = synthdeftools.Rate.from_input(ugen_b)
+        #b_rate = synthdeftools.Rate.SCALAR
+        #if isinstance(ugen_b, (synthdeftools.OutputProxy, synthdeftools.UGen)):
+        #    b_rate = ugen_b.rate
+        #elif isinstance(ugen_b, synthdeftools.Parameter):
+        #    b_rate = synthdeftools.Rate.from_input(ugen_b)
+
         if a_rate == synthdeftools.Rate.DEMAND \
             or a_rate == synthdeftools.Rate.DEMAND:
             return synthdeftools.Rate.DEMAND
