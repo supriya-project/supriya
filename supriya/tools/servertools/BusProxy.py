@@ -3,6 +3,8 @@ from supriya.tools.servertools.BusMixin import BusMixin
 
 
 class BusProxy(BusMixin):
+    r'''A buffer proxy.
+    '''
 
     ### CLASS VARIABLES ###
 
