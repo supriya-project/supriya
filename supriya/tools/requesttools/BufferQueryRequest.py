@@ -66,10 +66,16 @@ class BufferQueryRequest(Request):
         return self._buffer_ids
 
     @property
-    def response_specification(self):
-        return None
-
-    @property
     def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.BUFFER_QUERY
+
+    @property
+    def response_specification(self):
+        from supriya.tools import responsetools
+        if 1 == len(self.buffer_ids):
+            return {
+                responsetools.BufferInfoResponse: {
+                    'buffer_id': self.buffer_ids[0],
+                    },
+                }
