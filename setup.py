@@ -258,15 +258,27 @@ Distant Roadmap
     - [ ] NRT node graph time slicing?
 '''
 
-setup(
-    author='Josiah Wolf Oberholtzer',
-    author_email='josiah.oberholtzer@gmail.com',
-    description='A Python API for SuperCollider',
-    install_requires=install_requires,
-    license='GPL',
-    long_description=long_description,
-    name='supriya',
-    packages=('supriya',),
-    url='https://github.com/Pulgama/supriya',
-    version='0.1',
-    )
+entry_points = {
+    'console_scripts': [
+        'supriya = supriya.tools.systemtools.run_supriya:run_supriya'
+        ],
+    }
+
+def main():
+    setup(
+        author='Josiah Wolf Oberholtzer',
+        author_email='josiah.oberholtzer@gmail.com',
+        description='A Python API for SuperCollider',
+        entry_points=entry_points,
+        install_requires=install_requires,
+        license='GPL',
+        long_description=long_description,
+        name='supriya',
+        packages=('supriya',),
+        url='https://github.com/Pulgama/supriya',
+        version='0.1',
+        )
+
+
+if __name__ == '__main__':
+    main()
