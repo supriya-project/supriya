@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.servertools.BufferMixin import BufferMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
@@ -159,6 +160,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
         server=None,
         sync=False,
         ):
+        r'''Allocates buffer on `server`.
+        '''
         if self.buffer_group is not None:
             return
         if self.is_allocated:
@@ -190,45 +193,67 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def allocate_from_file(
         self,
         file_path,
+        channel_indices=None,
         completion_message=None,
         frame_count=None,
         server=None,
         starting_frame=None,
         sync=False,
         ):
-        r'''Analogous to SuperCollider's Buffer.allocRead.
-
+        r'''Allocates buffer on `server` with contents read from `file_path`.
+        
         ::
 
-            >>> import os
-            >>> import supriya
             >>> from supriya.tools import servertools
-
-        ::
-
-            >>> file_path = os.path.join(
-            ...     supriya.__path__[0],
-            ...     'media',
-            ...     'pulse_44100sr_16bit_octo.wav',
-            ...     )
-
-        ::
-
+            >>> from supriya.tools import systemtools
             >>> server = servertools.Server().boot()
-            >>> buffer_ = servertools.Buffer().allocate_from_file(
-            ...     file_path,
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate_from_file(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
             ...     sync=True,
             ...     )
 
         ::
 
-            >>> buffer_.query()
+            >>> buffer_one.query()
             BufferInfoResponse(
                 buffer_id=0,
                 frame_count=8,
                 channel_count=8,
                 sample_rate=44100.0
                 )
+
+        ::
+
+            >>> buffer_two = servertools.Buffer().allocate_from_file(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...     channel_indices=(3, 4),
+            ...     frame_count=4,
+            ...     starting_frame=1,
+            ...     sync=True,
+            ...     )
+
+        ::
+
+            >>> buffer_two.query()
+            BufferInfoResponse(
+                buffer_id=1,
+                frame_count=4,
+                channel_count=2,
+                sample_rate=44100.0
+                )
+
+        ::
+
+            >>> for frame_id in range(buffer_two.frame_count):
+            ...     buffer_two.get_frame(frame_id).as_dict()
+            ...
+            OrderedDict([(0, (0.0, 0.0))])
+            OrderedDict([(2, (0.0, 0.0))])
+            OrderedDict([(4, (0.999969482421875, 0.0))])
+            OrderedDict([(6, (0.0, 0.999969482421875))])
 
         ::
 
@@ -257,13 +282,27 @@ class Buffer(ServerObjectProxy, BufferMixin):
                 buffer_ids=(self.buffer_id,),
                 )
             on_done = on_done.to_osc_message()
-            request = requesttools.BufferAllocateReadRequest(
-                buffer_id=self.buffer_id,
-                file_path=file_path,
-                frame_count=frame_count,
-                starting_frame=starting_frame,
-                completion_message=on_done,
-                )
+            if channel_indices is not None:
+                if not isinstance(channel_indices, collections.Sequence):
+                    channel_indices = (channel_indices,)
+                channel_indices = tuple(channel_indices)
+                assert all(0 <= _ for _ in channel_indices)
+                request = requesttools.BufferAllocateReadChannelRequest(
+                    buffer_id=self.buffer_id,
+                    channel_indices=channel_indices,
+                    file_path=file_path,
+                    frame_count=frame_count,
+                    starting_frame=starting_frame,
+                    completion_message=on_done,
+                    )
+            else:
+                request = requesttools.BufferAllocateReadRequest(
+                    buffer_id=self.buffer_id,
+                    file_path=file_path,
+                    frame_count=frame_count,
+                    starting_frame=starting_frame,
+                    completion_message=on_done,
+                    )
             request.communicate(
                 server=self.server,
                 sync=sync,
@@ -331,6 +370,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         Returns response.
         '''
         from supriya.tools import requesttools
+        from supriya.tools import responsetools
         if not self.is_allocated:
             raise Exception
         if isinstance(indices, int):
@@ -342,6 +382,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
         if callable(completion_callback):
             raise NotImplementedError
         response = request.communicate(server=self.server)
+        if isinstance(response, responsetools.FailResponse):
+            raise IndexError('Index out of range.')
         return response
 
     def get_contiguous(
@@ -370,6 +412,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         Returns response.
         '''
         from supriya.tools import requesttools
+        from supriya.tools import responsetools
         if not self.is_allocated:
             raise Exception
         request = requesttools.BufferGetContiguousRequest(
@@ -379,6 +422,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
         if callable(completion_callback):
             raise NotImplementedError
         response = request.communicate(server=self.server)
+        if isinstance(response, responsetools.FailResponse):
+            raise IndexError('Index out of range.')
         return response
 
     def get_frame(
@@ -411,22 +456,15 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         Returns response.
         '''
-        from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
         if isinstance(frame_ids, int):
             frame_ids = [frame_ids]
         index_count_pairs = [
-            (frame_id * self.frame_count, self.frame_count)
+            (frame_id * self.channel_count, self.channel_count)
             for frame_id in frame_ids
             ]
-        request = requesttools.BufferGetContiguousRequest(
-            buffer_id=self,
-            index_count_pairs=index_count_pairs,
-            )
-        if callable(completion_callback):
-            raise NotImplementedError
-        response = request.communicate(server=self.server)
+        response = self.get_contiguous(index_count_pairs=index_count_pairs)
         return response
 
     def query(self):
