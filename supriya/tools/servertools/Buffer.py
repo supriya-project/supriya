@@ -189,14 +189,52 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def allocate_from_file(
         self,
+        file_path,
         completion_message=None,
-        file_path=None,
         frame_count=None,
         server=None,
         starting_frame=None,
         sync=False,
         ):
         r'''Analogous to SuperCollider's Buffer.allocRead.
+
+        ::
+
+            >>> import os
+            >>> import supriya
+            >>> from supriya.tools import servertools
+
+        ::
+
+            >>> file_path = os.path.join(
+            ...     supriya.__path__[0],
+            ...     'media',
+            ...     'pulse_44100sr_16bit_octo.wav',
+            ...     )
+
+        ::
+
+            >>> server = servertools.Server().boot()
+            >>> buffer_ = servertools.Buffer().allocate_from_file(
+            ...     file_path,
+            ...     sync=True,
+            ...     )
+
+        ::
+
+            >>> buffer_.query()
+            BufferInfoResponse(
+                buffer_id=0,
+                frame_count=8,
+                channel_count=8,
+                sample_rate=44100.0
+                )
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
         '''
         from supriya.tools import requesttools
         if self.buffer_group is not None:
@@ -262,10 +300,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
-
-    @classmethod
-    def from_file(cls):
-        raise NotImplementedError
 
     def generate_from_sines(self):
         raise NotImplementedError
@@ -352,6 +386,31 @@ class Buffer(ServerObjectProxy, BufferMixin):
         frame_ids=None,
         completion_callback=None,
         ):
+        r'''Gets frames at `frame_ids`.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> from supriya import systemtools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate_from_file(
+            ...         systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...         sync=True,
+            ...         )
+            ...     for frame_id in range(buffer_.frame_count):
+            ...         buffer_.get_frame(frame_id).as_dict()
+            ...
+            OrderedDict([(0, (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
+            OrderedDict([(8, (0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
+            OrderedDict([(16, (0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0))])
+            OrderedDict([(24, (0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0))])
+            OrderedDict([(32, (0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0, 0.0))])
+            OrderedDict([(40, (0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0))])
+            OrderedDict([(48, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0))])
+            OrderedDict([(56, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875))])
+
+        Returns response.
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -371,7 +430,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
         return response
 
     def query(self):
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        buffer_ids = [self.buffer_id]
+        request = requesttools.BufferQueryRequest(
+            buffer_ids=buffer_ids,
+            )
+        response = request.communicate(
+            server=self.server,
+            sync=True,
+            )
+        return response
 
     def read(self):
         raise NotImplementedError
