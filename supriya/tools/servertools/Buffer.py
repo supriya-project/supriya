@@ -189,12 +189,50 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def allocate_from_file(
         self,
+        completion_message=None,
+        file_path=None,
+        frame_count=None,
         server=None,
+        starting_frame=None,
         sync=False,
         ):
         r'''Analogous to SuperCollider's Buffer.allocRead.
         '''
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if self.buffer_group is not None:
+            return
+        if self.is_allocated:
+            return
+        try:
+            ServerObjectProxy.allocate(self, server=server)
+            if self.buffer_id is None:
+                buffer_id = self.server.buffer_allocator.allocate(1)
+                if buffer_id is None:
+                    ServerObjectProxy.free(self)
+                    raise ValueError
+                self._buffer_id = buffer_id
+            if self.buffer_id not in self.server._buffers:
+                self.server._buffers[self.buffer_id] = set()
+            self.server._buffers[self.buffer_id].add(self)
+            self.server._get_buffer_proxy(self.buffer_id)
+            on_done = requesttools.BufferQueryRequest(
+                buffer_ids=(self.buffer_id,),
+                )
+            on_done = on_done.to_osc_message()
+            request = requesttools.BufferAllocateReadRequest(
+                buffer_id=self.buffer_id,
+                file_path=file_path,
+                frame_count=frame_count,
+                starting_frame=starting_frame,
+                completion_message=on_done,
+                )
+            request.communicate(
+                server=self.server,
+                sync=sync,
+                )
+        except:
+            ServerObjectProxy.allocate(self, server=server)
+        return self
 
     def allocate_from_sequence(
         self,
@@ -261,6 +299,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
+        if isinstance(indices, int):
+            indices = [indices]
         request = requesttools.BufferGetRequest(
             buffer_id=self,
             indices=indices,
@@ -295,10 +335,32 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         Returns response.
         '''
-
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
+        request = requesttools.BufferGetContiguousRequest(
+            buffer_id=self,
+            index_count_pairs=index_count_pairs,
+            )
+        if callable(completion_callback):
+            raise NotImplementedError
+        response = request.communicate(server=self.server)
+        return response
+
+    def get_frame(
+        self,
+        frame_ids=None,
+        completion_callback=None,
+        ):
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        if isinstance(frame_ids, int):
+            frame_ids = [frame_ids]
+        index_count_pairs = [
+            (frame_id * self.frame_count, self.frame_count)
+            for frame_id in frame_ids
+            ]
         request = requesttools.BufferGetContiguousRequest(
             buffer_id=self,
             index_count_pairs=index_count_pairs,
@@ -342,8 +404,31 @@ class Buffer(ServerObjectProxy, BufferMixin):
         message = request.to_osc_message()
         self.server.send_message(message)
 
-    def write(self):
-        raise NotImplementedError
+    def write(
+        self,
+        completion_message=None,
+        file_path=None,
+        frame_count=None,
+        header_format='aiff',
+        leave_open=False,
+        sample_format='int24',
+        starting_frame=None,
+        ):
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferWriteRequest(
+            buffer_id=self.buffer_id,
+            completion_message=completion_message,
+            file_path=file_path,
+            frame_count=frame_count,
+            header_format='aiff',
+            leave_open=leave_open,
+            sample_format='int24',
+            starting_frame=starting_frame,
+            )
+        message = request.to_osc_message()
+        self.server.send_message(message)
 
     def zero(
         self,
