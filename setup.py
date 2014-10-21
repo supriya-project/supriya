@@ -79,10 +79,14 @@ SuperCollider via their package manager.
 - `rtmidi-python`
 - `sphinx`
 - `tox`
-- `wavefile`
+- `python-wavefile`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.
+
+`python-wavefile` requires that `libsndfile` be installed. Source for
+`libsndfile` for OSX platforms may be found at
+http://www.mega-nerd.com/libsndfile/#Download.
 
 When installed via the included `setup.py` file (`sudo python setup.py
 install`) all of the above dependencies will be installed automatically.
