@@ -81,6 +81,9 @@ class BufferGetRequest(Request):
         return {
             responsetools.BufferSetResponse: {
                 'buffer_id': self.buffer_id,
+                },
+            responsetools.FailResponse: {
+                'failed_command': '/b_get',
                 }
             }
 

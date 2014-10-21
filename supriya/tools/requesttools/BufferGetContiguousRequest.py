@@ -88,6 +88,9 @@ class BufferGetContiguousRequest(Request):
         return {
             responsetools.BufferSetContiguousResponse: {
                 'buffer_id': self.buffer_id,
+                },
+            responsetools.FailResponse: {
+                'failed_command': '/b_getn',
                 }
             }
 
