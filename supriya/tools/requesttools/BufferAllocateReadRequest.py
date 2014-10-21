@@ -23,8 +23,8 @@ class BufferAllocateReadRequest(Request):
     ::
 
         >>> message = request.to_osc_message()
-        >>> message # doctest: +SKIP
-        OscMessage(29, 23, 'pulse_44100sr_16bit_octo.wav', 0, -1)
+        >>> message
+        OscMessage(29, 23, '...pulse_44100sr_16bit_octo.wav', 0, -1)
 
     ::
 
