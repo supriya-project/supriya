@@ -193,8 +193,10 @@ class Node(ServerObjectProxy):
                 request = requesttools.NodeFreeRequest(
                     node_id=self,
                     )
-                message = request.to_osc_message()
-                self.server.send_message(message)
+                request.communicate(
+                    server=self.server,
+                    sync=False,
+                    )
             if self.node_id_is_permanent and self.server.node_id_allocator:
                 self.server.node_id_allocator.free_permanent_node_id(
                     self.node_id,
