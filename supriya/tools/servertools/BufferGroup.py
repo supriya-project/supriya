@@ -118,7 +118,8 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         with message_bundler:
             for i in range(len(self)):
                 buffer_id = self.buffer_id + i
-                request = self[i]._register_with_server(
+                self[i]._register_with_local_server()
+                request = self[i]._register_with_remote_server(
                     channel_count=channel_count,
                     frame_count=frame_count,
                     )

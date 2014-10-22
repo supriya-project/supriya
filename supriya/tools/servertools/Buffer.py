@@ -97,16 +97,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
         '''
         raise NotImplementedError
 
-    def _register_with_server(
+    def _register_with_local_server(self):
+        if self.buffer_id not in self.server._buffers:
+            self.server._buffers[self.buffer_id] = set()
+        self.server._buffers[self.buffer_id].add(self)
+        self.server._get_buffer_proxy(self.buffer_id)
+
+    def _register_with_remote_server(
         self,
         channel_count=None,
         frame_count=None,
         ):
         from supriya.tools import requesttools
-        if self.buffer_id not in self.server._buffers:
-            self.server._buffers[self.buffer_id] = set()
-        self.server._buffers[self.buffer_id].add(self)
-        self.server._get_buffer_proxy(self.buffer_id)
         on_done = requesttools.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
             )
@@ -119,15 +121,16 @@ class Buffer(ServerObjectProxy, BufferMixin):
             )
         return request
 
-    def _unregister_with_server(
-        self,
-        ):
-        from supriya.tools import requesttools
+    def _unregister_with_local_server(self):
         buffer_id = self.buffer_id
         buffers = self.server._buffers[buffer_id]
         buffers.remove(self)
         if not buffers:
             del(self.server._buffers[buffer_id])
+        return buffer_id
+
+    def _unregister_with_remote_server(self, buffer_id):
+        from supriya.tools import requesttools
         on_done = requesttools.BufferQueryRequest(
             buffer_ids=(buffer_id,),
             )
@@ -178,7 +181,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
                     ServerObjectProxy.free(self)
                     raise ValueError
                 self._buffer_id = buffer_id
-            request = self._register_with_server(
+            self._register_with_local_server()
+            request = self._register_with_remote_server(
                 channel_count=channel_count,
                 frame_count=frame_count,
                 )
@@ -274,10 +278,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
                     ServerObjectProxy.free(self)
                     raise ValueError
                 self._buffer_id = buffer_id
-            if self.buffer_id not in self.server._buffers:
-                self.server._buffers[self.buffer_id] = set()
-            self.server._buffers[self.buffer_id].add(self)
-            self.server._get_buffer_proxy(self.buffer_id)
+            self._register_with_local_server()
             on_done = requesttools.BufferQueryRequest(
                 buffer_ids=(self.buffer_id,),
                 )
@@ -327,9 +328,12 @@ class Buffer(ServerObjectProxy, BufferMixin):
         raise NotImplementedError
 
     def free(self):
+        r'''Frees buffer.
+        '''
         if not self.is_allocated:
             return
-        request = self._unregister_with_server()
+        buffer_id = self._unregister_with_local_server()
+        request = self._unregister_with_remote_server(buffer_id)
         if self.server.is_running:
             request.communicate(
                 server=self.server,
@@ -468,6 +472,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
         return response
 
     def query(self):
+        r'''Queries buffer.
+
+        Returns buffer info response.
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -526,6 +534,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         leave_open=False,
         sample_format='int24',
         starting_frame=None,
+        sync=True,
         ):
         from supriya.tools import requesttools
         if not self.is_allocated:
@@ -540,8 +549,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             sample_format='int24',
             starting_frame=starting_frame,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def zero(
         self,
