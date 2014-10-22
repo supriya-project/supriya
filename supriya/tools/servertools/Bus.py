@@ -241,8 +241,10 @@ class Bus(ServerObjectProxy, BusMixin):
         request = requesttools.ControlBusSetRequest(
             index_value_pairs=((self, value,),),
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
+        request.communicate(
+            server=self.server,
+            sync=False,
+            )
 
     ### PUBLIC PROPERTIES ###
 
