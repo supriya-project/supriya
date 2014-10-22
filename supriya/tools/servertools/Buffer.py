@@ -477,7 +477,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             )
         response = request.communicate(
             server=self.server,
-            sync=True,
             )
         return response
 
@@ -487,6 +486,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def set(
         self,
         index_value_pairs=None,
+        sync=False,
         ):
         from supriya.tools import requesttools
         if not self.is_allocated:
@@ -495,12 +495,15 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             index_value_pairs=index_value_pairs,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def set_contiguous(
         self,
         index_values_pairs=None,
+        sync=False,
         ):
         from supriya.tools import requesttools
         if not self.is_allocated:
@@ -509,8 +512,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             index_values_pairs=index_values_pairs,
             )
-        message = request.to_osc_message()
-        self.server.send_message(message)
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def write(
         self,
@@ -541,10 +546,60 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def zero(
         self,
         completion_message=None,
+        sync=True,
         ):
-        r'''Analogous to SuperCollider's Buffer.zero.
+        r'''Zero all samples in buffer.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     sync=True,
+            ...     )
+
+        ::
+
+            >>> buffer_.set_contiguous(
+            ...     index_values_pairs=[(0, (1, 2, 3, 4, 5, 6, 7, 8))],
+            ...     sync=True,
+            ...     )
+
+        ::
+
+            >>> buffer_.get_contiguous([(0, 8)]).as_dict()
+            OrderedDict([(0, (1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0))])
+
+        ::
+
+            >>> buffer_.zero()
+
+        ::
+
+            >>> buffer_.get_contiguous([(0, 8)]).as_dict()
+            OrderedDict([(0, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
         '''
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferZeroRequest(
+            buffer_id=self.buffer_id,
+            completion_message=completion_message,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     ### PUBLIC PROPERTIES ###
 
