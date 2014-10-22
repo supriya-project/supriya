@@ -72,13 +72,25 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
-    def __getitem__(self, item):
-        return self._buffers[item]
+    def __getitem__(self, index):
+        r'''Gets buffer at `index`.
+
+        Returns buffer.
+        '''
+        return self._buffers[index]
 
     def __len__(self):
+        r'''Gets length of buffer group.
+
+        Returns integer.
+        '''
         return len(self._buffers)
 
     def __repr__(self):
+        r'''Gets interpreter representation of buffer group.
+
+        Returns string.
+        '''
         string = '<{}: {{{}}} @ {}>'.format(
             type(self).__name__,
             len(self),
@@ -95,6 +107,10 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         server=None,
         sync=False,
         ):
+        r'''Allocates buffer group.
+
+        Returns buffer group.
+        '''
         from supriya.tools import servertools
         if self.is_allocated:
             return
@@ -127,19 +143,16 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
         return self
 
     def free(self):
+        r'''Frees all buffers in buffer group.
+
+        Returns none.
+        '''
         if not self.is_allocated:
             return
         for buffer_ in self:
             buffer_.free()
         self._buffer_id = None
         ServerObjectProxy.free(self)
-
-    @classmethod
-    def from_files(cls):
-        raise NotImplementedError
-
-    def query(self):
-        raise NotImplementedError
 
     def zero(self):
         r'''Analogous to SuperCollider's Buffer.zero.
@@ -150,12 +163,24 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
 
     @property
     def buffer_id(self):
+        r'''Gets initial buffer id.
+
+        Returns integer or none.
+        '''
         return self._buffer_id
 
     @property
     def buffers(self):
+        r'''Gets associated buffers.
+
+        Returns tuple or buffers.
+        '''
         return self._buffers
 
     @property
     def is_allocated(self):
+        r'''Is true when buffer group is allocated. Otherwise false.
+
+        Returns boolean.
+        '''
         return self.server is not None
