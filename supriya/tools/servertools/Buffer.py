@@ -811,6 +811,23 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def query(self):
         r'''Queries buffer.
 
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         channel_count=2,
+            ...         frame_count=16,
+            ...         )
+            ...     buffer_.query()
+            ...
+            BufferInfoResponse(
+                buffer_id=0,
+                frame_count=16,
+                channel_count=2,
+                sample_rate=44100.0
+                )
+
         Returns buffer-info response.
         '''
         from supriya.tools import requesttools
