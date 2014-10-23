@@ -80,7 +80,7 @@ class BufferReadRequest(Request):
 
     ### PRIVATE METHODS ###
 
-    def _get_message_contents(self):
+    def _get_osc_message_contents(self):
         request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
@@ -108,7 +108,7 @@ class BufferReadRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
-        contents = self._get_message_contents()
+        contents = self._get_osc_message_contents()
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message
