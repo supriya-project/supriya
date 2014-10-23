@@ -782,7 +782,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             >>> with servertools.Server() as server:
             ...     buffer_ = servertools.Buffer().allocate_from_file(
             ...         systemtools.Media['pulse_44100sr_16bit_octo.wav'],
-            ...         sync=True,
             ...         )
             ...     for frame_id in range(buffer_.frame_count):
             ...         buffer_.get_frame(frame_id).as_dict()
@@ -924,8 +923,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     def write(
         self,
+        file_path,
         completion_message=None,
-        file_path=None,
         frame_count=None,
         header_format='aiff',
         leave_open=False,
@@ -934,6 +933,48 @@ class Buffer(ServerObjectProxy, BufferMixin):
         sync=True,
         ):
         r'''Writes buffer to disk.
+
+        ::
+
+            >>> import os
+            >>> from supriya.tools import servertools
+            >>> from supriya.tools import systemtools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate_from_file(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...     channel_indices=(0,),
+            ...     )
+            >>> buffer_one.get_contiguous([(0, 8)]).as_dict()[0]
+            (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
+        ::
+
+            >>> file_path = os.path.expanduser('~')
+            >>> file_path = os.path.join(file_path, 'temp.wav')
+            >>> if os.path.exists(file_path):
+            ...     os.remove(file_path)
+
+        ::
+
+            >>> buffer_one.write(
+            ...     file_path,
+            ...     header_format='wav',
+            ...     )
+
+        ::
+
+            >>> buffer_two = servertools.Buffer().allocate_from_file(file_path)
+            >>> buffer_two.get_contiguous([(0, 8)]).as_dict()[0]
+            (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+
+        ::
+
+            >>> os.remove(file_path)
+            >>> server.quit()
+            <Server: offline>
 
         Returns none.
         '''
@@ -945,9 +986,9 @@ class Buffer(ServerObjectProxy, BufferMixin):
             completion_message=completion_message,
             file_path=file_path,
             frame_count=frame_count,
-            header_format='aiff',
+            header_format=header_format,
             leave_open=leave_open,
-            sample_format='int24',
+            sample_format=sample_format,
             starting_frame=starting_frame,
             )
         request.communicate(
