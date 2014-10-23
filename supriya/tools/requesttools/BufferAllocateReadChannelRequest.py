@@ -1,11 +1,10 @@
 # -*- encoding: utf-8 -*-
 import collections
-import os
 from supriya.tools import osctools
-from supriya.tools.requesttools.Request import Request
+from supriya.tools.requesttools.BufferAllocateReadRequest import BufferAllocateReadRequest
 
 
-class BufferAllocateReadChannelRequest(Request):
+class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
     r'''A /b_allocRead request.
 
     ::
@@ -58,44 +57,24 @@ class BufferAllocateReadChannelRequest(Request):
         frame_count=None,
         starting_frame=None,
         ):
-        Request.__init__(self)
-        self._buffer_id = int(buffer_id)
+        BufferAllocateReadRequest.__init__(
+            self,
+            buffer_id=buffer_id,
+            completion_message=completion_message,
+            file_path=file_path,
+            frame_count=frame_count,
+            starting_frame=starting_frame,
+            )
         if not isinstance(channel_indices, collections.Sequence):
             channel_indices = (channel_indices,)
         channel_indices = tuple(int(_) for _ in channel_indices)
         assert all(0 <= _ for _ in channel_indices)
         self._channel_indices = channel_indices
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
-        self._file_path = str(file_path)
-        if frame_count is not None:
-            frame_count = int(frame_count)
-            assert -1 <= frame_count
-        self._frame_count = frame_count
-        if starting_frame is not None:
-            starting_frame = int(starting_frame)
-            assert 0 <= starting_frame
-        self._starting_frame = starting_frame
 
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
-        request_id = int(self.request_id)
-        buffer_id = int(self.buffer_id)
-        frame_count = self.frame_count
-        if frame_count is None:
-            frame_count = -1
-        starting_frame = self.starting_frame
-        if starting_frame is None:
-            starting_frame = 0
-        file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
-        contents = [
-            request_id,
-            buffer_id,
-            file_path,
-            starting_frame,
-            frame_count,
-            ]
+        contents = self._get_osc_message_contents()
         contents.extend(self.channel_indices)
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
@@ -104,24 +83,8 @@ class BufferAllocateReadChannelRequest(Request):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        return self._buffer_id
-
-    @property
     def channel_indices(self):
         return self._channel_indices
-
-    @property
-    def completion_message(self):
-        return self._completion_message
-
-    @property
-    def file_path(self):
-        return self._file_path
-
-    @property
-    def frame_count(self):
-        return self._frame_count
 
     @property
     def response_specification(self):
@@ -136,7 +99,3 @@ class BufferAllocateReadChannelRequest(Request):
     def request_id(self):
         from supriya.tools import requesttools
         return requesttools.RequestId.BUFFER_ALLOCATE_READ_CHANNEL
-
-    @property
-    def starting_frame(self):
-        return self._starting_frame

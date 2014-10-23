@@ -67,9 +67,9 @@ class BufferAllocateReadRequest(Request):
             assert 0 <= starting_frame
         self._starting_frame = starting_frame
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def to_osc_message(self):
+    def _get_osc_message_contents(self):
         request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         frame_count = self.frame_count
@@ -86,6 +86,12 @@ class BufferAllocateReadRequest(Request):
             starting_frame,
             frame_count,
             ]
+        return contents
+
+    ### PUBLIC METHODS ###
+
+    def to_osc_message(self):
+        contents = self._get_osc_message_contents()
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message
