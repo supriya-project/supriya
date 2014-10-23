@@ -502,12 +502,59 @@ class Buffer(ServerObjectProxy, BufferMixin):
             )
         return response
 
-    def read(self):
+    def read(
+        self,
+        file_path,
+        channel_indices=None,
+        completion_message=None,
+        frame_count=None,
+        leave_open=None,
+        server=None,
+        starting_frame_in_buffer=None,
+        starting_frame_in_file=None,
+        sync=False,
+        ):
         r'''Reads contents of `file_path` into buffer.
 
         Returns none.
         '''
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            return
+        on_done = requesttools.BufferQueryRequest(
+            buffer_ids=(self.buffer_id,),
+            )
+        on_done = on_done.to_osc_message()
+        if channel_indices is not None:
+            if not isinstance(channel_indices, collections.Sequence):
+                channel_indices = (channel_indices,)
+            channel_indices = tuple(channel_indices)
+            assert all(0 <= _ for _ in channel_indices)
+            assert len(channel_indices) == self.channel_count
+            request = requesttools.BufferReadChannelRequest(
+                buffer_id=self.buffer_id,
+                channel_indices=channel_indices,
+                file_path=file_path,
+                frame_count=frame_count,
+                leave_open=leave_open,
+                starting_frame_in_buffer=starting_frame_in_buffer,
+                starting_frame_in_file=starting_frame_in_file,
+                completion_message=on_done,
+                )
+        else:
+            request = requesttools.BufferReadRequest(
+                buffer_id=self.buffer_id,
+                file_path=file_path,
+                frame_count=frame_count,
+                leave_open=leave_open,
+                starting_frame_in_buffer=starting_frame_in_buffer,
+                starting_frame_in_file=starting_frame_in_file,
+                completion_message=on_done,
+                )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def set(
         self,
