@@ -318,11 +318,21 @@ class Buffer(ServerObjectProxy, BufferMixin):
         return self
 
     def close(self):
-        r'''Closes buffer, if it was open during a write process.
+        r'''Closes buffer, if it was open during a read or write process by
+        the DiskIn or DiskOut UGens.
 
         Returns none.
         '''
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferCloseRequest(
+            buffer_id=self.buffer_id,
+            )
+        request.communicate(
+            server=self.server,
+            sync=False,
+            )
 
     def copy_data(self):
         r'''Copies data in buffer into another buffer.
@@ -330,6 +340,38 @@ class Buffer(ServerObjectProxy, BufferMixin):
         Returns none.
         '''
         raise NotImplementedError
+
+    def fill(
+        self,
+        index_count_value_triples=None,
+        ):
+        r'''Fills contiguous blocks of samples with values.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=8,
+            ...         server=server,
+            ...         sync=True,
+            ...         )
+            ...     buffer_.fill([(0, 2, 0.5), (3, 3, 1.)])
+            ...     buffer_.get_contiguous([(0, 8)]).as_dict()
+            ...
+            OrderedDict([(0, (0.5, 0.5, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0))])
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        request = requesttools.BufferFillRequest(
+            buffer_id=self.buffer_id,
+            index_count_value_triples=index_count_value_triples,
+            )
+        request.communicate(
+            server=self.server,
+            sync=False,
+            )
 
     def free(self):
         r'''Frees buffer.
