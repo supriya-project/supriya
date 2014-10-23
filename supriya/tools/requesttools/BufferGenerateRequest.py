@@ -117,19 +117,6 @@ class BufferGenerateRequest(Request):
             self._frequencies = frequencies
             self._phases = phases
 
-    ### PRIVATE METHODS ###
-
-    def _get_osc_message_contents(self):
-        request_id = int(self.request_id)
-        buffer_id = int(self.buffer_id)
-        contents = [
-            request_id,
-            buffer_id,
-            self.command_name,
-            self.flags,
-            ]
-        return contents
-
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
@@ -287,7 +274,12 @@ class BufferGenerateRequest(Request):
 
     @property
     def response_specification(self):
-        return None
+        from supriya.tools import responsetools
+        return {
+            responsetools.DoneResponse: {
+                'action': ('/b_gen', self.buffer_id),
+                },
+            }
 
     @property
     def request_id(self):
