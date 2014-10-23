@@ -163,7 +163,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         channel_count=1,
         frame_count=None,
         server=None,
-        sync=False,
+        sync=True,
         ):
         r'''Allocates buffer on `server`.
 
@@ -206,7 +206,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         frame_count=None,
         server=None,
         starting_frame=None,
-        sync=False,
+        sync=True,
         ):
         r'''Allocates buffer on `server` with contents read from `file_path`.
         
@@ -334,12 +334,107 @@ class Buffer(ServerObjectProxy, BufferMixin):
             sync=False,
             )
 
-    def copy_data(self):
-        r'''Copies data in buffer into another buffer.
+    def copy_to(
+        self,
+        frame_count=None,
+        source_starting_frame=None,
+        target_buffer_id=None,
+        target_starting_frame=None,
+        sync=True,
+        ):
+        r'''Copies data in this buffer into another buffer.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
+            >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
+
+        ::
+
+            >>> buffer_one.fill([(0, 4, 0.5)])
+            >>> buffer_one.copy_to(target_buffer_id=buffer_two)
+            >>> buffer_two.get_contiguous([(0, 4)]).as_dict()
+            OrderedDict([(0, (0.5, 0.5, 0.5, 0.5))])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
 
         Returns none.
         '''
-        raise NotImplementedError
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferCopyRequest(
+            frame_count=frame_count,
+            source_buffer_id=self.buffer_id,
+            source_starting_frame=source_starting_frame,
+            target_buffer_id=target_buffer_id,
+            target_starting_frame=target_starting_frame,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
+
+    def copy_from(
+        self,
+        frame_count=None,
+        source_buffer_id=None,
+        source_starting_frame=None,
+        target_starting_frame=None,
+        sync=True,
+        ):
+        r'''Copies data from another buffer into this buffer.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
+            >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
+
+        ::
+
+            >>> buffer_one.fill([(0, 4, 0.5)])
+            >>> buffer_two.copy_from(
+            ...     frame_count=2,
+            ...     source_buffer_id=buffer_one,
+            ...     target_starting_frame=1,
+            ...     )
+            >>> buffer_two.get_contiguous([(0, 4)]).as_dict()
+            OrderedDict([(0, (0.0, 0.5, 0.5, 0.0))])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferCopyRequest(
+            frame_count=frame_count,
+            source_buffer_id=source_buffer_id,
+            source_starting_frame=source_starting_frame,
+            target_buffer_id=self.buffer_id,
+            target_starting_frame=target_starting_frame,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def fill(
         self,
@@ -391,20 +486,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
-
-    def generate_from_sines(self):
-        r'''Generates buffer contents from a sum-of-sines function.
-
-        Returns none.
-        '''
-        raise NotImplementedError
-
-    def generate_from_chebyshev(self):
-        r'''Generates buffer contents from a Chebyshev function.
-
-        Returns none.
-        '''
-        raise NotImplementedError
 
     def get(
         self,
