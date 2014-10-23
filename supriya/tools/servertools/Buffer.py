@@ -87,18 +87,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
     ### PRIVATE METHODS ###
 
-    def _generate(
-        self,
-        generate_command=None,
-        frequencies=None,
-        amplitudes=None,
-        phases=None,
-        as_wavetable=True,
-        clear_first=True,
-        normalize=True,
-        ):
-        raise NotImplementedError
-
     def _register_with_local_server(self):
         if self.buffer_id not in self.server._buffers:
             self.server._buffers[self.buffer_id] = set()
@@ -209,7 +197,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
         sync=True,
         ):
         r'''Allocates buffer on `server` with contents read from `file_path`.
-        
+
         ::
 
             >>> from supriya.tools import servertools
@@ -486,6 +474,219 @@ class Buffer(ServerObjectProxy, BufferMixin):
             self.server.buffer_allocator.free(self.buffer_id)
         self._buffer_id = None
         ServerObjectProxy.free(self)
+
+    def fill_via_chebyshev(
+        self,
+        amplitudes,
+        as_wavetable=True,
+        should_normalize=True,
+        should_clear_first=True,
+        sync=True,
+        ):
+        r'''Fills buffer with Chebyshev polynomial.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=8,
+            ...         server=server,
+            ...         )
+            ...     buffer_.fill_via_chebyshev(
+            ...         amplitudes=(1, 0.5, 0.25),
+            ...         as_wavetable=False,
+            ...         )
+            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...         x
+            ...
+            -1.0
+            -0.8375000357627869
+            -0.800000011920929
+            -0.8125
+            -0.800000011920929
+            -0.6875
+            -0.4000000059604645
+            0.13750000298023224
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferGenerateRequest.chebyshev(
+            amplitudes=amplitudes,
+            as_wavetable=as_wavetable,
+            buffer_id=self.buffer_id,
+            should_clear_first=should_clear_first,
+            should_normalize=should_normalize,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
+
+    def fill_via_sine_1(
+        self,
+        amplitudes=None,
+        as_wavetable=True,
+        should_clear_first=True,
+        should_normalize=True,
+        sync=True,
+        ):
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine1`.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=8,
+            ...         server=server,
+            ...         )
+            ...     buffer_.fill_via_sine_1(
+            ...         amplitudes=(1, 1, 1),
+            ...         as_wavetable=False,
+            ...         )
+            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...         x
+            ...
+            0.0
+            1.0
+            0.0
+            0.17157284915447235
+            1.014530602374735e-16
+            -0.17157284915447235
+            0.0
+            -1.0
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferGenerateRequest.sine1(
+            amplitudes=amplitudes,
+            as_wavetable=as_wavetable,
+            buffer_id=self.buffer_id,
+            should_clear_first=should_clear_first,
+            should_normalize=should_normalize,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
+
+    def fill_via_sine_2(
+        self,
+        amplitudes,
+        frequencies,
+        as_wavetable=True,
+        should_clear_first=True,
+        should_normalize=True,
+        sync=True,
+        ):
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine2`.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=8,
+            ...         server=server,
+            ...         )
+            ...     buffer_.fill_via_sine_2(
+            ...         amplitudes=(1, 0.5, 0.25),
+            ...         as_wavetable=False,
+            ...         frequencies=(1, 2, 4),
+            ...         )
+            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...         x
+            ...
+            0.0
+            0.46657732129096985
+            0.8170253038406372
+            0.9893794655799866
+            1.0
+            0.9250487685203552
+            0.8511532545089722
+            0.8245751261711121
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferGenerateRequest.sine2(
+            amplitudes=amplitudes,
+            frequencies=frequencies,
+            as_wavetable=as_wavetable,
+            buffer_id=self.buffer_id,
+            should_clear_first=should_clear_first,
+            should_normalize=should_normalize,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
+
+    def fill_via_sine_3(
+        self,
+        amplitudes,
+        frequencies,
+        phases,
+        as_wavetable=True,
+        should_clear_first=True,
+        should_normalize=True,
+        sync=True,
+        ):
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine3`.
+
+        ::
+
+            >>> from supriya import servertools
+            >>> with servertools.Server() as server:
+            ...     buffer_ = servertools.Buffer().allocate(
+            ...         frame_count=8,
+            ...         server=server,
+            ...         )
+            ...     buffer_.fill_via_sine_3(
+            ...         amplitudes=(1, 0.5, 0.25),
+            ...         as_wavetable=False,
+            ...         frequencies=(1, 2, 3),
+            ...         phases=(0, 0.5, 0),
+            ...         )
+            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...         x
+            ...
+            0.21980325877666473
+            0.6533028483390808
+            0.9323374032974243
+            1.0
+            0.8886302709579468
+            0.6973193287849426
+            0.5352014899253845
+            0.46329957246780396
+
+        Returns none.
+        '''
+        from supriya.tools import requesttools
+        if not self.is_allocated:
+            raise Exception
+        request = requesttools.BufferGenerateRequest.sine3(
+            amplitudes=amplitudes,
+            frequencies=frequencies,
+            phases=phases,
+            as_wavetable=as_wavetable,
+            buffer_id=self.buffer_id,
+            should_clear_first=should_clear_first,
+            should_normalize=should_normalize,
+            )
+        request.communicate(
+            server=self.server,
+            sync=sync,
+            )
 
     def get(
         self,
