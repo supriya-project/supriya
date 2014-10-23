@@ -96,6 +96,10 @@ class SynthDef(ServerObjectProxy):
             return False
         return True
 
+    def __graph__(self):
+        from supriya.tools import graphviztools
+        return graphviztools.SynthDefGrapher.graph(self)
+
     def __hash__(self):
         hash_values = (
             type(self),
@@ -390,11 +394,6 @@ class SynthDef(ServerObjectProxy):
         with message_bundler:
             message_bundler.add_message(request)
         return self
-
-    def as_graphviz_graph(self):
-        from supriya.tools import graphviztools
-        graphviz_graph = graphviztools.SynthDefGrapher.graph(self)
-        return graphviz_graph
 
     def compile(self):
         from supriya.tools.synthdeftools import SynthDefCompiler
