@@ -38,12 +38,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
         '_channel_indices',
-        '_completion_message',
-        '_file_path',
-        '_frame_count',
-        '_starting_frame',
         )
 
     ### INITIALIZER ###

@@ -38,9 +38,9 @@ class BufferAllocateRequest(Request):
 
     __slots__ = (
         '_buffer_id',
-        '_frame_count',
         '_channel_count',
         '_completion_message',
+        '_frame_count',
         )
 
     ### INITIALIZER ###
@@ -49,12 +49,15 @@ class BufferAllocateRequest(Request):
         self,
         buffer_id=None,
         frame_count=None,
-        channel_count=1,
+        channel_count=None,
         completion_message=None,
         ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._frame_count = frame_count
+        if channel_count is not None:
+            channel_count = int(channel_count)
+            assert 0 < channel_count
         self._channel_count = channel_count
         self._completion_message = self._coerce_completion_message_input(
             completion_message)

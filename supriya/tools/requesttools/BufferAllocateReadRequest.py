@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import os
 from supriya.tools import osctools
-from supriya.tools.requesttools.Request import Request
+from supriya.tools.requesttools.BufferAllocateRequest import BufferAllocateRequest
 
 
-class BufferAllocateReadRequest(Request):
+class BufferAllocateReadRequest(BufferAllocateRequest):
     r'''A /b_allocRead request.
 
     ::
@@ -36,8 +36,6 @@ class BufferAllocateReadRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
-        '_completion_message',
         '_file_path',
         '_frame_count',
         '_starting_frame',
@@ -53,15 +51,13 @@ class BufferAllocateReadRequest(Request):
         frame_count=None,
         starting_frame=None,
         ):
-        Request.__init__(self)
-        self._buffer_id = int(buffer_id)
-        self._completion_message = self._coerce_completion_message_input(
-            completion_message)
+        BufferAllocateRequest.__init__(
+            self,
+            buffer_id=buffer_id,
+            frame_count=frame_count,
+            completion_message=completion_message,
+            )
         self._file_path = str(file_path)
-        if frame_count is not None:
-            frame_count = int(frame_count)
-            assert -1 <= frame_count
-        self._frame_count = frame_count
         if starting_frame is not None:
             starting_frame = int(starting_frame)
             assert 0 <= starting_frame
