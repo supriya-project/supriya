@@ -138,12 +138,14 @@ class BufferGenerateRequest(Request):
                 self.amplitudes,
                 self.frequencies,
                 )
+            coefficients = tuple(coefficients)
         elif self.command_name == 'sine3':
             coefficients = zip(
                 self.amplitudes,
                 self.frequencies,
                 self.phases,
                 )
+            coefficients = tuple(coefficients)
         coefficients = sequencetools.flatten_sequence(coefficients)
         contents.extend(coefficients)
         message = osctools.OscMessage(*contents)
