@@ -19,27 +19,31 @@ class BufferGenerateRequest(Request):
         >>> from supriya.tools import requesttools
         >>> request = requesttools.BufferGenerateRequest(
         ...     amplitudes=(1., 0.5, 0.25),
+        ...     as_wavetable=True,
         ...     buffer_id=23,
         ...     command_name='sine3',
         ...     frequencies=(1, 2, 3),
         ...     phases=(0, 0.5, 0),
+        ...     should_clear_first=True,
         ...     should_normalize=True,
         ...     )
         >>> print(request)
         BufferGenerateRequest(
+            amplitudes=(1.0, 0.5, 0.25),
+            as_wavetable=True,
             buffer_id=23,
             command_name='sine3',
-            should_normalize=True,
-            amplitudes=(1.0, 0.5, 0.25),
             frequencies=(1.0, 2.0, 3.0),
-            phases=(0.0, 0.5, 0.0)
+            phases=(0.0, 0.5, 0.0),
+            should_clear_first=True,
+            should_normalize=True
             )
 
     ::
 
         >>> message = request.to_osc_message()
         >>> message
-        OscMessage(38, 23, 'sine3', 1, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
+        OscMessage(38, 23, 'sine3', 7, 1.0, 1.0, 0.0, 0.5, 2.0, 0.5, 0.25, 3.0, 0.0)
 
     ::
 
@@ -65,14 +69,14 @@ class BufferGenerateRequest(Request):
 
     def __init__(
         self,
+        amplitudes=None,
+        as_wavetable=None,
         buffer_id=None,
         command_name=None,
-        as_wavetable=None,
-        should_clear_first=None,
-        should_normalize=None,
-        amplitudes=None,
         frequencies=None,
         phases=None,
+        should_clear_first=None,
+        should_normalize=None,
         ):
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
