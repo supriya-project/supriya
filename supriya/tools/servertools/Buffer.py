@@ -173,6 +173,33 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
+            >>> buffer_two = servertools.Buffer().allocate(
+            ...     frame_count=16,
+            ...     )
+            >>> buffer_two.query()
+            BufferInfoResponse(
+                buffer_id=1,
+                frame_count=16,
+                channel_count=1,
+                sample_rate=44100.0
+                )
+
+        ::
+
+            >>> buffer_three = servertools.Buffer().allocate(
+            ...     channel_count=2,
+            ...     frame_count=32,
+            ...     )
+            >>> buffer_three.query()
+            BufferInfoResponse(
+                buffer_id=2,
+                frame_count=32,
+                channel_count=2,
+                sample_rate=44100.0
+                )
+
+        ::
+
             >>> server.quit()
             <Server: offline>
 
