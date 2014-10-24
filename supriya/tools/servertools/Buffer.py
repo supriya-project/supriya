@@ -208,7 +208,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
             >>> buffer_one = servertools.Buffer().allocate_from_file(
             ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
-            ...     sync=True,
             ...     )
 
         ::
@@ -849,12 +848,64 @@ class Buffer(ServerObjectProxy, BufferMixin):
         completion_message=None,
         frame_count=None,
         leave_open=None,
-        server=None,
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
-        sync=False,
+        sync=True,
         ):
         r'''Reads contents of `file_path` into buffer.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> from supriya.tools import systemtools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     channel_count=2,
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> for frame_id in range(buffer_.frame_count):
+            ...     buffer_.get_frame(frame_id).as_dict()
+            ...
+            OrderedDict([(0, (0.0, 0.0))])
+            OrderedDict([(2, (0.0, 0.0))])
+            OrderedDict([(4, (0.0, 0.0))])
+            OrderedDict([(6, (0.0, 0.0))])
+            OrderedDict([(8, (0.0, 0.0))])
+            OrderedDict([(10, (0.0, 0.0))])
+            OrderedDict([(12, (0.0, 0.0))])
+            OrderedDict([(14, (0.0, 0.0))])
+
+        ::
+
+            >>> buffer_.read(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...     channel_indices=(0, 1),
+            ...     )
+
+        ::
+
+            >>> for frame_id in range(buffer_.frame_count):
+            ...     buffer_.get_frame(frame_id).as_dict()
+            ...
+            OrderedDict([(0, (0.999969482421875, 0.0))])
+            OrderedDict([(2, (0.0, 0.999969482421875))])
+            OrderedDict([(4, (0.0, 0.0))])
+            OrderedDict([(6, (0.0, 0.0))])
+            OrderedDict([(8, (0.0, 0.0))])
+            OrderedDict([(10, (0.0, 0.0))])
+            OrderedDict([(12, (0.0, 0.0))])
+            OrderedDict([(14, (0.0, 0.0))])
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
 
         Returns none.
         '''
@@ -866,30 +917,25 @@ class Buffer(ServerObjectProxy, BufferMixin):
             )
         on_done = on_done.to_osc_message()
         if channel_indices is not None:
-            if not isinstance(channel_indices, collections.Sequence):
-                channel_indices = (channel_indices,)
-            channel_indices = tuple(channel_indices)
-            assert all(0 <= _ for _ in channel_indices)
-            assert len(channel_indices) == self.channel_count
             request = requesttools.BufferReadChannelRequest(
                 buffer_id=self.buffer_id,
                 channel_indices=channel_indices,
+                completion_message=on_done,
                 file_path=file_path,
                 frame_count=frame_count,
                 leave_open=leave_open,
                 starting_frame_in_buffer=starting_frame_in_buffer,
                 starting_frame_in_file=starting_frame_in_file,
-                completion_message=on_done,
                 )
         else:
             request = requesttools.BufferReadRequest(
                 buffer_id=self.buffer_id,
+                completion_message=on_done,
                 file_path=file_path,
                 frame_count=frame_count,
                 leave_open=leave_open,
                 starting_frame_in_buffer=starting_frame_in_buffer,
                 starting_frame_in_file=starting_frame_in_file,
-                completion_message=on_done,
                 )
         request.communicate(
             server=self.server,
