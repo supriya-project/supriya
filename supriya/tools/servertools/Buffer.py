@@ -149,11 +149,32 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def allocate(
         self,
         channel_count=1,
-        frame_count=None,
+        frame_count=1,
         server=None,
         sync=True,
         ):
         r'''Allocates buffer on `server`.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate()
+            >>> buffer_one.query()
+            BufferInfoResponse(
+                buffer_id=0,
+                frame_count=1,
+                channel_count=1,
+                sample_rate=44100.0
+                )
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
 
         Returns buffer.
         '''
@@ -162,7 +183,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
         if self.is_allocated:
             return
         try:
-            ServerObjectProxy.allocate(self, server=server)
+            ServerObjectProxy.allocate(
+                self,
+                server=server,
+                )
             channel_count = int(channel_count)
             frame_count = int(frame_count)
             assert 0 < channel_count
@@ -263,7 +287,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
         if self.is_allocated:
             return
         try:
-            ServerObjectProxy.allocate(self, server=server)
+            ServerObjectProxy.allocate(
+                self,
+                server=server,
+                )
             if self.buffer_id is None:
                 buffer_id = self.server.buffer_allocator.allocate(1)
                 if buffer_id is None:
