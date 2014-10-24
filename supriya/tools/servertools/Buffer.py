@@ -304,9 +304,41 @@ class Buffer(ServerObjectProxy, BufferMixin):
             ServerObjectProxy.allocate(self, server=server)
         return self
 
-    def close(self):
+    def close(
+        self,
+        sync=True,
+        ):
         r'''Closes buffer, if it was open during a read or write process by
         the DiskIn or DiskOut UGens.
+
+        ::
+
+            >>> from supriya.tools import servertools
+            >>> from supriya.tools import systemtools
+            >>> server = servertools.Server().boot()
+
+        ::
+
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     channel_count=8,
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> buffer_.read(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...     leave_open=True,
+            ...     )
+
+        ::
+
+            >>> buffer_.close()
+
+        ::
+
+            >>> server.quit()
+            <Server: offline>
 
         Returns none.
         '''
@@ -318,7 +350,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
             )
         request.communicate(
             server=self.server,
-            sync=False,
+            sync=sync,
             )
 
     def copy_to(
@@ -690,7 +722,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def get(
         self,
         indices=None,
-        completion_callback=None,
         ):
         r'''Gets sample values at `indices`.
 
@@ -720,8 +751,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             indices=indices,
             )
-        if callable(completion_callback):
-            raise NotImplementedError
         response = request.communicate(server=self.server)
         if isinstance(response, responsetools.FailResponse):
             raise IndexError('Index out of range.')
@@ -730,7 +759,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
     def get_contiguous(
         self,
         index_count_pairs=None,
-        completion_callback=None,
         ):
         r'''Gets contiguous sample values.
 
@@ -760,8 +788,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             buffer_id=self,
             index_count_pairs=index_count_pairs,
             )
-        if callable(completion_callback):
-            raise NotImplementedError
         response = request.communicate(server=self.server)
         if isinstance(response, responsetools.FailResponse):
             raise IndexError('Index out of range.')
