@@ -64,7 +64,12 @@ class Out(UGen):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
-        if isinstance(bus, servertools.BusMixin):
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
             bus = int(bus)
         return cls._new_expanded(
             bus=bus,
@@ -81,7 +86,12 @@ class Out(UGen):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
-        if isinstance(bus, servertools.BusMixin):
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
             bus = int(bus)
         return cls._new_expanded(
             bus=bus,

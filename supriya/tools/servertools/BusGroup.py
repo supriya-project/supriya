@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.servertools.BusMixin import BusMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
+class BusGroup(ServerObjectProxy, collections.Sequence):
     r'''A bus group.
     '''
 
@@ -44,6 +43,9 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
+    def __float__(self):
+        return float(self.bus_id)
+
     def __getitem__(self, item):
         if isinstance(item, int):
             return self._buses[item]
@@ -57,6 +59,9 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
                 )
             return bus_group
 
+    def __int__(self):
+        return int(self.bus_id)
+
     def __len__(self):
         return len(self._buses)
 
@@ -67,6 +72,9 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
             self.bus_id
             )
         return string
+
+    def __str__(self):
+        return self.map_symbol
 
     ### PUBLIC METHODS ###
 
@@ -128,10 +136,8 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
 
         Returns ugen.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        bus = self.bus_id
         channel_count = len(self)
         if self.rate == synthdeftools.Rate.AUDIO:
             ugen = ugentools.In.ar(
@@ -196,10 +202,8 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
 
         Returns ugen.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        bus = self.bus_id
         channel_count = len(self)
         if self.rate == synthdeftools.Rate.AUDIO:
             ugen = ugentools.In.ar(
@@ -227,9 +231,19 @@ class BusGroup(ServerObjectProxy, BusMixin, collections.Sequence):
         return self._buses
 
     @property
-    def rate(self):
-        return self._calculation_rate
-
-    @property
     def is_allocated(self):
         return self.server is not None
+
+    @property
+    def map_symbol(self):
+        from supriya.tools import synthdeftools
+        if self.rate == synthdeftools.Rate.AUDIO:
+            map_symbol = 'a'
+        else:
+            map_symbol = 'c'
+        map_symbol += str(self.bus_id)
+        return map_symbol
+
+    @property
+    def rate(self):
+        return self._calculation_rate

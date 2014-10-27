@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.servertools.BusMixin import BusMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Bus(ServerObjectProxy, BusMixin):
+class Bus(ServerObjectProxy):
     r'''A bus.
     '''
 
@@ -43,12 +42,21 @@ class Bus(ServerObjectProxy, BusMixin):
 
     ### SPECIAL METHODS ###
 
+    def __float__(self):
+        return float(self.bus_id)
+
+    def __int__(self):
+        return int(self.bus_id)
+
     def __repr__(self):
         string = '<{}: {}>'.format(
             type(self).__name__,
             self.bus_id,
             )
         return string
+
+    def __str__(self):
+        return self.map_symbol
 
     ### PRIVATE METHODS ###
 
@@ -115,10 +123,8 @@ class Bus(ServerObjectProxy, BusMixin):
 
         Returns ugen.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        bus = self.bus_id
         channel_count = 1
         if self.rate == synthdeftools.Rate.AUDIO:
             ugen = ugentools.In.ar(
@@ -207,10 +213,8 @@ class Bus(ServerObjectProxy, BusMixin):
 
         Returns ugen.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        bus = self.bus_id
         channel_count = 1
         if self.rate == synthdeftools.Rate.AUDIO:
             ugen = ugentools.In.ar(
@@ -271,6 +275,16 @@ class Bus(ServerObjectProxy, BusMixin):
         if self.bus_group is not None:
             return self.bus_group.is_allocated
         return self.server is not None
+
+    @property
+    def map_symbol(self):
+        from supriya.tools import synthdeftools
+        if self.rate == synthdeftools.Rate.AUDIO:
+            map_symbol = 'a'
+        else:
+            map_symbol = 'c'
+        map_symbol += str(self.bus_id)
+        return map_symbol
 
     @property
     def server(self):

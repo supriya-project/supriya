@@ -82,7 +82,12 @@ class In(MultiOutUGen):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
-        if isinstance(bus, servertools.BusMixin):
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
             if isinstance(bus, servertools.BusGroup):
                 channel_count = len(bus)
             else:
@@ -104,7 +109,12 @@ class In(MultiOutUGen):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
-        if isinstance(bus, servertools.BusMixin):
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
             if isinstance(bus, servertools.BusGroup):
                 channel_count = len(bus)
             else:

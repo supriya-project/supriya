@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.servertools.BusMixin import BusMixin
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class BusProxy(BusMixin):
+class BusProxy(SupriyaObject):
     r'''A buffer proxy.
     '''
 
@@ -42,10 +42,19 @@ class BusProxy(BusMixin):
         from abjad.tools import systemtools
         return systemtools.StorageFormatManager.compare(self, expr)
 
+    def __float__(self):
+        return float(self.bus_id)
+
     def __hash__(self):
         from abjad.tools import systemtools
         hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
+
+    def __int__(self):
+        return int(self.bus_id)
+
+    def __str__(self):
+        return self.map_symbol
 
     ### PUBLIC PROPERTIES ###
 
