@@ -322,7 +322,7 @@ class Server(object):
         from abjad.tools import systemtools
         from supriya.tools import servertools
         if self.is_running:
-            return
+            return self
         if not systemtools.IOManager.find_executable('scsynth'):
             raise Exception('Cannot find scsynth. Is it on your $PATH?')
         server_options = server_options or servertools.ServerOptions()
