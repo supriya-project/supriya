@@ -67,9 +67,97 @@ class Buffer(ServerObjectProxy):
     ### SPECIAL METHODS ###
 
     def __float__(self):
+        r'''Gets float representation of buffer.
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
+            >>> buffer_two = servertools.Buffer().allocate(frame_count=8)
+
+        ::
+
+            >>> buffer_one
+            <Buffer: 0>
+
+        ::
+
+            >>> float(buffer_one)
+            0.0
+
+        ::
+
+            >>> buffer_two
+            <Buffer: 1>
+
+        ::
+
+            >>> float(buffer_two)
+            1.0
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_two.free()
+
+        ::
+
+            >>> buffer_three = servertools.Buffer()
+            >>> float(buffer_three)
+            Traceback (most recent call last):
+            ...
+            ValueError: Cannot cast unallocated buffer to float.
+
+        Returns float.
+        '''
+        if not self.is_allocated:
+            raise ValueError('Cannot cast unallocated buffer to float.')
         return float(self.buffer_id)
 
     def __int__(self):
+        r'''Gets integer representation of buffer.
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
+            >>> buffer_two = servertools.Buffer().allocate(frame_count=8)
+
+        ::
+
+            >>> buffer_one
+            <Buffer: 0>
+
+        ::
+
+            >>> int(buffer_one)
+            0
+
+        ::
+
+            >>> buffer_two
+            <Buffer: 1>
+
+        ::
+
+            >>> int(buffer_two)
+            1
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_two.free()
+
+        ::
+
+            >>> buffer_three = servertools.Buffer()
+            >>> int(buffer_three)
+            Traceback (most recent call last):
+            ...
+            ValueError: Cannot cast unallocated buffer to int.
+
+        Returns integer.
+        '''
+        if not self.is_allocated:
+            raise ValueError('Cannot cast unallocated buffer to int.')
         return int(self.buffer_id)
 
     def __repr__(self):
