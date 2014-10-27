@@ -10,15 +10,13 @@ class Buffer(ServerObjectProxy, BufferMixin):
     ::
 
         >>> from supriya.tools import servertools
-        >>> buffer_ = servertools.Buffer()
-        >>> buffer_
-        <Buffer: None>
+        >>> server = servertools.Server().boot()
 
     ::
 
-        >>> server = servertools.Server()
-        >>> server.boot()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        >>> buffer_ = servertools.Buffer()
+        >>> buffer_
+        <Buffer: None>
 
     ::
 
@@ -34,13 +32,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
     ::
 
         >>> buffer_.free()
-        >>> server.sync()
-        <Server: udp://127.0.0.1:57751, 8i8o>
-
-    ::
-
-        >>> server.quit()
-        <Server: offline>
+        >>> buffer_
+        <Buffer: None>
 
     '''
 
@@ -157,11 +150,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_one = servertools.Buffer().allocate()
             >>> buffer_one.query()
             BufferInfoResponse(
@@ -200,8 +188,9 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_one.free()
+            >>> buffer_two.free()
+            >>> buffer_three.free()
 
         Returns buffer.
         '''
@@ -251,18 +240,9 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> from supriya.tools import systemtools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_one = servertools.Buffer().allocate_from_file(
             ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
             ...     )
-
-        ::
-
             >>> buffer_one.query()
             BufferInfoResponse(
                 buffer_id=0,
@@ -280,9 +260,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
             ...     starting_frame=1,
             ...     sync=True,
             ...     )
-
-        ::
-
             >>> buffer_two.query()
             BufferInfoResponse(
                 buffer_id=1,
@@ -303,8 +280,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_one.free()
+            >>> buffer_two.free()
 
         Returns buffer.
         '''
@@ -367,32 +344,16 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> from supriya.tools import systemtools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_ = servertools.Buffer().allocate(
             ...     channel_count=8,
             ...     frame_count=8,
             ...     )
-
-        ::
-
             >>> buffer_.read(
             ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
             ...     leave_open=True,
             ...     )
-
-        ::
-
             >>> buffer_.close()
-
-        ::
-
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -419,16 +380,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
-
-        ::
-
             >>> buffer_one.fill([(0, 4, 0.5)])
             >>> buffer_one.copy_to(target_buffer_id=buffer_two)
             >>> buffer_two.get_contiguous([(0, 4)]).as_dict()
@@ -436,8 +389,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_one.free()
+            >>> buffer_two.free()
 
         Returns none.
         '''
@@ -468,16 +421,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
-
-        ::
-
             >>> buffer_one.fill([(0, 4, 0.5)])
             >>> buffer_two.copy_from(
             ...     frame_count=2,
@@ -489,8 +434,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_one.free()
+            >>> buffer_two.free()
 
         Returns none.
         '''
@@ -517,17 +462,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=8,
-            ...         server=server,
-            ...         sync=True,
-            ...         )
-            ...     buffer_.fill([(0, 2, 0.5), (3, 3, 1.)])
-            ...     buffer_.get_contiguous([(0, 8)]).as_dict()
-            ...
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     server=server,
+            ...     sync=True,
+            ...     )
+            >>> buffer_.fill([(0, 2, 0.5), (3, 3, 1.)])
+            >>> buffer_.get_contiguous([(0, 8)]).as_dict()
             OrderedDict([(0, (0.5, 0.5, 0.0, 1.0, 1.0, 1.0, 0.0, 0.0))])
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -572,18 +518,16 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=8,
-            ...         server=server,
-            ...         )
-            ...     buffer_.fill_via_chebyshev(
-            ...         amplitudes=(1, 0.5, 0.25),
-            ...         as_wavetable=False,
-            ...         )
-            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
-            ...         x
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     server=server,
+            ...     )
+            >>> buffer_.fill_via_chebyshev(
+            ...     amplitudes=(1, 0.5, 0.25),
+            ...     as_wavetable=False,
+            ...     )
+            >>> for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...     x
             ...
             -1.0
             -0.8375000357627869
@@ -593,6 +537,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             -0.6875
             -0.4000000059604645
             0.13750000298023224
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -623,18 +571,16 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=8,
-            ...         server=server,
-            ...         )
-            ...     buffer_.fill_via_sine_1(
-            ...         amplitudes=(1, 1, 1),
-            ...         as_wavetable=False,
-            ...         )
-            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
-            ...         x
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     server=server,
+            ...     )
+            >>> buffer_.fill_via_sine_1(
+            ...     amplitudes=(1, 1, 1),
+            ...     as_wavetable=False,
+            ...     )
+            >>> for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...     x
             ...
             0.0
             1.0
@@ -644,6 +590,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             -0.17157284915447235
             0.0
             -1.0
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -675,19 +625,17 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=8,
-            ...         server=server,
-            ...         )
-            ...     buffer_.fill_via_sine_2(
-            ...         amplitudes=(1, 0.5, 0.25),
-            ...         as_wavetable=False,
-            ...         frequencies=(1, 2, 4),
-            ...         )
-            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
-            ...         x
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     server=server,
+            ...     )
+            >>> buffer_.fill_via_sine_2(
+            ...     amplitudes=(1, 0.5, 0.25),
+            ...     as_wavetable=False,
+            ...     frequencies=(1, 2, 4),
+            ...     )
+            >>> for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...     x
             ...
             0.0
             0.46657732129096985
@@ -697,6 +645,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             0.9250487685203552
             0.8511532545089722
             0.8245751261711121
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -730,20 +682,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=8,
-            ...         server=server,
-            ...         )
-            ...     buffer_.fill_via_sine_3(
-            ...         amplitudes=(1, 0.5, 0.25),
-            ...         as_wavetable=False,
-            ...         frequencies=(1, 2, 3),
-            ...         phases=(0, 0.5, 0),
-            ...         )
-            ...     for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
-            ...         x
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     server=server,
+            ...     )
+            >>> buffer_.fill_via_sine_3(
+            ...     amplitudes=(1, 0.5, 0.25),
+            ...     as_wavetable=False,
+            ...     frequencies=(1, 2, 3),
+            ...     phases=(0, 0.5, 0),
+            ...     )
+            >>> for x in buffer_.get_contiguous([(0, 8)]).as_dict()[0]:
+            ...     x
             ...
             0.21980325877666473
             0.6533028483390808
@@ -753,6 +703,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             0.6973193287849426
             0.5352014899253845
             0.46329957246780396
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -781,17 +735,18 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=4,
-            ...         server=server,
-            ...         sync=True,
-            ...         )
-            ...     response = buffer_.get(indices=(1, 2))
-            ...     response.as_dict()
-            ...
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=4,
+            ...     server=server,
+            ...     sync=True,
+            ...     )
+            >>> response = buffer_.get(indices=(1, 2))
+            >>> response.as_dict()
             OrderedDict([(1, 0.0), (2, 0.0)])
+
+        ::
+
+            >>> buffer_.free()
 
         Returns buffer-set response.
         '''
@@ -818,19 +773,20 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         frame_count=4,
-            ...         server=server,
-            ...         sync=True,
-            ...         )
-            ...     response = buffer_.get_contiguous(
-            ...         index_count_pairs=((0, 2), (1, 3))
-            ...         )
-            ...     response.as_dict()
-            ...
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=4,
+            ...     server=server,
+            ...     sync=True,
+            ...     )
+            >>> response = buffer_.get_contiguous(
+            ...     index_count_pairs=((0, 2), (1, 3))
+            ...     )
+            >>> response.as_dict()
             OrderedDict([(0, (0.0, 0.0)), (1, (0.0, 0.0, 0.0))])
+
+        ::
+
+            >>> buffer_.free()
 
         Returns buffer-set-contiguous response.
         '''
@@ -856,14 +812,11 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> from supriya import systemtools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate_from_file(
-            ...         systemtools.Media['pulse_44100sr_16bit_octo.wav'],
-            ...         )
-            ...     for frame_id in range(buffer_.frame_count):
-            ...         buffer_.get_frame(frame_id).as_dict()
+            >>> buffer_ = servertools.Buffer().allocate_from_file(
+            ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
+            ...     )
+            >>> for frame_id in range(buffer_.frame_count):
+            ...     buffer_.get_frame(frame_id).as_dict()
             ...
             OrderedDict([(0, (0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
             OrderedDict([(8, (0.0, 0.999969482421875, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
@@ -873,6 +826,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
             OrderedDict([(40, (0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0, 0.0))])
             OrderedDict([(48, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875, 0.0))])
             OrderedDict([(56, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.999969482421875))])
+
+        ::
+
+            >>> buffer_.free()
 
         Returns buffer-set-contiguous response.
         '''
@@ -892,20 +849,21 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya import servertools
-            >>> with servertools.Server() as server:
-            ...     buffer_ = servertools.Buffer().allocate(
-            ...         channel_count=2,
-            ...         frame_count=16,
-            ...         )
-            ...     buffer_.query()
-            ...
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     channel_count=2,
+            ...     frame_count=16,
+            ...     )
+            >>> buffer_.query()
             BufferInfoResponse(
                 buffer_id=0,
                 frame_count=16,
                 channel_count=2,
                 sample_rate=44100.0
                 )
+
+        ::
+
+            >>> buffer_.free()
 
         Returns buffer-info response.
         '''
@@ -936,19 +894,10 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> from supriya.tools import systemtools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_ = servertools.Buffer().allocate(
             ...     channel_count=2,
             ...     frame_count=8,
             ...     )
-
-        ::
-
             >>> for frame_id in range(buffer_.frame_count):
             ...     buffer_.get_frame(frame_id).as_dict()
             ...
@@ -984,8 +933,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_.free()
 
         Returns none.
         '''
@@ -1079,13 +1027,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> import os
-            >>> from supriya.tools import servertools
-            >>> from supriya.tools import systemtools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_one = servertools.Buffer().allocate_from_file(
             ...     systemtools.Media['pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(0,),
@@ -1095,6 +1036,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
+            >>> import os
             >>> file_path = os.path.expanduser('~')
             >>> file_path = os.path.join(file_path, 'temp.wav')
             >>> if os.path.exists(file_path):
@@ -1116,8 +1058,8 @@ class Buffer(ServerObjectProxy, BufferMixin):
         ::
 
             >>> os.remove(file_path)
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_one.free()
+            >>> buffer_two.free()
 
         Returns none.
         '''
@@ -1148,11 +1090,6 @@ class Buffer(ServerObjectProxy, BufferMixin):
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> server = servertools.Server().boot()
-
-        ::
-
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     sync=True,
@@ -1180,9 +1117,7 @@ class Buffer(ServerObjectProxy, BufferMixin):
             OrderedDict([(0, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
 
         ::
-
-            >>> server.quit()
-            <Server: offline>
+            >>> buffer_.free()
 
         Returns none.
         '''
