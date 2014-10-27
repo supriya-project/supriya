@@ -35,8 +35,6 @@ Make sure that SuperCollider is installed, and that `scsynth` is available from
 the command-line. **supriya** targets SuperCollider 3.6.5 and above, although
 it may work with earlier versions as well.
 
-::
-
     ~$ scsynth -h
     supercollider_synth  options:
     ...
@@ -144,16 +142,17 @@ Current Roadmap
     - [X] Implement Parameter class (model a single control name, value, rate)
     - [X] Implement AudioControl and TrigControl UGens
 - [ ] Explicitly object model Server requests
-- [ ] Implement complete Buffer API
-    - [ ] `/b_alloc`
-    - [ ] `/b_allocRead`, `/b_allocReadChannel`
-    - [ ] `/b_read`, `/b_readChannel`
-    - [ ] `/b_write`, `/b_close`
-    - [ ] `/b_get`, `/b_getn`
-    - [ ] `/b_set`, `/b_setn`
-    - [ ] `/b_query`
-    - [ ] `/b_gen`, `/b_fill`, `/b_zero`
-    - [ ] `/b_free`
+    - [ ] Audit all asynchronous request/response pairs
+- [X] Implement complete Buffer API
+    - [X] `/b_alloc`
+    - [X] `/b_allocRead`, `/b_allocReadChannel`
+    - [X] `/b_read`, `/b_readChannel`
+    - [X] `/b_write`, `/b_close`
+    - [X] `/b_get`, `/b_getn`
+    - [X] `/b_set`, `/b_setn`
+    - [X] `/b_query`
+    - [X] `/b_gen`, `/b_fill`, `/b_zero`
+    - [X] `/b_free`
 - [ ] Implement complete Bus(-related) API
     - [ ] `/c_set`, `/c_setn`
     - [ ] `/c_fill`
