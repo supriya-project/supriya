@@ -11,6 +11,7 @@ from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import responsetools
+from supriya.tools import scripttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
