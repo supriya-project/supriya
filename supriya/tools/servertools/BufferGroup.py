@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.servertools.BufferMixin import BufferMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
+class BufferGroup(ServerObjectProxy, collections.Sequence):
     r'''A buffer group.
 
     ::
@@ -72,12 +71,18 @@ class BufferGroup(ServerObjectProxy, BufferMixin, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
+    def __float__(self):
+        return float(self.buffer_id)
+
     def __getitem__(self, index):
         r'''Gets buffer at `index`.
 
         Returns buffer.
         '''
         return self._buffers[index]
+
+    def __int__(self):
+        return int(self.buffer_id)
 
     def __len__(self):
         r'''Gets length of buffer group.

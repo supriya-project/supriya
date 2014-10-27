@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.servertools.BufferMixin import BufferMixin
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Buffer(ServerObjectProxy, BufferMixin):
+class Buffer(ServerObjectProxy):
     r'''A buffer.
 
     ::
@@ -66,6 +65,12 @@ class Buffer(ServerObjectProxy, BufferMixin):
         self._buffer_id = buffer_id
 
     ### SPECIAL METHODS ###
+
+    def __float__(self):
+        return float(self.buffer_id)
+
+    def __int__(self):
+        return int(self.buffer_id)
 
     def __repr__(self):
         r'''Gets interpreter representation of buffer.
