@@ -163,6 +163,24 @@ class Buffer(ServerObjectProxy):
     def __repr__(self):
         r'''Gets interpreter representation of buffer.
 
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> repr(buffer_)
+            '<Buffer: None>'
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=8)
+            >>> repr(buffer_)
+            '<Buffer: 0>'
+
+        ::
+
+            >>> buffer_.free()
+            >>> repr(buffer_)
+            '<Buffer: None>'
+
         Returns string.
         '''
         string = '<{}: {}>'.format(
@@ -1070,6 +1088,27 @@ class Buffer(ServerObjectProxy):
         ):
         r'''Sets samples.
 
+        ::
+
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> buffer_.set([
+            ...     (0, 0.25),
+            ...     (1, 0.5),
+            ...     (4, 0.75),
+            ...     (5, 1.0),
+            ...     ])
+            >>> buffer_.get_contiguous([(0, 8)]).as_dict()[0]
+            (0.25, 0.5, 0.0, 0.0, 0.75, 1.0, 0.0, 0.0)
+
+        ::
+
+            >>> buffer_.free()
+
         Returns none.
         '''
         from supriya.tools import requesttools
@@ -1090,6 +1129,25 @@ class Buffer(ServerObjectProxy):
         sync=False,
         ):
         r'''Sets contiguous blocks of samples.
+
+        ::
+
+            >>> buffer_ = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> buffer_.set_contiguous([
+            ...     (1, [1, 2, 3]),
+            ...     (4, [-3, 2, -1]),
+            ...     ])
+            >>> buffer_.get_contiguous([(0, 8)]).as_dict()[0]
+            (0.0, 1.0, 2.0, 3.0, -3.0, 2.0, -1.0, 0.0)
+
+        ::
+
+            >>> buffer_.free()
 
         Returns none.
         '''
