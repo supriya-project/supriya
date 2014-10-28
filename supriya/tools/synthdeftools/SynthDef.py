@@ -97,8 +97,8 @@ class SynthDef(ServerObjectProxy):
         return True
 
     def __graph__(self):
-        from supriya.tools import graphviztools
-        return graphviztools.SynthDefGrapher.graph(self)
+        from supriya.tools import documentationtools
+        return documentationtools.SynthDefGrapher.graph(self)
 
     def __hash__(self):
         hash_values = (

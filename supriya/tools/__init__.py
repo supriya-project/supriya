@@ -5,7 +5,7 @@ from supriya.tools import systemtools
 
 # Load systemtools dependencies second
 from supriya.tools import clocktools
-from supriya.tools import graphviztools
+from supriya.tools import documentationtools
 from supriya.tools import miditools
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
