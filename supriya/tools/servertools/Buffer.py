@@ -1399,6 +1399,34 @@ class Buffer(ServerObjectProxy):
     def channel_count(self):
         r'''Gets channel count.
 
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> buffer_two = servertools.Buffer().allocate(
+            ...     channel_count=4,
+            ...     frame_count=8,
+            ...     )
+
+        ::
+
+            >>> buffer_one.channel_count
+            1
+
+        ::
+
+            >>> buffer_two.channel_count
+            4
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_two.free()
+
         Returns integer.
         '''
         if self.is_allocated:
@@ -1409,6 +1437,24 @@ class Buffer(ServerObjectProxy):
     @property
     def duration_in_seconds(self):
         r'''Gets duration in seconds.
+
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> buffer_.duration_in_seconds
+            0.0
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=44100)
+            >>> buffer_.duration_in_seconds
+            1.0
+
+        ::
+
+            >>> buffer_.free()
+            >>> buffer_.duration_in_seconds
+            0.0
 
         Returns float.
         '''
@@ -1421,6 +1467,24 @@ class Buffer(ServerObjectProxy):
     def frame_count(self):
         r'''Gets frame count.
 
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> buffer_.frame_count
+            0
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=512)
+            >>> buffer_.frame_count
+            512
+
+        ::
+
+            >>> buffer_.free()
+            >>> buffer_.frame_count
+            0
+
         Returns integer.
         '''
         if self.is_allocated:
@@ -1431,6 +1495,54 @@ class Buffer(ServerObjectProxy):
     @property
     def sample_count(self):
         r'''Gets sample count.
+
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=16)
+            >>> buffer_two = servertools.Buffer().allocate(
+            ...     channel_count=2,
+            ...     frame_count=16,
+            ...     )
+            >>> buffer_three = servertools.Buffer().allocate(
+            ...     channel_count=8,
+            ...     frame_count=16,
+            ...     )
+
+        ::
+
+            >>> buffer_one.sample_count
+            16
+
+        ::
+
+            >>> buffer_two.sample_count
+            32
+
+        ::
+
+            >>> buffer_three.sample_count
+            128
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_two.free()
+            >>> buffer_three.free()
+
+        ::
+
+            >>> buffer_one.sample_count
+            0
+
+        ::
+
+            >>> buffer_two.sample_count
+            0
+
+        ::
+
+            >>> buffer_three.sample_count
+            0
 
         Returns integer.
         '''
@@ -1443,7 +1555,25 @@ class Buffer(ServerObjectProxy):
     def sample_rate(self):
         r'''Gets sample rate.
 
-        Returns integer.
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> buffer_.sample_rate
+            0
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=8)
+            >>> buffer_.sample_rate
+            44100.0
+
+        ::
+
+            >>> buffer_.free()
+            >>> buffer_.sample_rate
+            0
+
+        Returns float.
         '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
@@ -1454,6 +1584,24 @@ class Buffer(ServerObjectProxy):
     def is_allocated(self):
         r'''Is true if buffer is allocated. Otherwise false.
 
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> buffer_.is_allocated
+            False
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=8)
+            >>> buffer_.is_allocated
+            True
+
+        ::
+
+            >>> buffer_.free()
+            >>> buffer_.is_allocated
+            False
+
         Returns boolean
         '''
         if self.buffer_group is not None:
@@ -1463,6 +1611,24 @@ class Buffer(ServerObjectProxy):
     @property
     def server(self):
         r'''Gets associated server.
+
+        ::
+
+            >>> buffer_ = servertools.Buffer()
+            >>> buffer_.server is None
+            True
+
+        ::
+
+            >>> buffer_ = buffer_.allocate(frame_count=8)
+            >>> buffer_.server is server
+            True
+
+        ::
+
+            >>> buffer_.free()
+            >>> buffer_.server is None
+            True
 
         Returns server or none.
         '''
