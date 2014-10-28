@@ -1,0 +1,8 @@
+'abjad'
+'numpy'
+'pexpect'
+'pytest'
+'rtmidi-python'
+'sphinx'
+'tox'
+'wavefile'
