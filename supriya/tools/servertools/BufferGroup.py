@@ -110,7 +110,7 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         channel_count=1,
         frame_count=None,
         server=None,
-        sync=False,
+        sync=True,
         ):
         r'''Allocates buffer group.
 
@@ -156,7 +156,9 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
             return
         for buffer_ in self:
             buffer_.free()
+        buffer_id = self.buffer_id
         self._buffer_id = None
+        self.server.buffer_allocator.free(buffer_id)
         ServerObjectProxy.free(self)
 
     def zero(self):
