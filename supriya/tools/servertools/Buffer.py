@@ -1290,6 +1290,38 @@ class Buffer(ServerObjectProxy):
     def buffer_group(self):
         r'''Gets buffer group.
 
+        ::
+
+            >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
+            >>> buffer_one.buffer_group is None
+            True
+
+        ::
+
+            >>> buffer_group = servertools.BufferGroup(buffer_count=1)
+            >>> buffer_group.allocate(
+            ...     frame_count=8,
+            ...     )
+            <BufferGroup: {1} @ 1>
+
+        ::
+
+            >>> buffer_two = buffer_group[0]
+            >>> buffer_two.buffer_group is buffer_group
+            True
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_one.buffer_group is None
+            True
+
+        ::
+
+            >>> buffer_group.free()
+            >>> buffer_two.buffer_group is buffer_group
+            True
+
         Returns BufferGroup or none.
         '''
         return self._buffer_group
@@ -1297,6 +1329,61 @@ class Buffer(ServerObjectProxy):
     @property
     def buffer_id(self):
         r'''Gets buffer id.
+
+        ::
+
+            >>> buffer_one = servertools.Buffer()
+            >>> buffer_one.buffer_id is None
+            True
+
+        ::
+
+            >>> buffer_group = servertools.BufferGroup(buffer_count=4)
+            >>> for buffer_ in buffer_group:
+            ...     print(buffer_.buffer_id)
+            ...
+            None
+            None
+            None
+            None
+
+        ::
+
+            >>> buffer_one = buffer_one.allocate(frame_count=8)
+            >>> buffer_one.buffer_id
+            0
+
+        ::
+
+            >>> buffer_group.allocate(frame_count=8)
+            <BufferGroup: {4} @ 1>
+
+        ::
+
+            >>> for buffer_ in  buffer_group:
+            ...     buffer_.buffer_id
+            ...
+            1
+            2
+            3
+            4
+
+        ::
+
+            >>> buffer_one.free()
+            >>> buffer_one.buffer_id is None
+            True
+
+        ::
+
+            >>> buffer_group.free()
+            >>> for buffer_ in buffer_group:
+            ...     print(buffer_.buffer_id)
+            ...
+            None
+            None
+            None
+            None
 
         Returns integer or none.
         '''
