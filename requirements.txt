@@ -1,3 +1,5 @@
 supriya
 abjad
+funcsigs
+enum34
 pexpect
