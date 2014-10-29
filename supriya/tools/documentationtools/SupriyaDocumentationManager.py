@@ -48,6 +48,15 @@ class SupriyaDocumentationManager(object):
             level=3,
             text='Enumeration Items',
             ))
+        for item in class_:
+            name = item.name
+            value = item.value
+            line = '- `{}`: {}'.format(name, value)
+            paragraph = documentationtools.ReSTParagraph(
+                text=line,
+                wrap=False,
+                )
+            result.append(paragraph)
         return result
 
     @staticmethod
@@ -244,6 +253,7 @@ class SupriyaDocumentationManager(object):
             directive='autoclass',
             )
         document.append(autoclass_directive)
+        document.extend(manager.build_enumeration_section(class_))
         (
             class_methods,
             data,

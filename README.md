@@ -50,9 +50,10 @@ SuperCollider via their package manager.
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
+- `sphinx_rtd_theme`
 - `sphinx`
 - `tox`
-- `python-wavefile`
+- `wavefile`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.
