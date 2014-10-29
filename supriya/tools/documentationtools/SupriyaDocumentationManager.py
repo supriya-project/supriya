@@ -54,10 +54,11 @@ class SupriyaDocumentationManager(object):
 
     @staticmethod
     def get_class_rst(object_):
-        from abjad.tools import documentationtools
-        document = documentationtools.ReSTDocument()
+        import abjad
+        import supriya
+        document = abjad.documentationtools.ReSTDocument()
         tools_package_python_path = '.'.join(object_.__module__.split('.')[:-1])
-        module_directive = documentationtools.ReSTDirective(
+        module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
@@ -65,12 +66,12 @@ class SupriyaDocumentationManager(object):
         tools_package_qualified_name = '.'.join(
             object_.__module__.split('.')[-2:],
             )
-        heading = documentationtools.ReSTHeading(
+        heading = abjad.documentationtools.ReSTHeading(
             level=2,
             text=tools_package_qualified_name,
             )
         document.append(heading)
-        autodoc_directive = documentationtools.ReSTAutodocDirective(
+        autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=object_.__module__,
             directive='autoclass',
             )
@@ -79,10 +80,11 @@ class SupriyaDocumentationManager(object):
 
     @staticmethod
     def get_function_rst(object_):
-        from abjad.tools import documentationtools
-        document = documentationtools.ReSTDocument()
+        import abjad
+        import supriya
+        document = abjad.documentationtools.ReSTDocument()
         tools_package_python_path = '.'.join(object_.__module__.split('.')[:-1])
-        module_directive = documentationtools.ReSTDirective(
+        module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
@@ -90,12 +92,12 @@ class SupriyaDocumentationManager(object):
         tools_package_qualified_name = '.'.join(
             object_.__module__.split('.')[-2:],
             )
-        heading = documentationtools.ReSTHeading(
+        heading = abjad.documentationtools.ReSTHeading(
             level=2,
             text=tools_package_qualified_name,
             )
         document.append(heading)
-        autodoc_directive = documentationtools.ReSTAutodocDirective(
+        autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=object_.__module__,
             directive='autofunction',
             )
