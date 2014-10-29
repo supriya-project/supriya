@@ -2,7 +2,7 @@
 from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Dust(UGen):
+class Dust2(UGen):
 
     ### CLASS VARIABLES ###
 
