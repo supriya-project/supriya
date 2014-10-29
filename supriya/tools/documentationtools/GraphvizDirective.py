@@ -18,7 +18,7 @@ class GraphvizDirective(documentationtools.ReSTDirective):
 
     @property
     def _children_rest_format_contributions(self):
-        result = []
+        result = ['']
         graphviz_format = str(self.graph)
         for line in graphviz_format.splitlines():
             line = '   {}'.format(line)

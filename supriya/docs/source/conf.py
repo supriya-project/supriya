@@ -25,13 +25,6 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 
-print('pwd:', os.path.abspath(os.curdir))
-print('sys.path:')
-for x in sys.path:
-    print('\t' + x)
-
-
-
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 
@@ -278,3 +271,6 @@ texinfo_documents = [
 
 # If true, do not generate a @detailmenu in the "Top" node's menu.
 #texinfo_no_detailmenu = False
+
+graphviz_dot_args = ['-s32']
+graphviz_output_format = 'svg'

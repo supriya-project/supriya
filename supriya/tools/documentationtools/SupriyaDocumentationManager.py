@@ -71,6 +71,16 @@ class SupriyaDocumentationManager(object):
             text=tools_package_qualified_name,
             )
         document.append(heading)
+        module_name, _, class_name = object_.__module__.rpartition('.')
+        inheritance_graph = abjad.documentationtools.InheritanceGraph(
+            addresses=('abjad', 'supriya',),
+            lineage_addresses=((module_name, class_name),),
+            )
+        graphviz_graph = inheritance_graph.__graph__()
+        graphviz_directive = supriya.documentationtools.GraphvizDirective(
+            graph=graphviz_graph,
+            )
+        document.append(graphviz_directive)
         autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=object_.__module__,
             directive='autoclass',
