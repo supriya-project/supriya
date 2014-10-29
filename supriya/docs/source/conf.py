@@ -19,6 +19,12 @@
 
 # -- General configuration ------------------------------------------------
 
+from __future__ import print_function
+import sys
+
+for x in sys.path:
+    print(x)
+
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 

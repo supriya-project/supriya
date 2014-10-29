@@ -279,6 +279,7 @@ def main():
         packages=('supriya',),
         url='https://github.com/Pulgama/supriya',
         version='0.1',
+        zip_safe=False,
         )
 
 
