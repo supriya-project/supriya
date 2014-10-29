@@ -1,12 +1,60 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import enum
+import importlib
 import os
 import shutil
 import types
 
 
 class SupriyaDocumentationManager(object):
+
+    @staticmethod
+    def get_lineage_graph(class_):
+        def get_node_name(original_name):
+            parts = original_name.split('.')
+            name = [parts[0]]
+            for part in parts[1:]:
+                if part != name[-1]:
+                    name.append(part)
+            if name[0] in ('abjad', 'experimental'):
+                return str('.'.join(name[2:]))
+            return str('.'.join(name))
+        from abjad.tools import documentationtools
+        addresses = ('abjad', 'supriya')
+        module_name, _, class_name = class_.__module__.rpartition('.')
+        importlib.import_module(module_name)
+        lineage = documentationtools.InheritanceGraph(
+            addresses=addresses,
+            lineage_addresses=((module_name, class_name),)
+            )
+        graph = lineage.__graph__()
+        maximum_node_count = 30
+        if maximum_node_count < len(graph.leaves):
+            lineage = documentationtools.InheritanceGraph(
+                addresses=addresses,
+                lineage_addresses=((module_name, class_name),),
+                lineage_prune_distance=2,
+                )
+            graph = lineage.__graph__()
+        if maximum_node_count < len(graph.leaves):
+            lineage = documentationtools.InheritanceGraph(
+                addresses=addresses,
+                lineage_addresses=((module_name, class_name),),
+                lineage_prune_distance=1,
+                )
+            graph = lineage.__graph__()
+        if maximum_node_count < len(graph.leaves):
+            lineage = documentationtools.InheritanceGraph(
+                addresses=((module_name, class_name),),
+                )
+            node_name = get_node_name(module_name + '.' + class_name)
+            graph = lineage.__graph__()
+            graph_node = graph[node_name]
+            graph_node.attributes['color'] = 'black'
+            graph_node.attributes['fontcolor'] = 'white'
+            graph_node.attributes['style'] = ('filled', 'rounded')
+        return graph
 
     @staticmethod
     def get_tools_packages():
@@ -56,6 +104,7 @@ class SupriyaDocumentationManager(object):
     def get_class_rst(object_):
         import abjad
         import supriya
+        manager = SupriyaDocumentationManager
         document = abjad.documentationtools.ReSTDocument()
         tools_package_python_path = '.'.join(object_.__module__.split('.')[:-1])
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
@@ -72,11 +121,7 @@ class SupriyaDocumentationManager(object):
             )
         document.append(heading)
         module_name, _, class_name = object_.__module__.rpartition('.')
-        inheritance_graph = abjad.documentationtools.InheritanceGraph(
-            addresses=('abjad', 'supriya',),
-            lineage_addresses=((module_name, class_name),),
-            )
-        graphviz_graph = inheritance_graph.__graph__()
+        graphviz_graph = manager.get_lineage_graph(object_)
         graphviz_directive = supriya.documentationtools.GraphvizDirective(
             graph=graphviz_graph,
             )
