@@ -12,7 +12,7 @@ class SupriyaDocumentationManager(object):
 
     @staticmethod
     def build_attribute_section(
-        class_,
+        cls,
         attrs,
         directive,
         title,
@@ -27,7 +27,7 @@ class SupriyaDocumentationManager(object):
             for attr in attrs:
                 autodoc = documentationtools.ReSTAutodocDirective(
                     argument='{}.{}'.format(
-                        class_.__module__,
+                        cls.__module__,
                         attr.name,
                         ),
                     directive=directive,
@@ -39,16 +39,54 @@ class SupriyaDocumentationManager(object):
         return result
 
     @staticmethod
-    def build_enumeration_section(class_):
+    def build_attributes_autosummary(
+        cls,
+        class_methods,
+        data,
+        inherited_attributes,
+        methods,
+        readonly_properties,
+        readwrite_properties,
+        special_methods,
+        static_methods,
+        ):
         from abjad.tools import documentationtools
         result = []
-        if not issubclass(class_, enum.Enum):
+        attributes = []
+        attributes.extend(readonly_properties)
+        attributes.extend(readwrite_properties)
+        attributes.extend(methods)
+        attributes.extend(class_methods)
+        attributes.extend(static_methods)
+        attributes.sort(key=lambda x: x.name)
+        attributes.extend(special_methods)
+        autosummary = documentationtools.ReSTAutosummaryDirective()
+        for attribute in attributes:
+            autosummary.append('~{}.{}.{}'.format(
+                cls.__module__,
+                cls.__name__,
+                attribute.name,
+                ))
+        html_only = documentationtools.ReSTOnlyDirective(argument='html')
+        html_only.append(documentationtools.ReSTHeading(
+            level=3,
+            text='Attribute summary',
+            ))
+        html_only.append(autosummary)
+        result.append(html_only)
+        return result
+
+    @staticmethod
+    def build_enumeration_section(cls):
+        from abjad.tools import documentationtools
+        result = []
+        if not issubclass(cls, enum.Enum):
             return result
         result.append(documentationtools.ReSTHeading(
             level=3,
             text='Enumeration Items',
             ))
-        items = sorted(class_, key=lambda x: x.name)
+        items = sorted(cls, key=lambda x: x.name)
         for item in items:
             name = item.name
             value = item.value
@@ -61,7 +99,7 @@ class SupriyaDocumentationManager(object):
         return result
 
     @staticmethod
-    def collect_class_attributes(class_):
+    def collect_class_attributes(cls):
         ignored_special_methods = (
             '__getattribute__',
             '__getnewargs__',
@@ -83,11 +121,11 @@ class SupriyaDocumentationManager(object):
         readwrite_properties = []
         special_methods = []
         static_methods = []
-        attrs = inspect.classify_class_attrs(class_)
+        attrs = inspect.classify_class_attrs(cls)
         for attr in attrs:
             if attr.defining_class is object:
                 continue
-            if attr.defining_class is not class_:
+            if attr.defining_class is not cls:
                 inherited_attributes.append(attr)
             if attr.kind == 'method':
                 if attr.name not in ignored_special_methods:
@@ -113,7 +151,7 @@ class SupriyaDocumentationManager(object):
                 else:
                     readwrite_properties.append(attr)
             elif attr.kind == 'data' and not attr.name.startswith('_') \
-                and attr.name not in getattr(class_, '__slots__', ()):
+                and attr.name not in getattr(cls, '__slots__', ()):
                 data.append(attr)
         class_methods = tuple(sorted(class_methods))
         data = tuple(sorted(data))
@@ -136,7 +174,7 @@ class SupriyaDocumentationManager(object):
         return result
 
     @staticmethod
-    def get_lineage_graph(class_):
+    def get_lineage_graph(cls):
         def get_node_name(original_name):
             parts = original_name.split('.')
             name = [parts[0]]
@@ -148,7 +186,7 @@ class SupriyaDocumentationManager(object):
             return str('.'.join(name))
         from abjad.tools import documentationtools
         addresses = ('abjad', 'supriya')
-        module_name, _, class_name = class_.__module__.rpartition('.')
+        module_name, _, class_name = cls.__module__.rpartition('.')
         importlib.import_module(module_name)
         lineage = documentationtools.InheritanceGraph(
             addresses=addresses,
@@ -207,19 +245,19 @@ class SupriyaDocumentationManager(object):
         for name in dir(tools_package):
             if name.startswith('_'):
                 continue
-            object_ = getattr(tools_package, name)
-            if not hasattr(object_, '__module__'):
-                print('Warning: no nominative object in {}'.format(object_))
+            obj = getattr(tools_package, name)
+            if not hasattr(obj, '__module__'):
+                print('Warning: no nominative object in {}'.format(obj))
                 continue
-            if not object_.__module__.startswith(tools_package.__package__):
+            if not obj.__module__.startswith(tools_package.__package__):
                 continue
-            if isinstance(object_, type):
-                if issubclass(object_, enum.Enum):
-                    enumerations.append(object_)
+            if isinstance(obj, type):
+                if issubclass(obj, enum.Enum):
+                    enumerations.append(obj)
                 else:
-                    classes.append(object_)
-            elif isinstance(object_, types.FunctionType):
-                functions.append(object_)
+                    classes.append(obj)
+            elif isinstance(obj, types.FunctionType):
+                functions.append(obj)
         classes.sort(key=lambda x: x.__name__)
         classes = tuple(classes)
         functions.sort(key=lambda x: x.__name__)
@@ -227,12 +265,22 @@ class SupriyaDocumentationManager(object):
         return classes, enumerations, functions
 
     @staticmethod
-    def get_class_rst(class_):
+    def get_class_rst(cls):
         import abjad
         import supriya
         manager = SupriyaDocumentationManager
-        module_name, _, class_name = class_.__module__.rpartition('.')
-        tools_package_python_path = '.'.join(class_.__module__.split('.')[:-1])
+        module_name, _, class_name = cls.__module__.rpartition('.')
+        tools_package_python_path = '.'.join(cls.__module__.split('.')[:-1])
+        (
+            class_methods,
+            data,
+            inherited_attributes,
+            methods,
+            readonly_properties,
+            readwrite_properties,
+            special_methods,
+            static_methods,
+            ) = manager.collect_class_attributes(cls)
         document = abjad.documentationtools.ReSTDocument()
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
@@ -244,18 +292,19 @@ class SupriyaDocumentationManager(object):
             text=class_name,
             )
         document.append(heading)
-        # lineage_graph = manager.get_lineage_graph(class_)
+        # lineage_graph = manager.get_lineage_graph(cls)
         # graphviz_directive = supriya.documentationtools.GraphvizDirective(
         #     graph=lineage_graph,
         #     )
         # document.append(graphviz_directive)
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
-            argument=class_.__module__,
+            argument=cls.__module__,
             directive='autoclass',
             )
         document.append(autoclass_directive)
-        document.extend(manager.build_enumeration_section(class_))
-        (
+        document.extend(manager.build_enumeration_section(cls))
+        document.extend(manager.build_attributes_autosummary(
+            cls,
             class_methods,
             data,
             inherited_attributes,
@@ -264,39 +313,39 @@ class SupriyaDocumentationManager(object):
             readwrite_properties,
             special_methods,
             static_methods,
-            ) = manager.collect_class_attributes(class_)
+            ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             readonly_properties,
             'autoattribute',
             'Read-only properties',
             ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             readwrite_properties,
             'autoattribute',
             'Read/write properties',
             ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             methods,
             'automethod',
             'Methods',
             ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             class_methods,
             'automethod',
             'Class methods',
             ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             static_methods,
             'automethod',
             'Static methods',
             ))
         document.extend(manager.build_attribute_section(
-            class_,
+            cls,
             special_methods,
             'automethod',
             'Special methods',
@@ -304,18 +353,18 @@ class SupriyaDocumentationManager(object):
         return document
 
     @staticmethod
-    def get_function_rst(object_):
+    def get_function_rst(obj):
         import abjad
         import supriya
         document = abjad.documentationtools.ReSTDocument()
-        tools_package_python_path = '.'.join(object_.__module__.split('.')[:-1])
+        tools_package_python_path = '.'.join(obj.__module__.split('.')[:-1])
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
         document.append(module_directive)
         tools_package_qualified_name = '.'.join(
-            object_.__module__.split('.')[-2:],
+            obj.__module__.split('.')[-2:],
             )
         heading = abjad.documentationtools.ReSTHeading(
             level=2,
@@ -323,7 +372,7 @@ class SupriyaDocumentationManager(object):
             )
         document.append(heading)
         autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
-            argument=object_.__module__,
+            argument=obj.__module__,
             directive='autofunction',
             )
         document.append(autodoc_directive)
@@ -358,9 +407,9 @@ class SupriyaDocumentationManager(object):
                     'maxdepth': 1,
                     },
                 )
-            for class_ in classes:
+            for cls in classes:
                 toc_item = documentationtools.ReSTTOCItem(
-                    text=class_.__name__,
+                    text=cls.__name__,
                     )
                 toc.append(toc_item)
             document.append(toc)
@@ -520,11 +569,11 @@ class SupriyaDocumentationManager(object):
                 )
             classes, enumerations, functions = \
                 manager.get_tools_package_contents(package)
-            for class_ in classes:
+            for cls in classes:
                 file_path = manager.module_path_to_file_path(
-                    class_.__module__,
+                    cls.__module__,
                     )
-                rst = manager.get_class_rst(class_)
+                rst = manager.get_class_rst(cls)
                 manager.write(file_path, rst.rest_format, rewritten_files)
             for enumeration in enumerations:
                 file_path = manager.module_path_to_file_path(
