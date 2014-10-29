@@ -19,7 +19,7 @@
 
 # -- General configuration ------------------------------------------------
 
-from supriya import documentationtools
+from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 
 # If your documentation needs a minimal Sphinx version, state it here.
