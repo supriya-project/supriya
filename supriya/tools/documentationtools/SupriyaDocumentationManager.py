@@ -27,7 +27,7 @@ class SupriyaDocumentationManager(object):
             for attr in attrs:
                 autodoc = documentationtools.ReSTAutodocDirective(
                     argument='{}.{}'.format(
-                        cls.__module__,
+                        cls.__name__,
                         attr.name,
                         ),
                     directive=directive,
@@ -298,7 +298,8 @@ class SupriyaDocumentationManager(object):
         #     )
         # document.append(graphviz_directive)
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
-            argument=cls.__module__,
+            #argument=cls.__module__,
+            argument=cls.__name__,
             directive='autoclass',
             )
         document.append(autoclass_directive)
@@ -353,18 +354,18 @@ class SupriyaDocumentationManager(object):
         return document
 
     @staticmethod
-    def get_function_rst(obj):
+    def get_function_rst(function):
         import abjad
         import supriya
         document = abjad.documentationtools.ReSTDocument()
-        tools_package_python_path = '.'.join(obj.__module__.split('.')[:-1])
+        tools_package_python_path = '.'.join(function.__module__.split('.')[:-1])
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
         document.append(module_directive)
         tools_package_qualified_name = '.'.join(
-            obj.__module__.split('.')[-2:],
+            function.__module__.split('.')[-2:],
             )
         heading = abjad.documentationtools.ReSTHeading(
             level=2,
@@ -372,7 +373,8 @@ class SupriyaDocumentationManager(object):
             )
         document.append(heading)
         autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
-            argument=obj.__module__,
+            #argument=function.__module__,
+            argument=function.__name__,
             directive='autofunction',
             )
         document.append(autodoc_directive)
