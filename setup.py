@@ -33,7 +33,8 @@ Supriya lets you:
 -   construct and compile `SynthDef` unit generator graphs in native Python code
 -   build and control graphs of synthesizers and synthesizer groups
 -   object-model `scysnth` OSC communications explicitly via `Request` and
-    `Response` classes - schedule synthesizer events and patterns
+    `Response` classes
+-   schedule synthesizer events and patterns
 
 Tested with Python 2.7, 3.3 and 3.4 under OSX and Ubuntu.
 
