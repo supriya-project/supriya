@@ -39,6 +39,18 @@ class SupriyaDocumentationManager(object):
         return result
 
     @staticmethod
+    def build_enumeration_section(class_):
+        from abjad.tools import documentationtools
+        result = []
+        if not issubclass(class_, enum.Enum):
+            return result
+        result.append(documentationtools.ReSTHeading(
+            level=3,
+            text='Enumeration Items',
+            ))
+        return result
+
+    @staticmethod
     def collect_class_attributes(class_):
         ignored_special_methods = (
             '__getattribute__',
@@ -209,22 +221,19 @@ class SupriyaDocumentationManager(object):
         import abjad
         import supriya
         manager = SupriyaDocumentationManager
-        document = abjad.documentationtools.ReSTDocument()
+        module_name, _, class_name = class_.__module__.rpartition('.')
         tools_package_python_path = '.'.join(class_.__module__.split('.')[:-1])
+        document = abjad.documentationtools.ReSTDocument()
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
         document.append(module_directive)
-        tools_package_qualified_name = '.'.join(
-            class_.__module__.split('.')[-2:],
-            )
         heading = abjad.documentationtools.ReSTHeading(
             level=2,
-            text=tools_package_qualified_name,
+            text=class_name,
             )
         document.append(heading)
-        module_name, _, class_name = class_.__module__.rpartition('.')
         # lineage_graph = manager.get_lineage_graph(class_)
         # graphviz_directive = supriya.documentationtools.GraphvizDirective(
         #     graph=lineage_graph,
