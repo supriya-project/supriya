@@ -20,11 +20,15 @@
 # -- General configuration ------------------------------------------------
 
 from __future__ import print_function
+import os
 import sys
 
+print('pwd:', os.path.abspath(os.curdir))
+print('sys.path:')
 for x in sys.path:
-    print(x)
+    print('\t' + x)
 
+import supriya
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 
