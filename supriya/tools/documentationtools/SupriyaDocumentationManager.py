@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import enum
+import inspect
 import importlib
 import os
 import shutil
@@ -8,6 +9,109 @@ import types
 
 
 class SupriyaDocumentationManager(object):
+
+    @staticmethod
+    def build_attribute_section(
+        class_,
+        attrs,
+        directive,
+        title,
+        ):
+        from abjad.tools import documentationtools
+        result = []
+        if attrs:
+            result.append(documentationtools.ReSTHeading(
+                level=3,
+                text=title,
+                ))
+            for attr in attrs:
+                autodoc = documentationtools.ReSTAutodocDirective(
+                    argument='{}.{}'.format(
+                        class_.__module__,
+                        attr.name,
+                        ),
+                    directive=directive,
+                    options={
+                        'noindex': True,
+                        },
+                    )
+                result.append(autodoc)
+        return result
+
+    @staticmethod
+    def collect_class_attributes(class_):
+        ignored_special_methods = (
+            '__getattribute__',
+            '__getnewargs__',
+            '__getstate__',
+            '__init__',
+            '__reduce__',
+            '__reduce_ex__',
+            '__setstate__',
+            '__sizeof__',
+            '__subclasshook__',
+            'fromkeys',
+            'pipe_cloexec',
+            )
+        class_methods = []
+        data = []
+        inherited_attributes = []
+        methods = []
+        readonly_properties = []
+        readwrite_properties = []
+        special_methods = []
+        static_methods = []
+        attrs = inspect.classify_class_attrs(class_)
+        for attr in attrs:
+            if attr.defining_class is object:
+                continue
+            if attr.defining_class is not class_:
+                inherited_attributes.append(attr)
+            if attr.kind == 'method':
+                if attr.name not in ignored_special_methods:
+                    if attr.name.startswith('__'):
+                        special_methods.append(attr)
+                    elif not attr.name.startswith('_'):
+                        methods.append(attr)
+            elif attr.kind == 'class method':
+                if attr.name not in ignored_special_methods:
+                    if attr.name.startswith('__'):
+                        special_methods.append(attr)
+                    elif not attr.name.startswith('_'):
+                        class_methods.append(attr)
+            elif attr.kind == 'static method':
+                if attr.name not in ignored_special_methods:
+                    if attr.name.startswith('__'):
+                        special_methods.append(attr)
+                    elif not attr.name.startswith('_'):
+                        static_methods.append(attr)
+            elif attr.kind == 'property' and not attr.name.startswith('_'):
+                if attr.object.fset is None:
+                    readonly_properties.append(attr)
+                else:
+                    readwrite_properties.append(attr)
+            elif attr.kind == 'data' and not attr.name.startswith('_') \
+                and attr.name not in getattr(class_, '__slots__', ()):
+                data.append(attr)
+        class_methods = tuple(sorted(class_methods))
+        data = tuple(sorted(data))
+        inherited_attributes = tuple(sorted(inherited_attributes))
+        methods = tuple(sorted(methods))
+        readonly_properties = tuple(sorted(readonly_properties))
+        readwrite_properties = tuple(sorted(readwrite_properties))
+        special_methods = tuple(sorted(special_methods))
+        static_methods = tuple(sorted(static_methods))
+        result = (
+            class_methods,
+            data,
+            inherited_attributes,
+            methods,
+            readonly_properties,
+            readwrite_properties,
+            special_methods,
+            static_methods,
+            )
+        return result
 
     @staticmethod
     def get_lineage_graph(class_):
@@ -101,36 +205,82 @@ class SupriyaDocumentationManager(object):
         return classes, enumerations, functions
 
     @staticmethod
-    def get_class_rst(object_):
+    def get_class_rst(class_):
         import abjad
         import supriya
         manager = SupriyaDocumentationManager
         document = abjad.documentationtools.ReSTDocument()
-        tools_package_python_path = '.'.join(object_.__module__.split('.')[:-1])
+        tools_package_python_path = '.'.join(class_.__module__.split('.')[:-1])
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
         document.append(module_directive)
         tools_package_qualified_name = '.'.join(
-            object_.__module__.split('.')[-2:],
+            class_.__module__.split('.')[-2:],
             )
         heading = abjad.documentationtools.ReSTHeading(
             level=2,
             text=tools_package_qualified_name,
             )
         document.append(heading)
-        module_name, _, class_name = object_.__module__.rpartition('.')
-        graphviz_graph = manager.get_lineage_graph(object_)
-        graphviz_directive = supriya.documentationtools.GraphvizDirective(
-            graph=graphviz_graph,
-            )
-        document.append(graphviz_directive)
-        autodoc_directive = abjad.documentationtools.ReSTAutodocDirective(
-            argument=object_.__module__,
+        module_name, _, class_name = class_.__module__.rpartition('.')
+        # lineage_graph = manager.get_lineage_graph(class_)
+        # graphviz_directive = supriya.documentationtools.GraphvizDirective(
+        #     graph=lineage_graph,
+        #     )
+        # document.append(graphviz_directive)
+        autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
+            argument=class_.__module__,
             directive='autoclass',
             )
-        document.append(autodoc_directive)
+        document.append(autoclass_directive)
+        (
+            class_methods,
+            data,
+            inherited_attributes,
+            methods,
+            readonly_properties,
+            readwrite_properties,
+            special_methods,
+            static_methods,
+            ) = manager.collect_class_attributes(class_)
+        document.extend(manager.build_attribute_section(
+            class_,
+            readonly_properties,
+            'autoattribute',
+            'Read-only properties',
+            ))
+        document.extend(manager.build_attribute_section(
+            class_,
+            readwrite_properties,
+            'autoattribute',
+            'Read/write properties',
+            ))
+        document.extend(manager.build_attribute_section(
+            class_,
+            methods,
+            'automethod',
+            'Methods',
+            ))
+        document.extend(manager.build_attribute_section(
+            class_,
+            class_methods,
+            'automethod',
+            'Class methods',
+            ))
+        document.extend(manager.build_attribute_section(
+            class_,
+            static_methods,
+            'automethod',
+            'Static methods',
+            ))
+        document.extend(manager.build_attribute_section(
+            class_,
+            special_methods,
+            'automethod',
+            'Special methods',
+            ))
         return document
 
     @staticmethod
