@@ -29,6 +29,9 @@ for x in sys.path:
     print('\t' + x)
 
 import supriya
+
+print(supriya.__path__)
+
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 
