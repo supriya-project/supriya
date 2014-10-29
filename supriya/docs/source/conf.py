@@ -23,14 +23,14 @@ from __future__ import print_function
 import os
 import sys
 
+sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
+
 print('pwd:', os.path.abspath(os.curdir))
 print('sys.path:')
 for x in sys.path:
     print('\t' + x)
 
-import supriya
 
-print(supriya.__path__)
 
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
