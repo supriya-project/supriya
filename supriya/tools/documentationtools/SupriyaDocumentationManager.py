@@ -333,7 +333,11 @@ class SupriyaDocumentationManager(object):
                 text='Classes',
                 )
             document.append(heading)
-            toc = documentationtools.ReSTTOCDirective()
+            toc = documentationtools.ReSTTOCDirective(
+                options={
+                    'maxdepth': 1,
+                    },
+                )
             for class_ in classes:
                 toc_item = documentationtools.ReSTTOCItem(
                     text=class_.__name__,
@@ -346,7 +350,11 @@ class SupriyaDocumentationManager(object):
                 text='Functions',
                 )
             document.append(heading)
-            toc = documentationtools.ReSTTOCDirective()
+            toc = documentationtools.ReSTTOCDirective(
+                options={
+                    'maxdepth': 1,
+                    },
+                )
             for function in functions:
                 toc_item = documentationtools.ReSTTOCItem(
                     text=function.__name__,
@@ -359,7 +367,11 @@ class SupriyaDocumentationManager(object):
                 text='Enumerations',
                 )
             document.append(heading)
-            toc = documentationtools.ReSTTOCDirective()
+            toc = documentationtools.ReSTTOCDirective(
+                options={
+                    'maxdepth': 1,
+                    },
+                )
             for enumeration in enumerations:
                 toc_item = documentationtools.ReSTTOCItem(
                     text=enumeration.__name__,
@@ -398,7 +410,11 @@ class SupriyaDocumentationManager(object):
             text='Supriya API',
             )
         document.append(heading)
-        toc = documentationtools.ReSTTOCDirective()
+        toc = documentationtools.ReSTTOCDirective(
+            options={
+                'maxdepth': 1,
+                },
+            )
         for tools_package in tools_packages:
             tools_package_name = tools_package.__package__.split('.')[-1]
             toc_item = documentationtools.ReSTTOCItem(
