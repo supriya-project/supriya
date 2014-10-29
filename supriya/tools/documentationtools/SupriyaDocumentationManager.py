@@ -48,7 +48,8 @@ class SupriyaDocumentationManager(object):
             level=3,
             text='Enumeration Items',
             ))
-        for item in class_:
+        items = sorted(class_, key=lambda x: x.name)
+        for item in items:
             name = item.name
             value = item.value
             line = '- `{}`: {}'.format(name, value)
@@ -477,7 +478,7 @@ class SupriyaDocumentationManager(object):
             os.makedirs(path)
 
     @staticmethod
-    def write(file_path, string):
+    def write(file_path, string, rewritten_files):
         should_write = True
         if os.path.exists(file_path):
             with open(file_path, 'r') as file_pointer:
@@ -485,14 +486,19 @@ class SupriyaDocumentationManager(object):
             if old_string == string:
                 should_write = False
         if should_write:
+            print('REWROTE: {}'.format(file_path))
             with open(file_path, 'w') as file_pointer:
                 file_pointer.write(string)
+        else:
+            print('PRESERVED: {}'.format(file_path))
+        rewritten_files.add(file_path)
 
     @staticmethod
     def execute():
         print('Rebuilding Supriya documentation source.')
         manager = SupriyaDocumentationManager
-        manager.remove_api_directory()
+        rewritten_files = set()
+        #manager.remove_api_directory()
         tools_packages = manager.get_tools_packages()
         api_index_rst = manager.get_api_index_rst(tools_packages)
         api_index_file_path = manager.get_api_index_file_path()
@@ -500,6 +506,7 @@ class SupriyaDocumentationManager(object):
         manager.write(
             api_index_file_path,
             api_index_rst.rest_format,
+            rewritten_files,
             )
         for package in tools_packages:
             tools_package_rst = manager.get_tools_package_rst(package)
@@ -509,6 +516,7 @@ class SupriyaDocumentationManager(object):
             manager.write(
                 tools_package_file_path,
                 tools_package_rst.rest_format,
+                rewritten_files,
                 )
             classes, enumerations, functions = \
                 manager.get_tools_package_contents(package)
@@ -517,16 +525,29 @@ class SupriyaDocumentationManager(object):
                     class_.__module__,
                     )
                 rst = manager.get_class_rst(class_)
-                manager.write(file_path, rst.rest_format)
+                manager.write(file_path, rst.rest_format, rewritten_files)
             for enumeration in enumerations:
                 file_path = manager.module_path_to_file_path(
                     enumeration.__module__,
                     )
                 rst = manager.get_class_rst(enumeration)
-                manager.write(file_path, rst.rest_format)
+                manager.write(file_path, rst.rest_format, rewritten_files)
             for function in functions:
                 file_path = manager.module_path_to_file_path(
                     function.__module__,
                     )
                 rst = manager.get_function_rst(function)
-                manager.write(file_path, rst.rest_format)
+                manager.write(file_path, rst.rest_format, rewritten_files)
+        for root, directory_names, file_names in os.walk(
+            manager.get_api_directory_path(),
+            topdown=False,
+            ):
+            for file_name in file_names[:]:
+                file_path = os.path.join(root, file_name)
+                if file_path not in rewritten_files:
+                    file_names.remove(file_name)
+                    os.remove(file_path)
+                    print('PRUNED: {}'.format(file_path))
+            if not file_names and not directory_names:
+                shutil.rmtree(root)
+                print('PRUNED: {}'.format(root))
