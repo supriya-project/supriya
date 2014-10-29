@@ -19,6 +19,9 @@
 
 # -- General configuration ------------------------------------------------
 
+from supriya import documentationtools
+documentationtools.SupriyaDocumentationManager.execute()
+
 # If your documentation needs a minimal Sphinx version, state it here.
 #needs_sphinx = '1.0'
 
@@ -29,12 +32,10 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.coverage',
+    'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
     #'sphinx.ext.viewcode',
-    'abjad.docs.source._ext.abjad_book',
-    'abjad.docs.source._ext.abjad_lineage',
-    'abjad.docs.source._ext.restyle',
     ]
 
 # Add any paths that contain templates here, relative to this directory.
