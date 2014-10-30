@@ -58,16 +58,19 @@ def doctree_read(app, doctree):
             if defining_class != cls:
                 addname_node = signature_node.traverse(
                     addnodes.desc_addname)[0]
+                if defining_class.__module__.startswith('supriya'):
+                    reftarget = defining_class.__module__
+                else:
+                    reftarget = '{}.{}'.format(
+                        defining_class.__module__,
+                        defining_class.__name__,
+                        )
                 xref_node = addnodes.pending_xref(
                     '',
                     refdomain='py',
                     refexplicit=True,
                     reftype='class',
-                    #reftarget='{}.{}'.format(
-                    #    defining_class.__module__,
-                    #    defining_class.__name__,
-                    #    )
-                    reftarget=defining_class.__module__,
+                    reftarget=reftarget,
                     )
                 xref_node.append(nodes.literal(
                     '',
