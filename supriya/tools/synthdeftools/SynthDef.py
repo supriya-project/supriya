@@ -51,6 +51,8 @@ class SynthDef(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_compiled_ugen_graph',
         '_constants',

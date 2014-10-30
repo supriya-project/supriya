@@ -6,6 +6,8 @@ class OutputProxy(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'SynthDef Internals'
+
     __slots__ = (
         '_output_index',
         '_source',

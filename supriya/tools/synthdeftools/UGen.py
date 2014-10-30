@@ -11,6 +11,8 @@ class UGen(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'SynthDef Internals'
+
     __slots__ = (
         '_calculation_rate',
         '_inputs',

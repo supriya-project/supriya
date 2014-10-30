@@ -6,6 +6,10 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class SynthDefCompiler(SupriyaObject):
 
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'SynthDef Internals'
+
     ### PUBLIC METHODS ###
 
     @staticmethod

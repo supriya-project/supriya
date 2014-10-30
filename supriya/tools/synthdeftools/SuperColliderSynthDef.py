@@ -8,6 +8,12 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class SuperColliderSynthDef(SupriyaObject):
 
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'SynthDef Internals'
+
+    __slots__ = ()
+
     ### INITIALIZER ###
 
     def __init__(self, name, code):

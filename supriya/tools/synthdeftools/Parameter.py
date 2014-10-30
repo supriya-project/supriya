@@ -6,6 +6,8 @@ class Parameter(UGenMethodMixin):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_name',
         '_parameter_rate',

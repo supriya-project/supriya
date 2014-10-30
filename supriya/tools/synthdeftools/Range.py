@@ -6,6 +6,8 @@ class Range(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_minimum',
         '_maximum',

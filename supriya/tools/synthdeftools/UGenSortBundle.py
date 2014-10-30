@@ -6,6 +6,8 @@ class UGenSortBundle(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'SynthDef Internals'
+
     __slots__ = (
         '_antecedents',
         '_descendants',

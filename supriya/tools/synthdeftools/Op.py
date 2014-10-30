@@ -6,6 +6,8 @@ class Op(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = ()
 
     ### PUBLIC METHODS ###

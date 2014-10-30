@@ -26,6 +26,8 @@ class Envelope(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_amplitudes',
         '_curves',

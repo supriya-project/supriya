@@ -29,6 +29,8 @@ class SynthDefBuilder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_parameters',
         '_ugens',
