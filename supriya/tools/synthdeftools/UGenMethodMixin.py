@@ -36,6 +36,14 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.BinaryOperator.FLOAT_DIVISION,
             )
 
+    def __graph__(self):
+        from supriya.tools import synthdeftools
+        builder = synthdeftools.SynthDefBuilder()
+        builder.add_ugen(self)
+        synthdef = builder.build()
+        result = synthdef.__graph__()
+        return result
+
     def __mod__(self, expr):
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
