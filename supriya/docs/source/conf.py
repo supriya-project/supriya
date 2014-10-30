@@ -44,8 +44,14 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
-    #'sphinx.ext.viewcode',
+    'sphinx.ext.viewcode',
+    'supriya.docs.ext.style',
     ]
+
+intersphinx_mapping = {
+    'abjad': ('http://abjad.mbrsi.org', None),
+    'python': ('http://docs.python.org/3.2', None),
+    }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
