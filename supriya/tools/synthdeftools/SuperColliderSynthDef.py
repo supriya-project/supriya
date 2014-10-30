@@ -12,7 +12,10 @@ class SuperColliderSynthDef(SupriyaObject):
 
     __documentation_section__ = 'SynthDef Internals'
 
-    __slots__ = ()
+    __slots__ = (
+        '_code',
+        '_name',
+        )
 
     ### INITIALIZER ###
 
