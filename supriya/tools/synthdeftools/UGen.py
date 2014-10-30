@@ -104,7 +104,6 @@ class UGen(UGenMethodMixin):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> sin_osc_a = ugentools.SinOsc.ar()
             >>> sin_osc_b = ugentools.SinOsc.ar(frequency=443)
             >>> multiplied = sin_osc_a * sin_osc_b
@@ -284,9 +283,8 @@ class UGen(UGenMethodMixin):
 
         ::
 
-            >>> import supriya
             >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = supriya.synthdeftools.UGen.expand_dictionary(
+            >>> result = synthdeftools.UGen.expand_dictionary(
             ...     dictionary)
             >>> for x in result:
             ...     sorted(x.items())
@@ -298,7 +296,7 @@ class UGen(UGenMethodMixin):
         ::
 
             >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = supriya.synthdeftools.UGen.expand_dictionary(
+            >>> result = synthdeftools.UGen.expand_dictionary(
             ...     dictionary,
             ...     unexpanded_input_names=('source',),
             ...     )
