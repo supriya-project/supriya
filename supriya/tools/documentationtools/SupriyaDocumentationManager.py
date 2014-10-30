@@ -240,7 +240,6 @@ class SupriyaDocumentationManager(object):
     @staticmethod
     def get_tools_package_contents(tools_package):
         classes = []
-        enumerations = []
         functions = []
         for name in dir(tools_package):
             if name.startswith('_'):
@@ -252,17 +251,14 @@ class SupriyaDocumentationManager(object):
             if not obj.__module__.startswith(tools_package.__package__):
                 continue
             if isinstance(obj, type):
-                if issubclass(obj, enum.Enum):
-                    enumerations.append(obj)
-                else:
-                    classes.append(obj)
+                classes.append(obj)
             elif isinstance(obj, types.FunctionType):
                 functions.append(obj)
         classes.sort(key=lambda x: x.__name__)
         classes = tuple(classes)
         functions.sort(key=lambda x: x.__name__)
         functions = tuple(functions)
-        return classes, enumerations, functions
+        return classes, functions
 
     @staticmethod
     def get_class_rst(cls):
@@ -384,7 +380,7 @@ class SupriyaDocumentationManager(object):
     def get_tools_package_rst(tools_package):
         from abjad.tools import documentationtools
         manager = SupriyaDocumentationManager
-        classes, enumerations, functions = manager.get_tools_package_contents(
+        classes, functions = manager.get_tools_package_contents(
             tools_package,
             )
         document = documentationtools.ReSTDocument()
@@ -399,22 +395,48 @@ class SupriyaDocumentationManager(object):
             )
         document.append(automodule_directive)
         if classes:
-            heading = documentationtools.ReSTHeading(
-                level=3,
-                text='Classes',
-                )
-            document.append(heading)
-            toc = documentationtools.ReSTTOCDirective(
-                options={
-                    'maxdepth': 1,
-                    },
-                )
+            sections = {}
             for cls in classes:
-                toc_item = documentationtools.ReSTTOCItem(
-                    text=cls.__name__,
+                documentation_section = getattr(
+                    cls,
+                    '__documentation_section__',
+                    None,
                     )
-                toc.append(toc_item)
-            document.append(toc)
+                if documentation_section is None:
+                    if inspect.isabstract(cls):
+                        documentation_section = 'Abstract Classes'
+                    elif issubclass(cls, enum.Enum):
+                        documentation_section = 'Enumerations'
+                    elif issubclass(cls, Exception):
+                        documentation_section = 'Errors'
+                    else:
+                        documentation_section = 'Classes'
+                if documentation_section not in sections:
+                    sections[documentation_section] = []
+                sections[documentation_section].append(cls)
+            section_names = sorted(sections)
+            if 'Main Classes' in sections:
+                section_names.remove('Main Classes')
+                section_names.insert(0, 'Main Classes')
+            for section_name in section_names:
+                rule = documentationtools.ReSTHorizontalRule()
+                document.append(rule)
+                heading = documentationtools.ReSTHeading(
+                    level=3,
+                    text=section_name,
+                    )
+                document.append(heading)
+                toc = documentationtools.ReSTTOCDirective(
+                    options={
+                        'maxdepth': 1,
+                        },
+                    )
+                for cls in sections[section_name]:
+                    toc_item = documentationtools.ReSTTOCItem(
+                        text=cls.__name__,
+                        )
+                    toc.append(toc_item)
+                document.append(toc)
         if functions:
             heading = documentationtools.ReSTHeading(
                 level=3,
@@ -429,23 +451,6 @@ class SupriyaDocumentationManager(object):
             for function in functions:
                 toc_item = documentationtools.ReSTTOCItem(
                     text=function.__name__,
-                    )
-                toc.append(toc_item)
-            document.append(toc)
-        if enumerations:
-            heading = documentationtools.ReSTHeading(
-                level=3,
-                text='Enumerations',
-                )
-            document.append(heading)
-            toc = documentationtools.ReSTTOCDirective(
-                options={
-                    'maxdepth': 1,
-                    },
-                )
-            for enumeration in enumerations:
-                toc_item = documentationtools.ReSTTOCItem(
-                    text=enumeration.__name__,
                     )
                 toc.append(toc_item)
             document.append(toc)
@@ -483,7 +488,7 @@ class SupriyaDocumentationManager(object):
         document.append(heading)
         toc = documentationtools.ReSTTOCDirective(
             options={
-                'maxdepth': 1,
+                'maxdepth': 2,
                 },
             )
         for tools_package in tools_packages:
@@ -569,19 +574,13 @@ class SupriyaDocumentationManager(object):
                 tools_package_rst.rest_format,
                 rewritten_files,
                 )
-            classes, enumerations, functions = \
+            classes, functions = \
                 manager.get_tools_package_contents(package)
             for cls in classes:
                 file_path = manager.module_path_to_file_path(
                     cls.__module__,
                     )
                 rst = manager.get_class_rst(cls)
-                manager.write(file_path, rst.rest_format, rewritten_files)
-            for enumeration in enumerations:
-                file_path = manager.module_path_to_file_path(
-                    enumeration.__module__,
-                    )
-                rst = manager.get_class_rst(enumeration)
                 manager.write(file_path, rst.rest_format, rewritten_files)
             for function in functions:
                 file_path = manager.module_path_to_file_path(
