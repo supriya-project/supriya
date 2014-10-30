@@ -294,9 +294,11 @@ class SupriyaDocumentationManager(object):
         #     )
         # document.append(graphviz_directive)
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
-            #argument=cls.__module__,
             argument=cls.__name__,
             directive='autoclass',
+            options={
+                'show-inheritance': True,
+                },
             )
         document.append(autoclass_directive)
         document.extend(manager.build_enumeration_section(cls))
@@ -418,6 +420,9 @@ class SupriyaDocumentationManager(object):
             if 'Main Classes' in sections:
                 section_names.remove('Main Classes')
                 section_names.insert(0, 'Main Classes')
+            if 'Errors' in sections:
+                section_names.remove('Errors')
+                section_names.append('Errors')
             for section_name in section_names:
                 rule = documentationtools.ReSTHorizontalRule()
                 document.append(rule)
