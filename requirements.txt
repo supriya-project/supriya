@@ -1,5 +1,5 @@
-supriya
 abjad
-funcsigs
 enum34
+funcsigs
 pexpect
+supriya
