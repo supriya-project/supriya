@@ -38,6 +38,8 @@ class DelTapWr(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Delay UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

@@ -6,6 +6,8 @@ class PureUGen(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = None
+
     __slots__ = ()
 
     ### PRIVATE METHODS ###

@@ -6,6 +6,8 @@ class FreeSelfWhenDone(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Envelope Utility UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

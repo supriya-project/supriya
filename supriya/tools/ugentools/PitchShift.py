@@ -18,6 +18,8 @@ class PitchShift(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Pitchshift UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

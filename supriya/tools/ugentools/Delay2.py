@@ -16,6 +16,8 @@ class Delay2(Delay1):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Delay UGens'
+
     __slots__ = ()
 
     ### PUBLIC METHODS ###
@@ -65,4 +67,3 @@ class Delay2(Delay1):
         return super(Delay2, cls).kr(
             source=source,
             )
-

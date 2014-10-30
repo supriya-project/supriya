@@ -6,6 +6,8 @@ class Pan2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Spatialization UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

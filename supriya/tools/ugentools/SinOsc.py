@@ -15,6 +15,8 @@ class SinOsc(PureUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Oscillator UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

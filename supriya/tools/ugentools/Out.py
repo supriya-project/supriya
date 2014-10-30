@@ -20,6 +20,8 @@ class Out(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Input/Output UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

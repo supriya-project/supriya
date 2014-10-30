@@ -16,6 +16,8 @@ class BPF(Filter):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Filter UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

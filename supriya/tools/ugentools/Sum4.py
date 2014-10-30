@@ -24,6 +24,8 @@ class Sum4(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Basic Operator UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

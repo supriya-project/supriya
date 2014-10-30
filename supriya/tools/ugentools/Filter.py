@@ -6,6 +6,8 @@ class Filter(PureUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Filter UGens'
+
     __slots__ = ()
 
     ### PRIVATE METHODS ###

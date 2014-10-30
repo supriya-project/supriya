@@ -7,6 +7,8 @@ class BufInfoUGenBase(InfoUGenBase):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Info UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

@@ -20,6 +20,8 @@ class BufDelayL(BufDelayN):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Delay UGens'
+
     __slots__ = ()
 
     ### PUBLIC METHODS ###

@@ -6,6 +6,8 @@ class Control(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'UGen Internals'
+
     __slots__ = (
         '_channel_count',
         '_control_names',

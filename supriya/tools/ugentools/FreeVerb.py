@@ -18,6 +18,8 @@ class FreeVerb(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Reverb UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

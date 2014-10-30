@@ -7,10 +7,11 @@ class WidthFirstUGen(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = None
+
     __slots__ = ()
 
     ### INITIALIZER ###
-
     @abc.abstractmethod
     def __init__(
         self,

@@ -15,6 +15,8 @@ class NumOutputBuses(InfoUGenBase):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Info UGens'
+
     __slots__ = ()
 
     ### INITIALIZER ###

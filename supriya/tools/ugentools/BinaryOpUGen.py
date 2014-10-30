@@ -6,8 +6,9 @@ class BinaryOpUGen(UGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __documentation_section__ = 'Basic Operator UGens'
+
+    __slots__ = ()
 
     _ordered_input_names = (
         'left',

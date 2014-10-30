@@ -7,6 +7,8 @@ class LinLin(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Line Utility UGens'
+
     __slots__ = ()
 
     ### INITIALIZER ###

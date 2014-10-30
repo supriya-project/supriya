@@ -6,6 +6,8 @@ class Dust(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Noise UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

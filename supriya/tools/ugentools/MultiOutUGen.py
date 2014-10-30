@@ -7,6 +7,8 @@ class MultiOutUGen(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = None
+
     __slots__ = (
         '_channel_count',
         '_output_proxies',

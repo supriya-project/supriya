@@ -16,6 +16,8 @@ class Delay1(PureUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Delay UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (
@@ -88,4 +90,3 @@ class Delay1(PureUGen):
             source=source,
             )
         return ugen
-

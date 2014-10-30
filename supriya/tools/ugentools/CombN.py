@@ -16,8 +16,9 @@ class CombN(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __documentation_section__ = 'Delay UGens'
+
+    __slots__ = ()
 
     _ordered_input_names = (
         'source',

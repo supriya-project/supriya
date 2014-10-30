@@ -18,6 +18,8 @@ class K2A(PureUGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Utility UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

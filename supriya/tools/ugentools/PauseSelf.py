@@ -6,6 +6,8 @@ class PauseSelf(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Envelope Utility UGens'
+
     __slots__ = (
         'source',
         )

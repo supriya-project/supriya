@@ -15,6 +15,8 @@ class WhiteNoise(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Noise UGens'
+
     __slots__ = ()
 
     ### INITIALIZER ###

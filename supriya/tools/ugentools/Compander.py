@@ -6,6 +6,8 @@ class Compander(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Dynamics UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (

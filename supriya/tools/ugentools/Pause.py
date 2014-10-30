@@ -6,6 +6,8 @@ class Pause(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Envelope Utility UGens'
+
     __slots__ = (
         'gate',
         'node_id',

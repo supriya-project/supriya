@@ -15,6 +15,8 @@ class XLine(UGen):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Line Utility UGens'
+
     __slots__ = ()
 
     _ordered_input_names = (
