@@ -8,6 +8,8 @@ class Bus(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_bus_group',
         '_bus_id',

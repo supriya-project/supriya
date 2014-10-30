@@ -48,6 +48,8 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_buffer_id',
         '_buffers',

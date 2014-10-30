@@ -8,6 +8,8 @@ class BusProxy(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_bus_id',
         '_calculation_rate',

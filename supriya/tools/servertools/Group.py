@@ -32,6 +32,8 @@ class Group(Node):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_children',
         '_named_children',

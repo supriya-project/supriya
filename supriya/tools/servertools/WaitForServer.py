@@ -7,6 +7,8 @@ class WaitForServer(object):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Context Managers'
+
     __slots__ = (
         '_condition',
         '_osc_callback',

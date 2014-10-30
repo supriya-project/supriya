@@ -7,6 +7,8 @@ class StatusWatcher(threading.Thread):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_active',
         '_attempts',

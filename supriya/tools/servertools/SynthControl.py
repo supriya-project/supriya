@@ -6,6 +6,8 @@ class SynthControl(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_client',
         '_default_value',

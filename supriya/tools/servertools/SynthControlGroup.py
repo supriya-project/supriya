@@ -7,6 +7,8 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_client',
         '_synthdef',

@@ -38,6 +38,8 @@ class Buffer(ServerObjectProxy):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_buffer_group',
         '_buffer_id',

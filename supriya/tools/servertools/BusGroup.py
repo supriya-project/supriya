@@ -9,6 +9,8 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_bus_id',
         '_buses',

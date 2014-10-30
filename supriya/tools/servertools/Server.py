@@ -25,6 +25,8 @@ class Server(object):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_audio_bus_allocator',
         '_audio_buses',

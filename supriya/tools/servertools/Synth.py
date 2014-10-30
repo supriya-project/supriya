@@ -39,6 +39,8 @@ class Synth(Node):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_synthdef',
         '_synth_control_group',

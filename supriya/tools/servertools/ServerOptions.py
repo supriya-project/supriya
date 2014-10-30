@@ -14,6 +14,8 @@ class ServerOptions(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Main Classes'
+
     __slots__ = (
         '_audio_bus_channel_count',
         '_block_size',
