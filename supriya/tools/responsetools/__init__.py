@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
-from abjad.tools import systemtools
 
+r'''
+Tools for object-modeling OSC responses received from **scsynth**.
+'''
+
+from abjad.tools import systemtools
 
 systemtools.ImportManager.import_structured_package(
     __path__[0],

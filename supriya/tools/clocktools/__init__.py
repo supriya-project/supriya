@@ -1,6 +1,10 @@
 # -*- encoding: utf-8 -*-
-from abjad.tools import systemtools
 
+r'''
+Tools for creating clocks and scheduling events.
+'''
+
+from abjad.tools import systemtools
 
 systemtools.ImportManager.import_structured_package(
     __path__[0],

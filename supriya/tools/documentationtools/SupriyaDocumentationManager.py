@@ -61,20 +61,21 @@ class SupriyaDocumentationManager(object):
         attributes.extend(static_methods)
         attributes.sort(key=lambda x: x.name)
         attributes.extend(special_methods)
-        autosummary = documentationtools.ReSTAutosummaryDirective()
-        for attribute in attributes:
-            autosummary.append('~{}.{}.{}'.format(
-                cls.__module__,
-                cls.__name__,
-                attribute.name,
+        if attributes:
+            autosummary = documentationtools.ReSTAutosummaryDirective()
+            for attribute in attributes:
+                autosummary.append('~{}.{}.{}'.format(
+                    cls.__module__,
+                    cls.__name__,
+                    attribute.name,
+                    ))
+            html_only = documentationtools.ReSTOnlyDirective(argument='html')
+            html_only.append(documentationtools.ReSTHeading(
+                level=3,
+                text='Attribute summary',
                 ))
-        html_only = documentationtools.ReSTOnlyDirective(argument='html')
-        html_only.append(documentationtools.ReSTHeading(
-            level=3,
-            text='Attribute summary',
-            ))
-        html_only.append(autosummary)
-        result.append(html_only)
+            html_only.append(autosummary)
+            result.append(html_only)
         return result
 
     @staticmethod
@@ -83,20 +84,21 @@ class SupriyaDocumentationManager(object):
         result = []
         if not issubclass(cls, enum.Enum):
             return result
-        result.append(documentationtools.ReSTHeading(
-            level=3,
-            text='Enumeration Items',
-            ))
         items = sorted(cls, key=lambda x: x.name)
-        for item in items:
-            name = item.name
-            value = item.value
-            line = '- `{}`: {}'.format(name, value)
-            paragraph = documentationtools.ReSTParagraph(
-                text=line,
-                wrap=False,
-                )
-            result.append(paragraph)
+        if items:
+            result.append(documentationtools.ReSTHeading(
+                level=3,
+                text='Enumeration Items',
+                ))
+            for item in items:
+                name = item.name
+                value = item.value
+                line = '- `{}`: {}'.format(name, value)
+                paragraph = documentationtools.ReSTParagraph(
+                    text=line,
+                    wrap=False,
+                    )
+                result.append(paragraph)
         return result
 
     @staticmethod
@@ -522,14 +524,14 @@ class SupriyaDocumentationManager(object):
                     None,
                     )
                 if documentation_section is None:
-                    if inspect.isabstract(cls):
-                        documentation_section = 'Abstract Classes'
-                    elif issubclass(cls, enum.Enum):
+                    if issubclass(cls, enum.Enum):
                         documentation_section = 'Enumerations'
                     elif issubclass(cls, Exception):
                         documentation_section = 'Errors'
                     else:
                         documentation_section = 'Classes'
+                    if inspect.isabstract(cls):
+                        documentation_section = 'Abstract Classes'
                 if documentation_section not in sections:
                     sections[documentation_section] = []
                 sections[documentation_section].append(cls)

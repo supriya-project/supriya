@@ -1,7 +1,9 @@
 # -*- encoding: utf-8 -*-
+
 r'''
-Tools for constructing synthesizer definitions.
+Tools for constructing and compiling synthesizer definitions (SynthDefs).
 '''
+
 from abjad.tools import systemtools
 
 systemtools.ImportManager.import_structured_package(
