@@ -36,13 +36,15 @@ Supriya lets you:
     `Response` classes
 -   schedule synthesizer events and patterns
 
-Tested with Python 2.7, 3.3 and 3.4 under OSX and Ubuntu.
+Documentation is available at http://supriya.readthedocs.org/en/latest/.
 
 Please note: this project is still under **heavy** development, is **not** yet
-stable, and is **not** intended for deployment in the field.
+stable, and is **not** yet intended for deployment in the field.
 
 Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
 an issue at https://github.com/Pulgama/supriya/issues.
+
+Compatible with Python 2.7, 3.3 and 3.4.
 
 Basta.
 

@@ -14,6 +14,8 @@ Supriya lets you:
     `Response` classes
 -   schedule synthesizer events and patterns
 
+Documentation is available at http://supriya.readthedocs.org/en/latest/.
+
 ..  note:: This project is still under **heavy** development, is **not** yet
            stable, and is **not** yet intended for deployment in the field.
 
