@@ -6,6 +6,17 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Clock(SupriyaObject):
+    r'''A clock.
+
+    ::
+
+        >>> clock = clocktools.Clock()
+        >>> print(format(clock))
+        supriya.tools.clocktools.Clock(
+            start_time=...,
+            )
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -59,6 +70,12 @@ class Clock(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def reset(self):
+        r'''Resets clock.
+
+        Stops current timer and empties the event queue.
+
+        Returns none.
+        '''
         with self._lock:
             if self._timer is not None:
                 self._timer.cancel()
@@ -67,10 +84,19 @@ class Clock(SupriyaObject):
             self._next_event_time = 0
 
     def schedule(self, event, relative_time):
+        r'''Schedules `event` at `relative_time` relative to the current time
+        in seconds.
+
+        Returns none.
+        '''
         absolute_time = time.time() + relative_time
         self.schedule_absolutely(event, absolute_time)
 
     def schedule_absolutely(self, event, absolute_time):
+        r'''Schedules `event` at `absolute_time` in seconds.
+
+        Returns none.
+        '''
         if absolute_time <= time.time():
             reschedule_time = event()
             if reschedule_time is not None:
@@ -90,6 +116,9 @@ class Clock(SupriyaObject):
 
     @property
     def start_time(self):
-        return self._start_time
+        r'''Gets the start time of the clock.
 
+        Returns float.
+        '''
+        return self._start_time
 
