@@ -1,11 +1,8 @@
+#! /usr/bin/env python
 # -*- encoding: utf-8 -*-
 import inspect
 from supriya.tools import documentationtools
 from supriya.tools import synthdeftools
-
-
-def find_insertion_line(source_lines): 
-    
 
 
 def template_new_property(input_name, ugen_class):
