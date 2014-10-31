@@ -16,4 +16,6 @@ def list_all_supriya_classes():
         root_package_name='supriya',
         )
     classes = class_crawler()
+    classes = sorted(classes, key=lambda x: x.__module__)
+    classes = tuple(classes)
     return classes

@@ -16,4 +16,6 @@ def list_all_supriya_functions():
         root_package_name='supriya',
         )
     functions = function_crawler()
+    functions = sorted(functions, key=lambda x: x.__module__)
+    functions = tuple(functions)
     return functions
