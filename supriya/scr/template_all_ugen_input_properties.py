@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 # -*- encoding: utf-8 -*-
 import inspect
+from abjad.tools import stringtools
 from supriya.tools import documentationtools
 from supriya.tools import synthdeftools
 
@@ -46,10 +47,11 @@ def rebuild_ugen_source(ugen_class):
             missing_property_names.append(input_name)
     ugen_source = inspect.findsource(ugen_class)[0]
     new_lines = []
-    for property_name in missing_properties:
+    for property_name in missing_property_names:
         new_property_lines = template_new_property(input_name, ugen_class)
         new_lines.extend(new_property_lines)
     ugen_source.extend(new_lines)
+    ugen_source = '\n'.join(ugen_source)
     return ugen_source
 
 
