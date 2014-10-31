@@ -23,7 +23,9 @@ functions = documentationtools.list_all_supriya_functions()
 def test_supriya___doc___01(obj):
     r'''All classes have a docstring. All class methods have a docstring.
     '''
-    assert obj.__doc__ is not None
+    if obj.__doc__ is None:
+        message = 'No documentation for: {}'.format(obj.__name__)
+        raise Exception(message)
     if obj.__name__ in ignored_classes:
         return
     for attr in inspect.classify_class_attrs(obj):
@@ -32,13 +34,16 @@ def test_supriya___doc___01(obj):
         elif attr.defining_class is not obj:
             continue
         if attr.name[0].isalpha() or attr.name.startswith('__'):
-            message = '{}.{}'
-            message = message.format(obj.__name__, attr.name)
-            assert getattr(obj, attr.name).__doc__ is not None, message
+            if getattr(obj, attr.name).__doc__ is None:
+                message = 'No documentation for: {}.{}'
+                message = message.format(obj.__name__, attr.name)
+                raise Exception(message)
 
 
 @pytest.mark.parametrize('obj', functions)
 def test_supriya___doc___02(obj):
     r'''All functions have a docstring.
     '''
-    assert obj.__doc__ is not None
+    if obj.__doc__ is None:
+        message = 'No documentation for: {}'.format(obj.__name__)
+        raise Exception(message)
