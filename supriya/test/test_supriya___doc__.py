@@ -33,6 +33,8 @@ def test_supriya___doc___01(obj):
             continue
         elif attr.defining_class is not obj:
             continue
+        elif attr.kind == 'data':
+            continue
         if attr.name[0].isalpha() or attr.name.startswith('__'):
             if getattr(obj, attr.name).__doc__ is None:
                 message = 'No documentation for: {}.{}'
