@@ -26,7 +26,6 @@ class MidiDispatcher(Dispatcher):
             midi_time=True,
             )
         self._midi_in.callback = self.__call__
-        self._midi_in.open_port()
 
     ### SPECIAL METHODS ###
 
@@ -40,6 +39,11 @@ class MidiDispatcher(Dispatcher):
         message, timestamp = expr
         midi_message = miditools.MidiManager.handle_message(message, timestamp)
         return (midi_message,)
+
+    ### PUBLIC METHODS ###
+
+    def open_port(self):
+        self._midi_in.open_port()
 
     ### PUBLIC PROPERTIES ###
 
