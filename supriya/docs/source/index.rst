@@ -3,6 +3,10 @@
 Supriya |version|
 =================
 
+..  image:: https://readthedocs.org/projects/supriya/badge/?version=latest
+    :target: https://readthedocs.org/projects/supriya/?badge=latest
+    :alt: Documentation Status
+
 Supriya is a Python interface to SuperCollider.
 
 Supriya lets you:
