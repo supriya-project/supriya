@@ -32,16 +32,38 @@ class UnaryOpUGen(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def operator(self):
+        r'''Gets operator of UnaryOpUgen.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> unary_op_ugen = -source
+            >>> unary_op_ugen.operator
+            <UnaryOperator.NEGATIVE: 0>
+
+        Returns unary operator.
+        '''
+        from supriya.tools import synthdeftools
+        return synthdeftools.UnaryOperator(self.special_index)
+
+    @property
     def source(self):
         r'''Gets `source` input of UnaryOpUGen.
 
         ::
 
-            >>> source = None
-            >>> unary_op_ugen = ugentools.UnaryOpUGen.ar(
-            ...     source=source,
-            ...     )
+            >>> source = ugentools.SinOsc.ar()
+            >>> unary_op_ugen = -source
             >>> unary_op_ugen.source
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

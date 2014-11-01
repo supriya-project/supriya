@@ -88,11 +88,18 @@ class BinaryOpUGen(UGen):
 
         ::
 
-            >>> left = None
-            >>> binary_op_ugen = ugentools.BinaryOpUGen.ar(
-            ...     left=left,
-            ...     )
+            >>> left = ugentools.SinOsc.ar()
+            >>> right = ugentools.WhiteNoise.kr()
+            >>> binary_op_ugen = left * right
             >>> binary_op_ugen.left
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
@@ -100,16 +107,38 @@ class BinaryOpUGen(UGen):
         return self._inputs[index]
 
     @property
+    def operator(self):
+        r'''Gets operator of BinaryOpUgen.
+
+        ::
+
+            >>> left = ugentools.SinOsc.ar()
+            >>> right = ugentools.WhiteNoise.kr()
+            >>> binary_op_ugen = left / right
+            >>> binary_op_ugen.operator
+            <BinaryOperator.FLOAT_DIVISION: 4>
+
+        Returns binary operator.
+        '''
+        from supriya.tools import synthdeftools
+        return synthdeftools.BinaryOperator(self.special_index)
+
+    @property
     def right(self):
         r'''Gets `right` input of BinaryOpUGen.
 
         ::
 
-            >>> right = None
-            >>> binary_op_ugen = ugentools.BinaryOpUGen.ar(
-            ...     right=right,
-            ...     )
+            >>> left = ugentools.SinOsc.ar()
+            >>> right = ugentools.WhiteNoise.kr()
+            >>> binary_op_ugen = left * right
             >>> binary_op_ugen.right
+            OutputProxy(
+                source=WhiteNoise(
+                    rate=<Rate.CONTROL: 1>
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
