@@ -4,6 +4,9 @@ import pytest
 from supriya.tools import documentationtools
 
 
+pytest.skip()
+
+
 ignored_names = (
     '__dict__',
     '__init__',
