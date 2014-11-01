@@ -14,6 +14,56 @@ class UGenMethodMixin(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __abs__(self):
+        r'''Gets absolute value of ugen graph.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen = ugentools.WhiteNoise.ar()
+                >>> result = abs(ugen)
+                >>> result
+                UnaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    0_WhiteNoise[0] -> 1_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_array = ugentools.SinOsc.ar(
+                ...     frequency=(440, 442, 443),
+                ...     )
+                >>> result = abs(ugen_array)
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 0_SinOsc[0:frequency]
+                    const_1:0.0 -> 0_SinOsc[1:phase]
+                    0_SinOsc[0] -> 1_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
+                    const_2:442.0 -> 2_SinOsc[0:frequency]
+                    const_1:0.0 -> 2_SinOsc[1:phase]
+                    2_SinOsc[0] -> 3_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
+                    const_3:443.0 -> 4_SinOsc[0:frequency]
+                    const_1:0.0 -> 4_SinOsc[1:phase]
+                    4_SinOsc[0] -> 5_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_unary_op(
             self,

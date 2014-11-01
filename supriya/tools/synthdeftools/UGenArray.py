@@ -29,6 +29,12 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
     def __len__(self):
         return len(self.ugens)
 
+    def __repr__(self):
+        return '{}({{{}}})'.format(
+            type(self).__name__,
+            len(self),
+            )
+
     ### PUBLIC PROPERTIES ###
 
     @property

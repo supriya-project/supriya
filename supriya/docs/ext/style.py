@@ -111,3 +111,4 @@ def doctree_read(app, doctree):
 
 def setup(app):
     app.connect('doctree-read', doctree_read)
+    app.add_stylesheet('supriya.css')
