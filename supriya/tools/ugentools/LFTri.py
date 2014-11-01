@@ -96,3 +96,39 @@ class LFTri(PureUGen):
             initial_phase=initial_phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LFTri.
+
+        ::
+
+            >>> frequency = None
+            >>> lftri = ugentools.LFTri.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> lftri.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_phase(self):
+        r'''Gets `initial_phase` input of LFTri.
+
+        ::
+
+            >>> initial_phase = None
+            >>> lftri = ugentools.LFTri.ar(
+            ...     initial_phase=initial_phase,
+            ...     )
+            >>> lftri.initial_phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]

@@ -135,3 +135,90 @@ class BufAllpassN(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of BufAllpassN.
+
+        ::
+
+            >>> buffer_id = None
+            >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> buf_allpass_n.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of BufAllpassN.
+
+        ::
+
+            >>> decay_time = None
+            >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> buf_allpass_n.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of BufAllpassN.
+
+        ::
+
+            >>> delay_time = None
+            >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> buf_allpass_n.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of BufAllpassN.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> buf_allpass_n.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BufAllpassN.
+
+        ::
+
+            >>> source = None
+            >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     source=source,
+            ...     )
+            >>> buf_allpass_n.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

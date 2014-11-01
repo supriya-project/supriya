@@ -135,3 +135,90 @@ class BufCombN(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of BufCombN.
+
+        ::
+
+            >>> buffer_id = None
+            >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> buf_comb_n.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of BufCombN.
+
+        ::
+
+            >>> decay_time = None
+            >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> buf_comb_n.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of BufCombN.
+
+        ::
+
+            >>> delay_time = None
+            >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> buf_comb_n.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of BufCombN.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> buf_comb_n.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BufCombN.
+
+        ::
+
+            >>> source = None
+            >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     source=source,
+            ...     )
+            >>> buf_comb_n.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

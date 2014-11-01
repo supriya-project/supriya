@@ -89,3 +89,73 @@ class BufDelayL(BufDelayN):
             maximum_delay_time=maximum_delay_time,
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of BufDelayL.
+
+        ::
+
+            >>> buffer_id = None
+            >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> buf_delay_l.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of BufDelayL.
+
+        ::
+
+            >>> delay_time = None
+            >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> buf_delay_l.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of BufDelayL.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> buf_delay_l.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BufDelayL.
+
+        ::
+
+            >>> source = None
+            >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     source=source,
+            ...     )
+            >>> buf_delay_l.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

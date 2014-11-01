@@ -100,3 +100,22 @@ class Out(UGen):
             rate=rate,
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def bus(self):
+        r'''Gets `bus` input of Out.
+
+        ::
+
+            >>> bus = None
+            >>> out = ugentools.Out.ar(
+            ...     bus=bus,
+            ...     )
+            >>> out.bus
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('bus')
+        return self._inputs[index]

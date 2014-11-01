@@ -83,3 +83,73 @@ class FreeVerb(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def damping(self):
+        r'''Gets `damping` input of FreeVerb.
+
+        ::
+
+            >>> damping = None
+            >>> free_verb = ugentools.FreeVerb.ar(
+            ...     damping=damping,
+            ...     )
+            >>> free_verb.damping
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('damping')
+        return self._inputs[index]
+
+    @property
+    def mix(self):
+        r'''Gets `mix` input of FreeVerb.
+
+        ::
+
+            >>> mix = None
+            >>> free_verb = ugentools.FreeVerb.ar(
+            ...     mix=mix,
+            ...     )
+            >>> free_verb.mix
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('mix')
+        return self._inputs[index]
+
+    @property
+    def room_size(self):
+        r'''Gets `room_size` input of FreeVerb.
+
+        ::
+
+            >>> room_size = None
+            >>> free_verb = ugentools.FreeVerb.ar(
+            ...     room_size=room_size,
+            ...     )
+            >>> free_verb.room_size
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('room_size')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of FreeVerb.
+
+        ::
+
+            >>> source = None
+            >>> free_verb = ugentools.FreeVerb.ar(
+            ...     source=source,
+            ...     )
+            >>> free_verb.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

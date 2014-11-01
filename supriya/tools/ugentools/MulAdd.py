@@ -109,3 +109,56 @@ class MulAdd(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def addend(self):
+        r'''Gets `addend` input of MulAdd.
+
+        ::
+
+            >>> addend = None
+            >>> mul_add = ugentools.MulAdd.ar(
+            ...     addend=addend,
+            ...     )
+            >>> mul_add.addend
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('addend')
+        return self._inputs[index]
+
+    @property
+    def multiplier(self):
+        r'''Gets `multiplier` input of MulAdd.
+
+        ::
+
+            >>> multiplier = None
+            >>> mul_add = ugentools.MulAdd.ar(
+            ...     multiplier=multiplier,
+            ...     )
+            >>> mul_add.multiplier
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('multiplier')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of MulAdd.
+
+        ::
+
+            >>> source = None
+            >>> mul_add = ugentools.MulAdd.ar(
+            ...     source=source,
+            ...     )
+            >>> mul_add.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

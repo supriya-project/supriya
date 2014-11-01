@@ -99,3 +99,39 @@ class LPF(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LPF.
+
+        ::
+
+            >>> frequency = None
+            >>> lpf = ugentools.LPF.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> lpf.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of LPF.
+
+        ::
+
+            >>> source = None
+            >>> lpf = ugentools.LPF.ar(
+            ...     source=source,
+            ...     )
+            >>> lpf.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

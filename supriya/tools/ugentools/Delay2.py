@@ -67,3 +67,22 @@ class Delay2(Delay1):
         return super(Delay2, cls).kr(
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Delay2.
+
+        ::
+
+            >>> source = None
+            >>> delay_2 = ugentools.Delay2.ar(
+            ...     source=source,
+            ...     )
+            >>> delay_2.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

@@ -43,3 +43,22 @@ class Done(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Done.
+
+        ::
+
+            >>> source = None
+            >>> done = ugentools.Done.ar(
+            ...     source=source,
+            ...     )
+            >>> done.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

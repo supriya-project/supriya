@@ -41,3 +41,22 @@ class PauseSelfWhenDone(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of PauseSelfWhenDone.
+
+        ::
+
+            >>> source = None
+            >>> pause_self_when_done = ugentools.PauseSelfWhenDone.ar(
+            ...     source=source,
+            ...     )
+            >>> pause_self_when_done.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

@@ -90,3 +90,22 @@ class Delay1(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Delay1.
+
+        ::
+
+            >>> source = None
+            >>> delay_1 = ugentools.Delay1.ar(
+            ...     source=source,
+            ...     )
+            >>> delay_1.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

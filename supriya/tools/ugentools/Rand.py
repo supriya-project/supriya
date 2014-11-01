@@ -68,3 +68,39 @@ class Rand(UGen):
             maximum=maximum,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of Rand.
+
+        ::
+
+            >>> maximum = None
+            >>> rand = ugentools.Rand.ar(
+            ...     maximum=maximum,
+            ...     )
+            >>> rand.maximum
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of Rand.
+
+        ::
+
+            >>> minimum = None
+            >>> rand = ugentools.Rand.ar(
+            ...     minimum=minimum,
+            ...     )
+            >>> rand.minimum
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]

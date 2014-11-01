@@ -124,3 +124,73 @@ class Sum4(UGen):
             input_four=input_four,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def input_four(self):
+        r'''Gets `input_four` input of Sum4.
+
+        ::
+
+            >>> input_four = None
+            >>> sum_4 = ugentools.Sum4.ar(
+            ...     input_four=input_four,
+            ...     )
+            >>> sum_4.input_four
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_four')
+        return self._inputs[index]
+
+    @property
+    def input_one(self):
+        r'''Gets `input_one` input of Sum4.
+
+        ::
+
+            >>> input_one = None
+            >>> sum_4 = ugentools.Sum4.ar(
+            ...     input_one=input_one,
+            ...     )
+            >>> sum_4.input_one
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_one')
+        return self._inputs[index]
+
+    @property
+    def input_three(self):
+        r'''Gets `input_three` input of Sum4.
+
+        ::
+
+            >>> input_three = None
+            >>> sum_4 = ugentools.Sum4.ar(
+            ...     input_three=input_three,
+            ...     )
+            >>> sum_4.input_three
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_three')
+        return self._inputs[index]
+
+    @property
+    def input_two(self):
+        r'''Gets `input_two` input of Sum4.
+
+        ::
+
+            >>> input_two = None
+            >>> sum_4 = ugentools.Sum4.ar(
+            ...     input_two=input_two,
+            ...     )
+            >>> sum_4.input_two
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_two')
+        return self._inputs[index]

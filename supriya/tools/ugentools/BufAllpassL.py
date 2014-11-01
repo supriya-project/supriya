@@ -97,3 +97,90 @@ class BufAllpassL(BufAllpassN):
             maximum_delay_time=maximum_delay_time,
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of BufAllpassL.
+
+        ::
+
+            >>> buffer_id = None
+            >>> buf_allpass_l = ugentools.BufAllpassL.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> buf_allpass_l.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of BufAllpassL.
+
+        ::
+
+            >>> decay_time = None
+            >>> buf_allpass_l = ugentools.BufAllpassL.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> buf_allpass_l.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of BufAllpassL.
+
+        ::
+
+            >>> delay_time = None
+            >>> buf_allpass_l = ugentools.BufAllpassL.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> buf_allpass_l.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of BufAllpassL.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> buf_allpass_l = ugentools.BufAllpassL.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> buf_allpass_l.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BufAllpassL.
+
+        ::
+
+            >>> source = None
+            >>> buf_allpass_l = ugentools.BufAllpassL.ar(
+            ...     source=source,
+            ...     )
+            >>> buf_allpass_l.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

@@ -87,3 +87,22 @@ class Saw(PureUGen):
             frequency=frequency,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Saw.
+
+        ::
+
+            >>> frequency = None
+            >>> saw = ugentools.Saw.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> saw.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]

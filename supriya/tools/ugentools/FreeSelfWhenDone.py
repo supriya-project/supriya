@@ -41,3 +41,22 @@ class FreeSelfWhenDone(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of FreeSelfWhenDone.
+
+        ::
+
+            >>> source = None
+            >>> free_self_when_done = ugentools.FreeSelfWhenDone.ar(
+            ...     source=source,
+            ...     )
+            >>> free_self_when_done.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

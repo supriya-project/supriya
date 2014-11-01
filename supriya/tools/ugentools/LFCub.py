@@ -96,3 +96,39 @@ class LFCub(PureUGen):
             initial_phase=initial_phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LFCub.
+
+        ::
+
+            >>> frequency = None
+            >>> lfcub = ugentools.LFCub.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> lfcub.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_phase(self):
+        r'''Gets `initial_phase` input of LFCub.
+
+        ::
+
+            >>> initial_phase = None
+            >>> lfcub = ugentools.LFCub.ar(
+            ...     initial_phase=initial_phase,
+            ...     )
+            >>> lfcub.initial_phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]

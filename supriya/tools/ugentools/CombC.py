@@ -81,3 +81,73 @@ class CombC(CombN):
             maximum_delay_time=maximum_delay_time,
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of CombC.
+
+        ::
+
+            >>> decay_time = None
+            >>> comb_c = ugentools.CombC.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> comb_c.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of CombC.
+
+        ::
+
+            >>> delay_time = None
+            >>> comb_c = ugentools.CombC.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> comb_c.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of CombC.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> comb_c = ugentools.CombC.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> comb_c.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of CombC.
+
+        ::
+
+            >>> source = None
+            >>> comb_c = ugentools.CombC.ar(
+            ...     source=source,
+            ...     )
+            >>> comb_c.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

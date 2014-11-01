@@ -137,3 +137,56 @@ class LagUD(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def lag_time_down(self):
+        r'''Gets `lag_time_down` input of LagUD.
+
+        ::
+
+            >>> lag_time_down = None
+            >>> lag_ud = ugentools.LagUD.ar(
+            ...     lag_time_down=lag_time_down,
+            ...     )
+            >>> lag_ud.lag_time_down
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('lag_time_down')
+        return self._inputs[index]
+
+    @property
+    def lag_time_up(self):
+        r'''Gets `lag_time_up` input of LagUD.
+
+        ::
+
+            >>> lag_time_up = None
+            >>> lag_ud = ugentools.LagUD.ar(
+            ...     lag_time_up=lag_time_up,
+            ...     )
+            >>> lag_ud.lag_time_up
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('lag_time_up')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of LagUD.
+
+        ::
+
+            >>> source = None
+            >>> lag_ud = ugentools.LagUD.ar(
+            ...     source=source,
+            ...     )
+            >>> lag_ud.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

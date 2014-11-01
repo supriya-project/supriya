@@ -96,3 +96,39 @@ class DelTapWr(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of DelTapWr.
+
+        ::
+
+            >>> buffer_id = None
+            >>> del_tap_wr = ugentools.DelTapWr.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> del_tap_wr.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of DelTapWr.
+
+        ::
+
+            >>> source = None
+            >>> del_tap_wr = ugentools.DelTapWr.ar(
+            ...     source=source,
+            ...     )
+            >>> del_tap_wr.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

@@ -31,3 +31,22 @@ class BufFrames(BufInfoUGenBase):
             buffer_id=buffer_id,
             rate=rate,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of BufFrames.
+
+        ::
+
+            >>> buffer_id = None
+            >>> buf_frames = ugentools.BufFrames.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> buf_frames.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]

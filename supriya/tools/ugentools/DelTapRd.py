@@ -109,3 +109,73 @@ class DelTapRd(UGen):
             interpolation=interpolation,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of DelTapRd.
+
+        ::
+
+            >>> buffer_id = None
+            >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     buffer_id=buffer_id,
+            ...     )
+            >>> del_tap_rd.buffer_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of DelTapRd.
+
+        ::
+
+            >>> delay_time = None
+            >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> del_tap_rd.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def interpolation(self):
+        r'''Gets `interpolation` input of DelTapRd.
+
+        ::
+
+            >>> interpolation = None
+            >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     interpolation=interpolation,
+            ...     )
+            >>> del_tap_rd.interpolation
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('interpolation')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        r'''Gets `phase` input of DelTapRd.
+
+        ::
+
+            >>> phase = None
+            >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     phase=phase,
+            ...     )
+            >>> del_tap_rd.phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('phase')
+        return self._inputs[index]

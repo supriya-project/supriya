@@ -46,3 +46,39 @@ class Free(UGen):
             node_id=node_id,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def node_id(self):
+        r'''Gets `node_id` input of Free.
+
+        ::
+
+            >>> node_id = None
+            >>> free = ugentools.Free.ar(
+            ...     node_id=node_id,
+            ...     )
+            >>> free.node_id
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('node_id')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Free.
+
+        ::
+
+            >>> trigger = None
+            >>> free = ugentools.Free.ar(
+            ...     trigger=trigger,
+            ...     )
+            >>> free.trigger
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]

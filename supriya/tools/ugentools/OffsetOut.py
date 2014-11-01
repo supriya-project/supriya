@@ -78,3 +78,22 @@ class OffsetOut(UGen):
             rate=rate,
             source=source,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def bus(self):
+        r'''Gets `bus` input of OffsetOut.
+
+        ::
+
+            >>> bus = None
+            >>> offset_out = ugentools.OffsetOut.ar(
+            ...     bus=bus,
+            ...     )
+            >>> offset_out.bus
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('bus')
+        return self._inputs[index]

@@ -125,3 +125,39 @@ class Lag(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def lag_time(self):
+        r'''Gets `lag_time` input of Lag.
+
+        ::
+
+            >>> lag_time = None
+            >>> lag = ugentools.Lag.ar(
+            ...     lag_time=lag_time,
+            ...     )
+            >>> lag.lag_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('lag_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Lag.
+
+        ::
+
+            >>> source = None
+            >>> lag = ugentools.Lag.ar(
+            ...     source=source,
+            ...     )
+            >>> lag.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

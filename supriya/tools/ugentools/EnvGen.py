@@ -161,3 +161,107 @@ class EnvGen(UGen):
             time_scale=time_scale,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def done_action(self):
+        r'''Gets `done_action` input of EnvGen.
+
+        ::
+
+            >>> done_action = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     done_action=done_action,
+            ...     )
+            >>> env_gen.done_action
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('done_action')
+        return self._inputs[index]
+
+    @property
+    def envelope(self):
+        r'''Gets `envelope` input of EnvGen.
+
+        ::
+
+            >>> envelope = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     envelope=envelope,
+            ...     )
+            >>> env_gen.envelope
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('envelope')
+        return self._inputs[index]
+
+    @property
+    def gate(self):
+        r'''Gets `gate` input of EnvGen.
+
+        ::
+
+            >>> gate = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     gate=gate,
+            ...     )
+            >>> env_gen.gate
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('gate')
+        return self._inputs[index]
+
+    @property
+    def level_bias(self):
+        r'''Gets `level_bias` input of EnvGen.
+
+        ::
+
+            >>> level_bias = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     level_bias=level_bias,
+            ...     )
+            >>> env_gen.level_bias
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('level_bias')
+        return self._inputs[index]
+
+    @property
+    def level_scale(self):
+        r'''Gets `level_scale` input of EnvGen.
+
+        ::
+
+            >>> level_scale = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     level_scale=level_scale,
+            ...     )
+            >>> env_gen.level_scale
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('level_scale')
+        return self._inputs[index]
+
+    @property
+    def time_scale(self):
+        r'''Gets `time_scale` input of EnvGen.
+
+        ::
+
+            >>> time_scale = None
+            >>> env_gen = ugentools.EnvGen.ar(
+            ...     time_scale=time_scale,
+            ...     )
+            >>> env_gen.time_scale
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('time_scale')
+        return self._inputs[index]

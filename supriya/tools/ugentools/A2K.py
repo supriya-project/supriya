@@ -54,3 +54,22 @@ class A2K(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of A2K.
+
+        ::
+
+            >>> source = None
+            >>> a_2_k = ugentools.A2K.ar(
+            ...     source=source,
+            ...     )
+            >>> a_2_k.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

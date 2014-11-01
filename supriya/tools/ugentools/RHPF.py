@@ -108,3 +108,56 @@ class RHPF(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of RHPF.
+
+        ::
+
+            >>> frequency = None
+            >>> rhpf = ugentools.RHPF.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> rhpf.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def reciprocal_of_q(self):
+        r'''Gets `reciprocal_of_q` input of RHPF.
+
+        ::
+
+            >>> reciprocal_of_q = None
+            >>> rhpf = ugentools.RHPF.ar(
+            ...     reciprocal_of_q=reciprocal_of_q,
+            ...     )
+            >>> rhpf.reciprocal_of_q
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('reciprocal_of_q')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of RHPF.
+
+        ::
+
+            >>> source = None
+            >>> rhpf = ugentools.RHPF.ar(
+            ...     source=source,
+            ...     )
+            >>> rhpf.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

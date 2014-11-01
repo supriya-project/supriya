@@ -135,3 +135,73 @@ class XLine(UGen):
             stop=stop,
             start=start,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def done_action(self):
+        r'''Gets `done_action` input of XLine.
+
+        ::
+
+            >>> done_action = None
+            >>> xline = ugentools.XLine.ar(
+            ...     done_action=done_action,
+            ...     )
+            >>> xline.done_action
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('done_action')
+        return self._inputs[index]
+
+    @property
+    def duration(self):
+        r'''Gets `duration` input of XLine.
+
+        ::
+
+            >>> duration = None
+            >>> xline = ugentools.XLine.ar(
+            ...     duration=duration,
+            ...     )
+            >>> xline.duration
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('duration')
+        return self._inputs[index]
+
+    @property
+    def start(self):
+        r'''Gets `start` input of XLine.
+
+        ::
+
+            >>> start = None
+            >>> xline = ugentools.XLine.ar(
+            ...     start=start,
+            ...     )
+            >>> xline.start
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('start')
+        return self._inputs[index]
+
+    @property
+    def stop(self):
+        r'''Gets `stop` input of XLine.
+
+        ::
+
+            >>> stop = None
+            >>> xline = ugentools.XLine.ar(
+            ...     stop=stop,
+            ...     )
+            >>> xline.stop
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('stop')
+        return self._inputs[index]

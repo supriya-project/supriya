@@ -107,3 +107,56 @@ class VarSaw(PureUGen):
             width=width,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of VarSaw.
+
+        ::
+
+            >>> frequency = None
+            >>> var_saw = ugentools.VarSaw.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> var_saw.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_phase(self):
+        r'''Gets `initial_phase` input of VarSaw.
+
+        ::
+
+            >>> initial_phase = None
+            >>> var_saw = ugentools.VarSaw.ar(
+            ...     initial_phase=initial_phase,
+            ...     )
+            >>> var_saw.initial_phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]
+
+    @property
+    def width(self):
+        r'''Gets `width` input of VarSaw.
+
+        ::
+
+            >>> width = None
+            >>> var_saw = ugentools.VarSaw.ar(
+            ...     width=width,
+            ...     )
+            >>> var_saw.width
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('width')
+        return self._inputs[index]

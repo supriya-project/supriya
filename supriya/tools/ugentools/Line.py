@@ -135,3 +135,73 @@ class Line(UGen):
             stop=stop,
             start=start,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def done_action(self):
+        r'''Gets `done_action` input of Line.
+
+        ::
+
+            >>> done_action = None
+            >>> line = ugentools.Line.ar(
+            ...     done_action=done_action,
+            ...     )
+            >>> line.done_action
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('done_action')
+        return self._inputs[index]
+
+    @property
+    def duration(self):
+        r'''Gets `duration` input of Line.
+
+        ::
+
+            >>> duration = None
+            >>> line = ugentools.Line.ar(
+            ...     duration=duration,
+            ...     )
+            >>> line.duration
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('duration')
+        return self._inputs[index]
+
+    @property
+    def start(self):
+        r'''Gets `start` input of Line.
+
+        ::
+
+            >>> start = None
+            >>> line = ugentools.Line.ar(
+            ...     start=start,
+            ...     )
+            >>> line.start
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('start')
+        return self._inputs[index]
+
+    @property
+    def stop(self):
+        r'''Gets `stop` input of Line.
+
+        ::
+
+            >>> stop = None
+            >>> line = ugentools.Line.ar(
+            ...     stop=stop,
+            ...     )
+            >>> line.stop
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('stop')
+        return self._inputs[index]

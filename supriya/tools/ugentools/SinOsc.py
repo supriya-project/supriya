@@ -96,3 +96,39 @@ class SinOsc(PureUGen):
             phase=phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of SinOsc.
+
+        ::
+
+            >>> frequency = None
+            >>> sin_osc = ugentools.SinOsc.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> sin_osc.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        r'''Gets `phase` input of SinOsc.
+
+        ::
+
+            >>> phase = None
+            >>> sin_osc = ugentools.SinOsc.ar(
+            ...     phase=phase,
+            ...     )
+            >>> sin_osc.phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('phase')
+        return self._inputs[index]

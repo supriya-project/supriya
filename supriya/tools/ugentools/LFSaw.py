@@ -96,3 +96,39 @@ class LFSaw(PureUGen):
             initial_phase=initial_phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LFSaw.
+
+        ::
+
+            >>> frequency = None
+            >>> lfsaw = ugentools.LFSaw.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> lfsaw.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_phase(self):
+        r'''Gets `initial_phase` input of LFSaw.
+
+        ::
+
+            >>> initial_phase = None
+            >>> lfsaw = ugentools.LFSaw.ar(
+            ...     initial_phase=initial_phase,
+            ...     )
+            >>> lfsaw.initial_phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]

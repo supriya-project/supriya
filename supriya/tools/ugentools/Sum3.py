@@ -96,3 +96,56 @@ class Sum3(UGen):
             input_three=input_three,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def input_one(self):
+        r'''Gets `input_one` input of Sum3.
+
+        ::
+
+            >>> input_one = None
+            >>> sum_3 = ugentools.Sum3.ar(
+            ...     input_one=input_one,
+            ...     )
+            >>> sum_3.input_one
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_one')
+        return self._inputs[index]
+
+    @property
+    def input_three(self):
+        r'''Gets `input_three` input of Sum3.
+
+        ::
+
+            >>> input_three = None
+            >>> sum_3 = ugentools.Sum3.ar(
+            ...     input_three=input_three,
+            ...     )
+            >>> sum_3.input_three
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_three')
+        return self._inputs[index]
+
+    @property
+    def input_two(self):
+        r'''Gets `input_two` input of Sum3.
+
+        ::
+
+            >>> input_two = None
+            >>> sum_3 = ugentools.Sum3.ar(
+            ...     input_two=input_two,
+            ...     )
+            >>> sum_3.input_two
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('input_two')
+        return self._inputs[index]

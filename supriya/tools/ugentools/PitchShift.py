@@ -89,3 +89,90 @@ class PitchShift(UGen):
             window_size=window_size,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def pitch_dispersion(self):
+        r'''Gets `pitch_dispersion` input of PitchShift.
+
+        ::
+
+            >>> pitch_dispersion = None
+            >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     pitch_dispersion=pitch_dispersion,
+            ...     )
+            >>> pitch_shift.pitch_dispersion
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('pitch_dispersion')
+        return self._inputs[index]
+
+    @property
+    def pitch_ratio(self):
+        r'''Gets `pitch_ratio` input of PitchShift.
+
+        ::
+
+            >>> pitch_ratio = None
+            >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     pitch_ratio=pitch_ratio,
+            ...     )
+            >>> pitch_shift.pitch_ratio
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('pitch_ratio')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of PitchShift.
+
+        ::
+
+            >>> source = None
+            >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     source=source,
+            ...     )
+            >>> pitch_shift.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def time_dispersion(self):
+        r'''Gets `time_dispersion` input of PitchShift.
+
+        ::
+
+            >>> time_dispersion = None
+            >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     time_dispersion=time_dispersion,
+            ...     )
+            >>> pitch_shift.time_dispersion
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('time_dispersion')
+        return self._inputs[index]
+
+    @property
+    def window_size(self):
+        r'''Gets `window_size` input of PitchShift.
+
+        ::
+
+            >>> window_size = None
+            >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     window_size=window_size,
+            ...     )
+            >>> pitch_shift.window_size
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('window_size')
+        return self._inputs[index]

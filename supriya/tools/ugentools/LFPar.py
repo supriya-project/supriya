@@ -96,3 +96,39 @@ class LFPar(PureUGen):
             initial_phase=initial_phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LFPar.
+
+        ::
+
+            >>> frequency = None
+            >>> lfpar = ugentools.LFPar.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> lfpar.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_phase(self):
+        r'''Gets `initial_phase` input of LFPar.
+
+        ::
+
+            >>> initial_phase = None
+            >>> lfpar = ugentools.LFPar.ar(
+            ...     initial_phase=initial_phase,
+            ...     )
+            >>> lfpar.initial_phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]

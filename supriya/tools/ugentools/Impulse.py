@@ -98,3 +98,39 @@ class Impulse(PureUGen):
             phase=phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Impulse.
+
+        ::
+
+            >>> frequency = None
+            >>> impulse = ugentools.Impulse.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> impulse.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        r'''Gets `phase` input of Impulse.
+
+        ::
+
+            >>> phase = None
+            >>> impulse = ugentools.Impulse.ar(
+            ...     phase=phase,
+            ...     )
+            >>> impulse.phase
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('phase')
+        return self._inputs[index]

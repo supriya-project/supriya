@@ -109,3 +109,56 @@ class DelayN(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of DelayN.
+
+        ::
+
+            >>> delay_time = None
+            >>> delay_n = ugentools.DelayN.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> delay_n.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of DelayN.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> delay_n = ugentools.DelayN.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> delay_n.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of DelayN.
+
+        ::
+
+            >>> source = None
+            >>> delay_n = ugentools.DelayN.ar(
+            ...     source=source,
+            ...     )
+            >>> delay_n.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

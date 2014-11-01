@@ -99,3 +99,39 @@ class HPF(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of HPF.
+
+        ::
+
+            >>> frequency = None
+            >>> hpf = ugentools.HPF.ar(
+            ...     frequency=frequency,
+            ...     )
+            >>> hpf.frequency
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of HPF.
+
+        ::
+
+            >>> source = None
+            >>> hpf = ugentools.HPF.ar(
+            ...     source=source,
+            ...     )
+            >>> hpf.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

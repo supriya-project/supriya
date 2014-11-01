@@ -118,3 +118,73 @@ class CombN(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of CombN.
+
+        ::
+
+            >>> decay_time = None
+            >>> comb_n = ugentools.CombN.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> comb_n.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of CombN.
+
+        ::
+
+            >>> delay_time = None
+            >>> comb_n = ugentools.CombN.ar(
+            ...     delay_time=delay_time,
+            ...     )
+            >>> comb_n.delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of CombN.
+
+        ::
+
+            >>> maximum_delay_time = None
+            >>> comb_n = ugentools.CombN.ar(
+            ...     maximum_delay_time=maximum_delay_time,
+            ...     )
+            >>> comb_n.maximum_delay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of CombN.
+
+        ::
+
+            >>> source = None
+            >>> comb_n = ugentools.CombN.ar(
+            ...     source=source,
+            ...     )
+            >>> comb_n.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

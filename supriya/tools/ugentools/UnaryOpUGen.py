@@ -28,3 +28,22 @@ class UnaryOpUGen(UGen):
             source=source,
             special_index=special_index,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of UnaryOpUGen.
+
+        ::
+
+            >>> source = None
+            >>> unary_op_ugen = ugentools.UnaryOpUGen.ar(
+            ...     source=source,
+            ...     )
+            >>> unary_op_ugen.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

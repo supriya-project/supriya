@@ -66,3 +66,56 @@ class Decay2(Filter):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def attack_time(self):
+        r'''Gets `attack_time` input of Decay2.
+
+        ::
+
+            >>> attack_time = None
+            >>> decay_2 = ugentools.Decay2.ar(
+            ...     attack_time=attack_time,
+            ...     )
+            >>> decay_2.attack_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('attack_time')
+        return self._inputs[index]
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of Decay2.
+
+        ::
+
+            >>> decay_time = None
+            >>> decay_2 = ugentools.Decay2.ar(
+            ...     decay_time=decay_time,
+            ...     )
+            >>> decay_2.decay_time
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Decay2.
+
+        ::
+
+            >>> source = None
+            >>> decay_2 = ugentools.Decay2.ar(
+            ...     source=source,
+            ...     )
+            >>> decay_2.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

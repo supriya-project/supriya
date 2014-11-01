@@ -52,3 +52,56 @@ class Pan2(MultiOutUGen):
             level=level,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def level(self):
+        r'''Gets `level` input of Pan2.
+
+        ::
+
+            >>> level = None
+            >>> pan_2 = ugentools.Pan2.ar(
+            ...     level=level,
+            ...     )
+            >>> pan_2.level
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('level')
+        return self._inputs[index]
+
+    @property
+    def position(self):
+        r'''Gets `position` input of Pan2.
+
+        ::
+
+            >>> position = None
+            >>> pan_2 = ugentools.Pan2.ar(
+            ...     position=position,
+            ...     )
+            >>> pan_2.position
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('position')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Pan2.
+
+        ::
+
+            >>> source = None
+            >>> pan_2 = ugentools.Pan2.ar(
+            ...     source=source,
+            ...     )
+            >>> pan_2.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

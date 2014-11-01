@@ -53,3 +53,22 @@ class K2A(PureUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of K2A.
+
+        ::
+
+            >>> source = None
+            >>> k_2_a = ugentools.K2A.ar(
+            ...     source=source,
+            ...     )
+            >>> k_2_a.source
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
