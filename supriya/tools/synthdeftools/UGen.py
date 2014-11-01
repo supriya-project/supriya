@@ -341,21 +341,102 @@ class UGen(UGenMethodMixin):
 
     @property
     def inputs(self):
+        r'''Gets inputs of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar(
+            ...     frequency=ugentools.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ...     )
+            >>> for input_ in ugen.inputs:
+            ...     input_
+            ...
+            OutputProxy(
+                source=WhiteNoise(
+                    rate=<Rate.CONTROL: 1>
+                    ),
+                output_index=0
+                )
+            0.5
+
+        Returns tuple.
+        '''
         return tuple(self._inputs)
 
     @property
     def outputs(self):
+        r'''Gets outputs of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar(
+            ...     frequency=ugentools.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ...     )
+            >>> ugen.outputs
+            (<Rate.AUDIO: 2>,)
+
+        Returns tuple.
+        '''
         return tuple(self._get_outputs())
 
     @property
     def rate(self):
+        r'''Gets calculation rate of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar(
+            ...     frequency=ugentools.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ...     )
+            >>> ugen.rate
+            <Rate.AUDIO: 2>
+
+        Returns calculation rate.
+        '''
         return self._calculation_rate
 
     @property
     def signal_range(self):
+        r'''Gets signal range of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar()
+            >>> ugen.signal_range
+            <SignalRange.BIPOLAR: 1>
+
+        A bipolar signal range indicates that the ugen generates signals above
+        and below zero.
+        
+        A unipolar signal range indicates that the ugen only generates signals
+        of 0 or greater.
+
+        Returns signal range.
+        '''
         from supriya.tools import synthdeftools
         return synthdeftools.SignalRange.BIPOLAR
 
     @property
     def special_index(self):
+        r'''Gets special index of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar(
+            ...     frequency=ugentools.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ...     )
+            >>> ugen.special_index
+            0
+
+        The `special index` of most ugens will be 0. SuperColliders's synth
+        definition file format uses the special index to store the operator id
+        for binary and unary operator ugens, and the parameter index of
+        controls.
+
+        Returns integer.
+        '''
         return self._special_index
