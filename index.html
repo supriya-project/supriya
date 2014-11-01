@@ -33,9 +33,30 @@
 
 <p>A Python interface to SuperCollider.</p>
 
-<p>Tested and compatible with Python 2.7, 3.3 and 3.4.</p>
+<p>Supriya lets you:</p>
 
-<p><img src="images/graph.png" alt="SynthDef Graph"></p>
+<ul>
+<li>  boot and communicate with SuperCollider's <code>scsynth</code> synthesis server</li>
+<li>  construct and compile <code>SynthDef</code> unit generator graphs in native Python code</li>
+<li>  build and control graphs of synthesizers and synthesizer groups</li>
+<li>  object-model <code>scysnth</code> OSC communications explicitly via <code>Request</code> and
+<code>Response</code> classes</li>
+<li>  schedule synthesizer events and patterns</li>
+</ul>
+
+<p>Documentation is available at <a href="http://supriya.readthedocs.org/en/latest/">http://supriya.readthedocs.org/en/latest/</a>.</p>
+
+<p>Please note: this project is still under <strong>heavy</strong> development, is <strong>not</strong> yet
+stable, and is <strong>not</strong> yet intended for deployment in the field.</p>
+
+<p>Send compliments or complaints to <a href="mailto:josiah.oberholtzer@gmail.com">josiah.oberholtzer@gmail.com</a>, or register
+an issue at <a href="https://github.com/Pulgama/supriya/issues">https://github.com/Pulgama/supriya/issues</a>.</p>
+
+<p>Compatible with Python 2.7, 3.3 and 3.4.</p>
+
+<p>Basta.</p>
+
+<p><img src="/graph.png" alt="SynthDef Graph"></p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
@@ -64,17 +85,33 @@ supercollider_synth  options:
 ...
 </code></pre>
 
+<p>SuperCollider may be found at <a href="http://supercollider.sourceforge.net/">http://supercollider.sourceforge.net/</a> for all
+platforms. Alternatively, many Linux distributions will allow you to install
+SuperCollider via their package manager.</p>
+
 <p><strong>supriya</strong> has the following Python dependencies for all Python versions:</p>
 
 <ul>
 <li><code>abjad</code></li>
+<li><code>numpy</code></li>
 <li><code>pexpect</code></li>
 <li><code>pytest</code></li>
 <li><code>rtmidi-python</code></li>
+<li><code>sphinx_rtd_theme</code></li>
 <li><code>sphinx</code></li>
 <li><code>tox</code></li>
-</ul><p>Additionally, <strong>supriya</strong> requires <code>funcsigs</code> with Python 2.7, and <code>enum34</code> for
+<li><code>wavefile</code></li>
+</ul>
+
+<p>Additionally, <strong>supriya</strong> requires <code>funcsigs</code> with Python 2.7, and <code>enum34</code> for
 both Python 2.7 and Python 3.3.</p>
+
+<p><code>python-wavefile</code> requires that <code>libsndfile</code> be installed. Source for
+<code>libsndfile</code> for OSX platforms may be found at
+<a href="http://www.mega-nerd.com/libsndfile/#Download">http://www.mega-nerd.com/libsndfile/#Download</a>.</p>
+
+<p>When installed via the included <code>setup.py</code> file (<code>sudo python setup.py
+install</code>) all of the above dependencies will be installed automatically.</p>
 
 <p><strong>supriya</strong> has not been tested with Python 3.x versions earlier than 3.3.</p>
 
@@ -148,135 +185,6 @@ NODE TREE 0 group
 <pre><code>&gt;&gt;&gt; server.quit()
 &lt;Server: offline&gt;
 </code></pre>
-
-<h2>
-<a name="current-roadmap" class="anchor" href="#current-roadmap"><span class="octicon octicon-link"></span></a>Current Roadmap</h2>
-
-<ul>
-<li>[X] Cleanup server object proxies
-
-<ul>
-<li>[X] BufferGroup, Buffer, BufferProxy</li>
-<li>[X] BusGroup, Bus, BusProxy (for both Audio and Control buses)</li>
-<li>[X] SynthControl
-
-<ul>
-<li>[X] QueryTreeControl.from_control()</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>[X] Make SynthDef immutable
-
-<ul>
-<li>[X] Implement SynthDefBuilder</li>
-<li>[X] Implement Parameter class (model a single control name, value, rate)</li>
-<li>[X] Implement AudioControl and TrigControl UGens</li>
-</ul>
-</li>
-<li>[ ] Explicitly object model Server requests</li>
-<li>[ ] Implement complete Buffer API
-
-<ul>
-<li>[ ] <code>/b_alloc</code>
-</li>
-<li>[ ] <code>/b_allocRead</code>, <code>/b_allocReadChannel</code>
-</li>
-<li>[ ] <code>/b_read</code>, <code>/b_readChannel</code>
-</li>
-<li>[ ] <code>/b_write</code>, <code>/b_close</code>
-</li>
-<li>[ ] <code>/b_get</code>, <code>/b_getn</code>
-</li>
-<li>[ ] <code>/b_set</code>, <code>/b_setn</code>
-</li>
-<li>[ ] <code>/b_query</code>
-</li>
-<li>[ ] <code>/b_gen</code>, <code>/b_fill</code>, <code>/b_zero</code>
-</li>
-<li>[ ] <code>/b_free</code>
-</li>
-</ul>
-</li>
-<li>[ ] Implement complete Bus(-related) API
-
-<ul>
-<li>[ ] <code>/c_set</code>, <code>/c_setn</code>
-</li>
-<li>[ ] <code>/c_fill</code>
-</li>
-<li>[ ] <code>/c_get</code>, <code>/c_getn</code>
-</li>
-<li>[ ] <code>/n_map</code>, <code>/n_mapn</code>
-</li>
-<li>[ ] <code>/n_mapa</code>, <code>/n_mapan</code>
-</li>
-</ul>
-</li>
-<li>[ ] Implement all UGen binary operators</li>
-<li>[ ] Implement all UGen unary operators</li>
-<li>[ ] MIDI callbacks</li>
-<li>[ ] Port all UGens
-
-<ul>
-<li>[X] AudioIn.sc</li>
-<li>[ ] BasicOpsUGen.sc</li>
-<li>[ ] BEQSuite.sc</li>
-<li>[ ] BufIO.sc</li>
-<li>[ ] Chaos.sc</li>
-<li>[ ] CheckBadValues.sc</li>
-<li>[ ] Compander.sc</li>
-<li>[X] Delays.sc</li>
-<li>[ ] DelayWr.sc</li>
-<li>[ ] Demand.sc</li>
-<li>[ ] DiskIO.sc</li>
-<li>[ ] EnvGen.sc</li>
-<li>[ ] FFT.sc</li>
-<li>[ ] Filter.sc</li>
-<li>[ ] FreeVerb.sc</li>
-<li>[ ] FSinOsc.sc</li>
-<li>[ ] Gendyn.sc</li>
-<li>[ ] GrainUGens.sc</li>
-<li>[ ] GVerb.sc</li>
-<li>[ ] Hilbert.sc</li>
-<li>[X] InfoUGens.sc</li>
-<li>[ ] InOut.sc</li>
-<li>[ ] Line.sc</li>
-<li>[ ] MachineListening.sc</li>
-<li>[ ] MacUGens.sc</li>
-<li>[ ] Mix.sc</li>
-<li>[ ] MoogFF.sc</li>
-<li>[ ] Noise.sc</li>
-<li>[ ] Osc.sc</li>
-<li>[ ] Pan.sc</li>
-<li>[ ] PhysicalModel.sc</li>
-<li>[X] PitchShift.sc</li>
-<li>[ ] Pluck.sc</li>
-<li>[ ] Poll.sc</li>
-<li>[ ] PSinGraph.sc</li>
-<li>[ ] Splay.sc</li>
-<li>[ ] Trig.sc</li>
-<li>[ ] UGen.sc</li>
-</ul>
-</li>
-<li>[ ] Implement appropriate UGen input checking</li>
-<li>[ ] Port all UGen examples</li>
-<li>[ ] Write SynthDef compilation/sending tests to scsynth for all UGens</li>
-<li>[ ] Implement tempo-accurate clocks and scheduled OSCBundle logic</li>
-</ul><h2>
-<a name="distant-roadmap" class="anchor" href="#distant-roadmap"><span class="octicon octicon-link"></span></a>Distant Roadmap</h2>
-
-<ul>
-<li>[ ] PySide-based GUI generation</li>
-<li>[ ] Kivy-based GUI generation</li>
-<li>[ ] Non-realtime composition
-
-<ul>
-<li>[ ] NRTScore</li>
-<li>[ ] NRT node graph time slicing?</li>
-</ul>
-</li>
-</ul>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/Pulgama">Pulgama</a></p>
@@ -284,6 +192,16 @@ NODE TREE 0 group
       </footer>
     </div>
     <script src="javascripts/scale.fix.js"></script>
-    
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-56256911-2");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
   </body>
 </html>
