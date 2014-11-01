@@ -120,11 +120,14 @@ class BRF(Filter):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 440.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> brf = ugentools.BRF.ar(
             ...     frequency=frequency,
+            ...     source=source,
             ...     )
             >>> brf.frequency
+            440.0
 
         Returns input.
         '''
@@ -137,11 +140,14 @@ class BRF(Filter):
 
         ::
 
-            >>> reciprocal_of_q = None
+            >>> reciprocal_of_q = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> brf = ugentools.BRF.ar(
             ...     reciprocal_of_q=reciprocal_of_q,
+            ...     source=source,
             ...     )
             >>> brf.reciprocal_of_q
+            1.0
 
         Returns input.
         '''
@@ -154,11 +160,19 @@ class BRF(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> brf = ugentools.BRF.ar(
             ...     source=source,
             ...     )
             >>> brf.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

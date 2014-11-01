@@ -120,11 +120,14 @@ class BPF(Filter):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 440.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> bpf = ugentools.BPF.ar(
             ...     frequency=frequency,
+            ...     source=source,
             ...     )
             >>> bpf.frequency
+            440.0
 
         Returns input.
         '''
@@ -137,11 +140,14 @@ class BPF(Filter):
 
         ::
 
-            >>> reciprocal_of_q = None
+            >>> reciprocal_of_q = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> bpf = ugentools.BPF.ar(
             ...     reciprocal_of_q=reciprocal_of_q,
+            ...     source=source,
             ...     )
             >>> bpf.reciprocal_of_q
+            1.0
 
         Returns input.
         '''
@@ -154,11 +160,19 @@ class BPF(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> bpf = ugentools.BPF.ar(
             ...     source=source,
             ...     )
             >>> bpf.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
