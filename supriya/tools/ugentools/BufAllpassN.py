@@ -145,8 +145,10 @@ class BufAllpassN(PureUGen):
         ::
 
             >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_allpass_n = ugentools.BufAllpassN.ar(
             ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> buf_allpass_n.buffer_id
             23.0
@@ -162,9 +164,13 @@ class BufAllpassN(PureUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> decay_time = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     buffer_id=buffer_id,
             ...     decay_time=decay_time,
+            ...     source=source,
             ...     )
             >>> buf_allpass_n.decay_time
             1.0
@@ -180,9 +186,13 @@ class BufAllpassN(PureUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     buffer_id=buffer_id,
             ...     delay_time=delay_time,
+            ...     source=source,
             ...     )
             >>> buf_allpass_n.delay_time
             1.5
@@ -198,9 +208,13 @@ class BufAllpassN(PureUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     buffer_id=buffer_id,
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source,
             ...     )
             >>> buf_allpass_n.maximum_delay_time
             2.0
@@ -216,11 +230,21 @@ class BufAllpassN(PureUGen):
 
         ::
 
-            >>> source = None
+            >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_allpass_n = ugentools.BufAllpassN.ar(
+            ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
             >>> buf_allpass_n.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
