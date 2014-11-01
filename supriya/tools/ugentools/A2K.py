@@ -63,11 +63,19 @@ class A2K(PureUGen):
 
         ::
 
-            >>> source = None
-            >>> a_2_k = ugentools.A2K.ar(
+            >>> source = ugentools.SinOsc.ar()
+            >>> a_2_k = ugentools.A2K.kr(
             ...     source=source,
             ...     )
             >>> a_2_k.source
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

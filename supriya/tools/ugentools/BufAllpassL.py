@@ -106,11 +106,12 @@ class BufAllpassL(BufAllpassN):
 
         ::
 
-            >>> buffer_id = None
+            >>> buffer_id = 23
             >>> buf_allpass_l = ugentools.BufAllpassL.ar(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_allpass_l.buffer_id
+            23
 
         Returns input.
         '''
@@ -123,11 +124,12 @@ class BufAllpassL(BufAllpassN):
 
         ::
 
-            >>> decay_time = None
+            >>> decay_time = 1.0
             >>> buf_allpass_l = ugentools.BufAllpassL.ar(
             ...     decay_time=decay_time,
             ...     )
             >>> buf_allpass_l.decay_time
+            1.0
 
         Returns input.
         '''
@@ -140,11 +142,12 @@ class BufAllpassL(BufAllpassN):
 
         ::
 
-            >>> delay_time = None
+            >>> delay_time = 1.5
             >>> buf_allpass_l = ugentools.BufAllpassL.ar(
             ...     delay_time=delay_time,
             ...     )
             >>> buf_allpass_l.delay_time
+            1.5
 
         Returns input.
         '''
@@ -157,11 +160,12 @@ class BufAllpassL(BufAllpassN):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> maximum_delay_time = 2.0
             >>> buf_allpass_l = ugentools.BufAllpassL.ar(
             ...     maximum_delay_time=maximum_delay_time,
             ...     )
             >>> buf_allpass_l.maximum_delay_time
+            2.0
 
         Returns input.
         '''

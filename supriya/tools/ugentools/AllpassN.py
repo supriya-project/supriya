@@ -130,11 +130,14 @@ class AllpassN(PureUGen):
 
         ::
 
-            >>> decay_time = None
+            >>> decay_time = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> allpass_n = ugentools.AllpassN.ar(
             ...     decay_time=decay_time,
+            ...     source=source,
             ...     )
             >>> allpass_n.decay_time
+            1.0
 
         Returns input.
         '''
@@ -147,11 +150,14 @@ class AllpassN(PureUGen):
 
         ::
 
-            >>> delay_time = None
+            >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> allpass_n = ugentools.AllpassN.ar(
             ...     delay_time=delay_time,
+            ...     source=source,
             ...     )
             >>> allpass_n.delay_time
+            1.5
 
         Returns input.
         '''
@@ -164,11 +170,14 @@ class AllpassN(PureUGen):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> allpass_n = ugentools.AllpassN.ar(
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source,
             ...     )
             >>> allpass_n.maximum_delay_time
+            2.0
 
         Returns input.
         '''
@@ -181,11 +190,19 @@ class AllpassN(PureUGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> allpass_n = ugentools.AllpassN.ar(
             ...     source=source,
             ...     )
             >>> allpass_n.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
