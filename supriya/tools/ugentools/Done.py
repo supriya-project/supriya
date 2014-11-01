@@ -22,7 +22,7 @@ class Done(UGen):
         source=None,
         ):
         assert isinstance(source, UGen)
-        assert source.has_done_action
+        assert source._has_done_action
         UGen.__init__(
             self,
             rate=rate,

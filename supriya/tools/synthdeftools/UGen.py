@@ -331,11 +331,13 @@ class UGen(UGenMethodMixin):
     def _validate_inputs(self):
         pass
 
-    ### PUBLIC PROPERTIES ###
+    ### PRIVATE PROPERTIES ###
 
     @property
-    def has_done_action(self):
+    def _has_done_action(self):
         return 'done_action' in self._ordered_input_names
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def inputs(self):
