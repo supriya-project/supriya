@@ -69,7 +69,7 @@ class DelayN(PureUGen):
         '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
-        source = cls.as_audio_rate_input(source)
+        source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             rate=rate,
             delay_time=delay_time,

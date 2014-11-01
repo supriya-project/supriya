@@ -128,6 +128,25 @@ class UGen(UGenMethodMixin):
 
     ### PRIVATE METHODS ###
 
+    @staticmethod
+    def _as_audio_rate_input(expr):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        if isinstance(expr, (int, float)):
+            if expr == 0:
+                return ugentools.Silence.ar()
+            return ugentools.DC.ar(expr)
+        elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
+            if expr.rate == synthdeftools.Rate.AUDIO:
+                return expr
+            return ugentools.K2A.ar(source=expr)
+        elif isinstance(expr, collections.Iterable):
+            return synthdeftools.UGenArray(
+                UGen._as_audio_rate_input(x)
+                for x in expr
+                )
+        raise ValueError(expr)
+
     def _add_constant_input(self, value):
         self._inputs.append(float(value))
 
@@ -257,25 +276,6 @@ class UGen(UGenMethodMixin):
         pass
 
     ### PUBLIC METHODS ###
-
-    @staticmethod
-    def as_audio_rate_input(expr):
-        from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
-        if isinstance(expr, (int, float)):
-            if expr == 0:
-                return ugentools.Silence.ar()
-            return ugentools.DC.ar(expr)
-        elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
-            if expr.rate == synthdeftools.Rate.AUDIO:
-                return expr
-            return ugentools.K2A.ar(source=expr)
-        elif isinstance(expr, collections.Iterable):
-            return synthdeftools.UGenArray(
-                UGen.as_audio_rate_input(x)
-                for x in expr
-                )
-        raise ValueError(expr)
 
     @staticmethod
     def expand_dictionary(dictionary, unexpanded_input_names=None):
