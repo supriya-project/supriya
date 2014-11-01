@@ -129,7 +129,7 @@ class UGenMethodMixin(SupriyaObject):
         dictionary = {'left': left, 'right': right}
         operator = synthdeftools.BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_dict in synthdeftools.UGen.expand_dictionary(dictionary):
+        for expanded_dict in synthdeftools.UGen._expand_dictionary(dictionary):
             left = expanded_dict['left']
             right = expanded_dict['right']
             rate = UGenMethodMixin._compute_binary_rate(

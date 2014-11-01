@@ -211,6 +211,62 @@ class UGen(UGenMethodMixin):
         else:
             raise Exception(value)
 
+    @staticmethod
+    def _expand_dictionary(dictionary, unexpanded_input_names=None):
+        r'''Expands a dictionary into multichannel dictionaries.
+
+        ::
+
+            >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
+            >>> result = synthdeftools.UGen._expand_dictionary(
+            ...     dictionary)
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bar', 1), ('baz', 3), ('foo', 0)]
+            [('bar', 2), ('baz', 4), ('foo', 0)]
+            [('bar', 1), ('baz', 5), ('foo', 0)]
+
+        ::
+
+            >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
+            >>> result = synthdeftools.UGen._expand_dictionary(
+            ...     dictionary,
+            ...     unexpanded_input_names=('source',),
+            ...     )
+            >>> for x in result:
+            ...     sorted(x.items())
+            ...
+            [('bus', 8), ('source', (1, 2, 3))]
+            [('bus', 9), ('source', (1, 2, 3))]
+
+        '''
+        dictionary = dictionary.copy()
+        cached_unexpanded_inputs = {}
+        if unexpanded_input_names is not None:
+            for input_name in unexpanded_input_names:
+                if input_name not in dictionary:
+                    continue
+                cached_unexpanded_inputs[input_name] = \
+                    dictionary[input_name]
+                del(dictionary[input_name])
+        maximum_length = 1
+        result = []
+        for name, value in dictionary.items():
+            if isinstance(value, collections.Sequence):
+                maximum_length = max(maximum_length, len(value))
+        for i in range(maximum_length):
+            result.append({})
+            for name, value in dictionary.items():
+                if isinstance(value, collections.Sequence):
+                    value = value[i % len(value)]
+                    result[i][name] = value
+                else:
+                    result[i][name] = value
+        for expanded_inputs in result:
+            expanded_inputs.update(cached_unexpanded_inputs)
+        return result
+
     def _get_output_number(self):
         return 0
 
@@ -235,7 +291,7 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
-        input_dicts = UGen.expand_dictionary(
+        input_dicts = UGen._expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
         signature = get_signature(cls.__init__)
@@ -274,64 +330,6 @@ class UGen(UGenMethodMixin):
 
     def _validate_inputs(self):
         pass
-
-    ### PUBLIC METHODS ###
-
-    @staticmethod
-    def expand_dictionary(dictionary, unexpanded_input_names=None):
-        r'''Expands a dictionary into multichannel dictionaries.
-
-        ::
-
-            >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = synthdeftools.UGen.expand_dictionary(
-            ...     dictionary)
-            >>> for x in result:
-            ...     sorted(x.items())
-            ...
-            [('bar', 1), ('baz', 3), ('foo', 0)]
-            [('bar', 2), ('baz', 4), ('foo', 0)]
-            [('bar', 1), ('baz', 5), ('foo', 0)]
-
-        ::
-
-            >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = synthdeftools.UGen.expand_dictionary(
-            ...     dictionary,
-            ...     unexpanded_input_names=('source',),
-            ...     )
-            >>> for x in result:
-            ...     sorted(x.items())
-            ...
-            [('bus', 8), ('source', (1, 2, 3))]
-            [('bus', 9), ('source', (1, 2, 3))]
-
-        '''
-        dictionary = dictionary.copy()
-        cached_unexpanded_inputs = {}
-        if unexpanded_input_names is not None:
-            for input_name in unexpanded_input_names:
-                if input_name not in dictionary:
-                    continue
-                cached_unexpanded_inputs[input_name] = \
-                    dictionary[input_name]
-                del(dictionary[input_name])
-        maximum_length = 1
-        result = []
-        for name, value in dictionary.items():
-            if isinstance(value, collections.Sequence):
-                maximum_length = max(maximum_length, len(value))
-        for i in range(maximum_length):
-            result.append({})
-            for name, value in dictionary.items():
-                if isinstance(value, collections.Sequence):
-                    value = value[i % len(value)]
-                    result[i][name] = value
-                else:
-                    result[i][name] = value
-        for expanded_inputs in result:
-            expanded_inputs.update(cached_unexpanded_inputs)
-        return result
 
     ### PUBLIC PROPERTIES ###
 
