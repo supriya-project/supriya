@@ -9,7 +9,8 @@ class BPF(Filter):
 
         >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
-        >>> ugentools.BPF.ar(source=source)
+        >>> b_p_f = ugentools.BPF.ar(source=source)
+        >>> b_p_f
         BPF.ar()
 
     '''
@@ -58,11 +59,12 @@ class BPF(Filter):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
-            >>> ugentools.BPF.ar(
+            >>> b_p_f = ugentools.BPF.ar(
             ...     frequency=440,
             ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
+            >>> b_p_f
             BPF.ar()
 
         Returns unit generator graph.
@@ -90,11 +92,12 @@ class BPF(Filter):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
-            >>> ugentools.BPF.kr(
+            >>> b_p_f = ugentools.BPF.kr(
             ...     frequency=440,
             ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
+            >>> b_p_f
             BPF.kr()
 
         Returns unit generator graph.

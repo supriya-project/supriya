@@ -132,5 +132,18 @@ class DC(PureMultiOutUGen):
 
     @property
     def source(self):
+        r'''Gets `source` input of DC.
+
+        ::
+
+            >>> source = 0.5
+            >>> dc = ugentools.DC.ar(
+            ...     source=source,
+            ...     )
+            >>> dc.source.source
+            0.5
+
+        Returns input.
+        '''
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

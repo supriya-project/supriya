@@ -133,5 +133,18 @@ class In(MultiOutUGen):
 
     @property
     def bus(self):
+        r'''Gets `bus` input of DC.
+
+        ::
+
+            >>> bus = 2
+            >>> in_ = ugentools.In.ar(
+            ...     bus=bus,
+            ...     )
+            >>> in_.source.bus
+            2.0
+
+        Returns input.
+        '''
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]

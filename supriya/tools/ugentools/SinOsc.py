@@ -96,15 +96,3 @@ class SinOsc(PureUGen):
             phase=phase,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def frequency(self):
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
-    def phase(self):
-        index = self._ordered_input_names.index('phase')
-        return self._inputs[index]

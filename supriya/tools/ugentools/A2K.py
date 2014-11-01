@@ -9,9 +9,10 @@ class A2K(PureUGen):
 
         >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.ar()
-        >>> ugentools.A2K.kr(
+        >>> a_2_k = ugentools.A2K.kr(
         ...     source=source,
         ...     )
+        >>> a_2_k
         A2K.kr()
 
     '''

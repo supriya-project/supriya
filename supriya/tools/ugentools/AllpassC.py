@@ -9,7 +9,8 @@ class AllpassC(AllpassN):
 
         >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
-        >>> ugentools.AllpassC.ar(source=source)
+        >>> allpass_c = ugentools.AllpassC.ar(source=source)
+        >>> allpass_c
         AllpassC.ar()
 
     '''
@@ -36,12 +37,13 @@ class AllpassC(AllpassN):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
-            >>> ugentools.AllpassC.ar(
+            >>> allpass_c = ugentools.AllpassC.ar(
             ...     decay_time=1.0,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
             ...     )
+            >>> allpass_c
             AllpassC.ar()
 
         Returns unit generator graph.
@@ -66,12 +68,13 @@ class AllpassC(AllpassN):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
-            >>> ugentools.AllpassC.kr(
+            >>> allpass_c = ugentools.AllpassC.kr(
             ...     decay_time=1.0,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
             ...     )
+            >>> allpass_c
             AllpassC.ar()
 
         Returns unit generator graph.

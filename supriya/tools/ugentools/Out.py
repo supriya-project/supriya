@@ -100,14 +100,3 @@ class Out(UGen):
             rate=rate,
             source=source,
             )
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def bus(self):
-        index = self._ordered_input_names.index('bus')
-        return self._inputs[index]
-
-    @property
-    def source(self):
-        return self._inputs[1:]

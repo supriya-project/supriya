@@ -79,15 +79,3 @@ class BinaryOpUGen(UGen):
             right=b,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def left(self):
-        index = self._ordered_input_names.index('left')
-        return self._inputs[index]
-
-    @property
-    def right(self):
-        index = self._ordered_input_names.index('right')
-        return self._inputs[index]

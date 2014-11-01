@@ -9,7 +9,8 @@ class BRF(Filter):
 
         >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
-        >>> ugentools.BRF.ar(source=source)
+        >>> b_r_f =ugentools.BRF.ar(source=source)
+        >>> b_r_f
         BRF.ar()
 
     '''
@@ -58,11 +59,12 @@ class BRF(Filter):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
-            >>> ugentools.BRF.ar(
+            >>> b_r_f = ugentools.BRF.ar(
             ...     frequency=440,
             ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
+            >>> b_r_f
             BRF.ar()
 
         Returns unit generator graph.
@@ -90,11 +92,12 @@ class BRF(Filter):
 
             >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
-            >>> ugentools.BRF.kr(
+            >>> b_r_f = ugentools.BRF.kr(
             ...     frequency=440,
             ...     reciprocal_of_q=1.0,
             ...     source=source,
             ...     )
+            >>> b_r_f
             BRF.kr()
 
         Returns unit generator graph.

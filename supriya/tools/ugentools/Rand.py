@@ -68,15 +68,3 @@ class Rand(UGen):
             maximum=maximum,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def maximum(self):
-        index = self._ordered_input_names.index('maximum')
-        return self._inputs[index]
-
-    @property
-    def minimum(self):
-        index = self._ordered_input_names.index('minimum')
-        return self._inputs[index]

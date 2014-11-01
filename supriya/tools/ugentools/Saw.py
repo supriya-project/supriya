@@ -87,10 +87,3 @@ class Saw(PureUGen):
             frequency=frequency,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def frequency(self):
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
