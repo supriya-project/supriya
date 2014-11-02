@@ -131,11 +131,14 @@ class Lag(Filter):
 
         ::
 
-            >>> lag_time = None
-            >>> lag = ugentools.Lag.ar(
+            >>> lag_time = 0.1
+            >>> source = ugentools.In.kr(bus=0)
+            >>> lag = ugentools.Lag.kr(
             ...     lag_time=lag_time,
+            ...     source=source,
             ...     )
             >>> lag.lag_time
+            0.1
 
         Returns input.
         '''
@@ -148,11 +151,19 @@ class Lag(Filter):
 
         ::
 
-            >>> source = None
-            >>> lag = ugentools.Lag.ar(
+            >>> source = ugentools.In.kr(bus=0)
+            >>> lag = ugentools.Lag.kr(
             ...     source=source,
             ...     )
             >>> lag.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.CONTROL: 1>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

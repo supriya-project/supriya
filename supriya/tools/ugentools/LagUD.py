@@ -8,7 +8,7 @@ class LagUD(Filter):
 
     ::
 
-        >>> source = ugentools.SinOsc.kr(frequency=1.0)
+        >>> source = ugentools.In.kr(bus=0)
         >>> ugentools.LagUD.kr(
         ...     lag_time_down=1.25,
         ...     lag_time_up=0.5,
@@ -143,11 +143,14 @@ class LagUD(Filter):
 
         ::
 
-            >>> lag_time_down = None
+            >>> lag_time_down = 1.25
+            >>> source = ugentools.In.kr(bus=0)
             >>> lag_ud = ugentools.LagUD.ar(
             ...     lag_time_down=lag_time_down,
+            ...     source=source,
             ...     )
             >>> lag_ud.lag_time_down
+            1.25
 
         Returns input.
         '''
@@ -160,11 +163,14 @@ class LagUD(Filter):
 
         ::
 
-            >>> lag_time_up = None
+            >>> lag_time_up = 0.5
+            >>> source = ugentools.In.kr(bus=0)
             >>> lag_ud = ugentools.LagUD.ar(
             ...     lag_time_up=lag_time_up,
+            ...     source=source,
             ...     )
             >>> lag_ud.lag_time_up
+            0.5
 
         Returns input.
         '''
@@ -177,11 +183,19 @@ class LagUD(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.kr(bus=0)
             >>> lag_ud = ugentools.LagUD.ar(
             ...     source=source,
             ...     )
             >>> lag_ud.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.CONTROL: 1>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

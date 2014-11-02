@@ -93,11 +93,12 @@ class Linen(UGen):
 
         ::
 
-            >>> attack_time = None
-            >>> linen = ugentools.Linen.ar(
+            >>> attack_time = 0.01
+            >>> linen = ugentools.Linen.kr(
             ...     attack_time=attack_time,
             ...     )
             >>> linen.attack_time
+            0.01
 
         Returns input.
         '''
@@ -110,11 +111,12 @@ class Linen(UGen):
 
         ::
 
-            >>> done_action = None
-            >>> linen = ugentools.Linen.ar(
+            >>> done_action = 0
+            >>> linen = ugentools.Linen.kr(
             ...     done_action=done_action,
             ...     )
             >>> linen.done_action
+            0.0
 
         Returns input.
         '''
@@ -127,11 +129,12 @@ class Linen(UGen):
 
         ::
 
-            >>> gate = None
-            >>> linen = ugentools.Linen.ar(
+            >>> gate = 1
+            >>> linen = ugentools.Linen.kr(
             ...     gate=gate,
             ...     )
             >>> linen.gate
+            1.0
 
         Returns input.
         '''
@@ -144,11 +147,12 @@ class Linen(UGen):
 
         ::
 
-            >>> release_time = None
-            >>> linen = ugentools.Linen.ar(
+            >>> release_time = 1
+            >>> linen = ugentools.Linen.kr(
             ...     release_time=release_time,
             ...     )
             >>> linen.release_time
+            1.0
 
         Returns input.
         '''
@@ -161,11 +165,12 @@ class Linen(UGen):
 
         ::
 
-            >>> sustain_level = None
-            >>> linen = ugentools.Linen.ar(
+            >>> sustain_level = 1
+            >>> linen = ugentools.Linen.kr(
             ...     sustain_level=sustain_level,
             ...     )
             >>> linen.sustain_level
+            1.0
 
         Returns input.
         '''
