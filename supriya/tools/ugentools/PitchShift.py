@@ -96,11 +96,14 @@ class PitchShift(UGen):
 
         ::
 
-            >>> pitch_dispersion = None
+            >>> pitch_dispersion = 0.01
+            >>> source = ugentools.SoundIn.ar()
             >>> pitch_shift = ugentools.PitchShift.ar(
             ...     pitch_dispersion=pitch_dispersion,
+            ...     source=source,
             ...     )
             >>> pitch_shift.pitch_dispersion
+            0.01
 
         Returns input.
         '''
@@ -113,11 +116,14 @@ class PitchShift(UGen):
 
         ::
 
-            >>> pitch_ratio = None
+            >>> pitch_ratio = 0.8
+            >>> source = ugentools.SoundIn.ar()
             >>> pitch_shift = ugentools.PitchShift.ar(
             ...     pitch_ratio=pitch_ratio,
+            ...     source=source,
             ...     )
             >>> pitch_shift.pitch_ratio
+            0.8
 
         Returns input.
         '''
@@ -130,11 +136,24 @@ class PitchShift(UGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.SoundIn.ar()
             >>> pitch_shift = ugentools.PitchShift.ar(
             ...     source=source,
             ...     )
             >>> pitch_shift.source
+            OutputProxy(
+                source=In(
+                    bus=OutputProxy(
+                        source=NumOutputBuses(
+                            rate=<Rate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
@@ -147,11 +166,14 @@ class PitchShift(UGen):
 
         ::
 
-            >>> time_dispersion = None
+            >>> source = ugentools.SoundIn.ar()
+            >>> time_dispersion = 0.1
             >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     source=source,
             ...     time_dispersion=time_dispersion,
             ...     )
             >>> pitch_shift.time_dispersion
+            0.1
 
         Returns input.
         '''
@@ -164,11 +186,14 @@ class PitchShift(UGen):
 
         ::
 
-            >>> window_size = None
+            >>> source = ugentools.SoundIn.ar()
+            >>> window_size = 0.2
             >>> pitch_shift = ugentools.PitchShift.ar(
+            ...     source=source,
             ...     window_size=window_size,
             ...     )
             >>> pitch_shift.window_size
+            0.2
 
         Returns input.
         '''
