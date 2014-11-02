@@ -22,8 +22,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen = ugentools.WhiteNoise.ar()
-                >>> result = abs(ugen)
+                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> result = abs(ugen_graph)
                 >>> result
                 UnaryOpUGen.ar()
 
@@ -40,10 +40,10 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_array = ugentools.SinOsc.ar(
+                >>> ugen_graph = ugentools.SinOsc.ar(
                 ...     frequency=(440, 442, 443),
                 ...     )
-                >>> result = abs(ugen_array)
+                >>> result = abs(ugen_graph)
                 >>> result
                 UGenArray({3})
 
@@ -366,8 +366,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen = ugentools.WhiteNoise.ar()
-                >>> result = -ugen
+                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> result = -ugen_graph
                 >>> result
                 UnaryOpUGen.ar()
 
@@ -384,10 +384,10 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_array = ugentools.SinOsc.ar(
+                >>> ugen_graph = ugentools.SinOsc.ar(
                 ...     frequency=(440, 442, 443),
                 ...     )
-                >>> result = -ugen_array
+                >>> result = -ugen_graph
                 >>> result
                 UGenArray({3})
 
