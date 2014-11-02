@@ -90,11 +90,14 @@ class CombC(CombN):
 
         ::
 
-            >>> decay_time = None
+            >>> decay_time = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> comb_c = ugentools.CombC.ar(
             ...     decay_time=decay_time,
+            ...     source=source,
             ...     )
             >>> comb_c.decay_time
+            1.0
 
         Returns input.
         '''
@@ -107,11 +110,14 @@ class CombC(CombN):
 
         ::
 
-            >>> delay_time = None
+            >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> comb_c = ugentools.CombC.ar(
             ...     delay_time=delay_time,
+            ...     source=source,
             ...     )
             >>> comb_c.delay_time
+            1.5
 
         Returns input.
         '''
@@ -124,11 +130,14 @@ class CombC(CombN):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> comb_c = ugentools.CombC.ar(
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source,
             ...     )
             >>> comb_c.maximum_delay_time
+            2.0
 
         Returns input.
         '''
@@ -141,11 +150,19 @@ class CombC(CombN):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> comb_c = ugentools.CombC.ar(
             ...     source=source,
             ...     )
             >>> comb_c.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
