@@ -50,7 +50,7 @@ class PauseSelfWhenDone(UGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.Line.kr()
             >>> pause_self_when_done = ugentools.PauseSelfWhenDone.ar(
             ...     source=source,
             ...     )

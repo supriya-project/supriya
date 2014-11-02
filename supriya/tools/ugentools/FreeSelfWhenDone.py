@@ -50,8 +50,8 @@ class FreeSelfWhenDone(UGen):
 
         ::
 
-            >>> source = None
-            >>> free_self_when_done = ugentools.FreeSelfWhenDone.ar(
+            >>> source = ugentools.Line.kr()
+            >>> free_self_when_done = ugentools.FreeSelfWhenDone.kr(
             ...     source=source,
             ...     )
             >>> free_self_when_done.source

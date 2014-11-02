@@ -55,11 +55,15 @@ class Free(UGen):
 
         ::
 
-            >>> node_id = None
-            >>> free = ugentools.Free.ar(
-            ...     node_id=node_id,
+            >>> builder = synthdeftools.SynthDefBuilder(
+            ...     t_trigger=1.0,
+            ...     )
+            >>> free = ugentools.Free.kr(
+            ...     node_id=1000,
+            ...     trigger=builder['t_trigger'],
             ...     )
             >>> free.node_id
+            1000.0
 
         Returns input.
         '''
@@ -72,11 +76,19 @@ class Free(UGen):
 
         ::
 
-            >>> trigger = None
-            >>> free = ugentools.Free.ar(
-            ...     trigger=trigger,
+            >>> builder = synthdeftools.SynthDefBuilder(
+            ...     t_trigger=1.0,
+            ...     )
+            >>> free = ugentools.Free.kr(
+            ...     node_id=1000,
+            ...     trigger=builder['t_trigger'],
             ...     )
             >>> free.trigger
+            Parameter(
+                name='t_trigger',
+                parameter_rate=<ParameterRate.TRIGGER: 1>,
+                value=1.0
+                )
 
         Returns input.
         '''

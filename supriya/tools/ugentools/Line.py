@@ -144,11 +144,12 @@ class Line(UGen):
 
         ::
 
-            >>> done_action = None
+            >>> done_action = 0
             >>> line = ugentools.Line.ar(
             ...     done_action=done_action,
             ...     )
             >>> line.done_action
+            0.0
 
         Returns input.
         '''
@@ -161,11 +162,12 @@ class Line(UGen):
 
         ::
 
-            >>> duration = None
+            >>> duration = 5.5
             >>> line = ugentools.Line.ar(
             ...     duration=duration,
             ...     )
             >>> line.duration
+            5.5
 
         Returns input.
         '''
@@ -178,11 +180,12 @@ class Line(UGen):
 
         ::
 
-            >>> start = None
+            >>> start = 0.1
             >>> line = ugentools.Line.ar(
             ...     start=start,
             ...     )
             >>> line.start
+            0.1
 
         Returns input.
         '''
@@ -195,11 +198,12 @@ class Line(UGen):
 
         ::
 
-            >>> stop = None
+            >>> stop = 12.1
             >>> line = ugentools.Line.ar(
             ...     stop=stop,
             ...     )
             >>> line.stop
+            12.1
 
         Returns input.
         '''

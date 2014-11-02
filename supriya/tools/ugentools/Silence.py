@@ -9,26 +9,7 @@ class Silence(PseudoUGen):
 
         >>> from supriya.tools import ugentools
         >>> ugentools.Silence.ar(channel_count=2)
-        UGenArray(
-            (
-                OutputProxy(
-                    source=DC(
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=1,
-                        source=0.0
-                        ),
-                    output_index=0
-                    ),
-                OutputProxy(
-                    source=DC(
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=1,
-                        source=0.0
-                        ),
-                    output_index=0
-                    ),
-                )
-            )
+        UGenArray({2})
 
     '''
 

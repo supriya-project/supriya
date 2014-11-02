@@ -50,8 +50,8 @@ class FreeSelf(UGen):
 
         ::
 
-            >>> source = None
-            >>> free_self = ugentools.FreeSelf.ar(
+            >>> source = ugentools.Impulse.ar(frequency=1.0)
+            >>> free_self = ugentools.FreeSelf.kr(
             ...     source=source,
             ...     )
             >>> free_self.source
