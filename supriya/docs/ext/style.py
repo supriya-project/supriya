@@ -101,7 +101,7 @@ def doctree_read(app, doctree):
                     ))
             if hasattr(attr, 'im_self') and attr.im_self is not None:
                 signature_node.pop(0)
-                label_node.append(nodes.literal(
+                label_node.append(nodes.emphasis(
                     'classmethod ',
                     'classmethod ',
                     classes=['property'],
