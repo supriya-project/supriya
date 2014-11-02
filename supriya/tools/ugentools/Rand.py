@@ -75,11 +75,14 @@ class Rand(UGen):
 
         ::
 
-            >>> maximum = None
-            >>> rand = ugentools.Rand.ar(
+            >>> maximum = 500
+            >>> minimum = 23
+            >>> rand = ugentools.Rand.ir(
             ...     maximum=maximum,
+            ...     minimum=minimum,
             ...     )
             >>> rand.maximum
+            500.0
 
         Returns input.
         '''
@@ -92,11 +95,14 @@ class Rand(UGen):
 
         ::
 
-            >>> minimum = None
-            >>> rand = ugentools.Rand.ar(
+            >>> maximum = 500
+            >>> minimum = 23
+            >>> rand = ugentools.Rand.ir(
+            ...     maximum=maximum,
             ...     minimum=minimum,
             ...     )
             >>> rand.minimum
+            23.0
 
         Returns input.
         '''

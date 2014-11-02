@@ -154,7 +154,7 @@ class RHPF(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> rhpf = ugentools.RHPF.ar(
             ...     source=source,
             ...     )
