@@ -7,7 +7,6 @@ class BufSamples(BufInfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BufSamples.kr(buffer_id=0)
         BufSamples.kr()
 

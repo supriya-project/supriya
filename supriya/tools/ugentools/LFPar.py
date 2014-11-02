@@ -7,7 +7,6 @@ class LFPar(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.LFPar.ar()
         LFPar.ar()
 
@@ -51,7 +50,6 @@ class LFPar(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFPar.ar(
             ...     frequency=443,
             ...     initial_phase=0.25,
@@ -79,7 +77,6 @@ class LFPar(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFPar.kr(
             ...     frequency=443,
             ...     initial_phase=0.25,

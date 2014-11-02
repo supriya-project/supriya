@@ -7,7 +7,6 @@ class LFSaw(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.LFSaw.ar()
         LFSaw.ar()
 
@@ -51,7 +50,6 @@ class LFSaw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFSaw.ar(
             ...     frequency=443,
             ...     initial_phase=0.25,
@@ -79,7 +77,6 @@ class LFSaw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFSaw.kr(
             ...     frequency=443,
             ...     initial_phase=0.25,

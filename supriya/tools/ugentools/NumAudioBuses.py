@@ -7,7 +7,6 @@ class NumAudioBuses(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.NumAudioBuses.ir()
         NumAudioBuses.ir()
 

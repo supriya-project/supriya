@@ -7,7 +7,6 @@ class Impulse(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.Impulse.ar()
         Impulse.ar()
 
@@ -52,7 +51,6 @@ class Impulse(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Impulse.ar(
             ...     frequency=443,
             ...     phase=0.25,
@@ -81,7 +79,6 @@ class Impulse(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Impulse.kr(
             ...     frequency=443,
             ...     phase=0.25,

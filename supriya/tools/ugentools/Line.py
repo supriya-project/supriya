@@ -7,7 +7,6 @@ class Line(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.Line.ar()
         Line.ar()
 
@@ -80,8 +79,6 @@ class Line(UGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
             >>> ugentools.Line.ar(
             ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
             ...     duration=5.5,
@@ -114,8 +111,6 @@ class Line(UGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
             >>> ugentools.Line.kr(
             ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
             ...     duration=5.5,

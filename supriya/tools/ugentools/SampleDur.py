@@ -7,7 +7,6 @@ class SampleDur(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.SampleDur.ir()
         SampleDur.ir()
 

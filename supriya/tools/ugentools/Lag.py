@@ -8,7 +8,6 @@ class Lag(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.kr(bus=0)
         >>> ugentools.Lag.kr(
         ...     lag_time=0.5,
@@ -80,7 +79,6 @@ class Lag(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.Lag.ar(
             ...     lag_time=0.5,
@@ -108,7 +106,6 @@ class Lag(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.Lag.kr(
             ...     lag_time=0.5,

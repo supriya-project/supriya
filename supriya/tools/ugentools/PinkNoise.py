@@ -7,7 +7,6 @@ class PinkNoise(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.PinkNoise.ar()
         PinkNoise.ar()
 
@@ -40,7 +39,6 @@ class PinkNoise(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.PinkNoise.ar()
             PinkNoise.ar()
 
@@ -61,7 +59,6 @@ class PinkNoise(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.PinkNoise.kr()
             PinkNoise.kr()
 

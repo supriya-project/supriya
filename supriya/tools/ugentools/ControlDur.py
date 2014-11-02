@@ -7,7 +7,6 @@ class ControlDur(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.ControlDur.ir()
         ControlDur.ir()
 

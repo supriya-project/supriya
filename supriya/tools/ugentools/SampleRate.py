@@ -7,7 +7,6 @@ class SampleRate(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.SampleRate.ir()
         SampleRate.ir()
 

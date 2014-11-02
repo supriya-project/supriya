@@ -7,7 +7,6 @@ class RHPF(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.RLPF.ar(source=source)
         RLPF.ar()
@@ -56,7 +55,6 @@ class RHPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.RLPF.ar(
             ...     frequency=440,
@@ -88,7 +86,6 @@ class RHPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.RLPF.kr(
             ...     frequency=440,

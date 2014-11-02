@@ -7,7 +7,6 @@ class SubsampleOffset(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.SubsampleOffset.ir()
         SubsampleOffset.ir()
 

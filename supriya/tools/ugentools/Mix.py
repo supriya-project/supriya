@@ -8,8 +8,6 @@ class Mix(PseudoUGen):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> from supriya.tools import ugentools
 
     ::
 

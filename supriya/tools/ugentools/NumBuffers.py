@@ -7,7 +7,6 @@ class NumBuffers(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.NumBuffers.ir()
         NumBuffers.ir()
 

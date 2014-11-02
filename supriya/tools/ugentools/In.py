@@ -7,7 +7,6 @@ class In(MultiOutUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.In.ar(bus=0, channel_count=4)
         UGenArray(
             (

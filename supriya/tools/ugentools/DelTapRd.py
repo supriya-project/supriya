@@ -7,7 +7,6 @@ class DelTapRd(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> buffer_id = 0
         >>> source = ugentools.SoundIn.ar(0)
         >>> tapin = ugentools.DelTapWr.ar(

@@ -38,7 +38,6 @@ class Dust2(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Dust2.ar(
             ...     density=0.25,
             ...     )
@@ -63,7 +62,6 @@ class Dust2(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Dust2.kr(
             ...     density=0.25,
             ...     )

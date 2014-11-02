@@ -7,7 +7,6 @@ class RadiansPerSample(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.RadiansPerSample.ir()
         RadiansPerSample.ir()
 

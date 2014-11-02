@@ -7,7 +7,6 @@ class LPF(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.LPF.ar(source=source)
         LPF.ar()
@@ -52,7 +51,6 @@ class LPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.LPF.ar(
             ...     frequency=440,
@@ -81,7 +79,6 @@ class LPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.LPF.kr(
             ...     frequency=440,

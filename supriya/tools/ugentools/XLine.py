@@ -7,7 +7,6 @@ class XLine(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.XLine.ar()
         XLine.ar()
 
@@ -80,8 +79,6 @@ class XLine(UGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
             >>> ugentools.XLine.ar(
             ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
             ...     duration=5.5,
@@ -114,8 +111,6 @@ class XLine(UGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
             >>> ugentools.XLine.kr(
             ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
             ...     duration=5.5,

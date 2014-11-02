@@ -7,7 +7,6 @@ class BufCombL(BufCombN):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> buffer_id = 0
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.BufCombL.ar(
@@ -40,7 +39,6 @@ class BufCombL(BufCombN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> buffer_id = 0
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.BufCombL.ar(
@@ -76,7 +74,6 @@ class BufCombL(BufCombN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> buffer_id = 0
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.BufCombL.kr(

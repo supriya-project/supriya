@@ -7,7 +7,6 @@ class AllpassC(AllpassN):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> allpass_c = ugentools.AllpassC.ar(source=source)
         >>> allpass_c
@@ -35,7 +34,6 @@ class AllpassC(AllpassN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> allpass_c = ugentools.AllpassC.ar(
             ...     decay_time=1.0,
@@ -66,7 +64,6 @@ class AllpassC(AllpassN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> allpass_c = ugentools.AllpassC.kr(
             ...     decay_time=1.0,

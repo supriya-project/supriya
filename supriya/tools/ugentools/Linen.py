@@ -7,7 +7,6 @@ class Linen(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.Linen.kr()
         Linen.kr()
 
@@ -64,8 +63,6 @@ class Linen(UGen):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
             >>> ugentools.Linen.kr(
             ...     attack_time=5.5,
             ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,

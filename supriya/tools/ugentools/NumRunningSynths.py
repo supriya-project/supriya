@@ -7,7 +7,6 @@ class NumRunningSynths(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.NumRunningSynths.ir()
         NumRunningSynths.ir()
 

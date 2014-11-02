@@ -7,7 +7,6 @@ class NumControlBuses(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.NumControlBuses.ir()
         NumControlBuses.ir()
 

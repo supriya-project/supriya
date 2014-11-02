@@ -8,7 +8,6 @@ class Out(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.ar()
         >>> ugentools.Out.ar(
         ...     bus=0,

@@ -7,7 +7,6 @@ class VarSaw(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.VarSaw.ar()
         VarSaw.ar()
 
@@ -56,7 +55,6 @@ class VarSaw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.VarSaw.ar(
             ...     frequency=443,
             ...     initial_phase=0.5,
@@ -88,7 +86,6 @@ class VarSaw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.VarSaw.kr(
             ...     frequency=443,
             ...     initial_phase=0.5,

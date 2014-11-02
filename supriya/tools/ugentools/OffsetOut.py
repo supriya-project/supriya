@@ -8,7 +8,6 @@ class OffsetOut(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.ar()
         >>> ugentools.OffsetOut.ar(
         ...     bus=0,

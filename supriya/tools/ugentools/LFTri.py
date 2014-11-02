@@ -7,7 +7,6 @@ class LFTri(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.LFTri.ar()
         LFTri.ar()
 
@@ -51,7 +50,6 @@ class LFTri(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFTri.ar(
             ...     frequency=443,
             ...     initial_phase=0.25,
@@ -79,7 +77,6 @@ class LFTri(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFTri.kr(
             ...     frequency=443,
             ...     initial_phase=0.25,

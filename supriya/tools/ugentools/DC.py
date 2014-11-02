@@ -7,7 +7,6 @@ class DC(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.DC.ar(
         ...     source=0,
         ...     )

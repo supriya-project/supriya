@@ -7,7 +7,6 @@ class BRF(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> b_r_f =ugentools.BRF.ar(source=source)
         >>> b_r_f
@@ -57,7 +56,6 @@ class BRF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> b_r_f = ugentools.BRF.ar(
             ...     frequency=440,
@@ -90,7 +88,6 @@ class BRF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> b_r_f = ugentools.BRF.kr(
             ...     frequency=440,

@@ -7,7 +7,6 @@ class BlockSize(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BlockSize.ir()
         BlockSize.ir()
 

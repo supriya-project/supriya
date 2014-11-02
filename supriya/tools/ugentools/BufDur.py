@@ -7,7 +7,6 @@ class BufDur(BufInfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BufDur.kr(buffer_id=0)
         BufDur.kr()
 

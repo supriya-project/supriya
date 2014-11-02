@@ -7,7 +7,6 @@ class A2K(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.ar()
         >>> a_2_k = ugentools.A2K.kr(
         ...     source=source,

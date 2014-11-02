@@ -7,7 +7,6 @@ class BufFrames(BufInfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BufFrames.kr(buffer_id=0)
         BufFrames.kr()
 

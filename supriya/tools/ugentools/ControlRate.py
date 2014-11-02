@@ -7,7 +7,6 @@ class ControlRate(InfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.ControlRate.ir()
         ControlRate.ir()
 

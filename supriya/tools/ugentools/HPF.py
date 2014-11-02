@@ -7,7 +7,6 @@ class HPF(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.HPF.ar(source=source)
         HPF.ar()
@@ -52,7 +51,6 @@ class HPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.HPF.ar(
             ...     frequency=440,
@@ -81,7 +79,6 @@ class HPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.HPF.kr(
             ...     frequency=440,

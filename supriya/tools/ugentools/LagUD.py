@@ -8,7 +8,6 @@ class LagUD(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.kr(frequency=1.0)
         >>> ugentools.LagUD.kr(
         ...     lag_time_down=1.25,
@@ -87,7 +86,6 @@ class LagUD(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.LagUD.ar(
             ...     lag_time_down=1.25,
@@ -118,7 +116,6 @@ class LagUD(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.LagUD.kr(
             ...     lag_time_down=1.25,

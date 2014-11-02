@@ -7,7 +7,6 @@ class FreeVerb(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.FreeVerb.ar(
         ...     source=source,
@@ -62,7 +61,6 @@ class FreeVerb(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.FreeVerb.ar(
             ...     damping=0.5,

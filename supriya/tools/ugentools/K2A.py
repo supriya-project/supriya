@@ -7,7 +7,6 @@ class K2A(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SinOsc.kr()
         >>> ugentools.K2A.ar(
         ...     source=source,

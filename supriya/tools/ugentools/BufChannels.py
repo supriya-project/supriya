@@ -7,7 +7,6 @@ class BufChannels(BufInfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BufChannels.kr(buffer_id=0)
         BufChannels.kr()
 

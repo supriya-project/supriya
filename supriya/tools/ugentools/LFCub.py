@@ -7,7 +7,6 @@ class LFCub(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.LFCub.ar()
         LFCub.ar()
 
@@ -51,7 +50,6 @@ class LFCub(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFCub.ar(
             ...     frequency=443,
             ...     initial_phase=0.25,
@@ -79,7 +77,6 @@ class LFCub(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.LFCub.kr(
             ...     frequency=443,
             ...     initial_phase=0.25,

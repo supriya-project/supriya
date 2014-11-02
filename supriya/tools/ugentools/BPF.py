@@ -7,7 +7,6 @@ class BPF(Filter):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> b_p_f = ugentools.BPF.ar(source=source)
         >>> b_p_f
@@ -57,7 +56,6 @@ class BPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> b_p_f = ugentools.BPF.ar(
             ...     frequency=440,
@@ -90,7 +88,6 @@ class BPF(Filter):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> b_p_f = ugentools.BPF.kr(
             ...     frequency=440,

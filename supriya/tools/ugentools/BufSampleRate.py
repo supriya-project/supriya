@@ -7,7 +7,6 @@ class BufSampleRate(BufInfoUGenBase):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.BufSampleRate.kr(buffer_id=0)
         BufSampleRate.kr()
 

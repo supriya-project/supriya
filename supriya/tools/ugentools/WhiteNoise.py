@@ -7,7 +7,6 @@ class WhiteNoise(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.WhiteNoise.ar()
         WhiteNoise.ar()
 
@@ -40,7 +39,6 @@ class WhiteNoise(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.WhiteNoise.ar()
             WhiteNoise.ar()
 
@@ -61,7 +59,6 @@ class WhiteNoise(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.WhiteNoise.kr()
             WhiteNoise.kr()
 

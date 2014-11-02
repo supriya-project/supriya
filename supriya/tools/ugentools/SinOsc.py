@@ -7,7 +7,6 @@ class SinOsc(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.SinOsc.ar()
         SinOsc.ar()
 
@@ -51,7 +50,6 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.SinOsc.ar(
             ...     frequency=443,
             ...     phase=0.25,
@@ -79,7 +77,6 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.SinOsc.kr(
             ...     frequency=443,
             ...     phase=0.25,
@@ -105,11 +102,12 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> sin_osc = ugentools.SinOsc.ar(
             ...     frequency=frequency,
             ...     )
             >>> sin_osc.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +120,12 @@ class SinOsc(PureUGen):
 
         ::
 
-            >>> phase = None
+            >>> phase = 0.5
             >>> sin_osc = ugentools.SinOsc.ar(
             ...     phase=phase,
             ...     )
             >>> sin_osc.phase
+            0.5
 
         Returns input.
         '''

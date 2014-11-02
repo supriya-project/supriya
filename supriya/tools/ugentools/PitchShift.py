@@ -7,7 +7,6 @@ class PitchShift(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.SoundIn.ar()
         >>> ugentools.PitchShift.ar(
         ...     source=source,
@@ -66,7 +65,6 @@ class PitchShift(UGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.SoundIn.ar(bus=0)
             >>> ugentools.PitchShift.ar(
             ...     pitch_dispersion=0.0,

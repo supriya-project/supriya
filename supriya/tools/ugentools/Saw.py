@@ -7,7 +7,6 @@ class Saw(PureUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.Saw.ar()
         Saw.ar()
 
@@ -47,7 +46,6 @@ class Saw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Saw.ar(
             ...     frequency=443,
             ...     )
@@ -72,7 +70,6 @@ class Saw(PureUGen):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> ugentools.Saw.kr(
             ...     frequency=443,
             ...     )
@@ -96,11 +93,12 @@ class Saw(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 443
             >>> saw = ugentools.Saw.ar(
             ...     frequency=frequency,
             ...     )
             >>> saw.frequency
+            443.0
 
         Returns input.
         '''

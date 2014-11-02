@@ -7,7 +7,6 @@ class CombL(CombN):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.CombL.ar(source=source)
         CombL.ar()
@@ -34,7 +33,6 @@ class CombL(CombN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.CombL.ar(
             ...     decay_time=1.0,
@@ -64,7 +62,6 @@ class CombL(CombN):
 
         ::
 
-            >>> from supriya.tools import ugentools
             >>> source = ugentools.In.kr(bus=0)
             >>> ugentools.CombL.kr(
             ...     decay_time=1.0,

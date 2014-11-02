@@ -7,7 +7,6 @@ class Silence(PseudoUGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> ugentools.Silence.ar(channel_count=2)
         UGenArray({2})
 
