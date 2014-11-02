@@ -86,11 +86,14 @@ class DelayL(DelayN):
 
         ::
 
-            >>> delay_time = None
+            >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> delay_l = ugentools.DelayL.ar(
             ...     delay_time=delay_time,
+            ...     source=source,
             ...     )
             >>> delay_l.delay_time
+            1.5
 
         Returns input.
         '''
@@ -103,11 +106,14 @@ class DelayL(DelayN):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> delay_l = ugentools.DelayL.ar(
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source,
             ...     )
             >>> delay_l.maximum_delay_time
+            2.0
 
         Returns input.
         '''
@@ -120,11 +126,19 @@ class DelayL(DelayN):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> delay_l = ugentools.DelayL.ar(
             ...     source=source,
             ...     )
             >>> delay_l.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

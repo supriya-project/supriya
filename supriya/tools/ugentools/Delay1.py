@@ -99,11 +99,19 @@ class Delay1(PureUGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> delay_1 = ugentools.Delay1.ar(
             ...     source=source,
             ...     )
             >>> delay_1.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
