@@ -105,11 +105,14 @@ class HPF(Filter):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
+            >>> source = ugentools.In.ar(bus=0)
             >>> hpf = ugentools.HPF.ar(
             ...     frequency=frequency,
+            ...     source=source,
             ...     )
             >>> hpf.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +125,19 @@ class HPF(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> hpf = ugentools.HPF.ar(
             ...     source=source,
             ...     )
             >>> hpf.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

@@ -66,6 +66,12 @@ class K2A(PureUGen):
             ...     source=source,
             ...     )
             >>> k_2_a.source
+            OutputProxy(
+                source=WhiteNoise(
+                    rate=<Rate.CONTROL: 1>
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

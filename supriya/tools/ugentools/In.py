@@ -8,42 +8,7 @@ class In(MultiOutUGen):
     ::
 
         >>> ugentools.In.ar(bus=0, channel_count=4)
-        UGenArray(
-            (
-                OutputProxy(
-                    source=In(
-                        bus=0.0,
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=4
-                        ),
-                    output_index=0
-                    ),
-                OutputProxy(
-                    source=In(
-                        bus=0.0,
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=4
-                        ),
-                    output_index=1
-                    ),
-                OutputProxy(
-                    source=In(
-                        bus=0.0,
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=4
-                        ),
-                    output_index=2
-                    ),
-                OutputProxy(
-                    source=In(
-                        bus=0.0,
-                        rate=<Rate.AUDIO: 2>,
-                        channel_count=4
-                        ),
-                    output_index=3
-                    ),
-                )
-            )
+        UGenArray({4})
 
     '''
 

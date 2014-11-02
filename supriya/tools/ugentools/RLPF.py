@@ -114,11 +114,14 @@ class RLPF(Filter):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
+            >>> source = ugentools.In.ar(bus=0)
             >>> rlpf = ugentools.RLPF.ar(
             ...     frequency=frequency,
+            ...     source=source,
             ...     )
             >>> rlpf.frequency
+            442.0
 
         Returns input.
         '''
@@ -131,11 +134,14 @@ class RLPF(Filter):
 
         ::
 
-            >>> reciprocal_of_q = None
+            >>> reciprocal_of_q = 2
+            >>> source = ugentools.In.ar(bus=0)
             >>> rlpf = ugentools.RLPF.ar(
             ...     reciprocal_of_q=reciprocal_of_q,
+            ...     source=source,
             ...     )
             >>> rlpf.reciprocal_of_q
+            2.0
 
         Returns input.
         '''
@@ -148,11 +154,19 @@ class RLPF(Filter):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> rlpf = ugentools.RLPF.ar(
             ...     source=source,
             ...     )
             >>> rlpf.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

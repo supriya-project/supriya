@@ -114,11 +114,14 @@ class RHPF(Filter):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
+            >>> source = ugentools.In.ar(bus=0)
             >>> rhpf = ugentools.RHPF.ar(
             ...     frequency=frequency,
+            ...     source=source,
             ...     )
             >>> rhpf.frequency
+            442.0
 
         Returns input.
         '''
@@ -131,11 +134,14 @@ class RHPF(Filter):
 
         ::
 
-            >>> reciprocal_of_q = None
+            >>> reciprocal_of_q = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> rhpf = ugentools.RHPF.ar(
             ...     reciprocal_of_q=reciprocal_of_q,
+            ...     source=source,
             ...     )
             >>> rhpf.reciprocal_of_q
+            2.0
 
         Returns input.
         '''
@@ -153,6 +159,14 @@ class RHPF(Filter):
             ...     source=source,
             ...     )
             >>> rhpf.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

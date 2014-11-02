@@ -104,11 +104,12 @@ class Impulse(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 0.5
             >>> impulse = ugentools.Impulse.ar(
             ...     frequency=frequency,
             ...     )
             >>> impulse.frequency
+            0.5
 
         Returns input.
         '''
@@ -121,11 +122,12 @@ class Impulse(PureUGen):
 
         ::
 
-            >>> phase = None
+            >>> phase = 0.25
             >>> impulse = ugentools.Impulse.ar(
             ...     phase=phase,
             ...     )
             >>> impulse.phase
+            0.25
 
         Returns input.
         '''
