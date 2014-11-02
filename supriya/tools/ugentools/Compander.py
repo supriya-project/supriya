@@ -3,6 +3,9 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Compander(UGen):
+    r'''A general purpose hard-knee dynamics processor.
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -58,6 +61,19 @@ class Compander(UGen):
         source=0.,
         thresh=0.5,
         ):
+        r'''Constructs an audio-rate dynamics processor.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> compander = ugentools.Compander.ar(
+            ...    source=source,
+            ...    )
+            >>> compander
+            Compander.ar()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
