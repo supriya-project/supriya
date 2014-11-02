@@ -3,6 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Filter(PureUGen):
+    r'''Abstract base class for filter ugens.
+    '''
 
     ### CLASS VARIABLES ###
 

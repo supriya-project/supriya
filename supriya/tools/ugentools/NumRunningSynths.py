@@ -33,6 +33,15 @@ class NumRunningSynths(InfoUGenBase):
 
     @classmethod
     def kr(cls, **kwargs):
+        r'''Construct a control-rate ugen.
+
+        ::
+
+            >>> num_running_synths = ugentools.NumRunningSynths.kr()
+            NumRunningSynths.kr() 
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
