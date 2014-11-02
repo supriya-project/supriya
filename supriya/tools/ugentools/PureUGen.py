@@ -3,6 +3,11 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class PureUGen(UGen):
+    r'''Abstract base class for ugens with no side-effects.
+
+    These ugens may be optimized out of ugen graphs during SynthDef
+    compilation.
+    '''
 
     ### CLASS VARIABLES ###
 
