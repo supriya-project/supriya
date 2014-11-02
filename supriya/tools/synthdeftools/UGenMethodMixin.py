@@ -495,6 +495,161 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.UnaryOperator.NEGATIVE,
             )
 
+    def __pow__(self, expr):
+        r'''Raises ugen graph to the power of `expr`.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar()
+                >>> result = ugen_graph ** expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:POW[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:POW[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = ugen_graph ** expr
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:POW[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:POW[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:POW[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:POW[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:POW[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:POW[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 3:**
+
+            ::
+
+                >>> ugen_graph = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> expr = 4
+                >>> result = ugen_graph ** expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:POW[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:POW[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.POW,
+            )
+
+    def __rpow__(self, expr):
+        r'''Raises `expr` to the power of ugen graph.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> expr = 1.5
+                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> result = expr ** ugen_graph
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 0_SinOsc[0:frequency]
+                    const_1:0.0 -> 0_SinOsc[1:phase]
+                    const_2:1.5 -> 1_BinaryOpUGen:POW[0:left]
+                    0_SinOsc[0] -> 1_BinaryOpUGen:POW[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> expr = [220, 330]
+                >>> ugen_graph = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = expr ** ugen_graph
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 0_SinOsc[0:frequency]
+                    const_1:0.0 -> 0_SinOsc[1:phase]
+                    const_2:220.0 -> 1_BinaryOpUGen:POW[0:left]
+                    0_SinOsc[0] -> 1_BinaryOpUGen:POW[1:right]
+                    const_3:442.0 -> 2_SinOsc[0:frequency]
+                    const_1:0.0 -> 2_SinOsc[1:phase]
+                    const_4:330.0 -> 3_BinaryOpUGen:POW[0:left]
+                    2_SinOsc[0] -> 3_BinaryOpUGen:POW[1:right]
+                    const_5:443.0 -> 4_SinOsc[0:frequency]
+                    const_1:0.0 -> 4_SinOsc[1:phase]
+                    const_2:220.0 -> 5_BinaryOpUGen:POW[0:left]
+                    4_SinOsc[0] -> 5_BinaryOpUGen:POW[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            expr,
+            self,
+            synthdeftools.BinaryOperator.POW,
+            )
+
     def __radd__(self, expr):
         r'''Adds ugen graph to `expr`.
 
