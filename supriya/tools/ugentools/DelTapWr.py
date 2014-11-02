@@ -70,6 +70,21 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
+        r'''Constructs an audio-rate delay tap write.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.In.ar(0)
+            >>> del_tap_wr = ugentools.DelTapWr.ar(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> del_tap_wr
+            DelTapWr.ar()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         source = cls._as_audio_rate_input(source)
@@ -86,6 +101,21 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
+        r'''Constructs an audio-rate delay tap write.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.In.kr(0)
+            >>> del_tap_wr = ugentools.DelTapWr.kr(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> del_tap_wr
+            DelTapWr.kr()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         source = cls._as_audio_rate_input(source)

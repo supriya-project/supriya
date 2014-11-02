@@ -79,6 +79,27 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
+        r'''Constructs an audio-rate delay tap reader.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.SoundIn.ar(0)
+            >>> phase = ugentools.DelTapWr.ar(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     buffer_id=buffer_id,
+            ...     phase=tapin,
+            ...     delay_time=0.1,
+            ...     interpolation=True,
+            ...     )
+            >>> del_tap_rd
+            DelTapRd.ar()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
@@ -98,8 +119,29 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
+        r'''Constructs a control-rate delay tap reader.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.In.kr(0)
+            >>> phase = ugentools.DelTapWr.kr(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> del_tap_rd = ugentools.DelTapRd.kr(
+            ...     buffer_id=buffer_id,
+            ...     phase=tapin,
+            ...     delay_time=0.1,
+            ...     interpolation=True,
+            ...     )
+            >>> del_tap_rd
+            DelTapRd.kr()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.SCALAR
+        rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
             rate=rate,
