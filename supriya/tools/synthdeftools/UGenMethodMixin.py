@@ -75,6 +75,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ..  container:: example
 
+            **Example 1:**
+
             ::
 
                 >>> left = ugentools.WhiteNoise.kr()
@@ -94,6 +96,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 2:**
 
             ::
 
@@ -124,6 +128,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 3:**
 
             ::
 
@@ -156,6 +162,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ..  container:: example
 
+            **Example 1:**
+
             ::
 
                 >>> left = ugentools.WhiteNoise.kr()
@@ -175,6 +183,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 2:**
 
             ::
 
@@ -205,6 +215,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 3:**
 
             ::
 
@@ -257,6 +269,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ..  container:: example
 
+            **Example 1:**
+
             ::
 
                 >>> left = ugentools.WhiteNoise.kr()
@@ -276,6 +290,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 2:**
 
             ::
 
@@ -306,6 +322,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 3:**
 
             ::
 
@@ -385,6 +403,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ..  container:: example
 
+            **Example 1:**
+
             ::
 
                 >>> left = ugentools.WhiteNoise.kr()
@@ -404,6 +424,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 2:**
 
             ::
 
@@ -434,6 +456,8 @@ class UGenMethodMixin(SupriyaObject):
                 }
 
         ..  container:: example
+
+            **Example 3:**
 
             ::
 
