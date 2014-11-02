@@ -3,6 +3,23 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class BinaryOpUGen(UGen):
+    r'''A binary operator ugen, created by applying a binary operator to two
+    ugens.
+
+    ::
+        
+        >>> left_operand = ugentools.SinOsc.ar()
+        >>> right_operand = ugentools.WhiteNoise.kr()
+        >>> binary_op_ugen = left_operand * right_operand
+        >>> binary_op_ugen
+        BinaryOpUGen.ar()
+
+    ::
+
+        >>> binary_op_ugen.operator
+        <BinaryOperator.MULTIPLICATION: 2>
+
+    '''
 
     ### CLASS VARIABLES ###
 

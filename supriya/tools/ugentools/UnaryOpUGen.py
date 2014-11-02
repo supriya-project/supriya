@@ -3,6 +3,21 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class UnaryOpUGen(UGen):
+    r'''A unary operator ugen, created by applying a unary operator to a ugen.
+
+    ::
+
+        >>> ugen = ugentools.SinOsc.ar()
+        >>> unary_op_ugen = abs(ugen)
+        >>> unary_op_ugen
+        UnaryOpUGen.ar()
+
+    ::
+
+        >>> unary_op_ugen.operator
+        <UnaryOperator.ABSOLUTE_VALUE: 5>
+
+    '''
 
     ### CLASS VARIABLES ###
 
