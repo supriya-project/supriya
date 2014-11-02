@@ -71,6 +71,79 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __add__(self, expr):
+        r'''Adds `expr` to ugen graph.
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar()
+                >>> result = left + right
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:ADDITION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = left + right
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef f4a3c1ed35cc5f6fe66b70a3bc520b10 {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:ADDITION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:ADDITION[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:ADDITION[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:ADDITION[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:ADDITION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> right = 4
+                >>> result = left + right
+
+            ::
+
+                >>> print(str(result))
+                SynthDef f79088cc154ef2b65c72a0f8de8336ce {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:ADDITION[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:ADDITION[1:right]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
             self,
@@ -79,6 +152,79 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __div__(self, expr):
+        r'''Divides ugen graph by `expr`.
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar()
+                >>> result = left / right
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = left / right
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:FLOAT_DIVISION[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:FLOAT_DIVISION[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:FLOAT_DIVISION[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:FLOAT_DIVISION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> right = 4
+                >>> result = left / right
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
             self,
@@ -87,6 +233,10 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __graph__(self):
+        r'''Gets Graphviz representation of ugen graph.
+
+        Returns GraphvizGraph instance.
+        '''
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
         builder.add_ugen(self)
@@ -103,6 +253,79 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __mul__(self, expr):
+        r'''Multiplies ugen graph by `expr`.
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar()
+                >>> result = left * right
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = left * right
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:MULTIPLICATION[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:MULTIPLICATION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> right = 4
+                >>> result = left * right
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
             self,
@@ -146,7 +369,7 @@ class UGenMethodMixin(SupriyaObject):
         return UGenMethodMixin._compute_binary_op(
             expr,
             self,
-            synthdeftools.BinaryOperator.SUBRACTION,
+            synthdeftools.BinaryOperator.SUBTRACTION,
             )
 
     def __str__(self):
@@ -158,11 +381,84 @@ class UGenMethodMixin(SupriyaObject):
         return result
 
     def __sub__(self, expr):
+        r'''Subtracts `expr` from ugen graph.
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar()
+                >>> result = left - right
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:SUBTRACTION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:SUBTRACTION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.WhiteNoise.kr()
+                >>> right = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = left - right
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:SUBTRACTION[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:SUBTRACTION[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:SUBTRACTION[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:SUBTRACTION[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:SUBTRACTION[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:SUBTRACTION[1:right]
+                }
+
+        ..  container:: example
+
+            ::
+
+                >>> left = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> right = 4
+                >>> result = left - right
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:SUBTRACTION[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:SUBTRACTION[1:right]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_binary_op(
             self,
             expr,
-            synthdeftools.BinaryOperator.SUBRACTION,
+            synthdeftools.BinaryOperator.SUBTRACTION,
             )
 
     ### PRIVATE METHODS ###
@@ -198,21 +494,8 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         from supriya import synthdeftools
-
         a_rate = synthdeftools.Rate.from_input(ugen_a)
-        #a_rate = synthdeftools.Rate.SCALAR
-        #if isinstance(ugen_a, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-        #    a_rate = ugen_a.rate
-        #elif isinstance(ugen_a, synthdeftools.Parameter):
-        #    a_rate = synthdeftools.Rate.from_input(ugen_a)
-
         b_rate = synthdeftools.Rate.from_input(ugen_b)
-        #b_rate = synthdeftools.Rate.SCALAR
-        #if isinstance(ugen_b, (synthdeftools.OutputProxy, synthdeftools.UGen)):
-        #    b_rate = ugen_b.rate
-        #elif isinstance(ugen_b, synthdeftools.Parameter):
-        #    b_rate = synthdeftools.Rate.from_input(ugen_b)
-
         if a_rate == synthdeftools.Rate.DEMAND \
             or a_rate == synthdeftools.Rate.DEMAND:
             return synthdeftools.Rate.DEMAND
