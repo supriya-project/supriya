@@ -7,7 +7,6 @@ class Sum3(UGen):
 
     ::
 
-        >>> from supriya.tools import ugentools
         >>> input_one = ugentools.SinOsc.ar()
         >>> input_two = ugentools.SinOsc.ar(phase=0.1)
         >>> input_three = ugentools.SinOsc.ar(phase=0.2)
@@ -105,11 +104,23 @@ class Sum3(UGen):
 
         ::
 
-            >>> input_one = None
-            >>> sum_3 = ugentools.Sum3.ar(
+            >>> input_one = ugentools.SinOsc.ar()
+            >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+            >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+            >>> sum_3 = ugentools.Sum3.new(
             ...     input_one=input_one,
+            ...     input_two=input_two,
+            ...     input_three=input_three,
             ...     )
             >>> sum_3.input_one
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
@@ -122,11 +133,23 @@ class Sum3(UGen):
 
         ::
 
-            >>> input_three = None
-            >>> sum_3 = ugentools.Sum3.ar(
+            >>> input_one = ugentools.SinOsc.ar()
+            >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+            >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+            >>> sum_3 = ugentools.Sum3.new(
+            ...     input_one=input_one,
+            ...     input_two=input_two,
             ...     input_three=input_three,
             ...     )
             >>> sum_3.input_three
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.2
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
@@ -139,11 +162,23 @@ class Sum3(UGen):
 
         ::
 
-            >>> input_two = None
-            >>> sum_3 = ugentools.Sum3.ar(
+            >>> input_one = ugentools.SinOsc.ar()
+            >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+            >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+            >>> sum_3 = ugentools.Sum3.new(
+            ...     input_one=input_one,
             ...     input_two=input_two,
+            ...     input_three=input_three,
             ...     )
             >>> sum_3.input_two
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
