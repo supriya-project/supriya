@@ -352,6 +352,56 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __neg__(self):
+        r'''Negates ugen graph.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen = ugentools.WhiteNoise.ar()
+                >>> result = -ugen
+                >>> result
+                UnaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    0_WhiteNoise[0] -> 1_UnaryOpUGen:NEGATIVE[0:source]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_array = ugentools.SinOsc.ar(
+                ...     frequency=(440, 442, 443),
+                ...     )
+                >>> result = -ugen_array
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 0_SinOsc[0:frequency]
+                    const_1:0.0 -> 0_SinOsc[1:phase]
+                    0_SinOsc[0] -> 1_UnaryOpUGen:NEGATIVE[0:source]
+                    const_2:442.0 -> 2_SinOsc[0:frequency]
+                    const_1:0.0 -> 2_SinOsc[1:phase]
+                    2_SinOsc[0] -> 3_UnaryOpUGen:NEGATIVE[0:source]
+                    const_3:443.0 -> 4_SinOsc[0:frequency]
+                    const_1:0.0 -> 4_SinOsc[1:phase]
+                    4_SinOsc[0] -> 5_UnaryOpUGen:NEGATIVE[0:source]
+                }
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         return UGenMethodMixin._compute_unary_op(
             self,
@@ -391,6 +441,19 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __str__(self):
+        r'''Gets string representation of ugen graph.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar()
+            >>> print(str(ugen))
+            SynthDef c9b0ed62d4e0666b74166ff5ec09abe4 {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+            }
+
+        Returns string.
+        '''
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
         builder.add_ugen(self)
