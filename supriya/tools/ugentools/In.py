@@ -45,6 +45,15 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
+        r'''Constructs an audio-rate bus input.
+
+        ::
+
+            >>> ugentools.In.ar(bus=0, channel_count=4)
+            UGenArray({4})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
@@ -72,6 +81,15 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
+        r'''Constructs a control-rate bus input.
+
+        ::
+
+            >>> ugentools.In.kr(bus=0, channel_count=4)
+            UGenArray({4})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL

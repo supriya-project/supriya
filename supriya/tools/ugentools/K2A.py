@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class K2A(PureUGen):
-    r'''Control rate to audio rate convert unit generator.
+    r'''Control rate to audio rate converter unit generator.
 
     ::
 
@@ -45,6 +45,18 @@ class K2A(PureUGen):
         cls,
         source=None,
         ):
+        r'''Constructs a control-rate to audio-rate converter.o
+
+        ::
+
+            >>> source = ugentools.SinOsc.kr(frequency=[2, 3])
+            >>> ugentools.K2A.ar(
+            ...     source=source,
+            ...     )
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(

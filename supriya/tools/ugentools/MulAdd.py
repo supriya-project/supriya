@@ -3,6 +3,20 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MulAdd(UGen):
+    r'''Optimized multiplication / addition ugen.
+
+    ::
+
+        >>> source = ugentools.SinOsc.ar()
+        >>> mul_add = ugentools.MulAdd.new(
+        ...     addend=0.5,
+        ...     multiplier=-1.5,
+        ...     source=source,
+        ...     )
+        >>> mul_add
+        MulAdd.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -100,6 +114,23 @@ class MulAdd(UGen):
         multiplier=1.0,
         addend=0.0,
         ):
+        r'''Constructs a multiplication / addition ugen.
+
+        ::
+
+            >>> addend = 0.5
+            >>> multiplier = 1.5
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> mul_add = ugentools.MulAdd.new(
+            ...     addend=addend,
+            ...     multiplier=multiplier,
+            ...     source=source,
+            ...     )
+            >>> mul_add
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
