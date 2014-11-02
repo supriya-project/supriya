@@ -118,11 +118,18 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> buffer_id = None
+            >>> buffer_id = 23.0
+            >>> phase = ugentools.DelTapWr.ar(
+            ...     buffer_id=23,
+            ...     source=ugentools.In.ar(bus=0),
+            ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
             ...     buffer_id=buffer_id,
+            ...     delay_time=0.1,
+            ...     phase=phase,
             ...     )
             >>> del_tap_rd.buffer_id
+            23.0
 
         Returns input.
         '''
@@ -135,11 +142,18 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> delay_time = None
+            >>> delay_time = 0.2
+            >>> phase = ugentools.DelTapWr.ar(
+            ...     buffer_id=23,
+            ...     source=ugentools.In.ar(bus=0),
+            ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     buffer_id=23,
             ...     delay_time=delay_time,
+            ...     phase=phase,
             ...     )
             >>> del_tap_rd.delay_time
+            0.2
 
         Returns input.
         '''
@@ -152,11 +166,19 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> interpolation = None
+            >>> interpolation = 1
+            >>> phase = ugentools.DelTapWr.ar(
+            ...     buffer_id=23,
+            ...     source=ugentools.In.ar(bus=0),
+            ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     buffer_id=buffer_id,
+            ...     delay_time=0.1,
             ...     interpolation=interpolation,
+            ...     phase=phase,
             ...     )
             >>> del_tap_rd.interpolation
+            1.0
 
         Returns input.
         '''
@@ -169,11 +191,31 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> phase = None
+            >>> phase = ugentools.DelTapWr.ar(
+            ...     buffer_id=23,
+            ...     source=ugentools.In.ar(bus=0),
+            ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
+            ...     buffer_id=23,
+            ...     delay_time=0.1,
             ...     phase=phase,
             ...     )
             >>> del_tap_rd.phase
+            OutputProxy(
+                source=DelTapWr(
+                    buffer_id=23.0,
+                    rate=<Rate.AUDIO: 2>,
+                    source=OutputProxy(
+                        source=In(
+                            bus=0.0,
+                            rate=<Rate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        )
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
