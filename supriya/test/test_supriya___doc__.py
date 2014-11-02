@@ -2,9 +2,7 @@
 import inspect
 import pytest
 from supriya.tools import documentationtools
-
-
-pytest.skip()
+from supriya.tools import synthdeftools
 
 
 ignored_names = (
@@ -17,7 +15,9 @@ ignored_names = (
 ignored_classes = (
     )
 
-classes = documentationtools.list_all_supriya_classes()
+classes = documentationtools.list_all_supriya_classes(
+    bases=synthdeftools.UGen,
+    )
 
 functions = documentationtools.list_all_supriya_functions()
 
