@@ -89,6 +89,25 @@ class Sum3(UGen):
         input_two=None,
         input_three=None,
         ):
+        r'''Creates a three-input summing unit generator with multi-channel
+        expansion.
+
+        ::
+
+            >>> input_one = ugentools.SinOsc.ar(
+            ...     frequency=[442, 443],
+            ...     )
+            >>> input_two = ugentools.SinOsc.ar(phase=0.1)
+            >>> input_three = ugentools.SinOsc.ar(phase=0.2)
+            >>> ugentools.Sum3.new(
+            ...     input_one=input_one,
+            ...     input_two=input_two,
+            ...     input_three=input_three,
+            ...     )
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         ugen = cls._new_expanded(
             input_one=input_one,
             input_two=input_two,
