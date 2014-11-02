@@ -62,6 +62,20 @@ class OffsetOut(UGen):
         bus=0,
         source=None,
         ):
+        r'''Constructs a sample-accurately-timed audio-rate bus output.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> offset_out = ugentools.OffsetOut.ar(
+            ...     bus=0,
+            ...     source=source,
+            ...     )
+            >>> offset_out
+            OffsetOut.ar()
+        
+        Returns ugen graph.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO

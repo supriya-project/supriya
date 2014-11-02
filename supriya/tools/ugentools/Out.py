@@ -62,6 +62,20 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
+        r'''Constructs an audio-rate bus output.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> out = ugentools.Out.ar(
+            ...     bus=0,
+            ...     source=source,
+            ...     )
+            >>> out
+            Out.ar()
+        
+        Returns ugen graph.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
@@ -84,6 +98,20 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
+        r'''Constructs a control-rate bus output.
+        
+        ::
+
+            >>> source = ugentools.SinOsc.kr(frequency=[4, 2])
+            >>> out = ugentools.Out.kr(
+            ...     bus=0,
+            ...     source=source,
+            ...     )
+            >>> out
+            Out.kr()
+        
+        Returns ugen graph.
+        '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
