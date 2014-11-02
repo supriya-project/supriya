@@ -79,12 +79,55 @@ class UGen(UGenMethodMixin):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
+        r'''Gets output proxy at index `i`.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar()
+            >>> ugen[0]
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+        
+        Returns output proxy.
+        '''
         return self._output_proxies[i]
 
     def __len__(self):
+        r'''Gets number of ugen outputs.
+
+        Returns integer.
+        '''
         return 1
 
     def __repr__(self):
+        r'''Gets interpreter representation of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar()
+            >>> repr(ugen)
+            'SinOsc.ar()'
+
+        ::
+
+            >>> ugen = ugentools.WhiteNoise.kr()
+            >>> repr(ugen)
+            'WhiteNoise.kr()'
+
+        ::
+
+            >>> ugen = ugentools.Rand.ir()
+            >>> repr(ugen)
+            'Rand.ir()'
+
+        Returns string.
+        '''
         from supriya.tools import synthdeftools
         if self.rate == synthdeftools.Rate.DEMAND:
             return '{}()'.format(type(self).__name__)
@@ -271,7 +314,7 @@ class UGen(UGenMethodMixin):
         return 0
 
     def _get_outputs(self):
-        return [self.rate]
+        return [self.rate] * len(self)
 
     def _get_source(self):
         return self

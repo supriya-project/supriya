@@ -35,12 +35,13 @@ class MultiOutUGen(UGen):
     ### SPECIAL METHODS ###
 
     def __len__(self):
+        r'''Gets number of ugen outputs.
+
+        Returns integer.
+        '''
         return self.channel_count
 
     ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return [self.rate] * len(self)
 
     @classmethod
     def _new_expanded(
@@ -70,8 +71,8 @@ class MultiOutUGen(UGen):
 
     @property
     def channel_count(self):
-        return self._channel_count
+        r'''Gets channel count of multi-output ugen.
 
-    @property
-    def outputs(self):
-        return [self.rate for _ in range(len(self))]
+        Returns integer.
+        '''
+        return self._channel_count
