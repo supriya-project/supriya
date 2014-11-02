@@ -105,11 +105,12 @@ class LFSaw(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> lfsaw = ugentools.LFSaw.ar(
             ...     frequency=frequency,
             ...     )
             >>> lfsaw.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +123,12 @@ class LFSaw(PureUGen):
 
         ::
 
-            >>> initial_phase = None
+            >>> initial_phase = 0.5
             >>> lfsaw = ugentools.LFSaw.ar(
             ...     initial_phase=initial_phase,
             ...     )
             >>> lfsaw.initial_phase
+            0.5
 
         Returns input.
         '''

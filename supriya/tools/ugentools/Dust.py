@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.SignalRange import SignalRange
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -13,6 +14,8 @@ class Dust(UGen):
     _ordered_input_names = (
         'density',
         )
+
+    _signal_range = SignalRange.UNIPOLAR
 
     ### INITIALIZER ###
 
@@ -82,17 +85,12 @@ class Dust(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def signal_range(self):
-        from supriya.tools import synthdeftools
-        return synthdeftools.SignalRange.UNIPOLAR
-
-    @property
     def density(self):
         r'''Gets `density` input of Dust.
 
         ::
 
-            >>> density = None
+            >>> density = 0.25
             >>> dust = ugentools.Dust.ar(
             ...     density=density,
             ...     )

@@ -105,11 +105,12 @@ class LFCub(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> lfcub = ugentools.LFCub.ar(
             ...     frequency=frequency,
             ...     )
             >>> lfcub.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +123,12 @@ class LFCub(PureUGen):
 
         ::
 
-            >>> initial_phase = None
+            >>> initial_phase = 0.5
             >>> lfcub = ugentools.LFCub.ar(
             ...     initial_phase=initial_phase,
             ...     )
             >>> lfcub.initial_phase
+            0.5
 
         Returns input.
         '''

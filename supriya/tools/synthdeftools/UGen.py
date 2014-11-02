@@ -2,6 +2,7 @@
 from __future__ import print_function
 import abc
 import collections
+from supriya.tools.synthdeftools.SignalRange import SignalRange
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
@@ -21,6 +22,8 @@ class UGen(UGenMethodMixin):
         )
 
     _ordered_input_names = ()
+
+    _signal_range = SignalRange.BIPOLAR
 
     _unexpanded_input_names = None
 
@@ -459,8 +462,7 @@ class UGen(UGenMethodMixin):
 
         Returns signal range.
         '''
-        from supriya.tools import synthdeftools
-        return synthdeftools.SignalRange.BIPOLAR
+        return self._signal_range
 
     @property
     def special_index(self):

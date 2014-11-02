@@ -116,11 +116,12 @@ class VarSaw(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> var_saw = ugentools.VarSaw.ar(
             ...     frequency=frequency,
             ...     )
             >>> var_saw.frequency
+            442.0
 
         Returns input.
         '''
@@ -133,11 +134,12 @@ class VarSaw(PureUGen):
 
         ::
 
-            >>> initial_phase = None
+            >>> initial_phase = 0.25
             >>> var_saw = ugentools.VarSaw.ar(
             ...     initial_phase=initial_phase,
             ...     )
             >>> var_saw.initial_phase
+            0.25
 
         Returns input.
         '''
@@ -150,11 +152,12 @@ class VarSaw(PureUGen):
 
         ::
 
-            >>> width = None
+            >>> width = 0.9
             >>> var_saw = ugentools.VarSaw.ar(
             ...     width=width,
             ...     )
             >>> var_saw.width
+            0.9
 
         Returns input.
         '''

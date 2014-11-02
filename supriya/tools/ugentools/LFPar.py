@@ -105,11 +105,12 @@ class LFPar(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> lfpar = ugentools.LFPar.ar(
             ...     frequency=frequency,
             ...     )
             >>> lfpar.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +123,12 @@ class LFPar(PureUGen):
 
         ::
 
-            >>> initial_phase = None
+            >>> initial_phase = 0.5
             >>> lfpar = ugentools.LFPar.ar(
             ...     initial_phase=initial_phase,
             ...     )
             >>> lfpar.initial_phase
+            0.5
 
         Returns input.
         '''

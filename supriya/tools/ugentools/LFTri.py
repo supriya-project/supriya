@@ -105,11 +105,12 @@ class LFTri(PureUGen):
 
         ::
 
-            >>> frequency = None
+            >>> frequency = 442
             >>> lftri = ugentools.LFTri.ar(
             ...     frequency=frequency,
             ...     )
             >>> lftri.frequency
+            442.0
 
         Returns input.
         '''
@@ -122,11 +123,12 @@ class LFTri(PureUGen):
 
         ::
 
-            >>> initial_phase = None
+            >>> initial_phase = 0.5
             >>> lftri = ugentools.LFTri.ar(
             ...     initial_phase=initial_phase,
             ...     )
             >>> lftri.initial_phase
+            0.5
 
         Returns input.
         '''
