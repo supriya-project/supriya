@@ -55,6 +55,16 @@ class FreeSelfWhenDone(UGen):
             ...     source=source,
             ...     )
             >>> free_self_when_done.source
+            OutputProxy(
+                source=Line(
+                    rate=<Rate.CONTROL: 1>,
+                    done_action=0.0,
+                    duration=1.0,
+                    start=0.0,
+                    stop=1.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

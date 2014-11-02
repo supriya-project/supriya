@@ -8,7 +8,7 @@ class FreeVerb(UGen):
     ::
 
         >>> from supriya.tools import ugentools
-        >>> source = ugentools.SoundIn.ar()
+        >>> source = ugentools.In.ar(bus=0)
         >>> ugentools.FreeVerb.ar(
         ...     source=source,
         ...     )
@@ -63,7 +63,7 @@ class FreeVerb(UGen):
         ::
 
             >>> from supriya.tools import ugentools
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> ugentools.FreeVerb.ar(
             ...     damping=0.5,
             ...     mix=0.33,
@@ -92,11 +92,14 @@ class FreeVerb(UGen):
 
         ::
 
-            >>> damping = None
+            >>> damping = 0.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb = ugentools.FreeVerb.ar(
             ...     damping=damping,
+            ...     source=source,
             ...     )
             >>> free_verb.damping
+            0.5
 
         Returns input.
         '''
@@ -109,11 +112,14 @@ class FreeVerb(UGen):
 
         ::
 
-            >>> mix = None
+            >>> mix = 0.33
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb = ugentools.FreeVerb.ar(
             ...     mix=mix,
+            ...     source=source,
             ...     )
             >>> free_verb.mix
+            0.33
 
         Returns input.
         '''
@@ -126,11 +132,14 @@ class FreeVerb(UGen):
 
         ::
 
-            >>> room_size = None
+            >>> room_size = 0.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb = ugentools.FreeVerb.ar(
             ...     room_size=room_size,
+            ...     source=source,
             ...     )
             >>> free_verb.room_size
+            0.5
 
         Returns input.
         '''
@@ -143,11 +152,19 @@ class FreeVerb(UGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb = ugentools.FreeVerb.ar(
             ...     source=source,
             ...     )
             >>> free_verb.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

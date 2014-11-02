@@ -55,6 +55,14 @@ class FreeSelf(UGen):
             ...     source=source,
             ...     )
             >>> free_self.source
+            OutputProxy(
+                source=Impulse(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
