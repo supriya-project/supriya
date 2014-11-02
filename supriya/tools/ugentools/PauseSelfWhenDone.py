@@ -51,10 +51,20 @@ class PauseSelfWhenDone(UGen):
         ::
 
             >>> source = ugentools.Line.kr()
-            >>> pause_self_when_done = ugentools.PauseSelfWhenDone.ar(
+            >>> pause_self_when_done = ugentools.PauseSelfWhenDone.kr(
             ...     source=source,
             ...     )
             >>> pause_self_when_done.source
+            OutputProxy(
+                source=Line(
+                    rate=<Rate.CONTROL: 1>,
+                    done_action=0.0,
+                    duration=1.0,
+                    start=0.0,
+                    stop=1.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

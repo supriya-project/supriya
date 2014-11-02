@@ -118,11 +118,16 @@ class MulAdd(UGen):
 
         ::
 
-            >>> addend = None
-            >>> mul_add = ugentools.MulAdd.ar(
+            >>> addend = 0.5
+            >>> multiplier = 1.5
+            >>> source = ugentools.SinOsc.ar()
+            >>> mul_add = ugentools.MulAdd.new(
             ...     addend=addend,
+            ...     multiplier=multiplier,
+            ...     source=source,
             ...     )
             >>> mul_add.addend
+            0.5
 
         Returns input.
         '''
@@ -135,11 +140,16 @@ class MulAdd(UGen):
 
         ::
 
-            >>> multiplier = None
-            >>> mul_add = ugentools.MulAdd.ar(
+            >>> addend = 0.5
+            >>> multiplier = 1.5
+            >>> source = ugentools.SinOsc.ar()
+            >>> mul_add = ugentools.MulAdd.new(
+            ...     addend=addend,
             ...     multiplier=multiplier,
+            ...     source=source,
             ...     )
             >>> mul_add.multiplier
+            1.5
 
         Returns input.
         '''
@@ -152,11 +162,23 @@ class MulAdd(UGen):
 
         ::
 
-            >>> source = None
-            >>> mul_add = ugentools.MulAdd.ar(
+            >>> addend = 0.5
+            >>> multiplier = 1.5
+            >>> source = ugentools.SinOsc.ar()
+            >>> mul_add = ugentools.MulAdd.new(
+            ...     addend=addend,
+            ...     multiplier=multiplier,
             ...     source=source,
             ...     )
             >>> mul_add.source
+            OutputProxy(
+                source=SinOsc(
+                    rate=<Rate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

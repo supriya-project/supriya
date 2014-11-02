@@ -86,11 +86,14 @@ class OffsetOut(UGen):
 
         ::
 
-            >>> bus = None
+            >>> bus = 0
+            >>> source = ugentools.WhiteNoise.ar()
             >>> offset_out = ugentools.OffsetOut.ar(
             ...     bus=bus,
+            ...     source=source,
             ...     )
             >>> offset_out.bus
+            0.0
 
         Returns input.
         '''

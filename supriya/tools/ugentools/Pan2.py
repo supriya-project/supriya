@@ -61,11 +61,15 @@ class Pan2(MultiOutUGen):
 
         ::
 
-            >>> level = None
-            >>> pan_2 = ugentools.Pan2.ar(
+            >>> level = 0.9
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> pan_2_outputs = ugentools.Pan2.ar(
             ...     level=level,
+            ...     source=source,
             ...     )
+            >>> pan_2 = pan_2_outputs[0].source
             >>> pan_2.level
+            0.9
 
         Returns input.
         '''
@@ -78,11 +82,15 @@ class Pan2(MultiOutUGen):
 
         ::
 
-            >>> position = None
-            >>> pan_2 = ugentools.Pan2.ar(
+            >>> position = 0.5
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> pan_2_outputs = ugentools.Pan2.ar(
             ...     position=position,
+            ...     source=source,
             ...     )
+            >>> pan_2 = pan_2_outputs[0].source
             >>> pan_2.position
+            0.5
 
         Returns input.
         '''
@@ -95,11 +103,18 @@ class Pan2(MultiOutUGen):
 
         ::
 
-            >>> source = None
-            >>> pan_2 = ugentools.Pan2.ar(
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> pan_2_outputs = ugentools.Pan2.ar(
             ...     source=source,
             ...     )
+            >>> pan_2 = pan_2_outputs[0].source
             >>> pan_2.source
+            OutputProxy(
+                source=WhiteNoise(
+                    rate=<Rate.AUDIO: 2>
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

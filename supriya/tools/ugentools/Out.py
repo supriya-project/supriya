@@ -108,11 +108,14 @@ class Out(UGen):
 
         ::
 
-            >>> bus = None
+            >>> bus = 0
+            >>> source = ugentools.WhiteNoise.ar()
             >>> out = ugentools.Out.ar(
             ...     bus=bus,
+            ...     source=source,
             ...     )
             >>> out.bus
+            0.0
 
         Returns input.
         '''
