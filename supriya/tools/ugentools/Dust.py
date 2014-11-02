@@ -27,14 +27,64 @@ class Dust(UGen):
             density=density,
             )
 
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        density=0,
+        ):
+        r'''Creates an audio-rate random impulse generator.
+
+        ::
+
+            >>> from supriya.tools import ugentools
+            >>> ugentools.Dust.ar(
+            ...     density=0.25,
+            ...     )
+            Dust.ar()
+
+        Returns unit generator graph.
+        '''
+        from supriya.tools import synthdeftools
+        rate = synthdeftools.Rate.AUDIO
+        ugen = cls._new_expanded(
+            rate=rate,
+            density=density,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        density=0,
+        ):
+        r'''Creates a control-rate random impulse generator.
+
+        ::
+
+            >>> from supriya.tools import ugentools
+            >>> ugentools.Dust.kr(
+            ...     density=0.25,
+            ...     )
+            Dust.kr()
+
+        Returns unit generator graph.
+        '''
+        from supriya.tools import synthdeftools
+        rate = synthdeftools.Rate.CONTROL
+        ugen = cls._new_expanded(
+            rate=rate,
+            density=density,
+            )
+        return ugen
+
     ### PUBLIC PROPERTIES ###
 
     @property
     def signal_range(self):
         from supriya.tools import synthdeftools
         return synthdeftools.SignalRange.UNIPOLAR
-
-    ### PUBLIC PROPERTIES ###
 
     @property
     def density(self):
