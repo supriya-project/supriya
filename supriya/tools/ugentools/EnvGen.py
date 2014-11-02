@@ -170,11 +170,12 @@ class EnvGen(UGen):
 
         ::
 
-            >>> done_action = None
+            >>> done_action = 0
             >>> env_gen = ugentools.EnvGen.ar(
             ...     done_action=done_action,
             ...     )
             >>> env_gen.done_action
+            0.0
 
         Returns input.
         '''
@@ -187,16 +188,17 @@ class EnvGen(UGen):
 
         ::
 
-            >>> envelope = None
+            >>> envelope = synthdeftools.Envelope.percussive()
             >>> env_gen = ugentools.EnvGen.ar(
             ...     envelope=envelope,
             ...     )
             >>> env_gen.envelope
+            (0.0, 2.0, -99.0, -99.0, 1.0, 0.01, 5.0, -4.0, 0.0, 1.0, 5.0, -4.0)
 
         Returns input.
         '''
         index = self._ordered_input_names.index('envelope')
-        return self._inputs[index]
+        return tuple(self._inputs[index:])
 
     @property
     def gate(self):
@@ -204,11 +206,12 @@ class EnvGen(UGen):
 
         ::
 
-            >>> gate = None
+            >>> gate = 1
             >>> env_gen = ugentools.EnvGen.ar(
             ...     gate=gate,
             ...     )
             >>> env_gen.gate
+            1.0
 
         Returns input.
         '''
@@ -221,11 +224,12 @@ class EnvGen(UGen):
 
         ::
 
-            >>> level_bias = None
+            >>> level_bias = 0
             >>> env_gen = ugentools.EnvGen.ar(
             ...     level_bias=level_bias,
             ...     )
             >>> env_gen.level_bias
+            0.0
 
         Returns input.
         '''
@@ -238,11 +242,12 @@ class EnvGen(UGen):
 
         ::
 
-            >>> level_scale = None
+            >>> level_scale = 1
             >>> env_gen = ugentools.EnvGen.ar(
             ...     level_scale=level_scale,
             ...     )
             >>> env_gen.level_scale
+            1.0
 
         Returns input.
         '''
@@ -255,11 +260,12 @@ class EnvGen(UGen):
 
         ::
 
-            >>> time_scale = None
+            >>> time_scale = 1
             >>> env_gen = ugentools.EnvGen.ar(
             ...     time_scale=time_scale,
             ...     )
             >>> env_gen.time_scale
+            1.0
 
         Returns input.
         '''

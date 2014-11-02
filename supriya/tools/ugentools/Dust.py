@@ -95,6 +95,7 @@ class Dust(UGen):
             ...     density=density,
             ...     )
             >>> dust.density
+            0.25
 
         Returns input.
         '''

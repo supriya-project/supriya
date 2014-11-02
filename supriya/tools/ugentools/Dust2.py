@@ -87,11 +87,12 @@ class Dust2(UGen):
 
         ::
 
-            >>> density = None
+            >>> density = 0.25
             >>> dust_2 = ugentools.Dust2.ar(
             ...     density=density,
             ...     )
             >>> dust_2.density
+            0.25
 
         Returns input.
         '''
