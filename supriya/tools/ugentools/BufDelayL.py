@@ -98,11 +98,14 @@ class BufDelayL(BufDelayN):
 
         ::
 
-            >>> buffer_id = None
+            >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_delay_l = ugentools.BufDelayL.ar(
             ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> buf_delay_l.buffer_id
+            23.0
 
         Returns input.
         '''
@@ -115,11 +118,16 @@ class BufDelayL(BufDelayN):
 
         ::
 
-            >>> delay_time = None
+            >>> buffer_id = 23
+            >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     buffer_id=buffer_id,
             ...     delay_time=delay_time,
+            ...     source=source,
             ...     )
             >>> buf_delay_l.delay_time
+            1.5
 
         Returns input.
         '''
@@ -132,11 +140,16 @@ class BufDelayL(BufDelayN):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> buffer_id = 23
+            >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     buffer_id=buffer_id,
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source,
             ...     )
             >>> buf_delay_l.maximum_delay_time
+            2.0
 
         Returns input.
         '''
@@ -149,11 +162,21 @@ class BufDelayL(BufDelayN):
 
         ::
 
-            >>> source = None
+            >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_delay_l = ugentools.BufDelayL.ar(
+            ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
             >>> buf_delay_l.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''

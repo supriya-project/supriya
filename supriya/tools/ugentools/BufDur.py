@@ -40,11 +40,12 @@ class BufDur(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_dur = ugentools.BufDur.ar(
+            >>> buffer_id = 23
+            >>> buf_dur = ugentools.BufDur.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_dur.buffer_id
+            23.0
 
         Returns input.
         '''

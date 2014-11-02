@@ -40,11 +40,12 @@ class BufSampleRate(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_sample_rate = ugentools.BufSampleRate.ar(
+            >>> buffer_id = 23
+            >>> buf_sample_rate = ugentools.BufSampleRate.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_sample_rate.buffer_id
+            23.0
 
         Returns input.
         '''

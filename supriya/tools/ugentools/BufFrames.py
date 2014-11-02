@@ -40,11 +40,12 @@ class BufFrames(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_frames = ugentools.BufFrames.ar(
+            >>> buffer_id = 23
+            >>> buf_frames = ugentools.BufFrames.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_frames.buffer_id
+            23.0
 
         Returns input.
         '''

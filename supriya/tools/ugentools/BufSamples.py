@@ -40,11 +40,12 @@ class BufSamples(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_samples = ugentools.BufSamples.ar(
+            >>> buffer_id = 23
+            >>> buf_samples = ugentools.BufSamples.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_samples.buffer_id
+            23.0
 
         Returns input.
         '''

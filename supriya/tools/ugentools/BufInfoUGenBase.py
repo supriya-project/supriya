@@ -50,22 +50,3 @@ class BufInfoUGenBase(InfoUGenBase):
             rate=rate,
             )
         return ugen
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of BufInfoUGenBase.
-
-        ::
-
-            >>> buffer_id = None
-            >>> buf_info_ugen_base = ugentools.BufInfoUGenBase.ar(
-            ...     buffer_id=buffer_id,
-            ...     )
-            >>> buf_info_ugen_base.buffer_id
-
-        Returns input.
-        '''
-        index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]

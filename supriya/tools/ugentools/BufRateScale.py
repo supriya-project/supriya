@@ -40,11 +40,12 @@ class BufRateScale(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_rate_scale = ugentools.BufRateScale.ar(
+            >>> buffer_id = 23
+            >>> buf_rate_scale = ugentools.BufRateScale.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_rate_scale.buffer_id
+            23.0
 
         Returns input.
         '''

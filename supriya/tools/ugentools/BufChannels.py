@@ -40,11 +40,12 @@ class BufChannels(BufInfoUGenBase):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_channels = ugentools.BufChannels.ar(
+            >>> buffer_id = 23
+            >>> buf_channels = ugentools.BufChannels.kr(
             ...     buffer_id=buffer_id,
             ...     )
             >>> buf_channels.buffer_id
+            23.0
 
         Returns input.
         '''

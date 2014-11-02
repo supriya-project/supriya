@@ -144,11 +144,14 @@ class BufCombN(PureUGen):
 
         ::
 
-            >>> buffer_id = None
-            >>> buf_comb_n = ugentools.BufCombN.ar(
+            >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
+            >>> buf_comb_c = ugentools.BufCombN.ar(
             ...     buffer_id=buffer_id,
+            ...     source=source
             ...     )
-            >>> buf_comb_n.buffer_id
+            >>> buf_comb_c.buffer_id
+            23.0
 
         Returns input.
         '''
@@ -161,11 +164,16 @@ class BufCombN(PureUGen):
 
         ::
 
-            >>> decay_time = None
+            >>> buffer_id = 23
+            >>> decay_time = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     buffer_id=buffer_id,
             ...     decay_time=decay_time,
+            ...     source=source
             ...     )
             >>> buf_comb_n.decay_time
+            1.0
 
         Returns input.
         '''
@@ -178,11 +186,16 @@ class BufCombN(PureUGen):
 
         ::
 
-            >>> delay_time = None
+            >>> buffer_id = 23
+            >>> delay_time = 1.5
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     buffer_id=buffer_id,
             ...     delay_time=delay_time,
+            ...     source=source
             ...     )
             >>> buf_comb_n.delay_time
+            1.5
 
         Returns input.
         '''
@@ -195,11 +208,16 @@ class BufCombN(PureUGen):
 
         ::
 
-            >>> maximum_delay_time = None
+            >>> buffer_id = 23
+            >>> maximum_delay_time = 2.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     buffer_id=buffer_id,
             ...     maximum_delay_time=maximum_delay_time,
+            ...     source=source
             ...     )
             >>> buf_comb_n.maximum_delay_time
+            2.0
 
         Returns input.
         '''
@@ -212,11 +230,21 @@ class BufCombN(PureUGen):
 
         ::
 
-            >>> source = None
+            >>> buffer_id = 23
+            >>> source = ugentools.In.ar(bus=0)
             >>> buf_comb_n = ugentools.BufCombN.ar(
+            ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
             >>> buf_comb_n.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
