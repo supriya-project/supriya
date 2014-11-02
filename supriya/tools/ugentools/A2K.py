@@ -46,6 +46,18 @@ class A2K(PureUGen):
         cls,
         source=None,
         ):
+        r'''Constructs an audio-rate to control-rate converter.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> ugentools.A2K.kr(
+            ...     source=source,
+            ...     )
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(

@@ -3,6 +3,18 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Done(UGen):
+    r'''Triggers when `source` sets its `done` flag.
+
+    ::
+
+        >>> source = ugentools.Line.kr()
+        >>> done = ugentools.Done.kr(
+        ...     source=source,
+        ...     )
+        >>> done
+        Done.kr()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -36,6 +48,17 @@ class Done(UGen):
         cls,
         source=None,
         ):
+        r'''Constructs a control-rate "done" trigger.
+
+            >>> source = ugentools.Line.kr(duration=[1, 2])
+            >>> done = ugentools.Done.kr(
+            ...     source=source,
+            ...     )
+            >>> done
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(

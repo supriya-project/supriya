@@ -8,9 +8,10 @@ class K2A(PureUGen):
     ::
 
         >>> source = ugentools.SinOsc.kr()
-        >>> ugentools.K2A.ar(
+        >>> k_2_a = ugentools.K2A.ar(
         ...     source=source,
         ...     )
+        >>> k_2_a
         K2A.ar()
 
     '''
