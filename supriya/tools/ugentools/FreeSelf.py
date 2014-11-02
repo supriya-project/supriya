@@ -3,6 +3,18 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class FreeSelf(UGen):
+    r'''Free the enclosing synth when triggered by `trigger`.
+
+    ::
+
+        >>> trigger = ugentools.Impulse.kr(frequency=1.0)
+        >>> free_self = ugentools.FreeSelf.kr(
+        ...     trigger=trigger,
+        ...     )
+        >>> free_self
+        FreeSelf.kr()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -11,7 +23,7 @@ class FreeSelf(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'source',
+        'trigger',
         )
 
     ### INITIALIZER ###
@@ -19,12 +31,12 @@ class FreeSelf(UGen):
     def __init__(
         self,
         rate=None,
-        source=None,
+        trigger=None,
         ):
         UGen.__init__(
             self,
             rate=rate,
-            source=source,
+            trigger=trigger,
             )
 
     ### PUBLIC METHODS ###
@@ -32,32 +44,45 @@ class FreeSelf(UGen):
     @classmethod
     def kr(
         cls,
-        source=None,
+        trigger=None,
         ):
+        r'''Constructs a control-rate ugen.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.kr(frequency=[1, 2])
+            >>> free_self = ugentools.FreeSelf.kr(
+            ...     trigger=trigger,
+            ...     )
+            >>> free_self
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
-            source=source,
+            trigger=trigger,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of FreeSelf.
+    def trigger(self):
+        r'''Gets `trigger` input of FreeSelf.
 
         ::
 
-            >>> source = ugentools.Impulse.ar(frequency=1.0)
+            >>> trigger = ugentools.Impulse.kr(frequency=1.0)
             >>> free_self = ugentools.FreeSelf.kr(
-            ...     source=source,
+            ...     trigger=trigger,
             ...     )
-            >>> free_self.source
+            >>> free_self.trigger
             OutputProxy(
                 source=Impulse(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<Rate.CONTROL: 1>,
                     frequency=1.0,
                     phase=0.0
                     ),
@@ -66,5 +91,5 @@ class FreeSelf(UGen):
 
         Returns input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
