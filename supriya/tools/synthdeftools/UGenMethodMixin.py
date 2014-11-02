@@ -628,7 +628,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rmod__(self, expr):
-        r'''Gets module of `expr` and ugen graph.
+        r'''Gets modulo of `expr` and ugen graph.
 
         ..  container:: example
 
