@@ -4,6 +4,17 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Dust(UGen):
+    r'''A unipolar random impulse generator.
+
+    ::
+
+        >>> dust = ugentools.Dust.ar(
+        ...    density=23,
+        ...    )
+        >>> dust
+        Dust.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -37,14 +48,14 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r'''Creates an audio-rate random impulse generator.
+        r'''Creates an audio-rate unipolar random impulse generator.
 
         ::
 
             >>> ugentools.Dust.ar(
-            ...     density=0.25,
+            ...     density=[1, 2],
             ...     )
-            Dust.ar()
+            UGenArray({2})
 
         Returns unit generator graph.
         '''
@@ -61,14 +72,14 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r'''Creates a control-rate random impulse generator.
+        r'''Creates a control-rate unipolar random impulse generator.
 
         ::
 
             >>> ugentools.Dust.kr(
-            ...     density=0.25,
+            ...     density=[1, 2],
             ...     )
-            Dust.kr()
+            UGenArray({2})
 
         Returns unit generator graph.
         '''

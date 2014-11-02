@@ -3,6 +3,18 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Dust2(UGen):
+    r'''A bipolar random impulse generator.
+
+    ::
+
+        >>> dust_2 = ugentools.Dust2.ar(
+        ...    density=23,
+        ...    )
+        >>> dust_2
+        Dust2.ar()
+
+    '''
+
 
     ### CLASS VARIABLES ###
 
@@ -39,9 +51,9 @@ class Dust2(UGen):
         ::
 
             >>> ugentools.Dust2.ar(
-            ...     density=0.25,
+            ...     density=[1, 2],
             ...     )
-            Dust2.ar()
+            UGenArray({2})
 
         Returns unit generator graph.
         '''
@@ -63,9 +75,9 @@ class Dust2(UGen):
         ::
 
             >>> ugentools.Dust2.kr(
-            ...     density=0.25,
+            ...     density=[1, 2],
             ...     )
-            Dust2.kr()
+            UGenArray({2})
 
         Returns unit generator graph.
         '''
