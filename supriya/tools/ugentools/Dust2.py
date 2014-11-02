@@ -27,6 +27,58 @@ class Dust2(UGen):
             density=density,
             )
 
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        density=0,
+        ):
+        r'''Creates an audio-rate random impulse generator.
+
+        ::
+
+            >>> from supriya.tools import ugentools
+            >>> ugentools.Dust2.ar(
+            ...     density=0.25,
+            ...     )
+            Dust2.ar()
+
+        Returns unit generator graph.
+        '''
+        from supriya.tools import synthdeftools
+        rate = synthdeftools.Rate.AUDIO
+        ugen = cls._new_expanded(
+            rate=rate,
+            density=density,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        density=0,
+        ):
+        r'''Creates a control-rate random impulse generator.
+
+        ::
+
+            >>> from supriya.tools import ugentools
+            >>> ugentools.Dust2.kr(
+            ...     density=0.25,
+            ...     )
+            Dust2.kr()
+
+        Returns unit generator graph.
+        '''
+        from supriya.tools import synthdeftools
+        rate = synthdeftools.Rate.CONTROL
+        ugen = cls._new_expanded(
+            rate=rate,
+            density=density,
+            )
+        return ugen
+
     ### PUBLIC PROPERTIES ###
 
     @property
