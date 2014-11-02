@@ -20,11 +20,9 @@ class PauseSelf(UGen):
 
     __documentation_section__ = 'Envelope Utility UGens'
 
-    _ordered_input_names = (
-        'trigger',
-        )
+    __slots__ = ()
 
-    __slots__ = (
+    _ordered_input_names = (
         'trigger',
         )
 

@@ -3,6 +3,20 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Free(UGen):
+    r'''free the node at `node_id` when triggered by `trigger`.
+
+    ::
+
+        >>> node_id = 1000
+        >>> trigger = ugentools.Impulse.kr(frequency=1.0)
+        >>> free = ugentools.Free.kr(
+        ...     node_id=node_id,
+        ...     trigger=trigger,
+        ...     )
+        >>> free
+        Free.kr()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -38,6 +52,21 @@ class Free(UGen):
         trigger=None,
         node_id=None,
         ):
+        r'''Constructs a control-rate ugen.
+
+        ::
+
+            >>> node_id = 1000
+            >>> trigger = ugentools.Impulse.kr(frequency=[1, 2])
+            >>> free = ugentools.Free.kr(
+            ...     node_id=node_id,
+            ...     trigger=trigger,
+            ...     )
+            >>> free
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(
@@ -55,12 +84,10 @@ class Free(UGen):
 
         ::
 
-            >>> builder = synthdeftools.SynthDefBuilder(
-            ...     t_trigger=1.0,
-            ...     )
+            >>> trigger = ugentools.Impulse.kr(frequency=1.0)
             >>> free = ugentools.Free.kr(
             ...     node_id=1000,
-            ...     trigger=builder['t_trigger'],
+            ...     trigger=trigger,
             ...     )
             >>> free.node_id
             1000.0
@@ -76,18 +103,19 @@ class Free(UGen):
 
         ::
 
-            >>> builder = synthdeftools.SynthDefBuilder(
-            ...     t_trigger=1.0,
-            ...     )
+            >>> trigger = ugentools.Impulse.kr(frequency=1.0)
             >>> free = ugentools.Free.kr(
             ...     node_id=1000,
-            ...     trigger=builder['t_trigger'],
+            ...     trigger=trigger,
             ...     )
             >>> free.trigger
-            Parameter(
-                name='t_trigger',
-                parameter_rate=<ParameterRate.TRIGGER: 1>,
-                value=1.0
+            OutputProxy(
+                source=Impulse(
+                    rate=<Rate.CONTROL: 1>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
                 )
 
         Returns input.
