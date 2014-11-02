@@ -80,11 +80,14 @@ class Compander(UGen):
 
         ::
 
-            >>> clamp_time = None
+            >>> clamp_time = 0.01
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     clamp_time=clamp_time,
+            ...     source=source,
             ...     )
             >>> compander.clamp_time
+            0.01
 
         Returns input.
         '''
@@ -97,11 +100,14 @@ class Compander(UGen):
 
         ::
 
-            >>> control = None
+            >>> control = 0.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     control=control,
+            ...     source=source,
             ...     )
             >>> compander.control
+            0.0
 
         Returns input.
         '''
@@ -114,11 +120,14 @@ class Compander(UGen):
 
         ::
 
-            >>> relax_time = None
+            >>> relax_time = 0.1
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     relax_time=relax_time,
+            ...     source=source,
             ...     )
             >>> compander.relax_time
+            0.1
 
         Returns input.
         '''
@@ -131,11 +140,14 @@ class Compander(UGen):
 
         ::
 
-            >>> slope_above = None
+            >>> slope_above = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     slope_above=slope_above,
+            ...     source=source,
             ...     )
             >>> compander.slope_above
+            1.0
 
         Returns input.
         '''
@@ -148,11 +160,14 @@ class Compander(UGen):
 
         ::
 
-            >>> slope_below = None
+            >>> slope_below = 1.0
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     slope_below=slope_below,
+            ...     source=source,
             ...     )
             >>> compander.slope_below
+            1.0
 
         Returns input.
         '''
@@ -165,11 +180,19 @@ class Compander(UGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.In.ar(bus=0)
             >>> compander = ugentools.Compander.ar(
             ...     source=source,
             ...     )
             >>> compander.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    rate=<Rate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns input.
         '''
@@ -182,11 +205,14 @@ class Compander(UGen):
 
         ::
 
-            >>> thresh = None
+            >>> source = ugentools.In.ar(bus=0)
+            >>> thresh = 0.5
             >>> compander = ugentools.Compander.ar(
+            ...     source=source,
             ...     thresh=thresh,
             ...     )
             >>> compander.thresh
+            0.5
 
         Returns input.
         '''
