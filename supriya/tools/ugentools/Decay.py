@@ -3,6 +3,18 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Decay(Filter):
+    r'''A leaky signal integrator.
+
+    ::
+
+        >>> source = ugentools.Impulse.ar()
+        >>> decay = ugentools.Decay.ar(
+        ...     source=source,
+        ...     )
+        >>> decay
+        Decay.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -17,7 +29,7 @@ class Decay(Filter):
 
     def __init__(
         self,
-        decay_time=None,
+        decay_time=1.0,
         rate=None,
         source=None,
         ):
@@ -33,9 +45,22 @@ class Decay(Filter):
     @classmethod
     def ar(
         cls,
-        decay_time=None,
+        decay_time=1.0,
         source=None,
         ):
+        r'''Constructs an audio-rate leaky signal integrator.
+
+        ::
+
+            >>> source = ugentools.Impulse.ar(frequency=[100, 101])
+            >>> decay = ugentools.Decay.ar(
+            ...     source=source,
+            ...     )
+            >>> decay
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(
@@ -48,9 +73,22 @@ class Decay(Filter):
     @classmethod
     def kr(
         cls,
-        decay_time=None,
+        decay_time=1.0,
         source=None,
         ):
+        r'''Constructs a control-rate leaky signal integrator.
+
+        ::
+
+            >>> source = ugentools.Impulse.kr(frequency=[100, 101])
+            >>> decay = ugentools.Decay.kr(
+            ...     source=source,
+            ...     )
+            >>> decay
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.CONTROL
         ugen = cls._new_expanded(

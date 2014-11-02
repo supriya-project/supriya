@@ -46,7 +46,7 @@ class K2A(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate to audio-rate converter.o
+        r'''Constructs a control-rate to audio-rate converter.
 
         ::
 
