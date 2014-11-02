@@ -4,6 +4,8 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MultiOutUGen(UGen):
+    r'''Abstract base class for ugens with multiple outputs.
+    '''
 
     ### CLASS VARIABLES ###
 
