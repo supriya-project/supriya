@@ -3,6 +3,18 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pan2(MultiOutUGen):
+    r'''A two channel equal power panner.
+
+    ::
+
+        >>> source = ugentools.WhiteNoise.ar()
+        >>> pan_2 = ugentools.Pan2.ar(
+        ...     source=source,
+        ...     )
+        >>> pan_2
+        UGenArray({2})
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -43,6 +55,19 @@ class Pan2(MultiOutUGen):
         position=0.,
         source=None,
         ):
+        r'''Constructs an audio-rate two channel equal power panner.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> pan_2 = ugentools.Pan2.ar(
+            ...     source=source,
+            ...     )
+            >>> pan_2
+            UGenArray({4})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         rate = synthdeftools.Rate.AUDIO
         ugen = cls._new_expanded(

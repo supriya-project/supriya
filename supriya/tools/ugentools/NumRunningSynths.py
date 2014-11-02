@@ -38,6 +38,7 @@ class NumRunningSynths(InfoUGenBase):
         ::
 
             >>> num_running_synths = ugentools.NumRunningSynths.kr()
+            >>> num_running_synths
             NumRunningSynths.kr() 
 
         Returns ugen graph.
