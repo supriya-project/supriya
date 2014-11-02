@@ -144,11 +144,12 @@ class XLine(UGen):
 
         ::
 
-            >>> done_action = None
+            >>> done_action = 0
             >>> xline = ugentools.XLine.ar(
             ...     done_action=done_action,
             ...     )
             >>> xline.done_action
+            0.0
 
         Returns input.
         '''
@@ -161,11 +162,12 @@ class XLine(UGen):
 
         ::
 
-            >>> duration = None
+            >>> duration = 1.5
             >>> xline = ugentools.XLine.ar(
             ...     duration=duration,
             ...     )
             >>> xline.duration
+            1.5
 
         Returns input.
         '''
@@ -178,11 +180,12 @@ class XLine(UGen):
 
         ::
 
-            >>> start = None
+            >>> start = 0
             >>> xline = ugentools.XLine.ar(
             ...     start=start,
             ...     )
             >>> xline.start
+            0.0
 
         Returns input.
         '''
@@ -195,11 +198,12 @@ class XLine(UGen):
 
         ::
 
-            >>> stop = None
+            >>> stop = 1
             >>> xline = ugentools.XLine.ar(
             ...     stop=stop,
             ...     )
             >>> xline.stop
+            1.0
 
         Returns input.
         '''

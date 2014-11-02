@@ -62,7 +62,7 @@ class K2A(PureUGen):
 
         ::
 
-            >>> source = None
+            >>> source = ugentools.WhiteNoise.kr()
             >>> k_2_a = ugentools.K2A.ar(
             ...     source=source,
             ...     )
