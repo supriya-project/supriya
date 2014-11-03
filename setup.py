@@ -38,6 +38,8 @@ Supriya lets you:
 
 Documentation is available at http://supriya.readthedocs.org/en/latest/.
 
+Join the development mailing list at supriya-dev@googlegroups.com.
+
 Please note: this project is still under **heavy** development, is **not** yet
 stable, and is **not** yet intended for deployment in the field.
 
