@@ -61,8 +61,10 @@ def make_import(ugen_parent):
     result = []
     if ugen_parent == 'UGen':
         string = 'from supriya.tools.synthdeftools.UGen import UGen'
-    else:
+    elif ugen_parent in dir(ugentools):
         string = 'from supriya.tools.ugentools.{parent} import {parent}'
+    else:
+        string = 'from supriya.tools.pendingugens.{parent} import {parent}'
     string = string.format(parent=ugen_parent)
     result.extend([string, '', ''])
     return result
@@ -70,22 +72,20 @@ def make_import(ugen_parent):
 
 def process_method_signature(method_signature):
     result = []
+    replacements = {
+        'in': 'source',
+        'freq': 'frequency',
+        'trig': 'trigger',
+        'rq': 'reciprocal_of_q',
+        'dur': 'duration',
+        'buffernum': 'buffer_id',
+        'num_channels': 'channel_count',
+        'rate': 'performance_rate',
+        }
     for name, value in method_signature:
-        if name == 'in':
-            name = 'source' 
-        elif name == 'freq':
-            name = 'frequency'
-        elif name == 'trig':
-            name = 'trigger'
-        elif name == 'rq':
-            name = 'reciprocal_of_q'
-        elif name == 'dur':
-            name = 'duration'
-        elif name == 'buffernum':
-            name = 'buffer_id',
-        elif name == 'num_channels':
-            name = 'channel_count'
         name = stringtools.to_snake_case(name)
+        if name in replacements:
+            name = replacements['name']
         if name.endswith('freq'):
             name = name.replace('freq', 'frequency')
         if name in ('add', 'mul', 'nil', 'this'):
@@ -117,12 +117,13 @@ def make_initializer(ugen_definition):
         method_signature = process_method_signature(method_signature)
         result.append('    def __init__(')
         result.append('        self,')
-        result.append('        rate=None')
+        result.append('        rate=None,')
         for name, value in method_signature:
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append('        {}.__init__('.format(ugen_definition['parent']))
         result.append('            self,')
+        result.append('            rate=rate,')
         for name, value in method_signature:
             result.append('            {}={},'.format(name, name))
         result.append('            )')
