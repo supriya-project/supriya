@@ -36,6 +36,7 @@ class Group(Node):
 
     __slots__ = (
         '_children',
+        '_child_controls',
         '_named_children',
         )
 
@@ -44,6 +45,7 @@ class Group(Node):
     def __init__(self):
         Node.__init__(self)
         self._children = []
+        self._child_controls = {}
         self._named_children = {}
 
     ### SPECIAL METHODS ###
