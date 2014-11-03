@@ -23,11 +23,11 @@ class AudioInputBusGroup(BusGroup):
         self._server = server
         bus_id = server.server_options.output_bus_channel_count
         bus_count = server.server_options.input_bus_channel_count
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         BusGroup.__init__(
             self,
             bus_count=bus_count,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
         self._bus_id = bus_id
 

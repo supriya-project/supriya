@@ -29,14 +29,14 @@ class DelayN(PureUGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         delay_time=0.2,
         maximum_delay_time=0.2,
         source=None,
         ):
         PureUGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -51,7 +51,7 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate non-interpolating delay line.
+        r'''Create an audio-calculation_rate non-interpolating delay line.
 
         ::
 
@@ -66,10 +66,10 @@ class DelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -83,7 +83,7 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate non-interpolating delay line.
+        r'''Create a control-calculation_rate non-interpolating delay line.
 
         ::
 
@@ -98,9 +98,9 @@ class DelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -163,7 +163,7 @@ class DelayN(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

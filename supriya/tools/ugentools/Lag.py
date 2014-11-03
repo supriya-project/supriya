@@ -36,12 +36,12 @@ class Lag(Filter):
     def __init__(
         self,
         lag_time=0.1,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         Filter.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             lag_time=lag_time,
             )
@@ -52,7 +52,7 @@ class Lag(Filter):
     def _new_single(
         cls,
         lag_time=None,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         if lag_time == 0:
@@ -62,7 +62,7 @@ class Lag(Filter):
             return source
         ugen = cls(
             lag_time=lag_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -75,7 +75,7 @@ class Lag(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Creates an audio-rate lag.
+        r'''Creates an audio-calculation_rate lag.
 
         ::
 
@@ -88,10 +88,10 @@ class Lag(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             lag_time=lag_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -102,7 +102,7 @@ class Lag(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Creates a control-calculation_rate lag.
 
         ::
 
@@ -115,10 +115,10 @@ class Lag(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             lag_time=lag_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -159,7 +159,7 @@ class Lag(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     channel_count=1
                     ),
                 output_index=0

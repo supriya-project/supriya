@@ -52,7 +52,7 @@ class DelTapRd(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         buffer_id=None,
         phase=None,
         delay_time=None,
@@ -62,7 +62,7 @@ class DelTapRd(UGen):
         interpolation = int(bool(interpolation))
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             phase=phase,
             delay_time=delay_time,
@@ -79,7 +79,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs an audio-rate delay tap reader.
+        r'''Constructs an audio-calculation_rate delay tap reader.
 
         ::
 
@@ -101,10 +101,10 @@ class DelTapRd(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            rate=rate,
+            calculation_rate=calculation_rate,
             phase=phase,
             delay_time=delay_time,
             interpolation=interpolation,
@@ -119,7 +119,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs a control-rate delay tap reader.
+        r'''Constructs a control-calculation_rate delay tap reader.
 
         ::
 
@@ -141,10 +141,10 @@ class DelTapRd(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            rate=rate,
+            calculation_rate=calculation_rate,
             phase=phase,
             delay_time=delay_time,
             interpolation=interpolation,
@@ -245,11 +245,11 @@ class DelTapRd(UGen):
             OutputProxy(
                 source=DelTapWr(
                     buffer_id=23.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     source=OutputProxy(
                         source=In(
                             bus=0.0,
-                            rate=<CalculationRate.AUDIO: 2>,
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
                             channel_count=1
                             ),
                         output_index=0

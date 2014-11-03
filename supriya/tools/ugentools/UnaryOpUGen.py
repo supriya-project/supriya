@@ -33,13 +33,13 @@ class UnaryOpUGen(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         source=None,
         special_index=None,
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             special_index=special_index,
             )
@@ -73,7 +73,7 @@ class UnaryOpUGen(UGen):
             >>> unary_op_ugen.source
             OutputProxy(
                 source=SinOsc(
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),

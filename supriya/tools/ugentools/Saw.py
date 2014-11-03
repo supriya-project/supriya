@@ -26,12 +26,12 @@ class Saw(PureUGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         frequency=440.,
         ):
         PureUGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             )
 
@@ -42,7 +42,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Creates an audio-rate band-limited sawtooth oscillator.
+        r'''Creates an audio-calculation_rate band-limited sawtooth oscillator.
 
         ::
 
@@ -54,9 +54,9 @@ class Saw(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             )
         return ugen
@@ -66,7 +66,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Creates a control-rate band-limited sawtooth oscillator.
+        r'''Creates a control-calculation_rate band-limited sawtooth oscillator.
 
         ::
 
@@ -78,9 +78,9 @@ class Saw(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             )
         return ugen

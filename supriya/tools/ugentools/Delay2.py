@@ -28,7 +28,7 @@ class Delay2(Delay1):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate two-sample delay line.
+        r'''Create an audio-calculation_rate two-sample delay line.
 
         ::
 
@@ -49,7 +49,7 @@ class Delay2(Delay1):
         cls,
         source=None,
         ):
-        r'''Create a control-rate two-sample delay line.
+        r'''Create a control-calculation_rate two-sample delay line.
 
         ::
 
@@ -81,7 +81,7 @@ class Delay2(Delay1):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

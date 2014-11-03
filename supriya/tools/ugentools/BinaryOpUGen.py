@@ -38,12 +38,12 @@ class BinaryOpUGen(UGen):
         self,
         left=None,
         right=None,
-        rate=None,
+        calculation_rate=None,
         special_index=None,
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             left=left,
             right=right,
             special_index=special_index,
@@ -54,7 +54,7 @@ class BinaryOpUGen(UGen):
     @classmethod
     def _new_single(
         cls,
-        rate=None,
+        calculation_rate=None,
         special_index=None,
         **kwargs
         ):
@@ -90,7 +90,7 @@ class BinaryOpUGen(UGen):
             if b == -1:
                 return -a
         ugen = cls(
-            rate=rate,
+            calculation_rate=calculation_rate,
             special_index=special_index,
             left=a,
             right=b,
@@ -111,7 +111,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.left
             OutputProxy(
                 source=SinOsc(
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -152,7 +152,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.right
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<CalculationRate.CONTROL: 1>
+                    calculation_rate=<CalculationRate.CONTROL: 1>
                     ),
                 output_index=0
                 )

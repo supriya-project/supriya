@@ -22,18 +22,18 @@ class NumRunningSynths(InfoUGenBase):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def kr(cls, **kwargs):
-        r'''Construct a control-rate ugen.
+        r'''Construct a control-calculation_rate ugen.
 
         ::
 
@@ -44,9 +44,9 @@ class NumRunningSynths(InfoUGenBase):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             **kwargs
             )
         return ugen

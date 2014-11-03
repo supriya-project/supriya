@@ -30,14 +30,14 @@ class Done(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         assert isinstance(source, UGen)
         assert source._has_done_action
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -48,7 +48,7 @@ class Done(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate "done" trigger.
+        r'''Constructs a control-calculation_rate "done" trigger.
 
             >>> source = ugentools.Line.kr(duration=[1, 2])
             >>> done = ugentools.Done.kr(
@@ -60,9 +60,9 @@ class Done(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -82,7 +82,7 @@ class Done(UGen):
             >>> done.source
             OutputProxy(
                 source=Line(
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     done_action=0.0,
                     duration=1.0,
                     start=0.0,

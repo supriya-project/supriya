@@ -27,13 +27,13 @@ class Rand(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         minimum=0.,
         maximum=1.,
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             minimum=minimum,
             maximum=maximum,
             )
@@ -46,7 +46,7 @@ class Rand(UGen):
         minimum=0.,
         maximum=1.,
         ):
-        r'''Creates a scalar-rate uniform random distribution.
+        r'''Creates a scalar-calculation_rate uniform random distribution.
 
         ::
 
@@ -59,9 +59,9 @@ class Rand(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.SCALAR
+        calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             minimum=minimum,
             maximum=maximum,
             )

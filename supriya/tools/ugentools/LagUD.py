@@ -39,14 +39,14 @@ class LagUD(Filter):
         self,
         lag_time_down=0.1,
         lag_time_up=0.1,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         Filter.__init__(
             self,
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -57,7 +57,7 @@ class LagUD(Filter):
         cls,
         lag_time_down=None,
         lag_time_up=None,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         if lag_time_up == 0 and lag_time_down == 0:
@@ -68,7 +68,7 @@ class LagUD(Filter):
         ugen = cls(
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -82,7 +82,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Creates a control-calculation_rate lag.
 
         ::
 
@@ -96,11 +96,11 @@ class LagUD(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -112,7 +112,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Creates a control-calculation_rate lag.
 
         ::
 
@@ -126,11 +126,11 @@ class LagUD(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -191,7 +191,7 @@ class LagUD(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     channel_count=1
                     ),
                 output_index=0

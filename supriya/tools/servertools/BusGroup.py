@@ -23,20 +23,20 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         self,
         bus_count=1,
         bus_id=None,
-        rate=None,
+        calculation_rate=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
-        rate = synthdeftools.CalculationRate.from_expr(
-            rate)
-        self._calculation_rate = rate
+        calculation_rate = synthdeftools.CalculationRate.from_expr(
+            calculation_rate)
+        self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
             servertools.Bus(
                 bus_group_or_index=self,
-                rate=self.rate,
+                calculation_rate=self.calculation_rate,
                 )
             for _ in range(bus_count)
             )
@@ -57,7 +57,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             bus_group = BusGroup(
                 bus_count=bus_count,
                 bus_id=self.bus_id,
-                rate=self.rate,
+                calculation_rate=self.calculation_rate,
                 )
             return bus_group
 
@@ -90,7 +90,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             return
         ServerObjectProxy.allocate(self, server=server)
         allocator = servertools.Bus._get_allocator(
-            rate=self.rate,
+            calculation_rate=self.calculation_rate,
             server=self.server,
             )
         bus_id = allocator.allocate(len(self))
@@ -103,7 +103,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         return self
 
     def ar(self):
-        r'''Creates an audio-rate input ugen subgraph.
+        r'''Creates an audio-calculation_rate input ugen subgraph.
 
         ::
 
@@ -111,7 +111,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             >>> audio_bus_group = servertools.BusGroup(
             ...     bus_id=8,
             ...     bus_count=4,
-            ...     rate='audio',
+            ...     calculation_rate='audio',
             ...     )
             >>> ugen = audio_bus_group.ar()
             >>> print(str(ugen))
@@ -124,7 +124,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             >>> control_bus_group = servertools.BusGroup(
             ...     bus_id=8,
             ...     bus_count=4,
-            ...     rate='control',
+            ...     calculation_rate='control',
             ...     )
             >>> ugen = control_bus_group.ar()
             >>> print(str(ugen))
@@ -141,7 +141,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = len(self)
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -161,7 +161,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         if not self.is_allocated:
             return
         allocator = servertools.Bus._get_allocator(
-            rate=self.rate,
+            calculation_rate=self.calculation_rate,
             server=self.server,
             )
         allocator.free(self.bus_id)
@@ -169,7 +169,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         ServerObjectProxy.free(self)
 
     def kr(self):
-        r'''Creates a control-rate input ugen subgraph.
+        r'''Creates a control-calculation_rate input ugen subgraph.
 
         ::
 
@@ -177,7 +177,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             >>> audio_bus_group = servertools.BusGroup(
             ...     bus_id=8,
             ...     bus_count=4,
-            ...     rate='audio',
+            ...     calculation_rate='audio',
             ...     )
             >>> ugen = audio_bus_group.kr()
             >>> print(str(ugen))
@@ -194,7 +194,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
             >>> control_bus_group = servertools.BusGroup(
             ...     bus_id=8,
             ...     bus_count=4,
-            ...     rate='control',
+            ...     calculation_rate='control',
             ...     )
             >>> ugen = control_bus_group.kr()
             >>> print(str(ugen))
@@ -207,7 +207,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = len(self)
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -239,7 +239,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
     @property
     def map_symbol(self):
         from supriya.tools import synthdeftools
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'
@@ -247,5 +247,5 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         return map_symbol
 
     @property
-    def rate(self):
+    def calculation_rate(self):
         return self._calculation_rate

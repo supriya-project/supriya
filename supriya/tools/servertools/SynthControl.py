@@ -13,7 +13,7 @@ class SynthControl(SupriyaObject):
         '_default_value',
         '_name',
         '_range',
-        '_rate',
+        '_calculation_rate',
         '_unit',
         '_value',
         )
@@ -25,7 +25,7 @@ class SynthControl(SupriyaObject):
         client=None,
         name=None,
         range_=None,
-        rate=None,
+        calculation_rate=None,
         unit=None,
         value=None,
         ):
@@ -36,7 +36,7 @@ class SynthControl(SupriyaObject):
             self._range = range_
         else:
             self._range = None
-        self._rate = synthdeftools.CalculationRate.from_expr(rate)
+        self._calculation_rate = synthdeftools.CalculationRate.from_expr(calculation_rate)
         self._unit = unit
         self._value = value
         self._default_value = value
@@ -56,7 +56,7 @@ class SynthControl(SupriyaObject):
             keyword_argument_names=(
                 'name',
                 'range_',
-                'rate',
+                'calculation_rate',
                 'unit',
                 'value',
                 ),
@@ -70,14 +70,14 @@ class SynthControl(SupriyaObject):
         assert isinstance(parameter, synthdeftools.Parameter)
         name = parameter.name
         range_ = parameter.range_
-        rate = synthdeftools.CalculationRate.from_input(parameter)
+        calculation_rate = synthdeftools.CalculationRate.from_input(parameter)
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
             client=client,
             name=name,
             range_=range_,
-            rate=rate,
+            calculation_rate=calculation_rate,
             unit=unit,
             value=value,
             )
@@ -95,7 +95,7 @@ class SynthControl(SupriyaObject):
         from supriya.tools import synthdeftools
         if isinstance(expr, servertools.Bus):
             self._value = expr
-            if expr.rate == synthdeftools.CalculationRate.CONTROL:
+            if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
                     self.synth,
                     **{self.name: self._value}
@@ -133,8 +133,8 @@ class SynthControl(SupriyaObject):
         return self._range
 
     @property
-    def rate(self):
-        return self._rate
+    def calculation_rate(self):
+        return self._calculation_rate
 
     @property
     def synth(self):

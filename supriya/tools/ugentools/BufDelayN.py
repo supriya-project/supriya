@@ -35,7 +35,7 @@ class BufDelayN(PureUGen):
     def __init__(
         self,
         buffer_id=None,
-        rate=None,
+        calculation_rate=None,
         delay_time=0.2,
         maximum_delay_time=0.2,
         source=None,
@@ -43,7 +43,7 @@ class BufDelayN(PureUGen):
         PureUGen.__init__(
             self,
             buffer_id=int(buffer_id),
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -59,7 +59,7 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate buffer-based non-interpolating delay line.
+        r'''Create an audio-calculation_rate buffer-based non-interpolating delay line.
 
         ::
 
@@ -76,11 +76,11 @@ class BufDelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -95,7 +95,7 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate buffer-based non-interpolating delay line.
+        r'''Create a control-calculation_rate buffer-based non-interpolating delay line.
 
         ::
 
@@ -112,10 +112,10 @@ class BufDelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
-            rate=rate,
+            calculation_rate=calculation_rate,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -204,7 +204,7 @@ class BufDelayN(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

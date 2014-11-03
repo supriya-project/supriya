@@ -36,7 +36,7 @@ class EnvGen(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         done_action=0,
         envelope=None,
         gate=1.0,
@@ -46,7 +46,7 @@ class EnvGen(UGen):
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
             gate=gate,
@@ -60,7 +60,7 @@ class EnvGen(UGen):
     @classmethod
     def _new_expanded(
         cls,
-        rate=None,
+        calculation_rate=None,
         done_action=None,
         envelope=None,
         gate=1.0,
@@ -75,7 +75,7 @@ class EnvGen(UGen):
         assert isinstance(envelope, synthdeftools.Envelope)
         envelope = tuple(envelope)
         return super(EnvGen, cls)._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
             gate=gate,
@@ -96,7 +96,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Creates an audio-rate envelope generator.
+        r'''Creates an audio-calculation_rate envelope generator.
 
         ::
 
@@ -109,9 +109,9 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
             gate=gate,
@@ -131,7 +131,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Creates an control-rate envelope generator.
+        r'''Creates an control-calculation_rate envelope generator.
 
         ::
 
@@ -144,9 +144,9 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             envelope=envelope,
             gate=gate,

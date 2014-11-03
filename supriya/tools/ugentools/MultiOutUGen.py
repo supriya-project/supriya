@@ -21,7 +21,7 @@ class MultiOutUGen(UGen):
     @abc.abstractmethod
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         special_index=0,
         channel_count=1,
         **kwargs
@@ -29,7 +29,7 @@ class MultiOutUGen(UGen):
         self._channel_count = int(channel_count)
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             special_index=special_index,
             **kwargs
             )
@@ -48,13 +48,13 @@ class MultiOutUGen(UGen):
     @classmethod
     def _new_expanded(
         cls,
-        rate=None,
+        calculation_rate=None,
         special_index=0,
         **kwargs
         ):
         from supriya.tools import synthdeftools
         ugen = super(MultiOutUGen, cls)._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             special_index=special_index,
             **kwargs
             )

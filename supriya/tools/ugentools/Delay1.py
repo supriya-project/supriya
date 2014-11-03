@@ -27,12 +27,12 @@ class Delay1(PureUGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         PureUGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -43,7 +43,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Create an audio-rate one-sample delay line.
+        r'''Create an audio-calculation_rate one-sample delay line.
 
         ::
 
@@ -56,9 +56,9 @@ class Delay1(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -68,7 +68,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Create a control-rate one-sample delay line.
+        r'''Create a control-calculation_rate one-sample delay line.
 
         ::
 
@@ -81,9 +81,9 @@ class Delay1(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -104,7 +104,7 @@ class Delay1(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

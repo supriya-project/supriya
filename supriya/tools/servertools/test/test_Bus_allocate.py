@@ -19,7 +19,7 @@ def test_Bus_allocate_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id is None
-    assert control_bus.rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
     assert control_bus.server is None
     assert not control_bus.is_allocated
 
@@ -27,7 +27,7 @@ def test_Bus_allocate_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id == 0
-    assert control_bus.rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
     assert control_bus.server is server
     assert control_bus.is_allocated
     assert control_bus.map_symbol == 'c0'
@@ -36,7 +36,7 @@ def test_Bus_allocate_01(server):
 
     assert control_bus.bus_group is None
     assert control_bus.bus_id is None
-    assert control_bus.rate == synthdeftools.CalculationRate.CONTROL
+    assert control_bus.calculation_rate == synthdeftools.CalculationRate.CONTROL
     assert control_bus.server is None
     assert not control_bus.is_allocated
 
@@ -47,7 +47,7 @@ def test_Bus_allocate_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id is None
-    assert audio_bus.rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
     assert audio_bus.server is None
     assert not audio_bus.is_allocated
 
@@ -55,7 +55,7 @@ def test_Bus_allocate_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id == 16
-    assert audio_bus.rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
     assert audio_bus.server is server
     assert audio_bus.is_allocated
     assert audio_bus.map_symbol == 'a16'
@@ -64,7 +64,7 @@ def test_Bus_allocate_02(server):
 
     assert audio_bus.bus_group is None
     assert audio_bus.bus_id is None
-    assert audio_bus.rate == synthdeftools.CalculationRate.AUDIO
+    assert audio_bus.calculation_rate == synthdeftools.CalculationRate.AUDIO
     assert audio_bus.server is None
     assert not audio_bus.is_allocated
 
@@ -73,7 +73,7 @@ def test_Bus_allocate_03(server):
 
     bus = servertools.Bus(
         bus_group_or_index=23,
-        rate=synthdeftools.CalculationRate.CONTROL,
+        calculation_rate=synthdeftools.CalculationRate.CONTROL,
         )
 
     assert bus.bus_id == 23

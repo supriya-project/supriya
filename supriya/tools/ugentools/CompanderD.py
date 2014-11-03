@@ -24,7 +24,7 @@ class CompanderD(PseudoUGen):
         slope_above=1.,
         slope_below=1.,
         ):
-        r'''Constructs an audio-rate dynamics processor.
+        r'''Constructs an audio-calculation_rate dynamics processor.
 
         ::
 
@@ -51,7 +51,7 @@ class CompanderD(PseudoUGen):
         '''
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         control = ugentools.DelayN.ar(
             source=source,
             maximum_delay_time=clamp_time,
@@ -59,7 +59,7 @@ class CompanderD(PseudoUGen):
             )
         ugen = ugentools.Compander._new_expanded(
             clamp_time=clamp_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             relax_time=relax_time,
             slope_above=slope_above,
             slope_below=slope_below,

@@ -30,14 +30,14 @@ class VarSaw(PureUGen):
         self,
         frequency=440.,
         initial_phase=0.,
-        rate=None,
+        calculation_rate=None,
         width=0.5,
         ):
         PureUGen.__init__(
             self,
             frequency=frequency,
             initial_phase=initial_phase,
-            rate=rate,
+            calculation_rate=calculation_rate,
             width=width,
             )
 
@@ -50,7 +50,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Creates an audio-rate sawtooth-triangle oscillator with variable
+        r'''Creates an audio-calculation_rate sawtooth-triangle oscillator with variable
         duty.
 
         ::
@@ -65,11 +65,11 @@ class VarSaw(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             frequency=frequency,
             initial_phase=initial_phase,
-            rate=rate,
+            calculation_rate=calculation_rate,
             width=width,
             )
         return ugen
@@ -81,7 +81,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Creates a control-rate sawtooth-triangle oscillator with variable
+        r'''Creates a control-calculation_rate sawtooth-triangle oscillator with variable
         duty.
 
         ::
@@ -96,11 +96,11 @@ class VarSaw(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             frequency=frequency,
             initial_phase=initial_phase,
-            rate=rate,
+            calculation_rate=calculation_rate,
             width=width,
             )
         return ugen

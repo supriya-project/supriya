@@ -27,13 +27,13 @@ class LFCub(PureUGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         frequency=440.,
         initial_phase=0.,
         ):
         PureUGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
             )
@@ -46,7 +46,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates an audio-rate sine-like oscillator.
+        r'''Creates an audio-calculation_rate sine-like oscillator.
 
         ::
 
@@ -59,9 +59,9 @@ class LFCub(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
             )
@@ -73,7 +73,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates a control-rate sine-like oscillator.
+        r'''Creates a control-calculation_rate sine-like oscillator.
 
         ::
 
@@ -86,9 +86,9 @@ class LFCub(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
             )

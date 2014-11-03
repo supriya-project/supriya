@@ -84,7 +84,7 @@ class SynthDefCompiler(SupriyaObject):
         outputs = ugen._get_outputs()
         result = []
         result.append(SynthDefCompiler.encode_string(type(ugen).__name__))
-        result.append(SynthDefCompiler.encode_unsigned_int_8bit(ugen.rate))
+        result.append(SynthDefCompiler.encode_unsigned_int_8bit(ugen.calculation_rate))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(ugen.inputs)))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(len(outputs)))
         result.append(SynthDefCompiler.encode_unsigned_int_16bit(int(ugen.special_index)))

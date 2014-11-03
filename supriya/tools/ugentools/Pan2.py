@@ -34,7 +34,7 @@ class Pan2(MultiOutUGen):
         self,
         level=1.,
         position=0.,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         MultiOutUGen.__init__(
@@ -42,7 +42,7 @@ class Pan2(MultiOutUGen):
             channel_count=2,
             level=level,
             position=position,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -55,7 +55,7 @@ class Pan2(MultiOutUGen):
         position=0.,
         source=None,
         ):
-        r'''Constructs an audio-rate two channel equal power panner.
+        r'''Constructs an audio-calculation_rate two channel equal power panner.
 
         ::
 
@@ -69,9 +69,9 @@ class Pan2(MultiOutUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             position=position,
             level=level,
@@ -136,7 +136,7 @@ class Pan2(MultiOutUGen):
             >>> pan_2.source
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<CalculationRate.AUDIO: 2>
+                    calculation_rate=<CalculationRate.AUDIO: 2>
                     ),
                 output_index=0
                 )

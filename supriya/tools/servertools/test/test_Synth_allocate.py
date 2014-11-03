@@ -86,9 +86,9 @@ def test_Synth_allocate_01(server):
     assert synth_b['frequency'].get() == 441.0
     assert synth_b['amplitude'].get() == 0.25
 
-    bus_a = servertools.Bus(rate='control')
+    bus_a = servertools.Bus(calculation_rate='control')
     bus_a.allocate()
-    bus_b = servertools.Bus(rate='audio')
+    bus_b = servertools.Bus(calculation_rate='audio')
     bus_b.allocate()
     synth_a['frequency'].set(bus_a)
     synth_b['amplitude'].set(bus_b)
@@ -139,8 +139,8 @@ def test_Synth_allocate_02(server):
     assert synth['frequency'].get() == 443
     assert synth['amplitude'].get() == 0.5
 
-    control_bus = servertools.Bus(0, rate='control')
-    audio_bus = servertools.Bus(0, rate='audio')
+    control_bus = servertools.Bus(0, calculation_rate='control')
+    audio_bus = servertools.Bus(0, calculation_rate='audio')
 
     synth['frequency'].set(control_bus)
     synth['amplitude'].set(audio_bus)

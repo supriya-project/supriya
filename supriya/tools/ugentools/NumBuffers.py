@@ -22,9 +22,9 @@ class NumBuffers(InfoUGenBase):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )

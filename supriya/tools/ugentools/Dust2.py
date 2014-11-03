@@ -30,12 +30,12 @@ class Dust2(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         density=0.,
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             density=density,
             )
 
@@ -46,7 +46,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Creates an audio-rate bipolar random impulse generator.
+        r'''Creates an audio-calculation_rate bipolar random impulse generator.
 
         ::
 
@@ -58,9 +58,9 @@ class Dust2(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             density=density,
             )
         return ugen
@@ -70,7 +70,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Creates a control-rate bipolar random impulse generator.
+        r'''Creates a control-calculation_rate bipolar random impulse generator.
 
         ::
 
@@ -82,9 +82,9 @@ class Dust2(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             density=density,
             )
         return ugen

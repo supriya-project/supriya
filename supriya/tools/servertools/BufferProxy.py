@@ -300,7 +300,7 @@ class BufferProxy(SupriyaObject):
 
     @property
     def sample_rate(self):
-        r'''Gets sample rate of buffer proxy.
+        r'''Gets sample calculation_rate of buffer proxy.
 
         ::
 

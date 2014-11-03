@@ -32,14 +32,14 @@ class Decay2(Filter):
         self,
         attack_time=0.01,
         decay_time=1.0,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         Filter.__init__(
             self,
             attack_time=attack_time,
             decay_time=decay_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -52,7 +52,7 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs an audio-rate leaky signal integrator.
+        r'''Constructs an audio-calculation_rate leaky signal integrator.
 
         ::
 
@@ -66,11 +66,11 @@ class Decay2(Filter):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             attack_time=attack_time,
             decay_time=decay_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -82,7 +82,7 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs a control-rate leaky signal integrator.
+        r'''Constructs a control-calculation_rate leaky signal integrator.
 
         ::
 
@@ -96,11 +96,11 @@ class Decay2(Filter):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             attack_time=attack_time,
             decay_time=decay_time,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -169,7 +169,7 @@ class Decay2(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     channel_count=1
                     ),
                 output_index=0

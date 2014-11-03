@@ -23,9 +23,9 @@ class SynthDefGrapher(SupriyaObject):
                 edge(head_field, tail_field)
                 edge.head_port_position = 'w'
                 edge.tail_port_position = 'e'
-                if source.rate == synthdeftools.CalculationRate.CONTROL:
+                if source.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                     edge.attributes['color'] = 'goldenrod'
-                elif source.rate == synthdeftools.CalculationRate.AUDIO:
+                elif source.calculation_rate == synthdeftools.CalculationRate.AUDIO:
                     edge.attributes['color'] = 'steelblue'
                 else:
                     edge.attributes['color'] = 'salmon'
@@ -69,9 +69,9 @@ class SynthDefGrapher(SupriyaObject):
             node = documentationtools.GraphvizNode(
                 name='ugen_{}'.format(ugen_index),
                 )
-            if ugen.rate == synthdeftools.CalculationRate.CONTROL:
+            if ugen.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 node.attributes['fillcolor'] = 'lightgoldenrod2'
-            elif ugen.rate == synthdeftools.CalculationRate.AUDIO:
+            elif ugen.calculation_rate == synthdeftools.CalculationRate.AUDIO:
                 node.attributes['fillcolor'] = 'lightsteelblue2'
             else:
                 node.attributes['fillcolor'] = 'lightsalmon2'
@@ -123,20 +123,20 @@ class SynthDefGrapher(SupriyaObject):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         name = type(ugen).__name__
-        rate = ugen.rate.name.lower()
-        label_template = r'{name}\n({rate})'
+        calculation_rate = ugen.calculation_rate.name.lower()
+        label_template = r'{name}\n({calculation_rate})'
         operator = None
         if isinstance(ugen, ugentools.BinaryOpUGen):
             operator = synthdeftools.BinaryOperator(ugen.special_index).name
-            label_template = r'{name}\n[{operator}]\n({rate})'
+            label_template = r'{name}\n[{operator}]\n({calculation_rate})'
         elif isinstance(ugen, ugentools.UnaryOpUGen):
             operator = synthdeftools.UnaryOperator(ugen.special_index).name
-            label_template = r'{name}\n[{operator}]\n({rate})'
+            label_template = r'{name}\n[{operator}]\n({calculation_rate})'
         title_field = documentationtools.GraphvizField(
             label=label_template.format(
                 name=name,
                 operator=operator,
-                rate=rate,
+                calculation_rate=calculation_rate,
                 ),
             )
         return title_field

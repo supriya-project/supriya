@@ -35,12 +35,12 @@ class DC(PureUGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         PureUGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -51,7 +51,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate DC generator.
+        r'''Constructs an audio-calculation_rate DC generator.
 
         ::
 
@@ -63,9 +63,9 @@ class DC(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -75,7 +75,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate DC generator.
+        r'''Constructs a control-calculation_rate DC generator.
 
         ::
 
@@ -87,9 +87,9 @@ class DC(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen

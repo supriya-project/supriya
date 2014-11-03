@@ -29,7 +29,7 @@ class Line(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         done_action=0.,
         duration=1.,
         start=0.,
@@ -37,7 +37,7 @@ class Line(UGen):
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
             start=start,
@@ -49,7 +49,7 @@ class Line(UGen):
     @classmethod
     def _new_expanded(
         cls,
-        rate=None,
+        calculation_rate=None,
         done_action=None,
         duration=None,
         stop=None,
@@ -58,7 +58,7 @@ class Line(UGen):
         from supriya.tools import synthdeftools
         done_action = synthdeftools.DoneAction.from_expr(done_action)
         return super(Line, cls)._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
             stop=stop,
@@ -75,7 +75,7 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates an audio-rate line generator.
+        r'''Creates an audio-calculation_rate line generator.
 
         ::
 
@@ -90,9 +90,9 @@ class Line(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         return cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
             stop=stop,
@@ -107,7 +107,7 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates an audio-rate line generator.
+        r'''Creates an audio-calculation_rate line generator.
 
         ::
 
@@ -122,9 +122,9 @@ class Line(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         return cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             done_action=done_action,
             duration=duration,
             stop=stop,

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Control import Control
 
 
 class TrigControl(Control):
-    r'''A trigger-rate control ugen.
+    r'''A trigger-calculation_rate control ugen.
     '''
 
     ### CLASS VARIABLES ###
@@ -21,6 +21,6 @@ class TrigControl(Control):
         Control.__init__(
             self,
             control_names,
-            rate=synthdeftools.CalculationRate.CONTROL,
+            calculation_rate=synthdeftools.CalculationRate.CONTROL,
             starting_control_index=starting_control_index,
             )

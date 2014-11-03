@@ -92,7 +92,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
             if isinstance(value, (int, float)):
                 n_set_settings[synth_control_name] = value
             elif isinstance(value, servertools.Bus):
-                if value.rate == synthdeftools.CalculationRate.CONTROL:
+                if value.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                     n_map_settings[synth_control_name] = value
                 else:
                     n_mapa_settings[synth_control_name] = value
@@ -148,7 +148,7 @@ class SynthControlGroup(SupriyaObject, collections.Mapping):
         settings = {}
         for synth_control in self.synth_controls:
             if isinstance(synth_control.value, servertools.Bus):
-                if synth_control.value.rate == synthdeftools.CalculationRate.AUDIO:
+                if synth_control.value.calculation_rate == synthdeftools.CalculationRate.AUDIO:
                     audio_map[synth_control.name] = synth_control.value
                 else:
                     control_map[synth_control.name] = synth_control.value

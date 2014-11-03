@@ -33,7 +33,7 @@ class Linen(UGen):
         attack_time=0.01,
         done_action=0,
         gate=1.,
-        rate=None,
+        calculation_rate=None,
         release_time=1.,
         sustain_level=1.,
         ):
@@ -42,7 +42,7 @@ class Linen(UGen):
             attack_time=attack_time,
             done_action=done_action,
             gate=gate,
-            rate=rate,
+            calculation_rate=calculation_rate,
             release_time=release_time,
             sustain_level=sustain_level,
             )
@@ -55,11 +55,11 @@ class Linen(UGen):
         attack_time=0.01,
         done_action=0,
         gate=1.,
-        rate=None,
+        calculation_rate=None,
         release_time=1.,
         sustain_level=1.,
         ):
-        r'''Creates an audio-rate line generator.
+        r'''Creates an audio-calculation_rate line generator.
 
         ::
 
@@ -74,12 +74,12 @@ class Linen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             attack_time=attack_time,
             done_action=done_action,
             gate=gate,
-            rate=rate,
+            calculation_rate=calculation_rate,
             release_time=release_time,
             sustain_level=sustain_level,
             )

@@ -1107,10 +1107,10 @@ class UGenMethodMixin(SupriyaObject):
         for expanded_dict in synthdeftools.UGen._expand_dictionary(dictionary):
             left = expanded_dict['left']
             right = expanded_dict['right']
-            rate = UGenMethodMixin._compute_binary_rate(
+            calculation_rate = UGenMethodMixin._compute_binary_rate(
                 left, right)
             ugen = ugentools.BinaryOpUGen._new_single(
-                rate=rate,
+                calculation_rate=calculation_rate,
                 left=left,
                 right=right,
                 special_index=special_index,
@@ -1147,7 +1147,7 @@ class UGenMethodMixin(SupriyaObject):
         special_index = operator.value
         for single_source in source:
             ugen = ugentools.UnaryOpUGen._new_single(
-                rate=single_source.rate,
+                calculation_rate=single_source.calculation_rate,
                 source=single_source,
                 special_index=special_index,
                 )

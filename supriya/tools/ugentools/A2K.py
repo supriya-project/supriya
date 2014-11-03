@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class A2K(PureUGen):
-    r'''Audio rate to control rate convert unit generator.
+    r'''Audio calculation_rate to control calculation_rate convert unit generator.
 
     ::
 
@@ -31,12 +31,12 @@ class A2K(PureUGen):
     def __init__(
         self,
         source=None,
-        rate=None,
+        calculation_rate=None,
         ):
         PureUGen.__init__(
             self,
             source=source,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
 
     ### PUBLIC METHODS ###
@@ -46,7 +46,7 @@ class A2K(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate to control-rate converter.
+        r'''Constructs an audio-calculation_rate to control-calculation_rate converter.
 
         ::
 
@@ -59,9 +59,9 @@ class A2K(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -81,7 +81,7 @@ class A2K(PureUGen):
             >>> a_2_k.source
             OutputProxy(
                 source=SinOsc(
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),

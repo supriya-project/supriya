@@ -30,14 +30,14 @@ class RHPF(Filter):
     def __init__(
         self,
         frequency=440,
-        rate=None,
+        calculation_rate=None,
         reciprocal_of_q=1.0,
         source=None,
         ):
         Filter.__init__(
             self,
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
@@ -51,7 +51,7 @@ class RHPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates an audio-rate resonant highpass filter.
+        r'''Creates an audio-calculation_rate resonant highpass filter.
 
         ::
 
@@ -66,10 +66,10 @@ class RHPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
@@ -82,7 +82,7 @@ class RHPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates a control-rate resonant highpass filter.
+        r'''Creates a control-calculation_rate resonant highpass filter.
 
         ::
 
@@ -97,10 +97,10 @@ class RHPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
@@ -162,7 +162,7 @@ class RHPF(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

@@ -35,14 +35,14 @@ class OffsetOut(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         bus=0,
         source=None,
         ):
         UGen.__init__(
             self,
             bus=bus,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
         if not isinstance(source, collections.Sequence):
             source = [source]
@@ -62,7 +62,7 @@ class OffsetOut(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs a sample-accurately-timed audio-rate bus output.
+        r'''Constructs a sample-accurately-timed audio-calculation_rate bus output.
 
         ::
 
@@ -78,7 +78,7 @@ class OffsetOut(UGen):
         '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         prototype = (
             servertools.Bus,
             servertools.BusGroup,
@@ -88,7 +88,7 @@ class OffsetOut(UGen):
             bus = int(bus)
         return cls._new_expanded(
             bus=bus,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 

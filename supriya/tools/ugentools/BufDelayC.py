@@ -33,7 +33,7 @@ class BufDelayC(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate buffer-based cubic-interpolating delay line.
+        r'''Create an audio-calculation_rate buffer-based cubic-interpolating delay line.
 
         ::
 
@@ -64,7 +64,7 @@ class BufDelayC(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate buffer-based cubic-interpolating delay line.
+        r'''Create a control-calculation_rate buffer-based cubic-interpolating delay line.
 
         ::
 
@@ -169,7 +169,7 @@ class BufDelayC(BufDelayN):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

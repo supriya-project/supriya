@@ -32,7 +32,7 @@ class FreeVerb(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         damping=0.5,
         mix=0.33,
         room_size=0.5,
@@ -40,7 +40,7 @@ class FreeVerb(UGen):
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             damping=damping,
             mix=mix,
             room_size=room_size,
@@ -57,7 +57,7 @@ class FreeVerb(UGen):
         room_size=0.5,
         source=None,
         ):
-        r'''Creates an audio-rate FreeVerb reverb unit.
+        r'''Creates an audio-calculation_rate FreeVerb reverb unit.
 
         ::
 
@@ -72,9 +72,9 @@ class FreeVerb(UGen):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             damping=damping,
             mix=mix,
             room_size=room_size,
@@ -158,7 +158,7 @@ class FreeVerb(UGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

@@ -29,7 +29,7 @@ class Compander(UGen):
         self,
         clamp_time=0.01,
         control=0.,
-        rate=None,
+        calculation_rate=None,
         relax_time=0.1,
         slope_above=1.,
         slope_below=1.,
@@ -40,7 +40,7 @@ class Compander(UGen):
             self,
             clamp_time=clamp_time,
             control=control,
-            rate=rate,
+            calculation_rate=calculation_rate,
             relax_time=relax_time,
             slope_above=slope_above,
             slope_below=slope_below,
@@ -61,7 +61,7 @@ class Compander(UGen):
         source=0.,
         thresh=0.5,
         ):
-        r'''Constructs an audio-rate dynamics processor.
+        r'''Constructs an audio-calculation_rate dynamics processor.
 
         ::
 
@@ -75,11 +75,11 @@ class Compander(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             clamp_time=clamp_time,
             control=control,
-            rate=rate,
+            calculation_rate=calculation_rate,
             relax_time=relax_time,
             slope_above=slope_above,
             slope_below=slope_below,
@@ -204,7 +204,7 @@ class Compander(UGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

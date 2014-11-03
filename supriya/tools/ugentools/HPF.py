@@ -29,13 +29,13 @@ class HPF(Filter):
     def __init__(
         self,
         frequency=440,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         Filter.__init__(
             self,
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -47,7 +47,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates an audio-rate highpass filter.
+        r'''Creates an audio-calculation_rate highpass filter.
 
         ::
 
@@ -61,10 +61,10 @@ class HPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -75,7 +75,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates a control-rate highpass filter.
+        r'''Creates a control-calculation_rate highpass filter.
 
         ::
 
@@ -89,10 +89,10 @@ class HPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             frequency=frequency,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -133,7 +133,7 @@ class HPF(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

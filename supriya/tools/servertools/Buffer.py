@@ -1555,7 +1555,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def sample_rate(self):
-        r'''Gets sample rate.
+        r'''Gets sample calculation_rate.
 
         ::
 

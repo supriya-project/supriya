@@ -30,13 +30,13 @@ class PauseSelfWhenDone(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         source=None,
         ):
         assert source._has_done_action
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
 
@@ -47,7 +47,7 @@ class PauseSelfWhenDone(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r'''Constructs a control-calculation_rate ugen.
 
             >>> source = ugentools.Line.kr()
             >>> pause_self_when_done = ugentools.PauseSelfWhenDone.kr(
@@ -59,9 +59,9 @@ class PauseSelfWhenDone(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             source=source,
             )
         return ugen
@@ -81,7 +81,7 @@ class PauseSelfWhenDone(UGen):
             >>> pause_self_when_done.source
             OutputProxy(
                 source=Line(
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     done_action=0.0,
                     duration=1.0,
                     start=0.0,

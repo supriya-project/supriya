@@ -17,7 +17,7 @@ def test_BusGroup_allocate_01(server):
 
     bus_group_one = servertools.BusGroup(
         bus_count=4,
-        rate=synthdeftools.CalculationRate.CONTROL,
+        calculation_rate=synthdeftools.CalculationRate.CONTROL,
         )
 
     assert not bus_group_one.is_allocated
@@ -28,7 +28,7 @@ def test_BusGroup_allocate_01(server):
         assert not bus.is_allocated
         assert bus.bus_group is bus_group_one
         assert bus.bus_id is None
-        assert bus.rate == bus_group_one.rate
+        assert bus.calculation_rate == bus_group_one.calculation_rate
 
     bus_group_one.allocate()
     server.sync()
@@ -41,11 +41,11 @@ def test_BusGroup_allocate_01(server):
         assert bus.is_allocated
         assert bus.bus_group is bus_group_one
         assert bus.bus_id == bus_group_one.bus_id + i
-        assert bus.rate == bus_group_one.rate
+        assert bus.calculation_rate == bus_group_one.calculation_rate
 
     bus_group_two = servertools.BusGroup(
         bus_count=4,
-        rate=synthdeftools.CalculationRate.CONTROL,
+        calculation_rate=synthdeftools.CalculationRate.CONTROL,
         )
     server.sync()
 
@@ -57,7 +57,7 @@ def test_BusGroup_allocate_01(server):
         assert not bus.is_allocated
         assert bus.bus_group is bus_group_two
         assert bus.bus_id is None
-        assert bus.rate == bus_group_two.rate
+        assert bus.calculation_rate == bus_group_two.calculation_rate
 
     bus_group_two.allocate()
     server.sync()
@@ -70,7 +70,7 @@ def test_BusGroup_allocate_01(server):
         assert bus.is_allocated
         assert bus.bus_group is bus_group_two
         assert bus.bus_id is bus_group_two.bus_id + i
-        assert bus.rate == bus_group_two.rate
+        assert bus.calculation_rate == bus_group_two.calculation_rate
 
     bus_group_one.free()
     server.sync()
@@ -83,7 +83,7 @@ def test_BusGroup_allocate_01(server):
         assert not bus.is_allocated
         assert bus.bus_group is bus_group_one
         assert bus.bus_id is None
-        assert bus.rate == bus_group_one.rate
+        assert bus.calculation_rate == bus_group_one.calculation_rate
 
     bus_group_two.free()
     server.sync()
@@ -96,5 +96,5 @@ def test_BusGroup_allocate_01(server):
         assert not bus.is_allocated
         assert bus.bus_group is bus_group_two
         assert bus.bus_id is None
-        assert bus.rate == bus_group_two.rate
+        assert bus.calculation_rate == bus_group_two.calculation_rate
 

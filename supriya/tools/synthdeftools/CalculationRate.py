@@ -30,7 +30,7 @@ class CalculationRate(Enumeration):
 
     @staticmethod
     def from_collection(collection):
-        r'''Gets calculation rate from a collection.
+        r'''Gets calculation calculation_rate from a collection.
 
         ::
 
@@ -53,7 +53,7 @@ class CalculationRate(Enumeration):
             >>> synthdeftools.CalculationRate.from_collection(collection)
             <CalculationRate.CONTROL: 1>
 
-        Return calculation rate.
+        Return calculation calculation_rate.
         '''
         rates = [
             CalculationRate.from_input(item) for item in collection
@@ -70,7 +70,7 @@ class CalculationRate(Enumeration):
             synthdeftools.OutputProxy,
             synthdeftools.UGen,
             )):
-            return input_.rate
+            return input_.calculation_rate
         elif isinstance(input_, synthdeftools.Parameter):
             name = input_.parameter_rate.name
             if name == 'TRIGGER':

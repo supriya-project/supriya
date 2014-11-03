@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SampleRate(InfoUGenBase):
-    r'''Sample rate info unit generator.
+    r'''Sample calculation_rate info unit generator.
 
     ::
 
@@ -22,9 +22,9 @@ class SampleRate(InfoUGenBase):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         ):
         InfoUGenBase.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )

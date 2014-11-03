@@ -30,12 +30,12 @@ class PauseSelf(UGen):
 
     def __init__(
         self,
-        rate=None,
+        calculation_rate=None,
         trigger=None,
         ):
         UGen.__init__(
             self,
-            rate=rate,
+            calculation_rate=calculation_rate,
             trigger=trigger,
             )
 
@@ -46,7 +46,7 @@ class PauseSelf(UGen):
         cls,
         trigger=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r'''Constructs a control-calculation_rate ugen.
 
         ::
 
@@ -60,9 +60,9 @@ class PauseSelf(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            rate=rate,
+            calculation_rate=calculation_rate,
             trigger=trigger,
             )
         return ugen
@@ -82,7 +82,7 @@ class PauseSelf(UGen):
             >>> pause_self.trigger
             OutputProxy(
                 source=Impulse(
-                    rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     frequency=1.0,
                     phase=0.0
                     ),

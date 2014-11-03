@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):
-    r'''A control-rate control ugen.
+    r'''A control-calculation_rate control ugen.
 
     Control ugens can be set and routed externally to interact with a running
     synth. Controls are created from the parameters of a synthesizer
@@ -24,7 +24,7 @@ class Control(MultiOutUGen):
     def __init__(
         self,
         control_names,
-        rate=None,
+        calculation_rate=None,
         starting_control_index=0,
         ):
         from supriya.tools import synthdeftools
@@ -38,7 +38,7 @@ class Control(MultiOutUGen):
         MultiOutUGen.__init__(
             self,
             channel_count=len(control_names),
-            rate=rate,
+            calculation_rate=calculation_rate,
             special_index=starting_control_index,
             )
 
@@ -73,7 +73,7 @@ class Control(MultiOutUGen):
         return self._control_names.index(control_name)
 
     def _get_outputs(self):
-        return [self.rate] * len(self)
+        return [self.calculation_rate] * len(self)
 
     ### PUBLIC PROPERTIES ###
 

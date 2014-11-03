@@ -27,13 +27,13 @@ class In(MultiOutUGen):
     def __init__(
         self,
         bus=0,
-        rate=None,
+        calculation_rate=None,
         channel_count=1,
         ):
         MultiOutUGen.__init__(
             self,
             bus=bus,
-            rate=rate,
+            calculation_rate=calculation_rate,
             channel_count=channel_count,
             )
 
@@ -45,7 +45,7 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
-        r'''Constructs an audio-rate bus input.
+        r'''Constructs an audio-calculation_rate bus input.
 
         ::
 
@@ -56,7 +56,7 @@ class In(MultiOutUGen):
         '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         prototype = (
             servertools.Bus,
             servertools.BusGroup,
@@ -71,7 +71,7 @@ class In(MultiOutUGen):
         ugen = cls._new_expanded(
             bus=bus,
             channel_count=channel_count,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
         return ugen
 
@@ -81,7 +81,7 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
-        r'''Constructs a control-rate bus input.
+        r'''Constructs a control-calculation_rate bus input.
 
         ::
 
@@ -92,7 +92,7 @@ class In(MultiOutUGen):
         '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         prototype = (
             servertools.Bus,
             servertools.BusGroup,
@@ -107,7 +107,7 @@ class In(MultiOutUGen):
         ugen = cls._new_expanded(
             bus=bus,
             channel_count=channel_count,
-            rate=rate,
+            calculation_rate=calculation_rate,
             )
         return ugen
 

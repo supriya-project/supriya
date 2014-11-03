@@ -38,8 +38,8 @@ class OutputProxy(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def rate(self):
-        return self.source.rate
+    def calculation_rate(self):
+        return self.source.calculation_rate
 
     @property
     def output_index(self):

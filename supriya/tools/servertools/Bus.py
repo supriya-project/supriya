@@ -22,7 +22,7 @@ class Bus(ServerObjectProxy):
     def __init__(
         self,
         bus_group_or_index=None,
-        rate=None,
+        calculation_rate=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -38,9 +38,9 @@ class Bus(ServerObjectProxy):
                 bus_id = int(bus_group_or_index)
         self._bus_group = bus_group
         self._bus_id = bus_id
-        assert rate is not None
-        rate = synthdeftools.CalculationRate.from_expr(rate)
-        self._calculation_rate = rate
+        assert calculation_rate is not None
+        calculation_rate = synthdeftools.CalculationRate.from_expr(calculation_rate)
+        self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
 
@@ -64,11 +64,11 @@ class Bus(ServerObjectProxy):
 
     @staticmethod
     def _get_allocator(
-        rate=None,
+        calculation_rate=None,
         server=None,
         ):
         from supriya.tools import synthdeftools
-        if rate == synthdeftools.CalculationRate.AUDIO:
+        if calculation_rate == synthdeftools.CalculationRate.AUDIO:
             allocator = server.audio_bus_allocator
         else:
             allocator = server.control_bus_allocator
@@ -88,7 +88,7 @@ class Bus(ServerObjectProxy):
         ServerObjectProxy.allocate(self, server=server)
         if self.bus_id is None:
             allocator = self._get_allocator(
-                rate=self.rate,
+                calculation_rate=self.calculation_rate,
                 server=self.server,
                 )
             bus_id = allocator.allocate(1)
@@ -101,7 +101,7 @@ class Bus(ServerObjectProxy):
         return self
 
     def ar(self):
-        r'''Creates an audio-rate input ugen subgraph.
+        r'''Creates an audio-calculation_rate input ugen subgraph.
 
         ::
 
@@ -128,7 +128,7 @@ class Bus(ServerObjectProxy):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = 1
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -147,14 +147,14 @@ class Bus(ServerObjectProxy):
     def audio():
         from supriya.tools import synthdeftools
         return Bus(
-            rate=synthdeftools.CalculationRate.AUDIO,
+            calculation_rate=synthdeftools.CalculationRate.AUDIO,
             )
 
     @staticmethod
     def control():
         from supriya.tools import synthdeftools
         return Bus(
-            rate=synthdeftools.CalculationRate.CONTROL,
+            calculation_rate=synthdeftools.CalculationRate.CONTROL,
             )
 
     def free(self):
@@ -162,7 +162,7 @@ class Bus(ServerObjectProxy):
             return
         if not self._bus_id_was_set_manually:
             allocator = self._get_allocator(
-                rate=self.rate,
+                calculation_rate=self.calculation_rate,
                 server=self.server,
                 )
             allocator.free(self.bus_id)
@@ -178,7 +178,7 @@ class Bus(ServerObjectProxy):
         from supriya.tools import synthdeftools
         if not self.is_allocated:
             raise servertools.NotAllocatedError(self)
-        elif not self.rate == synthdeftools.CalculationRate.CONTROL:
+        elif not self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
             raise synthdeftools.RateError
         request = requesttools.ControlBusGetRequest(
             indices=(self,),
@@ -191,7 +191,7 @@ class Bus(ServerObjectProxy):
         return value
 
     def kr(self):
-        r'''Creates a control-rate input ugen subgraph.
+        r'''Creates a control-calculation_rate input ugen subgraph.
 
         ::
 
@@ -218,7 +218,7 @@ class Bus(ServerObjectProxy):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = 1
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -242,7 +242,7 @@ class Bus(ServerObjectProxy):
         from supriya.tools import synthdeftools
         if not self.is_allocated:
             raise servertools.NotAllocatedError(self)
-        elif not self.rate == synthdeftools.CalculationRate.CONTROL:
+        elif not self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
             raise synthdeftools.RateError
         request = requesttools.ControlBusSetRequest(
             index_value_pairs=((self, value,),),
@@ -269,7 +269,7 @@ class Bus(ServerObjectProxy):
         return self._bus_id
 
     @property
-    def rate(self):
+    def calculation_rate(self):
         return self._calculation_rate
 
     @property
@@ -281,7 +281,7 @@ class Bus(ServerObjectProxy):
     @property
     def map_symbol(self):
         from supriya.tools import synthdeftools
-        if self.rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'
@@ -298,7 +298,7 @@ class Bus(ServerObjectProxy):
     def value(self):
         from supriya.tools import synthdeftools
         if self.is_allocated:
-            if self.rate == synthdeftools.CalculationRate.CONTROL:
+            if self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 proxy = self.server._get_control_bus_proxy(self.bus_id)
                 return proxy.value
         return None
