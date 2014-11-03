@@ -79,6 +79,28 @@ class SupriyaDocumentationManager(object):
         return result
 
     @staticmethod
+    def build_bases_section(cls):
+        from abjad.tools import documentationtools
+        result = []
+        result.append(documentationtools.ReSTHeading(
+            level=3,
+            text='Bases',
+            ))
+        mro = inspect.getmro(cls)[1:]
+        for cls in mro:
+            parts = cls.__module__.split('.') + [cls.__name__]
+            while 1 < len(parts) and parts[-1] == parts[-2]:
+                parts.pop()
+            packagesystem_path = '.'.join(parts)
+            text = '- :py:class:`{}`'.format(packagesystem_path)
+            paragraph = documentationtools.ReSTParagraph(
+                text=text,
+                wrap=False,
+                )
+            result.append(paragraph)
+        return result
+
+    @staticmethod
     def build_enumeration_section(cls):
         from abjad.tools import documentationtools
         result = []
@@ -314,11 +336,9 @@ class SupriyaDocumentationManager(object):
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=cls.__name__,
             directive='autoclass',
-            options={
-                'show-inheritance': True,
-                },
             )
         document.append(autoclass_directive)
+        document.extend(manager.build_bases_section(cls))
         document.extend(manager.build_enumeration_section(cls))
         document.extend(manager.build_attributes_autosummary(
             cls,
