@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 r'''
-Tools for constructing and compiling synthesizer definitions (SynthDefs).
+Tools for modeling unit generators (UGens).
 '''
 
 from abjad.tools import systemtools

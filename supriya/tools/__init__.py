@@ -16,4 +16,3 @@ from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
 from supriya.tools import ugentools
-from supriya.tools import pendingugens
