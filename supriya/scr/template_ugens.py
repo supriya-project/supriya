@@ -158,12 +158,13 @@ def run():
         ugen_module_string = make_ugen_module(ugen_name, ugen_definition)
         ugen_module_path = os.path.join(
             supriya.__path__[0],
-            'etc',
+            'tools',
+            'pendingugens',
             '{}.py'.format(ugen_name),
             )
-        #with open(ugen_module_path, 'w') as file_pointer:
-        #    file_pointer.write(ugen_module_string)
-        print(ugen_module_string)
+        with open(ugen_module_path, 'w') as file_pointer:
+            file_pointer.write(ugen_module_string)
+        #print(ugen_module_string)
 
 
 if __name__ == '__main__':
