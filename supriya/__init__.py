@@ -9,8 +9,8 @@ from supriya.tools.servertools import BusGroup
 from supriya.tools.servertools import Group
 from supriya.tools.servertools import Server
 from supriya.tools.servertools import Synth
+from supriya.tools.synthdeftools import CalculationRate
 from supriya.tools.synthdeftools import Op
-from supriya.tools.synthdeftools import Rate
 from supriya.tools.synthdeftools import SynthDef
 from supriya.tools.synthdeftools import SynthDefBuilder
 from supriya import synthdefs

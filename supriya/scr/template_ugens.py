@@ -29,9 +29,9 @@ def make_class_methods(ugen_definition):
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append('        from supriya.tools import synthdeftools')
-        result.append('        rate = None')
+        result.append('        calculation_rate = None')
         result.append('        ugen = cls._new_expanded(')
-        result.append('            rate=rate,')
+        result.append('            calculation_rate=calculation_rate,')
         for name, value in method_signature:
             result.append('            {}={},'.format(name, name))
         result.append('            )')
@@ -51,7 +51,7 @@ def make_class_variables():
         '    _ordered_input_names = (',
         '        )',
         '',
-        '    _valid_rates = None',
+        '    _valid_calculation_rates = None',
         '',
         ]
     return result
@@ -80,16 +80,17 @@ def process_method_signature(method_signature):
         'dur': 'duration',
         'buffernum': 'buffer_id',
         'num_channels': 'channel_count',
-        'rate': 'performance_rate',
         }
     for name, value in method_signature:
         name = stringtools.to_snake_case(name)
         if name in replacements:
-            name = replacements['name']
+            name = replacements[name]
         if name.endswith('freq'):
             name = name.replace('freq', 'frequency')
         if name in ('add', 'mul', 'nil', 'this'):
             continue
+        if isinstance(value, str):
+            value = repr(value)
         result.append((name, value))
     result.sort()
     return result
@@ -117,13 +118,13 @@ def make_initializer(ugen_definition):
         method_signature = process_method_signature(method_signature)
         result.append('    def __init__(')
         result.append('        self,')
-        result.append('        rate=None,')
+        result.append('        calculation_rate=None,')
         for name, value in method_signature:
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append('        {}.__init__('.format(ugen_definition['parent']))
         result.append('            self,')
-        result.append('            rate=rate,')
+        result.append('            calculation_rate=calculation_rate,')
         for name, value in method_signature:
             result.append('            {}={},'.format(name, name))
         result.append('            )')
@@ -152,9 +153,6 @@ def run():
         elif ugen_name in dir(ugentools):
             continue
         counter += 1
-        print()
-        print('COUNTER:', counter)
-        print()
         ugen_definition = ugen_definitions[ugen_name]
         ugen_module_string = make_ugen_module(ugen_name, ugen_definition)
         ugen_module_path = os.path.join(
