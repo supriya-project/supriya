@@ -165,6 +165,17 @@ Quit the server:
     >>> server.quit()
     <Server: offline>
 
+User Guide
+----------
+
+..  toctree::
+    :maxdepth: 2
+
+    guide/server
+    guide/synthdefs
+    guide/nodes
+    guide/graphviz
+
 API Documentation
 -----------------
 
