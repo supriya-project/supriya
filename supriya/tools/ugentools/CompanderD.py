@@ -51,7 +51,7 @@ class CompanderD(PseudoUGen):
         '''
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         control = ugentools.DelayN.ar(
             source=source,
             maximum_delay_time=clamp_time,

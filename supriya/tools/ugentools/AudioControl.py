@@ -23,6 +23,6 @@ class AudioControl(Control):
         Control.__init__(
             self,
             control_names,
-            rate=synthdeftools.Rate.AUDIO,
+            rate=synthdeftools.CalculationRate.AUDIO,
             starting_control_index=starting_control_index,
             )

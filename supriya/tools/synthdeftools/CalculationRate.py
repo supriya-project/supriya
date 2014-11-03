@@ -3,19 +3,19 @@ import collections
 from supriya.tools.systemtools.Enumeration import Enumeration
 
 
-class Rate(Enumeration):
+class CalculationRate(Enumeration):
     r'''An enumeration of scsynth calculation rates.
 
     ::
 
         >>> from supriya.tools import synthdeftools
-        >>> synthdeftools.Rate.AUDIO
-        <Rate.AUDIO: 2>
+        >>> synthdeftools.CalculationRate.AUDIO
+        <CalculationRate.AUDIO: 2>
 
     ::
 
-        >>> synthdeftools.Rate.from_expr('demand')
-        <Rate.DEMAND: 3>
+        >>> synthdeftools.CalculationRate.from_expr('demand')
+        <CalculationRate.DEMAND: 3>
 
     '''
 
@@ -43,20 +43,20 @@ class Rate(Enumeration):
             >>> collection.append(ugentools.DC.ar(0))
             >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
-            >>> synthdeftools.Rate.from_collection(collection)
-            <Rate.AUDIO: 2>
+            >>> synthdeftools.CalculationRate.from_collection(collection)
+            <CalculationRate.AUDIO: 2>
 
         ::
             >>> collection = []
             >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
-            >>> synthdeftools.Rate.from_collection(collection)
-            <Rate.CONTROL: 1>
+            >>> synthdeftools.CalculationRate.from_collection(collection)
+            <CalculationRate.CONTROL: 1>
 
         Return calculation rate.
         '''
         rates = [
-            Rate.from_input(item) for item in collection
+            CalculationRate.from_input(item) for item in collection
             ]
         maximum_rate = max(rates)
         return maximum_rate
@@ -65,7 +65,7 @@ class Rate(Enumeration):
     def from_input(input_):
         from supriya.tools import synthdeftools
         if isinstance(input_, (int, float)):
-            return Rate.SCALAR
+            return CalculationRate.SCALAR
         elif isinstance(input_, (
             synthdeftools.OutputProxy,
             synthdeftools.UGen,
@@ -74,14 +74,14 @@ class Rate(Enumeration):
         elif isinstance(input_, synthdeftools.Parameter):
             name = input_.parameter_rate.name
             if name == 'TRIGGER':
-                return Rate.CONTROL
-            return Rate.from_expr(name)
+                return CalculationRate.CONTROL
+            return CalculationRate.from_expr(name)
         elif isinstance(input_, collections.Sequence):
-            return Rate.from_collection(input_)
+            return CalculationRate.from_collection(input_)
         raise ValueError(input_)
 
     @staticmethod
     def from_ugen_method_mixin(expr):
         if isinstance(expr, collections.Sequence):
-            return Rate.from_collection(expr)
-        return Rate.from_input(expr)
+            return CalculationRate.from_collection(expr)
+        return CalculationRate.from_input(expr)

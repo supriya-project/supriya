@@ -40,11 +40,11 @@ class Sum3(UGen):
         input_three=None,
         ):
         from supriya.tools import synthdeftools
-        Rate = synthdeftools.Rate
+        CalculationRate = synthdeftools.CalculationRate
         inputs = [input_one, input_two, input_three]
-        rate = Rate.from_collection(inputs)
+        rate = CalculationRate.from_collection(inputs)
         inputs.sort(
-            key=lambda x: Rate.from_input(x),
+            key=lambda x: CalculationRate.from_input(x),
             reverse=True,
             )
         inputs = tuple(inputs)
@@ -134,7 +134,7 @@ class Sum3(UGen):
             >>> sum_3.input_one
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -163,7 +163,7 @@ class Sum3(UGen):
             >>> sum_3.input_three
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.2
                     ),
@@ -192,7 +192,7 @@ class Sum3(UGen):
             >>> sum_3.input_two
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.1
                     ),

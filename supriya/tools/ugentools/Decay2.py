@@ -66,7 +66,7 @@ class Decay2(Filter):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             attack_time=attack_time,
             decay_time=decay_time,
@@ -96,7 +96,7 @@ class Decay2(Filter):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             attack_time=attack_time,
             decay_time=decay_time,
@@ -169,7 +169,7 @@ class Decay2(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.CONTROL: 1>,
+                    rate=<CalculationRate.CONTROL: 1>,
                     channel_count=1
                     ),
                 output_index=0

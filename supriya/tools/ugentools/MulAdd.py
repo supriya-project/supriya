@@ -56,12 +56,12 @@ class MulAdd(UGen):
         addend,
         ):
         from supriya.tools import synthdeftools
-        Rate = synthdeftools.Rate
-        if source.rate == Rate.AUDIO:
+        CalculationRate = synthdeftools.CalculationRate
+        if source.rate == CalculationRate.AUDIO:
             return True
-        if source.rate == Rate.CONTROL:
-            if multiplier.rate in (Rate.CONTROL, Rate.SCALAR):
-                if addend.rate in (Rate.CONTROL, Rate.SCALAR):
+        if source.rate == CalculationRate.CONTROL:
+            if multiplier.rate in (CalculationRate.CONTROL, CalculationRate.SCALAR):
+                if addend.rate in (CalculationRate.CONTROL, CalculationRate.SCALAR):
                     return True
         return False
 
@@ -132,7 +132,7 @@ class MulAdd(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.from_input((source, multiplier, addend))
+        rate = synthdeftools.CalculationRate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
             addend=addend,
             multiplier=multiplier,
@@ -204,7 +204,7 @@ class MulAdd(UGen):
             >>> mul_add.source
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),

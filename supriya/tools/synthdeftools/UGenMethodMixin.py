@@ -1123,18 +1123,18 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_rate(ugen_a, ugen_b):
         from supriya import synthdeftools
-        a_rate = synthdeftools.Rate.from_input(ugen_a)
-        b_rate = synthdeftools.Rate.from_input(ugen_b)
-        if a_rate == synthdeftools.Rate.DEMAND \
-            or a_rate == synthdeftools.Rate.DEMAND:
-            return synthdeftools.Rate.DEMAND
-        elif a_rate == synthdeftools.Rate.AUDIO \
-            or b_rate == synthdeftools.Rate.AUDIO:
-            return synthdeftools.Rate.AUDIO
-        elif a_rate == synthdeftools.Rate.CONTROL \
-            or b_rate == synthdeftools.Rate.CONTROL:
-            return synthdeftools.Rate.CONTROL
-        return synthdeftools.Rate.SCALAR
+        a_rate = synthdeftools.CalculationRate.from_input(ugen_a)
+        b_rate = synthdeftools.CalculationRate.from_input(ugen_b)
+        if a_rate == synthdeftools.CalculationRate.DEMAND \
+            or a_rate == synthdeftools.CalculationRate.DEMAND:
+            return synthdeftools.CalculationRate.DEMAND
+        elif a_rate == synthdeftools.CalculationRate.AUDIO \
+            or b_rate == synthdeftools.CalculationRate.AUDIO:
+            return synthdeftools.CalculationRate.AUDIO
+        elif a_rate == synthdeftools.CalculationRate.CONTROL \
+            or b_rate == synthdeftools.CalculationRate.CONTROL:
+            return synthdeftools.CalculationRate.CONTROL
+        return synthdeftools.CalculationRate.SCALAR
 
     @staticmethod
     def _compute_unary_op(source, operator):

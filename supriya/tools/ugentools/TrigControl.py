@@ -21,6 +21,6 @@ class TrigControl(Control):
         Control.__init__(
             self,
             control_names,
-            rate=synthdeftools.Rate.CONTROL,
+            rate=synthdeftools.CalculationRate.CONTROL,
             starting_control_index=starting_control_index,
             )

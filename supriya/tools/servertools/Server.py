@@ -223,7 +223,7 @@ class Server(object):
         if not control_bus_proxy:
             control_bus_proxy = servertools.BusProxy(
                 bus_id=bus_id,
-                rate=synthdeftools.Rate.CONTROL,
+                rate=synthdeftools.CalculationRate.CONTROL,
                 server=self,
                 )
             self._control_bus_proxies[bus_id] = control_bus_proxy

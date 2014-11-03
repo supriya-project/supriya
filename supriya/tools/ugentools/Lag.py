@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.Rate import Rate
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.Filter import Filter
 
 
@@ -27,8 +27,8 @@ class Lag(Filter):
         )
 
     _valid_rates = (
-        Rate.AUDIO,
-        Rate.CONTROL,
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
         )
 
     ### INITIALIZER ###
@@ -57,8 +57,8 @@ class Lag(Filter):
         ):
         if lag_time == 0:
             return source
-        source_rate = Rate.from_input(source)
-        if source_rate == Rate.SCALAR:
+        source_rate = CalculationRate.from_input(source)
+        if source_rate == CalculationRate.SCALAR:
             return source
         ugen = cls(
             lag_time=lag_time,
@@ -88,7 +88,7 @@ class Lag(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             lag_time=lag_time,
             rate=rate,
@@ -115,7 +115,7 @@ class Lag(Filter):
 
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             lag_time=lag_time,
             rate=rate,
@@ -159,7 +159,7 @@ class Lag(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.CONTROL: 1>,
+                    rate=<CalculationRate.CONTROL: 1>,
                     channel_count=1
                     ),
                 output_index=0

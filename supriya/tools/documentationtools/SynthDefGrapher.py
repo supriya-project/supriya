@@ -23,9 +23,9 @@ class SynthDefGrapher(SupriyaObject):
                 edge(head_field, tail_field)
                 edge.head_port_position = 'w'
                 edge.tail_port_position = 'e'
-                if source.rate == synthdeftools.Rate.CONTROL:
+                if source.rate == synthdeftools.CalculationRate.CONTROL:
                     edge.attributes['color'] = 'goldenrod'
-                elif source.rate == synthdeftools.Rate.AUDIO:
+                elif source.rate == synthdeftools.CalculationRate.AUDIO:
                     edge.attributes['color'] = 'steelblue'
                 else:
                     edge.attributes['color'] = 'salmon'
@@ -69,9 +69,9 @@ class SynthDefGrapher(SupriyaObject):
             node = documentationtools.GraphvizNode(
                 name='ugen_{}'.format(ugen_index),
                 )
-            if ugen.rate == synthdeftools.Rate.CONTROL:
+            if ugen.rate == synthdeftools.CalculationRate.CONTROL:
                 node.attributes['fillcolor'] = 'lightgoldenrod2'
-            elif ugen.rate == synthdeftools.Rate.AUDIO:
+            elif ugen.rate == synthdeftools.CalculationRate.AUDIO:
                 node.attributes['fillcolor'] = 'lightsteelblue2'
             else:
                 node.attributes['fillcolor'] = 'lightsalmon2'

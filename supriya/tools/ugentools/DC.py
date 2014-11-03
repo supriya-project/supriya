@@ -63,7 +63,7 @@ class DC(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -87,7 +87,7 @@ class DC(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
             source=source,

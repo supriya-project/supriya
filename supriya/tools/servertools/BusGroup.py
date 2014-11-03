@@ -28,7 +28,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
-        rate = synthdeftools.Rate.from_expr(
+        rate = synthdeftools.CalculationRate.from_expr(
             rate)
         self._calculation_rate = rate
         bus_count = int(bus_count)
@@ -141,7 +141,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = len(self)
-        if self.rate == synthdeftools.Rate.AUDIO:
+        if self.rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -207,7 +207,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = len(self)
-        if self.rate == synthdeftools.Rate.AUDIO:
+        if self.rate == synthdeftools.CalculationRate.AUDIO:
             ugen = ugentools.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
@@ -239,7 +239,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
     @property
     def map_symbol(self):
         from supriya.tools import synthdeftools
-        if self.rate == synthdeftools.Rate.AUDIO:
+        if self.rate == synthdeftools.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

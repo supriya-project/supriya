@@ -69,7 +69,7 @@ class Pan2(MultiOutUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -136,7 +136,7 @@ class Pan2(MultiOutUGen):
             >>> pan_2.source
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<Rate.AUDIO: 2>
+                    rate=<CalculationRate.AUDIO: 2>
                     ),
                 output_index=0
                 )

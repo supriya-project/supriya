@@ -199,7 +199,7 @@ class BufAllpassC(BufAllpassN):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

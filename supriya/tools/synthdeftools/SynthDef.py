@@ -256,7 +256,7 @@ class SynthDef(ServerObjectProxy):
         if scalar_parameters:
             control = ugentools.Control(
                 control_names=scalar_parameters,
-                rate=synthdeftools.Rate.SCALAR,
+                rate=synthdeftools.CalculationRate.SCALAR,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -284,7 +284,7 @@ class SynthDef(ServerObjectProxy):
         if control_parameters:
             control = ugentools.Control(
                 control_names=control_parameters,
-                rate=synthdeftools.Rate.CONTROL,
+                rate=synthdeftools.CalculationRate.CONTROL,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)

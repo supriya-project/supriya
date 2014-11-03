@@ -73,7 +73,7 @@ class UnaryOpUGen(UGen):
             >>> unary_op_ugen.source
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),

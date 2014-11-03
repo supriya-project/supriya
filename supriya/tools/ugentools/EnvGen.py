@@ -109,7 +109,7 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             done_action=done_action,
@@ -144,7 +144,7 @@ class EnvGen(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
             done_action=done_action,

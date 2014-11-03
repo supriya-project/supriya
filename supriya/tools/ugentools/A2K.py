@@ -59,7 +59,7 @@ class A2K(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -81,7 +81,7 @@ class A2K(PureUGen):
             >>> a_2_k.source
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),

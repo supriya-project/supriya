@@ -75,7 +75,7 @@ class Compander(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             clamp_time=clamp_time,
             control=control,
@@ -204,7 +204,7 @@ class Compander(UGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

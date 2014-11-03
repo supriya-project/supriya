@@ -44,7 +44,7 @@ class NumRunningSynths(InfoUGenBase):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
             **kwargs

@@ -111,7 +111,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.left
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -152,7 +152,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.right
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<Rate.CONTROL: 1>
+                    rate=<CalculationRate.CONTROL: 1>
                     ),
                 output_index=0
                 )

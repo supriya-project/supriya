@@ -68,7 +68,7 @@ class Free(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             rate=rate,
             trigger=trigger,
@@ -111,7 +111,7 @@ class Free(UGen):
             >>> free.trigger
             OutputProxy(
                 source=Impulse(
-                    rate=<Rate.CONTROL: 1>,
+                    rate=<CalculationRate.CONTROL: 1>,
                     frequency=1.0,
                     phase=0.0
                     ),

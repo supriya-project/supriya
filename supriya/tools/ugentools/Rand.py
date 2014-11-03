@@ -59,7 +59,7 @@ class Rand(UGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.SCALAR
+        rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             rate=rate,
             minimum=minimum,

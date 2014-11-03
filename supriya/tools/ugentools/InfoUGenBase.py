@@ -21,7 +21,7 @@ class InfoUGenBase(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.SCALAR
+        rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             rate=rate,
             **kwargs

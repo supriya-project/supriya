@@ -56,7 +56,7 @@ class Delay1(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -81,7 +81,7 @@ class Delay1(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -104,7 +104,7 @@ class Delay1(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

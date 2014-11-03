@@ -68,7 +68,7 @@ class BPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             frequency=frequency,
             rate=rate,
@@ -100,7 +100,7 @@ class BPF(Filter):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             frequency=frequency,
             rate=rate,
@@ -165,7 +165,7 @@ class BPF(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

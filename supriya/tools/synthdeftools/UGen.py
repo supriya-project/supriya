@@ -40,7 +40,7 @@ class UGen(UGenMethodMixin):
         ):
         from supriya import servertools
         from supriya import synthdeftools
-        assert isinstance(rate, synthdeftools.Rate), \
+        assert isinstance(rate, synthdeftools.CalculationRate), \
             rate
         if self._valid_rates is not None:
             assert rate in self._valid_rates
@@ -90,7 +90,7 @@ class UGen(UGenMethodMixin):
             >>> ugen[0]
             OutputProxy(
                 source=SinOsc(
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -132,12 +132,12 @@ class UGen(UGenMethodMixin):
         Returns string.
         '''
         from supriya.tools import synthdeftools
-        if self.rate == synthdeftools.Rate.DEMAND:
+        if self.rate == synthdeftools.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            synthdeftools.Rate.AUDIO: 'ar',
-            synthdeftools.Rate.CONTROL: 'kr',
-            synthdeftools.Rate.SCALAR: 'ir',
+            synthdeftools.CalculationRate.AUDIO: 'ar',
+            synthdeftools.CalculationRate.CONTROL: 'kr',
+            synthdeftools.CalculationRate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
@@ -183,7 +183,7 @@ class UGen(UGenMethodMixin):
                 return ugentools.Silence.ar()
             return ugentools.DC.ar(expr)
         elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
-            if expr.rate == synthdeftools.Rate.AUDIO:
+            if expr.rate == synthdeftools.CalculationRate.AUDIO:
                 return expr
             return ugentools.K2A.ar(source=expr)
         elif isinstance(expr, collections.Iterable):
@@ -211,18 +211,18 @@ class UGen(UGenMethodMixin):
 
     def _check_rate_same_as_first_input_rate(self):
         from supriya import synthdeftools
-        first_input_rate = synthdeftools.Rate.from_input(
+        first_input_rate = synthdeftools.CalculationRate.from_input(
             self.inputs[0],
             )
         return self.rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
         from supriya import synthdeftools
-        if self.rate != synthdeftools.Rate.AUDIO:
+        if self.rate != synthdeftools.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
-            rate = synthdeftools.Rate.from_input(input_)
-            if rate != synthdeftools.Rate.AUDIO:
+            rate = synthdeftools.CalculationRate.from_input(input_)
+            if rate != synthdeftools.CalculationRate.AUDIO:
                 return False
         return True
 
@@ -400,7 +400,7 @@ class UGen(UGenMethodMixin):
             ...
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<Rate.CONTROL: 1>
+                    rate=<CalculationRate.CONTROL: 1>
                     ),
                 output_index=0
                 )
@@ -421,7 +421,7 @@ class UGen(UGenMethodMixin):
             ...     phase=0.5,
             ...     )
             >>> ugen.outputs
-            (<Rate.AUDIO: 2>,)
+            (<CalculationRate.AUDIO: 2>,)
 
         Returns tuple.
         '''
@@ -438,7 +438,7 @@ class UGen(UGenMethodMixin):
             ...     phase=0.5,
             ...     )
             >>> ugen.rate
-            <Rate.AUDIO: 2>
+            <CalculationRate.AUDIO: 2>
 
         Returns calculation rate.
         '''

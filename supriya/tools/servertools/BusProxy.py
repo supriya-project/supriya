@@ -30,7 +30,7 @@ class BusProxy(SupriyaObject):
         from supriya.tools import synthdeftools
         bus_id = int(bus_id)
         assert 0 <= bus_id
-        rate = synthdeftools.Rate.from_expr(
+        rate = synthdeftools.CalculationRate.from_expr(
             rate)
         assert isinstance(server, servertools.Server)
         self._bus_id = int(bus_id)
@@ -71,7 +71,7 @@ class BusProxy(SupriyaObject):
     @property
     def map_symbol(self):
         from supriya.tools import synthdeftools
-        if self.rate == synthdeftools.Rate.AUDIO:
+        if self.rate == synthdeftools.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

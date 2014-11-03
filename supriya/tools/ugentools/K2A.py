@@ -59,7 +59,7 @@ class K2A(PureUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             source=source,
@@ -81,7 +81,7 @@ class K2A(PureUGen):
             >>> k_2_a.source
             OutputProxy(
                 source=WhiteNoise(
-                    rate=<Rate.CONTROL: 1>
+                    rate=<CalculationRate.CONTROL: 1>
                     ),
                 output_index=0
                 )

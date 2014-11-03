@@ -56,7 +56,7 @@ class In(MultiOutUGen):
         '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         prototype = (
             servertools.Bus,
             servertools.BusGroup,
@@ -92,7 +92,7 @@ class In(MultiOutUGen):
         '''
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.CONTROL
+        rate = synthdeftools.CalculationRate.CONTROL
         prototype = (
             servertools.Bus,
             servertools.BusGroup,

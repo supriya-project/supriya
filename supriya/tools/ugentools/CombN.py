@@ -71,7 +71,7 @@ class CombN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             rate=rate,
@@ -106,7 +106,7 @@ class CombN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             rate=rate,
             decay_time=decay_time,
@@ -192,7 +192,7 @@ class CombN(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0

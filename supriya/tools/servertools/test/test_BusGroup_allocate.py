@@ -17,7 +17,7 @@ def test_BusGroup_allocate_01(server):
 
     bus_group_one = servertools.BusGroup(
         bus_count=4,
-        rate=synthdeftools.Rate.CONTROL,
+        rate=synthdeftools.CalculationRate.CONTROL,
         )
 
     assert not bus_group_one.is_allocated
@@ -45,7 +45,7 @@ def test_BusGroup_allocate_01(server):
 
     bus_group_two = servertools.BusGroup(
         bus_count=4,
-        rate=synthdeftools.Rate.CONTROL,
+        rate=synthdeftools.CalculationRate.CONTROL,
         )
     server.sync()
 

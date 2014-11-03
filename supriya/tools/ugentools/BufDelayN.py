@@ -76,7 +76,7 @@ class BufDelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
@@ -112,7 +112,7 @@ class BufDelayN(PureUGen):
         Returns unit generator graph.
         '''
         from supriya.tools import synthdeftools
-        rate = synthdeftools.Rate.AUDIO
+        rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
             rate=rate,
@@ -204,7 +204,7 @@ class BufDelayN(PureUGen):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    rate=<Rate.AUDIO: 2>,
+                    rate=<CalculationRate.AUDIO: 2>,
                     channel_count=1
                     ),
                 output_index=0
