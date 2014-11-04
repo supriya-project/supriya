@@ -1,18 +1,13 @@
 # -*- encoding: utf-8 -*-
 import copy
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.servertools.ControlInterface import ControlInterface
 
 
-class GroupInterface(SupriyaObject):
+class GroupInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Server Internals'
-
-    __slots__ = (
-        '_synth_controls',
-        '_client',
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
@@ -22,6 +17,11 @@ class GroupInterface(SupriyaObject):
         ):
         self._synth_controls = {}
         self._client = client
+
+    ### SPECIAL METHODS ###
+
+    def __setitem__(self, items, values):
+        pass
 
     ### PUBLIC METHODS ###
 
@@ -52,13 +52,3 @@ class GroupInterface(SupriyaObject):
 
     def reset(self):
         self._synth_controls.clear()
-
-    ### PUBLIC PROPERTIES ###
-
-    @property
-    def client(self):
-        return self._client
-
-    @property
-    def node_id(self):
-        return int(self.client)
