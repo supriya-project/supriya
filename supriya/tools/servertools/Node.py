@@ -60,33 +60,18 @@ class Node(ServerObjectProxy):
             name_dictionary[self.name].add(self)
         return name_dictionary
 
-    def _cache_child_controls(self):
-        name_dictionary = {}
-        if hasattr(self, '_child_controls'):
-            for control_name, synths in self._child_controls.items():
-                name_dictionary[control_name] = copy.copy(synths)
-        if hasattr(self, 'controls'):
-            for control in self.controls:
-                control_name = control.name
-                if control_name not in name_dictionary:
-                    name_dictionary[control_name] = set()
-                name_dictionary[control_name].add(self)
-        return name_dictionary
+    def _cache_control_interface(self):
+        return self._control_interface.as_dict()
 
     def _remove_from_parent(self):
         if self._parent is not None:
             index = self._parent.index(self)
             self._parent._children.pop(index)
 
-    def _remove_child_controls_from_parentage(self, name_dictionary):
+    def _remove_control_interface_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
-                child_controls = parent._child_controls
-                for control_name in name_dictionary:
-                    for node in name_dictionary[control_name]:
-                        child_controls[control_name].remove(node)
-                    if not child_controls[control_name]:
-                        del(child_controls[control_name])
+                parent._control_interface.remove_controls(name_dictionary)
 
     def _remove_named_children_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
@@ -100,25 +85,18 @@ class Node(ServerObjectProxy):
 
     def _set_parent(self, new_parent):
         named_children = self._cache_named_children()
-        child_controls = self._cache_child_controls()
+        control_interface = self._cache_control_interface()
         self._remove_named_children_from_parentage(named_children)
-        self._remove_child_controls_from_parentage(child_controls)
+        self._remove_control_interface_from_parentage(control_interface)
         self._remove_from_parent()
         self._parent = new_parent
         self._restore_named_children_to_parentage(named_children)
-        self._restore_child_controls_to_parentage(child_controls)
+        self._restore_control_interface_to_parentage(control_interface)
 
-    def _restore_child_controls_to_parentage(self, name_dictionary):
+    def _restore_control_interface_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
-                child_controls = parent._child_controls
-                for control_name in name_dictionary:
-                    if control_name in child_controls:
-                        child_controls[control_name].update(
-                            name_dictionary[control_name])
-                    else:
-                        child_controls[control_name] = copy.copy(
-                            name_dictionary[control_name])
+                parent._control_interface.add_controls(name_dictionary)
 
     def _restore_named_children_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:

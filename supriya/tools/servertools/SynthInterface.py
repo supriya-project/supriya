@@ -140,7 +140,7 @@ class SynthInterface(SupriyaObject, collections.Mapping):
     def as_dict(self):
         result = {}
         for control in self:
-            result[control.name] = set([self.synth])
+            result[control.name] = set([self.client])
         return result
 
     def make_synth_new_settings(self):
@@ -195,7 +195,3 @@ class SynthInterface(SupriyaObject, collections.Mapping):
     @property
     def synth_controls(self):
         return self._synth_controls
-
-    @property
-    def synth(self):
-        return self.client.client
