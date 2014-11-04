@@ -43,7 +43,7 @@ class Synth(Node):
 
     __slots__ = (
         '_synthdef',
-        '_synth_control_group',
+        '_synth_interface',
         )
 
     ### INITIALIZER ###
@@ -57,7 +57,7 @@ class Synth(Node):
         assert isinstance(synthdef, synthdeftools.SynthDef)
         Node.__init__(self)
         self._synthdef = synthdef
-        self._synth_control_group = servertools.SynthControlGroup(
+        self._synth_interface = servertools.SynthInterface(
             client=self,
             synthdef=self._synthdef,
             )
@@ -65,7 +65,7 @@ class Synth(Node):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        return self._synth_control_group[item]
+        return self._synth_interface[item]
 
     ### PUBLIC METHODS ###
 
@@ -129,13 +129,13 @@ class Synth(Node):
             self,
             send_to_server=send_to_server,
             )
-        #self._synth_control_group.reset()
+        #self._synth_interface.reset()
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def controls(self):
-        return self._synth_control_group
+        return self._synth_interface
 
     @property
     def synthdef(self):
