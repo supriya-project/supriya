@@ -3,7 +3,7 @@ import collections
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class SynthInterface(SupriyaObject, collections.Mapping):
+class SynthInterface(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
