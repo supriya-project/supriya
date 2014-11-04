@@ -21,7 +21,22 @@ class GroupInterface(ControlInterface):
     ### SPECIAL METHODS ###
 
     def __setitem__(self, items, values):
-        pass
+        from supriya.tools import servertools
+        if not isinstance(items, tuple):
+            items = (items,)
+        assert all(_ in self._synth_controls for _ in items)
+        if not isinstance(values, tuple):
+            values = (values,)
+        assert len(items) == len(values)
+        settings = dict(zip(items, values))
+        messages = self._set(**settings)
+        message_bundler = servertools.MessageBundler(
+            server=self.client.server,
+            sync=True,
+            )
+        with message_bundler:
+            for message in messages:
+                message_bundler.add_message(message)
 
     ### PUBLIC METHODS ###
 

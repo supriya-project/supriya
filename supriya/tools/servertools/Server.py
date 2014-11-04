@@ -203,6 +203,11 @@ class Server(object):
             outputs=self.server_options.output_bus_channel_count,
             )
 
+    def __str__(self):
+        if self.is_running:
+            return str(self.query_remote_nodes(True))
+        return ''
+
     ### PRIVATE METHODS ###
 
     def _get_buffer_proxy(self, buffer_id):

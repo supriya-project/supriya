@@ -39,7 +39,8 @@ class ControlInterface(SupriyaObject):
                     n_mapa_settings[control_name] = value
             else:
                 raise ValueError(value)
-            self[control_name]._value = value
+            if hasattr(self, '__getitem__'):
+                self[control_name]._value = value
         messages = []
         if n_set_settings:
             request = requesttools.NodeSetRequest(
