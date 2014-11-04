@@ -283,3 +283,7 @@ class Group(Node):
     @property
     def children(self):
         return tuple(self._children)
+
+    @property
+    def controls(self):
+        return self._control_interface
