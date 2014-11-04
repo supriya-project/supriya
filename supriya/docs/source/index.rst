@@ -173,11 +173,7 @@ User Guide
 ..  toctree::
     :maxdepth: 2
 
-    guide/install
-    guide/server
-    guide/synthdefs
-    guide/nodes
-    guide/graphviz
+    guide/index
 
 API Documentation
 -----------------
