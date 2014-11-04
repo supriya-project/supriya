@@ -37,15 +37,20 @@ class Group(Node):
     __slots__ = (
         '_children',
         '_child_controls',
+        '_control_interface',
         '_named_children',
         )
 
     ### INITIALIZER ###
 
     def __init__(self):
+        from supriya.tools import servertools
         Node.__init__(self)
         self._children = []
         self._child_controls = {}
+        self._control_interface = servertools.GroupInterface(
+            client=self,
+            )
         self._named_children = {}
 
     ### SPECIAL METHODS ###
@@ -248,6 +253,7 @@ class Group(Node):
             self,
             send_to_server=send_to_server,
             )
+        self._control_interface.reset()
         return self
 
     def index(self, expr):
