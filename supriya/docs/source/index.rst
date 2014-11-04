@@ -175,8 +175,8 @@ User Guide
 
     guide/index
 
-API Documentation
------------------
+Supriya API
+-----------
 
 ..  toctree::
     :maxdepth: 2
