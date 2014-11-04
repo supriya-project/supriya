@@ -75,27 +75,9 @@ class SynthInterface(ControlInterface):
             for message in messages:
                 message_bundler.add_message(message)
 
-    ### PRIVATE PROPERTIES ###
+    ### PRIVATE METHODS ###
 
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            is_bracketed=True,
-            positional_argument_values=self._synth_controls,
-            keyword_argument_names=(),
-            )
-
-    ### PUBLIC METHODS ###
-
-    def as_dict(self):
-        result = {}
-        for control in self:
-            result[control.name] = set([self.client])
-        return result
-
-    def make_synth_new_settings(self):
+    def _make_synth_new_settings(self):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -125,6 +107,26 @@ class SynthInterface(ControlInterface):
                 )
             requests.append(request)
         return settings, requests
+
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatSpecification(
+            self,
+            is_bracketed=True,
+            positional_argument_values=self._synth_controls,
+            keyword_argument_names=(),
+            )
+
+    ### PUBLIC METHODS ###
+
+    def as_dict(self):
+        result = {}
+        for control in self:
+            result[control.name] = set([self.client])
+        return result
 
     def reset(self):
         for synth_control in self._synth_controls:

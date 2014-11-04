@@ -91,7 +91,7 @@ class Synth(Node):
             )
         with message_bundler:
             self.controls._set(**kwargs)
-            settings, map_requests = self.controls.make_synth_new_settings()
+            settings, map_requests = self.controls._make_synth_new_settings()
             synth_request = requesttools.SynthNewRequest(
                 add_action=add_action,
                 node_id=node_id,
