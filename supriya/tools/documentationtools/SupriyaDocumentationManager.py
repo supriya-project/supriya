@@ -576,8 +576,11 @@ class SupriyaDocumentationManager(object):
                         },
                     )
                 for cls in sections[section_name]:
+                    class_name = cls.__name__
+                    if class_name == 'Index':
+                        class_name = '_Index'
                     toc_item = documentationtools.ReSTTOCItem(
-                        text=cls.__name__,
+                        text=class_name,
                         )
                     toc.append(toc_item)
                 document.append(toc)
@@ -605,7 +608,7 @@ class SupriyaDocumentationManager(object):
                 )
             for function in functions:
                 toc_item = documentationtools.ReSTTOCItem(
-                    text = function.__name__,
+                    text=function.__name__,
                     )
                 toc.append(toc_item)
             document.append(toc)
@@ -627,7 +630,10 @@ class SupriyaDocumentationManager(object):
         manager = SupriyaDocumentationManager
         parts = module_path.split('.')
         parts = parts[2:]
-        parts[-1] = parts[-1] + '.rst'
+        if parts[-1] == 'Index':
+            parts[-1] = '_' + parts[-1] + '.rst'
+        else:
+            parts[-1] = parts[-1] + '.rst'
         parts.insert(0, manager.get_api_directory_path())
         path = os.path.join(*parts)
         return path
