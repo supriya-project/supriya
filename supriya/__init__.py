@@ -14,3 +14,5 @@ from supriya.tools.synthdeftools import Op
 from supriya.tools.synthdeftools import SynthDef
 from supriya.tools.synthdeftools import SynthDefBuilder
 from supriya import synthdefs
+
+from abjad import graph
