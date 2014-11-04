@@ -79,7 +79,14 @@ class Node(ServerObjectProxy):
             self._parent._children.pop(index)
 
     def _remove_child_controls_from_parentage(self, name_dictionary):
-        pass
+        if self._parent is not None and name_dictionary:
+            for parent in self.parentage[1:]:
+                child_controls = parent._child_controls
+                for control_name in name_dictionary:
+                    for node in name_dictionary[control_name]:
+                        child_controls[control_name].remove(node)
+                    if not child_controls[control_name]:
+                        del(child_controls[control_name])
 
     def _remove_named_children_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
@@ -89,7 +96,7 @@ class Node(ServerObjectProxy):
                     for node in name_dictionary[name]:
                         named_children[name].remove(node)
                     if not named_children[name]:
-                        del named_children[name]
+                        del(named_children[name])
 
     def _set_parent(self, new_parent):
         named_children = self._cache_named_children()
@@ -102,7 +109,16 @@ class Node(ServerObjectProxy):
         self._restore_child_controls_to_parentage(child_controls)
 
     def _restore_child_controls_to_parentage(self, name_dictionary):
-        pass
+        if self._parent is not None and name_dictionary:
+            for parent in self.parentage[1:]:
+                child_controls = parent._child_controls
+                for control_name in name_dictionary:
+                    if control_name in child_controls:
+                        child_controls[control_name].update(
+                            name_dictionary[control_name])
+                    else:
+                        child_controls[control_name] = copy.copy(
+                            name_dictionary[control_name])
 
     def _restore_named_children_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
