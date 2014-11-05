@@ -90,19 +90,8 @@ class Group(Node):
 
         assert self.is_allocated
 
-        if isinstance(i, int):
-            if i < 0:
-                i = len(self) + i
-            i = slice(i, i + 1)
-            expr = [expr]
-        assert all(isinstance(_, servertools.Node) for _ in expr)
-        start, stop, _ = i.indices(len(self))
-
-        parentage = self.parentage
-        for x in expr:
-            assert isinstance(x, servertools.Node)
-            if isinstance(x, servertools.Group):
-                assert x not in parentage
+        self._validate_setitem_expr(expr)
+        expr, start, stop = self._coerce_setitem_arguments(i, expr)
 
         old_children = tuple(self[start:stop])
         for child in old_children:
@@ -195,6 +184,15 @@ class Group(Node):
 
     ### PRIVATE METHODS ###
 
+    def _coerce_setitem_arguments(self, i, expr):
+        if isinstance(i, int):
+            if i < 0:
+                i = len(self) + i
+            i = slice(i, i + 1)
+            expr = [expr]
+        start, stop, _ = i.indices(len(self))
+        return expr, start, stop
+
     @staticmethod
     def _iterate_children(group):
         from supriya.tools import servertools
@@ -203,6 +201,25 @@ class Group(Node):
                 for subchild in Group._iterate_children(child):
                     yield subchild
             yield child
+
+    @staticmethod
+    def _iterate_synths(node):
+        from supriya.tools import servertools
+        if isinstance(node, servertools.Synth):
+            yield node
+        else:
+            for child in node:
+                for subchild in Group._iterate_synths(child):
+                    yield subchild
+
+    def _validate_setitem_expr(self, expr):
+        from supriya.tools import servertools
+        assert all(isinstance(_, servertools.Node) for _ in expr)
+        parentage = self.parentage
+        for x in expr:
+            assert isinstance(x, servertools.Node)
+            if isinstance(x, servertools.Group):
+                assert x not in parentage
 
     ### PUBLIC METHODS ###
 
