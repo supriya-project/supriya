@@ -63,8 +63,8 @@ class Node(ServerObjectProxy):
 
     def _register_with_local_server(
         self,
-        server,
         node_id_is_permanent=False,
+        server=None,
         ):
         if server is None or not server.is_running:
             raise ValueError
@@ -83,6 +83,7 @@ class Node(ServerObjectProxy):
         self._node_id = node_id
         self._node_id_is_permanent = bool(node_id_is_permanent)
         self._server._nodes[self._node_id] = self
+        return node_id
 
     def _unregister_with_local_server(self):
         node_id = self.node_id
@@ -154,28 +155,12 @@ class Node(ServerObjectProxy):
         target_node=None,
         ):
         from supriya.tools import servertools
-        if self.server is not None:
-            raise ValueError
-
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
-        if server is None or not server.is_running:
-            raise ValueError
-
-        id_allocator = server.node_id_allocator
-        if node_id_is_permanent:
-            node_id = id_allocator.allocate_permanent_node_id()
-        else:
-            node_id = server.node_id_allocator.allocate_node_id()
-        if node_id is None:
-            raise ValueError
-        elif node_id in server._nodes:
-            raise ValueError
-        ServerObjectProxy.allocate(self, server=server)
-        self._node_id = node_id
-        self._node_id_is_permanent = bool(node_id_is_permanent)
-        self._server._nodes[self._node_id] = self
-
+        node_id = self._register_with_local_server(
+            node_id_is_permanent=node_id_is_permanent,
+            server=server,
+            )
         add_action = servertools.AddAction.from_expr(add_action)
         if add_action == servertools.AddAction['ADD_TO_HEAD']:
             assert isinstance(target_node, servertools.Group)
