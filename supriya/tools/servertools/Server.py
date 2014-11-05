@@ -190,6 +190,34 @@ class Server(object):
         self.sync()
         self.quit()
 
+    def __graph__(self):
+        def recurse(graph, parent_graphviz_node, parent_server_node):
+            if not isinstance(parent_server_node, servertools.Group):
+                return
+            for child_server_node in parent_server_node:
+                if isinstance(child_server_node, servertools.Group):
+                    name = 'Group {}'.format(child_server_node.node_id)
+                else:
+                    name = 'Synth {}'.format(child_server_node.node_id)
+                child_graphviz_node = documentationtools.GraphvizNode(
+                    name=name,
+                    )
+                graph.append(child_graphviz_node)
+                documentationtools.GraphvizEdge()(
+                    parent_graphviz_node,
+                    child_graphviz_node,
+                    )
+                recurse(graph, child_graphviz_node, child_server_node)
+        from abjad.tools import documentationtools
+        from supriya.tools import servertools
+        graph = documentationtools.GraphvizGraph(
+            name='server',
+            )
+        root_graphviz_node = documentationtools.GraphvizNode(name='Root Node')
+        graph.append(root_graphviz_node)
+        recurse(graph, root_graphviz_node, self.root_node)
+        return graph
+
     def __repr__(self):
         if not self.is_running:
             return '<Server: offline>'
