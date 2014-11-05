@@ -1,4 +1,4 @@
-Play with Nodes
-===============
+Playing with Nodes
+==================
 
-(To be completed)
+(Documentation coming soon)

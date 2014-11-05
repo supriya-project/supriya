@@ -1,4 +1,4 @@
-Interact with the Server
-========================
+Interacting with the Server
+===========================
 
-(To be completed)
+(Documentation coming soon)

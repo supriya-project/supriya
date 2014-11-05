@@ -1,4 +1,4 @@
-Construct SynthDefs
-===================
+Constructing SynthDefs
+======================
 
-(To be completed)
+(Documentation coming soon)

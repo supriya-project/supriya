@@ -1,4 +1,4 @@
-Install SuperCollider and Supriya
-=================================
+Installing SuperCollider and Supriya
+====================================
 
-(To be completed)
+(Documentation coming soon)

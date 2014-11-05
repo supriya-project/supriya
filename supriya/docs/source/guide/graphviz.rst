@@ -1,4 +1,4 @@
-Visualize via Graphviz
-======================
+Visualizing via Graphviz
+========================
 
-(To be completed)
+(Documentation coming soon)
