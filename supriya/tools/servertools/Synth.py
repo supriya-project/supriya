@@ -69,6 +69,8 @@ class Synth(Node):
 
     ### PUBLIC METHODS ###
 
+    def allocate(self): pass
+
 #    def allocate(
 #        self,
 #        add_action=None,

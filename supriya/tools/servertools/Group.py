@@ -84,6 +84,23 @@ class Group(Node):
     def __len__(self):
         return len(self._children)
 
+    def __setitem__(self, i, expr):
+        r'''Sets `expr` in self at index `i`.
+
+        ::
+
+            >>> group_one = Group()
+            >>> group_two = Group()
+            >>> group_one.append(group_two)
+
+        '''
+        self._validate_setitem_expr(expr)
+        expr, start, stop = self._coerce_setitem_arguments(i, expr)
+        if self.is_allocated:
+            self._set_allocated(expr, start, stop)
+        else:
+            self._set_unallocated(expr, start, stop)
+
 #    def __setitem__(self, i, expr):
 #        from supriya.tools import requesttools
 #        from supriya.tools import servertools
@@ -212,6 +229,15 @@ class Group(Node):
                 for subchild in Group._iterate_synths(child):
                     yield subchild
 
+    def _set_unallocated(self, expr, start, stop):
+        for node in expr:
+            node.free()
+        for old_child in tuple(self[start:stop]):
+            old_child._set_parent(None)
+        self._children[start:stop] = expr
+        for new_child in expr:
+            new_child._set_parent(self)
+
     def _validate_setitem_expr(self, expr):
         from supriya.tools import servertools
         assert all(isinstance(_, servertools.Node) for _ in expr)
@@ -222,6 +248,8 @@ class Group(Node):
                 assert x not in parentage
 
     ### PUBLIC METHODS ###
+
+    def allocate(self): pass
 
 #    def allocate(
 #        self,
@@ -260,10 +288,7 @@ class Group(Node):
             expr
             )
 
-    def free(
-        self,
-        send_to_server=True,
-        ):
+    def free(self):
         for node in Node._iterate_nodes(self):
             node._unregister_with_local_server()
         Node.free(self)

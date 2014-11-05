@@ -222,19 +222,18 @@ class Node(ServerObjectProxy):
             raise NotImplementedError
         raise TypeError(expr)
 
-    def free(
-        self,
-        ):
+    def free(self):
         from supriya.tools import requesttools
         node_id = self._unregister_with_local_server()
-        self._set_parent(None)
-        request = requesttools.NodeFreeRequest(
-            node_id=node_id,
-            )
-        request.communicate(
-            server=self.server,
-            sync=False,
-            )
+        if node_id is not None:
+            self._set_parent(None)
+            request = requesttools.NodeFreeRequest(
+                node_id=node_id,
+                )
+            request.communicate(
+                server=self.server,
+                sync=False,
+                )
         return self
 
     def handle_response(self, response):
