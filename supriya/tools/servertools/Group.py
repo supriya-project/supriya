@@ -170,6 +170,7 @@ class Group(Node):
                         add_action=add_action,
                         target_node=target_node,
                         )
+                    map_requests = None
                     if isinstance(node, servertools.Group):
                         request = requesttools.GroupNewRequest(
                             add_action=add_action,
@@ -177,16 +178,19 @@ class Group(Node):
                             target_node_id=target_node,
                             )
                     else:
+                        settings, map_requests = \
+                            node.controls._make_synth_new_settings()
                         request = requesttools.SynthNewRequest(
                             add_action=add_action,
                             node_id=node,
                             synthdef=node.synthdef,
                             target_node_id=target_node,
+                            **settings
                             )
-                        # handle synth control settings too?
-                        # handle synth controls which are buses?
                     message_bundler.add_message(request)
-
+                    if map_requests is not None:
+                        for map_request in map_requests:
+                            message_bundler.add_message(map_request)
                 target_node = node
 
     ### PRIVATE METHODS ###

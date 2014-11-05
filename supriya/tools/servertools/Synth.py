@@ -129,7 +129,6 @@ class Synth(Node):
             self,
             send_to_server=send_to_server,
             )
-        #self._control_interface.reset()
 
     ### PUBLIC PROPERTIES ###
 
