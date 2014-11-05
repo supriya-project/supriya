@@ -69,66 +69,60 @@ class Synth(Node):
 
     ### PUBLIC METHODS ###
 
-    def allocate(
-        self,
-        add_action=None,
-        node_id_is_permanent=False,
-        sync=True,
-        target_node=None,
-        **kwargs
-        ):
-        from supriya.tools import requesttools
-        from supriya.tools import servertools
-        add_action, node_id, target_node_id = Node.allocate(
-            self,
-            add_action=add_action,
-            node_id_is_permanent=node_id_is_permanent,
-            target_node=target_node,
-            )
-        message_bundler = servertools.MessageBundler(
-            server=self.server,
-            sync=sync,
-            )
-        with message_bundler:
-            self.controls._set(**kwargs)
-            settings, map_requests = self.controls._make_synth_new_settings()
-            synth_request = requesttools.SynthNewRequest(
-                add_action=add_action,
-                node_id=node_id,
-                synthdef=self.synthdef,
-                target_node_id=target_node_id,
-                **settings
-                )
-            if not self.synthdef.is_allocated:
-                with servertools.MessageBundler(
-                    send_to_server=False,
-                    ) as synth_bundler:
-                    synth_bundler.add_message(synth_request)
-                    for map_request in map_requests:
-                        synth_bundler.add_message(map_request)
-                completion_message = synth_bundler.result
-                print(repr(self.synthdef.server))
-                synthdef_request = self.synthdef._allocate(
-                    completion_message=completion_message,
-                    server=self.server,
-                    )
-                message_bundler.add_message(synthdef_request)
-                message_bundler.add_synchronizing_request(synthdef_request)
-            else:
-                message_bundler.add_message(synth_request)
-                for map_request in map_requests:
-                    message_bundler.add_message(map_request)
-                message_bundler.add_synchronizing_request(synth_request)
-        return self
+#    def allocate(
+#        self,
+#        add_action=None,
+#        node_id_is_permanent=False,
+#        sync=True,
+#        target_node=None,
+#        **kwargs
+#        ):
+#        from supriya.tools import requesttools
+#        from supriya.tools import servertools
+#        add_action, node_id, target_node_id = Node.allocate(
+#            self,
+#            add_action=add_action,
+#            node_id_is_permanent=node_id_is_permanent,
+#            target_node=target_node,
+#            )
+#        message_bundler = servertools.MessageBundler(
+#            server=self.server,
+#            sync=sync,
+#            )
+#        with message_bundler:
+#            self.controls._set(**kwargs)
+#            settings, map_requests = self.controls._make_synth_new_settings()
+#            synth_request = requesttools.SynthNewRequest(
+#                add_action=add_action,
+#                node_id=node_id,
+#                synthdef=self.synthdef,
+#                target_node_id=target_node_id,
+#                **settings
+#                )
+#            if not self.synthdef.is_allocated:
+#                with servertools.MessageBundler(
+#                    send_to_server=False,
+#                    ) as synth_bundler:
+#                    synth_bundler.add_message(synth_request)
+#                    for map_request in map_requests:
+#                        synth_bundler.add_message(map_request)
+#                completion_message = synth_bundler.result
+#                print(repr(self.synthdef.server))
+#                synthdef_request = self.synthdef._allocate(
+#                    completion_message=completion_message,
+#                    server=self.server,
+#                    )
+#                message_bundler.add_message(synthdef_request)
+#                message_bundler.add_synchronizing_request(synthdef_request)
+#            else:
+#                message_bundler.add_message(synth_request)
+#                for map_request in map_requests:
+#                    message_bundler.add_message(map_request)
+#                message_bundler.add_synchronizing_request(synth_request)
+#        return self
 
-    def free(
-        self,
-        send_to_server=True,
-        ):
-        Node.free(
-            self,
-            send_to_server=send_to_server,
-            )
+    def free(self):
+        Node.free(self)
 
     ### PUBLIC PROPERTIES ###
 
