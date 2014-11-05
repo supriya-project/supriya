@@ -220,26 +220,16 @@ class Node(ServerObjectProxy):
         send_to_server=True,
         ):
         from supriya.tools import requesttools
+        node_id = self._unregister_with_local_server()
         self._set_parent(None)
-        if self.server is not None:
-            del(self._server._nodes[self._node_id])
-            if send_to_server:
-                request = requesttools.NodeFreeRequest(
-                    node_id=self,
-                    )
-                request.communicate(
-                    server=self.server,
-                    sync=False,
-                    )
-            if self.node_id_is_permanent and self.server.node_id_allocator:
-                self.server.node_id_allocator.free_permanent_node_id(
-                    self.node_id,
-                    )
-        self._node_id = None
-        self._node_id_is_permanent = None
-        ServerObjectProxy.free(
-            self,
-            )
+        if send_to_server:
+            request = requesttools.NodeFreeRequest(
+                node_id=node_id,
+                )
+            request.communicate(
+                server=self.server,
+                sync=False,
+                )
         return self
 
     def handle_response(self, response):
