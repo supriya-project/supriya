@@ -281,6 +281,15 @@ entry_points = {
         ],
     }
 
+keywords = [
+    'audio',
+    'dsp',
+    'music composition',
+    'scsynth',
+    'supercollider',
+    'synthesis',
+    ]
+
 def main():
     setup(
         author='Josiah Wolf Oberholtzer',
@@ -288,6 +297,7 @@ def main():
         description='A Python API for SuperCollider',
         entry_points=entry_points,
         install_requires=install_requires,
+        keywords=keywords,
         license='GPL',
         long_description=long_description,
         name='supriya',
