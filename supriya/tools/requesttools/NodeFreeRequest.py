@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -10,11 +11,11 @@ class NodeFreeRequest(Request):
 
         >>> from supriya.tools import requesttools
         >>> request = requesttools.NodeFreeRequest(
-        ...     node_id=1000,
+        ...     node_ids=1000,
         ...     )
         >>> request
         NodeFreeRequest(
-            node_id=1000
+            node_ids=(1000,)
             )
 
     ::
@@ -33,34 +34,35 @@ class NodeFreeRequest(Request):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_node_id',
+        '_node_ids',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        node_id=None
+        node_ids=None
         ):
         Request.__init__(self)
-        self._node_id = node_id
+        if not isinstance(node_ids, collections.Sequence):
+            node_ids = (node_ids,)
+        node_ids = tuple(int(_) for _ in node_ids)
+        self._node_ids = node_ids
 
     ### PUBLIC METHODS ###
 
     def to_osc_message(self):
         request_id = int(self.request_id)
-        node_id = int(self.node_id)
-        message = osctools.OscMessage(
-            request_id,
-            node_id,
-            )
+        contents = [request_id]
+        contents.extend(self.node_ids)
+        message = osctools.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def node_id(self):
-        return self._node_id
+    def node_ids(self):
+        return self._node_ids
 
     @property
     def response_specification(self):
