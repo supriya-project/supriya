@@ -10,7 +10,6 @@ class Node(ServerObjectProxy):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_is_playing',
         '_name',
         '_node_id',
         '_node_id_is_permanent',
@@ -23,7 +22,6 @@ class Node(ServerObjectProxy):
     def __init__(self, name=None):
         ServerObjectProxy.__init__(self)
         self._parent = None
-        self._is_playing = False
         self._name = name
         self._node_id = None
         self._node_id_is_permanent = None
@@ -166,8 +164,6 @@ class Node(ServerObjectProxy):
         else:
             raise ValueError
 
-        self._is_playing = True
-
         return add_action, node_id, target_node.node_id
 
     @staticmethod
@@ -202,7 +198,6 @@ class Node(ServerObjectProxy):
         ):
         from supriya.tools import requesttools
         self._set_parent(None)
-        self._is_playing = False
         if self.server is not None:
             del(self._server._nodes[self._node_id])
             if send_to_server:
@@ -255,10 +250,6 @@ class Node(ServerObjectProxy):
         if self.server is not None:
             return self in self.server
         return False
-
-    @property
-    def is_playing(self):
-        return self._is_playing
 
     @property
     def is_running(self):
