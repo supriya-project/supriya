@@ -61,6 +61,44 @@ class Node(ServerObjectProxy):
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
 
+    def _register_with_local_server(
+        self,
+        server,
+        node_id_is_permanent=False,
+        ):
+        if server is None or not server.is_running:
+            raise ValueError
+        if self in server._nodes:
+            return
+        id_allocator = server.node_id_allocator
+        if node_id_is_permanent:
+            node_id = id_allocator.allocate_permanent_node_id()
+        else:
+            node_id = server.node_id_allocator.allocate_node_id()
+        if node_id is None:
+            raise ValueError
+        elif node_id in server._nodes:
+            raise ValueError
+        ServerObjectProxy.allocate(self, server=server)
+        self._node_id = node_id
+        self._node_id_is_permanent = bool(node_id_is_permanent)
+        self._server._nodes[self._node_id] = self
+
+    def _unregister_with_local_server(self):
+        node_id = self.node_id
+        if self.server is not None:
+            del(self._server._nodes[self._node_id])
+            if self.node_id_is_permanent:
+                self.server.node_id_allocator.free_permanent_node_id(
+                    self.node_id,
+                    )
+        self._node_id = None
+        self._node_id_is_permanent = None
+        ServerObjectProxy.free(
+            self,
+            )
+        return node_id
+
     def _remove_from_parent(self):
         if self._parent is not None:
             index = self._parent.index(self)
