@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 from supriya.tools.servertools.Node import Node
 
 
@@ -216,19 +217,30 @@ class Group(Node):
             expr, start)
         self._allocate_synthdefs(synthdefs)
         old_node_ids = []
+        print('EXPR', self, expr)
+        print('START/STOP:', self, start, stop)
+        print('NEW', new_nodes)
+        print('\tLEN', len(self))
         for old_node in tuple(self[start:stop]):
+            print('OLD', old_node)
             if old_node in new_nodes:
+                print('\tSKIPPING...')
                 continue
             old_node_id = old_node._unregister_with_local_server()
             old_node._set_parent(None)
             old_node_ids.append(old_node_id)
+            print('\tLEN', self, len(self))
         if old_node_ids:
+            print('OLD IDS:', old_node_ids)
             node_free_request = requesttools.NodeFreeRequest(
                 node_ids=old_node_ids,
                 )
             requests.insert(0, node_free_request)
             print(node_free_request)
+        for child in expr:
+            child._set_parent(self)
         self._children[start:stop] = expr
+        print('\tLEN', len(self))
         message_bundler = servertools.MessageBundler(
             server=self.server,
             sync=True,
