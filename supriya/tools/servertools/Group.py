@@ -59,16 +59,14 @@ class Group(Node):
                 return True
         return False
 
-    def __delitem__(self, expr):
-        if isinstance(expr, int):
-            self._children[expr].free()
-        elif isinstance(expr, slice):
-            for child in self._children[expr]:
-                child.free()
-        elif isinstance(expr, str):
-            self._named_children[expr].free()
-        else:
-            raise ValueError(expr)
+    def __delitem__(self, i):
+        if isinstance(i, str):
+            i = self.index(self._named_children[i])
+        if isinstance(i, int):
+            if i < 0:
+                i = len(self) + i
+            i = slice(i, i + 1)
+        self.__setitem__(i, [])
 
     def __getitem__(self, expr):
         if isinstance(expr, (int, slice)):
@@ -214,6 +212,7 @@ class Group(Node):
         from supriya.tools import servertools
         requests, synthdefs = self._collect_requests_and_synthdefs(expr, start)
         self._allocate_synthdefs(synthdefs)
+        print('GO', expr, start, stop)
         old_node_ids = []
         for old_child in tuple(self[start:stop]):
             old_node_id = old_child._unregister_with_local_server()
