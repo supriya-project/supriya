@@ -107,7 +107,6 @@ class Synth(Node):
                     for map_request in map_requests:
                         synth_bundler.add_message(map_request)
                 completion_message = synth_bundler.result
-                print(repr(self.synthdef.server))
                 synthdef_request = self.synthdef._allocate(
                     completion_message=completion_message,
                     server=self.server,
@@ -122,7 +121,6 @@ class Synth(Node):
         return self
 
     def free(self):
-        print('SYNTH.free():', self)
         Node.free(self)
 
     ### PUBLIC PROPERTIES ###

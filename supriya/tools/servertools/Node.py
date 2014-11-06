@@ -95,8 +95,9 @@ class Node(ServerObjectProxy):
 
     def _remove_from_parent(self):
         if self._parent is not None:
-            index = self._parent.index(self)
-            self._parent._children.pop(index)
+            if self in self._parent:
+                index = self._parent.index(self)
+                self._parent._children.pop(index)
 
     def _remove_control_interface_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
@@ -226,7 +227,6 @@ class Node(ServerObjectProxy):
 
     def free(self):
         from supriya.tools import requesttools
-        print('NODE.free():', self)
         self._set_parent(None)
         server = self.server
         if self.node_id is not None and server.is_running:
@@ -234,7 +234,6 @@ class Node(ServerObjectProxy):
             node_free_request = requesttools.NodeFreeRequest(
                 node_ids=node_id,
                 )
-            print(node_free_request)
             node_free_request.communicate(
                 server=self.server,
                 sync=False,
