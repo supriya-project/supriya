@@ -185,7 +185,7 @@ class Group(Node):
                         )
                 requests.append(request)
             else:
-                node._register_with_local_server(self.server)
+                node._register_with_local_server(server=self.server)
                 if isinstance(node, servertools.Group):
                     request = requesttools.GroupNewRequest(
                         add_action=add_action,

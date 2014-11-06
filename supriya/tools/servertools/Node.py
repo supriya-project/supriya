@@ -242,7 +242,7 @@ class Node(ServerObjectProxy):
         from supriya.tools import responsetools
         if isinstance(response, responsetools.NodeInfoResponse):
             if response.action == responsetools.NodeAction.NODE_REMOVED:
-                self.free(send_to_server=False)
+                self.free()
 
     def precede_by(self, expr):
         if not isinstance(expr, collections.Sequence):
