@@ -162,10 +162,12 @@ class Group(Node):
     def _collect_requests_and_synthdefs(self, expr, start=0):
         from supriya.tools import requesttools
         from supriya.tools import servertools
+        nodes = set()
         synthdefs = set()
         requests = []
         iterator = Group._iterate_setitem_expr(self, expr, start)
         for node, target_node, add_action in iterator:
+            nodes.add(node)
             if node.is_allocated:
                 if add_action == servertools.AddAction.ADD_TO_HEAD:
                     request = requesttools.GroupHeadRequest(
@@ -205,17 +207,20 @@ class Group(Node):
                         )
                     requests.append(request)
                     requests.extend(map_requests)
-        return requests, synthdefs
+        return nodes, requests, synthdefs
 
     def _set_allocated(self, expr, start, stop):
         from supriya.tools import requesttools
         from supriya.tools import servertools
-        requests, synthdefs = self._collect_requests_and_synthdefs(expr, start)
+        new_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
+            expr, start)
         self._allocate_synthdefs(synthdefs)
         old_node_ids = []
-        for old_child in tuple(self[start:stop]):
-            old_node_id = old_child._unregister_with_local_server()
-            old_child._set_parent(None)
+        for old_node in tuple(self[start:stop]):
+            if old_node in new_nodes:
+                continue
+            old_node_id = old_node._unregister_with_local_server()
+            old_node._set_parent(None)
             old_node_ids.append(old_node_id)
         if old_node_ids:
             node_free_request = requesttools.NodeFreeRequest(
@@ -271,7 +276,7 @@ class Group(Node):
             node_id=node_id,
             target_node_id=target_node_id,
             )
-        requests, synthdefs = self._collect_requests_and_synthdefs(self)
+        nodes, requests, synthdefs = self._collect_requests_and_synthdefs(self)
         requests.insert(0, group_new_request)
         self._allocate_synthdefs(synthdefs)
         message_bundler = servertools.MessageBundler(
