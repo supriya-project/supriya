@@ -226,9 +226,10 @@ class Node(ServerObjectProxy):
 
     def free(self):
         from supriya.tools import requesttools
+        self._set_parent(None)
+        server = self.server
         node_id = self._unregister_with_local_server()
-        if node_id is not None:
-            self._set_parent(None)
+        if node_id is not None and server.is_running:
             request = requesttools.NodeFreeRequest(
                 node_ids=node_id,
                 )
