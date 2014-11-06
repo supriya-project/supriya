@@ -8,5 +8,6 @@ User Guide
     server
     synthdefs
     nodes
+    buses
     buffers
     graphviz
