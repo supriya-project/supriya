@@ -220,6 +220,24 @@ class Group(Node):
             yield child
 
     @staticmethod
+    def _iterate_setitem_expr(group, expr, start=0):
+        from supriya.tools import servertools
+        if not start or not group:
+            target_node = group
+        else:
+            target_node = group[start - 1]
+        for node in expr:
+            if isinstance(target_node, servertools.Group):
+                add_action = servertools.AddAction.ADD_TO_HEAD
+            else:
+                add_action = servertools.AddAction.ADD_AFTER
+            yield node, target_node, add_action
+            if isinstance(node, servertools.Group) and not node.is_allocated:
+                for node, target_node, add_action in \
+                    Group._iterate_setitem_expr(node, 0):
+                    yield node, target_node, add_action
+
+    @staticmethod
     def _iterate_synths(node):
         from supriya.tools import servertools
         if isinstance(node, servertools.Synth):
