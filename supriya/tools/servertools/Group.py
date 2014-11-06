@@ -249,6 +249,75 @@ class Group(Node):
                 for subchild in Group._iterate_synths(child):
                     yield subchild
 
+    def _set_allocated(self, expr, start, stop):
+        from supriya.tools import requesttools
+        from supriya.tools import servertools
+        synthdefs = set()
+        requests = []
+        iterator = Group._iterate_setitem_expr(self, expr, start)
+        for node, target_node, add_action in iterator:
+            if node.is_allocated:
+                if add_action == servertools.AddAction.ADD_TO_HEAD:
+                    request = requesttools.GroupHeadRequest(
+                        node_id_pairs=requesttools.NodeIdPair(
+                            node_id=node,
+                            target_node_id=target_node,
+                            ),
+                        )
+                else:
+                    request = requesttools.NodeAfterRequest(
+                        node_id_pairs=requesttools.NodeIdPair(
+                            node_id=node,
+                            target_node_id=target_node,
+                            ),
+                        )
+                requests.append(request)
+            else:
+                node._register_with_local_server(self.server)
+                if isinstance(node, servertools.Group):
+                    request = requesttools.GroupNewRequest(
+                        add_action=add_action,
+                        node_id=node,
+                        target_node_id=target_node,
+                        )
+                    requests.append(request)
+                else:
+                    if not node.synthdef.is_allocated:
+                        synthdefs.add(node.synthdef)
+                    settings, map_requests = \
+                        node.controls._make_synth_new_settings()
+                    request = requesttools.SynthNewRequest(
+                        add_action=add_action,
+                        node_id=node,
+                        synthdef=node.synthdef,
+                        target_node_id=target_node,
+                        **settings
+                        )
+                    requests.append(request)
+                    requests.extend(map_requests)
+        old_node_ids = []
+        for old_child in tuple(self[start:stop]):
+            old_node_id = old_child._unregister_with_local_server()
+            old_child._set_parent(None)
+            old_node_ids.append(old_node_id)
+        node_free_request = requesttools.NodeFreeRequest(
+            node_ids=old_node_ids,
+            )
+        requests.insert(0, node_free_request)
+        self._children[start:stop] = expr
+        if synthdefs:
+            node.synthdef._allocate(server=self.server)
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=tuple(synthdefs),
+                )
+            request.communicate(server=self.server)
+        message_bundler = servertools.MessageBundler(
+            server=self.server,
+            sync=True,
+            )
+        message_bundler.add_messages(requests)
+        message_bundler.send_messages()
+
     def _set_unallocated(self, expr, start, stop):
         for node in expr:
             node.free()
@@ -269,7 +338,8 @@ class Group(Node):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self): pass
+    def allocate(self):
+        pass
 
 #    def allocate(
 #        self,
