@@ -25,14 +25,8 @@ class OscBundle(OscMixin):
         OscBundle(
             timestamp=1401557034.5,
             contents=(
-                OscMessage(
-                    '/one',
-                    1
-                    ),
-                OscMessage(
-                    '/two',
-                    2
-                    ),
+                OscMessage('/one', 1),
+                OscMessage('/two', 2),
                 )
             )
 
@@ -47,20 +41,11 @@ class OscBundle(OscMixin):
                 OscBundle(
                     timestamp=1401557034.5,
                     contents=(
-                        OscMessage(
-                            '/one',
-                            1
-                            ),
-                        OscMessage(
-                            '/two',
-                            2
-                            ),
+                        OscMessage('/one', 1),
+                        OscMessage('/two', 2),
                         )
                     ),
-                OscMessage(
-                    '/three',
-                    3
-                    ),
+                OscMessage('/three', 3),
                 )
             )
 
@@ -77,20 +62,11 @@ class OscBundle(OscMixin):
                 OscBundle(
                     timestamp=1401557034.5,
                     contents=(
-                        OscMessage(
-                            '/one',
-                            1
-                            ),
-                        OscMessage(
-                            '/two',
-                            2
-                            ),
+                        OscMessage('/one', 1),
+                        OscMessage('/two', 2),
                         )
                     ),
-                OscMessage(
-                    '/three',
-                    3
-                    ),
+                OscMessage('/three', 3),
                 )
             )
 
