@@ -43,9 +43,12 @@ class Group(Node):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, name=None):
         from supriya.tools import servertools
-        Node.__init__(self)
+        Node.__init__(
+            self,
+            name=name,
+            )
         self._children = []
         self._control_interface = servertools.GroupInterface(
             client=self,
@@ -229,6 +232,9 @@ class Group(Node):
             old_node_id = old_node._unregister_with_local_server()
             old_node._set_parent(None)
             old_node_ids.append(old_node_id)
+            if isinstance(old_node, servertools.Group):
+                for old_node_child in Group._iterate_children(old_node):
+                    old_node_child._unregister_with_local_server()
         if old_node_ids:
             node_free_request = requesttools.NodeFreeRequest(
                 node_ids=old_node_ids,
@@ -268,6 +274,7 @@ class Group(Node):
         sync=False,
         target_node=None,
         ):
+        # TODO: Handle AddAction.REPLACE un-allocation of target node
         from supriya.tools import requesttools
         from supriya.tools import servertools
         add_action, node_id, target_node_id = Node.allocate(

@@ -51,11 +51,15 @@ class Synth(Node):
     def __init__(
         self,
         synthdef,
+        name=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, synthdeftools.SynthDef)
-        Node.__init__(self)
+        Node.__init__(
+            self,
+            name=name,
+            )
         self._synthdef = synthdef
         self._control_interface = servertools.SynthInterface(
             client=self,

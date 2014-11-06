@@ -96,8 +96,8 @@ class Node(ServerObjectProxy):
     def _remove_from_parent(self):
         if self._parent is not None:
             if self in self._parent:
-                index = self._parent.index(self)
-                self._parent._children.pop(index)
+                self._parent._children.remove(self)
+        self._parent = None
 
     def _remove_control_interface_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:

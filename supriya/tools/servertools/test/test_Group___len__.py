@@ -80,6 +80,7 @@ def test_Group___len___01(server):
 
     assert len(group_a) == 1
     assert len(group_b) == 1
+    assert not group_b[0].is_allocated
 
     group_a.pop()
 
