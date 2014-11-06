@@ -223,19 +223,21 @@ class Group(Node):
     def _iterate_setitem_expr(group, expr, start=0):
         from supriya.tools import servertools
         if not start or not group:
-            target_node = group
+            outer_target_node = group
         else:
-            target_node = group[start - 1]
-        for node in expr:
-            if isinstance(target_node, servertools.Group):
-                add_action = servertools.AddAction.ADD_TO_HEAD
+            outer_target_node = group[start - 1]
+        for outer_node in expr:
+            if outer_target_node is group:
+                outer_add_action = servertools.AddAction.ADD_TO_HEAD
             else:
-                add_action = servertools.AddAction.ADD_AFTER
-            yield node, target_node, add_action
-            if isinstance(node, servertools.Group) and not node.is_allocated:
-                for node, target_node, add_action in \
-                    Group._iterate_setitem_expr(node, 0):
-                    yield node, target_node, add_action
+                outer_add_action = servertools.AddAction.ADD_AFTER
+            yield outer_node, outer_target_node, outer_add_action
+            outer_target_node = outer_node
+            if isinstance(outer_node, servertools.Group) and \
+                not outer_node.is_allocated:
+                for inner_node, inner_target_node, inner_add_action in \
+                    Group._iterate_setitem_expr(inner_node, 0):
+                    yield inner_node, inner_target_node, inner_add_action
 
     @staticmethod
     def _iterate_synths(node):
