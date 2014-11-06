@@ -79,7 +79,7 @@ def test_Group___len___01(server):
     group_a.pop()
 
     assert len(group_a) == 1
-    assert len(group_b) == 0
+    assert len(group_b) == 1
 
     group_a.pop()
 

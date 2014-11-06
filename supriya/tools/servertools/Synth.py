@@ -122,6 +122,7 @@ class Synth(Node):
         return self
 
     def free(self):
+        print('SYNTH.free():', self)
         Node.free(self)
 
     ### PUBLIC PROPERTIES ###

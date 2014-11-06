@@ -226,14 +226,16 @@ class Node(ServerObjectProxy):
 
     def free(self):
         from supriya.tools import requesttools
+        print('NODE.free():', self)
         self._set_parent(None)
         server = self.server
-        node_id = self._unregister_with_local_server()
-        if node_id is not None and server.is_running:
-            request = requesttools.NodeFreeRequest(
+        if self.node_id is not None and server.is_running:
+            node_id = self._unregister_with_local_server()
+            node_free_request = requesttools.NodeFreeRequest(
                 node_ids=node_id,
                 )
-            request.communicate(
+            print(node_free_request)
+            node_free_request.communicate(
                 server=self.server,
                 sync=False,
                 )
@@ -243,7 +245,8 @@ class Node(ServerObjectProxy):
         from supriya.tools import responsetools
         if isinstance(response, responsetools.NodeInfoResponse):
             if response.action == responsetools.NodeAction.NODE_REMOVED:
-                self.free()
+                self._set_parent(None)
+                self._unregister_with_local_server()
 
     def precede_by(self, expr):
         if not isinstance(expr, collections.Sequence):

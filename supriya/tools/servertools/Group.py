@@ -212,16 +212,17 @@ class Group(Node):
         from supriya.tools import servertools
         requests, synthdefs = self._collect_requests_and_synthdefs(expr, start)
         self._allocate_synthdefs(synthdefs)
-        print('GO', expr, start, stop)
         old_node_ids = []
         for old_child in tuple(self[start:stop]):
             old_node_id = old_child._unregister_with_local_server()
             old_child._set_parent(None)
             old_node_ids.append(old_node_id)
-        node_free_request = requesttools.NodeFreeRequest(
-            node_ids=old_node_ids,
-            )
-        requests.insert(0, node_free_request)
+        if old_node_ids:
+            node_free_request = requesttools.NodeFreeRequest(
+                node_ids=old_node_ids,
+                )
+            requests.insert(0, node_free_request)
+            print(node_free_request)
         self._children[start:stop] = expr
         message_bundler = servertools.MessageBundler(
             server=self.server,
@@ -294,6 +295,7 @@ class Group(Node):
             )
 
     def free(self):
+        print('GROUP.free():', self)
         for node in Node._iterate_nodes(self):
             node._unregister_with_local_server()
         Node.free(self)
