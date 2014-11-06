@@ -42,10 +42,34 @@ class MessageBundler(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __enter__(self):
-        self._messages = []
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
+        self.send_messages()
+
+    ### PUBLIC METHODS ###
+
+    def add_message(self, message):
+        from supriya.tools import osctools
+        from supriya.tools import requesttools
+        prototype = (
+            osctools.OscMessage,
+            osctools.OscBundle,
+            requesttools.Request,
+            )
+        assert isinstance(message, prototype)
+        self._messages.append(message)
+
+    def add_messages(self, messages):
+        for message in messages:
+            self.add_message(message)
+
+    def add_synchronizing_request(self, request):
+        from supriya.tools import requesttools
+        assert isinstance(request, (type(None), requesttools.Request))
+        self._synchronizing_request = request
+
+    def send_messages(self):
         from supriya.tools import osctools
         from supriya.tools import requesttools
         messages = []
@@ -78,24 +102,6 @@ class MessageBundler(SupriyaObject):
                 )
         else:
             self._server.send_message(self._result)
-
-    ### PUBLIC METHODS ###
-
-    def add_message(self, message):
-        from supriya.tools import osctools
-        from supriya.tools import requesttools
-        prototype = (
-            osctools.OscMessage,
-            osctools.OscBundle,
-            requesttools.Request,
-            )
-        assert isinstance(message, prototype)
-        self._messages.append(message)
-
-    def add_synchronizing_request(self, request):
-        from supriya.tools import requesttools
-        assert isinstance(request, (type(None), requesttools.Request))
-        self._synchronizing_request = request
 
     ### PUBLIC PROPERTIES ###
 
