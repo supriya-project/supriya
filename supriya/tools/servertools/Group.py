@@ -101,105 +101,17 @@ class Group(Node):
         else:
             self._set_unallocated(expr, start, stop)
 
-#    def __setitem__(self, i, expr):
-#        from supriya.tools import requesttools
-#        from supriya.tools import servertools
-#
-#        assert self.is_allocated
-#
-#        self._validate_setitem_expr(expr)
-#        expr, start, stop = self._coerce_setitem_arguments(i, expr)
-#
-#        old_children = tuple(self[start:stop])
-#        for child in old_children:
-#            if child not in expr:
-#                child.free()
-#
-#        message_bundler = servertools.MessageBundler(
-#            server=self.server,
-#            sync=True,
-#            )
-#
-#        synthdefs = set()
-#        for node in expr:
-#            if not isinstance(node, servertools.Synth):
-#                continue
-#            if node.synthdef.is_allocated:
-#                continue
-#            if node.synthdef in synthdefs:
-#                continue
-#            synthdefs.add(node.synthdef)
-#        if synthdefs:
-#            node.synthdef._allocate(server=self.server)
-#            request = requesttools.SynthDefReceiveRequest(
-#                synthdefs=tuple(synthdefs),
-#                )
-#            request.communicate(server=self.server)
-#
-#        with message_bundler:
-#
-#            if not start or not self:
-#                target_node = self
-#            else:
-#                target_node = self[start - 1]
-#
-#            for node in expr:
-#                if node.is_allocated:
-#                    node._set_parent(self)
-#                    if target_node is self:
-#                        request = requesttools.GroupHeadRequest(
-#                            node_id_pairs=requesttools.NodeIdPair(
-#                                node_id=node.node_id,
-#                                target_node_id=target_node.node_id,
-#                                ),
-#                            )
-#                    else:
-#                        request = requesttools.NodeAfterRequest(
-#                            node_id_pairs=requesttools.NodeIdPair(
-#                                node_id=node.node_id,
-#                                target_node_id=target_node.node_id,
-#                                )
-#                            )
-#                    message_bundler.add_message(request)
-#                    if target_node is self:
-#                        self._children.append(node)
-#                    else:
-#                        index = self._children.index(target_node)
-#                        self._children.insert(index + 1, node)
-#                else:
-#                    if target_node is self:
-#                        add_action = servertools.AddAction.ADD_TO_HEAD
-#                    else:
-#                        add_action = servertools.AddAction.ADD_AFTER
-#                    add_action, node_id, target_node_id = Node.allocate(
-#                        node,
-#                        add_action=add_action,
-#                        target_node=target_node,
-#                        )
-#                    map_requests = None
-#                    if isinstance(node, servertools.Group):
-#                        request = requesttools.GroupNewRequest(
-#                            add_action=add_action,
-#                            node_id=node,
-#                            target_node_id=target_node,
-#                            )
-#                    else:
-#                        settings, map_requests = \
-#                            node.controls._make_synth_new_settings()
-#                        request = requesttools.SynthNewRequest(
-#                            add_action=add_action,
-#                            node_id=node,
-#                            synthdef=node.synthdef,
-#                            target_node_id=target_node,
-#                            **settings
-#                            )
-#                    message_bundler.add_message(request)
-#                    if map_requests is not None:
-#                        for map_request in map_requests:
-#                            message_bundler.add_message(map_request)
-#                target_node = node
-
     ### PRIVATE METHODS ###
+
+    def _allocate_synthdefs(self, synthdefs):
+        from supriya.tools import requesttools
+        if synthdefs:
+            for synthdef in synthdefs:
+                synthdef._allocate(server=self.server)
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=tuple(synthdefs),
+                )
+            request.communicate(server=self.server)
 
     def _coerce_setitem_arguments(self, i, expr):
         if isinstance(i, int):
@@ -249,7 +161,7 @@ class Group(Node):
                 for subchild in Group._iterate_synths(child):
                     yield subchild
 
-    def _set_allocated(self, expr, start, stop):
+    def _collect_requests_and_synthdefs(self, expr, start=0):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         synthdefs = set()
@@ -295,6 +207,13 @@ class Group(Node):
                         )
                     requests.append(request)
                     requests.extend(map_requests)
+        return requests, synthdefs
+
+    def _set_allocated(self, expr, start, stop):
+        from supriya.tools import requesttools
+        from supriya.tools import servertools
+        requests, synthdefs = self._collect_requests_and_synthdefs(expr, start)
+        self._allocate_synthdefs(synthdefs)
         old_node_ids = []
         for old_child in tuple(self[start:stop]):
             old_node_id = old_child._unregister_with_local_server()
@@ -305,12 +224,6 @@ class Group(Node):
             )
         requests.insert(0, node_free_request)
         self._children[start:stop] = expr
-        if synthdefs:
-            node.synthdef._allocate(server=self.server)
-            request = requesttools.SynthDefReceiveRequest(
-                synthdefs=tuple(synthdefs),
-                )
-            request.communicate(server=self.server)
         message_bundler = servertools.MessageBundler(
             server=self.server,
             sync=True,
@@ -338,33 +251,36 @@ class Group(Node):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self):
-        pass
-
-#    def allocate(
-#        self,
-#        add_action=None,
-#        node_id_is_permanent=False,
-#        sync=False,
-#        target_node=None,
-#        ):
-#        from supriya.tools import requesttools
-#        add_action, node_id, target_node_id = Node.allocate(
-#            self,
-#            add_action=add_action,
-#            node_id_is_permanent=node_id_is_permanent,
-#            target_node=target_node,
-#            )
-#        request = requesttools.GroupNewRequest(
-#            add_action=add_action,
-#            node_id=node_id,
-#            target_node_id=target_node_id,
-#            )
-#        request.communicate(
-#            server=self.server,
-#            sync=sync,
-#            )
-#        return self
+    def allocate(
+        self,
+        add_action=None,
+        node_id_is_permanent=False,
+        sync=False,
+        target_node=None,
+        ):
+        from supriya.tools import requesttools
+        from supriya.tools import servertools
+        add_action, node_id, target_node_id = Node.allocate(
+            self,
+            add_action=add_action,
+            node_id_is_permanent=node_id_is_permanent,
+            target_node=target_node,
+            )
+        group_new_request = requesttools.GroupNewRequest(
+            add_action=add_action,
+            node_id=node_id,
+            target_node_id=target_node_id,
+            )
+        requests, synthdefs = self._collect_requests_and_synthdefs(self)
+        requests.insert(0, group_new_request)
+        self._allocate_synthdefs(synthdefs)
+        message_bundler = servertools.MessageBundler(
+            server=self.server,
+            sync=True,
+            )
+        message_bundler.add_messages(requests)
+        message_bundler.send_messages()
+        return self
 
     def append(self, expr):
         self.__setitem__(

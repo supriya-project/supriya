@@ -155,46 +155,48 @@ class Node(ServerObjectProxy):
 
     ### PUBLIC METHODS ###
 
-#    @abc.abstractmethod
-#    def allocate(
-#        self,
-#        add_action=None,
-#        node_id_is_permanent=False,
-#        target_node=None,
-#        ):
-#        from supriya.tools import servertools
-#        target_node = Node.expr_as_target(target_node)
-#        server = target_node.server
-#        node_id = self._register_with_local_server(
-#            node_id_is_permanent=node_id_is_permanent,
-#            server=server,
-#            )
-#        add_action = servertools.AddAction.from_expr(add_action)
-#        if add_action == servertools.AddAction['ADD_TO_HEAD']:
-#            assert isinstance(target_node, servertools.Group)
-#            self._set_parent(target_node)
-#            target_node._children.insert(0, self)
-#        elif add_action == servertools.AddAction['ADD_TO_TAIL']:
-#            assert isinstance(target_node, servertools.Group)
-#            self._set_parent(target_node)
-#            target_node._children.append(self)
-#        elif add_action == servertools.AddAction['ADD_BEFORE']:
-#            self._set_parent(target_node.parent)
-#            index = self.parent._children.index(target_node)
-#            self._parent._children.insert(index, self)
-#        elif add_action == servertools.AddAction['ADD_AFTER']:
-#            self._set_parent(target_node.parent)
-#            index = self.parent._children.index(target_node)
-#            self._parent._children.insert(index + 1, self)
-#        elif add_action == servertools.AddAction['REPLACE']:
-#            assert target_node.parent is not self.server.root_node
-#            self._set_parent(target_node.parent)
-#            index = self.parent._children.index(target_node)
-#            target_node.free()
-#            self._parent._children.insert(index, self)
-#        else:
-#            raise ValueError
-#        return add_action, node_id, target_node.node_id
+    @abc.abstractmethod
+    def allocate(
+        self,
+        add_action=None,
+        node_id_is_permanent=False,
+        target_node=None,
+        ):
+        from supriya.tools import servertools
+        target_node = Node.expr_as_target(target_node)
+        server = target_node.server
+        node_id = self._register_with_local_server(
+            node_id_is_permanent=node_id_is_permanent,
+            server=server,
+            )
+        target_node_id = target_node.node_id
+        add_action = servertools.AddAction.from_expr(add_action)
+        if add_action == servertools.AddAction.ADD_TO_HEAD:
+            assert isinstance(target_node, servertools.Group)
+            self._set_parent(target_node)
+            target_node._children.insert(0, self)
+        elif add_action == servertools.AddAction.ADD_TO_TAIL:
+            assert isinstance(target_node, servertools.Group)
+            self._set_parent(target_node)
+            target_node._children.append(self)
+        elif add_action == servertools.AddAction.ADD_BEFORE:
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            self._parent._children.insert(index, self)
+        elif add_action == servertools.AddAction.ADD_AFTER:
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            self._parent._children.insert(index + 1, self)
+        elif add_action == servertools.AddAction.REPLACE:
+            assert target_node.parent is not self.server.root_node
+            self._set_parent(target_node.parent)
+            index = self.parent._children.index(target_node)
+            target_node._unregister_with_local_server()
+            target_node._set_parent(None)
+            self._parent._children.insert(index, self)
+        else:
+            raise ValueError
+        return add_action, node_id, target_node_id
 
     @staticmethod
     def expr_as_node_id(expr):
@@ -228,7 +230,7 @@ class Node(ServerObjectProxy):
         if node_id is not None:
             self._set_parent(None)
             request = requesttools.NodeFreeRequest(
-                node_id=node_id,
+                node_ids=node_id,
                 )
             request.communicate(
                 server=self.server,
