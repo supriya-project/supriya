@@ -151,12 +151,13 @@ class Group(Node):
                 outer_add_action = servertools.AddAction.ADD_TO_HEAD
             else:
                 outer_add_action = servertools.AddAction.ADD_AFTER
+            outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
             if isinstance(outer_node, servertools.Group) and \
-                not outer_node.is_allocated:
+                not outer_node_was_allocated:
                 for inner_node, inner_target_node, inner_add_action in \
-                    Group._iterate_setitem_expr(inner_node, 0):
+                    Group._iterate_setitem_expr(outer_node, outer_node):
                     yield inner_node, inner_target_node, inner_add_action
 
     @staticmethod
@@ -177,7 +178,6 @@ class Group(Node):
         requests = []
         iterator = Group._iterate_setitem_expr(self, expr, start)
         for node, target_node, add_action in iterator:
-            #print('XXX', node, add_action, target_node)
             nodes.add(node)
             if node.is_allocated:
                 if add_action == servertools.AddAction.ADD_TO_HEAD:
@@ -224,13 +224,7 @@ class Group(Node):
         from supriya.tools import requesttools
         from supriya.tools import servertools
 
-        #print('SET ALLOCATED:')
-        #print('\tSTSP:', start, stop)
-        #print('\tSELF:', self[:])
-        #print('\tEXPR:', expr)
-
         old_nodes = self._children[start:stop]
-        #print('\tOLD: ', old_nodes)
         self._children.__delitem__(slice(start, stop))
         for old_node in old_nodes:
             old_node._set_parent(None)
@@ -238,9 +232,7 @@ class Group(Node):
             if child in self and self.index(child) < start:
                 start -= 1
             child._set_parent(self)
-        #print('\tSTSP:', start, stop)
         self._children.__setitem__(slice(start, start), expr)
-        #print('\tTHEN:', self[:])
 
         new_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
             expr, start)

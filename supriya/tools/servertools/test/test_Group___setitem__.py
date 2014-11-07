@@ -546,3 +546,70 @@ def test_Group___setitem___04(server):
     assert local_state == remote_state
     assert len(group_a) == 1
     assert len(group_b) == 3
+
+
+
+def test_Group___setitem__05(server):
+
+    group_a = servertools.Group(
+        name='Group A',
+        )
+    synth_a = servertools.Synth(
+        synthdefs.test,
+        name='Synth A',
+        )
+    group_a.append(synth_a)
+
+    group_b = servertools.Group(
+        name='Group B',
+        )
+    group_a.append(group_b)
+
+    synth_b = servertools.Synth(
+        synthdefs.test,
+        name='Synth B',
+        )
+    group_b.append(synth_b)
+
+    synth_c = servertools.Synth(
+        synthdefs.test,
+        name='Synth C',
+        )
+    group_b.append(synth_c)
+
+    group_c = servertools.Group(
+        name='Group C',
+        )
+    group_b.append(group_c)
+
+    synth_d = servertools.Synth(
+        synthdefs.test,
+        name='Synth D',
+        )
+    group_a.append(synth_d)
+
+    group_a.allocate()
+
+    remote_state = str(server.query_remote_nodes())
+    assert systemtools.TestManager.compare(
+        remote_state,
+        '''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 group
+                        1003 test
+                        1004 test
+                        1005 group
+                    1006 test
+        ''',
+        ), remote_state
+
+    assert group_a.node_id == 1000
+    assert synth_a.node_id == 1001
+    assert group_b.node_id == 1002
+    assert synth_b.node_id == 1003
+    assert synth_c.node_id == 1004
+    assert group_c.node_id == 1005
+    assert synth_d.node_id == 1006
