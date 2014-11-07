@@ -39,10 +39,17 @@ class Node(ServerObjectProxy):
         node_id = '???'
         if self.node_id is not None:
             node_id = self.node_id
-        string = '<{class_name}: {node_id}>'.format(
-            class_name=class_name,
-            node_id=node_id,
-            )
+        if self.name is None:
+            string = '<{class_name}: {node_id}>'.format(
+                class_name=class_name,
+                node_id=node_id,
+                )
+        else:
+            string = '<{class_name}: {node_id} ({name})>'.format(
+                class_name=class_name,
+                name=self.name,
+                node_id=node_id,
+                )
         return string
 
     ### PRIVATE METHODS ###

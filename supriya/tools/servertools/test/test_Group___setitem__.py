@@ -359,15 +359,15 @@ def test_Group___setitem___03(server):
 
 def test_Group___setitem___04(server):
 
-    group_a = servertools.Group().allocate()
-    group_b = servertools.Group().allocate()
+    group_a = servertools.Group(name='Group A').allocate()
+    group_b = servertools.Group(name='Group B').allocate()
 
-    synth_a = servertools.Synth(synthdefs.test)
-    synth_b = servertools.Synth(synthdefs.test)
-    synth_c = servertools.Synth(synthdefs.test)
-    synth_d = servertools.Synth(synthdefs.test)
-    synth_e = servertools.Synth(synthdefs.test)
-    synth_f = servertools.Synth(synthdefs.test)
+    synth_a = servertools.Synth(synthdefs.test, name='Synth A')
+    synth_b = servertools.Synth(synthdefs.test, name='Synth B')
+    synth_c = servertools.Synth(synthdefs.test, name='Synth C')
+    synth_d = servertools.Synth(synthdefs.test, name='Synth D')
+    synth_e = servertools.Synth(synthdefs.test, name='Synth E')
+    synth_f = servertools.Synth(synthdefs.test, name='Synth F')
 
     local_state = str(server.query_local_nodes())
     remote_state = str(server.query_remote_nodes())
