@@ -303,6 +303,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def ceiling(source):
+        r'''Calculates the ceiling of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.ceiling(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:CEILING[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -311,6 +325,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def cubed(source):
+        r'''Calculates the cube of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.cubed(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:CUBED[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -363,6 +391,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def exponential(source):
+        r'''Calculates the natural exponential function of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.exponential(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:EXPONENTIAL[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -371,6 +413,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def floor(source):
+        r'''Calculates the floor of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.floor(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:FLOOR[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -379,6 +435,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def fractional_part(source):
+        r'''Calculates the fraction part of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.fractional_part(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:FRACTIONAL_PART[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -483,6 +553,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log(source):
+        r'''Calculates the natural logarithm of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.log(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:LOG[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -491,6 +575,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log2(source):
+        r'''Calculates the base-2 logarithm of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.log2(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:LOG2[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -499,6 +597,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log10(source):
+        r'''Calculates the base-10 logarithm of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.log10(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:LOG10[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -651,6 +763,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def reciprocal(source):
+        r'''Calculates reciprocal of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.reciprocal(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:RECIPROCAL[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -681,6 +807,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def sign(source):
+        r'''Calculates sign of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.sign(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:SIGN[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
