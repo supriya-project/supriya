@@ -118,6 +118,27 @@ class Group(Node):
         else:
             self._set_unallocated(expr, start, stop)
 
+    def __str__(self):
+        result = []
+        node_id = self.node_id
+        if node_id is None:
+            node_id = '???'
+        if self.name:
+            string = '{node_id} group ({name})'
+        else:
+            string = '{node_id} group'
+        string = string.format(
+            name=self.name,
+            node_id=node_id,
+            )
+        result.append(string)
+        for child in self:
+            assert child.parent is self
+            lines = str(child).splitlines()
+            for line in lines:
+                result.append('\t{}'.format(line))
+        return '\n'.join(result)
+
     ### PRIVATE METHODS ###
 
     def _allocate_synthdefs(self, synthdefs):
@@ -245,9 +266,9 @@ class Group(Node):
             old_node_id = old_node._unregister_with_local_server()
             old_node._set_parent(None)
             old_node_ids.append(old_node_id)
-            if isinstance(old_node, servertools.Group):
-                for old_node_child in Group._iterate_children(old_node):
-                    old_node_child._unregister_with_local_server()
+            #if isinstance(old_node, servertools.Group):
+            #    for old_node_child in Group._iterate_children(old_node):
+            #        old_node_child._unregister_with_local_server()
         if old_node_ids:
             node_free_request = requesttools.NodeFreeRequest(
                 node_ids=old_node_ids,
@@ -269,6 +290,11 @@ class Group(Node):
         self._children[start:stop] = expr
         for new_child in expr:
             new_child._set_parent(self)
+
+    def _unregister_with_local_server(self):
+        for child in self:
+            child._unregister_with_local_server()
+        return Node._unregister_with_local_server(self)
 
     def _validate_setitem_expr(self, expr):
         from supriya.tools import servertools
@@ -326,7 +352,7 @@ class Group(Node):
             )
 
     def free(self):
-        for node in Node._iterate_nodes(self):
+        for node in self:
             node._unregister_with_local_server()
         Node.free(self)
         return self

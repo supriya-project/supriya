@@ -199,9 +199,9 @@ class Node(ServerObjectProxy):
             assert target_node.parent is not self.server.root_node
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
+            self._parent._children[index] = self
             target_node._unregister_with_local_server()
             target_node._set_parent(None)
-            self._parent._children.insert(index, self)
         else:
             raise ValueError
         return add_action, node_id, target_node_id

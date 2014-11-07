@@ -71,6 +71,21 @@ class Synth(Node):
     def __getitem__(self, item):
         return self._control_interface[item]
 
+    def __str__(self):
+        node_id = self.node_id
+        if node_id is None:
+            node_id = '???'
+        if self.name:
+            string = '{node_id} {synthdef} ({name})'
+        else:
+            string = '{node_id} {synthdef}'
+        string = string.format(
+            name=self.name,
+            node_id=node_id,
+            synthdef=self.synthdef.actual_name,
+            )
+        return string
+
     ### PUBLIC METHODS ###
 
     def allocate(

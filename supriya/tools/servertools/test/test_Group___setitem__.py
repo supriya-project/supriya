@@ -588,6 +588,11 @@ def test_Group___setitem__05(server):
         )
     group_a.append(synth_d)
 
+    synth_e = servertools.Synth(
+        synthdefs.test,
+        name='Synth E',
+        )
+
     group_a.allocate()
 
     remote_state = str(server.query_remote_nodes())
@@ -613,3 +618,28 @@ def test_Group___setitem__05(server):
     assert synth_c.node_id == 1004
     assert group_c.node_id == 1005
     assert synth_d.node_id == 1006
+    assert synth_e.node_id is None
+
+    synth_e.allocate(
+        add_action=servertools.AddAction.REPLACE,
+        target_node=group_a,
+        )
+
+    remote_state = str(server.query_remote_nodes())
+    assert systemtools.TestManager.compare(
+        remote_state,
+        '''
+        NODE TREE 0 group
+            1 group
+                1007 test
+        ''',
+        ), remote_state
+
+    assert group_a.node_id is None
+    assert synth_a.node_id is None
+    assert group_b.node_id is None
+    assert synth_b.node_id is None
+    assert synth_c.node_id is None
+    assert group_c.node_id is None
+    assert synth_d.node_id is None
+    assert synth_e.node_id == 1007
