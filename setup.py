@@ -36,6 +36,8 @@ Supriya lets you:
     `Response` classes
 -   schedule synthesizer events and patterns
 
+Supriya's source is hosted at https://github.com/Pulgama/supriya.
+
 Documentation is available at http://supriya.readthedocs.org/en/latest/.
 
 Join the development mailing list at supriya-dev@googlegroups.com.
