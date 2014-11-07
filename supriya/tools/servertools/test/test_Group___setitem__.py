@@ -611,6 +611,20 @@ def test_Group___setitem__05(server):
         ''',
         ), remote_state
 
+    group_a_state = str(group_a)
+    assert systemtools.TestManager.compare(
+        group_a_state,
+        '''
+        1000 group (Group A)
+            1001 test (Synth A)
+            1002 group (Group B)
+                1003 test (Synth B)
+                1004 test (Synth C)
+                1005 group (Group C)
+            1006 test (Synth D)
+        ''',
+        ), group_a_state
+
     assert group_a.node_id == 1000
     assert synth_a.node_id == 1001
     assert group_b.node_id == 1002
@@ -643,3 +657,17 @@ def test_Group___setitem__05(server):
     assert group_c.node_id is None
     assert synth_d.node_id is None
     assert synth_e.node_id == 1007
+
+    group_a_state = str(group_a)
+    assert systemtools.TestManager.compare(
+        group_a_state,
+        '''
+        ??? group (Group A)
+            ??? test (Synth A)
+            ??? group (Group B)
+                ??? test (Synth B)
+                ??? test (Synth C)
+                ??? group (Group C)
+            ??? test (Synth D)
+        ''',
+        ), group_a_state
