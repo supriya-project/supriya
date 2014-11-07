@@ -36,7 +36,7 @@ class BinaryOperator(Enumeration):
     MODULO = 5
     MULTIPLICATION = 2
     NOT_EQUAL = 7
-    POW = 25
+    POWER = 25
     RANDRANGE = 47
     RING1 = 30  # a * (b + 1) == a * b + a
     RING2 = 31  # a * b + a + b
