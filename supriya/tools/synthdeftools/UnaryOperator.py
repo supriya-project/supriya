@@ -46,7 +46,7 @@ class UnaryOperator(Enumeration):
     RATIO_TO_SEMITONES = 20
     RECIPROCAL = 16
     RECTANGLE_WINDOW = 48
-    SCURVE = 53
+    S_CURVE = 53
     SIGN = 11
     SILENCE = 46
     SIN = 28
