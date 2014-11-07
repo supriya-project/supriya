@@ -755,10 +755,8 @@ def test_Group___setitem__06(server):
         ''',
         ), remote_state
 
-    synth_b['amplitude'] = 0.75
-    synth_b['frequency'] = 880
-    synth_c['amplitude'] = control_bus
-    synth_c['frequency'] = audio_bus
+    synth_b['amplitude', 'frequency'] = 0.75, 880
+    synth_c['amplitude', 'frequency'] = control_bus, audio_bus
 
     remote_state = str(server.query_remote_nodes(True))
     assert systemtools.TestManager.compare(
