@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
+import collections
 from supriya.tools.servertools.Node import Node
 
 
@@ -97,7 +98,21 @@ class Group(Node):
 
         '''
         self._validate_setitem_expr(expr)
-        expr, start, stop = self._coerce_setitem_arguments(i, expr)
+        if isinstance(i, slice):
+            assert isinstance(expr, collections.Sequence)
+        if isinstance(i, str):
+            i = self.index(self._named_children[i])
+        if isinstance(i, int):
+            if i < 0:
+                i = len(self) + i
+            i = slice(i, i + 1)
+        if i.start == i.stop and i.start is not None \
+            and i.stop is not None and i.start <= -len(self):
+            start, stop = 0, 0
+        else:
+            start, stop, stride = i.indices(len(self))
+        if not isinstance(expr, collections.Sequence):
+            expr = [expr]
         if self.is_allocated:
             self._set_allocated(expr, start, stop)
         else:
@@ -114,15 +129,6 @@ class Group(Node):
                 synthdefs=tuple(synthdefs),
                 )
             request.communicate(server=self.server)
-
-    def _coerce_setitem_arguments(self, i, expr):
-        if isinstance(i, int):
-            if i < 0:
-                i = len(self) + i
-            i = slice(i, i + 1)
-            expr = [expr]
-        start, stop, _ = i.indices(len(self))
-        return expr, start, stop
 
     @staticmethod
     def _iterate_children(group):
@@ -171,6 +177,7 @@ class Group(Node):
         requests = []
         iterator = Group._iterate_setitem_expr(self, expr, start)
         for node, target_node, add_action in iterator:
+            print('XXX', node, target_node, add_action)
             nodes.add(node)
             if node.is_allocated:
                 if add_action == servertools.AddAction.ADD_TO_HEAD:
@@ -216,15 +223,25 @@ class Group(Node):
     def _set_allocated(self, expr, start, stop):
         from supriya.tools import requesttools
         from supriya.tools import servertools
+
+        print('SET ALLOCATED')
+
+        old_nodes = self._children[start:stop]
+        self._children.__delitem__(slice(start, stop))
+        for old_node in old_nodes:
+            old_node._set_parent(None)
+
+        self._children.__setitem__(slice(start, start), expr)
+        for child in expr:
+            child._set_parent(self)
+
+        start = 0
+        if expr:
+            start = self.index(expr[0])
         new_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
             expr, start)
         self._allocate_synthdefs(synthdefs)
-        old_nodes = tuple(self[start:stop])
-        for child in expr:
-            if child.parent is self:
-                continue
-            child._set_parent(self)
-        self._children[start:stop] = expr
+
         old_node_ids = []
         for old_node in old_nodes:
             if old_node in new_nodes:
@@ -240,6 +257,7 @@ class Group(Node):
                 node_ids=old_node_ids,
                 )
             requests.insert(0, node_free_request)
+
         message_bundler = servertools.MessageBundler(
             server=self.server,
             sync=True,
