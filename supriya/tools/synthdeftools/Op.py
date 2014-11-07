@@ -341,6 +341,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def distort(source):
+        r'''Distorts `source` non-linearly.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.distort(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:DISTORT[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -675,6 +689,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def softclip(source):
+        r'''Distorts `source` non-linearly.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.softclip(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:SOFTCLIP[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -683,6 +711,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def square_root(source):
+        r'''Calculates square root of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.square_root(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:SQUARE_ROOT[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -691,6 +733,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def squared(source):
+        r'''Calculates square of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.squared(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:SQUARED[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -699,6 +755,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def tanh(source):
+        r'''Calculates hyperbolic tangent of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.tanh(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:TANH[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
