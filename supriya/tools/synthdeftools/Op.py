@@ -193,6 +193,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_hanning_window(source):
+        r'''Calculates Hanning window value at `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.as_hanning_window(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:HANNING_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -201,6 +215,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_rectangle_window(source):
+        r'''Calculates rectangle window value at `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.as_rectangle_window(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:RECTANGLE_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -209,6 +237,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_s_curve(source):
+        r'''Calculates S-curve value at `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.as_s_curve(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:S_CURVE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -217,6 +259,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_triangle_window(source):
+        r'''Calculates triangle window value at `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.as_triangle_window(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:TRIANGLE_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -225,6 +281,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_welch_window(source):
+        r'''Calculates Welch window value at `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.as_welch_window(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:WELCH_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
