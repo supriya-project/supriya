@@ -35,7 +35,7 @@ class Op(SupriyaObject):
     # FRACTIONAL_PART = 10
     # HZ_TO_MIDI = 18
     # HZ_TO_OCTAVE = 24
-    HANNING_WINDOW = 49
+    # HANNING_WINDOW = 49
     IS_NIL = 2
     LINRAND = 39
     # LOG = 25
@@ -52,8 +52,8 @@ class Op(SupriyaObject):
     RAND2 = 38
     # RATIO_TO_SEMITONES = 20
     # RECIPROCAL = 16
-    RECTANGLE_WINDOW = 48
-    SCURVE = 53
+    # RECTANGLE_WINDOW = 48
+    S_CURVE = 53
     # SIGN = 11
     SILENCE = 46
     SIN = 28
@@ -65,8 +65,8 @@ class Op(SupriyaObject):
     TAN = 30
     # TANH = 36
     THRU = 47
-    TRIANGLE_WINDOW = 51
-    WELCH_WINDOW = 50
+    # TRIANGLE_WINDOW = 51
+    # WELCH_WINDOW = 50
     '''
 
     '''
@@ -149,6 +149,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def absolute_value(source):
+        r'''Calculates absolute value of `source`.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.absolute_value(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -157,10 +171,64 @@ class Op(SupriyaObject):
 
     @staticmethod
     def amplitude_to_db(source):
+        r'''Converts `source` from amplitude to decibels.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.amplitude_to_db(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:AMPLITUDE_TO_DB[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
             synthdeftools.UnaryOperator.AMPLITUDE_TO_DB,
+            )
+
+    @staticmethod
+    def as_hanning_window(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.HANNING_WINDOW,
+            )
+
+    @staticmethod
+    def as_rectangle_window(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.RECTANGLE_WINDOW,
+            )
+
+    @staticmethod
+    def as_s_curve(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.S_CURVE,
+            )
+
+    @staticmethod
+    def as_triangle_window(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.TRIANGLE_WINDOW,
+            )
+
+    @staticmethod
+    def as_welch_window(source):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            source,
+            synthdeftools.UnaryOperator.WELCH_WINDOW,
             )
 
     @staticmethod
@@ -181,6 +249,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def db_to_amplitude(source):
+        r'''Converts `source` from decibels to amplitude.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.db_to_amplitude(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:DB_TO_AMPLITUDE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -221,6 +303,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def hz_to_midi(source):
+        r'''Converts `source` from Hertz to midi note number.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.hz_to_midi(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:HZ_TO_MIDI[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -229,6 +325,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def hz_to_octave(source):
+        r'''Converts `source` from Hertz to octave number.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.hz_to_octave(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:HZ_TO_OCTAVE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -339,6 +449,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def midi_to_hz(source):
+        r'''Converts `source` from midi note number to Hertz.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.midi_to_hz(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:MIDI_TO_HZ[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -373,6 +497,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def octave_to_hz(source):
+        r'''Converts `source` from octave number to Hertz.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.octave_to_hz(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:OCTAVE_TO_HZ[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -407,6 +545,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def ratio_to_semitones(source):
+        r'''Converts `source` from frequency ratio to semitone distance.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.ratio_to_semitones(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:RATIO_TO_SEMITONES[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
@@ -423,6 +575,20 @@ class Op(SupriyaObject):
 
     @staticmethod
     def semitones_to_ratio(source):
+        r'''Converts `source` from semitone distance to frequency ratio.
+
+        ::
+
+            >>> source = ugentools.DC.ar(source=0.5)
+            >>> operation = Op.semitones_to_ratio(source)
+            >>> print(operation)
+            SynthDef ... {
+                const_0:0.5 -> 0_DC[0:source]
+                0_DC[0] -> 1_UnaryOpUGen:SEMITONES_TO_RATIO[0:source]
+            }
+
+        Returns ugen graph.
+        '''
         from supriya import synthdeftools
         return synthdeftools.UGenMethodMixin._compute_unary_op(
             source,
