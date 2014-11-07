@@ -5,6 +5,7 @@ User Guide
     :maxdepth: 2
 
     install
+    concepts
     server
     synthdefs
     nodes
