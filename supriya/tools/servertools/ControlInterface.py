@@ -42,27 +42,28 @@ class ControlInterface(SupriyaObject):
             if hasattr(self, '__getitem__'):
                 self[control_name]._value = value
         messages = []
-        if n_set_settings:
-            request = requesttools.NodeSetRequest(
-                self.node_id,
-                **n_set_settings
-                )
-            message = request.to_osc_message()
-            messages.append(message)
-        if n_map_settings:
-            request = requesttools.NodeMapToControlBusRequest(
-                self.node_id,
-                **n_map_settings
-                )
-            message = request.to_osc_message()
-            messages.append(message)
-        if n_mapa_settings:
-            request = requesttools.NodeMapToAudioBusRequest(
-                self.node_id,
-                **n_mapa_settings
-                )
-            message = request.to_osc_message()
-            messages.append(message)
+        if self.client.is_allocated:
+            if n_set_settings:
+                request = requesttools.NodeSetRequest(
+                    self.node_id,
+                    **n_set_settings
+                    )
+                message = request.to_osc_message()
+                messages.append(message)
+            if n_map_settings:
+                request = requesttools.NodeMapToControlBusRequest(
+                    self.node_id,
+                    **n_map_settings
+                    )
+                message = request.to_osc_message()
+                messages.append(message)
+            if n_mapa_settings:
+                request = requesttools.NodeMapToAudioBusRequest(
+                    self.node_id,
+                    **n_mapa_settings
+                    )
+                message = request.to_osc_message()
+                messages.append(message)
         return tuple(messages)
 
     ### PUBLIC METHODS ###

@@ -50,7 +50,7 @@ class Synth(Node):
 
     def __init__(
         self,
-        synthdef,
+        synthdef=None,
         name=None,
         ):
         from supriya.tools import servertools
@@ -71,7 +71,11 @@ class Synth(Node):
     def __getitem__(self, item):
         return self._control_interface[item]
 
+    def __setitem__(self, items, values):
+        self.controls.__setitem__(items, values)
+
     def __str__(self):
+        result = []
         node_id = self.node_id
         if node_id is None:
             node_id = '???'
@@ -84,7 +88,19 @@ class Synth(Node):
             node_id=node_id,
             synthdef=self.synthdef.actual_name,
             )
-        return string
+        result.append(string)
+        control_pieces = []
+        controls = sorted(self.controls, key=lambda x: x.name)
+        for control in controls:
+            control_piece = '{}: {!s}'.format(
+                control.name,
+                control.value,
+                )
+            control_pieces.append(control_piece)
+        control_pieces = '\t' + ', '.join(control_pieces)
+        result.append(control_pieces)
+        result = '\n'.join(result)
+        return result
 
     ### PUBLIC METHODS ###
 

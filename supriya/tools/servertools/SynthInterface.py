@@ -67,13 +67,14 @@ class SynthInterface(ControlInterface):
         synth_control_names = [x.name for x in synth_controls]
         settings = dict(zip(synth_control_names, values))
         messages = self._set(**settings)
-        message_bundler = servertools.MessageBundler(
-            server=self.client.server,
-            sync=True,
-            )
-        with message_bundler:
-            for message in messages:
-                message_bundler.add_message(message)
+        if self.client.is_allocated:
+            message_bundler = servertools.MessageBundler(
+                server=self.client.server,
+                sync=True,
+                )
+            with message_bundler:
+                for message in messages:
+                    message_bundler.add_message(message)
 
     ### PRIVATE METHODS ###
 

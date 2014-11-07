@@ -617,11 +617,15 @@ def test_Group___setitem__05(server):
         '''
         1000 group (Group A)
             1001 test (Synth A)
+                amplitude: 1.0, frequency: 440.0
             1002 group (Group B)
                 1003 test (Synth B)
+                    amplitude: 1.0, frequency: 440.0
                 1004 test (Synth C)
+                    amplitude: 1.0, frequency: 440.0
                 1005 group (Group C)
             1006 test (Synth D)
+                amplitude: 1.0, frequency: 440.0
         ''',
         ), group_a_state
 
@@ -664,10 +668,144 @@ def test_Group___setitem__05(server):
         '''
         ??? group (Group A)
             ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
             ??? group (Group B)
                 ??? test (Synth B)
+                    amplitude: 1.0, frequency: 440.0
                 ??? test (Synth C)
+                    amplitude: 1.0, frequency: 440.0
                 ??? group (Group C)
             ??? test (Synth D)
+                amplitude: 1.0, frequency: 440.0
         ''',
         ), group_a_state
+
+
+def test_Group___setitem__06(server):
+
+    group = servertools.Group()
+
+    synth_a = servertools.Synth(
+        name='Synth A',
+        synthdef=synthdefs.test,
+        )
+
+    synth_b = servertools.Synth(
+        name='Synth B',
+        synthdef=synthdefs.test,
+        )
+    synth_b['amplitude'] = 0.5
+    synth_b['frequency'] = 443
+
+    audio_bus = servertools.Bus(0, 'audio')
+    control_bus = servertools.Bus(1, 'control')
+
+    synth_c = servertools.Synth(
+        name='Synth C',
+        synthdef=synthdefs.test,
+        )
+    synth_c['amplitude'] = audio_bus
+    synth_c['frequency'] = control_bus
+
+    group[:] = [synth_a, synth_b, synth_c]
+
+    group_state = str(group)
+    assert systemtools.TestManager.compare(
+        group_state,
+        '''
+        ??? group
+            ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            ??? test (Synth B)
+                amplitude: 0.5, frequency: 443
+            ??? test (Synth C)
+                amplitude: a0, frequency: c1
+        ''',
+        ), group_state
+
+    group.allocate()
+
+    group_state = str(group)
+    assert systemtools.TestManager.compare(
+        group_state,
+        '''
+        1000 group
+            1001 test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            1002 test (Synth B)
+                amplitude: 0.5, frequency: 443
+            1003 test (Synth C)
+                amplitude: a0, frequency: c1
+        ''',
+        ), group_state
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert systemtools.TestManager.compare(
+        remote_state,
+        '''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+                    1002 test
+                        amplitude: 0.5, frequency: 443.0
+                    1003 test
+                        amplitude: a0, frequency: c1
+        ''',
+        ), remote_state
+
+    synth_b['amplitude'] = 0.75
+    synth_b['frequency'] = 880
+    synth_c['amplitude'] = control_bus
+    synth_c['frequency'] = audio_bus
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert systemtools.TestManager.compare(
+        remote_state,
+        '''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+                    1002 test
+                        amplitude: 0.75, frequency: 880.0
+                    1003 test
+                        amplitude: c1, frequency: a0
+        ''',
+        ), remote_state
+
+    group[:] = [synth_c, synth_b, synth_a]
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert systemtools.TestManager.compare(
+        remote_state,
+        '''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1003 test
+                        amplitude: c1, frequency: a0
+                    1002 test
+                        amplitude: 0.75, frequency: 880.0
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+        ''',
+        ), remote_state
+
+    group.free()
+
+    group_state = str(group)
+    assert systemtools.TestManager.compare(
+        group_state,
+        '''
+        ??? group
+            ??? test (Synth C)
+                amplitude: c1, frequency: a0
+            ??? test (Synth B)
+                amplitude: 0.75, frequency: 880
+            ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+        ''',
+        ), group_state
