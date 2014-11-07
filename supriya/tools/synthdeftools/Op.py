@@ -3,6 +3,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Op(SupriyaObject):
+    r'''Creates binary and unary operations.
+    '''
 
     ### CLASS VARIABLES ###
 
