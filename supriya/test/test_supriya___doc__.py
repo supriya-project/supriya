@@ -19,6 +19,8 @@ classes = documentationtools.list_all_supriya_classes(
     bases=synthdeftools.UGen,
     )
 
+classes = [_ for _ in classes if '.ugentools.' in _.__module__]
+
 class_attr_pairs = []
 for cls in classes:
     if cls.__name__ in ignored_classes:
