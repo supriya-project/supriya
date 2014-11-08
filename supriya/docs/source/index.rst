@@ -173,7 +173,7 @@ User Guide
 ----------
 
 ..  toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     users/index
 
@@ -189,7 +189,7 @@ Developer Guide
 ---------------
 
 ..  toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
     developers/index
 
