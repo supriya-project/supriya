@@ -185,6 +185,14 @@ User Guide
 
     users/index
 
+Examples
+--------
+
+..  toctree::
+    :maxdepth: 2
+
+    examples/index
+
 Supriya API
 -----------
 
