@@ -3,10 +3,10 @@ Playing with Nodes
 
 (Documentation coming soon)
 
-Creating Groups
+Creating groups
 ---------------
 
-Creating Synths
+Creating synths
 ---------------
 
 Allocate nodes on the server

@@ -1,6 +1,5 @@
-Supriya's Coding Style
+Supriya's coding style
 ======================
 
 (Documentation coming soon)
-
 

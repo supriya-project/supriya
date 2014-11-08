@@ -1,5 +1,4 @@
-Running Supriya's Test Suite
+Running Supriya's test suite
 ============================
 
 (Documentation coming soon)
-

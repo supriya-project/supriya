@@ -1,4 +1,4 @@
-Building Supriya's Documentation
+Building Supriya's documentation
 ================================
 
 (Documentation coming soon)
