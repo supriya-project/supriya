@@ -7,8 +7,10 @@ User Guide
     install
     concepts
     server
+    ugens
     synthdefs
     nodes
     buses
     buffers
+    requests
     graphviz

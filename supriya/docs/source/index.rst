@@ -175,7 +175,7 @@ User Guide
 ..  toctree::
     :maxdepth: 2
 
-    guide/index
+    users/index
 
 Supriya API
 -----------
@@ -184,6 +184,14 @@ Supriya API
     :maxdepth: 2
 
     tools/index
+
+Developer Guide
+---------------
+
+..  toctree::
+    :maxdepth: 2
+
+    developers/index
 
 Indices and tables
 ==================
