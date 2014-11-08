@@ -49,6 +49,8 @@ class PauseSelfWhenDone(UGen):
         ):
         r'''Constructs a control-calculation_rate ugen.
 
+        ::
+
             >>> source = ugentools.Line.kr()
             >>> pause_self_when_done = ugentools.PauseSelfWhenDone.kr(
             ...     source=source,

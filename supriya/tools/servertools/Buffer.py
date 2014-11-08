@@ -1270,6 +1270,7 @@ class Buffer(ServerObjectProxy):
             OrderedDict([(0, (0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0))])
 
         ::
+
             >>> buffer_.free()
 
         Returns none.

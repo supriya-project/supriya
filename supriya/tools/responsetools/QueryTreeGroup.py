@@ -44,7 +44,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces():
-                result.append('\t{}'.format(line))
+                result.append('    {}'.format(line))
         return result
 
     ### PUBLIC METHODS ###

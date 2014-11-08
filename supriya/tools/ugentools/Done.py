@@ -50,6 +50,8 @@ class Done(UGen):
         ):
         r'''Constructs a control-calculation_rate "done" trigger.
 
+        ::
+
             >>> source = ugentools.Line.kr(duration=[1, 2])
             >>> done = ugentools.Done.kr(
             ...     source=source,

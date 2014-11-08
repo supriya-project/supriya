@@ -30,7 +30,7 @@ class Dispatcher(SupriyaObject):
         if self.debug:
             print('RECV', type(self))
             for line in repr(input_).splitlines():
-                print('\t' + line)
+                print('    ' + line)
         with self.lock:
             for x in input_:
                 callbacks = self._collect_callbacks(x)

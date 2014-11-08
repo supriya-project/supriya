@@ -51,7 +51,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             control_string = ', '.join(
                 str(control) for control in self.controls
                 )
-            control_string = '\t' + control_string
+            control_string = '    ' + control_string
             result.append(control_string)
         return result
 

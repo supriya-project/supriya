@@ -97,7 +97,7 @@ class Synth(Node):
                 control.value,
                 )
             control_pieces.append(control_piece)
-        control_pieces = '\t' + ', '.join(control_pieces)
+        control_pieces = '    ' + ', '.join(control_pieces)
         result.append(control_pieces)
         result = '\n'.join(result)
         return result

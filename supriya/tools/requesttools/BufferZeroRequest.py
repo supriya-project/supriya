@@ -18,6 +18,7 @@ class BufferZeroRequest(Request):
             )
 
     ::
+
         >>> message = request.to_osc_message()
         >>> message
         OscMessage(34, 23)

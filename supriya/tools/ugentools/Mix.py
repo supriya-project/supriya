@@ -8,9 +8,6 @@ class Mix(PseudoUGen):
 
     ::
 
-
-    ::
-
         >>> oscillators = [ugentools.DC.ar(1) for _ in range(5)]
         >>> mix = ugentools.Mix.new(oscillators)
         >>> builder = synthdeftools.SynthDefBuilder()

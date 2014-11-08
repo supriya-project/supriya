@@ -28,6 +28,7 @@ class BufferSetRequest(Request):
             )
 
     ::
+
         >>> message = request.to_osc_message()
         >>> message
         OscMessage(35, 23, 0, 1.0, 10, 13.2, 17, 19.3)

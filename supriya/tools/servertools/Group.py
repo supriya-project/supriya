@@ -136,7 +136,7 @@ class Group(Node):
             assert child.parent is self
             lines = str(child).splitlines()
             for line in lines:
-                result.append('\t{}'.format(line))
+                result.append('    {}'.format(line))
         return '\n'.join(result)
 
     ### PRIVATE METHODS ###

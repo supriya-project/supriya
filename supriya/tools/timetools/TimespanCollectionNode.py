@@ -64,12 +64,12 @@ class TimespanCollectionNode(SupriyaObject):
         result.append(repr(self))
         if self.left_child:
             subresult = self.left_child._get_debug_pieces()
-            result.append('\tL: {}'.format(subresult[0]))
-            result.extend('\t' + x for x in subresult[1:])
+            result.append('    L: {}'.format(subresult[0]))
+            result.extend('    ' + x for x in subresult[1:])
         if self.right_child:
             subresult = self.right_child._get_debug_pieces()
-            result.append('\tR: {}'.format(subresult[0]))
-            result.extend('\t' + x for x in subresult[1:])
+            result.append('    R: {}'.format(subresult[0]))
+            result.extend('    ' + x for x in subresult[1:])
         return result
 
     def _update(self):

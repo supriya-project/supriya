@@ -194,7 +194,7 @@ class SynthDef(ServerObjectProxy):
                         input_ = input_.source
                     input_name = get_ugen_name(input_)
                     input_name += '[{}]'.format(output_index)
-                wire = '\t{} -> {}'.format(input_name, ugen_name)
+                wire = '    {} -> {}'.format(input_name, ugen_name)
                 if argument_name:
                     wire += '[{}:{}]'.format(i, argument_name)
                 else:

@@ -32,6 +32,7 @@ class BufferSetContiguousRequest(Request):
             )
 
     ::
+
         >>> message = request.to_osc_message()
         >>> message
         OscMessage(36, 23, 0, 3, 1.0, 2.0, 3.0, 10, 2, 17.1, 18.2)
