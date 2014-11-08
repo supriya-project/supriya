@@ -28,6 +28,8 @@ sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
 
+# on_rtd is whether we are on readthedocs.org
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 # otherwise, readthedocs.org uses their theme by default, so no need to specify it
 
@@ -47,6 +49,33 @@ extensions = [
     'sphinx.ext.viewcode',
     'supriya.docs.ext.style',
     ]
+
+if not on_rtd:
+    extensions.append('sphinx.ext.doctest')
+
+import abjad
+import supriya
+
+doctest_path = [
+    os.path.abspath(abjad.__path__[0]),
+    os.path.abspath(supriya.__path__[0]),
+    ]
+
+doctest_global_setup = r'''
+from __future__ import print_function
+from abjad import *
+from supriya import *
+'''
+
+doctest_global_cleanup = r'''
+for server in servertools.Server._servers.values():
+    server.quit()
+'''
+
+doctest_test_doctest_blocks = True
+
+from docutils import nodes
+nodes.doctest_block = nodes.literal_block
 
 intersphinx_mapping = {
     'abjad': ('http://abjad.mbrsi.org', None),
@@ -123,9 +152,6 @@ pygments_style = 'sphinx'
 # a list of builtin themes.
 
 html_theme = 'default'
-
-# on_rtd is whether we are on readthedocs.org
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 if not on_rtd:  # only import and set the theme if we're building docs locally
     import sphinx_rtd_theme
