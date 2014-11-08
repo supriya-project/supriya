@@ -169,6 +169,14 @@ Quit the server:
     >>> server.quit()
     <Server: offline>
 
+About Supriya
+-------------
+
+..  toctree::
+    :maxdepth: 2
+
+    about/index
+
 User Guide
 ----------
 
