@@ -91,6 +91,7 @@ class Server(object):
         ):
         from supriya.tools import osctools
         from supriya.tools import responsetools
+        from supriya.tools import servertools
 
         if hasattr(self, 'is_running') and self.is_running:
             return
@@ -133,7 +134,7 @@ class Server(object):
         ### SERVER PROCESS ###
 
         self._is_running = False
-        self._server_options = None
+        self._server_options = servertools.ServerOptions()
         self._server_process = None
         self._server_status = None
         self._status_watcher = None
@@ -360,7 +361,9 @@ class Server(object):
             return self
         if not systemtools.IOManager.find_executable('scsynth'):
             raise Exception('Cannot find scsynth. Is it on your $PATH?')
-        server_options = server_options or servertools.ServerOptions()
+        if server_options is None:
+            server_options = self.server_options
+        assert isinstance(server_options, servertools.ServerOptions)
         options_string = server_options.as_options_string(self.port)
         command = 'scsynth {}'.format(options_string)
         server_process = pexpect.spawn(command)

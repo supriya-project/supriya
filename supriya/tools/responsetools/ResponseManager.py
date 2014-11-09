@@ -22,14 +22,14 @@ class ResponseManager(SupriyaObject):
         ...     )
         >>> manager.handle_message(message)
         StatusResponse(
-            ugen_count=0,
-            synth_count=0,
-            group_count=2,
-            synthdef_count=4,
+            actual_sample_rate=44100.00077873274,
             average_cpu_usage=0.040679048746824265,
+            group_count=2,
             peak_cpu_usage=0.15118031203746796,
+            synth_count=0,
+            synthdef_count=4,
             target_sample_rate=44100.0,
-            actual_sample_rate=44100.00077873274
+            ugen_count=0
             )
 
     ::
@@ -337,7 +337,26 @@ class ResponseManager(SupriyaObject):
     def handle_status_reply(command, contents):
         from supriya.tools import responsetools
         arguments = contents[1:]
-        response = responsetools.StatusResponse(*arguments)
+        (
+            ugen_count,
+            synth_count,
+            group_count,
+            synthdef_count,
+            average_cpu_usage,
+            peak_cpu_usage,
+            target_sample_rate,
+            actual_sample_rate,
+            ) = arguments
+        response = responsetools.StatusResponse(
+            actual_sample_rate=actual_sample_rate,
+            average_cpu_usage=average_cpu_usage,
+            group_count=group_count,
+            peak_cpu_usage=peak_cpu_usage,
+            synth_count=synth_count,
+            synthdef_count=synthdef_count,
+            target_sample_rate=target_sample_rate,
+            ugen_count=ugen_count,
+            )
         return response
 
     @staticmethod

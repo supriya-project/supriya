@@ -84,7 +84,7 @@ def _build_default_synthdef():
         )
 
     builder.add_ugen(output)
-    synthdef = builder.build()
+    synthdef = builder.build(name='default')
     return synthdef
 
 default = _build_default_synthdef()

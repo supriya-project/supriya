@@ -21,15 +21,15 @@ class StatusResponse(Response):
 
     def __init__(
         self,
-        ugen_count=None,
-        synth_count=None,
-        group_count=None,
-        synthdef_count=None,
-        average_cpu_usage=None,
-        peak_cpu_usage=None,
-        target_sample_rate=None,
         actual_sample_rate=None,
+        average_cpu_usage=None,
+        group_count=None,
         osc_message=None,
+        peak_cpu_usage=None,
+        synth_count=None,
+        synthdef_count=None,
+        target_sample_rate=None,
+        ugen_count=None,
         ):
         Response.__init__(
             self,
