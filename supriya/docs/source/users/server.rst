@@ -10,7 +10,7 @@ Instantiate the server
 
     >>> server = Server()
     >>> server
-    <Server: offline> 
+    <Server: offline>
 
 ::
 
@@ -139,11 +139,11 @@ Debug the server
 
 ::
 
-    >>> # server.debug_osc = True
+    >>> server.debug_osc = True
 
 ::
 
-    >>> Group().allocate(server=server)
+    >>> Group().allocate()
     SEND OscBundle(
         contents=(
             OscMessage(21, 1000, 0, 1),
@@ -156,12 +156,46 @@ Debug the server
 
 ::
 
-    >>> # server.debug_udp = True
+    >>> server.debug_udp = True
 
 ::
 
-    >>> Synth(synthdefs.default).allocate()
+    >>> Synth(synthdefs.test).allocate()
+    SEND OscMessage(5, bytearray(b'SCgf\x00\x00\x00\x02\x00\x01\x04test\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02?\x80\x00\x00C\xdc\x00\x00\x00\x00\x00\x02\tamplitude\x00\x00\x00\x00\tfrequency\x00\x00\x00\x01\x00\x00\x00\x05\x0cAudioControl\x02\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x02\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x01\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00'))
+        size 240
+           0   00 00 00 05  2c 62 00 00  00 00 00 e1  53 43 67 66   |....,b......SCgf|
+          16   00 00 00 02  00 01 04 74  65 73 74 00  00 00 01 00   |.......test.....|
+          32   00 00 00 00  00 00 02 3f  80 00 00 43  dc 00 00 00   |.......?...C....|
+          48   00 00 02 09  61 6d 70 6c  69 74 75 64  65 00 00 00   |....amplitude...|
+          64   00 09 66 72  65 71 75 65  6e 63 79 00  00 00 01 00   |..frequency.....|
+          80   00 00 05 0c  41 75 64 69  6f 43 6f 6e  74 72 6f 6c   |....AudioControl|
+          96   02 00 00 00  00 00 00 00  01 00 00 02  07 43 6f 6e   |.............Con|
+         112   74 72 6f 6c  01 00 00 00  00 00 00 00  01 00 01 01   |trol............|
+         128   06 53 69 6e  4f 73 63 02  00 00 00 02  00 00 00 01   |.SinOsc.........|
+         144   00 00 00 00  00 01 00 00  00 00 ff ff  ff ff 00 00   |................|
+         160   00 00 02 0c  42 69 6e 61  72 79 4f 70  55 47 65 6e   |....BinaryOpUGen|
+         176   02 00 00 00  02 00 00 00  01 00 02 00  00 00 02 00   |................|
+         192   00 00 00 00  00 00 00 00  00 00 00 02  03 4f 75 74   |.............Out|
+         208   02 00 00 00  02 00 00 00  00 00 00 ff  ff ff ff 00   |................|
+         224   00 00 00 00  00 00 03 00  00 00 00 00  00 00 00 00   |................|
+    RECV OscMessage('/done', '/d_recv')
+        size 20
+           0   2f 64 6f 6e  65 00 00 00  2c 73 00 00  2f 64 5f 72   |/done...,s../d_r|
+          16   65 63 76 00                                          |ecv.|
+    SEND OscMessage(9, 'test', 1001, 0, 1)
+        size 32
+           0   00 00 00 09  2c 73 69 69  69 00 00 00  74 65 73 74   |....,siii...test|
+          16   00 00 00 00  00 00 03 e9  00 00 00 00  00 00 00 01   |................|
+    RECV OscMessage('/n_go', 1001, 1, -1, 1000, 0)
+        size 36
+           0   2f 6e 5f 67  6f 00 00 00  2c 69 69 69  69 69 00 00   |/n_go...,iiiii..|
+          16   00 00 03 e9  00 00 00 01  ff ff ff ff  00 00 03 e8   |................|
+          32   00 00 00 00                                          |....|
     <Synth: 1001>
+
+::
+
+    >>> server.debug_osc = False
 
 Working with multiple servers
 -----------------------------
