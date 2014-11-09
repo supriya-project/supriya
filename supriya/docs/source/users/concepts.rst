@@ -124,6 +124,9 @@ See also:
     ~supriya.tools.servertools.Buffer
     ~supriya.tools.servertools.BufferGroup
 
+Allocation
+----------
+
 MIDI
 ----
 
