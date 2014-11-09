@@ -42,8 +42,9 @@ class Synth(Node):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
-        '_synthdef',
         '_control_interface',
+        '_register_controls',
+        '_synthdef',
         )
 
     ### INITIALIZER ###
@@ -52,6 +53,8 @@ class Synth(Node):
         self,
         synthdef=None,
         name=None,
+        register_controls=None,
+        **kwargs
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
@@ -65,6 +68,10 @@ class Synth(Node):
             client=self,
             synthdef=self._synthdef,
             )
+        if register_controls is not None:
+            register_controls = bool(register_controls)
+        self._register_controls = register_controls
+        self._control_interface._set(**kwargs)
 
     ### SPECIAL METHODS ###
 
@@ -154,3 +161,7 @@ class Synth(Node):
     @property
     def synthdef(self):
         return self._synthdef
+
+    @property
+    def register_controls(self):
+        return self._register_controls

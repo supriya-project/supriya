@@ -29,6 +29,10 @@ class GroupInterface(ControlInterface):
             values = (values,)
         assert len(items) == len(values)
         settings = dict(zip(items, values))
+        for key, value in settings.items():
+            for synth in self._synth_controls.get(key, ()):
+                control = synth.controls[key]
+                control.value = value
         messages = self._set(**settings)
         message_bundler = servertools.MessageBundler(
             server=self.client.server,

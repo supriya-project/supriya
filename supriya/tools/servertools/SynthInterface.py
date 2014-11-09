@@ -125,8 +125,9 @@ class SynthInterface(ControlInterface):
 
     def as_dict(self):
         result = {}
-        for control in self:
-            result[control.name] = set([self.client])
+        if self.client.register_controls:
+            for control in self:
+                result[control.name] = set([self.client])
         return result
 
     def reset(self):
