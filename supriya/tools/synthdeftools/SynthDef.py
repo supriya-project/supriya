@@ -382,19 +382,16 @@ class SynthDef(ServerObjectProxy):
         self,
         completion_message=None,
         server=None,
-        sync=False,
+        sync=True,
         ):
-        from supriya.tools import servertools
         request = self._allocate(
             completion_message=completion_message,
             server=server,
             )
-        message_bundler = servertools.MessageBundler(
+        request.communicate(
             server=self.server,
-            sync=sync,
+            sync=True,
             )
-        with message_bundler:
-            message_bundler.add_message(request)
         return self
 
     def compile(self):

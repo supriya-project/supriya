@@ -38,7 +38,8 @@ class Server(object):
         '_control_bus_allocator',
         '_control_buses',
         '_control_bus_proxies',
-        '_debug',
+        '_debug_osc',
+        '_debug_udp',
         '_default_group',
         '_ip_address',
         '_is_running',
@@ -87,7 +88,6 @@ class Server(object):
         self,
         ip_address='127.0.0.1',
         port=57751,
-        debug=False,
         ):
         from supriya.tools import osctools
         from supriya.tools import responsetools
@@ -107,7 +107,6 @@ class Server(object):
         self._response_dispatcher = responsetools.ResponseDispatcher()
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(
-            debug=debug,
             server=self,
             )
         for callback in (
@@ -156,13 +155,14 @@ class Server(object):
         self._nodes = {}
         self._synthdefs = {}
 
+        ### DEBUG ###
+
+        self.debug_osc = False
+        self.debug_udp = False
+
         ### REGISTER WITH ATEXIT ###
 
         atexit.register(self.quit)
-
-        ### DEBUGGING ###
-
-        self.debug = debug
 
     ### SPECIAL METHODS ###
 
@@ -264,9 +264,9 @@ class Server(object):
         return control_bus_proxy
 
     def _setup(self):
+        self._setup_notifications()
         self._setup_allocators(self.server_options)
         self._setup_proxies()
-        self._setup_notifications()
         self._setup_status_watcher()
 
     def _setup_allocators(self, server_options):
@@ -384,7 +384,6 @@ class Server(object):
         if error in string:
             raise Exception(error)
         assert success in string, string
-
         self._is_running = True
         self._server_options = server_options
         self._server_process = server_process
@@ -601,13 +600,22 @@ class Server(object):
         return self._control_bus_allocator
 
     @property
-    def debug(self):
-        return self._debug
+    def debug_osc(self):
+        return self._debug_osc
 
-    @debug.setter
-    def debug(self, expr):
-        self._debug = bool(expr)
-        self._osc_controller.debug = self.debug
+    @debug_osc.setter
+    def debug_osc(self, expr):
+        self._debug_osc = bool(expr)
+        self._osc_controller.debug_osc = self.debug_osc
+
+    @property
+    def debug_udp(self):
+        return self._debug_udp
+
+    @debug_udp.setter
+    def debug_udp(self, expr):
+        self._debug_udp = bool(expr)
+        self._osc_controller.debug_udp = self.debug_udp
 
     @property
     def default_group(self):

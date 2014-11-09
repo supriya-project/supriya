@@ -331,12 +331,19 @@ class Group(Node):
         nodes, requests, synthdefs = self._collect_requests_and_synthdefs(self)
         requests.insert(0, group_new_request)
         self._allocate_synthdefs(synthdefs)
-        message_bundler = servertools.MessageBundler(
-            server=self.server,
-            sync=True,
-            )
-        message_bundler.add_messages(requests)
-        message_bundler.send_messages()
+        if 1 < len(requests):
+            message_bundler = servertools.MessageBundler(
+                server=self.server,
+                sync=True,
+                )
+            message_bundler.add_messages(requests)
+            message_bundler.add_synchronizing_request(group_new_request)
+            message_bundler.send_messages()
+        else:
+            group_new_request.communicate(
+                server=self.server,
+                sync=True,
+                )
         return self
 
     def append(self, expr):

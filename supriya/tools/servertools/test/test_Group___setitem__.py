@@ -9,7 +9,8 @@ from supriya.tools import servertools
 def server(request):
     def server_teardown():
         server.quit()
-    server = servertools.Server(debug=True).boot()
+    server = servertools.Server().boot()
+    server.debug_osc = True
     request.addfinalizer(server_teardown)
     return server
 

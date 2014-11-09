@@ -120,39 +120,26 @@ class Synth(Node):
             node_id_is_permanent=node_id_is_permanent,
             target_node=target_node,
             )
+        if not self.synthdef.is_allocated:
+            self.synthdef.allocate()
+        self.controls._set(**kwargs)
+        settings, map_requests = self.controls._make_synth_new_settings()
+        synth_request = requesttools.SynthNewRequest(
+            add_action=add_action,
+            node_id=node_id,
+            synthdef=self.synthdef,
+            target_node_id=target_node_id,
+            **settings
+            )
         message_bundler = servertools.MessageBundler(
             server=self.server,
             sync=sync,
             )
-        with message_bundler:
-            self.controls._set(**kwargs)
-            settings, map_requests = self.controls._make_synth_new_settings()
-            synth_request = requesttools.SynthNewRequest(
-                add_action=add_action,
-                node_id=node_id,
-                synthdef=self.synthdef,
-                target_node_id=target_node_id,
-                **settings
-                )
-            if not self.synthdef.is_allocated:
-                with servertools.MessageBundler(
-                    send_to_server=False,
-                    ) as synth_bundler:
-                    synth_bundler.add_message(synth_request)
-                    for map_request in map_requests:
-                        synth_bundler.add_message(map_request)
-                completion_message = synth_bundler.result
-                synthdef_request = self.synthdef._allocate(
-                    completion_message=completion_message,
-                    server=self.server,
-                    )
-                message_bundler.add_message(synthdef_request)
-                message_bundler.add_synchronizing_request(synthdef_request)
-            else:
-                message_bundler.add_message(synth_request)
-                for map_request in map_requests:
-                    message_bundler.add_message(map_request)
-                message_bundler.add_synchronizing_request(synth_request)
+        message_bundler.add_message(synth_request)
+        for map_request in map_requests:
+            message_bundler.add_message(map_request)
+        message_bundler.add_synchronizing_request(synth_request)
+        message_bundler.send_messages()
         return self
 
     def free(self):

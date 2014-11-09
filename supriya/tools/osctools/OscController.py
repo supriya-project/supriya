@@ -15,7 +15,8 @@ class OscController(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_debug',
+        '_debug_osc',
+        '_debug_udp',
         '_incoming_message_queue',
         '_listener',
         '_server',
@@ -41,12 +42,14 @@ class OscController(SupriyaObject):
 
     def __init__(
         self,
-        debug=False,
+        debug_osc=False,
+        debug_udp=False,
         server=None,
         timeout=2,
         ):
         from supriya.tools import osctools
-        self._debug = bool(debug)
+        self._debug_osc = bool(debug_osc)
+        self._debug_udp = bool(debug_udp)
         self._server = server
         assert 0 < int(timeout)
         self._timeout = int(timeout)
@@ -57,7 +60,8 @@ class OscController(SupriyaObject):
         self._socket_instance.settimeout(self.timeout)
         self._listener = osctools.OscListener(
             client=self,
-            debug=self.debug,
+            debug_osc=self.debug_osc,
+            debug_udp=self.debug_udp,
             )
         self._listener.start()
         self._socket_instance.bind(('', 0))
@@ -72,7 +76,12 @@ class OscController(SupriyaObject):
     def send(self, message):
         from supriya.tools import osctools
         from supriya.tools import requesttools
-        prototype = (str, tuple, osctools.OscMessage, osctools.OscBundle)
+        prototype = (
+            str,
+            tuple,
+            osctools.OscMessage,
+            osctools.OscBundle,
+            )
         assert isinstance(message, prototype)
         if isinstance(message, str):
             message = osctools.OscMessage(message)
@@ -82,15 +91,16 @@ class OscController(SupriyaObject):
                 message[0],
                 *message[1:]
                 )
-        if self.debug:
+        if self.debug_osc:
             if not isinstance(message, osctools.OscMessage) or \
                 message.address not in (
                     '/status',
                     requesttools.RequestId.STATUS
                     ):
                 print('SEND', repr(message))
-                #for line in str(message).splitlines():
-                #    print('    ' + line)
+                if self.debug_udp:
+                    for line in str(message).splitlines():
+                        print('    ' + line)
         datagram = message.to_datagram()
         self.socket_instance.sendto(
             datagram,
@@ -100,13 +110,22 @@ class OscController(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def debug(self):
-        return self._debug
+    def debug_osc(self):
+        return self._debug_osc
 
-    @debug.setter
-    def debug(self, expr):
-        self._debug = bool(expr)
-        self.listener.debug = self.debug
+    @debug_osc.setter
+    def debug_osc(self, expr):
+        self._debug_osc = bool(expr)
+        self.listener.debug_osc = self.debug_osc
+
+    @property
+    def debug_udp(self):
+        return self._debug_udp
+
+    @debug_udp.setter
+    def debug_udp(self, expr):
+        self._debug_udp = bool(expr)
+        self.listener.debug_udp = self.debug_udp
 
     @property
     def listener(self):

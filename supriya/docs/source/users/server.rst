@@ -70,6 +70,26 @@ Query the server
 
 ::
 
+    >>> group = Group().allocate()
+    >>> group.append(Synth(synthdefs.default))
+    >>> print(server.query_remote_nodes())
+    NODE TREE 0 group
+        1 group
+            1001 group
+                1002 default
+            1000 default
+
+::
+
+    >>> print(server.query_local_nodes())
+    NODE TREE 0 group
+        1 group
+            1001 group
+                1002 default
+            1000 default
+
+::
+
     >>> server.server_status  # doctest: +SKIP
     StatusResponse(
         actual_sample_rate=44099.737053336095
@@ -144,14 +164,8 @@ Debug the server
 ::
 
     >>> Group().allocate()
-    SEND OscBundle(
-        contents=(
-            OscMessage(21, 1000, 0, 1),
-            OscMessage(52, 2),
-            )
-        )
+    SEND OscMessage(21, 1000, 0, 1)
     RECV OscMessage('/n_go', 1000, 1, -1, -1, 1, -1, -1)
-    RECV OscMessage('/synced', 2)
     <Group: 1000>
 
 ::

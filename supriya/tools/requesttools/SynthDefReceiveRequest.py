@@ -26,6 +26,8 @@ class SynthDefReceiveRequest(Request):
         self._completion_message = completion_message
         if synthdefs:
             prototype = synthdeftools.SynthDef 
+            if isinstance(synthdefs, prototype):
+                synthdefs = (synthdefs,)
             assert all(isinstance(x, prototype) for x in synthdefs)
             synthdefs = tuple(synthdefs)
         self._synthdefs = synthdefs
