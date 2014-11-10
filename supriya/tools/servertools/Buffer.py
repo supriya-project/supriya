@@ -8,7 +8,6 @@ class Buffer(ServerObjectProxy):
 
     ::
 
-        >>> from supriya.tools import servertools
         >>> server = servertools.Server().boot()
 
     ::
@@ -193,6 +192,14 @@ class Buffer(ServerObjectProxy):
 
     ### PRIVATE METHODS ###
 
+    def _allocate_buffer_id(self):
+        if self.buffer_id is None:
+            buffer_id = self.server.buffer_allocator.allocate(1)
+            if buffer_id is None:
+                ServerObjectProxy.free(self)
+                raise ValueError
+            self._buffer_id = buffer_id
+
     def _register_with_local_server(self):
         if self.buffer_id not in self.server._buffers:
             self.server._buffers[self.buffer_id] = set()
@@ -203,18 +210,43 @@ class Buffer(ServerObjectProxy):
         self,
         channel_count=None,
         frame_count=None,
+        file_path=None,
+        channel_indices=None,
+        starting_frame=None,
         ):
         from supriya.tools import requesttools
         on_done = requesttools.BufferQueryRequest(
             buffer_ids=(self.buffer_id,),
             )
         on_done = on_done.to_osc_message()
-        request = requesttools.BufferAllocateRequest(
-            buffer_id=self.buffer_id,
-            frame_count=frame_count,
-            channel_count=channel_count,
-            completion_message=on_done,
-            )
+        if file_path and channel_indices is not None:
+            if not isinstance(channel_indices, collections.Sequence):
+                channel_indices = (channel_indices,)
+            channel_indices = tuple(channel_indices)
+            assert all(0 <= _ for _ in channel_indices)
+            request = requesttools.BufferAllocateReadChannelRequest(
+                buffer_id=self.buffer_id,
+                channel_indices=channel_indices,
+                file_path=file_path,
+                frame_count=frame_count,
+                starting_frame=starting_frame,
+                completion_message=on_done,
+                )
+        elif file_path:
+            request = requesttools.BufferAllocateReadRequest(
+                buffer_id=self.buffer_id,
+                file_path=file_path,
+                frame_count=frame_count,
+                starting_frame=starting_frame,
+                completion_message=on_done,
+                )
+        else:
+            request = requesttools.BufferAllocateRequest(
+                buffer_id=self.buffer_id,
+                frame_count=frame_count,
+                channel_count=channel_count,
+                completion_message=on_done,
+                )
         return request
 
     def _unregister_with_local_server(self):
@@ -320,12 +352,7 @@ class Buffer(ServerObjectProxy):
             frame_count = int(frame_count)
             assert 0 < channel_count
             assert 0 < frame_count
-            if self.buffer_id is None:
-                buffer_id = self.server.buffer_allocator.allocate(1)
-                if buffer_id is None:
-                    ServerObjectProxy.free(self)
-                    raise ValueError
-                self._buffer_id = buffer_id
+            self._allocate_buffer_id()
             self._register_with_local_server()
             request = self._register_with_remote_server(
                 channel_count=channel_count,
@@ -398,7 +425,6 @@ class Buffer(ServerObjectProxy):
 
         Returns buffer.
         '''
-        from supriya.tools import requesttools
         if self.buffer_group is not None:
             return
         if self.is_allocated:
@@ -408,38 +434,14 @@ class Buffer(ServerObjectProxy):
                 self,
                 server=server,
                 )
-            if self.buffer_id is None:
-                buffer_id = self.server.buffer_allocator.allocate(1)
-                if buffer_id is None:
-                    ServerObjectProxy.free(self)
-                    raise ValueError
-                self._buffer_id = buffer_id
+            self._allocate_buffer_id()
             self._register_with_local_server()
-            on_done = requesttools.BufferQueryRequest(
-                buffer_ids=(self.buffer_id,),
+            request = self._register_with_remote_server(
+                frame_count=frame_count,
+                channel_indices=channel_indices,
+                file_path=file_path,
+                starting_frame=starting_frame,
                 )
-            on_done = on_done.to_osc_message()
-            if channel_indices is not None:
-                if not isinstance(channel_indices, collections.Sequence):
-                    channel_indices = (channel_indices,)
-                channel_indices = tuple(channel_indices)
-                assert all(0 <= _ for _ in channel_indices)
-                request = requesttools.BufferAllocateReadChannelRequest(
-                    buffer_id=self.buffer_id,
-                    channel_indices=channel_indices,
-                    file_path=file_path,
-                    frame_count=frame_count,
-                    starting_frame=starting_frame,
-                    completion_message=on_done,
-                    )
-            else:
-                request = requesttools.BufferAllocateReadRequest(
-                    buffer_id=self.buffer_id,
-                    file_path=file_path,
-                    frame_count=frame_count,
-                    starting_frame=starting_frame,
-                    completion_message=on_done,
-                    )
             request.communicate(
                 server=self.server,
                 sync=sync,
