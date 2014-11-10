@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+import os
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
@@ -169,6 +170,28 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         self._buffer_id = None
         self.server.buffer_allocator.free(buffer_id)
         ServerObjectProxy.free(self)
+
+    @staticmethod
+    def from_files(
+        file_paths,
+        server=None,
+        ):
+        from supriya.tools import servertools
+        for file_path in file_paths:
+            assert os.path.exists(file_path)
+        buffer_group = BufferGroup(buffer_count=len(file_paths))
+        buffer_group._register_with_local_server(server)
+        message_bundler = servertools.MessageBundler(
+            server=server,
+            sync=True,
+            )
+        with message_bundler:
+            for buffer_, file_path in zip(buffer_group.buffers, file_paths):
+                request = buffer_._register_with_remote_server(
+                    file_path=file_path,
+                    )
+            message_bundler.add_message(request)
+        return buffer_group
 
     def zero(self):
         r'''Analogous to SuperCollider's Buffer.zero.
