@@ -105,6 +105,23 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
             )
         return string
 
+    ### PRIVATE METHODS ###
+
+    def _register_with_local_server(self, server):
+        ServerObjectProxy.allocate(
+            self,
+            server=server,
+            )
+        allocator = self.server.buffer_allocator
+        buffer_id = allocator.allocate(len(self))
+        if buffer_id is None:
+            ServerObjectProxy.free(self)
+            raise ValueError
+        self._buffer_id = buffer_id
+        for buffer_ in self:
+            buffer_._register_with_local_server()
+        return buffer_id
+
     ### PUBLIC METHODS ###
 
     def allocate(
@@ -121,15 +138,7 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         from supriya.tools import servertools
         if self.is_allocated:
             return
-        ServerObjectProxy.allocate(
-            self,
-            server=server,
-            )
-        buffer_id = self.server.buffer_allocator.allocate(len(self))
-        if buffer_id is None:
-            ServerObjectProxy.free(self)
-            raise ValueError
-        self._buffer_id = buffer_id
+        self._register_with_local_server(server)
         channel_count = int(channel_count)
         frame_count = int(frame_count)
         assert 0 < channel_count
@@ -139,10 +148,8 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
             sync=sync,
             )
         with message_bundler:
-            for i in range(len(self)):
-                buffer_id = self.buffer_id + i
-                self[i]._register_with_local_server()
-                request = self[i]._register_with_remote_server(
+            for buffer_ in self:
+                request = buffer_._register_with_remote_server(
                     channel_count=channel_count,
                     frame_count=frame_count,
                     )
