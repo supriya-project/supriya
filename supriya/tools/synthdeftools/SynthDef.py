@@ -145,7 +145,7 @@ class SynthDef(ServerObjectProxy):
                 0_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[0:left]
                 1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
                 const_1:0.0 -> 3_Out[0:bus]
-                2_BinaryOpUGen:ADDITION[0] -> 3_Out[1]
+                2_BinaryOpUGen:ADDITION[0] -> 3_Out[1:source]
             }
 
         Returns string.
@@ -431,7 +431,7 @@ class SynthDef(ServerObjectProxy):
                 0_SinOsc[0] -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
                 const_2:0.5 -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
                 const_1:0.0 -> 2_Out[0:bus]
-                1_BinaryOpUGen:MULTIPLICATION[0] -> 2_Out[1]
+                1_BinaryOpUGen:MULTIPLICATION[0] -> 2_Out[1:source]
             }
 
         Returns synthdef.

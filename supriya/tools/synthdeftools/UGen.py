@@ -67,7 +67,7 @@ class UGen(UGenMethodMixin):
                 )
             if self._unexpanded_input_names and \
                 input_name in self._unexpanded_input_names:
-                prototype += (tuple,)
+                prototype += (tuple, synthdeftools.UGenArray)
             assert isinstance(input_value, prototype), \
                 (input_name, input_value)
             self._configure_input(input_name, input_value)
@@ -166,7 +166,7 @@ class UGen(UGenMethodMixin):
                 0_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
                 1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
                 const_1:0.0 -> 3_Out[0:bus]
-                2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1]
+                2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1:source]
             }
 
         '''
@@ -229,33 +229,47 @@ class UGen(UGenMethodMixin):
     def _configure_input(self, name, value):
         from supriya import servertools
         from supriya import synthdeftools
-        if isinstance(value, (int, float)):
-            self._add_constant_input(value)
-        elif isinstance(value, (
-            synthdeftools.OutputProxy,
-            synthdeftools.Parameter,
-            synthdeftools.UGen,
-            )):
-            self._add_ugen_input(
-                value._get_source(),
-                value._get_output_number(),
-                )
-        elif isinstance(value, (
+        id_prototype = (
             servertools.Bus,
             servertools.BusGroup,
             servertools.Buffer,
             servertools.BufferGroup,
             servertools.Node,
-            )):
+            )
+        numeric_prototype = (
+            int,
+            float,
+            )
+        ugen_prototype = (
+            synthdeftools.OutputProxy,
+            synthdeftools.Parameter,
+            synthdeftools.UGen,
+            )
+        if isinstance(value, numeric_prototype):
+            self._add_constant_input(value)
+        elif isinstance(value, ugen_prototype):
+            self._add_ugen_input(
+                value._get_source(),
+                value._get_output_number(),
+                )
+        elif isinstance(value, id_prototype):
             self._add_constant_input(float(value))
-        elif isinstance(value, tuple) and \
-            all(isinstance(_, (int, float)) for _ in value):
+        elif isinstance(value, (tuple, synthdeftools.UGenArray)):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
-            for x in value:
-                self._add_constant_input(x)
+            if all(isinstance(_, numeric_prototype) for _ in value):
+                for x in value:
+                    self._add_constant_input(x)
+            elif all(isinstance(_, ugen_prototype) for _ in value):
+                for x in value:
+                    self._add_ugen_input(
+                        x._get_source(),
+                        x._get_output_number(),
+                        )
+            else:
+                raise Exception(repr(value))
         else:
-            raise Exception(value)
+            raise Exception(repr(value))
 
     @staticmethod
     def _expand_dictionary(dictionary, unexpanded_input_names=None):

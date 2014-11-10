@@ -25,6 +25,7 @@ class Out(UGen):
 
     _ordered_input_names = (
         'bus',
+        'source',
         )
 
     _unexpanded_input_names = (
@@ -39,15 +40,18 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
+        if not isinstance(source, collections.Sequence):
+            source = (source,)
         UGen.__init__(
             self,
             bus=bus,
             calculation_rate=calculation_rate,
+            source=source,
             )
-        if not isinstance(source, collections.Sequence):
-            source = [source]
-        for single_source in source:
-            self._configure_input('source', single_source)
+        #if not isinstance(source, collections.Sequence):
+        #    source = [source]
+        #for single_source in source:
+        #    self._configure_input('source', single_source)
 
     ### PRIVATE METHODS ###
 
@@ -149,3 +153,28 @@ class Out(UGen):
         '''
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Out.
+
+        ::
+
+            >>> bus = 0
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> out = ugentools.Out.ar(
+            ...     bus=bus,
+            ...     source=source,
+            ...     )
+            >>> out.source
+            (OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=<CalculationRate.AUDIO: 2>
+                    ),
+                output_index=0
+                ),)
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return tuple(self._inputs[index:])
