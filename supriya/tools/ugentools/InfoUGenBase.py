@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class InfoUGenBase(UGen):
-    r'''Abstract base class for scalar-calculation_rate information ugens.
+    r'''Abstract base class for scalar-rate information ugens.
     '''
 
     ### CLASS VARIABLES ###
@@ -16,7 +16,7 @@ class InfoUGenBase(UGen):
 
     @classmethod
     def ir(cls, **kwargs):
-        r'''Constructs a scalar-calculation_rate information ugen.
+        r'''Constructs a scalar-rate information ugen.
 
         Returns ugen graph.
         '''

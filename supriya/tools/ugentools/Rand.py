@@ -46,7 +46,7 @@ class Rand(UGen):
         minimum=0.,
         maximum=1.,
         ):
-        r'''Creates a scalar-calculation_rate uniform random distribution.
+        r'''Creates a scalar-rate uniform random distribution.
 
         ::
 

@@ -46,7 +46,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Creates an audio-calculation_rate bipolar random impulse generator.
+        r'''Creates an audio-rate bipolar random impulse generator.
 
         ::
 
@@ -70,7 +70,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Creates a control-calculation_rate bipolar random impulse generator.
+        r'''Creates a control-rate bipolar random impulse generator.
 
         ::
 

@@ -45,7 +45,7 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
-        r'''Constructs an audio-calculation_rate bus input.
+        r'''Constructs an audio-rate bus input.
 
         ::
 
@@ -81,7 +81,7 @@ class In(MultiOutUGen):
         bus=None,
         channel_count=1,
         ):
-        r'''Constructs a control-calculation_rate bus input.
+        r'''Constructs a control-rate bus input.
 
         ::
 

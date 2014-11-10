@@ -52,7 +52,7 @@ class BPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates an audio-calculation_rate bandpass filter.
+        r'''Creates an audio-rate bandpass filter.
 
         ::
 
@@ -84,7 +84,7 @@ class BPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates a control-calculation_rate bandpass filter.
+        r'''Creates a control-rate bandpass filter.
 
         ::
 

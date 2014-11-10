@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufSampleRate(BufInfoUGenBase):
-    r'''Buffer sample calculation_rate info unit generator.
+    r'''Buffer sample-rate info unit generator.
 
     ::
 

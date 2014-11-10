@@ -46,7 +46,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates an audio-calculation_rate sinusoid oscillator.
+        r'''Creates an audio-rate sinusoid oscillator.
 
         ::
 
@@ -73,7 +73,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates a control-calculation_rate sinusoid oscillator.
+        r'''Creates a control-rate sinusoid oscillator.
 
         ::
 

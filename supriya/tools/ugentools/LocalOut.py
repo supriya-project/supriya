@@ -54,7 +54,7 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate SynthDef-local bus output.
+        r'''Constructs an audio-rate SynthDef-local bus output.
 
         ::
 
@@ -82,7 +82,7 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate SynthDef-local bus output.
+        r'''Constructs a control-rate SynthDef-local bus output.
 
         ::
 

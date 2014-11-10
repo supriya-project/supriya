@@ -55,7 +55,7 @@ class Pan2(MultiOutUGen):
         position=0.,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate two channel equal power panner.
+        r'''Constructs an audio-rate two channel equal power panner.
 
         ::
 

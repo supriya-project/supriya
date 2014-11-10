@@ -43,7 +43,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Create an audio-calculation_rate one-sample delay line.
+        r'''Create an audio-rate one-sample delay line.
 
         ::
 
@@ -68,7 +68,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Create a control-calculation_rate one-sample delay line.
+        r'''Create a control-rate one-sample delay line.
 
         ::
 

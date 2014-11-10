@@ -46,7 +46,7 @@ class PauseSelf(UGen):
         cls,
         trigger=None,
         ):
-        r'''Constructs a control-calculation_rate ugen.
+        r'''Constructs a control-rate ugen.
 
         ::
 

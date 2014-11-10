@@ -75,7 +75,7 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates an audio-calculation_rate line generator.
+        r'''Creates an audio-rate line generator.
 
         ::
 
@@ -107,7 +107,7 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates an audio-calculation_rate line generator.
+        r'''Creates an audio-rate line generator.
 
         ::
 

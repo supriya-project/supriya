@@ -47,7 +47,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates an audio-calculation_rate highpass filter.
+        r'''Creates an audio-rate highpass filter.
 
         ::
 
@@ -75,7 +75,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates a control-calculation_rate highpass filter.
+        r'''Creates a control-rate highpass filter.
 
         ::
 

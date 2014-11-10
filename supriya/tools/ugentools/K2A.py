@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class K2A(PureUGen):
-    r'''Control calculation_rate to audio calculation_rate converter unit generator.
+    r'''Control-rate to audio-rate converter unit generator.
 
     ::
 
@@ -46,7 +46,7 @@ class K2A(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate to audio-calculation_rate converter.
+        r'''Constructs a control-rate to audio-rate converter.
 
         ::
 

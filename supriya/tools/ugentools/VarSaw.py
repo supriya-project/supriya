@@ -50,7 +50,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Creates an audio-calculation_rate sawtooth-triangle oscillator with variable
+        r'''Creates an audio-rate sawtooth-triangle oscillator with variable
         duty.
 
         ::
@@ -81,7 +81,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Creates a control-calculation_rate sawtooth-triangle oscillator with variable
+        r'''Creates a control-rate sawtooth-triangle oscillator with variable
         duty.
 
         ::

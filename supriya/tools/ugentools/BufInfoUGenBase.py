@@ -6,7 +6,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 class BufInfoUGenBase(InfoUGenBase):
     r'''Abstract base class for buffer information ugens.
 
-    Buffer information ugens expose both scalar-calculation_rate and control-calculation_rate
+    Buffer information ugens expose both scalar-rate and control-rate
     constructors, as buffer topology may change after a synth is instantiated.
     '''
 
@@ -38,7 +38,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     @classmethod
     def ir(cls, buffer_id=None):
-        r'''Constructs a scalar-calculation_rate buffer information ugen.
+        r'''Constructs a scalar-rate buffer information ugen.
 
         Returns ugen graph.
         '''
@@ -52,7 +52,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     @classmethod
     def kr(cls, buffer_id=None):
-        r'''Constructs a control-calculation_rate buffer information ugen.
+        r'''Constructs a control-rate buffer information ugen.
 
         Returns ugen graph.
         '''

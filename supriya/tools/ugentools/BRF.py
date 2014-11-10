@@ -52,7 +52,7 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates an audio-calculation_rate band-reject filter.
+        r'''Creates an audio-rate band-reject filter.
 
         ::
 
@@ -84,7 +84,7 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates a control-calculation_rate band-reject filter.
+        r'''Creates a control-rate band-reject filter.
 
         ::
 

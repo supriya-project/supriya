@@ -48,7 +48,7 @@ class Done(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate "done" trigger.
+        r'''Constructs a control-rate "done" trigger.
 
         ::
 

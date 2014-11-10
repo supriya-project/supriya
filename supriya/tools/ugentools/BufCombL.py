@@ -34,7 +34,7 @@ class BufCombL(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-calculation_rate buffer-based linear-interpolating comb delay
+        r'''Create an audio-rate buffer-based linear-interpolating comb delay
         line.
 
         ::
@@ -69,7 +69,7 @@ class BufCombL(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-calculation_rate buffer-based linear-interpolating comb delay
+        r'''Create a control-rate buffer-based linear-interpolating comb delay
         line.
 
         ::

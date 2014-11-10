@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SampleRate(InfoUGenBase):
-    r'''Sample calculation_rate info unit generator.
+    r'''Sample-rate info unit generator.
 
     ::
 

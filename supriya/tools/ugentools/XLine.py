@@ -75,7 +75,7 @@ class XLine(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates an audio-calculation_rate exponential line generator.
+        r'''Creates an audio-rate exponential line generator.
 
         ::
 
@@ -107,7 +107,7 @@ class XLine(UGen):
         stop=1,
         start=0,
         ):
-        r'''Creates a control-calculation_rate exponential line generator.
+        r'''Creates a control-rate exponential line generator.
 
         ::
 

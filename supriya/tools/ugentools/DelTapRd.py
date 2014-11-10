@@ -79,7 +79,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs an audio-calculation_rate delay tap reader.
+        r'''Constructs an audio-rate delay tap reader.
 
         ::
 
@@ -119,7 +119,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs a control-calculation_rate delay tap reader.
+        r'''Constructs a control-rate delay tap reader.
 
         ::
 

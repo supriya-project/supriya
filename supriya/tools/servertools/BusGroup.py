@@ -103,7 +103,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         return self
 
     def ar(self):
-        r'''Creates an audio-calculation_rate input ugen subgraph.
+        r'''Creates an audio-rate input ugen subgraph.
 
         ::
 
@@ -169,7 +169,7 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         ServerObjectProxy.free(self)
 
     def kr(self):
-        r'''Creates a control-calculation_rate input ugen subgraph.
+        r'''Creates a control-rate input ugen subgraph.
 
         ::
 

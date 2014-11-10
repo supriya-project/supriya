@@ -62,7 +62,7 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate bus output.
+        r'''Constructs an audio-rate bus output.
 
         ::
 
@@ -98,7 +98,7 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate bus output.
+        r'''Constructs a control-rate bus output.
         
         ::
 

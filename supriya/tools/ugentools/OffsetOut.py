@@ -62,7 +62,7 @@ class OffsetOut(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs a sample-accurately-timed audio-calculation_rate bus output.
+        r'''Constructs a sample-accurately-timed audio-rate bus output.
 
         ::
 

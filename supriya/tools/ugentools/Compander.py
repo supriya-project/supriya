@@ -61,7 +61,7 @@ class Compander(UGen):
         source=0.,
         thresh=0.5,
         ):
-        r'''Constructs an audio-calculation_rate dynamics processor.
+        r'''Constructs an audio-rate dynamics processor.
 
         ::
 

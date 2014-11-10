@@ -70,7 +70,7 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate delay tap write.
+        r'''Constructs an audio-rate delay tap write.
 
         ::
 
@@ -101,7 +101,7 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate delay tap write.
+        r'''Constructs an audio-rate delay tap write.
 
         ::
 

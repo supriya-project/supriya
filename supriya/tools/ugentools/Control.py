@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):
-    r'''A control-calculation_rate control ugen.
+    r'''A control-rate control ugen.
 
     Control ugens can be set and routed externally to interact with a running
     synth. Controls are created from the parameters of a synthesizer

@@ -33,7 +33,7 @@ class NumRunningSynths(InfoUGenBase):
 
     @classmethod
     def kr(cls, **kwargs):
-        r'''Construct a control-calculation_rate ugen.
+        r'''Construct a control-rate ugen.
 
         ::
 

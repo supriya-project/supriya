@@ -51,7 +51,7 @@ class RHPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates an audio-calculation_rate resonant highpass filter.
+        r'''Creates an audio-rate resonant highpass filter.
 
         ::
 
@@ -82,7 +82,7 @@ class RHPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Creates a control-calculation_rate resonant highpass filter.
+        r'''Creates a control-rate resonant highpass filter.
 
         ::
 

@@ -445,7 +445,7 @@ class UGen(UGenMethodMixin):
 
     @property
     def calculation_rate(self):
-        r'''Gets calculation calculation_rate of ugen.
+        r'''Gets calculation-rate of ugen.
 
         ::
 
@@ -456,7 +456,7 @@ class UGen(UGenMethodMixin):
             >>> ugen.calculation_rate
             <CalculationRate.AUDIO: 2>
 
-        Returns calculation calculation_rate.
+        Returns calculation-rate.
         '''
         return self._calculation_rate
 

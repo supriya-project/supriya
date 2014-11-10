@@ -52,7 +52,7 @@ class Free(UGen):
         trigger=None,
         node_id=None,
         ):
-        r'''Constructs a control-calculation_rate ugen.
+        r'''Constructs a control-rate ugen.
 
         ::
 

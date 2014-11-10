@@ -51,7 +51,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate DC generator.
+        r'''Constructs an audio-rate DC generator.
 
         ::
 
@@ -75,7 +75,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate DC generator.
+        r'''Constructs a control-rate DC generator.
 
         ::
 

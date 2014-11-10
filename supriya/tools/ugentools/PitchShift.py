@@ -61,7 +61,7 @@ class PitchShift(UGen):
         time_dispersion=0.0,
         window_size=0.2,
         ):
-        r'''Creates an audio-calculation_rate pitch shifter.
+        r'''Creates an audio-rate pitch shifter.
 
         ::
 

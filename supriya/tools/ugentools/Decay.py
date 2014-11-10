@@ -48,7 +48,7 @@ class Decay(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate leaky signal integrator.
+        r'''Constructs an audio-rate leaky signal integrator.
 
         ::
 
@@ -76,7 +76,7 @@ class Decay(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate leaky signal integrator.
+        r'''Constructs a control-rate leaky signal integrator.
 
         ::
 

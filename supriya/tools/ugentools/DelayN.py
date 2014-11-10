@@ -51,7 +51,7 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-calculation_rate non-interpolating delay line.
+        r'''Create an audio-rate non-interpolating delay line.
 
         ::
 
@@ -83,7 +83,7 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-calculation_rate non-interpolating delay line.
+        r'''Create a control-rate non-interpolating delay line.
 
         ::
 

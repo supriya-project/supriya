@@ -24,7 +24,7 @@ class CompanderD(PseudoUGen):
         slope_above=1.,
         slope_below=1.,
         ):
-        r'''Constructs an audio-calculation_rate dynamics processor.
+        r'''Constructs an audio-rate dynamics processor.
 
         ::
 
