@@ -260,6 +260,362 @@ class UGenMethodMixin(SupriyaObject):
         result = synthdef.__graph__()
         return result
 
+    def __ge__(self, expr):
+        r'''Tests if ugen graph if greater than or equal to `expr`.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar()
+                >>> result = ugen_graph >= expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = ugen_graph >= expr
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 3:**
+
+            ::
+
+                >>> ugen_graph = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> expr = 4
+                >>> result = ugen_graph >= expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.GREATER_THAN_OR_EQUAL,
+            )
+
+    def __gt__(self, expr):
+        r'''Tests if ugen graph if greater than `expr`.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar()
+                >>> result = ugen_graph > expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = ugen_graph > expr
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:GREATER_THAN[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:GREATER_THAN[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:GREATER_THAN[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:GREATER_THAN[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 3:**
+
+            ::
+
+                >>> ugen_graph = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> expr = 4
+                >>> result = ugen_graph > expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:GREATER_THAN[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:GREATER_THAN[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.GREATER_THAN,
+            )
+
+    def __le__(self, expr):
+        r'''Tests if ugen graph if less than or equal to `expr`.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar()
+                >>> result = ugen_graph <= expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = ugen_graph <= expr
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 3:**
+
+            ::
+
+                >>> ugen_graph = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> expr = 4
+                >>> result = ugen_graph <= expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.LESS_THAN_OR_EQUAL,
+            )
+
+    def __lt__(self, expr):
+        r'''Tests if ugen graph if less than `expr`.
+
+        ..  container:: example
+
+            **Example 1:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar()
+                >>> result = ugen_graph < expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 2:**
+
+            ::
+
+                >>> ugen_graph = ugentools.WhiteNoise.kr()
+                >>> expr = ugentools.SinOsc.ar(
+                ...     frequency=[440, 442, 443],
+                ...     )
+                >>> result = ugen_graph < expr
+                >>> result
+                UGenArray({3})
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:440.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN[0:left]
+                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN[1:right]
+                    const_2:442.0 -> 3_SinOsc[0:frequency]
+                    const_1:0.0 -> 3_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 4_BinaryOpUGen:LESS_THAN[0:left]
+                    3_SinOsc[0] -> 4_BinaryOpUGen:LESS_THAN[1:right]
+                    const_3:443.0 -> 5_SinOsc[0:frequency]
+                    const_1:0.0 -> 5_SinOsc[1:phase]
+                    0_WhiteNoise[0] -> 6_BinaryOpUGen:LESS_THAN[0:left]
+                    5_SinOsc[0] -> 6_BinaryOpUGen:LESS_THAN[1:right]
+                }
+
+        ..  container:: example
+
+            **Example 3:**
+
+            ::
+
+                >>> ugen_graph = ugentools.Dust.ar(
+                ...     density=11.5,
+                ...     )
+                >>> expr = 4
+                >>> result = ugen_graph < expr
+                >>> result
+                BinaryOpUGen.ar()
+
+            ::
+
+                >>> print(str(result))
+                SynthDef ... {
+                    const_0:11.5 -> 0_Dust[0:density]
+                    0_Dust[0] -> 1_BinaryOpUGen:LESS_THAN[0:left]
+                    const_1:4.0 -> 1_BinaryOpUGen:LESS_THAN[1:right]
+                }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        return UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.LESS_THAN,
+            )
+
     def __mod__(self, expr):
         r'''Gets modulo of ugen graph and `expr`.
 
