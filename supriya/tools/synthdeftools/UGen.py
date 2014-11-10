@@ -67,7 +67,9 @@ class UGen(UGenMethodMixin):
                 )
             if self._unexpanded_input_names and \
                 input_name in self._unexpanded_input_names:
-                prototype += (tuple, synthdeftools.UGenArray)
+                prototype += (tuple,)
+                if isinstance(input_value, collections.Sequence):
+                    input_value = tuple(input_value)
             assert isinstance(input_value, prototype), \
                 (input_name, input_value)
             self._configure_input(input_name, input_value)
@@ -254,7 +256,7 @@ class UGen(UGenMethodMixin):
                 )
         elif isinstance(value, id_prototype):
             self._add_constant_input(float(value))
-        elif isinstance(value, (tuple, synthdeftools.UGenArray)):
+        elif isinstance(value, tuple):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
             if all(isinstance(_, numeric_prototype) for _ in value):
