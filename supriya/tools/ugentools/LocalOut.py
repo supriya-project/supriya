@@ -3,17 +3,16 @@ import collections
 from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Out(UGen):
-    r'''A bus output unit generator.
+class LocalOut(UGen):
+    r'''A SynthDef-local bus output.
 
     ::
 
         >>> source = ugentools.SinOsc.ar()
-        >>> ugentools.Out.ar(
-        ...     bus=0,
+        >>> ugentools.LocalOut.ar(
         ...     source=source,
         ...     )
-        Out.ar()
+        LocalOut.ar()
 
     '''
 
@@ -24,7 +23,6 @@ class Out(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'bus',
         'source',
         )
 
@@ -32,137 +30,94 @@ class Out(UGen):
         'source',
         )
 
+    _valid_calculation_rates = None
+
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        bus=0,
         source=None,
         ):
         if not isinstance(source, collections.Sequence):
             source = (source,)
         UGen.__init__(
             self,
-            bus=bus,
             calculation_rate=calculation_rate,
             source=source,
             )
-
-    ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return []
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def ar(
         cls,
-        bus=0,
         source=None,
         ):
-        r'''Constructs an audio-calculation_rate bus output.
+        r'''Constructs an audio-calculation_rate SynthDef-local bus output.
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> out = ugentools.Out.ar(
-            ...     bus=0,
+            >>> source = ugentools.SinOsc.ar(
+            ...     frequency=[440, 442],
+            ...     )
+            >>> local_out = ugentools.LocalOut.ar(
             ...     source=source,
             ...     )
-            >>> out
-            Out.ar()
+            >>> local_out
+            LocalOut.ar()
         
         Returns ugen graph.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.BusProxy,
-            )
-        if isinstance(bus, prototype):
-            bus = int(bus)
-        return cls._new_expanded(
-            bus=bus,
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
             )
+        return ugen
 
     @classmethod
     def kr(
         cls,
-        bus=0,
         source=None,
         ):
-        r'''Constructs a control-calculation_rate bus output.
-        
+        r'''Constructs a control-calculation_rate SynthDef-local bus output.
+
         ::
 
-            >>> source = ugentools.SinOsc.kr(frequency=[4, 2])
-            >>> out = ugentools.Out.kr(
-            ...     bus=0,
+            >>> source = ugentools.SinOsc.kr(
+            ...     frequency=[4, 2],
+            ...     )
+            >>> local_out = ugentools.LocalOut.kr(
             ...     source=source,
             ...     )
-            >>> out
-            Out.kr()
+            >>> local_out
+            LocalOut.kr()
         
         Returns ugen graph.
         '''
-        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.BusProxy,
-            )
-        if isinstance(bus, prototype):
-            bus = int(bus)
-        return cls._new_expanded(
-            bus=bus,
+        ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
             )
+        return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bus(self):
-        r'''Gets `bus` input of Out.
-
-        ::
-
-            >>> bus = 0
-            >>> source = ugentools.WhiteNoise.ar()
-            >>> out = ugentools.Out.ar(
-            ...     bus=bus,
-            ...     source=source,
-            ...     )
-            >>> out.bus
-            0.0
-
-        Returns input.
-        '''
-        index = self._ordered_input_names.index('bus')
-        return self._inputs[index]
-
-    @property
     def source(self):
-        r'''Gets `source` input of Out.
+        r'''Gets `source` input of local_out.
 
         ::
 
-            >>> bus = 0
             >>> source = ugentools.WhiteNoise.ar()
-            >>> out = ugentools.Out.ar(
-            ...     bus=bus,
+            >>> local_out = ugentools.LocalOut.ar(
             ...     source=source,
             ...     )
-            >>> out.source
+            >>> local_out.source
             (OutputProxy(
                 source=WhiteNoise(
                     calculation_rate=<CalculationRate.AUDIO: 2>
