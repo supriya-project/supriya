@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.pendingugentools.PV_ChainUGen import PV_ChainUGen
+from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
-class FFT(PV_ChainUGen):
+class IFFT(WidthFirstUGen):
 
     ### CLASS VARIABLES ###
 
@@ -17,15 +17,27 @@ class FFT(PV_ChainUGen):
 
     ### INITIALIZER ###
 
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer=None,
+        winsize=0,
+        wintype=0,
+        ):
+        WidthFirstUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer=buffer,
+            winsize=winsize,
+            wintype=wintype,
+            )
+
     ### PUBLIC METHODS ###
 
     @classmethod
-    def new(
+    def ar(
         cls,
-        active=1,
         buffer=None,
-        hop=0.5,
-        source=0,
         winsize=0,
         wintype=0,
         ):
@@ -33,10 +45,41 @@ class FFT(PV_ChainUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            active=active,
             buffer=buffer,
-            hop=hop,
-            source=source,
+            winsize=winsize,
+            wintype=wintype,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        buffer=None,
+        winsize=0,
+        wintype=0,
+        ):
+        from supriya.tools import synthdeftools
+        calculation_rate = None
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            buffer=buffer,
+            winsize=winsize,
+            wintype=wintype,
+            )
+        return ugen
+
+    @classmethod
+    def new(
+        cls,
+        buffer=None,
+        winsize=0,
+        wintype=0,
+        ):
+        from supriya.tools import synthdeftools
+        calculation_rate = None
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            buffer=buffer,
             winsize=winsize,
             wintype=wintype,
             )
