@@ -9,16 +9,13 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> buffer_group = servertools.BufferGroup(buffer_count=4)
-        >>> buffer_group
-        <BufferGroup: {4} @ None>
+        >>> server = servertools.Server().boot()
 
     ::
 
-        >>> server = servertools.Server()
-        >>> server.boot()
-        <Server: udp://127.0.0.1:57751, 8i8o>
+        >>> buffer_group = servertools.BufferGroup(buffer_count=4)
+        >>> buffer_group
+        <BufferGroup: {4} @ None>
 
     ::
 
@@ -37,13 +34,6 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
     ::
 
         >>> buffer_group.free()
-        >>> server.sync()
-        <Server: udp://127.0.0.1:57751, 8i8o>
-
-    ::
-
-        >>> server.quit()
-        <Server: offline>
 
     '''
 
@@ -172,10 +162,34 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         ServerObjectProxy.free(self)
 
     @staticmethod
-    def from_files(
+    def from_file_paths(
         file_paths,
         server=None,
         ):
+        r'''Create a buffer group from `file_paths`.
+
+        ::
+
+            >>> file_paths = Media['*mono_1s*']
+            >>> len(file_paths)
+            4
+
+        ::
+
+            >>> buffer_group = BufferGroup.from_file_paths(file_paths)
+
+        ::
+
+            >>> for buffer_ in buffer_group:
+            ...     buffer_, buffer_.frame_count
+            ...
+            (<Buffer: 0>, 44100)
+            (<Buffer: 1>, 44100)
+            (<Buffer: 2>, 44100)
+            (<Buffer: 3>, 44100)
+
+        Returns buffer group.
+        '''
         from supriya.tools import servertools
         for file_path in file_paths:
             assert os.path.exists(file_path)
@@ -190,7 +204,7 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
                 request = buffer_._register_with_remote_server(
                     file_path=file_path,
                     )
-            message_bundler.add_message(request)
+                message_bundler.add_message(request)
         return buffer_group
 
     def zero(self):
