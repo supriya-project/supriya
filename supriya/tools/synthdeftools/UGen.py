@@ -2,6 +2,7 @@
 from __future__ import print_function
 import abc
 import collections
+import six
 from supriya.tools.synthdeftools.SignalRange import SignalRange
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
@@ -315,12 +316,14 @@ class UGen(UGenMethodMixin):
         maximum_length = 1
         result = []
         for name, value in dictionary.items():
-            if isinstance(value, collections.Sequence):
+            if isinstance(value, collections.Sequence) and \
+                not isinstance(value, six.string_types):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
-                if isinstance(value, collections.Sequence):
+                if isinstance(value, collections.Sequence) and \
+                    not isinstance(value, six.string_types):
                     value = value[i % len(value)]
                     result[i][name] = value
                 else:
@@ -341,7 +344,6 @@ class UGen(UGenMethodMixin):
     @classmethod
     def _new_expanded(
         cls,
-        calculation_rate=None,
         special_index=0,
         **kwargs
         ):
@@ -353,21 +355,19 @@ class UGen(UGenMethodMixin):
         else:
             import inspect
             get_signature = inspect.signature
+        signature = get_signature(cls.__init__)
         input_dicts = UGen._expand_dictionary(
             kwargs, unexpanded_input_names=cls._unexpanded_input_names)
         ugens = []
-        signature = get_signature(cls.__init__)
         has_custom_special_index = 'special_index' in signature.parameters
         for input_dict in input_dicts:
             if has_custom_special_index:
                 ugen = cls._new_single(
-                    calculation_rate=calculation_rate,
                     special_index=special_index,
                     **input_dict
                     )
             else:
                 ugen = cls._new_single(
-                    calculation_rate=calculation_rate,
                     **input_dict
                     )
             ugens.append(ugen)

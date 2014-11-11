@@ -96,6 +96,22 @@ class SynthDefBuilder(SupriyaObject):
                 )
         self._parameters[name] = parameter
 
+    def poll_ugen(
+        self,
+        ugen,
+        label=None,
+        trigger=None,
+        trigger_id=-1,
+        ):
+        from supriya.tools import ugentools
+        poll = ugentools.Poll.new(
+            source=ugen,
+            label=label,
+            trigger=trigger,
+            trigger_id=trigger_id,
+            )
+        self.add_ugen(poll)
+
     def add_ugen(self, ugen):
         from supriya.tools import synthdeftools
         ugens = ugen
