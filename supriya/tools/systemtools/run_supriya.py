@@ -17,7 +17,8 @@ def run_supriya():
 
     commands = (
         "from supriya import *;",
-        "server = Server(debug=True);",
+        "server = Server();",
+        "server.debug_osc = True;",
         "server.boot();"
         )
     commands = ' '.join(commands)
