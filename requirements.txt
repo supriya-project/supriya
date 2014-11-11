@@ -2,4 +2,5 @@ abjad
 enum34
 funcsigs
 pexpect
+six
 supriya

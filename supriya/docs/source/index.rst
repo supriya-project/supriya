@@ -74,6 +74,7 @@ SuperCollider via their package manager.
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
+- `six`
 - `sphinx`
 - `tox`
 - `python-wavefile`

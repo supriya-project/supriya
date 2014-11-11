@@ -10,6 +10,7 @@ install_requires = [
     'pexpect',
     'pytest',
     'rtmidi-python',
+    'six',
     'sphinx',
     'sphinx_rtd_theme',
     'tox',
@@ -94,6 +95,7 @@ SuperCollider via their package manager.
 - `pytest`
 - `wavefile`
 - `rtmidi-python`
+- `six`
 - `sphinx_rtd_theme`
 - `sphinx`
 - `tox`

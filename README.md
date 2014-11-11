@@ -65,6 +65,7 @@ SuperCollider via their package manager.
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
+- `six`
 - `sphinx_rtd_theme`
 - `sphinx`
 - `tox`
