@@ -8,15 +8,40 @@ class Poll(UGen):
 
     ::
 
-        >>> sines = ugentools.SinOsc.ar(frequency=[440, 880])
+        >>> sine = ugentools.SinOsc.ar()
         >>> trigger = ugentools.Impulse.kr(1)
-        >>> polls = ugentools.Poll.ar(
-        ...     label=('one', 'two'),
-        ...     source=sines,
+        >>> poll = ugentools.Poll.ar(
+        ...     source=sine,
         ...     trigger=trigger,
+        ...     trigger_id=1234,
         ...     )
-        >>> polls
-        UGenArray({2}) 
+        >>> poll
+        Poll.ar()
+
+    ..  container:: example
+
+        ::
+
+            >>> builder = SynthDefBuilder()
+            >>> sine = ugentools.SinOsc.ar()
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> poll = ugentools.Poll.ar(
+            ...     source=sine,
+            ...     trigger=trigger,
+            ...     trigger_id=1234,
+            ...     )
+            >>> builder.add_ugen([sine, trigger, poll])
+            >>> synthdef = builder.build()
+
+        ::
+
+            >>> server = Server().boot()
+            >>> synth = Synth(synthdef).allocate()
+            >>> resonse_callback = responsetools.ResponseCallback(
+            ...     prototype=responsetools.TriggerResponse,
+            ...     procedure=lambda x: print(x),
+            ...     )
+            >>> server.register_response_callback(response_callback)
 
     '''
 
