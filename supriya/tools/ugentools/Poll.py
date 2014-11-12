@@ -20,6 +20,16 @@ class Poll(UGen):
 
     ..  container:: example
 
+        Unlike **sclang**, Python does not share any inter-process
+        communication with **scsynth**. This means that the Poll UGen is not
+        able to automatically print out its diagnostic messages into a Python
+        interpreter session.
+
+        To get information out of the Poll UGen, we first need to set the
+        Poll's `trigger_id` to a value greater than 0. This will cause the poll
+        to send `/tr` OSC messages back to its client - Python. We can register
+        a callback to respond to these `/tr` messages.
+
         ::
 
             >>> builder = SynthDefBuilder()
@@ -39,7 +49,7 @@ class Poll(UGen):
             >>> synth = Synth(synthdef).allocate()
             >>> response_callback = responsetools.ResponseCallback(
             ...     prototype=responsetools.TriggerResponse,
-            ...     procedure=lambda x: print(x),
+            ...     procedure=lambda x: print('Poll value is: {}'.format(x)),
             ...     )
             >>> server.register_response_callback(response_callback)
 
@@ -47,7 +57,7 @@ class Poll(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Utility UGens'
 
     __slots__ = ()
 
