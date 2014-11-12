@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Rand(UGen):
-    r'''A uniform random distribution unit generator.
+    r'''A uniform random distribution.
 
     ::
 

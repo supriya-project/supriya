@@ -1,0 +1,71 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.UGen import UGen
+
+
+class IRand(UGen):
+    r'''An integer uniform random distribution.
+
+    ::
+
+        >>> ugentools.IRand.ir()
+        IRand.ir()
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Noise UGens'
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'minimum',
+        'maximum',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        minimum=0,
+        maximum=127,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            minimum=minimum,
+            maximum=maximum,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ir(
+        cls,
+        maximum=127,
+        minimum=0,
+        ):
+        r'''Constructs a scalar-rate integer uniform random distribution.
+
+        ::
+
+            >>> i_rand = ugentools.IRand.ir(
+            ...     maximum=[1.1, 1.2, 1.3],
+            ...     minimum=[0.25, 0.75],
+            ...     )
+            >>> i_rand
+            UGenArray({3})
+
+        returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            maximum=maximum,
+            minimum=minimum,
+            )
+        return ugen
