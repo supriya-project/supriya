@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 import collections
 from supriya.tools.synthdeftools.UGen import UGen
 
@@ -27,8 +28,13 @@ class Poll(UGen):
 
         To get information out of the Poll UGen, we first need to set the
         Poll's `trigger_id` to a value greater than 0. This will cause the poll
-        to send `/tr` OSC messages back to its client - Python. We can register
-        a callback to respond to these `/tr` messages.
+        to send `/tr` OSC messages back to its client - Python. We can then
+        register a callback to respond to these `/tr` messages.
+
+        ::
+
+            >>> from __future__ import print_function
+            >>> from supriya import *
 
         ::
 
@@ -49,7 +55,8 @@ class Poll(UGen):
             >>> synth = Synth(synthdef).allocate()
             >>> response_callback = responsetools.ResponseCallback(
             ...     prototype=responsetools.TriggerResponse,
-            ...     procedure=lambda x: print('Poll value is: {}'.format(x)),
+            ...     procedure=lambda response: print(
+            ...         'Poll value is: {}'.format(response.trigger_value)),
             ...     )
             >>> server.register_response_callback(response_callback)
 
