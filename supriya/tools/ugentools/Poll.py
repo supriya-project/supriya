@@ -37,7 +37,7 @@ class Poll(UGen):
 
             >>> server = Server().boot()
             >>> synth = Synth(synthdef).allocate()
-            >>> resonse_callback = responsetools.ResponseCallback(
+            >>> response_callback = responsetools.ResponseCallback(
             ...     prototype=responsetools.TriggerResponse,
             ...     procedure=lambda x: print(x),
             ...     )

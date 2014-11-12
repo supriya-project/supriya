@@ -1,0 +1,93 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.UGen import UGen
+
+
+class Crackle(UGen):
+    r'''A chaotic noise generator.
+
+    ::
+
+        >>> crackle = ugentools.Crackle.ar(
+        ...     chaos_parameter=1.25,
+        ...     )
+        >>> crackle
+        Crackle.ar()
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Noise UGens'
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'chaos_parameter',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        chaos_parameter=1.5,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            chaos_parameter=chaos_parameter,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        chaos_parameter=1.5,
+        ):
+        r'''Constructs an audio-rate chaotic noise generator.
+
+        ::
+
+            >>> crackle = ugentools.Crackle.ar(
+            ...     chaos_parameter=[1.25, 1.5],
+            ...     )
+            >>> crackle
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            chaos_parameter=chaos_parameter,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        chaos_parameter=1.5,
+        ):
+        r'''Constructs a control-rate chaotic noise generator.
+
+        ::
+
+            >>> crackle = ugentools.Crackle.kr(
+            ...     chaos_parameter=[1.25, 1.5],
+            ...     )
+            >>> crackle
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            chaos_parameter=chaos_parameter,
+            )
+        return ugen
