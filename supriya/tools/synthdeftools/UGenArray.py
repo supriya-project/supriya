@@ -35,6 +35,26 @@ class UGenArray(UGenMethodMixin, collections.Sequence):
             len(self),
             )
 
+    ### PUBLIC METHODS ###
+
+    def scale(
+        self,
+        input_minimum,
+        input_maximum,
+        output_minimum,
+        output_maximum,
+        ):
+        ugens = []
+        for ugen in self:
+            ugen = ugen.scale(
+                input_minimum=input_minimum,
+                input_maximum=input_maximum,
+                output_minimum=output_minimum,
+                output_maximum=output_maximum,
+                )
+            ugens.append(ugen)
+        return type(self)(ugens)
+
     ### PUBLIC PROPERTIES ###
 
     @property

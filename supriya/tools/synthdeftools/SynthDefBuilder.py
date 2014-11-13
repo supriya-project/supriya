@@ -112,9 +112,8 @@ class SynthDefBuilder(SupriyaObject):
             )
         self.add_ugen(poll)
 
-    def add_ugen(self, ugen):
+    def add_ugen(self, ugens):
         from supriya.tools import synthdeftools
-        ugens = ugen
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
