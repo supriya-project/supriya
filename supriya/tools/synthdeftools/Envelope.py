@@ -110,6 +110,24 @@ class Envelope(SupriyaObject):
     ### PUBLIC METHODS ###
 
     @staticmethod
+    def asr(
+        attack_time=0.01,
+        release_time=1.0,
+        amplitude=1.0,
+        curve=-4.0,
+        ):
+        amplitudes = (0, float(amplitude), 0)
+        durations = (float(attack_time), float(release_time))
+        curves = (float(curve),)
+        release_node = 1
+        return Envelope(
+            amplitudes=amplitudes,
+            durations=durations,
+            curves=curves,
+            release_node=release_node,
+            )
+
+    @staticmethod
     def percussive(
         attack_time=0.01,
         release_time=1.0,
