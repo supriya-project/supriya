@@ -11,6 +11,10 @@ class DetectSilence(Filter):
     __slots__ = ()
 
     _ordered_input_names = (
+        'source',
+        'amp',
+        'time',
+        'done_action',
         )
 
     _valid_calculation_rates = None
@@ -45,7 +49,7 @@ class DetectSilence(Filter):
         time=0.1,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             amp=amp,
@@ -64,7 +68,7 @@ class DetectSilence(Filter):
         time=0.1,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             amp=amp,
