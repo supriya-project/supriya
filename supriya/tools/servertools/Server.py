@@ -1,12 +1,14 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-import pexpect
+#import subprocess
 import sys
+import pexpect
 import time
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class Server(object):
+class Server(SupriyaObject):
     r'''An scsynth server proxy.
 
     ::
@@ -265,9 +267,9 @@ class Server(object):
 
     def _setup(self):
         self._setup_notifications()
+        self._setup_status_watcher()
         self._setup_allocators(self.server_options)
         self._setup_proxies()
-        self._setup_status_watcher()
 
     def _setup_allocators(self, server_options):
         from supriya.tools import servertools
@@ -384,6 +386,7 @@ class Server(object):
         if error in string:
             raise Exception(error)
         assert success in string, string
+        server_process.logfile_read = sys.stdout
         self._is_running = True
         self._server_options = server_options
         self._server_process = server_process

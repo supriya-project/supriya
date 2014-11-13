@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+import pexpect
+import sys
 import threading
 import time
 
@@ -53,6 +55,14 @@ class StatusWatcher(threading.Thread):
                 break
             self.server.send_message(message)
             self._attempts += 1
+            try:
+                string = self.server._server_process.read()
+                while string:
+                    sys.stdout.write(string)
+                    string = self.server._server_process.read()
+            except (pexpect.TIMEOUT, pexpect.EOF):
+                pass
+            sys.stdout.flush()
             time.sleep(0.2)
         self.server.unregister_response_callback(self.response_callback)
 
