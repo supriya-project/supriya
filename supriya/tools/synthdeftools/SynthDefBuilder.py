@@ -29,6 +29,8 @@ class SynthDefBuilder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    _active_builders = []
+
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
@@ -49,6 +51,13 @@ class SynthDefBuilder(SupriyaObject):
         self._ugens = []
 
     ### SPECIAL METHODS ###
+
+    def __enter__(self):
+        SynthDefBuilder._active_builders.append(self)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        SynthDefBuilder._active_builders.pop()
 
     def __getitem__(self, item):
         return self._parameters[item]

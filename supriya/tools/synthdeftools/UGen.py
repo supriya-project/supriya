@@ -81,6 +81,9 @@ class UGen(UGenMethodMixin):
             synthdeftools.OutputProxy(self, i)
             for i in range(len(self))
             )
+        if synthdeftools.SynthDefBuilder._active_builders:
+            builder = synthdeftools.SynthDefBuilder._active_builders[-1]
+            builder.add_ugen(self)
 
     ### SPECIAL METHODS ###
 
@@ -99,7 +102,7 @@ class UGen(UGenMethodMixin):
                     ),
                 output_index=0
                 )
-        
+
         Returns output proxy.
         '''
         return self._output_proxies[i]
@@ -410,7 +413,7 @@ class UGen(UGenMethodMixin):
         ):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:    
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             return ugentools.LinLin.ar(
                 source=self,
                 input_minimum=input_minimum,
@@ -499,7 +502,7 @@ class UGen(UGenMethodMixin):
 
         A bipolar signal range indicates that the ugen generates signals above
         and below zero.
-        
+
         A unipolar signal range indicates that the ugen only generates signals
         of 0 or greater.
 
