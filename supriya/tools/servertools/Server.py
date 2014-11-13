@@ -51,6 +51,7 @@ class Server(SupriyaObject):
         '_osc_controller',
         '_osc_dispatcher',
         '_port',
+        '_recorder',
         '_response_dispatcher',
         '_root_node',
         '_server_options',
@@ -146,6 +147,7 @@ class Server(SupriyaObject):
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
+        self._recorder = servertools.ServerRecorder(self)
 
         ### PROXY MAPPINGS ###
 
@@ -653,6 +655,10 @@ class Server(SupriyaObject):
     @property
     def port(self):
         return self._port
+
+    @property
+    def recorder(self):
+        return self._recorder
 
     @property
     def response_dispatcher(self):
