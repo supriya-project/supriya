@@ -38,6 +38,11 @@ class SynthInterface(ControlInterface):
 
     ### SPECIAL METHODS ###
 
+    def __contains__(self, item):
+        if isinstance(item, str):
+            return item in self._synth_control_map
+        return False
+
     def __getitem__(self, item):
         if isinstance(item, (int, slice)):
             return self._synth_controls[item]
@@ -70,11 +75,10 @@ class SynthInterface(ControlInterface):
         if self.client.is_allocated:
             message_bundler = servertools.MessageBundler(
                 server=self.client.server,
-                sync=True,
+                sync=False,
                 )
             with message_bundler:
-                for message in messages:
-                    message_bundler.add_message(message)
+                message_bundler.add_messages(messages)
 
     ### PRIVATE METHODS ###
 
