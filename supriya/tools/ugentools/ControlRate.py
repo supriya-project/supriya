@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class ControlRate(InfoUGenBase):
-    r'''Control-rate info unit generator.
+    r'''A control-rate info unit generator.
 
     ::
 

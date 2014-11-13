@@ -5,7 +5,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MouseButton(UGen):
-    r'''Mouse-button tracking unit generator.
+    r'''A mouse-button tracker.
 
     ::
 

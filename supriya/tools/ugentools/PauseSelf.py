@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class PauseSelf(UGen):
-    r'''Pause the enclosing synth when triggered by `trigger`.
+    r'''Pauses the enclosing synth when triggered by `trigger`.
     
     ::
 

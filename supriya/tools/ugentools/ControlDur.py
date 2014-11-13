@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class ControlDur(InfoUGenBase):
-    r'''Control duration info unit generator.
+    r'''A control duration info unit generator.
 
     ::
 

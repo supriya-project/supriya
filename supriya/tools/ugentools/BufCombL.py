@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufCombN import BufCombN
 
 
 class BufCombL(BufCombN):
-    r'''Buffer-based linear-interpolating comb delay line unit generator.
+    r'''A buffer-based linear-interpolating comb delay line unit generator.
 
     ::
 

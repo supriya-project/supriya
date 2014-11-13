@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class HPF(Filter):
-    r'''Highpass filter unit generator.
+    r'''A Highpass filter unit generator.
 
     ::
 

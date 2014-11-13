@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class LFDNoise3(UGen):
-    r'''Dynamic polynomial noise generator.
+    r'''A dynamic polynomial noise generator.
 
     ::
 

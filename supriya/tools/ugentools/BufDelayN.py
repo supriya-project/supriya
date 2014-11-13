@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class BufDelayN(PureUGen):
-    r'''Buffer-based non-interpolating delay line unit generator.
+    r'''A buffer-based non-interpolating delay line unit generator.
 
     ::
 

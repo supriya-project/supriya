@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class CompanderD(PseudoUGen):
-    r'''Convenience constructor for Compander.
+    r'''A convenience constructor for Compander.
     '''
 
     ### CLASS VARIABLES ###

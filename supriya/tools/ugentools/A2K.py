@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class A2K(PureUGen):
-    r'''Audio-rate to control-rate convert unit generator.
+    r'''An audio-rate to control-rate convert unit generator.
 
     ::
 

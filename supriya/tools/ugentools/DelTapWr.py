@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class DelTapWr(UGen):
-    r'''Delay tap writer unit generator.
+    r'''A delay tap writer unit generator.
 
     ::
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AllpassN(PureUGen):
-    r'''Non-interpolating allpass delay line unit generator.
+    r'''A non-interpolating allpass delay line unit generator.
 
     ::
 

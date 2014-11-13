@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class LFNoise2(UGen):
-    r'''Quadratic noise generator.
+    r'''A quadratic noise generator.
 
     ::
 

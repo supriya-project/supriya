@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Pause(UGen):
-    r'''Pause the node at `node_id` when triggered by `trigger`.
+    r'''Pauses the node at `node_id` when triggered by `trigger`.
 
     ::
 

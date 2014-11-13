@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufChannels(BufInfoUGenBase):
-    r'''Buffer channel count info unit generator.
+    r'''A buffer channel count info unit generator.
 
     ::
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AllpassN import AllpassN
 
 
 class AllpassL(AllpassN):
-    r'''Linear interpolating allpass delay line unit generator.
+    r'''A linear interpolating allpass delay line unit generator.
 
     ::
 

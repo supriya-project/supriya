@@ -4,7 +4,7 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Mix(PseudoUGen):
-    r'''Mix signals down to mono.
+    r'''A down-to-mono signal mixer.
 
     ::
 

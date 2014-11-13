@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumRunningSynths(InfoUGenBase):
-    r'''Number of running synths info unit generator.
+    r'''A number of running synths info unit generator.
 
     ::
 

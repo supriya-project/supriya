@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class RHPF(Filter):
-    r'''Resonant highpass filter unit generator.
+    r'''A resonant highpass filter unit generator.
 
     ::
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class BlockSize(InfoUGenBase):
-    r'''Block size info unit generator.
+    r'''A block size info unit generator.
 
     ::
 

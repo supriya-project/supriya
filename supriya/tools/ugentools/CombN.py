@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class CombN(PureUGen):
-    r'''Non-interpolating comb delay line unit generator.
+    r'''A non-interpolating comb delay line unit generator.
 
     ::
 

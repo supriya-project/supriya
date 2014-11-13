@@ -5,7 +5,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MouseX(UGen):
-    r'''Mouse cursor tracking unit generator.
+    r'''A mouse cursor tracker.
 
     MouseX tracks the y-axis of the mouse cursor position.
 

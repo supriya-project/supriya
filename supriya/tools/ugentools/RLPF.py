@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class RLPF(Filter):
-    r'''Resonant lowpass filter unit generator.
+    r'''A resonant lowpass filter unit generator.
 
     ::
 

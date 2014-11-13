@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DelayN import DelayN
 
 
 class DelayC(DelayN):
-    r'''Cubic-interpolating delay line unit generator.
+    r'''A cubic-interpolating delay line unit generator.
 
     ::
 

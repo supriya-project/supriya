@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Free(UGen):
-    r'''free the node at `node_id` when triggered by `trigger`.
+    r'''Frees the node at `node_id` when triggered by `trigger`.
 
     ::
 

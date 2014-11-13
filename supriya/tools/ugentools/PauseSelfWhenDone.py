@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class PauseSelfWhenDone(UGen):
-    r'''Pause the enclosing synth when `source` sets its `done` flag.
+    r'''Pauses the enclosing synth when `source` sets its `done` flag.
 
     ::
 

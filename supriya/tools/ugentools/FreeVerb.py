@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class FreeVerb(UGen):
-    r'''FreeVerb reverb unit generator.
+    r'''A FreeVerb reverb unit generator.
 
     ::
 

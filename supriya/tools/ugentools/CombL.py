@@ -3,7 +3,7 @@ from supriya.tools.ugentools.CombN import CombN
 
 
 class CombL(CombN):
-    r'''Linear interpolating comb delay line unit generator.
+    r'''A linear interpolating comb delay line unit generator.
 
     ::
 

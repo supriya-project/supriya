@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufAllpassN import BufAllpassN
 
 
 class BufAllpassL(BufAllpassN):
-    r'''Buffer-based linear-interpolating allpass delay line unit generator.
+    r'''A buffer-based linear-interpolating allpass delay line unit generator.
 
     ::
 

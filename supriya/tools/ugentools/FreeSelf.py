@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class FreeSelf(UGen):
-    r'''Free the enclosing synth when triggered by `trigger`.
+    r'''Frees the enclosing synth when triggered by `trigger`.
 
     ::
 

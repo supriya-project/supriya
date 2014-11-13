@@ -5,7 +5,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Poll(UGen):
-    r'''UGen poller.
+    r'''A UGen poller.
 
     ::
 

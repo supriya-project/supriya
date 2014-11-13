@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufRateScale(BufInfoUGenBase):
-    r'''Buffer sample-rate scale info unit generator.
+    r'''A buffer sample-rate scale info unit generator.
 
     ::
 

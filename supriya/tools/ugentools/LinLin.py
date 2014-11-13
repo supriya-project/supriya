@@ -22,14 +22,14 @@ class LinLin(PseudoUGen):
     @staticmethod
     def ar(
         source=None,
-        in_min=0.0,
-        in_max=1.0,
-        out_min=1.0,
-        out_max=2.0,
+        input_minimum=0.0,
+        input_maximum=1.0,
+        output_minimum=1.0,
+        output_maximum=2.0,
         ):
         from supriya.tools import ugentools
-        scale = (out_max - out_min) / (in_max - in_min)
-        offset = out_min - (scale * in_min)
+        scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
+        offset = output_minimum - (scale * input_minimum)
         ugen = ugentools.MulAdd.new(
             source=source,
             multiplier=scale,
@@ -40,12 +40,12 @@ class LinLin(PseudoUGen):
     @staticmethod
     def kr(
         source=None,
-        in_min=0.0,
-        in_max=1.0,
-        out_min=1.0,
-        out_max=2.0,
+        input_minimum=0.0,
+        input_maximum=1.0,
+        output_minimum=1.0,
+        output_maximum=2.0,
         ):
-        scale = (out_max - out_min) / (in_max - in_min)
-        offset = out_min - (scale * in_min)
+        scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
+        offset = output_minimum - (scale * input_minimum)
         ugen = (source * scale) + offset
         return ugen

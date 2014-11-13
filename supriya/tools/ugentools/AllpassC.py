@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AllpassN import AllpassN
 
 
 class AllpassC(AllpassN):
-    r'''Cubic-interpolating allpass delay line unit generator.
+    r'''A cubic-interpolating allpass delay line unit generator.
 
     ::
 
@@ -47,6 +47,7 @@ class AllpassC(AllpassN):
         Returns unit generator graph.
         '''
         return super(AllpassC, cls).ar(
+            decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -77,6 +78,7 @@ class AllpassC(AllpassN):
         Returns unit generator graph.
         '''
         return super(AllpassC, cls).kr(
+            decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,

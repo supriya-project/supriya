@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Delay1(PureUGen):
-    r'''One-sample delay line unit generator.
+    r'''A one-sample delay line unit generator.
 
     ::
 

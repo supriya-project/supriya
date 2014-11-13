@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class PitchShift(UGen):
-    r'''Pitch shift unit generator.
+    r'''A pitch shift unit generator.
 
     ::
 

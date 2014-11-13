@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class FreeSelfWhenDone(UGen):
-    r'''Free the enclosing synth when `source` sets its `done` flag.
+    r'''Frees the enclosing synth when `source` sets its `done` flag.
 
     ::
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufDelayN import BufDelayN
 
 
 class BufDelayC(BufDelayN):
-    r'''Buffer-based cubic-interpolating delay line unit generator.
+    r'''A buffer-based cubic-interpolating delay line unit generator.
 
     ::
 

@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class LFNoise1(UGen):
-    r'''Ramp noise generator.
+    r'''A ramp noise generator.
 
     ::
 

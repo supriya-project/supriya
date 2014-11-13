@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SubsampleOffset(InfoUGenBase):
-    r'''Subsample-offset info unit generator.
+    r'''A subsample-offset info unit generator.
 
     ::
 

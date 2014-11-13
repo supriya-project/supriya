@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumOutputBuses(InfoUGenBase):
-    r'''Number of output buses info unit generator.
+    r'''A number of output buses info unit generator.
 
     ::
 

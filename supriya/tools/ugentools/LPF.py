@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPF(Filter):
-    r'''Lowpass filter unit generator.
+    r'''A lowpass filter unit generator.
 
     ::
 

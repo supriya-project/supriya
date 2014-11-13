@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Sum3(UGen):
-    r'''Three-input summing unit generator.
+    r'''A three-input summing unit generator.
 
     ::
 

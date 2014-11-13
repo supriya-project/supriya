@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class MulAdd(UGen):
-    r'''Optimized multiplication / addition ugen.
+    r'''An Optimized multiplication / addition ugen.
 
     ::
 

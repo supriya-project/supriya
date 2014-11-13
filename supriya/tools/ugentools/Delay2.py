@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Delay1 import Delay1
 
 
 class Delay2(Delay1):
-    r'''Two-sample delay line unit generator.
+    r'''A two-sample delay line unit generator.
 
     ::
 

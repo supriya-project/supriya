@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufSamples(BufInfoUGenBase):
-    r'''Buffer sample count info unit generator.
+    r'''A buffer sample count info unit generator.
 
     ::
 

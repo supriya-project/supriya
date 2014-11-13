@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class LFDClipNoise(UGen):
-    r'''Clipped noise generator.
+    r'''A clipped noise generator.
 
     ::
 

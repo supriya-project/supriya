@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class RandID(WidthFirstUGen):
-    r'''Set the synth's random generator ID.
+    r'''Sets the synth's random generator ID.
 
     ::
 

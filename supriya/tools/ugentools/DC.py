@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DC(PureUGen):
-    r'''DC unit generator.
+    r'''A DC unit generator.
 
     ::
 

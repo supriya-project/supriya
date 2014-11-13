@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class LFDNoise0(UGen):
-    r'''Dynamic step noise generator.
+    r'''A dynamic step noise generator.
 
     ::
 

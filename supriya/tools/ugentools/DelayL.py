@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DelayN import DelayN
 
 
 class DelayL(DelayN):
-    r'''Linear-interpolating delay line unit generator.
+    r'''A linear-interpolating delay line unit generator.
 
     ::
 
