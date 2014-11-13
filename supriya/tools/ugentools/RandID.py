@@ -40,6 +40,11 @@ class RandID(WidthFirstUGen):
             rand_id=rand_id,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _get_outputs(self):
+        return []
+
     ### PUBLIC METHODS ###
 
     @classmethod

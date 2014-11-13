@@ -44,6 +44,11 @@ class RandSeed(WidthFirstUGen):
             trigger=trigger,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _get_outputs(self):
+        return []
+
     ### PUBLIC METHODS ###
 
     @classmethod
