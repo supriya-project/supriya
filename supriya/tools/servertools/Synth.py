@@ -109,6 +109,13 @@ class Synth(Node):
         result = '\n'.join(result)
         return result
 
+    ### PRIVATE METHODS ###
+
+    def _unregister_with_local_server(self):
+        Node._unregister_with_local_server(self)
+        if 'gate' in self.controls:
+            self['gate'].reset()
+
     ### PUBLIC METHODS ###
 
     def allocate(
@@ -151,6 +158,10 @@ class Synth(Node):
 
     def free(self):
         Node.free(self)
+
+    def release(self):
+        if 'gate' in self.controls:
+            self['gate'] = 0
 
     ### PUBLIC PROPERTIES ###
 
