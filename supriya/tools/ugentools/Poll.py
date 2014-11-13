@@ -159,7 +159,7 @@ class Poll(UGen):
             source = (source,)
         calculation_rates = []
         for single_source in source:
-            rate = synthdeftools.CalculationRate.from_expr(single_source)
+            rate = synthdeftools.CalculationRate.from_input(single_source)
             calculation_rates.append(rate)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rates,
