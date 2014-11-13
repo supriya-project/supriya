@@ -30,8 +30,8 @@ def _build_kick_synthdef():
         source=noise,
         frequency=ugentools.LinLin.ar(
             source=synthdeftools.Op.cubed(envelope),
-            out_min=30,
-            out_max=120,
+            output_minimum=30,
+            output_maximum=120,
             ),
         reciprocal_of_q=2,
         )
@@ -42,8 +42,8 @@ def _build_kick_synthdef():
     pitch = ugentools.SinOsc.ar(
         frequency=ugentools.LinLin.ar(
             source=envelope,
-            out_min=10,
-            out_max=80,
+            output_minimum=10,
+            output_maximum=80,
             ),
         )
     pitch = pitch * 2.0
@@ -52,8 +52,8 @@ def _build_kick_synthdef():
         source=pitch,
         frequency=ugentools.LinLin.ar(
             source=envelope,
-            out_min=30,
-            out_max=120,
+            output_minimum=30,
+            output_maximum=120,
             ),
         reciprocal_of_q=0.5,
         )
