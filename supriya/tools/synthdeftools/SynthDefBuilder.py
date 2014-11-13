@@ -104,6 +104,8 @@ class SynthDefBuilder(SupriyaObject):
         trigger_id=-1,
         ):
         from supriya.tools import ugentools
+        if trigger is None:
+            trigger = ugentools.Impulse.kr(1)
         poll = ugentools.Poll.new(
             source=ugen,
             label=label,
