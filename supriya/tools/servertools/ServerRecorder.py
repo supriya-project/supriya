@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import os
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -45,7 +46,9 @@ class ServerRecorder(SupriyaObject):
         self._current_channel_count = self._channel_count
 
     def _get_file_path(self, file_path=None):
-        pass
+        if file_path is not None:
+            file_path = os.path.abspath(os.path.expanduser(file_path))
+        return file_path
 
     def _get_record_buffer_id(self):
         return 0
@@ -56,6 +59,10 @@ class ServerRecorder(SupriyaObject):
         buffer_id = self._get_record_buffer_id()
         buffer_ = servertools.Buffer(buffer_id)
         frame_count = 65536 * 16
+        buffer_.allocate(
+            frame_count=frame_count,
+            channel_count=self.channel_count,
+            )
         completion_message = requesttools.BufferWriteRequest(
             buffer_id=buffer_id,
             file_path=file_path,
@@ -63,12 +70,20 @@ class ServerRecorder(SupriyaObject):
             sample_format=self.current_sample_format,
             leave_open=True,
             )
-        buffer_.allocate(
-            frame_count=frame_count,
-            channel_count=self.channel_count,
-            completion_message=completion_message,
+        completion_message.communicate(
+            server=self.server,
+            sync=True,
             )
         self._buffer = buffer_
+
+    def _setup_node(self):
+        from supriya.tools import servertools
+        synth = servertools.Synth(self.record_synthdef)
+        synth.allocate(
+            add_action=servertools.AddAction.ADD_TO_TAIL,
+            target_node=self.server.root_node,
+            node_id_is_permanent=True,
+            )
 
     def _setup_synthdef(self):
         from supriya.tools import synthdeftools
@@ -86,9 +101,6 @@ class ServerRecorder(SupriyaObject):
         synthdef.allocate(server=self.server)
         self._record_synthdef = synthdef
 
-    def _setup_node(self):
-        pass
-
     ### PUBLIC METHODS ###
 
     def pause(self):
@@ -104,15 +116,19 @@ class ServerRecorder(SupriyaObject):
         self._cache_properties()
         self._setup_buffer(file_path=self.current_file_path)
         self._setup_synthdef()
-        self._setup_node()
 
     def start(self, file_path=None):
         if self.record_node is not None:
             raise Exception('Already recording.')
         self.prepare(file_path=file_path)
+        self._setup_node()
 
     def stop(self):
-        pass
+        self.record_node.free()
+        duration_in_seconds = self.record_buffer.duration_in_seconds
+        print('Recorded: {}'.format(duration_in_seconds))
+        self.record_buffer.close()
+        self.record_buffer.free()
 
     def unpause(self):
         if self.record_node is not None:
