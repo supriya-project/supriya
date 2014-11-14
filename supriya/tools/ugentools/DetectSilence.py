@@ -38,6 +38,11 @@ class DetectSilence(Filter):
             time=time,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _get_outputs(self):
+        return []
+
     ### PUBLIC METHODS ###
 
     @classmethod
