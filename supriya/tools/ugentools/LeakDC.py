@@ -6,11 +6,13 @@ class LeakDC(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
+        'source',
+        'coef',
         )
 
     _valid_calculation_rates = None
@@ -39,7 +41,7 @@ class LeakDC(Filter):
         source=0,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             coef=coef,
@@ -54,7 +56,7 @@ class LeakDC(Filter):
         source=0,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             coef=coef,
