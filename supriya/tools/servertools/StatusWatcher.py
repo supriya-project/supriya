@@ -39,6 +39,8 @@ class StatusWatcher(threading.Thread):
     def __call__(self, response):
         if not self.active:
             return
+        if response is None:
+            return
         self._server._server_status = response
         self._attempts = 0
 
@@ -55,17 +57,19 @@ class StatusWatcher(threading.Thread):
                 break
             self.server.send_message(message)
             self._attempts += 1
-            total_string = ''
-            try:
-                string = self.server._server_process.read()
-                while string:
-                    total_string += string
-                    string = self.server._server_process.read()
-            except (pexpect.TIMEOUT, pexpect.EOF):
-                pass
-            if total_string:
-                sys.stdout.write(string)
-                sys.stdout.flush()
+#            try:
+#                string = self.server._server_process.readline()
+#                if string:
+#                    sys.stdout.write(string)
+#                    sys.stdout.flush()
+#            except pexpect.TIMEOUT as e:
+#                print('TIMEOUT:', type(e))
+#                #print(e)
+#                pass
+#            except Exception as e:
+#                print('EXCEPTION:', type(e))
+#                #print(e)
+#                pass
             time.sleep(0.2)
         self.server.unregister_response_callback(self.response_callback)
 
