@@ -146,3 +146,72 @@ class Fold(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of Fold.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> fold = ugentools.Fold.ar(
+            ...     maximum=0.9,
+            ...     minimum=0.1,
+            ...     source=source,
+            ...     )
+            >>> fold.maximum
+            0.9
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of Fold.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> fold = ugentools.Fold.ar(
+            ...     maximum=0.9,
+            ...     minimum=0.1,
+            ...     source=source,
+            ...     )
+            >>> fold.minimum
+            0.1
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `minimum` input of Fold.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> fold = ugentools.Fold.ar(
+            ...     maximum=0.9,
+            ...     minimum=0.1,
+            ...     source=source,
+            ...     )
+            >>> fold.source
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
