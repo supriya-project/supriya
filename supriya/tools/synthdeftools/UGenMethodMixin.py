@@ -1511,3 +1511,23 @@ class UGenMethodMixin(SupriyaObject):
         if len(result) == 1:
             return result[0]
         return synthdeftools.UGenArray(result)
+
+    ### PUBLIC METHODS ###
+
+    def clip(self, minimum, maximum):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        ugens = []
+        for source in self[:]:
+            method = ugentools.Clip._get_method_for_rate(source)
+            ugen = method(
+                source=source,
+                minimum=minimum,
+                maximum=maximum,
+                )
+            ugens.extend(ugen)
+        if 1 < len(ugens):
+            return synthdeftools.UGenArray(ugens)
+        elif len(ugens) == 1:
+            return ugens[0].source
+        return []
