@@ -11,6 +11,9 @@ class Rotate2(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = (
+        'x',
+        'y',
+        'position',
         )
 
     _valid_calculation_rates = None
@@ -20,14 +23,15 @@ class Rotate2(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        pos=0,
+        position=0,
         x=None,
         y=None,
         ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            pos=pos,
+            channel_count=2,
+            position=position,
             x=x,
             y=y,
             )
@@ -37,15 +41,15 @@ class Rotate2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        pos=0,
+        position=0,
         x=None,
         y=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            pos=pos,
+            position=position,
             x=x,
             y=y,
             )
@@ -54,15 +58,15 @@ class Rotate2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        pos=0,
+        position=0,
         x=None,
         y=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            pos=pos,
+            position=position,
             x=x,
             y=y,
             )

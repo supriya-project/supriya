@@ -47,6 +47,7 @@ class AllpassL(AllpassN):
         Returns unit generator graph.
         '''
         return super(AllpassL, cls).ar(
+            decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
@@ -77,6 +78,7 @@ class AllpassL(AllpassN):
         Returns unit generator graph.
         '''
         return super(AllpassL, cls).kr(
+            decay_time=decay_time,
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
             source=source,
