@@ -7,7 +7,9 @@ class GroupInterface(ControlInterface):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        '_synth_control_proxies',
+        )
 
     ### INITIALIZER ###
 
@@ -16,6 +18,7 @@ class GroupInterface(ControlInterface):
         client=None,
         ):
         self._synth_controls = {}
+        self._synth_control_proxies = {}
         self._client = client
 
     ### SPECIAL METHODS ###
@@ -24,6 +27,9 @@ class GroupInterface(ControlInterface):
         if isinstance(item, str):
             return item in self._synth_controls
         return False
+
+    def __getitem__(self, item):
+        return self._synth_control_proxies[item]
 
     def __iter__(self):
         return iter(self._synth_controls)
@@ -56,10 +62,16 @@ class GroupInterface(ControlInterface):
     ### PUBLIC METHODS ###
 
     def add_controls(self, control_interface_dict):
+        from supriya.tools import servertools
         for control_name in control_interface_dict:
             if control_name not in self._synth_controls:
                 self._synth_controls[control_name] = copy.copy(
                     control_interface_dict[control_name])
+                proxy = servertools.SynthControlProxy(
+                    client=self,
+                    name=control_name,
+                    )
+                self._synth_control_proxies[control_name] = proxy
             else:
                 self._synth_controls[control_name].update(
                     control_interface_dict[control_name])
@@ -79,6 +91,7 @@ class GroupInterface(ControlInterface):
             current_nodes.difference_update(nodes_to_remove)
             if not current_nodes:
                 del(self._synth_controls[control_name])
+                del(self._synth_control_proxies[control_name])
 
     def reset(self):
         self._synth_controls.clear()

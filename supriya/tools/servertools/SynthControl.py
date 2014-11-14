@@ -97,22 +97,22 @@ class SynthControl(SupriyaObject):
             self._value = expr
             if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
-                    self.synth,
+                    self.node,
                     **{self.name: self._value}
                     )
             else:
                 request = requesttools.NodeMapToAudioBusRequest(
-                    self.synth,
+                    self.node,
                     **{self.name: self._value}
                     )
         else:
             self._value = float(expr)
             request = requesttools.NodeSetRequest(
-                self.synth,
+                self.node,
                 **{self.name: self._value}
                 )
-        if self.synth.is_allocated:
-            request.communicate(server=self.synth.server)
+        if self.node.is_allocated:
+            request.communicate(server=self.node.server)
 
     ### PUBLIC PROPERTIES ###
 
@@ -135,6 +135,10 @@ class SynthControl(SupriyaObject):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def node(self):
+        return self.client.client
 
     @property
     def synth(self):
