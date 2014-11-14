@@ -94,10 +94,10 @@ class ServerRecorder(SupriyaObject):
                 channel_count=self.channel_count,
                 )
             ugentools.DiskOut.ar(
-                buffer_id=self.record,
+                buffer_id=self.record_buffer,
                 source=source,
                 )
-        synthdef = builder.build_synthdef()
+        synthdef = builder.build()
         synthdef.allocate(server=self.server)
         self._record_synthdef = synthdef
 
@@ -113,6 +113,8 @@ class ServerRecorder(SupriyaObject):
         if self.is_recording:
             raise Exception
         self._current_file_path = self._get_file_path(file_path)
+        if self.current_file_path is None:
+            raise Exception
         self._cache_properties()
         self._setup(file_path=self.current_file_path)
         self._setup_synthdef()
@@ -125,10 +127,10 @@ class ServerRecorder(SupriyaObject):
 
     def stop(self):
         self.record_node.free()
-        duration_in_seconds = self.record.duration_in_seconds
+        duration_in_seconds = self.record_buffer.duration_in_seconds
         print('Recorded: {}'.format(duration_in_seconds))
-        self.record.close()
-        self.record.free()
+        self.record_buffer.close()
+        self.record_buffer.free()
 
     def unpause(self):
         if self.record_node is not None:

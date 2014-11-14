@@ -544,6 +544,8 @@ class Server(SupriyaObject):
         from supriya.tools import requesttools
         if not self.is_running:
             return
+        if self.recorder.is_recording:
+            self.recorder.stop()
         request = requesttools.QuitRequest()
         request.communicate(server=self)
         self._is_running = False

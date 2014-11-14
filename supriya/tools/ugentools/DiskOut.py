@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -6,11 +7,17 @@ class DiskOut(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Disk I/O UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
+        'buffer_id',
+        'source',
+        )
+
+    _unexpanded_input_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -20,14 +27,16 @@ class DiskOut(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        bufnum=None,
-        channels_array=None,
+        buffer_id=None,
+        source=None,
         ):
+        if not isinstance(source, collections.Sequence):
+            source = (source,)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            bufnum=bufnum,
-            channels_array=channels_array,
+            buffer_id=buffer_id,
+            source=source,
             )
 
     ### PUBLIC METHODS ###
@@ -35,14 +44,14 @@ class DiskOut(UGen):
     @classmethod
     def ar(
         cls,
-        bufnum=None,
-        channels_array=None,
+        buffer_id=None,
+        source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            bufnum=bufnum,
-            channels_array=channels_array,
+            buffer_id=buffer_id,
+            source=source,
             )
         return ugen

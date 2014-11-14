@@ -86,11 +86,12 @@ class Out(UGen):
             )
         if isinstance(bus, prototype):
             bus = int(bus)
-        return cls._new_expanded(
+        ugen = cls._new_expanded(
             bus=bus,
             calculation_rate=calculation_rate,
             source=source,
             )
+        return ugen
 
     @classmethod
     def kr(
@@ -122,11 +123,12 @@ class Out(UGen):
             )
         if isinstance(bus, prototype):
             bus = int(bus)
-        return cls._new_expanded(
+        ugen = cls._new_expanded(
             bus=bus,
             calculation_rate=calculation_rate,
             source=source,
             )
+        return ugen
 
     ### PUBLIC PROPERTIES ###
 
