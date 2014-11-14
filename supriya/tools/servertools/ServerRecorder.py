@@ -50,13 +50,13 @@ class ServerRecorder(SupriyaObject):
             file_path = os.path.abspath(os.path.expanduser(file_path))
         return file_path
 
-    def _get_record_buffer_id(self):
+    def _get_record_id(self):
         return 0
 
-    def _setup_buffer(self, file_path):
+    def _setup(self, file_path):
         from supriya.tools import requesttools
         from supriya.tools import servertools
-        buffer_id = self._get_record_buffer_id()
+        buffer_id = self._get_record_id()
         buffer_ = servertools.Buffer(buffer_id)
         frame_count = 65536 * 16
         buffer_.allocate(
@@ -74,7 +74,7 @@ class ServerRecorder(SupriyaObject):
             server=self.server,
             sync=True,
             )
-        self._buffer = buffer_
+        self._record_buffer = buffer_
 
     def _setup_node(self):
         from supriya.tools import servertools
@@ -94,7 +94,7 @@ class ServerRecorder(SupriyaObject):
                 channel_count=self.channel_count,
                 )
             ugentools.DiskOut.ar(
-                buffer_id=self.record_buffer,
+                buffer_id=self.record,
                 source=source,
                 )
         synthdef = builder.build_synthdef()
@@ -114,7 +114,7 @@ class ServerRecorder(SupriyaObject):
             raise Exception
         self._current_file_path = self._get_file_path(file_path)
         self._cache_properties()
-        self._setup_buffer(file_path=self.current_file_path)
+        self._setup(file_path=self.current_file_path)
         self._setup_synthdef()
 
     def start(self, file_path=None):
@@ -125,10 +125,10 @@ class ServerRecorder(SupriyaObject):
 
     def stop(self):
         self.record_node.free()
-        duration_in_seconds = self.record_buffer.duration_in_seconds
+        duration_in_seconds = self.record.duration_in_seconds
         print('Recorded: {}'.format(duration_in_seconds))
-        self.record_buffer.close()
-        self.record_buffer.free()
+        self.record.close()
+        self.record.free()
 
     def unpause(self):
         if self.record_node is not None:
@@ -195,3 +195,7 @@ class ServerRecorder(SupriyaObject):
     @property
     def current_header_format(self):
         return self._current_header_format
+
+    @property
+    def server(self):
+        return self._server
