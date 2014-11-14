@@ -335,6 +335,21 @@ class UGen(UGenMethodMixin):
             expanded_inputs.update(cached_unexpanded_inputs)
         return result
 
+    @classmethod
+    def _get_method_for_rate(cls, calculation_rate):
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.from_input(
+            calculation_rate)
+        if calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            return cls.ar
+        elif calculation_rate == synthdeftools.CalculationRate.CONTROL:
+            return cls.kr
+        elif calculation_rate == synthdeftools.CalculationRate.SCALAR:
+            if hasattr(cls, 'ir'):
+                return cls.ir
+            return cls.kr
+        return cls.new
+
     def _get_output_number(self):
         return 0
 
