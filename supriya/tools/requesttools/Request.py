@@ -78,7 +78,8 @@ class Request(SupriyaValueObject):
                     timed_out = True
                     break
         if timed_out:
-            raise Exception
+            print('TIMED OUT:', repr(self))
+            return None
         return self._response
 
     @abc.abstractmethod
