@@ -72,7 +72,7 @@ class ServerRecorder(SupriyaObject):
         from supriya.tools import servertools
         buffer_id = self._get_record_id()
         buffer_ = servertools.Buffer(buffer_id)
-        frame_count = 65536 * 16
+        frame_count = 65536
         buffer_.allocate(
             frame_count=frame_count,
             channel_count=self.current_channel_count,
@@ -110,8 +110,9 @@ class ServerRecorder(SupriyaObject):
                 bus=0,
                 channel_count=self.current_channel_count,
                 )
+            buffer_id = int(self.record_buffer)
             ugentools.DiskOut.ar(
-                buffer_id=self.record_buffer,
+                buffer_id=buffer_id,
                 source=source,
                 )
         synthdef = builder.build()
@@ -166,15 +167,11 @@ class ServerRecorder(SupriyaObject):
         self._is_recording = True
 
     def stop(self):
-        import time
         if not self.is_recording:
             raise Exception
         self.record_node.free()
-        time.sleep(0.5)
         self.record_buffer.close()
-        time.sleep(0.5)
         self.record_buffer.free()
-        time.sleep(0.5)
         self._is_recording = False
 
     def unpause(self):
