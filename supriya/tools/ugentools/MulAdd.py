@@ -134,6 +134,7 @@ class MulAdd(UGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
+        # TODO: handle case of array as source
         calculation_rate = synthdeftools.CalculationRate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
             addend=addend,
