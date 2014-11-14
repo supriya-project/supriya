@@ -267,6 +267,18 @@ class Server(SupriyaObject):
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
+    def _read(self):
+        string = ''
+        while True:
+            try:
+                char = self._server_process.read_nonblocking(timeout=1.0)
+                if 2 < sys.version_info[0]:
+                    char = str(char, 'utf-8')
+                string += char
+            except (pexpect.TIMEOUT, pexpect.EOF):
+                break
+        return string
+
     def _setup(self):
         self._setup_notifications()
         self._setup_status_watcher()
