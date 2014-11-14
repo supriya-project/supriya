@@ -97,7 +97,7 @@ class BufferWriteRequest(Request):
         file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
         header_format = self.header_format.name.lower()
         sample_format = self.sample_format.name.lower()
-        leave_open = int(self.leave_open)
+        leave_open = int(bool(self.leave_open))
         contents = [
             request_id,
             buffer_id,

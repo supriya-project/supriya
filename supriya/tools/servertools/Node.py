@@ -239,10 +239,10 @@ class Node(ServerObjectProxy):
         if self.node_id is not None and server.is_running:
             node_id = self._unregister_with_local_server()
             node_free_request = requesttools.NodeFreeRequest(
-                node_ids=node_id,
+                node_ids=(node_id,),
                 )
             node_free_request.communicate(
-                server=self.server,
+                server=server,
                 sync=False,
                 )
         return self

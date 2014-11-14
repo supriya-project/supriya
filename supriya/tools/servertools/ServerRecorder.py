@@ -40,10 +40,24 @@ class ServerRecorder(SupriyaObject):
 
     ### PRIVATE METHODS ###
 
-    def _cache_properties(self):
-        self._current_header_format = self.header_format
-        self._current_sample_format = self.sample_format
-        self._current_channel_count = self._channel_count
+    def _cache_properties(
+        self,
+        channel_count=None,
+        header_format=None,
+        sample_format=None,
+        ):
+        from supriya.tools import soundfiletools
+        if channel_count is None:
+            channel_count = self.channel_count
+        self._current_channel_count = channel_count
+        if header_format is None:
+            header_format = self.header_format
+        self._current_header_format = soundfiletools.HeaderFormat.from_expr(
+            header_format)
+        if sample_format is None:
+            sample_format = self.sample_format
+        self._current_sample_format = soundfiletools.SampleFormat.from_expr(
+            sample_format)
 
     def _get_file_path(self, file_path=None):
         if file_path is not None:
@@ -51,9 +65,9 @@ class ServerRecorder(SupriyaObject):
         return file_path
 
     def _get_record_id(self):
-        return 0
+        return 23
 
-    def _setup(self, file_path):
+    def _setup_buffer(self):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         buffer_id = self._get_record_id()
@@ -61,14 +75,16 @@ class ServerRecorder(SupriyaObject):
         frame_count = 65536 * 16
         buffer_.allocate(
             frame_count=frame_count,
-            channel_count=self.channel_count,
+            channel_count=self.current_channel_count,
             )
         completion_message = requesttools.BufferWriteRequest(
             buffer_id=buffer_id,
-            file_path=file_path,
+            file_path=self.current_file_path,
+            frame_count=0,
             header_format=self.current_header_format,
-            sample_format=self.current_sample_format,
             leave_open=True,
+            sample_format=self.current_sample_format,
+            starting_frame=0,
             )
         completion_message.communicate(
             server=self.server,
@@ -84,6 +100,7 @@ class ServerRecorder(SupriyaObject):
             target_node=self.server.root_node,
             node_id_is_permanent=True,
             )
+        self._record_node = synth
 
     def _setup_synthdef(self):
         from supriya.tools import synthdeftools
@@ -91,7 +108,7 @@ class ServerRecorder(SupriyaObject):
         with synthdeftools.SynthDefBuilder() as builder:
             source = ugentools.In.ar(
                 bus=0,
-                channel_count=self.channel_count,
+                channel_count=self.current_channel_count,
                 )
             ugentools.DiskOut.ar(
                 buffer_id=self.record_buffer,
@@ -104,36 +121,64 @@ class ServerRecorder(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def pause(self):
-        if self.record_node is not None:
+        if self.is_recording:
             self.record_node.pause()
         else:
             raise Exception
 
-    def prepare(self, file_path=None):
+    def prepare(
+        self,
+        file_path=None,
+        channel_count=None,
+        header_format=None,
+        sample_format=None,
+        ):
         if self.is_recording:
             raise Exception
+        self._cache_properties(
+            channel_count=channel_count,
+            header_format=header_format,
+            sample_format=sample_format,
+            )
         self._current_file_path = self._get_file_path(file_path)
         if self.current_file_path is None:
             raise Exception
-        self._cache_properties()
-        self._setup(file_path=self.current_file_path)
+        self._setup_buffer()
         self._setup_synthdef()
 
-    def start(self, file_path=None):
+    def start(
+        self,
+        file_path=None,
+        channel_count=None,
+        header_format=None,
+        sample_format=None,
+        ):
         if self.record_node is not None:
             raise Exception('Already recording.')
-        self.prepare(file_path=file_path)
+        if not self.record_buffer.is_allocated:
+            self.prepare(
+                file_path=file_path,
+                channel_count=channel_count,
+                header_format=header_format,
+                sample_format=sample_format,
+                )
         self._setup_node()
+        self._is_recording = True
 
     def stop(self):
+        import time
+        if not self.is_recording:
+            raise Exception
         self.record_node.free()
-        duration_in_seconds = self.record_buffer.duration_in_seconds
-        print('Recorded: {}'.format(duration_in_seconds))
+        time.sleep(0.5)
         self.record_buffer.close()
+        time.sleep(0.5)
         self.record_buffer.free()
+        time.sleep(0.5)
+        self._is_recording = False
 
     def unpause(self):
-        if self.record_node is not None:
+        if self.is_recording:
             self.record_node.unpause()
         else:
             raise Exception
@@ -151,6 +196,10 @@ class ServerRecorder(SupriyaObject):
     @property
     def record_node(self):
         return self._record_node
+
+    @property
+    def record_synthdef(self):
+        return self._record_synthdef
 
     @property
     def channel_count(self):

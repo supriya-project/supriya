@@ -112,9 +112,10 @@ class Synth(Node):
     ### PRIVATE METHODS ###
 
     def _unregister_with_local_server(self):
-        Node._unregister_with_local_server(self)
+        node_id = Node._unregister_with_local_server(self)
         if 'gate' in self.controls:
             self['gate'].reset()
+        return node_id
 
     ### PUBLIC METHODS ###
 
