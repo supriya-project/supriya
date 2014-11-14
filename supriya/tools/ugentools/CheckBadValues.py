@@ -11,6 +11,9 @@ class CheckBadValues(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
+        'source',
+        'ugen_id',
+        'post_mode',
         )
 
     _valid_calculation_rates = None
@@ -20,15 +23,16 @@ class CheckBadValues(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        id=0,
-        post=2,
-        source=0,
+        ugen_id=0,
+        post_mode=2,
+        source=None,
         ):
+        assert int(post_mode) in (0, 1, 2)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            id=id,
-            post=post,
+            ugen_id=ugen_id,
+            post_mode=post_mode,
             source=source,
             )
 
@@ -37,16 +41,16 @@ class CheckBadValues(UGen):
     @classmethod
     def ar(
         cls,
-        id=0,
-        post=2,
-        source=0,
+        ugen_id=0,
+        post_mode=2,
+        source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            id=id,
-            post=post,
+            ugen_id=ugen_id,
+            post_mode=post_mode,
             source=source,
             )
         return ugen
@@ -54,16 +58,16 @@ class CheckBadValues(UGen):
     @classmethod
     def kr(
         cls,
-        id=0,
-        post=2,
-        source=0,
+        ugen_id=0,
+        post_mode=2,
+        source=None,
         ):
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            id=id,
-            post=post,
+            ugen_id=ugen_id,
+            post_mode=post_mode,
             source=source,
             )
         return ugen
