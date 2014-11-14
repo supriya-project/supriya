@@ -28,6 +28,10 @@ class LinLin(PseudoUGen):
         output_maximum=2.0,
         ):
         from supriya.tools import ugentools
+        input_minimum = float(input_minimum)
+        input_maximum = float(input_maximum)
+        output_minimum = float(output_minimum)
+        output_maximum = float(output_maximum)
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
         ugen = ugentools.MulAdd.new(
@@ -46,6 +50,10 @@ class LinLin(PseudoUGen):
         output_maximum=2.0,
         ):
         from supriya.tools import ugentools
+        input_minimum = float(input_minimum)
+        input_maximum = float(input_maximum)
+        output_minimum = float(output_minimum)
+        output_maximum = float(output_maximum)
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
         ugen = ugentools.MulAdd.new(

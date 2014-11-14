@@ -21,7 +21,7 @@ class SoundIn(PseudoUGen):
     ### PUBLIC METHODS ###
 
     @staticmethod
-    def ar(bus=0, **kwargs):
+    def ar(bus=0):
         from supriya.tools import ugentools
         channel_offset = ugentools.NumOutputBuses.ir()
         if isinstance(bus, collections.Iterable):
