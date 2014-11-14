@@ -20,6 +20,17 @@ class GroupInterface(ControlInterface):
 
     ### SPECIAL METHODS ###
 
+    def __container__(self, item):
+        if isinstance(item, str):
+            return item in self._synth_controls
+        return False
+
+    def __iter__(self):
+        return iter(self._synth_controls)
+
+    def __len__(self):
+        return len(self._synth_controls)
+
     def __setitem__(self, items, values):
         from supriya.tools import servertools
         if not isinstance(items, tuple):
@@ -32,7 +43,7 @@ class GroupInterface(ControlInterface):
         for key, value in settings.items():
             for synth in self._synth_controls.get(key, ()):
                 control = synth.controls[key]
-                control.value = value
+                control._value = value
         messages = self._set(**settings)
         message_bundler = servertools.MessageBundler(
             server=self.client.server,

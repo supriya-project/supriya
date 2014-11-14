@@ -129,7 +129,8 @@ class SynthInterface(ControlInterface):
 
     def as_dict(self):
         result = {}
-        if self.client.register_controls:
+        if self.client.register_controls is None or \
+            self.client.register_controls:
             for control in self:
                 result[control.name] = set([self.client])
         return result

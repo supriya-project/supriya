@@ -384,6 +384,10 @@ class Group(Node):
         del(self[i])
         return node
 
+    def release(self):
+        if 'gate' in self.controls:
+            self.controls['gate'] = 0
+
     def remove(self, node):
         i = self.index(node)
         del(self[i])
