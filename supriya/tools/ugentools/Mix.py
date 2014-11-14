@@ -87,6 +87,7 @@ class Mix(PseudoUGen):
     def new(sources):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
+        sources = sequencetools.flatten_sequence(sources)
         sources = synthdeftools.UGenArray(sources)
         summed_sources = []
         parts = sequencetools.partition_sequence_by_counts(

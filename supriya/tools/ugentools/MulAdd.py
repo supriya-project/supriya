@@ -57,11 +57,13 @@ class MulAdd(UGen):
         ):
         from supriya.tools import synthdeftools
         CalculationRate = synthdeftools.CalculationRate
-        if source.calculation_rate == CalculationRate.AUDIO:
+        if CalculationRate.from_input(source) == CalculationRate.AUDIO:
             return True
-        if source.calculation_rate == CalculationRate.CONTROL:
-            if multiplier.calculation_rate in (CalculationRate.CONTROL, CalculationRate.SCALAR):
-                if addend.calculation_rate in (CalculationRate.CONTROL, CalculationRate.SCALAR):
+        if CalculationRate.from_input(source) == CalculationRate.CONTROL:
+            if CalculationRate.from_input(multiplier) in (
+                CalculationRate.CONTROL, CalculationRate.SCALAR):
+                if CalculationRate.from_input(addend) in (
+                    CalculationRate.CONTROL, CalculationRate.SCALAR):
                     return True
         return False
 

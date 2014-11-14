@@ -45,7 +45,12 @@ class LinLin(PseudoUGen):
         output_minimum=1.0,
         output_maximum=2.0,
         ):
+        from supriya.tools import ugentools
         scale = (output_maximum - output_minimum) / (input_maximum - input_minimum)
         offset = output_minimum - (scale * input_minimum)
-        ugen = (source * scale) + offset
+        ugen = ugentools.MulAdd.new(
+            source=source,
+            multiplier=scale,
+            addend=offset,
+            )
         return ugen
