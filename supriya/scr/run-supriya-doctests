@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 # -*- encoding: utf-8 -*-
+import os
 
 
 if __name__ == '__main__':
     from supriya.tools import scripttools
+    print('Testing in: {}'.format(os.path.abspath(os.curdir)))
     script = scripttools.RunDoctestsScript()
     script()
