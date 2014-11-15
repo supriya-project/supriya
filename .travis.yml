@@ -9,4 +9,4 @@ before_install:
 script:
   - python setup.py build
   - python setup.py install
-  - run-supriya-doctests
+  - supriya/scr/run-supriya-doctests
