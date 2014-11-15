@@ -1,6 +1,5 @@
-abjad
+-e git://github.com/Abjad/abjad.git#egg=abjad
 enum34
 funcsigs
 pexpect
 six
-supriya
