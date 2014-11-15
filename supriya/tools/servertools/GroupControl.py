@@ -2,7 +2,7 @@
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class SynthControlProxy(SupriyaObject):
+class GroupControl(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
