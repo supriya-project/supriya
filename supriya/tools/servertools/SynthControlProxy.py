@@ -9,6 +9,7 @@ class SynthControlProxy(SupriyaObject):
     __documentation_section__ = 'Server Internals'
 
     __slots__ = (
+        '__binding_sources__',
         '_client',
         '_name',
         )
@@ -20,6 +21,7 @@ class SynthControlProxy(SupriyaObject):
         client=None,
         name=None,
         ):
+        self.__binding_sources__ = set()
         self._client = client
         self._name = str(name)
 
