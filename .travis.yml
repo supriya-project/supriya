@@ -6,7 +6,8 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y supercollider
   - sudo apt-get install -y graphviz
+install:
+  - pip install .
+  - pip install -r requirements.txt
 script:
-  - python setup.py build
-  - python setup.py install
   - supriya/scr/run-supriya-doctests supriya
