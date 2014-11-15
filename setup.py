@@ -9,12 +9,12 @@ install_requires = [
     'numpy',
     'pexpect',
     'pytest',
-    'rtmidi-python',
+    #'rtmidi-python',
     'six',
     'sphinx',
     'sphinx_rtd_theme',
     'tox',
-    'wavefile',
+    #'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
