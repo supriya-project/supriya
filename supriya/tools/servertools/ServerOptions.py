@@ -75,9 +75,10 @@ class ServerOptions(SupriyaObject):
         wire_buffer_count=64,
         zero_configuration=False,
         ):
-        if os.environ.get('TRAVIS', None) == 'true':
+        if os.environ.get('TRAVIS', None):
             input_device = 'dummy'
             output_device = 'dummy'
+        print('OPTIONS:', self.as_options_string())
         self._audio_bus_channel_count = int(audio_bus_channel_count)
         self._block_size = int(block_size)
         self._buffer_count = int(buffer_count)
