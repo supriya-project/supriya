@@ -4,7 +4,7 @@ python:
     - "2.7"
 
 install:
-    - {envpython} setup.py develop -r requirements.txt
+    - "{envpython} setup.py develop -r requirements.txt"
 
 script:
-    - {envpython} supriya/scr/run-supriya-doctests supriya
+    - "{envpython} supriya/scr/run-supriya-doctests supriya"
