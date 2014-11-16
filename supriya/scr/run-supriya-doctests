@@ -2,12 +2,6 @@
 # -*- encoding: utf-8 -*-
 import os
 
-if os.environ.get('TRAVIS', None):
-    print('1) TESTING ON TRAVIS')
-
-if os.environ.get('TRAVIS', None) == 'true':
-    print('2) TESTING ON TRAVIS')
-
 if __name__ == '__main__':
     from supriya.tools import scripttools
     script = scripttools.RunDoctestsScript()
