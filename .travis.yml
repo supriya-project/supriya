@@ -5,7 +5,10 @@ python:
 
 before_install:
     - sudo apt-get update -qq
-    - sudo apt-get install -y graphviz supercollider
+    - sudo apt-get install -y graphviz
+    - sudo apt-get install -y supercollider
+    - sudo apt-get install -y jackd
+    - sudo jackd -r -d alsa -r 44100
 
 install:
     - pip install -r requirements.txt
