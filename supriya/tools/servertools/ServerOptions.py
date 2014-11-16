@@ -78,6 +78,7 @@ class ServerOptions(SupriyaObject):
         if os.environ.get('TRAVIS', None):
             input_device = 'dummy'
             output_device = 'dummy'
+            load_synthdefs = False
         self._audio_bus_channel_count = int(audio_bus_channel_count)
         self._block_size = int(block_size)
         self._buffer_count = int(buffer_count)
@@ -104,7 +105,6 @@ class ServerOptions(SupriyaObject):
         self._verbosity = int(verbosity)
         self._wire_buffer_count = int(wire_buffer_count)
         self._zero_configuration = bool(zero_configuration)
-        print('OPTIONS:', self.as_options_string())
 
     ### PUBLIC METHODS ###
 
