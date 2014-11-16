@@ -7,6 +7,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
+    - sudo apt-get install -y linux-sound-base 
     - sudo apt-get install -y jackd
     - sudo modprobe snd-dummy
     - sudo jackd -r -d alsa -r 44100
