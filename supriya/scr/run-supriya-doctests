@@ -1,20 +1,5 @@
 #! /usr/bin/env python
 # -*- encoding: utf-8 -*-
-import os
-import sys
-
-print('Testing in: {}'.format(os.path.abspath(os.curdir)))
-
-print('sys.path:')
-for entry in sys.path:
-    print('\t{}'.format(entry))
-
-
-try:
-    import supriya
-except:
-    import traceback
-    traceback.print_exc()
 
 
 if __name__ == '__main__':
