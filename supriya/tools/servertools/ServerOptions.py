@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import os
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -74,6 +75,9 @@ class ServerOptions(SupriyaObject):
         wire_buffer_count=64,
         zero_configuration=False,
         ):
+        if os.environ.get('TRAVIS', None) == 'true':
+            input_device = 'dummy'
+            output_device = 'dummy'
         self._audio_bus_channel_count = int(audio_bus_channel_count)
         self._block_size = int(block_size)
         self._buffer_count = int(buffer_count)
@@ -175,6 +179,12 @@ class ServerOptions(SupriyaObject):
 
         if self.memory_locking:
             result.append('-L')
+
+        if self.input_device:
+            result.append('-H')
+            result.append(str(self.input_device))
+            if self.output_device != self.input_device:
+                result.append(str(self.output_device))
 
         options_string = ' '.join(str(x) for x in result)
         return options_string
