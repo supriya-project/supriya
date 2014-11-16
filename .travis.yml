@@ -8,7 +8,7 @@ before_install:
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y jackd
-    - sudo jackd -d dummy -r 44100
+    - sudo --no-realtime -d dummy -r 44100 &
 
 install:
     - pip install -r requirements.txt
