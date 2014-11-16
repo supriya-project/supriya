@@ -9,7 +9,7 @@ before_install:
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y linux-sound-base 
     - sudo apt-get install -y jackd
-    - sudo modprobe snd-dummy
+    - export AUDIODEV=null
     - sudo jackd -r -d alsa -r 44100
 
 install:
