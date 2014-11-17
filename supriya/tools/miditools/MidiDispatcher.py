@@ -1,13 +1,17 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
-from supriya.tools.systemtools.Dispatcher import Dispatcher
+from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+import threading
 
 
-class MidiDispatcher(Dispatcher):
+class MidiDispatcher(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_callback_map',
+        '_debug',
+        '_lock',
         '_midi_in',
         )
 
@@ -15,10 +19,9 @@ class MidiDispatcher(Dispatcher):
 
     def __init__(self, debug=False):
         import rtmidi_python
-        Dispatcher.__init__(
-            self,
-            debug=debug,
-            )
+        self._callback_map = {}
+        self._debug = bool(debug)
+        self._lock = threading.RLock()
         self._midi_in = rtmidi_python.MidiIn()
         self._midi_in.ignore_types(
             midi_sense=True,
@@ -30,7 +33,22 @@ class MidiDispatcher(Dispatcher):
     ### SPECIAL METHODS ###
 
     def __call__(self, message, timestamp):
-        Dispatcher.__call__(self, (message, timestamp))
+        expr = (message, timestamp)
+        callback_pairs = []
+        input_ = self._coerce_input(expr)
+        if self.debug:
+            print('RECV', type(self))
+            for line in repr(input_).splitlines():
+                print('    ' + line)
+        with self.lock:
+            for x in input_:
+                callbacks = self._collect_callbacks(x)
+                for callback in callbacks:
+                    callback_pairs.append((callback, x))
+                    if callback.is_one_shot:
+                        self._unregister_one_callback(callback)
+        for callback, x in callback_pairs:
+            callback(x)
 
     ### PRIVATE METHODS ###
 
@@ -87,10 +105,41 @@ class MidiDispatcher(Dispatcher):
             raise ValueError(message)
         return result
 
+    def _unregister_one_callback(self, callback):
+        callback_maps = [self._callback_map]
+        dispatcher_key = callback.dispatcher_key
+        for key in dispatcher_key:
+            callback_maps.append(callback_maps[-1][key])
+        callback_set = callback_maps.pop()
+        callback_set.remove(callback)
+        for key, callback_map in zip(
+            reversed(dispatcher_key), reversed(callback_maps)):
+            if not callback_map[key]:
+                del(callback_map[key])
+
     ### PUBLIC METHODS ###
 
     def close_port(self):
         self._midi_in.close_port()
+
+    def collect_callbacks(self, message):
+        callbacks = []
+        dispatcher_key = message.dispatcher_key
+        old_callback_maps = [self._callback_map]
+        for key in dispatcher_key:
+            new_callback_maps = []
+            subkeys = (key, None)
+            for old_callback_map in old_callback_maps:
+                for subkey in subkeys:
+                    new_callback_map = old_callback_map.get(subkey, None)
+                    if not new_callback_map:
+                        continue
+                    if isinstance(new_callback_map, set):
+                        callbacks.extend(new_callback_map)
+                    else:
+                        new_callback_maps.append(new_callback_map)
+            old_callback_maps = new_callback_maps
+        return set(callbacks)
 
     def list_ports(self):
         return self._midi_in.ports
@@ -98,12 +147,38 @@ class MidiDispatcher(Dispatcher):
     def open_port(self, port=None):
         self._midi_in.open_port(port)
 
+    def register_callback(self, callback):
+        assert isinstance(callback, self.callback_class)
+        with self.lock:
+            callback_map = self._callback_map
+            dispatcher_key = callback.dispatcher_key
+            for key in dispatcher_key[:-1]:
+                if key not in callback_map:
+                    callback_map[key] = {}
+                callback_map = callback_map[key]
+            if dispatcher_key[-1] not in callback_map:
+                callback_map[dispatcher_key[-1]] = set()
+            callback_map[dispatcher_key[-1]].add(callback)
+
+    def unregister_callback(self, callback):
+        assert isinstance(callback, self.callback_class)
+        with self.lock:
+            self._unregister_one_callback(callback)
+
     ### PUBLIC PROPERTIES ###
 
     @property
     def callback_class(self):
         from supriya.tools import miditools
         return miditools.MidiCallback
+
+    @property
+    def debug(self):
+        return self._debug
+
+    @property
+    def lock(self):
+        return self._lock
 
 
 _message_handlers = {
