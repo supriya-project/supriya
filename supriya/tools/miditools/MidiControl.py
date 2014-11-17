@@ -3,6 +3,22 @@ from supriya.tools.miditools.MidiCallback import MidiCallback
 
 
 class MidiControl(MidiCallback):
+    r'''A MIDI controller change callback.
+
+    ::
+
+        >>> callback = miditools.MidiControl(
+        ...     channel_number=1,
+        ...     controller_number=17,
+        ...     )
+
+    ::
+
+        >>> dispatcher = miditools.MidiDispatcher()
+        >>> dispatcher.register_callback(callback)
+        >>> dispatcher.unregister_callback(callback)
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -36,10 +52,28 @@ class MidiControl(MidiCallback):
 
     @property
     def controller_number(self):
+        r'''Gets callback controller number.
+
+        ::
+
+            >>> callback.controller_number
+            17
+
+        Returns integer or none.
+        '''
         return self._controller_number
 
     @property
     def dispatcher_key(self):
+        r'''Gets callback dispatcher key.
+
+        ::
+
+            >>> callback.dispatcher_key
+            (<class 'supriya.tools.miditools.ControllerChangeMessage.ControllerChangeMessage'>, 1, 17)
+
+        Returns tuple.
+        '''
         return (
             self._prototype,
             self._channel_number,
