@@ -57,3 +57,10 @@ class MidiCallback(SupriyaObject):
     @property
     def prototype(self):
         return self._prototype
+
+    @property
+    def dispatcher_key(self):
+        return (
+            self._prototype,
+            self._channel_number,
+            )
