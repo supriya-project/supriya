@@ -37,3 +37,11 @@ class ControllerChangeMessage(MidiMessage):
     @property
     def controller_value(self):
         return self._controller_value
+
+    @property
+    def dispatcher_key(self):
+        return (
+            type(self),
+            self._channel_number,
+            self._controller_number,
+            )

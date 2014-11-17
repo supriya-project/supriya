@@ -29,5 +29,12 @@ class MidiMessage(SupriyaValueObject):
         return self._channel_number
 
     @property
+    def dispatcher_key(self):
+        return (
+            type(self),
+            self._channel_number,
+            )
+
+    @property
     def timestamp(self):
         return self._timestamp
