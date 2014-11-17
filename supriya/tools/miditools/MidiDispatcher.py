@@ -35,15 +35,65 @@ class MidiDispatcher(Dispatcher):
     ### PRIVATE METHODS ###
 
     def _coerce_input(self, expr):
-        from supriya.tools import miditools
         message, timestamp = expr
-        midi_message = miditools.MidiManager.handle_message(message, timestamp)
+        midi_message = MidiDispatcher._handle_message(message, timestamp)
         return (midi_message,)
+
+    @staticmethod
+    def _handle_controller_change_message(channel_number, data, timestamp):
+        from supriya.tools import miditools
+        controller_number, controller_value = data
+        message = miditools.ControllerChangeMessage(
+            channel_number=channel_number,
+            controller_number=controller_number,
+            controller_value=controller_value,
+            timestamp=timestamp,
+            )
+        return message
+
+    @staticmethod
+    def _handle_note_off_message(channel_number, data, timestamp):
+        from supriya.tools import miditools
+        note_number, velocity = data
+        message = miditools.NoteOffMessage(
+            channel_number=channel_number,
+            note_number=note_number,
+            timestamp=timestamp,
+            velocity=velocity,
+            )
+        return message
+
+    @staticmethod
+    def _handle_note_on_message(channel_number, data, timestamp):
+        from supriya.tools import miditools
+        note_number, velocity = data
+        message = miditools.NoteOnMessage(
+            channel_number=channel_number,
+            note_number=note_number,
+            timestamp=timestamp,
+            velocity=velocity,
+            )
+        return message
+
+    @staticmethod
+    def _handle_message(message, timestamp):
+        status_byte, data = message[0], message[1:]
+        message_type = status_byte >> 4
+        channel_number = status_byte & 0x0f
+        if message_type in _message_handlers:
+            _handler = _message_handlers[message_type]
+            result = _handler(channel_number, data, timestamp)
+        else:
+            raise ValueError(message)
+        return result
 
     ### PUBLIC METHODS ###
 
-    def open_port(self):
-        self._midi_in.open_port()
+    def close_port(self):
+        self._midi_in.close_port()
+
+    def open_port(self, port=None):
+        self._midi_in.open_port(port)
 
     ### PUBLIC PROPERTIES ###
 
@@ -51,3 +101,10 @@ class MidiDispatcher(Dispatcher):
     def callback_class(self):
         from supriya.tools import miditools
         return miditools.MidiCallback
+
+
+_message_handlers = {
+    8: MidiDispatcher.handle_note_on_message,
+    9: MidiDispatcher.handle_note_off_message,
+    11: MidiDispatcher.handle_controller_change_message,
+    }
