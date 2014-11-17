@@ -92,6 +92,9 @@ class MidiDispatcher(Dispatcher):
     def close_port(self):
         self._midi_in.close_port()
 
+    def list_ports(self):
+        return self._midi_in.ports
+
     def open_port(self, port=None):
         self._midi_in.open_port(port)
 
@@ -104,7 +107,7 @@ class MidiDispatcher(Dispatcher):
 
 
 _message_handlers = {
-    8: MidiDispatcher.handle_note_on_message,
-    9: MidiDispatcher.handle_note_off_message,
-    11: MidiDispatcher.handle_controller_change_message,
+    8: MidiDispatcher._handle_note_on_message,
+    9: MidiDispatcher._handle_note_off_message,
+    11: MidiDispatcher._handle_controller_change_message,
     }
