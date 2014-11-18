@@ -204,6 +204,22 @@ class BusGroup(ServerObjectProxy, BindingTarget):
         self._bus_id = None
         ServerObjectProxy.free(self)
 
+    def get(self):
+        from supriya.tools import requesttools
+        from supriya.tools import synthdeftools
+        if self.calculation_rate != synthdeftools.CalculationRate.CONTROL:
+            return
+        if not self.is_allocated:
+            return
+        index_count_pairs = [(self.bus_id, len(self))]
+        request = requesttools.ControlBusGetContiguousRequest(
+            index_count_pairs=index_count_pairs,
+            )
+        response = request.communicate(server=self.server)
+        assert len(response) == 1
+        value = response[0].bus_values
+        return value
+
     def index(self, item):
         return self.buses.index(item)
 
