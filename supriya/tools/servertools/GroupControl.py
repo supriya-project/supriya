@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.bindingtools.BindingTarget import BindingTarget
 
 
-class GroupControl(SupriyaObject):
+class GroupControl(BindingTarget):
 
     ### CLASS VARIABLES ###
 
@@ -21,7 +21,7 @@ class GroupControl(SupriyaObject):
         client=None,
         name=None,
         ):
-        self._binding_sources = set()
+        BindingTarget.__init__(self)
         self._client = client
         self._name = str(name)
 

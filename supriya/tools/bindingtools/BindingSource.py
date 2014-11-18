@@ -4,6 +4,10 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class BindingSource(SupriyaObject):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
     ### INITIALIZER ###
 
     def __init__(self):

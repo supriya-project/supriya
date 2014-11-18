@@ -49,8 +49,7 @@ class MidiControl(MidiCallback, BindingSource):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        for binding in self._binding_targets:
-            binding(message.value)
+        self._send_bound_event(message.value)
 
     ### PUBLIC PROPERTIES ###
 

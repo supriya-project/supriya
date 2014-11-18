@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.bindingtools.BindingTarget import BindingTarget
 
 
-class SynthControl(SupriyaObject):
+class SynthControl(BindingTarget):
 
     ### CLASS VARIABLES ###
 
@@ -31,7 +31,7 @@ class SynthControl(SupriyaObject):
         value=None,
         ):
         from supriya.tools import synthdeftools
-        self._binding_sources = set()
+        BindingTarget.__init__(self)
         self._client = client
         self._name = str(name)
         if isinstance(range_, synthdeftools.Range):
