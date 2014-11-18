@@ -7,8 +7,8 @@ class Binding(SupriyaObject):
 
     ::
 
-        >>> source = bindingtools.BindingSource()
-        >>> target = bindingtools.BindingTarget()
+        >>> source = bindingtools.BindingInput()
+        >>> target = bindingtools.BindingOutput()
 
     ..  container:: example
 
@@ -21,7 +21,7 @@ class Binding(SupriyaObject):
         ::
 
             >>> source._send_bound_event('An event!')
-            Received 'An event!' @ supriya.tools.bindingtools.BindingTarget()
+            Received 'An event!' @ supriya.tools.bindingtools.BindingOutput()
 
         ::
 
@@ -35,17 +35,17 @@ class Binding(SupriyaObject):
             >>> for i in range(11):
             ...     source._send_bound_event(float(i) / 10.)
             ...
-            Received 0.0 @ supriya.tools.bindingtools.BindingTarget()
-            Received 12.7... @ supriya.tools.bindingtools.BindingTarget()
-            Received 25.4... @ supriya.tools.bindingtools.BindingTarget()
-            Received 38.1 @ supriya.tools.bindingtools.BindingTarget()
-            Received 50.8... @ supriya.tools.bindingtools.BindingTarget()
-            Received 63.5 @ supriya.tools.bindingtools.BindingTarget()
-            Received 76.2 @ supriya.tools.bindingtools.BindingTarget()
-            Received 88.899... @ supriya.tools.bindingtools.BindingTarget()
-            Received 101.6... @ supriya.tools.bindingtools.BindingTarget()
-            Received 114.3 @ supriya.tools.bindingtools.BindingTarget()
-            Received 127.0 @ supriya.tools.bindingtools.BindingTarget()
+            Received 0.0 @ supriya.tools.bindingtools.BindingOutput()
+            Received 12.7... @ supriya.tools.bindingtools.BindingOutput()
+            Received 25.4... @ supriya.tools.bindingtools.BindingOutput()
+            Received 38.1 @ supriya.tools.bindingtools.BindingOutput()
+            Received 50.8... @ supriya.tools.bindingtools.BindingOutput()
+            Received 63.5 @ supriya.tools.bindingtools.BindingOutput()
+            Received 76.2 @ supriya.tools.bindingtools.BindingOutput()
+            Received 88.899... @ supriya.tools.bindingtools.BindingOutput()
+            Received 101.6... @ supriya.tools.bindingtools.BindingOutput()
+            Received 114.3 @ supriya.tools.bindingtools.BindingOutput()
+            Received 127.0 @ supriya.tools.bindingtools.BindingOutput()
 
         ::
 
@@ -59,17 +59,17 @@ class Binding(SupriyaObject):
             >>> for i in range(11):
             ...     source._send_bound_event(float(i) / 10.)
             ...
-            Received 0.0 @ supriya.tools.bindingtools.BindingTarget()
-            Received 1.27... @ supriya.tools.bindingtools.BindingTarget()
-            Received 5.08... @ supriya.tools.bindingtools.BindingTarget()
-            Received 11.43 @ supriya.tools.bindingtools.BindingTarget()
-            Received 20.32... @ supriya.tools.bindingtools.BindingTarget()
-            Received 31.75 @ supriya.tools.bindingtools.BindingTarget()
-            Received 45.72 @ supriya.tools.bindingtools.BindingTarget()
-            Received 62.2299... @ supriya.tools.bindingtools.BindingTarget()
-            Received 81.28... @ supriya.tools.bindingtools.BindingTarget()
-            Received 102.87 @ supriya.tools.bindingtools.BindingTarget()
-            Received 127.0 @ supriya.tools.bindingtools.BindingTarget()
+            Received 0.0 @ supriya.tools.bindingtools.BindingOutput()
+            Received 1.27... @ supriya.tools.bindingtools.BindingOutput()
+            Received 5.08... @ supriya.tools.bindingtools.BindingOutput()
+            Received 11.43 @ supriya.tools.bindingtools.BindingOutput()
+            Received 20.32... @ supriya.tools.bindingtools.BindingOutput()
+            Received 31.75 @ supriya.tools.bindingtools.BindingOutput()
+            Received 45.72 @ supriya.tools.bindingtools.BindingOutput()
+            Received 62.2299... @ supriya.tools.bindingtools.BindingOutput()
+            Received 81.28... @ supriya.tools.bindingtools.BindingOutput()
+            Received 102.87 @ supriya.tools.bindingtools.BindingOutput()
+            Received 127.0 @ supriya.tools.bindingtools.BindingOutput()
 
         ::
 

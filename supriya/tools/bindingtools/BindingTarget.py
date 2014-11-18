@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
+import abc
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -11,6 +12,7 @@ class BindingTarget(SupriyaObject):
 
     ### INITIALIZER ###
 
+    @abc.abstractmethod
     def __init__(self):
         self._binding_sources = set()
 

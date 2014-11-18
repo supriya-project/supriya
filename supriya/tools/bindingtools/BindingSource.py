@@ -1,11 +1,17 @@
 # -*- encoding: utf-8 -*-
+import abc
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class BindingSource(SupriyaObject):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
     ### INITIALIZER ###
 
+    @abc.abstractmethod
     def __init__(self, output_range=None):
         from supriya.tools import synthdeftools
         self._binding_targets = set()
