@@ -8,6 +8,7 @@ before_install:
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y jackd1
+    - killall jackd
     - sudo jackd -m -n TEST -r -d dummy -r 44100 &
     - sleep 5
     - ls
