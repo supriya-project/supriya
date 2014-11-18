@@ -80,3 +80,62 @@ class LinRand(UGen):
             skew=skew,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of LinRand.
+
+        ::
+
+            >>> lin_rand = ugentools.LinRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     skew=0.9,
+            ...     )
+            >>> lin_rand.maximum
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of LinRand.
+
+        ::
+
+            >>> lin_rand = ugentools.LinRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     skew=0.9,
+            ...     )
+            >>> lin_rand.minimum
+            -1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def skew(self):
+        r'''Gets `skew` input of LinRand.
+
+        ::
+
+            >>> lin_rand = ugentools.LinRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     skew=0.9,
+            ...     )
+            >>> lin_rand.skew
+            0.9
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('skew')
+        return self._inputs[index]

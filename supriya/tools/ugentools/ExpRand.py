@@ -70,3 +70,41 @@ class ExpRand(UGen):
             minimum=minimum,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of ExpRand.
+
+        ::
+
+            >>> exp_rand = ugentools.ExpRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     )
+            >>> exp_rand.maximum
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of ExpRand.
+
+        ::
+
+            >>> exp_rand = ugentools.ExpRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     )
+            >>> exp_rand.minimum
+            -1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
