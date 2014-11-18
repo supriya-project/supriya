@@ -2,13 +2,13 @@
 from supriya.tools.ugentools.PureUGen import PureUGen
 
 
-class LFTri(PureUGen):
-    r'''A non-band-limited triangle oscillator unit generator.
+class LFPulse(PureUGen):
+    r'''A non-band-limited pulse oscillator.
 
     ::
 
-        >>> ugentools.LFTri.ar()
-        LFTri.ar()
+        >>> ugentools.LFPulse.ar()
+        LFPulse.ar()
 
     '''
 
@@ -21,21 +21,26 @@ class LFTri(PureUGen):
     _ordered_input_names = (
         'frequency',
         'initial_phase',
+        'width',
         )
+
+    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        frequency=440.,
-        initial_phase=0.,
+        frequency=440,
+        initial_phase=0,
+        width=0.5,
         ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
+            width=width,
             )
 
     ### PUBLIC METHODS ###
@@ -45,18 +50,20 @@ class LFTri(PureUGen):
         cls,
         frequency=440,
         initial_phase=0,
+        width=0.5,
         ):
-        r'''Creates an audio-rate non-band-limited triangle oscillator.
+        r'''Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
 
-            >>> ugentools.LFTri.ar(
-            ...     frequency=443,
-            ...     initial_phase=0.25,
+            >>> ugentools.LFPulse.ar(
+            ...     frequency=[440, 442],
+            ...     initial_phase=0.5,
+            ...     width=0.1,
             ...     )
-            LFTri.ar()
+            UGenArray({2})
 
-        Returns unit generator graph.
+        Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
@@ -64,6 +71,7 @@ class LFTri(PureUGen):
             calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
+            width=width,
             )
         return ugen
 
@@ -72,18 +80,20 @@ class LFTri(PureUGen):
         cls,
         frequency=440,
         initial_phase=0,
+        width=0.5,
         ):
-        r'''Creates a control-rate non-band-limited triangle oscillator.
+        r'''Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
 
-            >>> ugentools.LFTri.kr(
-            ...     frequency=443,
-            ...     initial_phase=0.25,
+            >>> ugentools.LFPulse.kr(
+            ...     frequency=[4, 2],
+            ...     initial_phase=0.5,
+            ...     width=0.1,
             ...     )
-            LFTri.kr()
+            UGenArray({2})
 
-        Returns unit generator graph.
+        Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
@@ -91,6 +101,7 @@ class LFTri(PureUGen):
             calculation_rate=calculation_rate,
             frequency=frequency,
             initial_phase=initial_phase,
+            width=width,
             )
         return ugen
 
@@ -98,36 +109,57 @@ class LFTri(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFTri.
+        r'''Gets `frequency` input of LFPulse.
 
         ::
 
-            >>> frequency = 442
-            >>> l_f_tri = ugentools.LFTri.ar(
-            ...     frequency=frequency,
+            >>> l_f_pulse = ugentools.LFPulse.ar(
+            ...     frequency=3,
+            ...     initial_phase=0.5,
+            ...     width=0.1,
             ...     )
-            >>> l_f_tri.frequency
-            442.0
+            >>> l_f_pulse.frequency
+            3.0
 
-        Returns input.
+        Returns ugen input.
         '''
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFTri.
+        r'''Gets `initial_phase` input of LFPulse.
 
         ::
 
-            >>> initial_phase = 0.5
-            >>> l_f_tri = ugentools.LFTri.ar(
-            ...     initial_phase=initial_phase,
+            >>> l_f_pulse = ugentools.LFPulse.ar(
+            ...     frequency=3,
+            ...     initial_phase=0.5,
+            ...     width=0.1,
             ...     )
-            >>> l_f_tri.initial_phase
+            >>> l_f_pulse.initial_phase
             0.5
 
-        Returns input.
+        Returns ugen input.
         '''
         index = self._ordered_input_names.index('initial_phase')
+        return self._inputs[index]
+
+    @property
+    def width(self):
+        r'''Gets `width` input of LFPulse.
+
+        ::
+
+            >>> l_f_pulse = ugentools.LFPulse.ar(
+            ...     frequency=3,
+            ...     initial_phase=0.5,
+            ...     width=0.1,
+            ...     )
+            >>> l_f_pulse.width
+            0.1
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('width')
         return self._inputs[index]
