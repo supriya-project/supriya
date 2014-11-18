@@ -12,7 +12,7 @@ before_install:
     - sudo jackd -m -n TEST -r -d dummy -r 44100 &
     - sleep 5
     - ls
-    - scsynth -D 0 -H TEST:foo -u 57751 &
+    - scsynth -D 0 -H TEST:CLIENT TEST:CLIENT -u 57751 &
     - sleep 5
     - killall scsynth
 
