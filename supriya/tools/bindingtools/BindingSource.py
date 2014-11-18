@@ -6,8 +6,14 @@ class BindingSource(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, output_range=None):
+        from supriya.tools import synthdeftools
         self._binding_targets = set()
+        if output_range is not None:
+            output_range = synthdeftools.Range(output_range)
+        else:
+            output_range = synthdeftools.Range(0, 1)
+        self._output_range = output_range
 
     ### PRIVATE METHODS ###
 
