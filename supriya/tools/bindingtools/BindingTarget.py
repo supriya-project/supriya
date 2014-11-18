@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -12,7 +13,7 @@ class BindingTarget(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _receive_bound_event(self, event=None):
-        print(event)
+        print('Received {!r} @ {}'.format(event, self))
 
     ### PUBLIC METHODS ###
 

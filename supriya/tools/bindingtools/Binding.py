@@ -3,6 +3,22 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Binding(SupriyaObject):
+    r'''A binding.
+
+    ::
+
+        >>> source = bindingtools.BindingSource()
+        >>> target = bindingtools.BindingTarget()
+        >>> binding = bind(source, target)
+        >>> binding
+        Binding()
+
+    ::
+
+        >>> source._send_bound_event('An event!')
+        Received 'An event!' @ supriya.tools.bindingtools.BindingTarget()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -20,7 +36,7 @@ class Binding(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, event=None):
-        self._source._receive_bound_event(event)
+        self._target._receive_bound_event(event)
 
     ### PUBLIC METHODS ###
 
@@ -28,8 +44,10 @@ class Binding(SupriyaObject):
         self.unbind()
         assert hasattr(source, '_binding_targets')
         assert hasattr(target, '_binding_sources')
-        target.__bindings__.add(self)
-        source.__bindings__.add(self)
+        target._binding_sources.add(self)
+        source._binding_targets.add(self)
+        self._target = target
+        self._source = source
 
     def unbind(self):
         if self._source is not None:
