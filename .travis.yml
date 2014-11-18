@@ -3,6 +3,10 @@ language: python
 python:
     - 2.7
 
+env:
+    - SC_JACK_DEFAULT_INPUTS="dummy_pcm:capture_1,dummy_pcm:capture_2"
+    - SC_JACK_DEFAULT_OUTPUTS="dummy_pcm:playback_1,dummy_pcm:playback_2"
+
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y graphviz
