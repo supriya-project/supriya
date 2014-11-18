@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.bindingtools.BindingTarget import BindingTarget
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BusGroup(ServerObjectProxy):
+class BusGroup(ServerObjectProxy, BindingTarget):
     r'''A bus group.
     '''
 
@@ -11,6 +12,7 @@ class BusGroup(ServerObjectProxy):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
+        '_binding_sources',
         '_bus_id',
         '_buses',
         '_calculation_rate',
@@ -21,14 +23,19 @@ class BusGroup(ServerObjectProxy):
     def __init__(
         self,
         bus_count=1,
-        bus_id=None,
         calculation_rate=None,
+        bus_id=None,
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
+        BindingTarget.__init__(self)
         ServerObjectProxy.__init__(self)
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
+        assert calculation_rate in (
+            synthdeftools.CalculationRate.AUDIO,
+            synthdeftools.CalculationRate.CONTROL,
+            )
         self._calculation_rate = calculation_rate
         bus_count = int(bus_count)
         assert 0 < bus_count
@@ -82,6 +89,14 @@ class BusGroup(ServerObjectProxy):
 
     def __str__(self):
         return self.map_symbol
+
+    ### PRIVATE METHODS ###
+
+    def _receive_bound_event(self, event=None):
+        if event is None:
+            return
+        event = float(event)
+        self.fill(event)
 
     ### PUBLIC METHODS ###
 
