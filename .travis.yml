@@ -10,7 +10,7 @@ before_install:
     - sudo apt-get install -y jackd1
     - sudo jackd -m -n test -r -d dummy -r 44100 &
     - sleep 2
-    - scsynth -H test:foo -u 57751 &
+    - scsynth -D 0 -H test:foo -u 57751 &
     - sleep 2
     - killall scsynth
 
