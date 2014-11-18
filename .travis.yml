@@ -14,7 +14,9 @@ before_install:
     - sudo apt-get install -y jackd1
     - sudo jackd -m -n dummyserver -p 16 -r -d dummy -r 44100 &
     - sleep 1
-    - scsynth -u 57759 -H dummyserver:foo
+    - scsynth -u 57759 -H dummyserver:foo &
+    - sleep 1
+    - killall scsynth
 
 install:
     - pip install -r requirements.txt
