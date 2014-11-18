@@ -104,31 +104,43 @@ Create and allocate a group:
 
 Make a synthesizer definition and send it to the server:
 
-    >>> synthdef_builder = synthdeftools.SynthDefBuilder(
-    ...     amplitude=0.0,
+    >>> builder = synthdeftools.SynthDefBuilder(
+    ...     amplitude=1.0,
     ...     frequency=440.0,
+    ...     gate=1.0,
     ...     )
-    >>> sin_osc = ugentools.SinOsc.ar(
-    ...     frequency=synthdef_builder['frequency'],
-    ...     )
-    >>> sin_osc *= synthdef_builder['amplitude']
-    >>> out = ugentools.Out.ar(
-    ...     bus=(0, 1),
-    ...     source=sin_osc,
-    ...     )
-    >>> synthdef_builder.add_ugen(out)
-    >>> synthdef = synthdef_builder.build().allocate(sync=True)
+    >>> with builder:
+    ...     source = ugentools.SinOsc.ar(
+    ...         frequency=builder['frequency'],
+    ...         )
+    ...     envelope = ugentools.EnvGen.kr(
+    ...         done_action=synthdeftools.DoneAction.FREE_SYNTH,
+    ...         envelope=synthdeftools.Envelope.asr(),
+    ...         gate=builder['gate'],
+    ...         )
+    ...     source *= builder['amplitude'] * envelope
+    ...     out = ugentools.Out.ar(
+    ...         bus=(0, 1),
+    ...         source=source,
+    ...         )
+    ...
+    >>> synthdef = builder.build().allocate()
 
 Synchronize with the server:
 
     >>> server.sync()
     <Server: udp://127.0.0.1:57751, 8i8o>
 
-Create a synthesizer with the previously defined synthesizer definition, and
-allocate it on the server as a child of the previously created group:
+Create a synthesizer with the previously defined synthesizer definition:
 
     >>> synth = servertools.Synth(synthdef)
-    >>> synth.allocate(target_node=group)
+    >>> synth
+    <Synth: ???>
+
+Allocate it on the server as a child of the previously created group:
+
+    >>> group.append(synth)
+    >>> synth
     <Synth: 1001>
 
 Query the server's node tree:
@@ -140,6 +152,16 @@ Query the server's node tree:
             1000 group
                 1001 f1c3ea5063065be20688f82b415c1108
                     amplitude: 0.0, frequency: 440.0
+
+Bind a MIDI controller to the synth's controls:
+
+    >>> korg = miditools.NanoKontrol2()
+    >>> korg.open_port(0)
+    >>> bind(korg.fader_1, synth['frequency'], range_=(110, 880), exponent=2)
+
+Release the synth:
+
+    >>> synth.release()
 
 Quit the server:
 
