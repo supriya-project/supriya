@@ -211,7 +211,7 @@ class ResponseManager(SupriyaObject):
             items.append(item)
             contents = contents[2 + bus_count:]
         items = tuple(items)
-        response = responsetools.CSetnResponse(
+        response = responsetools.ControlBusSetContiguousResponse(
             items=items,
             )
         return response
