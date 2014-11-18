@@ -9,14 +9,23 @@ class Media(object):
 
     def __getitem__(self, pattern):
         import supriya
-        media_path = os.path.join(
-            supriya.__path__[0],
-            'media',
-            )
+        search_path, pattern = os.path.split(pattern)
+        search_path = os.path.expanduser(search_path)
+        if not search_path:
+            search_path = os.path.join(
+                supriya.__path__[0],
+                'media',
+                )
+        elif not os.path.isabs(search_path):
+            search_path = os.path.join(
+                supriya.__path__[0],
+                'media',
+                search_path,
+                )
         result = []
-        result = os.listdir(media_path)
+        result = os.listdir(search_path)
         result = fnmatch.filter(result, pattern)
-        result = [os.path.join(media_path, _) for _ in result]
+        result = [os.path.join(search_path, _) for _ in result]
         if len(result) == 1:
             return result[0]
         return result
