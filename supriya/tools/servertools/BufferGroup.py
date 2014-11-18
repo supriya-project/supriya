@@ -170,7 +170,7 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
 
         ::
 
-            >>> file_paths = Media['*mono_1s*']
+            >>> file_paths = Library['*mono_1s*']
             >>> len(file_paths)
             4
 

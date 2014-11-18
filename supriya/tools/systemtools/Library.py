@@ -3,7 +3,7 @@ import fnmatch
 import os
 
 
-class Media(object):
+class Library(object):
 
     ### SPECIAL METHODS ###
 
@@ -14,12 +14,12 @@ class Media(object):
         if not search_path:
             search_path = os.path.join(
                 supriya.__path__[0],
-                'media',
+                'library',
                 )
         elif not os.path.isabs(search_path):
             search_path = os.path.join(
                 supriya.__path__[0],
-                'media',
+                'library',
                 search_path,
                 )
         result = []
@@ -31,4 +31,4 @@ class Media(object):
         return result
 
 
-Media = Media()
+Library = Library()
