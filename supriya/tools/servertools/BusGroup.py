@@ -176,6 +176,22 @@ class BusGroup(ServerObjectProxy, BindingTarget):
                 )
         return ugen
 
+    def fill(self, value):
+        from supriya.tools import requesttools
+        from supriya.tools import synthdeftools
+        if self.calculation_rate != synthdeftools.CalculationRate.CONTROL:
+            return
+        if not self.is_allocated:
+            return
+        index_count_value_triples = [(self.bus_id, len(self), value)]
+        request = requesttools.ControlBusFillRequest(
+            index_count_value_triples=index_count_value_triples,
+            )
+        request.communicate(
+            server=self.server,
+            sync=False,
+            )
+
     def free(self):
         from supriya.tools import servertools
         if not self.is_allocated:
