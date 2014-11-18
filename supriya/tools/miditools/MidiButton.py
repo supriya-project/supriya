@@ -6,6 +6,9 @@ from supriya.tools.miditools.MidiController import MidiController
 class MidiButton(MidiController):
 
     __slots__ = (
+        '_invert',
+        '_on_press',
+        '_on_release',
         )
 
     ### INITIALIZER ###
@@ -22,8 +25,8 @@ class MidiButton(MidiController):
             controller_number=controller_number,
             )
         self._invert = bool(invert)
-        self._on_press = bindingtools.BindingSource()
-        self._on_release = bindingtools.BindingSource()
+        self._on_press = bindingtools.BindingInput()
+        self._on_release = bindingtools.BindingInput()
         self._previous_value = False
 
     ### SPECIAL METHODS ###

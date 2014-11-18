@@ -4,6 +4,12 @@ from supriya.tools.miditools.MidiController import MidiController
 
 class MidiFader(MidiController):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
+    ### INITIALIZER ###
+
     def __init__(
         self,
         channel_number=None,

@@ -28,6 +28,7 @@ class MidiController(MidiCallback, BindingSource):
         '_binding_targets',
         '_controller_number',
         '_on_change',
+        '_output_range',
         '_previous_value',
         )
 
@@ -50,7 +51,7 @@ class MidiController(MidiCallback, BindingSource):
         if controller_number is not None:
             controller_number = int(controller_number)
         self._controller_number = controller_number
-        self._on_change = bindingtools.BindingSource()
+        self._on_change = bindingtools.BindingInput()
         self._previous_value = None
 
     ### SPECIAL METHODS ###
