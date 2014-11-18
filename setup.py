@@ -117,11 +117,15 @@ Example
 
 Import packages from **supriya**:
 
+::
+
     >>> from supriya import servertools
     >>> from supriya import synthdeftools
     >>> from supriya import ugentools
 
 Boot the SuperCollider server:
+
+::
 
     >>> server = servertools.Server()
     >>> server.boot()
@@ -129,9 +133,13 @@ Boot the SuperCollider server:
 
 Create and allocate a group:
 
+::
+
     >>> group = servertools.Group().allocate()
 
 Make a synthesizer definition and send it to the server:
+
+::
 
     >>> builder = synthdeftools.SynthDefBuilder(
     ...     amplitude=1.0,
@@ -157,10 +165,14 @@ Make a synthesizer definition and send it to the server:
 
 Synchronize with the server:
 
+::
+
     >>> server.sync()
     <Server: udp://127.0.0.1:57751, 8i8o>
 
 Create a synthesizer with the previously defined synthesizer definition:
+
+::
 
     >>> synth = servertools.Synth(synthdef)
     >>> synth
@@ -168,11 +180,15 @@ Create a synthesizer with the previously defined synthesizer definition:
 
 Allocate it on the server as a child of the previously created group:
 
+::
+
     >>> group.append(synth)
     >>> synth
     <Synth: 1001>
 
 Query the server's node tree:
+
+::
 
     >>> response = server.query_remote_nodes(include_controls=True)
     >>> print(response)
@@ -184,15 +200,21 @@ Query the server's node tree:
 
 Bind a MIDI controller to the synth's controls:
 
+::
+
     >>> korg = miditools.NanoKontrol2()
     >>> korg.open_port(0)
     >>> bind(korg.fader_1, synth['frequency'], range_=(110, 880), exponent=2)
 
 Release the synth:
 
+::
+
     >>> synth.release()
 
 Quit the server:
+
+::
 
     >>> server.quit()
     <Server: offline>
