@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-import collections
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BusGroup(ServerObjectProxy, collections.Sequence):
+class BusGroup(ServerObjectProxy):
     r'''A bus group.
     '''
 
@@ -45,6 +44,9 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
+    def __contains__(self, item):
+        return self.buses.__contains__(item)
+
     def __float__(self):
         return float(self.bus_id)
 
@@ -63,6 +65,9 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
 
     def __int__(self):
         return int(self.bus_id)
+
+    def __iter__(self):
+        return iter(self.buses)
 
     def __len__(self):
         return len(self._buses)
@@ -167,6 +172,9 @@ class BusGroup(ServerObjectProxy, collections.Sequence):
         allocator.free(self.bus_id)
         self._bus_id = None
         ServerObjectProxy.free(self)
+
+    def index(self, item):
+        return self.buses.index(item)
 
     def kr(self):
         r'''Creates a control-rate input ugen subgraph.

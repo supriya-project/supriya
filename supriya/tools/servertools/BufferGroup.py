@@ -1,10 +1,9 @@
 # -*- encoding: utf-8 -*-
-import collections
 import os
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BufferGroup(ServerObjectProxy, collections.Sequence):
+class BufferGroup(ServerObjectProxy):
     r'''A buffer group.
 
     ::
@@ -64,6 +63,9 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
 
     ### SPECIAL METHODS ###
 
+    def __contains__(self, item):
+        return self.buffers.__contains__(item)
+
     def __float__(self):
         return float(self.buffer_id)
 
@@ -76,6 +78,9 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
 
     def __int__(self):
         return int(self.buffer_id)
+
+    def __iter__(self):
+        return iter(self.buffers)
 
     def __len__(self):
         r'''Gets length of buffer group.
@@ -160,6 +165,9 @@ class BufferGroup(ServerObjectProxy, collections.Sequence):
         self._buffer_id = None
         self.server.buffer_allocator.free(buffer_id)
         ServerObjectProxy.free(self)
+
+    def index(self, item):
+        return self.buffers.index(item)
 
     @staticmethod
     def from_file_paths(
