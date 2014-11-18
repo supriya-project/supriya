@@ -41,6 +41,8 @@ class TIRand(UGen):
         minimum=0,
         trigger=0,
         ):
+        minimum = int(minimum)
+        maximum = int(maximum)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,

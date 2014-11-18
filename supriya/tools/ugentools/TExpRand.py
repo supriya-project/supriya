@@ -116,3 +116,73 @@ class TExpRand(UGen):
             trigger=trigger,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of TExpRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_exp_rand = ugentools.TExpRand.ar(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_exp_rand.maximum
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of TExpRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_exp_rand = ugentools.TExpRand.ar(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_exp_rand.minimum
+            -1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of TExpRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_exp_rand = ugentools.TExpRand.ar(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_exp_rand.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]

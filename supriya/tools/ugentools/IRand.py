@@ -33,6 +33,8 @@ class IRand(UGen):
         minimum=0,
         maximum=127,
         ):
+        minimum = int(minimum)
+        maximum = int(maximum)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -69,3 +71,41 @@ class IRand(UGen):
             minimum=minimum,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of IRand.
+
+        ::
+
+            >>> i_rand = ugentools.IRand.ir(
+            ...     minimum=0,
+            ...     maximum=127,
+            ...     )
+            >>> i_rand.maximum
+            127.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of IRand.
+
+        ::
+
+            >>> i_rand = ugentools.IRand.ir(
+            ...     minimum=0,
+            ...     maximum=127,
+            ...     )
+            >>> i_rand.minimum
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
