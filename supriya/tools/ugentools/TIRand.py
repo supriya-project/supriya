@@ -114,3 +114,73 @@ class TIRand(UGen):
             trigger=trigger,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of TIRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_i_rand = ugentools.TIRand.ar(
+            ...     minimum=0,
+            ...     maximum=127,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_i_rand.maximum
+            127.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of TIRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_i_rand = ugentools.TIRand.ar(
+            ...     minimum=0,
+            ...     maximum=127,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_i_rand.minimum
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of TIRand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> t_i_rand = ugentools.TIRand.ar(
+            ...     minimum=0,
+            ...     maximum=127,
+            ...     trigger=trigger,
+            ...     )
+            >>> t_i_rand.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]
