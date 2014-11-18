@@ -34,28 +34,15 @@ class MidiDispatcher(SupriyaObject):
 
     def __call__(self, message, timestamp):
         expr = (message, timestamp)
-        callback_pairs = []
-        input_ = self._coerce_input(expr)
-        if self.debug:
-            print('RECV', type(self))
-            for line in repr(input_).splitlines():
-                print('    ' + line)
-        with self.lock:
-            for x in input_:
-                callbacks = self._collect_callbacks(x)
-                for callback in callbacks:
-                    callback_pairs.append((callback, x))
-                    if callback.is_one_shot:
-                        self._unregister_one_callback(callback)
-        for callback, x in callback_pairs:
-            callback(x)
+        message = self._coerce_input(expr)
+        self.dispatch_message(message)
 
     ### PRIVATE METHODS ###
 
     def _coerce_input(self, expr):
         message, timestamp = expr
         midi_message = MidiDispatcher._handle_message(message, timestamp)
-        return (midi_message,)
+        return midi_message
 
     @staticmethod
     def _handle_controller_change_message(channel_number, data, timestamp):
@@ -140,6 +127,21 @@ class MidiDispatcher(SupriyaObject):
                         new_callback_maps.append(new_callback_map)
             old_callback_maps = new_callback_maps
         return set(callbacks)
+
+    def dispatch_message(self, message):
+        if self.debug:
+            print('RECV', type(self))
+            for line in repr(message).splitlines():
+                print('    ' + line)
+        callback_pairs = []
+        with self.lock:
+            callbacks = self._collect_callbacks(message)
+            for callback in callbacks:
+                callback_pairs.append((callback, message))
+                if callback.is_one_shot:
+                    self._unregister_one_callback(callback)
+        for callback, x in callback_pairs:
+            callback(x)
 
     def list_ports(self):
         return self._midi_in.ports
