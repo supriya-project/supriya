@@ -38,6 +38,14 @@ class Range(SupriyaObject):
             maximum=0.9
             )
 
+    ::
+
+        >>> synthdeftools.Range(synthdeftools.Range(-3, 3))
+        Range(
+            minimum=-3.0,
+            maximum=3.0
+            )
+
     '''
 
     ### CLASS VARIABLES ###
@@ -57,9 +65,11 @@ class Range(SupriyaObject):
         maximum=None,
         ):
         if isinstance(minimum, collections.Sequence) and \
-            len(minimum) == 2 and \
-            maximum is None:
+            maximum is None and \
+            len(minimum) == 2:
             minimum, maximum = minimum
+        elif isinstance(minimum, type(self)):
+            minimum, maximum = minimum.minimum, minimum.maximum
         if minimum is None:
             minimum = float('-inf')
         if not isinstance(minimum, (float, int)):
