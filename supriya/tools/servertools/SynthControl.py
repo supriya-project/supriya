@@ -48,6 +48,14 @@ class SynthControl(BindingTarget):
     def __str__(self):
         return self.name
 
+    ### PRIVATE METHODS ###
+
+    def _receive_bound_event(self, event=None):
+        if event is None:
+            return
+        event = float(event)
+        self.set(event)
+
     ### PRIVATE PROPERTIES ###
 
     @property
