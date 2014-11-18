@@ -146,8 +146,11 @@ class MidiDispatcher(SupriyaObject):
     def list_ports(self):
         return self._midi_in.ports
 
-    def open_port(self, port=None):
-        self._midi_in.open_port(port)
+    def open_port(self, port=None, virtual=False):
+        if virtual:
+            self._midi_in.open_virtual_port()
+        else:
+            self._midi_in.open_port(port)
 
     def register_callback(self, callback):
         assert isinstance(callback, self.callback_class)
