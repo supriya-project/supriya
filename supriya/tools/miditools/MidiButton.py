@@ -1,6 +1,6 @@
 # -*- encoding: utf-8- -*-
-from supriya.tools.miditools.MidiControl import MidiControl
+from supriya.tools.miditools.MidiController import MidiController
 
 
-class MidiButton(MidiControl):
+class MidiButton(MidiController):
     pass

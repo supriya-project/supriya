@@ -8,7 +8,7 @@ class MidiDevice(SupriyaObject):
 
     __slots__ = (
         '_callback',
-        '_midi_controls',
+        '_midi_controllers',
         '_midi_dispatcher',
         )
 
@@ -16,30 +16,30 @@ class MidiDevice(SupriyaObject):
 
     def __init__(
         self,
-        midi_controls=None,
+        midi_controllers=None,
         ):
         from supriya.tools import miditools
-        self._midi_controls = midi_controls
+        self._midi_controllers = midi_controllers
         self._midi_dispatcher = miditools.MidiDispatcher(debug=True)
-        for midi_control in self._midi_controls.values():
-            self._midi_dispatcher.register_callback(midi_control)
+        for midi_controller in self._midi_controllers.values():
+            self._midi_dispatcher.register_callback(midi_controller)
 
     ### SPECIAL METHODS ###
 
     def __getattr__(self, name):
-        if name in self._midi_controls:
-            return self._midi_controls[name]
+        if name in self._midi_controllers:
+            return self._midi_controllers[name]
         return object.__getattribute__(self, name)
 
     def __getitem__(self, item):
-        return self._midi_controls[item]
+        return self._midi_controllers[item]
 
     def __iter__(self):
-        for key in sorted(self._midi_controls.keys()):
+        for key in sorted(self._midi_controllers.keys()):
             yield key
 
     def __len__(self):
-        return len(self._midi_controls)
+        return len(self._midi_controllers)
 
     ### PUBLIC METHODS ###
 
@@ -55,5 +55,5 @@ class MidiDevice(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def midi_controls(self):
-        return tuple(self._midi_controls.items())
+    def midi_controllers(self):
+        return tuple(self._midi_controllers.items())

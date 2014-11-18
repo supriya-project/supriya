@@ -97,7 +97,7 @@ class NanoKontrol2(MidiDevice):
 
     def __init__(self):
         from supriya.tools import miditools
-        midi_controls = {
+        midi_controllers = {
             'fader_1': miditools.MidiFader(controller_number=0),
             'fader_2': miditools.MidiFader(controller_number=1),
             'fader_3': miditools.MidiFader(controller_number=2),
@@ -152,5 +152,5 @@ class NanoKontrol2(MidiDevice):
             }
         MidiDevice.__init__(
             self,
-            midi_controls=midi_controls,
+            midi_controllers=midi_controllers,
             )

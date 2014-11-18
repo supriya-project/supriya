@@ -6,32 +6,32 @@ def test_MidiDispatcher_collect_callbacks_01():
 
     dispatcher = miditools.MidiDispatcher()
 
-    callback_a = miditools.MidiControl(
+    callback_a = miditools.MidiController(
         channel_number=None,
         controller_number=None,
         )
 
-    callback_b = miditools.MidiControl(
+    callback_b = miditools.MidiController(
         channel_number=1,
         controller_number=None,
         )
 
-    callback_c = miditools.MidiControl(
+    callback_c = miditools.MidiController(
         channel_number=None,
         controller_number=17,
         )
 
-    callback_d = miditools.MidiControl(
+    callback_d = miditools.MidiController(
         channel_number=1,
         controller_number=17,
         )
 
-    callback_e = miditools.MidiControl(
+    callback_e = miditools.MidiController(
         channel_number=2,
         controller_number=17,
         )
 
-    callback_f = miditools.MidiControl(
+    callback_f = miditools.MidiController(
         channel_number=2,
         controller_number=18,
         )

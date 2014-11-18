@@ -3,12 +3,12 @@ from supriya.tools.bindingtools.BindingSource import BindingSource
 from supriya.tools.miditools.MidiCallback import MidiCallback
 
 
-class MidiControl(MidiCallback, BindingSource):
+class MidiController(MidiCallback, BindingSource):
     r'''A MIDI controller change callback.
 
     ::
 
-        >>> callback = miditools.MidiControl(
+        >>> callback = miditools.MidiController(
         ...     channel_number=1,
         ...     controller_number=17,
         ...     )
