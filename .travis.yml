@@ -8,7 +8,9 @@ before_install:
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y jackd1
-    - sudo jackd -m -n dummy -p 16 -r -d dummy -r 44100 &
+    - sudo jackd -m -n dummyserver -p 16 -r -d dummy -r 44100 &
+    - sleep 1
+    - scsynth -u 57759 -H dummyserver:foo
 
 install:
     - pip install -r requirements.txt
