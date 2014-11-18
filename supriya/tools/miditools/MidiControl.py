@@ -1,8 +1,9 @@
 # -*- encoding: utf-8- -*-
+from supriya.tools.bindingtools.BindingSource import BindingSource
 from supriya.tools.miditools.MidiCallback import MidiCallback
 
 
-class MidiControl(MidiCallback):
+class MidiControl(MidiCallback, BindingSource):
     r'''A MIDI controller change callback.
 
     ::
@@ -23,6 +24,7 @@ class MidiControl(MidiCallback):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_binding_targets',
         '_controller_number',
         )
 
@@ -34,6 +36,7 @@ class MidiControl(MidiCallback):
         controller_number=None,
         ):
         from supriya.tools import miditools
+        BindingSource.__init__(self)
         MidiCallback.__init__(
             self,
             channel_number=channel_number,
@@ -46,7 +49,8 @@ class MidiControl(MidiCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        print(message)
+        for binding in self._binding_targets:
+            binding(message.value)
 
     ### PUBLIC PROPERTIES ###
 

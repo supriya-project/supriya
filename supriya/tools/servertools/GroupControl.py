@@ -9,7 +9,7 @@ class GroupControl(SupriyaObject):
     __documentation_section__ = 'Server Internals'
 
     __slots__ = (
-        '__binding_sources__',
+        '_binding_sources',
         '_client',
         '_name',
         )
@@ -21,7 +21,7 @@ class GroupControl(SupriyaObject):
         client=None,
         name=None,
         ):
-        self.__binding_sources__ = set()
+        self._binding_sources = set()
         self._client = client
         self._name = str(name)
 

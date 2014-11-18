@@ -20,22 +20,22 @@ class Binding(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, expr=None):
-        self._source.handle_binding(expr)
+        self._source._handle_binding_event(expr)
 
     ### PUBLIC METHODS ###
 
     def bind(self, source, target):
         self.unbind()
-        assert hasattr(source, '__binding_targets__')
-        assert hasattr(target, '__binding_sources__')
+        assert hasattr(source, '_binding_targets')
+        assert hasattr(target, '_binding_sources')
         target.__bindings__.add(self)
         source.__bindings__.add(self)
 
     def unbind(self):
         if self._source is not None:
-            self._source.__binding_targets__.remove(self)
+            self._source._binding_targets.remove(self)
         if self._target is not None:
-            self._target.__binding_sources__.remove(self)
+            self._target._binding_sources.remove(self)
         self._source = None
         self._target = None
 

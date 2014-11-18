@@ -9,7 +9,7 @@ class SynthControl(SupriyaObject):
     __documentation_section__ = 'Server Internals'
 
     __slots__ = (
-        '__binding_sources__',
+        '_binding_sources',
         '_client',
         '_default_value',
         '_name',
@@ -31,7 +31,7 @@ class SynthControl(SupriyaObject):
         value=None,
         ):
         from supriya.tools import synthdeftools
-        self.__binding_sources__ = set()
+        self._binding_sources = set()
         self._client = client
         self._name = str(name)
         if isinstance(range_, synthdeftools.Range):
