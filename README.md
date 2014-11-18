@@ -118,7 +118,8 @@ Make a synthesizer definition and send it to the server:
     ...         envelope=synthdeftools.Envelope.asr(),
     ...         gate=builder['gate'],
     ...         )
-    ...     source *= builder['amplitude'] * envelope
+    ...     source = source * builder['amplitude']
+    ...     source = source * envelope
     ...     out = ugentools.Out.ar(
     ...         bus=(0, 1),
     ...         source=source,
@@ -157,7 +158,10 @@ Bind a MIDI controller to the synth's controls:
 
     >>> korg = miditools.NanoKontrol2()
     >>> korg.open_port(0)
-    >>> bind(korg.fader_1, synth['frequency'], range_=(110, 880), exponent=2)
+    >>> source = korg.fader_1
+    >>> target = synth.controls['frequency']
+    >>> bind(source, target, range_=Range(110, 880), exponent=2.0)
+    Binding()
 
 Release the synth:
 

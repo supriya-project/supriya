@@ -12,5 +12,6 @@ User Guide
     nodes
     buses
     buffers
+    midi
     requests
     graphviz
