@@ -3,19 +3,15 @@ language: python
 python:
     - 2.7
 
-env:
-    - SC_JACK_DEFAULT_INPUTS="dummy_pcm:capture_1,dummy_pcm:capture_2"
-    - SC_JACK_DEFAULT_OUTPUTS="dummy_pcm:playback_1,dummy_pcm:playback_2"
-
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y jackd1
-    - sudo jackd -m -n dummyserver -p 16 -r -d dummy -r 44100 &
-    - sleep 1
-    - scsynth -u 57759 -H dummyserver:foo &
-    - sleep 1
+    - sudo jackd -m -n test -r -d dummy -r 44100 &
+    - sleep 2
+    - scsynth -H test:foo -u 57751 &
+    - sleep 2
     - killall scsynth
 
 install:
