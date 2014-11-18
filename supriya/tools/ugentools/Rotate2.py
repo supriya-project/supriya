@@ -3,6 +3,24 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Rotate2(MultiOutUGen):
+    r'''Equal-power sound-field rotator.
+
+    ::
+
+        >>> x = ugentools.PinkNoise.ar() * 0.4
+        >>> y = ugentools.LFTri.ar(frequency=880)
+        >>> y *= ugentools.LFPulse.kr(frequency=3, width=0.1)
+        >>> position = ugentools.LFSaw.kr(frequency=0.1)
+        >>> rotate_2 = ugentools.Rotate2.ar(
+        ...     x=x,
+        ...     y=y,
+        ...     position=position,
+        ...     )
+        >>> rotate_2
+        UGenArray({2})
+
+    Returns an array of the rotator's left and right outputs.
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -71,3 +89,14 @@ class Rotate2(MultiOutUGen):
             y=y,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def position(self):
+        r'''Gets `position` property of Rotate2.
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('position')
+        return self._inputs[index]
