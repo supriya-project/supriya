@@ -19,13 +19,13 @@ class Binding(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, expr):
-        self._source.set(expr)
+    def __call__(self, expr=None):
+        self._source.handle_binding(expr)
 
     ### PUBLIC METHODS ###
 
     def bind(self, source, target):
-        self.unbind() 
+        self.unbind()
         assert hasattr(source, '__binding_targets__')
         assert hasattr(target, '__binding_sources__')
         target.__bindings__.add(self)

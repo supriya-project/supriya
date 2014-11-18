@@ -2,6 +2,7 @@
 
 from supriya.tools import *
 
+from supriya.tools.bindingtools import bind
 from supriya.tools.servertools import AddAction
 from supriya.tools.servertools import Buffer
 from supriya.tools.servertools import BufferGroup
