@@ -11,7 +11,7 @@ class BindingTarget(SupriyaObject):
 
     ### PRIVATE METHODS ###
 
-    def _handle_binding_event(self, event=None):
+    def _receive_bound_event(self, event=None):
         print(event)
 
     ### PUBLIC METHODS ###

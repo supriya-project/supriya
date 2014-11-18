@@ -9,6 +9,12 @@ class BindingSource(SupriyaObject):
     def __init__(self):
         self._binding_targets = set()
 
+    ### PRIVATE METHODS ###
+
+    def _send_bound_event(self, event=None):
+        for binding in self._binding_targets:
+            binding(event)
+
     ### PUBLIC METHODS ###
 
     def unbind(self, binding=None):

@@ -19,8 +19,8 @@ class Binding(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, expr=None):
-        self._source._handle_binding_event(expr)
+    def __call__(self, event=None):
+        self._source._receive_bound_event(event)
 
     ### PUBLIC METHODS ###
 
