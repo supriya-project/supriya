@@ -14,7 +14,7 @@ def server(request):
     return server
 
 
-def test_Node_succede_by_01(server):
+def test_Node_succeed_by_01(server):
 
     synth_a = servertools.Synth(synthdefs.test)
     synth_b = servertools.Synth(synthdefs.test)
@@ -34,7 +34,7 @@ def test_Node_succede_by_01(server):
         ''',
         ), server_state
 
-    synth_a.succede_by(synth_b)
+    synth_a.succeed_by(synth_b)
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
@@ -47,7 +47,7 @@ def test_Node_succede_by_01(server):
         ''',
         ), server_state
 
-    synth_a.succede_by([synth_c, synth_d])
+    synth_a.succeed_by([synth_c, synth_d])
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(
@@ -62,7 +62,7 @@ def test_Node_succede_by_01(server):
         ''',
         ), server_state
 
-    synth_a.succede_by([synth_e, synth_b])
+    synth_a.succeed_by([synth_e, synth_b])
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(

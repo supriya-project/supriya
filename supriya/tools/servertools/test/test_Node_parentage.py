@@ -92,7 +92,7 @@ def test_Node_parentage_01(server):
         root_node,
         )
 
-    group_a.succede_by(group_d)
+    group_a.succeed_by(group_d)
 
     server_state = str(server.query_remote_nodes())
     assert systemtools.TestManager.compare(

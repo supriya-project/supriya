@@ -266,7 +266,7 @@ class Node(ServerObjectProxy):
         index = self.parent.index(self)
         self.parent[index:index + 1] = expr
 
-    def succede_by(self, expr):
+    def succeed_by(self, expr):
         if not isinstance(expr, collections.Sequence):
             expr = [expr]
         index = self.parent.index(self)

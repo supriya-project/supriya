@@ -15,7 +15,7 @@ def server(request):
     return server
 
 
-def test_Group___setitem__01(server):
+def test_Group___setitem___01(server):
 
     group = servertools.Group().allocate()
     assert len(group) == 0
@@ -65,7 +65,7 @@ def test_Group___setitem__01(server):
         ), remote_state
 
 
-def test_Group___setitem__02(server):
+def test_Group___setitem___02(server):
 
     group = servertools.Group().allocate()
     synth_a = servertools.Synth(synthdefs.test)
@@ -550,7 +550,7 @@ def test_Group___setitem___04(server):
 
 
 
-def test_Group___setitem__05(server):
+def test_Group___setitem___05(server):
 
     group_a = servertools.Group(
         name='Group A',
@@ -682,7 +682,7 @@ def test_Group___setitem__05(server):
         ), group_a_state
 
 
-def test_Group___setitem__06(server):
+def test_Group___setitem___06(server):
 
     group = servertools.Group()
 
