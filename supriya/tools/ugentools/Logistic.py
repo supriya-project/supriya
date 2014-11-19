@@ -111,3 +111,62 @@ class Logistic(UGen):
             initial_y=initial_y,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def chaos_parameter(self):
+        r'''Gets `chaos_parameter` input of Logistic.
+
+        ::
+
+            >>> logistic = ugentools.Logistic.ar(
+            ...     chaos_parameter=3.,
+            ...     frequency=1000,
+            ...     initial_y=0.5,
+            ...     )
+            >>> logistic.chaos_parameter
+            3.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('chaos_parameter')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Logistic.
+
+        ::
+
+            >>> logistic = ugentools.Logistic.ar(
+            ...     chaos_parameter=3.,
+            ...     frequency=1000,
+            ...     initial_y=0.5,
+            ...     )
+            >>> logistic.frequency
+            1000.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def initial_y(self):
+        r'''Gets `initial_y` input of Logistic.
+
+        ::
+
+            >>> logistic = ugentools.Logistic.ar(
+            ...     chaos_parameter=3.,
+            ...     frequency=1000,
+            ...     initial_y=0.5,
+            ...     )
+            >>> logistic.initial_y
+            0.5
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('initial_y')
+        return self._inputs[index]
