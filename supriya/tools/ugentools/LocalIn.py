@@ -108,3 +108,20 @@ class LocalIn(MultiOutUGen):
             default=default,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def default(self):
+        r'''Gets `default` input of LocalIn.
+
+        ::
+
+            >>> local_in = ugentools.LocalIn.ar(channel_count=2)
+            >>> local_in[0].source.default
+            (0.0, 0.0)
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('default')
+        return tuple(self._inputs[index:])

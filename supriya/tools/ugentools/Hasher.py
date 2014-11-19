@@ -94,3 +94,30 @@ class Hasher(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of SignalHasher.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> hasher = ugentools.Hasher.ar(
+            ...     source=source,
+            ...     )
+            >>> hasher.source
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
