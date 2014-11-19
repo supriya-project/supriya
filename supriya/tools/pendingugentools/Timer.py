@@ -1,0 +1,108 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.UGen import UGen
+
+
+class Timer(UGen):
+    r'''
+
+    ::
+
+        >>> timer = ugentools.Timer.(
+        ...     trigger=0,
+        ...     )
+        >>> timer
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = None
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'trigger',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        trigger=0,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            trigger=trigger,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        trigger=0,
+        ):
+        r'''Constructs an audio-rate Timer.
+
+        ::
+
+            >>> timer = ugentools.Timer.ar(
+            ...     trigger=0,
+            ...     )
+            >>> timer
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            trigger=trigger,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        trigger=0,
+        ):
+        r'''Constructs a control-rate Timer.
+
+        ::
+
+            >>> timer = ugentools.Timer.kr(
+            ...     trigger=0,
+            ...     )
+            >>> timer
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            trigger=trigger,
+            )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Timer.
+
+        ::
+
+            >>> timer = ugentools.Timer.ar(
+            ...     trigger=0,
+            ...     )
+            >>> timer.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]

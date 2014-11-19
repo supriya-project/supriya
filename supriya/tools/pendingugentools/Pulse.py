@@ -1,0 +1,136 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.UGen import UGen
+
+
+class Pulse(UGen):
+    r'''
+
+    ::
+
+        >>> pulse = ugentools.Pulse.(
+        ...     frequency=440,
+        ...     width=0.5,
+        ...     )
+        >>> pulse
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = None
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'frequency',
+        'width',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        frequency=440,
+        width=0.5,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            frequency=frequency,
+            width=width,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        frequency=440,
+        width=0.5,
+        ):
+        r'''Constructs an audio-rate Pulse.
+
+        ::
+
+            >>> pulse = ugentools.Pulse.ar(
+            ...     frequency=440,
+            ...     width=0.5,
+            ...     )
+            >>> pulse
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            frequency=frequency,
+            width=width,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        frequency=440,
+        width=0.5,
+        ):
+        r'''Constructs a control-rate Pulse.
+
+        ::
+
+            >>> pulse = ugentools.Pulse.kr(
+            ...     frequency=440,
+            ...     width=0.5,
+            ...     )
+            >>> pulse
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            frequency=frequency,
+            width=width,
+            )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Pulse.
+
+        ::
+
+            >>> pulse = ugentools.Pulse.ar(
+            ...     frequency=440,
+            ...     width=0.5,
+            ...     )
+            >>> pulse.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def width(self):
+        r'''Gets `width` input of Pulse.
+
+        ::
+
+            >>> pulse = ugentools.Pulse.ar(
+            ...     frequency=440,
+            ...     width=0.5,
+            ...     )
+            >>> pulse.width
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('width')
+        return self._inputs[index]

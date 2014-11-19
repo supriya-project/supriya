@@ -1,0 +1,166 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.UGen import UGen
+
+
+class InRect(UGen):
+    r'''
+
+    ::
+
+        >>> in_rect = ugentools.InRect.(
+        ...     rect=None,
+        ...     x=0,
+        ...     y=0,
+        ...     )
+        >>> in_rect
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = None
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'x',
+        'y',
+        'rect',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        rect=None,
+        x=0,
+        y=0,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            rect=rect,
+            x=x,
+            y=y,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        rect=None,
+        x=0,
+        y=0,
+        ):
+        r'''Constructs an audio-rate InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.ar(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            rect=rect,
+            x=x,
+            y=y,
+            )
+        return ugen
+
+    @classmethod
+    def kr(
+        cls,
+        rect=None,
+        x=0,
+        y=0,
+        ):
+        r'''Constructs a control-rate InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.kr(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            rect=rect,
+            x=x,
+            y=y,
+            )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def x(self):
+        r'''Gets `x` input of InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.ar(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect.x
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('x')
+        return self._inputs[index]
+
+    @property
+    def y(self):
+        r'''Gets `y` input of InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.ar(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect.y
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('y')
+        return self._inputs[index]
+
+    @property
+    def rect(self):
+        r'''Gets `rect` input of InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.ar(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect.rect
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rect')
+        return self._inputs[index]

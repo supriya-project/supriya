@@ -1,0 +1,109 @@
+# -*- encoding: utf-8 -*-
+from supriya.tools.ugentools.K2A import K2A
+
+
+class T2A(K2A):
+    r'''
+
+    ::
+
+        >>> t_2_a = ugentools.T2A.(
+        ...     offset=0,
+        ...     source=None,
+        ...     )
+        >>> t_2_a
+
+    '''
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = None
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'source',
+        'offset',
+        )
+
+    _valid_calculation_rates = None
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        offset=0,
+        source=None,
+        ):
+        K2A.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            offset=offset,
+            source=source,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def ar(
+        cls,
+        offset=0,
+        source=None,
+        ):
+        r'''Constructs an audio-rate T2A.
+
+        ::
+
+            >>> t_2_a = ugentools.T2A.ar(
+            ...     offset=0,
+            ...     source=None,
+            ...     )
+            >>> t_2_a
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        ugen = cls._new_expanded(
+            calculation_rate=calculation_rate,
+            offset=offset,
+            source=source,
+            )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of T2A.
+
+        ::
+
+            >>> t_2_a = ugentools.T2A.ar(
+            ...     offset=0,
+            ...     source=None,
+            ...     )
+            >>> t_2_a.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def offset(self):
+        r'''Gets `offset` input of T2A.
+
+        ::
+
+            >>> t_2_a = ugentools.T2A.ar(
+            ...     offset=0,
+            ...     source=None,
+            ...     )
+            >>> t_2_a.offset
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('offset')
+        return self._inputs[index]
