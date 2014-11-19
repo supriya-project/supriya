@@ -203,9 +203,11 @@ def process_method_signature(method_signature):
         'end': 'stop',
         'freq': 'frequency',
         'freq_scale': 'frequency_scaling',
+        'hi': 'maximum',
         'in': 'source',
         'interp': 'interpolate',
         'iphase': 'initial_phase',
+        'lo': 'minimum',
         'max': 'maximum',
         'maxdelaytime': 'maximum_delay_time',
         'min': 'minimum',
@@ -213,6 +215,8 @@ def process_method_signature(method_signature):
         'num_chans': 'channel_count',
         'rq': 'reciprocal_of_q',
         'trig': 'trigger',
+        'winsize': 'window_size',
+        'wintype': 'window_type',
         'xfade': 'crossfade',
         }
     result = []

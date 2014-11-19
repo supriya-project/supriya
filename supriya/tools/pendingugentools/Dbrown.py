@@ -8,9 +8,9 @@ class Dbrown(DUGen):
     ::
 
         >>> dbrown = ugentools.Dbrown.(
-        ...     hi=1,
         ...     length="float('inf')",
-        ...     lo=0,
+        ...     maximum=1,
+        ...     minimum=0,
         ...     step=0.01,
         ...     )
         >>> dbrown
@@ -24,8 +24,8 @@ class Dbrown(DUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'lo',
-        'hi',
+        'minimum',
+        'maximum',
         'step',
         'length',
         )
@@ -37,17 +37,17 @@ class Dbrown(DUGen):
     def __init__(
         self,
         calculation_rate=None,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         step=0.01,
         ):
         DUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             step=step,
             )
 
@@ -56,9 +56,9 @@ class Dbrown(DUGen):
     @classmethod
     def new(
         cls,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         step=0.01,
         ):
         r'''Constructs a Dbrown.
@@ -66,9 +66,9 @@ class Dbrown(DUGen):
         ::
 
             >>> dbrown = ugentools.Dbrown.new(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dbrown
@@ -79,33 +79,14 @@ class Dbrown(DUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             step=step,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def hi(self):
-        r'''Gets `hi` input of Dbrown.
-
-        ::
-
-            >>> dbrown = ugentools.Dbrown.ar(
-            ...     hi=1,
-            ...     length="float('inf')",
-            ...     lo=0,
-            ...     step=0.01,
-            ...     )
-            >>> dbrown.hi
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('hi')
-        return self._inputs[index]
 
     @property
     def length(self):
@@ -114,9 +95,9 @@ class Dbrown(DUGen):
         ::
 
             >>> dbrown = ugentools.Dbrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dbrown.length
@@ -127,22 +108,41 @@ class Dbrown(DUGen):
         return self._inputs[index]
 
     @property
-    def lo(self):
-        r'''Gets `lo` input of Dbrown.
+    def maximum(self):
+        r'''Gets `maximum` input of Dbrown.
 
         ::
 
             >>> dbrown = ugentools.Dbrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
-            >>> dbrown.lo
+            >>> dbrown.maximum
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lo')
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of Dbrown.
+
+        ::
+
+            >>> dbrown = ugentools.Dbrown.ar(
+            ...     length="float('inf')",
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     step=0.01,
+            ...     )
+            >>> dbrown.minimum
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
@@ -152,9 +152,9 @@ class Dbrown(DUGen):
         ::
 
             >>> dbrown = ugentools.Dbrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dbrown.step

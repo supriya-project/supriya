@@ -8,9 +8,9 @@ class Dibrown(Dbrown):
     ::
 
         >>> dibrown = ugentools.Dibrown.(
-        ...     hi=1,
         ...     length="float('inf')",
-        ...     lo=0,
+        ...     maximum=1,
+        ...     minimum=0,
         ...     step=0.01,
         ...     )
         >>> dibrown
@@ -24,8 +24,8 @@ class Dibrown(Dbrown):
     __slots__ = ()
 
     _ordered_input_names = (
-        'lo',
-        'hi',
+        'minimum',
+        'maximum',
         'step',
         'length',
         )
@@ -37,17 +37,17 @@ class Dibrown(Dbrown):
     def __init__(
         self,
         calculation_rate=None,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         step=0.01,
         ):
         Dbrown.__init__(
             self,
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             step=step,
             )
 
@@ -56,9 +56,9 @@ class Dibrown(Dbrown):
     @classmethod
     def new(
         cls,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         step=0.01,
         ):
         r'''Constructs a Dibrown.
@@ -66,9 +66,9 @@ class Dibrown(Dbrown):
         ::
 
             >>> dibrown = ugentools.Dibrown.new(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dibrown
@@ -79,33 +79,14 @@ class Dibrown(Dbrown):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             step=step,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def hi(self):
-        r'''Gets `hi` input of Dibrown.
-
-        ::
-
-            >>> dibrown = ugentools.Dibrown.ar(
-            ...     hi=1,
-            ...     length="float('inf')",
-            ...     lo=0,
-            ...     step=0.01,
-            ...     )
-            >>> dibrown.hi
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('hi')
-        return self._inputs[index]
 
     @property
     def length(self):
@@ -114,9 +95,9 @@ class Dibrown(Dbrown):
         ::
 
             >>> dibrown = ugentools.Dibrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dibrown.length
@@ -127,22 +108,41 @@ class Dibrown(Dbrown):
         return self._inputs[index]
 
     @property
-    def lo(self):
-        r'''Gets `lo` input of Dibrown.
+    def maximum(self):
+        r'''Gets `maximum` input of Dibrown.
 
         ::
 
             >>> dibrown = ugentools.Dibrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
-            >>> dibrown.lo
+            >>> dibrown.maximum
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lo')
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of Dibrown.
+
+        ::
+
+            >>> dibrown = ugentools.Dibrown.ar(
+            ...     length="float('inf')",
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     step=0.01,
+            ...     )
+            >>> dibrown.minimum
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
@@ -152,9 +152,9 @@ class Dibrown(Dbrown):
         ::
 
             >>> dibrown = ugentools.Dibrown.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dibrown.step

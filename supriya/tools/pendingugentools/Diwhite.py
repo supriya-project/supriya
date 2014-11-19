@@ -8,9 +8,9 @@ class Diwhite(Dwhite):
     ::
 
         >>> diwhite = ugentools.Diwhite.(
-        ...     hi=1,
         ...     length="float('inf')",
-        ...     lo=0,
+        ...     maximum=1,
+        ...     minimum=0,
         ...     )
         >>> diwhite
 
@@ -23,8 +23,8 @@ class Diwhite(Dwhite):
     __slots__ = ()
 
     _ordered_input_names = (
-        'lo',
-        'hi',
+        'minimum',
+        'maximum',
         'length',
         )
 
@@ -35,16 +35,16 @@ class Diwhite(Dwhite):
     def __init__(
         self,
         calculation_rate=None,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         ):
         Dwhite.__init__(
             self,
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             )
 
     ### PUBLIC METHODS ###
@@ -52,18 +52,18 @@ class Diwhite(Dwhite):
     @classmethod
     def new(
         cls,
-        hi=1,
         length="float('inf')",
-        lo=0,
+        maximum=1,
+        minimum=0,
         ):
         r'''Constructs a Diwhite.
 
         ::
 
             >>> diwhite = ugentools.Diwhite.new(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     )
             >>> diwhite
 
@@ -73,31 +73,13 @@ class Diwhite(Dwhite):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            hi=hi,
             length=length,
-            lo=lo,
+            maximum=maximum,
+            minimum=minimum,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def hi(self):
-        r'''Gets `hi` input of Diwhite.
-
-        ::
-
-            >>> diwhite = ugentools.Diwhite.ar(
-            ...     hi=1,
-            ...     length="float('inf')",
-            ...     lo=0,
-            ...     )
-            >>> diwhite.hi
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('hi')
-        return self._inputs[index]
 
     @property
     def length(self):
@@ -106,9 +88,9 @@ class Diwhite(Dwhite):
         ::
 
             >>> diwhite = ugentools.Diwhite.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     )
             >>> diwhite.length
 
@@ -118,19 +100,37 @@ class Diwhite(Dwhite):
         return self._inputs[index]
 
     @property
-    def lo(self):
-        r'''Gets `lo` input of Diwhite.
+    def maximum(self):
+        r'''Gets `maximum` input of Diwhite.
 
         ::
 
             >>> diwhite = ugentools.Diwhite.ar(
-            ...     hi=1,
             ...     length="float('inf')",
-            ...     lo=0,
+            ...     maximum=1,
+            ...     minimum=0,
             ...     )
-            >>> diwhite.lo
+            >>> diwhite.maximum
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lo')
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of Diwhite.
+
+        ::
+
+            >>> diwhite = ugentools.Diwhite.ar(
+            ...     length="float('inf')",
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     )
+            >>> diwhite.minimum
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
