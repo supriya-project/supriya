@@ -247,6 +247,8 @@ def make_initializer(ugen_name, ugen_definition):
         method_signature = methods['ir']
     elif 'kr' in methods:
         method_signature = methods['kr']
+    elif 'new' in methods:
+        method_signature = methods['new']
     if method_signature is not None:
         method_signature = process_method_signature(method_signature)
         method_signature.sort()
