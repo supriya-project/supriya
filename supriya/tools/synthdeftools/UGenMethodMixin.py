@@ -1502,8 +1502,10 @@ class UGenMethodMixin(SupriyaObject):
         operator = synthdeftools.UnaryOperator.from_expr(operator)
         special_index = operator.value
         for single_source in source:
+            calculation_rate = synthdeftools.CalculationRate.from_input(
+                single_source)
             ugen = ugentools.UnaryOpUGen._new_single(
-                calculation_rate=single_source.calculation_rate,
+                calculation_rate=calculation_rate,
                 source=single_source,
                 special_index=special_index,
                 )
