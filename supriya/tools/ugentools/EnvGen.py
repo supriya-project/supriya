@@ -96,7 +96,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Creates an audio-rate envelope generator.
+        r'''Constructs an audio-rate envelope generator.
 
         ::
 
@@ -131,7 +131,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Creates an control-rate envelope generator.
+        r'''Constructs an control-rate envelope generator.
 
         ::
 

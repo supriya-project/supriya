@@ -47,7 +47,7 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates an audio-rate lowpass filter.
+        r'''Constructs an audio-rate lowpass filter.
 
         ::
 
@@ -75,7 +75,7 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Creates a control-rate lowpass filter.
+        r'''Constructs a control-rate lowpass filter.
 
         ::
 

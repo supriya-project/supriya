@@ -33,7 +33,7 @@ class BufDelayL(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate buffer-based linear-interpolating delay line.
+        r'''Constructs an audio-rate buffer-based linear-interpolating delay line.
 
         ::
 
@@ -64,7 +64,7 @@ class BufDelayL(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate buffer-based linear-interpolating delay line.
+        r'''Constructs a control-rate buffer-based linear-interpolating delay line.
 
         ::
 

@@ -46,7 +46,7 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates an audio-rate non-band-limited single-sample impulse
+        r'''Constructs an audio-rate non-band-limited single-sample impulse
         generator.
 
         ::
@@ -74,7 +74,7 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates a control-rate non-band-limited single-sample impulse
+        r'''Constructs a control-rate non-band-limited single-sample impulse
         generator.
 
         ::

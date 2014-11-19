@@ -44,7 +44,7 @@ class LFNoise0(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates an audio-rate step noise generator.
+        r'''Constructs an audio-rate step noise generator.
 
         ::
 
@@ -68,7 +68,7 @@ class LFNoise0(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates a control-rate step noise generator.
+        r'''Constructs a control-rate step noise generator.
 
         ::
 

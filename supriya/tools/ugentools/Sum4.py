@@ -116,7 +116,7 @@ class Sum4(UGen):
         input_three=None,
         input_four=None,
         ):
-        r'''Creates a three-input summing unit generator with multi-channel
+        r'''Constructs a three-input summing unit generator with multi-channel
         expansion.
 
         ::

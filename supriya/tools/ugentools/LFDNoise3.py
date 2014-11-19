@@ -44,7 +44,7 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates an audio-rate polynomial noise generator.
+        r'''Constructs an audio-rate polynomial noise generator.
 
         ::
 
@@ -68,7 +68,7 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates a control-rate polynomial noise generator.
+        r'''Constructs a control-rate polynomial noise generator.
 
         ::
 

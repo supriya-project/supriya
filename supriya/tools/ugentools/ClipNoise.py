@@ -35,7 +35,7 @@ class ClipNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Creates an audio-rate clipped noise unit generator.
+        r'''Constructs an audio-rate clipped noise unit generator.
 
         ::
 
@@ -55,7 +55,7 @@ class ClipNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Creates a control-rate clipped noise unit generator.
+        r'''Constructs a control-rate clipped noise unit generator.
 
         ::
 

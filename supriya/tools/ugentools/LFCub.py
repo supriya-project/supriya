@@ -46,7 +46,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates an audio-rate sine-like oscillator.
+        r'''Constructs an audio-rate sine-like oscillator.
 
         ::
 
@@ -73,7 +73,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates a control-rate sine-like oscillator.
+        r'''Constructs a control-rate sine-like oscillator.
 
         ::
 

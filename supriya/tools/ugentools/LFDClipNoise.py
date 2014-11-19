@@ -44,7 +44,7 @@ class LFDClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates an audio-rate dynamic clipped noise generator.
+        r'''Constructs an audio-rate dynamic clipped noise generator.
 
         ::
 
@@ -68,7 +68,7 @@ class LFDClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates a control-rate dynamic clipped noise generator.
+        r'''Constructs a control-rate dynamic clipped noise generator.
 
         ::
 

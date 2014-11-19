@@ -46,7 +46,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates an audio-rate sinusoid oscillator.
+        r'''Constructs an audio-rate sinusoid oscillator.
 
         ::
 
@@ -73,7 +73,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Creates a control-rate sinusoid oscillator.
+        r'''Constructs a control-rate sinusoid oscillator.
 
         ::
 
@@ -109,7 +109,7 @@ class SinOsc(PureUGen):
             >>> sin_osc.frequency
             442.0
 
-        Returns input.
+        Returns ugen input.
         '''
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
@@ -127,7 +127,7 @@ class SinOsc(PureUGen):
             >>> sin_osc.phase
             0.5
 
-        Returns input.
+        Returns ugen input.
         '''
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

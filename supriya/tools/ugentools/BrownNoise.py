@@ -35,7 +35,7 @@ class BrownNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Creates an audio-rate brown noise unit generator.
+        r'''Constructs an audio-rate brown noise unit generator.
 
         ::
 
@@ -55,7 +55,7 @@ class BrownNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Creates a control-rate brown noise unit generator.
+        r'''Constructs a control-rate brown noise unit generator.
 
         ::
 

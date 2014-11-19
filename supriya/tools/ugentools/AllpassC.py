@@ -30,7 +30,7 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate cubic-interpolating allpass delay line.
+        r'''Constructs an audio-rate cubic-interpolating allpass delay line.
 
         ::
 
@@ -61,7 +61,7 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate cubic-interpolating allpass delay line.
+        r'''Constructs a control-rate cubic-interpolating allpass delay line.
 
         ::
 

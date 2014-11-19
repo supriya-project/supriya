@@ -57,7 +57,7 @@ class FreeVerb(UGen):
         room_size=0.5,
         source=None,
         ):
-        r'''Creates an audio-rate FreeVerb reverb unit.
+        r'''Constructs an audio-rate FreeVerb reverb unit.
 
         ::
 

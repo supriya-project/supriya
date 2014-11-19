@@ -42,7 +42,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Creates an audio-rate band-limited sawtooth oscillator.
+        r'''Constructs an audio-rate band-limited sawtooth oscillator.
 
         ::
 
@@ -66,7 +66,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Creates a control-rate band-limited sawtooth oscillator.
+        r'''Constructs a control-rate band-limited sawtooth oscillator.
 
         ::
 

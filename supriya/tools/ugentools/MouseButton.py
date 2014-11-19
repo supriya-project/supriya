@@ -58,7 +58,7 @@ class MouseButton(UGen):
         maximum=1,
         minimum=0,
         ):
-        r'''Creates a control-rate mouse button tracking unit generator.
+        r'''Constructs a control-rate mouse button tracking unit generator.
 
         ::
 

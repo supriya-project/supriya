@@ -59,7 +59,7 @@ class Linen(UGen):
         release_time=1.,
         sustain_level=1.,
         ):
-        r'''Creates an audio-rate line generator.
+        r'''Constructs an audio-rate line generator.
 
         ::
 

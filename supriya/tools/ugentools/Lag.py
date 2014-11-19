@@ -75,7 +75,7 @@ class Lag(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Creates an audio-rate lag.
+        r'''Constructs an audio-rate lag.
 
         ::
 
@@ -102,7 +102,7 @@ class Lag(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Constructs a control-rate lag.
 
         ::
 

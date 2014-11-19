@@ -46,7 +46,7 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates an audio-rate non-band-limited sawtooth oscillator.
+        r'''Constructs an audio-rate non-band-limited sawtooth oscillator.
 
         ::
 
@@ -73,7 +73,7 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates a control-rate non-band-limited sawtooth oscillator.
+        r'''Constructs a control-rate non-band-limited sawtooth oscillator.
 
         ::
 

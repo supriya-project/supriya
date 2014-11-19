@@ -28,7 +28,7 @@ class DelayL(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate linear-interpolating delay line.
+        r'''Constructs an audio-rate linear-interpolating delay line.
 
         ::
 
@@ -55,7 +55,7 @@ class DelayL(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate linear-interpolating delay line.
+        r'''Constructs a control-rate linear-interpolating delay line.
 
         ::
 

@@ -89,7 +89,7 @@ class Sum3(UGen):
         input_two=None,
         input_three=None,
         ):
-        r'''Creates a three-input summing unit generator with multi-channel
+        r'''Constructs a three-input summing unit generator with multi-channel
         expansion.
 
         ::

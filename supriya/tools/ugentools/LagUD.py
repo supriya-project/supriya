@@ -82,7 +82,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Constructs a control-rate lag.
 
         ::
 
@@ -112,7 +112,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Creates a control-rate lag.
+        r'''Constructs a control-rate lag.
 
         ::
 

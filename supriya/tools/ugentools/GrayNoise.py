@@ -35,7 +35,7 @@ class GrayNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Creates an audio-rate gray noise unit generator.
+        r'''Constructs an audio-rate gray noise unit generator.
 
         ::
 
@@ -55,7 +55,7 @@ class GrayNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Creates a control-rate gray noise unit generator.
+        r'''Constructs a control-rate gray noise unit generator.
 
         ::
 

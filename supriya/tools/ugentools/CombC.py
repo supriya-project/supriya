@@ -29,7 +29,7 @@ class CombC(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate cubic-interpolating comb delay line.
+        r'''Constructs an audio-rate cubic-interpolating comb delay line.
 
         ::
 
@@ -58,7 +58,7 @@ class CombC(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate cubic-interpolating comb delay line.
+        r'''Constructs a control-rate cubic-interpolating comb delay line.
 
         ::
 

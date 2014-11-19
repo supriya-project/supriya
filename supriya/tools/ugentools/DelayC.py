@@ -28,7 +28,7 @@ class DelayC(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate cubic-interpolating delay line.
+        r'''Constructs an audio-rate cubic-interpolating delay line.
 
         ::
 
@@ -55,7 +55,7 @@ class DelayC(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate cubic-interpolating delay line.
+        r'''Constructs a control-rate cubic-interpolating delay line.
 
         ::
 

@@ -35,7 +35,7 @@ class WhiteNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Creates an audio-rate white noise unit generator.
+        r'''Constructs an audio-rate white noise unit generator.
 
         ::
 
@@ -55,7 +55,7 @@ class WhiteNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Creates a control-rate white noise unit generator.
+        r'''Constructs a control-rate white noise unit generator.
 
         ::
 

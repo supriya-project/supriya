@@ -48,7 +48,7 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r'''Creates an audio-rate unipolar random impulse generator.
+        r'''Constructs an audio-rate unipolar random impulse generator.
 
         ::
 
@@ -72,7 +72,7 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r'''Creates a control-rate unipolar random impulse generator.
+        r'''Constructs a control-rate unipolar random impulse generator.
 
         ::
 

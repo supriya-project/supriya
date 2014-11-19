@@ -46,7 +46,7 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates an audio-rate parabolic oscillator.
+        r'''Constructs an audio-rate parabolic oscillator.
 
         ::
 
@@ -73,7 +73,7 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Creates a control-rate parabolic oscillator.
+        r'''Constructs a control-rate parabolic oscillator.
 
         ::
 

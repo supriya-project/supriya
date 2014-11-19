@@ -44,7 +44,7 @@ class LFNoise2(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates an audio-rate quadratic noise generator.
+        r'''Constructs an audio-rate quadratic noise generator.
 
         ::
 
@@ -68,7 +68,7 @@ class LFNoise2(UGen):
         cls,
         frequency=500,
         ):
-        r'''Creates a control-rate quadratic noise generator.
+        r'''Constructs a control-rate quadratic noise generator.
 
         ::
 

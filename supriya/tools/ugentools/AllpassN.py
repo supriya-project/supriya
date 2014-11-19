@@ -56,7 +56,7 @@ class AllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate non-interpolating allpass delay line.
+        r'''Constructs an audio-rate non-interpolating allpass delay line.
 
         ::
 
@@ -92,7 +92,7 @@ class AllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Creates a control-rate non-interpolating allpass delay line.
+        r'''Constructs a control-rate non-interpolating allpass delay line.
 
         ::
 

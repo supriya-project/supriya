@@ -35,7 +35,7 @@ class PinkNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Creates an audio-rate pink noise unit generator.
+        r'''Constructs an audio-rate pink noise unit generator.
 
         ::
 
@@ -55,7 +55,7 @@ class PinkNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Creates a control-rate pink noise unit generator.
+        r'''Constructs a control-rate pink noise unit generator.
 
         ::
 

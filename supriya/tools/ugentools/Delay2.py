@@ -28,7 +28,7 @@ class Delay2(Delay1):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate two-sample delay line.
+        r'''Constructs an audio-rate two-sample delay line.
 
         ::
 
@@ -49,7 +49,7 @@ class Delay2(Delay1):
         cls,
         source=None,
         ):
-        r'''Create a control-rate two-sample delay line.
+        r'''Constructs a control-rate two-sample delay line.
 
         ::
 

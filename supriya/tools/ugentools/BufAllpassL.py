@@ -34,7 +34,7 @@ class BufAllpassL(BufAllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create an audio-rate buffer-based linear-interpolating allpass
+        r'''Constructs an audio-rate buffer-based linear-interpolating allpass
         delay line.
 
         ::
@@ -69,7 +69,7 @@ class BufAllpassL(BufAllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Create a control-rate buffer-based linear-interpolating allpass
+        r'''Constructs a control-rate buffer-based linear-interpolating allpass
         delay line.
 
         ::

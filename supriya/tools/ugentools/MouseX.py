@@ -65,7 +65,7 @@ class MouseX(UGen):
         minimum=0,
         warp=0,
         ):
-        r'''Creates a control-rate mouse cursor tracking unit generator.
+        r'''Constructs a control-rate mouse cursor tracking unit generator.
 
         ::
 
