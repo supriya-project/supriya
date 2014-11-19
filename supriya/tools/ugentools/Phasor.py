@@ -3,18 +3,20 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Phasor(UGen):
-    r'''
+    r'''A resettable linear ramp between two levels.
 
     ::
 
-        >>> phasor = ugentools.Phasor.(
+        >>> trigger = ugentools.Impulse.kr(0.5)
+        >>> phasor = ugentools.Phasor.ar(
         ...     rate=1,
         ...     reset_pos=0,
         ...     start=0,
         ...     stop=1,
-        ...     trigger=0,
+        ...     trigger=trigger,
         ...     )
         >>> phasor
+        Phasor.ar()
 
     '''
 
@@ -70,14 +72,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr([0.5, 0.6])
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -106,14 +110,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr([0.5, 0.6])
             >>> phasor = ugentools.Phasor.kr(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -137,14 +143,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(0.5)
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -157,14 +165,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(0.5)
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor.reset_pos
+            0.0
 
         Returns ugen input.
         '''
@@ -177,14 +187,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(0.5)
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor.start
+            0.0
 
         Returns ugen input.
         '''
@@ -197,14 +209,16 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(0.5)
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor.stop
+            1.0
 
         Returns ugen input.
         '''
@@ -217,14 +231,23 @@ class Phasor(UGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(0.5)
             >>> phasor = ugentools.Phasor.ar(
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
             ...     stop=1,
-            ...     trigger=0,
+            ...     trigger=trigger,
             ...     )
             >>> phasor.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    frequency=0.5,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
