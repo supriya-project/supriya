@@ -12,8 +12,8 @@ class FFT(PV_ChainUGen):
         ...     buffer_id=None,
         ...     hop=0.5,
         ...     source=None,
-        ...     winsize=0,
-        ...     wintype=0,
+        ...     window_size=0,
+        ...     window_type=0,
         ...     )
         >>> fft
 
@@ -29,9 +29,9 @@ class FFT(PV_ChainUGen):
         'buffer_id',
         'source',
         'hop',
-        'wintype',
+        'window_type',
         'active',
-        'winsize',
+        'window_size',
         )
 
     _valid_calculation_rates = None
@@ -45,8 +45,8 @@ class FFT(PV_ChainUGen):
         buffer_id=None,
         hop=0.5,
         source=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         PV_ChainUGen.__init__(
             self,
@@ -55,8 +55,8 @@ class FFT(PV_ChainUGen):
             buffer_id=buffer_id,
             hop=hop,
             source=source,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
 
     ### PUBLIC METHODS ###
@@ -68,8 +68,8 @@ class FFT(PV_ChainUGen):
         buffer_id=None,
         hop=0.5,
         source=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         r'''Constructs a FFT.
 
@@ -80,8 +80,8 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> fft
 
@@ -95,8 +95,8 @@ class FFT(PV_ChainUGen):
             buffer_id=buffer_id,
             hop=hop,
             source=source,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
         return ugen
 
@@ -113,8 +113,8 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> fft.active
 
@@ -134,8 +134,8 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> fft.buffer_id
 
@@ -155,8 +155,8 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> fft.hop
 
@@ -176,8 +176,8 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> fft.source
 
@@ -187,8 +187,8 @@ class FFT(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def winsize(self):
-        r'''Gets `winsize` input of FFT.
+    def window_size(self):
+        r'''Gets `window_size` input of FFT.
 
         ::
 
@@ -197,19 +197,19 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
-            >>> fft.winsize
+            >>> fft.window_size
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('winsize')
+        index = self._ordered_input_names.index('window_size')
         return self._inputs[index]
 
     @property
-    def wintype(self):
-        r'''Gets `wintype` input of FFT.
+    def window_type(self):
+        r'''Gets `window_type` input of FFT.
 
         ::
 
@@ -218,12 +218,12 @@ class FFT(PV_ChainUGen):
             ...     buffer_id=None,
             ...     hop=0.5,
             ...     source=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
-            >>> fft.wintype
+            >>> fft.window_type
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('wintype')
+        index = self._ordered_input_names.index('window_type')
         return self._inputs[index]

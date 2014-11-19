@@ -9,8 +9,8 @@ class IFFT(WidthFirstUGen):
 
         >>> ifft = ugentools.IFFT.(
         ...     buffer_id=None,
-        ...     winsize=0,
-        ...     wintype=0,
+        ...     window_size=0,
+        ...     window_type=0,
         ...     )
         >>> ifft
 
@@ -24,8 +24,8 @@ class IFFT(WidthFirstUGen):
 
     _ordered_input_names = (
         'buffer_id',
-        'wintype',
-        'winsize',
+        'window_type',
+        'window_size',
         )
 
     _valid_calculation_rates = None
@@ -36,15 +36,15 @@ class IFFT(WidthFirstUGen):
         self,
         calculation_rate=None,
         buffer_id=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
 
     ### PUBLIC METHODS ###
@@ -53,8 +53,8 @@ class IFFT(WidthFirstUGen):
     def ar(
         cls,
         buffer_id=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         r'''Constructs an audio-rate IFFT.
 
@@ -62,8 +62,8 @@ class IFFT(WidthFirstUGen):
 
             >>> ifft = ugentools.IFFT.ar(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> ifft
 
@@ -74,8 +74,8 @@ class IFFT(WidthFirstUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
         return ugen
 
@@ -83,8 +83,8 @@ class IFFT(WidthFirstUGen):
     def kr(
         cls,
         buffer_id=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         r'''Constructs a control-rate IFFT.
 
@@ -92,8 +92,8 @@ class IFFT(WidthFirstUGen):
 
             >>> ifft = ugentools.IFFT.kr(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> ifft
 
@@ -104,8 +104,8 @@ class IFFT(WidthFirstUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
         return ugen
 
@@ -113,8 +113,8 @@ class IFFT(WidthFirstUGen):
     def new(
         cls,
         buffer_id=None,
-        winsize=0,
-        wintype=0,
+        window_size=0,
+        window_type=0,
         ):
         r'''Constructs a IFFT.
 
@@ -122,8 +122,8 @@ class IFFT(WidthFirstUGen):
 
             >>> ifft = ugentools.IFFT.new(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> ifft
 
@@ -134,8 +134,8 @@ class IFFT(WidthFirstUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
-            winsize=winsize,
-            wintype=wintype,
+            window_size=window_size,
+            window_type=window_type,
             )
         return ugen
 
@@ -149,8 +149,8 @@ class IFFT(WidthFirstUGen):
 
             >>> ifft = ugentools.IFFT.ar(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
             >>> ifft.buffer_id
 
@@ -160,37 +160,37 @@ class IFFT(WidthFirstUGen):
         return self._inputs[index]
 
     @property
-    def winsize(self):
-        r'''Gets `winsize` input of IFFT.
+    def window_size(self):
+        r'''Gets `window_size` input of IFFT.
 
         ::
 
             >>> ifft = ugentools.IFFT.ar(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
-            >>> ifft.winsize
+            >>> ifft.window_size
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('winsize')
+        index = self._ordered_input_names.index('window_size')
         return self._inputs[index]
 
     @property
-    def wintype(self):
-        r'''Gets `wintype` input of IFFT.
+    def window_type(self):
+        r'''Gets `window_type` input of IFFT.
 
         ::
 
             >>> ifft = ugentools.IFFT.ar(
             ...     buffer_id=None,
-            ...     winsize=0,
-            ...     wintype=0,
+            ...     window_size=0,
+            ...     window_type=0,
             ...     )
-            >>> ifft.wintype
+            >>> ifft.window_type
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('wintype')
+        index = self._ordered_input_names.index('window_type')
         return self._inputs[index]
