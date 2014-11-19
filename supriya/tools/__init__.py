@@ -19,4 +19,4 @@ from supriya.tools import timetools
 from supriya.tools import ugentools
 
 # Load experimental packages
-from supriya.tools import pendingugentools
+# from supriya.tools import pendingugentools

@@ -8,20 +8,93 @@ from supriya.etc.ugens import ugens as ugen_definitions
 from supriya.tools import ugentools
 
 
-def make_class_methods(ugen_definition):
+def collect_all_methods(
+    ugen_name,
+    ugen_definition,
+    methods=None,
+    ):
+    if methods is None:
+        methods = {}
+    if 'methods' in ugen_definition:
+        for key, value in ugen_definition['methods'].items():
+            if key not in methods:
+                methods[key] = value
+    parent = ugen_definition['parent']
+    if parent not in ugen_definitions:
+        return methods
+    collect_all_methods(
+        parent,
+        ugen_definitions[parent],
+        methods=methods,
+        )
+    return methods
+
+
+def find_signature(ugen_name, ugen_definition):
+    methods = collect_all_methods(ugen_name, ugen_definition)
+    method_signature = None
+    if 'ar' in methods:
+        method_signature = methods['ar']
+    elif 'kr' in methods:
+        method_signature = methods['kr']
+    elif 'ir' in methods:
+        method_signature = methods['ir']
+    if method_signature is None:
+        parent = ugen_definition['parent']
+        if parent not in ugen_definitions:
+            return None
+        return find_signature(ugen_name, ugen_definitions[parent])
+    return method_signature
+
+
+def make_input_properties(ugen_name, ugen_definition):
+    result = []
+    method_signature = find_signature(ugen_name, ugen_definition)
+    if method_signature is None:
+        return result
+    result.append('    ### PUBLIC PROPERTIES ###')
+    method_signature = process_method_signature(method_signature)
+    for input_name, input_value in method_signature:
+        result.extend(make_input_property(input_name, ugen_name))
+    return result
+
+
+def make_input_property(input_name, ugen_name):
+    result = []
+    result.append('')
+    result.append('    @property')
+    result.append('    def {}(self):'.format(input_name))
+    result.append("        r'''Gets `{}` input of {}.".format(
+        input_name, ugen_name))
+    result.append('')
+    result.append('        ::')
+    result.append('')
+    result.append('            >>> {}.{}'.format(
+        stringtools.to_snake_case(ugen_name), input_name))
+    result.append('')
+    result.append('        Returns ugen input.')
+    result.append("        '''")
+    result.append("        index = self._ordered_input_names.index('{}')".format(
+        input_name))
+    result.append('        return self._inputs[index]')
+    return result
+
+
+def make_class_methods(ugen_name, ugen_definition):
     result = [
         '    ### PUBLIC METHODS ###',
         '',
         ]
-    if 'methods' not in ugen_definition:
-        return []
-    for method_name in sorted(ugen_definition['methods']):
+    methods = collect_all_methods(ugen_name, ugen_definition)
+    print('\tMETHODS:', sorted(methods))
+    for method_name in sorted(methods):
         if method_name not in ('ar', 'ir', 'kr', 'new', 'tr'):
             result.append('    # def {}(): ...'.format(method_name))
             result.append('')
             continue
-        method_signature = ugen_definition['methods'][method_name]
+        method_signature = methods[method_name]
         method_signature = process_method_signature(method_signature)
+        method_signature.sort()
         result.append('    @classmethod')
         result.append('    def {}('.format(method_name))
         result.append('        cls,')
@@ -29,7 +102,14 @@ def make_class_methods(ugen_definition):
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append('        from supriya.tools import synthdeftools')
-        result.append('        calculation_rate = None')
+        rate = 'None'
+        if method_name == 'ar':
+            rate = 'synthdeftools.CalculationRate.AUDIO'
+        elif method_name == 'ir':
+            rate = 'synthdeftools.CalculationRate.SCALAR'
+        elif method_name == 'kr':
+            rate = 'synthdeftools.CalculationRate.CONTROL'
+        result.append('        calculation_rate = {}'.format(rate))
         result.append('        ugen = cls._new_expanded(')
         result.append('            calculation_rate=calculation_rate,')
         for name, value in method_signature:
@@ -40,7 +120,7 @@ def make_class_methods(ugen_definition):
     return result
 
 
-def make_class_variables():
+def make_class_variables(ugen_name, ugen_definition):
     result = [
         '    ### CLASS VARIABLES ###',
         '',
@@ -48,12 +128,22 @@ def make_class_variables():
         '',
         '    __slots__ = ()',
         '',
-        '    _ordered_input_names = (',
-        '        )',
+        ]
+
+    method_signature = find_signature(ugen_name, ugen_definition)
+    if method_signature is not None:
+        method_signature = process_method_signature(method_signature)
+        result.append('    _ordered_input_names = (')
+        for name, value in method_signature:
+            result.append('        {!r},'.format(name))
+        result.append('        )')
+    else:
+        result.append('    _ordered_input_names = ()',)
+    result.extend([
         '',
         '    _valid_calculation_rates = None',
         '',
-        ]
+        ])
     return result
 
 
@@ -64,49 +154,64 @@ def make_import(ugen_parent):
     elif ugen_parent in dir(ugentools):
         string = 'from supriya.tools.ugentools.{parent} import {parent}'
     else:
-        string = 'from supriya.tools.pendingugens.{parent} import {parent}'
+        string = 'from supriya.tools.ugentools.{parent} import {parent}'
     string = string.format(parent=ugen_parent)
     result.extend([string, '', ''])
     return result
 
 
 def process_method_signature(method_signature):
-    result = []
     replacements = {
-        'in': 'source',
-        'freq': 'frequency',
-        'trig': 'trigger',
-        'rq': 'reciprocal_of_q',
-        'dur': 'duration',
+        'attacktime': 'attack_time',
+        'bufnum': 'buffer_id',
         'buffernum': 'buffer_id',
+        'coef': 'coefficient',
+        'decaytime': 'decay_time',
+        'delaytime': 'delay_time',
+        'maxdelaytime': 'maximum_delay_time',
+        'damp': 'damping',
+        'dur': 'duration',
+        'freq': 'frequency',
+        'freq_scale': 'frequency_scaling',
+        'in': 'source',
+        'interp': 'interpolate',
+        'iphase': 'initial_phase',
+        'max': 'maximum',
+        'min': 'minimum',
+        'num_chans': 'channel_count',
         'num_channels': 'channel_count',
+        'rq': 'reciprocal_of_q',
+        'trig': 'trigger',
+        'xfade': 'crossfade',
         }
+    result = []
     for name, value in method_signature:
         name = stringtools.to_snake_case(name)
         if name in replacements:
             name = replacements[name]
         if name.endswith('freq'):
             name = name.replace('freq', 'frequency')
+        if name == 'source':
+            value = None
         if name in ('add', 'mul', 'nil', 'this'):
             continue
         if isinstance(value, str):
             value = repr(value)
         result.append((name, value))
-    result.sort()
     return result
 
 
-def make_initializer(ugen_definition):
+def make_initializer(ugen_name, ugen_definition):
     result = [
         '    ### INITIALIZER ###',
         '',
         ]
-    if 'methods' not in ugen_definition:
+    methods = collect_all_methods(ugen_name, ugen_definition)
+    if not methods:
         result.append('    def __init__(self):')
         result.append('        pass')
         result.append('')
         return result
-    methods = ugen_definition['methods']
     method_signature = None
     if 'ar' in methods:
         method_signature = methods['ar']
@@ -116,6 +221,8 @@ def make_initializer(ugen_definition):
         method_signature = methods['kr']
     if method_signature is not None:
         method_signature = process_method_signature(method_signature)
+        method_signature.sort()
+        print('\tSIGNATURE:', sorted(method_signature))
         result.append('    def __init__(')
         result.append('        self,')
         result.append('        calculation_rate=None,')
@@ -137,33 +244,42 @@ def make_ugen_module(ugen_name, ugen_definition):
     result.append('# -*- encoding: utf-8 -*-')
     result.extend(make_import(ugen_definition['parent']))
     result.append('class {}({}):'.format(ugen_name, ugen_definition['parent']))
+    result.append("    r'''")
     result.append('')
-    result.extend(make_class_variables())
-    result.extend(make_initializer(ugen_definition))
-    result.extend(make_class_methods(ugen_definition))
+    result.append('    ::')
+    result.append('')
+    result.append('        >>> {}'.format(stringtools.to_snake_case(ugen_name)))
+    result.append('')
+    result.append("    '''")
+    result.append('')
+    result.extend(make_class_variables(ugen_name, ugen_definition))
+    result.extend(make_initializer(ugen_name, ugen_definition))
+    result.extend(make_class_methods(ugen_name, ugen_definition))
+    result.extend(make_input_properties(ugen_name, ugen_definition))
     result = '\n'.join(result)
     return result
 
 
 def run():
     counter = 0
-    for ugen_name in ugen_definitions:
+    for ugen_name in sorted(ugen_definitions):
         if ugen_name == 'UGen':
             continue
         elif ugen_name in dir(ugentools):
             continue
         counter += 1
+        print('SCRAPING:', ugen_name)
         ugen_definition = ugen_definitions[ugen_name]
         ugen_module_string = make_ugen_module(ugen_name, ugen_definition)
         ugen_module_path = os.path.join(
             supriya.__path__[0],
             'tools',
-            'pendingugens',
+            'pendingugentools',
             '{}.py'.format(ugen_name),
             )
         with open(ugen_module_path, 'w') as file_pointer:
             file_pointer.write(ugen_module_string)
-        #print(ugen_module_string)
+        print()
 
 
 if __name__ == '__main__':
