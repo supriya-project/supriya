@@ -160,24 +160,6 @@ class IFFT(WidthFirstUGen):
         return self._inputs[index]
 
     @property
-    def wintype(self):
-        r'''Gets `wintype` input of IFFT.
-
-        ::
-
-            >>> ifft = ugentools.IFFT.ar(
-            ...     buffer_=None,
-            ...     winsize=0,
-            ...     wintype=0,
-            ...     )
-            >>> ifft.wintype
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('wintype')
-        return self._inputs[index]
-
-    @property
     def winsize(self):
         r'''Gets `winsize` input of IFFT.
 
@@ -193,4 +175,22 @@ class IFFT(WidthFirstUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('winsize')
+        return self._inputs[index]
+
+    @property
+    def wintype(self):
+        r'''Gets `wintype` input of IFFT.
+
+        ::
+
+            >>> ifft = ugentools.IFFT.ar(
+            ...     buffer_=None,
+            ...     winsize=0,
+            ...     wintype=0,
+            ...     )
+            >>> ifft.wintype
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('wintype')
         return self._inputs[index]

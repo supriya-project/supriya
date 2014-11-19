@@ -75,23 +75,6 @@ class T2A(K2A):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of T2A.
-
-        ::
-
-            >>> t_2_a = ugentools.T2A.ar(
-            ...     offset=0,
-            ...     source=None,
-            ...     )
-            >>> t_2_a.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def offset(self):
         r'''Gets `offset` input of T2A.
 
@@ -106,4 +89,21 @@ class T2A(K2A):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('offset')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of T2A.
+
+        ::
+
+            >>> t_2_a = ugentools.T2A.ar(
+            ...     offset=0,
+            ...     source=None,
+            ...     )
+            >>> t_2_a.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

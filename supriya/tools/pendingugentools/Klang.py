@@ -84,8 +84,8 @@ class Klang(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def specifications_array_ref(self):
-        r'''Gets `specifications_array_ref` input of Klang.
+    def freqoffset(self):
+        r'''Gets `freqoffset` input of Klang.
 
         ::
 
@@ -94,11 +94,11 @@ class Klang(UGen):
             ...     freqscale=1,
             ...     specifications_array_ref=None,
             ...     )
-            >>> klang.specifications_array_ref
+            >>> klang.freqoffset
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('specifications_array_ref')
+        index = self._ordered_input_names.index('freqoffset')
         return self._inputs[index]
 
     @property
@@ -120,8 +120,8 @@ class Klang(UGen):
         return self._inputs[index]
 
     @property
-    def freqoffset(self):
-        r'''Gets `freqoffset` input of Klang.
+    def specifications_array_ref(self):
+        r'''Gets `specifications_array_ref` input of Klang.
 
         ::
 
@@ -130,9 +130,9 @@ class Klang(UGen):
             ...     freqscale=1,
             ...     specifications_array_ref=None,
             ...     )
-            >>> klang.freqoffset
+            >>> klang.specifications_array_ref
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('freqoffset')
+        index = self._ordered_input_names.index('specifications_array_ref')
         return self._inputs[index]

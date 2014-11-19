@@ -112,6 +112,24 @@ class Spring(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def damping(self):
+        r'''Gets `damping` input of Spring.
+
+        ::
+
+            >>> spring = ugentools.Spring.ar(
+            ...     damping=0,
+            ...     source=None,
+            ...     spring=1,
+            ...     )
+            >>> spring.damping
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('damping')
+        return self._inputs[index]
+
+    @property
     def source(self):
         r'''Gets `source` input of Spring.
 
@@ -145,22 +163,4 @@ class Spring(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('spring')
-        return self._inputs[index]
-
-    @property
-    def damping(self):
-        r'''Gets `damping` input of Spring.
-
-        ::
-
-            >>> spring = ugentools.Spring.ar(
-            ...     damping=0,
-            ...     source=None,
-            ...     spring=1,
-            ...     )
-            >>> spring.damping
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('damping')
         return self._inputs[index]

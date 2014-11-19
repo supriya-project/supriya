@@ -124,8 +124,8 @@ class Ringz(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Ringz.
+    def decay_time(self):
+        r'''Gets `decay_time` input of Ringz.
 
         ::
 
@@ -134,11 +134,11 @@ class Ringz(Filter):
             ...     frequency=440,
             ...     source=None,
             ...     )
-            >>> ringz.source
+            >>> ringz.decay_time
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class Ringz(Filter):
         return self._inputs[index]
 
     @property
-    def decay_time(self):
-        r'''Gets `decay_time` input of Ringz.
+    def source(self):
+        r'''Gets `source` input of Ringz.
 
         ::
 
@@ -170,9 +170,9 @@ class Ringz(Filter):
             ...     frequency=440,
             ...     source=None,
             ...     )
-            >>> ringz.decay_time
+            >>> ringz.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('decay_time')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

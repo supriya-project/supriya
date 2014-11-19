@@ -126,6 +126,27 @@ class BeatTrack2(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def lock(self):
+        r'''Gets `lock` input of BeatTrack2.
+
+        ::
+
+            >>> beat_track_2 = ugentools.BeatTrack2.ar(
+            ...     busindex=None,
+            ...     lock=0,
+            ...     numfeatures=None,
+            ...     phaseaccuracy=0.02,
+            ...     weightingscheme=None,
+            ...     windowsize=2,
+            ...     )
+            >>> beat_track_2.lock
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('lock')
+        return self._inputs[index]
+
+    @property
     def numfeatures(self):
         r'''Gets `numfeatures` input of BeatTrack2.
 
@@ -144,27 +165,6 @@ class BeatTrack2(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('numfeatures')
-        return self._inputs[index]
-
-    @property
-    def windowsize(self):
-        r'''Gets `windowsize` input of BeatTrack2.
-
-        ::
-
-            >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
-            ...     lock=0,
-            ...     numfeatures=None,
-            ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
-            ...     windowsize=2,
-            ...     )
-            >>> beat_track_2.windowsize
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('windowsize')
         return self._inputs[index]
 
     @property
@@ -189,27 +189,6 @@ class BeatTrack2(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def lock(self):
-        r'''Gets `lock` input of BeatTrack2.
-
-        ::
-
-            >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
-            ...     lock=0,
-            ...     numfeatures=None,
-            ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
-            ...     windowsize=2,
-            ...     )
-            >>> beat_track_2.lock
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('lock')
-        return self._inputs[index]
-
-    @property
     def weightingscheme(self):
         r'''Gets `weightingscheme` input of BeatTrack2.
 
@@ -228,4 +207,25 @@ class BeatTrack2(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('weightingscheme')
+        return self._inputs[index]
+
+    @property
+    def windowsize(self):
+        r'''Gets `windowsize` input of BeatTrack2.
+
+        ::
+
+            >>> beat_track_2 = ugentools.BeatTrack2.ar(
+            ...     busindex=None,
+            ...     lock=0,
+            ...     numfeatures=None,
+            ...     phaseaccuracy=0.02,
+            ...     weightingscheme=None,
+            ...     windowsize=2,
+            ...     )
+            >>> beat_track_2.windowsize
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('windowsize')
         return self._inputs[index]

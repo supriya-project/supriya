@@ -103,8 +103,8 @@ class BLowShelf(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BLowShelf.
+    def db(self):
+        r'''Gets `db` input of BLowShelf.
 
         ::
 
@@ -114,11 +114,11 @@ class BLowShelf(BEQSuite):
             ...     rs=1,
             ...     source=None,
             ...     )
-            >>> blow_shelf.source
+            >>> blow_shelf.db
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('db')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class BLowShelf(BEQSuite):
         return self._inputs[index]
 
     @property
-    def db(self):
-        r'''Gets `db` input of BLowShelf.
+    def source(self):
+        r'''Gets `source` input of BLowShelf.
 
         ::
 
@@ -171,9 +171,9 @@ class BLowShelf(BEQSuite):
             ...     rs=1,
             ...     source=None,
             ...     )
-            >>> blow_shelf.db
+            >>> blow_shelf.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('db')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

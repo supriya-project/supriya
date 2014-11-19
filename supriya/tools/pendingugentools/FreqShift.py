@@ -82,24 +82,6 @@ class FreqShift(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of FreqShift.
-
-        ::
-
-            >>> freq_shift = ugentools.FreqShift.ar(
-            ...     frequency=0,
-            ...     phase=0,
-            ...     source=None,
-            ...     )
-            >>> freq_shift.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of FreqShift.
 
@@ -133,4 +115,22 @@ class FreqShift(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('phase')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of FreqShift.
+
+        ::
+
+            >>> freq_shift = ugentools.FreqShift.ar(
+            ...     frequency=0,
+            ...     phase=0,
+            ...     source=None,
+            ...     )
+            >>> freq_shift.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

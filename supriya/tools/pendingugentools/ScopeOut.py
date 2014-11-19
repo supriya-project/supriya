@@ -102,23 +102,6 @@ class ScopeOut(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def input_array(self):
-        r'''Gets `input_array` input of ScopeOut.
-
-        ::
-
-            >>> scope_out = ugentools.ScopeOut.ar(
-            ...     buffer_id=0,
-            ...     input_array=None,
-            ...     )
-            >>> scope_out.input_array
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('input_array')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of ScopeOut.
 
@@ -133,4 +116,21 @@ class ScopeOut(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def input_array(self):
+        r'''Gets `input_array` input of ScopeOut.
+
+        ::
+
+            >>> scope_out = ugentools.ScopeOut.ar(
+            ...     buffer_id=0,
+            ...     input_array=None,
+            ...     )
+            >>> scope_out.input_array
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('input_array')
         return self._inputs[index]

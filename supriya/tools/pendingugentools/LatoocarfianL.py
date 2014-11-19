@@ -112,28 +112,6 @@ class LatoocarfianL(LatoocarfianN):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of LatoocarfianL.
-
-        ::
-
-            >>> latoocarfian_l = ugentools.LatoocarfianL.ar(
-            ...     a=1,
-            ...     b=3,
-            ...     c=0.5,
-            ...     d=0.5,
-            ...     frequency=22050,
-            ...     xi=0.5,
-            ...     yi=0.5,
-            ...     )
-            >>> latoocarfian_l.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of LatoocarfianL.
 
@@ -219,6 +197,28 @@ class LatoocarfianL(LatoocarfianN):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('d')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LatoocarfianL.
+
+        ::
+
+            >>> latoocarfian_l = ugentools.LatoocarfianL.ar(
+            ...     a=1,
+            ...     b=3,
+            ...     c=0.5,
+            ...     d=0.5,
+            ...     frequency=22050,
+            ...     xi=0.5,
+            ...     yi=0.5,
+            ...     )
+            >>> latoocarfian_l.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

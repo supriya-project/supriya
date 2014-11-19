@@ -102,23 +102,6 @@ class SinOscFB(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of SinOscFB.
-
-        ::
-
-            >>> sin_osc_fb = ugentools.SinOscFB.ar(
-            ...     feedback=0,
-            ...     frequency=440,
-            ...     )
-            >>> sin_osc_fb.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def feedback(self):
         r'''Gets `feedback` input of SinOscFB.
 
@@ -133,4 +116,21 @@ class SinOscFB(PureUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('feedback')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of SinOscFB.
+
+        ::
+
+            >>> sin_osc_fb = ugentools.SinOscFB.ar(
+            ...     feedback=0,
+            ...     frequency=440,
+            ...     )
+            >>> sin_osc_fb.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

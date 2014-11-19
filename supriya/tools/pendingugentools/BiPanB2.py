@@ -124,44 +124,6 @@ class BiPanB2(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def in_a(self):
-        r'''Gets `in_a` input of BiPanB2.
-
-        ::
-
-            >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
-            ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
-            ...     )
-            >>> bi_pan_b_2.in_a
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('in_a')
-        return self._inputs[index]
-
-    @property
-    def in_b(self):
-        r'''Gets `in_b` input of BiPanB2.
-
-        ::
-
-            >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
-            ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
-            ...     )
-            >>> bi_pan_b_2.in_b
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('in_b')
-        return self._inputs[index]
-
-    @property
     def azimuth(self):
         r'''Gets `azimuth` input of BiPanB2.
 
@@ -197,4 +159,42 @@ class BiPanB2(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('gain')
+        return self._inputs[index]
+
+    @property
+    def in_a(self):
+        r'''Gets `in_a` input of BiPanB2.
+
+        ::
+
+            >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
+            ...     azimuth=None,
+            ...     gain=1,
+            ...     in_a=None,
+            ...     in_b=None,
+            ...     )
+            >>> bi_pan_b_2.in_a
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('in_a')
+        return self._inputs[index]
+
+    @property
+    def in_b(self):
+        r'''Gets `in_b` input of BiPanB2.
+
+        ::
+
+            >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
+            ...     azimuth=None,
+            ...     gain=1,
+            ...     in_a=None,
+            ...     in_b=None,
+            ...     )
+            >>> bi_pan_b_2.in_b
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('in_b')
         return self._inputs[index]

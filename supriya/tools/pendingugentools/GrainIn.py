@@ -134,28 +134,6 @@ class GrainIn(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of GrainIn.
-
-        ::
-
-            >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_in.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def duration(self):
         r'''Gets `duration` input of GrainIn.
 
@@ -175,50 +153,6 @@ class GrainIn(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('duration')
-        return self._inputs[index]
-
-    @property
-    def source(self):
-        r'''Gets `source` input of GrainIn.
-
-        ::
-
-            >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_in.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def pan(self):
-        r'''Gets `pan` input of GrainIn.
-
-        ::
-
-            >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_in.pan
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
@@ -263,4 +197,70 @@ class GrainIn(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('max_grains')
+        return self._inputs[index]
+
+    @property
+    def pan(self):
+        r'''Gets `pan` input of GrainIn.
+
+        ::
+
+            >>> grain_in = ugentools.GrainIn.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_in.pan
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pan')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of GrainIn.
+
+        ::
+
+            >>> grain_in = ugentools.GrainIn.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_in.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of GrainIn.
+
+        ::
+
+            >>> grain_in = ugentools.GrainIn.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_in.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

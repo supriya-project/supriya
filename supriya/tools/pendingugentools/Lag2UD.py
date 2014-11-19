@@ -124,8 +124,8 @@ class Lag2UD(LagUD):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Lag2UD.
+    def lag_time_d(self):
+        r'''Gets `lag_time_d` input of Lag2UD.
 
         ::
 
@@ -134,11 +134,11 @@ class Lag2UD(LagUD):
             ...     lag_time_u=0.1,
             ...     source=None,
             ...     )
-            >>> lag_2_ud.source
+            >>> lag_2_ud.lag_time_d
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('lag_time_d')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class Lag2UD(LagUD):
         return self._inputs[index]
 
     @property
-    def lag_time_d(self):
-        r'''Gets `lag_time_d` input of Lag2UD.
+    def source(self):
+        r'''Gets `source` input of Lag2UD.
 
         ::
 
@@ -170,9 +170,9 @@ class Lag2UD(LagUD):
             ...     lag_time_u=0.1,
             ...     source=None,
             ...     )
-            >>> lag_2_ud.lag_time_d
+            >>> lag_2_ud.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lag_time_d')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

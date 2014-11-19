@@ -174,25 +174,6 @@ class AmpCompA(AmpComp):
         return self._inputs[index]
 
     @property
-    def root(self):
-        r'''Gets `root` input of AmpCompA.
-
-        ::
-
-            >>> amp_comp_a = ugentools.AmpCompA.ar(
-            ...     frequency=1000,
-            ...     min_amp=0.32,
-            ...     root=0,
-            ...     root_amp=1,
-            ...     )
-            >>> amp_comp_a.root
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('root')
-        return self._inputs[index]
-
-    @property
     def min_amp(self):
         r'''Gets `min_amp` input of AmpCompA.
 
@@ -209,6 +190,25 @@ class AmpCompA(AmpComp):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('min_amp')
+        return self._inputs[index]
+
+    @property
+    def root(self):
+        r'''Gets `root` input of AmpCompA.
+
+        ::
+
+            >>> amp_comp_a = ugentools.AmpCompA.ar(
+            ...     frequency=1000,
+            ...     min_amp=0.32,
+            ...     root=0,
+            ...     root_amp=1,
+            ...     )
+            >>> amp_comp_a.root
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('root')
         return self._inputs[index]
 
     @property

@@ -134,8 +134,8 @@ class MidEQ(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of MidEQ.
+    def db(self):
+        r'''Gets `db` input of MidEQ.
 
         ::
 
@@ -145,11 +145,11 @@ class MidEQ(Filter):
             ...     reciprocal_of_q=1,
             ...     source=None,
             ...     )
-            >>> mid_eq.source
+            >>> mid_eq.db
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('db')
         return self._inputs[index]
 
     @property
@@ -191,8 +191,8 @@ class MidEQ(Filter):
         return self._inputs[index]
 
     @property
-    def db(self):
-        r'''Gets `db` input of MidEQ.
+    def source(self):
+        r'''Gets `source` input of MidEQ.
 
         ::
 
@@ -202,9 +202,9 @@ class MidEQ(Filter):
             ...     reciprocal_of_q=1,
             ...     source=None,
             ...     )
-            >>> mid_eq.db
+            >>> mid_eq.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('db')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -114,23 +114,6 @@ class Integrator(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Integrator.
-
-        ::
-
-            >>> integrator = ugentools.Integrator.ar(
-            ...     coefficient=1,
-            ...     source=None,
-            ...     )
-            >>> integrator.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def coefficient(self):
         r'''Gets `coefficient` input of Integrator.
 
@@ -145,4 +128,21 @@ class Integrator(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Integrator.
+
+        ::
+
+            >>> integrator = ugentools.Integrator.ar(
+            ...     coefficient=1,
+            ...     source=None,
+            ...     )
+            >>> integrator.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

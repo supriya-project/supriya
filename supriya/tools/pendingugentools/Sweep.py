@@ -102,23 +102,6 @@ class Sweep(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of Sweep.
-
-        ::
-
-            >>> sweep = ugentools.Sweep.ar(
-            ...     rate=1,
-            ...     trigger=0,
-            ...     )
-            >>> sweep.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def rate(self):
         r'''Gets `rate` input of Sweep.
 
@@ -133,4 +116,21 @@ class Sweep(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('rate')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Sweep.
+
+        ::
+
+            >>> sweep = ugentools.Sweep.ar(
+            ...     rate=1,
+            ...     trigger=0,
+            ...     )
+            >>> sweep.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

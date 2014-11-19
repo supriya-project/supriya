@@ -102,23 +102,6 @@ class SetResetFF(PulseCount):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of SetResetFF.
-
-        ::
-
-            >>> set_reset_ff = ugentools.SetResetFF.ar(
-            ...     reset=0,
-            ...     trigger=0,
-            ...     )
-            >>> set_reset_ff.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def reset(self):
         r'''Gets `reset` input of SetResetFF.
 
@@ -133,4 +116,21 @@ class SetResetFF(PulseCount):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reset')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of SetResetFF.
+
+        ::
+
+            >>> set_reset_ff = ugentools.SetResetFF.ar(
+            ...     reset=0,
+            ...     trigger=0,
+            ...     )
+            >>> set_reset_ff.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

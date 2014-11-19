@@ -148,78 +148,6 @@ class Onsets(UGen):
         return self._inputs[index]
 
     @property
-    def threshold(self):
-        r'''Gets `threshold` input of Onsets.
-
-        ::
-
-            >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
-            ...     floor=0.1,
-            ...     medianspan=11,
-            ...     mingap=10,
-            ...     odftype='"rcomplex"',
-            ...     rawodf=0,
-            ...     relaxtime=1,
-            ...     threshold=0.5,
-            ...     whtype=1,
-            ...     )
-            >>> onsets.threshold
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('threshold')
-        return self._inputs[index]
-
-    @property
-    def odftype(self):
-        r'''Gets `odftype` input of Onsets.
-
-        ::
-
-            >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
-            ...     floor=0.1,
-            ...     medianspan=11,
-            ...     mingap=10,
-            ...     odftype='"rcomplex"',
-            ...     rawodf=0,
-            ...     relaxtime=1,
-            ...     threshold=0.5,
-            ...     whtype=1,
-            ...     )
-            >>> onsets.odftype
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('odftype')
-        return self._inputs[index]
-
-    @property
-    def relaxtime(self):
-        r'''Gets `relaxtime` input of Onsets.
-
-        ::
-
-            >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
-            ...     floor=0.1,
-            ...     medianspan=11,
-            ...     mingap=10,
-            ...     odftype='"rcomplex"',
-            ...     rawodf=0,
-            ...     relaxtime=1,
-            ...     threshold=0.5,
-            ...     whtype=1,
-            ...     )
-            >>> onsets.relaxtime
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('relaxtime')
-        return self._inputs[index]
-
-    @property
     def floor(self):
         r'''Gets `floor` input of Onsets.
 
@@ -241,30 +169,6 @@ class Onsets(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('floor')
-        return self._inputs[index]
-
-    @property
-    def mingap(self):
-        r'''Gets `mingap` input of Onsets.
-
-        ::
-
-            >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
-            ...     floor=0.1,
-            ...     medianspan=11,
-            ...     mingap=10,
-            ...     odftype='"rcomplex"',
-            ...     rawodf=0,
-            ...     relaxtime=1,
-            ...     threshold=0.5,
-            ...     whtype=1,
-            ...     )
-            >>> onsets.mingap
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('mingap')
         return self._inputs[index]
 
     @property
@@ -292,8 +196,8 @@ class Onsets(UGen):
         return self._inputs[index]
 
     @property
-    def whtype(self):
-        r'''Gets `whtype` input of Onsets.
+    def mingap(self):
+        r'''Gets `mingap` input of Onsets.
 
         ::
 
@@ -308,11 +212,35 @@ class Onsets(UGen):
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
-            >>> onsets.whtype
+            >>> onsets.mingap
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('whtype')
+        index = self._ordered_input_names.index('mingap')
+        return self._inputs[index]
+
+    @property
+    def odftype(self):
+        r'''Gets `odftype` input of Onsets.
+
+        ::
+
+            >>> onsets = ugentools.Onsets.ar(
+            ...     chain=None,
+            ...     floor=0.1,
+            ...     medianspan=11,
+            ...     mingap=10,
+            ...     odftype='"rcomplex"',
+            ...     rawodf=0,
+            ...     relaxtime=1,
+            ...     threshold=0.5,
+            ...     whtype=1,
+            ...     )
+            >>> onsets.odftype
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('odftype')
         return self._inputs[index]
 
     @property
@@ -337,4 +265,76 @@ class Onsets(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('rawodf')
+        return self._inputs[index]
+
+    @property
+    def relaxtime(self):
+        r'''Gets `relaxtime` input of Onsets.
+
+        ::
+
+            >>> onsets = ugentools.Onsets.ar(
+            ...     chain=None,
+            ...     floor=0.1,
+            ...     medianspan=11,
+            ...     mingap=10,
+            ...     odftype='"rcomplex"',
+            ...     rawodf=0,
+            ...     relaxtime=1,
+            ...     threshold=0.5,
+            ...     whtype=1,
+            ...     )
+            >>> onsets.relaxtime
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('relaxtime')
+        return self._inputs[index]
+
+    @property
+    def threshold(self):
+        r'''Gets `threshold` input of Onsets.
+
+        ::
+
+            >>> onsets = ugentools.Onsets.ar(
+            ...     chain=None,
+            ...     floor=0.1,
+            ...     medianspan=11,
+            ...     mingap=10,
+            ...     odftype='"rcomplex"',
+            ...     rawodf=0,
+            ...     relaxtime=1,
+            ...     threshold=0.5,
+            ...     whtype=1,
+            ...     )
+            >>> onsets.threshold
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('threshold')
+        return self._inputs[index]
+
+    @property
+    def whtype(self):
+        r'''Gets `whtype` input of Onsets.
+
+        ::
+
+            >>> onsets = ugentools.Onsets.ar(
+            ...     chain=None,
+            ...     floor=0.1,
+            ...     medianspan=11,
+            ...     mingap=10,
+            ...     odftype='"rcomplex"',
+            ...     rawodf=0,
+            ...     relaxtime=1,
+            ...     threshold=0.5,
+            ...     whtype=1,
+            ...     )
+            >>> onsets.whtype
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('whtype')
         return self._inputs[index]

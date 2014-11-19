@@ -105,8 +105,8 @@ class StereoConvolution2L(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of StereoConvolution2L.
+    def crossfade(self):
+        r'''Gets `crossfade` input of StereoConvolution2L.
 
         ::
 
@@ -118,11 +118,32 @@ class StereoConvolution2L(MultiOutUGen):
             ...     source=None,
             ...     trigger=0,
             ...     )
-            >>> stereo_convolution_2_l.source
+            >>> stereo_convolution_2_l.crossfade
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('crossfade')
+        return self._inputs[index]
+
+    @property
+    def framesize(self):
+        r'''Gets `framesize` input of StereoConvolution2L.
+
+        ::
+
+            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            ...     crossfade=1,
+            ...     framesize=2048,
+            ...     kernel_l=None,
+            ...     kernel_r=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> stereo_convolution_2_l.framesize
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
@@ -168,6 +189,27 @@ class StereoConvolution2L(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def source(self):
+        r'''Gets `source` input of StereoConvolution2L.
+
+        ::
+
+            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            ...     crossfade=1,
+            ...     framesize=2048,
+            ...     kernel_l=None,
+            ...     kernel_r=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> stereo_convolution_2_l.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
     def trigger(self):
         r'''Gets `trigger` input of StereoConvolution2L.
 
@@ -186,46 +228,4 @@ class StereoConvolution2L(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def framesize(self):
-        r'''Gets `framesize` input of StereoConvolution2L.
-
-        ::
-
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
-            ...     crossfade=1,
-            ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> stereo_convolution_2_l.framesize
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('framesize')
-        return self._inputs[index]
-
-    @property
-    def crossfade(self):
-        r'''Gets `crossfade` input of StereoConvolution2L.
-
-        ::
-
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
-            ...     crossfade=1,
-            ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> stereo_convolution_2_l.crossfade
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('crossfade')
         return self._inputs[index]

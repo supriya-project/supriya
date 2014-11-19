@@ -100,24 +100,6 @@ class KeyTrack(UGen):
         return self._inputs[index]
 
     @property
-    def keydecay(self):
-        r'''Gets `keydecay` input of KeyTrack.
-
-        ::
-
-            >>> key_track = ugentools.KeyTrack.ar(
-            ...     chain=None,
-            ...     chromaleak=0.5,
-            ...     keydecay=2,
-            ...     )
-            >>> key_track.keydecay
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('keydecay')
-        return self._inputs[index]
-
-    @property
     def chromaleak(self):
         r'''Gets `chromaleak` input of KeyTrack.
 
@@ -133,4 +115,22 @@ class KeyTrack(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('chromaleak')
+        return self._inputs[index]
+
+    @property
+    def keydecay(self):
+        r'''Gets `keydecay` input of KeyTrack.
+
+        ::
+
+            >>> key_track = ugentools.KeyTrack.ar(
+            ...     chain=None,
+            ...     chromaleak=0.5,
+            ...     keydecay=2,
+            ...     )
+            >>> key_track.keydecay
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('keydecay')
         return self._inputs[index]

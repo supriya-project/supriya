@@ -96,8 +96,8 @@ class Convolution2L(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Convolution2L.
+    def crossfade(self):
+        r'''Gets `crossfade` input of Convolution2L.
 
         ::
 
@@ -108,51 +108,11 @@ class Convolution2L(UGen):
             ...     source=None,
             ...     trigger=0,
             ...     )
-            >>> convolution_2_l.source
+            >>> convolution_2_l.crossfade
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def kernel(self):
-        r'''Gets `kernel` input of Convolution2L.
-
-        ::
-
-            >>> convolution_2_l = ugentools.Convolution2L.ar(
-            ...     crossfade=1,
-            ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> convolution_2_l.kernel
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('kernel')
-        return self._inputs[index]
-
-    @property
-    def trigger(self):
-        r'''Gets `trigger` input of Convolution2L.
-
-        ::
-
-            >>> convolution_2_l = ugentools.Convolution2L.ar(
-            ...     crossfade=1,
-            ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> convolution_2_l.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index('crossfade')
         return self._inputs[index]
 
     @property
@@ -176,8 +136,8 @@ class Convolution2L(UGen):
         return self._inputs[index]
 
     @property
-    def crossfade(self):
-        r'''Gets `crossfade` input of Convolution2L.
+    def kernel(self):
+        r'''Gets `kernel` input of Convolution2L.
 
         ::
 
@@ -188,9 +148,49 @@ class Convolution2L(UGen):
             ...     source=None,
             ...     trigger=0,
             ...     )
-            >>> convolution_2_l.crossfade
+            >>> convolution_2_l.kernel
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('crossfade')
+        index = self._ordered_input_names.index('kernel')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Convolution2L.
+
+        ::
+
+            >>> convolution_2_l = ugentools.Convolution2L.ar(
+            ...     crossfade=1,
+            ...     framesize=2048,
+            ...     kernel=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> convolution_2_l.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Convolution2L.
+
+        ::
+
+            >>> convolution_2_l = ugentools.Convolution2L.ar(
+            ...     crossfade=1,
+            ...     framesize=2048,
+            ...     kernel=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> convolution_2_l.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

@@ -134,8 +134,8 @@ class SendPeakRMS(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def sig(self):
-        r'''Gets `sig` input of SendPeakRMS.
+    def cmd_name(self):
+        r'''Gets `cmd_name` input of SendPeakRMS.
 
         ::
 
@@ -146,31 +146,11 @@ class SendPeakRMS(UGen):
             ...     reply_rate=20,
             ...     sig=None,
             ...     )
-            >>> send_peak_rms.sig
+            >>> send_peak_rms.cmd_name
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('sig')
-        return self._inputs[index]
-
-    @property
-    def reply_rate(self):
-        r'''Gets `reply_rate` input of SendPeakRMS.
-
-        ::
-
-            >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     sig=None,
-            ...     )
-            >>> send_peak_rms.reply_rate
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('reply_rate')
+        index = self._ordered_input_names.index('cmd_name')
         return self._inputs[index]
 
     @property
@@ -194,26 +174,6 @@ class SendPeakRMS(UGen):
         return self._inputs[index]
 
     @property
-    def cmd_name(self):
-        r'''Gets `cmd_name` input of SendPeakRMS.
-
-        ::
-
-            >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
-            ...     peak_lag=3,
-            ...     reply_id=-1,
-            ...     reply_rate=20,
-            ...     sig=None,
-            ...     )
-            >>> send_peak_rms.cmd_name
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('cmd_name')
-        return self._inputs[index]
-
-    @property
     def reply_id(self):
         r'''Gets `reply_id` input of SendPeakRMS.
 
@@ -231,4 +191,44 @@ class SendPeakRMS(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reply_id')
+        return self._inputs[index]
+
+    @property
+    def reply_rate(self):
+        r'''Gets `reply_rate` input of SendPeakRMS.
+
+        ::
+
+            >>> send_peak_rms = ugentools.SendPeakRMS.ar(
+            ...     cmd_name='/reply',
+            ...     peak_lag=3,
+            ...     reply_id=-1,
+            ...     reply_rate=20,
+            ...     sig=None,
+            ...     )
+            >>> send_peak_rms.reply_rate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('reply_rate')
+        return self._inputs[index]
+
+    @property
+    def sig(self):
+        r'''Gets `sig` input of SendPeakRMS.
+
+        ::
+
+            >>> send_peak_rms = ugentools.SendPeakRMS.ar(
+            ...     cmd_name='/reply',
+            ...     peak_lag=3,
+            ...     reply_id=-1,
+            ...     reply_rate=20,
+            ...     sig=None,
+            ...     )
+            >>> send_peak_rms.sig
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sig')
         return self._inputs[index]

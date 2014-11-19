@@ -82,8 +82,8 @@ class Limiter(Normalizer):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Limiter.
+    def duration(self):
+        r'''Gets `duration` input of Limiter.
 
         ::
 
@@ -92,11 +92,11 @@ class Limiter(Normalizer):
             ...     level=1,
             ...     source=None,
             ...     )
-            >>> limiter.source
+            >>> limiter.duration
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
@@ -118,8 +118,8 @@ class Limiter(Normalizer):
         return self._inputs[index]
 
     @property
-    def duration(self):
-        r'''Gets `duration` input of Limiter.
+    def source(self):
+        r'''Gets `source` input of Limiter.
 
         ::
 
@@ -128,9 +128,9 @@ class Limiter(Normalizer):
             ...     level=1,
             ...     source=None,
             ...     )
-            >>> limiter.duration
+            >>> limiter.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

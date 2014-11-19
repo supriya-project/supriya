@@ -89,8 +89,8 @@ class Convolution2(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Convolution2.
+    def framesize(self):
+        r'''Gets `framesize` input of Convolution2.
 
         ::
 
@@ -100,11 +100,11 @@ class Convolution2(UGen):
             ...     source=None,
             ...     trigger=0,
             ...     )
-            >>> convolution_2.source
+            >>> convolution_2.framesize
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
@@ -127,6 +127,25 @@ class Convolution2(UGen):
         return self._inputs[index]
 
     @property
+    def source(self):
+        r'''Gets `source` input of Convolution2.
+
+        ::
+
+            >>> convolution_2 = ugentools.Convolution2.ar(
+            ...     framesize=2048,
+            ...     kernel=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> convolution_2.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
     def trigger(self):
         r'''Gets `trigger` input of Convolution2.
 
@@ -143,23 +162,4 @@ class Convolution2(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def framesize(self):
-        r'''Gets `framesize` input of Convolution2.
-
-        ::
-
-            >>> convolution_2 = ugentools.Convolution2.ar(
-            ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> convolution_2.framesize
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]

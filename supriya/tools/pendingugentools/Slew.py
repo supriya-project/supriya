@@ -124,6 +124,24 @@ class Slew(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def dn(self):
+        r'''Gets `dn` input of Slew.
+
+        ::
+
+            >>> slew = ugentools.Slew.ar(
+            ...     dn=1,
+            ...     source=None,
+            ...     up=1,
+            ...     )
+            >>> slew.dn
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('dn')
+        return self._inputs[index]
+
+    @property
     def source(self):
         r'''Gets `source` input of Slew.
 
@@ -157,22 +175,4 @@ class Slew(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('up')
-        return self._inputs[index]
-
-    @property
-    def dn(self):
-        r'''Gets `dn` input of Slew.
-
-        ::
-
-            >>> slew = ugentools.Slew.ar(
-            ...     dn=1,
-            ...     source=None,
-            ...     up=1,
-            ...     )
-            >>> slew.dn
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('dn')
         return self._inputs[index]

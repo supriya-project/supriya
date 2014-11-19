@@ -114,23 +114,6 @@ class OneZero(OnePole):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of OneZero.
-
-        ::
-
-            >>> one_zero = ugentools.OneZero.ar(
-            ...     coefficient=0.5,
-            ...     source=None,
-            ...     )
-            >>> one_zero.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def coefficient(self):
         r'''Gets `coefficient` input of OneZero.
 
@@ -145,4 +128,21 @@ class OneZero(OnePole):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of OneZero.
+
+        ::
+
+            >>> one_zero = ugentools.OneZero.ar(
+            ...     coefficient=0.5,
+            ...     source=None,
+            ...     )
+            >>> one_zero.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

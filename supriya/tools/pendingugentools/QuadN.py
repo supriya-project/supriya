@@ -98,26 +98,6 @@ class QuadN(ChaosGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of QuadN.
-
-        ::
-
-            >>> quad_n = ugentools.QuadN.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_n.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of QuadN.
 
@@ -175,6 +155,26 @@ class QuadN(ChaosGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('c')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of QuadN.
+
+        ::
+
+            >>> quad_n = ugentools.QuadN.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
+            ...     frequency=22050,
+            ...     xi=0,
+            ...     )
+            >>> quad_n.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

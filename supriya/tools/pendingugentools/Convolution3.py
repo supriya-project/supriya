@@ -122,8 +122,8 @@ class Convolution3(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Convolution3.
+    def framesize(self):
+        r'''Gets `framesize` input of Convolution3.
 
         ::
 
@@ -133,11 +133,11 @@ class Convolution3(UGen):
             ...     source=None,
             ...     trigger=0,
             ...     )
-            >>> convolution_3.source
+            >>> convolution_3.framesize
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
@@ -160,6 +160,25 @@ class Convolution3(UGen):
         return self._inputs[index]
 
     @property
+    def source(self):
+        r'''Gets `source` input of Convolution3.
+
+        ::
+
+            >>> convolution_3 = ugentools.Convolution3.ar(
+            ...     framesize=2048,
+            ...     kernel=None,
+            ...     source=None,
+            ...     trigger=0,
+            ...     )
+            >>> convolution_3.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
     def trigger(self):
         r'''Gets `trigger` input of Convolution3.
 
@@ -176,23 +195,4 @@ class Convolution3(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def framesize(self):
-        r'''Gets `framesize` input of Convolution3.
-
-        ::
-
-            >>> convolution_3 = ugentools.Convolution3.ar(
-            ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> convolution_3.framesize
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]

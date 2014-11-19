@@ -114,8 +114,8 @@ class LinPan2(Pan2):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of LinPan2.
+    def level(self):
+        r'''Gets `level` input of LinPan2.
 
         ::
 
@@ -124,11 +124,11 @@ class LinPan2(Pan2):
             ...     pos=0,
             ...     source=None,
             ...     )
-            >>> lin_pan_2.source
+            >>> lin_pan_2.level
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
@@ -150,8 +150,8 @@ class LinPan2(Pan2):
         return self._inputs[index]
 
     @property
-    def level(self):
-        r'''Gets `level` input of LinPan2.
+    def source(self):
+        r'''Gets `source` input of LinPan2.
 
         ::
 
@@ -160,9 +160,9 @@ class LinPan2(Pan2):
             ...     pos=0,
             ...     source=None,
             ...     )
-            >>> lin_pan_2.level
+            >>> lin_pan_2.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

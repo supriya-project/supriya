@@ -98,8 +98,8 @@ class FreeVerb2(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of FreeVerb2.
+    def damping(self):
+        r'''Gets `damping` input of FreeVerb2.
 
         ::
 
@@ -110,11 +110,11 @@ class FreeVerb2(MultiOutUGen):
             ...     room=0.5,
             ...     source=None,
             ...     )
-            >>> free_verb_2.source
+            >>> free_verb_2.damping
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
@@ -178,8 +178,8 @@ class FreeVerb2(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def damping(self):
-        r'''Gets `damping` input of FreeVerb2.
+    def source(self):
+        r'''Gets `source` input of FreeVerb2.
 
         ::
 
@@ -190,9 +190,9 @@ class FreeVerb2(MultiOutUGen):
             ...     room=0.5,
             ...     source=None,
             ...     )
-            >>> free_verb_2.damping
+            >>> free_verb_2.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('damping')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

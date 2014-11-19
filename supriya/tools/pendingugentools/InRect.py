@@ -112,6 +112,24 @@ class InRect(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def rect(self):
+        r'''Gets `rect` input of InRect.
+
+        ::
+
+            >>> in_rect = ugentools.InRect.ar(
+            ...     rect=None,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> in_rect.rect
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rect')
+        return self._inputs[index]
+
+    @property
     def x(self):
         r'''Gets `x` input of InRect.
 
@@ -145,22 +163,4 @@ class InRect(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('y')
-        return self._inputs[index]
-
-    @property
-    def rect(self):
-        r'''Gets `rect` input of InRect.
-
-        ::
-
-            >>> in_rect = ugentools.InRect.ar(
-            ...     rect=None,
-            ...     x=0,
-            ...     y=0,
-            ...     )
-            >>> in_rect.rect
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('rect')
         return self._inputs[index]

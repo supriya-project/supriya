@@ -112,72 +112,6 @@ class FBSineL(FBSineN):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of FBSineL.
-
-        ::
-
-            >>> fbsine_l = ugentools.FBSineL.ar(
-            ...     a=1.1,
-            ...     c=0.5,
-            ...     fb=0.1,
-            ...     frequency=22050,
-            ...     im=1,
-            ...     xi=0.1,
-            ...     yi=0.1,
-            ...     )
-            >>> fbsine_l.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
-    def im(self):
-        r'''Gets `im` input of FBSineL.
-
-        ::
-
-            >>> fbsine_l = ugentools.FBSineL.ar(
-            ...     a=1.1,
-            ...     c=0.5,
-            ...     fb=0.1,
-            ...     frequency=22050,
-            ...     im=1,
-            ...     xi=0.1,
-            ...     yi=0.1,
-            ...     )
-            >>> fbsine_l.im
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('im')
-        return self._inputs[index]
-
-    @property
-    def fb(self):
-        r'''Gets `fb` input of FBSineL.
-
-        ::
-
-            >>> fbsine_l = ugentools.FBSineL.ar(
-            ...     a=1.1,
-            ...     c=0.5,
-            ...     fb=0.1,
-            ...     frequency=22050,
-            ...     im=1,
-            ...     xi=0.1,
-            ...     yi=0.1,
-            ...     )
-            >>> fbsine_l.fb
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('fb')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of FBSineL.
 
@@ -219,6 +153,72 @@ class FBSineL(FBSineN):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('c')
+        return self._inputs[index]
+
+    @property
+    def fb(self):
+        r'''Gets `fb` input of FBSineL.
+
+        ::
+
+            >>> fbsine_l = ugentools.FBSineL.ar(
+            ...     a=1.1,
+            ...     c=0.5,
+            ...     fb=0.1,
+            ...     frequency=22050,
+            ...     im=1,
+            ...     xi=0.1,
+            ...     yi=0.1,
+            ...     )
+            >>> fbsine_l.fb
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('fb')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of FBSineL.
+
+        ::
+
+            >>> fbsine_l = ugentools.FBSineL.ar(
+            ...     a=1.1,
+            ...     c=0.5,
+            ...     fb=0.1,
+            ...     frequency=22050,
+            ...     im=1,
+            ...     xi=0.1,
+            ...     yi=0.1,
+            ...     )
+            >>> fbsine_l.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def im(self):
+        r'''Gets `im` input of FBSineL.
+
+        ::
+
+            >>> fbsine_l = ugentools.FBSineL.ar(
+            ...     a=1.1,
+            ...     c=0.5,
+            ...     fb=0.1,
+            ...     frequency=22050,
+            ...     im=1,
+            ...     xi=0.1,
+            ...     yi=0.1,
+            ...     )
+            >>> fbsine_l.im
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('im')
         return self._inputs[index]
 
     @property

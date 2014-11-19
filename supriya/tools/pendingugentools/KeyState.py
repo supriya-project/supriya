@@ -108,8 +108,8 @@ class KeyState(UGen):
         return self._inputs[index]
 
     @property
-    def minval(self):
-        r'''Gets `minval` input of KeyState.
+    def lag(self):
+        r'''Gets `lag` input of KeyState.
 
         ::
 
@@ -119,11 +119,11 @@ class KeyState(UGen):
             ...     maxval=1,
             ...     minval=0,
             ...     )
-            >>> key_state.minval
+            >>> key_state.lag
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('minval')
+        index = self._ordered_input_names.index('lag')
         return self._inputs[index]
 
     @property
@@ -146,8 +146,8 @@ class KeyState(UGen):
         return self._inputs[index]
 
     @property
-    def lag(self):
-        r'''Gets `lag` input of KeyState.
+    def minval(self):
+        r'''Gets `minval` input of KeyState.
 
         ::
 
@@ -157,9 +157,9 @@ class KeyState(UGen):
             ...     maxval=1,
             ...     minval=0,
             ...     )
-            >>> key_state.lag
+            >>> key_state.minval
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lag')
+        index = self._ordered_input_names.index('minval')
         return self._inputs[index]

@@ -98,26 +98,6 @@ class VDiskIn(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of VDiskIn.
-
-        ::
-
-            >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
-            ...     loop=0,
-            ...     rate=1,
-            ...     send_id=0,
-            ...     )
-            >>> vdisk_in.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of VDiskIn.
 
@@ -138,8 +118,8 @@ class VDiskIn(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def rate(self):
-        r'''Gets `rate` input of VDiskIn.
+    def channel_count(self):
+        r'''Gets `channel_count` input of VDiskIn.
 
         ::
 
@@ -150,11 +130,11 @@ class VDiskIn(MultiOutUGen):
             ...     rate=1,
             ...     send_id=0,
             ...     )
-            >>> vdisk_in.rate
+            >>> vdisk_in.channel_count
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('rate')
+        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
@@ -175,6 +155,26 @@ class VDiskIn(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('loop')
+        return self._inputs[index]
+
+    @property
+    def rate(self):
+        r'''Gets `rate` input of VDiskIn.
+
+        ::
+
+            >>> vdisk_in = ugentools.VDiskIn.ar(
+            ...     buffer_id=None,
+            ...     channel_count=None,
+            ...     loop=0,
+            ...     rate=1,
+            ...     send_id=0,
+            ...     )
+            >>> vdisk_in.rate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property

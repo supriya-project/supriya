@@ -154,6 +154,26 @@ class DecodeB2(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def orientation(self):
+        r'''Gets `orientation` input of DecodeB2.
+
+        ::
+
+            >>> decode_b_2 = ugentools.DecodeB2.ar(
+            ...     channel_count=None,
+            ...     orientation=0.5,
+            ...     w=None,
+            ...     x=None,
+            ...     y=None,
+            ...     )
+            >>> decode_b_2.orientation
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('orientation')
+        return self._inputs[index]
+
+    @property
     def w(self):
         r'''Gets `w` input of DecodeB2.
 
@@ -211,24 +231,4 @@ class DecodeB2(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('y')
-        return self._inputs[index]
-
-    @property
-    def orientation(self):
-        r'''Gets `orientation` input of DecodeB2.
-
-        ::
-
-            >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
-            ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
-            ...     )
-            >>> decode_b_2.orientation
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('orientation')
         return self._inputs[index]

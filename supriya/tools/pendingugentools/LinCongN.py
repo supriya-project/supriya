@@ -98,26 +98,6 @@ class LinCongN(ChaosGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of LinCongN.
-
-        ::
-
-            >>> lin_cong_n = ugentools.LinCongN.ar(
-            ...     a=1.1,
-            ...     c=0.13,
-            ...     frequency=22050,
-            ...     m=1,
-            ...     xi=0,
-            ...     )
-            >>> lin_cong_n.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of LinCongN.
 
@@ -155,6 +135,26 @@ class LinCongN(ChaosGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('c')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of LinCongN.
+
+        ::
+
+            >>> lin_cong_n = ugentools.LinCongN.ar(
+            ...     a=1.1,
+            ...     c=0.13,
+            ...     frequency=22050,
+            ...     m=1,
+            ...     xi=0,
+            ...     )
+            >>> lin_cong_n.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

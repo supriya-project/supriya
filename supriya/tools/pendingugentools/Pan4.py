@@ -124,6 +124,25 @@ class Pan4(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def level(self):
+        r'''Gets `level` input of Pan4.
+
+        ::
+
+            >>> pan_4 = ugentools.Pan4.ar(
+            ...     level=1,
+            ...     source=None,
+            ...     xpos=0,
+            ...     ypos=0,
+            ...     )
+            >>> pan_4.level
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('level')
+        return self._inputs[index]
+
+    @property
     def source(self):
         r'''Gets `source` input of Pan4.
 
@@ -178,23 +197,4 @@ class Pan4(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('ypos')
-        return self._inputs[index]
-
-    @property
-    def level(self):
-        r'''Gets `level` input of Pan4.
-
-        ::
-
-            >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
-            ...     source=None,
-            ...     xpos=0,
-            ...     ypos=0,
-            ...     )
-            >>> pan_4.level
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('level')
         return self._inputs[index]

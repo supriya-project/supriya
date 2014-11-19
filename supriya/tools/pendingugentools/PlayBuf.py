@@ -154,28 +154,6 @@ class PlayBuf(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of PlayBuf.
-
-        ::
-
-            >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=None,
-            ...     done_action=0,
-            ...     loop=0,
-            ...     rate=1,
-            ...     start_pos=0,
-            ...     trigger=1,
-            ...     )
-            >>> play_buf.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of PlayBuf.
 
@@ -198,8 +176,8 @@ class PlayBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def rate(self):
-        r'''Gets `rate` input of PlayBuf.
+    def channel_count(self):
+        r'''Gets `channel_count` input of PlayBuf.
 
         ::
 
@@ -212,16 +190,16 @@ class PlayBuf(MultiOutUGen):
             ...     start_pos=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.rate
+            >>> play_buf.channel_count
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('rate')
+        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of PlayBuf.
+    def done_action(self):
+        r'''Gets `done_action` input of PlayBuf.
 
         ::
 
@@ -234,33 +212,11 @@ class PlayBuf(MultiOutUGen):
             ...     start_pos=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.trigger
+            >>> play_buf.done_action
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def start_pos(self):
-        r'''Gets `start_pos` input of PlayBuf.
-
-        ::
-
-            >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=None,
-            ...     done_action=0,
-            ...     loop=0,
-            ...     rate=1,
-            ...     start_pos=0,
-            ...     trigger=1,
-            ...     )
-            >>> play_buf.start_pos
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('start_pos')
+        index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
@@ -286,8 +242,8 @@ class PlayBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def done_action(self):
-        r'''Gets `done_action` input of PlayBuf.
+    def rate(self):
+        r'''Gets `rate` input of PlayBuf.
 
         ::
 
@@ -300,9 +256,53 @@ class PlayBuf(MultiOutUGen):
             ...     start_pos=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.done_action
+            >>> play_buf.rate
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('done_action')
+        index = self._ordered_input_names.index('rate')
+        return self._inputs[index]
+
+    @property
+    def start_pos(self):
+        r'''Gets `start_pos` input of PlayBuf.
+
+        ::
+
+            >>> play_buf = ugentools.PlayBuf.ar(
+            ...     buffer_id=0,
+            ...     channel_count=None,
+            ...     done_action=0,
+            ...     loop=0,
+            ...     rate=1,
+            ...     start_pos=0,
+            ...     trigger=1,
+            ...     )
+            >>> play_buf.start_pos
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('start_pos')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of PlayBuf.
+
+        ::
+
+            >>> play_buf = ugentools.PlayBuf.ar(
+            ...     buffer_id=0,
+            ...     channel_count=None,
+            ...     done_action=0,
+            ...     loop=0,
+            ...     rate=1,
+            ...     start_pos=0,
+            ...     trigger=1,
+            ...     )
+            >>> play_buf.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

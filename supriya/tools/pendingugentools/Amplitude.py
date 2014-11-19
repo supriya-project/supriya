@@ -136,24 +136,6 @@ class Amplitude(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Amplitude.
-
-        ::
-
-            >>> amplitude = ugentools.Amplitude.ar(
-            ...     attack_time=0.01,
-            ...     release_time=0.01,
-            ...     source=None,
-            ...     )
-            >>> amplitude.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def attack_time(self):
         r'''Gets `attack_time` input of Amplitude.
 
@@ -187,4 +169,22 @@ class Amplitude(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('release_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Amplitude.
+
+        ::
+
+            >>> amplitude = ugentools.Amplitude.ar(
+            ...     attack_time=0.01,
+            ...     release_time=0.01,
+            ...     source=None,
+            ...     )
+            >>> amplitude.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

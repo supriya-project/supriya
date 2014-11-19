@@ -103,8 +103,8 @@ class BPeakEQ(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BPeakEQ.
+    def db(self):
+        r'''Gets `db` input of BPeakEQ.
 
         ::
 
@@ -114,11 +114,11 @@ class BPeakEQ(BEQSuite):
             ...     reciprocal_of_q=1,
             ...     source=None,
             ...     )
-            >>> bpeak_eq.source
+            >>> bpeak_eq.db
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('db')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class BPeakEQ(BEQSuite):
         return self._inputs[index]
 
     @property
-    def db(self):
-        r'''Gets `db` input of BPeakEQ.
+    def source(self):
+        r'''Gets `source` input of BPeakEQ.
 
         ::
 
@@ -171,9 +171,9 @@ class BPeakEQ(BEQSuite):
             ...     reciprocal_of_q=1,
             ...     source=None,
             ...     )
-            >>> bpeak_eq.db
+            >>> bpeak_eq.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('db')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

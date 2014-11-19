@@ -158,31 +158,6 @@ class GrainBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def duration(self):
         r'''Gets `duration` input of GrainBuf.
 
@@ -205,131 +180,6 @@ class GrainBuf(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('duration')
-        return self._inputs[index]
-
-    @property
-    def sndbuf(self):
-        r'''Gets `sndbuf` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.sndbuf
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('sndbuf')
-        return self._inputs[index]
-
-    @property
-    def rate(self):
-        r'''Gets `rate` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.rate
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('rate')
-        return self._inputs[index]
-
-    @property
-    def pos(self):
-        r'''Gets `pos` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.pos
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pos')
-        return self._inputs[index]
-
-    @property
-    def interpolate(self):
-        r'''Gets `interpolate` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.interpolate
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('interpolate')
-        return self._inputs[index]
-
-    @property
-    def pan(self):
-        r'''Gets `pan` input of GrainBuf.
-
-        ::
-
-            >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     interpolate=2,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     pos=0,
-            ...     rate=1,
-            ...     sndbuf=None,
-            ...     trigger=0,
-            ...     )
-            >>> grain_buf.pan
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
@@ -358,6 +208,31 @@ class GrainBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def interpolate(self):
+        r'''Gets `interpolate` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.interpolate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('interpolate')
+        return self._inputs[index]
+
+    @property
     def max_grains(self):
         r'''Gets `max_grains` input of GrainBuf.
 
@@ -380,4 +255,129 @@ class GrainBuf(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('max_grains')
+        return self._inputs[index]
+
+    @property
+    def pan(self):
+        r'''Gets `pan` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.pan
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pan')
+        return self._inputs[index]
+
+    @property
+    def pos(self):
+        r'''Gets `pos` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.pos
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pos')
+        return self._inputs[index]
+
+    @property
+    def rate(self):
+        r'''Gets `rate` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.rate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rate')
+        return self._inputs[index]
+
+    @property
+    def sndbuf(self):
+        r'''Gets `sndbuf` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.sndbuf
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sndbuf')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of GrainBuf.
+
+        ::
+
+            >>> grain_buf = ugentools.GrainBuf.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     interpolate=2,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     pos=0,
+            ...     rate=1,
+            ...     sndbuf=None,
+            ...     trigger=0,
+            ...     )
+            >>> grain_buf.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

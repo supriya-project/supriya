@@ -102,23 +102,6 @@ class Trig1(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Trig1.
-
-        ::
-
-            >>> trig_1 = ugentools.Trig1.ar(
-            ...     duration=0.1,
-            ...     source=None,
-            ...     )
-            >>> trig_1.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def duration(self):
         r'''Gets `duration` input of Trig1.
 
@@ -133,4 +116,21 @@ class Trig1(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('duration')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Trig1.
+
+        ::
+
+            >>> trig_1 = ugentools.Trig1.ar(
+            ...     duration=0.1,
+            ...     source=None,
+            ...     )
+            >>> trig_1.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

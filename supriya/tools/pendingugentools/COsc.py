@@ -112,6 +112,24 @@ class COsc(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def beats(self):
+        r'''Gets `beats` input of COsc.
+
+        ::
+
+            >>> cosc = ugentools.COsc.ar(
+            ...     beats=0.5,
+            ...     buffer_id=None,
+            ...     frequency=440,
+            ...     )
+            >>> cosc.beats
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('beats')
+        return self._inputs[index]
+
+    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of COsc.
 
@@ -145,22 +163,4 @@ class COsc(PureUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
-    def beats(self):
-        r'''Gets `beats` input of COsc.
-
-        ::
-
-            >>> cosc = ugentools.COsc.ar(
-            ...     beats=0.5,
-            ...     buffer_id=None,
-            ...     frequency=440,
-            ...     )
-            >>> cosc.beats
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('beats')
         return self._inputs[index]

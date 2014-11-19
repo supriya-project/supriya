@@ -126,8 +126,8 @@ class TGrains(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of TGrains.
+    def amp(self):
+        r'''Gets `amp` input of TGrains.
 
         ::
 
@@ -142,35 +142,11 @@ class TGrains(MultiOutUGen):
             ...     rate=1,
             ...     trigger=0,
             ...     )
-            >>> tgrains.channel_count
+            >>> tgrains.amp
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
-    def trigger(self):
-        r'''Gets `trigger` input of TGrains.
-
-        ::
-
-            >>> tgrains = ugentools.TGrains.ar(
-            ...     amp=0.1,
-            ...     buffer_id=0,
-            ...     center_pos=0,
-            ...     channel_count=None,
-            ...     duration=0.1,
-            ...     interpolate=4,
-            ...     pan=0,
-            ...     rate=1,
-            ...     trigger=0,
-            ...     )
-            >>> tgrains.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index('amp')
         return self._inputs[index]
 
     @property
@@ -198,30 +174,6 @@ class TGrains(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def rate(self):
-        r'''Gets `rate` input of TGrains.
-
-        ::
-
-            >>> tgrains = ugentools.TGrains.ar(
-            ...     amp=0.1,
-            ...     buffer_id=0,
-            ...     center_pos=0,
-            ...     channel_count=None,
-            ...     duration=0.1,
-            ...     interpolate=4,
-            ...     pan=0,
-            ...     rate=1,
-            ...     trigger=0,
-            ...     )
-            >>> tgrains.rate
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('rate')
-        return self._inputs[index]
-
-    @property
     def center_pos(self):
         r'''Gets `center_pos` input of TGrains.
 
@@ -243,6 +195,30 @@ class TGrains(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('center_pos')
+        return self._inputs[index]
+
+    @property
+    def channel_count(self):
+        r'''Gets `channel_count` input of TGrains.
+
+        ::
+
+            >>> tgrains = ugentools.TGrains.ar(
+            ...     amp=0.1,
+            ...     buffer_id=0,
+            ...     center_pos=0,
+            ...     channel_count=None,
+            ...     duration=0.1,
+            ...     interpolate=4,
+            ...     pan=0,
+            ...     rate=1,
+            ...     trigger=0,
+            ...     )
+            >>> tgrains.channel_count
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
@@ -270,6 +246,30 @@ class TGrains(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def interpolate(self):
+        r'''Gets `interpolate` input of TGrains.
+
+        ::
+
+            >>> tgrains = ugentools.TGrains.ar(
+            ...     amp=0.1,
+            ...     buffer_id=0,
+            ...     center_pos=0,
+            ...     channel_count=None,
+            ...     duration=0.1,
+            ...     interpolate=4,
+            ...     pan=0,
+            ...     rate=1,
+            ...     trigger=0,
+            ...     )
+            >>> tgrains.interpolate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('interpolate')
+        return self._inputs[index]
+
+    @property
     def pan(self):
         r'''Gets `pan` input of TGrains.
 
@@ -294,8 +294,8 @@ class TGrains(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def amp(self):
-        r'''Gets `amp` input of TGrains.
+    def rate(self):
+        r'''Gets `rate` input of TGrains.
 
         ::
 
@@ -310,16 +310,16 @@ class TGrains(MultiOutUGen):
             ...     rate=1,
             ...     trigger=0,
             ...     )
-            >>> tgrains.amp
+            >>> tgrains.rate
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('amp')
+        index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
-    def interpolate(self):
-        r'''Gets `interpolate` input of TGrains.
+    def trigger(self):
+        r'''Gets `trigger` input of TGrains.
 
         ::
 
@@ -334,9 +334,9 @@ class TGrains(MultiOutUGen):
             ...     rate=1,
             ...     trigger=0,
             ...     )
-            >>> tgrains.interpolate
+            >>> tgrains.trigger
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('interpolate')
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

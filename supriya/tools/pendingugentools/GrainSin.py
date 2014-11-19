@@ -134,28 +134,6 @@ class GrainSin(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of GrainSin.
-
-        ::
-
-            >>> grain_sin = ugentools.GrainSin.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     frequency=440,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_sin.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def duration(self):
         r'''Gets `duration` input of GrainSin.
 
@@ -175,50 +153,6 @@ class GrainSin(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('duration')
-        return self._inputs[index]
-
-    @property
-    def frequency(self):
-        r'''Gets `frequency` input of GrainSin.
-
-        ::
-
-            >>> grain_sin = ugentools.GrainSin.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     frequency=440,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_sin.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
-    def pan(self):
-        r'''Gets `pan` input of GrainSin.
-
-        ::
-
-            >>> grain_sin = ugentools.GrainSin.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     frequency=440,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_sin.pan
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
@@ -244,6 +178,28 @@ class GrainSin(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def frequency(self):
+        r'''Gets `frequency` input of GrainSin.
+
+        ::
+
+            >>> grain_sin = ugentools.GrainSin.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     frequency=440,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_sin.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
     def max_grains(self):
         r'''Gets `max_grains` input of GrainSin.
 
@@ -263,4 +219,48 @@ class GrainSin(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('max_grains')
+        return self._inputs[index]
+
+    @property
+    def pan(self):
+        r'''Gets `pan` input of GrainSin.
+
+        ::
+
+            >>> grain_sin = ugentools.GrainSin.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     frequency=440,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_sin.pan
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pan')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of GrainSin.
+
+        ::
+
+            >>> grain_sin = ugentools.GrainSin.ar(
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     frequency=440,
+            ...     max_grains=512,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_sin.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

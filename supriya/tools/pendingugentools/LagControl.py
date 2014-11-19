@@ -98,23 +98,6 @@ class LagControl(Control):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def values(self):
-        r'''Gets `values` input of LagControl.
-
-        ::
-
-            >>> lag_control = ugentools.LagControl.ar(
-            ...     lags=None,
-            ...     values=None,
-            ...     )
-            >>> lag_control.values
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('values')
-        return self._inputs[index]
-
-    @property
     def lags(self):
         r'''Gets `lags` input of LagControl.
 
@@ -129,4 +112,21 @@ class LagControl(Control):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('lags')
+        return self._inputs[index]
+
+    @property
+    def values(self):
+        r'''Gets `values` input of LagControl.
+
+        ::
+
+            >>> lag_control = ugentools.LagControl.ar(
+            ...     lags=None,
+            ...     values=None,
+            ...     )
+            >>> lag_control.values
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('values')
         return self._inputs[index]

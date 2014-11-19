@@ -82,8 +82,8 @@ class PSinGrain(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of PSinGrain.
+    def amp(self):
+        r'''Gets `amp` input of PSinGrain.
 
         ::
 
@@ -92,11 +92,11 @@ class PSinGrain(UGen):
             ...     duration=0.2,
             ...     frequency=440,
             ...     )
-            >>> psin_grain.frequency
+            >>> psin_grain.amp
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('frequency')
+        index = self._ordered_input_names.index('amp')
         return self._inputs[index]
 
     @property
@@ -118,8 +118,8 @@ class PSinGrain(UGen):
         return self._inputs[index]
 
     @property
-    def amp(self):
-        r'''Gets `amp` input of PSinGrain.
+    def frequency(self):
+        r'''Gets `frequency` input of PSinGrain.
 
         ::
 
@@ -128,9 +128,9 @@ class PSinGrain(UGen):
             ...     duration=0.2,
             ...     frequency=440,
             ...     )
-            >>> psin_grain.amp
+            >>> psin_grain.frequency
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('amp')
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

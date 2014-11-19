@@ -91,25 +91,6 @@ class CuspN(ChaosGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of CuspN.
-
-        ::
-
-            >>> cusp_n = ugentools.CuspN.ar(
-            ...     a=1,
-            ...     b=1.9,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> cusp_n.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of CuspN.
 
@@ -145,6 +126,25 @@ class CuspN(ChaosGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('b')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of CuspN.
+
+        ::
+
+            >>> cusp_n = ugentools.CuspN.ar(
+            ...     a=1,
+            ...     b=1.9,
+            ...     frequency=22050,
+            ...     xi=0,
+            ...     )
+            >>> cusp_n.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

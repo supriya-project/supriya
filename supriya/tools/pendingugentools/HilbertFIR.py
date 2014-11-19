@@ -75,23 +75,6 @@ class HilbertFIR(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of HilbertFIR.
-
-        ::
-
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_=None,
-            ...     source=None,
-            ...     )
-            >>> hilbert_fir.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def buffer_(self):
         r'''Gets `buffer_` input of HilbertFIR.
 
@@ -106,4 +89,21 @@ class HilbertFIR(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of HilbertFIR.
+
+        ::
+
+            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            ...     buffer_=None,
+            ...     source=None,
+            ...     )
+            >>> hilbert_fir.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

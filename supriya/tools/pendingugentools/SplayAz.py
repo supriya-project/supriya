@@ -164,6 +164,29 @@ class SplayAz(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def center(self):
+        r'''Gets `center` input of SplayAz.
+
+        ::
+
+            >>> splay_az = ugentools.SplayAz.ar(
+            ...     center=0,
+            ...     channel_count=4,
+            ...     in_array=None,
+            ...     level=1,
+            ...     level_comp=True,
+            ...     orientation=0.5,
+            ...     spread=1,
+            ...     width=2,
+            ...     )
+            >>> splay_az.center
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('center')
+        return self._inputs[index]
+
+    @property
     def channel_count(self):
         r'''Gets `channel_count` input of SplayAz.
 
@@ -210,29 +233,6 @@ class SplayAz(UGen):
         return self._inputs[index]
 
     @property
-    def spread(self):
-        r'''Gets `spread` input of SplayAz.
-
-        ::
-
-            >>> splay_az = ugentools.SplayAz.ar(
-            ...     center=0,
-            ...     channel_count=4,
-            ...     in_array=None,
-            ...     level=1,
-            ...     level_comp=True,
-            ...     orientation=0.5,
-            ...     spread=1,
-            ...     width=2,
-            ...     )
-            >>> splay_az.spread
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('spread')
-        return self._inputs[index]
-
-    @property
     def level(self):
         r'''Gets `level` input of SplayAz.
 
@@ -256,8 +256,8 @@ class SplayAz(UGen):
         return self._inputs[index]
 
     @property
-    def width(self):
-        r'''Gets `width` input of SplayAz.
+    def level_comp(self):
+        r'''Gets `level_comp` input of SplayAz.
 
         ::
 
@@ -271,34 +271,11 @@ class SplayAz(UGen):
             ...     spread=1,
             ...     width=2,
             ...     )
-            >>> splay_az.width
+            >>> splay_az.level_comp
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('width')
-        return self._inputs[index]
-
-    @property
-    def center(self):
-        r'''Gets `center` input of SplayAz.
-
-        ::
-
-            >>> splay_az = ugentools.SplayAz.ar(
-            ...     center=0,
-            ...     channel_count=4,
-            ...     in_array=None,
-            ...     level=1,
-            ...     level_comp=True,
-            ...     orientation=0.5,
-            ...     spread=1,
-            ...     width=2,
-            ...     )
-            >>> splay_az.center
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('center')
+        index = self._ordered_input_names.index('level_comp')
         return self._inputs[index]
 
     @property
@@ -325,8 +302,8 @@ class SplayAz(UGen):
         return self._inputs[index]
 
     @property
-    def level_comp(self):
-        r'''Gets `level_comp` input of SplayAz.
+    def spread(self):
+        r'''Gets `spread` input of SplayAz.
 
         ::
 
@@ -340,9 +317,32 @@ class SplayAz(UGen):
             ...     spread=1,
             ...     width=2,
             ...     )
-            >>> splay_az.level_comp
+            >>> splay_az.spread
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level_comp')
+        index = self._ordered_input_names.index('spread')
+        return self._inputs[index]
+
+    @property
+    def width(self):
+        r'''Gets `width` input of SplayAz.
+
+        ::
+
+            >>> splay_az = ugentools.SplayAz.ar(
+            ...     center=0,
+            ...     channel_count=4,
+            ...     in_array=None,
+            ...     level=1,
+            ...     level_comp=True,
+            ...     orientation=0.5,
+            ...     spread=1,
+            ...     width=2,
+            ...     )
+            >>> splay_az.width
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('width')
         return self._inputs[index]

@@ -114,23 +114,6 @@ class Lag3(Lag):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Lag3.
-
-        ::
-
-            >>> lag_3 = ugentools.Lag3.ar(
-            ...     lag_time=0.1,
-            ...     source=None,
-            ...     )
-            >>> lag_3.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def lag_time(self):
         r'''Gets `lag_time` input of Lag3.
 
@@ -145,4 +128,21 @@ class Lag3(Lag):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('lag_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Lag3.
+
+        ::
+
+            >>> lag_3 = ugentools.Lag3.ar(
+            ...     lag_time=0.1,
+            ...     source=None,
+            ...     )
+            >>> lag_3.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

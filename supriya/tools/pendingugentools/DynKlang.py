@@ -114,8 +114,8 @@ class DynKlang(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def specifications_array_ref(self):
-        r'''Gets `specifications_array_ref` input of DynKlang.
+    def freqoffset(self):
+        r'''Gets `freqoffset` input of DynKlang.
 
         ::
 
@@ -124,11 +124,11 @@ class DynKlang(UGen):
             ...     freqscale=1,
             ...     specifications_array_ref=None,
             ...     )
-            >>> dyn_klang.specifications_array_ref
+            >>> dyn_klang.freqoffset
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('specifications_array_ref')
+        index = self._ordered_input_names.index('freqoffset')
         return self._inputs[index]
 
     @property
@@ -150,8 +150,8 @@ class DynKlang(UGen):
         return self._inputs[index]
 
     @property
-    def freqoffset(self):
-        r'''Gets `freqoffset` input of DynKlang.
+    def specifications_array_ref(self):
+        r'''Gets `specifications_array_ref` input of DynKlang.
 
         ::
 
@@ -160,9 +160,9 @@ class DynKlang(UGen):
             ...     freqscale=1,
             ...     specifications_array_ref=None,
             ...     )
-            >>> dyn_klang.freqoffset
+            >>> dyn_klang.specifications_array_ref
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('freqoffset')
+        index = self._ordered_input_names.index('specifications_array_ref')
         return self._inputs[index]

@@ -103,6 +103,90 @@ class Pluck(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def coefficient(self):
+        r'''Gets `coefficient` input of Pluck.
+
+        ::
+
+            >>> pluck = ugentools.Pluck.ar(
+            ...     coefficient=0.5,
+            ...     decay_time=1,
+            ...     delay_time=0.2,
+            ...     maximum_delay_time=0.2,
+            ...     source=None,
+            ...     trigger=1,
+            ...     )
+            >>> pluck.coefficient
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def decay_time(self):
+        r'''Gets `decay_time` input of Pluck.
+
+        ::
+
+            >>> pluck = ugentools.Pluck.ar(
+            ...     coefficient=0.5,
+            ...     decay_time=1,
+            ...     delay_time=0.2,
+            ...     maximum_delay_time=0.2,
+            ...     source=None,
+            ...     trigger=1,
+            ...     )
+            >>> pluck.decay_time
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def delay_time(self):
+        r'''Gets `delay_time` input of Pluck.
+
+        ::
+
+            >>> pluck = ugentools.Pluck.ar(
+            ...     coefficient=0.5,
+            ...     decay_time=1,
+            ...     delay_time=0.2,
+            ...     maximum_delay_time=0.2,
+            ...     source=None,
+            ...     trigger=1,
+            ...     )
+            >>> pluck.delay_time
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('delay_time')
+        return self._inputs[index]
+
+    @property
+    def maximum_delay_time(self):
+        r'''Gets `maximum_delay_time` input of Pluck.
+
+        ::
+
+            >>> pluck = ugentools.Pluck.ar(
+            ...     coefficient=0.5,
+            ...     decay_time=1,
+            ...     delay_time=0.2,
+            ...     maximum_delay_time=0.2,
+            ...     source=None,
+            ...     trigger=1,
+            ...     )
+            >>> pluck.maximum_delay_time
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum_delay_time')
+        return self._inputs[index]
+
+    @property
     def source(self):
         r'''Gets `source` input of Pluck.
 
@@ -142,88 +226,4 @@ class Pluck(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of Pluck.
-
-        ::
-
-            >>> pluck = ugentools.Pluck.ar(
-            ...     coefficient=0.5,
-            ...     decay_time=1,
-            ...     delay_time=0.2,
-            ...     maximum_delay_time=0.2,
-            ...     source=None,
-            ...     trigger=1,
-            ...     )
-            >>> pluck.maximum_delay_time
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('maximum_delay_time')
-        return self._inputs[index]
-
-    @property
-    def delay_time(self):
-        r'''Gets `delay_time` input of Pluck.
-
-        ::
-
-            >>> pluck = ugentools.Pluck.ar(
-            ...     coefficient=0.5,
-            ...     decay_time=1,
-            ...     delay_time=0.2,
-            ...     maximum_delay_time=0.2,
-            ...     source=None,
-            ...     trigger=1,
-            ...     )
-            >>> pluck.delay_time
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('delay_time')
-        return self._inputs[index]
-
-    @property
-    def decay_time(self):
-        r'''Gets `decay_time` input of Pluck.
-
-        ::
-
-            >>> pluck = ugentools.Pluck.ar(
-            ...     coefficient=0.5,
-            ...     decay_time=1,
-            ...     delay_time=0.2,
-            ...     maximum_delay_time=0.2,
-            ...     source=None,
-            ...     trigger=1,
-            ...     )
-            >>> pluck.decay_time
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('decay_time')
-        return self._inputs[index]
-
-    @property
-    def coefficient(self):
-        r'''Gets `coefficient` input of Pluck.
-
-        ::
-
-            >>> pluck = ugentools.Pluck.ar(
-            ...     coefficient=0.5,
-            ...     decay_time=1,
-            ...     delay_time=0.2,
-            ...     maximum_delay_time=0.2,
-            ...     source=None,
-            ...     trigger=1,
-            ...     )
-            >>> pluck.coefficient
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]

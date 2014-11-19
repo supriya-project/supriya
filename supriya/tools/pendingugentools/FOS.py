@@ -134,25 +134,6 @@ class FOS(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of FOS.
-
-        ::
-
-            >>> fos = ugentools.FOS.ar(
-            ...     a_0=0,
-            ...     a_1=0,
-            ...     b_1=0,
-            ...     source=None,
-            ...     )
-            >>> fos.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def a_0(self):
         r'''Gets `a_0` input of FOS.
 
@@ -207,4 +188,23 @@ class FOS(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('b_1')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of FOS.
+
+        ::
+
+            >>> fos = ugentools.FOS.ar(
+            ...     a_0=0,
+            ...     a_1=0,
+            ...     b_1=0,
+            ...     source=None,
+            ...     )
+            >>> fos.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

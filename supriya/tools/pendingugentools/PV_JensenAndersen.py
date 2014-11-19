@@ -132,8 +132,8 @@ class PV_JensenAndersen(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def propsc(self):
-        r'''Gets `propsc` input of PV_JensenAndersen.
+    def prophfc(self):
+        r'''Gets `prophfc` input of PV_JensenAndersen.
 
         ::
 
@@ -146,11 +146,11 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
-            >>> pv_jensen_andersen.propsc
+            >>> pv_jensen_andersen.prophfc
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('propsc')
+        index = self._ordered_input_names.index('prophfc')
         return self._inputs[index]
 
     @property
@@ -176,8 +176,8 @@ class PV_JensenAndersen(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def prophfc(self):
-        r'''Gets `prophfc` input of PV_JensenAndersen.
+    def propsc(self):
+        r'''Gets `propsc` input of PV_JensenAndersen.
 
         ::
 
@@ -190,11 +190,11 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
-            >>> pv_jensen_andersen.prophfc
+            >>> pv_jensen_andersen.propsc
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('prophfc')
+        index = self._ordered_input_names.index('propsc')
         return self._inputs[index]
 
     @property

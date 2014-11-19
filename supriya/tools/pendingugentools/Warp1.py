@@ -126,30 +126,6 @@ class Warp1(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of Warp1.
-
-        ::
-
-            >>> warp_1 = ugentools.Warp1.ar(
-            ...     buffer_id=0,
-            ...     channel_count=1,
-            ...     envbufnum=-1,
-            ...     frequency_scaling=1,
-            ...     interpolate=1,
-            ...     overlaps=8,
-            ...     pointer=0,
-            ...     window_rand_ratio=0,
-            ...     window_size=0.2,
-            ...     )
-            >>> warp_1.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of Warp1.
 
@@ -174,8 +150,8 @@ class Warp1(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def pointer(self):
-        r'''Gets `pointer` input of Warp1.
+    def channel_count(self):
+        r'''Gets `channel_count` input of Warp1.
 
         ::
 
@@ -190,59 +166,11 @@ class Warp1(MultiOutUGen):
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.pointer
+            >>> warp_1.channel_count
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('pointer')
-        return self._inputs[index]
-
-    @property
-    def frequency_scaling(self):
-        r'''Gets `frequency_scaling` input of Warp1.
-
-        ::
-
-            >>> warp_1 = ugentools.Warp1.ar(
-            ...     buffer_id=0,
-            ...     channel_count=1,
-            ...     envbufnum=-1,
-            ...     frequency_scaling=1,
-            ...     interpolate=1,
-            ...     overlaps=8,
-            ...     pointer=0,
-            ...     window_rand_ratio=0,
-            ...     window_size=0.2,
-            ...     )
-            >>> warp_1.frequency_scaling
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency_scaling')
-        return self._inputs[index]
-
-    @property
-    def window_size(self):
-        r'''Gets `window_size` input of Warp1.
-
-        ::
-
-            >>> warp_1 = ugentools.Warp1.ar(
-            ...     buffer_id=0,
-            ...     channel_count=1,
-            ...     envbufnum=-1,
-            ...     frequency_scaling=1,
-            ...     interpolate=1,
-            ...     overlaps=8,
-            ...     pointer=0,
-            ...     window_rand_ratio=0,
-            ...     window_size=0.2,
-            ...     )
-            >>> warp_1.window_size
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('window_size')
+        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
@@ -270,6 +198,54 @@ class Warp1(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def frequency_scaling(self):
+        r'''Gets `frequency_scaling` input of Warp1.
+
+        ::
+
+            >>> warp_1 = ugentools.Warp1.ar(
+            ...     buffer_id=0,
+            ...     channel_count=1,
+            ...     envbufnum=-1,
+            ...     frequency_scaling=1,
+            ...     interpolate=1,
+            ...     overlaps=8,
+            ...     pointer=0,
+            ...     window_rand_ratio=0,
+            ...     window_size=0.2,
+            ...     )
+            >>> warp_1.frequency_scaling
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency_scaling')
+        return self._inputs[index]
+
+    @property
+    def interpolate(self):
+        r'''Gets `interpolate` input of Warp1.
+
+        ::
+
+            >>> warp_1 = ugentools.Warp1.ar(
+            ...     buffer_id=0,
+            ...     channel_count=1,
+            ...     envbufnum=-1,
+            ...     frequency_scaling=1,
+            ...     interpolate=1,
+            ...     overlaps=8,
+            ...     pointer=0,
+            ...     window_rand_ratio=0,
+            ...     window_size=0.2,
+            ...     )
+            >>> warp_1.interpolate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('interpolate')
+        return self._inputs[index]
+
+    @property
     def overlaps(self):
         r'''Gets `overlaps` input of Warp1.
 
@@ -291,6 +267,30 @@ class Warp1(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('overlaps')
+        return self._inputs[index]
+
+    @property
+    def pointer(self):
+        r'''Gets `pointer` input of Warp1.
+
+        ::
+
+            >>> warp_1 = ugentools.Warp1.ar(
+            ...     buffer_id=0,
+            ...     channel_count=1,
+            ...     envbufnum=-1,
+            ...     frequency_scaling=1,
+            ...     interpolate=1,
+            ...     overlaps=8,
+            ...     pointer=0,
+            ...     window_rand_ratio=0,
+            ...     window_size=0.2,
+            ...     )
+            >>> warp_1.pointer
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pointer')
         return self._inputs[index]
 
     @property
@@ -318,8 +318,8 @@ class Warp1(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def interpolate(self):
-        r'''Gets `interpolate` input of Warp1.
+    def window_size(self):
+        r'''Gets `window_size` input of Warp1.
 
         ::
 
@@ -334,9 +334,9 @@ class Warp1(MultiOutUGen):
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.interpolate
+            >>> warp_1.window_size
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('interpolate')
+        index = self._ordered_input_names.index('window_size')
         return self._inputs[index]

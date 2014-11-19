@@ -124,24 +124,6 @@ class TwoZero(TwoPole):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of TwoZero.
-
-        ::
-
-            >>> two_zero = ugentools.TwoZero.ar(
-            ...     frequency=440,
-            ...     radius=0.8,
-            ...     source=None,
-            ...     )
-            >>> two_zero.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of TwoZero.
 
@@ -175,4 +157,22 @@ class TwoZero(TwoPole):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('radius')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of TwoZero.
+
+        ::
+
+            >>> two_zero = ugentools.TwoZero.ar(
+            ...     frequency=440,
+            ...     radius=0.8,
+            ...     source=None,
+            ...     )
+            >>> two_zero.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

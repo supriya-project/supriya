@@ -114,23 +114,6 @@ class Ramp(Lag):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Ramp.
-
-        ::
-
-            >>> ramp = ugentools.Ramp.ar(
-            ...     lag_time=0.1,
-            ...     source=None,
-            ...     )
-            >>> ramp.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def lag_time(self):
         r'''Gets `lag_time` input of Ramp.
 
@@ -145,4 +128,21 @@ class Ramp(Lag):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('lag_time')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Ramp.
+
+        ::
+
+            >>> ramp = ugentools.Ramp.ar(
+            ...     lag_time=0.1,
+            ...     source=None,
+            ...     )
+            >>> ramp.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

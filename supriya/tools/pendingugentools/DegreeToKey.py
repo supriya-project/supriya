@@ -130,24 +130,6 @@ class DegreeToKey(PureUGen):
         return self._inputs[index]
 
     @property
-    def source(self):
-        r'''Gets `source` input of DegreeToKey.
-
-        ::
-
-            >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=None,
-            ...     octave=12,
-            ...     source=None,
-            ...     )
-            >>> degree_to_key.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def octave(self):
         r'''Gets `octave` input of DegreeToKey.
 
@@ -163,4 +145,22 @@ class DegreeToKey(PureUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('octave')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of DegreeToKey.
+
+        ::
+
+            >>> degree_to_key = ugentools.DegreeToKey.ar(
+            ...     buffer_id=None,
+            ...     octave=12,
+            ...     source=None,
+            ...     )
+            >>> degree_to_key.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

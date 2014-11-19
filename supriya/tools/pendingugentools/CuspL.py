@@ -91,25 +91,6 @@ class CuspL(CuspN):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of CuspL.
-
-        ::
-
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> cusp_l.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of CuspL.
 
@@ -145,6 +126,25 @@ class CuspL(CuspN):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('b')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of CuspL.
+
+        ::
+
+            >>> cusp_l = ugentools.CuspL.ar(
+            ...     a=1,
+            ...     b=1.9,
+            ...     frequency=22050,
+            ...     xi=0,
+            ...     )
+            >>> cusp_l.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

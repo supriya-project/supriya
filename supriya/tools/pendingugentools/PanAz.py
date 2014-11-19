@@ -165,8 +165,8 @@ class PanAz(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def source(self):
-        r'''Gets `source` input of PanAz.
+    def level(self):
+        r'''Gets `level` input of PanAz.
 
         ::
 
@@ -178,11 +178,32 @@ class PanAz(MultiOutUGen):
             ...     source=None,
             ...     width=2,
             ...     )
-            >>> pan_az.source
+            >>> pan_az.level
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('level')
+        return self._inputs[index]
+
+    @property
+    def orientation(self):
+        r'''Gets `orientation` input of PanAz.
+
+        ::
+
+            >>> pan_az = ugentools.PanAz.ar(
+            ...     channel_count=None,
+            ...     level=1,
+            ...     orientation=0.5,
+            ...     pos=0,
+            ...     source=None,
+            ...     width=2,
+            ...     )
+            >>> pan_az.orientation
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('orientation')
         return self._inputs[index]
 
     @property
@@ -207,8 +228,8 @@ class PanAz(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def level(self):
-        r'''Gets `level` input of PanAz.
+    def source(self):
+        r'''Gets `source` input of PanAz.
 
         ::
 
@@ -220,11 +241,11 @@ class PanAz(MultiOutUGen):
             ...     source=None,
             ...     width=2,
             ...     )
-            >>> pan_az.level
+            >>> pan_az.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
@@ -246,25 +267,4 @@ class PanAz(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('width')
-        return self._inputs[index]
-
-    @property
-    def orientation(self):
-        r'''Gets `orientation` input of PanAz.
-
-        ::
-
-            >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
-            ...     level=1,
-            ...     orientation=0.5,
-            ...     pos=0,
-            ...     source=None,
-            ...     width=2,
-            ...     )
-            >>> pan_az.orientation
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('orientation')
         return self._inputs[index]

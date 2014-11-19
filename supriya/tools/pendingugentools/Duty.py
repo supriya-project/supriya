@@ -122,6 +122,25 @@ class Duty(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def done_action(self):
+        r'''Gets `done_action` input of Duty.
+
+        ::
+
+            >>> duty = ugentools.Duty.ar(
+            ...     done_action=0,
+            ...     duration=1,
+            ...     level=1,
+            ...     reset=0,
+            ...     )
+            >>> duty.done_action
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('done_action')
+        return self._inputs[index]
+
+    @property
     def duration(self):
         r'''Gets `duration` input of Duty.
 
@@ -138,25 +157,6 @@ class Duty(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('duration')
-        return self._inputs[index]
-
-    @property
-    def reset(self):
-        r'''Gets `reset` input of Duty.
-
-        ::
-
-            >>> duty = ugentools.Duty.ar(
-            ...     done_action=0,
-            ...     duration=1,
-            ...     level=1,
-            ...     reset=0,
-            ...     )
-            >>> duty.reset
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
@@ -179,8 +179,8 @@ class Duty(UGen):
         return self._inputs[index]
 
     @property
-    def done_action(self):
-        r'''Gets `done_action` input of Duty.
+    def reset(self):
+        r'''Gets `reset` input of Duty.
 
         ::
 
@@ -190,9 +190,9 @@ class Duty(UGen):
             ...     level=1,
             ...     reset=0,
             ...     )
-            >>> duty.done_action
+            >>> duty.reset
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('done_action')
+        index = self._ordered_input_names.index('reset')
         return self._inputs[index]

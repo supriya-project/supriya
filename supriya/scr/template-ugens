@@ -54,7 +54,7 @@ def make_input_properties(ugen_name, ugen_definition):
         return result
     result.append('    ### PUBLIC PROPERTIES ###')
     method_signature = process_method_signature(method_signature)
-    for input_name, input_value in method_signature:
+    for input_name, input_value in sorted(method_signature):
         result.extend(make_input_property(
             input_name, ugen_name, method_signature))
     return result
@@ -197,6 +197,7 @@ def process_method_signature(method_signature):
         'decaytime': 'decay_time',
         'delaytime': 'delay_time',
         'dur': 'duration',
+        'end': 'stop',
         'freq': 'frequency',
         'freq_scale': 'frequency_scaling',
         'in': 'source',

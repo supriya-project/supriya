@@ -102,23 +102,6 @@ class SyncSaw(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def sync_frequency(self):
-        r'''Gets `sync_frequency` input of SyncSaw.
-
-        ::
-
-            >>> sync_saw = ugentools.SyncSaw.ar(
-            ...     saw_frequency=440,
-            ...     sync_frequency=440,
-            ...     )
-            >>> sync_saw.sync_frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('sync_frequency')
-        return self._inputs[index]
-
-    @property
     def saw_frequency(self):
         r'''Gets `saw_frequency` input of SyncSaw.
 
@@ -133,4 +116,21 @@ class SyncSaw(PureUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('saw_frequency')
+        return self._inputs[index]
+
+    @property
+    def sync_frequency(self):
+        r'''Gets `sync_frequency` input of SyncSaw.
+
+        ::
+
+            >>> sync_saw = ugentools.SyncSaw.ar(
+            ...     saw_frequency=440,
+            ...     sync_frequency=440,
+            ...     )
+            >>> sync_saw.sync_frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sync_frequency')
         return self._inputs[index]

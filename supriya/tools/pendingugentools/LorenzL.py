@@ -119,6 +119,29 @@ class LorenzL(ChaosGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def b(self):
+        r'''Gets `b` input of LorenzL.
+
+        ::
+
+            >>> lorenz_l = ugentools.LorenzL.ar(
+            ...     b=2.667,
+            ...     frequency=22050,
+            ...     h=0.05,
+            ...     r=28,
+            ...     s=10,
+            ...     xi=0.1,
+            ...     yi=0,
+            ...     zi=0,
+            ...     )
+            >>> lorenz_l.b
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('b')
+        return self._inputs[index]
+
+    @property
     def frequency(self):
         r'''Gets `frequency` input of LorenzL.
 
@@ -142,8 +165,8 @@ class LorenzL(ChaosGen):
         return self._inputs[index]
 
     @property
-    def s(self):
-        r'''Gets `s` input of LorenzL.
+    def h(self):
+        r'''Gets `h` input of LorenzL.
 
         ::
 
@@ -157,11 +180,11 @@ class LorenzL(ChaosGen):
             ...     yi=0,
             ...     zi=0,
             ...     )
-            >>> lorenz_l.s
+            >>> lorenz_l.h
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('s')
+        index = self._ordered_input_names.index('h')
         return self._inputs[index]
 
     @property
@@ -188,8 +211,8 @@ class LorenzL(ChaosGen):
         return self._inputs[index]
 
     @property
-    def b(self):
-        r'''Gets `b` input of LorenzL.
+    def s(self):
+        r'''Gets `s` input of LorenzL.
 
         ::
 
@@ -203,34 +226,11 @@ class LorenzL(ChaosGen):
             ...     yi=0,
             ...     zi=0,
             ...     )
-            >>> lorenz_l.b
+            >>> lorenz_l.s
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('b')
-        return self._inputs[index]
-
-    @property
-    def h(self):
-        r'''Gets `h` input of LorenzL.
-
-        ::
-
-            >>> lorenz_l = ugentools.LorenzL.ar(
-            ...     b=2.667,
-            ...     frequency=22050,
-            ...     h=0.05,
-            ...     r=28,
-            ...     s=10,
-            ...     xi=0.1,
-            ...     yi=0,
-            ...     zi=0,
-            ...     )
-            >>> lorenz_l.h
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('h')
+        index = self._ordered_input_names.index('s')
         return self._inputs[index]
 
     @property

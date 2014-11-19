@@ -143,8 +143,8 @@ class Balance2(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def right(self):
-        r'''Gets `right` input of Balance2.
+    def level(self):
+        r'''Gets `level` input of Balance2.
 
         ::
 
@@ -154,11 +154,11 @@ class Balance2(MultiOutUGen):
             ...     pos=0,
             ...     right=None,
             ...     )
-            >>> balance_2.right
+            >>> balance_2.level
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('right')
+        index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
@@ -181,8 +181,8 @@ class Balance2(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def level(self):
-        r'''Gets `level` input of Balance2.
+    def right(self):
+        r'''Gets `right` input of Balance2.
 
         ::
 
@@ -192,9 +192,9 @@ class Balance2(MultiOutUGen):
             ...     pos=0,
             ...     right=None,
             ...     )
-            >>> balance_2.level
+            >>> balance_2.right
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index('right')
         return self._inputs[index]

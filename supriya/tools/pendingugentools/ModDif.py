@@ -142,6 +142,24 @@ class ModDif(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def mod(self):
+        r'''Gets `mod` input of ModDif.
+
+        ::
+
+            >>> mod_dif = ugentools.ModDif.ar(
+            ...     mod=1,
+            ...     x=0,
+            ...     y=0,
+            ...     )
+            >>> mod_dif.mod
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('mod')
+        return self._inputs[index]
+
+    @property
     def x(self):
         r'''Gets `x` input of ModDif.
 
@@ -175,22 +193,4 @@ class ModDif(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('y')
-        return self._inputs[index]
-
-    @property
-    def mod(self):
-        r'''Gets `mod` input of ModDif.
-
-        ::
-
-            >>> mod_dif = ugentools.ModDif.ar(
-            ...     mod=1,
-            ...     x=0,
-            ...     y=0,
-            ...     )
-            >>> mod_dif.mod
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('mod')
         return self._inputs[index]

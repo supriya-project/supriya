@@ -126,6 +126,30 @@ class GrainFM(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def carfrequency(self):
+        r'''Gets `carfrequency` input of GrainFM.
+
+        ::
+
+            >>> grain_fm = ugentools.GrainFM.ar(
+            ...     carfrequency=440,
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     index=1,
+            ...     max_grains=512,
+            ...     modfrequency=200,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_fm.carfrequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('carfrequency')
+        return self._inputs[index]
+
+    @property
     def channel_count(self):
         r'''Gets `channel_count` input of GrainFM.
 
@@ -147,30 +171,6 @@ class GrainFM(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
-    def trigger(self):
-        r'''Gets `trigger` input of GrainFM.
-
-        ::
-
-            >>> grain_fm = ugentools.GrainFM.ar(
-            ...     carfrequency=440,
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     index=1,
-            ...     max_grains=512,
-            ...     modfrequency=200,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_fm.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
@@ -198,8 +198,8 @@ class GrainFM(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def carfrequency(self):
-        r'''Gets `carfrequency` input of GrainFM.
+    def envbufnum(self):
+        r'''Gets `envbufnum` input of GrainFM.
 
         ::
 
@@ -214,35 +214,11 @@ class GrainFM(MultiOutUGen):
             ...     pan=0,
             ...     trigger=0,
             ...     )
-            >>> grain_fm.carfrequency
+            >>> grain_fm.envbufnum
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('carfrequency')
-        return self._inputs[index]
-
-    @property
-    def modfrequency(self):
-        r'''Gets `modfrequency` input of GrainFM.
-
-        ::
-
-            >>> grain_fm = ugentools.GrainFM.ar(
-            ...     carfrequency=440,
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     index=1,
-            ...     max_grains=512,
-            ...     modfrequency=200,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_fm.modfrequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('modfrequency')
+        index = self._ordered_input_names.index('envbufnum')
         return self._inputs[index]
 
     @property
@@ -270,6 +246,54 @@ class GrainFM(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def max_grains(self):
+        r'''Gets `max_grains` input of GrainFM.
+
+        ::
+
+            >>> grain_fm = ugentools.GrainFM.ar(
+            ...     carfrequency=440,
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     index=1,
+            ...     max_grains=512,
+            ...     modfrequency=200,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_fm.max_grains
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('max_grains')
+        return self._inputs[index]
+
+    @property
+    def modfrequency(self):
+        r'''Gets `modfrequency` input of GrainFM.
+
+        ::
+
+            >>> grain_fm = ugentools.GrainFM.ar(
+            ...     carfrequency=440,
+            ...     channel_count=1,
+            ...     duration=1,
+            ...     envbufnum=-1,
+            ...     index=1,
+            ...     max_grains=512,
+            ...     modfrequency=200,
+            ...     pan=0,
+            ...     trigger=0,
+            ...     )
+            >>> grain_fm.modfrequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('modfrequency')
+        return self._inputs[index]
+
+    @property
     def pan(self):
         r'''Gets `pan` input of GrainFM.
 
@@ -294,8 +318,8 @@ class GrainFM(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def envbufnum(self):
-        r'''Gets `envbufnum` input of GrainFM.
+    def trigger(self):
+        r'''Gets `trigger` input of GrainFM.
 
         ::
 
@@ -310,33 +334,9 @@ class GrainFM(MultiOutUGen):
             ...     pan=0,
             ...     trigger=0,
             ...     )
-            >>> grain_fm.envbufnum
+            >>> grain_fm.trigger
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('envbufnum')
-        return self._inputs[index]
-
-    @property
-    def max_grains(self):
-        r'''Gets `max_grains` input of GrainFM.
-
-        ::
-
-            >>> grain_fm = ugentools.GrainFM.ar(
-            ...     carfrequency=440,
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     index=1,
-            ...     max_grains=512,
-            ...     modfrequency=200,
-            ...     pan=0,
-            ...     trigger=0,
-            ...     )
-            >>> grain_fm.max_grains
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('max_grains')
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

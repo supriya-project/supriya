@@ -82,8 +82,8 @@ class Convolution(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Convolution.
+    def framesize(self):
+        r'''Gets `framesize` input of Convolution.
 
         ::
 
@@ -92,11 +92,11 @@ class Convolution(UGen):
             ...     kernel=None,
             ...     source=None,
             ...     )
-            >>> convolution.source
+            >>> convolution.framesize
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
@@ -118,8 +118,8 @@ class Convolution(UGen):
         return self._inputs[index]
 
     @property
-    def framesize(self):
-        r'''Gets `framesize` input of Convolution.
+    def source(self):
+        r'''Gets `source` input of Convolution.
 
         ::
 
@@ -128,9 +128,9 @@ class Convolution(UGen):
             ...     kernel=None,
             ...     source=None,
             ...     )
-            >>> convolution.framesize
+            >>> convolution.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('framesize')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

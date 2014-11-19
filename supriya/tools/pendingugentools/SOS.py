@@ -154,27 +154,6 @@ class SOS(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of SOS.
-
-        ::
-
-            >>> sos = ugentools.SOS.ar(
-            ...     a_0=0,
-            ...     a_1=0,
-            ...     a_2=0,
-            ...     b_1=0,
-            ...     b_2=0,
-            ...     source=None,
-            ...     )
-            >>> sos.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def a_0(self):
         r'''Gets `a_0` input of SOS.
 
@@ -277,4 +256,25 @@ class SOS(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('b_2')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of SOS.
+
+        ::
+
+            >>> sos = ugentools.SOS.ar(
+            ...     a_0=0,
+            ...     a_1=0,
+            ...     a_2=0,
+            ...     b_1=0,
+            ...     b_2=0,
+            ...     source=None,
+            ...     )
+            >>> sos.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

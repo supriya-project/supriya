@@ -172,30 +172,6 @@ class RecordBuf(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def input_array(self):
-        r'''Gets `input_array` input of RecordBuf.
-
-        ::
-
-            >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
-            ...     done_action=0,
-            ...     input_array=None,
-            ...     loop=1,
-            ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
-            ...     run=1,
-            ...     trigger=1,
-            ...     )
-            >>> record_buf.input_array
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('input_array')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of RecordBuf.
 
@@ -220,8 +196,8 @@ class RecordBuf(UGen):
         return self._inputs[index]
 
     @property
-    def offset(self):
-        r'''Gets `offset` input of RecordBuf.
+    def done_action(self):
+        r'''Gets `done_action` input of RecordBuf.
 
         ::
 
@@ -236,16 +212,16 @@ class RecordBuf(UGen):
             ...     run=1,
             ...     trigger=1,
             ...     )
-            >>> record_buf.offset
+            >>> record_buf.done_action
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('offset')
+        index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
-    def rec_level(self):
-        r'''Gets `rec_level` input of RecordBuf.
+    def input_array(self):
+        r'''Gets `input_array` input of RecordBuf.
 
         ::
 
@@ -260,59 +236,11 @@ class RecordBuf(UGen):
             ...     run=1,
             ...     trigger=1,
             ...     )
-            >>> record_buf.rec_level
+            >>> record_buf.input_array
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('rec_level')
-        return self._inputs[index]
-
-    @property
-    def pre_level(self):
-        r'''Gets `pre_level` input of RecordBuf.
-
-        ::
-
-            >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
-            ...     done_action=0,
-            ...     input_array=None,
-            ...     loop=1,
-            ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
-            ...     run=1,
-            ...     trigger=1,
-            ...     )
-            >>> record_buf.pre_level
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pre_level')
-        return self._inputs[index]
-
-    @property
-    def run(self):
-        r'''Gets `run` input of RecordBuf.
-
-        ::
-
-            >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
-            ...     done_action=0,
-            ...     input_array=None,
-            ...     loop=1,
-            ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
-            ...     run=1,
-            ...     trigger=1,
-            ...     )
-            >>> record_buf.run
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('run')
+        index = self._ordered_input_names.index('input_array')
         return self._inputs[index]
 
     @property
@@ -340,6 +268,102 @@ class RecordBuf(UGen):
         return self._inputs[index]
 
     @property
+    def offset(self):
+        r'''Gets `offset` input of RecordBuf.
+
+        ::
+
+            >>> record_buf = ugentools.RecordBuf.ar(
+            ...     buffer_id=0,
+            ...     done_action=0,
+            ...     input_array=None,
+            ...     loop=1,
+            ...     offset=0,
+            ...     pre_level=0,
+            ...     rec_level=1,
+            ...     run=1,
+            ...     trigger=1,
+            ...     )
+            >>> record_buf.offset
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('offset')
+        return self._inputs[index]
+
+    @property
+    def pre_level(self):
+        r'''Gets `pre_level` input of RecordBuf.
+
+        ::
+
+            >>> record_buf = ugentools.RecordBuf.ar(
+            ...     buffer_id=0,
+            ...     done_action=0,
+            ...     input_array=None,
+            ...     loop=1,
+            ...     offset=0,
+            ...     pre_level=0,
+            ...     rec_level=1,
+            ...     run=1,
+            ...     trigger=1,
+            ...     )
+            >>> record_buf.pre_level
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pre_level')
+        return self._inputs[index]
+
+    @property
+    def rec_level(self):
+        r'''Gets `rec_level` input of RecordBuf.
+
+        ::
+
+            >>> record_buf = ugentools.RecordBuf.ar(
+            ...     buffer_id=0,
+            ...     done_action=0,
+            ...     input_array=None,
+            ...     loop=1,
+            ...     offset=0,
+            ...     pre_level=0,
+            ...     rec_level=1,
+            ...     run=1,
+            ...     trigger=1,
+            ...     )
+            >>> record_buf.rec_level
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rec_level')
+        return self._inputs[index]
+
+    @property
+    def run(self):
+        r'''Gets `run` input of RecordBuf.
+
+        ::
+
+            >>> record_buf = ugentools.RecordBuf.ar(
+            ...     buffer_id=0,
+            ...     done_action=0,
+            ...     input_array=None,
+            ...     loop=1,
+            ...     offset=0,
+            ...     pre_level=0,
+            ...     rec_level=1,
+            ...     run=1,
+            ...     trigger=1,
+            ...     )
+            >>> record_buf.run
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('run')
+        return self._inputs[index]
+
+    @property
     def trigger(self):
         r'''Gets `trigger` input of RecordBuf.
 
@@ -361,28 +385,4 @@ class RecordBuf(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
-    def done_action(self):
-        r'''Gets `done_action` input of RecordBuf.
-
-        ::
-
-            >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
-            ...     done_action=0,
-            ...     input_array=None,
-            ...     loop=1,
-            ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
-            ...     run=1,
-            ...     trigger=1,
-            ...     )
-            >>> record_buf.done_action
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('done_action')
         return self._inputs[index]

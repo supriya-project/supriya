@@ -160,25 +160,6 @@ class LinXFade2(UGen):
         return self._inputs[index]
 
     @property
-    def pan(self):
-        r'''Gets `pan` input of LinXFade2.
-
-        ::
-
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
-            ...     in_a=None,
-            ...     in_b=0,
-            ...     level=1,
-            ...     pan=0,
-            ...     )
-            >>> lin_xfade_2.pan
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('pan')
-        return self._inputs[index]
-
-    @property
     def level(self):
         r'''Gets `level` input of LinXFade2.
 
@@ -195,4 +176,23 @@ class LinXFade2(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('level')
+        return self._inputs[index]
+
+    @property
+    def pan(self):
+        r'''Gets `pan` input of LinXFade2.
+
+        ::
+
+            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            ...     in_a=None,
+            ...     in_b=0,
+            ...     level=1,
+            ...     pan=0,
+            ...     )
+            >>> lin_xfade_2.pan
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('pan')
         return self._inputs[index]

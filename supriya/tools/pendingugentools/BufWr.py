@@ -122,25 +122,6 @@ class BufWr(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def input_array(self):
-        r'''Gets `input_array` input of BufWr.
-
-        ::
-
-            >>> buf_wr = ugentools.BufWr.ar(
-            ...     buffer_id=0,
-            ...     input_array=None,
-            ...     loop=1,
-            ...     phase=0,
-            ...     )
-            >>> buf_wr.input_array
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('input_array')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of BufWr.
 
@@ -160,8 +141,8 @@ class BufWr(UGen):
         return self._inputs[index]
 
     @property
-    def phase(self):
-        r'''Gets `phase` input of BufWr.
+    def input_array(self):
+        r'''Gets `input_array` input of BufWr.
 
         ::
 
@@ -171,11 +152,11 @@ class BufWr(UGen):
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> buf_wr.phase
+            >>> buf_wr.input_array
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('phase')
+        index = self._ordered_input_names.index('input_array')
         return self._inputs[index]
 
     @property
@@ -195,4 +176,23 @@ class BufWr(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('loop')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        r'''Gets `phase` input of BufWr.
+
+        ::
+
+            >>> buf_wr = ugentools.BufWr.ar(
+            ...     buffer_id=0,
+            ...     input_array=None,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> buf_wr.phase
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('phase')
         return self._inputs[index]

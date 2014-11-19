@@ -82,8 +82,8 @@ class Normalizer(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Normalizer.
+    def duration(self):
+        r'''Gets `duration` input of Normalizer.
 
         ::
 
@@ -92,11 +92,11 @@ class Normalizer(UGen):
             ...     level=1,
             ...     source=None,
             ...     )
-            >>> normalizer.source
+            >>> normalizer.duration
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
@@ -118,8 +118,8 @@ class Normalizer(UGen):
         return self._inputs[index]
 
     @property
-    def duration(self):
-        r'''Gets `duration` input of Normalizer.
+    def source(self):
+        r'''Gets `source` input of Normalizer.
 
         ::
 
@@ -128,9 +128,9 @@ class Normalizer(UGen):
             ...     level=1,
             ...     source=None,
             ...     )
-            >>> normalizer.duration
+            >>> normalizer.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('duration')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

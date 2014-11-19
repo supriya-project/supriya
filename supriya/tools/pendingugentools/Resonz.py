@@ -124,8 +124,8 @@ class Resonz(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Resonz.
+    def bwr(self):
+        r'''Gets `bwr` input of Resonz.
 
         ::
 
@@ -134,11 +134,11 @@ class Resonz(Filter):
             ...     frequency=440,
             ...     source=None,
             ...     )
-            >>> resonz.source
+            >>> resonz.bwr
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('bwr')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class Resonz(Filter):
         return self._inputs[index]
 
     @property
-    def bwr(self):
-        r'''Gets `bwr` input of Resonz.
+    def source(self):
+        r'''Gets `source` input of Resonz.
 
         ::
 
@@ -170,9 +170,9 @@ class Resonz(Filter):
             ...     frequency=440,
             ...     source=None,
             ...     )
-            >>> resonz.bwr
+            >>> resonz.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('bwr')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

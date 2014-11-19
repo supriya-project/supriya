@@ -146,25 +146,6 @@ class BHiCut(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BHiCut.
-
-        ::
-
-            >>> bhi_cut = ugentools.BHiCut.ar(
-            ...     frequency=None,
-            ...     max_order=5,
-            ...     order=2,
-            ...     source=None,
-            ...     )
-            >>> bhi_cut.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of BHiCut.
 
@@ -181,6 +162,25 @@ class BHiCut(BEQSuite):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def max_order(self):
+        r'''Gets `max_order` input of BHiCut.
+
+        ::
+
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=None,
+            ...     max_order=5,
+            ...     order=2,
+            ...     source=None,
+            ...     )
+            >>> bhi_cut.max_order
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('max_order')
         return self._inputs[index]
 
     @property
@@ -203,8 +203,8 @@ class BHiCut(BEQSuite):
         return self._inputs[index]
 
     @property
-    def max_order(self):
-        r'''Gets `max_order` input of BHiCut.
+    def source(self):
+        r'''Gets `source` input of BHiCut.
 
         ::
 
@@ -214,9 +214,9 @@ class BHiCut(BEQSuite):
             ...     order=2,
             ...     source=None,
             ...     )
-            >>> bhi_cut.max_order
+            >>> bhi_cut.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('max_order')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

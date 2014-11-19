@@ -112,24 +112,6 @@ class PulseDivider(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of PulseDivider.
-
-        ::
-
-            >>> pulse_divider = ugentools.PulseDivider.ar(
-            ...     div=2,
-            ...     start=0,
-            ...     trigger=0,
-            ...     )
-            >>> pulse_divider.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def div(self):
         r'''Gets `div` input of PulseDivider.
 
@@ -163,4 +145,22 @@ class PulseDivider(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('start')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of PulseDivider.
+
+        ::
+
+            >>> pulse_divider = ugentools.PulseDivider.ar(
+            ...     div=2,
+            ...     start=0,
+            ...     trigger=0,
+            ...     )
+            >>> pulse_divider.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

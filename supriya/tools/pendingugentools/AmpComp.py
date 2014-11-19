@@ -142,6 +142,24 @@ class AmpComp(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def exp(self):
+        r'''Gets `exp` input of AmpComp.
+
+        ::
+
+            >>> amp_comp = ugentools.AmpComp.ar(
+            ...     exp=0.3333,
+            ...     frequency=None,
+            ...     root=None,
+            ...     )
+            >>> amp_comp.exp
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('exp')
+        return self._inputs[index]
+
+    @property
     def frequency(self):
         r'''Gets `frequency` input of AmpComp.
 
@@ -175,22 +193,4 @@ class AmpComp(PureUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('root')
-        return self._inputs[index]
-
-    @property
-    def exp(self):
-        r'''Gets `exp` input of AmpComp.
-
-        ::
-
-            >>> amp_comp = ugentools.AmpComp.ar(
-            ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
-            ...     )
-            >>> amp_comp.exp
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('exp')
         return self._inputs[index]

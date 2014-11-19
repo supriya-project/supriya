@@ -136,6 +136,26 @@ class Splay(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def center(self):
+        r'''Gets `center` input of Splay.
+
+        ::
+
+            >>> splay = ugentools.Splay.ar(
+            ...     center=0,
+            ...     in_array=None,
+            ...     level=1,
+            ...     level_comp=True,
+            ...     spread=1,
+            ...     )
+            >>> splay.center
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('center')
+        return self._inputs[index]
+
+    @property
     def in_array(self):
         r'''Gets `in_array` input of Splay.
 
@@ -153,26 +173,6 @@ class Splay(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('in_array')
-        return self._inputs[index]
-
-    @property
-    def spread(self):
-        r'''Gets `spread` input of Splay.
-
-        ::
-
-            >>> splay = ugentools.Splay.ar(
-            ...     center=0,
-            ...     in_array=None,
-            ...     level=1,
-            ...     level_comp=True,
-            ...     spread=1,
-            ...     )
-            >>> splay.spread
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('spread')
         return self._inputs[index]
 
     @property
@@ -196,26 +196,6 @@ class Splay(UGen):
         return self._inputs[index]
 
     @property
-    def center(self):
-        r'''Gets `center` input of Splay.
-
-        ::
-
-            >>> splay = ugentools.Splay.ar(
-            ...     center=0,
-            ...     in_array=None,
-            ...     level=1,
-            ...     level_comp=True,
-            ...     spread=1,
-            ...     )
-            >>> splay.center
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('center')
-        return self._inputs[index]
-
-    @property
     def level_comp(self):
         r'''Gets `level_comp` input of Splay.
 
@@ -233,4 +213,24 @@ class Splay(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('level_comp')
+        return self._inputs[index]
+
+    @property
+    def spread(self):
+        r'''Gets `spread` input of Splay.
+
+        ::
+
+            >>> splay = ugentools.Splay.ar(
+            ...     center=0,
+            ...     in_array=None,
+            ...     level=1,
+            ...     level_comp=True,
+            ...     spread=1,
+            ...     )
+            >>> splay.spread
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('spread')
         return self._inputs[index]

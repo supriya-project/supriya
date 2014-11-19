@@ -96,8 +96,8 @@ class BBandPass(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BBandPass.
+    def bw(self):
+        r'''Gets `bw` input of BBandPass.
 
         ::
 
@@ -106,11 +106,11 @@ class BBandPass(BEQSuite):
             ...     frequency=1200,
             ...     source=None,
             ...     )
-            >>> bband_pass.source
+            >>> bband_pass.bw
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('bw')
         return self._inputs[index]
 
     @property
@@ -132,8 +132,8 @@ class BBandPass(BEQSuite):
         return self._inputs[index]
 
     @property
-    def bw(self):
-        r'''Gets `bw` input of BBandPass.
+    def source(self):
+        r'''Gets `source` input of BBandPass.
 
         ::
 
@@ -142,9 +142,9 @@ class BBandPass(BEQSuite):
             ...     frequency=1200,
             ...     source=None,
             ...     )
-            >>> bband_pass.bw
+            >>> bband_pass.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('bw')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

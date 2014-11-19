@@ -114,8 +114,8 @@ class Demand(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of Demand.
+    def demand_ugens(self):
+        r'''Gets `demand_ugens` input of Demand.
 
         ::
 
@@ -124,11 +124,11 @@ class Demand(MultiOutUGen):
             ...     reset=None,
             ...     trigger=None,
             ...     )
-            >>> demand.trigger
+            >>> demand.demand_ugens
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('trigger')
+        index = self._ordered_input_names.index('demand_ugens')
         return self._inputs[index]
 
     @property
@@ -150,8 +150,8 @@ class Demand(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def demand_ugens(self):
-        r'''Gets `demand_ugens` input of Demand.
+    def trigger(self):
+        r'''Gets `trigger` input of Demand.
 
         ::
 
@@ -160,9 +160,9 @@ class Demand(MultiOutUGen):
             ...     reset=None,
             ...     trigger=None,
             ...     )
-            >>> demand.demand_ugens
+            >>> demand.trigger
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('demand_ugens')
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

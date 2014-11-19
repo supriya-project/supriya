@@ -124,25 +124,6 @@ class PanB(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of PanB.
-
-        ::
-
-            >>> pan_b = ugentools.PanB.ar(
-            ...     azimuth=0,
-            ...     elevation=0,
-            ...     gain=1,
-            ...     source=None,
-            ...     )
-            >>> pan_b.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def azimuth(self):
         r'''Gets `azimuth` input of PanB.
 
@@ -197,4 +178,23 @@ class PanB(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('gain')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of PanB.
+
+        ::
+
+            >>> pan_b = ugentools.PanB.ar(
+            ...     azimuth=0,
+            ...     elevation=0,
+            ...     gain=1,
+            ...     source=None,
+            ...     )
+            >>> pan_b.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -172,54 +172,6 @@ class Gendy3(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def ampdist(self):
-        r'''Gets `ampdist` input of Gendy3.
-
-        ::
-
-            >>> gendy_3 = ugentools.Gendy3.ar(
-            ...     adparam=1,
-            ...     ampdist=1,
-            ...     ampscale=0.5,
-            ...     ddparam=1,
-            ...     durdist=1,
-            ...     durscale=0.5,
-            ...     frequency=440,
-            ...     init_cps=12,
-            ...     knum=None,
-            ...     )
-            >>> gendy_3.ampdist
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('ampdist')
-        return self._inputs[index]
-
-    @property
-    def durdist(self):
-        r'''Gets `durdist` input of Gendy3.
-
-        ::
-
-            >>> gendy_3 = ugentools.Gendy3.ar(
-            ...     adparam=1,
-            ...     ampdist=1,
-            ...     ampscale=0.5,
-            ...     ddparam=1,
-            ...     durdist=1,
-            ...     durscale=0.5,
-            ...     frequency=440,
-            ...     init_cps=12,
-            ...     knum=None,
-            ...     )
-            >>> gendy_3.durdist
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('durdist')
-        return self._inputs[index]
-
-    @property
     def adparam(self):
         r'''Gets `adparam` input of Gendy3.
 
@@ -244,8 +196,8 @@ class Gendy3(UGen):
         return self._inputs[index]
 
     @property
-    def ddparam(self):
-        r'''Gets `ddparam` input of Gendy3.
+    def ampdist(self):
+        r'''Gets `ampdist` input of Gendy3.
 
         ::
 
@@ -260,35 +212,11 @@ class Gendy3(UGen):
             ...     init_cps=12,
             ...     knum=None,
             ...     )
-            >>> gendy_3.ddparam
+            >>> gendy_3.ampdist
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('ddparam')
-        return self._inputs[index]
-
-    @property
-    def frequency(self):
-        r'''Gets `frequency` input of Gendy3.
-
-        ::
-
-            >>> gendy_3 = ugentools.Gendy3.ar(
-            ...     adparam=1,
-            ...     ampdist=1,
-            ...     ampscale=0.5,
-            ...     ddparam=1,
-            ...     durdist=1,
-            ...     durscale=0.5,
-            ...     frequency=440,
-            ...     init_cps=12,
-            ...     knum=None,
-            ...     )
-            >>> gendy_3.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
+        index = self._ordered_input_names.index('ampdist')
         return self._inputs[index]
 
     @property
@@ -316,6 +244,54 @@ class Gendy3(UGen):
         return self._inputs[index]
 
     @property
+    def ddparam(self):
+        r'''Gets `ddparam` input of Gendy3.
+
+        ::
+
+            >>> gendy_3 = ugentools.Gendy3.ar(
+            ...     adparam=1,
+            ...     ampdist=1,
+            ...     ampscale=0.5,
+            ...     ddparam=1,
+            ...     durdist=1,
+            ...     durscale=0.5,
+            ...     frequency=440,
+            ...     init_cps=12,
+            ...     knum=None,
+            ...     )
+            >>> gendy_3.ddparam
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('ddparam')
+        return self._inputs[index]
+
+    @property
+    def durdist(self):
+        r'''Gets `durdist` input of Gendy3.
+
+        ::
+
+            >>> gendy_3 = ugentools.Gendy3.ar(
+            ...     adparam=1,
+            ...     ampdist=1,
+            ...     ampscale=0.5,
+            ...     ddparam=1,
+            ...     durdist=1,
+            ...     durscale=0.5,
+            ...     frequency=440,
+            ...     init_cps=12,
+            ...     knum=None,
+            ...     )
+            >>> gendy_3.durdist
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('durdist')
+        return self._inputs[index]
+
+    @property
     def durscale(self):
         r'''Gets `durscale` input of Gendy3.
 
@@ -337,6 +313,30 @@ class Gendy3(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('durscale')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Gendy3.
+
+        ::
+
+            >>> gendy_3 = ugentools.Gendy3.ar(
+            ...     adparam=1,
+            ...     ampdist=1,
+            ...     ampscale=0.5,
+            ...     ddparam=1,
+            ...     durdist=1,
+            ...     durscale=0.5,
+            ...     frequency=440,
+            ...     init_cps=12,
+            ...     knum=None,
+            ...     )
+            >>> gendy_3.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

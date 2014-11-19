@@ -134,26 +134,6 @@ class BufRd(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of BufRd.
-
-        ::
-
-            >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=None,
-            ...     interpolation=2,
-            ...     loop=1,
-            ...     phase=0,
-            ...     )
-            >>> buf_rd.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of BufRd.
 
@@ -174,8 +154,8 @@ class BufRd(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def phase(self):
-        r'''Gets `phase` input of BufRd.
+    def channel_count(self):
+        r'''Gets `channel_count` input of BufRd.
 
         ::
 
@@ -186,11 +166,31 @@ class BufRd(MultiOutUGen):
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> buf_rd.phase
+            >>> buf_rd.channel_count
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('phase')
+        index = self._ordered_input_names.index('channel_count')
+        return self._inputs[index]
+
+    @property
+    def interpolation(self):
+        r'''Gets `interpolation` input of BufRd.
+
+        ::
+
+            >>> buf_rd = ugentools.BufRd.ar(
+            ...     buffer_id=0,
+            ...     channel_count=None,
+            ...     interpolation=2,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> buf_rd.interpolation
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('interpolation')
         return self._inputs[index]
 
     @property
@@ -214,8 +214,8 @@ class BufRd(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def interpolation(self):
-        r'''Gets `interpolation` input of BufRd.
+    def phase(self):
+        r'''Gets `phase` input of BufRd.
 
         ::
 
@@ -226,9 +226,9 @@ class BufRd(MultiOutUGen):
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> buf_rd.interpolation
+            >>> buf_rd.phase
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('interpolation')
+        index = self._ordered_input_names.index('phase')
         return self._inputs[index]

@@ -124,24 +124,6 @@ class TwoPole(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of TwoPole.
-
-        ::
-
-            >>> two_pole = ugentools.TwoPole.ar(
-            ...     frequency=440,
-            ...     radius=0.8,
-            ...     source=None,
-            ...     )
-            >>> two_pole.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of TwoPole.
 
@@ -175,4 +157,22 @@ class TwoPole(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('radius')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of TwoPole.
+
+        ::
+
+            >>> two_pole = ugentools.TwoPole.ar(
+            ...     frequency=440,
+            ...     radius=0.8,
+            ...     source=None,
+            ...     )
+            >>> two_pole.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

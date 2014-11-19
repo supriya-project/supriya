@@ -104,23 +104,6 @@ class SelectL(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def which(self):
-        r'''Gets `which` input of SelectL.
-
-        ::
-
-            >>> select_l = ugentools.SelectL.ar(
-            ...     array=None,
-            ...     which=None,
-            ...     )
-            >>> select_l.which
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('which')
-        return self._inputs[index]
-
-    @property
     def array(self):
         r'''Gets `array` input of SelectL.
 
@@ -135,4 +118,21 @@ class SelectL(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('array')
+        return self._inputs[index]
+
+    @property
+    def which(self):
+        r'''Gets `which` input of SelectL.
+
+        ::
+
+            >>> select_l = ugentools.SelectL.ar(
+            ...     array=None,
+            ...     which=None,
+            ...     )
+            >>> select_l.which
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('which')
         return self._inputs[index]

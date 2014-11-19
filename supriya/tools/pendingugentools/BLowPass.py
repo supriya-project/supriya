@@ -96,24 +96,6 @@ class BLowPass(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BLowPass.
-
-        ::
-
-            >>> blow_pass = ugentools.BLowPass.ar(
-            ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
-            ...     )
-            >>> blow_pass.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of BLowPass.
 
@@ -147,4 +129,22 @@ class BLowPass(BEQSuite):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reciprocal_of_q')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BLowPass.
+
+        ::
+
+            >>> blow_pass = ugentools.BLowPass.ar(
+            ...     frequency=1200,
+            ...     reciprocal_of_q=1,
+            ...     source=None,
+            ...     )
+            >>> blow_pass.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

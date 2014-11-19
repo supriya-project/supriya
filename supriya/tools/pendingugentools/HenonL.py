@@ -98,26 +98,6 @@ class HenonL(HenonN):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of HenonL.
-
-        ::
-
-            >>> henon_l = ugentools.HenonL.ar(
-            ...     a=1.4,
-            ...     b=0.3,
-            ...     frequency=22050,
-            ...     x_0=0,
-            ...     x_1=0,
-            ...     )
-            >>> henon_l.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def a(self):
         r'''Gets `a` input of HenonL.
 
@@ -155,6 +135,26 @@ class HenonL(HenonN):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('b')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of HenonL.
+
+        ::
+
+            >>> henon_l = ugentools.HenonL.ar(
+            ...     a=1.4,
+            ...     b=0.3,
+            ...     frequency=22050,
+            ...     x_0=0,
+            ...     x_1=0,
+            ...     )
+            >>> henon_l.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property

@@ -82,8 +82,8 @@ class Formant(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def fundfrequency(self):
-        r'''Gets `fundfrequency` input of Formant.
+    def bwfrequency(self):
+        r'''Gets `bwfrequency` input of Formant.
 
         ::
 
@@ -92,11 +92,11 @@ class Formant(PureUGen):
             ...     formfrequency=1760,
             ...     fundfrequency=440,
             ...     )
-            >>> formant.fundfrequency
+            >>> formant.bwfrequency
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('fundfrequency')
+        index = self._ordered_input_names.index('bwfrequency')
         return self._inputs[index]
 
     @property
@@ -118,8 +118,8 @@ class Formant(PureUGen):
         return self._inputs[index]
 
     @property
-    def bwfrequency(self):
-        r'''Gets `bwfrequency` input of Formant.
+    def fundfrequency(self):
+        r'''Gets `fundfrequency` input of Formant.
 
         ::
 
@@ -128,9 +128,9 @@ class Formant(PureUGen):
             ...     formfrequency=1760,
             ...     fundfrequency=440,
             ...     )
-            >>> formant.bwfrequency
+            >>> formant.fundfrequency
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('bwfrequency')
+        index = self._ordered_input_names.index('fundfrequency')
         return self._inputs[index]

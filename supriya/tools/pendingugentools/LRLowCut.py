@@ -146,25 +146,6 @@ class LRLowCut(BLowCut):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of LRLowCut.
-
-        ::
-
-            >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
-            ...     max_order=5,
-            ...     order=2,
-            ...     source=None,
-            ...     )
-            >>> lrlow_cut.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of LRLowCut.
 
@@ -181,6 +162,25 @@ class LRLowCut(BLowCut):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def max_order(self):
+        r'''Gets `max_order` input of LRLowCut.
+
+        ::
+
+            >>> lrlow_cut = ugentools.LRLowCut.ar(
+            ...     frequency=None,
+            ...     max_order=5,
+            ...     order=2,
+            ...     source=None,
+            ...     )
+            >>> lrlow_cut.max_order
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('max_order')
         return self._inputs[index]
 
     @property
@@ -203,8 +203,8 @@ class LRLowCut(BLowCut):
         return self._inputs[index]
 
     @property
-    def max_order(self):
-        r'''Gets `max_order` input of LRLowCut.
+    def source(self):
+        r'''Gets `source` input of LRLowCut.
 
         ::
 
@@ -214,9 +214,9 @@ class LRLowCut(BLowCut):
             ...     order=2,
             ...     source=None,
             ...     )
-            >>> lrlow_cut.max_order
+            >>> lrlow_cut.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('max_order')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

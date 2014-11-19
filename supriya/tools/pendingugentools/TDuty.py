@@ -132,6 +132,26 @@ class TDuty(Duty):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def done_action(self):
+        r'''Gets `done_action` input of TDuty.
+
+        ::
+
+            >>> tduty = ugentools.TDuty.ar(
+            ...     done_action=0,
+            ...     duration=1,
+            ...     gap_first=0,
+            ...     level=1,
+            ...     reset=0,
+            ...     )
+            >>> tduty.done_action
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('done_action')
+        return self._inputs[index]
+
+    @property
     def duration(self):
         r'''Gets `duration` input of TDuty.
 
@@ -152,8 +172,8 @@ class TDuty(Duty):
         return self._inputs[index]
 
     @property
-    def reset(self):
-        r'''Gets `reset` input of TDuty.
+    def gap_first(self):
+        r'''Gets `gap_first` input of TDuty.
 
         ::
 
@@ -164,11 +184,11 @@ class TDuty(Duty):
             ...     level=1,
             ...     reset=0,
             ...     )
-            >>> tduty.reset
+            >>> tduty.gap_first
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('reset')
+        index = self._ordered_input_names.index('gap_first')
         return self._inputs[index]
 
     @property
@@ -192,8 +212,8 @@ class TDuty(Duty):
         return self._inputs[index]
 
     @property
-    def done_action(self):
-        r'''Gets `done_action` input of TDuty.
+    def reset(self):
+        r'''Gets `reset` input of TDuty.
 
         ::
 
@@ -204,29 +224,9 @@ class TDuty(Duty):
             ...     level=1,
             ...     reset=0,
             ...     )
-            >>> tduty.done_action
+            >>> tduty.reset
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('done_action')
-        return self._inputs[index]
-
-    @property
-    def gap_first(self):
-        r'''Gets `gap_first` input of TDuty.
-
-        ::
-
-            >>> tduty = ugentools.TDuty.ar(
-            ...     done_action=0,
-            ...     duration=1,
-            ...     gap_first=0,
-            ...     level=1,
-            ...     reset=0,
-            ...     )
-            >>> tduty.gap_first
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('gap_first')
+        index = self._ordered_input_names.index('reset')
         return self._inputs[index]

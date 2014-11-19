@@ -84,24 +84,6 @@ class DiskIn(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of DiskIn.
-
-        ::
-
-            >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
-            ...     loop=0,
-            ...     )
-            >>> disk_in.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
-
-    @property
     def buffer_id(self):
         r'''Gets `buffer_id` input of DiskIn.
 
@@ -117,6 +99,24 @@ class DiskIn(MultiOutUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def channel_count(self):
+        r'''Gets `channel_count` input of DiskIn.
+
+        ::
+
+            >>> disk_in = ugentools.DiskIn.ar(
+            ...     buffer_id=None,
+            ...     channel_count=None,
+            ...     loop=0,
+            ...     )
+            >>> disk_in.channel_count
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property

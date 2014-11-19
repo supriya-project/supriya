@@ -102,23 +102,6 @@ class LastValue(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of LastValue.
-
-        ::
-
-            >>> last_value = ugentools.LastValue.ar(
-            ...     diff=0.01,
-            ...     source=None,
-            ...     )
-            >>> last_value.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def diff(self):
         r'''Gets `diff` input of LastValue.
 
@@ -133,4 +116,21 @@ class LastValue(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('diff')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of LastValue.
+
+        ::
+
+            >>> last_value = ugentools.LastValue.ar(
+            ...     diff=0.01,
+            ...     source=None,
+            ...     )
+            >>> last_value.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

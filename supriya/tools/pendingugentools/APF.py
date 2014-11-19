@@ -124,24 +124,6 @@ class APF(TwoPole):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of APF.
-
-        ::
-
-            >>> apf = ugentools.APF.ar(
-            ...     frequency=440,
-            ...     radius=0.8,
-            ...     source=None,
-            ...     )
-            >>> apf.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of APF.
 
@@ -175,4 +157,22 @@ class APF(TwoPole):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('radius')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of APF.
+
+        ::
+
+            >>> apf = ugentools.APF.ar(
+            ...     frequency=440,
+            ...     radius=0.8,
+            ...     source=None,
+            ...     )
+            >>> apf.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

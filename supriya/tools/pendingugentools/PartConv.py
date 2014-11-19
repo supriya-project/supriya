@@ -86,24 +86,6 @@ class PartConv(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of PartConv.
-
-        ::
-
-            >>> part_conv = ugentools.PartConv.ar(
-            ...     fftsize=None,
-            ...     irbufnum=None,
-            ...     source=None,
-            ...     )
-            >>> part_conv.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def fftsize(self):
         r'''Gets `fftsize` input of PartConv.
 
@@ -137,4 +119,22 @@ class PartConv(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('irbufnum')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of PartConv.
+
+        ::
+
+            >>> part_conv = ugentools.PartConv.ar(
+            ...     fftsize=None,
+            ...     irbufnum=None,
+            ...     source=None,
+            ...     )
+            >>> part_conv.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

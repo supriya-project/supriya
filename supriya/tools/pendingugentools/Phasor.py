@@ -8,10 +8,10 @@ class Phasor(UGen):
     ::
 
         >>> phasor = ugentools.Phasor.(
-        ...     end=1,
         ...     rate=1,
         ...     reset_pos=0,
         ...     start=0,
+        ...     stop=1,
         ...     trigger=0,
         ...     )
         >>> phasor
@@ -28,7 +28,7 @@ class Phasor(UGen):
         'trigger',
         'rate',
         'start',
-        'end',
+        'stop',
         'reset_pos',
         )
 
@@ -39,19 +39,19 @@ class Phasor(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        end=1,
         rate=1,
         reset_pos=0,
         start=0,
+        stop=1,
         trigger=0,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            end=end,
             rate=rate,
             reset_pos=reset_pos,
             start=start,
+            stop=stop,
             trigger=trigger,
             )
 
@@ -60,10 +60,10 @@ class Phasor(UGen):
     @classmethod
     def ar(
         cls,
-        end=1,
         rate=1,
         reset_pos=0,
         start=0,
+        stop=1,
         trigger=0,
         ):
         r'''Constructs an audio-rate Phasor.
@@ -71,10 +71,10 @@ class Phasor(UGen):
         ::
 
             >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
             >>> phasor
@@ -85,10 +85,10 @@ class Phasor(UGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            end=end,
             rate=rate,
             reset_pos=reset_pos,
             start=start,
+            stop=stop,
             trigger=trigger,
             )
         return ugen
@@ -96,10 +96,10 @@ class Phasor(UGen):
     @classmethod
     def kr(
         cls,
-        end=1,
         rate=1,
         reset_pos=0,
         start=0,
+        stop=1,
         trigger=0,
         ):
         r'''Constructs a control-rate Phasor.
@@ -107,10 +107,10 @@ class Phasor(UGen):
         ::
 
             >>> phasor = ugentools.Phasor.kr(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
             >>> phasor
@@ -121,35 +121,15 @@ class Phasor(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            end=end,
             rate=rate,
             reset_pos=reset_pos,
             start=start,
+            stop=stop,
             trigger=trigger,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def trigger(self):
-        r'''Gets `trigger` input of Phasor.
-
-        ::
-
-            >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
-            ...     rate=1,
-            ...     reset_pos=0,
-            ...     start=0,
-            ...     trigger=0,
-            ...     )
-            >>> phasor.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
 
     @property
     def rate(self):
@@ -158,10 +138,10 @@ class Phasor(UGen):
         ::
 
             >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
             >>> phasor.rate
@@ -172,16 +152,36 @@ class Phasor(UGen):
         return self._inputs[index]
 
     @property
+    def reset_pos(self):
+        r'''Gets `reset_pos` input of Phasor.
+
+        ::
+
+            >>> phasor = ugentools.Phasor.ar(
+            ...     rate=1,
+            ...     reset_pos=0,
+            ...     start=0,
+            ...     stop=1,
+            ...     trigger=0,
+            ...     )
+            >>> phasor.reset_pos
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('reset_pos')
+        return self._inputs[index]
+
+    @property
     def start(self):
         r'''Gets `start` input of Phasor.
 
         ::
 
             >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
             >>> phasor.start
@@ -192,41 +192,41 @@ class Phasor(UGen):
         return self._inputs[index]
 
     @property
-    def end(self):
-        r'''Gets `end` input of Phasor.
+    def stop(self):
+        r'''Gets `stop` input of Phasor.
 
         ::
 
             >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
-            >>> phasor.end
+            >>> phasor.stop
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('end')
+        index = self._ordered_input_names.index('stop')
         return self._inputs[index]
 
     @property
-    def reset_pos(self):
-        r'''Gets `reset_pos` input of Phasor.
+    def trigger(self):
+        r'''Gets `trigger` input of Phasor.
 
         ::
 
             >>> phasor = ugentools.Phasor.ar(
-            ...     end=1,
             ...     rate=1,
             ...     reset_pos=0,
             ...     start=0,
+            ...     stop=1,
             ...     trigger=0,
             ...     )
-            >>> phasor.reset_pos
+            >>> phasor.trigger
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('reset_pos')
+        index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

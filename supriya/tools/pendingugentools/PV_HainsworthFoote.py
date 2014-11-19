@@ -116,26 +116,6 @@ class PV_HainsworthFoote(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def proph(self):
-        r'''Gets `proph` input of PV_HainsworthFoote.
-
-        ::
-
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
-            ...     propf=0,
-            ...     proph=0,
-            ...     threshold=1,
-            ...     waittime=0.04,
-            ...     )
-            >>> pv_hainsworth_foote.proph
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('proph')
-        return self._inputs[index]
-
-    @property
     def propf(self):
         r'''Gets `propf` input of PV_HainsworthFoote.
 
@@ -153,6 +133,26 @@ class PV_HainsworthFoote(PV_ChainUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('propf')
+        return self._inputs[index]
+
+    @property
+    def proph(self):
+        r'''Gets `proph` input of PV_HainsworthFoote.
+
+        ::
+
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            ...     buffer_=None,
+            ...     propf=0,
+            ...     proph=0,
+            ...     threshold=1,
+            ...     waittime=0.04,
+            ...     )
+            >>> pv_hainsworth_foote.proph
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('proph')
         return self._inputs[index]
 
     @property

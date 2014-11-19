@@ -104,23 +104,6 @@ class RunningSum(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of RunningSum.
-
-        ::
-
-            >>> running_sum = ugentools.RunningSum.ar(
-            ...     numsamp=40,
-            ...     source=None,
-            ...     )
-            >>> running_sum.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def numsamp(self):
         r'''Gets `numsamp` input of RunningSum.
 
@@ -135,4 +118,21 @@ class RunningSum(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('numsamp')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of RunningSum.
+
+        ::
+
+            >>> running_sum = ugentools.RunningSum.ar(
+            ...     numsamp=40,
+            ...     source=None,
+            ...     )
+            >>> running_sum.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

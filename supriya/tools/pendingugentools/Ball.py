@@ -122,44 +122,6 @@ class Ball(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Ball.
-
-        ::
-
-            >>> ball = ugentools.Ball.ar(
-            ...     damping=0,
-            ...     friction=0.01,
-            ...     g=1,
-            ...     source=None,
-            ...     )
-            >>> ball.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def g(self):
-        r'''Gets `g` input of Ball.
-
-        ::
-
-            >>> ball = ugentools.Ball.ar(
-            ...     damping=0,
-            ...     friction=0.01,
-            ...     g=1,
-            ...     source=None,
-            ...     )
-            >>> ball.g
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('g')
-        return self._inputs[index]
-
-    @property
     def damping(self):
         r'''Gets `damping` input of Ball.
 
@@ -195,4 +157,42 @@ class Ball(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('friction')
+        return self._inputs[index]
+
+    @property
+    def g(self):
+        r'''Gets `g` input of Ball.
+
+        ::
+
+            >>> ball = ugentools.Ball.ar(
+            ...     damping=0,
+            ...     friction=0.01,
+            ...     g=1,
+            ...     source=None,
+            ...     )
+            >>> ball.g
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('g')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Ball.
+
+        ::
+
+            >>> ball = ugentools.Ball.ar(
+            ...     damping=0,
+            ...     friction=0.01,
+            ...     g=1,
+            ...     source=None,
+            ...     )
+            >>> ball.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

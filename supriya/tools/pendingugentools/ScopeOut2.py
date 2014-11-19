@@ -141,25 +141,6 @@ class ScopeOut2(UGen):
         return self._inputs[index]
 
     @property
-    def scope_num(self):
-        r'''Gets `scope_num` input of ScopeOut2.
-
-        ::
-
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
-            ...     max_frames=4096,
-            ...     scope_frames=None,
-            ...     scope_num=0,
-            ...     )
-            >>> scope_out_2.scope_num
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('scope_num')
-        return self._inputs[index]
-
-    @property
     def max_frames(self):
         r'''Gets `max_frames` input of ScopeOut2.
 
@@ -195,4 +176,23 @@ class ScopeOut2(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('scope_frames')
+        return self._inputs[index]
+
+    @property
+    def scope_num(self):
+        r'''Gets `scope_num` input of ScopeOut2.
+
+        ::
+
+            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            ...     input_array=None,
+            ...     max_frames=4096,
+            ...     scope_frames=None,
+            ...     scope_num=0,
+            ...     )
+            >>> scope_out_2.scope_num
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('scope_num')
         return self._inputs[index]

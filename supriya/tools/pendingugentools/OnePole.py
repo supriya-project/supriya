@@ -114,23 +114,6 @@ class OnePole(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of OnePole.
-
-        ::
-
-            >>> one_pole = ugentools.OnePole.ar(
-            ...     coefficient=0.5,
-            ...     source=None,
-            ...     )
-            >>> one_pole.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def coefficient(self):
         r'''Gets `coefficient` input of OnePole.
 
@@ -145,4 +128,21 @@ class OnePole(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of OnePole.
+
+        ::
+
+            >>> one_pole = ugentools.OnePole.ar(
+            ...     coefficient=0.5,
+            ...     source=None,
+            ...     )
+            >>> one_pole.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

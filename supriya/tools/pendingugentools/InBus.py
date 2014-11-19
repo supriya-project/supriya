@@ -162,25 +162,6 @@ class InBus(UGen):
         return self._inputs[index]
 
     @property
-    def offset(self):
-        r'''Gets `offset` input of InBus.
-
-        ::
-
-            >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
-            ...     offset=0,
-            ...     )
-            >>> in_bus.offset
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('offset')
-        return self._inputs[index]
-
-    @property
     def clip(self):
         r'''Gets `clip` input of InBus.
 
@@ -197,4 +178,23 @@ class InBus(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('clip')
+        return self._inputs[index]
+
+    @property
+    def offset(self):
+        r'''Gets `offset` input of InBus.
+
+        ::
+
+            >>> in_bus = ugentools.InBus.ar(
+            ...     bus=None,
+            ...     channel_count=None,
+            ...     clip=None,
+            ...     offset=0,
+            ...     )
+            >>> in_bus.offset
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('offset')
         return self._inputs[index]

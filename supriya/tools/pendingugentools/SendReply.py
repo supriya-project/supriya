@@ -124,25 +124,6 @@ class SendReply(SendTrig):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def trigger(self):
-        r'''Gets `trigger` input of SendReply.
-
-        ::
-
-            >>> send_reply = ugentools.SendReply.ar(
-            ...     cmd_name='/reply',
-            ...     reply_id=-1,
-            ...     trigger=0,
-            ...     values=None,
-            ...     )
-            >>> send_reply.trigger
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('trigger')
-        return self._inputs[index]
-
-    @property
     def cmd_name(self):
         r'''Gets `cmd_name` input of SendReply.
 
@@ -162,25 +143,6 @@ class SendReply(SendTrig):
         return self._inputs[index]
 
     @property
-    def values(self):
-        r'''Gets `values` input of SendReply.
-
-        ::
-
-            >>> send_reply = ugentools.SendReply.ar(
-            ...     cmd_name='/reply',
-            ...     reply_id=-1,
-            ...     trigger=0,
-            ...     values=None,
-            ...     )
-            >>> send_reply.values
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('values')
-        return self._inputs[index]
-
-    @property
     def reply_id(self):
         r'''Gets `reply_id` input of SendReply.
 
@@ -197,4 +159,42 @@ class SendReply(SendTrig):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reply_id')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of SendReply.
+
+        ::
+
+            >>> send_reply = ugentools.SendReply.ar(
+            ...     cmd_name='/reply',
+            ...     reply_id=-1,
+            ...     trigger=0,
+            ...     values=None,
+            ...     )
+            >>> send_reply.trigger
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]
+
+    @property
+    def values(self):
+        r'''Gets `values` input of SendReply.
+
+        ::
+
+            >>> send_reply = ugentools.SendReply.ar(
+            ...     cmd_name='/reply',
+            ...     reply_id=-1,
+            ...     trigger=0,
+            ...     values=None,
+            ...     )
+            >>> send_reply.values
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('values')
         return self._inputs[index]

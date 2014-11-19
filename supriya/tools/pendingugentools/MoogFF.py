@@ -134,25 +134,6 @@ class MoogFF(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of MoogFF.
-
-        ::
-
-            >>> moog_ff = ugentools.MoogFF.ar(
-            ...     frequency=100,
-            ...     gain=2,
-            ...     reset=0,
-            ...     source=None,
-            ...     )
-            >>> moog_ff.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of MoogFF.
 
@@ -207,4 +188,23 @@ class MoogFF(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reset')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of MoogFF.
+
+        ::
+
+            >>> moog_ff = ugentools.MoogFF.ar(
+            ...     frequency=100,
+            ...     gain=2,
+            ...     reset=0,
+            ...     source=None,
+            ...     )
+            >>> moog_ff.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

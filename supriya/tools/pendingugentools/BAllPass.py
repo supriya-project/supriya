@@ -96,24 +96,6 @@ class BAllPass(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BAllPass.
-
-        ::
-
-            >>> ball_pass = ugentools.BAllPass.ar(
-            ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
-            ...     )
-            >>> ball_pass.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
         r'''Gets `frequency` input of BAllPass.
 
@@ -147,4 +129,22 @@ class BAllPass(BEQSuite):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('reciprocal_of_q')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of BAllPass.
+
+        ::
+
+            >>> ball_pass = ugentools.BAllPass.ar(
+            ...     frequency=1200,
+            ...     reciprocal_of_q=1,
+            ...     source=None,
+            ...     )
+            >>> ball_pass.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

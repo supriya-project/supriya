@@ -96,8 +96,8 @@ class BBandStop(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BBandStop.
+    def bw(self):
+        r'''Gets `bw` input of BBandStop.
 
         ::
 
@@ -106,11 +106,11 @@ class BBandStop(BEQSuite):
             ...     frequency=1200,
             ...     source=None,
             ...     )
-            >>> bband_stop.source
+            >>> bband_stop.bw
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('bw')
         return self._inputs[index]
 
     @property
@@ -132,8 +132,8 @@ class BBandStop(BEQSuite):
         return self._inputs[index]
 
     @property
-    def bw(self):
-        r'''Gets `bw` input of BBandStop.
+    def source(self):
+        r'''Gets `source` input of BBandStop.
 
         ::
 
@@ -142,9 +142,9 @@ class BBandStop(BEQSuite):
             ...     frequency=1200,
             ...     source=None,
             ...     )
-            >>> bband_stop.bw
+            >>> bband_stop.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('bw')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

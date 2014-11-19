@@ -112,24 +112,6 @@ class SendTrig(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of SendTrig.
-
-        ::
-
-            >>> send_trig = ugentools.SendTrig.ar(
-            ...     id=0,
-            ...     source=None,
-            ...     value=0,
-            ...     )
-            >>> send_trig.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def id(self):
         r'''Gets `id` input of SendTrig.
 
@@ -145,6 +127,24 @@ class SendTrig(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('id')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of SendTrig.
+
+        ::
+
+            >>> send_trig = ugentools.SendTrig.ar(
+            ...     id=0,
+            ...     source=None,
+            ...     value=0,
+            ...     )
+            >>> send_trig.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property

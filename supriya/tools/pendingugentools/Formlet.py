@@ -134,44 +134,6 @@ class Formlet(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Formlet.
-
-        ::
-
-            >>> formlet = ugentools.Formlet.ar(
-            ...     attack_time=1,
-            ...     decay_time=1,
-            ...     frequency=440,
-            ...     source=None,
-            ...     )
-            >>> formlet.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def frequency(self):
-        r'''Gets `frequency` input of Formlet.
-
-        ::
-
-            >>> formlet = ugentools.Formlet.ar(
-            ...     attack_time=1,
-            ...     decay_time=1,
-            ...     frequency=440,
-            ...     source=None,
-            ...     )
-            >>> formlet.frequency
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def attack_time(self):
         r'''Gets `attack_time` input of Formlet.
 
@@ -207,4 +169,42 @@ class Formlet(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('decay_time')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of Formlet.
+
+        ::
+
+            >>> formlet = ugentools.Formlet.ar(
+            ...     attack_time=1,
+            ...     decay_time=1,
+            ...     frequency=440,
+            ...     source=None,
+            ...     )
+            >>> formlet.frequency
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frequency')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Formlet.
+
+        ::
+
+            >>> formlet = ugentools.Formlet.ar(
+            ...     attack_time=1,
+            ...     decay_time=1,
+            ...     frequency=440,
+            ...     source=None,
+            ...     )
+            >>> formlet.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

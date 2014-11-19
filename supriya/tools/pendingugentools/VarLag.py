@@ -146,6 +146,26 @@ class VarLag(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def curvature(self):
+        r'''Gets `curvature` input of VarLag.
+
+        ::
+
+            >>> var_lag = ugentools.VarLag.ar(
+            ...     curvature=0,
+            ...     source=None,
+            ...     start=None,
+            ...     time=0.1,
+            ...     warp=5,
+            ...     )
+            >>> var_lag.curvature
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('curvature')
+        return self._inputs[index]
+
+    @property
     def source(self):
         r'''Gets `source` input of VarLag.
 
@@ -163,6 +183,26 @@ class VarLag(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def start(self):
+        r'''Gets `start` input of VarLag.
+
+        ::
+
+            >>> var_lag = ugentools.VarLag.ar(
+            ...     curvature=0,
+            ...     source=None,
+            ...     start=None,
+            ...     time=0.1,
+            ...     warp=5,
+            ...     )
+            >>> var_lag.start
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
@@ -186,26 +226,6 @@ class VarLag(Filter):
         return self._inputs[index]
 
     @property
-    def curvature(self):
-        r'''Gets `curvature` input of VarLag.
-
-        ::
-
-            >>> var_lag = ugentools.VarLag.ar(
-            ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
-            ...     time=0.1,
-            ...     warp=5,
-            ...     )
-            >>> var_lag.curvature
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('curvature')
-        return self._inputs[index]
-
-    @property
     def warp(self):
         r'''Gets `warp` input of VarLag.
 
@@ -223,24 +243,4 @@ class VarLag(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('warp')
-        return self._inputs[index]
-
-    @property
-    def start(self):
-        r'''Gets `start` input of VarLag.
-
-        ::
-
-            >>> var_lag = ugentools.VarLag.ar(
-            ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
-            ...     time=0.1,
-            ...     warp=5,
-            ...     )
-            >>> var_lag.start
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('start')
         return self._inputs[index]

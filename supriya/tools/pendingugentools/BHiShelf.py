@@ -103,8 +103,8 @@ class BHiShelf(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BHiShelf.
+    def db(self):
+        r'''Gets `db` input of BHiShelf.
 
         ::
 
@@ -114,11 +114,11 @@ class BHiShelf(BEQSuite):
             ...     rs=1,
             ...     source=None,
             ...     )
-            >>> bhi_shelf.source
+            >>> bhi_shelf.db
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('source')
+        index = self._ordered_input_names.index('db')
         return self._inputs[index]
 
     @property
@@ -160,8 +160,8 @@ class BHiShelf(BEQSuite):
         return self._inputs[index]
 
     @property
-    def db(self):
-        r'''Gets `db` input of BHiShelf.
+    def source(self):
+        r'''Gets `source` input of BHiShelf.
 
         ::
 
@@ -171,9 +171,9 @@ class BHiShelf(BEQSuite):
             ...     rs=1,
             ...     source=None,
             ...     )
-            >>> bhi_shelf.db
+            >>> bhi_shelf.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('db')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

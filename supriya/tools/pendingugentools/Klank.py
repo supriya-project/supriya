@@ -98,8 +98,8 @@ class Klank(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def specifications_array_ref(self):
-        r'''Gets `specifications_array_ref` input of Klank.
+    def decayscale(self):
+        r'''Gets `decayscale` input of Klank.
 
         ::
 
@@ -110,51 +110,11 @@ class Klank(UGen):
             ...     input=None,
             ...     specifications_array_ref=None,
             ...     )
-            >>> klank.specifications_array_ref
+            >>> klank.decayscale
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('specifications_array_ref')
-        return self._inputs[index]
-
-    @property
-    def input(self):
-        r'''Gets `input` input of Klank.
-
-        ::
-
-            >>> klank = ugentools.Klank.ar(
-            ...     decayscale=1,
-            ...     freqoffset=0,
-            ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
-            ...     )
-            >>> klank.input
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('input')
-        return self._inputs[index]
-
-    @property
-    def freqscale(self):
-        r'''Gets `freqscale` input of Klank.
-
-        ::
-
-            >>> klank = ugentools.Klank.ar(
-            ...     decayscale=1,
-            ...     freqoffset=0,
-            ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
-            ...     )
-            >>> klank.freqscale
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('freqscale')
+        index = self._ordered_input_names.index('decayscale')
         return self._inputs[index]
 
     @property
@@ -178,8 +138,8 @@ class Klank(UGen):
         return self._inputs[index]
 
     @property
-    def decayscale(self):
-        r'''Gets `decayscale` input of Klank.
+    def freqscale(self):
+        r'''Gets `freqscale` input of Klank.
 
         ::
 
@@ -190,9 +150,49 @@ class Klank(UGen):
             ...     input=None,
             ...     specifications_array_ref=None,
             ...     )
-            >>> klank.decayscale
+            >>> klank.freqscale
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('decayscale')
+        index = self._ordered_input_names.index('freqscale')
+        return self._inputs[index]
+
+    @property
+    def input(self):
+        r'''Gets `input` input of Klank.
+
+        ::
+
+            >>> klank = ugentools.Klank.ar(
+            ...     decayscale=1,
+            ...     freqoffset=0,
+            ...     freqscale=1,
+            ...     input=None,
+            ...     specifications_array_ref=None,
+            ...     )
+            >>> klank.input
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('input')
+        return self._inputs[index]
+
+    @property
+    def specifications_array_ref(self):
+        r'''Gets `specifications_array_ref` input of Klank.
+
+        ::
+
+            >>> klank = ugentools.Klank.ar(
+            ...     decayscale=1,
+            ...     freqoffset=0,
+            ...     freqscale=1,
+            ...     input=None,
+            ...     specifications_array_ref=None,
+            ...     )
+            >>> klank.specifications_array_ref
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('specifications_array_ref')
         return self._inputs[index]
