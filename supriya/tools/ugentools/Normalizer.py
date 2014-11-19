@@ -3,22 +3,24 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Normalizer(UGen):
-    r'''
+    r'''A dynamics flattener.
 
     ::
 
-        >>> normalizer = ugentools.Normalizer.(
+        >>> source = ugentools.In.ar(0)
+        >>> normalizer = ugentools.Normalizer.ar(
         ...     duration=0.01,
         ...     level=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> normalizer
+        Normalizer.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Dynamics UGens'
 
     __slots__ = ()
 
@@ -60,12 +62,14 @@ class Normalizer(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0, channel_count=2)
             >>> normalizer = ugentools.Normalizer.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> normalizer
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -87,12 +91,14 @@ class Normalizer(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> normalizer = ugentools.Normalizer.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> normalizer.duration
+            0.01
 
         Returns ugen input.
         '''
@@ -105,12 +111,14 @@ class Normalizer(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> normalizer = ugentools.Normalizer.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> normalizer.level
+            1.0
 
         Returns ugen input.
         '''
@@ -123,12 +131,21 @@ class Normalizer(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> normalizer = ugentools.Normalizer.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> normalizer.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

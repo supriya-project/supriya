@@ -1,24 +1,26 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Normalizer import Normalizer
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Limiter(Normalizer):
-    r'''
+class Limiter(UGen):
+    r'''A peak limiter.
 
     ::
 
-        >>> limiter = ugentools.Limiter.(
+        >>> source = ugentools.In.ar(0)
+        >>> limiter = ugentools.Limiter.ar(
         ...     duration=0.01,
         ...     level=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> limiter
+        Limiter.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Dynamics UGens'
 
     __slots__ = ()
 
@@ -39,7 +41,7 @@ class Limiter(Normalizer):
         level=1,
         source=None,
         ):
-        Normalizer.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             duration=duration,
@@ -60,12 +62,14 @@ class Limiter(Normalizer):
 
         ::
 
+            >>> source = ugentools.In.ar(0, channel_count=2)
             >>> limiter = ugentools.Limiter.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> limiter
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -87,12 +91,14 @@ class Limiter(Normalizer):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> limiter = ugentools.Limiter.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> limiter.duration
+            0.01
 
         Returns ugen input.
         '''
@@ -105,12 +111,14 @@ class Limiter(Normalizer):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> limiter = ugentools.Limiter.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> limiter.level
+            1.0
 
         Returns ugen input.
         '''
@@ -123,12 +131,21 @@ class Limiter(Normalizer):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> limiter = ugentools.Limiter.ar(
             ...     duration=0.01,
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> limiter.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
