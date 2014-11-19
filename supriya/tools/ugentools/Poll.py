@@ -174,8 +174,105 @@ class Poll(UGen):
 
     @property
     def label(self):
+        r'''Gets `label` input of Poll.
+
+        ::
+
+            >>> sine = ugentools.SinOsc.ar()
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> poll = ugentools.Poll.ar(
+            ...     label='Foo',
+            ...     source=sine,
+            ...     trigger=trigger,
+            ...     trigger_id=1234,
+            ...     )
+            >>> poll.label
+            'Foo'
+
+        Returns ugen input.
+        '''
         index = self._ordered_input_names.index('trigger_id') + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
         label = ''.join(characters)
         return label
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Poll.
+
+        ::
+
+            >>> sine = ugentools.SinOsc.ar()
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> poll = ugentools.Poll.ar(
+            ...     label='Foo',
+            ...     source=sine,
+            ...     trigger=trigger,
+            ...     trigger_id=1234,
+            ...     )
+            >>> poll.source
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Poll.
+
+        ::
+
+            >>> sine = ugentools.SinOsc.ar()
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> poll = ugentools.Poll.ar(
+            ...     label='Foo',
+            ...     source=sine,
+            ...     trigger=trigger,
+            ...     trigger_id=1234,
+            ...     )
+            >>> poll.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]
+
+    @property
+    def trigger_id(self):
+        r'''Gets `trigger_id` input of Poll.
+
+        ::
+
+            >>> sine = ugentools.SinOsc.ar()
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> poll = ugentools.Poll.ar(
+            ...     label='Foo',
+            ...     source=sine,
+            ...     trigger=trigger,
+            ...     trigger_id=1234,
+            ...     )
+            >>> poll.trigger_id
+            1234.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger_id')
+        return self._inputs[index]
