@@ -89,3 +89,85 @@ class MouseX(UGen):
             warp=warp,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def lag(self):
+        r'''Gets `lag` input of MouseX.
+
+        ::
+
+            >>> mouse_x = ugentools.MouseX.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     warp=1,
+            ...     )
+            >>> mouse_x.lag
+            0.2
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('lag')
+        return self._inputs[index]
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of MouseX.
+
+        ::
+
+            >>> mouse_x = ugentools.MouseX.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     warp=1,
+            ...     )
+            >>> mouse_x.maximum
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of MouseX.
+
+        ::
+
+            >>> mouse_x = ugentools.MouseX.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     warp=1,
+            ...     )
+            >>> mouse_x.minimum
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def warp(self):
+        r'''Gets `warp` input of MouseX.
+
+        ::
+
+            >>> mouse_x = ugentools.MouseX.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     warp=1,
+            ...     )
+            >>> mouse_x.warp
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('warp')
+        return self._inputs[index]
