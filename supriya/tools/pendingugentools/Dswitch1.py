@@ -9,7 +9,7 @@ class Dswitch1(DUGen):
 
         >>> dswitch_1 = ugentools.Dswitch1.(
         ...     index=None,
-        ...     list=None,
+        ...     sequence=None,
         ...     )
         >>> dswitch_1
 
@@ -22,7 +22,7 @@ class Dswitch1(DUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'list',
+        'sequence',
         'index',
         )
 
@@ -34,13 +34,13 @@ class Dswitch1(DUGen):
         self,
         calculation_rate=None,
         index=None,
-        list=None,
+        sequence=None,
         ):
         DUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             index=index,
-            list=list,
+            sequence=sequence,
             )
 
     ### PUBLIC METHODS ###
@@ -49,7 +49,7 @@ class Dswitch1(DUGen):
     def new(
         cls,
         index=None,
-        list=None,
+        sequence=None,
         ):
         r'''Constructs a Dswitch1.
 
@@ -57,7 +57,7 @@ class Dswitch1(DUGen):
 
             >>> dswitch_1 = ugentools.Dswitch1.new(
             ...     index=None,
-            ...     list=None,
+            ...     sequence=None,
             ...     )
             >>> dswitch_1
 
@@ -68,7 +68,7 @@ class Dswitch1(DUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             index=index,
-            list=list,
+            sequence=sequence,
             )
         return ugen
 
@@ -82,7 +82,7 @@ class Dswitch1(DUGen):
 
             >>> dswitch_1 = ugentools.Dswitch1.ar(
             ...     index=None,
-            ...     list=None,
+            ...     sequence=None,
             ...     )
             >>> dswitch_1.index
 
@@ -92,18 +92,18 @@ class Dswitch1(DUGen):
         return self._inputs[index]
 
     @property
-    def list(self):
-        r'''Gets `list` input of Dswitch1.
+    def sequence(self):
+        r'''Gets `sequence` input of Dswitch1.
 
         ::
 
             >>> dswitch_1 = ugentools.Dswitch1.ar(
             ...     index=None,
-            ...     list=None,
+            ...     sequence=None,
             ...     )
-            >>> dswitch_1.list
+            >>> dswitch_1.sequence
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('list')
+        index = self._ordered_input_names.index('sequence')
         return self._inputs[index]

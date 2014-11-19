@@ -8,8 +8,8 @@ class Dser(ListDUGen):
     ::
 
         >>> dser = ugentools.Dser.(
-        ...     list=None,
         ...     repeats=1,
+        ...     sequence=None,
         ...     )
         >>> dser
 
@@ -22,7 +22,7 @@ class Dser(ListDUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'list',
+        'sequence',
         'repeats',
         )
 
@@ -33,14 +33,14 @@ class Dser(ListDUGen):
     def __init__(
         self,
         calculation_rate=None,
-        list=None,
         repeats=1,
+        sequence=None,
         ):
         ListDUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             )
 
     ### PUBLIC METHODS ###
@@ -48,16 +48,16 @@ class Dser(ListDUGen):
     @classmethod
     def new(
         cls,
-        list=None,
         repeats=1,
+        sequence=None,
         ):
         r'''Constructs a Dser.
 
         ::
 
             >>> dser = ugentools.Dser.new(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     )
             >>> dser
 
@@ -67,29 +67,12 @@ class Dser(ListDUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def list(self):
-        r'''Gets `list` input of Dser.
-
-        ::
-
-            >>> dser = ugentools.Dser.ar(
-            ...     list=None,
-            ...     repeats=1,
-            ...     )
-            >>> dser.list
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('list')
-        return self._inputs[index]
 
     @property
     def repeats(self):
@@ -98,12 +81,29 @@ class Dser(ListDUGen):
         ::
 
             >>> dser = ugentools.Dser.ar(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     )
             >>> dser.repeats
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('repeats')
+        return self._inputs[index]
+
+    @property
+    def sequence(self):
+        r'''Gets `sequence` input of Dser.
+
+        ::
+
+            >>> dser = ugentools.Dser.ar(
+            ...     repeats=1,
+            ...     sequence=None,
+            ...     )
+            >>> dser.sequence
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sequence')
         return self._inputs[index]

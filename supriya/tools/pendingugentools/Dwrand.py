@@ -8,8 +8,8 @@ class Dwrand(DUGen):
     ::
 
         >>> dwrand = ugentools.Dwrand.(
-        ...     list=None,
         ...     repeats=1,
+        ...     sequence=None,
         ...     weights=None,
         ...     )
         >>> dwrand
@@ -23,7 +23,7 @@ class Dwrand(DUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'list',
+        'sequence',
         'weights',
         'repeats',
         )
@@ -35,15 +35,15 @@ class Dwrand(DUGen):
     def __init__(
         self,
         calculation_rate=None,
-        list=None,
         repeats=1,
+        sequence=None,
         weights=None,
         ):
         DUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             weights=weights,
             )
 
@@ -52,8 +52,8 @@ class Dwrand(DUGen):
     @classmethod
     def new(
         cls,
-        list=None,
         repeats=1,
+        sequence=None,
         weights=None,
         ):
         r'''Constructs a Dwrand.
@@ -61,8 +61,8 @@ class Dwrand(DUGen):
         ::
 
             >>> dwrand = ugentools.Dwrand.new(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     weights=None,
             ...     )
             >>> dwrand
@@ -73,31 +73,13 @@ class Dwrand(DUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             weights=weights,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def list(self):
-        r'''Gets `list` input of Dwrand.
-
-        ::
-
-            >>> dwrand = ugentools.Dwrand.ar(
-            ...     list=None,
-            ...     repeats=1,
-            ...     weights=None,
-            ...     )
-            >>> dwrand.list
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('list')
-        return self._inputs[index]
 
     @property
     def repeats(self):
@@ -106,8 +88,8 @@ class Dwrand(DUGen):
         ::
 
             >>> dwrand = ugentools.Dwrand.ar(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     weights=None,
             ...     )
             >>> dwrand.repeats
@@ -118,14 +100,32 @@ class Dwrand(DUGen):
         return self._inputs[index]
 
     @property
+    def sequence(self):
+        r'''Gets `sequence` input of Dwrand.
+
+        ::
+
+            >>> dwrand = ugentools.Dwrand.ar(
+            ...     repeats=1,
+            ...     sequence=None,
+            ...     weights=None,
+            ...     )
+            >>> dwrand.sequence
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sequence')
+        return self._inputs[index]
+
+    @property
     def weights(self):
         r'''Gets `weights` input of Dwrand.
 
         ::
 
             >>> dwrand = ugentools.Dwrand.ar(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     weights=None,
             ...     )
             >>> dwrand.weights

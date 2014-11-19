@@ -207,6 +207,7 @@ def process_method_signature(method_signature):
         'in': 'source',
         'interp': 'interpolate',
         'iphase': 'initial_phase',
+        'list': 'sequence',
         'lo': 'minimum',
         'max': 'maximum',
         'maxdelaytime': 'maximum_delay_time',

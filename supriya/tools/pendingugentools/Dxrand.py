@@ -8,8 +8,8 @@ class Dxrand(ListDUGen):
     ::
 
         >>> dxrand = ugentools.Dxrand.(
-        ...     list=None,
         ...     repeats=1,
+        ...     sequence=None,
         ...     )
         >>> dxrand
 
@@ -22,7 +22,7 @@ class Dxrand(ListDUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'list',
+        'sequence',
         'repeats',
         )
 
@@ -33,14 +33,14 @@ class Dxrand(ListDUGen):
     def __init__(
         self,
         calculation_rate=None,
-        list=None,
         repeats=1,
+        sequence=None,
         ):
         ListDUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             )
 
     ### PUBLIC METHODS ###
@@ -48,16 +48,16 @@ class Dxrand(ListDUGen):
     @classmethod
     def new(
         cls,
-        list=None,
         repeats=1,
+        sequence=None,
         ):
         r'''Constructs a Dxrand.
 
         ::
 
             >>> dxrand = ugentools.Dxrand.new(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     )
             >>> dxrand
 
@@ -67,29 +67,12 @@ class Dxrand(ListDUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            list=list,
             repeats=repeats,
+            sequence=sequence,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def list(self):
-        r'''Gets `list` input of Dxrand.
-
-        ::
-
-            >>> dxrand = ugentools.Dxrand.ar(
-            ...     list=None,
-            ...     repeats=1,
-            ...     )
-            >>> dxrand.list
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('list')
-        return self._inputs[index]
 
     @property
     def repeats(self):
@@ -98,12 +81,29 @@ class Dxrand(ListDUGen):
         ::
 
             >>> dxrand = ugentools.Dxrand.ar(
-            ...     list=None,
             ...     repeats=1,
+            ...     sequence=None,
             ...     )
             >>> dxrand.repeats
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('repeats')
+        return self._inputs[index]
+
+    @property
+    def sequence(self):
+        r'''Gets `sequence` input of Dxrand.
+
+        ::
+
+            >>> dxrand = ugentools.Dxrand.ar(
+            ...     repeats=1,
+            ...     sequence=None,
+            ...     )
+            >>> dxrand.sequence
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sequence')
         return self._inputs[index]
