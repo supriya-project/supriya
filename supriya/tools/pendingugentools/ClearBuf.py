@@ -8,7 +8,7 @@ class ClearBuf(WidthFirstUGen):
     ::
 
         >>> clear_buf = ugentools.ClearBuf.(
-        ...     buf=None,
+        ...     buffer_id=None,
         ...     )
         >>> clear_buf
 
@@ -21,7 +21,7 @@ class ClearBuf(WidthFirstUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buf',
+        'buffer_id',
         )
 
     _valid_calculation_rates = None
@@ -31,12 +31,12 @@ class ClearBuf(WidthFirstUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buf=None,
+        buffer_id=None,
         ):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buf=buf,
+            buffer_id=buffer_id,
             )
 
     ### PUBLIC METHODS ###
@@ -44,14 +44,14 @@ class ClearBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buf=None,
+        buffer_id=None,
         ):
         r'''Constructs a ClearBuf.
 
         ::
 
             >>> clear_buf = ugentools.ClearBuf.new(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     )
             >>> clear_buf
 
@@ -61,24 +61,24 @@ class ClearBuf(WidthFirstUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buf=buf,
+            buffer_id=buffer_id,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buf(self):
-        r'''Gets `buf` input of ClearBuf.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of ClearBuf.
 
         ::
 
             >>> clear_buf = ugentools.ClearBuf.ar(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     )
-            >>> clear_buf.buf
+            >>> clear_buf.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buf')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]

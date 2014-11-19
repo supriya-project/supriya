@@ -8,7 +8,7 @@ class SetBuf(WidthFirstUGen):
     ::
 
         >>> set_buf = ugentools.SetBuf.(
-        ...     buf=None,
+        ...     buffer_id=None,
         ...     offset=0,
         ...     values=None,
         ...     )
@@ -23,7 +23,7 @@ class SetBuf(WidthFirstUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buf',
+        'buffer_id',
         'values',
         'offset',
         )
@@ -35,14 +35,14 @@ class SetBuf(WidthFirstUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buf=None,
+        buffer_id=None,
         offset=0,
         values=None,
         ):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buf=buf,
+            buffer_id=buffer_id,
             offset=offset,
             values=values,
             )
@@ -52,7 +52,7 @@ class SetBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buf=None,
+        buffer_id=None,
         offset=0,
         values=None,
         ):
@@ -61,7 +61,7 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.new(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     offset=0,
             ...     values=None,
             ...     )
@@ -73,7 +73,7 @@ class SetBuf(WidthFirstUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buf=buf,
+            buffer_id=buffer_id,
             offset=offset,
             values=values,
             )
@@ -82,21 +82,21 @@ class SetBuf(WidthFirstUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buf(self):
-        r'''Gets `buf` input of SetBuf.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of SetBuf.
 
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     offset=0,
             ...     values=None,
             ...     )
-            >>> set_buf.buf
+            >>> set_buf.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buf')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -106,7 +106,7 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     offset=0,
             ...     values=None,
             ...     )
@@ -124,7 +124,7 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buf=None,
+            ...     buffer_id=None,
             ...     offset=0,
             ...     values=None,
             ...     )

@@ -190,6 +190,7 @@ def make_import(ugen_parent):
 def process_method_signature(method_signature):
     replacements = {
         'attacktime': 'attack_time',
+        'buf': 'buffer_id',
         'buffer': 'buffer_id',
         'buffernum': 'buffer_id',
         'bufnum': 'buffer_id',
