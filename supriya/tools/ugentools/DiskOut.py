@@ -4,6 +4,20 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class DiskOut(UGen):
+    r'''Records to a soundfile to disk.
+
+    ::
+
+        >>> buffer_id = 0
+        >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+        >>> disk_out = ugentools.DiskOut.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
+        ...     )
+        >>> disk_out
+        DiskOut.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -47,6 +61,21 @@ class DiskOut(UGen):
         buffer_id=None,
         source=None,
         ):
+        r'''Constructs an audio-rate DiskOut.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> disk_out = ugentools.DiskOut.ar(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> disk_out
+            DiskOut.ar()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,3 +84,59 @@ class DiskOut(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of DiskOut.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> disk_out = ugentools.DiskOut.ar(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> disk_out.buffer_id
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of DiskOut.
+
+        ::
+
+            >>> buffer_id = 0
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
+            >>> disk_out = ugentools.DiskOut.ar(
+            ...     buffer_id=buffer_id,
+            ...     source=source,
+            ...     )
+            >>> disk_out.source
+            (OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                ), OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=442.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                ))
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return tuple(self._inputs[index:])

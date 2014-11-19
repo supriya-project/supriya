@@ -104,3 +104,50 @@ class CoinGate(UGen):
             trigger=trigger,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def probability(self):
+        r'''Gets `probability` input of Crackle.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> coin_gate = ugentools.CoinGate.ar(
+            ...     probability=0.5,
+            ...     trigger=trigger,
+            ...     )
+            >>> coin_gate.probability
+            0.5
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('probability')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of Crackle.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> coin_gate = ugentools.CoinGate.ar(
+            ...     probability=0.5,
+            ...     trigger=trigger,
+            ...     )
+            >>> coin_gate.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]

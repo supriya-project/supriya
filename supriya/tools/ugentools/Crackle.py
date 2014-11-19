@@ -91,3 +91,22 @@ class Crackle(UGen):
             chaos_parameter=chaos_parameter,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+    
+    @property
+    def chaos_parameter(self):
+        r'''Gets `chaos_parameter` input of Crackle.
+
+        ::
+
+            >>> crackle = ugentools.Crackle.ar(
+            ...     chaos_parameter=1.25,
+            ...     )
+            >>> crackle.chaos_parameter
+            1.25
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('chaos_parameter')
+        return self._inputs[index]

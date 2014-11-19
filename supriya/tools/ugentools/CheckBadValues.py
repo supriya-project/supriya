@@ -3,6 +3,22 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class CheckBadValues(UGen):
+    r'''Tests for infinity, not-a-number, and denormals.
+
+    ::
+
+        >>> source = ugentools.SinOsc.ar()
+        >>> ugen_id = 23
+        >>> post_mode = 0
+        >>> check_bad_values = ugentools.CheckBadValues.ar(
+        ...     source=source,
+        ...     ugen_id=ugen_id,
+        ...     post_mode=post_mode,
+        ...     )
+        >>> check_bad_values
+        CheckBadValues.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -45,6 +61,23 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
+        r'''Constructs an audio-rate CheckBadValues.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> ugen_id = 23
+            >>> post_mode = 0
+            >>> check_bad_values = ugentools.CheckBadValues.ar(
+            ...     source=source,
+            ...     ugen_id=ugen_id,
+            ...     post_mode=post_mode,
+            ...     )
+            >>> check_bad_values
+            CheckBadValues.ar()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -62,6 +95,23 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
+        r'''Constructs a control-rate CheckBadValues.
+
+        ::
+
+            >>> source = ugentools.WhiteNoise.kr()
+            >>> ugen_id = 23
+            >>> post_mode = 0
+            >>> check_bad_values = ugentools.CheckBadValues.kr(
+            ...     source=source,
+            ...     ugen_id=ugen_id,
+            ...     post_mode=post_mode,
+            ...     )
+            >>> check_bad_values
+            CheckBadValues.kr()
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -71,3 +121,78 @@ class CheckBadValues(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def post_mode(self):
+        r'''Gets `post_mode` input of CheckBadValues.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> ugen_id = 23
+            >>> post_mode = 0
+            >>> check_bad_values = ugentools.CheckBadValues.ar(
+            ...     source=source,
+            ...     ugen_id=ugen_id,
+            ...     post_mode=post_mode,
+            ...     )
+            >>> check_bad_values.post_mode
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('post_mode')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of CheckBadValues.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> ugen_id = 23
+            >>> post_mode = 0
+            >>> check_bad_values = ugentools.CheckBadValues.ar(
+            ...     source=source,
+            ...     ugen_id=ugen_id,
+            ...     post_mode=post_mode,
+            ...     )
+            >>> check_bad_values.source
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def ugen_id(self):
+        r'''Gets `ugen_id` of CheckBadValues.
+
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> ugen_id = 23
+            >>> post_mode = 0
+            >>> check_bad_values = ugentools.CheckBadValues.ar(
+            ...     source=source,
+            ...     ugen_id=ugen_id,
+            ...     post_mode=post_mode,
+            ...     )
+            >>> check_bad_values.ugen_id
+            23.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('ugen_id')
+        return self._inputs[index]
