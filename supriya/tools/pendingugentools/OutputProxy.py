@@ -8,6 +8,9 @@ class OutputProxy(UGen):
     ::
 
         >>> output_proxy = ugentools.OutputProxy.(
+        ...     index=None,
+        ...     its_source_ugen=None,
+        ...     rate=None,
         ...     )
         >>> output_proxy
 
@@ -19,11 +22,30 @@ class OutputProxy(UGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'rate',
+        'its_source_ugen',
+        'index',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        index=None,
+        its_source_ugen=None,
+        rate=None,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            index=index,
+            its_source_ugen=its_source_ugen,
+            rate=rate,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -56,3 +78,59 @@ class OutputProxy(UGen):
             rate=rate,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def index(self):
+        r'''Gets `index` input of OutputProxy.
+
+        ::
+
+            >>> output_proxy = ugentools.OutputProxy.ar(
+            ...     index=None,
+            ...     its_source_ugen=None,
+            ...     rate=None,
+            ...     )
+            >>> output_proxy.index
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('index')
+        return self._inputs[index]
+
+    @property
+    def its_source_ugen(self):
+        r'''Gets `its_source_ugen` input of OutputProxy.
+
+        ::
+
+            >>> output_proxy = ugentools.OutputProxy.ar(
+            ...     index=None,
+            ...     its_source_ugen=None,
+            ...     rate=None,
+            ...     )
+            >>> output_proxy.its_source_ugen
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('its_source_ugen')
+        return self._inputs[index]
+
+    @property
+    def rate(self):
+        r'''Gets `rate` input of OutputProxy.
+
+        ::
+
+            >>> output_proxy = ugentools.OutputProxy.ar(
+            ...     index=None,
+            ...     its_source_ugen=None,
+            ...     rate=None,
+            ...     )
+            >>> output_proxy.rate
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rate')
+        return self._inputs[index]

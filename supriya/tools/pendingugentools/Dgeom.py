@@ -8,6 +8,9 @@ class Dgeom(DUGen):
     ::
 
         >>> dgeom = ugentools.Dgeom.(
+        ...     grow=2,
+        ...     length="float('inf')",
+        ...     start=1,
         ...     )
         >>> dgeom
 
@@ -19,11 +22,30 @@ class Dgeom(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'start',
+        'grow',
+        'length',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        grow=2,
+        length="float('inf')",
+        start=1,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            grow=grow,
+            length=length,
+            start=start,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -56,3 +78,59 @@ class Dgeom(DUGen):
             start=start,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def grow(self):
+        r'''Gets `grow` input of Dgeom.
+
+        ::
+
+            >>> dgeom = ugentools.Dgeom.ar(
+            ...     grow=2,
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     )
+            >>> dgeom.grow
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('grow')
+        return self._inputs[index]
+
+    @property
+    def length(self):
+        r'''Gets `length` input of Dgeom.
+
+        ::
+
+            >>> dgeom = ugentools.Dgeom.ar(
+            ...     grow=2,
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     )
+            >>> dgeom.length
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('length')
+        return self._inputs[index]
+
+    @property
+    def start(self):
+        r'''Gets `start` input of Dgeom.
+
+        ::
+
+            >>> dgeom = ugentools.Dgeom.ar(
+            ...     grow=2,
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     )
+            >>> dgeom.start
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('start')
+        return self._inputs[index]

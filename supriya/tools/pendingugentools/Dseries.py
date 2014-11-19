@@ -8,6 +8,9 @@ class Dseries(DUGen):
     ::
 
         >>> dseries = ugentools.Dseries.(
+        ...     length="float('inf')",
+        ...     start=1,
+        ...     step=1,
         ...     )
         >>> dseries
 
@@ -19,11 +22,30 @@ class Dseries(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'start',
+        'step',
+        'length',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        length="float('inf')",
+        start=1,
+        step=1,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            length=length,
+            start=start,
+            step=step,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -56,3 +78,59 @@ class Dseries(DUGen):
             step=step,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def length(self):
+        r'''Gets `length` input of Dseries.
+
+        ::
+
+            >>> dseries = ugentools.Dseries.ar(
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     step=1,
+            ...     )
+            >>> dseries.length
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('length')
+        return self._inputs[index]
+
+    @property
+    def start(self):
+        r'''Gets `start` input of Dseries.
+
+        ::
+
+            >>> dseries = ugentools.Dseries.ar(
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     step=1,
+            ...     )
+            >>> dseries.start
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('start')
+        return self._inputs[index]
+
+    @property
+    def step(self):
+        r'''Gets `step` input of Dseries.
+
+        ::
+
+            >>> dseries = ugentools.Dseries.ar(
+            ...     length="float('inf')",
+            ...     start=1,
+            ...     step=1,
+            ...     )
+            >>> dseries.step
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('step')
+        return self._inputs[index]

@@ -8,6 +8,8 @@ class PV_LocalMax(PV_MagAbove):
     ::
 
         >>> pv_local_max = ugentools.PV_LocalMax.(
+        ...     buffer_id=None,
+        ...     threshold=0,
         ...     )
         >>> pv_local_max
 
@@ -19,18 +21,34 @@ class PV_LocalMax(PV_MagAbove):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'buffer_id',
+        'threshold',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer_id=None,
+        threshold=0,
+        ):
+        PV_MagAbove.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer_id=buffer_id,
+            threshold=threshold,
+            )
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def new(
         cls,
-        buffer_=None,
+        buffer_id=None,
         threshold=0,
         ):
         r'''Constructs a PV_LocalMax.
@@ -38,7 +56,7 @@ class PV_LocalMax(PV_MagAbove):
         ::
 
             >>> pv_local_max = ugentools.PV_LocalMax.new(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     threshold=0,
             ...     )
             >>> pv_local_max
@@ -49,7 +67,43 @@ class PV_LocalMax(PV_MagAbove):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             threshold=threshold,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of PV_LocalMax.
+
+        ::
+
+            >>> pv_local_max = ugentools.PV_LocalMax.ar(
+            ...     buffer_id=None,
+            ...     threshold=0,
+            ...     )
+            >>> pv_local_max.buffer_id
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def threshold(self):
+        r'''Gets `threshold` input of PV_LocalMax.
+
+        ::
+
+            >>> pv_local_max = ugentools.PV_LocalMax.ar(
+            ...     buffer_id=None,
+            ...     threshold=0,
+            ...     )
+            >>> pv_local_max.threshold
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('threshold')
+        return self._inputs[index]

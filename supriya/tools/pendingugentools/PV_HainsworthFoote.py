@@ -8,7 +8,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ::
 
         >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.(
-        ...     buffer_=None,
+        ...     buffer_id=None,
         ...     propf=0,
         ...     proph=0,
         ...     threshold=1,
@@ -25,7 +25,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_',
+        'buffer_id',
         'proph',
         'propf',
         'threshold',
@@ -39,7 +39,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_=None,
+        buffer_id=None,
         propf=0,
         proph=0,
         threshold=1,
@@ -48,7 +48,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             propf=propf,
             proph=proph,
             threshold=threshold,
@@ -60,7 +60,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     @classmethod
     def ar(
         cls,
-        buffer_=None,
+        buffer_id=None,
         propf=0,
         proph=0,
         threshold=1,
@@ -71,7 +71,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -85,7 +85,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             propf=propf,
             proph=proph,
             threshold=threshold,
@@ -96,23 +96,23 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_(self):
-        r'''Gets `buffer_` input of PV_HainsworthFoote.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of PV_HainsworthFoote.
 
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
-            >>> pv_hainsworth_foote.buffer_
+            >>> pv_hainsworth_foote.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -122,7 +122,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -142,7 +142,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -162,7 +162,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -182,7 +182,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,

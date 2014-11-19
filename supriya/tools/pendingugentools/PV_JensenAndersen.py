@@ -8,7 +8,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     ::
 
         >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.(
-        ...     buffer_=None,
+        ...     buffer_id=None,
         ...     prophfc=0.25,
         ...     prophfe=0.25,
         ...     propsc=0.25,
@@ -27,7 +27,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_',
+        'buffer_id',
         'propsc',
         'prophfe',
         'prophfc',
@@ -43,7 +43,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_=None,
+        buffer_id=None,
         prophfc=0.25,
         prophfe=0.25,
         propsc=0.25,
@@ -54,7 +54,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             prophfc=prophfc,
             prophfe=prophfe,
             propsc=propsc,
@@ -68,7 +68,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     @classmethod
     def ar(
         cls,
-        buffer_=None,
+        buffer_id=None,
         prophfc=0.25,
         prophfe=0.25,
         propsc=0.25,
@@ -81,7 +81,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -97,7 +97,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             prophfc=prophfc,
             prophfe=prophfe,
             propsc=propsc,
@@ -110,13 +110,13 @@ class PV_JensenAndersen(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_(self):
-        r'''Gets `buffer_` input of PV_JensenAndersen.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of PV_JensenAndersen.
 
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -124,11 +124,11 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
-            >>> pv_jensen_andersen.buffer_
+            >>> pv_jensen_andersen.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -138,7 +138,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -160,7 +160,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -182,7 +182,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -204,7 +204,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -226,7 +226,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -248,7 +248,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,

@@ -8,6 +8,8 @@ class PV_Div(PV_MagMul):
     ::
 
         >>> pv_div = ugentools.PV_Div.(
+        ...     buffer_a=None,
+        ...     buffer_b=None,
         ...     )
         >>> pv_div
 
@@ -19,11 +21,27 @@ class PV_Div(PV_MagMul):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'buffer_a',
+        'buffer_b',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer_a=None,
+        buffer_b=None,
+        ):
+        PV_MagMul.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer_a=buffer_a,
+            buffer_b=buffer_b,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -53,3 +71,39 @@ class PV_Div(PV_MagMul):
             buffer_b=buffer_b,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_a(self):
+        r'''Gets `buffer_a` input of PV_Div.
+
+        ::
+
+            >>> pv_div = ugentools.PV_Div.ar(
+            ...     buffer_a=None,
+            ...     buffer_b=None,
+            ...     )
+            >>> pv_div.buffer_a
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_a')
+        return self._inputs[index]
+
+    @property
+    def buffer_b(self):
+        r'''Gets `buffer_b` input of PV_Div.
+
+        ::
+
+            >>> pv_div = ugentools.PV_Div.ar(
+            ...     buffer_a=None,
+            ...     buffer_b=None,
+            ...     )
+            >>> pv_div.buffer_b
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_b')
+        return self._inputs[index]

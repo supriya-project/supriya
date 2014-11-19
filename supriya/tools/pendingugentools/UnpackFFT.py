@@ -8,6 +8,10 @@ class UnpackFFT(MultiOutUGen):
     ::
 
         >>> unpack_fft = ugentools.UnpackFFT.(
+        ...     bufsize=None,
+        ...     chain=None,
+        ...     frombin=0,
+        ...     tobin=None,
         ...     )
         >>> unpack_fft
 
@@ -19,11 +23,33 @@ class UnpackFFT(MultiOutUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'chain',
+        'bufsize',
+        'frombin',
+        'tobin',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        bufsize=None,
+        chain=None,
+        frombin=0,
+        tobin=None,
+        ):
+        MultiOutUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            bufsize=bufsize,
+            chain=chain,
+            frombin=frombin,
+            tobin=tobin,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -61,3 +87,81 @@ class UnpackFFT(MultiOutUGen):
         return ugen
 
     # def newFromDesc(): ...
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def bufsize(self):
+        r'''Gets `bufsize` input of UnpackFFT.
+
+        ::
+
+            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            ...     bufsize=None,
+            ...     chain=None,
+            ...     frombin=0,
+            ...     tobin=None,
+            ...     )
+            >>> unpack_fft.bufsize
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('bufsize')
+        return self._inputs[index]
+
+    @property
+    def chain(self):
+        r'''Gets `chain` input of UnpackFFT.
+
+        ::
+
+            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            ...     bufsize=None,
+            ...     chain=None,
+            ...     frombin=0,
+            ...     tobin=None,
+            ...     )
+            >>> unpack_fft.chain
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('chain')
+        return self._inputs[index]
+
+    @property
+    def frombin(self):
+        r'''Gets `frombin` input of UnpackFFT.
+
+        ::
+
+            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            ...     bufsize=None,
+            ...     chain=None,
+            ...     frombin=0,
+            ...     tobin=None,
+            ...     )
+            >>> unpack_fft.frombin
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('frombin')
+        return self._inputs[index]
+
+    @property
+    def tobin(self):
+        r'''Gets `tobin` input of UnpackFFT.
+
+        ::
+
+            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            ...     bufsize=None,
+            ...     chain=None,
+            ...     frombin=0,
+            ...     tobin=None,
+            ...     )
+            >>> unpack_fft.tobin
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('tobin')
+        return self._inputs[index]

@@ -8,6 +8,7 @@ class Donce(DUGen):
     ::
 
         >>> donce = ugentools.Donce.(
+        ...     source=None,
         ...     )
         >>> donce
 
@@ -19,11 +20,24 @@ class Donce(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'source',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        source=None,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            source=source,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -50,3 +64,21 @@ class Donce(DUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Donce.
+
+        ::
+
+            >>> donce = ugentools.Donce.ar(
+            ...     source=None,
+            ...     )
+            >>> donce.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

@@ -8,6 +8,7 @@ class PV_Conj(PV_MagSquared):
     ::
 
         >>> pv_conj = ugentools.PV_Conj.(
+        ...     buffer_id=None,
         ...     )
         >>> pv_conj
 
@@ -19,25 +20,38 @@ class PV_Conj(PV_MagSquared):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'buffer_id',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer_id=None,
+        ):
+        PV_MagSquared.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer_id=buffer_id,
+            )
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def new(
         cls,
-        buffer_=None,
+        buffer_id=None,
         ):
         r'''Constructs a PV_Conj.
 
         ::
 
             >>> pv_conj = ugentools.PV_Conj.new(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     )
             >>> pv_conj
 
@@ -47,6 +61,24 @@ class PV_Conj(PV_MagSquared):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of PV_Conj.
+
+        ::
+
+            >>> pv_conj = ugentools.PV_Conj.ar(
+            ...     buffer_id=None,
+            ...     )
+            >>> pv_conj.buffer_id
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]

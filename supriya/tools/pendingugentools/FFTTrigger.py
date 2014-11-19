@@ -8,6 +8,9 @@ class FFTTrigger(PV_ChainUGen):
     ::
 
         >>> ffttrigger = ugentools.FFTTrigger.(
+        ...     buffer_id=None,
+        ...     hop=0.5,
+        ...     polar=0,
         ...     )
         >>> ffttrigger
 
@@ -19,18 +22,37 @@ class FFTTrigger(PV_ChainUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'buffer_id',
+        'hop',
+        'polar',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer_id=None,
+        hop=0.5,
+        polar=0,
+        ):
+        PV_ChainUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer_id=buffer_id,
+            hop=hop,
+            polar=polar,
+            )
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def new(
         cls,
-        buffer_=None,
+        buffer_id=None,
         hop=0.5,
         polar=0,
         ):
@@ -39,7 +61,7 @@ class FFTTrigger(PV_ChainUGen):
         ::
 
             >>> ffttrigger = ugentools.FFTTrigger.new(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     hop=0.5,
             ...     polar=0,
             ...     )
@@ -51,8 +73,64 @@ class FFTTrigger(PV_ChainUGen):
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             hop=hop,
             polar=polar,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of FFTTrigger.
+
+        ::
+
+            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            ...     buffer_id=None,
+            ...     hop=0.5,
+            ...     polar=0,
+            ...     )
+            >>> ffttrigger.buffer_id
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def hop(self):
+        r'''Gets `hop` input of FFTTrigger.
+
+        ::
+
+            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            ...     buffer_id=None,
+            ...     hop=0.5,
+            ...     polar=0,
+            ...     )
+            >>> ffttrigger.hop
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('hop')
+        return self._inputs[index]
+
+    @property
+    def polar(self):
+        r'''Gets `polar` input of FFTTrigger.
+
+        ::
+
+            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            ...     buffer_id=None,
+            ...     hop=0.5,
+            ...     polar=0,
+            ...     )
+            >>> ffttrigger.polar
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('polar')
+        return self._inputs[index]

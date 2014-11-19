@@ -19,11 +19,21 @@ class MaxLocalBufs(UGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -47,3 +57,5 @@ class MaxLocalBufs(UGen):
             calculation_rate=calculation_rate,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###

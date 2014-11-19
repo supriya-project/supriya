@@ -8,7 +8,7 @@ class SpecFlatness(UGen):
     ::
 
         >>> spec_flatness = ugentools.SpecFlatness.(
-        ...     buffer_=None,
+        ...     buffer_id=None,
         ...     )
         >>> spec_flatness
 
@@ -21,7 +21,7 @@ class SpecFlatness(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_',
+        'buffer_id',
         )
 
     _valid_calculation_rates = None
@@ -31,12 +31,12 @@ class SpecFlatness(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_=None,
+        buffer_id=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             )
 
     ### PUBLIC METHODS ###
@@ -44,14 +44,14 @@ class SpecFlatness(UGen):
     @classmethod
     def kr(
         cls,
-        buffer_=None,
+        buffer_id=None,
         ):
         r'''Constructs a control-rate SpecFlatness.
 
         ::
 
             >>> spec_flatness = ugentools.SpecFlatness.kr(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     )
             >>> spec_flatness
 
@@ -61,24 +61,24 @@ class SpecFlatness(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_(self):
-        r'''Gets `buffer_` input of SpecFlatness.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of SpecFlatness.
 
         ::
 
             >>> spec_flatness = ugentools.SpecFlatness.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     )
-            >>> spec_flatness.buffer_
+            >>> spec_flatness.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]

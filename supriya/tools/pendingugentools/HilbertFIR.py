@@ -8,7 +8,7 @@ class HilbertFIR(UGen):
     ::
 
         >>> hilbert_fir = ugentools.HilbertFIR.(
-        ...     buffer_=None,
+        ...     buffer_id=None,
         ...     source=None,
         ...     )
         >>> hilbert_fir
@@ -23,7 +23,7 @@ class HilbertFIR(UGen):
 
     _ordered_input_names = (
         'source',
-        'buffer_',
+        'buffer_id',
         )
 
     _valid_calculation_rates = None
@@ -33,13 +33,13 @@ class HilbertFIR(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_=None,
+        buffer_id=None,
         source=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             source=source,
             )
 
@@ -48,7 +48,7 @@ class HilbertFIR(UGen):
     @classmethod
     def ar(
         cls,
-        buffer_=None,
+        buffer_id=None,
         source=None,
         ):
         r'''Constructs an audio-rate HilbertFIR.
@@ -56,7 +56,7 @@ class HilbertFIR(UGen):
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     source=None,
             ...     )
             >>> hilbert_fir
@@ -67,7 +67,7 @@ class HilbertFIR(UGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_=buffer_,
+            buffer_id=buffer_id,
             source=source,
             )
         return ugen
@@ -75,20 +75,20 @@ class HilbertFIR(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_(self):
-        r'''Gets `buffer_` input of HilbertFIR.
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of HilbertFIR.
 
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     source=None,
             ...     )
-            >>> hilbert_fir.buffer_
+            >>> hilbert_fir.buffer_id
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -98,7 +98,7 @@ class HilbertFIR(UGen):
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_=None,
+            ...     buffer_id=None,
             ...     source=None,
             ...     )
             >>> hilbert_fir.source

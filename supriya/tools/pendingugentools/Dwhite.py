@@ -8,6 +8,9 @@ class Dwhite(DUGen):
     ::
 
         >>> dwhite = ugentools.Dwhite.(
+        ...     hi=1,
+        ...     length="float('inf')",
+        ...     lo=0,
         ...     )
         >>> dwhite
 
@@ -19,11 +22,30 @@ class Dwhite(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'lo',
+        'hi',
+        'length',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        hi=1,
+        length="float('inf')",
+        lo=0,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            hi=hi,
+            length=length,
+            lo=lo,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -56,3 +78,59 @@ class Dwhite(DUGen):
             lo=lo,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def hi(self):
+        r'''Gets `hi` input of Dwhite.
+
+        ::
+
+            >>> dwhite = ugentools.Dwhite.ar(
+            ...     hi=1,
+            ...     length="float('inf')",
+            ...     lo=0,
+            ...     )
+            >>> dwhite.hi
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('hi')
+        return self._inputs[index]
+
+    @property
+    def length(self):
+        r'''Gets `length` input of Dwhite.
+
+        ::
+
+            >>> dwhite = ugentools.Dwhite.ar(
+            ...     hi=1,
+            ...     length="float('inf')",
+            ...     lo=0,
+            ...     )
+            >>> dwhite.length
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('length')
+        return self._inputs[index]
+
+    @property
+    def lo(self):
+        r'''Gets `lo` input of Dwhite.
+
+        ::
+
+            >>> dwhite = ugentools.Dwhite.ar(
+            ...     hi=1,
+            ...     length="float('inf')",
+            ...     lo=0,
+            ...     )
+            >>> dwhite.lo
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('lo')
+        return self._inputs[index]

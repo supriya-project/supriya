@@ -8,6 +8,8 @@ class Dreset(DUGen):
     ::
 
         >>> dreset = ugentools.Dreset.(
+        ...     reset=0,
+        ...     source=None,
         ...     )
         >>> dreset
 
@@ -19,11 +21,27 @@ class Dreset(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'source',
+        'reset',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        reset=0,
+        source=None,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            reset=reset,
+            source=source,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -53,3 +71,39 @@ class Dreset(DUGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def reset(self):
+        r'''Gets `reset` input of Dreset.
+
+        ::
+
+            >>> dreset = ugentools.Dreset.ar(
+            ...     reset=0,
+            ...     source=None,
+            ...     )
+            >>> dreset.reset
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('reset')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Dreset.
+
+        ::
+
+            >>> dreset = ugentools.Dreset.ar(
+            ...     reset=0,
+            ...     source=None,
+            ...     )
+            >>> dreset.source
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

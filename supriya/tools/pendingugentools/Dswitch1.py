@@ -8,6 +8,8 @@ class Dswitch1(DUGen):
     ::
 
         >>> dswitch_1 = ugentools.Dswitch1.(
+        ...     index=None,
+        ...     list=None,
         ...     )
         >>> dswitch_1
 
@@ -19,11 +21,27 @@ class Dswitch1(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'list',
+        'index',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        index=None,
+        list=None,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            index=index,
+            list=list,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -53,3 +71,39 @@ class Dswitch1(DUGen):
             list=list,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def index(self):
+        r'''Gets `index` input of Dswitch1.
+
+        ::
+
+            >>> dswitch_1 = ugentools.Dswitch1.ar(
+            ...     index=None,
+            ...     list=None,
+            ...     )
+            >>> dswitch_1.index
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('index')
+        return self._inputs[index]
+
+    @property
+    def list(self):
+        r'''Gets `list` input of Dswitch1.
+
+        ::
+
+            >>> dswitch_1 = ugentools.Dswitch1.ar(
+            ...     index=None,
+            ...     list=None,
+            ...     )
+            >>> dswitch_1.list
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('list')
+        return self._inputs[index]

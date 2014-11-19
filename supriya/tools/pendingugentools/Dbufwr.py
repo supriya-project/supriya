@@ -8,6 +8,10 @@ class Dbufwr(DUGen):
     ::
 
         >>> dbufwr = ugentools.Dbufwr.(
+        ...     buffer_id=0,
+        ...     input=0,
+        ...     loop=1,
+        ...     phase=0,
         ...     )
         >>> dbufwr
 
@@ -19,11 +23,33 @@ class Dbufwr(DUGen):
 
     __slots__ = ()
 
-    _ordered_input_names = ()
+    _ordered_input_names = (
+        'input',
+        'buffer_id',
+        'phase',
+        'loop',
+        )
 
     _valid_calculation_rates = None
 
     ### INITIALIZER ###
+
+    def __init__(
+        self,
+        calculation_rate=None,
+        buffer_id=0,
+        input=0,
+        loop=1,
+        phase=0,
+        ):
+        DUGen.__init__(
+            self,
+            calculation_rate=calculation_rate,
+            buffer_id=buffer_id,
+            input=input,
+            loop=loop,
+            phase=phase,
+            )
 
     ### PUBLIC METHODS ###
 
@@ -59,3 +85,81 @@ class Dbufwr(DUGen):
             phase=phase,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        r'''Gets `buffer_id` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr.ar(
+            ...     buffer_id=0,
+            ...     input=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.buffer_id
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def input(self):
+        r'''Gets `input` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr.ar(
+            ...     buffer_id=0,
+            ...     input=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.input
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('input')
+        return self._inputs[index]
+
+    @property
+    def loop(self):
+        r'''Gets `loop` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr.ar(
+            ...     buffer_id=0,
+            ...     input=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.loop
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('loop')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        r'''Gets `phase` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr.ar(
+            ...     buffer_id=0,
+            ...     input=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.phase
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('phase')
+        return self._inputs[index]
