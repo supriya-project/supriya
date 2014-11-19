@@ -39,6 +39,8 @@ def find_signature(ugen_name, ugen_definition):
         method_signature = methods['kr']
     elif 'ir' in methods:
         method_signature = methods['ir']
+    elif 'new' in methods:
+        method_signature = methods['new']
     if method_signature is None:
         parent = ugen_definition['parent']
         if parent not in ugen_definitions:
@@ -188,7 +190,7 @@ def make_import(ugen_parent):
 def process_method_signature(method_signature):
     replacements = {
         'attacktime': 'attack_time',
-        'buffer': 'buffer_',
+        'buffer': 'buffer_id',
         'buffernum': 'buffer_id',
         'bufnum': 'buffer_id',
         'channels_array': 'source',
