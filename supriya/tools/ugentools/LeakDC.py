@@ -3,6 +3,19 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LeakDC(Filter):
+    r'''A DC blocker.
+
+    ::
+
+        >>> source = ugentools.In.ar(bus=0)
+        >>> leak_d_c = ugentools.LeakDC.ar(
+        ...     source=source,
+        ...     coefficient=0.995,
+        ...     )
+        >>> leak_d_c
+        LeakDC.ar()
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -12,7 +25,7 @@ class LeakDC(Filter):
 
     _ordered_input_names = (
         'source',
-        'coef',
+        'coefficient',
         )
 
     _valid_calculation_rates = None
@@ -22,13 +35,13 @@ class LeakDC(Filter):
     def __init__(
         self,
         calculation_rate=None,
-        coef=0.995,
+        coefficient=0.995,
         source=0,
         ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
-            coef=coef,
+            coefficient=coefficient,
             source=source,
             )
 
@@ -37,14 +50,28 @@ class LeakDC(Filter):
     @classmethod
     def ar(
         cls,
-        coef=0.995,
+        coefficient=0.995,
         source=0,
         ):
+        r'''Constructs an audio-rate DC blocker.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0, channel_count=2)
+            >>> leak_d_c = ugentools.LeakDC.ar(
+            ...     source=source,
+            ...     coefficient=0.995,
+            ...     )
+            >>> leak_d_c
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            coef=coef,
+            coefficient=coefficient,
             source=source,
             )
         return ugen
@@ -52,14 +79,75 @@ class LeakDC(Filter):
     @classmethod
     def kr(
         cls,
-        coef=0.9,
+        coefficient=0.9,
         source=0,
         ):
+        r'''Constructs a control-rate DC blocker.
+
+        ::
+
+            >>> source = ugentools.In.kr(bus=0, channel_count=2)
+            >>> leak_d_c = ugentools.LeakDC.kr(
+            ...     source=source,
+            ...     coefficient=0.995,
+            ...     )
+            >>> leak_d_c
+            UGenArray({2})
+
+        Returns ugen graph.
+        '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            coef=coef,
+            coefficient=coefficient,
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def coefficient(self):
+        r'''Gets `coefficient` input of LeakDC.
+
+        ::
+
+            >>> source = ugentools.In.kr(bus=0)
+            >>> leak_d_c = ugentools.LeakDC.kr(
+            ...     source=source,
+            ...     coefficient=0.995,
+            ...     )
+            >>> leak_d_c.coefficient
+            0.995
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of LeakDC.
+
+        ::
+
+            >>> source = ugentools.In.kr(bus=0)
+            >>> leak_d_c = ugentools.LeakDC.kr(
+            ...     source=source,
+            ...     coefficient=0.995,
+            ...     )
+            >>> leak_d_c.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
