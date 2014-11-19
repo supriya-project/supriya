@@ -135,3 +135,50 @@ class RandSeed(WidthFirstUGen):
             trigger=trigger,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def seed(self):
+        r'''Gets `seed` input of RandSeed.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> rand_seed = ugentools.RandSeed.ar(
+            ...     seed=1,
+            ...     trigger=trigger,
+            ...     )
+            >>> rand_seed.seed
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('seed')
+        return self._inputs[index]
+
+    @property
+    def trigger(self):
+        r'''Gets `trigger` input of RandSeed.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.ar()
+            >>> rand_seed = ugentools.RandSeed.ar(
+            ...     seed=1,
+            ...     trigger=trigger,
+            ...     )
+            >>> rand_seed.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('trigger')
+        return self._inputs[index]

@@ -92,6 +92,7 @@ class NRand(UGen):
             >>> n_rand = ugentools.NRand.ir(
             ...     minimum=-1.0,
             ...     maximum=1.0,
+            ...     n=3,
             ...     )
             >>> n_rand.maximum
             1.0
@@ -110,6 +111,7 @@ class NRand(UGen):
             >>> n_rand = ugentools.NRand.ir(
             ...     minimum=-1.0,
             ...     maximum=1.0,
+            ...     n=3,
             ...     )
             >>> n_rand.minimum
             -1.0
@@ -117,4 +119,23 @@ class NRand(UGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
+
+    @property
+    def n(self):
+        r'''Gets `n` input of NRand.
+
+        ::
+
+            >>> n_rand = ugentools.NRand.ir(
+            ...     minimum=-1.0,
+            ...     maximum=1.0,
+            ...     n=3,
+            ...     )
+            >>> n_rand.n
+            3.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('n')
         return self._inputs[index]

@@ -96,3 +96,22 @@ class RandID(WidthFirstUGen):
             rand_id=rand_id,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def rand_id(self):
+        r'''Gets `rand_id` input of RandID.
+
+        ::
+
+            >>> rand_id = ugentools.RandID.kr(
+            ...     rand_id=1,
+            ...     )
+            >>> rand_id.rand_id
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('rand_id')
+        return self._inputs[index]
