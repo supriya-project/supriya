@@ -1519,11 +1519,44 @@ class UGenMethodMixin(SupriyaObject):
         from supriya.tools import ugentools
         ugens = []
         for source in self[:]:
-            method = ugentools.Clip._get_method_for_rate(source)
+            method = synthdeftools.UGen._get_method_for_rate(
+                ugentools.Clip, source)
             ugen = method(
                 source=source,
                 minimum=minimum,
                 maximum=maximum,
+                )
+            ugens.extend(ugen)
+        if 1 < len(ugens):
+            return synthdeftools.UGenArray(ugens)
+        elif len(ugens) == 1:
+            return ugens[0].source
+        return []
+
+    def scale(
+        self,
+        input_minimum,
+        input_maximum,
+        output_minimum,
+        output_maximum,
+        exponential=False,
+        ):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        ugens = []
+        for source in self[:]:
+            if exponential:
+                method = synthdeftools.UGen._get_method_for_rate(
+                    ugentools.LinExp, source)
+            else:
+                method = synthdeftools.UGen._get_method_for_rate(
+                    ugentools.LinLin, source)
+            ugen = method(
+                source=source,
+                input_minimum=input_minimum,
+                input_maximum=input_maximum,
+                output_minimum=output_minimum,
+                output_maximum=output_maximum,
                 )
             ugens.extend(ugen)
         if 1 < len(ugens):

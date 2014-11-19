@@ -335,7 +335,7 @@ class UGen(UGenMethodMixin):
             expanded_inputs.update(cached_unexpanded_inputs)
         return result
 
-    @classmethod
+    @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.from_input(
@@ -416,33 +416,6 @@ class UGen(UGenMethodMixin):
     @property
     def _has_done_action(self):
         return 'done_action' in self._ordered_input_names
-
-    ### PUBLIC METHODS ###
-
-    def scale(
-        self,
-        input_minimum,
-        input_maximum,
-        output_minimum,
-        output_maximum,
-        ):
-        from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            return ugentools.LinLin.ar(
-                source=self,
-                input_minimum=input_minimum,
-                input_maximum=input_maximum,
-                output_minimum=output_minimum,
-                output_maximum=output_maximum,
-                )
-        return ugentools.LinLin.kr(
-            source=self,
-            input_minimum=input_minimum,
-            input_maximum=input_maximum,
-            output_minimum=output_minimum,
-            output_maximum=output_maximum,
-            )
 
     ### PUBLIC PROPERTIES ###
 
