@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import inspect
 import pytest
 from supriya.tools import documentationtools
 from supriya.tools import synthdeftools
@@ -12,7 +13,17 @@ classes = [_ for _ in classes if '.ugentools.' in _.__module__]
 
 pairs = []
 for cls in classes:
-    ordered_input_names = cls._ordered_input_names
+    if inspect.isabstract(cls):
+        continue
+    attrs = inspect.classify_class_attrs(cls)
+    ordered_input_names_attr = None
+    for attr in attrs:
+        if attr.name == '_ordered_input_names':
+            ordered_input_names_attr = attr
+            break
+    if ordered_input_names_attr is None:
+        continue
+    ordered_input_names = ordered_input_names_attr.object
     for input_name in ordered_input_names:
         pairs.append((cls, input_name))
 pairs.sort(key=lambda x: (x[0].__name__, x[1]))
