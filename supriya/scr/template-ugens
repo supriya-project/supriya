@@ -55,11 +55,12 @@ def make_input_properties(ugen_name, ugen_definition):
     result.append('    ### PUBLIC PROPERTIES ###')
     method_signature = process_method_signature(method_signature)
     for input_name, input_value in method_signature:
-        result.extend(make_input_property(input_name, ugen_name))
+        result.extend(make_input_property(
+            input_name, ugen_name, method_signature))
     return result
 
 
-def make_input_property(input_name, ugen_name):
+def make_input_property(input_name, ugen_name, method_signature):
     result = []
     result.append('')
     result.append('    @property')
@@ -69,6 +70,11 @@ def make_input_property(input_name, ugen_name):
     result.append('')
     result.append('        ::')
     result.append('')
+    result.append('            >>> {} = ugentools.{}.{}('.format(
+        stringtools.to_snake_case(ugen_name), ugen_name, 'ar'))
+    for key, value in sorted(method_signature):
+        result.append('            ...     {}={},'.format(key, value))
+    result.append('            ...     )')
     result.append('            >>> {}.{}'.format(
         stringtools.to_snake_case(ugen_name), input_name))
     result.append('')
@@ -95,21 +101,40 @@ def make_class_methods(ugen_name, ugen_definition):
         method_signature = methods[method_name]
         method_signature = process_method_signature(method_signature)
         method_signature.sort()
+
+        enum = 'None'
+        text = 'a'
+        if method_name == 'ar':
+            enum = 'synthdeftools.CalculationRate.AUDIO'
+            text = 'an audio-rate'
+        elif method_name == 'ir':
+            enum = 'synthdeftools.CalculationRate.SCALAR'
+            text = 'a scale-rate'
+        elif method_name == 'kr':
+            enum = 'synthdeftools.CalculationRate.CONTROL'
+            text = 'a control-rate'
+
         result.append('    @classmethod')
         result.append('    def {}('.format(method_name))
         result.append('        cls,')
         for name, value in method_signature:
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
+        result.append("        r'''Constructs {} {}.".format(text, ugen_name))
+        result.append('')
+        result.append('        ::')
+        result.append('')
+        result.append('            >>> {} = ugentools.{}.{}('.format(
+            stringtools.to_snake_case(ugen_name), ugen_name, method_name))
+        for key, value in sorted(method_signature):
+            result.append('            ...     {}={},'.format(key, value))
+        result.append('            ...     )')
+        result.append('            >>> {}'.format(stringtools.to_snake_case(ugen_name)))
+        result.append('')
+        result.append('        Returns ugen graph.')
+        result.append("        '''")
         result.append('        from supriya.tools import synthdeftools')
-        rate = 'None'
-        if method_name == 'ar':
-            rate = 'synthdeftools.CalculationRate.AUDIO'
-        elif method_name == 'ir':
-            rate = 'synthdeftools.CalculationRate.SCALAR'
-        elif method_name == 'kr':
-            rate = 'synthdeftools.CalculationRate.CONTROL'
-        result.append('        calculation_rate = {}'.format(rate))
+        result.append('        calculation_rate = {}'.format(enum))
         result.append('        ugen = cls._new_expanded(')
         result.append('            calculation_rate=calculation_rate,')
         for name, value in method_signature:
@@ -163,13 +188,14 @@ def make_import(ugen_parent):
 def process_method_signature(method_signature):
     replacements = {
         'attacktime': 'attack_time',
-        'bufnum': 'buffer_id',
+        'buffer': 'buffer_',
         'buffernum': 'buffer_id',
+        'bufnum': 'buffer_id',
+        'channels_array': 'source',
         'coef': 'coefficient',
+        'damp': 'damping',
         'decaytime': 'decay_time',
         'delaytime': 'delay_time',
-        'maxdelaytime': 'maximum_delay_time',
-        'damp': 'damping',
         'dur': 'duration',
         'freq': 'frequency',
         'freq_scale': 'frequency_scaling',
@@ -177,9 +203,10 @@ def process_method_signature(method_signature):
         'interp': 'interpolate',
         'iphase': 'initial_phase',
         'max': 'maximum',
+        'maxdelaytime': 'maximum_delay_time',
         'min': 'minimum',
-        'num_chans': 'channel_count',
         'num_channels': 'channel_count',
+        'num_chans': 'channel_count',
         'rq': 'reciprocal_of_q',
         'trig': 'trigger',
         'xfade': 'crossfade',
@@ -191,7 +218,7 @@ def process_method_signature(method_signature):
             name = replacements[name]
         if name.endswith('freq'):
             name = name.replace('freq', 'frequency')
-        if name == 'source':
+        if name in ('source',):
             value = None
         if name in ('add', 'mul', 'nil', 'this'):
             continue
@@ -248,6 +275,14 @@ def make_ugen_module(ugen_name, ugen_definition):
     result.append('')
     result.append('    ::')
     result.append('')
+    result.append('        >>> {} = ugentools.{}.('.format(
+        stringtools.to_snake_case(ugen_name), ugen_name))
+    method_signature = find_signature(ugen_name, ugen_definition)
+    if method_signature is not None:
+        method_signature = process_method_signature(method_signature)
+        for key, value in sorted(method_signature):
+            result.append('        ...     {}={},'.format(key, value))
+    result.append('        ...     )')
     result.append('        >>> {}'.format(stringtools.to_snake_case(ugen_name)))
     result.append('')
     result.append("    '''")
