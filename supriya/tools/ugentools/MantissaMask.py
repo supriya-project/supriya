@@ -104,3 +104,48 @@ class MantissaMask(UGen):
             source=source,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def bits(self):
+        r'''Gets `bits` input of MantissaMask.
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> mantissa_mask = ugentools.MantissaMask.ar(
+            ...     source=source,
+            ...     bits=3,
+            ...     )
+            >>> mantissa_mask.bits
+            3.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('bits')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of MantissaMask.
+        ::
+
+            >>> source = ugentools.SinOsc.ar()
+            >>> mantissa_mask = ugentools.MantissaMask.ar(
+            ...     source=source,
+            ...     bits=3,
+            ...     )
+            >>> mantissa_mask.source
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]

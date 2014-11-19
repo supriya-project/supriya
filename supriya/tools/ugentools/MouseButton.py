@@ -80,3 +80,62 @@ class MouseButton(UGen):
             minimum=minimum,
             )
         return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def lag(self):
+        r'''Gets `lag` input of MouseButton.
+
+        ::
+
+            >>> mouse_button = ugentools.MouseButton.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     )
+            >>> mouse_button.lag
+            0.2
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('lag')
+        return self._inputs[index]
+
+    @property
+    def maximum(self):
+        r'''Gets `maximum` input of MouseButton.
+
+        ::
+
+            >>> mouse_button = ugentools.MouseButton.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     )
+            >>> mouse_button.maximum
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maximum')
+        return self._inputs[index]
+
+    @property
+    def minimum(self):
+        r'''Gets `minimum` input of MouseButton.
+
+        ::
+
+            >>> mouse_button = ugentools.MouseButton.kr(
+            ...     lag=0.2,
+            ...     maximum=1,
+            ...     minimum=0,
+            ...     )
+            >>> mouse_button.minimum
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minimum')
+        return self._inputs[index]
