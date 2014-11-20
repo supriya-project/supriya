@@ -37,7 +37,7 @@ class SynthDefReceiveRequest(Request):
     def to_osc_message(self):
         from supriya.tools import synthdeftools
         request_id = int(self.request_id)
-        compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
+        compiled_synthdefs = synthdeftools.SynthDefByteCompiler.compile_synthdefs(
             self.synthdefs,
             )
         compiled_synthdefs = bytearray(compiled_synthdefs)
