@@ -12,7 +12,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Info UGens'
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 

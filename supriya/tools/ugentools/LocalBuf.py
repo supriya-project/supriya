@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class LocalBuf(WidthFirstUGen):
-    r'''
+    r'''A synth-local buffer.
 
     ::
 
