@@ -303,7 +303,6 @@ class SupriyaDocumentationManager(object):
     @staticmethod
     def get_class_rst(cls):
         import abjad
-        import supriya
         manager = SupriyaDocumentationManager
         module_name, _, class_name = cls.__module__.rpartition('.')
         tools_package_python_path = '.'.join(cls.__module__.split('.')[:-1])
@@ -321,7 +320,7 @@ class SupriyaDocumentationManager(object):
 
         document = abjad.documentationtools.ReSTDocument()
 
-        module_directive = supriya.documentationtools.ConcreteReSTDirective(
+        module_directive = abjad.documentationtools.ReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
@@ -333,24 +332,32 @@ class SupriyaDocumentationManager(object):
             )
         document.append(heading)
 
-        lineage_graph = manager.get_lineage_graph(cls)
-        graphviz_directive = supriya.documentationtools.GraphvizDirective(
-            graph=lineage_graph,
-            )
-        graphviz_container = supriya.documentationtools.ConcreteReSTDirective(
-            directive='container',
-            argument='graphviz',
-            )
-        graphviz_container.append(graphviz_directive)
-        document.append(graphviz_container)
-
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=cls.__name__,
             directive='autoclass',
             )
         document.append(autoclass_directive)
 
+        lineage_heading = abjad.documentationtools.ReSTHeading(
+            level=3,
+            text='Lineage',
+            )
+        document.append(lineage_heading)
+        lineage_graph = SupriyaDocumentationManager.get_lineage_graph(cls)
+        lineage_graph.attributes['background'] = 'transparent'
+        lineage_graph.attributes['rankdir'] = 'LR'
+        graphviz_directive = abjad.documentationtools.GraphvizDirective(
+            graph=lineage_graph,
+            )
+        graphviz_container = abjad.documentationtools.ReSTDirective(
+            directive='container',
+            argument='graphviz',
+            )
+        graphviz_container.append(graphviz_directive)
+        document.append(graphviz_container)
+
         document.extend(manager.build_bases_section(cls))
+
         document.extend(manager.build_enumeration_section(cls))
         document.extend(manager.build_attributes_autosummary(
             cls,
@@ -426,10 +433,9 @@ class SupriyaDocumentationManager(object):
     @staticmethod
     def get_function_rst(function):
         import abjad
-        import supriya
         document = abjad.documentationtools.ReSTDocument()
         tools_package_python_path = '.'.join(function.__module__.split('.')[:-1])
-        module_directive = supriya.documentationtools.ConcreteReSTDirective(
+        module_directive = abjad.documentationtools.ReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
@@ -457,7 +463,7 @@ class SupriyaDocumentationManager(object):
             for part in parts[1:]:
                 if part != name[-1]:
                     name.append(part)
-            if name[0] in ('abjad', 'experimental'):
+            if name[0] in ('abjad', 'experimental', 'supriya'):
                 return str('.'.join(name[2:]))
             return str('.'.join(name))
         from abjad.tools import documentationtools
@@ -484,16 +490,19 @@ class SupriyaDocumentationManager(object):
                 lineage_prune_distance=1,
                 )
             graph = lineage.__graph__()
+        node_name = get_node_name(module_name + '.' + class_name)
         if maximum_node_count < len(graph.leaves):
             lineage = documentationtools.InheritanceGraph(
                 addresses=((module_name, class_name),),
                 )
-            node_name = get_node_name(module_name + '.' + class_name)
             graph = lineage.__graph__()
             graph_node = graph[node_name]
             graph_node.attributes['color'] = 'black'
             graph_node.attributes['fontcolor'] = 'white'
             graph_node.attributes['style'] = ('filled', 'rounded')
+        graph_node = graph[node_name]
+        graph_node.attributes['label'] = \
+            '<<B>{}</B>>'.format(graph_node.attributes['label'])
         return graph
 
     @staticmethod
@@ -683,7 +692,10 @@ class SupriyaDocumentationManager(object):
             if old_string == string:
                 should_write = False
         if should_write:
-            print('REWROTE: {}'.format(file_path))
+            if os.path.exists(file_path):
+                print('REWROTE: {}'.format(file_path))
+            else:
+                print('WROTE: {}'.format(file_path))
             with open(file_path, 'w') as file_pointer:
                 file_pointer.write(string)
         else:
