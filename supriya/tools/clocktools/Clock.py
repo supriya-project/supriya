@@ -121,4 +121,3 @@ class Clock(SupriyaObject):
         Returns float.
         '''
         return self._start_time
-

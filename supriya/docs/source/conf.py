@@ -22,11 +22,20 @@
 from __future__ import print_function
 import os
 import sys
+from sphinx.highlighting import PygmentsBridge
+from pygments.formatters.latex import LatexFormatter
+from supriya.tools import documentationtools
 
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 
-from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager.execute()
+
+class CustomLatexFormatter(LatexFormatter):
+    def __init__(self, **options):
+        super(CustomLatexFormatter, self).__init__(**options)
+        self.verboptions = r'''formatcom=\footnotesize'''
+
+PygmentsBridge.latex_formatter = CustomLatexFormatter
 
 # on_rtd is whether we are on readthedocs.org
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
@@ -240,23 +249,38 @@ htmlhelp_basename = 'Supriyadoc'
 # -- Options for LaTeX output ---------------------------------------------
 
 latex_elements = {
-# The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+    'inputenc': r'\usepackage[utf8x]{inputenc}',
+    'utf8extra': '',
 
-# The font size ('10pt', '11pt' or '12pt').
-#'pointsize': '10pt',
+    # The paper size ('letterpaper' or 'a4paper').
+    'papersize': 'a4paper',
 
-# Additional stuff for the LaTeX preamble.
-#'preamble': '',
-}
+    # The font size ('10pt', '11pt' or '12pt').
+    'pointsize': '10pt',
+
+    # Additional stuff for the LaTeX preamble.
+    'preamble': r'''
+\usepackage{upquote}
+\pdfminorversion=5
+\setcounter{tocdepth}{2}
+\definecolor{VerbatimColor}{rgb}{0.95,0.95,0.95}
+\definecolor{VerbatimBorderColor}{rgb}{1.0,1.0,1.0}
+\hypersetup{unicode=true}
+    ''',
+    }
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'Supriya.tex', u'Supriya Documentation',
-   u'Josiah Wolf Oberholtzer', 'manual'),
-]
+    (
+        'index',
+        'Supriya.tex',
+        u'Supriya Documentation',
+        u'Josiah Wolf Oberholtzer',
+        'manual',
+        ),
+    ]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -264,7 +288,7 @@ latex_documents = [
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
-#latex_use_parts = False
+latex_use_parts = True
 
 # If true, show page references after internal links.
 #latex_show_pagerefs = False
@@ -276,7 +300,7 @@ latex_documents = [
 #latex_appendices = []
 
 # If false, no module index is generated.
-#latex_domain_indices = True
+latex_domain_indices = False
 
 
 # -- Options for manual page output ---------------------------------------
@@ -284,9 +308,14 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'supriya', u'Supriya Documentation',
-     [u'Josiah Wolf Oberholtzer'], 1)
-]
+    (
+        'index',
+        'supriya',
+        u'Supriya Documentation',
+        [u'Josiah Wolf Oberholtzer'],
+        1,
+        )
+    ]
 
 # If true, show URL addresses after external links.
 #man_show_urls = False
@@ -298,10 +327,16 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Supriya', u'Supriya Documentation',
-   u'Josiah Wolf Oberholtzer', 'Supriya', 'One line description of project.',
-   'Miscellaneous'),
-]
+    (
+        'index',
+        'Supriya',
+        u'Supriya Documentation',
+        u'Josiah Wolf Oberholtzer',
+        'Supriya',
+        'One line description of project.',
+        'Miscellaneous',
+        ),
+    ]
 
 # Documents to append as an appendix to all manuals.
 #texinfo_appendices = []

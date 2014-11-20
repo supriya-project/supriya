@@ -97,4 +97,3 @@ def test_BusGroup_allocate_01(server):
         assert bus.bus_group is bus_group_two
         assert bus.bus_id is None
         assert bus.calculation_rate == bus_group_two.calculation_rate
-

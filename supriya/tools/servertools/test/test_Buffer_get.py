@@ -80,4 +80,3 @@ def test_Buffer_get_02(server):
         (0, 1.0),
         ])
     buffer_.free()
-
