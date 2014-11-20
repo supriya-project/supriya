@@ -74,6 +74,7 @@ class SynthDef(ServerObjectProxy):
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
+        ugens = self._cleanup_local_bufs(ugens)
         ugens = self._optimize_ugen_graph(ugens)
         ugens, parameters = self._extract_parameters(ugens)
         control_ugens, control_mapping = self._collect_controls(
@@ -220,6 +221,26 @@ class SynthDef(ServerObjectProxy):
             synthdefs=(self,),
             )
         return request
+
+    @staticmethod
+    def _cleanup_local_bufs(ugens):
+        from supriya.tools import ugentools
+        local_bufs = []
+        processed_ugens = []
+        for ugen in ugens:
+            if isinstance(ugen, ugentools.MaxLocalBufs):
+                continue
+            if isinstance(ugen, ugentools.LocalBuf):
+                local_bufs.append(ugen)
+            processed_ugens.append(ugen)
+        if local_bufs:
+            max_local_bufs = ugentools.MaxLocalBufs(len(local_bufs))
+            for local_buf in local_bufs:
+                inputs = list(local_buf.inputs[:2])
+                inputs.append(max_local_bufs[0])
+                local_buf._inputs = tuple(inputs)
+            processed_ugens.append(max_local_bufs)
+        return tuple(processed_ugens)
 
     @staticmethod
     def _collect_constants(ugens):

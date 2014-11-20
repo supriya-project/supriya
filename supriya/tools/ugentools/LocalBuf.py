@@ -15,6 +15,31 @@ class LocalBuf(WidthFirstUGen):
         >>> local_buf
         LocalBuf.ir()
 
+    LocalBuf creates a MaxLocalBuf UGen implicitly during SynthDef compilation.
+
+    ::
+
+        >>> with synthdeftools.SynthDefBuilder() as builder:
+        ...     local_buf = ugentools.LocalBuf(2048)
+        ...     source = ugentools.PinkNoise.ar()
+        ...     chain = ugentools.FFT(
+        ...         buffer_id=local_buf,
+        ...         source=source,
+        ...         )
+        ...     ifft = ugentools.IFFT.ar(buffer_id=chain)
+        ...     out = ugentools.Out.ar(bus=0, source=ifft)
+        ...
+        >>> synthdef = builder.build()
+        >>> for ugen in synthdef.ugens:
+        ...     ugen
+        ...
+        PinkNoise.ar()
+        MaxLocalBufs.ir()
+        LocalBuf.ir()
+        FFT.kr()
+        IFFT.ar()
+        Out.ar()
+
     '''
 
     ### CLASS VARIABLES ###
@@ -24,8 +49,8 @@ class LocalBuf(WidthFirstUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'frame_count',
         'channel_count',
+        'frame_count',
         )
 
     _valid_calculation_rates = (
@@ -37,8 +62,8 @@ class LocalBuf(WidthFirstUGen):
     def __init__(
         self,
         frame_count=1,
-        calculation_rate=None,
         channel_count=1,
+        calculation_rate=None,
         ):
         from supriya.tools import synthdeftools
         if calculation_rate is None:

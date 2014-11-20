@@ -158,8 +158,8 @@ class FFT(PV_ChainUGen):
             OutputProxy(
                 source=LocalBuf(
                     frame_count=2048.0,
-                    calculation_rate=<CalculationRate.SCALAR: 0>,
-                    channel_count=1.0
+                    channel_count=1.0,
+                    calculation_rate=<CalculationRate.SCALAR: 0>
                     ),
                 output_index=0
                 )
