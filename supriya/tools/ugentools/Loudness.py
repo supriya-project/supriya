@@ -7,12 +7,15 @@ class Loudness(UGen):
 
     ::
 
-        >>> loudness = ugentools.Loudness(
-        ...     pv_chain=None,
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> pv_chain = ugentools.FFT(source=source)
+        >>> loudness = ugentools.Loudness.kr(
+        ...     pv_chain=pv_chain,
         ...     smask=0.25,
         ...     tmask=1,
         ...     )
         >>> loudness
+        Loudness.kr()
 
     '''
 
@@ -60,12 +63,15 @@ class Loudness(UGen):
 
         ::
 
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
             >>> loudness = ugentools.Loudness.kr(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
             >>> loudness
+            Loudness.kr()
 
         Returns ugen graph.
         '''
@@ -87,12 +93,44 @@ class Loudness(UGen):
 
         ::
 
-            >>> loudness = ugentools.Loudness.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> loudness = ugentools.Loudness.kr(
+            ...     pv_chain=pv_chain,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
             >>> loudness.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=In(
+                            bus=OutputProxy(
+                                source=NumOutputBuses(
+                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    ),
+                                output_index=0
+                                ),
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -105,12 +143,15 @@ class Loudness(UGen):
 
         ::
 
-            >>> loudness = ugentools.Loudness.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> loudness = ugentools.Loudness.kr(
+            ...     pv_chain=pv_chain,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
             >>> loudness.smask
+            0.25
 
         Returns ugen input.
         '''
@@ -123,12 +164,15 @@ class Loudness(UGen):
 
         ::
 
-            >>> loudness = ugentools.Loudness.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> loudness = ugentools.Loudness.kr(
+            ...     pv_chain=pv_chain,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
             >>> loudness.tmask
+            1.0
 
         Returns ugen input.
         '''
