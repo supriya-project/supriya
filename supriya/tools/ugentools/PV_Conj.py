@@ -16,7 +16,7 @@ class PV_Conj(PV_MagSquared):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'FFT UGens'
 
     __slots__ = ()
 
