@@ -15,8 +15,8 @@ class PV_Add(PV_ChainUGen):
         ...     source=ugentools.LFSaw.ar(),
         ...     )
         >>> pv_add = ugentools.PV_Add(
-        ...     buffer_id_a=fft_a,
-        ...     buffer_id_b=fft_b,
+        ...     pv_chain_a=fft_a,
+        ...     pv_chain_b=fft_b,
         ...     )
         >>> pv_add
         PV_Add.kr()
@@ -30,8 +30,8 @@ class PV_Add(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id_a',
-        'buffer_id_b',
+        'pv_chain_a',
+        'pv_chain_b',
         )
 
     _valid_calculation_rates = (
@@ -43,14 +43,14 @@ class PV_Add(PV_ChainUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id_a=None,
-        buffer_id_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         ):
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_id_a=buffer_id_a,
-            buffer_id_b=buffer_id_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             )
 
     ### PUBLIC METHODS ###
@@ -58,8 +58,8 @@ class PV_Add(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id_a=None,
-        buffer_id_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         ):
         r'''Constructs a PV_Add.
 
@@ -72,8 +72,8 @@ class PV_Add(PV_ChainUGen):
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add.new(
-            ...     buffer_id_a=fft_a,
-            ...     buffer_id_b=fft_b,
+            ...     pv_chain_a=fft_a,
+            ...     pv_chain_b=fft_b,
             ...     )
             >>> pv_add
             PV_Add.kr()
@@ -84,16 +84,16 @@ class PV_Add(PV_ChainUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_id_a=buffer_id_a,
-            buffer_id_b=buffer_id_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id_a(self):
-        r'''Gets `buffer_id_a` input of PV_Add.
+    def pv_chain_a(self):
+        r'''Gets `pv_chain_a` input of PV_Add.
 
         ::
 
@@ -104,10 +104,10 @@ class PV_Add(PV_ChainUGen):
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add(
-            ...     buffer_id_a=fft_a,
-            ...     buffer_id_b=fft_b,
+            ...     pv_chain_a=fft_a,
+            ...     pv_chain_b=fft_b,
             ...     )
-            >>> pv_add.buffer_id_a
+            >>> pv_add.pv_chain_a
             OutputProxy(
                 source=FFT(
                     buffer_id=OutputProxy(
@@ -135,12 +135,12 @@ class PV_Add(PV_ChainUGen):
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id_a')
+        index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
-    def buffer_id_b(self):
-        r'''Gets `buffer_id_b` input of PV_Add.
+    def pv_chain_b(self):
+        r'''Gets `pv_chain_b` input of PV_Add.
 
         ::
 
@@ -151,10 +151,10 @@ class PV_Add(PV_ChainUGen):
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add(
-            ...     buffer_id_a=fft_a,
-            ...     buffer_id_b=fft_b,
+            ...     pv_chain_a=fft_a,
+            ...     pv_chain_b=fft_b,
             ...     )
-            >>> pv_add.buffer_id_b
+            >>> pv_add.pv_chain_b
             OutputProxy(
                 source=FFT(
                     buffer_id=OutputProxy(
@@ -184,5 +184,5 @@ class PV_Add(PV_ChainUGen):
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id_b')
+        index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]

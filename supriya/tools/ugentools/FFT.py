@@ -170,6 +170,14 @@ class FFT(PV_ChainUGen):
         return self._inputs[index]
 
     @property
+    def fft_size(self):
+        r'''Gets FFT size as UGen input.
+
+        Returns ugen input.
+        '''
+        return ugentools.BufFrames.ir(self.buffer_id)
+
+    @property
     def hop(self):
         r'''Gets `hop` input of FFT.
 

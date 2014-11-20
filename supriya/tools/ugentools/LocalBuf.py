@@ -22,11 +22,11 @@ class LocalBuf(WidthFirstUGen):
         >>> with synthdeftools.SynthDefBuilder() as builder:
         ...     local_buf = ugentools.LocalBuf(2048)
         ...     source = ugentools.PinkNoise.ar()
-        ...     chain = ugentools.FFT(
+        ...     pv_chain = ugentools.FFT(
         ...         buffer_id=local_buf,
         ...         source=source,
         ...         )
-        ...     ifft = ugentools.IFFT.ar(buffer_id=chain)
+        ...     ifft = ugentools.IFFT.ar(pv_chain=pv_chain)
         ...     out = ugentools.Out.ar(bus=0, source=ifft)
         ...
         >>> synthdef = builder.build()

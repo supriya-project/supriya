@@ -7,9 +7,9 @@ class IFFT(WidthFirstUGen):
 
     ::
 
-        >>> buffer_id = ugentools.LocalBuf(2048)
+        >>> pv_chain = ugentools.LocalBuf(2048)
         >>> ifft = ugentools.IFFT.ar(
-        ...     buffer_id=buffer_id,
+        ...     pv_chain=pv_chain,
         ...     window_size=0,
         ...     window_type=0,
         ...     )
@@ -25,7 +25,7 @@ class IFFT(WidthFirstUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'window_type',
         'window_size',
         )
@@ -36,7 +36,7 @@ class IFFT(WidthFirstUGen):
 
     def __init__(
         self,
-        buffer_id=None,
+        pv_chain=None,
         calculation_rate=None,
         window_size=0,
         window_type=0,
@@ -44,7 +44,7 @@ class IFFT(WidthFirstUGen):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             window_size=window_size,
             window_type=window_type,
             )
@@ -54,7 +54,7 @@ class IFFT(WidthFirstUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         window_size=0,
         window_type=0,
         ):
@@ -62,9 +62,9 @@ class IFFT(WidthFirstUGen):
 
         ::
 
-            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> pv_chain = ugentools.LocalBuf(2048)
             >>> ifft = ugentools.IFFT.ar(
-            ...     buffer_id=buffer_id,
+            ...     pv_chain=pv_chain,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
@@ -77,7 +77,7 @@ class IFFT(WidthFirstUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             window_size=window_size,
             window_type=window_type,
             )
@@ -86,7 +86,7 @@ class IFFT(WidthFirstUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         window_size=0,
         window_type=0,
         ):
@@ -94,9 +94,9 @@ class IFFT(WidthFirstUGen):
 
         ::
 
-            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> pv_chain = ugentools.LocalBuf(2048)
             >>> ifft = ugentools.IFFT.kr(
-            ...     buffer_id=buffer_id,
+            ...     pv_chain=pv_chain,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
@@ -109,7 +109,7 @@ class IFFT(WidthFirstUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             window_size=window_size,
             window_type=window_type,
             )
@@ -118,18 +118,18 @@ class IFFT(WidthFirstUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of IFFT.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of IFFT.
 
         ::
 
-            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> pv_chain = ugentools.LocalBuf(2048)
             >>> ifft = ugentools.IFFT.ar(
-            ...     buffer_id=buffer_id,
+            ...     pv_chain=pv_chain,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
-            >>> ifft.buffer_id
+            >>> ifft.pv_chain
             OutputProxy(
                 source=LocalBuf(
                     frame_count=2048.0,
@@ -141,7 +141,7 @@ class IFFT(WidthFirstUGen):
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -150,9 +150,9 @@ class IFFT(WidthFirstUGen):
 
         ::
 
-            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> pv_chain = ugentools.LocalBuf(2048)
             >>> ifft = ugentools.IFFT.ar(
-            ...     buffer_id=buffer_id,
+            ...     pv_chain=pv_chain,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
@@ -170,9 +170,9 @@ class IFFT(WidthFirstUGen):
 
         ::
 
-            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> pv_chain = ugentools.LocalBuf(2048)
             >>> ifft = ugentools.IFFT.ar(
-            ...     buffer_id=buffer_id,
+            ...     pv_chain=pv_chain,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
