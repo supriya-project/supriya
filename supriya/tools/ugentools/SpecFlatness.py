@@ -1,16 +1,20 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.UGen import UGen
 
 
 class SpecFlatness(UGen):
-    r'''
+    r'''A spectral flatness measure.
 
     ::
 
-        >>> spec_flatness = ugentools.SpecFlatness.(
-        ...     pv_chain=None,
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> pv_chain = ugentools.FFT(source=source)
+        >>> spec_flatness = ugentools.SpecFlatness.kr(
+        ...     pv_chain=pv_chain,
         ...     )
         >>> spec_flatness
+        SpecFlatness.kr()
 
     '''
 
@@ -24,18 +28,19 @@ class SpecFlatness(UGen):
         'pv_chain',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain=None,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.CONTROL,
             pv_chain=pv_chain,
             )
 
@@ -50,17 +55,17 @@ class SpecFlatness(UGen):
 
         ::
 
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
             >>> spec_flatness = ugentools.SpecFlatness.kr(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> spec_flatness
+            SpecFlatness.kr()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain=pv_chain,
             )
         return ugen
@@ -73,10 +78,42 @@ class SpecFlatness(UGen):
 
         ::
 
-            >>> spec_flatness = ugentools.SpecFlatness.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> spec_flatness = ugentools.SpecFlatness.kr(
+            ...     pv_chain=pv_chain,
             ...     )
             >>> spec_flatness.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=In(
+                            bus=OutputProxy(
+                                source=NumOutputBuses(
+                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    ),
+                                output_index=0
+                                ),
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
