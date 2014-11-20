@@ -77,7 +77,7 @@ class Mix(PseudoUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Submixing UGens'
+    __documentation_section__ = 'Utility UGens'
 
     __slots__ = ()
 

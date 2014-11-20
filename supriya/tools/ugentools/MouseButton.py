@@ -16,7 +16,7 @@ class MouseButton(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'User Interaction'
+    __documentation_section__ = 'User Interaction UGens'
 
     __slots__ = ()
 
