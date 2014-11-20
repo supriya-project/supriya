@@ -167,6 +167,7 @@ class FFT(PV_ChainUGen):
 
         Returns ugen input.
         '''
+        from supriya.tools import ugentools
         return ugentools.BufFrames.ir(self.buffer_id)
 
     @property
