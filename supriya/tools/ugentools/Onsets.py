@@ -1,5 +1,8 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.ugentools.ODFType import ODFType
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class Onsets(UGen):
@@ -7,18 +10,21 @@ class Onsets(UGen):
 
     ::
 
-        >>> onsets = ugentools.Onsets.(
-        ...     pv_chain=None,
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> pv_chain = ugentools.FFT(source=source)
+        >>> onsets = ugentools.Onsets.kr(
+        ...     pv_chain=pv_chain,
         ...     floor=0.1,
         ...     medianspan=11,
         ...     mingap=10,
-        ...     odftype='"rcomplex"',
+        ...     odftype=ugentools.ODFType.RCOMPLEX,
         ...     rawodf=0,
         ...     relaxtime=1,
         ...     threshold=0.5,
         ...     whtype=1,
         ...     )
         >>> onsets
+        Onsets.kr()
 
     '''
 
@@ -40,18 +46,19 @@ class Onsets(UGen):
         'rawodf',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain=None,
         floor=0.1,
         medianspan=11,
         mingap=10,
-        odftype='"rcomplex"',
+        odftype=ODFType.RCOMPLEX,
         rawodf=0,
         relaxtime=1,
         threshold=0.5,
@@ -59,7 +66,7 @@ class Onsets(UGen):
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.CONTROL,
             pv_chain=pv_chain,
             floor=floor,
             medianspan=medianspan,
@@ -80,7 +87,7 @@ class Onsets(UGen):
         floor=0.1,
         medianspan=11,
         mingap=10,
-        odftype='"rcomplex"',
+        odftype=ODFType.RCOMPLEX,
         rawodf=0,
         relaxtime=1,
         threshold=0.5,
@@ -90,25 +97,25 @@ class Onsets(UGen):
 
         ::
 
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
             >>> onsets = ugentools.Onsets.kr(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets
+            Onsets.kr()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain=pv_chain,
             floor=floor,
             medianspan=medianspan,
@@ -129,18 +136,50 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=In(
+                            bus=OutputProxy(
+                                source=NumOutputBuses(
+                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    ),
+                                output_index=0
+                                ),
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -153,18 +192,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.floor
+            0.1
 
         Returns ugen input.
         '''
@@ -177,18 +219,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.medianspan
+            11.0
 
         Returns ugen input.
         '''
@@ -201,18 +246,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.mingap
+            10.0
 
         Returns ugen input.
         '''
@@ -225,18 +273,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.odftype
+            3.0
 
         Returns ugen input.
         '''
@@ -249,18 +300,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.rawodf
+            0.0
 
         Returns ugen input.
         '''
@@ -273,18 +327,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.relaxtime
+            1.0
 
         Returns ugen input.
         '''
@@ -297,18 +354,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.threshold
+            0.5
 
         Returns ugen input.
         '''
@@ -321,18 +381,21 @@ class Onsets(UGen):
 
         ::
 
-            >>> onsets = ugentools.Onsets.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> onsets = ugentools.Onsets.kr(
+            ...     pv_chain=pv_chain,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
-            ...     odftype='"rcomplex"',
+            ...     odftype=ugentools.ODFType.RCOMPLEX,
             ...     rawodf=0,
             ...     relaxtime=1,
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
             >>> onsets.whtype
+            1.0
 
         Returns ugen input.
         '''

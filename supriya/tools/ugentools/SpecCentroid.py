@@ -115,7 +115,6 @@ class SpecCentroid(UGen):
                 output_index=0
                 )
 
-
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('pv_chain')

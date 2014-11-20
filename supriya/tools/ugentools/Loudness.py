@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.UGen import UGen
 
 
@@ -31,20 +32,21 @@ class Loudness(UGen):
         'tmask',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain=None,
         smask=0.25,
         tmask=1,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.CONTROL,
             pv_chain=pv_chain,
             smask=smask,
             tmask=tmask,
@@ -75,10 +77,7 @@ class Loudness(UGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain=pv_chain,
             smask=smask,
             tmask=tmask,
