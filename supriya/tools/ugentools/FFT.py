@@ -47,10 +47,10 @@ class FFT(PV_ChainUGen):
     def __init__(
         self,
         buffer_id=None,
+        source=None,
         calculation_rate=None,
         active=1,
         hop=0.5,
-        source=None,
         window_size=0,
         window_type=0,
         ):
