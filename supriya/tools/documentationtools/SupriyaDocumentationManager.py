@@ -307,6 +307,7 @@ class SupriyaDocumentationManager(object):
         manager = SupriyaDocumentationManager
         module_name, _, class_name = cls.__module__.rpartition('.')
         tools_package_python_path = '.'.join(cls.__module__.split('.')[:-1])
+
         (
             class_methods,
             data,
@@ -317,27 +318,38 @@ class SupriyaDocumentationManager(object):
             special_methods,
             static_methods,
             ) = manager.collect_class_attributes(cls)
+
         document = abjad.documentationtools.ReSTDocument()
+
         module_directive = supriya.documentationtools.ConcreteReSTDirective(
             directive='currentmodule',
             argument=tools_package_python_path,
             )
         document.append(module_directive)
+
         heading = abjad.documentationtools.ReSTHeading(
             level=2,
             text=class_name,
             )
         document.append(heading)
-        # lineage_graph = manager.get_lineage_graph(cls)
-        # graphviz_directive = supriya.documentationtools.GraphvizDirective(
-        #     graph=lineage_graph,
-        #     )
-        # document.append(graphviz_directive)
+
+        lineage_graph = manager.get_lineage_graph(cls)
+        graphviz_directive = supriya.documentationtools.GraphvizDirective(
+            graph=lineage_graph,
+            )
+        graphviz_container = supriya.documentationtools.ConcreteReSTDirective(
+            directive='container',
+            argument='graphviz',
+            )
+        graphviz_container.append(graphviz_directive)
+        document.append(graphviz_container)
+
         autoclass_directive = abjad.documentationtools.ReSTAutodocDirective(
             argument=cls.__name__,
             directive='autoclass',
             )
         document.append(autoclass_directive)
+
         document.extend(manager.build_bases_section(cls))
         document.extend(manager.build_enumeration_section(cls))
         document.extend(manager.build_attributes_autosummary(
@@ -351,42 +363,49 @@ class SupriyaDocumentationManager(object):
             special_methods,
             static_methods,
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             readonly_properties,
             'autoattribute',
             'Read-only properties',
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             readwrite_properties,
             'autoattribute',
             'Read/write properties',
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             methods,
             'automethod',
             'Methods',
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             class_methods,
             'automethod',
             'Class methods',
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             static_methods,
             'automethod',
             'Static methods',
             ))
+
         document.extend(manager.build_attribute_section(
             cls,
             special_methods,
             'automethod',
             'Special methods',
             ))
+
         return document
 
     @staticmethod

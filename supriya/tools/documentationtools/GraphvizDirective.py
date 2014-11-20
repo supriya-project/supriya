@@ -3,15 +3,23 @@ from abjad.tools import documentationtools
 
 
 class GraphvizDirective(documentationtools.ReSTDirective):
+    r'''A ReST Graphviz directive.
+    '''
 
     ### INITIALIZER ###
 
-    def __init__(self, graph, name=None):
+    def __init__(
+        self,
+        graph,
+        name=None,
+        options=None,
+        ):
         assert isinstance(graph, documentationtools.GraphvizGraph)
         self._graph = graph
         documentationtools.ReSTDirective.__init__(
             self,
             name=name,
+            options=options,
             )
 
     ### PRIVATE PROPERTIES ###
@@ -29,8 +37,16 @@ class GraphvizDirective(documentationtools.ReSTDirective):
 
     @property
     def directive(self):
+        r'''Gets directive of ReST Graphviz directive.
+
+        Returns string.
+        '''
         return 'graphviz'
 
     @property
     def graph(self):
+        r'''Gets graph of ReST Graphviz directive.
+
+        Returns Graphviz graph.
+        '''
         return self._graph
