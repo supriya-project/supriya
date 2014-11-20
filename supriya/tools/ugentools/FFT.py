@@ -38,17 +38,12 @@ class FFT(PV_ChainUGen):
         'window_size',
         )
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        )
-
     ### INITIALIZER ###
 
     def __init__(
         self,
         buffer_id=None,
         source=None,
-        calculation_rate=None,
         active=1,
         hop=0.5,
         window_size=0,
@@ -59,7 +54,6 @@ class FFT(PV_ChainUGen):
             buffer_id = ugentools.LocalBuf(2048)
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             active=active,
             buffer_id=buffer_id,
             hop=hop,
@@ -100,9 +94,7 @@ class FFT(PV_ChainUGen):
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             active=active,
             buffer_id=buffer_id,
             hop=hop,

@@ -399,11 +399,9 @@ class UGen(UGenMethodMixin):
     @classmethod
     def _new_single(
         cls,
-        calculation_rate=None,
         **kwargs
         ):
         ugen = cls(
-            calculation_rate=calculation_rate,
             **kwargs
             )
         return ugen

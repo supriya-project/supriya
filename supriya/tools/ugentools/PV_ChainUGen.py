@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
@@ -11,6 +12,10 @@ class PV_ChainUGen(WidthFirstUGen):
     __documentation_section__ = 'FFT UGens'
 
     __slots__ = ()
+
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
     
