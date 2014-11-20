@@ -62,7 +62,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def(
+    def new(
         cls,
         pv_chain=None,
         prophfc=0.25,

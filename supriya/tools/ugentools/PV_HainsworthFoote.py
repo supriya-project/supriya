@@ -54,7 +54,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def(
+    def new(
         cls,
         pv_chain=None,
         propf=0,
