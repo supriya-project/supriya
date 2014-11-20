@@ -5,7 +5,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Onsets(UGen):
-    r'''
+    r'''An onset detector.
 
     ::
 
