@@ -7,17 +7,18 @@ class LocalBuf(WidthFirstUGen):
 
     ::
 
-        >>> local_buf = ugentools.LocalBuf.(
+        >>> local_buf = ugentools.LocalBuf(
         ...     channel_count=1,
         ...     num_frames=1,
         ...     )
         >>> local_buf
+        LocalBuf.ir()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
@@ -36,6 +37,9 @@ class LocalBuf(WidthFirstUGen):
         channel_count=1,
         num_frames=1,
         ):
+        from supriya.tools import synthdeftools
+        if calculation_rate is None:
+            calculation_rate = synthdeftools.CalculationRate.SCALAR
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -60,11 +64,12 @@ class LocalBuf(WidthFirstUGen):
             ...     num_frames=1,
             ...     )
             >>> local_buf
+            LocalBuf.ir()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
@@ -84,11 +89,12 @@ class LocalBuf(WidthFirstUGen):
 
         ::
 
-            >>> local_buf = ugentools.LocalBuf.ar(
-            ...     channel_count=1,
+            >>> local_buf = ugentools.LocalBuf(
+            ...     channel_count=2,
             ...     num_frames=1,
             ...     )
             >>> local_buf.channel_count
+            2.0
 
         Returns ugen input.
         '''
@@ -101,11 +107,12 @@ class LocalBuf(WidthFirstUGen):
 
         ::
 
-            >>> local_buf = ugentools.LocalBuf.ar(
-            ...     channel_count=1,
+            >>> local_buf = ugentools.LocalBuf(
+            ...     channel_count=2,
             ...     num_frames=1,
             ...     )
             >>> local_buf.num_frames
+            1.0
 
         Returns ugen input.
         '''
