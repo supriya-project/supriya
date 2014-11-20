@@ -2,7 +2,6 @@
 from supriya.tools.ugentools.ODFType import ODFType
 from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.UGen import UGen
-from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class Onsets(UGen):
