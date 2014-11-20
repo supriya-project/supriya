@@ -54,9 +54,9 @@ class FFT(PV_ChainUGen):
         window_size=0,
         window_type=0,
         ):
-        from supriya.tools import synthdeftools
-        if calculation_rate is None:
-            calculation_rate = synthdeftools.CalculationRate.CONTROL
+        from supriya.tools import ugentools
+        if buffer_id is None:
+            buffer_id = ugentools.LocalBuf(2048)
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
