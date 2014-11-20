@@ -7,7 +7,7 @@ class PV_MagClip(PV_MagAbove):
 
     ::
 
-        >>> pv_mag_clip = ugentools.PV_MagClip.(
+        >>> pv_mag_clip = ugentools.PV_MagClip(
         ...     pv_chain=None,
         ...     threshold=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_MagClip(PV_MagAbove):
 
         ::
 
-            >>> pv_mag_clip = ugentools.PV_MagClip.ar(
+            >>> pv_mag_clip = ugentools.PV_MagClip(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_MagClip(PV_MagAbove):
 
         ::
 
-            >>> pv_mag_clip = ugentools.PV_MagClip.ar(
+            >>> pv_mag_clip = ugentools.PV_MagClip(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )

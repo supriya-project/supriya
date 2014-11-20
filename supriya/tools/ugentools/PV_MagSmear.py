@@ -2,12 +2,12 @@
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
-class PV_MagSmear(PV_ChainUGen):
+class PV_MagSm(PV_ChainUGen):
     r'''
 
     ::
 
-        >>> pv_mag_smear = ugentools.PV_MagSmear.(
+        >>> pv_mag_smear = ugentools.PV_MagSmear(
         ...     bins=0,
         ...     pv_chain=None,
         ...     )
@@ -73,7 +73,7 @@ class PV_MagSmear(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_smear = ugentools.PV_MagSmear.ar(
+            >>> pv_mag_smear = ugentools.PV_MagSmear(
             ...     bins=0,
             ...     pv_chain=None,
             ...     )
@@ -90,7 +90,7 @@ class PV_MagSmear(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_smear = ugentools.PV_MagSmear.ar(
+            >>> pv_mag_smear = ugentools.PV_MagSmear(
             ...     bins=0,
             ...     pv_chain=None,
             ...     )

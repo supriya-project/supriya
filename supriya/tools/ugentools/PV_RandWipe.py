@@ -7,7 +7,7 @@ class PV_RandWipe(PV_ChainUGen):
 
     ::
 
-        >>> pv_rand_wipe = ugentools.PV_RandWipe.(
+        >>> pv_rand_wipe = ugentools.PV_RandWipe(
         ...     buffer_a=None,
         ...     buffer_b=None,
         ...     trigger=0,
@@ -87,7 +87,7 @@ class PV_RandWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_wipe = ugentools.PV_RandWipe.ar(
+            >>> pv_rand_wipe = ugentools.PV_RandWipe(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     trigger=0,
@@ -106,7 +106,7 @@ class PV_RandWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_wipe = ugentools.PV_RandWipe.ar(
+            >>> pv_rand_wipe = ugentools.PV_RandWipe(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     trigger=0,
@@ -125,7 +125,7 @@ class PV_RandWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_wipe = ugentools.PV_RandWipe.ar(
+            >>> pv_rand_wipe = ugentools.PV_RandWipe(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     trigger=0,
@@ -144,7 +144,7 @@ class PV_RandWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_wipe = ugentools.PV_RandWipe.ar(
+            >>> pv_rand_wipe = ugentools.PV_RandWipe(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     trigger=0,

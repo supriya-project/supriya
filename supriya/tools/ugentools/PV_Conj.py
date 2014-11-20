@@ -7,7 +7,7 @@ class PV_Conj(PV_MagSquared):
 
     ::
 
-        >>> pv_conj = ugentools.PV_Conj.(
+        >>> pv_conj = ugentools.PV_Conj(
         ...     pv_chain=None,
         ...     )
         >>> pv_conj
@@ -66,7 +66,7 @@ class PV_Conj(PV_MagSquared):
 
         ::
 
-            >>> pv_conj = ugentools.PV_Conj.ar(
+            >>> pv_conj = ugentools.PV_Conj(
             ...     pv_chain=None,
             ...     )
             >>> pv_conj.pv_chain

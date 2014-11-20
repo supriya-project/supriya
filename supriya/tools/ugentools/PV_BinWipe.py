@@ -7,7 +7,7 @@ class PV_BinWipe(PV_ChainUGen):
 
     ::
 
-        >>> pv_bin_wipe = ugentools.PV_BinWipe.(
+        >>> pv_bin_wipe = ugentools.PV_BinWipe(
         ...     pv_chain_a=None,
         ...     pv_chain_b=None,
         ...     wipe=0,
@@ -80,7 +80,7 @@ class PV_BinWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
+            >>> pv_bin_wipe = ugentools.PV_BinWipe(
             ...     pv_chain_a=None,
             ...     pv_chain_b=None,
             ...     wipe=0,
@@ -98,7 +98,7 @@ class PV_BinWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
+            >>> pv_bin_wipe = ugentools.PV_BinWipe(
             ...     pv_chain_a=None,
             ...     pv_chain_b=None,
             ...     wipe=0,
@@ -116,7 +116,7 @@ class PV_BinWipe(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
+            >>> pv_bin_wipe = ugentools.PV_BinWipe(
             ...     pv_chain_a=None,
             ...     pv_chain_b=None,
             ...     wipe=0,

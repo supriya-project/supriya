@@ -7,7 +7,7 @@ class PV_MagFreeze(PV_ChainUGen):
 
     ::
 
-        >>> pv_mag_freeze = ugentools.PV_MagFreeze.(
+        >>> pv_mag_freeze = ugentools.PV_MagFreeze(
         ...     pv_chain=None,
         ...     freeze=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_MagFreeze(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_freeze = ugentools.PV_MagFreeze.ar(
+            >>> pv_mag_freeze = ugentools.PV_MagFreeze(
             ...     pv_chain=None,
             ...     freeze=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_MagFreeze(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_freeze = ugentools.PV_MagFreeze.ar(
+            >>> pv_mag_freeze = ugentools.PV_MagFreeze(
             ...     pv_chain=None,
             ...     freeze=0,
             ...     )

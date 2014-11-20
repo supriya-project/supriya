@@ -7,7 +7,7 @@ class PV_BinShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_bin_shift = ugentools.PV_BinShift.(
+        >>> pv_bin_shift = ugentools.PV_BinShift(
         ...     pv_chain=None,
         ...     interpolate=0,
         ...     shift=0,
@@ -87,7 +87,7 @@ class PV_BinShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_shift = ugentools.PV_BinShift.ar(
+            >>> pv_bin_shift = ugentools.PV_BinShift(
             ...     pv_chain=None,
             ...     interpolate=0,
             ...     shift=0,
@@ -106,7 +106,7 @@ class PV_BinShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_shift = ugentools.PV_BinShift.ar(
+            >>> pv_bin_shift = ugentools.PV_BinShift(
             ...     pv_chain=None,
             ...     interpolate=0,
             ...     shift=0,
@@ -125,7 +125,7 @@ class PV_BinShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_shift = ugentools.PV_BinShift.ar(
+            >>> pv_bin_shift = ugentools.PV_BinShift(
             ...     pv_chain=None,
             ...     interpolate=0,
             ...     shift=0,
@@ -144,7 +144,7 @@ class PV_BinShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_shift = ugentools.PV_BinShift.ar(
+            >>> pv_bin_shift = ugentools.PV_BinShift(
             ...     pv_chain=None,
             ...     interpolate=0,
             ...     shift=0,

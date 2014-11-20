@@ -7,7 +7,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     ::
 
-        >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.(
+        >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
         ...     pv_chain=None,
         ...     propf=0,
         ...     proph=0,
@@ -54,7 +54,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(
+    def(
         cls,
         pv_chain=None,
         propf=0,
@@ -66,7 +66,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
@@ -94,7 +94,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
@@ -114,7 +114,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
@@ -134,7 +134,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
@@ -154,7 +154,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
@@ -174,7 +174,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
-            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
+            >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
             ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,

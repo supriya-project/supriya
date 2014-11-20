@@ -7,7 +7,7 @@ class PV_MagDiv(PV_ChainUGen):
 
     ::
 
-        >>> pv_mag_div = ugentools.PV_MagDiv.(
+        >>> pv_mag_div = ugentools.PV_MagDiv(
         ...     buffer_a=None,
         ...     buffer_b=None,
         ...     zeroed=0.0001,
@@ -80,7 +80,7 @@ class PV_MagDiv(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_div = ugentools.PV_MagDiv.ar(
+            >>> pv_mag_div = ugentools.PV_MagDiv(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     zeroed=0.0001,
@@ -98,7 +98,7 @@ class PV_MagDiv(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_div = ugentools.PV_MagDiv.ar(
+            >>> pv_mag_div = ugentools.PV_MagDiv(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     zeroed=0.0001,
@@ -116,7 +116,7 @@ class PV_MagDiv(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_div = ugentools.PV_MagDiv.ar(
+            >>> pv_mag_div = ugentools.PV_MagDiv(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     zeroed=0.0001,

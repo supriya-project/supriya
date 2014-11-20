@@ -7,7 +7,7 @@ class PV_RandComb(PV_ChainUGen):
 
     ::
 
-        >>> pv_rand_comb = ugentools.PV_RandComb.(
+        >>> pv_rand_comb = ugentools.PV_RandComb(
         ...     pv_chain=None,
         ...     trigger=0,
         ...     wipe=0,
@@ -80,7 +80,7 @@ class PV_RandComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_comb = ugentools.PV_RandComb.ar(
+            >>> pv_rand_comb = ugentools.PV_RandComb(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
@@ -98,7 +98,7 @@ class PV_RandComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_comb = ugentools.PV_RandComb.ar(
+            >>> pv_rand_comb = ugentools.PV_RandComb(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
@@ -116,7 +116,7 @@ class PV_RandComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rand_comb = ugentools.PV_RandComb.ar(
+            >>> pv_rand_comb = ugentools.PV_RandComb(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,

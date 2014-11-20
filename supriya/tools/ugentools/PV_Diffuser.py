@@ -7,7 +7,7 @@ class PV_Diffuser(PV_ChainUGen):
 
     ::
 
-        >>> pv_diffuser = ugentools.PV_Diffuser.(
+        >>> pv_diffuser = ugentools.PV_Diffuser(
         ...     pv_chain=None,
         ...     trigger=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_Diffuser(PV_ChainUGen):
 
         ::
 
-            >>> pv_diffuser = ugentools.PV_Diffuser.ar(
+            >>> pv_diffuser = ugentools.PV_Diffuser(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_Diffuser(PV_ChainUGen):
 
         ::
 
-            >>> pv_diffuser = ugentools.PV_Diffuser.ar(
+            >>> pv_diffuser = ugentools.PV_Diffuser(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     )

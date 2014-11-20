@@ -7,7 +7,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_phase_shift = ugentools.PV_PhaseShift.(
+        >>> pv_phase_shift = ugentools.PV_PhaseShift(
         ...     pv_chain=None,
         ...     integrate=0,
         ...     shift=None,
@@ -80,7 +80,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_phase_shift = ugentools.PV_PhaseShift.ar(
+            >>> pv_phase_shift = ugentools.PV_PhaseShift(
             ...     pv_chain=None,
             ...     integrate=0,
             ...     shift=None,
@@ -98,7 +98,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_phase_shift = ugentools.PV_PhaseShift.ar(
+            >>> pv_phase_shift = ugentools.PV_PhaseShift(
             ...     pv_chain=None,
             ...     integrate=0,
             ...     shift=None,
@@ -116,7 +116,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_phase_shift = ugentools.PV_PhaseShift.ar(
+            >>> pv_phase_shift = ugentools.PV_PhaseShift(
             ...     pv_chain=None,
             ...     integrate=0,
             ...     shift=None,

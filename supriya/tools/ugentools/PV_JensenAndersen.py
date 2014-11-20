@@ -7,7 +7,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     ::
 
-        >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.(
+        >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
         ...     pv_chain=None,
         ...     prophfc=0.25,
         ...     prophfe=0.25,
@@ -62,7 +62,7 @@ class PV_JensenAndersen(PV_ChainUGen):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def ar(
+    def(
         cls,
         pv_chain=None,
         prophfc=0.25,
@@ -76,7 +76,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -108,7 +108,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -130,7 +130,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -152,7 +152,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -174,7 +174,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -196,7 +196,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -218,7 +218,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
@@ -240,7 +240,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
-            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen.ar(
+            >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=None,
             ...     prophfc=0.25,
             ...     prophfe=0.25,

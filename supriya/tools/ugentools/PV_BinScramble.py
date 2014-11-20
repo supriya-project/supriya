@@ -7,7 +7,7 @@ class PV_BinScramble(PV_ChainUGen):
 
     ::
 
-        >>> pv_bin_scramble = ugentools.PV_BinScramble.(
+        >>> pv_bin_scramble = ugentools.PV_BinScramble(
         ...     pv_chain=None,
         ...     trigger=0,
         ...     width=0.2,
@@ -87,7 +87,7 @@ class PV_BinScramble(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_scramble = ugentools.PV_BinScramble.ar(
+            >>> pv_bin_scramble = ugentools.PV_BinScramble(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     width=0.2,
@@ -106,7 +106,7 @@ class PV_BinScramble(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_scramble = ugentools.PV_BinScramble.ar(
+            >>> pv_bin_scramble = ugentools.PV_BinScramble(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     width=0.2,
@@ -125,7 +125,7 @@ class PV_BinScramble(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_scramble = ugentools.PV_BinScramble.ar(
+            >>> pv_bin_scramble = ugentools.PV_BinScramble(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     width=0.2,
@@ -144,7 +144,7 @@ class PV_BinScramble(PV_ChainUGen):
 
         ::
 
-            >>> pv_bin_scramble = ugentools.PV_BinScramble.ar(
+            >>> pv_bin_scramble = ugentools.PV_BinScramble(
             ...     pv_chain=None,
             ...     trigger=0,
             ...     width=0.2,

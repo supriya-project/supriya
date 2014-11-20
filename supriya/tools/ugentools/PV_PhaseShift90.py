@@ -7,7 +7,7 @@ class PV_PhaseShift90(PV_MagSquared):
 
     ::
 
-        >>> pv_phase_shift_90 = ugentools.PV_PhaseShift90.(
+        >>> pv_phase_shift_90 = ugentools.PV_PhaseShift90(
         ...     pv_chain=None,
         ...     )
         >>> pv_phase_shift_90
@@ -66,7 +66,7 @@ class PV_PhaseShift90(PV_MagSquared):
 
         ::
 
-            >>> pv_phase_shift_90 = ugentools.PV_PhaseShift90.ar(
+            >>> pv_phase_shift_90 = ugentools.PV_PhaseShift90(
             ...     pv_chain=None,
             ...     )
             >>> pv_phase_shift_90.pv_chain

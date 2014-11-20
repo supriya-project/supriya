@@ -7,7 +7,7 @@ class PV_RectComb(PV_ChainUGen):
 
     ::
 
-        >>> pv_rect_comb = ugentools.PV_RectComb.(
+        >>> pv_rect_comb = ugentools.PV_RectComb(
         ...     pv_chain=None,
         ...     num_teeth=0,
         ...     phase=0,
@@ -87,7 +87,7 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb = ugentools.PV_RectComb.ar(
+            >>> pv_rect_comb = ugentools.PV_RectComb(
             ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
@@ -106,7 +106,7 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb = ugentools.PV_RectComb.ar(
+            >>> pv_rect_comb = ugentools.PV_RectComb(
             ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
@@ -125,7 +125,7 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb = ugentools.PV_RectComb.ar(
+            >>> pv_rect_comb = ugentools.PV_RectComb(
             ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
@@ -144,7 +144,7 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb = ugentools.PV_RectComb.ar(
+            >>> pv_rect_comb = ugentools.PV_RectComb(
             ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,

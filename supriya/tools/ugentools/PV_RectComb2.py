@@ -7,7 +7,7 @@ class PV_RectComb2(PV_ChainUGen):
 
     ::
 
-        >>> pv_rect_comb_2 = ugentools.PV_RectComb2.(
+        >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
         ...     buffer_a=None,
         ...     buffer_b=None,
         ...     num_teeth=0,
@@ -94,7 +94,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb_2 = ugentools.PV_RectComb2.ar(
+            >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     num_teeth=0,
@@ -114,7 +114,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb_2 = ugentools.PV_RectComb2.ar(
+            >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     num_teeth=0,
@@ -134,7 +134,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb_2 = ugentools.PV_RectComb2.ar(
+            >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     num_teeth=0,
@@ -154,7 +154,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb_2 = ugentools.PV_RectComb2.ar(
+            >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     num_teeth=0,
@@ -174,7 +174,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
-            >>> pv_rect_comb_2 = ugentools.PV_RectComb2.ar(
+            >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
             ...     buffer_a=None,
             ...     buffer_b=None,
             ...     num_teeth=0,

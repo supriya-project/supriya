@@ -7,7 +7,7 @@ class PV_MagShift(PV_ChainUGen):
 
     ::
 
-        >>> pv_mag_shift = ugentools.PV_MagShift.(
+        >>> pv_mag_shift = ugentools.PV_MagShift(
         ...     pv_chain=None,
         ...     shift=0,
         ...     stretch=1,
@@ -80,7 +80,7 @@ class PV_MagShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_shift = ugentools.PV_MagShift.ar(
+            >>> pv_mag_shift = ugentools.PV_MagShift(
             ...     pv_chain=None,
             ...     shift=0,
             ...     stretch=1,
@@ -98,7 +98,7 @@ class PV_MagShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_shift = ugentools.PV_MagShift.ar(
+            >>> pv_mag_shift = ugentools.PV_MagShift(
             ...     pv_chain=None,
             ...     shift=0,
             ...     stretch=1,
@@ -116,7 +116,7 @@ class PV_MagShift(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_shift = ugentools.PV_MagShift.ar(
+            >>> pv_mag_shift = ugentools.PV_MagShift(
             ...     pv_chain=None,
             ...     shift=0,
             ...     stretch=1,

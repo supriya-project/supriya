@@ -115,7 +115,6 @@ class PV_Add(PV_ChainUGen):
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     active=1.0,
                     hop=0.5,
                     window_size=0.0,
@@ -164,7 +163,6 @@ class PV_Add(PV_ChainUGen):
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     active=1.0,
                     hop=0.5,
                     window_size=0.0,

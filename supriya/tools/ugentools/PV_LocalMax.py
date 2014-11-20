@@ -7,7 +7,7 @@ class PV_LocalMax(PV_MagAbove):
 
     ::
 
-        >>> pv_local_max = ugentools.PV_LocalMax.(
+        >>> pv_local_max = ugentools.PV_LocalMax(
         ...     pv_chain=None,
         ...     threshold=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_LocalMax(PV_MagAbove):
 
         ::
 
-            >>> pv_local_max = ugentools.PV_LocalMax.ar(
+            >>> pv_local_max = ugentools.PV_LocalMax(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_LocalMax(PV_MagAbove):
 
         ::
 
-            >>> pv_local_max = ugentools.PV_LocalMax.ar(
+            >>> pv_local_max = ugentools.PV_LocalMax(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )

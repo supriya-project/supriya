@@ -7,7 +7,7 @@ class PV_MagAbove(PV_ChainUGen):
 
     ::
 
-        >>> pv_mag_above = ugentools.PV_MagAbove.(
+        >>> pv_mag_above = ugentools.PV_MagAbove(
         ...     pv_chain=None,
         ...     threshold=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_MagAbove(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_above = ugentools.PV_MagAbove.ar(
+            >>> pv_mag_above = ugentools.PV_MagAbove(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_MagAbove(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_above = ugentools.PV_MagAbove.ar(
+            >>> pv_mag_above = ugentools.PV_MagAbove(
             ...     pv_chain=None,
             ...     threshold=0,
             ...     )

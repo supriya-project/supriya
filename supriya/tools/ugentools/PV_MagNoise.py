@@ -7,7 +7,7 @@ class PV_MagNoise(PV_MagSquared):
 
     ::
 
-        >>> pv_mag_noise = ugentools.PV_MagNoise.(
+        >>> pv_mag_noise = ugentools.PV_MagNoise(
         ...     pv_chain=None,
         ...     )
         >>> pv_mag_noise
@@ -66,7 +66,7 @@ class PV_MagNoise(PV_MagSquared):
 
         ::
 
-            >>> pv_mag_noise = ugentools.PV_MagNoise.ar(
+            >>> pv_mag_noise = ugentools.PV_MagNoise(
             ...     pv_chain=None,
             ...     )
             >>> pv_mag_noise.pv_chain

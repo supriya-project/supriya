@@ -7,7 +7,7 @@ class PV_BrickWall(PV_ChainUGen):
 
     ::
 
-        >>> pv_brick_wall = ugentools.PV_BrickWall.(
+        >>> pv_brick_wall = ugentools.PV_BrickWall(
         ...     pv_chain=None,
         ...     wipe=0,
         ...     )
@@ -73,7 +73,7 @@ class PV_BrickWall(PV_ChainUGen):
 
         ::
 
-            >>> pv_brick_wall = ugentools.PV_BrickWall.ar(
+            >>> pv_brick_wall = ugentools.PV_BrickWall(
             ...     pv_chain=None,
             ...     wipe=0,
             ...     )
@@ -90,7 +90,7 @@ class PV_BrickWall(PV_ChainUGen):
 
         ::
 
-            >>> pv_brick_wall = ugentools.PV_BrickWall.ar(
+            >>> pv_brick_wall = ugentools.PV_BrickWall(
             ...     pv_chain=None,
             ...     wipe=0,
             ...     )

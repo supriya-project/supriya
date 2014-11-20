@@ -7,7 +7,7 @@ class PV_MagSquared(PV_ChainUGen):
 
     ::
 
-        >>> pv_mag_squared = ugentools.PV_MagSquared.(
+        >>> pv_mag_squared = ugentools.PV_MagSquared(
         ...     pv_chain=None,
         ...     )
         >>> pv_mag_squared
@@ -66,7 +66,7 @@ class PV_MagSquared(PV_ChainUGen):
 
         ::
 
-            >>> pv_mag_squared = ugentools.PV_MagSquared.ar(
+            >>> pv_mag_squared = ugentools.PV_MagSquared(
             ...     pv_chain=None,
             ...     )
             >>> pv_mag_squared.pv_chain

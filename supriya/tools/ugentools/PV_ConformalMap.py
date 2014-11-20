@@ -7,7 +7,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
     ::
 
-        >>> pv_conformal_map = ugentools.PV_ConformalMap.(
+        >>> pv_conformal_map = ugentools.PV_ConformalMap(
         ...     aimag=0,
         ...     areal=0,
         ...     pv_chain=None,
@@ -80,7 +80,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
         ::
 
-            >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
+            >>> pv_conformal_map = ugentools.PV_ConformalMap(
             ...     aimag=0,
             ...     areal=0,
             ...     pv_chain=None,
@@ -98,7 +98,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
         ::
 
-            >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
+            >>> pv_conformal_map = ugentools.PV_ConformalMap(
             ...     aimag=0,
             ...     areal=0,
             ...     pv_chain=None,
@@ -116,7 +116,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
         ::
 
-            >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
+            >>> pv_conformal_map = ugentools.PV_ConformalMap(
             ...     aimag=0,
             ...     areal=0,
             ...     pv_chain=None,
