@@ -1,18 +1,22 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.UGen import UGen
 
 
 class KeyTrack(UGen):
-    r'''
+    r'''A key tracker.
 
     ::
 
-        >>> key_track = ugentools.KeyTrack.(
-        ...     pv_chain=None,
-        ...     chromaleak=0.5,
-        ...     keydecay=2,
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> pv_chain = ugentools.FFT(source=source)
+        >>> key_track = ugentools.KeyTrack.kr(
+        ...     pv_chain=pv_chain,
+        ...     chroma_leak=0.5,
+        ...     key_decay=2,
         ...     )
         >>> key_track
+        KeyTrack.kr()
 
     '''
 
@@ -24,27 +28,28 @@ class KeyTrack(UGen):
 
     _ordered_input_names = (
         'pv_chain',
-        'keydecay',
-        'chromaleak',
+        'key_decay',
+        'chroma_leak',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain=None,
-        chromaleak=0.5,
-        keydecay=2,
+        chroma_leak=0.5,
+        key_decay=2,
         ):
         UGen.__init__(
             self,
-            calculation_rate=calculation_rate,
+            calculation_rate=CalculationRate.CONTROL,
             pv_chain=pv_chain,
-            chromaleak=chromaleak,
-            keydecay=keydecay,
+            chroma_leak=chroma_leak,
+            key_decay=key_decay,
             )
 
     ### PUBLIC METHODS ###
@@ -53,29 +58,27 @@ class KeyTrack(UGen):
     def kr(
         cls,
         pv_chain=None,
-        chromaleak=0.5,
-        keydecay=2,
+        chroma_leak=0.5,
+        key_decay=2,
         ):
         r'''Constructs a control-rate KeyTrack.
 
         ::
 
             >>> key_track = ugentools.KeyTrack.kr(
-            ...     pv_chain=None,
-            ...     chromaleak=0.5,
-            ...     keydecay=2,
+            ...     pv_chain=pv_chain,
+            ...     chroma_leak=0.5,
+            ...     key_decay=2,
             ...     )
             >>> key_track
+            KeyTrack.kr()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain=pv_chain,
-            chromaleak=chromaleak,
-            keydecay=keydecay,
+            chroma_leak=chroma_leak,
+            key_decay=key_decay,
             )
         return ugen
 
@@ -87,12 +90,44 @@ class KeyTrack(UGen):
 
         ::
 
-            >>> key_track = ugentools.KeyTrack.ar(
-            ...     pv_chain=None,
-            ...     chromaleak=0.5,
-            ...     keydecay=2,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> key_track = ugentools.KeyTrack.kr(
+            ...     pv_chain=pv_chain,
+            ...     chroma_leak=0.5,
+            ...     key_decay=2,
             ...     )
             >>> key_track.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=In(
+                            bus=OutputProxy(
+                                source=NumOutputBuses(
+                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    ),
+                                output_index=0
+                                ),
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -100,37 +135,43 @@ class KeyTrack(UGen):
         return self._inputs[index]
 
     @property
-    def chromaleak(self):
-        r'''Gets `chromaleak` input of KeyTrack.
+    def chroma_leak(self):
+        r'''Gets `chroma_leak` input of KeyTrack.
 
         ::
 
-            >>> key_track = ugentools.KeyTrack.ar(
-            ...     pv_chain=None,
-            ...     chromaleak=0.5,
-            ...     keydecay=2,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> key_track = ugentools.KeyTrack.kr(
+            ...     pv_chain=pv_chain,
+            ...     chroma_leak=0.5,
+            ...     key_decay=2,
             ...     )
-            >>> key_track.chromaleak
+            >>> key_track.chroma_leak
+            0.5
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('chromaleak')
+        index = self._ordered_input_names.index('chroma_leak')
         return self._inputs[index]
 
     @property
-    def keydecay(self):
-        r'''Gets `keydecay` input of KeyTrack.
+    def key_decay(self):
+        r'''Gets `key_decay` input of KeyTrack.
 
         ::
 
-            >>> key_track = ugentools.KeyTrack.ar(
-            ...     pv_chain=None,
-            ...     chromaleak=0.5,
-            ...     keydecay=2,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> key_track = ugentools.KeyTrack.kr(
+            ...     pv_chain=pv_chain,
+            ...     chroma_leak=0.5,
+            ...     key_decay=2,
             ...     )
-            >>> key_track.keydecay
+            >>> key_track.key_decay
+            2.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('keydecay')
+        index = self._ordered_input_names.index('key_decay')
         return self._inputs[index]
