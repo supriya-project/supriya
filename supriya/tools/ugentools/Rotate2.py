@@ -24,7 +24,7 @@ class Rotate2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Spatialization UGens'
 
     __slots__ = ()
 
@@ -203,4 +203,3 @@ class Rotate2(MultiOutUGen):
         '''
         index = self._ordered_input_names.index('y')
         return self._inputs[index]
-

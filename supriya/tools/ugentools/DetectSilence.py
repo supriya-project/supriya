@@ -22,7 +22,7 @@ class DetectSilence(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Envelope Utility UGens'
 
     __slots__ = ()
 
