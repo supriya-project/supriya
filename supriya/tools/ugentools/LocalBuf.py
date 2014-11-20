@@ -33,9 +33,9 @@ class LocalBuf(WidthFirstUGen):
         >>> for ugen in synthdef.ugens:
         ...     ugen
         ...
-        PinkNoise.ar()
         MaxLocalBufs.ir()
         LocalBuf.ir()
+        PinkNoise.ar()
         FFT.kr()
         IFFT.ar()
         Out.ar()

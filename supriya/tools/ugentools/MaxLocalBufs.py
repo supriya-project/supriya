@@ -18,7 +18,7 @@ class MaxLocalBufs(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
