@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -17,11 +18,11 @@ class UGenSortBundle(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self, ugen):
+    def __init__(self, ugen, width_first_antecedents):
         self._antecedents = []
         self._descendants = []
         self._ugen = ugen
-        self._width_first_antecedents = []
+        self._width_first_antecedents = tuple(width_first_antecedents)
 
     ### PRIVATE METHODS ###
 

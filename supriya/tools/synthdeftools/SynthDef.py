@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 import collections
 import copy
 import hashlib
@@ -261,7 +262,8 @@ class SynthDef(ServerObjectProxy):
                 inputs = list(local_buf.inputs[:2])
                 inputs.append(max_local_bufs[0])
                 local_buf._inputs = tuple(inputs)
-            processed_ugens.append(max_local_bufs)
+            index = processed_ugens.index(local_bufs[0])
+            processed_ugens[index:index] = [max_local_bufs]
         return tuple(processed_ugens)
 
     @staticmethod
@@ -272,7 +274,6 @@ class SynthDef(ServerObjectProxy):
             if len(descendants) == 1:
                 continue
             for descendant, input_index in descendants[:-1]:
-                print(antecedent, descendant, input_index)
                 fft_size = antecedent.fft_size
                 new_buffer = ugentools.LocalBuf(fft_size)
                 copy = ugentools.PV_Copy(antecedent, new_buffer)
@@ -415,11 +416,16 @@ class SynthDef(ServerObjectProxy):
     @staticmethod
     def _sort_ugens_topologically(ugens):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         ugens = list(ugens)
         available_ugens = []
         sort_bundles = {}
+        width_first_antecedents = []
         for ugen in ugens:
-            sort_bundles[ugen] = synthdeftools.UGenSortBundle(ugen)
+            sort_bundles[ugen] = synthdeftools.UGenSortBundle(
+                ugen, width_first_antecedents)
+            if isinstance(ugen, ugentools.WidthFirstUGen):
+                width_first_antecedents.append(ugen)
         for ugen in ugens:
             sort_bundle = sort_bundles[ugen]
             sort_bundle._initialize_topological_sort(sort_bundles)

@@ -662,95 +662,46 @@ def test_SynthDef_09():
     with synthdeftools.SynthDefBuilder() as builder:
         local_buf = ugentools.LocalBuf(2048)
         source = ugentools.PinkNoise.ar()
-        chain = ugentools.FFT(
+        pv_chain = ugentools.FFT(
             buffer_id=local_buf,
             source=source,
             )
-        ifft = ugentools.IFFT.ar(buffer_id=chain)
+        ifft = ugentools.IFFT.ar(pv_chain=pv_chain)
         ugentools.Out.ar(bus=0, source=ifft)
 
     synthdef = builder.build('LocalBufTest')
     py_compiled_synthdef = synthdef.compile()
 
     test_compiled_synthdef = (
-        b'SCgf'
-        b'\x00\x00\x00\x02'
-        b'\x00\x01'
-            b'\x0cLocalBufTest'
-                b'\x00\x00\x00\x04'
-                    b'?\x80\x00\x00'
-                    b'E\x00\x00\x00'
-                    b'?\x00\x00\x00'
-                    b'\x00\x00\x00\x00'
-                b'\x00\x00\x00\x00'
-                b'\x00\x00\x00\x00'
-                b'\x00\x00\x00\x06'
-                    b'\tPinkNoise'
-                        b'\x02'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x02'
-                    b'\x0cMaxLocalBufs'
-                        b'\x00'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x00'
-                            b'\x00'
-                    b'\x08LocalBuf'
-                        b'\x00'
-                        b'\x00\x00\x00\x03'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x01'
-                            b'\x00\x00\x00\x01'
-                            b'\x00\x00\x00\x00'
-                            b'\x00'
-                    b'\x03FFT'
-                        b'\x01'
-                        b'\x00\x00\x00\x06'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x02'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x02'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x03'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x03'
-                            b'\x01'
-                    b'\x04IFFT'
-                        b'\x02'
-                        b'\x00\x00\x00\x03'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x03'
-                            b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x03'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x03'
-                            b'\x02'
-                    b'\x03Out'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                            b'\x00\x00\x00\x03'
-                            b'\x00\x00\x00\x04'
-                            b'\x00\x00\x00\x00'
-                b'\x00\x00'
+        'SCgf\x00\x00\x00\x02\x00\x01\x0cLocalBufTest\x00\x00\x00\x04?\x80\x00\x00E\x00\x00\x00?\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x0cMaxLocalBufs\x00\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x08LocalBuf\x00\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\tPinkNoise\x02\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x02\x03FFT\x01\x00\x00\x00\x06\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x03\x01\x04IFFT\x02\x00\x00\x00\x03\x00\x00\x00\x01\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x03\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00'
         )
 
     assert py_compiled_synthdef == test_compiled_synthdef
+
+
+def test_SynthDef_10():
+
+    with synthdeftools.SynthDefBuilder() as builder:
+        source = ugentools.PinkNoise.ar()
+        pv_chain = ugentools.FFT(source=source)
+        pv_chain_a = ugentools.PV_BinScramble(pv_chain=pv_chain)
+        pv_chain_b = ugentools.PV_MagFreeze(pv_chain=pv_chain)
+        pv_chain = ugentools.PV_MagMul(pv_chain_a, pv_chain_b)
+        ifft = ugentools.IFFT.ar(pv_chain=pv_chain)
+        ugentools.Out.ar(bus=0, source=ifft)
+    synthdef = builder.build('PVCopyTest')
+
+    assert tuple(repr(_) for _ in synthdef.ugens) == (
+        'PinkNoise.ar()',
+        'MaxLocalBufs.ir()',
+        'LocalBuf.ir()',
+        'FFT.kr()',
+        'BufFrames.ir()',
+        'LocalBuf.ir()',
+        'PV_Copy.kr()',
+        'PV_BinScramble.kr()',
+        'PV_MagFreeze.kr()',
+        'PV_MagMul.kr()',
+        'IFFT.ar()',
+        'Out.ar()',
+        )
