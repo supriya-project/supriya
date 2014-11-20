@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
@@ -8,15 +7,15 @@ class PV_Add(PV_ChainUGen):
 
     ::
 
-        >>> fft_a = ugentools.FFT(
+        >>> pv_chain_a = ugentools.FFT(
         ...     source=ugentools.WhiteNoise.ar(),
         ...     )
-        >>> fft_b = ugentools.FFT(
+        >>> pv_chain_b = ugentools.FFT(
         ...     source=ugentools.LFSaw.ar(),
         ...     )
         >>> pv_add = ugentools.PV_Add(
-        ...     pv_chain_a=fft_a,
-        ...     pv_chain_b=fft_b,
+        ...     pv_chain_a=pv_chain_a,
+        ...     pv_chain_b=pv_chain_b,
         ...     )
         >>> pv_add
         PV_Add.kr()
@@ -59,15 +58,15 @@ class PV_Add(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add.new(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_add
             PV_Add.kr()
@@ -88,15 +87,15 @@ class PV_Add(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_add.pv_chain_a
             OutputProxy(
@@ -134,15 +133,15 @@ class PV_Add(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_add = ugentools.PV_Add(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_add.pv_chain_b
             OutputProxy(
