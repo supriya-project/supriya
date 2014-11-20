@@ -7,13 +7,17 @@ class PV_RectComb(PV_ChainUGen):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_rect_comb = ugentools.PV_RectComb(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     num_teeth=0,
         ...     phase=0,
         ...     width=0.5,
         ...     )
         >>> pv_rect_comb
+        PV_RectComb.kr()
 
     '''
 
@@ -61,13 +65,17 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_rect_comb = ugentools.PV_RectComb.new(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb
+            PV_RectComb.kr()
 
         Returns ugen graph.
         '''
@@ -87,13 +95,39 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_rect_comb = ugentools.PV_RectComb(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -106,13 +140,17 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_rect_comb = ugentools.PV_RectComb(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb.num_teeth
+            0.0
 
         Returns ugen input.
         '''
@@ -125,13 +163,17 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_rect_comb = ugentools.PV_RectComb(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb.phase
+            0.0
 
         Returns ugen input.
         '''
@@ -144,13 +186,17 @@ class PV_RectComb(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_rect_comb = ugentools.PV_RectComb(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb.width
+            0.5
 
         Returns ugen input.
         '''

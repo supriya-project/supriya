@@ -7,14 +7,21 @@ class PV_RectComb2(PV_ChainUGen):
 
     ::
 
+        >>> pv_chain_a = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
+        >>> pv_chain_b = ugentools.FFT(
+        ...     source=ugentools.LFSaw.ar(),
+        ...     )
         >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-        ...     buffer_a=None,
-        ...     buffer_b=None,
+        ...     pv_chain_a=pv_chain_a,
+        ...     pv_chain_b=pv_chain_b,
         ...     num_teeth=0,
         ...     phase=0,
         ...     width=0.5,
         ...     )
         >>> pv_rect_comb_2
+        PV_RectComb2.kr()
 
     '''
 
@@ -25,8 +32,8 @@ class PV_RectComb2(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_a',
-        'buffer_b',
+        'pv_chain_a',
+        'pv_chain_b',
         'num_teeth',
         'phase',
         'width',
@@ -36,16 +43,16 @@ class PV_RectComb2(PV_ChainUGen):
 
     def __init__(
         self,
-        buffer_a=None,
-        buffer_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         num_teeth=0,
         phase=0,
         width=0.5,
         ):
         PV_ChainUGen.__init__(
             self,
-            buffer_a=buffer_a,
-            buffer_b=buffer_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             num_teeth=num_teeth,
             phase=phase,
             width=width,
@@ -56,8 +63,8 @@ class PV_RectComb2(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_a=None,
-        buffer_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         num_teeth=0,
         phase=0,
         width=0.5,
@@ -66,20 +73,27 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2.new(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb_2
+            PV_RectComb2.kr()
 
         Returns ugen graph.
         '''
         ugen = cls._new_expanded(
-            buffer_a=buffer_a,
-            buffer_b=buffer_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             num_teeth=num_teeth,
             phase=phase,
             width=width,
@@ -89,43 +103,103 @@ class PV_RectComb2(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_a(self):
-        r'''Gets `buffer_a` input of PV_RectComb2.
+    def pv_chain_a(self):
+        r'''Gets `pv_chain_a` input of PV_RectComb2.
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
-            >>> pv_rect_comb_2.buffer_a
+            >>> pv_rect_comb_2.pv_chain_a
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_a')
+        index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
-    def buffer_b(self):
-        r'''Gets `buffer_b` input of PV_RectComb2.
+    def pv_chain_b(self):
+        r'''Gets `pv_chain_b` input of PV_RectComb2.
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
-            >>> pv_rect_comb_2.buffer_b
+            >>> pv_rect_comb_2.pv_chain_b
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=LFSaw(
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            frequency=440.0,
+                            initial_phase=0.0
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_b')
+        index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]
 
     @property
@@ -134,14 +208,21 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb_2.num_teeth
+            0.0
 
         Returns ugen input.
         '''
@@ -154,14 +235,21 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb_2.phase
+            0.0
 
         Returns ugen input.
         '''
@@ -174,14 +262,21 @@ class PV_RectComb2(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain_a = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
+            >>> pv_chain_b = ugentools.FFT(
+            ...     source=ugentools.LFSaw.ar(),
+            ...     )
             >>> pv_rect_comb_2 = ugentools.PV_RectComb2(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
             >>> pv_rect_comb_2.width
+            0.5
 
         Returns ugen input.
         '''
