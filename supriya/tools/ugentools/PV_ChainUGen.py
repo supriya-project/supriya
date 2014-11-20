@@ -16,12 +16,10 @@ class PV_ChainUGen(WidthFirstUGen):
     
     def __init__(
         self,
-        calculation_rate=None,
         **kwargs
         ):
         from supriya.tools import synthdeftools
-        if calculation_rate is None:
-            calculation_rate = synthdeftools.CalculationRate.CONTROL
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,

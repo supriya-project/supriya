@@ -8,8 +8,8 @@ class PV_BinWipe(PV_ChainUGen):
     ::
 
         >>> pv_bin_wipe = ugentools.PV_BinWipe.(
-        ...     buffer_a=None,
-        ...     buffer_b=None,
+        ...     pv_chain_a=None,
+        ...     pv_chain_b=None,
         ...     wipe=0,
         ...     )
         >>> pv_bin_wipe
@@ -23,27 +23,23 @@ class PV_BinWipe(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_a',
-        'buffer_b',
+        'pv_chain_a',
+        'pv_chain_b',
         'wipe',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_a=None,
-        buffer_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         wipe=0,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_a=buffer_a,
-            buffer_b=buffer_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             wipe=wipe,
             )
 
@@ -52,8 +48,8 @@ class PV_BinWipe(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_a=None,
-        buffer_b=None,
+        pv_chain_a=None,
+        pv_chain_b=None,
         wipe=0,
         ):
         r'''Constructs a PV_BinWipe.
@@ -61,20 +57,17 @@ class PV_BinWipe(PV_ChainUGen):
         ::
 
             >>> pv_bin_wipe = ugentools.PV_BinWipe.new(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=None,
+            ...     pv_chain_b=None,
             ...     wipe=0,
             ...     )
             >>> pv_bin_wipe
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_a=buffer_a,
-            buffer_b=buffer_b,
+            pv_chain_a=pv_chain_a,
+            pv_chain_b=pv_chain_b,
             wipe=wipe,
             )
         return ugen
@@ -82,39 +75,39 @@ class PV_BinWipe(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_a(self):
-        r'''Gets `buffer_a` input of PV_BinWipe.
+    def pv_chain_a(self):
+        r'''Gets `pv_chain_a` input of PV_BinWipe.
 
         ::
 
             >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=None,
+            ...     pv_chain_b=None,
             ...     wipe=0,
             ...     )
-            >>> pv_bin_wipe.buffer_a
+            >>> pv_bin_wipe.pv_chain_a
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_a')
+        index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
-    def buffer_b(self):
-        r'''Gets `buffer_b` input of PV_BinWipe.
+    def pv_chain_b(self):
+        r'''Gets `pv_chain_b` input of PV_BinWipe.
 
         ::
 
             >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=None,
+            ...     pv_chain_b=None,
             ...     wipe=0,
             ...     )
-            >>> pv_bin_wipe.buffer_b
+            >>> pv_bin_wipe.pv_chain_b
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_b')
+        index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]
 
     @property
@@ -124,8 +117,8 @@ class PV_BinWipe(PV_ChainUGen):
         ::
 
             >>> pv_bin_wipe = ugentools.PV_BinWipe.ar(
-            ...     buffer_a=None,
-            ...     buffer_b=None,
+            ...     pv_chain_a=None,
+            ...     pv_chain_b=None,
             ...     wipe=0,
             ...     )
             >>> pv_bin_wipe.wipe

@@ -8,7 +8,7 @@ class PV_Diffuser(PV_ChainUGen):
     ::
 
         >>> pv_diffuser = ugentools.PV_Diffuser.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     trigger=0,
         ...     )
         >>> pv_diffuser
@@ -22,24 +22,20 @@ class PV_Diffuser(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'trigger',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         trigger=0,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             trigger=trigger,
             )
 
@@ -48,7 +44,7 @@ class PV_Diffuser(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         trigger=0,
         ):
         r'''Constructs a PV_Diffuser.
@@ -56,18 +52,15 @@ class PV_Diffuser(PV_ChainUGen):
         ::
 
             >>> pv_diffuser = ugentools.PV_Diffuser.new(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     )
             >>> pv_diffuser
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             trigger=trigger,
             )
         return ugen
@@ -75,20 +68,20 @@ class PV_Diffuser(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_Diffuser.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_Diffuser.
 
         ::
 
             >>> pv_diffuser = ugentools.PV_Diffuser.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     )
-            >>> pv_diffuser.buffer_id
+            >>> pv_diffuser.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -98,7 +91,7 @@ class PV_Diffuser(PV_ChainUGen):
         ::
 
             >>> pv_diffuser = ugentools.PV_Diffuser.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     )
             >>> pv_diffuser.trigger

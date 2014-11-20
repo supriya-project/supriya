@@ -32,13 +32,10 @@ class PV_RectComb2(PV_ChainUGen):
         'width',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         buffer_a=None,
         buffer_b=None,
         num_teeth=0,
@@ -47,7 +44,6 @@ class PV_RectComb2(PV_ChainUGen):
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             buffer_a=buffer_a,
             buffer_b=buffer_b,
             num_teeth=num_teeth,
@@ -81,10 +77,7 @@ class PV_RectComb2(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             buffer_a=buffer_a,
             buffer_b=buffer_b,
             num_teeth=num_teeth,

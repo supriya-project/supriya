@@ -9,7 +9,7 @@ class PV_MagSmear(PV_ChainUGen):
 
         >>> pv_mag_smear = ugentools.PV_MagSmear.(
         ...     bins=0,
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     )
         >>> pv_mag_smear
 
@@ -22,25 +22,21 @@ class PV_MagSmear(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'bins',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         bins=0,
-        buffer_id=None,
+        pv_chain=None,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             bins=bins,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
 
     ### PUBLIC METHODS ###
@@ -49,7 +45,7 @@ class PV_MagSmear(PV_ChainUGen):
     def new(
         cls,
         bins=0,
-        buffer_id=None,
+        pv_chain=None,
         ):
         r'''Constructs a PV_MagSmear.
 
@@ -57,18 +53,15 @@ class PV_MagSmear(PV_ChainUGen):
 
             >>> pv_mag_smear = ugentools.PV_MagSmear.new(
             ...     bins=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> pv_mag_smear
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             bins=bins,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
         return ugen
 
@@ -82,7 +75,7 @@ class PV_MagSmear(PV_ChainUGen):
 
             >>> pv_mag_smear = ugentools.PV_MagSmear.ar(
             ...     bins=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> pv_mag_smear.bins
 
@@ -92,18 +85,18 @@ class PV_MagSmear(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_MagSmear.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_MagSmear.
 
         ::
 
             >>> pv_mag_smear = ugentools.PV_MagSmear.ar(
             ...     bins=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
-            >>> pv_mag_smear.buffer_id
+            >>> pv_mag_smear.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

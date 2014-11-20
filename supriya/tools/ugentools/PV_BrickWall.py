@@ -8,7 +8,7 @@ class PV_BrickWall(PV_ChainUGen):
     ::
 
         >>> pv_brick_wall = ugentools.PV_BrickWall.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     wipe=0,
         ...     )
         >>> pv_brick_wall
@@ -22,24 +22,20 @@ class PV_BrickWall(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'wipe',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         wipe=0,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             wipe=wipe,
             )
 
@@ -48,7 +44,7 @@ class PV_BrickWall(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         wipe=0,
         ):
         r'''Constructs a PV_BrickWall.
@@ -56,18 +52,15 @@ class PV_BrickWall(PV_ChainUGen):
         ::
 
             >>> pv_brick_wall = ugentools.PV_BrickWall.new(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     wipe=0,
             ...     )
             >>> pv_brick_wall
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             wipe=wipe,
             )
         return ugen
@@ -75,20 +68,20 @@ class PV_BrickWall(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_BrickWall.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_BrickWall.
 
         ::
 
             >>> pv_brick_wall = ugentools.PV_BrickWall.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     wipe=0,
             ...     )
-            >>> pv_brick_wall.buffer_id
+            >>> pv_brick_wall.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -98,7 +91,7 @@ class PV_BrickWall(PV_ChainUGen):
         ::
 
             >>> pv_brick_wall = ugentools.PV_BrickWall.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     wipe=0,
             ...     )
             >>> pv_brick_wall.wipe

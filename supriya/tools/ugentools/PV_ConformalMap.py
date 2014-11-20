@@ -10,7 +10,7 @@ class PV_ConformalMap(PV_ChainUGen):
         >>> pv_conformal_map = ugentools.PV_ConformalMap.(
         ...     aimag=0,
         ...     areal=0,
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     )
         >>> pv_conformal_map
 
@@ -23,28 +23,24 @@ class PV_ConformalMap(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'areal',
         'aimag',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         aimag=0,
         areal=0,
-        buffer_id=None,
+        pv_chain=None,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             aimag=aimag,
             areal=areal,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
 
     ### PUBLIC METHODS ###
@@ -54,7 +50,7 @@ class PV_ConformalMap(PV_ChainUGen):
         cls,
         aimag=0,
         areal=0,
-        buffer_id=None,
+        pv_chain=None,
         ):
         r'''Constructs a PV_ConformalMap.
 
@@ -63,19 +59,16 @@ class PV_ConformalMap(PV_ChainUGen):
             >>> pv_conformal_map = ugentools.PV_ConformalMap.new(
             ...     aimag=0,
             ...     areal=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> pv_conformal_map
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             aimag=aimag,
             areal=areal,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
         return ugen
 
@@ -90,7 +83,7 @@ class PV_ConformalMap(PV_ChainUGen):
             >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
             ...     aimag=0,
             ...     areal=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> pv_conformal_map.aimag
 
@@ -108,7 +101,7 @@ class PV_ConformalMap(PV_ChainUGen):
             >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
             ...     aimag=0,
             ...     areal=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> pv_conformal_map.areal
 
@@ -118,19 +111,19 @@ class PV_ConformalMap(PV_ChainUGen):
         return self._inputs[index]
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_ConformalMap.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_ConformalMap.
 
         ::
 
             >>> pv_conformal_map = ugentools.PV_ConformalMap.ar(
             ...     aimag=0,
             ...     areal=0,
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
-            >>> pv_conformal_map.buffer_id
+            >>> pv_conformal_map.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

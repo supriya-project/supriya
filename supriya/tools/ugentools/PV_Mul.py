@@ -34,21 +34,15 @@ class PV_Mul(PV_ChainUGen):
         'pv_chain_b',
         )
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        )
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain_a=None,
         pv_chain_b=None,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
             )

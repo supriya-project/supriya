@@ -34,21 +34,15 @@ class PV_Max(PV_ChainUGen):
         'pv_chain_b',
         )
 
-    _valid_calculation_rates = (
-        CalculationRate.CONTROL,
-        )
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain_a=None,
         pv_chain_b=None,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
             )
@@ -80,10 +74,7 @@ class PV_Max(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
             )

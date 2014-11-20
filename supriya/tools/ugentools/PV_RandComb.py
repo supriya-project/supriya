@@ -8,7 +8,7 @@ class PV_RandComb(PV_ChainUGen):
     ::
 
         >>> pv_rand_comb = ugentools.PV_RandComb.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     trigger=0,
         ...     wipe=0,
         ...     )
@@ -23,26 +23,22 @@ class PV_RandComb(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'wipe',
         'trigger',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         trigger=0,
         wipe=0,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             trigger=trigger,
             wipe=wipe,
             )
@@ -52,7 +48,7 @@ class PV_RandComb(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         trigger=0,
         wipe=0,
         ):
@@ -61,7 +57,7 @@ class PV_RandComb(PV_ChainUGen):
         ::
 
             >>> pv_rand_comb = ugentools.PV_RandComb.new(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
             ...     )
@@ -69,11 +65,8 @@ class PV_RandComb(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             trigger=trigger,
             wipe=wipe,
             )
@@ -82,21 +75,21 @@ class PV_RandComb(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_RandComb.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_RandComb.
 
         ::
 
             >>> pv_rand_comb = ugentools.PV_RandComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
             ...     )
-            >>> pv_rand_comb.buffer_id
+            >>> pv_rand_comb.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -106,7 +99,7 @@ class PV_RandComb(PV_ChainUGen):
         ::
 
             >>> pv_rand_comb = ugentools.PV_RandComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
             ...     )
@@ -124,7 +117,7 @@ class PV_RandComb(PV_ChainUGen):
         ::
 
             >>> pv_rand_comb = ugentools.PV_RandComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     trigger=0,
             ...     wipe=0,
             ...     )

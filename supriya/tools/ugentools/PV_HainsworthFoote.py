@@ -8,7 +8,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ::
 
         >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     propf=0,
         ...     proph=0,
         ...     threshold=1,
@@ -25,21 +25,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'proph',
         'propf',
         'threshold',
         'waittime',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         propf=0,
         proph=0,
         threshold=1,
@@ -47,8 +44,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             propf=propf,
             proph=proph,
             threshold=threshold,
@@ -60,7 +56,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         propf=0,
         proph=0,
         threshold=1,
@@ -71,7 +67,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -81,11 +77,8 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             propf=propf,
             proph=proph,
             threshold=threshold,
@@ -96,23 +89,23 @@ class PV_HainsworthFoote(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_HainsworthFoote.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_HainsworthFoote.
 
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
-            >>> pv_hainsworth_foote.buffer_id
+            >>> pv_hainsworth_foote.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -122,7 +115,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -142,7 +135,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -162,7 +155,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
@@ -182,7 +175,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         ::
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,

@@ -28,20 +28,16 @@ class PV_MagDiv(PV_ChainUGen):
         'zeroed',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         buffer_a=None,
         buffer_b=None,
         zeroed=0.0001,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             buffer_a=buffer_a,
             buffer_b=buffer_b,
             zeroed=zeroed,
@@ -69,10 +65,7 @@ class PV_MagDiv(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             buffer_a=buffer_a,
             buffer_b=buffer_b,
             zeroed=zeroed,

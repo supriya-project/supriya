@@ -8,7 +8,7 @@ class PV_RectComb(PV_ChainUGen):
     ::
 
         >>> pv_rect_comb = ugentools.PV_RectComb.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     num_teeth=0,
         ...     phase=0,
         ...     width=0.5,
@@ -24,28 +24,24 @@ class PV_RectComb(PV_ChainUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'num_teeth',
         'phase',
         'width',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         num_teeth=0,
         phase=0,
         width=0.5,
         ):
         PV_ChainUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             num_teeth=num_teeth,
             phase=phase,
             width=width,
@@ -56,7 +52,7 @@ class PV_RectComb(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         num_teeth=0,
         phase=0,
         width=0.5,
@@ -66,7 +62,7 @@ class PV_RectComb(PV_ChainUGen):
         ::
 
             >>> pv_rect_comb = ugentools.PV_RectComb.new(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
@@ -75,11 +71,8 @@ class PV_RectComb(PV_ChainUGen):
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             num_teeth=num_teeth,
             phase=phase,
             width=width,
@@ -89,22 +82,22 @@ class PV_RectComb(PV_ChainUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of PV_RectComb.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of PV_RectComb.
 
         ::
 
             >>> pv_rect_comb = ugentools.PV_RectComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
             ...     )
-            >>> pv_rect_comb.buffer_id
+            >>> pv_rect_comb.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -114,7 +107,7 @@ class PV_RectComb(PV_ChainUGen):
         ::
 
             >>> pv_rect_comb = ugentools.PV_RectComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
@@ -133,7 +126,7 @@ class PV_RectComb(PV_ChainUGen):
         ::
 
             >>> pv_rect_comb = ugentools.PV_RectComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
@@ -152,7 +145,7 @@ class PV_RectComb(PV_ChainUGen):
         ::
 
             >>> pv_rect_comb = ugentools.PV_RectComb.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     num_teeth=0,
             ...     phase=0,
             ...     width=0.5,
