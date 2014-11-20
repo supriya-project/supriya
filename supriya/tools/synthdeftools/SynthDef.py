@@ -74,7 +74,7 @@ class SynthDef(ServerObjectProxy):
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
-        input_mapping = self._build_input_mapping(ugens)
+        ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
         ugens = self._optimize_ugen_graph(ugens)
         ugens, parameters = self._extract_parameters(ugens)
@@ -224,21 +224,21 @@ class SynthDef(ServerObjectProxy):
         return request
 
     @staticmethod
-    def _add_copies_if_necessary(ugens):
-        input_mapping = SynthDef._build_input_mapping(ugens)
-        return ugens
-
-    @staticmethod
     def _build_input_mapping(ugens):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         input_mapping = {}
         for ugen in ugens:
-            if isinstance(ugen, synthdeftools.Parameter):
+            if not isinstance(ugen, ugentools.PV_ChainUGen):
+                continue
+            if isinstance(ugen, ugentools.PV_Copy):
                 continue
             for i, input_ in enumerate(ugen.inputs):
                 if not isinstance(input_, synthdeftools.OutputProxy):
                     continue
                 source = input_.source
+                if not isinstance(source, ugentools.PV_ChainUGen):
+                    continue
                 if source not in input_mapping:
                     input_mapping[source] = []
                 input_mapping[source].append((ugen, i))
@@ -263,6 +263,23 @@ class SynthDef(ServerObjectProxy):
                 local_buf._inputs = tuple(inputs)
             processed_ugens.append(max_local_bufs)
         return tuple(processed_ugens)
+
+    @staticmethod
+    def _cleanup_pv_chains(ugens):
+        from supriya.tools import ugentools
+        input_mapping = SynthDef._build_input_mapping(ugens)
+        for antecedent, descendants in input_mapping.items():
+            if len(descendants) == 1:
+                continue
+            for descendant, input_index in descendants[:-1]:
+                print(antecedent, descendant, input_index)
+                fft_size = antecedent.fft_size
+                new_buffer = ugentools.LocalBuf(fft_size)
+                copy = ugentools.PV_Copy(antecedent, new_buffer)
+                descendant._inputs[input_index] = copy[0]
+                index = ugens.index(descendant)
+                ugens[index:index] = [fft_size, new_buffer, copy]
+        return ugens
 
     @staticmethod
     def _collect_constants(ugens):
