@@ -1,27 +1,31 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class FFT(PV_ChainUGen):
-    r'''
+    r'''A fast Fourier transform.
 
     ::
 
-        >>> fft = ugentools.FFT.(
+        >>> buffer_id = ugentools.LocalBuf(2048)
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> fft = ugentools.FFT(
         ...     active=1,
-        ...     buffer_id=None,
+        ...     buffer_id=buffer_id,
         ...     hop=0.5,
-        ...     source=None,
+        ...     source=source,
         ...     window_size=0,
         ...     window_type=0,
         ...     )
         >>> fft
+        FFT.kr()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'FFT UGens'
 
     __slots__ = ()
 
@@ -34,20 +38,25 @@ class FFT(PV_ChainUGen):
         'window_size',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
+        buffer_id=None,
         calculation_rate=None,
         active=1,
-        buffer_id=None,
         hop=0.5,
         source=None,
         window_size=0,
         window_type=0,
         ):
+        from supriya.tools import synthdeftools
+        if calculation_rate is None:
+            calculation_rate = synthdeftools.CalculationRate.CONTROL
         PV_ChainUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -75,20 +84,23 @@ class FFT(PV_ChainUGen):
 
         ::
 
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
             >>> fft = ugentools.FFT.new(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft
+            FFT.kr()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             active=active,
@@ -108,15 +120,18 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.active
+            1.0
 
         Returns ugen input.
         '''
@@ -129,15 +144,25 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.buffer_id
+            OutputProxy(
+                source=LocalBuf(
+                    frame_count=2048.0,
+                    calculation_rate=<CalculationRate.SCALAR: 0>,
+                    channel_count=1.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -150,15 +175,18 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.hop
+            0.5
 
         Returns ugen input.
         '''
@@ -171,15 +199,30 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.source
+            OutputProxy(
+                source=In(
+                    bus=OutputProxy(
+                        source=NumOutputBuses(
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -192,15 +235,18 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.window_size
+            0.0
 
         Returns ugen input.
         '''
@@ -213,15 +259,18 @@ class FFT(PV_ChainUGen):
 
         ::
 
-            >>> fft = ugentools.FFT.ar(
+            >>> buffer_id = ugentools.LocalBuf(2048)
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> fft = ugentools.FFT(
             ...     active=1,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     window_size=0,
             ...     window_type=0,
             ...     )
             >>> fft.window_type
+            0.0
 
         Returns ugen input.
         '''

@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
@@ -27,7 +28,9 @@ class LocalBuf(WidthFirstUGen):
         'channel_count',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.SCALAR,
+        )
 
     ### INITIALIZER ###
 
