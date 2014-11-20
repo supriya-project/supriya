@@ -25,7 +25,7 @@ class PV_Min(PV_ChainUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'FFT UGens'
 
     __slots__ = ()
 
