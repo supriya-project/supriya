@@ -8,7 +8,7 @@ class Onsets(UGen):
     ::
 
         >>> onsets = ugentools.Onsets.(
-        ...     chain=None,
+        ...     pv_chain=None,
         ...     floor=0.1,
         ...     medianspan=11,
         ...     mingap=10,
@@ -24,12 +24,12 @@ class Onsets(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'chain',
+        'pv_chain',
         'threshold',
         'odftype',
         'relaxtime',
@@ -47,7 +47,7 @@ class Onsets(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        chain=None,
+        pv_chain=None,
         floor=0.1,
         medianspan=11,
         mingap=10,
@@ -60,7 +60,7 @@ class Onsets(UGen):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             floor=floor,
             medianspan=medianspan,
             mingap=mingap,
@@ -76,7 +76,7 @@ class Onsets(UGen):
     @classmethod
     def kr(
         cls,
-        chain=None,
+        pv_chain=None,
         floor=0.1,
         medianspan=11,
         mingap=10,
@@ -91,7 +91,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.kr(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -109,7 +109,7 @@ class Onsets(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             floor=floor,
             medianspan=medianspan,
             mingap=mingap,
@@ -124,13 +124,13 @@ class Onsets(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def chain(self):
-        r'''Gets `chain` input of Onsets.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of Onsets.
 
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -140,11 +140,11 @@ class Onsets(UGen):
             ...     threshold=0.5,
             ...     whtype=1,
             ...     )
-            >>> onsets.chain
+            >>> onsets.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -154,7 +154,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -178,7 +178,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -202,7 +202,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -226,7 +226,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -250,7 +250,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -274,7 +274,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -298,7 +298,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,
@@ -322,7 +322,7 @@ class Onsets(UGen):
         ::
 
             >>> onsets = ugentools.Onsets.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     floor=0.1,
             ...     medianspan=11,
             ...     mingap=10,

@@ -8,7 +8,7 @@ class BeatTrack(MultiOutUGen):
     ::
 
         >>> beat_track = ugentools.BeatTrack.(
-        ...     chain=None,
+        ...     pv_chain=None,
         ...     lock=0,
         ...     )
         >>> beat_track
@@ -17,12 +17,12 @@ class BeatTrack(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'chain',
+        'pv_chain',
         'lock',
         )
 
@@ -33,13 +33,13 @@ class BeatTrack(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        chain=None,
+        pv_chain=None,
         lock=0,
         ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             lock=lock,
             )
 
@@ -48,7 +48,7 @@ class BeatTrack(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        chain=None,
+        pv_chain=None,
         lock=0,
         ):
         r'''Constructs a control-rate BeatTrack.
@@ -56,7 +56,7 @@ class BeatTrack(MultiOutUGen):
         ::
 
             >>> beat_track = ugentools.BeatTrack.kr(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     lock=0,
             ...     )
             >>> beat_track
@@ -67,7 +67,7 @@ class BeatTrack(MultiOutUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             lock=lock,
             )
         return ugen
@@ -77,20 +77,20 @@ class BeatTrack(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def chain(self):
-        r'''Gets `chain` input of BeatTrack.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of BeatTrack.
 
         ::
 
             >>> beat_track = ugentools.BeatTrack.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     lock=0,
             ...     )
-            >>> beat_track.chain
+            >>> beat_track.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -100,7 +100,7 @@ class BeatTrack(MultiOutUGen):
         ::
 
             >>> beat_track = ugentools.BeatTrack.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     lock=0,
             ...     )
             >>> beat_track.lock

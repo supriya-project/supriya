@@ -21,7 +21,7 @@ class BeatTrack2(MultiOutUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 

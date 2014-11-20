@@ -3,12 +3,12 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Loudness(UGen):
-    r'''
+    r'''Extraction of instantaneous loudness in `sones`.
 
     ::
 
-        >>> loudness = ugentools.Loudness.(
-        ...     chain=None,
+        >>> loudness = ugentools.Loudness(
+        ...     pv_chain=None,
         ...     smask=0.25,
         ...     tmask=1,
         ...     )
@@ -18,12 +18,12 @@ class Loudness(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'chain',
+        'pv_chain',
         'smask',
         'tmask',
         )
@@ -35,14 +35,14 @@ class Loudness(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        chain=None,
+        pv_chain=None,
         smask=0.25,
         tmask=1,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             smask=smask,
             tmask=tmask,
             )
@@ -52,7 +52,7 @@ class Loudness(UGen):
     @classmethod
     def kr(
         cls,
-        chain=None,
+        pv_chain=None,
         smask=0.25,
         tmask=1,
         ):
@@ -61,7 +61,7 @@ class Loudness(UGen):
         ::
 
             >>> loudness = ugentools.Loudness.kr(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
@@ -73,7 +73,7 @@ class Loudness(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             smask=smask,
             tmask=tmask,
             )
@@ -82,21 +82,21 @@ class Loudness(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def chain(self):
-        r'''Gets `chain` input of Loudness.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of Loudness.
 
         ::
 
             >>> loudness = ugentools.Loudness.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
-            >>> loudness.chain
+            >>> loudness.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -106,7 +106,7 @@ class Loudness(UGen):
         ::
 
             >>> loudness = ugentools.Loudness.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )
@@ -124,7 +124,7 @@ class Loudness(UGen):
         ::
 
             >>> loudness = ugentools.Loudness.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     smask=0.25,
             ...     tmask=1,
             ...     )

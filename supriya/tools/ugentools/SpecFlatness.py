@@ -8,7 +8,7 @@ class SpecFlatness(UGen):
     ::
 
         >>> spec_flatness = ugentools.SpecFlatness.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     )
         >>> spec_flatness
 
@@ -16,12 +16,12 @@ class SpecFlatness(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         )
 
     _valid_calculation_rates = None
@@ -31,12 +31,12 @@ class SpecFlatness(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
 
     ### PUBLIC METHODS ###
@@ -44,14 +44,14 @@ class SpecFlatness(UGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         ):
         r'''Constructs a control-rate SpecFlatness.
 
         ::
 
             >>> spec_flatness = ugentools.SpecFlatness.kr(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
             >>> spec_flatness
 
@@ -61,24 +61,24 @@ class SpecFlatness(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of SpecFlatness.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of SpecFlatness.
 
         ::
 
             >>> spec_flatness = ugentools.SpecFlatness.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     )
-            >>> spec_flatness.buffer_id
+            >>> spec_flatness.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

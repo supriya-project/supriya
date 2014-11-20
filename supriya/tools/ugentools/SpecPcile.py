@@ -8,7 +8,7 @@ class SpecPcile(UGen):
     ::
 
         >>> spec_pcile = ugentools.SpecPcile.(
-        ...     buffer_id=None,
+        ...     pv_chain=None,
         ...     fraction=0.5,
         ...     interpolate=0,
         ...     )
@@ -18,12 +18,12 @@ class SpecPcile(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'buffer_id',
+        'pv_chain',
         'fraction',
         'interpolate',
         )
@@ -35,14 +35,14 @@ class SpecPcile(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id=None,
+        pv_chain=None,
         fraction=0.5,
         interpolate=0,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             fraction=fraction,
             interpolate=interpolate,
             )
@@ -52,7 +52,7 @@ class SpecPcile(UGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
+        pv_chain=None,
         fraction=0.5,
         interpolate=0,
         ):
@@ -61,7 +61,7 @@ class SpecPcile(UGen):
         ::
 
             >>> spec_pcile = ugentools.SpecPcile.kr(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     fraction=0.5,
             ...     interpolate=0,
             ...     )
@@ -73,7 +73,7 @@ class SpecPcile(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            buffer_id=buffer_id,
+            pv_chain=pv_chain,
             fraction=fraction,
             interpolate=interpolate,
             )
@@ -82,21 +82,21 @@ class SpecPcile(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def buffer_id(self):
-        r'''Gets `buffer_id` input of SpecPcile.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of SpecPcile.
 
         ::
 
             >>> spec_pcile = ugentools.SpecPcile.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     fraction=0.5,
             ...     interpolate=0,
             ...     )
-            >>> spec_pcile.buffer_id
+            >>> spec_pcile.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('buffer_id')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -106,7 +106,7 @@ class SpecPcile(UGen):
         ::
 
             >>> spec_pcile = ugentools.SpecPcile.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     fraction=0.5,
             ...     interpolate=0,
             ...     )
@@ -124,7 +124,7 @@ class SpecPcile(UGen):
         ::
 
             >>> spec_pcile = ugentools.SpecPcile.ar(
-            ...     buffer_id=None,
+            ...     pv_chain=None,
             ...     fraction=0.5,
             ...     interpolate=0,
             ...     )

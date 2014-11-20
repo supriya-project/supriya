@@ -8,7 +8,7 @@ class KeyTrack(UGen):
     ::
 
         >>> key_track = ugentools.KeyTrack.(
-        ...     chain=None,
+        ...     pv_chain=None,
         ...     chromaleak=0.5,
         ...     keydecay=2,
         ...     )
@@ -18,12 +18,12 @@ class KeyTrack(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Machine Listening UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'chain',
+        'pv_chain',
         'keydecay',
         'chromaleak',
         )
@@ -35,14 +35,14 @@ class KeyTrack(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        chain=None,
+        pv_chain=None,
         chromaleak=0.5,
         keydecay=2,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             chromaleak=chromaleak,
             keydecay=keydecay,
             )
@@ -52,7 +52,7 @@ class KeyTrack(UGen):
     @classmethod
     def kr(
         cls,
-        chain=None,
+        pv_chain=None,
         chromaleak=0.5,
         keydecay=2,
         ):
@@ -61,7 +61,7 @@ class KeyTrack(UGen):
         ::
 
             >>> key_track = ugentools.KeyTrack.kr(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     chromaleak=0.5,
             ...     keydecay=2,
             ...     )
@@ -73,7 +73,7 @@ class KeyTrack(UGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            chain=chain,
+            pv_chain=pv_chain,
             chromaleak=chromaleak,
             keydecay=keydecay,
             )
@@ -82,21 +82,21 @@ class KeyTrack(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def chain(self):
-        r'''Gets `chain` input of KeyTrack.
+    def pv_chain(self):
+        r'''Gets `pv_chain` input of KeyTrack.
 
         ::
 
             >>> key_track = ugentools.KeyTrack.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     chromaleak=0.5,
             ...     keydecay=2,
             ...     )
-            >>> key_track.chain
+            >>> key_track.pv_chain
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('chain')
+        index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
@@ -106,7 +106,7 @@ class KeyTrack(UGen):
         ::
 
             >>> key_track = ugentools.KeyTrack.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     chromaleak=0.5,
             ...     keydecay=2,
             ...     )
@@ -124,7 +124,7 @@ class KeyTrack(UGen):
         ::
 
             >>> key_track = ugentools.KeyTrack.ar(
-            ...     chain=None,
+            ...     pv_chain=None,
             ...     chromaleak=0.5,
             ...     keydecay=2,
             ...     )

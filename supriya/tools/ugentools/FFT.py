@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
