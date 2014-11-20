@@ -74,6 +74,7 @@ class SynthDef(ServerObjectProxy):
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
+        input_mapping = self._build_input_mapping(ugens)
         ugens = self._cleanup_local_bufs(ugens)
         ugens = self._optimize_ugen_graph(ugens)
         ugens, parameters = self._extract_parameters(ugens)
@@ -221,6 +222,27 @@ class SynthDef(ServerObjectProxy):
             synthdefs=(self,),
             )
         return request
+
+    @staticmethod
+    def _add_copies_if_necessary(ugens):
+        input_mapping = SynthDef._build_input_mapping(ugens)
+        return ugens
+
+    @staticmethod
+    def _build_input_mapping(ugens):
+        from supriya.tools import synthdeftools
+        input_mapping = {}
+        for ugen in ugens:
+            if isinstance(ugen, synthdeftools.Parameter):
+                continue
+            for i, input_ in enumerate(ugen.inputs):
+                if not isinstance(input_, synthdeftools.OutputProxy):
+                    continue
+                source = input_.source
+                if source not in input_mapping:
+                    input_mapping[source] = []
+                input_mapping[source].append((ugen, i))
+        return input_mapping
 
     @staticmethod
     def _cleanup_local_bufs(ugens):
