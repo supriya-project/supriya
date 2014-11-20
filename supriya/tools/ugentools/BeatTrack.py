@@ -1,17 +1,21 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BeatTrack(MultiOutUGen):
-    r'''
+    r'''Autocorrelation beat tracker.
 
     ::
 
-        >>> beat_track = ugentools.BeatTrack.(
-        ...     pv_chain=None,
+        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> pv_chain = ugentools.FFT(source=source)
+        >>> beat_track = ugentools.BeatTrack.kr(
+        ...     pv_chain=pv_chain,
         ...     lock=0,
         ...     )
         >>> beat_track
+        UGenArray({4})
 
     '''
 
@@ -26,21 +30,23 @@ class BeatTrack(MultiOutUGen):
         'lock',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         pv_chain=None,
         lock=0,
         ):
         MultiOutUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            pv_chain=pv_chain,
+            calculation_rate=CalculationRate.CONTROL,
+            channel_count=4,
             lock=lock,
+            pv_chain=pv_chain,
             )
 
     ### PUBLIC METHODS ###
@@ -55,18 +61,18 @@ class BeatTrack(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
             >>> beat_track = ugentools.BeatTrack.kr(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     lock=0,
             ...     )
             >>> beat_track
+            UGenArray({4})
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             pv_chain=pv_chain,
             lock=lock,
             )
@@ -82,11 +88,43 @@ class BeatTrack(MultiOutUGen):
 
         ::
 
-            >>> beat_track = ugentools.BeatTrack.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> beat_track = ugentools.BeatTrack.kr(
+            ...     pv_chain=pv_chain,
             ...     lock=0,
             ...     )
-            >>> beat_track.pv_chain
+            >>> beat_track[0].source.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=In(
+                            bus=OutputProxy(
+                                source=NumOutputBuses(
+                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    ),
+                                output_index=0
+                                ),
+                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            channel_count=1
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -99,11 +137,14 @@ class BeatTrack(MultiOutUGen):
 
         ::
 
-            >>> beat_track = ugentools.BeatTrack.ar(
-            ...     pv_chain=None,
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
+            >>> beat_track = ugentools.BeatTrack.kr(
+            ...     pv_chain=pv_chain,
             ...     lock=0,
             ...     )
-            >>> beat_track.lock
+            >>> beat_track[0].source.lock
+            0.0
 
         Returns ugen input.
         '''
