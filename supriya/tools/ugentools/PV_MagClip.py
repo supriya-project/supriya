@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagAbove import PV_MagAbove
 
 
 class PV_MagClip(PV_MagAbove):
-    r'''
+    r'''Clips magnitudes.
 
     ::
 

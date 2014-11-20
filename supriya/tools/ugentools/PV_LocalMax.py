@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagAbove import PV_MagAbove
 
 
 class PV_LocalMax(PV_MagAbove):
-    r'''
+    r'''Passes bins which are local maxima.
 
     ::
 

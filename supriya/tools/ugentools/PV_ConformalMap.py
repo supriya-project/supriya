@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_ConformalMap(PV_ChainUGen):
-    r'''
+    r'''Complex plane attack.
 
     ::
 

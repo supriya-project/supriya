@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RectComb(PV_ChainUGen):
-    r'''
+    r'''Makes gaps in the spectrum.
 
     ::
 

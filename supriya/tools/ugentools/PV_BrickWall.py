@@ -3,7 +3,13 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BrickWall(PV_ChainUGen):
-    r'''
+    r'''Zeros bins.
+
+    - If wipe == 0 then there is no effect.
+    - If wipe > 0 then it acts like a high pass filter, clearing bins from the
+      bottom up.
+    - If wipe < 0 then it acts like a low pass filter, clearing bins from the
+      top down.
 
     ::
 

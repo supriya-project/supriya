@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_MagNoise(PV_MagSquared):
-    r'''
+    r'''Multiplies magnitudes by noise.
 
     ::
 

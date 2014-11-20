@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_PhaseShift90(PV_MagSquared):
-    r'''
+    r'''Shifts phase by 90 degrees.
 
     ::
 

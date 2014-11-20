@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RandWipe(PV_ChainUGen):
-    r'''
+    r'''Crossfades in random bin order.
 
     ::
 

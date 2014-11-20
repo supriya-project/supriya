@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_Conj(PV_MagSquared):
-    r'''
+    r'''Complex conjugate.
 
     ::
 

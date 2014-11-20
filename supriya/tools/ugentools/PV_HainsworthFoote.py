@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_HainsworthFoote(PV_ChainUGen):
-    r'''
+    r'''A FFT onset detector.
 
     ::
 
