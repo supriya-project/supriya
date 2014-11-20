@@ -9,7 +9,7 @@ class LocalBuf(WidthFirstUGen):
 
         >>> local_buf = ugentools.LocalBuf(
         ...     channel_count=1,
-        ...     num_frames=1,
+        ...     frame_count=1,
         ...     )
         >>> local_buf
         LocalBuf.ir()
@@ -23,7 +23,7 @@ class LocalBuf(WidthFirstUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'num_frames',
+        'frame_count',
         'channel_count',
         )
 
@@ -33,9 +33,9 @@ class LocalBuf(WidthFirstUGen):
 
     def __init__(
         self,
+        frame_count=1,
         calculation_rate=None,
         channel_count=1,
-        num_frames=1,
         ):
         from supriya.tools import synthdeftools
         if calculation_rate is None:
@@ -44,7 +44,7 @@ class LocalBuf(WidthFirstUGen):
             self,
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            num_frames=num_frames,
+            frame_count=frame_count,
             )
 
     ### PUBLIC METHODS ###
@@ -53,7 +53,7 @@ class LocalBuf(WidthFirstUGen):
     def new(
         cls,
         channel_count=1,
-        num_frames=1,
+        frame_count=1,
         ):
         r'''Constructs a LocalBuf.
 
@@ -61,7 +61,7 @@ class LocalBuf(WidthFirstUGen):
 
             >>> local_buf = ugentools.LocalBuf.new(
             ...     channel_count=1,
-            ...     num_frames=1,
+            ...     frame_count=1,
             ...     )
             >>> local_buf
             LocalBuf.ir()
@@ -73,7 +73,7 @@ class LocalBuf(WidthFirstUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            num_frames=num_frames,
+            frame_count=frame_count,
             )
         return ugen
 
@@ -91,7 +91,7 @@ class LocalBuf(WidthFirstUGen):
 
             >>> local_buf = ugentools.LocalBuf(
             ...     channel_count=2,
-            ...     num_frames=1,
+            ...     frame_count=1,
             ...     )
             >>> local_buf.channel_count
             2.0
@@ -102,19 +102,19 @@ class LocalBuf(WidthFirstUGen):
         return self._inputs[index]
 
     @property
-    def num_frames(self):
-        r'''Gets `num_frames` input of LocalBuf.
+    def frame_count(self):
+        r'''Gets `frame_count` input of LocalBuf.
 
         ::
 
             >>> local_buf = ugentools.LocalBuf(
             ...     channel_count=2,
-            ...     num_frames=1,
+            ...     frame_count=1,
             ...     )
-            >>> local_buf.num_frames
+            >>> local_buf.frame_count
             1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('num_frames')
+        index = self._ordered_input_names.index('frame_count')
         return self._inputs[index]
