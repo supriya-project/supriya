@@ -7,8 +7,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     prophfc=0.25,
         ...     prophfe=0.25,
         ...     propsc=0.25,
@@ -17,7 +20,8 @@ class PV_JensenAndersen(PV_ChainUGen):
         ...     waittime=0.04,
         ...     )
         >>> pv_jensen_andersen
-
+        PV_JensenAndersen.kr()
+        
     '''
 
     ### CLASS VARIABLES ###
@@ -76,8 +80,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -86,6 +93,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen
+            PV_JensenAndersen.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +116,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -118,6 +129,29 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -130,8 +164,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -140,6 +177,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.prophfc
+            0.25
 
         Returns ugen input.
         '''
@@ -153,7 +191,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ::
 
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -162,6 +200,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.prophfe
+            0.25
 
         Returns ugen input.
         '''
@@ -174,8 +213,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -184,6 +226,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.propsc
+            0.25
 
         Returns ugen input.
         '''
@@ -196,8 +239,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -206,6 +252,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.propsf
+            0.25
 
         Returns ugen input.
         '''
@@ -218,8 +265,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -228,6 +278,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.threshold
+            1.0
 
         Returns ugen input.
         '''
@@ -240,8 +291,11 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     prophfc=0.25,
             ...     prophfe=0.25,
             ...     propsc=0.25,
@@ -250,6 +304,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             ...     waittime=0.04,
             ...     )
             >>> pv_jensen_andersen.waittime
+            0.04
 
         Returns ugen input.
         '''

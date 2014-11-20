@@ -7,11 +7,15 @@ class PV_LocalMax(PV_MagAbove):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_local_max = ugentools.PV_LocalMax(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     threshold=0,
         ...     )
         >>> pv_local_max
+        PV_LocalMax.kr()
 
     '''
 
@@ -51,11 +55,15 @@ class PV_LocalMax(PV_MagAbove):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_local_max = ugentools.PV_LocalMax.new(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     threshold=0,
             ...     )
             >>> pv_local_max
+            PV_LocalMax.kr()
 
         Returns ugen graph.
         '''
@@ -73,11 +81,37 @@ class PV_LocalMax(PV_MagAbove):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_local_max = ugentools.PV_LocalMax(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     threshold=0,
             ...     )
             >>> pv_local_max.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -90,11 +124,15 @@ class PV_LocalMax(PV_MagAbove):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_local_max = ugentools.PV_LocalMax(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     threshold=0,
             ...     )
             >>> pv_local_max.threshold
+            0.0
 
         Returns ugen input.
         '''
