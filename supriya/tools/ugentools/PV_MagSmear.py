@@ -2,16 +2,20 @@
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
-class PV_MagSm(PV_ChainUGen):
+class PV_MagSmear(PV_ChainUGen):
     r'''
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_mag_smear = ugentools.PV_MagSmear(
         ...     bins=0,
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     )
         >>> pv_mag_smear
+        PV_MagSmear.kr()
 
     '''
 
@@ -51,11 +55,15 @@ class PV_MagSm(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_mag_smear = ugentools.PV_MagSmear.new(
             ...     bins=0,
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> pv_mag_smear
+            PV_MagSmear.kr()
 
         Returns ugen graph.
         '''
@@ -73,11 +81,15 @@ class PV_MagSm(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_mag_smear = ugentools.PV_MagSmear(
             ...     bins=0,
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> pv_mag_smear.bins
+            0.0
 
         Returns ugen input.
         '''
@@ -90,11 +102,37 @@ class PV_MagSm(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_mag_smear = ugentools.PV_MagSmear(
             ...     bins=0,
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> pv_mag_smear.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
