@@ -7,11 +7,15 @@ class PV_Diffuser(PV_ChainUGen):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_diffuser = ugentools.PV_Diffuser(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     trigger=0,
         ...     )
         >>> pv_diffuser
+        PV_Diffuser.kr()
 
     '''
 
@@ -51,11 +55,15 @@ class PV_Diffuser(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_diffuser = ugentools.PV_Diffuser.new(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     trigger=0,
             ...     )
             >>> pv_diffuser
+            PV_Diffuser.kr()
 
         Returns ugen graph.
         '''
@@ -73,11 +81,37 @@ class PV_Diffuser(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_diffuser = ugentools.PV_Diffuser(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     trigger=0,
             ...     )
             >>> pv_diffuser.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -90,11 +124,15 @@ class PV_Diffuser(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_diffuser = ugentools.PV_Diffuser(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     trigger=0,
             ...     )
             >>> pv_diffuser.trigger
+            0.0
 
         Returns ugen input.
         '''

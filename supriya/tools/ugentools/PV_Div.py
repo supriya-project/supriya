@@ -8,15 +8,15 @@ class PV_Div(PV_ChainUGen):
 
     ::
 
-        >>> fft_a = ugentools.FFT(
+        >>> pv_chain_a = ugentools.FFT(
         ...     source=ugentools.WhiteNoise.ar(),
         ...     )
-        >>> fft_b = ugentools.FFT(
+        >>> pv_chain_b = ugentools.FFT(
         ...     source=ugentools.LFSaw.ar(),
         ...     )
         >>> pv_div = ugentools.PV_Div(
-        ...     pv_chain_a=fft_a,
-        ...     pv_chain_b=fft_b,
+        ...     pv_chain_a=pv_chain_a,
+        ...     pv_chain_b=pv_chain_b,
         ...     )
         >>> pv_div
         PV_Div.kr()
@@ -59,15 +59,15 @@ class PV_Div(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_div = ugentools.PV_Div.new(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_div
             PV_Div.kr()
@@ -88,15 +88,15 @@ class PV_Div(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_div = ugentools.PV_Div(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_div.pv_chain_a
             OutputProxy(
@@ -115,7 +115,6 @@ class PV_Div(PV_ChainUGen):
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     active=1.0,
                     hop=0.5,
                     window_size=0.0,
@@ -135,15 +134,15 @@ class PV_Div(PV_ChainUGen):
 
         ::
 
-            >>> fft_a = ugentools.FFT(
+            >>> pv_chain_a = ugentools.FFT(
             ...     source=ugentools.WhiteNoise.ar(),
             ...     )
-            >>> fft_b = ugentools.FFT(
+            >>> pv_chain_b = ugentools.FFT(
             ...     source=ugentools.LFSaw.ar(),
             ...     )
             >>> pv_div = ugentools.PV_Div(
-            ...     pv_chain_a=fft_a,
-            ...     pv_chain_b=fft_b,
+            ...     pv_chain_a=pv_chain_a,
+            ...     pv_chain_b=pv_chain_b,
             ...     )
             >>> pv_div.pv_chain_b
             OutputProxy(
@@ -164,7 +163,6 @@ class PV_Div(PV_ChainUGen):
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
                     active=1.0,
                     hop=0.5,
                     window_size=0.0,

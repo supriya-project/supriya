@@ -7,10 +7,14 @@ class PV_Conj(PV_MagSquared):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_conj = ugentools.PV_Conj(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     )
         >>> pv_conj
+        PV_Conj.kr()
 
     '''
 
@@ -46,10 +50,14 @@ class PV_Conj(PV_MagSquared):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_conj = ugentools.PV_Conj.new(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> pv_conj
+            PV_Conj.kr()
 
         Returns ugen graph.
         '''
@@ -66,10 +74,36 @@ class PV_Conj(PV_MagSquared):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_conj = ugentools.PV_Conj(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     )
             >>> pv_conj.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

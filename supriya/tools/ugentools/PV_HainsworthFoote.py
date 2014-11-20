@@ -7,14 +7,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     ::
 
+        >>> pv_chain = ugentools.FFT(
+        ...     source=ugentools.WhiteNoise.ar(),
+        ...     )
         >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-        ...     pv_chain=None,
+        ...     pv_chain=pv_chain,
         ...     propf=0,
         ...     proph=0,
         ...     threshold=1,
         ...     waittime=0.04,
         ...     )
         >>> pv_hainsworth_foote
+        PV_HainsworthFoote.kr()
 
     '''
 
@@ -66,14 +70,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote
+            PV_HainsworthFoote.kr()
 
         Returns ugen graph.
         '''
@@ -94,14 +102,40 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote.pv_chain
+            OutputProxy(
+                source=FFT(
+                    buffer_id=OutputProxy(
+                        source=LocalBuf(
+                            frame_count=2048.0,
+                            channel_count=1.0,
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    source=OutputProxy(
+                        source=WhiteNoise(
+                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            ),
+                        output_index=0
+                        ),
+                    active=1.0,
+                    hop=0.5,
+                    window_size=0.0,
+                    window_type=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -114,14 +148,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote.propf
+            0.0
 
         Returns ugen input.
         '''
@@ -133,15 +171,19 @@ class PV_HainsworthFoote(PV_ChainUGen):
         r'''Gets `proph` input of PV_HainsworthFoote.
 
         ::
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
 
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote.proph
+            0.0
 
         Returns ugen input.
         '''
@@ -154,14 +196,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote.threshold
+            1.0
 
         Returns ugen input.
         '''
@@ -174,14 +220,18 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_hainsworth_foote = ugentools.PV_HainsworthFoote(
-            ...     pv_chain=None,
+            ...     pv_chain=pv_chain,
             ...     propf=0,
             ...     proph=0,
             ...     threshold=1,
             ...     waittime=0.04,
             ...     )
             >>> pv_hainsworth_foote.waittime
+            0.04
 
         Returns ugen input.
         '''
