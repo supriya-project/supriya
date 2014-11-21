@@ -1,6 +1,11 @@
 supriya
 =======
 
+[![Latest Version](https://pypip.in/version/<supriya>/badge.svg)](https://pypi.python.org/pypi/<supriya>/)
+[![Development Status](https://pypip.in/status/<supriya>/badge.svg)](https://pypi.python.org/pypi/<supriya>/)
+[![Supported Python versions](https://pypip.in/py_versions/<supriya>/badge.svg)](https://pypi.python.org/pypi/<supriya>/)
+[![Downloads](https://pypip.in/download/<supriya>/badge.svg)](https://pypi.python.org/pypi/<supriya>/)
+
 A Python interface to SuperCollider.
 
 Supriya lets you:
