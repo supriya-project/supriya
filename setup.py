@@ -311,6 +311,20 @@ Distant Roadmap
 
 '''
 
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Environment :: Console',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
+    'Operating System :: MacOS',
+    'Operating System :: POSIX',
+    'Programming Language :: Python :: 2.7',
+    'Programming Language :: Python :: 3.4',
+    'Topic :: Artistic Software',
+    'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
+    ]
+
 entry_points = {
     'console_scripts': [
         'supriya = supriya.tools.systemtools.run_supriya:run_supriya'
@@ -326,10 +340,12 @@ keywords = [
     'synthesis',
     ]
 
+
 def main():
     setup(
         author='Josiah Wolf Oberholtzer',
         author_email='josiah.oberholtzer@gmail.com',
+        classifiers=classifiers,
         description='A Python API for SuperCollider',
         entry_points=entry_points,
         install_requires=install_requires,
