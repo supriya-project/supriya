@@ -16,7 +16,7 @@ class Compander(UGen):
     _ordered_input_names = (
         'source',
         'control',
-        'thresh',
+        'threshold',
         'slope_below',
         'slope_above',
         'clamp_time',
@@ -34,7 +34,7 @@ class Compander(UGen):
         slope_above=1.,
         slope_below=1.,
         source=0.,
-        thresh=0.5,
+        threshold=0.5,
         ):
         UGen.__init__(
             self,
@@ -45,7 +45,7 @@ class Compander(UGen):
             slope_above=slope_above,
             slope_below=slope_below,
             source=source,
-            thresh=thresh,
+            threshold=threshold,
             )
 
     ### PUBLIC METHODS ###
@@ -59,7 +59,7 @@ class Compander(UGen):
         slope_above=1.,
         slope_below=1.,
         source=0.,
-        thresh=0.5,
+        threshold=0.5,
         ):
         r'''Constructs an audio-rate dynamics processor.
 
@@ -84,7 +84,7 @@ class Compander(UGen):
             slope_above=slope_above,
             slope_below=slope_below,
             source=source,
-            thresh=thresh,
+            threshold=threshold,
             )
         return ugen
 
@@ -216,21 +216,21 @@ class Compander(UGen):
         return self._inputs[index]
 
     @property
-    def thresh(self):
-        r'''Gets `thresh` input of Compander.
+    def threshold(self):
+        r'''Gets `threshold` input of Compander.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> thresh = 0.5
+            >>> threshold = 0.5
             >>> compander = ugentools.Compander.ar(
             ...     source=source,
-            ...     thresh=thresh,
+            ...     threshold=threshold,
             ...     )
-            >>> compander.thresh
+            >>> compander.threshold
             0.5
 
         Returns input.
         '''
-        index = self._ordered_input_names.index('thresh')
+        index = self._ordered_input_names.index('threshold')
         return self._inputs[index]

@@ -18,7 +18,7 @@ class CompanderD(PseudoUGen):
     def ar(
         cls,
         source=0.,
-        thresh=0.5,
+        threshold=0.5,
         clamp_time=0.01,
         relax_time=0.1,
         slope_above=1.,
@@ -40,7 +40,7 @@ class CompanderD(PseudoUGen):
                 const_1:0.01 -> 1_DelayN[2:delay_time]
                 0_In[0] -> 2_Compander[0:source]
                 1_DelayN[0] -> 2_Compander[1:control]
-                const_2:0.5 -> 2_Compander[2:thresh]
+                const_2:0.5 -> 2_Compander[2:threshold]
                 const_3:1.0 -> 2_Compander[3:slope_below]
                 const_3:1.0 -> 2_Compander[4:slope_above]
                 const_1:0.01 -> 2_Compander[5:clamp_time]
@@ -65,6 +65,6 @@ class CompanderD(PseudoUGen):
             slope_below=slope_below,
             source=source,
             control=control,
-            thresh=thresh,
+            threshold=threshold,
             )
         return ugen
