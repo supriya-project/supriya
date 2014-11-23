@@ -127,6 +127,10 @@ class SynthControl(BindingTarget):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def calculation_rate(self):
+        return self._calculation_rate
+
+    @property
     def client(self):
         return self._client
 
@@ -141,10 +145,6 @@ class SynthControl(BindingTarget):
     @property
     def range_(self):
         return self._range
-
-    @property
-    def calculation_rate(self):
-        return self._calculation_rate
 
     @property
     def node(self):

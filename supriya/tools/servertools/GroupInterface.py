@@ -31,12 +31,6 @@ class GroupInterface(ControlInterface):
     def __getitem__(self, item):
         return self._group_controls[item]
 
-    def __iter__(self):
-        return iter(self._synth_controls)
-
-    def __len__(self):
-        return len(self._synth_controls)
-
     def __setitem__(self, items, values):
         from supriya.tools import servertools
         if not isinstance(items, tuple):

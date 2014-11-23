@@ -35,6 +35,7 @@ class SynthInterface(ControlInterface):
                 synth_control_map[synth_control.name] = synth_control
             self._synth_controls = tuple(synth_controls)
         self._synth_control_map = synth_control_map
+        self._synthdef = synthdef or self._client.synthdef
 
     ### SPECIAL METHODS ###
 
@@ -55,12 +56,6 @@ class SynthInterface(ControlInterface):
             return tuple(result)
         return ValueError(item)
 
-    def __iter__(self):
-        return iter(self._synth_controls)
-
-    def __len__(self):
-        return len(self._synth_controls)
-
     def __setitem__(self, items, values):
         from supriya.tools import servertools
         if not isinstance(items, tuple):
@@ -79,6 +74,33 @@ class SynthInterface(ControlInterface):
                 )
             with message_bundler:
                 message_bundler.add_messages(messages)
+
+    def __str__(self):
+        result = []
+        string = '{}: ({})'.format(
+            repr(self.client),
+            self.synthdef.actual_name,
+            )
+        result.append(string)
+        maximum_length = 0
+        for synth_control in self:
+            maximum_length = max(maximum_length, len(synth_control.name))
+        maximum_length += 1
+        for synth_control in sorted(self):
+            name = synth_control.name
+            value = str(synth_control.value)
+            spacing = ' ' * (maximum_length - len(name))
+            string = '    ({}) {}:{}{}'.format(
+                synth_control.calculation_rate.token,
+                name,
+                spacing,
+                value,
+                )
+            if synth_control.is_bound:
+                string += ' (bound)'
+            result.append(string)
+        result = '\n'.join(result)
+        return result
 
     ### PRIVATE METHODS ###
 
