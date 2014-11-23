@@ -51,6 +51,7 @@ class MidiDevice(SupriyaObject):
 
     def open_port(self, port=None):
         self._midi_dispatcher.open_port(port)
+        return self
 
     ### PUBLIC PROPERTIES ###
 
