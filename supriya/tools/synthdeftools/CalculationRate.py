@@ -85,3 +85,15 @@ class CalculationRate(Enumeration):
         if isinstance(expr, collections.Sequence):
             return CalculationRate.from_collection(expr)
         return CalculationRate.from_input(expr)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def token(self):
+        if self == CalculationRate.SCALAR:
+            return 'ir'
+        elif self == CalculationRate.CONTROL:
+            return 'kr'
+        elif self == CalculationRate.AUDIO:
+            return 'ar'
+        return '--'
