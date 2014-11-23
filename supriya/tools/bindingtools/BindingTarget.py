@@ -29,3 +29,9 @@ class BindingTarget(SupriyaObject):
                 binding.unbind()
         elif self is binding.target:
             binding.unbind()
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def is_bound(self):
+        return bool(self._binding_sources)
