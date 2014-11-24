@@ -44,7 +44,7 @@ class Group(Node):
 
     ### INITIALIZER ###
 
-    def __init__(self, name=None):
+    def __init__(self, children=None, name=None):
         from supriya.tools import servertools
         Node.__init__(
             self,
@@ -55,6 +55,8 @@ class Group(Node):
             client=self,
             )
         self._named_children = {}
+        if children is not None:
+            self[:] = children
 
     ### SPECIAL METHODS ###
 
