@@ -45,8 +45,9 @@ class ControlInterface(SupriyaObject):
                     n_mapa_settings[control_name] = value
             else:
                 raise ValueError(value)
-            if hasattr(self, '__getitem__'):
-                self[control_name]._value = value
+            control = self[control_name]
+            if hasattr(control, '_value'):
+                control._value = value
         messages = []
         if self.client.is_allocated:
             if n_set_settings:
