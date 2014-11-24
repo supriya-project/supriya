@@ -4,7 +4,7 @@ from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
-class SynthDefLoadDirRequest(Request):
+class SynthDefLoadDirectoryRequest(Request):
     r'''A /d_loadDir request.
     '''
 
