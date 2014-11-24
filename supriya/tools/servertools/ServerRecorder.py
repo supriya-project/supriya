@@ -28,15 +28,19 @@ class ServerRecorder(SupriyaObject):
         from supriya.tools import soundfiletools
         self._server = server
         server_options = server.server_options
+        # setup settings
         self._channel_count = server_options.output_bus_channel_count
         self._header_format = soundfiletools.HeaderFormat.AIFF
+        self._is_recording = False
+        self._record_node = None
+        self._record_buffer = None
+        self._record_synthdef = None
         self._sample_format = soundfiletools.SampleFormat.INT24
+        # cache settings
         self._current_channel_count = self._channel_count
         self._current_file_path = None
         self._current_header_format = self._header_format
         self._current_sample_format = self._sample_format
-        self._record_node = None
-        self._is_recording = False
 
     ### PRIVATE METHODS ###
 
@@ -156,7 +160,7 @@ class ServerRecorder(SupriyaObject):
         ):
         if self.record_node is not None:
             raise Exception('Already recording.')
-        if not self.record_buffer.is_allocated:
+        if not self.record_buffer or not self.record_buffer.is_allocated:
             self.prepare(
                 file_path=file_path,
                 channel_count=channel_count,
