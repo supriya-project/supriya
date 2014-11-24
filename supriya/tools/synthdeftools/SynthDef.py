@@ -3,6 +3,9 @@ from __future__ import print_function
 import collections
 import copy
 import hashlib
+import os
+import shutil
+import tempfile
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
@@ -26,8 +29,8 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> synthdef.allocate(server=server, sync=True)
-        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19>
+        >>> synthdef.allocate(server=server)
+        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19> 
 
     ::
 
@@ -209,20 +212,55 @@ class SynthDef(ServerObjectProxy):
 
     ### PRIVATE METHODS ###
 
-    def _allocate(
+    def _register_with_local_server(
         self,
-        completion_message=None,
         server=None,
         ):
-        from supriya.tools import requesttools
         ServerObjectProxy.allocate(self, server=server)
         synthdef_name = self.actual_name
         self.server._synthdefs[synthdef_name] = self
-        request = requesttools.SynthDefReceiveRequest(
-            completion_message=completion_message,
-            synthdefs=(self,),
-            )
-        return request
+
+    @staticmethod
+    def _allocate_synthdefs(synthdefs, server):
+        from supriya.tools import requesttools
+        d_recv_synthdef_groups = []
+        d_recv_synth_group = []
+        current_total = 0
+        d_load_synthdefs = []
+        if synthdefs:
+            for synthdef in synthdefs:
+                synthdef._register_with_local_server(server=server)
+            compiled = synthdef.compile()
+            if 8192 < len(compiled):
+                d_load_synthdefs.append(synthdef)
+            elif current_total + len(compiled) < 8192:
+                d_recv_synth_group.append(synthdef)
+                current_total += len(compiled)
+            else:
+                d_recv_synthdef_groups.append(d_recv_synth_group)
+                d_recv_synth_group = [synthdef]
+                current_total = len(compiled)
+        else:
+            return
+        if d_recv_synth_group:
+            d_recv_synthdef_groups.append(d_recv_synth_group)
+        for d_recv_synth_group in d_recv_synthdef_groups:
+            d_recv_request = requesttools.SynthDefReceiveRequest(
+                synthdefs=tuple(d_recv_synth_group),
+                )
+            d_recv_request.communicate(server=server)
+        if d_load_synthdefs:
+            temp_directory_path = tempfile.mkdtemp()
+            for synthdef in d_load_synthdefs:
+                file_name = '{}.syndef'.format(synthdef.actual_name)
+                file_path = os.path.join(temp_directory_path, file_name)
+                with open(file_path, 'wb') as file_pointer:
+                    file_pointer.write(synthdef.compile())
+            d_load_dir_request = requesttools.SynthDefLoadDirectoryRequest(
+                directory_path=temp_directory_path,
+                )
+            d_load_dir_request.communicate(server=server)
+            shutil.rmtree(temp_directory_path)
 
     @staticmethod
     def _build_input_mapping(ugens):
@@ -446,18 +484,9 @@ class SynthDef(ServerObjectProxy):
 
     def allocate(
         self,
-        completion_message=None,
         server=None,
-        sync=True,
         ):
-        request = self._allocate(
-            completion_message=completion_message,
-            server=server,
-            )
-        request.communicate(
-            server=self.server,
-            sync=True,
-            )
+        self._allocate_synthdefs((self,), server)
         return self
 
     def compile(self):
