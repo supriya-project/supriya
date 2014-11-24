@@ -142,14 +142,8 @@ class Group(Node):
     ### PRIVATE METHODS ###
 
     def _allocate_synthdefs(self, synthdefs):
-        from supriya.tools import requesttools
-        if synthdefs:
-            for synthdef in synthdefs:
-                synthdef._allocate(server=self.server)
-            request = requesttools.SynthDefReceiveRequest(
-                synthdefs=tuple(synthdefs),
-                )
-            request.communicate(server=self.server)
+        from supriya.tools import synthdeftools
+        synthdeftools.SynthDef._allocate_synthdefs(synthdefs, self.server)
 
     @staticmethod
     def _iterate_children(group):

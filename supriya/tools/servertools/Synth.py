@@ -23,7 +23,7 @@ class Synth(Node):
         >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
         >>> builder.add_ugen(out)
         >>> synthdef = builder.build()
-        >>> synthdef.allocate(sync=True)
+        >>> synthdef.allocate()
         <SynthDef: 49e59effd11f9576d6640f027e8410d6>
 
     ::

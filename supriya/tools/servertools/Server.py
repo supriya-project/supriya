@@ -448,7 +448,7 @@ class Server(SupriyaObject):
             ...     )
             >>> builder.add_ugen(out)
             >>> synthdef = builder.build()
-            >>> synthdef.allocate(sync=True)
+            >>> synthdef.allocate()
             <SynthDef: f1c3ea5063065be20688f82b415c1108>
 
         ::
@@ -517,7 +517,7 @@ class Server(SupriyaObject):
             ...     )
             >>> builder.add_ugen(out)
             >>> synthdef = builder.build()
-            >>> synthdef.allocate(sync=True)
+            >>> synthdef.allocate()
             <SynthDef: f1c3ea5063065be20688f82b415c1108>
 
         ::
