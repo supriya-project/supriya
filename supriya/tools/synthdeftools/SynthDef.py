@@ -230,16 +230,16 @@ class SynthDef(ServerObjectProxy):
         if synthdefs:
             for synthdef in synthdefs:
                 synthdef._register_with_local_server(server=server)
-            compiled = synthdef.compile()
-            if 8192 < len(compiled):
-                d_load_synthdefs.append(synthdef)
-            elif current_total + len(compiled) < 8192:
-                d_recv_synth_group.append(synthdef)
-                current_total += len(compiled)
-            else:
-                d_recv_synthdef_groups.append(d_recv_synth_group)
-                d_recv_synth_group = [synthdef]
-                current_total = len(compiled)
+                compiled = synthdef.compile()
+                if 8192 < len(compiled):
+                    d_load_synthdefs.append(synthdef)
+                elif current_total + len(compiled) < 8192:
+                    d_recv_synth_group.append(synthdef)
+                    current_total += len(compiled)
+                else:
+                    d_recv_synthdef_groups.append(d_recv_synth_group)
+                    d_recv_synth_group = [synthdef]
+                    current_total = len(compiled)
         else:
             return
         if d_recv_synth_group:
@@ -248,19 +248,27 @@ class SynthDef(ServerObjectProxy):
             d_recv_request = requesttools.SynthDefReceiveRequest(
                 synthdefs=tuple(d_recv_synth_group),
                 )
-            d_recv_request.communicate(server=server)
+            d_recv_request.communicate(
+                server=server,
+                sync=True,
+                )
         if d_load_synthdefs:
             temp_directory_path = tempfile.mkdtemp()
+            print('TEMP:', temp_directory_path)
             for synthdef in d_load_synthdefs:
-                file_name = '{}.syndef'.format(synthdef.actual_name)
+                file_name = '{}.scsyndef'.format(synthdef.actual_name)
                 file_path = os.path.join(temp_directory_path, file_name)
                 with open(file_path, 'wb') as file_pointer:
                     file_pointer.write(synthdef.compile())
             d_load_dir_request = requesttools.SynthDefLoadDirectoryRequest(
                 directory_path=temp_directory_path,
                 )
-            d_load_dir_request.communicate(server=server)
+            d_load_dir_request.communicate(
+                server=server,
+                sync=True,
+                )
             shutil.rmtree(temp_directory_path)
+            print('DELETED?', not os.path.exists(temp_directory_path))
 
     @staticmethod
     def _build_input_mapping(ugens):

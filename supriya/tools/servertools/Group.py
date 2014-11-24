@@ -324,7 +324,8 @@ class Group(Node):
             )
         nodes, requests, synthdefs = self._collect_requests_and_synthdefs(self)
         requests.insert(0, group_new_request)
-        self._allocate_synthdefs(synthdefs)
+        if synthdefs:
+            self._allocate_synthdefs(synthdefs)
         if 1 < len(requests):
             message_bundler = servertools.MessageBundler(
                 server=self.server,
