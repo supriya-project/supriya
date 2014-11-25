@@ -56,7 +56,7 @@ class Server(SupriyaObject):
         '_root_node',
         '_server_options',
         '_server_process',
-        '_server_status',
+        '_status',
         '_status_watcher',
         '_sync_id',
         '_synthdefs',
@@ -138,7 +138,7 @@ class Server(SupriyaObject):
         self._is_running = False
         self._server_options = servertools.ServerOptions()
         self._server_process = None
-        self._server_status = None
+        self._status = None
         self._status_watcher = None
 
         ### PROXIES ###
@@ -323,7 +323,7 @@ class Server(SupriyaObject):
 
     def _setup_status_watcher(self):
         from supriya.tools import servertools
-        self._server_status = None
+        self._status = None
         self._status_watcher = servertools.StatusWatcher(self)
         self._status_watcher.start()
 
@@ -363,7 +363,7 @@ class Server(SupriyaObject):
     def _teardown_status_watcher(self):
         self._status_watcher.active = False
         self._status_watcher = None
-        self._server_status = None
+        self._status = None
 
     ### PUBLIC METHODS ###
 
@@ -687,5 +687,5 @@ class Server(SupriyaObject):
         return self._server_options
 
     @property
-    def server_status(self):
-        return self._server_status
+    def status(self):
+        return self._status

@@ -41,7 +41,7 @@ class StatusWatcher(threading.Thread):
             return
         if response is None:
             return
-        self._server._server_status = response
+        self._server._status = response
         self._attempts = 0
 
     ### PUBLIC METHODS ###
