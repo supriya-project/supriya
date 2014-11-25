@@ -135,7 +135,7 @@ class ResponseManager(SupriyaObject):
             handler = _response_handlers[address]
             response = handler(address, contents)
             return response
-        print('UNHANDLED:', message)
+        #print('UNHANDLED:', message)
 
     @staticmethod
     def handle_b_info(command, contents):
