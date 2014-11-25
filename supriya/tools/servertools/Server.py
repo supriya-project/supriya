@@ -446,7 +446,7 @@ class Server(SupriyaObject):
             ...     bus=(0, 1),
             ...     source=sin_osc,
             ...     )
-            >>> builder.add_ugen(out)
+            >>> builder.add_ugens(out)
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
             <SynthDef: f1c3ea5063065be20688f82b415c1108>
@@ -515,7 +515,7 @@ class Server(SupriyaObject):
             ...     bus=(0, 1),
             ...     source=sin_osc,
             ...     )
-            >>> builder.add_ugen(out)
+            >>> builder.add_ugens(out)
             >>> synthdef = builder.build()
             >>> synthdef.allocate()
             <SynthDef: f1c3ea5063065be20688f82b415c1108>

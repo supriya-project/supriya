@@ -21,7 +21,7 @@ class Synth(Node):
         ...     frequency=builder['frequency'],
         ...     ) * 0.5
         >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
-        >>> builder.add_ugen(out)
+        >>> builder.add_ugens(out)
         >>> synthdef = builder.build()
         >>> synthdef.allocate()
         <SynthDef: 49e59effd11f9576d6640f027e8410d6>
