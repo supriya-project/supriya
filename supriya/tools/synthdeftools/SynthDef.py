@@ -602,6 +602,10 @@ class SynthDef(ServerObjectProxy):
         return self._constants
 
     @property
+    def input_ugens(self):
+        return tuple(_ for _ in self.ugens if _.is_input_ugen)
+
+    @property
     def is_allocated(self):
         if self.server is not None:
             return self in self.server
@@ -610,6 +614,130 @@ class SynthDef(ServerObjectProxy):
     @property
     def name(self):
         return self._name
+
+    @property
+    def audio_input_channel_count(self):
+        r'''Gets audio input channel count of synthdef.
+
+        ::
+
+            >>> with SynthDefBuilder() as builder:
+            ...     audio_in = ugentools.In.ar(channel_count=1)
+            ...     control_in = ugentools.In.kr(channel_count=2)
+            ...     sin = ugentools.SinOsc.ar(
+            ...          frequency = audio_in[0],
+            ...          )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = ugentools.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+            >>> synthdef.audio_input_channel_count
+            1
+
+        Returns integer.
+        '''
+        from supriya.tools import synthdeftools
+        ugens = tuple(_ for _ in self.input_ugens
+            if _.calculation_rate == synthdeftools.CalculationRate.AUDIO)
+        if len(ugens) == 1:
+            return ugens[0].channel_count
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def audio_output_channel_count(self):
+        r'''Gets audio output channel count of synthdef.
+
+        ::
+
+            >>> with SynthDefBuilder() as builder:
+            ...     audio_in = ugentools.In.ar(channel_count=1)
+            ...     control_in = ugentools.In.kr(channel_count=2)
+            ...     sin = ugentools.SinOsc.ar(
+            ...          frequency = audio_in[0],
+            ...          )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = ugentools.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+            >>> synthdef.audio_output_channel_count
+            4
+
+        Returns integer.
+        '''
+        from supriya.tools import synthdeftools
+        ugens = tuple(_ for _ in self.output_ugens
+            if _.calculation_rate == synthdeftools.CalculationRate.AUDIO)
+        if len(ugens) == 1:
+            return len(ugens[0].source)
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def control_input_channel_count(self):
+        r'''Gets control input channel count of synthdef.
+
+        ::
+
+            >>> with SynthDefBuilder() as builder:
+            ...     audio_in = ugentools.In.ar(channel_count=1)
+            ...     control_in = ugentools.In.kr(channel_count=2)
+            ...     sin = ugentools.SinOsc.ar(
+            ...          frequency = audio_in[0],
+            ...          )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = ugentools.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+            >>> synthdef.control_input_channel_count
+            2
+
+        Returns integer.
+        '''
+        from supriya.tools import synthdeftools
+        ugens = tuple(_ for _ in self.input_ugens
+            if _.calculation_rate == synthdeftools.CalculationRate.CONTROL)
+        if len(ugens) == 1:
+            return ugens[0].channel_count
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def control_output_channel_count(self):
+        r'''Gets control output channel count of synthdef.
+
+        ::
+
+            >>> with SynthDefBuilder() as builder:
+            ...     audio_in = ugentools.In.ar(channel_count=1)
+            ...     control_in = ugentools.In.kr(channel_count=2)
+            ...     sin = ugentools.SinOsc.ar(
+            ...          frequency = audio_in[0],
+            ...          )
+            ...     source = audio_in * control_in[1]
+            ...     audio_out = ugentools.Out.ar(source=[source] * 4)
+            ...
+            >>> synthdef = builder.build()
+            >>> synthdef.control_output_channel_count
+            0
+
+        Returns integer.
+        '''
+        from supriya.tools import synthdeftools
+        ugens = tuple(_ for _ in self.output_ugens
+            if _.calculation_rate == synthdeftools.CalculationRate.CONTROL)
+        if len(ugens) == 1:
+            return len(ugens[0].source)
+        elif not ugens:
+            return 0
+        raise ValueError
+
+    @property
+    def output_ugens(self):
+        return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
     def parameters(self):
