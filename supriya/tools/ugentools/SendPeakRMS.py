@@ -1,20 +1,23 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.synthdeftools.UGen import UGen
 
 
 class SendPeakRMS(UGen):
-    r'''
+    r'''Tracks peak and power of a signal for GUI applications.
 
     ::
 
-        >>> send_peak_rms = ugentools.SendPeakRMS.(
-        ...     cmd_name='/reply',
+        >>> source = ugentools.In.ar(channel_count=4)
+        >>> send_peak_rms = ugentools.SendPeakRMS.kr(
+        ...     command_name='/reply',
         ...     peak_lag=3,
         ...     reply_id=-1,
         ...     reply_rate=20,
-        ...     sig=None,
+        ...     source=source,
         ...     )
         >>> send_peak_rms
+        SendPeakRMS.kr()
 
     '''
 
@@ -25,11 +28,13 @@ class SendPeakRMS(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'sig',
         'reply_rate',
         'peak_lag',
-        'cmd_name',
         'reply_id',
+        )
+
+    _unexpanded_argument_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -39,93 +44,109 @@ class SendPeakRMS(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        cmd_name='/reply',
+        command_name='/reply',
         peak_lag=3,
         reply_id=-1,
         reply_rate=20,
-        sig=None,
+        source=None,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            cmd_name=cmd_name,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
-            sig=sig,
             )
+        command_name = str(command_name)
+        if not isinstance(source, collections.Sequence):
+            source = (source,)
+        self._configure_input('source', len(source))
+        for input_ in source:
+            self._configure_input('source', input_)
+        self._configure_input('command_name', len(command_name))
+        for character in command_name:
+            self._configure_input('label', ord(character))
+
+    ### PRIVATE METHODS ###
+
+    def _get_outputs(self):
+        return []
 
     ### PUBLIC METHODS ###
 
     @classmethod
     def ar(
         cls,
-        cmd_name='/reply',
+        command_name='/reply',
         peak_lag=3,
         reply_id=-1,
         reply_rate=20,
-        sig=None,
+        source=None,
         ):
         r'''Constructs an audio-rate SendPeakRMS.
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
             >>> send_peak_rms
+            SendPeakRMS.ar()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
+        ugen = cls._new_single(
             calculation_rate=calculation_rate,
-            cmd_name=cmd_name,
+            command_name=command_name,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
-            sig=sig,
+            source=source,
             )
         return ugen
 
     @classmethod
     def kr(
         cls,
-        cmd_name='/reply',
+        command_name='/reply',
         peak_lag=3,
         reply_id=-1,
         reply_rate=20,
-        sig=None,
+        source=None,
         ):
         r'''Constructs a control-rate SendPeakRMS.
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.kr(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
             >>> send_peak_rms
+            SendPeakRMS.kr()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
-        ugen = cls._new_expanded(
+        ugen = cls._new_single(
             calculation_rate=calculation_rate,
-            cmd_name=cmd_name,
+            command_name=command_name,
             peak_lag=peak_lag,
             reply_id=reply_id,
             reply_rate=reply_rate,
-            sig=sig,
+            source=source,
             )
         return ugen
 
@@ -134,24 +155,31 @@ class SendPeakRMS(UGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def cmd_name(self):
-        r'''Gets `cmd_name` input of SendPeakRMS.
+    def command_name(self):
+        r'''Gets `command_name` input of SendPeakRMS.
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
-            >>> send_peak_rms.cmd_name
+            >>> send_peak_rms.command_name
+            '/reply'
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('cmd_name')
-        return self._inputs[index]
+        index = self._ordered_input_names.index('reply_id') + 1
+        source_length = int(self._inputs[index])
+        index += source_length + 2
+        characters = self._inputs[index:]
+        characters = [chr(int(_)) for _ in characters]
+        command_name = ''.join(characters)
+        return command_name
 
     @property
     def peak_lag(self):
@@ -159,14 +187,16 @@ class SendPeakRMS(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
             >>> send_peak_rms.peak_lag
+            3.0
 
         Returns ugen input.
         '''
@@ -179,14 +209,16 @@ class SendPeakRMS(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
             >>> send_peak_rms.reply_id
+            -1.0
 
         Returns ugen input.
         '''
@@ -199,14 +231,16 @@ class SendPeakRMS(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
             >>> send_peak_rms.reply_rate
+            20.0
 
         Returns ugen input.
         '''
@@ -214,21 +248,54 @@ class SendPeakRMS(UGen):
         return self._inputs[index]
 
     @property
-    def sig(self):
-        r'''Gets `sig` input of SendPeakRMS.
+    def source(self):
+        r'''Gets `source` input of SendPeakRMS.
 
         ::
 
+            >>> source = ugentools.In.ar(channel_count=4)
             >>> send_peak_rms = ugentools.SendPeakRMS.ar(
-            ...     cmd_name='/reply',
+            ...     command_name='/reply',
             ...     peak_lag=3,
             ...     reply_id=-1,
             ...     reply_rate=20,
-            ...     sig=None,
+            ...     source=source,
             ...     )
-            >>> send_peak_rms.sig
+            >>> send_peak_rms.source
+            (OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=4
+                    ),
+                output_index=0
+                ), OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=4
+                    ),
+                output_index=1
+                ), OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=4
+                    ),
+                output_index=2
+                ), OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=4
+                    ),
+                output_index=3
+                ))
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('sig')
-        return self._inputs[index]
+        index = self._ordered_input_names.index('reply_id') + 1
+        source_length = int(self._inputs[index])
+        start = index + 1
+        stop = start + source_length
+        return tuple(self._inputs[start:stop])
