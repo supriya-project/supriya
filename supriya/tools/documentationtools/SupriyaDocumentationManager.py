@@ -205,13 +205,14 @@ class SupriyaDocumentationManager(object):
             os.makedirs(path)
 
     @staticmethod
-    def execute():
+    def execute(source_directory):
         print('Rebuilding Supriya documentation source.')
+        source_directory = os.path.abspath(source_directory)
         manager = SupriyaDocumentationManager
         rewritten_files = set()
         tools_packages = manager.get_tools_packages()
         api_index_rst = manager.get_api_index_rst(tools_packages)
-        api_index_file_path = manager.get_api_index_file_path()
+        api_index_file_path = manager.get_api_index_file_path(source_directory)
         manager.ensure_directory(api_index_file_path)
         manager.write(
             api_index_file_path,
@@ -221,7 +222,9 @@ class SupriyaDocumentationManager(object):
         for package in tools_packages:
             tools_package_rst = manager.get_tools_package_rst(package)
             tools_package_file_path = manager.package_path_to_file_path(
-                package.__package__)
+                package.__package__,
+                source_directory,
+                )
             manager.ensure_directory(tools_package_file_path)
             manager.write(
                 tools_package_file_path,
@@ -233,17 +236,19 @@ class SupriyaDocumentationManager(object):
             for cls in classes:
                 file_path = manager.module_path_to_file_path(
                     cls.__module__,
+                    source_directory,
                     )
                 rst = manager.get_class_rst(cls)
                 manager.write(file_path, rst.rest_format, rewritten_files)
             for function in functions:
                 file_path = manager.module_path_to_file_path(
                     function.__module__,
+                    source_directory,
                     )
                 rst = manager.get_function_rst(function)
                 manager.write(file_path, rst.rest_format, rewritten_files)
         for root, directory_names, file_names in os.walk(
-            manager.get_api_directory_path(),
+            manager.get_api_directory_path(source_directory),
             topdown=False,
             ):
             for file_name in file_names[:]:
@@ -257,22 +262,18 @@ class SupriyaDocumentationManager(object):
                 print('PRUNED: {}'.format(root))
 
     @staticmethod
-    def get_api_directory_path():
-        import supriya
-        path = supriya.__path__[0]
+    def get_api_directory_path(source_directory):
         path = os.path.join(
-            path,
-            'docs',
-            'source',
+            source_directory,
             'tools',
             )
         return path
 
     @staticmethod
-    def get_api_index_file_path():
+    def get_api_index_file_path(source_directory):
         manager = SupriyaDocumentationManager
         path = os.path.join(
-            manager.get_api_directory_path(),
+            manager.get_api_directory_path(source_directory),
             'index.rst',
             )
         return path
@@ -654,7 +655,7 @@ class SupriyaDocumentationManager(object):
         return document
 
     @staticmethod
-    def module_path_to_file_path(module_path):
+    def module_path_to_file_path(module_path, source_directory):
         manager = SupriyaDocumentationManager
         parts = module_path.split('.')
         parts = parts[2:]
@@ -662,17 +663,17 @@ class SupriyaDocumentationManager(object):
             parts[-1] = '_' + parts[-1] + '.rst'
         else:
             parts[-1] = parts[-1] + '.rst'
-        parts.insert(0, manager.get_api_directory_path())
+        parts.insert(0, manager.get_api_directory_path(source_directory))
         path = os.path.join(*parts)
         return path
 
     @staticmethod
-    def package_path_to_file_path(package_path):
+    def package_path_to_file_path(package_path, source_directory):
         manager = SupriyaDocumentationManager
         parts = package_path.split('.')
         parts = parts[2:]
         parts.append('index.rst')
-        parts.insert(0, manager.get_api_directory_path())
+        parts.insert(0, manager.get_api_directory_path(source_directory))
         path = os.path.join(*parts)
         return path
 

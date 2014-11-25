@@ -1,3 +1,4 @@
+-e git://github.com/Pulgama/supriya.git#egg=supriya
 -e git://github.com/Abjad/abjad.git#egg=abjad
 enum34
 funcsigs
