@@ -61,12 +61,12 @@ class ServerMeter(SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for peak, rms in sequencetools.partition_sequence_by_counts(
+        for rms, peak in sequencetools.partition_sequence_by_counts(
             contents, counts=[2], cyclic=True):
             peak_levels.append(peak)
             rms_levels.append(rms)
-        self._input_meter_peak_levels = peak_levels
-        self._input_meter_rms_levels = rms_levels
+        self._input_meter_peak_levels = tuple(peak_levels)
+        self._input_meter_rms_levels = tuple(rms_levels)
         #print('I:', rms_levels, peak_levels)
 
     def _handle_output_levels(self, message):
@@ -77,8 +77,8 @@ class ServerMeter(SupriyaObject):
             contents, counts=[2], cyclic=True):
             peak_levels.append(peak)
             rms_levels.append(rms)
-        self._output_meter_peak_levels = peak_levels
-        self._output_meter_rms_levels = rms_levels
+        self._output_meter_peak_levels = tuple(peak_levels)
+        self._output_meter_rms_levels = tuple(rms_levels)
         #print('O:', rms_levels, peak_levels)
 
     ### PUBLIC METHODS ###
@@ -115,6 +115,7 @@ class ServerMeter(SupriyaObject):
             node_id_is_permanent=True,
             target_node=server.root_node,
             )
+        return self
 
     def free(self):
         self.server.unregister_osc_callback(self._input_meter_callback)
@@ -127,6 +128,14 @@ class ServerMeter(SupriyaObject):
         self._output_meter_synth = None
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def input_count(self):
+        return self.server.server_options.input_bus_channel_count
+
+    @property
+    def output_count(self):
+        return self.server.server_options.output_bus_channel_count
 
     @property
     def input_meter_command(self):
