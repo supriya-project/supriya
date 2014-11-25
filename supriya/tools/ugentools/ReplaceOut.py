@@ -153,6 +153,10 @@ class ReplaceOut(UGen):
         return self._inputs[index]
 
     @property
+    def is_output_ugen(self):
+        return True
+
+    @property
     def source(self):
         r'''Gets `source` input of ReplaceOut.
 

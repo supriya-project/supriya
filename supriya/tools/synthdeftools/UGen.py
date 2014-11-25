@@ -421,6 +421,23 @@ class UGen(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def calculation_rate(self):
+        r'''Gets calculation-rate of ugen.
+
+        ::
+
+            >>> ugen = ugentools.SinOsc.ar(
+            ...     frequency=ugentools.WhiteNoise.kr(),
+            ...     phase=0.5,
+            ...     )
+            >>> ugen.calculation_rate
+            <CalculationRate.AUDIO: 2>
+
+        Returns calculation-rate.
+        '''
+        return self._calculation_rate
+
+    @property
     def inputs(self):
         r'''Gets inputs of ugen.
 
@@ -446,6 +463,14 @@ class UGen(UGenMethodMixin):
         return tuple(self._inputs)
 
     @property
+    def is_input_ugen(self):
+        return False
+
+    @property
+    def is_output_ugen(self):
+        return False
+
+    @property
     def outputs(self):
         r'''Gets outputs of ugen.
 
@@ -461,23 +486,6 @@ class UGen(UGenMethodMixin):
         Returns tuple.
         '''
         return tuple(self._get_outputs())
-
-    @property
-    def calculation_rate(self):
-        r'''Gets calculation-rate of ugen.
-
-        ::
-
-            >>> ugen = ugentools.SinOsc.ar(
-            ...     frequency=ugentools.WhiteNoise.kr(),
-            ...     phase=0.5,
-            ...     )
-            >>> ugen.calculation_rate
-            <CalculationRate.AUDIO: 2>
-
-        Returns calculation-rate.
-        '''
-        return self._calculation_rate
 
     @property
     def signal_range(self):

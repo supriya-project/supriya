@@ -42,7 +42,7 @@ class In(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        bus=None,
+        bus=0,
         channel_count=1,
         ):
         r'''Constructs an audio-rate bus input.
@@ -78,7 +78,7 @@ class In(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        bus=None,
+        bus=0,
         channel_count=1,
         ):
         r'''Constructs a control-rate bus input.
@@ -130,3 +130,7 @@ class In(MultiOutUGen):
         '''
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
+
+    @property
+    def is_input_ugen(self):
+        return True
