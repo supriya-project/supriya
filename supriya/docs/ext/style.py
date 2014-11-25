@@ -112,4 +112,5 @@ def doctree_read(app, doctree):
 def setup(app):
     app.connect('doctree-read', doctree_read)
     app.add_javascript('copybutton.js')
+    app.add_javascript('inherited.js')
     app.add_stylesheet('supriya.css')

@@ -26,17 +26,28 @@ class SupriyaDocumentationManager(object):
                 text=title,
                 ))
             for attr in attrs:
+                options = {
+                    'noindex': True,
+                    }
                 autodoc = documentationtools.ReSTAutodocDirective(
-                    argument='{}.{}'.format(
-                        cls.__name__,
-                        attr.name,
-                        ),
+                    argument='{}.{}'.format(cls.__name__, attr.name),
                     directive=directive,
-                    options={
-                        'noindex': True,
-                        },
+                    options=options,
                     )
-                result.append(autodoc)
+                if cls is attr.defining_class:
+                    result.append(autodoc)
+                else:
+                    container = documentationtools.ReSTDirective(
+                        argument='inherited',
+                        directive='container',
+                        )
+                    container.append(autodoc)
+                    html_only = documentationtools.ReSTDirective(
+                        argument='html',
+                        directive='only',
+                        )
+                    html_only.append(container)
+                    result.append(html_only)
         return result
 
     @staticmethod
