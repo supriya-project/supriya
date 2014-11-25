@@ -19,7 +19,7 @@ class SynthDef(ServerObjectProxy):
         >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
         >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
         >>> out = ugentools.Out.ar(bus=0, source=sin_osc)
-        >>> builder.add_ugen(out)
+        >>> builder.add_ugens(out)
         >>> synthdef = builder.build()
 
     ::
@@ -137,7 +137,7 @@ class SynthDef(ServerObjectProxy):
             >>> sin_two = ugentools.SinOsc.ar(frequency=443)
             >>> sum = sin_one + sin_two
             >>> out = ugentools.Out.ar(bus=0, source=sum)
-            >>> builder.add_ugen(out)
+            >>> builder.add_ugens(out)
             >>> synthdef = builder.build(name='test')
 
         ::
@@ -543,9 +543,9 @@ class SynthDef(ServerObjectProxy):
         builder = synthdeftools.SynthDefBuilder()
         if isinstance(ugens, collections.Sequence):
             for ugen in ugens:
-                builder.add_ugen(ugen)
+                builder.add_ugens(ugen)
         elif isinstance(ugens, synthdeftools.UGenMethodMixin):
-            builder.add_ugen(ugens)
+            builder.add_ugens(ugens)
         synthdef = builder.build()
         return synthdef
 

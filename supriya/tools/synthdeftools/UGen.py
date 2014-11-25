@@ -83,7 +83,7 @@ class UGen(UGenMethodMixin):
             )
         if synthdeftools.SynthDefBuilder._active_builders:
             builder = synthdeftools.SynthDefBuilder._active_builders[-1]
-            builder.add_ugen(self)
+            builder.add_ugens(self)
 
     ### SPECIAL METHODS ###
 

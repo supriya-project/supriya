@@ -46,59 +46,60 @@ def _build_clap_synthdef():
         amplitude=0.5,
         )
 
-    envelope_one = synthdeftools.Envelope(
-        amplitudes=(0, 1, 0, 1, 0, 1, 0, 1, 0),
-        durations=(0.001, 0.013, 0, 0.01, 0, 0.01, 0, 0.03),
-        curves=(0, -3, 0, -3, 0, -3, 0, -4),
-        )
-    envelope_generator_one = ugentools.EnvGen.ar(
-        envelope=envelope_one,
-        )
+    with builder:
 
-    envelope_two = synthdeftools.Envelope(
-        amplitudes=(0, 1, 0),
-        durations=(0.02, 0.3),
-        curves=(0, -4),
-        )
-    envelope_generator_two = ugentools.EnvGen.ar(
-        envelope=envelope_two,
-        done_action=2,
-        )
+        envelope_one = synthdeftools.Envelope(
+            amplitudes=(0, 1, 0, 1, 0, 1, 0, 1, 0),
+            durations=(0.001, 0.013, 0, 0.01, 0, 0.01, 0, 0.03),
+            curves=(0, -3, 0, -3, 0, -3, 0, -4),
+            )
+        envelope_generator_one = ugentools.EnvGen.ar(
+            envelope=envelope_one,
+            )
 
-    noise_one = ugentools.WhiteNoise.ar() * envelope_generator_one
-    noise_one = ugentools.HPF.ar(
-        source=noise_one,
-        frequency=600,
-        )
-    noise_one = ugentools.BPF.ar(
-        source=noise_one,
-        frequency=2000,
-        reciprocal_of_q=3,
-        )
+        envelope_two = synthdeftools.Envelope(
+            amplitudes=(0, 1, 0),
+            durations=(0.02, 0.3),
+            curves=(0, -4),
+            )
+        envelope_generator_two = ugentools.EnvGen.ar(
+            envelope=envelope_two,
+            done_action=2,
+            )
 
-    noise_two = ugentools.WhiteNoise.ar() * envelope_generator_two
-    noise_two = ugentools.HPF.ar(
-        source=noise_two,
-        frequency=1000,
-        )
-    noise_two = ugentools.BPF.ar(
-        source=noise_two,
-        frequency=1200,
-        reciprocal_of_q=0.7,
-        )
-    noise_two = noise_two * 0.7
+        noise_one = ugentools.WhiteNoise.ar() * envelope_generator_one
+        noise_one = ugentools.HPF.ar(
+            source=noise_one,
+            frequency=600,
+            )
+        noise_one = ugentools.BPF.ar(
+            source=noise_one,
+            frequency=2000,
+            reciprocal_of_q=3,
+            )
 
-    result = noise_one + noise_two
-    result = result * 2
-    result = synthdeftools.Op.softclip(result)
-    result = result * builder['amplitude']
+        noise_two = ugentools.WhiteNoise.ar() * envelope_generator_two
+        noise_two = ugentools.HPF.ar(
+            source=noise_two,
+            frequency=1000,
+            )
+        noise_two = ugentools.BPF.ar(
+            source=noise_two,
+            frequency=1200,
+            reciprocal_of_q=0.7,
+            )
+        noise_two = noise_two * 0.7
 
-    output = ugentools.Out.ar(
-        bus=builder['out'],
-        source=(result, result),
-        )
+        result = noise_one + noise_two
+        result = result * 2
+        result = synthdeftools.Op.softclip(result)
+        result = result * builder['amplitude']
 
-    builder.add_ugen(output)
+        ugentools.Out.ar(
+            bus=builder['out'],
+            source=(result, result),
+            )
+
     synthdef = builder.build()
     return synthdef
 

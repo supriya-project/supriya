@@ -46,7 +46,7 @@ class Poll(UGen):
             ...     trigger=trigger,
             ...     trigger_id=1234,
             ...     )
-            >>> builder.add_ugen([sine, trigger, poll])
+            >>> builder.add_ugens([sine, trigger, poll])
             >>> synthdef = builder.build()
 
         ::

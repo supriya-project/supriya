@@ -255,7 +255,7 @@ class UGenMethodMixin(SupriyaObject):
         '''
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
-        builder.add_ugen(self)
+        builder.add_ugens(self)
         synthdef = builder.build()
         result = synthdef.__graph__()
         return result
@@ -1352,7 +1352,7 @@ class UGenMethodMixin(SupriyaObject):
         '''
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
-        builder.add_ugen(self)
+        builder.add_ugens(self)
         synthdef = builder.build()
         result = str(synthdef)
         return result

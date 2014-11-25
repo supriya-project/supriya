@@ -16,7 +16,7 @@ def test_SynthDef_01():
     sine_two = ugentools.SinOsc.ar(frequency=440)
     sines = sine_one * sine_two
     out = ugentools.Out.ar(bus=0, source=sines)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('foo')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -90,7 +90,7 @@ def test_SynthDef_02():
     sine = ugentools.SinOsc.ar()
     sine = -sine
     out = ugentools.Out.ar(bus=99, source=sine)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -157,7 +157,7 @@ def test_SynthDef_03():
         )
     sine = ugentools.SinOsc.ar(frequency=builder['freq'])
     out = ugentools.Out.ar(bus=builder['out'], source=sine)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -223,7 +223,7 @@ def test_SynthDef_04():
     builder = synthdeftools.SynthDefBuilder()
     inputs = ugentools.In.ar(bus=8, channel_count=2)
     out = ugentools.Out.ar(bus=0, source=inputs)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -279,7 +279,7 @@ def test_SynthDef_05():
     builder = synthdeftools.SynthDefBuilder(freq=440)
     sine = ugentools.SinOsc.ar(frequency=builder['freq'])
     out = ugentools.Out.ar(bus=0, source=sine)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -353,7 +353,7 @@ def test_SynthDef_06():
         delay_time=builder['delay_time'],
         )
     out = ugentools.Out.ar(bus=0, source=delay)
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -436,8 +436,8 @@ def test_SynthDef_07():
     sin_osc = ugentools.SinOsc.ar()
     free_self = ugentools.FreeSelf.kr(sin_osc)
     out = ugentools.Out.ar(bus=0, source=sin_osc)
-    builder.add_ugen(free_self)
-    builder.add_ugen(out)
+    builder.add_ugens(free_self)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('test')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 
@@ -526,7 +526,7 @@ def test_SynthDef_08():
         bus=0,
         source=enveloped_sin_osc,
         )
-    builder.add_ugen(out)
+    builder.add_ugens(out)
     py_synthdef_new = builder.build('trigTest')
     py_compiled_synthdef_new = py_synthdef_new.compile()
 

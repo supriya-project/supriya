@@ -23,7 +23,7 @@ class SynthDefBuilder(SupriyaObject):
         ...     )
         >>> enveloped_sin = sin_osc * decay
         >>> out = ugentools.Out.ar(bus=0, source=enveloped_sin)
-        >>> builder.add_ugen(out)
+        >>> builder.add_ugens(out)
 
     '''
 
@@ -121,9 +121,9 @@ class SynthDefBuilder(SupriyaObject):
             trigger=trigger,
             trigger_id=trigger_id,
             )
-        self.add_ugen(poll)
+        self.add_ugens(poll)
 
-    def add_ugen(self, ugens):
+    def add_ugens(self, ugens):
         from supriya.tools import synthdeftools
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]

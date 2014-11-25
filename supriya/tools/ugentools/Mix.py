@@ -11,7 +11,7 @@ class Mix(PseudoUGen):
         >>> oscillators = [ugentools.DC.ar(1) for _ in range(5)]
         >>> mix = ugentools.Mix.new(oscillators)
         >>> builder = synthdeftools.SynthDefBuilder()
-        >>> builder.add_ugen(mix)
+        >>> builder.add_ugens(mix)
         >>> synthdef = builder.build(name='mix1')
         >>> print(synthdef)
         SynthDef mix1 {
@@ -33,7 +33,7 @@ class Mix(PseudoUGen):
         >>> oscillators = [ugentools.DC.ar(1) for _ in range(15)]
         >>> mix = ugentools.Mix.new(oscillators)
         >>> builder = synthdeftools.SynthDefBuilder()
-        >>> builder.add_ugen(mix)
+        >>> builder.add_ugens(mix)
         >>> synthdef = builder.build('mix2')
         >>> print(synthdef)
         SynthDef mix2 {

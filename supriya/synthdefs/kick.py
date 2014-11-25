@@ -9,61 +9,62 @@ def _build_kick_synthdef():
         out=0,
         )
 
-    ### ENVELOPE ###
+    with builder:
 
-    gate = ugentools.Impulse.ar(frequency=2)
-    envelope = synthdeftools.Envelope.percussive(
-        attack_time=0.01,
-        release_time=1.0,
-        )
-    envelope = ugentools.EnvGen.ar(
-        done_action=0,
-        envelope=envelope,
-        gate=gate
-        )
-    envelope = synthdeftools.Op.squared(envelope)
+        ### ENVELOPE ###
 
-    ### NOISE COMPONENT ###
+        gate = ugentools.Impulse.ar(frequency=2)
+        envelope = synthdeftools.Envelope.percussive(
+            attack_time=0.01,
+            release_time=1.0,
+            )
+        envelope = ugentools.EnvGen.ar(
+            done_action=0,
+            envelope=envelope,
+            gate=gate
+            )
+        envelope = synthdeftools.Op.squared(envelope)
 
-    noise = ugentools.PinkNoise.ar()
-    noise = ugentools.BPF.ar(
-        source=noise,
-        frequency=ugentools.LinLin.ar(
-            source=synthdeftools.Op.cubed(envelope),
-            output_minimum=30,
-            output_maximum=120,
-            ),
-        reciprocal_of_q=2,
-        )
-    noise *= envelope
+        ### NOISE COMPONENT ###
 
-    ### PITCHED COMPONENT ###
+        noise = ugentools.PinkNoise.ar()
+        noise = ugentools.BPF.ar(
+            source=noise,
+            frequency=ugentools.LinLin.ar(
+                source=synthdeftools.Op.cubed(envelope),
+                output_minimum=30,
+                output_maximum=120,
+                ),
+            reciprocal_of_q=2,
+            )
+        noise *= envelope
 
-    pitch = ugentools.SinOsc.ar(
-        frequency=ugentools.LinLin.ar(
-            source=envelope,
-            output_minimum=10,
-            output_maximum=80,
-            ),
-        )
-    pitch = pitch * 2.0
-    pitch = synthdeftools.Op.distort(pitch)
-    pitch = ugentools.RLPF.ar(
-        source=pitch,
-        frequency=ugentools.LinLin.ar(
-            source=envelope,
-            output_minimum=30,
-            output_maximum=120,
-            ),
-        reciprocal_of_q=0.5,
-        )
-    pitch *= envelope
+        ### PITCHED COMPONENT ###
 
-    mix = pitch + noise
+        pitch = ugentools.SinOsc.ar(
+            frequency=ugentools.LinLin.ar(
+                source=envelope,
+                output_minimum=10,
+                output_maximum=80,
+                ),
+            )
+        pitch = pitch * 2.0
+        pitch = synthdeftools.Op.distort(pitch)
+        pitch = ugentools.RLPF.ar(
+            source=pitch,
+            frequency=ugentools.LinLin.ar(
+                source=envelope,
+                output_minimum=30,
+                output_maximum=120,
+                ),
+            reciprocal_of_q=0.5,
+            )
+        pitch *= envelope
 
-    out = ugentools.Out.ar(builder['out'], (mix, mix))
+        mix = pitch + noise
 
-    builder.add_ugen(out)
+        ugentools.Out.ar(builder['out'], (mix, mix))
+
     synthdef = builder.build()
     return synthdef
 
