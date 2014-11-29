@@ -150,7 +150,8 @@ class Synth(Node):
         requests.append(synth_request)
         requests.extend(map_requests)
         if self.is_paused:
-            pause_request = requesttools.NodeRunRequest((self.node_id, False))
+            pause_request = requesttools.NodeRunRequest(
+                [(self.node_id, False)])
             requests.append(pause_request)
         if 1 < len(requests):
             message_bundler = servertools.MessageBundler(
