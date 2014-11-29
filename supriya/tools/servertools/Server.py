@@ -149,7 +149,7 @@ class Server(SupriyaObject):
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
-        self._meters = servertools.ServerMeter(self)
+        self._meters = servertools.ServerMeters(self)
         self._recorder = servertools.ServerRecorder(self)
 
         ### PROXY MAPPINGS ###

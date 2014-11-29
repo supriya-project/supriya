@@ -4,7 +4,7 @@ from abjad.tools import sequencetools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
-class ServerMeter(SupriyaObject):
+class ServerMeters(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
