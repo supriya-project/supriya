@@ -24,7 +24,8 @@ class ServerMeter(SupriyaObject):
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, server):
+        self._server = server
         self._input_meter_callback = None
         self._input_meter_peak_levels = None
         self._input_meter_rms_levels = None
@@ -33,7 +34,6 @@ class ServerMeter(SupriyaObject):
         self._output_meter_peak_levels = None
         self._output_meter_rms_levels = None
         self._output_meter_synth = None
-        self._server = None
 
     ### PUBLIC METHODS ###
 
@@ -92,10 +92,9 @@ class ServerMeter(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def allocate(self, server):
+    def allocate(self):
         from supriya.tools import osctools
         from supriya.tools import servertools
-        self._server = server
         self._input_meter_callback = osctools.OscCallback(
             address_pattern=self.input_meter_command,
             procedure=self._handle_input_levels,
@@ -117,12 +116,12 @@ class ServerMeter(SupriyaObject):
         self._input_meter_synth.allocate(
             add_action=servertools.AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
-            target_node=server.root_node,
+            target_node=self.server.root_node,
             )
         self._output_meter_synth.allocate(
             add_action=servertools.AddAction.ADD_TO_TAIL,
             node_id_is_permanent=True,
-            target_node=server.root_node,
+            target_node=self.server.root_node,
             )
         return self
 
