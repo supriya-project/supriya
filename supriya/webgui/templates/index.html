@@ -2,28 +2,12 @@
 <html>
 <head>
     <title>Server Status</title>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
-    <script type="text/javascript" charset="utf-8">
-        var updater = {
-            socket: null,
-            start: function() {
-                var url = "ws://" + location.host + "/websocket";
-                updater.socket = new WebSocket(url);
-                updater.socket.onmessage = function(event) {
-                    updater.showMessage(JSON.parse(event.data));
-                }
-            },
-            showMessage: function(message) {
-                console.log(message);
-            }
-        };
-        $(document).ready(function(){
-            updater.start();
-        });
-    </script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="static/gui.js"></script>
 </head>
 <body>
     <h1>Server Status</h1>
     <div id="status"></div>
+    <canvas id="meters" width=325 height=90 style="border: 1px solid black;"></canvas>
 </body>
 </html>
