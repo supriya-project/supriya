@@ -10,6 +10,7 @@ class Node(ServerObjectProxy):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_is_paused',
         '_name',
         '_node_id',
         '_node_id_is_permanent',
@@ -21,10 +22,11 @@ class Node(ServerObjectProxy):
     @abc.abstractmethod
     def __init__(self, name=None):
         ServerObjectProxy.__init__(self)
-        self._parent = None
+        self._is_paused = False
         self._name = name
         self._node_id = None
         self._node_id_is_permanent = None
+        self._parent = None
 
     ### SPECIAL METHODS ###
 
@@ -253,6 +255,44 @@ class Node(ServerObjectProxy):
             if response.action == responsetools.NodeAction.NODE_REMOVED:
                 self._set_parent(None)
                 self._unregister_with_local_server()
+            elif response.action == responsetools.NodeAction.NODE_ACTIVATED:
+                self._is_paused = False
+            elif response.action == responsetools.NodeAction.NODE_DEACTIVATED:
+                self._is_paused = True
+            elif response.action == responsetools.NodeAction.NODE_MOVED:
+                pass
+
+    def pause(self):
+        from supriya.tools import requesttools
+        if self.is_paused:
+            return
+        self._is_paused = True
+        if self.is_allocated:
+            request = requesttools.NodeRunRequest(
+                node_id_run_flag_pairs=(
+                    (self.node_id, False),
+                    ),
+                )
+            request.communicate(
+                server=self.server,
+                sync=False,
+                )
+
+    def unpause(self):
+        from supriya.tools import requesttools
+        if not self.is_paused:
+            return
+        self._is_paused = False
+        if self.is_allocated:
+            request = requesttools.NodeRunRequest(
+                node_id_run_flag_pairs=(
+                    (self.node_id, True),
+                    ),
+                )
+            request.communicate(
+                server=self.server,
+                sync=False,
+                )
 
     def precede_by(self, expr):
         if not isinstance(expr, collections.Sequence):
@@ -279,6 +319,10 @@ class Node(ServerObjectProxy):
         if self.server is not None:
             return self in self.server
         return False
+
+    @property
+    def is_paused(self):
+        return self._is_paused
 
     @property
     def is_running(self):

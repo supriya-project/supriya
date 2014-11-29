@@ -191,6 +191,7 @@ class Group(Node):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         nodes = set()
+        paused_nodes = set()
         synthdefs = set()
         requests = []
         iterator = Group._iterate_setitem_expr(self, expr, start)
@@ -235,7 +236,9 @@ class Group(Node):
                         )
                     requests.append(request)
                     requests.extend(map_requests)
-        return nodes, requests, synthdefs
+                if node.is_paused:
+                    paused_nodes.add(node)
+        return nodes, paused_nodes, requests, synthdefs
 
     def _set_allocated(self, expr, start, stop):
         from supriya.tools import requesttools
@@ -251,8 +254,8 @@ class Group(Node):
             child._set_parent(self)
         self._children.__setitem__(slice(start, start), expr)
 
-        new_nodes, requests, synthdefs = self._collect_requests_and_synthdefs(
-            expr, start)
+        new_nodes, paused_nodes, requests, synthdefs = \
+            self._collect_requests_and_synthdefs(expr, start)
         self._allocate_synthdefs(synthdefs)
 
         old_node_ids = []
@@ -270,6 +273,13 @@ class Group(Node):
                 node_ids=old_node_ids,
                 )
             requests.insert(0, node_free_request)
+
+        if paused_nodes:
+            pairs = sorted((node.node_id, False) for node in paused_nodes)
+            request = requesttools.NodeRunRequest(
+                node_id_run_flag_pairs=pairs,
+                )
+            requests.append(request)
 
         message_bundler = servertools.MessageBundler(
             server=self.server,
@@ -324,10 +334,19 @@ class Group(Node):
             node_id=node_id,
             target_node_id=target_node_id,
             )
-        nodes, requests, synthdefs = self._collect_requests_and_synthdefs(self)
+        nodes, paused_nodes, requests, synthdefs = \
+            self._collect_requests_and_synthdefs(self)
+        if self.is_paused:
+            paused_nodes.add(self)
         requests.insert(0, group_new_request)
         if synthdefs:
             self._allocate_synthdefs(synthdefs)
+        if paused_nodes:
+            pairs = sorted((node.node_id, False) for node in paused_nodes)
+            request = requesttools.NodeRunRequest(
+                node_id_run_flag_pairs=pairs,
+                )
+            requests.append(request)
         if 1 < len(requests):
             message_bundler = servertools.MessageBundler(
                 server=self.server,

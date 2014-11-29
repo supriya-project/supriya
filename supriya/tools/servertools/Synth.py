@@ -138,6 +138,7 @@ class Synth(Node):
         if not self.synthdef.is_allocated:
             self.synthdef.allocate()
         self.controls._set(**kwargs)
+        requests = []
         settings, map_requests = self.controls._make_synth_new_settings()
         synth_request = requesttools.SynthNewRequest(
             add_action=add_action,
@@ -146,15 +147,24 @@ class Synth(Node):
             target_node_id=target_node_id,
             **settings
             )
-        message_bundler = servertools.MessageBundler(
-            server=self.server,
-            sync=sync,
-            )
-        message_bundler.add_message(synth_request)
-        for map_request in map_requests:
-            message_bundler.add_message(map_request)
-        message_bundler.add_synchronizing_request(synth_request)
-        message_bundler.send_messages()
+        requests.append(synth_request)
+        requests.extend(map_requests)
+        if self.is_paused:
+            pause_request = requesttools.NodeRunRequest((self.node_id, False))
+            requests.append(pause_request)
+        if 1 < len(requests):
+            message_bundler = servertools.MessageBundler(
+                server=self.server,
+                sync=True,
+                )
+            message_bundler.add_messages(requests)
+            message_bundler.add_synchronizing_request(synth_request)
+            message_bundler.send_messages()
+        else:
+            synth_request.communicate(
+                server=self.server,
+                sync=True,
+                )
         return self
 
     def free(self):
