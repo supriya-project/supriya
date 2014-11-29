@@ -67,7 +67,6 @@ class ServerMeter(SupriyaObject):
             rms_levels.append(rms)
         self._input_meter_peak_levels = tuple(peak_levels)
         self._input_meter_rms_levels = tuple(rms_levels)
-        #print('I:', rms_levels, peak_levels)
 
     def _handle_output_levels(self, message):
         contents = message.contents[2:]
@@ -79,7 +78,15 @@ class ServerMeter(SupriyaObject):
             rms_levels.append(rms)
         self._output_meter_peak_levels = tuple(peak_levels)
         self._output_meter_rms_levels = tuple(rms_levels)
-        #print('O:', rms_levels, peak_levels)
+        self.server.subscription_service.notify(
+            'meters',
+            {
+                'input_meter_peak_levels': self.input_meter_peak_levels,
+                'input_meter_rms_levels': self.input_meter_rms_levels,
+                'output_meter_peak_levels': self.output_meter_peak_levels,
+                'output_meter_rms_levels': self.output_meter_rms_levels,
+                },
+            )
 
     ### PUBLIC METHODS ###
 

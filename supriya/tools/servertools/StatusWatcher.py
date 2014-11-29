@@ -43,6 +43,10 @@ class StatusWatcher(threading.Thread):
             return
         self._server._status = response
         self._attempts = 0
+        self._server.subscription_service.notify(
+            'status',
+            response.to_dict(),
+            )
 
     ### PUBLIC METHODS ###
 
@@ -57,19 +61,6 @@ class StatusWatcher(threading.Thread):
                 break
             self.server.send_message(message)
             self._attempts += 1
-#            try:
-#                string = self.server._server_process.readline()
-#                if string:
-#                    sys.stdout.write(string)
-#                    sys.stdout.flush()
-#            except pexpect.TIMEOUT as e:
-#                print('TIMEOUT:', type(e))
-#                #print(e)
-#                pass
-#            except Exception as e:
-#                print('EXCEPTION:', type(e))
-#                #print(e)
-#                pass
             time.sleep(0.2)
         self.server.unregister_response_callback(self.response_callback)
 

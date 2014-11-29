@@ -20,6 +20,17 @@ class Response(SupriyaValueObject):
         ):
         self._osc_message = osc_message
 
+    ### PUBLIC METHODS ###
+
+    def to_dict(self):
+        result = {}
+        for key, value in self.__getstate__().items():
+            key = key[1:]
+            if key == 'osc_message':
+                continue
+            result[key] = value
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

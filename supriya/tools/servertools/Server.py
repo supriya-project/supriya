@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-#import subprocess
 import sys
 import pexpect
 import time
@@ -46,6 +45,7 @@ class Server(SupriyaObject):
         '_ip_address',
         '_is_running',
         '_latency',
+        '_meters',
         '_node_id_allocator',
         '_nodes',
         '_osc_controller',
@@ -58,6 +58,7 @@ class Server(SupriyaObject):
         '_server_process',
         '_status',
         '_status_watcher',
+        '_subscription_service',
         '_sync_id',
         '_synthdefs',
         )
@@ -108,6 +109,7 @@ class Server(SupriyaObject):
 
         self._latency = 100
         self._response_dispatcher = responsetools.ResponseDispatcher()
+        self._subscription_service = servertools.SubscriptionService()
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(
             server=self,
@@ -147,6 +149,7 @@ class Server(SupriyaObject):
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
+        self._meters = servertools.ServerMeter()
         self._recorder = servertools.ServerRecorder(self)
 
         ### PROXY MAPPINGS ###
@@ -657,6 +660,10 @@ class Server(SupriyaObject):
         self._latency = float(latency)
 
     @property
+    def meters(self):
+        return self._meters
+
+    @property
     def next_sync_id(self):
         sync_id = self._sync_id
         self._sync_id += 1
@@ -689,3 +696,7 @@ class Server(SupriyaObject):
     @property
     def status(self):
         return self._status
+
+    @property
+    def subscription_service(self):
+        return self._subscription_service
