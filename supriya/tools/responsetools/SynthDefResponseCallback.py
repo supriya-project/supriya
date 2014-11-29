@@ -33,7 +33,7 @@ class SynthDefResponseCallback(ResponseCallback):
         synthdef = self._server._synthdefs.get(synthdef_name)
         if synthdef is None:
             return
-        synthdef.handle_response(response)
+        synthdef._handle_response(response)
 
     ### PUBLIC PROPERTIES ###
 

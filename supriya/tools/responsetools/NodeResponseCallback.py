@@ -35,7 +35,7 @@ class NodeResponseCallback(ResponseCallback):
         node = self._server._nodes.get(node_id)
         if node is None:
             return
-        node.handle_response(response)
+        node._handle_response(response)
 
     ### PUBLIC PROPERTIES ###
 

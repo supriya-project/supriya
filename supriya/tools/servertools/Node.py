@@ -70,6 +70,19 @@ class Node(ServerObjectProxy):
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
 
+    def _handle_response(self, response):
+        from supriya.tools import responsetools
+        if isinstance(response, responsetools.NodeInfoResponse):
+            if response.action == responsetools.NodeAction.NODE_REMOVED:
+                self._set_parent(None)
+                self._unregister_with_local_server()
+            elif response.action == responsetools.NodeAction.NODE_ACTIVATED:
+                self._is_paused = False
+            elif response.action == responsetools.NodeAction.NODE_DEACTIVATED:
+                self._is_paused = True
+            elif response.action == responsetools.NodeAction.NODE_MOVED:
+                pass
+
     @staticmethod
     def _iterate_nodes(nodes):
         for x in nodes:
@@ -248,19 +261,6 @@ class Node(ServerObjectProxy):
                 sync=False,
                 )
         return self
-
-    def handle_response(self, response):
-        from supriya.tools import responsetools
-        if isinstance(response, responsetools.NodeInfoResponse):
-            if response.action == responsetools.NodeAction.NODE_REMOVED:
-                self._set_parent(None)
-                self._unregister_with_local_server()
-            elif response.action == responsetools.NodeAction.NODE_ACTIVATED:
-                self._is_paused = False
-            elif response.action == responsetools.NodeAction.NODE_DEACTIVATED:
-                self._is_paused = True
-            elif response.action == responsetools.NodeAction.NODE_MOVED:
-                pass
 
     def pause(self):
         from supriya.tools import requesttools

@@ -33,7 +33,7 @@ class BufferResponseCallback(ResponseCallback):
     def __call__(self, response):
         buffer_id = response.buffer_id
         buffer_proxy = self._server._get_buffer_proxy(buffer_id)
-        buffer_proxy.handle_response(response)
+        buffer_proxy._handle_response(response)
 
     ### PUBLIC PROPERTIES ###
 

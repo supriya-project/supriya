@@ -181,9 +181,9 @@ class BufferProxy(SupriyaObject):
         '''
         return int(self.buffer_id)
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def handle_response(self, response):
+    def _handle_response(self, response):
         r'''Updates buffer proxy with buffer-info response.
 
         ::
@@ -218,7 +218,7 @@ class BufferProxy(SupriyaObject):
 
         ::
 
-            >>> a_buffer.handle_response(response)
+            >>> a_buffer._handle_response(response)
             >>> a_buffer
             BufferProxy(
                 buffer_id=23,
