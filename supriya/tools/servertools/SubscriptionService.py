@@ -13,6 +13,8 @@ class SubscriptionService(SupriyaObject):
         verbose=False,
         )
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_subscriptions',
         )

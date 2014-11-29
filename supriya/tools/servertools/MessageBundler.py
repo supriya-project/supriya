@@ -6,7 +6,7 @@ class MessageBundler(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Context Managers'
+    __documentation_section__ = 'Main Classes'
 
     __slots__ = (
         '_messages',

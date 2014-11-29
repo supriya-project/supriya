@@ -7,6 +7,8 @@ class ServerRecorder(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Server Internals'
+
     __slots__ = (
         '_channel_count',
         '_current_channel_count',
