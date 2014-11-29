@@ -52,6 +52,8 @@ class ServerMeters(SupriyaObject):
                 )
             ugentools.SendPeakRMS.kr(
                 command_name=command_name,
+                peak_lag=1,
+                reply_rate=20,
                 source=source,
                 )
         synthdef = builder.build()
@@ -63,7 +65,7 @@ class ServerMeters(SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for rms, peak in sequencetools.partition_sequence_by_counts(
+        for peak, rms in sequencetools.partition_sequence_by_counts(
             contents, counts=[2], cyclic=True):
             peak_levels.append(peak)
             rms_levels.append(rms)

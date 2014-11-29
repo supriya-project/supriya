@@ -47,7 +47,7 @@ class SendPeakRMS(UGen):
         command_name='/reply',
         peak_lag=3,
         reply_id=-1,
-        reply_rate=10,
+        reply_rate=20,
         source=None,
         ):
         UGen.__init__(
