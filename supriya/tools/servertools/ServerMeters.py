@@ -81,12 +81,12 @@ class ServerMeters(SupriyaObject):
         self._output_meter_peak_levels = tuple(peak_levels)
         self._output_meter_rms_levels = tuple(rms_levels)
         self.server.subscription_service.notify(
-            'meters',
+            'server-meters',
             {
-                'input_meter_peak_levels': self.input_meter_peak_levels,
-                'input_meter_rms_levels': self.input_meter_rms_levels,
-                'output_meter_peak_levels': self.output_meter_peak_levels,
-                'output_meter_rms_levels': self.output_meter_rms_levels,
+                'input_meter_peak_levels': self._input_meter_peak_levels,
+                'input_meter_rms_levels': self._input_meter_rms_levels,
+                'output_meter_peak_levels': self._output_meter_peak_levels,
+                'output_meter_rms_levels': self._output_meter_rms_levels,
                 },
             )
 

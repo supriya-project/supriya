@@ -40,7 +40,7 @@ class SubscriptionService(SupriyaObject):
             topic=topic,
             )
         if topic not in self._subscriptions:
-            self._subscriptions = set()
+            self._subscriptions[topic] = set()
         subscriptions = self._subscriptions[topic]
         subscriptions.add(subscription)
 

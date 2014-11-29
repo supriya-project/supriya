@@ -44,7 +44,7 @@ class StatusWatcher(threading.Thread):
         self._server._status = response
         self._attempts = 0
         self._server.subscription_service.notify(
-            'status',
+            'server-status',
             response.to_dict(),
             )
 
