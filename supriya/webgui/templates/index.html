@@ -4,23 +4,29 @@
     <title>Server Status</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
     <script type="text/javascript" src="static/gui.js"></script>
+    <link rel="stylesheet" href="static/normalize.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="static/supriya.css" type="text/css" media="screen" />
 </head>
 <body>
-    <h1>Server Status</h1>
-    <div id="status">
-        <ul>
-            <li id="target_sample_rate"></li>
-            <li id="actual_sample_rate"></li>
+    <div id="main">
+        <h1>Supriya</h1>
+        <h2>Server Status</h2>
+        <div id="status">
+            <ul>
+                <li id="target_sample_rate"></li>
+                <li id="actual_sample_rate"></li>
 
-            <li id="average_cpu_usage"></li>
-            <li id="peak_cpu_usage"></li>
+                <li id="average_cpu_usage"></li>
+                <li id="peak_cpu_usage"></li>
 
-            <li id="group_count"></li>
-            <li id="synth_count"></li>
-            <li id="synthdef_count"></li>
-            <li id="ugen_count"></li>
-        </ul>
+                <li id="group_count"></li>
+                <li id="synth_count"></li>
+                <li id="synthdef_count"></li>
+                <li id="ugen_count"></li>
+            </ul>
+        </div>
+        <h2>Level Meters</h2>
+        <canvas id="meters" width=325 height=90 style="border: 1px solid black;"></canvas>
     </div>
-    <canvas id="meters" width=325 height=90 style="border: 1px solid black;"></canvas>
 </body>
 </html>

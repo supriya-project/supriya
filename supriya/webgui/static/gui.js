@@ -59,11 +59,12 @@ var updater = {
     handle_status: function(data) {
         $('#actual_sample_rate').html(
             'Actual sample rate: ' + 
-            data['actual_sample_rate']
+            data['actual_sample_rate'].toFixed(3)
             );
         $('#average_cpu_usage').html(
             'Average CPU usage: ' + 
-            data['average_cpu_usage']
+            data['average_cpu_usage'].toFixed(3)
+            + "%"
             );
         $('#group_count').html(
             'Group count: ' +
@@ -71,7 +72,8 @@ var updater = {
             );
         $('#peak_cpu_usage').html(
             'Peak CPU usage: ' +
-            data['peak_cpu_usage']
+            data['peak_cpu_usage'].toFixed(3)
+            + "%"
             );
         $('#synth_count').html(
             'Synth count: ' + 
