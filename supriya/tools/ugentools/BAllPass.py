@@ -3,22 +3,24 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BAllPass(BEQSuite):
-    r'''
+    r'''An all-pass filter.
 
     ::
 
-        >>> ball_pass = ugentools.BAllPass.(
+        >>> source = ugentools.In.ar(0)
+        >>> ball_pass = ugentools.BAllPass.ar(
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> ball_pass
+        BAllPass.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -60,12 +62,14 @@ class BAllPass(BEQSuite):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> ball_pass = ugentools.BAllPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball_pass
+            BAllPass.ar()
 
         Returns ugen graph.
         '''
@@ -101,12 +105,14 @@ class BAllPass(BEQSuite):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> ball_pass = ugentools.BAllPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball_pass.frequency
+            1200.0
 
         Returns ugen input.
         '''
@@ -119,12 +125,14 @@ class BAllPass(BEQSuite):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> ball_pass = ugentools.BAllPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball_pass.reciprocal_of_q
+            1.0
 
         Returns ugen input.
         '''
@@ -137,12 +145,21 @@ class BAllPass(BEQSuite):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> ball_pass = ugentools.BAllPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball_pass.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

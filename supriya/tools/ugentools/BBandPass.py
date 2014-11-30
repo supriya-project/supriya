@@ -2,30 +2,32 @@
 from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
-class BLowPass(BEQSuite):
-    r'''
+class BBandPass(BEQSuite):
+    r'''A band-pass filter.
 
     ::
 
-        >>> blow_pass = ugentools.BLowPass.(
+        >>> source = ugentools.In.ar(0)
+        >>> bband_pass = ugentools.BBandPass.ar(
+        ...     bandwidth=1,
         ...     frequency=1200,
-        ...     reciprocal_of_q=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
-        >>> blow_pass
+        >>> bband_pass
+        BBandPass.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
         'frequency',
-        'reciprocal_of_q',
+        'bandwidth',
         )
 
     _valid_calculation_rates = None
@@ -35,15 +37,15 @@ class BLowPass(BEQSuite):
     def __init__(
         self,
         calculation_rate=None,
+        bandwidth=1,
         frequency=1200,
-        reciprocal_of_q=1,
         source=None,
         ):
         BEQSuite.__init__(
             self,
             calculation_rate=calculation_rate,
+            bandwidth=bandwidth,
             frequency=frequency,
-            reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
 
@@ -52,20 +54,22 @@ class BLowPass(BEQSuite):
     @classmethod
     def ar(
         cls,
+        bandwidth=1,
         frequency=1200,
-        reciprocal_of_q=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BLowPass.
+        r'''Constructs an audio-rate BBandPass.
 
         ::
 
-            >>> blow_pass = ugentools.BLowPass.ar(
+            >>> source = ugentools.In.ar(0)
+            >>> bband_pass = ugentools.BBandPass.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_pass
+            >>> bband_pass
+            BBandPass.ar()
 
         Returns ugen graph.
         '''
@@ -73,8 +77,8 @@ class BLowPass(BEQSuite):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            bandwidth=bandwidth,
             frequency=frequency,
-            reciprocal_of_q=reciprocal_of_q,
             source=source,
             )
         return ugen
@@ -96,17 +100,39 @@ class BLowPass(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of BLowPass.
+    def bandwidth(self):
+        r'''Gets `bandwidth` input of BBandPass.
 
         ::
 
-            >>> blow_pass = ugentools.BLowPass.ar(
+            >>> source = ugentools.In.ar(0)
+            >>> bband_pass = ugentools.BBandPass.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_pass.frequency
+            >>> bband_pass.bandwidth
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('bandwidth')
+        return self._inputs[index]
+
+    @property
+    def frequency(self):
+        r'''Gets `frequency` input of BBandPass.
+
+        ::
+
+            >>> source = ugentools.In.ar(0)
+            >>> bband_pass = ugentools.BBandPass.ar(
+            ...     bandwidth=1,
+            ...     frequency=1200,
+            ...     source=source,
+            ...     )
+            >>> bband_pass.frequency
+            1200.0
 
         Returns ugen input.
         '''
@@ -114,35 +140,26 @@ class BLowPass(BEQSuite):
         return self._inputs[index]
 
     @property
-    def reciprocal_of_q(self):
-        r'''Gets `reciprocal_of_q` input of BLowPass.
-
-        ::
-
-            >>> blow_pass = ugentools.BLowPass.ar(
-            ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
-            ...     )
-            >>> blow_pass.reciprocal_of_q
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('reciprocal_of_q')
-        return self._inputs[index]
-
-    @property
     def source(self):
-        r'''Gets `source` input of BLowPass.
+        r'''Gets `source` input of BBandPass.
 
         ::
 
-            >>> blow_pass = ugentools.BLowPass.ar(
+            >>> source = ugentools.In.ar(0)
+            >>> bband_pass = ugentools.BBandPass.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_pass.source
+            >>> bband_pass.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

@@ -3,27 +3,14 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class BEQSuite(Filter):
-    r'''
-
-    ::
-
-        >>> beqsuite = ugentools.BEQSuite.(
-        ...     )
-        >>> beqsuite
-
+    r'''Abstract base class of all BEQSuite UGens.
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
-
-    _ordered_input_names = ()
-
-    _valid_calculation_rates = None
-
-    ### INITIALIZER ###
 
     ### PUBLIC METHODS ###
 

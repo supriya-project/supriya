@@ -2,24 +2,25 @@
 from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
-class BPeakEQ(BEQSuite):
-    r'''
+class BLowPass(BEQSuite):
+    r'''A low-pass filter.
 
     ::
 
-        >>> bpeak_eq = ugentools.BPeakEQ.(
-        ...     db=0,
+        >>> source = ugentools.In.ar(0)
+        >>> blow_pass = ugentools.BLowPass.ar(
         ...     frequency=1200,
         ...     reciprocal_of_q=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
-        >>> bpeak_eq
+        >>> blow_pass
+        BLowPass.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -27,7 +28,6 @@ class BPeakEQ(BEQSuite):
         'source',
         'frequency',
         'reciprocal_of_q',
-        'db',
         )
 
     _valid_calculation_rates = None
@@ -37,7 +37,6 @@ class BPeakEQ(BEQSuite):
     def __init__(
         self,
         calculation_rate=None,
-        db=0,
         frequency=1200,
         reciprocal_of_q=1,
         source=None,
@@ -45,7 +44,6 @@ class BPeakEQ(BEQSuite):
         BEQSuite.__init__(
             self,
             calculation_rate=calculation_rate,
-            db=db,
             frequency=frequency,
             reciprocal_of_q=reciprocal_of_q,
             source=source,
@@ -56,22 +54,22 @@ class BPeakEQ(BEQSuite):
     @classmethod
     def ar(
         cls,
-        db=0,
         frequency=1200,
         reciprocal_of_q=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BPeakEQ.
+        r'''Constructs an audio-rate BLowPass.
 
         ::
 
-            >>> bpeak_eq = ugentools.BPeakEQ.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> blow_pass = ugentools.BLowPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bpeak_eq
+            >>> blow_pass
+            BLowPass.ar()
 
         Returns ugen graph.
         '''
@@ -79,7 +77,6 @@ class BPeakEQ(BEQSuite):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            db=db,
             frequency=frequency,
             reciprocal_of_q=reciprocal_of_q,
             source=source,
@@ -103,37 +100,19 @@ class BPeakEQ(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def db(self):
-        r'''Gets `db` input of BPeakEQ.
-
-        ::
-
-            >>> bpeak_eq = ugentools.BPeakEQ.ar(
-            ...     db=0,
-            ...     frequency=1200,
-            ...     reciprocal_of_q=1,
-            ...     source=None,
-            ...     )
-            >>> bpeak_eq.db
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('db')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
-        r'''Gets `frequency` input of BPeakEQ.
+        r'''Gets `frequency` input of BLowPass.
 
         ::
 
-            >>> bpeak_eq = ugentools.BPeakEQ.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> blow_pass = ugentools.BLowPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bpeak_eq.frequency
+            >>> blow_pass.frequency
+            1200.0
 
         Returns ugen input.
         '''
@@ -142,17 +121,18 @@ class BPeakEQ(BEQSuite):
 
     @property
     def reciprocal_of_q(self):
-        r'''Gets `reciprocal_of_q` input of BPeakEQ.
+        r'''Gets `reciprocal_of_q` input of BLowPass.
 
         ::
 
-            >>> bpeak_eq = ugentools.BPeakEQ.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> blow_pass = ugentools.BLowPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bpeak_eq.reciprocal_of_q
+            >>> blow_pass.reciprocal_of_q
+            1.0
 
         Returns ugen input.
         '''
@@ -161,17 +141,25 @@ class BPeakEQ(BEQSuite):
 
     @property
     def source(self):
-        r'''Gets `source` input of BPeakEQ.
+        r'''Gets `source` input of BLowPass.
 
         ::
 
-            >>> bpeak_eq = ugentools.BPeakEQ.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> blow_pass = ugentools.BLowPass.ar(
             ...     frequency=1200,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bpeak_eq.source
+            >>> blow_pass.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

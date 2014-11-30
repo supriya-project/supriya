@@ -1,25 +1,27 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.BHiCut import BHiCut
+from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
-class BLowCut(BHiCut):
-    r'''
+class BHiCut(BEQSuite):
+    r'''A high-cut filter.
 
     ::
 
-        >>> blow_cut = ugentools.BLowCut.(
-        ...     frequency=None,
+        >>> source = ugentools.In.ar(0)
+        >>> bhi_cut = ugentools.BHiCut.ar(
+        ...     frequency=1200,
         ...     max_order=5,
         ...     order=2,
-        ...     source=None,
+        ...     source=source,
         ...     )
-        >>> blow_cut
+        >>> bhi_cut
+        BHiCut.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -37,12 +39,12 @@ class BLowCut(BHiCut):
     def __init__(
         self,
         calculation_rate=None,
-        frequency=None,
+        frequency=1200,
         max_order=5,
         order=2,
         source=None,
         ):
-        BHiCut.__init__(
+        BEQSuite.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -58,22 +60,24 @@ class BLowCut(BHiCut):
     @classmethod
     def ar(
         cls,
-        frequency=None,
+        frequency=1200,
         max_order=5,
         order=2,
         source=None,
         ):
-        r'''Constructs an audio-rate BLowCut.
+        r'''Constructs an audio-rate BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.ar(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut
+            >>> bhi_cut
+            BHiCut.ar()
 
         Returns ugen graph.
         '''
@@ -97,22 +101,24 @@ class BLowCut(BHiCut):
     @classmethod
     def kr(
         cls,
-        frequency=None,
+        frequency=1200,
         max_order=5,
         order=2,
         source=None,
         ):
-        r'''Constructs a control-rate BLowCut.
+        r'''Constructs a control-rate BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.kr(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.kr(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut
+            >>> bhi_cut
+            BHiCut.kr()
 
         Returns ugen graph.
         '''
@@ -147,17 +153,19 @@ class BLowCut(BHiCut):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BLowCut.
+        r'''Gets `frequency` input of BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.ar(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut.frequency
+            >>> bhi_cut.frequency
+            1200.0
 
         Returns ugen input.
         '''
@@ -166,17 +174,19 @@ class BLowCut(BHiCut):
 
     @property
     def max_order(self):
-        r'''Gets `max_order` input of BLowCut.
+        r'''Gets `max_order` input of BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.ar(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut.max_order
+            >>> bhi_cut.max_order
+            5.0
 
         Returns ugen input.
         '''
@@ -185,17 +195,19 @@ class BLowCut(BHiCut):
 
     @property
     def order(self):
-        r'''Gets `order` input of BLowCut.
+        r'''Gets `order` input of BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.ar(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut.order
+            >>> bhi_cut.order
+            2.0
 
         Returns ugen input.
         '''
@@ -204,17 +216,26 @@ class BLowCut(BHiCut):
 
     @property
     def source(self):
-        r'''Gets `source` input of BLowCut.
+        r'''Gets `source` input of BHiCut.
 
         ::
 
-            >>> blow_cut = ugentools.BLowCut.ar(
-            ...     frequency=None,
+            >>> source = ugentools.In.ar(0)
+            >>> bhi_cut = ugentools.BHiCut.ar(
+            ...     frequency=1200,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> blow_cut.source
+            >>> bhi_cut.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

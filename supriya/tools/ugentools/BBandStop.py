@@ -2,32 +2,32 @@
 from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
-class BHiShelf(BEQSuite):
-    r'''
+class BBandStop(BEQSuite):
+    r'''A band-stop filter.
 
     ::
 
-        >>> bhi_shelf = ugentools.BHiShelf.(
-        ...     db=0,
+        >>> source = ugentools.In.ar(0)
+        >>> bband_stop = ugentools.BBandStop.ar(
+        ...     bandwidth=1,
         ...     frequency=1200,
-        ...     rs=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
-        >>> bhi_shelf
+        >>> bband_stop
+        BBandStop.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
         'frequency',
-        'rs',
-        'db',
+        'bandwidth',
         )
 
     _valid_calculation_rates = None
@@ -37,17 +37,15 @@ class BHiShelf(BEQSuite):
     def __init__(
         self,
         calculation_rate=None,
-        db=0,
+        bandwidth=1,
         frequency=1200,
-        rs=1,
         source=None,
         ):
         BEQSuite.__init__(
             self,
             calculation_rate=calculation_rate,
-            db=db,
+            bandwidth=bandwidth,
             frequency=frequency,
-            rs=rs,
             source=source,
             )
 
@@ -56,22 +54,22 @@ class BHiShelf(BEQSuite):
     @classmethod
     def ar(
         cls,
-        db=0,
+        bandwidth=1,
         frequency=1200,
-        rs=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BHiShelf.
+        r'''Constructs an audio-rate BBandStop.
 
         ::
 
-            >>> bhi_shelf = ugentools.BHiShelf.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> bband_stop = ugentools.BBandStop.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     rs=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bhi_shelf
+            >>> bband_stop
+            BBandStop.ar()
 
         Returns ugen graph.
         '''
@@ -79,9 +77,8 @@ class BHiShelf(BEQSuite):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            db=db,
+            bandwidth=bandwidth,
             frequency=frequency,
-            rs=rs,
             source=source,
             )
         return ugen
@@ -103,37 +100,39 @@ class BHiShelf(BEQSuite):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def db(self):
-        r'''Gets `db` input of BHiShelf.
+    def bandwidth(self):
+        r'''Gets `bandwidth` input of BBandStop.
 
         ::
 
-            >>> bhi_shelf = ugentools.BHiShelf.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> bband_stop = ugentools.BBandStop.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     rs=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bhi_shelf.db
+            >>> bband_stop.bandwidth
+            1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('db')
+        index = self._ordered_input_names.index('bandwidth')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BHiShelf.
+        r'''Gets `frequency` input of BBandStop.
 
         ::
 
-            >>> bhi_shelf = ugentools.BHiShelf.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> bband_stop = ugentools.BBandStop.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     rs=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bhi_shelf.frequency
+            >>> bband_stop.frequency
+            1200.0
 
         Returns ugen input.
         '''
@@ -141,37 +140,26 @@ class BHiShelf(BEQSuite):
         return self._inputs[index]
 
     @property
-    def rs(self):
-        r'''Gets `rs` input of BHiShelf.
-
-        ::
-
-            >>> bhi_shelf = ugentools.BHiShelf.ar(
-            ...     db=0,
-            ...     frequency=1200,
-            ...     rs=1,
-            ...     source=None,
-            ...     )
-            >>> bhi_shelf.rs
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('rs')
-        return self._inputs[index]
-
-    @property
     def source(self):
-        r'''Gets `source` input of BHiShelf.
+        r'''Gets `source` input of BBandStop.
 
         ::
 
-            >>> bhi_shelf = ugentools.BHiShelf.ar(
-            ...     db=0,
+            >>> source = ugentools.In.ar(0)
+            >>> bband_stop = ugentools.BBandStop.ar(
+            ...     bandwidth=1,
             ...     frequency=1200,
-            ...     rs=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> bhi_shelf.source
+            >>> bband_stop.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
