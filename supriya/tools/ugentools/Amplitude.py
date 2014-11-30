@@ -3,22 +3,24 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Amplitude(UGen):
-    r'''
+    r'''An amplitude follower.
 
     ::
 
-        >>> amplitude = ugentools.Amplitude.(
+        >>> source = ugentools.In.ar(0)
+        >>> amplitude = ugentools.Amplitude.kr(
         ...     attack_time=0.01,
         ...     release_time=0.01,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> amplitude
+        Amplitude.kr()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Dynamics UGens'
 
     __slots__ = ()
 
@@ -60,12 +62,14 @@ class Amplitude(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> amplitude = ugentools.Amplitude.ar(
             ...     attack_time=0.01,
             ...     release_time=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> amplitude
+            Amplitude.ar()
 
         Returns ugen graph.
         '''
@@ -90,12 +94,14 @@ class Amplitude(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> amplitude = ugentools.Amplitude.kr(
             ...     attack_time=0.01,
             ...     release_time=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> amplitude
+            Amplitude.kr()
 
         Returns ugen graph.
         '''
@@ -109,30 +115,6 @@ class Amplitude(UGen):
             )
         return ugen
 
-    @classmethod
-    def new(
-        cls,
-        source=None,
-        ):
-        r'''Constructs a Amplitude.
-
-        ::
-
-            >>> amplitude = ugentools.Amplitude.new(
-            ...     source=None,
-            ...     )
-            >>> amplitude
-
-        Returns ugen graph.
-        '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -141,12 +123,14 @@ class Amplitude(UGen):
 
         ::
 
-            >>> amplitude = ugentools.Amplitude.ar(
+            >>> source = ugentools.In.ar(0)
+            >>> amplitude = ugentools.Amplitude.kr(
             ...     attack_time=0.01,
             ...     release_time=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> amplitude.attack_time
+            0.01
 
         Returns ugen input.
         '''
@@ -159,12 +143,14 @@ class Amplitude(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> amplitude = ugentools.Amplitude.ar(
             ...     attack_time=0.01,
             ...     release_time=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> amplitude.release_time
+            0.01
 
         Returns ugen input.
         '''
@@ -177,12 +163,21 @@ class Amplitude(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> amplitude = ugentools.Amplitude.ar(
             ...     attack_time=0.01,
             ...     release_time=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> amplitude.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
