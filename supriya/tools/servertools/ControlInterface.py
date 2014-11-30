@@ -43,6 +43,8 @@ class ControlInterface(SupriyaObject):
                     n_map_settings[control_name] = value
                 else:
                     n_mapa_settings[control_name] = value
+            elif value is None:
+                n_map_settings[control_name] = -1
             else:
                 raise ValueError(value)
             control = self[control_name]
