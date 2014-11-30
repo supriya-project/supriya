@@ -29,7 +29,7 @@ class SubscriptionService(SupriyaObject):
     def clear(self):
         self._subscriptions = {}
 
-    def notify(self, topic, event):
+    def notify(self, topic, event=None):
         subscriptions = self._subscriptions.get(topic, ())
         for subscription in subscriptions:
             subscription.subscriber.notify(topic, event)

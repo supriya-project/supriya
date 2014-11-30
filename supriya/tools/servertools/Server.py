@@ -409,6 +409,7 @@ class Server(SupriyaObject):
         self._server_process = server_process
         self._setup()
         self.sync()
+        self.subscription_service.notify('server-booted')
         return self
 
     @staticmethod
@@ -567,6 +568,7 @@ class Server(SupriyaObject):
         if not self._server_process.terminate():
             self._server_process.wait()
         self._teardown()
+        self.subscription_service.notify('server-quit')
         return self
 
     def register_osc_callback(self, osc_callback):
