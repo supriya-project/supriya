@@ -57,10 +57,10 @@ def run_demo():
         target_node=server,
         )
 
+    server.meters.allocate()
+
     return server, synthdef, synth
 
 
 if __name__ == '__main__':
     server, synthdef, synth = run_demo()
-    graph = synthdef.as_graphviz_graph()
-    topleveltools.graph(graph, layout='dot')
