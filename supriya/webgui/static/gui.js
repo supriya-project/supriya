@@ -57,6 +57,38 @@ var updater = {
     },
 
     handle_status: function(data) {
+        $('#actual_sample_rate').html(
+            'Actual sample rate: ' + 
+            data['actual_sample_rate']
+            );
+        $('#average_cpu_usage').html(
+            'Average CPU usage: ' + 
+            data['average_cpu_usage']
+            );
+        $('#group_count').html(
+            'Group count: ' +
+            data['group_count']
+            );
+        $('#peak_cpu_usage').html(
+            'Peak CPU usage: ' +
+            data['peak_cpu_usage']
+            );
+        $('#synth_count').html(
+            'Synth count: ' + 
+            data['synth_count']
+            );
+        $('#synthdef_count').html(
+            'SynthDef count: ' + 
+            data['synthdef_count']
+            );
+        $('#target_sample_rate').html(
+            'Target sample rate: ' +
+            data['target_sample_rate']
+            );
+        $('#ugen_count').html(
+            'UGen count: ' + 
+            data['ugen_count']
+            );
 
     },
 
