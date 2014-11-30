@@ -26,6 +26,9 @@ class SocketHandler(tornado.websocket.WebSocketHandler):
         self.application.watchers.remove(self)
         print('CLOSED')
 
+    def on_message(self, message):
+        pass
+
     def update(self, topic, event):
         try:
             event = event.copy()
@@ -42,7 +45,9 @@ class WebServer(threading.Thread):
     def __init__(self, server):
         threading.Thread.__init__(self)
         self.server = server
+        self.server.subscription_service.subscribe(self, 'server-booted')
         self.server.subscription_service.subscribe(self, 'server-meters')
+        self.server.subscription_service.subscribe(self, 'server-quit')
         self.server.subscription_service.subscribe(self, 'server-status')
         handlers = [
             (r'/', MainHandler),
