@@ -1,23 +1,25 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.Trig1 import Trig1
 
 
-class Trig1(UGen):
-    r'''
+class TDelay(Trig1):
+    r'''A trigger delay.
 
     ::
 
-        >>> trig_1 = ugentools.Trig1.(
+        >>> source = ugentools.Dust.kr()
+        >>> tdelay = ugentools.TDelay.ar(
         ...     duration=0.1,
-        ...     source=None,
+        ...     source=source,
         ...     )
-        >>> trig_1
+        >>> tdelay
+        TDelay.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -36,7 +38,7 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        UGen.__init__(
+        Trig1.__init__(
             self,
             calculation_rate=calculation_rate,
             duration=duration,
@@ -51,15 +53,17 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Trig1.
+        r'''Constructs an audio-rate TDelay.
 
         ::
 
-            >>> trig_1 = ugentools.Trig1.ar(
+            >>> source = ugentools.Dust.kr()
+            >>> tdelay = ugentools.TDelay.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> trig_1
+            >>> tdelay
+            TDelay.ar()
 
         Returns ugen graph.
         '''
@@ -78,15 +82,17 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Trig1.
+        r'''Constructs a control-rate TDelay.
 
         ::
 
-            >>> trig_1 = ugentools.Trig1.kr(
+            >>> source = ugentools.Dust.kr()
+            >>> tdelay = ugentools.TDelay.kr(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> trig_1
+            >>> tdelay
+            TDelay.kr()
 
         Returns ugen graph.
         '''
@@ -103,15 +109,17 @@ class Trig1(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of Trig1.
+        r'''Gets `duration` input of TDelay.
 
         ::
 
-            >>> trig_1 = ugentools.Trig1.ar(
+            >>> source = ugentools.Dust.kr()
+            >>> tdelay = ugentools.TDelay.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> trig_1.duration
+            >>> tdelay.duration
+            0.1
 
         Returns ugen input.
         '''
@@ -120,15 +128,23 @@ class Trig1(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Trig1.
+        r'''Gets `source` input of TDelay.
 
         ::
 
-            >>> trig_1 = ugentools.Trig1.ar(
+            >>> source = ugentools.Dust.kr()
+            >>> tdelay = ugentools.TDelay.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
-            >>> trig_1.source
+            >>> tdelay.source
+            OutputProxy(
+                source=Dust(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    density=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

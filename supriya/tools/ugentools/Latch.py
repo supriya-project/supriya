@@ -3,21 +3,24 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Latch(UGen):
-    r'''
+    r'''Samples and holds.
 
     ::
 
-        >>> latch = ugentools.Latch.(
-        ...     source=None,
-        ...     trigger=0,
+        >>> source = ugentools.WhiteNoise.ar()
+        >>> trigger = ugentools.Dust.kr(1)
+        >>> latch = ugentools.Latch.ar(
+        ...     source=source,
+        ...     trigger=trigger,
         ...     )
         >>> latch
+        Latch.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -55,11 +58,14 @@ class Latch(UGen):
 
         ::
 
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(1)
             >>> latch = ugentools.Latch.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> latch
+            Latch.ar()
 
         Returns ugen graph.
         '''
@@ -82,11 +88,14 @@ class Latch(UGen):
 
         ::
 
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(1)
             >>> latch = ugentools.Latch.kr(
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> latch
+            Latch.kr()
 
         Returns ugen graph.
         '''
@@ -107,11 +116,20 @@ class Latch(UGen):
 
         ::
 
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(1)
             >>> latch = ugentools.Latch.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> latch.source
+            OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=<CalculationRate.AUDIO: 2>
+                    ),
+                output_index=0
+                )
+
 
         Returns ugen input.
         '''
@@ -124,11 +142,20 @@ class Latch(UGen):
 
         ::
 
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(1)
             >>> latch = ugentools.Latch.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> latch.trigger
+            OutputProxy(
+                source=Dust(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    density=1.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

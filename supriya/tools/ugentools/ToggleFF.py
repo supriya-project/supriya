@@ -1,28 +1,28 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Latch import Latch
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Gate(Latch):
-    r'''
+class ToggleFF(UGen):
+    r'''A toggle flip-flop.
 
     ::
 
-        >>> gate = ugentools.Gate.(
-        ...     source=None,
-        ...     trigger=0,
+        >>> trigger = ugentools.Dust.kr(1)
+        >>> toggle_ff = ugentools.ToggleFF.ar(
+        ...     trigger=trigger,
         ...     )
-        >>> gate
+        >>> toggle_ff
+        ToggleFF.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'source',
         'trigger',
         )
 
@@ -33,13 +33,11 @@ class Gate(Latch):
     def __init__(
         self,
         calculation_rate=None,
-        source=None,
         trigger=0,
         ):
-        Latch.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            source=source,
             trigger=trigger,
             )
 
@@ -48,18 +46,18 @@ class Gate(Latch):
     @classmethod
     def ar(
         cls,
-        source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Gate.
+        r'''Constructs an audio-rate ToggleFF.
 
         ::
 
-            >>> gate = ugentools.Gate.ar(
-            ...     source=None,
-            ...     trigger=0,
+            >>> trigger = ugentools.Dust.kr(1)
+            >>> toggle_ff = ugentools.ToggleFF.ar(
+            ...     trigger=trigger,
             ...     )
-            >>> gate
+            >>> toggle_ff
+            ToggleFF.ar()
 
         Returns ugen graph.
         '''
@@ -67,7 +65,6 @@ class Gate(Latch):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            source=source,
             trigger=trigger,
             )
         return ugen
@@ -75,18 +72,18 @@ class Gate(Latch):
     @classmethod
     def kr(
         cls,
-        source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate Gate.
+        r'''Constructs a control-rate ToggleFF.
 
         ::
 
-            >>> gate = ugentools.Gate.kr(
-            ...     source=None,
-            ...     trigger=0,
+            >>> trigger = ugentools.Dust.kr(1)
+            >>> toggle_ff = ugentools.ToggleFF.kr(
+            ...     trigger=trigger,
             ...     )
-            >>> gate
+            >>> toggle_ff
+            ToggleFF.kr()
 
         Returns ugen graph.
         '''
@@ -94,7 +91,6 @@ class Gate(Latch):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            source=source,
             trigger=trigger,
             )
         return ugen
@@ -102,33 +98,23 @@ class Gate(Latch):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Gate.
-
-        ::
-
-            >>> gate = ugentools.Gate.ar(
-            ...     source=None,
-            ...     trigger=0,
-            ...     )
-            >>> gate.source
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
     def trigger(self):
-        r'''Gets `trigger` input of Gate.
+        r'''Gets `trigger` input of ToggleFF.
 
         ::
 
-            >>> gate = ugentools.Gate.ar(
-            ...     source=None,
-            ...     trigger=0,
+            >>> trigger = ugentools.Dust.kr(1)
+            >>> toggle_ff = ugentools.ToggleFF.ar(
+            ...     trigger=trigger,
             ...     )
-            >>> gate.trigger
+            >>> toggle_ff.trigger
+            OutputProxy(
+                source=Dust(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    density=1.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

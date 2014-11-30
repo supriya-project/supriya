@@ -1,23 +1,25 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Trig1 import Trig1
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Trig(Trig1):
-    r'''
+class Trig(UGen):
+    r'''A timed trigger.
 
     ::
 
-        >>> trig = ugentools.Trig.(
+        >>> source = ugentools.Dust.kr(1)
+        >>> trig = ugentools.Trig.ar(
         ...     duration=0.1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> trig
+        Trig.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -36,7 +38,7 @@ class Trig(Trig1):
         duration=0.1,
         source=None,
         ):
-        Trig1.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             duration=duration,
@@ -55,11 +57,13 @@ class Trig(Trig1):
 
         ::
 
+            >>> source = ugentools.Dust.kr(1)
             >>> trig = ugentools.Trig.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> trig
+            Trig.ar()
 
         Returns ugen graph.
         '''
@@ -82,11 +86,13 @@ class Trig(Trig1):
 
         ::
 
+            >>> source = ugentools.Dust.kr(1)
             >>> trig = ugentools.Trig.kr(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> trig
+            Trig.kr()
 
         Returns ugen graph.
         '''
@@ -107,11 +113,13 @@ class Trig(Trig1):
 
         ::
 
+            >>> source = ugentools.Dust.kr(1)
             >>> trig = ugentools.Trig.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> trig.duration
+            0.1
 
         Returns ugen input.
         '''
@@ -124,11 +132,19 @@ class Trig(Trig1):
 
         ::
 
+            >>> source = ugentools.Dust.kr(1)
             >>> trig = ugentools.Trig.ar(
             ...     duration=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> trig.source
+            OutputProxy(
+                source=Dust(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    density=1.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
