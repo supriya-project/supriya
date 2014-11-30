@@ -3,21 +3,23 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class PeakFollower(UGen):
-    r'''
+    r'''Tracks peak signal amplitude.
 
     ::
 
-        >>> peak_follower = ugentools.PeakFollower.(
+        >>> source = ugentools.In.ar(0)
+        >>> peak_follower = ugentools.PeakFollower.ar(
         ...     decay=0.999,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> peak_follower
+        PeakFollower.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -55,11 +57,13 @@ class PeakFollower(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> peak_follower = ugentools.PeakFollower.ar(
             ...     decay=0.999,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> peak_follower
+            PeakFollower.ar()
 
         Returns ugen graph.
         '''
@@ -82,11 +86,13 @@ class PeakFollower(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> peak_follower = ugentools.PeakFollower.kr(
             ...     decay=0.999,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> peak_follower
+            PeakFollower.kr()
 
         Returns ugen graph.
         '''
@@ -107,11 +113,13 @@ class PeakFollower(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> peak_follower = ugentools.PeakFollower.ar(
             ...     decay=0.999,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> peak_follower.decay
+            0.999
 
         Returns ugen input.
         '''
@@ -124,11 +132,20 @@ class PeakFollower(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> peak_follower = ugentools.PeakFollower.ar(
             ...     decay=0.999,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> peak_follower.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

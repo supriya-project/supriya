@@ -3,21 +3,24 @@ from supriya.tools.ugentools.Peak import Peak
 
 
 class RunningMin(Peak):
-    r'''
+    r'''Tracks minimum signal amplitude.
 
     ::
 
-        >>> running_min = ugentools.RunningMin.(
-        ...     source=None,
-        ...     trigger=0,
+        >>> source = ugentools.In.ar(0)
+        >>> trigger = ugentools.Impulse.kr(1)
+        >>> running_min = ugentools.RunningMin.ar(
+        ...     source=source,
+        ...     trigger=trigger,
         ...     )
         >>> running_min
+        RunningMin.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -55,11 +58,14 @@ class RunningMin(Peak):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> running_min = ugentools.RunningMin.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> running_min
+            RunningMin.ar()
 
         Returns ugen graph.
         '''
@@ -82,11 +88,14 @@ class RunningMin(Peak):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> running_min = ugentools.RunningMin.kr(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> running_min
+            RunningMin.kr()
 
         Returns ugen graph.
         '''
@@ -107,11 +116,21 @@ class RunningMin(Peak):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> running_min = ugentools.RunningMin.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> running_min.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -124,11 +143,21 @@ class RunningMin(Peak):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> running_min = ugentools.RunningMin.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> running_min.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

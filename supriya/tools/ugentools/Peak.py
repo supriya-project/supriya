@@ -3,21 +3,24 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Peak(UGen):
-    r'''
+    r'''Tracks peak signal amplitude.
 
     ::
 
-        >>> peak = ugentools.Peak.(
-        ...     source=None,
-        ...     trigger=0,
+        >>> source = ugentools.In.ar(0)
+        >>> trigger = ugentools.Impulse.kr(1)
+        >>> peak = ugentools.Peak.ar(
+        ...     source=source,
+        ...     trigger=trigger,
         ...     )
         >>> peak
+        Peak.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Trigger Utility UGens'
 
     __slots__ = ()
 
@@ -55,11 +58,14 @@ class Peak(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> peak = ugentools.Peak.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> peak
+            Peak.ar()
 
         Returns ugen graph.
         '''
@@ -82,11 +88,14 @@ class Peak(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> peak = ugentools.Peak.kr(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> peak
+            Peak.kr()
 
         Returns ugen graph.
         '''
@@ -107,11 +116,21 @@ class Peak(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> peak = ugentools.Peak.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> peak.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -124,11 +143,21 @@ class Peak(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> peak = ugentools.Peak.ar(
-            ...     source=None,
-            ...     trigger=0,
+            ...     source=source,
+            ...     trigger=trigger,
             ...     )
             >>> peak.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
