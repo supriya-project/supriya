@@ -30,6 +30,21 @@ class QueryTreeControl(SupriyaValueObject):
             )
         return string
 
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_control(cls, control):
+        from supriya.tools import servertools
+        control_name = control.name
+        if isinstance(control.value, servertools.Bus):
+            control_value = str(control.value)
+        else:
+            control_value = float(control.value)
+        return cls(
+            control_value=control_value,
+            control_name_or_index=control_name,
+            )
+
     ### PUBLIC PROPERTIES ###
 
     @property
