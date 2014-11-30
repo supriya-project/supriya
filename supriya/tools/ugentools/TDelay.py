@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Trig1 import Trig1
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class TDelay(Trig1):
+class TDelay(UGen):
     r'''A trigger delay.
 
     ::
@@ -38,7 +38,7 @@ class TDelay(Trig1):
         duration=0.1,
         source=None,
         ):
-        Trig1.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             duration=duration,
