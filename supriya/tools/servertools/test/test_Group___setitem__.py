@@ -718,7 +718,7 @@ def test_Group___setitem___06(server):
             ??? test (Synth A)
                 amplitude: 1.0, frequency: 440.0
             ??? test (Synth B)
-                amplitude: 0.5, frequency: 443
+                amplitude: 0.5, frequency: 443.0
             ??? test (Synth C)
                 amplitude: a0, frequency: c1
         ''',
@@ -734,7 +734,7 @@ def test_Group___setitem___06(server):
             1001 test (Synth A)
                 amplitude: 1.0, frequency: 440.0
             1002 test (Synth B)
-                amplitude: 0.5, frequency: 443
+                amplitude: 0.5, frequency: 443.0
             1003 test (Synth C)
                 amplitude: a0, frequency: c1
         ''',
@@ -803,7 +803,7 @@ def test_Group___setitem___06(server):
             ??? test (Synth C)
                 amplitude: c1, frequency: a0
             ??? test (Synth B)
-                amplitude: 0.75, frequency: 880
+                amplitude: 0.75, frequency: 880.0
             ??? test (Synth A)
                 amplitude: 1.0, frequency: 440.0
         ''',

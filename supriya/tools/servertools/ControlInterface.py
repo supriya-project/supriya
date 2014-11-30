@@ -36,20 +36,21 @@ class ControlInterface(SupriyaObject):
         n_map_settings = {}
         n_mapa_settings = {}
         for control_name, value in settings.items():
+            control = self[control_name]
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = value
+                control._set_to_number(value)
             elif isinstance(value, servertools.Bus):
                 if value.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                     n_map_settings[control_name] = value
                 else:
                     n_mapa_settings[control_name] = value
+                control._map_to_bus(value)
             elif value is None:
                 n_map_settings[control_name] = -1
+                control._unmap()
             else:
                 raise ValueError(value)
-            control = self[control_name]
-            if hasattr(control, '_value'):
-                control._value = value
         messages = []
         if self.client.is_allocated:
             if n_set_settings:

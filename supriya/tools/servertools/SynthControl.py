@@ -10,11 +10,12 @@ class SynthControl(BindingTarget):
 
     __slots__ = (
         '_binding_sources',
+        '_calculation_rate',
         '_client',
         '_default_value',
+        '_last_unmapped_value',
         '_name',
         '_range',
-        '_calculation_rate',
         '_unit',
         '_value',
         )
@@ -30,6 +31,7 @@ class SynthControl(BindingTarget):
         unit=None,
         value=None,
         ):
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         BindingTarget.__init__(self)
         self._client = client
@@ -42,6 +44,10 @@ class SynthControl(BindingTarget):
         self._unit = unit
         self._value = value
         self._default_value = value
+        if not isinstance(value, servertools.Bus):
+            self._last_unmapped_value = self._value
+        else:
+            self._last_unmapped_value = self._default_value
 
     ### SPECIAL METHODS ###
 
@@ -50,11 +56,24 @@ class SynthControl(BindingTarget):
 
     ### PRIVATE METHODS ###
 
+    def _map_to_bus(self, bus):
+        from supriya.tools import servertools
+        if not isinstance(self.value, servertools.Bus):
+            self._last_unmapped_value = self._value
+        self._value = bus
+
     def _receive_bound_event(self, event=None):
         if event is None:
             return
         event = float(event)
         self.set(event)
+
+    def _set_to_number(self, value):
+        self._value = float(value)
+        self._last_unmapped_value = self._value
+
+    def _unmap(self):
+        self._value = self._last_unmapped_value
 
     ### PRIVATE PROPERTIES ###
 
@@ -104,7 +123,7 @@ class SynthControl(BindingTarget):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         if isinstance(expr, servertools.Bus):
-            self._value = expr
+            self._map_to_bus(expr)
             if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
                     self.node,
@@ -115,8 +134,14 @@ class SynthControl(BindingTarget):
                     self.node,
                     **{self.name: self._value}
                     )
+        elif expr is None:
+            self._unmap()
+            request = requesttools.NodeMapToControlBusRequest(
+                self.node,
+                **{self.name: -1}
+                )
         else:
-            self._value = float(expr)
+            self._set_to_number(expr)
             request = requesttools.NodeSetRequest(
                 self.node,
                 **{self.name: self._value}
@@ -137,6 +162,10 @@ class SynthControl(BindingTarget):
     @property
     def default_value(self):
         return self._default_value
+
+    @property
+    def last_unmapped_value(self):
+        return self._last_unmapped_value
 
     @property
     def name(self):

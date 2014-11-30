@@ -36,8 +36,8 @@ def test_ControlInterface___setitem___01(server):
                         amplitude: 0.0, frequency: 440.0
         ''',
         ), remote_state
-    #local_state = str(server.query_local_nodes(True))
-    #assert local_state == remote_state
+    local_state = str(server.query_local_nodes(True))
+    assert local_state == remote_state
 
     bus_a = servertools.Bus(calculation_rate='control').allocate()
     bus_a.set(0.25)
@@ -56,8 +56,8 @@ def test_ControlInterface___setitem___01(server):
                         amplitude: c0, frequency: 440.0
         ''',
         ), remote_state
-    #local_state = str(server.query_local_nodes(True))
-    #assert local_state == remote_state
+    local_state = str(server.query_local_nodes(True))
+    assert local_state == remote_state
 
     bus_b = servertools.Bus(calculation_rate='control').allocate()
     bus_b.set(0.75)
@@ -76,8 +76,8 @@ def test_ControlInterface___setitem___01(server):
                         amplitude: c1, frequency: 440.0
         ''',
         ), remote_state
-    #local_state = str(server.query_local_nodes(True))
-    #assert local_state == remote_state
+    local_state = str(server.query_local_nodes(True))
+    assert local_state == remote_state
 
     bus_b.set(0.675)
 
@@ -94,8 +94,8 @@ def test_ControlInterface___setitem___01(server):
                         amplitude: c1, frequency: 440.0
         ''',
         ), remote_state
-    #local_state = str(server.query_local_nodes(True))
-    #assert local_state == remote_state
+    local_state = str(server.query_local_nodes(True))
+    assert local_state == remote_state
 
     group.controls['amplitude'] = None
 
@@ -112,5 +112,5 @@ def test_ControlInterface___setitem___01(server):
                         amplitude: 0.0, frequency: 440.0
         ''',
         ), remote_state
-    #local_state = str(server.query_local_nodes(True))
-    #assert local_state == remote_state
+    local_state = str(server.query_local_nodes(True))
+    assert local_state == remote_state

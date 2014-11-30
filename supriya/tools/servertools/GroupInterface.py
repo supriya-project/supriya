@@ -43,7 +43,12 @@ class GroupInterface(ControlInterface):
         for key, value in settings.items():
             for synth in self._synth_controls.get(key, ()):
                 control = synth.controls[key]
-                control._value = value
+                if isinstance(value, servertools.Bus):
+                    control._map_to_bus(value)
+                elif value is None:
+                    control._unmap()
+                else:
+                    control._set_to_number(value)
         messages = self._set(**settings)
         message_bundler = servertools.MessageBundler(
             server=self.client.server,
