@@ -81,7 +81,35 @@ class Node(ServerObjectProxy):
             elif response.action == responsetools.NodeAction.NODE_DEACTIVATED:
                 self._is_paused = True
             elif response.action == responsetools.NodeAction.NODE_MOVED:
-                pass
+                new_parent = self.server._nodes[response.parent_group_id]
+                if new_parent is self.parent:
+                    new_index = 0
+                    if response.previous_node_id is not None:
+                        previous_node = \
+                            self.server._nodes[response.previous_node_id]
+                        new_index = new_parent.index(previous_node) + 1
+                    elif response.next_node_id is not None:
+                        next_node = self.server._nodes[response.next_node_id]
+                        new_index = new_parent.index(next_node)
+                    old_index = self.parent.index(self)
+                    if new_index != self.parent.index(self):
+                        if new_index < old_index:
+                            self.parent._children.remove(self)
+                            self.parent._children.insert(new_index, self)
+                        else:
+                            self.parent._children.insert(new_index, self)
+                            self.parent._children.pop(old_index)
+                else:
+                    self._set_parent(new_parent)
+                    index = 0
+                    if response.previous_node_id is not None:
+                        previous_node = \
+                            self.server._nodes[response.previous_node_id]
+                        index = new_parent.index(previous_node) + 1
+                    elif response.next_node_id is not None:
+                        next_node = self.server._nodes[response.next_node_id]
+                        index = new_parent.index(next_node)
+                    new_parent._children.insert(index, self)
 
     @staticmethod
     def _iterate_nodes(nodes):
