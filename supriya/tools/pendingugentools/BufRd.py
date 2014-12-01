@@ -62,7 +62,7 @@ class BufRd(MultiOutUGen):
     def ar(
         cls,
         buffer_id=0,
-        channel_count=channel_count,
+        channel_count=None,
         interpolation=2,
         loop=1,
         phase=0,
@@ -99,7 +99,7 @@ class BufRd(MultiOutUGen):
     def kr(
         cls,
         buffer_id=0,
-        channel_count=channel_count,
+        channel_count=None,
         interpolation=2,
         loop=1,
         phase=0,

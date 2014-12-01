@@ -68,7 +68,7 @@ class Stepper(UGen):
         maximum=7,
         minimum=0,
         reset=0,
-        resetval=resetval,
+        resetval=None,
         step=1,
         trigger=0,
         ):
@@ -108,7 +108,7 @@ class Stepper(UGen):
         maximum=7,
         minimum=0,
         reset=0,
-        resetval=resetval,
+        resetval=None,
         step=1,
         trigger=0,
         ):

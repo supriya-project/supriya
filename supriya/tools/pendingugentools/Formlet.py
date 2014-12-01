@@ -60,7 +60,7 @@ class Formlet(Filter):
         attack_time=1,
         decay_time=1,
         frequency=440,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Formlet.
 
@@ -96,7 +96,7 @@ class Formlet(Filter):
         attack_time=1,
         decay_time=1,
         frequency=440,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Formlet.
 

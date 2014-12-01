@@ -49,7 +49,7 @@ class Changed(Filter):
     @classmethod
     def ar(
         cls,
-        input=input,
+        input=None,
         threshold=0,
         ):
         r'''Constructs an audio-rate Changed.
@@ -79,7 +79,7 @@ class Changed(Filter):
     @classmethod
     def kr(
         cls,
-        input=input,
+        input=None,
         threshold=0,
         ):
         r'''Constructs a control-rate Changed.

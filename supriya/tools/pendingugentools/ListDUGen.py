@@ -50,7 +50,7 @@ class ListDUGen(DUGen):
     def new(
         cls,
         repeats=1,
-        sequence=sequence,
+        sequence=None,
         ):
         r'''Constructs a ListDUGen.
 

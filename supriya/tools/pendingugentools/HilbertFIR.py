@@ -49,8 +49,8 @@ class HilbertFIR(UGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=buffer_id,
-        source=source,
+        buffer_id=None,
+        source=None,
         ):
         r'''Constructs an audio-rate HilbertFIR.
 

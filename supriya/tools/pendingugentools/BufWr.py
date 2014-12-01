@@ -58,7 +58,7 @@ class BufWr(UGen):
     def ar(
         cls,
         buffer_id=0,
-        input_array=input_array,
+        input_array=None,
         loop=1,
         phase=0,
         ):
@@ -92,7 +92,7 @@ class BufWr(UGen):
     def kr(
         cls,
         buffer_id=0,
-        input_array=input_array,
+        input_array=None,
         loop=1,
         phase=0,
         ):

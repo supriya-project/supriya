@@ -49,8 +49,8 @@ class Dswitch1(DUGen):
     @classmethod
     def new(
         cls,
-        index=index,
-        sequence=sequence,
+        index=None,
+        sequence=None,
         ):
         r'''Constructs a Dswitch1.
 

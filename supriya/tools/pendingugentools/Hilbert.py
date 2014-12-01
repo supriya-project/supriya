@@ -45,7 +45,7 @@ class Hilbert(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Hilbert.
 

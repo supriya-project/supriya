@@ -50,7 +50,7 @@ class Dreset(DUGen):
     def new(
         cls,
         reset=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a Dreset.
 

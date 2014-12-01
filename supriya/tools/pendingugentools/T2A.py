@@ -50,7 +50,7 @@ class T2A(K2A):
     def ar(
         cls,
         offset=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate T2A.
 

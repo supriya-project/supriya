@@ -59,10 +59,10 @@ class LRHiCut(BHiCut):
     @classmethod
     def ar(
         cls,
-        frequency=frequency,
+        frequency=None,
         max_order=5,
         order=2,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate LRHiCut.
 
@@ -99,10 +99,10 @@ class LRHiCut(BHiCut):
     @classmethod
     def kr(
         cls,
-        frequency=frequency,
+        frequency=None,
         max_order=5,
         order=2,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate LRHiCut.
 

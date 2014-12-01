@@ -126,8 +126,6 @@ def make_class_methods(ugen_name, ugen_definition):
         result.append('    def {}('.format(method_name))
         result.append('        cls,')
         for name, value in method_signature:
-            if value is None:
-                value = name
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append("        r'''Constructs {} {}.".format(text, ugen_name))

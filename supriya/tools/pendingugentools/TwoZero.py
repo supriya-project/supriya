@@ -55,7 +55,7 @@ class TwoZero(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate TwoZero.
 
@@ -88,7 +88,7 @@ class TwoZero(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate TwoZero.
 

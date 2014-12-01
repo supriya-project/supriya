@@ -45,7 +45,7 @@ class Slope(Filter):
     @classmethod
     def ar(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Slope.
 
@@ -72,7 +72,7 @@ class Slope(Filter):
     @classmethod
     def kr(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Slope.
 

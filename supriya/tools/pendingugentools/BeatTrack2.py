@@ -65,11 +65,11 @@ class BeatTrack2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        busindex=busindex,
+        busindex=None,
         lock=0,
-        numfeatures=numfeatures,
+        numfeatures=None,
         phaseaccuracy=0.02,
-        weightingscheme=weightingscheme,
+        weightingscheme=None,
         windowsize=2,
         ):
         r'''Constructs a control-rate BeatTrack2.

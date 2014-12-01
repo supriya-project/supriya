@@ -65,11 +65,11 @@ class PanAz(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        channel_count=channel_count,
+        channel_count=None,
         level=1,
         orientation=0.5,
         pos=0,
-        source=source,
+        source=None,
         width=2,
         ):
         r'''Constructs an audio-rate PanAz.
@@ -105,11 +105,11 @@ class PanAz(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        channel_count=channel_count,
+        channel_count=None,
         level=1,
         orientation=0.5,
         pos=0,
-        source=source,
+        source=None,
         width=2,
         ):
         r'''Constructs a control-rate PanAz.

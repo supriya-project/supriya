@@ -53,9 +53,9 @@ class DegreeToKey(PureUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         octave=12,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate DegreeToKey.
 
@@ -84,9 +84,9 @@ class DegreeToKey(PureUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         octave=12,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate DegreeToKey.
 

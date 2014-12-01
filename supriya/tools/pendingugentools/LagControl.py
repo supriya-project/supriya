@@ -69,8 +69,8 @@ class LagControl(Control):
     @classmethod
     def kr(
         cls,
-        lags=lags,
-        values=values,
+        lags=None,
+        values=None,
         ):
         r'''Constructs a control-rate LagControl.
 

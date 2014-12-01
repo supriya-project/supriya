@@ -62,8 +62,8 @@ class VarLag(Filter):
     def ar(
         cls,
         curvature=0,
-        source=source,
-        start=start,
+        source=None,
+        start=None,
         time=0.1,
         warp=5,
         ):
@@ -101,8 +101,8 @@ class VarLag(Filter):
     def kr(
         cls,
         curvature=0,
-        source=source,
-        start=start,
+        source=None,
+        start=None,
         time=0.1,
         warp=5,
         ):

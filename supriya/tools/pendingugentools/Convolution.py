@@ -54,8 +54,8 @@ class Convolution(UGen):
     def ar(
         cls,
         framesize=512,
-        kernel=kernel,
-        source=source,
+        kernel=None,
+        source=None,
         ):
         r'''Constructs an audio-rate Convolution.
 

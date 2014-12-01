@@ -55,7 +55,7 @@ class Lag2UD(LagUD):
         cls,
         lag_time_d=0.1,
         lag_time_u=0.1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Lag2UD.
 
@@ -88,7 +88,7 @@ class Lag2UD(LagUD):
         cls,
         lag_time_d=0.1,
         lag_time_u=0.1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Lag2UD.
 

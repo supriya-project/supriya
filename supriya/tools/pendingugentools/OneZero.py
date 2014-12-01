@@ -50,7 +50,7 @@ class OneZero(OnePole):
     def ar(
         cls,
         coefficient=0.5,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate OneZero.
 
@@ -80,7 +80,7 @@ class OneZero(OnePole):
     def kr(
         cls,
         coefficient=0.5,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate OneZero.
 

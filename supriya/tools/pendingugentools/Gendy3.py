@@ -85,7 +85,7 @@ class Gendy3(UGen):
         durscale=0.5,
         frequency=440,
         init_cps=12,
-        knum=knum,
+        knum=None,
         ):
         r'''Constructs an audio-rate Gendy3.
 
@@ -134,7 +134,7 @@ class Gendy3(UGen):
         durscale=0.5,
         frequency=440,
         init_cps=12,
-        knum=knum,
+        knum=None,
         ):
         r'''Constructs a control-rate Gendy3.
 

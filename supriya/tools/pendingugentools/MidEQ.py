@@ -60,7 +60,7 @@ class MidEQ(Filter):
         db=0,
         frequency=440,
         reciprocal_of_q=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate MidEQ.
 
@@ -96,7 +96,7 @@ class MidEQ(Filter):
         db=0,
         frequency=440,
         reciprocal_of_q=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate MidEQ.
 

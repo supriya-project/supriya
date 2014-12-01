@@ -53,9 +53,9 @@ class Demand(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        demand_ugens=demand_ugens,
-        reset=reset,
-        trigger=trigger,
+        demand_ugens=None,
+        reset=None,
+        trigger=None,
         ):
         r'''Constructs an audio-rate Demand.
 
@@ -84,9 +84,9 @@ class Demand(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        demand_ugens=demand_ugens,
-        reset=reset,
-        trigger=trigger,
+        demand_ugens=None,
+        reset=None,
+        trigger=None,
         ):
         r'''Constructs a control-rate Demand.
 

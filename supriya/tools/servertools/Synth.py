@@ -175,6 +175,11 @@ class Synth(Node):
         if 'gate' in self.controls:
             self['gate'] = 0
 
+    def unrelease(self):
+        if 'gate' in self.controls:
+            self['gate'] = 1
+        self.unpause()
+
     ### PUBLIC PROPERTIES ###
 
     @property

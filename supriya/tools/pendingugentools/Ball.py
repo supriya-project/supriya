@@ -60,7 +60,7 @@ class Ball(UGen):
         damping=0,
         friction=0.01,
         g=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Ball.
 
@@ -94,7 +94,7 @@ class Ball(UGen):
         damping=0,
         friction=0.01,
         g=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Ball.
 

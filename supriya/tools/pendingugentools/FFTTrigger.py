@@ -53,7 +53,7 @@ class FFTTrigger(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         hop=0.5,
         polar=0,
         ):

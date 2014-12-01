@@ -65,7 +65,7 @@ class CombFormlet(Filter):
         decay_time=1,
         frequency=440,
         min_frequency=20,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate CombFormlet.
 

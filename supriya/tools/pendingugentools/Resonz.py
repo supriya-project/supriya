@@ -55,7 +55,7 @@ class Resonz(Filter):
         cls,
         bwr=1,
         frequency=440,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Resonz.
 
@@ -88,7 +88,7 @@ class Resonz(Filter):
         cls,
         bwr=1,
         frequency=440,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Resonz.
 

@@ -54,8 +54,8 @@ class Dwrand(DUGen):
     def new(
         cls,
         repeats=1,
-        sequence=sequence,
-        weights=weights,
+        sequence=None,
+        weights=None,
         ):
         r'''Constructs a Dwrand.
 

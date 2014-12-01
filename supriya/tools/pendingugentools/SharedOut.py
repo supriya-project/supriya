@@ -1,17 +1,18 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LPZ2 import LPZ2
+from supriya.tools.ugentools.AbstractOut import AbstractOut
 
 
-class BRZ2(LPZ2):
+class SharedOut(AbstractOut):
     r'''
 
     ::
 
-        >>> brz_2 = ugentools.BRZ2.ar(
+        >>> shared_out = ugentools.SharedOut.ar(
+        ...     bus=bus,
         ...     source=source,
         ...     )
-        >>> brz_2
-        BRZ2.ar()
+        >>> shared_out
+        SharedOut.ar()
 
     '''
 
@@ -22,6 +23,7 @@ class BRZ2(LPZ2):
     __slots__ = ()
 
     _ordered_input_names = (
+        'bus',
         'source',
         )
 
@@ -32,57 +34,36 @@ class BRZ2(LPZ2):
     def __init__(
         self,
         calculation_rate=None,
+        bus=None,
         source=None,
         ):
-        LPZ2.__init__(
+        AbstractOut.__init__(
             self,
             calculation_rate=calculation_rate,
+            bus=bus,
             source=source,
             )
 
     ### PUBLIC METHODS ###
 
-    @classmethod
-    def ar(
-        cls,
-        source=None,
-        ):
-        r'''Constructs an audio-rate BRZ2.
-
-        ::
-
-            >>> brz_2 = ugentools.BRZ2.ar(
-            ...     source=source,
-            ...     )
-            >>> brz_2
-            BRZ2.ar()
-
-        Returns ugen graph.
-        '''
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
-        ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            source=source,
-            )
-        return ugen
-
-    # def coeffs(): ...
+    # def isOutputUGen(): ...
 
     @classmethod
     def kr(
         cls,
+        bus=None,
         source=None,
         ):
-        r'''Constructs a control-rate BRZ2.
+        r'''Constructs a control-rate SharedOut.
 
         ::
 
-            >>> brz_2 = ugentools.BRZ2.kr(
+            >>> shared_out = ugentools.SharedOut.kr(
+            ...     bus=bus,
             ...     source=source,
             ...     )
-            >>> brz_2
-            BRZ2.kr()
+            >>> shared_out
+            SharedOut.kr()
 
         Returns ugen graph.
         '''
@@ -90,32 +71,43 @@ class BRZ2(LPZ2):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            bus=bus,
             source=source,
             )
         return ugen
 
-    # def magResponse(): ...
-
-    # def magResponse2(): ...
-
-    # def magResponse5(): ...
-
-    # def magResponseN(): ...
-
-    # def scopeResponse(): ...
+    # def numFixedArgs(): ...
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of BRZ2.
+    def bus(self):
+        r'''Gets `bus` input of SharedOut.
 
         ::
 
-            >>> brz_2 = ugentools.BRZ2.ar(
+            >>> shared_out = ugentools.SharedOut.ar(
+            ...     bus=bus,
             ...     source=source,
             ...     )
-            >>> brz_2.source
+            >>> shared_out.bus
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('bus')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of SharedOut.
+
+        ::
+
+            >>> shared_out = ugentools.SharedOut.ar(
+            ...     bus=bus,
+            ...     source=source,
+            ...     )
+            >>> shared_out.source
 
         Returns ugen input.
         '''

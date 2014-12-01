@@ -58,8 +58,8 @@ class Convolution3(UGen):
     def ar(
         cls,
         framesize=2048,
-        kernel=kernel,
-        source=source,
+        kernel=None,
+        source=None,
         trigger=0,
         ):
         r'''Constructs an audio-rate Convolution3.
@@ -92,8 +92,8 @@ class Convolution3(UGen):
     def kr(
         cls,
         framesize=2048,
-        kernel=kernel,
-        source=source,
+        kernel=None,
+        source=None,
         trigger=0,
         ):
         r'''Constructs a control-rate Convolution3.

@@ -62,7 +62,7 @@ class Splay(UGen):
     def ar(
         cls,
         center=0,
-        in_array=in_array,
+        in_array=None,
         level=1,
         level_comp=True,
         spread=1,
@@ -101,7 +101,7 @@ class Splay(UGen):
     def kr(
         cls,
         center=0,
-        in_array=in_array,
+        in_array=None,
         level=1,
         level_comp=True,
         spread=1,

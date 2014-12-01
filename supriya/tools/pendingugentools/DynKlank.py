@@ -64,8 +64,8 @@ class DynKlank(UGen):
         decayscale=1,
         freqoffset=0,
         freqscale=1,
-        input=input,
-        specifications_array_ref=specifications_array_ref,
+        input=None,
+        specifications_array_ref=None,
         ):
         r'''Constructs an audio-rate DynKlank.
 
@@ -101,8 +101,8 @@ class DynKlank(UGen):
         decayscale=1,
         freqoffset=0,
         freqscale=1,
-        input=input,
-        specifications_array_ref=specifications_array_ref,
+        input=None,
+        specifications_array_ref=None,
         ):
         r'''Constructs a control-rate DynKlank.
 

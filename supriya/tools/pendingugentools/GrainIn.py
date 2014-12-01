@@ -74,7 +74,7 @@ class GrainIn(MultiOutUGen):
         envbufnum=-1,
         max_grains=512,
         pan=0,
-        source=source,
+        source=None,
         trigger=0,
         ):
         r'''Constructs an audio-rate GrainIn.

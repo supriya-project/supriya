@@ -45,7 +45,7 @@ class ClearBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         ):
         r'''Constructs a ClearBuf.
 

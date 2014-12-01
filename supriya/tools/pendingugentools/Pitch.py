@@ -95,7 +95,7 @@ class Pitch(MultiOutUGen):
         median=1,
         min_frequency=60,
         peak_threshold=0.5,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Pitch.
 

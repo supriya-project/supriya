@@ -54,8 +54,8 @@ class AmpComp(PureUGen):
     def ar(
         cls,
         exp=0.3333,
-        frequency=frequency,
-        root=root,
+        frequency=None,
+        root=None,
         ):
         r'''Constructs an audio-rate AmpComp.
 
@@ -85,8 +85,8 @@ class AmpComp(PureUGen):
     def ir(
         cls,
         exp=0.3333,
-        frequency=frequency,
-        root=root,
+        frequency=None,
+        root=None,
         ):
         r'''Constructs a scale-rate AmpComp.
 
@@ -116,8 +116,8 @@ class AmpComp(PureUGen):
     def kr(
         cls,
         exp=0.3333,
-        frequency=frequency,
-        root=root,
+        frequency=None,
+        root=None,
         ):
         r'''Constructs a control-rate AmpComp.
 

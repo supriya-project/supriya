@@ -60,7 +60,7 @@ class FOS(Filter):
         a_0=0,
         a_1=0,
         b_1=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate FOS.
 
@@ -96,7 +96,7 @@ class FOS(Filter):
         a_0=0,
         a_1=0,
         b_1=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate FOS.
 

@@ -53,7 +53,7 @@ class VOsc(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=bufpos,
+        bufpos=None,
         frequency=440,
         phase=0,
         ):
@@ -84,7 +84,7 @@ class VOsc(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=bufpos,
+        bufpos=None,
         frequency=440,
         phase=0,
         ):

@@ -89,7 +89,7 @@ class GrainBuf(MultiOutUGen):
         pan=0,
         pos=0,
         rate=1,
-        sndbuf=sndbuf,
+        sndbuf=None,
         trigger=0,
         ):
         r'''Constructs an audio-rate GrainBuf.

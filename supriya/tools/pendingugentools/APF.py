@@ -3,11 +3,10 @@ from supriya.tools.ugentools.TwoPole import TwoPole
 
 
 class APF(TwoPole):
-    r'''An all-pass filter.
+    r'''
 
     ::
 
-        >>> source = ugentools.In.ar(0)
         >>> apf = ugentools.APF.ar(
         ...     frequency=440,
         ...     radius=0.8,
@@ -56,13 +55,12 @@ class APF(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate APF.
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -90,7 +88,7 @@ class APF(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate APF.
 
@@ -134,7 +132,6 @@ class APF(TwoPole):
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -154,7 +151,6 @@ class APF(TwoPole):
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -174,7 +170,6 @@ class APF(TwoPole):
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,

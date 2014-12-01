@@ -45,7 +45,7 @@ class HPZ1(LPZ1):
     @classmethod
     def ar(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate HPZ1.
 
@@ -72,7 +72,7 @@ class HPZ1(LPZ1):
     @classmethod
     def kr(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate HPZ1.
 

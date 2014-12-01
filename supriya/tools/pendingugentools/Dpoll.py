@@ -57,9 +57,9 @@ class Dpoll(DUGen):
     @classmethod
     def new(
         cls,
-        label=label,
+        label=None,
         run=1,
-        source=source,
+        source=None,
         trigid=-1,
         ):
         r'''Constructs a Dpoll.

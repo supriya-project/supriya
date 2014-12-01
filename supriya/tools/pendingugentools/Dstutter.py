@@ -49,8 +49,8 @@ class Dstutter(DUGen):
     @classmethod
     def new(
         cls,
-        n=n,
-        source=source,
+        n=None,
+        source=None,
         ):
         r'''Constructs a Dstutter.
 

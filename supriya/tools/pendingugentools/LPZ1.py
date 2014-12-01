@@ -7,7 +7,6 @@ class LPZ1(Filter):
 
     ::
 
-        >>> source = ugentools.In.ar(0)
         >>> lpz_1 = ugentools.LPZ1.ar(
         ...     source=source,
         ...     )
@@ -46,13 +45,12 @@ class LPZ1(Filter):
     @classmethod
     def ar(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate LPZ1.
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> lpz_1 = ugentools.LPZ1.ar(
             ...     source=source,
             ...     )
@@ -74,13 +72,12 @@ class LPZ1(Filter):
     @classmethod
     def kr(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate LPZ1.
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> lpz_1 = ugentools.LPZ1.kr(
             ...     source=source,
             ...     )
@@ -115,7 +112,6 @@ class LPZ1(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(0)
             >>> lpz_1 = ugentools.LPZ1.ar(
             ...     source=source,
             ...     )

@@ -50,7 +50,7 @@ class XFadeRotate(MultiOutUGen):
     def ar(
         cls,
         n=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate XFadeRotate.
 
@@ -78,7 +78,7 @@ class XFadeRotate(MultiOutUGen):
     def kr(
         cls,
         n=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate XFadeRotate.
 

@@ -57,9 +57,9 @@ class Unpack1FFT(UGen):
     @classmethod
     def new(
         cls,
-        binindex=binindex,
-        bufsize=bufsize,
-        chain=chain,
+        binindex=None,
+        bufsize=None,
+        chain=None,
         whichmeasure=0,
         ):
         r'''Constructs a Unpack1FFT.

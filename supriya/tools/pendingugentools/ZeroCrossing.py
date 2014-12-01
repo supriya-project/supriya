@@ -45,7 +45,7 @@ class ZeroCrossing(UGen):
     @classmethod
     def ar(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate ZeroCrossing.
 
@@ -70,7 +70,7 @@ class ZeroCrossing(UGen):
     @classmethod
     def kr(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate ZeroCrossing.
 

@@ -55,7 +55,7 @@ class Dunique(UGen):
         cls,
         max_buffer_size=1024,
         protected=True,
-        source=source,
+        source=None,
         ):
         r'''Constructs a Dunique.
 

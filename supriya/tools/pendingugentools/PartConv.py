@@ -53,9 +53,9 @@ class PartConv(UGen):
     @classmethod
     def ar(
         cls,
-        fftsize=fftsize,
-        irbufnum=irbufnum,
-        source=source,
+        fftsize=None,
+        irbufnum=None,
+        source=None,
         ):
         r'''Constructs an audio-rate PartConv.
 

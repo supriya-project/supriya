@@ -54,7 +54,7 @@ class Slew(Filter):
     def ar(
         cls,
         dn=1,
-        source=source,
+        source=None,
         up=1,
         ):
         r'''Constructs an audio-rate Slew.
@@ -87,7 +87,7 @@ class Slew(Filter):
     def kr(
         cls,
         dn=1,
-        source=source,
+        source=None,
         up=1,
         ):
         r'''Constructs a control-rate Slew.

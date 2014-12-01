@@ -53,7 +53,7 @@ class InRect(UGen):
     @classmethod
     def ar(
         cls,
-        rect=rect,
+        rect=None,
         x=0,
         y=0,
         ):
@@ -84,7 +84,7 @@ class InRect(UGen):
     @classmethod
     def kr(
         cls,
-        rect=rect,
+        rect=None,
         x=0,
         y=0,
         ):

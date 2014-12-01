@@ -98,7 +98,7 @@ class Gendy2(UGen):
         durdist=1,
         durscale=0.5,
         init_cps=12,
-        knum=knum,
+        knum=None,
         maxfrequency=660,
         minfrequency=440,
         ):
@@ -156,7 +156,7 @@ class Gendy2(UGen):
         durdist=1,
         durscale=0.5,
         init_cps=12,
-        knum=knum,
+        knum=None,
         maxfrequency=1000,
         minfrequency=20,
         ):

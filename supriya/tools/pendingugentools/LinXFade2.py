@@ -57,7 +57,7 @@ class LinXFade2(UGen):
     @classmethod
     def ar(
         cls,
-        in_a=in_a,
+        in_a=None,
         in_b=0,
         level=1,
         pan=0,
@@ -91,7 +91,7 @@ class LinXFade2(UGen):
     @classmethod
     def kr(
         cls,
-        in_a=in_a,
+        in_a=None,
         in_b=0,
         level=1,
         pan=0,

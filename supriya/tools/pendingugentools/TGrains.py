@@ -80,7 +80,7 @@ class TGrains(MultiOutUGen):
         amp=0.1,
         buffer_id=0,
         center_pos=0,
-        channel_count=channel_count,
+        channel_count=None,
         duration=0.1,
         interpolate=4,
         pan=0,

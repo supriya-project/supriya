@@ -53,7 +53,7 @@ class Osc(PureUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         frequency=440,
         phase=0,
         ):
@@ -84,7 +84,7 @@ class Osc(PureUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         frequency=440,
         phase=0,
         ):

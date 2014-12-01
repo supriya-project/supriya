@@ -55,7 +55,7 @@ class DynKlang(UGen):
         cls,
         freqoffset=0,
         freqscale=1,
-        specifications_array_ref=specifications_array_ref,
+        specifications_array_ref=None,
         ):
         r'''Constructs an audio-rate DynKlang.
 
@@ -86,7 +86,7 @@ class DynKlang(UGen):
         cls,
         freqoffset=0,
         freqscale=1,
-        specifications_array_ref=specifications_array_ref,
+        specifications_array_ref=None,
         ):
         r'''Constructs a control-rate DynKlang.
 

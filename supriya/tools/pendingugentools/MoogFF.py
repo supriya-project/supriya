@@ -60,7 +60,7 @@ class MoogFF(Filter):
         frequency=100,
         gain=2,
         reset=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate MoogFF.
 
@@ -96,7 +96,7 @@ class MoogFF(Filter):
         frequency=100,
         gain=2,
         reset=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate MoogFF.
 

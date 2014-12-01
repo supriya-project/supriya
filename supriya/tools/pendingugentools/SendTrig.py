@@ -54,7 +54,7 @@ class SendTrig(UGen):
     def ar(
         cls,
         id=0,
-        source=source,
+        source=None,
         value=0,
         ):
         r'''Constructs an audio-rate SendTrig.
@@ -85,7 +85,7 @@ class SendTrig(UGen):
     def kr(
         cls,
         id=0,
-        source=source,
+        source=None,
         value=0,
         ):
         r'''Constructs a control-rate SendTrig.

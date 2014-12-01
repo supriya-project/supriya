@@ -62,10 +62,10 @@ class FreeVerb2(MultiOutUGen):
     def ar(
         cls,
         damping=0.5,
-        in_2=in_2,
+        in_2=None,
         mix=0.33,
         room=0.5,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate FreeVerb2.
 

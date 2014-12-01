@@ -49,8 +49,8 @@ class IEnvGen(UGen):
     @classmethod
     def ar(
         cls,
-        envelope=envelope,
-        index=index,
+        envelope=None,
+        index=None,
         ):
         r'''Constructs an audio-rate IEnvGen.
 
@@ -79,8 +79,8 @@ class IEnvGen(UGen):
     @classmethod
     def kr(
         cls,
-        envelope=envelope,
-        index=index,
+        envelope=None,
+        index=None,
         ):
         r'''Constructs a control-rate IEnvGen.
 

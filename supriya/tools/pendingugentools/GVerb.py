@@ -88,7 +88,7 @@ class GVerb(MultiOutUGen):
         maxroomsize=300,
         revtime=3,
         roomsize=10,
-        source=source,
+        source=None,
         spread=15,
         taillevel=0.5,
         ):

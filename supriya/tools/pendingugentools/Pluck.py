@@ -69,7 +69,7 @@ class Pluck(UGen):
         decay_time=1,
         delay_time=0.2,
         maximum_delay_time=0.2,
-        source=source,
+        source=None,
         trigger=1,
         ):
         r'''Constructs an audio-rate Pluck.

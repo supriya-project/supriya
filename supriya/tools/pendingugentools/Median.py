@@ -50,7 +50,7 @@ class Median(Filter):
     def ar(
         cls,
         length=3,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Median.
 
@@ -80,7 +80,7 @@ class Median(Filter):
     def kr(
         cls,
         length=3,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Median.
 

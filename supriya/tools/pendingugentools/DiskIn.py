@@ -53,8 +53,8 @@ class DiskIn(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=buffer_id,
-        channel_count=channel_count,
+        buffer_id=None,
+        channel_count=None,
         loop=0,
         ):
         r'''Constructs an audio-rate DiskIn.

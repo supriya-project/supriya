@@ -49,8 +49,8 @@ class Select(PureUGen):
     @classmethod
     def ar(
         cls,
-        array=array,
-        which=which,
+        array=None,
+        which=None,
         ):
         r'''Constructs an audio-rate Select.
 
@@ -77,8 +77,8 @@ class Select(PureUGen):
     @classmethod
     def kr(
         cls,
-        array=array,
-        which=which,
+        array=None,
+        which=None,
         ):
         r'''Constructs a control-rate Select.
 

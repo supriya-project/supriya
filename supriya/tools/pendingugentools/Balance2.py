@@ -57,10 +57,10 @@ class Balance2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        left=left,
+        left=None,
         level=1,
         pos=0,
-        right=right,
+        right=None,
         ):
         r'''Constructs an audio-rate Balance2.
 
@@ -91,10 +91,10 @@ class Balance2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        left=left,
+        left=None,
         level=1,
         pos=0,
-        right=right,
+        right=None,
         ):
         r'''Constructs a control-rate Balance2.
 

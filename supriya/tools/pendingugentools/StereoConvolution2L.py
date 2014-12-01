@@ -67,9 +67,9 @@ class StereoConvolution2L(MultiOutUGen):
         cls,
         crossfade=1,
         framesize=2048,
-        kernel_l=kernel_l,
-        kernel_r=kernel_r,
-        source=source,
+        kernel_l=None,
+        kernel_r=None,
+        source=None,
         trigger=0,
         ):
         r'''Constructs an audio-rate StereoConvolution2L.

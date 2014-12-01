@@ -50,7 +50,7 @@ class RunningSum(UGen):
     def ar(
         cls,
         numsamp=40,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate RunningSum.
 
@@ -78,7 +78,7 @@ class RunningSum(UGen):
     def kr(
         cls,
         numsamp=40,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate RunningSum.
 

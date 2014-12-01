@@ -57,10 +57,10 @@ class UnpackFFT(MultiOutUGen):
     @classmethod
     def new(
         cls,
-        bufsize=bufsize,
-        chain=chain,
+        bufsize=None,
+        chain=None,
         frombin=0,
-        tobin=tobin,
+        tobin=None,
         ):
         r'''Constructs a UnpackFFT.
 

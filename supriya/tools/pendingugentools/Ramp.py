@@ -50,7 +50,7 @@ class Ramp(Lag):
     def ar(
         cls,
         lag_time=0.1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Ramp.
 
@@ -80,7 +80,7 @@ class Ramp(Lag):
     def kr(
         cls,
         lag_time=0.1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Ramp.
 

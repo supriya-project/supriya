@@ -70,7 +70,7 @@ class PlayBuf(MultiOutUGen):
     def ar(
         cls,
         buffer_id=0,
-        channel_count=channel_count,
+        channel_count=None,
         done_action=0,
         loop=0,
         rate=1,
@@ -113,7 +113,7 @@ class PlayBuf(MultiOutUGen):
     def kr(
         cls,
         buffer_id=0,
-        channel_count=channel_count,
+        channel_count=None,
         done_action=0,
         loop=0,
         rate=1,

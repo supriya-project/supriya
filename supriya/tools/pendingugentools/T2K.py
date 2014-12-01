@@ -45,7 +45,7 @@ class T2K(A2K):
     @classmethod
     def kr(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate T2K.
 

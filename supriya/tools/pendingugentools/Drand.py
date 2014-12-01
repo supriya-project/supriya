@@ -50,7 +50,7 @@ class Drand(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=sequence,
+        sequence=None,
         ):
         r'''Constructs a Drand.
 

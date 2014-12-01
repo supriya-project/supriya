@@ -60,7 +60,7 @@ class PanB(MultiOutUGen):
         azimuth=0,
         elevation=0,
         gain=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate PanB.
 
@@ -94,7 +94,7 @@ class PanB(MultiOutUGen):
         azimuth=0,
         elevation=0,
         gain=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate PanB.
 

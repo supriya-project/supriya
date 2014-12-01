@@ -54,7 +54,7 @@ class Spring(UGen):
     def ar(
         cls,
         damping=0,
-        source=source,
+        source=None,
         spring=1,
         ):
         r'''Constructs an audio-rate Spring.
@@ -85,7 +85,7 @@ class Spring(UGen):
     def kr(
         cls,
         damping=0,
-        source=source,
+        source=None,
         spring=1,
         ):
         r'''Constructs a control-rate Spring.

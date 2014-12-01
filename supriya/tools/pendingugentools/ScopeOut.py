@@ -50,7 +50,7 @@ class ScopeOut(UGen):
     def ar(
         cls,
         buffer_id=0,
-        input_array=input_array,
+        input_array=None,
         ):
         r'''Constructs an audio-rate ScopeOut.
 
@@ -78,7 +78,7 @@ class ScopeOut(UGen):
     def kr(
         cls,
         buffer_id=0,
-        input_array=input_array,
+        input_array=None,
         ):
         r'''Constructs a control-rate ScopeOut.
 

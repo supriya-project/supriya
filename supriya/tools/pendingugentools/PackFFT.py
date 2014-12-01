@@ -65,11 +65,11 @@ class PackFFT(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        bufsize=bufsize,
-        chain=chain,
+        bufsize=None,
+        chain=None,
         frombin=0,
-        magsphases=magsphases,
-        tobin=tobin,
+        magsphases=None,
+        tobin=None,
         zeroothers=0,
         ):
         r'''Constructs a PackFFT.

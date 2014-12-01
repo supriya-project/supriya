@@ -50,7 +50,7 @@ class LastValue(UGen):
     def ar(
         cls,
         diff=0.01,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate LastValue.
 
@@ -78,7 +78,7 @@ class LastValue(UGen):
     def kr(
         cls,
         diff=0.01,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate LastValue.
 

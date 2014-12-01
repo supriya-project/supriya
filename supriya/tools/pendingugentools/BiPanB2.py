@@ -57,10 +57,10 @@ class BiPanB2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        azimuth=azimuth,
+        azimuth=None,
         gain=1,
-        in_a=in_a,
-        in_b=in_b,
+        in_a=None,
+        in_b=None,
         ):
         r'''Constructs an audio-rate BiPanB2.
 
@@ -91,10 +91,10 @@ class BiPanB2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        azimuth=azimuth,
+        azimuth=None,
         gain=1,
-        in_a=in_a,
-        in_b=in_b,
+        in_a=None,
+        in_b=None,
         ):
         r'''Constructs a control-rate BiPanB2.
 

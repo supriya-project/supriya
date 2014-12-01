@@ -55,7 +55,7 @@ class FreqShift(UGen):
         cls,
         frequency=0,
         phase=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate FreqShift.
 

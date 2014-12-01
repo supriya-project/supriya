@@ -70,7 +70,7 @@ class SOS(Filter):
         a_2=0,
         b_1=0,
         b_2=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate SOS.
 
@@ -112,7 +112,7 @@ class SOS(Filter):
         a_2=0,
         b_1=0,
         b_2=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate SOS.
 

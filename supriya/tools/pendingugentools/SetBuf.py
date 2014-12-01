@@ -53,9 +53,9 @@ class SetBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=buffer_id,
+        buffer_id=None,
         offset=0,
-        values=values,
+        values=None,
         ):
         r'''Constructs a SetBuf.
 

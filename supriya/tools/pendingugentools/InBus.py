@@ -57,9 +57,9 @@ class InBus(UGen):
     @classmethod
     def ar(
         cls,
-        bus=bus,
-        channel_count=channel_count,
-        clip=clip,
+        bus=None,
+        channel_count=None,
+        clip=None,
         offset=0,
         ):
         r'''Constructs an audio-rate InBus.
@@ -91,9 +91,9 @@ class InBus(UGen):
     @classmethod
     def kr(
         cls,
-        bus=bus,
-        channel_count=channel_count,
-        clip=clip,
+        bus=None,
+        channel_count=None,
+        clip=None,
         offset=0,
         ):
         r'''Constructs a control-rate InBus.

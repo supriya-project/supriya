@@ -53,9 +53,9 @@ class OutputProxy(UGen):
     @classmethod
     def new(
         cls,
-        index=index,
-        its_source_ugen=its_source_ugen,
-        rate=rate,
+        index=None,
+        its_source_ugen=None,
+        rate=None,
         ):
         r'''Constructs a OutputProxy.
 

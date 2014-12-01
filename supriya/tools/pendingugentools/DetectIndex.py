@@ -49,8 +49,8 @@ class DetectIndex(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=buffer_id,
-        source=source,
+        buffer_id=None,
+        source=None,
         ):
         r'''Constructs an audio-rate DetectIndex.
 
@@ -77,8 +77,8 @@ class DetectIndex(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=buffer_id,
-        source=source,
+        buffer_id=None,
+        source=None,
         ):
         r'''Constructs a control-rate DetectIndex.
 

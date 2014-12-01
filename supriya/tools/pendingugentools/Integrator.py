@@ -50,7 +50,7 @@ class Integrator(Filter):
     def ar(
         cls,
         coefficient=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate Integrator.
 
@@ -80,7 +80,7 @@ class Integrator(Filter):
     def kr(
         cls,
         coefficient=1,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate Integrator.
 

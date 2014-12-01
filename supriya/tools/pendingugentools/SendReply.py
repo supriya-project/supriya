@@ -60,7 +60,7 @@ class SendReply(SendTrig):
         cmd_name='/reply',
         reply_id=-1,
         trigger=0,
-        values=values,
+        values=None,
         ):
         r'''Constructs an audio-rate SendReply.
 
@@ -94,7 +94,7 @@ class SendReply(SendTrig):
         cmd_name='/reply',
         reply_id=-1,
         trigger=0,
-        values=values,
+        values=None,
         ):
         r'''Constructs a control-rate SendReply.
 

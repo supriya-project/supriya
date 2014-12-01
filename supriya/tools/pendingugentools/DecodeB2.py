@@ -61,11 +61,11 @@ class DecodeB2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        channel_count=channel_count,
+        channel_count=None,
         orientation=0.5,
-        w=w,
-        x=x,
-        y=y,
+        w=None,
+        x=None,
+        y=None,
         ):
         r'''Constructs an audio-rate DecodeB2.
 
@@ -98,11 +98,11 @@ class DecodeB2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        channel_count=channel_count,
+        channel_count=None,
         orientation=0.5,
-        w=w,
-        x=x,
-        y=y,
+        w=None,
+        x=None,
+        y=None,
         ):
         r'''Constructs a control-rate DecodeB2.
 

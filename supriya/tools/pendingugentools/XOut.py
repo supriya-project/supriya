@@ -53,9 +53,9 @@ class XOut(AbstractOut):
     @classmethod
     def ar(
         cls,
-        bus=bus,
-        crossfade=crossfade,
-        source=source,
+        bus=None,
+        crossfade=None,
+        source=None,
         ):
         r'''Constructs an audio-rate XOut.
 
@@ -86,9 +86,9 @@ class XOut(AbstractOut):
     @classmethod
     def kr(
         cls,
-        bus=bus,
-        crossfade=crossfade,
-        source=source,
+        bus=None,
+        crossfade=None,
+        source=None,
         ):
         r'''Constructs a control-rate XOut.
 

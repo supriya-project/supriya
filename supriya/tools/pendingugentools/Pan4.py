@@ -58,7 +58,7 @@ class Pan4(MultiOutUGen):
     def ar(
         cls,
         level=1,
-        source=source,
+        source=None,
         xpos=0,
         ypos=0,
         ):
@@ -92,7 +92,7 @@ class Pan4(MultiOutUGen):
     def kr(
         cls,
         level=1,
-        source=source,
+        source=None,
         xpos=0,
         ypos=0,
         ):

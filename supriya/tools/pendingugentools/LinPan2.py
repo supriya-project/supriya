@@ -55,7 +55,7 @@ class LinPan2(Pan2):
         cls,
         level=1,
         pos=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate LinPan2.
 
@@ -86,7 +86,7 @@ class LinPan2(Pan2):
         cls,
         level=1,
         pos=0,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate LinPan2.
 

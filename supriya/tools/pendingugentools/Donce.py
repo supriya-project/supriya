@@ -45,7 +45,7 @@ class Donce(DUGen):
     @classmethod
     def new(
         cls,
-        source=source,
+        source=None,
         ):
         r'''Constructs a Donce.
 

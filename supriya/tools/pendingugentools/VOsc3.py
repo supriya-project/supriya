@@ -57,7 +57,7 @@ class VOsc3(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=bufpos,
+        bufpos=None,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -91,7 +91,7 @@ class VOsc3(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=bufpos,
+        bufpos=None,
         freq_1=110,
         freq_2=220,
         freq_3=440,

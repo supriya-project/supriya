@@ -54,7 +54,7 @@ class COsc(PureUGen):
     def ar(
         cls,
         beats=0.5,
-        buffer_id=buffer_id,
+        buffer_id=None,
         frequency=440,
         ):
         r'''Constructs an audio-rate COsc.
@@ -85,7 +85,7 @@ class COsc(PureUGen):
     def kr(
         cls,
         beats=0.5,
-        buffer_id=buffer_id,
+        buffer_id=None,
         frequency=440,
         ):
         r'''Constructs a control-rate COsc.

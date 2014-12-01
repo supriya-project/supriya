@@ -63,8 +63,8 @@ class Convolution2L(UGen):
         cls,
         crossfade=1,
         framesize=2048,
-        kernel=kernel,
-        source=source,
+        kernel=None,
+        source=None,
         trigger=0,
         ):
         r'''Constructs an audio-rate Convolution2L.

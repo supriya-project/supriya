@@ -60,7 +60,7 @@ class TBall(UGen):
         damping=0,
         friction=0.01,
         g=10,
-        source=source,
+        source=None,
         ):
         r'''Constructs an audio-rate TBall.
 
@@ -94,7 +94,7 @@ class TBall(UGen):
         damping=0,
         friction=0.01,
         g=10,
-        source=source,
+        source=None,
         ):
         r'''Constructs a control-rate TBall.
 
