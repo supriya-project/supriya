@@ -7,13 +7,14 @@ class BufWr(UGen):
 
     ::
 
-        >>> buf_wr = ugentools.BufWr.(
+        >>> buf_wr = ugentools.BufWr.ar(
         ...     buffer_id=0,
-        ...     input_array=None,
+        ...     input_array=input_array,
         ...     loop=1,
         ...     phase=0,
         ...     )
         >>> buf_wr
+        BufWr.ar()
 
     '''
 
@@ -57,7 +58,7 @@ class BufWr(UGen):
     def ar(
         cls,
         buffer_id=0,
-        input_array=None,
+        input_array=input_array,
         loop=1,
         phase=0,
         ):
@@ -67,11 +68,12 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_wr
+            BufWr.ar()
 
         Returns ugen graph.
         '''
@@ -90,7 +92,7 @@ class BufWr(UGen):
     def kr(
         cls,
         buffer_id=0,
-        input_array=None,
+        input_array=input_array,
         loop=1,
         phase=0,
         ):
@@ -100,11 +102,12 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.kr(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_wr
+            BufWr.kr()
 
         Returns ugen graph.
         '''
@@ -129,11 +132,12 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_wr.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -148,7 +152,7 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
@@ -167,11 +171,12 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_wr.loop
+            1.0
 
         Returns ugen input.
         '''
@@ -186,11 +191,12 @@ class BufWr(UGen):
 
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_wr.phase
+            0.0
 
         Returns ugen input.
         '''

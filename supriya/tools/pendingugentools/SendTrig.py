@@ -7,12 +7,13 @@ class SendTrig(UGen):
 
     ::
 
-        >>> send_trig = ugentools.SendTrig.(
+        >>> send_trig = ugentools.SendTrig.ar(
         ...     id=0,
-        ...     source=None,
+        ...     source=source,
         ...     value=0,
         ...     )
         >>> send_trig
+        SendTrig.ar()
 
     '''
 
@@ -53,7 +54,7 @@ class SendTrig(UGen):
     def ar(
         cls,
         id=0,
-        source=None,
+        source=source,
         value=0,
         ):
         r'''Constructs an audio-rate SendTrig.
@@ -62,10 +63,11 @@ class SendTrig(UGen):
 
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
-            ...     source=None,
+            ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig
+            SendTrig.ar()
 
         Returns ugen graph.
         '''
@@ -83,7 +85,7 @@ class SendTrig(UGen):
     def kr(
         cls,
         id=0,
-        source=None,
+        source=source,
         value=0,
         ):
         r'''Constructs a control-rate SendTrig.
@@ -92,10 +94,11 @@ class SendTrig(UGen):
 
             >>> send_trig = ugentools.SendTrig.kr(
             ...     id=0,
-            ...     source=None,
+            ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig
+            SendTrig.kr()
 
         Returns ugen graph.
         '''
@@ -119,10 +122,11 @@ class SendTrig(UGen):
 
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
-            ...     source=None,
+            ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig.id
+            0.0
 
         Returns ugen input.
         '''
@@ -137,7 +141,7 @@ class SendTrig(UGen):
 
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
-            ...     source=None,
+            ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig.source
@@ -155,10 +159,11 @@ class SendTrig(UGen):
 
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
-            ...     source=None,
+            ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig.value
+            0.0
 
         Returns ugen input.
         '''

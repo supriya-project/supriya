@@ -7,13 +7,14 @@ class Duty(UGen):
 
     ::
 
-        >>> duty = ugentools.Duty.(
+        >>> duty = ugentools.Duty.ar(
         ...     done_action=0,
         ...     duration=1,
         ...     level=1,
         ...     reset=0,
         ...     )
         >>> duty
+        Duty.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty
+            Duty.ar()
 
         Returns ugen graph.
         '''
@@ -105,6 +107,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty
+            Duty.kr()
 
         Returns ugen graph.
         '''
@@ -134,6 +137,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty.done_action
+            0.0
 
         Returns ugen input.
         '''
@@ -153,6 +157,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -172,6 +177,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty.level
+            1.0
 
         Returns ugen input.
         '''
@@ -191,6 +197,7 @@ class Duty(UGen):
             ...     reset=0,
             ...     )
             >>> duty.reset
+            0.0
 
         Returns ugen input.
         '''

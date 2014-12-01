@@ -7,7 +7,7 @@ class LatoocarfianN(ChaosGen):
 
     ::
 
-        >>> latoocarfian_n = ugentools.LatoocarfianN.(
+        >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
         ...     a=1,
         ...     b=3,
         ...     c=0.5,
@@ -17,6 +17,7 @@ class LatoocarfianN(ChaosGen):
         ...     yi=0.5,
         ...     )
         >>> latoocarfian_n
+        LatoocarfianN.ar()
 
     '''
 
@@ -90,6 +91,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n
+            LatoocarfianN.ar()
 
         Returns ugen graph.
         '''
@@ -127,6 +129,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.a
+            1.0
 
         Returns ugen input.
         '''
@@ -149,6 +152,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.b
+            3.0
 
         Returns ugen input.
         '''
@@ -171,6 +175,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.c
+            0.5
 
         Returns ugen input.
         '''
@@ -193,6 +198,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.d
+            0.5
 
         Returns ugen input.
         '''
@@ -215,6 +221,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -237,6 +244,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.xi
+            0.5
 
         Returns ugen input.
         '''
@@ -259,6 +267,7 @@ class LatoocarfianN(ChaosGen):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_n.yi
+            0.5
 
         Returns ugen input.
         '''

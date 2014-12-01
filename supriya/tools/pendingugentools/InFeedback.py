@@ -7,11 +7,12 @@ class InFeedback(AbstractIn):
 
     ::
 
-        >>> in_feedback = ugentools.InFeedback.(
+        >>> in_feedback = ugentools.InFeedback.ar(
         ...     bus=0,
         ...     channel_count=1,
         ...     )
         >>> in_feedback
+        InFeedback.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class InFeedback(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_feedback
+            InFeedback.ar()
 
         Returns ugen graph.
         '''
@@ -89,6 +91,7 @@ class InFeedback(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_feedback.bus
+            0.0
 
         Returns ugen input.
         '''
@@ -106,6 +109,7 @@ class InFeedback(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_feedback.channel_count
+            1.0
 
         Returns ugen input.
         '''

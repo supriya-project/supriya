@@ -7,11 +7,12 @@ class Select(PureUGen):
 
     ::
 
-        >>> select = ugentools.Select.(
-        ...     array=None,
-        ...     which=None,
+        >>> select = ugentools.Select.ar(
+        ...     array=array,
+        ...     which=which,
         ...     )
         >>> select
+        Select.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class Select(PureUGen):
     @classmethod
     def ar(
         cls,
-        array=None,
-        which=None,
+        array=array,
+        which=which,
         ):
         r'''Constructs an audio-rate Select.
 
         ::
 
             >>> select = ugentools.Select.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select
+            Select.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class Select(PureUGen):
     @classmethod
     def kr(
         cls,
-        array=None,
-        which=None,
+        array=array,
+        which=which,
         ):
         r'''Constructs a control-rate Select.
 
         ::
 
             >>> select = ugentools.Select.kr(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select
+            Select.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class Select(PureUGen):
         ::
 
             >>> select = ugentools.Select.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select.array
 
@@ -125,8 +128,8 @@ class Select(PureUGen):
         ::
 
             >>> select = ugentools.Select.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select.which
 

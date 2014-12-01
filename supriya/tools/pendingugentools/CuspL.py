@@ -7,13 +7,14 @@ class CuspL(CuspN):
 
     ::
 
-        >>> cusp_l = ugentools.CuspL.(
+        >>> cusp_l = ugentools.CuspL.ar(
         ...     a=1,
         ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
         ...     )
         >>> cusp_l
+        CuspL.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class CuspL(CuspN):
             ...     xi=0,
             ...     )
             >>> cusp_l
+            CuspL.ar()
 
         Returns ugen graph.
         '''
@@ -103,6 +105,7 @@ class CuspL(CuspN):
             ...     xi=0,
             ...     )
             >>> cusp_l.a
+            1.0
 
         Returns ugen input.
         '''
@@ -122,6 +125,7 @@ class CuspL(CuspN):
             ...     xi=0,
             ...     )
             >>> cusp_l.b
+            1.9
 
         Returns ugen input.
         '''
@@ -141,6 +145,7 @@ class CuspL(CuspN):
             ...     xi=0,
             ...     )
             >>> cusp_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -160,6 +165,7 @@ class CuspL(CuspN):
             ...     xi=0,
             ...     )
             >>> cusp_l.xi
+            0.0
 
         Returns ugen input.
         '''

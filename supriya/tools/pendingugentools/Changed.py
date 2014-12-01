@@ -7,11 +7,12 @@ class Changed(Filter):
 
     ::
 
-        >>> changed = ugentools.Changed.(
-        ...     input=None,
+        >>> changed = ugentools.Changed.ar(
+        ...     input=input,
         ...     threshold=0,
         ...     )
         >>> changed
+        Changed.ar()
 
     '''
 
@@ -48,7 +49,7 @@ class Changed(Filter):
     @classmethod
     def ar(
         cls,
-        input=None,
+        input=input,
         threshold=0,
         ):
         r'''Constructs an audio-rate Changed.
@@ -56,10 +57,11 @@ class Changed(Filter):
         ::
 
             >>> changed = ugentools.Changed.ar(
-            ...     input=None,
+            ...     input=input,
             ...     threshold=0,
             ...     )
             >>> changed
+            Changed.ar()
 
         Returns ugen graph.
         '''
@@ -77,7 +79,7 @@ class Changed(Filter):
     @classmethod
     def kr(
         cls,
-        input=None,
+        input=input,
         threshold=0,
         ):
         r'''Constructs a control-rate Changed.
@@ -85,10 +87,11 @@ class Changed(Filter):
         ::
 
             >>> changed = ugentools.Changed.kr(
-            ...     input=None,
+            ...     input=input,
             ...     threshold=0,
             ...     )
             >>> changed
+            Changed.kr()
 
         Returns ugen graph.
         '''
@@ -120,7 +123,7 @@ class Changed(Filter):
         ::
 
             >>> changed = ugentools.Changed.ar(
-            ...     input=None,
+            ...     input=input,
             ...     threshold=0,
             ...     )
             >>> changed.input
@@ -137,10 +140,11 @@ class Changed(Filter):
         ::
 
             >>> changed = ugentools.Changed.ar(
-            ...     input=None,
+            ...     input=input,
             ...     threshold=0,
             ...     )
             >>> changed.threshold
+            0.0
 
         Returns ugen input.
         '''

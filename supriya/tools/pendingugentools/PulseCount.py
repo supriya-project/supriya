@@ -7,11 +7,12 @@ class PulseCount(UGen):
 
     ::
 
-        >>> pulse_count = ugentools.PulseCount.(
+        >>> pulse_count = ugentools.PulseCount.ar(
         ...     reset=0,
         ...     trigger=0,
         ...     )
         >>> pulse_count
+        PulseCount.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class PulseCount(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_count
+            PulseCount.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class PulseCount(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_count
+            PulseCount.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class PulseCount(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_count.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class PulseCount(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_count.trigger
+            0.0
 
         Returns ugen input.
         '''

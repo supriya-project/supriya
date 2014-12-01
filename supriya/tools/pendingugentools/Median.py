@@ -7,11 +7,12 @@ class Median(Filter):
 
     ::
 
-        >>> median = ugentools.Median.(
+        >>> median = ugentools.Median.ar(
         ...     length=3,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> median
+        Median.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Median(Filter):
     def ar(
         cls,
         length=3,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Median.
 
@@ -57,9 +58,10 @@ class Median(Filter):
 
             >>> median = ugentools.Median.ar(
             ...     length=3,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> median
+            Median.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class Median(Filter):
     def kr(
         cls,
         length=3,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Median.
 
@@ -86,9 +88,10 @@ class Median(Filter):
 
             >>> median = ugentools.Median.kr(
             ...     length=3,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> median
+            Median.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class Median(Filter):
 
             >>> median = ugentools.Median.ar(
             ...     length=3,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> median.length
+            3.0
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class Median(Filter):
 
             >>> median = ugentools.Median.ar(
             ...     length=3,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> median.source
 

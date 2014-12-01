@@ -7,11 +7,12 @@ class IndexL(Index):
 
     ::
 
-        >>> index_l = ugentools.IndexL.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> index_l = ugentools.IndexL.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> index_l
+        IndexL.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class IndexL(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate IndexL.
 
         ::
 
             >>> index_l = ugentools.IndexL.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_l
+            IndexL.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class IndexL(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate IndexL.
 
         ::
 
             >>> index_l = ugentools.IndexL.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_l
+            IndexL.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class IndexL(Index):
         ::
 
             >>> index_l = ugentools.IndexL.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_l.buffer_id
 
@@ -125,8 +128,8 @@ class IndexL(Index):
         ::
 
             >>> index_l = ugentools.IndexL.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_l.source
 

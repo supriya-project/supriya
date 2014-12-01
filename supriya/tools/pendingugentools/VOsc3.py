@@ -7,13 +7,14 @@ class VOsc3(PureUGen):
 
     ::
 
-        >>> vosc_3 = ugentools.VOsc3.(
-        ...     bufpos=None,
+        >>> vosc_3 = ugentools.VOsc3.ar(
+        ...     bufpos=bufpos,
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,
         ...     )
         >>> vosc_3
+        VOsc3.ar()
 
     '''
 
@@ -56,7 +57,7 @@ class VOsc3(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=None,
+        bufpos=bufpos,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -66,12 +67,13 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3
+            VOsc3.ar()
 
         Returns ugen graph.
         '''
@@ -89,7 +91,7 @@ class VOsc3(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=None,
+        bufpos=bufpos,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -99,12 +101,13 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.kr(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3
+            VOsc3.kr()
 
         Returns ugen graph.
         '''
@@ -128,7 +131,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -147,12 +150,13 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3.freq_1
+            110.0
 
         Returns ugen input.
         '''
@@ -166,12 +170,13 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3.freq_2
+            220.0
 
         Returns ugen input.
         '''
@@ -185,12 +190,13 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3.freq_3
+            440.0
 
         Returns ugen input.
         '''

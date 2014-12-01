@@ -7,13 +7,14 @@ class CuspN(ChaosGen):
 
     ::
 
-        >>> cusp_n = ugentools.CuspN.(
+        >>> cusp_n = ugentools.CuspN.ar(
         ...     a=1,
         ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
         ...     )
         >>> cusp_n
+        CuspN.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class CuspN(ChaosGen):
             ...     xi=0,
             ...     )
             >>> cusp_n
+            CuspN.ar()
 
         Returns ugen graph.
         '''
@@ -103,6 +105,7 @@ class CuspN(ChaosGen):
             ...     xi=0,
             ...     )
             >>> cusp_n.a
+            1.0
 
         Returns ugen input.
         '''
@@ -122,6 +125,7 @@ class CuspN(ChaosGen):
             ...     xi=0,
             ...     )
             >>> cusp_n.b
+            1.9
 
         Returns ugen input.
         '''
@@ -141,6 +145,7 @@ class CuspN(ChaosGen):
             ...     xi=0,
             ...     )
             >>> cusp_n.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -160,6 +165,7 @@ class CuspN(ChaosGen):
             ...     xi=0,
             ...     )
             >>> cusp_n.xi
+            0.0
 
         Returns ugen input.
         '''

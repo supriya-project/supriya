@@ -7,13 +7,14 @@ class Unpack1FFT(UGen):
 
     ::
 
-        >>> unpack_1_fft = ugentools.Unpack1FFT.(
-        ...     binindex=None,
-        ...     bufsize=None,
-        ...     chain=None,
+        >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+        ...     binindex=binindex,
+        ...     bufsize=bufsize,
+        ...     chain=chain,
         ...     whichmeasure=0,
         ...     )
         >>> unpack_1_fft
+        Unpack1FFT.ar()
 
     '''
 
@@ -56,9 +57,9 @@ class Unpack1FFT(UGen):
     @classmethod
     def new(
         cls,
-        binindex=None,
-        bufsize=None,
-        chain=None,
+        binindex=binindex,
+        bufsize=bufsize,
+        chain=chain,
         whichmeasure=0,
         ):
         r'''Constructs a Unpack1FFT.
@@ -66,12 +67,13 @@ class Unpack1FFT(UGen):
         ::
 
             >>> unpack_1_fft = ugentools.Unpack1FFT.new(
-            ...     binindex=None,
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     binindex=binindex,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     whichmeasure=0,
             ...     )
             >>> unpack_1_fft
+            Unpack1FFT.new()
 
         Returns ugen graph.
         '''
@@ -95,9 +97,9 @@ class Unpack1FFT(UGen):
         ::
 
             >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
-            ...     binindex=None,
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     binindex=binindex,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     whichmeasure=0,
             ...     )
             >>> unpack_1_fft.binindex
@@ -114,9 +116,9 @@ class Unpack1FFT(UGen):
         ::
 
             >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
-            ...     binindex=None,
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     binindex=binindex,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     whichmeasure=0,
             ...     )
             >>> unpack_1_fft.bufsize
@@ -133,9 +135,9 @@ class Unpack1FFT(UGen):
         ::
 
             >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
-            ...     binindex=None,
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     binindex=binindex,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     whichmeasure=0,
             ...     )
             >>> unpack_1_fft.chain
@@ -152,12 +154,13 @@ class Unpack1FFT(UGen):
         ::
 
             >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
-            ...     binindex=None,
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     binindex=binindex,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     whichmeasure=0,
             ...     )
             >>> unpack_1_fft.whichmeasure
+            0.0
 
         Returns ugen input.
         '''

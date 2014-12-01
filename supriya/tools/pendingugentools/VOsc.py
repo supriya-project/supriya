@@ -7,12 +7,13 @@ class VOsc(PureUGen):
 
     ::
 
-        >>> vosc = ugentools.VOsc.(
-        ...     bufpos=None,
+        >>> vosc = ugentools.VOsc.ar(
+        ...     bufpos=bufpos,
         ...     frequency=440,
         ...     phase=0,
         ...     )
         >>> vosc
+        VOsc.ar()
 
     '''
 
@@ -52,7 +53,7 @@ class VOsc(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=None,
+        bufpos=bufpos,
         frequency=440,
         phase=0,
         ):
@@ -61,11 +62,12 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> vosc
+            VOsc.ar()
 
         Returns ugen graph.
         '''
@@ -82,7 +84,7 @@ class VOsc(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=None,
+        bufpos=bufpos,
         frequency=440,
         phase=0,
         ):
@@ -91,11 +93,12 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.kr(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> vosc
+            VOsc.kr()
 
         Returns ugen graph.
         '''
@@ -118,7 +121,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -136,11 +139,12 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> vosc.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -154,11 +158,12 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=None,
+            ...     bufpos=bufpos,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> vosc.phase
+            0.0
 
         Returns ugen input.
         '''

@@ -7,11 +7,12 @@ class Drand(ListDUGen):
 
     ::
 
-        >>> drand = ugentools.Drand.(
+        >>> drand = ugentools.Drand.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> drand
+        Drand.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Drand(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a Drand.
 
@@ -57,9 +58,10 @@ class Drand(ListDUGen):
 
             >>> drand = ugentools.Drand.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> drand
+            Drand.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Drand(ListDUGen):
 
             >>> drand = ugentools.Drand.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> drand.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Drand(ListDUGen):
 
             >>> drand = ugentools.Drand.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> drand.sequence
 

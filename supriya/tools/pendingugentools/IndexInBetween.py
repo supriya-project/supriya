@@ -7,11 +7,12 @@ class IndexInBetween(Index):
 
     ::
 
-        >>> index_in_between = ugentools.IndexInBetween.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> index_in_between = ugentools.IndexInBetween.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> index_in_between
+        IndexInBetween.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class IndexInBetween(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate IndexInBetween.
 
         ::
 
             >>> index_in_between = ugentools.IndexInBetween.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_in_between
+            IndexInBetween.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class IndexInBetween(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate IndexInBetween.
 
         ::
 
             >>> index_in_between = ugentools.IndexInBetween.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_in_between
+            IndexInBetween.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class IndexInBetween(Index):
         ::
 
             >>> index_in_between = ugentools.IndexInBetween.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_in_between.buffer_id
 
@@ -125,8 +128,8 @@ class IndexInBetween(Index):
         ::
 
             >>> index_in_between = ugentools.IndexInBetween.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index_in_between.source
 

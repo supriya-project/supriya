@@ -7,7 +7,7 @@ class Gendy3(UGen):
 
     ::
 
-        >>> gendy_3 = ugentools.Gendy3.(
+        >>> gendy_3 = ugentools.Gendy3.ar(
         ...     adparam=1,
         ...     ampdist=1,
         ...     ampscale=0.5,
@@ -16,9 +16,10 @@ class Gendy3(UGen):
         ...     durscale=0.5,
         ...     frequency=440,
         ...     init_cps=12,
-        ...     knum=None,
+        ...     knum=knum,
         ...     )
         >>> gendy_3
+        Gendy3.ar()
 
     '''
 
@@ -84,7 +85,7 @@ class Gendy3(UGen):
         durscale=0.5,
         frequency=440,
         init_cps=12,
-        knum=None,
+        knum=knum,
         ):
         r'''Constructs an audio-rate Gendy3.
 
@@ -99,9 +100,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3
+            Gendy3.ar()
 
         Returns ugen graph.
         '''
@@ -132,7 +134,7 @@ class Gendy3(UGen):
         durscale=0.5,
         frequency=440,
         init_cps=12,
-        knum=None,
+        knum=knum,
         ):
         r'''Constructs a control-rate Gendy3.
 
@@ -147,9 +149,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3
+            Gendy3.kr()
 
         Returns ugen graph.
         '''
@@ -186,9 +189,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.adparam
+            1.0
 
         Returns ugen input.
         '''
@@ -210,9 +214,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.ampdist
+            1.0
 
         Returns ugen input.
         '''
@@ -234,9 +239,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.ampscale
+            0.5
 
         Returns ugen input.
         '''
@@ -258,9 +264,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.ddparam
+            1.0
 
         Returns ugen input.
         '''
@@ -282,9 +289,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.durdist
+            1.0
 
         Returns ugen input.
         '''
@@ -306,9 +314,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.durscale
+            0.5
 
         Returns ugen input.
         '''
@@ -330,9 +339,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -354,9 +364,10 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.init_cps
+            12.0
 
         Returns ugen input.
         '''
@@ -378,7 +389,7 @@ class Gendy3(UGen):
             ...     durscale=0.5,
             ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     )
             >>> gendy_3.knum
 

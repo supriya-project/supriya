@@ -7,7 +7,7 @@ class FBSineC(FBSineN):
 
     ::
 
-        >>> fbsine_c = ugentools.FBSineC.(
+        >>> fbsine_c = ugentools.FBSineC.ar(
         ...     a=1.1,
         ...     c=0.5,
         ...     fb=0.1,
@@ -17,6 +17,7 @@ class FBSineC(FBSineN):
         ...     yi=0.1,
         ...     )
         >>> fbsine_c
+        FBSineC.ar()
 
     '''
 
@@ -90,6 +91,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c
+            FBSineC.ar()
 
         Returns ugen graph.
         '''
@@ -127,6 +129,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.a
+            1.1
 
         Returns ugen input.
         '''
@@ -149,6 +152,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.c
+            0.5
 
         Returns ugen input.
         '''
@@ -171,6 +175,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.fb
+            0.1
 
         Returns ugen input.
         '''
@@ -193,6 +198,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -215,6 +221,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.im
+            1.0
 
         Returns ugen input.
         '''
@@ -237,6 +244,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.xi
+            0.1
 
         Returns ugen input.
         '''
@@ -259,6 +267,7 @@ class FBSineC(FBSineN):
             ...     yi=0.1,
             ...     )
             >>> fbsine_c.yi
+            0.1
 
         Returns ugen input.
         '''

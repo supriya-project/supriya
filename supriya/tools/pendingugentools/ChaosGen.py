@@ -7,9 +7,10 @@ class ChaosGen(UGen):
 
     ::
 
-        >>> chaos_gen = ugentools.ChaosGen.(
+        >>> chaos_gen = ugentools.ChaosGen.ar(
         ...     )
         >>> chaos_gen
+        ChaosGen.ar()
 
     '''
 

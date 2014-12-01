@@ -7,12 +7,13 @@ class PartConv(UGen):
 
     ::
 
-        >>> part_conv = ugentools.PartConv.(
-        ...     fftsize=None,
-        ...     irbufnum=None,
-        ...     source=None,
+        >>> part_conv = ugentools.PartConv.ar(
+        ...     fftsize=fftsize,
+        ...     irbufnum=irbufnum,
+        ...     source=source,
         ...     )
         >>> part_conv
+        PartConv.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class PartConv(UGen):
     @classmethod
     def ar(
         cls,
-        fftsize=None,
-        irbufnum=None,
-        source=None,
+        fftsize=fftsize,
+        irbufnum=irbufnum,
+        source=source,
         ):
         r'''Constructs an audio-rate PartConv.
 
         ::
 
             >>> part_conv = ugentools.PartConv.ar(
-            ...     fftsize=None,
-            ...     irbufnum=None,
-            ...     source=None,
+            ...     fftsize=fftsize,
+            ...     irbufnum=irbufnum,
+            ...     source=source,
             ...     )
             >>> part_conv
+            PartConv.ar()
 
         Returns ugen graph.
         '''
@@ -92,9 +94,9 @@ class PartConv(UGen):
         ::
 
             >>> part_conv = ugentools.PartConv.ar(
-            ...     fftsize=None,
-            ...     irbufnum=None,
-            ...     source=None,
+            ...     fftsize=fftsize,
+            ...     irbufnum=irbufnum,
+            ...     source=source,
             ...     )
             >>> part_conv.fftsize
 
@@ -110,9 +112,9 @@ class PartConv(UGen):
         ::
 
             >>> part_conv = ugentools.PartConv.ar(
-            ...     fftsize=None,
-            ...     irbufnum=None,
-            ...     source=None,
+            ...     fftsize=fftsize,
+            ...     irbufnum=irbufnum,
+            ...     source=source,
             ...     )
             >>> part_conv.irbufnum
 
@@ -128,9 +130,9 @@ class PartConv(UGen):
         ::
 
             >>> part_conv = ugentools.PartConv.ar(
-            ...     fftsize=None,
-            ...     irbufnum=None,
-            ...     source=None,
+            ...     fftsize=fftsize,
+            ...     irbufnum=irbufnum,
+            ...     source=source,
             ...     )
             >>> part_conv.source
 

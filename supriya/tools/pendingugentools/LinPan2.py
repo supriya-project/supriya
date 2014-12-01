@@ -7,12 +7,13 @@ class LinPan2(Pan2):
 
     ::
 
-        >>> lin_pan_2 = ugentools.LinPan2.(
+        >>> lin_pan_2 = ugentools.LinPan2.ar(
         ...     level=1,
         ...     pos=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> lin_pan_2
+        LinPan2.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class LinPan2(Pan2):
         cls,
         level=1,
         pos=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate LinPan2.
 
@@ -63,9 +64,10 @@ class LinPan2(Pan2):
             >>> lin_pan_2 = ugentools.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lin_pan_2
+            LinPan2.ar()
 
         Returns ugen graph.
         '''
@@ -84,7 +86,7 @@ class LinPan2(Pan2):
         cls,
         level=1,
         pos=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate LinPan2.
 
@@ -93,9 +95,10 @@ class LinPan2(Pan2):
             >>> lin_pan_2 = ugentools.LinPan2.kr(
             ...     level=1,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lin_pan_2
+            LinPan2.kr()
 
         Returns ugen graph.
         '''
@@ -122,9 +125,10 @@ class LinPan2(Pan2):
             >>> lin_pan_2 = ugentools.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lin_pan_2.level
+            1.0
 
         Returns ugen input.
         '''
@@ -140,9 +144,10 @@ class LinPan2(Pan2):
             >>> lin_pan_2 = ugentools.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lin_pan_2.pos
+            0.0
 
         Returns ugen input.
         '''
@@ -158,7 +163,7 @@ class LinPan2(Pan2):
             >>> lin_pan_2 = ugentools.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lin_pan_2.source
 

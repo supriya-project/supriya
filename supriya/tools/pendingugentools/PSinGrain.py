@@ -7,12 +7,13 @@ class PSinGrain(UGen):
 
     ::
 
-        >>> psin_grain = ugentools.PSinGrain.(
+        >>> psin_grain = ugentools.PSinGrain.ar(
         ...     amp=1,
         ...     duration=0.2,
         ...     frequency=440,
         ...     )
         >>> psin_grain
+        PSinGrain.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class PSinGrain(UGen):
             ...     frequency=440,
             ...     )
             >>> psin_grain
+            PSinGrain.ar()
 
         Returns ugen graph.
         '''
@@ -93,6 +95,7 @@ class PSinGrain(UGen):
             ...     frequency=440,
             ...     )
             >>> psin_grain.amp
+            1.0
 
         Returns ugen input.
         '''
@@ -111,6 +114,7 @@ class PSinGrain(UGen):
             ...     frequency=440,
             ...     )
             >>> psin_grain.duration
+            0.2
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class PSinGrain(UGen):
             ...     frequency=440,
             ...     )
             >>> psin_grain.frequency
+            440.0
 
         Returns ugen input.
         '''

@@ -7,14 +7,15 @@ class DecodeB2(MultiOutUGen):
 
     ::
 
-        >>> decode_b_2 = ugentools.DecodeB2.(
-        ...     channel_count=None,
+        >>> decode_b_2 = ugentools.DecodeB2.ar(
+        ...     channel_count=channel_count,
         ...     orientation=0.5,
-        ...     w=None,
-        ...     x=None,
-        ...     y=None,
+        ...     w=w,
+        ...     x=x,
+        ...     y=y,
         ...     )
         >>> decode_b_2
+        DecodeB2.ar()
 
     '''
 
@@ -60,24 +61,25 @@ class DecodeB2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        channel_count=None,
+        channel_count=channel_count,
         orientation=0.5,
-        w=None,
-        x=None,
-        y=None,
+        w=w,
+        x=x,
+        y=y,
         ):
         r'''Constructs an audio-rate DecodeB2.
 
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2
+            DecodeB2.ar()
 
         Returns ugen graph.
         '''
@@ -96,24 +98,25 @@ class DecodeB2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        channel_count=None,
+        channel_count=channel_count,
         orientation=0.5,
-        w=None,
-        x=None,
-        y=None,
+        w=w,
+        x=x,
+        y=y,
         ):
         r'''Constructs a control-rate DecodeB2.
 
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.kr(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2
+            DecodeB2.kr()
 
         Returns ugen graph.
         '''
@@ -140,11 +143,11 @@ class DecodeB2(MultiOutUGen):
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2.channel_count
 
@@ -160,13 +163,14 @@ class DecodeB2(MultiOutUGen):
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2.orientation
+            0.5
 
         Returns ugen input.
         '''
@@ -180,11 +184,11 @@ class DecodeB2(MultiOutUGen):
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2.w
 
@@ -200,11 +204,11 @@ class DecodeB2(MultiOutUGen):
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2.x
 
@@ -220,11 +224,11 @@ class DecodeB2(MultiOutUGen):
         ::
 
             >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     orientation=0.5,
-            ...     w=None,
-            ...     x=None,
-            ...     y=None,
+            ...     w=w,
+            ...     x=x,
+            ...     y=y,
             ...     )
             >>> decode_b_2.y
 

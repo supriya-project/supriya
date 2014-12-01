@@ -7,12 +7,13 @@ class Resonz(Filter):
 
     ::
 
-        >>> resonz = ugentools.Resonz.(
+        >>> resonz = ugentools.Resonz.ar(
         ...     bwr=1,
         ...     frequency=440,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> resonz
+        Resonz.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class Resonz(Filter):
         cls,
         bwr=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Resonz.
 
@@ -63,9 +64,10 @@ class Resonz(Filter):
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> resonz
+            Resonz.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class Resonz(Filter):
         cls,
         bwr=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Resonz.
 
@@ -95,9 +97,10 @@ class Resonz(Filter):
             >>> resonz = ugentools.Resonz.kr(
             ...     bwr=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> resonz
+            Resonz.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class Resonz(Filter):
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> resonz.bwr
+            1.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class Resonz(Filter):
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> resonz.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class Resonz(Filter):
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> resonz.source
 

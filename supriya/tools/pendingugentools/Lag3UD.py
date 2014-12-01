@@ -7,12 +7,13 @@ class Lag3UD(LagUD):
 
     ::
 
-        >>> lag_3_ud = ugentools.Lag3UD.(
+        >>> lag_3_ud = ugentools.Lag3UD.ar(
         ...     lag_time_d=0.1,
         ...     lag_time_u=0.1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> lag_3_ud
+        Lag3UD.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class Lag3UD(LagUD):
         cls,
         lag_time_d=0.1,
         lag_time_u=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Lag3UD.
 
@@ -63,9 +64,10 @@ class Lag3UD(LagUD):
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3_ud
+            Lag3UD.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class Lag3UD(LagUD):
         cls,
         lag_time_d=0.1,
         lag_time_u=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Lag3UD.
 
@@ -95,9 +97,10 @@ class Lag3UD(LagUD):
             >>> lag_3_ud = ugentools.Lag3UD.kr(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3_ud
+            Lag3UD.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class Lag3UD(LagUD):
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3_ud.lag_time_d
+            0.1
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class Lag3UD(LagUD):
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3_ud.lag_time_u
+            0.1
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class Lag3UD(LagUD):
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3_ud.source
 

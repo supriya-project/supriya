@@ -7,11 +7,12 @@ class Lag3(Lag):
 
     ::
 
-        >>> lag_3 = ugentools.Lag3.(
+        >>> lag_3 = ugentools.Lag3.ar(
         ...     lag_time=0.1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> lag_3
+        Lag3.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Lag3(Lag):
     def ar(
         cls,
         lag_time=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Lag3.
 
@@ -57,9 +58,10 @@ class Lag3(Lag):
 
             >>> lag_3 = ugentools.Lag3.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3
+            Lag3.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class Lag3(Lag):
     def kr(
         cls,
         lag_time=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Lag3.
 
@@ -86,9 +88,10 @@ class Lag3(Lag):
 
             >>> lag_3 = ugentools.Lag3.kr(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3
+            Lag3.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class Lag3(Lag):
 
             >>> lag_3 = ugentools.Lag3.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3.lag_time
+            0.1
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class Lag3(Lag):
 
             >>> lag_3 = ugentools.Lag3.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lag_3.source
 

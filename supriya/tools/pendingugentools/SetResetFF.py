@@ -7,11 +7,12 @@ class SetResetFF(PulseCount):
 
     ::
 
-        >>> set_reset_ff = ugentools.SetResetFF.(
+        >>> set_reset_ff = ugentools.SetResetFF.ar(
         ...     reset=0,
         ...     trigger=0,
         ...     )
         >>> set_reset_ff
+        SetResetFF.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class SetResetFF(PulseCount):
             ...     trigger=0,
             ...     )
             >>> set_reset_ff
+            SetResetFF.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class SetResetFF(PulseCount):
             ...     trigger=0,
             ...     )
             >>> set_reset_ff
+            SetResetFF.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class SetResetFF(PulseCount):
             ...     trigger=0,
             ...     )
             >>> set_reset_ff.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class SetResetFF(PulseCount):
             ...     trigger=0,
             ...     )
             >>> set_reset_ff.trigger
+            0.0
 
         Returns ugen input.
         '''

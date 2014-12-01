@@ -7,13 +7,14 @@ class Ball(UGen):
 
     ::
 
-        >>> ball = ugentools.Ball.(
+        >>> ball = ugentools.Ball.ar(
         ...     damping=0,
         ...     friction=0.01,
         ...     g=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> ball
+        Ball.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class Ball(UGen):
         damping=0,
         friction=0.01,
         g=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Ball.
 
@@ -69,9 +70,10 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball
+            Ball.ar()
 
         Returns ugen graph.
         '''
@@ -92,7 +94,7 @@ class Ball(UGen):
         damping=0,
         friction=0.01,
         g=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Ball.
 
@@ -102,9 +104,10 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball
+            Ball.kr()
 
         Returns ugen graph.
         '''
@@ -131,9 +134,10 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball.damping
+            0.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball.friction
+            0.01
 
         Returns ugen input.
         '''
@@ -169,9 +174,10 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball.g
+            1.0
 
         Returns ugen input.
         '''
@@ -188,7 +194,7 @@ class Ball(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ball.source
 

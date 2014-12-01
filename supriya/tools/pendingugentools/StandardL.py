@@ -7,13 +7,14 @@ class StandardL(StandardN):
 
     ::
 
-        >>> standard_l = ugentools.StandardL.(
+        >>> standard_l = ugentools.StandardL.ar(
         ...     frequency=22050,
         ...     k=1,
         ...     xi=0.5,
         ...     yi=0,
         ...     )
         >>> standard_l
+        StandardL.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class StandardL(StandardN):
             ...     yi=0,
             ...     )
             >>> standard_l
+            StandardL.ar()
 
         Returns ugen graph.
         '''
@@ -103,6 +105,7 @@ class StandardL(StandardN):
             ...     yi=0,
             ...     )
             >>> standard_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -122,6 +125,7 @@ class StandardL(StandardN):
             ...     yi=0,
             ...     )
             >>> standard_l.k
+            1.0
 
         Returns ugen input.
         '''
@@ -141,6 +145,7 @@ class StandardL(StandardN):
             ...     yi=0,
             ...     )
             >>> standard_l.xi
+            0.5
 
         Returns ugen input.
         '''
@@ -160,6 +165,7 @@ class StandardL(StandardN):
             ...     yi=0,
             ...     )
             >>> standard_l.yi
+            0.0
 
         Returns ugen input.
         '''

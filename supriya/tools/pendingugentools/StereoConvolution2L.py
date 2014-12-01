@@ -7,15 +7,16 @@ class StereoConvolution2L(MultiOutUGen):
 
     ::
 
-        >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.(
+        >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
         ...     crossfade=1,
         ...     framesize=2048,
-        ...     kernel_l=None,
-        ...     kernel_r=None,
-        ...     source=None,
+        ...     kernel_l=kernel_l,
+        ...     kernel_r=kernel_r,
+        ...     source=source,
         ...     trigger=0,
         ...     )
         >>> stereo_convolution_2_l
+        StereoConvolution2L.ar()
 
     '''
 
@@ -66,9 +67,9 @@ class StereoConvolution2L(MultiOutUGen):
         cls,
         crossfade=1,
         framesize=2048,
-        kernel_l=None,
-        kernel_r=None,
-        source=None,
+        kernel_l=kernel_l,
+        kernel_r=kernel_r,
+        source=source,
         trigger=0,
         ):
         r'''Constructs an audio-rate StereoConvolution2L.
@@ -78,12 +79,13 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l
+            StereoConvolution2L.ar()
 
         Returns ugen graph.
         '''
@@ -113,12 +115,13 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.crossfade
+            1.0
 
         Returns ugen input.
         '''
@@ -134,12 +137,13 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.framesize
+            2048.0
 
         Returns ugen input.
         '''
@@ -155,9 +159,9 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.kernel_l
@@ -176,9 +180,9 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.kernel_r
@@ -197,9 +201,9 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.source
@@ -218,12 +222,13 @@ class StereoConvolution2L(MultiOutUGen):
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel_l=None,
-            ...     kernel_r=None,
-            ...     source=None,
+            ...     kernel_l=kernel_l,
+            ...     kernel_r=kernel_r,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.trigger
+            0.0
 
         Returns ugen input.
         '''

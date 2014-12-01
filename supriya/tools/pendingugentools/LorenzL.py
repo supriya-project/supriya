@@ -7,7 +7,7 @@ class LorenzL(ChaosGen):
 
     ::
 
-        >>> lorenz_l = ugentools.LorenzL.(
+        >>> lorenz_l = ugentools.LorenzL.ar(
         ...     b=2.667,
         ...     frequency=22050,
         ...     h=0.05,
@@ -18,6 +18,7 @@ class LorenzL(ChaosGen):
         ...     zi=0,
         ...     )
         >>> lorenz_l
+        LorenzL.ar()
 
     '''
 
@@ -96,6 +97,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l
+            LorenzL.ar()
 
         Returns ugen graph.
         '''
@@ -135,6 +137,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.b
+            2.667
 
         Returns ugen input.
         '''
@@ -158,6 +161,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -181,6 +185,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.h
+            0.05
 
         Returns ugen input.
         '''
@@ -204,6 +209,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.r
+            28.0
 
         Returns ugen input.
         '''
@@ -227,6 +233,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.s
+            10.0
 
         Returns ugen input.
         '''
@@ -250,6 +257,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.xi
+            0.1
 
         Returns ugen input.
         '''
@@ -273,6 +281,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.yi
+            0.0
 
         Returns ugen input.
         '''
@@ -296,6 +305,7 @@ class LorenzL(ChaosGen):
             ...     zi=0,
             ...     )
             >>> lorenz_l.zi
+            0.0
 
         Returns ugen input.
         '''

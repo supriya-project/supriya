@@ -7,12 +7,13 @@ class FreqShift(UGen):
 
     ::
 
-        >>> freq_shift = ugentools.FreqShift.(
+        >>> freq_shift = ugentools.FreqShift.ar(
         ...     frequency=0,
         ...     phase=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> freq_shift
+        FreqShift.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class FreqShift(UGen):
         cls,
         frequency=0,
         phase=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate FreqShift.
 
@@ -63,9 +64,10 @@ class FreqShift(UGen):
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> freq_shift
+            FreqShift.ar()
 
         Returns ugen graph.
         '''
@@ -90,9 +92,10 @@ class FreqShift(UGen):
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> freq_shift.frequency
+            0.0
 
         Returns ugen input.
         '''
@@ -108,9 +111,10 @@ class FreqShift(UGen):
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> freq_shift.phase
+            0.0
 
         Returns ugen input.
         '''
@@ -126,7 +130,7 @@ class FreqShift(UGen):
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> freq_shift.source
 

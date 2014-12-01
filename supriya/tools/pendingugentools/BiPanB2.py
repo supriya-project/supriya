@@ -7,13 +7,14 @@ class BiPanB2(MultiOutUGen):
 
     ::
 
-        >>> bi_pan_b_2 = ugentools.BiPanB2.(
-        ...     azimuth=None,
+        >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
+        ...     azimuth=azimuth,
         ...     gain=1,
-        ...     in_a=None,
-        ...     in_b=None,
+        ...     in_a=in_a,
+        ...     in_b=in_b,
         ...     )
         >>> bi_pan_b_2
+        BiPanB2.ar()
 
     '''
 
@@ -56,22 +57,23 @@ class BiPanB2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        azimuth=None,
+        azimuth=azimuth,
         gain=1,
-        in_a=None,
-        in_b=None,
+        in_a=in_a,
+        in_b=in_b,
         ):
         r'''Constructs an audio-rate BiPanB2.
 
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2
+            BiPanB2.ar()
 
         Returns ugen graph.
         '''
@@ -89,22 +91,23 @@ class BiPanB2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        azimuth=None,
+        azimuth=azimuth,
         gain=1,
-        in_a=None,
-        in_b=None,
+        in_a=in_a,
+        in_b=in_b,
         ):
         r'''Constructs a control-rate BiPanB2.
 
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.kr(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2
+            BiPanB2.kr()
 
         Returns ugen graph.
         '''
@@ -130,10 +133,10 @@ class BiPanB2(MultiOutUGen):
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2.azimuth
 
@@ -149,12 +152,13 @@ class BiPanB2(MultiOutUGen):
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2.gain
+            1.0
 
         Returns ugen input.
         '''
@@ -168,10 +172,10 @@ class BiPanB2(MultiOutUGen):
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2.in_a
 
@@ -187,10 +191,10 @@ class BiPanB2(MultiOutUGen):
         ::
 
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=None,
+            ...     azimuth=azimuth,
             ...     gain=1,
-            ...     in_a=None,
-            ...     in_b=None,
+            ...     in_a=in_a,
+            ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2.in_b
 

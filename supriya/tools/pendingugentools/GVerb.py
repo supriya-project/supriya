@@ -7,7 +7,7 @@ class GVerb(MultiOutUGen):
 
     ::
 
-        >>> gverb = ugentools.GVerb.(
+        >>> gverb = ugentools.GVerb.ar(
         ...     damping=0.5,
         ...     drylevel=1,
         ...     earlyreflevel=0.7,
@@ -15,11 +15,12 @@ class GVerb(MultiOutUGen):
         ...     maxroomsize=300,
         ...     revtime=3,
         ...     roomsize=10,
-        ...     source=None,
+        ...     source=source,
         ...     spread=15,
         ...     taillevel=0.5,
         ...     )
         >>> gverb
+        GVerb.ar()
 
     '''
 
@@ -87,7 +88,7 @@ class GVerb(MultiOutUGen):
         maxroomsize=300,
         revtime=3,
         roomsize=10,
-        source=None,
+        source=source,
         spread=15,
         taillevel=0.5,
         ):
@@ -103,11 +104,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb
+            GVerb.ar()
 
         Returns ugen graph.
         '''
@@ -146,11 +148,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.damping
+            0.5
 
         Returns ugen input.
         '''
@@ -171,11 +174,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.drylevel
+            1.0
 
         Returns ugen input.
         '''
@@ -196,11 +200,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.earlyreflevel
+            0.7
 
         Returns ugen input.
         '''
@@ -221,11 +226,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.inputbw
+            0.5
 
         Returns ugen input.
         '''
@@ -246,11 +252,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.maxroomsize
+            300.0
 
         Returns ugen input.
         '''
@@ -271,11 +278,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.revtime
+            3.0
 
         Returns ugen input.
         '''
@@ -296,11 +304,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.roomsize
+            10.0
 
         Returns ugen input.
         '''
@@ -321,7 +330,7 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
@@ -346,11 +355,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.spread
+            15.0
 
         Returns ugen input.
         '''
@@ -371,11 +381,12 @@ class GVerb(MultiOutUGen):
             ...     maxroomsize=300,
             ...     revtime=3,
             ...     roomsize=10,
-            ...     source=None,
+            ...     source=source,
             ...     spread=15,
             ...     taillevel=0.5,
             ...     )
             >>> gverb.taillevel
+            0.5
 
         Returns ugen input.
         '''

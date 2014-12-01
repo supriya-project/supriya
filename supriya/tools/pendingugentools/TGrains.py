@@ -7,11 +7,11 @@ class TGrains(MultiOutUGen):
 
     ::
 
-        >>> tgrains = ugentools.TGrains.(
+        >>> tgrains = ugentools.TGrains.ar(
         ...     amp=0.1,
         ...     buffer_id=0,
         ...     center_pos=0,
-        ...     channel_count=None,
+        ...     channel_count=channel_count,
         ...     duration=0.1,
         ...     interpolate=4,
         ...     pan=0,
@@ -19,6 +19,7 @@ class TGrains(MultiOutUGen):
         ...     trigger=0,
         ...     )
         >>> tgrains
+        TGrains.ar()
 
     '''
 
@@ -79,7 +80,7 @@ class TGrains(MultiOutUGen):
         amp=0.1,
         buffer_id=0,
         center_pos=0,
-        channel_count=None,
+        channel_count=channel_count,
         duration=0.1,
         interpolate=4,
         pan=0,
@@ -94,7 +95,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -102,6 +103,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains
+            TGrains.ar()
 
         Returns ugen graph.
         '''
@@ -135,7 +137,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -143,6 +145,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.amp
+            0.1
 
         Returns ugen input.
         '''
@@ -159,7 +162,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -167,6 +170,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -183,7 +187,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -191,6 +195,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.center_pos
+            0.0
 
         Returns ugen input.
         '''
@@ -207,7 +212,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -231,7 +236,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -239,6 +244,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.duration
+            0.1
 
         Returns ugen input.
         '''
@@ -255,7 +261,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -263,6 +269,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.interpolate
+            4.0
 
         Returns ugen input.
         '''
@@ -279,7 +286,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -287,6 +294,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.pan
+            0.0
 
         Returns ugen input.
         '''
@@ -303,7 +311,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -311,6 +319,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -327,7 +336,7 @@ class TGrains(MultiOutUGen):
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     duration=0.1,
             ...     interpolate=4,
             ...     pan=0,
@@ -335,6 +344,7 @@ class TGrains(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> tgrains.trigger
+            0.0
 
         Returns ugen input.
         '''

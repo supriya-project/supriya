@@ -7,13 +7,14 @@ class LRLowCut(BLowCut):
 
     ::
 
-        >>> lrlow_cut = ugentools.LRLowCut.(
-        ...     frequency=None,
+        >>> lrlow_cut = ugentools.LRLowCut.ar(
+        ...     frequency=frequency,
         ...     max_order=5,
         ...     order=2,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> lrlow_cut
+        LRLowCut.ar()
 
     '''
 
@@ -58,22 +59,23 @@ class LRLowCut(BLowCut):
     @classmethod
     def ar(
         cls,
-        frequency=None,
+        frequency=frequency,
         max_order=5,
         order=2,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate LRLowCut.
 
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut
+            LRLowCut.ar()
 
         Returns ugen graph.
         '''
@@ -97,22 +99,23 @@ class LRLowCut(BLowCut):
     @classmethod
     def kr(
         cls,
-        frequency=None,
+        frequency=frequency,
         max_order=5,
         order=2,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate LRLowCut.
 
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.kr(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut
+            LRLowCut.kr()
 
         Returns ugen graph.
         '''
@@ -152,10 +155,10 @@ class LRLowCut(BLowCut):
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut.frequency
 
@@ -171,12 +174,13 @@ class LRLowCut(BLowCut):
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut.max_order
+            5.0
 
         Returns ugen input.
         '''
@@ -190,12 +194,13 @@ class LRLowCut(BLowCut):
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut.order
+            2.0
 
         Returns ugen input.
         '''
@@ -209,10 +214,10 @@ class LRLowCut(BLowCut):
         ::
 
             >>> lrlow_cut = ugentools.LRLowCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrlow_cut.source
 

@@ -7,11 +7,12 @@ class Dreset(DUGen):
 
     ::
 
-        >>> dreset = ugentools.Dreset.(
+        >>> dreset = ugentools.Dreset.ar(
         ...     reset=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> dreset
+        Dreset.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Dreset(DUGen):
     def new(
         cls,
         reset=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a Dreset.
 
@@ -57,9 +58,10 @@ class Dreset(DUGen):
 
             >>> dreset = ugentools.Dreset.new(
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dreset
+            Dreset.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Dreset(DUGen):
 
             >>> dreset = ugentools.Dreset.ar(
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dreset.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Dreset(DUGen):
 
             >>> dreset = ugentools.Dreset.ar(
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dreset.source
 

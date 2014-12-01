@@ -7,7 +7,7 @@ class GrainSin(MultiOutUGen):
 
     ::
 
-        >>> grain_sin = ugentools.GrainSin.(
+        >>> grain_sin = ugentools.GrainSin.ar(
         ...     channel_count=1,
         ...     duration=1,
         ...     envbufnum=-1,
@@ -17,6 +17,7 @@ class GrainSin(MultiOutUGen):
         ...     trigger=0,
         ...     )
         >>> grain_sin
+        GrainSin.ar()
 
     '''
 
@@ -90,6 +91,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin
+            GrainSin.ar()
 
         Returns ugen graph.
         '''
@@ -127,6 +129,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -149,6 +152,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -171,6 +175,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.envbufnum
+            -1.0
 
         Returns ugen input.
         '''
@@ -193,6 +198,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -215,6 +221,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.max_grains
+            512.0
 
         Returns ugen input.
         '''
@@ -237,6 +244,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.pan
+            0.0
 
         Returns ugen input.
         '''
@@ -259,6 +267,7 @@ class GrainSin(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_sin.trigger
+            0.0
 
         Returns ugen input.
         '''

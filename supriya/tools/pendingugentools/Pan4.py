@@ -7,13 +7,14 @@ class Pan4(MultiOutUGen):
 
     ::
 
-        >>> pan_4 = ugentools.Pan4.(
+        >>> pan_4 = ugentools.Pan4.ar(
         ...     level=1,
-        ...     source=None,
+        ...     source=source,
         ...     xpos=0,
         ...     ypos=0,
         ...     )
         >>> pan_4
+        Pan4.ar()
 
     '''
 
@@ -57,7 +58,7 @@ class Pan4(MultiOutUGen):
     def ar(
         cls,
         level=1,
-        source=None,
+        source=source,
         xpos=0,
         ypos=0,
         ):
@@ -67,11 +68,12 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
             >>> pan_4
+            Pan4.ar()
 
         Returns ugen graph.
         '''
@@ -90,7 +92,7 @@ class Pan4(MultiOutUGen):
     def kr(
         cls,
         level=1,
-        source=None,
+        source=source,
         xpos=0,
         ypos=0,
         ):
@@ -100,11 +102,12 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.kr(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
             >>> pan_4
+            Pan4.kr()
 
         Returns ugen graph.
         '''
@@ -131,11 +134,12 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
             >>> pan_4.level
+            1.0
 
         Returns ugen input.
         '''
@@ -150,7 +154,7 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
@@ -169,11 +173,12 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
             >>> pan_4.xpos
+            0.0
 
         Returns ugen input.
         '''
@@ -188,11 +193,12 @@ class Pan4(MultiOutUGen):
 
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
-            ...     source=None,
+            ...     source=source,
             ...     xpos=0,
             ...     ypos=0,
             ...     )
             >>> pan_4.ypos
+            0.0
 
         Returns ugen input.
         '''

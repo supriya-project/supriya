@@ -7,7 +7,7 @@ class FBSineN(ChaosGen):
 
     ::
 
-        >>> fbsine_n = ugentools.FBSineN.(
+        >>> fbsine_n = ugentools.FBSineN.ar(
         ...     a=1.1,
         ...     c=0.5,
         ...     fb=0.1,
@@ -17,6 +17,7 @@ class FBSineN(ChaosGen):
         ...     yi=0.1,
         ...     )
         >>> fbsine_n
+        FBSineN.ar()
 
     '''
 
@@ -90,6 +91,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n
+            FBSineN.ar()
 
         Returns ugen graph.
         '''
@@ -127,6 +129,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.a
+            1.1
 
         Returns ugen input.
         '''
@@ -149,6 +152,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.c
+            0.5
 
         Returns ugen input.
         '''
@@ -171,6 +175,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.fb
+            0.1
 
         Returns ugen input.
         '''
@@ -193,6 +198,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -215,6 +221,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.im
+            1.0
 
         Returns ugen input.
         '''
@@ -237,6 +244,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.xi
+            0.1
 
         Returns ugen input.
         '''
@@ -259,6 +267,7 @@ class FBSineN(ChaosGen):
             ...     yi=0.1,
             ...     )
             >>> fbsine_n.yi
+            0.1
 
         Returns ugen input.
         '''

@@ -7,11 +7,12 @@ class Dseq(ListDUGen):
 
     ::
 
-        >>> dseq = ugentools.Dseq.(
+        >>> dseq = ugentools.Dseq.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> dseq
+        Dseq.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Dseq(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a Dseq.
 
@@ -57,9 +58,10 @@ class Dseq(ListDUGen):
 
             >>> dseq = ugentools.Dseq.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dseq
+            Dseq.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Dseq(ListDUGen):
 
             >>> dseq = ugentools.Dseq.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dseq.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Dseq(ListDUGen):
 
             >>> dseq = ugentools.Dseq.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dseq.sequence
 

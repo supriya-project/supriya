@@ -7,10 +7,11 @@ class Donce(DUGen):
 
     ::
 
-        >>> donce = ugentools.Donce.(
-        ...     source=None,
+        >>> donce = ugentools.Donce.ar(
+        ...     source=source,
         ...     )
         >>> donce
+        Donce.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class Donce(DUGen):
     @classmethod
     def new(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a Donce.
 
         ::
 
             >>> donce = ugentools.Donce.new(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> donce
+            Donce.new()
 
         Returns ugen graph.
         '''
@@ -74,7 +76,7 @@ class Donce(DUGen):
         ::
 
             >>> donce = ugentools.Donce.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> donce.source
 

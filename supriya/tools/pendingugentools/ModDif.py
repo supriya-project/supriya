@@ -7,12 +7,13 @@ class ModDif(UGen):
 
     ::
 
-        >>> mod_dif = ugentools.ModDif.(
+        >>> mod_dif = ugentools.ModDif.ar(
         ...     mod=1,
         ...     x=0,
         ...     y=0,
         ...     )
         >>> mod_dif
+        ModDif.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif
+            ModDif.ar()
 
         Returns ugen graph.
         '''
@@ -96,6 +98,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif
+            ModDif.ir()
 
         Returns ugen graph.
         '''
@@ -126,6 +129,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif
+            ModDif.kr()
 
         Returns ugen graph.
         '''
@@ -153,6 +157,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif.mod
+            1.0
 
         Returns ugen input.
         '''
@@ -171,6 +176,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif.x
+            0.0
 
         Returns ugen input.
         '''
@@ -189,6 +195,7 @@ class ModDif(UGen):
             ...     y=0,
             ...     )
             >>> mod_dif.y
+            0.0
 
         Returns ugen input.
         '''

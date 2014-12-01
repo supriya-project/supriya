@@ -7,13 +7,14 @@ class ScopeOut2(UGen):
 
     ::
 
-        >>> scope_out_2 = ugentools.ScopeOut2.(
-        ...     input_array=None,
+        >>> scope_out_2 = ugentools.ScopeOut2.ar(
+        ...     input_array=input_array,
         ...     max_frames=4096,
-        ...     scope_frames=None,
+        ...     scope_frames=scope_frames,
         ...     scope_num=0,
         ...     )
         >>> scope_out_2
+        ScopeOut2.ar()
 
     '''
 
@@ -56,9 +57,9 @@ class ScopeOut2(UGen):
     @classmethod
     def ar(
         cls,
-        input_array=None,
+        input_array=input_array,
         max_frames=4096,
-        scope_frames=None,
+        scope_frames=scope_frames,
         scope_num=0,
         ):
         r'''Constructs an audio-rate ScopeOut2.
@@ -66,12 +67,13 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2
+            ScopeOut2.ar()
 
         Returns ugen graph.
         '''
@@ -89,9 +91,9 @@ class ScopeOut2(UGen):
     @classmethod
     def kr(
         cls,
-        input_array=None,
+        input_array=input_array,
         max_frames=4096,
-        scope_frames=None,
+        scope_frames=scope_frames,
         scope_num=0,
         ):
         r'''Constructs a control-rate ScopeOut2.
@@ -99,12 +101,13 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.kr(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2
+            ScopeOut2.kr()
 
         Returns ugen graph.
         '''
@@ -128,9 +131,9 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2.input_array
@@ -147,12 +150,13 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2.max_frames
+            4096.0
 
         Returns ugen input.
         '''
@@ -166,9 +170,9 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2.scope_frames
@@ -185,12 +189,13 @@ class ScopeOut2(UGen):
         ::
 
             >>> scope_out_2 = ugentools.ScopeOut2.ar(
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     max_frames=4096,
-            ...     scope_frames=None,
+            ...     scope_frames=scope_frames,
             ...     scope_num=0,
             ...     )
             >>> scope_out_2.scope_num
+            0.0
 
         Returns ugen input.
         '''

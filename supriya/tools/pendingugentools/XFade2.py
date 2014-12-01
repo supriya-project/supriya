@@ -7,13 +7,14 @@ class XFade2(UGen):
 
     ::
 
-        >>> xfade_2 = ugentools.XFade2.(
-        ...     in_a=None,
+        >>> xfade_2 = ugentools.XFade2.ar(
+        ...     in_a=in_a,
         ...     in_b=0,
         ...     level=1,
         ...     pan=0,
         ...     )
         >>> xfade_2
+        XFade2.ar()
 
     '''
 
@@ -56,7 +57,7 @@ class XFade2(UGen):
     @classmethod
     def ar(
         cls,
-        in_a=None,
+        in_a=in_a,
         in_b=0,
         level=1,
         pan=0,
@@ -66,12 +67,13 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
             ...     )
             >>> xfade_2
+            XFade2.ar()
 
         Returns ugen graph.
         '''
@@ -89,7 +91,7 @@ class XFade2(UGen):
     @classmethod
     def kr(
         cls,
-        in_a=None,
+        in_a=in_a,
         in_b=0,
         level=1,
         pan=0,
@@ -99,12 +101,13 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.kr(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
             ...     )
             >>> xfade_2
+            XFade2.kr()
 
         Returns ugen graph.
         '''
@@ -128,7 +131,7 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
@@ -147,12 +150,13 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
             ...     )
             >>> xfade_2.in_b
+            0.0
 
         Returns ugen input.
         '''
@@ -166,12 +170,13 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
             ...     )
             >>> xfade_2.level
+            1.0
 
         Returns ugen input.
         '''
@@ -185,12 +190,13 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=None,
+            ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
             ...     pan=0,
             ...     )
             >>> xfade_2.pan
+            0.0
 
         Returns ugen input.
         '''

@@ -7,13 +7,14 @@ class Formlet(Filter):
 
     ::
 
-        >>> formlet = ugentools.Formlet.(
+        >>> formlet = ugentools.Formlet.ar(
         ...     attack_time=1,
         ...     decay_time=1,
         ...     frequency=440,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> formlet
+        Formlet.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class Formlet(Filter):
         attack_time=1,
         decay_time=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Formlet.
 
@@ -69,9 +70,10 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet
+            Formlet.ar()
 
         Returns ugen graph.
         '''
@@ -94,7 +96,7 @@ class Formlet(Filter):
         attack_time=1,
         decay_time=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Formlet.
 
@@ -104,9 +106,10 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet
+            Formlet.kr()
 
         Returns ugen graph.
         '''
@@ -143,9 +146,10 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet.attack_time
+            1.0
 
         Returns ugen input.
         '''
@@ -162,9 +166,10 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet.decay_time
+            1.0
 
         Returns ugen input.
         '''
@@ -181,9 +186,10 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -200,7 +206,7 @@ class Formlet(Filter):
             ...     attack_time=1,
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> formlet.source
 

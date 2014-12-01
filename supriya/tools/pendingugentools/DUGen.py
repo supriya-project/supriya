@@ -7,9 +7,10 @@ class DUGen(UGen):
 
     ::
 
-        >>> dugen = ugentools.DUGen.(
+        >>> dugen = ugentools.DUGen.ar(
         ...     )
         >>> dugen
+        DUGen.ar()
 
     '''
 

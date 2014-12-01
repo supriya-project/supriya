@@ -7,7 +7,7 @@ class QuadL(QuadN):
 
     ::
 
-        >>> quad_l = ugentools.QuadL.(
+        >>> quad_l = ugentools.QuadL.ar(
         ...     a=1,
         ...     b=-1,
         ...     c=-0.75,
@@ -15,6 +15,7 @@ class QuadL(QuadN):
         ...     xi=0,
         ...     )
         >>> quad_l
+        QuadL.ar()
 
     '''
 
@@ -78,6 +79,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l
+            QuadL.ar()
 
         Returns ugen graph.
         '''
@@ -111,6 +113,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l.a
+            1.0
 
         Returns ugen input.
         '''
@@ -131,6 +134,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l.b
+            -1.0
 
         Returns ugen input.
         '''
@@ -151,6 +155,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l.c
+            -0.75
 
         Returns ugen input.
         '''
@@ -171,6 +176,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -191,6 +197,7 @@ class QuadL(QuadN):
             ...     xi=0,
             ...     )
             >>> quad_l.xi
+            0.0
 
         Returns ugen input.
         '''

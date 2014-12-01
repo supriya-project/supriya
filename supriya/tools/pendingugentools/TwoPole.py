@@ -7,12 +7,13 @@ class TwoPole(Filter):
 
     ::
 
-        >>> two_pole = ugentools.TwoPole.(
+        >>> two_pole = ugentools.TwoPole.ar(
         ...     frequency=440,
         ...     radius=0.8,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> two_pole
+        TwoPole.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class TwoPole(Filter):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate TwoPole.
 
@@ -63,9 +64,10 @@ class TwoPole(Filter):
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_pole
+            TwoPole.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class TwoPole(Filter):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate TwoPole.
 
@@ -95,9 +97,10 @@ class TwoPole(Filter):
             >>> two_pole = ugentools.TwoPole.kr(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_pole
+            TwoPole.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class TwoPole(Filter):
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_pole.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class TwoPole(Filter):
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_pole.radius
+            0.8
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class TwoPole(Filter):
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_pole.source
 

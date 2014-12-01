@@ -7,12 +7,13 @@ class OutputProxy(UGen):
 
     ::
 
-        >>> output_proxy = ugentools.OutputProxy.(
-        ...     index=None,
-        ...     its_source_ugen=None,
-        ...     rate=None,
+        >>> output_proxy = ugentools.OutputProxy.ar(
+        ...     index=index,
+        ...     its_source_ugen=its_source_ugen,
+        ...     rate=rate,
         ...     )
         >>> output_proxy
+        OutputProxy.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class OutputProxy(UGen):
     @classmethod
     def new(
         cls,
-        index=None,
-        its_source_ugen=None,
-        rate=None,
+        index=index,
+        its_source_ugen=its_source_ugen,
+        rate=rate,
         ):
         r'''Constructs a OutputProxy.
 
         ::
 
             >>> output_proxy = ugentools.OutputProxy.new(
-            ...     index=None,
-            ...     its_source_ugen=None,
-            ...     rate=None,
+            ...     index=index,
+            ...     its_source_ugen=its_source_ugen,
+            ...     rate=rate,
             ...     )
             >>> output_proxy
+            OutputProxy.new()
 
         Returns ugen graph.
         '''
@@ -88,9 +90,9 @@ class OutputProxy(UGen):
         ::
 
             >>> output_proxy = ugentools.OutputProxy.ar(
-            ...     index=None,
-            ...     its_source_ugen=None,
-            ...     rate=None,
+            ...     index=index,
+            ...     its_source_ugen=its_source_ugen,
+            ...     rate=rate,
             ...     )
             >>> output_proxy.index
 
@@ -106,9 +108,9 @@ class OutputProxy(UGen):
         ::
 
             >>> output_proxy = ugentools.OutputProxy.ar(
-            ...     index=None,
-            ...     its_source_ugen=None,
-            ...     rate=None,
+            ...     index=index,
+            ...     its_source_ugen=its_source_ugen,
+            ...     rate=rate,
             ...     )
             >>> output_proxy.its_source_ugen
 
@@ -124,9 +126,9 @@ class OutputProxy(UGen):
         ::
 
             >>> output_proxy = ugentools.OutputProxy.ar(
-            ...     index=None,
-            ...     its_source_ugen=None,
-            ...     rate=None,
+            ...     index=index,
+            ...     its_source_ugen=its_source_ugen,
+            ...     rate=rate,
             ...     )
             >>> output_proxy.rate
 

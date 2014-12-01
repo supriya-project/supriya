@@ -7,14 +7,15 @@ class VDiskIn(MultiOutUGen):
 
     ::
 
-        >>> vdisk_in = ugentools.VDiskIn.(
-        ...     buffer_id=None,
-        ...     channel_count=None,
+        >>> vdisk_in = ugentools.VDiskIn.ar(
+        ...     buffer_id=buffer_id,
+        ...     channel_count=channel_count,
         ...     loop=0,
         ...     rate=1,
         ...     send_id=0,
         ...     )
         >>> vdisk_in
+        VDiskIn.ar()
 
     '''
 
@@ -60,8 +61,8 @@ class VDiskIn(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        channel_count=None,
+        buffer_id=buffer_id,
+        channel_count=channel_count,
         loop=0,
         rate=1,
         send_id=0,
@@ -71,13 +72,14 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
             >>> vdisk_in
+            VDiskIn.ar()
 
         Returns ugen graph.
         '''
@@ -104,8 +106,8 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
@@ -124,8 +126,8 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
@@ -144,13 +146,14 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
             >>> vdisk_in.loop
+            0.0
 
         Returns ugen input.
         '''
@@ -164,13 +167,14 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
             >>> vdisk_in.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -184,13 +188,14 @@ class VDiskIn(MultiOutUGen):
         ::
 
             >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
             >>> vdisk_in.send_id
+            0.0
 
         Returns ugen input.
         '''

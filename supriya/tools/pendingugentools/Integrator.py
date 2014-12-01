@@ -7,11 +7,12 @@ class Integrator(Filter):
 
     ::
 
-        >>> integrator = ugentools.Integrator.(
+        >>> integrator = ugentools.Integrator.ar(
         ...     coefficient=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> integrator
+        Integrator.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Integrator(Filter):
     def ar(
         cls,
         coefficient=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Integrator.
 
@@ -57,9 +58,10 @@ class Integrator(Filter):
 
             >>> integrator = ugentools.Integrator.ar(
             ...     coefficient=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> integrator
+            Integrator.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class Integrator(Filter):
     def kr(
         cls,
         coefficient=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Integrator.
 
@@ -86,9 +88,10 @@ class Integrator(Filter):
 
             >>> integrator = ugentools.Integrator.kr(
             ...     coefficient=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> integrator
+            Integrator.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class Integrator(Filter):
 
             >>> integrator = ugentools.Integrator.ar(
             ...     coefficient=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> integrator.coefficient
+            1.0
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class Integrator(Filter):
 
             >>> integrator = ugentools.Integrator.ar(
             ...     coefficient=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> integrator.source
 

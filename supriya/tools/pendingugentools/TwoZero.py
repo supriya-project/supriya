@@ -7,12 +7,13 @@ class TwoZero(TwoPole):
 
     ::
 
-        >>> two_zero = ugentools.TwoZero.(
+        >>> two_zero = ugentools.TwoZero.ar(
         ...     frequency=440,
         ...     radius=0.8,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> two_zero
+        TwoZero.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class TwoZero(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate TwoZero.
 
@@ -63,9 +64,10 @@ class TwoZero(TwoPole):
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_zero
+            TwoZero.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class TwoZero(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate TwoZero.
 
@@ -95,9 +97,10 @@ class TwoZero(TwoPole):
             >>> two_zero = ugentools.TwoZero.kr(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_zero
+            TwoZero.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class TwoZero(TwoPole):
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_zero.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class TwoZero(TwoPole):
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_zero.radius
+            0.8
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class TwoZero(TwoPole):
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> two_zero.source
 

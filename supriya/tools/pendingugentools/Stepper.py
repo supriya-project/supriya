@@ -7,15 +7,16 @@ class Stepper(UGen):
 
     ::
 
-        >>> stepper = ugentools.Stepper.(
+        >>> stepper = ugentools.Stepper.ar(
         ...     maximum=7,
         ...     minimum=0,
         ...     reset=0,
-        ...     resetval=None,
+        ...     resetval=resetval,
         ...     step=1,
         ...     trigger=0,
         ...     )
         >>> stepper
+        Stepper.ar()
 
     '''
 
@@ -67,7 +68,7 @@ class Stepper(UGen):
         maximum=7,
         minimum=0,
         reset=0,
-        resetval=None,
+        resetval=resetval,
         step=1,
         trigger=0,
         ):
@@ -79,11 +80,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper
+            Stepper.ar()
 
         Returns ugen graph.
         '''
@@ -106,7 +108,7 @@ class Stepper(UGen):
         maximum=7,
         minimum=0,
         reset=0,
-        resetval=None,
+        resetval=resetval,
         step=1,
         trigger=0,
         ):
@@ -118,11 +120,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper
+            Stepper.kr()
 
         Returns ugen graph.
         '''
@@ -151,11 +154,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper.maximum
+            7.0
 
         Returns ugen input.
         '''
@@ -172,11 +176,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper.minimum
+            0.0
 
         Returns ugen input.
         '''
@@ -193,11 +198,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -214,7 +220,7 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
@@ -235,11 +241,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper.step
+            1.0
 
         Returns ugen input.
         '''
@@ -256,11 +263,12 @@ class Stepper(UGen):
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
-            ...     resetval=None,
+            ...     resetval=resetval,
             ...     step=1,
             ...     trigger=0,
             ...     )
             >>> stepper.trigger
+            0.0
 
         Returns ugen input.
         '''

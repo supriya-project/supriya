@@ -7,12 +7,13 @@ class Ringz(Filter):
 
     ::
 
-        >>> ringz = ugentools.Ringz.(
+        >>> ringz = ugentools.Ringz.ar(
         ...     decay_time=1,
         ...     frequency=440,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> ringz
+        Ringz.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class Ringz(Filter):
         cls,
         decay_time=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Ringz.
 
@@ -63,9 +64,10 @@ class Ringz(Filter):
             >>> ringz = ugentools.Ringz.ar(
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ringz
+            Ringz.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class Ringz(Filter):
         cls,
         decay_time=1,
         frequency=440,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Ringz.
 
@@ -95,9 +97,10 @@ class Ringz(Filter):
             >>> ringz = ugentools.Ringz.kr(
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ringz
+            Ringz.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class Ringz(Filter):
             >>> ringz = ugentools.Ringz.ar(
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ringz.decay_time
+            1.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class Ringz(Filter):
             >>> ringz = ugentools.Ringz.ar(
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ringz.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class Ringz(Filter):
             >>> ringz = ugentools.Ringz.ar(
             ...     decay_time=1,
             ...     frequency=440,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ringz.source
 

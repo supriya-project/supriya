@@ -7,14 +7,15 @@ class Convolution2L(UGen):
 
     ::
 
-        >>> convolution_2_l = ugentools.Convolution2L.(
+        >>> convolution_2_l = ugentools.Convolution2L.ar(
         ...     crossfade=1,
         ...     framesize=2048,
-        ...     kernel=None,
-        ...     source=None,
+        ...     kernel=kernel,
+        ...     source=source,
         ...     trigger=0,
         ...     )
         >>> convolution_2_l
+        Convolution2L.ar()
 
     '''
 
@@ -62,8 +63,8 @@ class Convolution2L(UGen):
         cls,
         crossfade=1,
         framesize=2048,
-        kernel=None,
-        source=None,
+        kernel=kernel,
+        source=source,
         trigger=0,
         ):
         r'''Constructs an audio-rate Convolution2L.
@@ -73,11 +74,12 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l
+            Convolution2L.ar()
 
         Returns ugen graph.
         '''
@@ -104,11 +106,12 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.crossfade
+            1.0
 
         Returns ugen input.
         '''
@@ -124,11 +127,12 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.framesize
+            2048.0
 
         Returns ugen input.
         '''
@@ -144,8 +148,8 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.kernel
@@ -164,8 +168,8 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.source
@@ -184,11 +188,12 @@ class Convolution2L(UGen):
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.trigger
+            0.0
 
         Returns ugen input.
         '''

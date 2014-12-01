@@ -7,12 +7,13 @@ class Dgeom(DUGen):
 
     ::
 
-        >>> dgeom = ugentools.Dgeom.(
+        >>> dgeom = ugentools.Dgeom.ar(
         ...     grow=2,
         ...     length="float('inf')",
         ...     start=1,
         ...     )
         >>> dgeom
+        Dgeom.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Dgeom(DUGen):
             ...     start=1,
             ...     )
             >>> dgeom
+            Dgeom.new()
 
         Returns ugen graph.
         '''
@@ -93,6 +95,7 @@ class Dgeom(DUGen):
             ...     start=1,
             ...     )
             >>> dgeom.grow
+            2.0
 
         Returns ugen input.
         '''
@@ -129,6 +132,7 @@ class Dgeom(DUGen):
             ...     start=1,
             ...     )
             >>> dgeom.start
+            1.0
 
         Returns ugen input.
         '''

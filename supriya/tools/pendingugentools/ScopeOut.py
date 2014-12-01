@@ -7,11 +7,12 @@ class ScopeOut(UGen):
 
     ::
 
-        >>> scope_out = ugentools.ScopeOut.(
+        >>> scope_out = ugentools.ScopeOut.ar(
         ...     buffer_id=0,
-        ...     input_array=None,
+        ...     input_array=input_array,
         ...     )
         >>> scope_out
+        ScopeOut.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class ScopeOut(UGen):
     def ar(
         cls,
         buffer_id=0,
-        input_array=None,
+        input_array=input_array,
         ):
         r'''Constructs an audio-rate ScopeOut.
 
@@ -57,9 +58,10 @@ class ScopeOut(UGen):
 
             >>> scope_out = ugentools.ScopeOut.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     )
             >>> scope_out
+            ScopeOut.ar()
 
         Returns ugen graph.
         '''
@@ -76,7 +78,7 @@ class ScopeOut(UGen):
     def kr(
         cls,
         buffer_id=0,
-        input_array=None,
+        input_array=input_array,
         ):
         r'''Constructs a control-rate ScopeOut.
 
@@ -84,9 +86,10 @@ class ScopeOut(UGen):
 
             >>> scope_out = ugentools.ScopeOut.kr(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     )
             >>> scope_out
+            ScopeOut.kr()
 
         Returns ugen graph.
         '''
@@ -109,9 +112,10 @@ class ScopeOut(UGen):
 
             >>> scope_out = ugentools.ScopeOut.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     )
             >>> scope_out.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -126,7 +130,7 @@ class ScopeOut(UGen):
 
             >>> scope_out = ugentools.ScopeOut.ar(
             ...     buffer_id=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     )
             >>> scope_out.input_array
 

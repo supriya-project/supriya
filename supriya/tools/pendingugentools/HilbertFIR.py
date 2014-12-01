@@ -7,11 +7,12 @@ class HilbertFIR(UGen):
 
     ::
 
-        >>> hilbert_fir = ugentools.HilbertFIR.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> hilbert_fir = ugentools.HilbertFIR.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> hilbert_fir
+        HilbertFIR.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class HilbertFIR(UGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate HilbertFIR.
 
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> hilbert_fir
+            HilbertFIR.ar()
 
         Returns ugen graph.
         '''
@@ -81,8 +83,8 @@ class HilbertFIR(UGen):
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> hilbert_fir.buffer_id
 
@@ -98,8 +100,8 @@ class HilbertFIR(UGen):
         ::
 
             >>> hilbert_fir = ugentools.HilbertFIR.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> hilbert_fir.source
 

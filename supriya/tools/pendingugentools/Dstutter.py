@@ -7,11 +7,12 @@ class Dstutter(DUGen):
 
     ::
 
-        >>> dstutter = ugentools.Dstutter.(
-        ...     n=None,
-        ...     source=None,
+        >>> dstutter = ugentools.Dstutter.ar(
+        ...     n=n,
+        ...     source=source,
         ...     )
         >>> dstutter
+        Dstutter.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class Dstutter(DUGen):
     @classmethod
     def new(
         cls,
-        n=None,
-        source=None,
+        n=n,
+        source=source,
         ):
         r'''Constructs a Dstutter.
 
         ::
 
             >>> dstutter = ugentools.Dstutter.new(
-            ...     n=None,
-            ...     source=None,
+            ...     n=n,
+            ...     source=source,
             ...     )
             >>> dstutter
+            Dstutter.new()
 
         Returns ugen graph.
         '''
@@ -81,8 +83,8 @@ class Dstutter(DUGen):
         ::
 
             >>> dstutter = ugentools.Dstutter.ar(
-            ...     n=None,
-            ...     source=None,
+            ...     n=n,
+            ...     source=source,
             ...     )
             >>> dstutter.n
 
@@ -98,8 +100,8 @@ class Dstutter(DUGen):
         ::
 
             >>> dstutter = ugentools.Dstutter.ar(
-            ...     n=None,
-            ...     source=None,
+            ...     n=n,
+            ...     source=source,
             ...     )
             >>> dstutter.source
 

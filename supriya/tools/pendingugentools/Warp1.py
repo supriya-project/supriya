@@ -7,7 +7,7 @@ class Warp1(MultiOutUGen):
 
     ::
 
-        >>> warp_1 = ugentools.Warp1.(
+        >>> warp_1 = ugentools.Warp1.ar(
         ...     buffer_id=0,
         ...     channel_count=1,
         ...     envbufnum=-1,
@@ -19,6 +19,7 @@ class Warp1(MultiOutUGen):
         ...     window_size=0.2,
         ...     )
         >>> warp_1
+        Warp1.ar()
 
     '''
 
@@ -102,6 +103,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1
+            Warp1.ar()
 
         Returns ugen graph.
         '''
@@ -143,6 +145,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -167,6 +170,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -191,6 +195,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.envbufnum
+            -1.0
 
         Returns ugen input.
         '''
@@ -215,6 +220,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.frequency_scaling
+            1.0
 
         Returns ugen input.
         '''
@@ -239,6 +245,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.interpolate
+            1.0
 
         Returns ugen input.
         '''
@@ -263,6 +270,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.overlaps
+            8.0
 
         Returns ugen input.
         '''
@@ -287,6 +295,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.pointer
+            0.0
 
         Returns ugen input.
         '''
@@ -311,6 +320,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.window_rand_ratio
+            0.0
 
         Returns ugen input.
         '''
@@ -335,6 +345,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1.window_size
+            0.2
 
         Returns ugen input.
         '''

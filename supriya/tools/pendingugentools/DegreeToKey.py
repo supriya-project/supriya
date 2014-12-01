@@ -7,12 +7,13 @@ class DegreeToKey(PureUGen):
 
     ::
 
-        >>> degree_to_key = ugentools.DegreeToKey.(
-        ...     buffer_id=None,
+        >>> degree_to_key = ugentools.DegreeToKey.ar(
+        ...     buffer_id=buffer_id,
         ...     octave=12,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> degree_to_key
+        DegreeToKey.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class DegreeToKey(PureUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         octave=12,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate DegreeToKey.
 
         ::
 
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     octave=12,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> degree_to_key
+            DegreeToKey.ar()
 
         Returns ugen graph.
         '''
@@ -82,20 +84,21 @@ class DegreeToKey(PureUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         octave=12,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate DegreeToKey.
 
         ::
 
             >>> degree_to_key = ugentools.DegreeToKey.kr(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     octave=12,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> degree_to_key
+            DegreeToKey.kr()
 
         Returns ugen graph.
         '''
@@ -118,9 +121,9 @@ class DegreeToKey(PureUGen):
         ::
 
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     octave=12,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> degree_to_key.buffer_id
 
@@ -136,11 +139,12 @@ class DegreeToKey(PureUGen):
         ::
 
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     octave=12,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> degree_to_key.octave
+            12.0
 
         Returns ugen input.
         '''
@@ -154,9 +158,9 @@ class DegreeToKey(PureUGen):
         ::
 
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     octave=12,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> degree_to_key.source
 

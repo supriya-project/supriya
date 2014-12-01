@@ -7,10 +7,11 @@ class BRZ2(LPZ2):
 
     ::
 
-        >>> brz_2 = ugentools.BRZ2.(
-        ...     source=None,
+        >>> brz_2 = ugentools.BRZ2.ar(
+        ...     source=source,
         ...     )
         >>> brz_2
+        BRZ2.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class BRZ2(LPZ2):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate BRZ2.
 
         ::
 
             >>> brz_2 = ugentools.BRZ2.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> brz_2
+            BRZ2.ar()
 
         Returns ugen graph.
         '''
@@ -70,16 +72,17 @@ class BRZ2(LPZ2):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate BRZ2.
 
         ::
 
             >>> brz_2 = ugentools.BRZ2.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> brz_2
+            BRZ2.kr()
 
         Returns ugen graph.
         '''
@@ -110,7 +113,7 @@ class BRZ2(LPZ2):
         ::
 
             >>> brz_2 = ugentools.BRZ2.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> brz_2.source
 

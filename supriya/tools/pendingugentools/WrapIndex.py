@@ -7,11 +7,12 @@ class WrapIndex(Index):
 
     ::
 
-        >>> wrap_index = ugentools.WrapIndex.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> wrap_index = ugentools.WrapIndex.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> wrap_index
+        WrapIndex.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class WrapIndex(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate WrapIndex.
 
         ::
 
             >>> wrap_index = ugentools.WrapIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> wrap_index
+            WrapIndex.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class WrapIndex(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate WrapIndex.
 
         ::
 
             >>> wrap_index = ugentools.WrapIndex.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> wrap_index
+            WrapIndex.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class WrapIndex(Index):
         ::
 
             >>> wrap_index = ugentools.WrapIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> wrap_index.buffer_id
 
@@ -125,8 +128,8 @@ class WrapIndex(Index):
         ::
 
             >>> wrap_index = ugentools.WrapIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> wrap_index.source
 

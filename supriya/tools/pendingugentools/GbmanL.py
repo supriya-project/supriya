@@ -7,12 +7,13 @@ class GbmanL(GbmanN):
 
     ::
 
-        >>> gbman_l = ugentools.GbmanL.(
+        >>> gbman_l = ugentools.GbmanL.ar(
         ...     frequency=22050,
         ...     xi=1.2,
         ...     yi=2.1,
         ...     )
         >>> gbman_l
+        GbmanL.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class GbmanL(GbmanN):
             ...     yi=2.1,
             ...     )
             >>> gbman_l
+            GbmanL.ar()
 
         Returns ugen graph.
         '''
@@ -95,6 +97,7 @@ class GbmanL(GbmanN):
             ...     yi=2.1,
             ...     )
             >>> gbman_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -113,6 +116,7 @@ class GbmanL(GbmanN):
             ...     yi=2.1,
             ...     )
             >>> gbman_l.xi
+            1.2
 
         Returns ugen input.
         '''
@@ -131,6 +135,7 @@ class GbmanL(GbmanN):
             ...     yi=2.1,
             ...     )
             >>> gbman_l.yi
+            2.1
 
         Returns ugen input.
         '''

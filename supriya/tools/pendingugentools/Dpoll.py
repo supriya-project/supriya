@@ -7,13 +7,14 @@ class Dpoll(DUGen):
 
     ::
 
-        >>> dpoll = ugentools.Dpoll.(
-        ...     label=None,
+        >>> dpoll = ugentools.Dpoll.ar(
+        ...     label=label,
         ...     run=1,
-        ...     source=None,
+        ...     source=source,
         ...     trigid=-1,
         ...     )
         >>> dpoll
+        Dpoll.ar()
 
     '''
 
@@ -56,9 +57,9 @@ class Dpoll(DUGen):
     @classmethod
     def new(
         cls,
-        label=None,
+        label=label,
         run=1,
-        source=None,
+        source=source,
         trigid=-1,
         ):
         r'''Constructs a Dpoll.
@@ -66,12 +67,13 @@ class Dpoll(DUGen):
         ::
 
             >>> dpoll = ugentools.Dpoll.new(
-            ...     label=None,
+            ...     label=label,
             ...     run=1,
-            ...     source=None,
+            ...     source=source,
             ...     trigid=-1,
             ...     )
             >>> dpoll
+            Dpoll.new()
 
         Returns ugen graph.
         '''
@@ -97,9 +99,9 @@ class Dpoll(DUGen):
         ::
 
             >>> dpoll = ugentools.Dpoll.ar(
-            ...     label=None,
+            ...     label=label,
             ...     run=1,
-            ...     source=None,
+            ...     source=source,
             ...     trigid=-1,
             ...     )
             >>> dpoll.label
@@ -116,12 +118,13 @@ class Dpoll(DUGen):
         ::
 
             >>> dpoll = ugentools.Dpoll.ar(
-            ...     label=None,
+            ...     label=label,
             ...     run=1,
-            ...     source=None,
+            ...     source=source,
             ...     trigid=-1,
             ...     )
             >>> dpoll.run
+            1.0
 
         Returns ugen input.
         '''
@@ -135,9 +138,9 @@ class Dpoll(DUGen):
         ::
 
             >>> dpoll = ugentools.Dpoll.ar(
-            ...     label=None,
+            ...     label=label,
             ...     run=1,
-            ...     source=None,
+            ...     source=source,
             ...     trigid=-1,
             ...     )
             >>> dpoll.source
@@ -154,12 +157,13 @@ class Dpoll(DUGen):
         ::
 
             >>> dpoll = ugentools.Dpoll.ar(
-            ...     label=None,
+            ...     label=label,
             ...     run=1,
-            ...     source=None,
+            ...     source=source,
             ...     trigid=-1,
             ...     )
             >>> dpoll.trigid
+            -1.0
 
         Returns ugen input.
         '''

@@ -7,11 +7,12 @@ class Blip(UGen):
 
     ::
 
-        >>> blip = ugentools.Blip.(
+        >>> blip = ugentools.Blip.ar(
         ...     frequency=440,
         ...     numharm=200,
         ...     )
         >>> blip
+        Blip.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class Blip(UGen):
             ...     numharm=200,
             ...     )
             >>> blip
+            Blip.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class Blip(UGen):
             ...     numharm=200,
             ...     )
             >>> blip
+            Blip.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class Blip(UGen):
             ...     numharm=200,
             ...     )
             >>> blip.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Blip(UGen):
             ...     numharm=200,
             ...     )
             >>> blip.numharm
+            200.0
 
         Returns ugen input.
         '''

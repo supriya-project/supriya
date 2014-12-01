@@ -7,15 +7,16 @@ class SOS(Filter):
 
     ::
 
-        >>> sos = ugentools.SOS.(
+        >>> sos = ugentools.SOS.ar(
         ...     a_0=0,
         ...     a_1=0,
         ...     a_2=0,
         ...     b_1=0,
         ...     b_2=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> sos
+        SOS.ar()
 
     '''
 
@@ -69,7 +70,7 @@ class SOS(Filter):
         a_2=0,
         b_1=0,
         b_2=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate SOS.
 
@@ -81,9 +82,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos
+            SOS.ar()
 
         Returns ugen graph.
         '''
@@ -110,7 +112,7 @@ class SOS(Filter):
         a_2=0,
         b_1=0,
         b_2=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate SOS.
 
@@ -122,9 +124,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos
+            SOS.kr()
 
         Returns ugen graph.
         '''
@@ -165,9 +168,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.a_0
+            0.0
 
         Returns ugen input.
         '''
@@ -186,9 +190,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.a_1
+            0.0
 
         Returns ugen input.
         '''
@@ -207,9 +212,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.a_2
+            0.0
 
         Returns ugen input.
         '''
@@ -228,9 +234,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.b_1
+            0.0
 
         Returns ugen input.
         '''
@@ -249,9 +256,10 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.b_2
+            0.0
 
         Returns ugen input.
         '''
@@ -270,7 +278,7 @@ class SOS(Filter):
             ...     a_2=0,
             ...     b_1=0,
             ...     b_2=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> sos.source
 

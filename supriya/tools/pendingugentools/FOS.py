@@ -7,13 +7,14 @@ class FOS(Filter):
 
     ::
 
-        >>> fos = ugentools.FOS.(
+        >>> fos = ugentools.FOS.ar(
         ...     a_0=0,
         ...     a_1=0,
         ...     b_1=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> fos
+        FOS.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class FOS(Filter):
         a_0=0,
         a_1=0,
         b_1=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate FOS.
 
@@ -69,9 +70,10 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos
+            FOS.ar()
 
         Returns ugen graph.
         '''
@@ -94,7 +96,7 @@ class FOS(Filter):
         a_0=0,
         a_1=0,
         b_1=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate FOS.
 
@@ -104,9 +106,10 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos
+            FOS.kr()
 
         Returns ugen graph.
         '''
@@ -143,9 +146,10 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos.a_0
+            0.0
 
         Returns ugen input.
         '''
@@ -162,9 +166,10 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos.a_1
+            0.0
 
         Returns ugen input.
         '''
@@ -181,9 +186,10 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos.b_1
+            0.0
 
         Returns ugen input.
         '''
@@ -200,7 +206,7 @@ class FOS(Filter):
             ...     a_0=0,
             ...     a_1=0,
             ...     b_1=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> fos.source
 

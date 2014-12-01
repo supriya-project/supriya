@@ -7,10 +7,10 @@ class RecordBuf(UGen):
 
     ::
 
-        >>> record_buf = ugentools.RecordBuf.(
+        >>> record_buf = ugentools.RecordBuf.ar(
         ...     buffer_id=0,
         ...     done_action=0,
-        ...     input_array=None,
+        ...     input_array=input_array,
         ...     loop=1,
         ...     offset=0,
         ...     pre_level=0,
@@ -19,6 +19,7 @@ class RecordBuf(UGen):
         ...     trigger=1,
         ...     )
         >>> record_buf
+        RecordBuf.ar()
 
     '''
 
@@ -78,7 +79,7 @@ class RecordBuf(UGen):
         cls,
         buffer_id=0,
         done_action=0,
-        input_array=None,
+        input_array=input_array,
         loop=1,
         offset=0,
         pre_level=0,
@@ -93,7 +94,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -102,6 +103,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf
+            RecordBuf.ar()
 
         Returns ugen graph.
         '''
@@ -126,7 +128,7 @@ class RecordBuf(UGen):
         cls,
         buffer_id=0,
         done_action=0,
-        input_array=None,
+        input_array=input_array,
         loop=1,
         offset=0,
         pre_level=0,
@@ -141,7 +143,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.kr(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -150,6 +152,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf
+            RecordBuf.kr()
 
         Returns ugen graph.
         '''
@@ -180,7 +183,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -189,6 +192,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -204,7 +208,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -213,6 +217,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.done_action
+            0.0
 
         Returns ugen input.
         '''
@@ -228,7 +233,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -252,7 +257,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -261,6 +266,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.loop
+            1.0
 
         Returns ugen input.
         '''
@@ -276,7 +282,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -285,6 +291,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.offset
+            0.0
 
         Returns ugen input.
         '''
@@ -300,7 +307,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -309,6 +316,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.pre_level
+            0.0
 
         Returns ugen input.
         '''
@@ -324,7 +332,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -333,6 +341,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.rec_level
+            1.0
 
         Returns ugen input.
         '''
@@ -348,7 +357,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -357,6 +366,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.run
+            1.0
 
         Returns ugen input.
         '''
@@ -372,7 +382,7 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=0,
             ...     done_action=0,
-            ...     input_array=None,
+            ...     input_array=input_array,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -381,6 +391,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.trigger
+            1.0
 
         Returns ugen input.
         '''

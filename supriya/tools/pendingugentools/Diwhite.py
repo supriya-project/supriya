@@ -7,12 +7,13 @@ class Diwhite(Dwhite):
 
     ::
 
-        >>> diwhite = ugentools.Diwhite.(
+        >>> diwhite = ugentools.Diwhite.ar(
         ...     length="float('inf')",
         ...     maximum=1,
         ...     minimum=0,
         ...     )
         >>> diwhite
+        Diwhite.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Diwhite(Dwhite):
             ...     minimum=0,
             ...     )
             >>> diwhite
+            Diwhite.new()
 
         Returns ugen graph.
         '''
@@ -111,6 +113,7 @@ class Diwhite(Dwhite):
             ...     minimum=0,
             ...     )
             >>> diwhite.maximum
+            1.0
 
         Returns ugen input.
         '''
@@ -129,6 +132,7 @@ class Diwhite(Dwhite):
             ...     minimum=0,
             ...     )
             >>> diwhite.minimum
+            0.0
 
         Returns ugen input.
         '''

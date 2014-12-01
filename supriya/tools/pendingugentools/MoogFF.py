@@ -7,13 +7,14 @@ class MoogFF(Filter):
 
     ::
 
-        >>> moog_ff = ugentools.MoogFF.(
+        >>> moog_ff = ugentools.MoogFF.ar(
         ...     frequency=100,
         ...     gain=2,
         ...     reset=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> moog_ff
+        MoogFF.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class MoogFF(Filter):
         frequency=100,
         gain=2,
         reset=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate MoogFF.
 
@@ -69,9 +70,10 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff
+            MoogFF.ar()
 
         Returns ugen graph.
         '''
@@ -94,7 +96,7 @@ class MoogFF(Filter):
         frequency=100,
         gain=2,
         reset=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate MoogFF.
 
@@ -104,9 +106,10 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff
+            MoogFF.kr()
 
         Returns ugen graph.
         '''
@@ -143,9 +146,10 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff.frequency
+            100.0
 
         Returns ugen input.
         '''
@@ -162,9 +166,10 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff.gain
+            2.0
 
         Returns ugen input.
         '''
@@ -181,9 +186,10 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -200,7 +206,7 @@ class MoogFF(Filter):
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> moog_ff.source
 

@@ -7,11 +7,12 @@ class Pulse(UGen):
 
     ::
 
-        >>> pulse = ugentools.Pulse.(
+        >>> pulse = ugentools.Pulse.ar(
         ...     frequency=440,
         ...     width=0.5,
         ...     )
         >>> pulse
+        Pulse.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class Pulse(UGen):
             ...     width=0.5,
             ...     )
             >>> pulse
+            Pulse.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class Pulse(UGen):
             ...     width=0.5,
             ...     )
             >>> pulse
+            Pulse.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class Pulse(UGen):
             ...     width=0.5,
             ...     )
             >>> pulse.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Pulse(UGen):
             ...     width=0.5,
             ...     )
             >>> pulse.width
+            0.5
 
         Returns ugen input.
         '''

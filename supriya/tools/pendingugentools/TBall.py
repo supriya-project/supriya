@@ -7,13 +7,14 @@ class TBall(UGen):
 
     ::
 
-        >>> tball = ugentools.TBall.(
+        >>> tball = ugentools.TBall.ar(
         ...     damping=0,
         ...     friction=0.01,
         ...     g=10,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> tball
+        TBall.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class TBall(UGen):
         damping=0,
         friction=0.01,
         g=10,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate TBall.
 
@@ -69,9 +70,10 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball
+            TBall.ar()
 
         Returns ugen graph.
         '''
@@ -92,7 +94,7 @@ class TBall(UGen):
         damping=0,
         friction=0.01,
         g=10,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate TBall.
 
@@ -102,9 +104,10 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball
+            TBall.kr()
 
         Returns ugen graph.
         '''
@@ -131,9 +134,10 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball.damping
+            0.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball.friction
+            0.01
 
         Returns ugen input.
         '''
@@ -169,9 +174,10 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball.g
+            10.0
 
         Returns ugen input.
         '''
@@ -188,7 +194,7 @@ class TBall(UGen):
             ...     damping=0,
             ...     friction=0.01,
             ...     g=10,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> tball.source
 

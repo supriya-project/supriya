@@ -7,12 +7,13 @@ class LagIn(AbstractIn):
 
     ::
 
-        >>> lag_in = ugentools.LagIn.(
+        >>> lag_in = ugentools.LagIn.ar(
         ...     bus=0,
         ...     channel_count=1,
         ...     lag=0.1,
         ...     )
         >>> lag_in
+        LagIn.ar()
 
     '''
 
@@ -68,6 +69,7 @@ class LagIn(AbstractIn):
             ...     lag=0.1,
             ...     )
             >>> lag_in
+            LagIn.kr()
 
         Returns ugen graph.
         '''
@@ -97,6 +99,7 @@ class LagIn(AbstractIn):
             ...     lag=0.1,
             ...     )
             >>> lag_in.bus
+            0.0
 
         Returns ugen input.
         '''
@@ -115,6 +118,7 @@ class LagIn(AbstractIn):
             ...     lag=0.1,
             ...     )
             >>> lag_in.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -133,6 +137,7 @@ class LagIn(AbstractIn):
             ...     lag=0.1,
             ...     )
             >>> lag_in.lag
+            0.1
 
         Returns ugen input.
         '''

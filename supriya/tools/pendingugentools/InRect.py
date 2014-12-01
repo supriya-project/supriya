@@ -7,12 +7,13 @@ class InRect(UGen):
 
     ::
 
-        >>> in_rect = ugentools.InRect.(
-        ...     rect=None,
+        >>> in_rect = ugentools.InRect.ar(
+        ...     rect=rect,
         ...     x=0,
         ...     y=0,
         ...     )
         >>> in_rect
+        InRect.ar()
 
     '''
 
@@ -52,7 +53,7 @@ class InRect(UGen):
     @classmethod
     def ar(
         cls,
-        rect=None,
+        rect=rect,
         x=0,
         y=0,
         ):
@@ -61,11 +62,12 @@ class InRect(UGen):
         ::
 
             >>> in_rect = ugentools.InRect.ar(
-            ...     rect=None,
+            ...     rect=rect,
             ...     x=0,
             ...     y=0,
             ...     )
             >>> in_rect
+            InRect.ar()
 
         Returns ugen graph.
         '''
@@ -82,7 +84,7 @@ class InRect(UGen):
     @classmethod
     def kr(
         cls,
-        rect=None,
+        rect=rect,
         x=0,
         y=0,
         ):
@@ -91,11 +93,12 @@ class InRect(UGen):
         ::
 
             >>> in_rect = ugentools.InRect.kr(
-            ...     rect=None,
+            ...     rect=rect,
             ...     x=0,
             ...     y=0,
             ...     )
             >>> in_rect
+            InRect.kr()
 
         Returns ugen graph.
         '''
@@ -118,7 +121,7 @@ class InRect(UGen):
         ::
 
             >>> in_rect = ugentools.InRect.ar(
-            ...     rect=None,
+            ...     rect=rect,
             ...     x=0,
             ...     y=0,
             ...     )
@@ -136,11 +139,12 @@ class InRect(UGen):
         ::
 
             >>> in_rect = ugentools.InRect.ar(
-            ...     rect=None,
+            ...     rect=rect,
             ...     x=0,
             ...     y=0,
             ...     )
             >>> in_rect.x
+            0.0
 
         Returns ugen input.
         '''
@@ -154,11 +158,12 @@ class InRect(UGen):
         ::
 
             >>> in_rect = ugentools.InRect.ar(
-            ...     rect=None,
+            ...     rect=rect,
             ...     x=0,
             ...     y=0,
             ...     )
             >>> in_rect.y
+            0.0
 
         Returns ugen input.
         '''

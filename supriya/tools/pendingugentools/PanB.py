@@ -7,13 +7,14 @@ class PanB(MultiOutUGen):
 
     ::
 
-        >>> pan_b = ugentools.PanB.(
+        >>> pan_b = ugentools.PanB.ar(
         ...     azimuth=0,
         ...     elevation=0,
         ...     gain=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> pan_b
+        PanB.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class PanB(MultiOutUGen):
         azimuth=0,
         elevation=0,
         gain=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate PanB.
 
@@ -69,9 +70,10 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b
+            PanB.ar()
 
         Returns ugen graph.
         '''
@@ -92,7 +94,7 @@ class PanB(MultiOutUGen):
         azimuth=0,
         elevation=0,
         gain=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate PanB.
 
@@ -102,9 +104,10 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b
+            PanB.kr()
 
         Returns ugen graph.
         '''
@@ -133,9 +136,10 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b.azimuth
+            0.0
 
         Returns ugen input.
         '''
@@ -152,9 +156,10 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b.elevation
+            0.0
 
         Returns ugen input.
         '''
@@ -171,9 +176,10 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b.gain
+            1.0
 
         Returns ugen input.
         '''
@@ -190,7 +196,7 @@ class PanB(MultiOutUGen):
             ...     azimuth=0,
             ...     elevation=0,
             ...     gain=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pan_b.source
 

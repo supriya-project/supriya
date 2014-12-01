@@ -7,12 +7,13 @@ class Klang(UGen):
 
     ::
 
-        >>> klang = ugentools.Klang.(
+        >>> klang = ugentools.Klang.ar(
         ...     freqoffset=0,
         ...     freqscale=1,
-        ...     specifications_array_ref=None,
+        ...     specifications_array_ref=specifications_array_ref,
         ...     )
         >>> klang
+        Klang.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class Klang(UGen):
         cls,
         freqoffset=0,
         freqscale=1,
-        specifications_array_ref=None,
+        specifications_array_ref=specifications_array_ref,
         ):
         r'''Constructs an audio-rate Klang.
 
@@ -63,9 +64,10 @@ class Klang(UGen):
             >>> klang = ugentools.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> klang
+            Klang.ar()
 
         Returns ugen graph.
         '''
@@ -92,9 +94,10 @@ class Klang(UGen):
             >>> klang = ugentools.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> klang.freqoffset
+            0.0
 
         Returns ugen input.
         '''
@@ -110,9 +113,10 @@ class Klang(UGen):
             >>> klang = ugentools.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> klang.freqscale
+            1.0
 
         Returns ugen input.
         '''
@@ -128,7 +132,7 @@ class Klang(UGen):
             >>> klang = ugentools.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> klang.specifications_array_ref
 

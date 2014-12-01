@@ -7,13 +7,14 @@ class KeyState(UGen):
 
     ::
 
-        >>> key_state = ugentools.KeyState.(
+        >>> key_state = ugentools.KeyState.ar(
         ...     keycode=0,
         ...     lag=0.2,
         ...     maxval=1,
         ...     minval=0,
         ...     )
         >>> key_state
+        KeyState.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class KeyState(UGen):
             ...     minval=0,
             ...     )
             >>> key_state
+            KeyState.kr()
 
         Returns ugen graph.
         '''
@@ -101,6 +103,7 @@ class KeyState(UGen):
             ...     minval=0,
             ...     )
             >>> key_state.keycode
+            0.0
 
         Returns ugen input.
         '''
@@ -120,6 +123,7 @@ class KeyState(UGen):
             ...     minval=0,
             ...     )
             >>> key_state.lag
+            0.2
 
         Returns ugen input.
         '''
@@ -139,6 +143,7 @@ class KeyState(UGen):
             ...     minval=0,
             ...     )
             >>> key_state.maxval
+            1.0
 
         Returns ugen input.
         '''
@@ -158,6 +163,7 @@ class KeyState(UGen):
             ...     minval=0,
             ...     )
             >>> key_state.minval
+            0.0
 
         Returns ugen input.
         '''

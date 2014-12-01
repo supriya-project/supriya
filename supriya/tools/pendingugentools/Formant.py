@@ -7,12 +7,13 @@ class Formant(PureUGen):
 
     ::
 
-        >>> formant = ugentools.Formant.(
+        >>> formant = ugentools.Formant.ar(
         ...     bwfrequency=880,
         ...     formfrequency=1760,
         ...     fundfrequency=440,
         ...     )
         >>> formant
+        Formant.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Formant(PureUGen):
             ...     fundfrequency=440,
             ...     )
             >>> formant
+            Formant.ar()
 
         Returns ugen graph.
         '''
@@ -93,6 +95,7 @@ class Formant(PureUGen):
             ...     fundfrequency=440,
             ...     )
             >>> formant.bwfrequency
+            880.0
 
         Returns ugen input.
         '''
@@ -111,6 +114,7 @@ class Formant(PureUGen):
             ...     fundfrequency=440,
             ...     )
             >>> formant.formfrequency
+            1760.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Formant(PureUGen):
             ...     fundfrequency=440,
             ...     )
             >>> formant.fundfrequency
+            440.0
 
         Returns ugen input.
         '''

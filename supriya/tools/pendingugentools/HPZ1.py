@@ -7,10 +7,11 @@ class HPZ1(LPZ1):
 
     ::
 
-        >>> hpz_1 = ugentools.HPZ1.(
-        ...     source=None,
+        >>> hpz_1 = ugentools.HPZ1.ar(
+        ...     source=source,
         ...     )
         >>> hpz_1
+        HPZ1.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class HPZ1(LPZ1):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate HPZ1.
 
         ::
 
             >>> hpz_1 = ugentools.HPZ1.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> hpz_1
+            HPZ1.ar()
 
         Returns ugen graph.
         '''
@@ -70,16 +72,17 @@ class HPZ1(LPZ1):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate HPZ1.
 
         ::
 
             >>> hpz_1 = ugentools.HPZ1.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> hpz_1
+            HPZ1.kr()
 
         Returns ugen graph.
         '''
@@ -110,7 +113,7 @@ class HPZ1(LPZ1):
         ::
 
             >>> hpz_1 = ugentools.HPZ1.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> hpz_1.source
 

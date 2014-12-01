@@ -7,12 +7,13 @@ class DynKlang(UGen):
 
     ::
 
-        >>> dyn_klang = ugentools.DynKlang.(
+        >>> dyn_klang = ugentools.DynKlang.ar(
         ...     freqoffset=0,
         ...     freqscale=1,
-        ...     specifications_array_ref=None,
+        ...     specifications_array_ref=specifications_array_ref,
         ...     )
         >>> dyn_klang
+        DynKlang.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class DynKlang(UGen):
         cls,
         freqoffset=0,
         freqscale=1,
-        specifications_array_ref=None,
+        specifications_array_ref=specifications_array_ref,
         ):
         r'''Constructs an audio-rate DynKlang.
 
@@ -63,9 +64,10 @@ class DynKlang(UGen):
             >>> dyn_klang = ugentools.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klang
+            DynKlang.ar()
 
         Returns ugen graph.
         '''
@@ -84,7 +86,7 @@ class DynKlang(UGen):
         cls,
         freqoffset=0,
         freqscale=1,
-        specifications_array_ref=None,
+        specifications_array_ref=specifications_array_ref,
         ):
         r'''Constructs a control-rate DynKlang.
 
@@ -93,9 +95,10 @@ class DynKlang(UGen):
             >>> dyn_klang = ugentools.DynKlang.kr(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klang
+            DynKlang.kr()
 
         Returns ugen graph.
         '''
@@ -122,9 +125,10 @@ class DynKlang(UGen):
             >>> dyn_klang = ugentools.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klang.freqoffset
+            0.0
 
         Returns ugen input.
         '''
@@ -140,9 +144,10 @@ class DynKlang(UGen):
             >>> dyn_klang = ugentools.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klang.freqscale
+            1.0
 
         Returns ugen input.
         '''
@@ -158,7 +163,7 @@ class DynKlang(UGen):
             >>> dyn_klang = ugentools.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     specifications_array_ref=None,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klang.specifications_array_ref
 

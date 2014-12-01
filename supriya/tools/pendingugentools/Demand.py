@@ -7,12 +7,13 @@ class Demand(MultiOutUGen):
 
     ::
 
-        >>> demand = ugentools.Demand.(
-        ...     demand_ugens=None,
-        ...     reset=None,
-        ...     trigger=None,
+        >>> demand = ugentools.Demand.ar(
+        ...     demand_ugens=demand_ugens,
+        ...     reset=reset,
+        ...     trigger=trigger,
         ...     )
         >>> demand
+        Demand.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class Demand(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        demand_ugens=None,
-        reset=None,
-        trigger=None,
+        demand_ugens=demand_ugens,
+        reset=reset,
+        trigger=trigger,
         ):
         r'''Constructs an audio-rate Demand.
 
         ::
 
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=None,
-            ...     reset=None,
-            ...     trigger=None,
+            ...     demand_ugens=demand_ugens,
+            ...     reset=reset,
+            ...     trigger=trigger,
             ...     )
             >>> demand
+            Demand.ar()
 
         Returns ugen graph.
         '''
@@ -82,20 +84,21 @@ class Demand(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        demand_ugens=None,
-        reset=None,
-        trigger=None,
+        demand_ugens=demand_ugens,
+        reset=reset,
+        trigger=trigger,
         ):
         r'''Constructs a control-rate Demand.
 
         ::
 
             >>> demand = ugentools.Demand.kr(
-            ...     demand_ugens=None,
-            ...     reset=None,
-            ...     trigger=None,
+            ...     demand_ugens=demand_ugens,
+            ...     reset=reset,
+            ...     trigger=trigger,
             ...     )
             >>> demand
+            Demand.kr()
 
         Returns ugen graph.
         '''
@@ -120,9 +123,9 @@ class Demand(MultiOutUGen):
         ::
 
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=None,
-            ...     reset=None,
-            ...     trigger=None,
+            ...     demand_ugens=demand_ugens,
+            ...     reset=reset,
+            ...     trigger=trigger,
             ...     )
             >>> demand.demand_ugens
 
@@ -138,9 +141,9 @@ class Demand(MultiOutUGen):
         ::
 
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=None,
-            ...     reset=None,
-            ...     trigger=None,
+            ...     demand_ugens=demand_ugens,
+            ...     reset=reset,
+            ...     trigger=trigger,
             ...     )
             >>> demand.reset
 
@@ -156,9 +159,9 @@ class Demand(MultiOutUGen):
         ::
 
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=None,
-            ...     reset=None,
-            ...     trigger=None,
+            ...     demand_ugens=demand_ugens,
+            ...     reset=reset,
+            ...     trigger=trigger,
             ...     )
             >>> demand.trigger
 

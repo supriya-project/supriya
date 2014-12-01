@@ -7,11 +7,12 @@ class OneZero(OnePole):
 
     ::
 
-        >>> one_zero = ugentools.OneZero.(
+        >>> one_zero = ugentools.OneZero.ar(
         ...     coefficient=0.5,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> one_zero
+        OneZero.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class OneZero(OnePole):
     def ar(
         cls,
         coefficient=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate OneZero.
 
@@ -57,9 +58,10 @@ class OneZero(OnePole):
 
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_zero
+            OneZero.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class OneZero(OnePole):
     def kr(
         cls,
         coefficient=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate OneZero.
 
@@ -86,9 +88,10 @@ class OneZero(OnePole):
 
             >>> one_zero = ugentools.OneZero.kr(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_zero
+            OneZero.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class OneZero(OnePole):
 
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_zero.coefficient
+            0.5
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class OneZero(OnePole):
 
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_zero.source
 

@@ -7,7 +7,7 @@ class LinCongL(LinCongN):
 
     ::
 
-        >>> lin_cong_l = ugentools.LinCongL.(
+        >>> lin_cong_l = ugentools.LinCongL.ar(
         ...     a=1.1,
         ...     c=0.13,
         ...     frequency=22050,
@@ -15,6 +15,7 @@ class LinCongL(LinCongN):
         ...     xi=0,
         ...     )
         >>> lin_cong_l
+        LinCongL.ar()
 
     '''
 
@@ -78,6 +79,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l
+            LinCongL.ar()
 
         Returns ugen graph.
         '''
@@ -111,6 +113,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l.a
+            1.1
 
         Returns ugen input.
         '''
@@ -131,6 +134,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l.c
+            0.13
 
         Returns ugen input.
         '''
@@ -151,6 +155,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -171,6 +176,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l.m
+            1.0
 
         Returns ugen input.
         '''
@@ -191,6 +197,7 @@ class LinCongL(LinCongN):
             ...     xi=0,
             ...     )
             >>> lin_cong_l.xi
+            0.0
 
         Returns ugen input.
         '''

@@ -7,12 +7,13 @@ class Dunique(UGen):
 
     ::
 
-        >>> dunique = ugentools.Dunique.(
+        >>> dunique = ugentools.Dunique.ar(
         ...     max_buffer_size=1024,
         ...     protected=True,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> dunique
+        Dunique.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class Dunique(UGen):
         cls,
         max_buffer_size=1024,
         protected=True,
-        source=None,
+        source=source,
         ):
         r'''Constructs a Dunique.
 
@@ -63,9 +64,10 @@ class Dunique(UGen):
             >>> dunique = ugentools.Dunique.new(
             ...     max_buffer_size=1024,
             ...     protected=True,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dunique
+            Dunique.new()
 
         Returns ugen graph.
         '''
@@ -90,9 +92,10 @@ class Dunique(UGen):
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dunique.max_buffer_size
+            1024.0
 
         Returns ugen input.
         '''
@@ -108,9 +111,10 @@ class Dunique(UGen):
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dunique.protected
+            1.0
 
         Returns ugen input.
         '''
@@ -126,7 +130,7 @@ class Dunique(UGen):
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> dunique.source
 

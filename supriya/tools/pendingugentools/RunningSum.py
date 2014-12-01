@@ -7,11 +7,12 @@ class RunningSum(UGen):
 
     ::
 
-        >>> running_sum = ugentools.RunningSum.(
+        >>> running_sum = ugentools.RunningSum.ar(
         ...     numsamp=40,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> running_sum
+        RunningSum.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class RunningSum(UGen):
     def ar(
         cls,
         numsamp=40,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate RunningSum.
 
@@ -57,9 +58,10 @@ class RunningSum(UGen):
 
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> running_sum
+            RunningSum.ar()
 
         Returns ugen graph.
         '''
@@ -76,7 +78,7 @@ class RunningSum(UGen):
     def kr(
         cls,
         numsamp=40,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate RunningSum.
 
@@ -84,9 +86,10 @@ class RunningSum(UGen):
 
             >>> running_sum = ugentools.RunningSum.kr(
             ...     numsamp=40,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> running_sum
+            RunningSum.kr()
 
         Returns ugen graph.
         '''
@@ -111,9 +114,10 @@ class RunningSum(UGen):
 
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> running_sum.numsamp
+            40.0
 
         Returns ugen input.
         '''
@@ -128,7 +132,7 @@ class RunningSum(UGen):
 
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> running_sum.source
 

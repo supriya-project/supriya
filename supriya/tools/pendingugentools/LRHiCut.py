@@ -7,13 +7,14 @@ class LRHiCut(BHiCut):
 
     ::
 
-        >>> lrhi_cut = ugentools.LRHiCut.(
-        ...     frequency=None,
+        >>> lrhi_cut = ugentools.LRHiCut.ar(
+        ...     frequency=frequency,
         ...     max_order=5,
         ...     order=2,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> lrhi_cut
+        LRHiCut.ar()
 
     '''
 
@@ -58,22 +59,23 @@ class LRHiCut(BHiCut):
     @classmethod
     def ar(
         cls,
-        frequency=None,
+        frequency=frequency,
         max_order=5,
         order=2,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate LRHiCut.
 
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut
+            LRHiCut.ar()
 
         Returns ugen graph.
         '''
@@ -97,22 +99,23 @@ class LRHiCut(BHiCut):
     @classmethod
     def kr(
         cls,
-        frequency=None,
+        frequency=frequency,
         max_order=5,
         order=2,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate LRHiCut.
 
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.kr(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut
+            LRHiCut.kr()
 
         Returns ugen graph.
         '''
@@ -152,10 +155,10 @@ class LRHiCut(BHiCut):
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut.frequency
 
@@ -171,12 +174,13 @@ class LRHiCut(BHiCut):
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut.max_order
+            5.0
 
         Returns ugen input.
         '''
@@ -190,12 +194,13 @@ class LRHiCut(BHiCut):
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut.order
+            2.0
 
         Returns ugen input.
         '''
@@ -209,10 +214,10 @@ class LRHiCut(BHiCut):
         ::
 
             >>> lrhi_cut = ugentools.LRHiCut.ar(
-            ...     frequency=None,
+            ...     frequency=frequency,
             ...     max_order=5,
             ...     order=2,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lrhi_cut.source
 

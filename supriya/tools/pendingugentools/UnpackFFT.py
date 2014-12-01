@@ -7,13 +7,14 @@ class UnpackFFT(MultiOutUGen):
 
     ::
 
-        >>> unpack_fft = ugentools.UnpackFFT.(
-        ...     bufsize=None,
-        ...     chain=None,
+        >>> unpack_fft = ugentools.UnpackFFT.ar(
+        ...     bufsize=bufsize,
+        ...     chain=chain,
         ...     frombin=0,
-        ...     tobin=None,
+        ...     tobin=tobin,
         ...     )
         >>> unpack_fft
+        UnpackFFT.ar()
 
     '''
 
@@ -56,22 +57,23 @@ class UnpackFFT(MultiOutUGen):
     @classmethod
     def new(
         cls,
-        bufsize=None,
-        chain=None,
+        bufsize=bufsize,
+        chain=chain,
         frombin=0,
-        tobin=None,
+        tobin=tobin,
         ):
         r'''Constructs a UnpackFFT.
 
         ::
 
             >>> unpack_fft = ugentools.UnpackFFT.new(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     tobin=None,
+            ...     tobin=tobin,
             ...     )
             >>> unpack_fft
+            UnpackFFT.new()
 
         Returns ugen graph.
         '''
@@ -97,10 +99,10 @@ class UnpackFFT(MultiOutUGen):
         ::
 
             >>> unpack_fft = ugentools.UnpackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     tobin=None,
+            ...     tobin=tobin,
             ...     )
             >>> unpack_fft.bufsize
 
@@ -116,10 +118,10 @@ class UnpackFFT(MultiOutUGen):
         ::
 
             >>> unpack_fft = ugentools.UnpackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     tobin=None,
+            ...     tobin=tobin,
             ...     )
             >>> unpack_fft.chain
 
@@ -135,12 +137,13 @@ class UnpackFFT(MultiOutUGen):
         ::
 
             >>> unpack_fft = ugentools.UnpackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     tobin=None,
+            ...     tobin=tobin,
             ...     )
             >>> unpack_fft.frombin
+            0.0
 
         Returns ugen input.
         '''
@@ -154,10 +157,10 @@ class UnpackFFT(MultiOutUGen):
         ::
 
             >>> unpack_fft = ugentools.UnpackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     tobin=None,
+            ...     tobin=tobin,
             ...     )
             >>> unpack_fft.tobin
 

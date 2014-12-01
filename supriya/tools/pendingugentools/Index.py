@@ -7,11 +7,12 @@ class Index(PureUGen):
 
     ::
 
-        >>> index = ugentools.Index.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> index = ugentools.Index.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> index
+        Index.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class Index(PureUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate Index.
 
         ::
 
             >>> index = ugentools.Index.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index
+            Index.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class Index(PureUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate Index.
 
         ::
 
             >>> index = ugentools.Index.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index
+            Index.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class Index(PureUGen):
         ::
 
             >>> index = ugentools.Index.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index.buffer_id
 
@@ -125,8 +128,8 @@ class Index(PureUGen):
         ::
 
             >>> index = ugentools.Index.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> index.source
 

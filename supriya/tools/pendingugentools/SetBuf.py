@@ -7,12 +7,13 @@ class SetBuf(WidthFirstUGen):
 
     ::
 
-        >>> set_buf = ugentools.SetBuf.(
-        ...     buffer_id=None,
+        >>> set_buf = ugentools.SetBuf.ar(
+        ...     buffer_id=buffer_id,
         ...     offset=0,
-        ...     values=None,
+        ...     values=values,
         ...     )
         >>> set_buf
+        SetBuf.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class SetBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         offset=0,
-        values=None,
+        values=values,
         ):
         r'''Constructs a SetBuf.
 
         ::
 
             >>> set_buf = ugentools.SetBuf.new(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     offset=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> set_buf
+            SetBuf.new()
 
         Returns ugen graph.
         '''
@@ -88,9 +90,9 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     offset=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> set_buf.buffer_id
 
@@ -106,11 +108,12 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     offset=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> set_buf.offset
+            0.0
 
         Returns ugen input.
         '''
@@ -124,9 +127,9 @@ class SetBuf(WidthFirstUGen):
         ::
 
             >>> set_buf = ugentools.SetBuf.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     offset=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> set_buf.values
 

@@ -7,10 +7,11 @@ class Slope(Filter):
 
     ::
 
-        >>> slope = ugentools.Slope.(
-        ...     source=None,
+        >>> slope = ugentools.Slope.ar(
+        ...     source=source,
         ...     )
         >>> slope
+        Slope.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class Slope(Filter):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Slope.
 
         ::
 
             >>> slope = ugentools.Slope.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> slope
+            Slope.ar()
 
         Returns ugen graph.
         '''
@@ -70,16 +72,17 @@ class Slope(Filter):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Slope.
 
         ::
 
             >>> slope = ugentools.Slope.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> slope
+            Slope.kr()
 
         Returns ugen graph.
         '''
@@ -110,7 +113,7 @@ class Slope(Filter):
         ::
 
             >>> slope = ugentools.Slope.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> slope.source
 

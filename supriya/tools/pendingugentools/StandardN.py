@@ -7,13 +7,14 @@ class StandardN(ChaosGen):
 
     ::
 
-        >>> standard_n = ugentools.StandardN.(
+        >>> standard_n = ugentools.StandardN.ar(
         ...     frequency=22050,
         ...     k=1,
         ...     xi=0.5,
         ...     yi=0,
         ...     )
         >>> standard_n
+        StandardN.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class StandardN(ChaosGen):
             ...     yi=0,
             ...     )
             >>> standard_n
+            StandardN.ar()
 
         Returns ugen graph.
         '''
@@ -103,6 +105,7 @@ class StandardN(ChaosGen):
             ...     yi=0,
             ...     )
             >>> standard_n.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -122,6 +125,7 @@ class StandardN(ChaosGen):
             ...     yi=0,
             ...     )
             >>> standard_n.k
+            1.0
 
         Returns ugen input.
         '''
@@ -141,6 +145,7 @@ class StandardN(ChaosGen):
             ...     yi=0,
             ...     )
             >>> standard_n.xi
+            0.5
 
         Returns ugen input.
         '''
@@ -160,6 +165,7 @@ class StandardN(ChaosGen):
             ...     yi=0,
             ...     )
             >>> standard_n.yi
+            0.0
 
         Returns ugen input.
         '''

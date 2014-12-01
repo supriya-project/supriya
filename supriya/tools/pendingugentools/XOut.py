@@ -7,12 +7,13 @@ class XOut(AbstractOut):
 
     ::
 
-        >>> xout = ugentools.XOut.(
-        ...     bus=None,
-        ...     crossfade=None,
-        ...     source=None,
+        >>> xout = ugentools.XOut.ar(
+        ...     bus=bus,
+        ...     crossfade=crossfade,
+        ...     source=source,
         ...     )
         >>> xout
+        XOut.ar()
 
     '''
 
@@ -52,20 +53,21 @@ class XOut(AbstractOut):
     @classmethod
     def ar(
         cls,
-        bus=None,
-        crossfade=None,
-        source=None,
+        bus=bus,
+        crossfade=crossfade,
+        source=source,
         ):
         r'''Constructs an audio-rate XOut.
 
         ::
 
             >>> xout = ugentools.XOut.ar(
-            ...     bus=None,
-            ...     crossfade=None,
-            ...     source=None,
+            ...     bus=bus,
+            ...     crossfade=crossfade,
+            ...     source=source,
             ...     )
             >>> xout
+            XOut.ar()
 
         Returns ugen graph.
         '''
@@ -84,20 +86,21 @@ class XOut(AbstractOut):
     @classmethod
     def kr(
         cls,
-        bus=None,
-        crossfade=None,
-        source=None,
+        bus=bus,
+        crossfade=crossfade,
+        source=source,
         ):
         r'''Constructs a control-rate XOut.
 
         ::
 
             >>> xout = ugentools.XOut.kr(
-            ...     bus=None,
-            ...     crossfade=None,
-            ...     source=None,
+            ...     bus=bus,
+            ...     crossfade=crossfade,
+            ...     source=source,
             ...     )
             >>> xout
+            XOut.kr()
 
         Returns ugen graph.
         '''
@@ -122,9 +125,9 @@ class XOut(AbstractOut):
         ::
 
             >>> xout = ugentools.XOut.ar(
-            ...     bus=None,
-            ...     crossfade=None,
-            ...     source=None,
+            ...     bus=bus,
+            ...     crossfade=crossfade,
+            ...     source=source,
             ...     )
             >>> xout.bus
 
@@ -140,9 +143,9 @@ class XOut(AbstractOut):
         ::
 
             >>> xout = ugentools.XOut.ar(
-            ...     bus=None,
-            ...     crossfade=None,
-            ...     source=None,
+            ...     bus=bus,
+            ...     crossfade=crossfade,
+            ...     source=source,
             ...     )
             >>> xout.crossfade
 
@@ -158,9 +161,9 @@ class XOut(AbstractOut):
         ::
 
             >>> xout = ugentools.XOut.ar(
-            ...     bus=None,
-            ...     crossfade=None,
-            ...     source=None,
+            ...     bus=bus,
+            ...     crossfade=crossfade,
+            ...     source=source,
             ...     )
             >>> xout.source
 

@@ -7,11 +7,12 @@ class LastValue(UGen):
 
     ::
 
-        >>> last_value = ugentools.LastValue.(
+        >>> last_value = ugentools.LastValue.ar(
         ...     diff=0.01,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> last_value
+        LastValue.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class LastValue(UGen):
     def ar(
         cls,
         diff=0.01,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate LastValue.
 
@@ -57,9 +58,10 @@ class LastValue(UGen):
 
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> last_value
+            LastValue.ar()
 
         Returns ugen graph.
         '''
@@ -76,7 +78,7 @@ class LastValue(UGen):
     def kr(
         cls,
         diff=0.01,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate LastValue.
 
@@ -84,9 +86,10 @@ class LastValue(UGen):
 
             >>> last_value = ugentools.LastValue.kr(
             ...     diff=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> last_value
+            LastValue.kr()
 
         Returns ugen graph.
         '''
@@ -109,9 +112,10 @@ class LastValue(UGen):
 
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> last_value.diff
+            0.01
 
         Returns ugen input.
         '''
@@ -126,7 +130,7 @@ class LastValue(UGen):
 
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> last_value.source
 

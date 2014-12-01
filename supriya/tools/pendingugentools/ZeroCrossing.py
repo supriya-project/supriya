@@ -7,10 +7,11 @@ class ZeroCrossing(UGen):
 
     ::
 
-        >>> zero_crossing = ugentools.ZeroCrossing.(
-        ...     source=None,
+        >>> zero_crossing = ugentools.ZeroCrossing.ar(
+        ...     source=source,
         ...     )
         >>> zero_crossing
+        ZeroCrossing.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class ZeroCrossing(UGen):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate ZeroCrossing.
 
         ::
 
             >>> zero_crossing = ugentools.ZeroCrossing.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> zero_crossing
+            ZeroCrossing.ar()
 
         Returns ugen graph.
         '''
@@ -68,16 +70,17 @@ class ZeroCrossing(UGen):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate ZeroCrossing.
 
         ::
 
             >>> zero_crossing = ugentools.ZeroCrossing.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> zero_crossing
+            ZeroCrossing.kr()
 
         Returns ugen graph.
         '''
@@ -98,7 +101,7 @@ class ZeroCrossing(UGen):
         ::
 
             >>> zero_crossing = ugentools.ZeroCrossing.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> zero_crossing.source
 

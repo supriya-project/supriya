@@ -7,7 +7,7 @@ class GrainFM(MultiOutUGen):
 
     ::
 
-        >>> grain_fm = ugentools.GrainFM.(
+        >>> grain_fm = ugentools.GrainFM.ar(
         ...     carfrequency=440,
         ...     channel_count=1,
         ...     duration=1,
@@ -19,6 +19,7 @@ class GrainFM(MultiOutUGen):
         ...     trigger=0,
         ...     )
         >>> grain_fm
+        GrainFM.ar()
 
     '''
 
@@ -102,6 +103,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm
+            GrainFM.ar()
 
         Returns ugen graph.
         '''
@@ -143,6 +145,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.carfrequency
+            440.0
 
         Returns ugen input.
         '''
@@ -167,6 +170,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -191,6 +195,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -215,6 +220,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.envbufnum
+            -1.0
 
         Returns ugen input.
         '''
@@ -239,6 +245,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.index
+            1.0
 
         Returns ugen input.
         '''
@@ -263,6 +270,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.max_grains
+            512.0
 
         Returns ugen input.
         '''
@@ -287,6 +295,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.modfrequency
+            200.0
 
         Returns ugen input.
         '''
@@ -311,6 +320,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.pan
+            0.0
 
         Returns ugen input.
         '''
@@ -335,6 +345,7 @@ class GrainFM(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_fm.trigger
+            0.0
 
         Returns ugen input.
         '''

@@ -7,7 +7,7 @@ class Gendy2(UGen):
 
     ::
 
-        >>> gendy_2 = ugentools.Gendy2.(
+        >>> gendy_2 = ugentools.Gendy2.ar(
         ...     a=1.17,
         ...     adparam=1,
         ...     ampdist=1,
@@ -17,11 +17,12 @@ class Gendy2(UGen):
         ...     durdist=1,
         ...     durscale=0.5,
         ...     init_cps=12,
-        ...     knum=None,
+        ...     knum=knum,
         ...     maxfrequency=660,
         ...     minfrequency=440,
         ...     )
         >>> gendy_2
+        Gendy2.ar()
 
     '''
 
@@ -97,7 +98,7 @@ class Gendy2(UGen):
         durdist=1,
         durscale=0.5,
         init_cps=12,
-        knum=None,
+        knum=knum,
         maxfrequency=660,
         minfrequency=440,
         ):
@@ -115,11 +116,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2
+            Gendy2.ar()
 
         Returns ugen graph.
         '''
@@ -154,7 +156,7 @@ class Gendy2(UGen):
         durdist=1,
         durscale=0.5,
         init_cps=12,
-        knum=None,
+        knum=knum,
         maxfrequency=1000,
         minfrequency=20,
         ):
@@ -172,11 +174,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=1000,
             ...     minfrequency=20,
             ...     )
             >>> gendy_2
+            Gendy2.kr()
 
         Returns ugen graph.
         '''
@@ -217,11 +220,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.a
+            1.17
 
         Returns ugen input.
         '''
@@ -244,11 +248,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.adparam
+            1.0
 
         Returns ugen input.
         '''
@@ -271,11 +276,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.ampdist
+            1.0
 
         Returns ugen input.
         '''
@@ -298,11 +304,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.ampscale
+            0.5
 
         Returns ugen input.
         '''
@@ -325,11 +332,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.c
+            0.31
 
         Returns ugen input.
         '''
@@ -352,11 +360,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.ddparam
+            1.0
 
         Returns ugen input.
         '''
@@ -379,11 +388,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.durdist
+            1.0
 
         Returns ugen input.
         '''
@@ -406,11 +416,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.durscale
+            0.5
 
         Returns ugen input.
         '''
@@ -433,11 +444,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.init_cps
+            12.0
 
         Returns ugen input.
         '''
@@ -460,7 +472,7 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
@@ -487,11 +499,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.maxfrequency
+            660.0
 
         Returns ugen input.
         '''
@@ -514,11 +527,12 @@ class Gendy2(UGen):
             ...     durdist=1,
             ...     durscale=0.5,
             ...     init_cps=12,
-            ...     knum=None,
+            ...     knum=knum,
             ...     maxfrequency=660,
             ...     minfrequency=440,
             ...     )
             >>> gendy_2.minfrequency
+            440.0
 
         Returns ugen input.
         '''

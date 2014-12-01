@@ -7,12 +7,13 @@ class AmpComp(PureUGen):
 
     ::
 
-        >>> amp_comp = ugentools.AmpComp.(
+        >>> amp_comp = ugentools.AmpComp.ar(
         ...     exp=0.3333,
-        ...     frequency=None,
-        ...     root=None,
+        ...     frequency=frequency,
+        ...     root=root,
         ...     )
         >>> amp_comp
+        AmpComp.ar()
 
     '''
 
@@ -53,8 +54,8 @@ class AmpComp(PureUGen):
     def ar(
         cls,
         exp=0.3333,
-        frequency=None,
-        root=None,
+        frequency=frequency,
+        root=root,
         ):
         r'''Constructs an audio-rate AmpComp.
 
@@ -62,10 +63,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp
+            AmpComp.ar()
 
         Returns ugen graph.
         '''
@@ -83,8 +85,8 @@ class AmpComp(PureUGen):
     def ir(
         cls,
         exp=0.3333,
-        frequency=None,
-        root=None,
+        frequency=frequency,
+        root=root,
         ):
         r'''Constructs a scale-rate AmpComp.
 
@@ -92,10 +94,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ir(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp
+            AmpComp.ir()
 
         Returns ugen graph.
         '''
@@ -113,8 +116,8 @@ class AmpComp(PureUGen):
     def kr(
         cls,
         exp=0.3333,
-        frequency=None,
-        root=None,
+        frequency=frequency,
+        root=root,
         ):
         r'''Constructs a control-rate AmpComp.
 
@@ -122,10 +125,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.kr(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp
+            AmpComp.kr()
 
         Returns ugen graph.
         '''
@@ -149,10 +153,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp.exp
+            0.3333
 
         Returns ugen input.
         '''
@@ -167,8 +172,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp.frequency
 
@@ -185,8 +190,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=None,
-            ...     root=None,
+            ...     frequency=frequency,
+            ...     root=root,
             ...     )
             >>> amp_comp.root
 

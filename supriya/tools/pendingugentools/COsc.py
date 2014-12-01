@@ -7,12 +7,13 @@ class COsc(PureUGen):
 
     ::
 
-        >>> cosc = ugentools.COsc.(
+        >>> cosc = ugentools.COsc.ar(
         ...     beats=0.5,
-        ...     buffer_id=None,
+        ...     buffer_id=buffer_id,
         ...     frequency=440,
         ...     )
         >>> cosc
+        COsc.ar()
 
     '''
 
@@ -53,7 +54,7 @@ class COsc(PureUGen):
     def ar(
         cls,
         beats=0.5,
-        buffer_id=None,
+        buffer_id=buffer_id,
         frequency=440,
         ):
         r'''Constructs an audio-rate COsc.
@@ -62,10 +63,11 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     )
             >>> cosc
+            COsc.ar()
 
         Returns ugen graph.
         '''
@@ -83,7 +85,7 @@ class COsc(PureUGen):
     def kr(
         cls,
         beats=0.5,
-        buffer_id=None,
+        buffer_id=buffer_id,
         frequency=440,
         ):
         r'''Constructs a control-rate COsc.
@@ -92,10 +94,11 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.kr(
             ...     beats=0.5,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     )
             >>> cosc
+            COsc.kr()
 
         Returns ugen graph.
         '''
@@ -119,10 +122,11 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     )
             >>> cosc.beats
+            0.5
 
         Returns ugen input.
         '''
@@ -137,7 +141,7 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     )
             >>> cosc.buffer_id
@@ -155,10 +159,11 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     )
             >>> cosc.frequency
+            440.0
 
         Returns ugen input.
         '''

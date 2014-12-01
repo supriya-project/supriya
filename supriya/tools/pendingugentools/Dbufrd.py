@@ -7,12 +7,13 @@ class Dbufrd(DUGen):
 
     ::
 
-        >>> dbufrd = ugentools.Dbufrd.(
+        >>> dbufrd = ugentools.Dbufrd.ar(
         ...     buffer_id=0,
         ...     loop=1,
         ...     phase=0,
         ...     )
         >>> dbufrd
+        Dbufrd.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Dbufrd(DUGen):
             ...     phase=0,
             ...     )
             >>> dbufrd
+            Dbufrd.new()
 
         Returns ugen graph.
         '''
@@ -93,6 +95,7 @@ class Dbufrd(DUGen):
             ...     phase=0,
             ...     )
             >>> dbufrd.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -111,6 +114,7 @@ class Dbufrd(DUGen):
             ...     phase=0,
             ...     )
             >>> dbufrd.loop
+            1.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Dbufrd(DUGen):
             ...     phase=0,
             ...     )
             >>> dbufrd.phase
+            0.0
 
         Returns ugen input.
         '''

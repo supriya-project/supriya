@@ -7,10 +7,11 @@ class T2K(A2K):
 
     ::
 
-        >>> t_2_k = ugentools.T2K.(
-        ...     source=None,
+        >>> t_2_k = ugentools.T2K.ar(
+        ...     source=source,
         ...     )
         >>> t_2_k
+        T2K.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class T2K(A2K):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate T2K.
 
         ::
 
             >>> t_2_k = ugentools.T2K.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> t_2_k
+            T2K.kr()
 
         Returns ugen graph.
         '''
@@ -74,7 +76,7 @@ class T2K(A2K):
         ::
 
             >>> t_2_k = ugentools.T2K.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> t_2_k.source
 

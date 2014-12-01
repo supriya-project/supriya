@@ -7,15 +7,16 @@ class Pluck(UGen):
 
     ::
 
-        >>> pluck = ugentools.Pluck.(
+        >>> pluck = ugentools.Pluck.ar(
         ...     coefficient=0.5,
         ...     decay_time=1,
         ...     delay_time=0.2,
         ...     maximum_delay_time=0.2,
-        ...     source=None,
+        ...     source=source,
         ...     trigger=1,
         ...     )
         >>> pluck
+        Pluck.ar()
 
     '''
 
@@ -68,7 +69,7 @@ class Pluck(UGen):
         decay_time=1,
         delay_time=0.2,
         maximum_delay_time=0.2,
-        source=None,
+        source=source,
         trigger=1,
         ):
         r'''Constructs an audio-rate Pluck.
@@ -80,10 +81,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck
+            Pluck.ar()
 
         Returns ugen graph.
         '''
@@ -113,10 +115,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.coefficient
+            0.5
 
         Returns ugen input.
         '''
@@ -134,10 +137,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.decay_time
+            1.0
 
         Returns ugen input.
         '''
@@ -155,10 +159,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.delay_time
+            0.2
 
         Returns ugen input.
         '''
@@ -176,10 +181,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.maximum_delay_time
+            0.2
 
         Returns ugen input.
         '''
@@ -197,7 +203,7 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.source
@@ -218,10 +224,11 @@ class Pluck(UGen):
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> pluck.trigger
+            1.0
 
         Returns ugen input.
         '''

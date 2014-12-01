@@ -7,10 +7,11 @@ class LPZ1(Filter):
 
     ::
 
-        >>> lpz_1 = ugentools.LPZ1.(
-        ...     source=None,
+        >>> lpz_1 = ugentools.LPZ1.ar(
+        ...     source=source,
         ...     )
         >>> lpz_1
+        LPZ1.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class LPZ1(Filter):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate LPZ1.
 
         ::
 
             >>> lpz_1 = ugentools.LPZ1.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lpz_1
+            LPZ1.ar()
 
         Returns ugen graph.
         '''
@@ -70,16 +72,17 @@ class LPZ1(Filter):
     @classmethod
     def kr(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate LPZ1.
 
         ::
 
             >>> lpz_1 = ugentools.LPZ1.kr(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lpz_1
+            LPZ1.kr()
 
         Returns ugen graph.
         '''
@@ -110,7 +113,7 @@ class LPZ1(Filter):
         ::
 
             >>> lpz_1 = ugentools.LPZ1.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> lpz_1.source
 

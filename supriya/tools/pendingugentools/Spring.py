@@ -7,12 +7,13 @@ class Spring(UGen):
 
     ::
 
-        >>> spring = ugentools.Spring.(
+        >>> spring = ugentools.Spring.ar(
         ...     damping=0,
-        ...     source=None,
+        ...     source=source,
         ...     spring=1,
         ...     )
         >>> spring
+        Spring.ar()
 
     '''
 
@@ -53,7 +54,7 @@ class Spring(UGen):
     def ar(
         cls,
         damping=0,
-        source=None,
+        source=source,
         spring=1,
         ):
         r'''Constructs an audio-rate Spring.
@@ -62,10 +63,11 @@ class Spring(UGen):
 
             >>> spring = ugentools.Spring.ar(
             ...     damping=0,
-            ...     source=None,
+            ...     source=source,
             ...     spring=1,
             ...     )
             >>> spring
+            Spring.ar()
 
         Returns ugen graph.
         '''
@@ -83,7 +85,7 @@ class Spring(UGen):
     def kr(
         cls,
         damping=0,
-        source=None,
+        source=source,
         spring=1,
         ):
         r'''Constructs a control-rate Spring.
@@ -92,10 +94,11 @@ class Spring(UGen):
 
             >>> spring = ugentools.Spring.kr(
             ...     damping=0,
-            ...     source=None,
+            ...     source=source,
             ...     spring=1,
             ...     )
             >>> spring
+            Spring.kr()
 
         Returns ugen graph.
         '''
@@ -119,10 +122,11 @@ class Spring(UGen):
 
             >>> spring = ugentools.Spring.ar(
             ...     damping=0,
-            ...     source=None,
+            ...     source=source,
             ...     spring=1,
             ...     )
             >>> spring.damping
+            0.0
 
         Returns ugen input.
         '''
@@ -137,7 +141,7 @@ class Spring(UGen):
 
             >>> spring = ugentools.Spring.ar(
             ...     damping=0,
-            ...     source=None,
+            ...     source=source,
             ...     spring=1,
             ...     )
             >>> spring.source
@@ -155,10 +159,11 @@ class Spring(UGen):
 
             >>> spring = ugentools.Spring.ar(
             ...     damping=0,
-            ...     source=None,
+            ...     source=source,
             ...     spring=1,
             ...     )
             >>> spring.spring
+            1.0
 
         Returns ugen input.
         '''

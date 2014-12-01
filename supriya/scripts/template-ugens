@@ -75,10 +75,16 @@ def make_input_property(input_name, ugen_name, method_signature):
     result.append('            >>> {} = ugentools.{}.{}('.format(
         stringtools.to_snake_case(ugen_name), ugen_name, 'ar'))
     for key, value in sorted(method_signature):
+        if value is None:
+            value = key
         result.append('            ...     {}={},'.format(key, value))
     result.append('            ...     )')
     result.append('            >>> {}.{}'.format(
         stringtools.to_snake_case(ugen_name), input_name))
+    method_signature = dict(method_signature)
+    if isinstance(method_signature[input_name], (int, float)):
+        result.append('            {}'.format(
+            float(method_signature[input_name])))
     result.append('')
     result.append('        Returns ugen input.')
     result.append("        '''")
@@ -120,6 +126,8 @@ def make_class_methods(ugen_name, ugen_definition):
         result.append('    def {}('.format(method_name))
         result.append('        cls,')
         for name, value in method_signature:
+            if value is None:
+                value = name
             result.append('        {}={},'.format(name, value))
         result.append('        ):')
         result.append("        r'''Constructs {} {}.".format(text, ugen_name))
@@ -129,9 +137,12 @@ def make_class_methods(ugen_name, ugen_definition):
         result.append('            >>> {} = ugentools.{}.{}('.format(
             stringtools.to_snake_case(ugen_name), ugen_name, method_name))
         for key, value in sorted(method_signature):
+            if value is None:
+                value = key
             result.append('            ...     {}={},'.format(key, value))
         result.append('            ...     )')
         result.append('            >>> {}'.format(stringtools.to_snake_case(ugen_name)))
+        result.append('            {}.{}()'.format(ugen_name, method_name))
         result.append('')
         result.append('        Returns ugen graph.')
         result.append("        '''")
@@ -286,15 +297,18 @@ def make_ugen_module(ugen_name, ugen_definition):
     result.append('')
     result.append('    ::')
     result.append('')
-    result.append('        >>> {} = ugentools.{}.('.format(
+    result.append('        >>> {} = ugentools.{}.ar('.format(
         stringtools.to_snake_case(ugen_name), ugen_name))
     method_signature = find_signature(ugen_name, ugen_definition)
     if method_signature is not None:
         method_signature = process_method_signature(method_signature)
         for key, value in sorted(method_signature):
+            if value is None:
+                value = key
             result.append('        ...     {}={},'.format(key, value))
     result.append('        ...     )')
     result.append('        >>> {}'.format(stringtools.to_snake_case(ugen_name)))
+    result.append('        {}.{}()'.format(ugen_name, 'ar'))
     result.append('')
     result.append("    '''")
     result.append('')

@@ -7,11 +7,12 @@ class SelectL(UGen):
 
     ::
 
-        >>> select_l = ugentools.SelectL.(
-        ...     array=None,
-        ...     which=None,
+        >>> select_l = ugentools.SelectL.ar(
+        ...     array=array,
+        ...     which=which,
         ...     )
         >>> select_l
+        SelectL.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class SelectL(UGen):
     @classmethod
     def ar(
         cls,
-        array=None,
-        which=None,
+        array=array,
+        which=which,
         ):
         r'''Constructs an audio-rate SelectL.
 
         ::
 
             >>> select_l = ugentools.SelectL.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select_l
+            SelectL.ar()
 
         Returns ugen graph.
         '''
@@ -77,18 +79,19 @@ class SelectL(UGen):
     @classmethod
     def kr(
         cls,
-        array=None,
-        which=None,
+        array=array,
+        which=which,
         ):
         r'''Constructs a control-rate SelectL.
 
         ::
 
             >>> select_l = ugentools.SelectL.kr(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select_l
+            SelectL.kr()
 
         Returns ugen graph.
         '''
@@ -110,8 +113,8 @@ class SelectL(UGen):
         ::
 
             >>> select_l = ugentools.SelectL.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select_l.array
 
@@ -127,8 +130,8 @@ class SelectL(UGen):
         ::
 
             >>> select_l = ugentools.SelectL.ar(
-            ...     array=None,
-            ...     which=None,
+            ...     array=array,
+            ...     which=which,
             ...     )
             >>> select_l.which
 

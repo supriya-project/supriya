@@ -7,13 +7,14 @@ class SendReply(SendTrig):
 
     ::
 
-        >>> send_reply = ugentools.SendReply.(
+        >>> send_reply = ugentools.SendReply.ar(
         ...     cmd_name='/reply',
         ...     reply_id=-1,
         ...     trigger=0,
-        ...     values=None,
+        ...     values=values,
         ...     )
         >>> send_reply
+        SendReply.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class SendReply(SendTrig):
         cmd_name='/reply',
         reply_id=-1,
         trigger=0,
-        values=None,
+        values=values,
         ):
         r'''Constructs an audio-rate SendReply.
 
@@ -69,9 +70,10 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply
+            SendReply.ar()
 
         Returns ugen graph.
         '''
@@ -92,7 +94,7 @@ class SendReply(SendTrig):
         cmd_name='/reply',
         reply_id=-1,
         trigger=0,
-        values=None,
+        values=values,
         ):
         r'''Constructs a control-rate SendReply.
 
@@ -102,9 +104,10 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply
+            SendReply.kr()
 
         Returns ugen graph.
         '''
@@ -133,7 +136,7 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply.cmd_name
 
@@ -152,9 +155,10 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply.reply_id
+            -1.0
 
         Returns ugen input.
         '''
@@ -171,9 +175,10 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply.trigger
+            0.0
 
         Returns ugen input.
         '''
@@ -190,7 +195,7 @@ class SendReply(SendTrig):
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
-            ...     values=None,
+            ...     values=values,
             ...     )
             >>> send_reply.values
 

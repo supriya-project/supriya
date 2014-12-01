@@ -7,12 +7,13 @@ class DiskIn(MultiOutUGen):
 
     ::
 
-        >>> disk_in = ugentools.DiskIn.(
-        ...     buffer_id=None,
-        ...     channel_count=None,
+        >>> disk_in = ugentools.DiskIn.ar(
+        ...     buffer_id=buffer_id,
+        ...     channel_count=channel_count,
         ...     loop=0,
         ...     )
         >>> disk_in
+        DiskIn.ar()
 
     '''
 
@@ -52,8 +53,8 @@ class DiskIn(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        channel_count=None,
+        buffer_id=buffer_id,
+        channel_count=channel_count,
         loop=0,
         ):
         r'''Constructs an audio-rate DiskIn.
@@ -61,11 +62,12 @@ class DiskIn(MultiOutUGen):
         ::
 
             >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     )
             >>> disk_in
+            DiskIn.ar()
 
         Returns ugen graph.
         '''
@@ -90,8 +92,8 @@ class DiskIn(MultiOutUGen):
         ::
 
             >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     )
             >>> disk_in.buffer_id
@@ -108,8 +110,8 @@ class DiskIn(MultiOutUGen):
         ::
 
             >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     )
             >>> disk_in.channel_count
@@ -126,11 +128,12 @@ class DiskIn(MultiOutUGen):
         ::
 
             >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=None,
-            ...     channel_count=None,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=channel_count,
             ...     loop=0,
             ...     )
             >>> disk_in.loop
+            0.0
 
         Returns ugen input.
         '''

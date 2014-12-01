@@ -7,12 +7,13 @@ class Convolution(UGen):
 
     ::
 
-        >>> convolution = ugentools.Convolution.(
+        >>> convolution = ugentools.Convolution.ar(
         ...     framesize=512,
-        ...     kernel=None,
-        ...     source=None,
+        ...     kernel=kernel,
+        ...     source=source,
         ...     )
         >>> convolution
+        Convolution.ar()
 
     '''
 
@@ -53,8 +54,8 @@ class Convolution(UGen):
     def ar(
         cls,
         framesize=512,
-        kernel=None,
-        source=None,
+        kernel=kernel,
+        source=source,
         ):
         r'''Constructs an audio-rate Convolution.
 
@@ -62,10 +63,11 @@ class Convolution(UGen):
 
             >>> convolution = ugentools.Convolution.ar(
             ...     framesize=512,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     )
             >>> convolution
+            Convolution.ar()
 
         Returns ugen graph.
         '''
@@ -89,10 +91,11 @@ class Convolution(UGen):
 
             >>> convolution = ugentools.Convolution.ar(
             ...     framesize=512,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     )
             >>> convolution.framesize
+            512.0
 
         Returns ugen input.
         '''
@@ -107,8 +110,8 @@ class Convolution(UGen):
 
             >>> convolution = ugentools.Convolution.ar(
             ...     framesize=512,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     )
             >>> convolution.kernel
 
@@ -125,8 +128,8 @@ class Convolution(UGen):
 
             >>> convolution = ugentools.Convolution.ar(
             ...     framesize=512,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     )
             >>> convolution.source
 

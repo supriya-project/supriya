@@ -7,15 +7,16 @@ class PanAz(MultiOutUGen):
 
     ::
 
-        >>> pan_az = ugentools.PanAz.(
-        ...     channel_count=None,
+        >>> pan_az = ugentools.PanAz.ar(
+        ...     channel_count=channel_count,
         ...     level=1,
         ...     orientation=0.5,
         ...     pos=0,
-        ...     source=None,
+        ...     source=source,
         ...     width=2,
         ...     )
         >>> pan_az
+        PanAz.ar()
 
     '''
 
@@ -64,11 +65,11 @@ class PanAz(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        channel_count=None,
+        channel_count=channel_count,
         level=1,
         orientation=0.5,
         pos=0,
-        source=None,
+        source=source,
         width=2,
         ):
         r'''Constructs an audio-rate PanAz.
@@ -76,14 +77,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az
+            PanAz.ar()
 
         Returns ugen graph.
         '''
@@ -103,11 +105,11 @@ class PanAz(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        channel_count=None,
+        channel_count=channel_count,
         level=1,
         orientation=0.5,
         pos=0,
-        source=None,
+        source=source,
         width=2,
         ):
         r'''Constructs a control-rate PanAz.
@@ -115,14 +117,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.kr(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az
+            PanAz.kr()
 
         Returns ugen graph.
         '''
@@ -150,11 +153,11 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.channel_count
@@ -171,14 +174,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.level
+            1.0
 
         Returns ugen input.
         '''
@@ -192,14 +196,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.orientation
+            0.5
 
         Returns ugen input.
         '''
@@ -213,14 +218,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.pos
+            0.0
 
         Returns ugen input.
         '''
@@ -234,11 +240,11 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.source
@@ -255,14 +261,15 @@ class PanAz(MultiOutUGen):
         ::
 
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     level=1,
             ...     orientation=0.5,
             ...     pos=0,
-            ...     source=None,
+            ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az.width
+            2.0
 
         Returns ugen input.
         '''

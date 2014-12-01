@@ -7,14 +7,15 @@ class CombFormlet(Filter):
 
     ::
 
-        >>> comb_formlet = ugentools.CombFormlet.(
+        >>> comb_formlet = ugentools.CombFormlet.ar(
         ...     attack_time=1,
         ...     decay_time=1,
         ...     frequency=440,
         ...     min_frequency=20,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> comb_formlet
+        CombFormlet.ar()
 
     '''
 
@@ -64,7 +65,7 @@ class CombFormlet(Filter):
         decay_time=1,
         frequency=440,
         min_frequency=20,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate CombFormlet.
 
@@ -75,9 +76,10 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet
+            CombFormlet.ar()
 
         Returns ugen graph.
         '''
@@ -118,9 +120,10 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet.attack_time
+            1.0
 
         Returns ugen input.
         '''
@@ -138,9 +141,10 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet.decay_time
+            1.0
 
         Returns ugen input.
         '''
@@ -158,9 +162,10 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -178,9 +183,10 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet.min_frequency
+            20.0
 
         Returns ugen input.
         '''
@@ -198,7 +204,7 @@ class CombFormlet(Filter):
             ...     decay_time=1,
             ...     frequency=440,
             ...     min_frequency=20,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> comb_formlet.source
 

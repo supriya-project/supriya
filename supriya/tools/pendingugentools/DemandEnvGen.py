@@ -7,12 +7,12 @@ class DemandEnvGen(UGen):
 
     ::
 
-        >>> demand_env_gen = ugentools.DemandEnvGen.(
+        >>> demand_env_gen = ugentools.DemandEnvGen.ar(
         ...     curve=0,
         ...     done_action=0,
-        ...     duration=None,
+        ...     duration=duration,
         ...     gate=1,
-        ...     level=None,
+        ...     level=level,
         ...     level_bias=0,
         ...     level_scale=1,
         ...     reset=1,
@@ -20,6 +20,7 @@ class DemandEnvGen(UGen):
         ...     time_scale=1,
         ...     )
         >>> demand_env_gen
+        DemandEnvGen.ar()
 
     '''
 
@@ -82,9 +83,9 @@ class DemandEnvGen(UGen):
         cls,
         curve=0,
         done_action=0,
-        duration=None,
+        duration=duration,
         gate=1,
-        level=None,
+        level=level,
         level_bias=0,
         level_scale=1,
         reset=1,
@@ -98,9 +99,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -108,6 +109,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen
+            DemandEnvGen.ar()
 
         Returns ugen graph.
         '''
@@ -133,9 +135,9 @@ class DemandEnvGen(UGen):
         cls,
         curve=0,
         done_action=0,
-        duration=None,
+        duration=duration,
         gate=1,
-        level=None,
+        level=level,
         level_bias=0,
         level_scale=1,
         reset=1,
@@ -149,9 +151,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.kr(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -159,6 +161,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen
+            DemandEnvGen.kr()
 
         Returns ugen graph.
         '''
@@ -190,9 +193,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -200,6 +203,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.curve
+            0.0
 
         Returns ugen input.
         '''
@@ -215,9 +219,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -225,6 +229,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.done_action
+            0.0
 
         Returns ugen input.
         '''
@@ -240,9 +245,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -265,9 +270,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -275,6 +280,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.gate
+            1.0
 
         Returns ugen input.
         '''
@@ -290,9 +296,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -315,9 +321,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -325,6 +331,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.level_bias
+            0.0
 
         Returns ugen input.
         '''
@@ -340,9 +347,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -350,6 +357,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.level_scale
+            1.0
 
         Returns ugen input.
         '''
@@ -365,9 +373,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -375,6 +383,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.reset
+            1.0
 
         Returns ugen input.
         '''
@@ -390,9 +399,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -400,6 +409,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.shape
+            1.0
 
         Returns ugen input.
         '''
@@ -415,9 +425,9 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen = ugentools.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
-            ...     duration=None,
+            ...     duration=duration,
             ...     gate=1,
-            ...     level=None,
+            ...     level=level,
             ...     level_bias=0,
             ...     level_scale=1,
             ...     reset=1,
@@ -425,6 +435,7 @@ class DemandEnvGen(UGen):
             ...     time_scale=1,
             ...     )
             >>> demand_env_gen.time_scale
+            1.0
 
         Returns ugen input.
         '''

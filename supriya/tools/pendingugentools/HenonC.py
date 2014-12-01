@@ -7,7 +7,7 @@ class HenonC(HenonN):
 
     ::
 
-        >>> henon_c = ugentools.HenonC.(
+        >>> henon_c = ugentools.HenonC.ar(
         ...     a=1.4,
         ...     b=0.3,
         ...     frequency=22050,
@@ -15,6 +15,7 @@ class HenonC(HenonN):
         ...     x_1=0,
         ...     )
         >>> henon_c
+        HenonC.ar()
 
     '''
 
@@ -78,6 +79,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c
+            HenonC.ar()
 
         Returns ugen graph.
         '''
@@ -111,6 +113,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c.a
+            1.4
 
         Returns ugen input.
         '''
@@ -131,6 +134,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c.b
+            0.3
 
         Returns ugen input.
         '''
@@ -151,6 +155,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -171,6 +176,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c.x_0
+            0.0
 
         Returns ugen input.
         '''
@@ -191,6 +197,7 @@ class HenonC(HenonN):
             ...     x_1=0,
             ...     )
             >>> henon_c.x_1
+            0.0
 
         Returns ugen input.
         '''

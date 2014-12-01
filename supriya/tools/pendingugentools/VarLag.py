@@ -7,14 +7,15 @@ class VarLag(Filter):
 
     ::
 
-        >>> var_lag = ugentools.VarLag.(
+        >>> var_lag = ugentools.VarLag.ar(
         ...     curvature=0,
-        ...     source=None,
-        ...     start=None,
+        ...     source=source,
+        ...     start=start,
         ...     time=0.1,
         ...     warp=5,
         ...     )
         >>> var_lag
+        VarLag.ar()
 
     '''
 
@@ -61,8 +62,8 @@ class VarLag(Filter):
     def ar(
         cls,
         curvature=0,
-        source=None,
-        start=None,
+        source=source,
+        start=start,
         time=0.1,
         warp=5,
         ):
@@ -72,12 +73,13 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
             >>> var_lag
+            VarLag.ar()
 
         Returns ugen graph.
         '''
@@ -99,8 +101,8 @@ class VarLag(Filter):
     def kr(
         cls,
         curvature=0,
-        source=None,
-        start=None,
+        source=source,
+        start=start,
         time=0.1,
         warp=5,
         ):
@@ -110,12 +112,13 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.kr(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
             >>> var_lag
+            VarLag.kr()
 
         Returns ugen graph.
         '''
@@ -153,12 +156,13 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
             >>> var_lag.curvature
+            0.0
 
         Returns ugen input.
         '''
@@ -173,8 +177,8 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
@@ -193,8 +197,8 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
@@ -213,12 +217,13 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
             >>> var_lag.time
+            0.1
 
         Returns ugen input.
         '''
@@ -233,12 +238,13 @@ class VarLag(Filter):
 
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
-            ...     source=None,
-            ...     start=None,
+            ...     source=source,
+            ...     start=start,
             ...     time=0.1,
             ...     warp=5,
             ...     )
             >>> var_lag.warp
+            5.0
 
         Returns ugen input.
         '''

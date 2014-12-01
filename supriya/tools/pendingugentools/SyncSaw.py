@@ -7,11 +7,12 @@ class SyncSaw(PureUGen):
 
     ::
 
-        >>> sync_saw = ugentools.SyncSaw.(
+        >>> sync_saw = ugentools.SyncSaw.ar(
         ...     saw_frequency=440,
         ...     sync_frequency=440,
         ...     )
         >>> sync_saw
+        SyncSaw.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class SyncSaw(PureUGen):
             ...     sync_frequency=440,
             ...     )
             >>> sync_saw
+            SyncSaw.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class SyncSaw(PureUGen):
             ...     sync_frequency=440,
             ...     )
             >>> sync_saw
+            SyncSaw.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class SyncSaw(PureUGen):
             ...     sync_frequency=440,
             ...     )
             >>> sync_saw.saw_frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class SyncSaw(PureUGen):
             ...     sync_frequency=440,
             ...     )
             >>> sync_saw.sync_frequency
+            440.0
 
         Returns ugen input.
         '''

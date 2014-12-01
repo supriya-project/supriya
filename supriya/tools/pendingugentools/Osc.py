@@ -7,12 +7,13 @@ class Osc(PureUGen):
 
     ::
 
-        >>> osc = ugentools.Osc.(
-        ...     buffer_id=None,
+        >>> osc = ugentools.Osc.ar(
+        ...     buffer_id=buffer_id,
         ...     frequency=440,
         ...     phase=0,
         ...     )
         >>> osc
+        Osc.ar()
 
     '''
 
@@ -52,7 +53,7 @@ class Osc(PureUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         frequency=440,
         phase=0,
         ):
@@ -61,11 +62,12 @@ class Osc(PureUGen):
         ::
 
             >>> osc = ugentools.Osc.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> osc
+            Osc.ar()
 
         Returns ugen graph.
         '''
@@ -82,7 +84,7 @@ class Osc(PureUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         frequency=440,
         phase=0,
         ):
@@ -91,11 +93,12 @@ class Osc(PureUGen):
         ::
 
             >>> osc = ugentools.Osc.kr(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> osc
+            Osc.kr()
 
         Returns ugen graph.
         '''
@@ -118,7 +121,7 @@ class Osc(PureUGen):
         ::
 
             >>> osc = ugentools.Osc.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -136,11 +139,12 @@ class Osc(PureUGen):
         ::
 
             >>> osc = ugentools.Osc.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> osc.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -154,11 +158,12 @@ class Osc(PureUGen):
         ::
 
             >>> osc = ugentools.Osc.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> osc.phase
+            0.0
 
         Returns ugen input.
         '''

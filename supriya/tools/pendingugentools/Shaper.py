@@ -7,11 +7,12 @@ class Shaper(Index):
 
     ::
 
-        >>> shaper = ugentools.Shaper.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> shaper = ugentools.Shaper.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> shaper
+        Shaper.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class Shaper(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate Shaper.
 
         ::
 
             >>> shaper = ugentools.Shaper.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> shaper
+            Shaper.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class Shaper(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate Shaper.
 
         ::
 
             >>> shaper = ugentools.Shaper.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> shaper
+            Shaper.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class Shaper(Index):
         ::
 
             >>> shaper = ugentools.Shaper.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> shaper.buffer_id
 
@@ -125,8 +128,8 @@ class Shaper(Index):
         ::
 
             >>> shaper = ugentools.Shaper.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> shaper.source
 

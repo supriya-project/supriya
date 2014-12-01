@@ -7,14 +7,15 @@ class DynKlank(UGen):
 
     ::
 
-        >>> dyn_klank = ugentools.DynKlank.(
+        >>> dyn_klank = ugentools.DynKlank.ar(
         ...     decayscale=1,
         ...     freqoffset=0,
         ...     freqscale=1,
-        ...     input=None,
-        ...     specifications_array_ref=None,
+        ...     input=input,
+        ...     specifications_array_ref=specifications_array_ref,
         ...     )
         >>> dyn_klank
+        DynKlank.ar()
 
     '''
 
@@ -63,8 +64,8 @@ class DynKlank(UGen):
         decayscale=1,
         freqoffset=0,
         freqscale=1,
-        input=None,
-        specifications_array_ref=None,
+        input=input,
+        specifications_array_ref=specifications_array_ref,
         ):
         r'''Constructs an audio-rate DynKlank.
 
@@ -74,10 +75,11 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank
+            DynKlank.ar()
 
         Returns ugen graph.
         '''
@@ -99,8 +101,8 @@ class DynKlank(UGen):
         decayscale=1,
         freqoffset=0,
         freqscale=1,
-        input=None,
-        specifications_array_ref=None,
+        input=input,
+        specifications_array_ref=specifications_array_ref,
         ):
         r'''Constructs a control-rate DynKlank.
 
@@ -110,10 +112,11 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank
+            DynKlank.kr()
 
         Returns ugen graph.
         '''
@@ -143,10 +146,11 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank.decayscale
+            1.0
 
         Returns ugen input.
         '''
@@ -163,10 +167,11 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank.freqoffset
+            0.0
 
         Returns ugen input.
         '''
@@ -183,10 +188,11 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank.freqscale
+            1.0
 
         Returns ugen input.
         '''
@@ -203,8 +209,8 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank.input
 
@@ -223,8 +229,8 @@ class DynKlank(UGen):
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
-            ...     input=None,
-            ...     specifications_array_ref=None,
+            ...     input=input,
+            ...     specifications_array_ref=specifications_array_ref,
             ...     )
             >>> dyn_klank.specifications_array_ref
 

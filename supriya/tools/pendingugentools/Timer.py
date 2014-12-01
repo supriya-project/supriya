@@ -7,10 +7,11 @@ class Timer(UGen):
 
     ::
 
-        >>> timer = ugentools.Timer.(
+        >>> timer = ugentools.Timer.ar(
         ...     trigger=0,
         ...     )
         >>> timer
+        Timer.ar()
 
     '''
 
@@ -54,6 +55,7 @@ class Timer(UGen):
             ...     trigger=0,
             ...     )
             >>> timer
+            Timer.ar()
 
         Returns ugen graph.
         '''
@@ -78,6 +80,7 @@ class Timer(UGen):
             ...     trigger=0,
             ...     )
             >>> timer
+            Timer.kr()
 
         Returns ugen graph.
         '''
@@ -101,6 +104,7 @@ class Timer(UGen):
             ...     trigger=0,
             ...     )
             >>> timer.trigger
+            0.0
 
         Returns ugen input.
         '''

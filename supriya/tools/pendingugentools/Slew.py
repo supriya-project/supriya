@@ -7,12 +7,13 @@ class Slew(Filter):
 
     ::
 
-        >>> slew = ugentools.Slew.(
+        >>> slew = ugentools.Slew.ar(
         ...     dn=1,
-        ...     source=None,
+        ...     source=source,
         ...     up=1,
         ...     )
         >>> slew
+        Slew.ar()
 
     '''
 
@@ -53,7 +54,7 @@ class Slew(Filter):
     def ar(
         cls,
         dn=1,
-        source=None,
+        source=source,
         up=1,
         ):
         r'''Constructs an audio-rate Slew.
@@ -62,10 +63,11 @@ class Slew(Filter):
 
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
-            ...     source=None,
+            ...     source=source,
             ...     up=1,
             ...     )
             >>> slew
+            Slew.ar()
 
         Returns ugen graph.
         '''
@@ -85,7 +87,7 @@ class Slew(Filter):
     def kr(
         cls,
         dn=1,
-        source=None,
+        source=source,
         up=1,
         ):
         r'''Constructs a control-rate Slew.
@@ -94,10 +96,11 @@ class Slew(Filter):
 
             >>> slew = ugentools.Slew.kr(
             ...     dn=1,
-            ...     source=None,
+            ...     source=source,
             ...     up=1,
             ...     )
             >>> slew
+            Slew.kr()
 
         Returns ugen graph.
         '''
@@ -131,10 +134,11 @@ class Slew(Filter):
 
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
-            ...     source=None,
+            ...     source=source,
             ...     up=1,
             ...     )
             >>> slew.dn
+            1.0
 
         Returns ugen input.
         '''
@@ -149,7 +153,7 @@ class Slew(Filter):
 
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
-            ...     source=None,
+            ...     source=source,
             ...     up=1,
             ...     )
             >>> slew.source
@@ -167,10 +171,11 @@ class Slew(Filter):
 
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
-            ...     source=None,
+            ...     source=source,
             ...     up=1,
             ...     )
             >>> slew.up
+            1.0
 
         Returns ugen input.
         '''

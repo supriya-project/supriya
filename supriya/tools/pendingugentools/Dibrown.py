@@ -7,13 +7,14 @@ class Dibrown(Dbrown):
 
     ::
 
-        >>> dibrown = ugentools.Dibrown.(
+        >>> dibrown = ugentools.Dibrown.ar(
         ...     length="float('inf')",
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
         ...     )
         >>> dibrown
+        Dibrown.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class Dibrown(Dbrown):
             ...     step=0.01,
             ...     )
             >>> dibrown
+            Dibrown.new()
 
         Returns ugen graph.
         '''
@@ -120,6 +122,7 @@ class Dibrown(Dbrown):
             ...     step=0.01,
             ...     )
             >>> dibrown.maximum
+            1.0
 
         Returns ugen input.
         '''
@@ -139,6 +142,7 @@ class Dibrown(Dbrown):
             ...     step=0.01,
             ...     )
             >>> dibrown.minimum
+            0.0
 
         Returns ugen input.
         '''
@@ -158,6 +162,7 @@ class Dibrown(Dbrown):
             ...     step=0.01,
             ...     )
             >>> dibrown.step
+            0.01
 
         Returns ugen input.
         '''

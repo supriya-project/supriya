@@ -7,7 +7,7 @@ class Pitch(MultiOutUGen):
 
     ::
 
-        >>> pitch = ugentools.Pitch.(
+        >>> pitch = ugentools.Pitch.ar(
         ...     amp_threshold=0.01,
         ...     clar=0,
         ...     down_sample=1,
@@ -18,9 +18,10 @@ class Pitch(MultiOutUGen):
         ...     median=1,
         ...     min_frequency=60,
         ...     peak_threshold=0.5,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> pitch
+        Pitch.ar()
 
     '''
 
@@ -94,7 +95,7 @@ class Pitch(MultiOutUGen):
         median=1,
         min_frequency=60,
         peak_threshold=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Pitch.
 
@@ -111,9 +112,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch
+            Pitch.kr()
 
         Returns ugen graph.
         '''
@@ -156,9 +158,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.amp_threshold
+            0.01
 
         Returns ugen input.
         '''
@@ -182,9 +185,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.clar
+            0.0
 
         Returns ugen input.
         '''
@@ -208,9 +212,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.down_sample
+            1.0
 
         Returns ugen input.
         '''
@@ -234,9 +239,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.exec_frequency
+            100.0
 
         Returns ugen input.
         '''
@@ -260,9 +266,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.init_frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -286,9 +293,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.max_bins_per_octave
+            16.0
 
         Returns ugen input.
         '''
@@ -312,9 +320,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.max_frequency
+            4000.0
 
         Returns ugen input.
         '''
@@ -338,9 +347,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.median
+            1.0
 
         Returns ugen input.
         '''
@@ -364,9 +374,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.min_frequency
+            60.0
 
         Returns ugen input.
         '''
@@ -390,9 +401,10 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.peak_threshold
+            0.5
 
         Returns ugen input.
         '''
@@ -416,7 +428,7 @@ class Pitch(MultiOutUGen):
             ...     median=1,
             ...     min_frequency=60,
             ...     peak_threshold=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> pitch.source
 

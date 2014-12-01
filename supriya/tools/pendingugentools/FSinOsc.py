@@ -7,11 +7,12 @@ class FSinOsc(UGen):
 
     ::
 
-        >>> fsin_osc = ugentools.FSinOsc.(
+        >>> fsin_osc = ugentools.FSinOsc.ar(
         ...     frequency=440,
         ...     initial_phase=0,
         ...     )
         >>> fsin_osc
+        FSinOsc.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class FSinOsc(UGen):
             ...     initial_phase=0,
             ...     )
             >>> fsin_osc
+            FSinOsc.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class FSinOsc(UGen):
             ...     initial_phase=0,
             ...     )
             >>> fsin_osc
+            FSinOsc.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class FSinOsc(UGen):
             ...     initial_phase=0,
             ...     )
             >>> fsin_osc.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class FSinOsc(UGen):
             ...     initial_phase=0,
             ...     )
             >>> fsin_osc.initial_phase
+            0.0
 
         Returns ugen input.
         '''

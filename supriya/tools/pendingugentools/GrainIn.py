@@ -7,16 +7,17 @@ class GrainIn(MultiOutUGen):
 
     ::
 
-        >>> grain_in = ugentools.GrainIn.(
+        >>> grain_in = ugentools.GrainIn.ar(
         ...     channel_count=1,
         ...     duration=1,
         ...     envbufnum=-1,
         ...     max_grains=512,
         ...     pan=0,
-        ...     source=None,
+        ...     source=source,
         ...     trigger=0,
         ...     )
         >>> grain_in
+        GrainIn.ar()
 
     '''
 
@@ -73,7 +74,7 @@ class GrainIn(MultiOutUGen):
         envbufnum=-1,
         max_grains=512,
         pan=0,
-        source=None,
+        source=source,
         trigger=0,
         ):
         r'''Constructs an audio-rate GrainIn.
@@ -86,10 +87,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in
+            GrainIn.ar()
 
         Returns ugen graph.
         '''
@@ -123,10 +125,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -145,10 +148,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -167,10 +171,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.envbufnum
+            -1.0
 
         Returns ugen input.
         '''
@@ -189,10 +194,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.max_grains
+            512.0
 
         Returns ugen input.
         '''
@@ -211,10 +217,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.pan
+            0.0
 
         Returns ugen input.
         '''
@@ -233,7 +240,7 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.source
@@ -255,10 +262,11 @@ class GrainIn(MultiOutUGen):
             ...     envbufnum=-1,
             ...     max_grains=512,
             ...     pan=0,
-            ...     source=None,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> grain_in.trigger
+            0.0
 
         Returns ugen input.
         '''

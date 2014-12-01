@@ -7,11 +7,12 @@ class Dswitch(Dswitch1):
 
     ::
 
-        >>> dswitch = ugentools.Dswitch.(
-        ...     index=None,
-        ...     sequence=None,
+        >>> dswitch = ugentools.Dswitch.ar(
+        ...     index=index,
+        ...     sequence=sequence,
         ...     )
         >>> dswitch
+        Dswitch.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class Dswitch(Dswitch1):
     @classmethod
     def new(
         cls,
-        index=None,
-        sequence=None,
+        index=index,
+        sequence=sequence,
         ):
         r'''Constructs a Dswitch.
 
         ::
 
             >>> dswitch = ugentools.Dswitch.new(
-            ...     index=None,
-            ...     sequence=None,
+            ...     index=index,
+            ...     sequence=sequence,
             ...     )
             >>> dswitch
+            Dswitch.new()
 
         Returns ugen graph.
         '''
@@ -81,8 +83,8 @@ class Dswitch(Dswitch1):
         ::
 
             >>> dswitch = ugentools.Dswitch.ar(
-            ...     index=None,
-            ...     sequence=None,
+            ...     index=index,
+            ...     sequence=sequence,
             ...     )
             >>> dswitch.index
 
@@ -98,8 +100,8 @@ class Dswitch(Dswitch1):
         ::
 
             >>> dswitch = ugentools.Dswitch.ar(
-            ...     index=None,
-            ...     sequence=None,
+            ...     index=index,
+            ...     sequence=sequence,
             ...     )
             >>> dswitch.sequence
 

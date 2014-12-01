@@ -7,11 +7,12 @@ class OnePole(Filter):
 
     ::
 
-        >>> one_pole = ugentools.OnePole.(
+        >>> one_pole = ugentools.OnePole.ar(
         ...     coefficient=0.5,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> one_pole
+        OnePole.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class OnePole(Filter):
     def ar(
         cls,
         coefficient=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate OnePole.
 
@@ -57,9 +58,10 @@ class OnePole(Filter):
 
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_pole
+            OnePole.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class OnePole(Filter):
     def kr(
         cls,
         coefficient=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate OnePole.
 
@@ -86,9 +88,10 @@ class OnePole(Filter):
 
             >>> one_pole = ugentools.OnePole.kr(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_pole
+            OnePole.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class OnePole(Filter):
 
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_pole.coefficient
+            0.5
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class OnePole(Filter):
 
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> one_pole.source
 

@@ -7,7 +7,7 @@ class LatoocarfianC(LatoocarfianN):
 
     ::
 
-        >>> latoocarfian_c = ugentools.LatoocarfianC.(
+        >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
         ...     a=1,
         ...     b=3,
         ...     c=0.5,
@@ -17,6 +17,7 @@ class LatoocarfianC(LatoocarfianN):
         ...     yi=0.5,
         ...     )
         >>> latoocarfian_c
+        LatoocarfianC.ar()
 
     '''
 
@@ -90,6 +91,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c
+            LatoocarfianC.ar()
 
         Returns ugen graph.
         '''
@@ -127,6 +129,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.a
+            1.0
 
         Returns ugen input.
         '''
@@ -149,6 +152,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.b
+            3.0
 
         Returns ugen input.
         '''
@@ -171,6 +175,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.c
+            0.5
 
         Returns ugen input.
         '''
@@ -193,6 +198,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.d
+            0.5
 
         Returns ugen input.
         '''
@@ -215,6 +221,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -237,6 +244,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.xi
+            0.5
 
         Returns ugen input.
         '''
@@ -259,6 +267,7 @@ class LatoocarfianC(LatoocarfianN):
             ...     yi=0.5,
             ...     )
             >>> latoocarfian_c.yi
+            0.5
 
         Returns ugen input.
         '''

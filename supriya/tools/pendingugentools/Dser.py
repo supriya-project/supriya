@@ -7,11 +7,12 @@ class Dser(ListDUGen):
 
     ::
 
-        >>> dser = ugentools.Dser.(
+        >>> dser = ugentools.Dser.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> dser
+        Dser.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Dser(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a Dser.
 
@@ -57,9 +58,10 @@ class Dser(ListDUGen):
 
             >>> dser = ugentools.Dser.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dser
+            Dser.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Dser(ListDUGen):
 
             >>> dser = ugentools.Dser.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dser.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Dser(ListDUGen):
 
             >>> dser = ugentools.Dser.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dser.sequence
 

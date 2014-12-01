@@ -7,7 +7,7 @@ class GrainBuf(MultiOutUGen):
 
     ::
 
-        >>> grain_buf = ugentools.GrainBuf.(
+        >>> grain_buf = ugentools.GrainBuf.ar(
         ...     channel_count=1,
         ...     duration=1,
         ...     envbufnum=-1,
@@ -16,10 +16,11 @@ class GrainBuf(MultiOutUGen):
         ...     pan=0,
         ...     pos=0,
         ...     rate=1,
-        ...     sndbuf=None,
+        ...     sndbuf=sndbuf,
         ...     trigger=0,
         ...     )
         >>> grain_buf
+        GrainBuf.ar()
 
     '''
 
@@ -88,7 +89,7 @@ class GrainBuf(MultiOutUGen):
         pan=0,
         pos=0,
         rate=1,
-        sndbuf=None,
+        sndbuf=sndbuf,
         trigger=0,
         ):
         r'''Constructs an audio-rate GrainBuf.
@@ -104,10 +105,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf
+            GrainBuf.ar()
 
         Returns ugen graph.
         '''
@@ -147,10 +149,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -172,10 +175,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -197,10 +201,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.envbufnum
+            -1.0
 
         Returns ugen input.
         '''
@@ -222,10 +227,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.interpolate
+            2.0
 
         Returns ugen input.
         '''
@@ -247,10 +253,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.max_grains
+            512.0
 
         Returns ugen input.
         '''
@@ -272,10 +279,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.pan
+            0.0
 
         Returns ugen input.
         '''
@@ -297,10 +305,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.pos
+            0.0
 
         Returns ugen input.
         '''
@@ -322,10 +331,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -347,7 +357,7 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.sndbuf
@@ -372,10 +382,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     pos=0,
             ...     rate=1,
-            ...     sndbuf=None,
+            ...     sndbuf=sndbuf,
             ...     trigger=0,
             ...     )
             >>> grain_buf.trigger
+            0.0
 
         Returns ugen input.
         '''

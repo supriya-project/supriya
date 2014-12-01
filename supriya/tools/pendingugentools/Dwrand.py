@@ -7,12 +7,13 @@ class Dwrand(DUGen):
 
     ::
 
-        >>> dwrand = ugentools.Dwrand.(
+        >>> dwrand = ugentools.Dwrand.ar(
         ...     repeats=1,
-        ...     sequence=None,
-        ...     weights=None,
+        ...     sequence=sequence,
+        ...     weights=weights,
         ...     )
         >>> dwrand
+        Dwrand.ar()
 
     '''
 
@@ -53,8 +54,8 @@ class Dwrand(DUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
-        weights=None,
+        sequence=sequence,
+        weights=weights,
         ):
         r'''Constructs a Dwrand.
 
@@ -62,10 +63,11 @@ class Dwrand(DUGen):
 
             >>> dwrand = ugentools.Dwrand.new(
             ...     repeats=1,
-            ...     sequence=None,
-            ...     weights=None,
+            ...     sequence=sequence,
+            ...     weights=weights,
             ...     )
             >>> dwrand
+            Dwrand.new()
 
         Returns ugen graph.
         '''
@@ -89,10 +91,11 @@ class Dwrand(DUGen):
 
             >>> dwrand = ugentools.Dwrand.ar(
             ...     repeats=1,
-            ...     sequence=None,
-            ...     weights=None,
+            ...     sequence=sequence,
+            ...     weights=weights,
             ...     )
             >>> dwrand.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -107,8 +110,8 @@ class Dwrand(DUGen):
 
             >>> dwrand = ugentools.Dwrand.ar(
             ...     repeats=1,
-            ...     sequence=None,
-            ...     weights=None,
+            ...     sequence=sequence,
+            ...     weights=weights,
             ...     )
             >>> dwrand.sequence
 
@@ -125,8 +128,8 @@ class Dwrand(DUGen):
 
             >>> dwrand = ugentools.Dwrand.ar(
             ...     repeats=1,
-            ...     sequence=None,
-            ...     weights=None,
+            ...     sequence=sequence,
+            ...     weights=weights,
             ...     )
             >>> dwrand.weights
 

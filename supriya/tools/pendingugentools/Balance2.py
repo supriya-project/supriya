@@ -7,13 +7,14 @@ class Balance2(MultiOutUGen):
 
     ::
 
-        >>> balance_2 = ugentools.Balance2.(
-        ...     left=None,
+        >>> balance_2 = ugentools.Balance2.ar(
+        ...     left=left,
         ...     level=1,
         ...     pos=0,
-        ...     right=None,
+        ...     right=right,
         ...     )
         >>> balance_2
+        Balance2.ar()
 
     '''
 
@@ -56,22 +57,23 @@ class Balance2(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        left=None,
+        left=left,
         level=1,
         pos=0,
-        right=None,
+        right=right,
         ):
         r'''Constructs an audio-rate Balance2.
 
         ::
 
             >>> balance_2 = ugentools.Balance2.ar(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2
+            Balance2.ar()
 
         Returns ugen graph.
         '''
@@ -89,22 +91,23 @@ class Balance2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        left=None,
+        left=left,
         level=1,
         pos=0,
-        right=None,
+        right=right,
         ):
         r'''Constructs a control-rate Balance2.
 
         ::
 
             >>> balance_2 = ugentools.Balance2.kr(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2
+            Balance2.kr()
 
         Returns ugen graph.
         '''
@@ -130,10 +133,10 @@ class Balance2(MultiOutUGen):
         ::
 
             >>> balance_2 = ugentools.Balance2.ar(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2.left
 
@@ -149,12 +152,13 @@ class Balance2(MultiOutUGen):
         ::
 
             >>> balance_2 = ugentools.Balance2.ar(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2.level
+            1.0
 
         Returns ugen input.
         '''
@@ -168,12 +172,13 @@ class Balance2(MultiOutUGen):
         ::
 
             >>> balance_2 = ugentools.Balance2.ar(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2.pos
+            0.0
 
         Returns ugen input.
         '''
@@ -187,10 +192,10 @@ class Balance2(MultiOutUGen):
         ::
 
             >>> balance_2 = ugentools.Balance2.ar(
-            ...     left=None,
+            ...     left=left,
             ...     level=1,
             ...     pos=0,
-            ...     right=None,
+            ...     right=right,
             ...     )
             >>> balance_2.right
 

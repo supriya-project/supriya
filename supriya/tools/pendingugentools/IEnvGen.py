@@ -7,11 +7,12 @@ class IEnvGen(UGen):
 
     ::
 
-        >>> ienv_gen = ugentools.IEnvGen.(
-        ...     envelope=None,
-        ...     index=None,
+        >>> ienv_gen = ugentools.IEnvGen.ar(
+        ...     envelope=envelope,
+        ...     index=index,
         ...     )
         >>> ienv_gen
+        IEnvGen.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class IEnvGen(UGen):
     @classmethod
     def ar(
         cls,
-        envelope=None,
-        index=None,
+        envelope=envelope,
+        index=index,
         ):
         r'''Constructs an audio-rate IEnvGen.
 
         ::
 
             >>> ienv_gen = ugentools.IEnvGen.ar(
-            ...     envelope=None,
-            ...     index=None,
+            ...     envelope=envelope,
+            ...     index=index,
             ...     )
             >>> ienv_gen
+            IEnvGen.ar()
 
         Returns ugen graph.
         '''
@@ -77,18 +79,19 @@ class IEnvGen(UGen):
     @classmethod
     def kr(
         cls,
-        envelope=None,
-        index=None,
+        envelope=envelope,
+        index=index,
         ):
         r'''Constructs a control-rate IEnvGen.
 
         ::
 
             >>> ienv_gen = ugentools.IEnvGen.kr(
-            ...     envelope=None,
-            ...     index=None,
+            ...     envelope=envelope,
+            ...     index=index,
             ...     )
             >>> ienv_gen
+            IEnvGen.kr()
 
         Returns ugen graph.
         '''
@@ -112,8 +115,8 @@ class IEnvGen(UGen):
         ::
 
             >>> ienv_gen = ugentools.IEnvGen.ar(
-            ...     envelope=None,
-            ...     index=None,
+            ...     envelope=envelope,
+            ...     index=index,
             ...     )
             >>> ienv_gen.envelope
 
@@ -129,8 +132,8 @@ class IEnvGen(UGen):
         ::
 
             >>> ienv_gen = ugentools.IEnvGen.ar(
-            ...     envelope=None,
-            ...     index=None,
+            ...     envelope=envelope,
+            ...     index=index,
             ...     )
             >>> ienv_gen.index
 

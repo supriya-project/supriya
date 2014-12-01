@@ -7,7 +7,7 @@ class Vibrato(PureUGen):
 
     ::
 
-        >>> vibrato = ugentools.Vibrato.(
+        >>> vibrato = ugentools.Vibrato.ar(
         ...     delay=0,
         ...     depth=0.02,
         ...     depth_variation=0.1,
@@ -18,6 +18,7 @@ class Vibrato(PureUGen):
         ...     rate_variation=0.04,
         ...     )
         >>> vibrato
+        Vibrato.ar()
 
     '''
 
@@ -96,6 +97,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato
+            Vibrato.ar()
 
         Returns ugen graph.
         '''
@@ -141,6 +143,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato
+            Vibrato.kr()
 
         Returns ugen graph.
         '''
@@ -178,6 +181,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.delay
+            0.0
 
         Returns ugen input.
         '''
@@ -201,6 +205,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.depth
+            0.02
 
         Returns ugen input.
         '''
@@ -224,6 +229,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.depth_variation
+            0.1
 
         Returns ugen input.
         '''
@@ -247,6 +253,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -270,6 +277,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.initial_phase
+            0.0
 
         Returns ugen input.
         '''
@@ -293,6 +301,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.onset
+            0.0
 
         Returns ugen input.
         '''
@@ -316,6 +325,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.rate
+            6.0
 
         Returns ugen input.
         '''
@@ -339,6 +349,7 @@ class Vibrato(PureUGen):
             ...     rate_variation=0.04,
             ...     )
             >>> vibrato.rate_variation
+            0.04
 
         Returns ugen input.
         '''

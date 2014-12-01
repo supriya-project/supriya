@@ -7,11 +7,12 @@ class Dxrand(ListDUGen):
 
     ::
 
-        >>> dxrand = ugentools.Dxrand.(
+        >>> dxrand = ugentools.Dxrand.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> dxrand
+        Dxrand.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Dxrand(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a Dxrand.
 
@@ -57,9 +58,10 @@ class Dxrand(ListDUGen):
 
             >>> dxrand = ugentools.Dxrand.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dxrand
+            Dxrand.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Dxrand(ListDUGen):
 
             >>> dxrand = ugentools.Dxrand.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dxrand.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Dxrand(ListDUGen):
 
             >>> dxrand = ugentools.Dxrand.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dxrand.sequence
 

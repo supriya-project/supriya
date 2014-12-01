@@ -7,14 +7,15 @@ class BufRd(MultiOutUGen):
 
     ::
 
-        >>> buf_rd = ugentools.BufRd.(
+        >>> buf_rd = ugentools.BufRd.ar(
         ...     buffer_id=0,
-        ...     channel_count=None,
+        ...     channel_count=channel_count,
         ...     interpolation=2,
         ...     loop=1,
         ...     phase=0,
         ...     )
         >>> buf_rd
+        BufRd.ar()
 
     '''
 
@@ -61,7 +62,7 @@ class BufRd(MultiOutUGen):
     def ar(
         cls,
         buffer_id=0,
-        channel_count=None,
+        channel_count=channel_count,
         interpolation=2,
         loop=1,
         phase=0,
@@ -72,12 +73,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd
+            BufRd.ar()
 
         Returns ugen graph.
         '''
@@ -97,7 +99,7 @@ class BufRd(MultiOutUGen):
     def kr(
         cls,
         buffer_id=0,
-        channel_count=None,
+        channel_count=channel_count,
         interpolation=2,
         loop=1,
         phase=0,
@@ -108,12 +110,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.kr(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd
+            BufRd.kr()
 
         Returns ugen graph.
         '''
@@ -141,12 +144,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -161,7 +165,7 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
@@ -181,12 +185,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd.interpolation
+            2.0
 
         Returns ugen input.
         '''
@@ -201,12 +206,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd.loop
+            1.0
 
         Returns ugen input.
         '''
@@ -221,12 +227,13 @@ class BufRd(MultiOutUGen):
 
             >>> buf_rd = ugentools.BufRd.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     interpolation=2,
             ...     loop=1,
             ...     phase=0,
             ...     )
             >>> buf_rd.phase
+            0.0
 
         Returns ugen input.
         '''

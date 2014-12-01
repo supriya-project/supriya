@@ -7,11 +7,12 @@ class Dshuf(ListDUGen):
 
     ::
 
-        >>> dshuf = ugentools.Dshuf.(
+        >>> dshuf = ugentools.Dshuf.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> dshuf
+        Dshuf.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Dshuf(ListDUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a Dshuf.
 
@@ -57,9 +58,10 @@ class Dshuf(ListDUGen):
 
             >>> dshuf = ugentools.Dshuf.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dshuf
+            Dshuf.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class Dshuf(ListDUGen):
 
             >>> dshuf = ugentools.Dshuf.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dshuf.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class Dshuf(ListDUGen):
 
             >>> dshuf = ugentools.Dshuf.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> dshuf.sequence
 

@@ -7,21 +7,22 @@ class BeatTrack2(MultiOutUGen):
 
     ::
 
-        >>> beat_track_2 = ugentools.BeatTrack2.(
-        ...     busindex=None,
+        >>> beat_track_2 = ugentools.BeatTrack2.ar(
+        ...     busindex=busindex,
         ...     lock=0,
-        ...     numfeatures=None,
+        ...     numfeatures=numfeatures,
         ...     phaseaccuracy=0.02,
-        ...     weightingscheme=None,
+        ...     weightingscheme=weightingscheme,
         ...     windowsize=2,
         ...     )
         >>> beat_track_2
+        BeatTrack2.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Machine Listening UGens'
+    __documentation_section__ = None
 
     __slots__ = ()
 
@@ -64,11 +65,11 @@ class BeatTrack2(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        busindex=None,
+        busindex=busindex,
         lock=0,
-        numfeatures=None,
+        numfeatures=numfeatures,
         phaseaccuracy=0.02,
-        weightingscheme=None,
+        weightingscheme=weightingscheme,
         windowsize=2,
         ):
         r'''Constructs a control-rate BeatTrack2.
@@ -76,14 +77,15 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.kr(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2
+            BeatTrack2.kr()
 
         Returns ugen graph.
         '''
@@ -111,11 +113,11 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.busindex
@@ -132,14 +134,15 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.lock
+            0.0
 
         Returns ugen input.
         '''
@@ -153,11 +156,11 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.numfeatures
@@ -174,14 +177,15 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.phaseaccuracy
+            0.02
 
         Returns ugen input.
         '''
@@ -195,11 +199,11 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.weightingscheme
@@ -216,14 +220,15 @@ class BeatTrack2(MultiOutUGen):
         ::
 
             >>> beat_track_2 = ugentools.BeatTrack2.ar(
-            ...     busindex=None,
+            ...     busindex=busindex,
             ...     lock=0,
-            ...     numfeatures=None,
+            ...     numfeatures=numfeatures,
             ...     phaseaccuracy=0.02,
-            ...     weightingscheme=None,
+            ...     weightingscheme=weightingscheme,
             ...     windowsize=2,
             ...     )
             >>> beat_track_2.windowsize
+            2.0
 
         Returns ugen input.
         '''

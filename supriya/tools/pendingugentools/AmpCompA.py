@@ -7,13 +7,14 @@ class AmpCompA(AmpComp):
 
     ::
 
-        >>> amp_comp_a = ugentools.AmpCompA.(
+        >>> amp_comp_a = ugentools.AmpCompA.ar(
         ...     frequency=1000,
         ...     min_amp=0.32,
         ...     root=0,
         ...     root_amp=1,
         ...     )
         >>> amp_comp_a
+        AmpCompA.ar()
 
     '''
 
@@ -72,6 +73,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a
+            AmpCompA.ar()
 
         Returns ugen graph.
         '''
@@ -105,6 +107,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a
+            AmpCompA.ir()
 
         Returns ugen graph.
         '''
@@ -138,6 +141,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a
+            AmpCompA.kr()
 
         Returns ugen graph.
         '''
@@ -167,6 +171,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a.frequency
+            1000.0
 
         Returns ugen input.
         '''
@@ -186,6 +191,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a.min_amp
+            0.32
 
         Returns ugen input.
         '''
@@ -205,6 +211,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a.root
+            0.0
 
         Returns ugen input.
         '''
@@ -224,6 +231,7 @@ class AmpCompA(AmpComp):
             ...     root_amp=1,
             ...     )
             >>> amp_comp_a.root_amp
+            1.0
 
         Returns ugen input.
         '''

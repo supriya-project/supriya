@@ -7,11 +7,12 @@ class T2A(K2A):
 
     ::
 
-        >>> t_2_a = ugentools.T2A.(
+        >>> t_2_a = ugentools.T2A.ar(
         ...     offset=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> t_2_a
+        T2A.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class T2A(K2A):
     def ar(
         cls,
         offset=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate T2A.
 
@@ -57,9 +58,10 @@ class T2A(K2A):
 
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> t_2_a
+            T2A.ar()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class T2A(K2A):
 
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> t_2_a.offset
+            0.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class T2A(K2A):
 
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> t_2_a.source
 

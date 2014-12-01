@@ -7,15 +7,16 @@ class PackFFT(PV_ChainUGen):
 
     ::
 
-        >>> pack_fft = ugentools.PackFFT.(
-        ...     bufsize=None,
-        ...     chain=None,
+        >>> pack_fft = ugentools.PackFFT.ar(
+        ...     bufsize=bufsize,
+        ...     chain=chain,
         ...     frombin=0,
-        ...     magsphases=None,
-        ...     tobin=None,
+        ...     magsphases=magsphases,
+        ...     tobin=tobin,
         ...     zeroothers=0,
         ...     )
         >>> pack_fft
+        PackFFT.ar()
 
     '''
 
@@ -64,11 +65,11 @@ class PackFFT(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        bufsize=None,
-        chain=None,
+        bufsize=bufsize,
+        chain=chain,
         frombin=0,
-        magsphases=None,
-        tobin=None,
+        magsphases=magsphases,
+        tobin=tobin,
         zeroothers=0,
         ):
         r'''Constructs a PackFFT.
@@ -76,14 +77,15 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.new(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft
+            PackFFT.new()
 
         Returns ugen graph.
         '''
@@ -109,11 +111,11 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.bufsize
@@ -130,11 +132,11 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.chain
@@ -151,14 +153,15 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.frombin
+            0.0
 
         Returns ugen input.
         '''
@@ -172,11 +175,11 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.magsphases
@@ -193,11 +196,11 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.tobin
@@ -214,14 +217,15 @@ class PackFFT(PV_ChainUGen):
         ::
 
             >>> pack_fft = ugentools.PackFFT.ar(
-            ...     bufsize=None,
-            ...     chain=None,
+            ...     bufsize=bufsize,
+            ...     chain=chain,
             ...     frombin=0,
-            ...     magsphases=None,
-            ...     tobin=None,
+            ...     magsphases=magsphases,
+            ...     tobin=tobin,
             ...     zeroothers=0,
             ...     )
             >>> pack_fft.zeroothers
+            0.0
 
         Returns ugen input.
         '''

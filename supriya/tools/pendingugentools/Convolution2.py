@@ -7,13 +7,14 @@ class Convolution2(UGen):
 
     ::
 
-        >>> convolution_2 = ugentools.Convolution2.(
+        >>> convolution_2 = ugentools.Convolution2.ar(
         ...     framesize=2048,
-        ...     kernel=None,
-        ...     source=None,
+        ...     kernel=kernel,
+        ...     source=source,
         ...     trigger=0,
         ...     )
         >>> convolution_2
+        Convolution2.ar()
 
     '''
 
@@ -57,8 +58,8 @@ class Convolution2(UGen):
     def ar(
         cls,
         framesize=2048,
-        kernel=None,
-        source=None,
+        kernel=kernel,
+        source=source,
         trigger=0,
         ):
         r'''Constructs an audio-rate Convolution2.
@@ -67,11 +68,12 @@ class Convolution2(UGen):
 
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2
+            Convolution2.ar()
 
         Returns ugen graph.
         '''
@@ -96,11 +98,12 @@ class Convolution2(UGen):
 
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2.framesize
+            2048.0
 
         Returns ugen input.
         '''
@@ -115,8 +118,8 @@ class Convolution2(UGen):
 
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2.kernel
@@ -134,8 +137,8 @@ class Convolution2(UGen):
 
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2.source
@@ -153,11 +156,12 @@ class Convolution2(UGen):
 
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_2.trigger
+            0.0
 
         Returns ugen input.
         '''

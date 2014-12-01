@@ -7,12 +7,13 @@ class GbmanN(ChaosGen):
 
     ::
 
-        >>> gbman_n = ugentools.GbmanN.(
+        >>> gbman_n = ugentools.GbmanN.ar(
         ...     frequency=22050,
         ...     xi=1.2,
         ...     yi=2.1,
         ...     )
         >>> gbman_n
+        GbmanN.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class GbmanN(ChaosGen):
             ...     yi=2.1,
             ...     )
             >>> gbman_n
+            GbmanN.ar()
 
         Returns ugen graph.
         '''
@@ -95,6 +97,7 @@ class GbmanN(ChaosGen):
             ...     yi=2.1,
             ...     )
             >>> gbman_n.frequency
+            22050.0
 
         Returns ugen input.
         '''
@@ -113,6 +116,7 @@ class GbmanN(ChaosGen):
             ...     yi=2.1,
             ...     )
             >>> gbman_n.xi
+            1.2
 
         Returns ugen input.
         '''
@@ -131,6 +135,7 @@ class GbmanN(ChaosGen):
             ...     yi=2.1,
             ...     )
             >>> gbman_n.yi
+            2.1
 
         Returns ugen input.
         '''

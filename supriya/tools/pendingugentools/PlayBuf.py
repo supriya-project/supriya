@@ -7,9 +7,9 @@ class PlayBuf(MultiOutUGen):
 
     ::
 
-        >>> play_buf = ugentools.PlayBuf.(
+        >>> play_buf = ugentools.PlayBuf.ar(
         ...     buffer_id=0,
-        ...     channel_count=None,
+        ...     channel_count=channel_count,
         ...     done_action=0,
         ...     loop=0,
         ...     rate=1,
@@ -17,6 +17,7 @@ class PlayBuf(MultiOutUGen):
         ...     trigger=1,
         ...     )
         >>> play_buf
+        PlayBuf.ar()
 
     '''
 
@@ -69,7 +70,7 @@ class PlayBuf(MultiOutUGen):
     def ar(
         cls,
         buffer_id=0,
-        channel_count=None,
+        channel_count=channel_count,
         done_action=0,
         loop=0,
         rate=1,
@@ -82,7 +83,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -90,6 +91,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf
+            PlayBuf.ar()
 
         Returns ugen graph.
         '''
@@ -111,7 +113,7 @@ class PlayBuf(MultiOutUGen):
     def kr(
         cls,
         buffer_id=0,
-        channel_count=None,
+        channel_count=channel_count,
         done_action=0,
         loop=0,
         rate=1,
@@ -124,7 +126,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.kr(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -132,6 +134,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf
+            PlayBuf.kr()
 
         Returns ugen graph.
         '''
@@ -161,7 +164,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -169,6 +172,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -183,7 +187,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -205,7 +209,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -213,6 +217,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.done_action
+            0.0
 
         Returns ugen input.
         '''
@@ -227,7 +232,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -235,6 +240,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.loop
+            0.0
 
         Returns ugen input.
         '''
@@ -249,7 +255,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -257,6 +263,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -271,7 +278,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -279,6 +286,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.start_pos
+            0.0
 
         Returns ugen input.
         '''
@@ -293,7 +301,7 @@ class PlayBuf(MultiOutUGen):
 
             >>> play_buf = ugentools.PlayBuf.ar(
             ...     buffer_id=0,
-            ...     channel_count=None,
+            ...     channel_count=channel_count,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
@@ -301,6 +309,7 @@ class PlayBuf(MultiOutUGen):
             ...     trigger=1,
             ...     )
             >>> play_buf.trigger
+            1.0
 
         Returns ugen input.
         '''

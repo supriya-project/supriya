@@ -7,12 +7,13 @@ class PulseDivider(UGen):
 
     ::
 
-        >>> pulse_divider = ugentools.PulseDivider.(
+        >>> pulse_divider = ugentools.PulseDivider.ar(
         ...     div=2,
         ...     start=0,
         ...     trigger=0,
         ...     )
         >>> pulse_divider
+        PulseDivider.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class PulseDivider(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_divider
+            PulseDivider.ar()
 
         Returns ugen graph.
         '''
@@ -96,6 +98,7 @@ class PulseDivider(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_divider
+            PulseDivider.kr()
 
         Returns ugen graph.
         '''
@@ -123,6 +126,7 @@ class PulseDivider(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_divider.div
+            2.0
 
         Returns ugen input.
         '''
@@ -141,6 +145,7 @@ class PulseDivider(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_divider.start
+            0.0
 
         Returns ugen input.
         '''
@@ -159,6 +164,7 @@ class PulseDivider(UGen):
             ...     trigger=0,
             ...     )
             >>> pulse_divider.trigger
+            0.0
 
         Returns ugen input.
         '''

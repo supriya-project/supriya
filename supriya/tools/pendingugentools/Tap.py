@@ -7,12 +7,13 @@ class Tap(UGen):
 
     ::
 
-        >>> tap = ugentools.Tap.(
+        >>> tap = ugentools.Tap.ar(
         ...     buffer_id=0,
         ...     channel_count=1,
         ...     delay_time=0.2,
         ...     )
         >>> tap
+        Tap.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Tap(UGen):
             ...     delay_time=0.2,
             ...     )
             >>> tap
+            Tap.ar()
 
         Returns ugen graph.
         '''
@@ -93,6 +95,7 @@ class Tap(UGen):
             ...     delay_time=0.2,
             ...     )
             >>> tap.buffer_id
+            0.0
 
         Returns ugen input.
         '''
@@ -111,6 +114,7 @@ class Tap(UGen):
             ...     delay_time=0.2,
             ...     )
             >>> tap.channel_count
+            1.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Tap(UGen):
             ...     delay_time=0.2,
             ...     )
             >>> tap.delay_time
+            0.2
 
         Returns ugen input.
         '''

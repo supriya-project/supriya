@@ -7,13 +7,14 @@ class Convolution3(UGen):
 
     ::
 
-        >>> convolution_3 = ugentools.Convolution3.(
+        >>> convolution_3 = ugentools.Convolution3.ar(
         ...     framesize=2048,
-        ...     kernel=None,
-        ...     source=None,
+        ...     kernel=kernel,
+        ...     source=source,
         ...     trigger=0,
         ...     )
         >>> convolution_3
+        Convolution3.ar()
 
     '''
 
@@ -57,8 +58,8 @@ class Convolution3(UGen):
     def ar(
         cls,
         framesize=2048,
-        kernel=None,
-        source=None,
+        kernel=kernel,
+        source=source,
         trigger=0,
         ):
         r'''Constructs an audio-rate Convolution3.
@@ -67,11 +68,12 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3
+            Convolution3.ar()
 
         Returns ugen graph.
         '''
@@ -90,8 +92,8 @@ class Convolution3(UGen):
     def kr(
         cls,
         framesize=2048,
-        kernel=None,
-        source=None,
+        kernel=kernel,
+        source=source,
         trigger=0,
         ):
         r'''Constructs a control-rate Convolution3.
@@ -100,11 +102,12 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.kr(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3
+            Convolution3.kr()
 
         Returns ugen graph.
         '''
@@ -129,11 +132,12 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3.framesize
+            2048.0
 
         Returns ugen input.
         '''
@@ -148,8 +152,8 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3.kernel
@@ -167,8 +171,8 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3.source
@@ -186,11 +190,12 @@ class Convolution3(UGen):
 
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
-            ...     kernel=None,
-            ...     source=None,
+            ...     kernel=kernel,
+            ...     source=source,
             ...     trigger=0,
             ...     )
             >>> convolution_3.trigger
+            0.0
 
         Returns ugen input.
         '''

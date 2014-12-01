@@ -7,11 +7,12 @@ class LeastChange(MostChange):
 
     ::
 
-        >>> least_change = ugentools.LeastChange.(
+        >>> least_change = ugentools.LeastChange.ar(
         ...     a=0,
         ...     b=0,
         ...     )
         >>> least_change
+        LeastChange.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class LeastChange(MostChange):
             ...     b=0,
             ...     )
             >>> least_change
+            LeastChange.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class LeastChange(MostChange):
             ...     b=0,
             ...     )
             >>> least_change
+            LeastChange.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class LeastChange(MostChange):
             ...     b=0,
             ...     )
             >>> least_change.a
+            0.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class LeastChange(MostChange):
             ...     b=0,
             ...     )
             >>> least_change.b
+            0.0
 
         Returns ugen input.
         '''

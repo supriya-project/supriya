@@ -7,11 +7,12 @@ class ListDUGen(DUGen):
 
     ::
 
-        >>> list_dugen = ugentools.ListDUGen.(
+        >>> list_dugen = ugentools.ListDUGen.ar(
         ...     repeats=1,
-        ...     sequence=None,
+        ...     sequence=sequence,
         ...     )
         >>> list_dugen
+        ListDUGen.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class ListDUGen(DUGen):
     def new(
         cls,
         repeats=1,
-        sequence=None,
+        sequence=sequence,
         ):
         r'''Constructs a ListDUGen.
 
@@ -57,9 +58,10 @@ class ListDUGen(DUGen):
 
             >>> list_dugen = ugentools.ListDUGen.new(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> list_dugen
+            ListDUGen.new()
 
         Returns ugen graph.
         '''
@@ -82,9 +84,10 @@ class ListDUGen(DUGen):
 
             >>> list_dugen = ugentools.ListDUGen.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> list_dugen.repeats
+            1.0
 
         Returns ugen input.
         '''
@@ -99,7 +102,7 @@ class ListDUGen(DUGen):
 
             >>> list_dugen = ugentools.ListDUGen.ar(
             ...     repeats=1,
-            ...     sequence=None,
+            ...     sequence=sequence,
             ...     )
             >>> list_dugen.sequence
 

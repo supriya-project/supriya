@@ -7,14 +7,15 @@ class FreeVerb2(MultiOutUGen):
 
     ::
 
-        >>> free_verb_2 = ugentools.FreeVerb2.(
+        >>> free_verb_2 = ugentools.FreeVerb2.ar(
         ...     damping=0.5,
-        ...     in_2=None,
+        ...     in_2=in_2,
         ...     mix=0.33,
         ...     room=0.5,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> free_verb_2
+        FreeVerb2.ar()
 
     '''
 
@@ -61,10 +62,10 @@ class FreeVerb2(MultiOutUGen):
     def ar(
         cls,
         damping=0.5,
-        in_2=None,
+        in_2=in_2,
         mix=0.33,
         room=0.5,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate FreeVerb2.
 
@@ -72,12 +73,13 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2
+            FreeVerb2.ar()
 
         Returns ugen graph.
         '''
@@ -105,12 +107,13 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2.damping
+            0.5
 
         Returns ugen input.
         '''
@@ -125,10 +128,10 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2.in_2
 
@@ -145,12 +148,13 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2.mix
+            0.33
 
         Returns ugen input.
         '''
@@ -165,12 +169,13 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2.room
+            0.5
 
         Returns ugen input.
         '''
@@ -185,10 +190,10 @@ class FreeVerb2(MultiOutUGen):
 
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
-            ...     in_2=None,
+            ...     in_2=in_2,
             ...     mix=0.33,
             ...     room=0.5,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> free_verb_2.source
 

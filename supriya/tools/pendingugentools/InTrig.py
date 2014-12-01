@@ -7,11 +7,12 @@ class InTrig(AbstractIn):
 
     ::
 
-        >>> in_trig = ugentools.InTrig.(
+        >>> in_trig = ugentools.InTrig.ar(
         ...     bus=0,
         ...     channel_count=1,
         ...     )
         >>> in_trig
+        InTrig.ar()
 
     '''
 
@@ -62,6 +63,7 @@ class InTrig(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_trig
+            InTrig.kr()
 
         Returns ugen graph.
         '''
@@ -89,6 +91,7 @@ class InTrig(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_trig.bus
+            0.0
 
         Returns ugen input.
         '''
@@ -106,6 +109,7 @@ class InTrig(AbstractIn):
             ...     channel_count=1,
             ...     )
             >>> in_trig.channel_count
+            1.0
 
         Returns ugen input.
         '''

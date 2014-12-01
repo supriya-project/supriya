@@ -7,11 +7,12 @@ class LagControl(Control):
 
     ::
 
-        >>> lag_control = ugentools.LagControl.(
-        ...     lags=None,
-        ...     values=None,
+        >>> lag_control = ugentools.LagControl.ar(
+        ...     lags=lags,
+        ...     values=values,
         ...     )
         >>> lag_control
+        LagControl.ar()
 
     '''
 
@@ -52,6 +53,7 @@ class LagControl(Control):
             >>> lag_control = ugentools.LagControl.ir(
             ...     )
             >>> lag_control
+            LagControl.ir()
 
         Returns ugen graph.
         '''
@@ -67,18 +69,19 @@ class LagControl(Control):
     @classmethod
     def kr(
         cls,
-        lags=None,
-        values=None,
+        lags=lags,
+        values=values,
         ):
         r'''Constructs a control-rate LagControl.
 
         ::
 
             >>> lag_control = ugentools.LagControl.kr(
-            ...     lags=None,
-            ...     values=None,
+            ...     lags=lags,
+            ...     values=values,
             ...     )
             >>> lag_control
+            LagControl.kr()
 
         Returns ugen graph.
         '''
@@ -104,8 +107,8 @@ class LagControl(Control):
         ::
 
             >>> lag_control = ugentools.LagControl.ar(
-            ...     lags=None,
-            ...     values=None,
+            ...     lags=lags,
+            ...     values=values,
             ...     )
             >>> lag_control.lags
 
@@ -121,8 +124,8 @@ class LagControl(Control):
         ::
 
             >>> lag_control = ugentools.LagControl.ar(
-            ...     lags=None,
-            ...     values=None,
+            ...     lags=lags,
+            ...     values=values,
             ...     )
             >>> lag_control.values
 

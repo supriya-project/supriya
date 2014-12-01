@@ -7,14 +7,15 @@ class Splay(UGen):
 
     ::
 
-        >>> splay = ugentools.Splay.(
+        >>> splay = ugentools.Splay.ar(
         ...     center=0,
-        ...     in_array=None,
+        ...     in_array=in_array,
         ...     level=1,
         ...     level_comp=True,
         ...     spread=1,
         ...     )
         >>> splay
+        Splay.ar()
 
     '''
 
@@ -61,7 +62,7 @@ class Splay(UGen):
     def ar(
         cls,
         center=0,
-        in_array=None,
+        in_array=in_array,
         level=1,
         level_comp=True,
         spread=1,
@@ -72,12 +73,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay
+            Splay.ar()
 
         Returns ugen graph.
         '''
@@ -99,7 +101,7 @@ class Splay(UGen):
     def kr(
         cls,
         center=0,
-        in_array=None,
+        in_array=in_array,
         level=1,
         level_comp=True,
         spread=1,
@@ -110,12 +112,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.kr(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay
+            Splay.kr()
 
         Returns ugen graph.
         '''
@@ -143,12 +146,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay.center
+            0.0
 
         Returns ugen input.
         '''
@@ -163,7 +167,7 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -183,12 +187,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay.level
+            1.0
 
         Returns ugen input.
         '''
@@ -203,12 +208,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay.level_comp
+            1.0
 
         Returns ugen input.
         '''
@@ -223,12 +229,13 @@ class Splay(UGen):
 
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
             >>> splay.spread
+            1.0
 
         Returns ugen input.
         '''

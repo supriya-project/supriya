@@ -7,7 +7,7 @@ class TDuty(Duty):
 
     ::
 
-        >>> tduty = ugentools.TDuty.(
+        >>> tduty = ugentools.TDuty.ar(
         ...     done_action=0,
         ...     duration=1,
         ...     gap_first=0,
@@ -15,6 +15,7 @@ class TDuty(Duty):
         ...     reset=0,
         ...     )
         >>> tduty
+        TDuty.ar()
 
     '''
 
@@ -78,6 +79,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty
+            TDuty.ar()
 
         Returns ugen graph.
         '''
@@ -114,6 +116,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty
+            TDuty.kr()
 
         Returns ugen graph.
         '''
@@ -145,6 +148,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty.done_action
+            0.0
 
         Returns ugen input.
         '''
@@ -165,6 +169,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty.duration
+            1.0
 
         Returns ugen input.
         '''
@@ -185,6 +190,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty.gap_first
+            0.0
 
         Returns ugen input.
         '''
@@ -205,6 +211,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty.level
+            1.0
 
         Returns ugen input.
         '''
@@ -225,6 +232,7 @@ class TDuty(Duty):
             ...     reset=0,
             ...     )
             >>> tduty.reset
+            0.0
 
         Returns ugen input.
         '''

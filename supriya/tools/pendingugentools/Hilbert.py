@@ -7,10 +7,11 @@ class Hilbert(MultiOutUGen):
 
     ::
 
-        >>> hilbert = ugentools.Hilbert.(
-        ...     source=None,
+        >>> hilbert = ugentools.Hilbert.ar(
+        ...     source=source,
         ...     )
         >>> hilbert
+        Hilbert.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class Hilbert(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Hilbert.
 
         ::
 
             >>> hilbert = ugentools.Hilbert.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> hilbert
+            Hilbert.ar()
 
         Returns ugen graph.
         '''
@@ -76,7 +78,7 @@ class Hilbert(MultiOutUGen):
         ::
 
             >>> hilbert = ugentools.Hilbert.ar(
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> hilbert.source
 

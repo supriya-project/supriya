@@ -7,13 +7,14 @@ class MidEQ(Filter):
 
     ::
 
-        >>> mid_eq = ugentools.MidEQ.(
+        >>> mid_eq = ugentools.MidEQ.ar(
         ...     db=0,
         ...     frequency=440,
         ...     reciprocal_of_q=1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> mid_eq
+        MidEQ.ar()
 
     '''
 
@@ -59,7 +60,7 @@ class MidEQ(Filter):
         db=0,
         frequency=440,
         reciprocal_of_q=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate MidEQ.
 
@@ -69,9 +70,10 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq
+            MidEQ.ar()
 
         Returns ugen graph.
         '''
@@ -94,7 +96,7 @@ class MidEQ(Filter):
         db=0,
         frequency=440,
         reciprocal_of_q=1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate MidEQ.
 
@@ -104,9 +106,10 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq
+            MidEQ.kr()
 
         Returns ugen graph.
         '''
@@ -143,9 +146,10 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq.db
+            0.0
 
         Returns ugen input.
         '''
@@ -162,9 +166,10 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -181,9 +186,10 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq.reciprocal_of_q
+            1.0
 
         Returns ugen input.
         '''
@@ -200,7 +206,7 @@ class MidEQ(Filter):
             ...     db=0,
             ...     frequency=440,
             ...     reciprocal_of_q=1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> mid_eq.source
 

@@ -7,11 +7,12 @@ class Ramp(Lag):
 
     ::
 
-        >>> ramp = ugentools.Ramp.(
+        >>> ramp = ugentools.Ramp.ar(
         ...     lag_time=0.1,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> ramp
+        Ramp.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class Ramp(Lag):
     def ar(
         cls,
         lag_time=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate Ramp.
 
@@ -57,9 +58,10 @@ class Ramp(Lag):
 
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ramp
+            Ramp.ar()
 
         Returns ugen graph.
         '''
@@ -78,7 +80,7 @@ class Ramp(Lag):
     def kr(
         cls,
         lag_time=0.1,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate Ramp.
 
@@ -86,9 +88,10 @@ class Ramp(Lag):
 
             >>> ramp = ugentools.Ramp.kr(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ramp
+            Ramp.kr()
 
         Returns ugen graph.
         '''
@@ -121,9 +124,10 @@ class Ramp(Lag):
 
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ramp.lag_time
+            0.1
 
         Returns ugen input.
         '''
@@ -138,7 +142,7 @@ class Ramp(Lag):
 
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> ramp.source
 

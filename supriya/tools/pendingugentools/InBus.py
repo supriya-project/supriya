@@ -7,13 +7,14 @@ class InBus(UGen):
 
     ::
 
-        >>> in_bus = ugentools.InBus.(
-        ...     bus=None,
-        ...     channel_count=None,
-        ...     clip=None,
+        >>> in_bus = ugentools.InBus.ar(
+        ...     bus=bus,
+        ...     channel_count=channel_count,
+        ...     clip=clip,
         ...     offset=0,
         ...     )
         >>> in_bus
+        InBus.ar()
 
     '''
 
@@ -56,9 +57,9 @@ class InBus(UGen):
     @classmethod
     def ar(
         cls,
-        bus=None,
-        channel_count=None,
-        clip=None,
+        bus=bus,
+        channel_count=channel_count,
+        clip=clip,
         offset=0,
         ):
         r'''Constructs an audio-rate InBus.
@@ -66,12 +67,13 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus
+            InBus.ar()
 
         Returns ugen graph.
         '''
@@ -89,9 +91,9 @@ class InBus(UGen):
     @classmethod
     def kr(
         cls,
-        bus=None,
-        channel_count=None,
-        clip=None,
+        bus=bus,
+        channel_count=channel_count,
+        clip=clip,
         offset=0,
         ):
         r'''Constructs a control-rate InBus.
@@ -99,12 +101,13 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.kr(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus
+            InBus.kr()
 
         Returns ugen graph.
         '''
@@ -130,9 +133,9 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus.bus
@@ -149,9 +152,9 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus.channel_count
@@ -168,9 +171,9 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus.clip
@@ -187,12 +190,13 @@ class InBus(UGen):
         ::
 
             >>> in_bus = ugentools.InBus.ar(
-            ...     bus=None,
-            ...     channel_count=None,
-            ...     clip=None,
+            ...     bus=bus,
+            ...     channel_count=channel_count,
+            ...     clip=clip,
             ...     offset=0,
             ...     )
             >>> in_bus.offset
+            0.0
 
         Returns ugen input.
         '''

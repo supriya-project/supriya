@@ -7,11 +7,12 @@ class SinOscFB(PureUGen):
 
     ::
 
-        >>> sin_osc_fb = ugentools.SinOscFB.(
+        >>> sin_osc_fb = ugentools.SinOscFB.ar(
         ...     feedback=0,
         ...     frequency=440,
         ...     )
         >>> sin_osc_fb
+        SinOscFB.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class SinOscFB(PureUGen):
             ...     frequency=440,
             ...     )
             >>> sin_osc_fb
+            SinOscFB.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class SinOscFB(PureUGen):
             ...     frequency=440,
             ...     )
             >>> sin_osc_fb
+            SinOscFB.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class SinOscFB(PureUGen):
             ...     frequency=440,
             ...     )
             >>> sin_osc_fb.feedback
+            0.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class SinOscFB(PureUGen):
             ...     frequency=440,
             ...     )
             >>> sin_osc_fb.frequency
+            440.0
 
         Returns ugen input.
         '''

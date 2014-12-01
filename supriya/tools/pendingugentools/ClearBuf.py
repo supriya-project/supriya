@@ -7,10 +7,11 @@ class ClearBuf(WidthFirstUGen):
 
     ::
 
-        >>> clear_buf = ugentools.ClearBuf.(
-        ...     buffer_id=None,
+        >>> clear_buf = ugentools.ClearBuf.ar(
+        ...     buffer_id=buffer_id,
         ...     )
         >>> clear_buf
+        ClearBuf.ar()
 
     '''
 
@@ -44,16 +45,17 @@ class ClearBuf(WidthFirstUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         ):
         r'''Constructs a ClearBuf.
 
         ::
 
             >>> clear_buf = ugentools.ClearBuf.new(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     )
             >>> clear_buf
+            ClearBuf.new()
 
         Returns ugen graph.
         '''
@@ -74,7 +76,7 @@ class ClearBuf(WidthFirstUGen):
         ::
 
             >>> clear_buf = ugentools.ClearBuf.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     )
             >>> clear_buf.buffer_id
 

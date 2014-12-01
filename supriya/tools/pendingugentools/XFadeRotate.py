@@ -7,11 +7,12 @@ class XFadeRotate(MultiOutUGen):
 
     ::
 
-        >>> xfade_rotate = ugentools.XFadeRotate.(
+        >>> xfade_rotate = ugentools.XFadeRotate.ar(
         ...     n=0,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> xfade_rotate
+        XFadeRotate.ar()
 
     '''
 
@@ -49,7 +50,7 @@ class XFadeRotate(MultiOutUGen):
     def ar(
         cls,
         n=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate XFadeRotate.
 
@@ -57,9 +58,10 @@ class XFadeRotate(MultiOutUGen):
 
             >>> xfade_rotate = ugentools.XFadeRotate.ar(
             ...     n=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> xfade_rotate
+            XFadeRotate.ar()
 
         Returns ugen graph.
         '''
@@ -76,7 +78,7 @@ class XFadeRotate(MultiOutUGen):
     def kr(
         cls,
         n=0,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate XFadeRotate.
 
@@ -84,9 +86,10 @@ class XFadeRotate(MultiOutUGen):
 
             >>> xfade_rotate = ugentools.XFadeRotate.kr(
             ...     n=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> xfade_rotate
+            XFadeRotate.kr()
 
         Returns ugen graph.
         '''
@@ -111,9 +114,10 @@ class XFadeRotate(MultiOutUGen):
 
             >>> xfade_rotate = ugentools.XFadeRotate.ar(
             ...     n=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> xfade_rotate.n
+            0.0
 
         Returns ugen input.
         '''
@@ -128,7 +132,7 @@ class XFadeRotate(MultiOutUGen):
 
             >>> xfade_rotate = ugentools.XFadeRotate.ar(
             ...     n=0,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> xfade_rotate.source
 

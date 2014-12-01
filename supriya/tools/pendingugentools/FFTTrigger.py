@@ -7,12 +7,13 @@ class FFTTrigger(PV_ChainUGen):
 
     ::
 
-        >>> ffttrigger = ugentools.FFTTrigger.(
-        ...     buffer_id=None,
+        >>> ffttrigger = ugentools.FFTTrigger.ar(
+        ...     buffer_id=buffer_id,
         ...     hop=0.5,
         ...     polar=0,
         ...     )
         >>> ffttrigger
+        FFTTrigger.ar()
 
     '''
 
@@ -52,7 +53,7 @@ class FFTTrigger(PV_ChainUGen):
     @classmethod
     def new(
         cls,
-        buffer_id=None,
+        buffer_id=buffer_id,
         hop=0.5,
         polar=0,
         ):
@@ -61,11 +62,12 @@ class FFTTrigger(PV_ChainUGen):
         ::
 
             >>> ffttrigger = ugentools.FFTTrigger.new(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
             ...     )
             >>> ffttrigger
+            FFTTrigger.new()
 
         Returns ugen graph.
         '''
@@ -88,7 +90,7 @@ class FFTTrigger(PV_ChainUGen):
         ::
 
             >>> ffttrigger = ugentools.FFTTrigger.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
             ...     )
@@ -106,11 +108,12 @@ class FFTTrigger(PV_ChainUGen):
         ::
 
             >>> ffttrigger = ugentools.FFTTrigger.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
             ...     )
             >>> ffttrigger.hop
+            0.5
 
         Returns ugen input.
         '''
@@ -124,11 +127,12 @@ class FFTTrigger(PV_ChainUGen):
         ::
 
             >>> ffttrigger = ugentools.FFTTrigger.ar(
-            ...     buffer_id=None,
+            ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
             ...     )
             >>> ffttrigger.polar
+            0.0
 
         Returns ugen input.
         '''

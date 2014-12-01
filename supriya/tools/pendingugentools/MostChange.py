@@ -7,11 +7,12 @@ class MostChange(UGen):
 
     ::
 
-        >>> most_change = ugentools.MostChange.(
+        >>> most_change = ugentools.MostChange.ar(
         ...     a=0,
         ...     b=0,
         ...     )
         >>> most_change
+        MostChange.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class MostChange(UGen):
             ...     b=0,
             ...     )
             >>> most_change
+            MostChange.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class MostChange(UGen):
             ...     b=0,
             ...     )
             >>> most_change
+            MostChange.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class MostChange(UGen):
             ...     b=0,
             ...     )
             >>> most_change.a
+            0.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class MostChange(UGen):
             ...     b=0,
             ...     )
             >>> most_change.b
+            0.0
 
         Returns ugen input.
         '''

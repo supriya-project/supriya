@@ -7,10 +7,10 @@ class SplayAz(UGen):
 
     ::
 
-        >>> splay_az = ugentools.SplayAz.(
+        >>> splay_az = ugentools.SplayAz.ar(
         ...     center=0,
         ...     channel_count=4,
-        ...     in_array=None,
+        ...     in_array=in_array,
         ...     level=1,
         ...     level_comp=True,
         ...     orientation=0.5,
@@ -18,6 +18,7 @@ class SplayAz(UGen):
         ...     width=2,
         ...     )
         >>> splay_az
+        SplayAz.ar()
 
     '''
 
@@ -74,7 +75,7 @@ class SplayAz(UGen):
         cls,
         center=0,
         channel_count=4,
-        in_array=None,
+        in_array=in_array,
         level=1,
         level_comp=True,
         orientation=0.5,
@@ -88,7 +89,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -96,6 +97,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az
+            SplayAz.ar()
 
         Returns ugen graph.
         '''
@@ -121,7 +123,7 @@ class SplayAz(UGen):
         cls,
         center=0,
         channel_count=4,
-        in_array=None,
+        in_array=in_array,
         level=1,
         level_comp=True,
         orientation=0.5,
@@ -135,7 +137,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.kr(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -143,6 +145,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az
+            SplayAz.kr()
 
         Returns ugen graph.
         '''
@@ -172,7 +175,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -180,6 +183,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.center
+            0.0
 
         Returns ugen input.
         '''
@@ -195,7 +199,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -203,6 +207,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.channel_count
+            4.0
 
         Returns ugen input.
         '''
@@ -218,7 +223,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -241,7 +246,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -249,6 +254,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.level
+            1.0
 
         Returns ugen input.
         '''
@@ -264,7 +270,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -272,6 +278,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.level_comp
+            1.0
 
         Returns ugen input.
         '''
@@ -287,7 +294,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -295,6 +302,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.orientation
+            0.5
 
         Returns ugen input.
         '''
@@ -310,7 +318,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -318,6 +326,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.spread
+            1.0
 
         Returns ugen input.
         '''
@@ -333,7 +342,7 @@ class SplayAz(UGen):
             >>> splay_az = ugentools.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
-            ...     in_array=None,
+            ...     in_array=in_array,
             ...     level=1,
             ...     level_comp=True,
             ...     orientation=0.5,
@@ -341,6 +350,7 @@ class SplayAz(UGen):
             ...     width=2,
             ...     )
             >>> splay_az.width
+            2.0
 
         Returns ugen input.
         '''

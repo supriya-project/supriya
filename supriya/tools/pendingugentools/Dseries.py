@@ -7,12 +7,13 @@ class Dseries(DUGen):
 
     ::
 
-        >>> dseries = ugentools.Dseries.(
+        >>> dseries = ugentools.Dseries.ar(
         ...     length="float('inf')",
         ...     start=1,
         ...     step=1,
         ...     )
         >>> dseries
+        Dseries.ar()
 
     '''
 
@@ -66,6 +67,7 @@ class Dseries(DUGen):
             ...     step=1,
             ...     )
             >>> dseries
+            Dseries.new()
 
         Returns ugen graph.
         '''
@@ -111,6 +113,7 @@ class Dseries(DUGen):
             ...     step=1,
             ...     )
             >>> dseries.start
+            1.0
 
         Returns ugen input.
         '''
@@ -129,6 +132,7 @@ class Dseries(DUGen):
             ...     step=1,
             ...     )
             >>> dseries.step
+            1.0
 
         Returns ugen input.
         '''

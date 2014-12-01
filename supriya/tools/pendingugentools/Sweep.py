@@ -7,11 +7,12 @@ class Sweep(UGen):
 
     ::
 
-        >>> sweep = ugentools.Sweep.(
+        >>> sweep = ugentools.Sweep.ar(
         ...     rate=1,
         ...     trigger=0,
         ...     )
         >>> sweep
+        Sweep.ar()
 
     '''
 
@@ -60,6 +61,7 @@ class Sweep(UGen):
             ...     trigger=0,
             ...     )
             >>> sweep
+            Sweep.ar()
 
         Returns ugen graph.
         '''
@@ -87,6 +89,7 @@ class Sweep(UGen):
             ...     trigger=0,
             ...     )
             >>> sweep
+            Sweep.kr()
 
         Returns ugen graph.
         '''
@@ -112,6 +115,7 @@ class Sweep(UGen):
             ...     trigger=0,
             ...     )
             >>> sweep.rate
+            1.0
 
         Returns ugen input.
         '''
@@ -129,6 +133,7 @@ class Sweep(UGen):
             ...     trigger=0,
             ...     )
             >>> sweep.trigger
+            0.0
 
         Returns ugen input.
         '''

@@ -7,11 +7,12 @@ class DetectIndex(Index):
 
     ::
 
-        >>> detect_index = ugentools.DetectIndex.(
-        ...     buffer_id=None,
-        ...     source=None,
+        >>> detect_index = ugentools.DetectIndex.ar(
+        ...     buffer_id=buffer_id,
+        ...     source=source,
         ...     )
         >>> detect_index
+        DetectIndex.ar()
 
     '''
 
@@ -48,18 +49,19 @@ class DetectIndex(Index):
     @classmethod
     def ar(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs an audio-rate DetectIndex.
 
         ::
 
             >>> detect_index = ugentools.DetectIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> detect_index
+            DetectIndex.ar()
 
         Returns ugen graph.
         '''
@@ -75,18 +77,19 @@ class DetectIndex(Index):
     @classmethod
     def kr(
         cls,
-        buffer_id=None,
-        source=None,
+        buffer_id=buffer_id,
+        source=source,
         ):
         r'''Constructs a control-rate DetectIndex.
 
         ::
 
             >>> detect_index = ugentools.DetectIndex.kr(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> detect_index
+            DetectIndex.kr()
 
         Returns ugen graph.
         '''
@@ -108,8 +111,8 @@ class DetectIndex(Index):
         ::
 
             >>> detect_index = ugentools.DetectIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> detect_index.buffer_id
 
@@ -125,8 +128,8 @@ class DetectIndex(Index):
         ::
 
             >>> detect_index = ugentools.DetectIndex.ar(
-            ...     buffer_id=None,
-            ...     source=None,
+            ...     buffer_id=buffer_id,
+            ...     source=source,
             ...     )
             >>> detect_index.source
 

@@ -7,12 +7,13 @@ class APF(TwoPole):
 
     ::
 
-        >>> apf = ugentools.APF.(
+        >>> apf = ugentools.APF.ar(
         ...     frequency=440,
         ...     radius=0.8,
-        ...     source=None,
+        ...     source=source,
         ...     )
         >>> apf
+        APF.ar()
 
     '''
 
@@ -54,7 +55,7 @@ class APF(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs an audio-rate APF.
 
@@ -63,9 +64,10 @@ class APF(TwoPole):
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> apf
+            APF.ar()
 
         Returns ugen graph.
         '''
@@ -86,7 +88,7 @@ class APF(TwoPole):
         cls,
         frequency=440,
         radius=0.8,
-        source=None,
+        source=source,
         ):
         r'''Constructs a control-rate APF.
 
@@ -95,9 +97,10 @@ class APF(TwoPole):
             >>> apf = ugentools.APF.kr(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> apf
+            APF.kr()
 
         Returns ugen graph.
         '''
@@ -132,9 +135,10 @@ class APF(TwoPole):
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> apf.frequency
+            440.0
 
         Returns ugen input.
         '''
@@ -150,9 +154,10 @@ class APF(TwoPole):
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> apf.radius
+            0.8
 
         Returns ugen input.
         '''
@@ -168,7 +173,7 @@ class APF(TwoPole):
             >>> apf = ugentools.APF.ar(
             ...     frequency=440,
             ...     radius=0.8,
-            ...     source=None,
+            ...     source=source,
             ...     )
             >>> apf.source
 
