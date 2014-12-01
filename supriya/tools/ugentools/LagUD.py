@@ -4,7 +4,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LagUD(Filter):
-    r'''An up/down lag unit generator.
+    r'''An up/down lag generator.
 
     ::
 

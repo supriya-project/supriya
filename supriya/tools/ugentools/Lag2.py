@@ -1,51 +1,52 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LagUD import LagUD
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.tools.ugentools.Filter import Filter
 
 
-class Lag2UD(LagUD):
-    r'''
+class Lag2(Filter):
+    r'''An exponential lag generator.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> lag_2_ud = ugentools.Lag2UD.ar(
-        ...     lag_time_d=0.1,
-        ...     lag_time_u=0.1,
+        >>> lag_2 = ugentools.Lag2.ar(
+        ...     lag_time=0.1,
         ...     source=source,
         ...     )
-        >>> lag_2_ud
-        Lag2UD.ar()
+        >>> lag_2
+        Lag2.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
-        'lag_time_u',
-        'lag_time_d',
+        'lag_time',
         )
 
-    _valid_calculation_rates = None
+    _valid_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+        )
+
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        lag_time_d=0.1,
-        lag_time_u=0.1,
+        lag_time=0.1,
         source=None,
         ):
-        LagUD.__init__(
+        Filter.__init__(
             self,
             calculation_rate=calculation_rate,
-            lag_time_d=lag_time_d,
-            lag_time_u=lag_time_u,
+            lag_time=lag_time,
             source=source,
             )
 
@@ -54,22 +55,20 @@ class Lag2UD(LagUD):
     @classmethod
     def ar(
         cls,
-        lag_time_d=0.1,
-        lag_time_u=0.1,
+        lag_time=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Lag2UD.
+        r'''Constructs an audio-rate Lag2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_2_ud = ugentools.Lag2UD.ar(
-            ...     lag_time_d=0.1,
-            ...     lag_time_u=0.1,
+            >>> lag_2 = ugentools.Lag2.ar(
+            ...     lag_time=0.1,
             ...     source=source,
             ...     )
-            >>> lag_2_ud
-            Lag2UD.ar()
+            >>> lag_2
+            Lag2.ar()
 
         Returns ugen graph.
         '''
@@ -77,8 +76,7 @@ class Lag2UD(LagUD):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            lag_time_d=lag_time_d,
-            lag_time_u=lag_time_u,
+            lag_time=lag_time,
             source=source,
             )
         return ugen
@@ -88,22 +86,20 @@ class Lag2UD(LagUD):
     @classmethod
     def kr(
         cls,
-        lag_time_d=0.1,
-        lag_time_u=0.1,
+        lag_time=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Lag2UD.
+        r'''Constructs a control-rate Lag2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_2_ud = ugentools.Lag2UD.kr(
-            ...     lag_time_d=0.1,
-            ...     lag_time_u=0.1,
+            >>> lag_2 = ugentools.Lag2.kr(
+            ...     lag_time=0.1,
             ...     source=source,
             ...     )
-            >>> lag_2_ud
-            Lag2UD.kr()
+            >>> lag_2
+            Lag2.kr()
 
         Returns ugen graph.
         '''
@@ -111,8 +107,7 @@ class Lag2UD(LagUD):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            lag_time_d=lag_time_d,
-            lag_time_u=lag_time_u,
+            lag_time=lag_time,
             source=source,
             )
         return ugen
@@ -130,58 +125,36 @@ class Lag2UD(LagUD):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def lag_time_d(self):
-        r'''Gets `lag_time_d` input of Lag2UD.
+    def lag_time(self):
+        r'''Gets `lag_time` input of Lag2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_2_ud = ugentools.Lag2UD.ar(
-            ...     lag_time_d=0.1,
-            ...     lag_time_u=0.1,
+            >>> lag_2 = ugentools.Lag2.ar(
+            ...     lag_time=0.1,
             ...     source=source,
             ...     )
-            >>> lag_2_ud.lag_time_d
+            >>> lag_2.lag_time
             0.1
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lag_time_d')
-        return self._inputs[index]
-
-    @property
-    def lag_time_u(self):
-        r'''Gets `lag_time_u` input of Lag2UD.
-
-        ::
-
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lag_2_ud = ugentools.Lag2UD.ar(
-            ...     lag_time_d=0.1,
-            ...     lag_time_u=0.1,
-            ...     source=source,
-            ...     )
-            >>> lag_2_ud.lag_time_u
-            0.1
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('lag_time_u')
+        index = self._ordered_input_names.index('lag_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Lag2UD.
+        r'''Gets `source` input of Lag2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_2_ud = ugentools.Lag2UD.ar(
-            ...     lag_time_d=0.1,
-            ...     lag_time_u=0.1,
+            >>> lag_2 = ugentools.Lag2.ar(
+            ...     lag_time=0.1,
             ...     source=source,
             ...     )
-            >>> lag_2_ud.source
+            >>> lag_2.source
             OutputProxy(
                 source=In(
                     bus=0.0,

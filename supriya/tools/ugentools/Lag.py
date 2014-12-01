@@ -4,7 +4,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Lag(Filter):
-    r'''A lag unit generator.
+    r'''A lag generator.
 
     ::
 
@@ -18,6 +18,8 @@ class Lag(Filter):
     '''
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

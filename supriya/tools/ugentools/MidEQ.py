@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class MidEQ(Filter):
-    r'''
+    r'''A parametric filter.
 
     ::
 
@@ -21,7 +21,7 @@ class MidEQ(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

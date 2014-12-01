@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LagUD import LagUD
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.tools.ugentools.Filter import Filter
 
 
-class Lag3UD(LagUD):
-    r'''
+class Lag3UD(Filter):
+    r'''An up/down exponential lag generator.
 
     ::
 
@@ -20,7 +21,7 @@ class Lag3UD(LagUD):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -30,7 +31,10 @@ class Lag3UD(LagUD):
         'lag_time_d',
         )
 
-    _valid_calculation_rates = None
+    _valid_rates = (
+        CalculationRate.AUDIO,
+        CalculationRate.CONTROL,
+        )
 
     ### INITIALIZER ###
 
@@ -41,7 +45,7 @@ class Lag3UD(LagUD):
         lag_time_u=0.1,
         source=None,
         ):
-        LagUD.__init__(
+        Filter.__init__(
             self,
             calculation_rate=calculation_rate,
             lag_time_d=lag_time_d,

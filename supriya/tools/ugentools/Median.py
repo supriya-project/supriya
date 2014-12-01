@@ -1,31 +1,31 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Lag import Lag
+from supriya.tools.ugentools.Filter import Filter
 
 
-class Lag3(Lag):
-    r'''
+class Median(Filter):
+    r'''A median filter.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> lag_3 = ugentools.Lag3.ar(
-        ...     lag_time=0.1,
+        >>> median = ugentools.Median.ar(
+        ...     length=3,
         ...     source=source,
         ...     )
-        >>> lag_3
-        Lag3.ar()
+        >>> median
+        Median.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
+        'length',
         'source',
-        'lag_time',
         )
 
     _valid_calculation_rates = None
@@ -35,13 +35,13 @@ class Lag3(Lag):
     def __init__(
         self,
         calculation_rate=None,
-        lag_time=0.1,
+        length=3,
         source=None,
         ):
-        Lag.__init__(
+        Filter.__init__(
             self,
             calculation_rate=calculation_rate,
-            lag_time=lag_time,
+            length=length,
             source=source,
             )
 
@@ -50,20 +50,20 @@ class Lag3(Lag):
     @classmethod
     def ar(
         cls,
-        lag_time=0.1,
+        length=3,
         source=None,
         ):
-        r'''Constructs an audio-rate Lag3.
+        r'''Constructs an audio-rate Median.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_3 = ugentools.Lag3.ar(
-            ...     lag_time=0.1,
+            >>> median = ugentools.Median.ar(
+            ...     length=3,
             ...     source=source,
             ...     )
-            >>> lag_3
-            Lag3.ar()
+            >>> median
+            Median.ar()
 
         Returns ugen graph.
         '''
@@ -71,7 +71,7 @@ class Lag3(Lag):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            lag_time=lag_time,
+            length=length,
             source=source,
             )
         return ugen
@@ -81,20 +81,20 @@ class Lag3(Lag):
     @classmethod
     def kr(
         cls,
-        lag_time=0.1,
+        length=3,
         source=None,
         ):
-        r'''Constructs a control-rate Lag3.
+        r'''Constructs a control-rate Median.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_3 = ugentools.Lag3.kr(
-            ...     lag_time=0.1,
+            >>> median = ugentools.Median.kr(
+            ...     length=3,
             ...     source=source,
             ...     )
-            >>> lag_3
-            Lag3.kr()
+            >>> median
+            Median.kr()
 
         Returns ugen graph.
         '''
@@ -102,7 +102,7 @@ class Lag3(Lag):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            lag_time=lag_time,
+            length=length,
             source=source,
             )
         return ugen
@@ -120,36 +120,36 @@ class Lag3(Lag):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def lag_time(self):
-        r'''Gets `lag_time` input of Lag3.
+    def length(self):
+        r'''Gets `length` input of Median.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_3 = ugentools.Lag3.ar(
-            ...     lag_time=0.1,
+            >>> median = ugentools.Median.ar(
+            ...     length=3,
             ...     source=source,
             ...     )
-            >>> lag_3.lag_time
-            0.1
+            >>> median.length
+            3.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('lag_time')
+        index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Lag3.
+        r'''Gets `source` input of Median.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> lag_3 = ugentools.Lag3.ar(
-            ...     lag_time=0.1,
+            >>> median = ugentools.Median.ar(
+            ...     length=3,
             ...     source=source,
             ...     )
-            >>> lag_3.source
+            >>> median.source
             OutputProxy(
                 source=In(
                     bus=0.0,
