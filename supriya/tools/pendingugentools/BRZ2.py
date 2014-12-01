@@ -7,6 +7,7 @@ class BRZ2(LPZ2):
 
     ::
 
+        >>> source = ugentools.In.ar(0)
         >>> brz_2 = ugentools.BRZ2.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class BRZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> brz_2 = ugentools.BRZ2.ar(
             ...     source=source,
             ...     )
@@ -78,6 +80,7 @@ class BRZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> brz_2 = ugentools.BRZ2.kr(
             ...     source=source,
             ...     )
@@ -112,6 +115,7 @@ class BRZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> brz_2 = ugentools.BRZ2.ar(
             ...     source=source,
             ...     )

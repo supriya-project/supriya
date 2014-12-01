@@ -3,10 +3,11 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class TwoPole(Filter):
-    r'''
+    r'''A two-pole filter.
 
     ::
 
+        >>> source = ugentools.In.ar(0)
         >>> two_pole = ugentools.TwoPole.ar(
         ...     frequency=440,
         ...     radius=0.8,
@@ -61,6 +62,7 @@ class TwoPole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -94,6 +96,7 @@ class TwoPole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> two_pole = ugentools.TwoPole.kr(
             ...     frequency=440,
             ...     radius=0.8,
@@ -132,6 +135,7 @@ class TwoPole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -151,6 +155,7 @@ class TwoPole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -170,6 +175,7 @@ class TwoPole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,

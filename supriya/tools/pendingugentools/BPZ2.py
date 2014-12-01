@@ -7,6 +7,7 @@ class BPZ2(LPZ2):
 
     ::
 
+        >>> source = ugentools.In.ar(0)
         >>> bpz_2 = ugentools.BPZ2.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class BPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> bpz_2 = ugentools.BPZ2.ar(
             ...     source=source,
             ...     )
@@ -78,6 +80,7 @@ class BPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> bpz_2 = ugentools.BPZ2.kr(
             ...     source=source,
             ...     )
@@ -112,6 +115,7 @@ class BPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> bpz_2 = ugentools.BPZ2.ar(
             ...     source=source,
             ...     )

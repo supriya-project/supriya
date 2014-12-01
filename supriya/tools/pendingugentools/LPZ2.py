@@ -7,6 +7,7 @@ class LPZ2(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(0)
         >>> lpz_2 = ugentools.LPZ2.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class LPZ2(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> lpz_2 = ugentools.LPZ2.ar(
             ...     source=source,
             ...     )
@@ -78,6 +80,7 @@ class LPZ2(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> lpz_2 = ugentools.LPZ2.kr(
             ...     source=source,
             ...     )
@@ -112,6 +115,7 @@ class LPZ2(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> lpz_2 = ugentools.LPZ2.ar(
             ...     source=source,
             ...     )

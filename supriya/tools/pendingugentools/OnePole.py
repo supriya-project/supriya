@@ -3,10 +3,11 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class OnePole(Filter):
-    r'''
+    r'''A one-pole filter.
 
     ::
 
+        >>> source = ugentools.In.ar(0)
         >>> one_pole = ugentools.OnePole.ar(
         ...     coefficient=0.5,
         ...     source=source,
@@ -56,6 +57,7 @@ class OnePole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
             ...     source=source,
@@ -86,6 +88,7 @@ class OnePole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> one_pole = ugentools.OnePole.kr(
             ...     coefficient=0.5,
             ...     source=source,
@@ -122,6 +125,7 @@ class OnePole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
             ...     source=source,
@@ -140,6 +144,7 @@ class OnePole(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(0)
             >>> one_pole = ugentools.OnePole.ar(
             ...     coefficient=0.5,
             ...     source=source,
