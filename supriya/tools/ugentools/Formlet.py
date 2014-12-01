@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Formlet(Filter):
-    r'''
+    r'''A FOF-like filter.
 
     ::
 
@@ -21,7 +21,7 @@ class Formlet(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

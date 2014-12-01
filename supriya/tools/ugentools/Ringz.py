@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Ringz(Filter):
-    r'''
+    r'''A ringing filter.
 
     ::
 
@@ -20,7 +20,7 @@ class Ringz(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

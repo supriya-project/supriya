@@ -2,26 +2,32 @@
 from supriya.tools.ugentools.Filter import Filter
 
 
-class FOS(Filter):
-    r'''
+class SOS(Filter):
+    r'''A second-order filter section.
+
+    ::
+
+        out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (b1 * out(i-1))
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> fos = ugentools.FOS.ar(
+        >>> sos = ugentools.SOS.ar(
         ...     a_0=0,
         ...     a_1=0,
+        ...     a_2=0,
         ...     b_1=0,
+        ...     b_2=0,
         ...     source=source,
         ...     )
-        >>> fos
-        FOS.ar()
+        >>> sos
+        SOS.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -29,7 +35,9 @@ class FOS(Filter):
         'source',
         'a_0',
         'a_1',
+        'a_2',
         'b_1',
+        'b_2',
         )
 
     _valid_calculation_rates = None
@@ -41,7 +49,9 @@ class FOS(Filter):
         calculation_rate=None,
         a_0=0,
         a_1=0,
+        a_2=0,
         b_1=0,
+        b_2=0,
         source=None,
         ):
         Filter.__init__(
@@ -49,7 +59,9 @@ class FOS(Filter):
             calculation_rate=calculation_rate,
             a_0=a_0,
             a_1=a_1,
+            a_2=a_2,
             b_1=b_1,
+            b_2=b_2,
             source=source,
             )
 
@@ -60,22 +72,26 @@ class FOS(Filter):
         cls,
         a_0=0,
         a_1=0,
+        a_2=0,
         b_1=0,
+        b_2=0,
         source=None,
         ):
-        r'''Constructs an audio-rate FOS.
+        r'''Constructs an audio-rate SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.ar(
+            >>> sos = ugentools.SOS.ar(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos
-            FOS.ar()
+            >>> sos
+            SOS.ar()
 
         Returns ugen graph.
         '''
@@ -85,7 +101,9 @@ class FOS(Filter):
             calculation_rate=calculation_rate,
             a_0=a_0,
             a_1=a_1,
+            a_2=a_2,
             b_1=b_1,
+            b_2=b_2,
             source=source,
             )
         return ugen
@@ -97,22 +115,26 @@ class FOS(Filter):
         cls,
         a_0=0,
         a_1=0,
+        a_2=0,
         b_1=0,
+        b_2=0,
         source=None,
         ):
-        r'''Constructs a control-rate FOS.
+        r'''Constructs a control-rate SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.kr(
+            >>> sos = ugentools.SOS.kr(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos
-            FOS.kr()
+            >>> sos
+            SOS.kr()
 
         Returns ugen graph.
         '''
@@ -122,7 +144,9 @@ class FOS(Filter):
             calculation_rate=calculation_rate,
             a_0=a_0,
             a_1=a_1,
+            a_2=a_2,
             b_1=b_1,
+            b_2=b_2,
             source=source,
             )
         return ugen
@@ -141,18 +165,20 @@ class FOS(Filter):
 
     @property
     def a_0(self):
-        r'''Gets `a_0` input of FOS.
+        r'''Gets `a_0` input of SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.ar(
+            >>> sos = ugentools.SOS.ar(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos.a_0
+            >>> sos.a_0
             0.0
 
         Returns ugen input.
@@ -162,18 +188,20 @@ class FOS(Filter):
 
     @property
     def a_1(self):
-        r'''Gets `a_1` input of FOS.
+        r'''Gets `a_1` input of SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.ar(
+            >>> sos = ugentools.SOS.ar(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos.a_1
+            >>> sos.a_1
             0.0
 
         Returns ugen input.
@@ -182,19 +210,44 @@ class FOS(Filter):
         return self._inputs[index]
 
     @property
-    def b_1(self):
-        r'''Gets `b_1` input of FOS.
+    def a_2(self):
+        r'''Gets `a_2` input of SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.ar(
+            >>> sos = ugentools.SOS.ar(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos.b_1
+            >>> sos.a_2
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('a_2')
+        return self._inputs[index]
+
+    @property
+    def b_1(self):
+        r'''Gets `b_1` input of SOS.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> sos = ugentools.SOS.ar(
+            ...     a_0=0,
+            ...     a_1=0,
+            ...     a_2=0,
+            ...     b_1=0,
+            ...     b_2=0,
+            ...     source=source,
+            ...     )
+            >>> sos.b_1
             0.0
 
         Returns ugen input.
@@ -203,19 +256,44 @@ class FOS(Filter):
         return self._inputs[index]
 
     @property
-    def source(self):
-        r'''Gets `source` input of FOS.
+    def b_2(self):
+        r'''Gets `b_2` input of SOS.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> fos = ugentools.FOS.ar(
+            >>> sos = ugentools.SOS.ar(
             ...     a_0=0,
             ...     a_1=0,
+            ...     a_2=0,
             ...     b_1=0,
+            ...     b_2=0,
             ...     source=source,
             ...     )
-            >>> fos.source
+            >>> sos.b_2
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('b_2')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of SOS.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> sos = ugentools.SOS.ar(
+            ...     a_0=0,
+            ...     a_1=0,
+            ...     a_2=0,
+            ...     b_1=0,
+            ...     b_2=0,
+            ...     source=source,
+            ...     )
+            >>> sos.source
             OutputProxy(
                 source=In(
                     bus=0.0,
