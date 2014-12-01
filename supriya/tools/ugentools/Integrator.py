@@ -2,32 +2,30 @@
 from supriya.tools.ugentools.Filter import Filter
 
 
-class Slew(Filter):
-    r'''
+class Integrator(Filter):
+    r'''A leaky integrator.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> slew = ugentools.Slew.ar(
-        ...     dn=1,
+        >>> integrator = ugentools.Integrator.ar(
+        ...     coefficient=1,
         ...     source=source,
-        ...     up=1,
         ...     )
-        >>> slew
-        Slew.ar()
+        >>> integrator
+        Integrator.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
-        'up',
-        'dn',
+        'coefficient',
         )
 
     _valid_calculation_rates = None
@@ -37,16 +35,14 @@ class Slew(Filter):
     def __init__(
         self,
         calculation_rate=None,
-        dn=1,
+        coefficient=1,
         source=None,
-        up=1,
         ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
-            dn=dn,
+            coefficient=coefficient,
             source=source,
-            up=up,
             )
 
     ### PUBLIC METHODS ###
@@ -54,22 +50,20 @@ class Slew(Filter):
     @classmethod
     def ar(
         cls,
-        dn=1,
+        coefficient=1,
         source=None,
-        up=1,
         ):
-        r'''Constructs an audio-rate Slew.
+        r'''Constructs an audio-rate Integrator.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slew = ugentools.Slew.ar(
-            ...     dn=1,
+            >>> integrator = ugentools.Integrator.ar(
+            ...     coefficient=1,
             ...     source=source,
-            ...     up=1,
             ...     )
-            >>> slew
-            Slew.ar()
+            >>> integrator
+            Integrator.ar()
 
         Returns ugen graph.
         '''
@@ -77,9 +71,8 @@ class Slew(Filter):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            dn=dn,
+            coefficient=coefficient,
             source=source,
-            up=up,
             )
         return ugen
 
@@ -88,22 +81,20 @@ class Slew(Filter):
     @classmethod
     def kr(
         cls,
-        dn=1,
+        coefficient=1,
         source=None,
-        up=1,
         ):
-        r'''Constructs a control-rate Slew.
+        r'''Constructs a control-rate Integrator.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slew = ugentools.Slew.kr(
-            ...     dn=1,
+            >>> integrator = ugentools.Integrator.kr(
+            ...     coefficient=1,
             ...     source=source,
-            ...     up=1,
             ...     )
-            >>> slew
-            Slew.kr()
+            >>> integrator
+            Integrator.kr()
 
         Returns ugen graph.
         '''
@@ -111,9 +102,8 @@ class Slew(Filter):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            dn=dn,
+            coefficient=coefficient,
             source=source,
-            up=up,
             )
         return ugen
 
@@ -130,38 +120,36 @@ class Slew(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def dn(self):
-        r'''Gets `dn` input of Slew.
+    def coefficient(self):
+        r'''Gets `coefficient` input of Integrator.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slew = ugentools.Slew.ar(
-            ...     dn=1,
+            >>> integrator = ugentools.Integrator.ar(
+            ...     coefficient=1,
             ...     source=source,
-            ...     up=1,
             ...     )
-            >>> slew.dn
+            >>> integrator.coefficient
             1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('dn')
+        index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Slew.
+        r'''Gets `source` input of Integrator.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slew = ugentools.Slew.ar(
-            ...     dn=1,
+            >>> integrator = ugentools.Integrator.ar(
+            ...     coefficient=1,
             ...     source=source,
-            ...     up=1,
             ...     )
-            >>> slew.source
+            >>> integrator.source
             OutputProxy(
                 source=In(
                     bus=0.0,
@@ -174,24 +162,4 @@ class Slew(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('source')
-        return self._inputs[index]
-
-    @property
-    def up(self):
-        r'''Gets `up` input of Slew.
-
-        ::
-
-            >>> source = ugentools.In.ar(bus=0)
-            >>> slew = ugentools.Slew.ar(
-            ...     dn=1,
-            ...     source=source,
-            ...     up=1,
-            ...     )
-            >>> slew.up
-            1.0
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('up')
         return self._inputs[index]

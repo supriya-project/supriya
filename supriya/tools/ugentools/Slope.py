@@ -2,30 +2,28 @@
 from supriya.tools.ugentools.Filter import Filter
 
 
-class Integrator(Filter):
-    r'''
+class Slope(Filter):
+    r'''Calculates slope of signal.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> integrator = ugentools.Integrator.ar(
-        ...     coefficient=1,
+        >>> slope = ugentools.Slope.ar(
         ...     source=source,
         ...     )
-        >>> integrator
-        Integrator.ar()
+        >>> slope
+        Slope.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
-        'coefficient',
         )
 
     _valid_calculation_rates = None
@@ -35,13 +33,11 @@ class Integrator(Filter):
     def __init__(
         self,
         calculation_rate=None,
-        coefficient=1,
         source=None,
         ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
-            coefficient=coefficient,
             source=source,
             )
 
@@ -50,20 +46,18 @@ class Integrator(Filter):
     @classmethod
     def ar(
         cls,
-        coefficient=1,
         source=None,
         ):
-        r'''Constructs an audio-rate Integrator.
+        r'''Constructs an audio-rate Slope.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> integrator = ugentools.Integrator.ar(
-            ...     coefficient=1,
+            >>> slope = ugentools.Slope.ar(
             ...     source=source,
             ...     )
-            >>> integrator
-            Integrator.ar()
+            >>> slope
+            Slope.ar()
 
         Returns ugen graph.
         '''
@@ -71,7 +65,6 @@ class Integrator(Filter):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            coefficient=coefficient,
             source=source,
             )
         return ugen
@@ -81,20 +74,18 @@ class Integrator(Filter):
     @classmethod
     def kr(
         cls,
-        coefficient=1,
         source=None,
         ):
-        r'''Constructs a control-rate Integrator.
+        r'''Constructs a control-rate Slope.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> integrator = ugentools.Integrator.kr(
-            ...     coefficient=1,
+            >>> slope = ugentools.Slope.kr(
             ...     source=source,
             ...     )
-            >>> integrator
-            Integrator.kr()
+            >>> slope
+            Slope.kr()
 
         Returns ugen graph.
         '''
@@ -102,7 +93,6 @@ class Integrator(Filter):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            coefficient=coefficient,
             source=source,
             )
         return ugen
@@ -120,36 +110,16 @@ class Integrator(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def coefficient(self):
-        r'''Gets `coefficient` input of Integrator.
-
-        ::
-
-            >>> source = ugentools.In.ar(bus=0)
-            >>> integrator = ugentools.Integrator.ar(
-            ...     coefficient=1,
-            ...     source=source,
-            ...     )
-            >>> integrator.coefficient
-            1.0
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('coefficient')
-        return self._inputs[index]
-
-    @property
     def source(self):
-        r'''Gets `source` input of Integrator.
+        r'''Gets `source` input of Slope.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> integrator = ugentools.Integrator.ar(
-            ...     coefficient=1,
+            >>> slope = ugentools.Slope.ar(
             ...     source=source,
             ...     )
-            >>> integrator.source
+            >>> slope.source
             OutputProxy(
                 source=In(
                     bus=0.0,

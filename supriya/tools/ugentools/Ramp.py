@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Lag import Lag
 
 
 class Ramp(Lag):
-    r'''
+    r'''Breaks a continuous signal into line segments.
 
     ::
 
@@ -19,7 +19,7 @@ class Ramp(Lag):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

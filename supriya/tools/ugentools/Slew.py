@@ -2,28 +2,32 @@
 from supriya.tools.ugentools.Filter import Filter
 
 
-class Slope(Filter):
-    r'''
+class Slew(Filter):
+    r'''A slew rate limiter.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> slope = ugentools.Slope.ar(
+        >>> slew = ugentools.Slew.ar(
+        ...     dn=1,
         ...     source=source,
+        ...     up=1,
         ...     )
-        >>> slope
-        Slope.ar()
+        >>> slew
+        Slew.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
+        'up',
+        'dn',
         )
 
     _valid_calculation_rates = None
@@ -33,12 +37,16 @@ class Slope(Filter):
     def __init__(
         self,
         calculation_rate=None,
+        dn=1,
         source=None,
+        up=1,
         ):
         Filter.__init__(
             self,
             calculation_rate=calculation_rate,
+            dn=dn,
             source=source,
+            up=up,
             )
 
     ### PUBLIC METHODS ###
@@ -46,18 +54,22 @@ class Slope(Filter):
     @classmethod
     def ar(
         cls,
+        dn=1,
         source=None,
+        up=1,
         ):
-        r'''Constructs an audio-rate Slope.
+        r'''Constructs an audio-rate Slew.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slope = ugentools.Slope.ar(
+            >>> slew = ugentools.Slew.ar(
+            ...     dn=1,
             ...     source=source,
+            ...     up=1,
             ...     )
-            >>> slope
-            Slope.ar()
+            >>> slew
+            Slew.ar()
 
         Returns ugen graph.
         '''
@@ -65,7 +77,9 @@ class Slope(Filter):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            dn=dn,
             source=source,
+            up=up,
             )
         return ugen
 
@@ -74,18 +88,22 @@ class Slope(Filter):
     @classmethod
     def kr(
         cls,
+        dn=1,
         source=None,
+        up=1,
         ):
-        r'''Constructs a control-rate Slope.
+        r'''Constructs a control-rate Slew.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slope = ugentools.Slope.kr(
+            >>> slew = ugentools.Slew.kr(
+            ...     dn=1,
             ...     source=source,
+            ...     up=1,
             ...     )
-            >>> slope
-            Slope.kr()
+            >>> slew
+            Slew.kr()
 
         Returns ugen graph.
         '''
@@ -93,7 +111,9 @@ class Slope(Filter):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            dn=dn,
             source=source,
+            up=up,
             )
         return ugen
 
@@ -110,16 +130,38 @@ class Slope(Filter):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of Slope.
+    def dn(self):
+        r'''Gets `dn` input of Slew.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> slope = ugentools.Slope.ar(
+            >>> slew = ugentools.Slew.ar(
+            ...     dn=1,
             ...     source=source,
+            ...     up=1,
             ...     )
-            >>> slope.source
+            >>> slew.dn
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('dn')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Slew.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> slew = ugentools.Slew.ar(
+            ...     dn=1,
+            ...     source=source,
+            ...     up=1,
+            ...     )
+            >>> slew.source
             OutputProxy(
                 source=In(
                     bus=0.0,
@@ -132,4 +174,24 @@ class Slope(Filter):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def up(self):
+        r'''Gets `up` input of Slew.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> slew = ugentools.Slew.ar(
+            ...     dn=1,
+            ...     source=source,
+            ...     up=1,
+            ...     )
+            >>> slew.up
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('up')
         return self._inputs[index]
