@@ -7,6 +7,7 @@ class GrainIn(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> grain_in = ugentools.GrainIn.ar(
         ...     channel_count=1,
         ...     duration=1,
@@ -81,6 +82,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -119,6 +121,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -142,6 +145,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -165,6 +169,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -188,6 +193,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -211,6 +217,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -234,6 +241,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
@@ -244,6 +252,14 @@ class GrainIn(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_in.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -256,6 +272,7 @@ class GrainIn(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,

@@ -7,6 +7,7 @@ class Convolution3(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> convolution_3 = ugentools.Convolution3.ar(
         ...     framesize=2048,
         ...     kernel=kernel,
@@ -66,6 +67,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -100,6 +102,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.kr(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -130,6 +133,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -150,6 +154,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -169,6 +174,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -176,6 +182,14 @@ class Convolution3(UGen):
             ...     trigger=0,
             ...     )
             >>> convolution_3.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -188,6 +202,7 @@ class Convolution3(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_3 = ugentools.Convolution3.ar(
             ...     framesize=2048,
             ...     kernel=kernel,

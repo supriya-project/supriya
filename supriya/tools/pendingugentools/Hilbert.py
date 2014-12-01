@@ -7,6 +7,7 @@ class Hilbert(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> hilbert = ugentools.Hilbert.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class Hilbert(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> hilbert = ugentools.Hilbert.ar(
             ...     source=source,
             ...     )
@@ -77,10 +79,19 @@ class Hilbert(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> hilbert = ugentools.Hilbert.ar(
             ...     source=source,
             ...     )
             >>> hilbert.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

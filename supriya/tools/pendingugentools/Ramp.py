@@ -7,6 +7,7 @@ class Ramp(Lag):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> ramp = ugentools.Ramp.ar(
         ...     lag_time=0.1,
         ...     source=source,
@@ -56,6 +57,7 @@ class Ramp(Lag):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
             ...     source=source,
@@ -86,6 +88,7 @@ class Ramp(Lag):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> ramp = ugentools.Ramp.kr(
             ...     lag_time=0.1,
             ...     source=source,
@@ -122,6 +125,7 @@ class Ramp(Lag):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
             ...     source=source,
@@ -140,11 +144,20 @@ class Ramp(Lag):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> ramp = ugentools.Ramp.ar(
             ...     lag_time=0.1,
             ...     source=source,
             ...     )
             >>> ramp.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

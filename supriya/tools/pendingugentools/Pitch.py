@@ -7,6 +7,7 @@ class Pitch(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> pitch = ugentools.Pitch.ar(
         ...     amp_threshold=0.01,
         ...     clar=0,
@@ -101,6 +102,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.kr(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -147,6 +149,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -174,6 +177,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -201,6 +205,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -228,6 +233,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -255,6 +261,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -282,6 +289,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -309,6 +317,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -336,6 +345,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -363,6 +373,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -390,6 +401,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -417,6 +429,7 @@ class Pitch(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pitch = ugentools.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
@@ -431,6 +444,14 @@ class Pitch(MultiOutUGen):
             ...     source=source,
             ...     )
             >>> pitch.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

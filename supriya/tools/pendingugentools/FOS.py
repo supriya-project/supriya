@@ -7,6 +7,7 @@ class FOS(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> fos = ugentools.FOS.ar(
         ...     a_0=0,
         ...     a_1=0,
@@ -66,6 +67,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.ar(
             ...     a_0=0,
             ...     a_1=0,
@@ -102,6 +104,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.kr(
             ...     a_0=0,
             ...     a_1=0,
@@ -142,6 +145,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.ar(
             ...     a_0=0,
             ...     a_1=0,
@@ -162,6 +166,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.ar(
             ...     a_0=0,
             ...     a_1=0,
@@ -182,6 +187,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.ar(
             ...     a_0=0,
             ...     a_1=0,
@@ -202,6 +208,7 @@ class FOS(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> fos = ugentools.FOS.ar(
             ...     a_0=0,
             ...     a_1=0,
@@ -209,6 +216,14 @@ class FOS(Filter):
             ...     source=source,
             ...     )
             >>> fos.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

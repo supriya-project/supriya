@@ -7,6 +7,7 @@ class PanB(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> pan_b = ugentools.PanB.ar(
         ...     azimuth=0,
         ...     elevation=0,
@@ -66,6 +67,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.ar(
             ...     azimuth=0,
             ...     elevation=0,
@@ -100,6 +102,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.kr(
             ...     azimuth=0,
             ...     elevation=0,
@@ -132,6 +135,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.ar(
             ...     azimuth=0,
             ...     elevation=0,
@@ -152,6 +156,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.ar(
             ...     azimuth=0,
             ...     elevation=0,
@@ -172,6 +177,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.ar(
             ...     azimuth=0,
             ...     elevation=0,
@@ -192,6 +198,7 @@ class PanB(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_b = ugentools.PanB.ar(
             ...     azimuth=0,
             ...     elevation=0,
@@ -199,6 +206,14 @@ class PanB(MultiOutUGen):
             ...     source=source,
             ...     )
             >>> pan_b.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

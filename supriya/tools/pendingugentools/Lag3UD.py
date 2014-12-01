@@ -7,6 +7,7 @@ class Lag3UD(LagUD):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> lag_3_ud = ugentools.Lag3UD.ar(
         ...     lag_time_d=0.1,
         ...     lag_time_u=0.1,
@@ -61,6 +62,7 @@ class Lag3UD(LagUD):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
@@ -94,6 +96,7 @@ class Lag3UD(LagUD):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lag_3_ud = ugentools.Lag3UD.kr(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
@@ -132,6 +135,7 @@ class Lag3UD(LagUD):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
@@ -151,6 +155,7 @@ class Lag3UD(LagUD):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
@@ -170,12 +175,21 @@ class Lag3UD(LagUD):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lag_3_ud = ugentools.Lag3UD.ar(
             ...     lag_time_d=0.1,
             ...     lag_time_u=0.1,
             ...     source=source,
             ...     )
             >>> lag_3_ud.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

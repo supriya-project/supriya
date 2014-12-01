@@ -7,6 +7,7 @@ class Dreset(DUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> dreset = ugentools.Dreset.ar(
         ...     reset=0,
         ...     source=source,
@@ -56,6 +57,7 @@ class Dreset(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dreset = ugentools.Dreset.new(
             ...     reset=0,
             ...     source=source,
@@ -82,6 +84,7 @@ class Dreset(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dreset = ugentools.Dreset.ar(
             ...     reset=0,
             ...     source=source,
@@ -100,11 +103,20 @@ class Dreset(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dreset = ugentools.Dreset.ar(
             ...     reset=0,
             ...     source=source,
             ...     )
             >>> dreset.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

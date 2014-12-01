@@ -7,6 +7,7 @@ class RunningSum(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> running_sum = ugentools.RunningSum.ar(
         ...     numsamp=40,
         ...     source=source,
@@ -56,6 +57,7 @@ class RunningSum(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
@@ -84,6 +86,7 @@ class RunningSum(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> running_sum = ugentools.RunningSum.kr(
             ...     numsamp=40,
             ...     source=source,
@@ -112,6 +115,7 @@ class RunningSum(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
@@ -130,11 +134,20 @@ class RunningSum(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> running_sum = ugentools.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
             ...     )
             >>> running_sum.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

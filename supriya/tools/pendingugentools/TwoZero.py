@@ -7,6 +7,7 @@ class TwoZero(TwoPole):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> two_zero = ugentools.TwoZero.ar(
         ...     frequency=440,
         ...     radius=0.8,
@@ -61,6 +62,7 @@ class TwoZero(TwoPole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -94,6 +96,7 @@ class TwoZero(TwoPole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> two_zero = ugentools.TwoZero.kr(
             ...     frequency=440,
             ...     radius=0.8,
@@ -132,6 +135,7 @@ class TwoZero(TwoPole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -151,6 +155,7 @@ class TwoZero(TwoPole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
@@ -170,12 +175,21 @@ class TwoZero(TwoPole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> two_zero = ugentools.TwoZero.ar(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
             >>> two_zero.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

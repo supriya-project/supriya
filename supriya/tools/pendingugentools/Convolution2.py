@@ -7,6 +7,7 @@ class Convolution2(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> convolution_2 = ugentools.Convolution2.ar(
         ...     framesize=2048,
         ...     kernel=kernel,
@@ -66,6 +67,7 @@ class Convolution2(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -96,6 +98,7 @@ class Convolution2(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -116,6 +119,7 @@ class Convolution2(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -135,6 +139,7 @@ class Convolution2(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
             ...     kernel=kernel,
@@ -142,6 +147,14 @@ class Convolution2(UGen):
             ...     trigger=0,
             ...     )
             >>> convolution_2.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -154,6 +167,7 @@ class Convolution2(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2 = ugentools.Convolution2.ar(
             ...     framesize=2048,
             ...     kernel=kernel,

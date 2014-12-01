@@ -7,6 +7,7 @@ class StereoConvolution2L(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
         ...     crossfade=1,
         ...     framesize=2048,
@@ -76,6 +77,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -112,6 +114,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -134,6 +137,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -156,6 +160,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -177,6 +182,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -198,6 +204,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -207,6 +214,14 @@ class StereoConvolution2L(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> stereo_convolution_2_l.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -219,6 +234,7 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,

@@ -7,6 +7,7 @@ class PartConv(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> part_conv = ugentools.PartConv.ar(
         ...     fftsize=fftsize,
         ...     irbufnum=irbufnum,
@@ -61,6 +62,7 @@ class PartConv(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> part_conv = ugentools.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
@@ -93,6 +95,7 @@ class PartConv(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> part_conv = ugentools.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
@@ -111,6 +114,7 @@ class PartConv(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> part_conv = ugentools.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
@@ -129,12 +133,21 @@ class PartConv(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> part_conv = ugentools.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
             ...     source=source,
             ...     )
             >>> part_conv.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

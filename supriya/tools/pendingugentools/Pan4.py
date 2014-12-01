@@ -7,6 +7,7 @@ class Pan4(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> pan_4 = ugentools.Pan4.ar(
         ...     level=1,
         ...     source=source,
@@ -66,6 +67,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
             ...     source=source,
@@ -100,6 +102,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.kr(
             ...     level=1,
             ...     source=source,
@@ -132,6 +135,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
             ...     source=source,
@@ -152,6 +156,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
             ...     source=source,
@@ -159,6 +164,14 @@ class Pan4(MultiOutUGen):
             ...     ypos=0,
             ...     )
             >>> pan_4.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -171,6 +184,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
             ...     source=source,
@@ -191,6 +205,7 @@ class Pan4(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
             ...     level=1,
             ...     source=source,

@@ -7,6 +7,7 @@ class LPZ1(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> lpz_1 = ugentools.LPZ1.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class LPZ1(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lpz_1 = ugentools.LPZ1.ar(
             ...     source=source,
             ...     )
@@ -78,6 +80,7 @@ class LPZ1(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lpz_1 = ugentools.LPZ1.kr(
             ...     source=source,
             ...     )
@@ -112,10 +115,19 @@ class LPZ1(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> lpz_1 = ugentools.LPZ1.ar(
             ...     source=source,
             ...     )
             >>> lpz_1.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

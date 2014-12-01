@@ -7,6 +7,7 @@ class MoogFF(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> moog_ff = ugentools.MoogFF.ar(
         ...     frequency=100,
         ...     gain=2,
@@ -66,6 +67,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
@@ -102,6 +104,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.kr(
             ...     frequency=100,
             ...     gain=2,
@@ -142,6 +145,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
@@ -162,6 +166,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
@@ -182,6 +187,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
@@ -202,6 +208,7 @@ class MoogFF(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> moog_ff = ugentools.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
@@ -209,6 +216,14 @@ class MoogFF(Filter):
             ...     source=source,
             ...     )
             >>> moog_ff.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

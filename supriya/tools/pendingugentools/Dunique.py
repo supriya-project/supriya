@@ -7,6 +7,7 @@ class Dunique(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> dunique = ugentools.Dunique.ar(
         ...     max_buffer_size=1024,
         ...     protected=True,
@@ -61,6 +62,7 @@ class Dunique(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dunique = ugentools.Dunique.new(
             ...     max_buffer_size=1024,
             ...     protected=True,
@@ -89,6 +91,7 @@ class Dunique(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
@@ -108,6 +111,7 @@ class Dunique(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
@@ -127,12 +131,21 @@ class Dunique(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dunique = ugentools.Dunique.ar(
             ...     max_buffer_size=1024,
             ...     protected=True,
             ...     source=source,
             ...     )
             >>> dunique.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

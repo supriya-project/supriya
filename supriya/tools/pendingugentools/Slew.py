@@ -7,6 +7,7 @@ class Slew(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> slew = ugentools.Slew.ar(
         ...     dn=1,
         ...     source=source,
@@ -61,6 +62,7 @@ class Slew(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
             ...     source=source,
@@ -94,6 +96,7 @@ class Slew(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> slew = ugentools.Slew.kr(
             ...     dn=1,
             ...     source=source,
@@ -132,6 +135,7 @@ class Slew(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
             ...     source=source,
@@ -151,12 +155,21 @@ class Slew(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
             ...     source=source,
             ...     up=1,
             ...     )
             >>> slew.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -169,6 +182,7 @@ class Slew(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> slew = ugentools.Slew.ar(
             ...     dn=1,
             ...     source=source,

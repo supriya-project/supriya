@@ -7,6 +7,7 @@ class Dpoll(DUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> dpoll = ugentools.Dpoll.ar(
         ...     label=label,
         ...     run=1,
@@ -66,6 +67,7 @@ class Dpoll(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dpoll = ugentools.Dpoll.new(
             ...     label=label,
             ...     run=1,
@@ -98,6 +100,7 @@ class Dpoll(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dpoll = ugentools.Dpoll.ar(
             ...     label=label,
             ...     run=1,
@@ -117,6 +120,7 @@ class Dpoll(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dpoll = ugentools.Dpoll.ar(
             ...     label=label,
             ...     run=1,
@@ -137,6 +141,7 @@ class Dpoll(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dpoll = ugentools.Dpoll.ar(
             ...     label=label,
             ...     run=1,
@@ -144,6 +149,14 @@ class Dpoll(DUGen):
             ...     trigid=-1,
             ...     )
             >>> dpoll.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -156,6 +169,7 @@ class Dpoll(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> dpoll = ugentools.Dpoll.ar(
             ...     label=label,
             ...     run=1,

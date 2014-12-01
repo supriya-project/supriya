@@ -7,6 +7,7 @@ class PanAz(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> pan_az = ugentools.PanAz.ar(
         ...     channel_count=channel_count,
         ...     level=1,
@@ -76,6 +77,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -116,6 +118,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.kr(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -152,6 +155,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -173,6 +177,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -195,6 +200,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -217,6 +223,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -239,6 +246,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,
@@ -248,6 +256,14 @@ class PanAz(MultiOutUGen):
             ...     width=2,
             ...     )
             >>> pan_az.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -260,6 +276,7 @@ class PanAz(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=channel_count,
             ...     level=1,

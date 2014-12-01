@@ -7,6 +7,7 @@ class Pluck(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> pluck = ugentools.Pluck.ar(
         ...     coefficient=0.5,
         ...     decay_time=1,
@@ -76,6 +77,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -110,6 +112,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -132,6 +135,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -154,6 +158,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -176,6 +181,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -198,6 +204,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
@@ -207,6 +214,14 @@ class Pluck(UGen):
             ...     trigger=1,
             ...     )
             >>> pluck.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -219,6 +234,7 @@ class Pluck(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,

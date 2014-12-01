@@ -7,6 +7,7 @@ class T2A(K2A):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> t_2_a = ugentools.T2A.ar(
         ...     offset=0,
         ...     source=source,
@@ -56,6 +57,7 @@ class T2A(K2A):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
             ...     source=source,
@@ -82,6 +84,7 @@ class T2A(K2A):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
             ...     source=source,
@@ -100,11 +103,20 @@ class T2A(K2A):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> t_2_a = ugentools.T2A.ar(
             ...     offset=0,
             ...     source=source,
             ...     )
             >>> t_2_a.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

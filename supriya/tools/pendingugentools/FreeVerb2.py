@@ -7,6 +7,7 @@ class FreeVerb2(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> free_verb_2 = ugentools.FreeVerb2.ar(
         ...     damping=0.5,
         ...     in_2=in_2,
@@ -71,6 +72,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -105,6 +107,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -126,6 +129,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -146,6 +150,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -167,6 +172,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -188,6 +194,7 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> free_verb_2 = ugentools.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
@@ -196,6 +203,14 @@ class FreeVerb2(MultiOutUGen):
             ...     source=source,
             ...     )
             >>> free_verb_2.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

@@ -63,6 +63,7 @@ def make_input_properties(ugen_name, ugen_definition):
 
 
 def make_input_property(input_name, ugen_name, method_signature):
+    method_signature_dict = dict(method_signature)
     result = []
     result.append('')
     result.append('    @property')
@@ -72,6 +73,8 @@ def make_input_property(input_name, ugen_name, method_signature):
     result.append('')
     result.append('        ::')
     result.append('')
+    if 'source' in method_signature_dict:
+        result.append('            >>> source = ugentools.In.ar(bus=0)')
     result.append('            >>> {} = ugentools.{}.{}('.format(
         stringtools.to_snake_case(ugen_name), ugen_name, 'ar'))
     for key, value in sorted(method_signature):
@@ -81,10 +84,18 @@ def make_input_property(input_name, ugen_name, method_signature):
     result.append('            ...     )')
     result.append('            >>> {}.{}'.format(
         stringtools.to_snake_case(ugen_name), input_name))
-    method_signature = dict(method_signature)
-    if isinstance(method_signature[input_name], (int, float)):
+    if isinstance(method_signature_dict[input_name], (int, float)):
         result.append('            {}'.format(
-            float(method_signature[input_name])))
+            float(method_signature_dict[input_name])))
+    elif input_name == 'source':
+        result.append('            OutputProxy(')
+        result.append('                source=In(')
+        result.append('                    bus=0.0,')
+        result.append('                    calculation_rate=<CalculationRate.AUDIO: 2>,')
+        result.append('                    channel_count=1')
+        result.append('                    ),')
+        result.append('                output_index=0')
+        result.append('                )')
     result.append('')
     result.append('        Returns ugen input.')
     result.append("        '''")
@@ -109,6 +120,7 @@ def make_class_methods(ugen_name, ugen_definition):
         method_signature = methods[method_name]
         method_signature = process_method_signature(method_signature)
         method_signature.sort()
+        method_signature_dict = dict(method_signature)
 
         enum = 'None'
         text = 'a'
@@ -132,6 +144,8 @@ def make_class_methods(ugen_name, ugen_definition):
         result.append('')
         result.append('        ::')
         result.append('')
+        if 'source' in method_signature_dict:
+            result.append('            >>> source = ugentools.In.ar(bus=0)')
         result.append('            >>> {} = ugentools.{}.{}('.format(
             stringtools.to_snake_case(ugen_name), ugen_name, method_name))
         for key, value in sorted(method_signature):
@@ -287,6 +301,10 @@ def make_initializer(ugen_name, ugen_definition):
 
 
 def make_ugen_module(ugen_name, ugen_definition):
+    method_signature = find_signature(ugen_name, ugen_definition)
+    if method_signature is not None:
+        method_signature = process_method_signature(method_signature)
+        method_signature_dict = dict(method_signature)
     result = []
     result.append('# -*- encoding: utf-8 -*-')
     result.extend(make_import(ugen_definition['parent']))
@@ -295,11 +313,11 @@ def make_ugen_module(ugen_name, ugen_definition):
     result.append('')
     result.append('    ::')
     result.append('')
+    if method_signature is not None and 'source' in method_signature_dict:
+        result.append('        >>> source = ugentools.In.ar(bus=0)')
     result.append('        >>> {} = ugentools.{}.ar('.format(
         stringtools.to_snake_case(ugen_name), ugen_name))
-    method_signature = find_signature(ugen_name, ugen_definition)
     if method_signature is not None:
-        method_signature = process_method_signature(method_signature)
         for key, value in sorted(method_signature):
             if value is None:
                 value = key

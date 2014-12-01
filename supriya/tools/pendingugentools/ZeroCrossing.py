@@ -7,6 +7,7 @@ class ZeroCrossing(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> zero_crossing = ugentools.ZeroCrossing.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class ZeroCrossing(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> zero_crossing = ugentools.ZeroCrossing.ar(
             ...     source=source,
             ...     )
@@ -76,6 +78,7 @@ class ZeroCrossing(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> zero_crossing = ugentools.ZeroCrossing.kr(
             ...     source=source,
             ...     )
@@ -100,10 +103,19 @@ class ZeroCrossing(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> zero_crossing = ugentools.ZeroCrossing.ar(
             ...     source=source,
             ...     )
             >>> zero_crossing.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

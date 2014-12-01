@@ -7,6 +7,7 @@ class XOut(AbstractOut):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> xout = ugentools.XOut.ar(
         ...     bus=bus,
         ...     crossfade=crossfade,
@@ -61,6 +62,7 @@ class XOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> xout = ugentools.XOut.ar(
             ...     bus=bus,
             ...     crossfade=crossfade,
@@ -94,6 +96,7 @@ class XOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> xout = ugentools.XOut.kr(
             ...     bus=bus,
             ...     crossfade=crossfade,
@@ -124,6 +127,7 @@ class XOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> xout = ugentools.XOut.ar(
             ...     bus=bus,
             ...     crossfade=crossfade,
@@ -142,6 +146,7 @@ class XOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> xout = ugentools.XOut.ar(
             ...     bus=bus,
             ...     crossfade=crossfade,
@@ -160,12 +165,21 @@ class XOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> xout = ugentools.XOut.ar(
             ...     bus=bus,
             ...     crossfade=crossfade,
             ...     source=source,
             ...     )
             >>> xout.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

@@ -7,6 +7,7 @@ class FreqShift(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> freq_shift = ugentools.FreqShift.ar(
         ...     frequency=0,
         ...     phase=0,
@@ -61,6 +62,7 @@ class FreqShift(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
@@ -89,6 +91,7 @@ class FreqShift(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
@@ -108,6 +111,7 @@ class FreqShift(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
@@ -127,12 +131,21 @@ class FreqShift(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> freq_shift = ugentools.FreqShift.ar(
             ...     frequency=0,
             ...     phase=0,
             ...     source=source,
             ...     )
             >>> freq_shift.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

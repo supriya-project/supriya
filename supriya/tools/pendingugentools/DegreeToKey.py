@@ -7,6 +7,7 @@ class DegreeToKey(PureUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> degree_to_key = ugentools.DegreeToKey.ar(
         ...     buffer_id=buffer_id,
         ...     octave=12,
@@ -61,6 +62,7 @@ class DegreeToKey(PureUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
             ...     buffer_id=buffer_id,
             ...     octave=12,
@@ -92,6 +94,7 @@ class DegreeToKey(PureUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.kr(
             ...     buffer_id=buffer_id,
             ...     octave=12,
@@ -120,6 +123,7 @@ class DegreeToKey(PureUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
             ...     buffer_id=buffer_id,
             ...     octave=12,
@@ -138,6 +142,7 @@ class DegreeToKey(PureUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
             ...     buffer_id=buffer_id,
             ...     octave=12,
@@ -157,12 +162,21 @@ class DegreeToKey(PureUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
             ...     buffer_id=buffer_id,
             ...     octave=12,
             ...     source=source,
             ...     )
             >>> degree_to_key.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

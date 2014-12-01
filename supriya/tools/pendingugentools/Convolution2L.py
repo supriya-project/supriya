@@ -7,6 +7,7 @@ class Convolution2L(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> convolution_2_l = ugentools.Convolution2L.ar(
         ...     crossfade=1,
         ...     framesize=2048,
@@ -71,6 +72,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -103,6 +105,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -124,6 +127,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -145,6 +149,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -165,6 +170,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
@@ -173,6 +179,14 @@ class Convolution2L(UGen):
             ...     trigger=0,
             ...     )
             >>> convolution_2_l.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -185,6 +199,7 @@ class Convolution2L(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> convolution_2_l = ugentools.Convolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,

@@ -7,6 +7,7 @@ class OneZero(OnePole):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> one_zero = ugentools.OneZero.ar(
         ...     coefficient=0.5,
         ...     source=source,
@@ -56,6 +57,7 @@ class OneZero(OnePole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
@@ -86,6 +88,7 @@ class OneZero(OnePole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> one_zero = ugentools.OneZero.kr(
             ...     coefficient=0.5,
             ...     source=source,
@@ -122,6 +125,7 @@ class OneZero(OnePole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
@@ -140,11 +144,20 @@ class OneZero(OnePole):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> one_zero = ugentools.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
             ...     )
             >>> one_zero.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

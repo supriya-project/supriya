@@ -7,6 +7,7 @@ class DetectIndex(Index):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> detect_index = ugentools.DetectIndex.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
@@ -56,6 +57,7 @@ class DetectIndex(Index):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> detect_index = ugentools.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
@@ -84,6 +86,7 @@ class DetectIndex(Index):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> detect_index = ugentools.DetectIndex.kr(
             ...     buffer_id=buffer_id,
             ...     source=source,
@@ -110,6 +113,7 @@ class DetectIndex(Index):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> detect_index = ugentools.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
@@ -127,11 +131,20 @@ class DetectIndex(Index):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> detect_index = ugentools.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
             >>> detect_index.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

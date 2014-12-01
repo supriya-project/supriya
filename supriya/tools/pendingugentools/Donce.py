@@ -7,6 +7,7 @@ class Donce(DUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> donce = ugentools.Donce.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class Donce(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> donce = ugentools.Donce.new(
             ...     source=source,
             ...     )
@@ -75,10 +77,19 @@ class Donce(DUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> donce = ugentools.Donce.ar(
             ...     source=source,
             ...     )
             >>> donce.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

@@ -7,6 +7,7 @@ class SharedOut(AbstractOut):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> shared_out = ugentools.SharedOut.ar(
         ...     bus=bus,
         ...     source=source,
@@ -58,6 +59,7 @@ class SharedOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> shared_out = ugentools.SharedOut.kr(
             ...     bus=bus,
             ...     source=source,
@@ -86,6 +88,7 @@ class SharedOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> shared_out = ugentools.SharedOut.ar(
             ...     bus=bus,
             ...     source=source,
@@ -103,11 +106,20 @@ class SharedOut(AbstractOut):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> shared_out = ugentools.SharedOut.ar(
             ...     bus=bus,
             ...     source=source,
             ...     )
             >>> shared_out.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

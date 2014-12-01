@@ -7,6 +7,7 @@ class LastValue(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> last_value = ugentools.LastValue.ar(
         ...     diff=0.01,
         ...     source=source,
@@ -56,6 +57,7 @@ class LastValue(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
@@ -84,6 +86,7 @@ class LastValue(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> last_value = ugentools.LastValue.kr(
             ...     diff=0.01,
             ...     source=source,
@@ -110,6 +113,7 @@ class LastValue(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
@@ -128,11 +132,20 @@ class LastValue(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> last_value = ugentools.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
             ...     )
             >>> last_value.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

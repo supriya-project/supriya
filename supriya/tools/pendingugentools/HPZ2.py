@@ -7,6 +7,7 @@ class HPZ2(LPZ2):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> hpz_2 = ugentools.HPZ2.ar(
         ...     source=source,
         ...     )
@@ -51,6 +52,7 @@ class HPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> hpz_2 = ugentools.HPZ2.ar(
             ...     source=source,
             ...     )
@@ -78,6 +80,7 @@ class HPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> hpz_2 = ugentools.HPZ2.kr(
             ...     source=source,
             ...     )
@@ -112,10 +115,19 @@ class HPZ2(LPZ2):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> hpz_2 = ugentools.HPZ2.ar(
             ...     source=source,
             ...     )
             >>> hpz_2.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

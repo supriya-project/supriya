@@ -7,6 +7,7 @@ class MidEQ(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> mid_eq = ugentools.MidEQ.ar(
         ...     db=0,
         ...     frequency=440,
@@ -66,6 +67,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.ar(
             ...     db=0,
             ...     frequency=440,
@@ -102,6 +104,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.kr(
             ...     db=0,
             ...     frequency=440,
@@ -142,6 +145,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.ar(
             ...     db=0,
             ...     frequency=440,
@@ -162,6 +166,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.ar(
             ...     db=0,
             ...     frequency=440,
@@ -182,6 +187,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.ar(
             ...     db=0,
             ...     frequency=440,
@@ -202,6 +208,7 @@ class MidEQ(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> mid_eq = ugentools.MidEQ.ar(
             ...     db=0,
             ...     frequency=440,
@@ -209,6 +216,14 @@ class MidEQ(Filter):
             ...     source=source,
             ...     )
             >>> mid_eq.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

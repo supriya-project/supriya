@@ -7,6 +7,7 @@ class Resonz(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> resonz = ugentools.Resonz.ar(
         ...     bwr=1,
         ...     frequency=440,
@@ -61,6 +62,7 @@ class Resonz(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
@@ -94,6 +96,7 @@ class Resonz(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> resonz = ugentools.Resonz.kr(
             ...     bwr=1,
             ...     frequency=440,
@@ -132,6 +135,7 @@ class Resonz(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
@@ -151,6 +155,7 @@ class Resonz(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
@@ -170,12 +175,21 @@ class Resonz(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> resonz = ugentools.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,
             ...     )
             >>> resonz.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''

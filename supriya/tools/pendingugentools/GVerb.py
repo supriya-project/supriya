@@ -7,6 +7,7 @@ class GVerb(MultiOutUGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> gverb = ugentools.GVerb.ar(
         ...     damping=0.5,
         ...     drylevel=1,
@@ -96,6 +97,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -140,6 +142,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -166,6 +169,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -192,6 +196,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -218,6 +223,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -244,6 +250,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -270,6 +277,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -296,6 +304,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -322,6 +331,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -335,6 +345,14 @@ class GVerb(MultiOutUGen):
             ...     taillevel=0.5,
             ...     )
             >>> gverb.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -347,6 +365,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
@@ -373,6 +392,7 @@ class GVerb(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> gverb = ugentools.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,

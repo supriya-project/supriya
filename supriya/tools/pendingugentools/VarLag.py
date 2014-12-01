@@ -7,6 +7,7 @@ class VarLag(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> var_lag = ugentools.VarLag.ar(
         ...     curvature=0,
         ...     source=source,
@@ -71,6 +72,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
@@ -110,6 +112,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.kr(
             ...     curvature=0,
             ...     source=source,
@@ -154,6 +157,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
@@ -175,6 +179,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
@@ -183,6 +188,14 @@ class VarLag(Filter):
             ...     warp=5,
             ...     )
             >>> var_lag.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -195,6 +208,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
@@ -215,6 +229,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
@@ -236,6 +251,7 @@ class VarLag(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> var_lag = ugentools.VarLag.ar(
             ...     curvature=0,
             ...     source=source,

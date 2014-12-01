@@ -7,6 +7,7 @@ class SendTrig(UGen):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> send_trig = ugentools.SendTrig.ar(
         ...     id=0,
         ...     source=source,
@@ -61,6 +62,7 @@ class SendTrig(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
             ...     source=source,
@@ -92,6 +94,7 @@ class SendTrig(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> send_trig = ugentools.SendTrig.kr(
             ...     id=0,
             ...     source=source,
@@ -120,6 +123,7 @@ class SendTrig(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
             ...     source=source,
@@ -139,12 +143,21 @@ class SendTrig(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
             ...     source=source,
             ...     value=0,
             ...     )
             >>> send_trig.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -157,6 +170,7 @@ class SendTrig(UGen):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> send_trig = ugentools.SendTrig.ar(
             ...     id=0,
             ...     source=source,

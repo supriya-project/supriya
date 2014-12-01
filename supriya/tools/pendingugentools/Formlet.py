@@ -7,6 +7,7 @@ class Formlet(Filter):
 
     ::
 
+        >>> source = ugentools.In.ar(bus=0)
         >>> formlet = ugentools.Formlet.ar(
         ...     attack_time=1,
         ...     decay_time=1,
@@ -66,6 +67,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.ar(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -102,6 +104,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.kr(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -142,6 +145,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.ar(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -162,6 +166,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.ar(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -182,6 +187,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.ar(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -202,6 +208,7 @@ class Formlet(Filter):
 
         ::
 
+            >>> source = ugentools.In.ar(bus=0)
             >>> formlet = ugentools.Formlet.ar(
             ...     attack_time=1,
             ...     decay_time=1,
@@ -209,6 +216,14 @@ class Formlet(Filter):
             ...     source=source,
             ...     )
             >>> formlet.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
