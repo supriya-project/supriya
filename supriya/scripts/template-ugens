@@ -342,6 +342,7 @@ def run():
         if ugen_name in (
             'AbstractIn',
             'AbstractOut',
+            'BasicOpUGen.py',
             'ChaosGen',
             'CombFormlet',
             'LRHiCut',
