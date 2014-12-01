@@ -2,30 +2,31 @@
 from supriya.tools.synthdeftools.UGen import UGen
 
 
-class Gendy3(UGen):
-    r'''
+class Gendy1(UGen):
+    r'''A dynamic stochastic synthesis generator.
 
     ::
 
-        >>> gendy_3 = ugentools.Gendy3.ar(
+        >>> gendy_1 = ugentools.Gendy1.ar(
         ...     adparam=1,
         ...     ampdist=1,
         ...     ampscale=0.5,
         ...     ddparam=1,
         ...     durdist=1,
         ...     durscale=0.5,
-        ...     frequency=440,
         ...     init_cps=12,
-        ...     knum=knum,
+        ...     knum=10,
+        ...     maxfrequency=660,
+        ...     minfrequency=440,
         ...     )
-        >>> gendy_3
-        Gendy3.ar()
+        >>> gendy_1
+        Gendy1.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Noise UGens'
 
     __slots__ = ()
 
@@ -34,7 +35,8 @@ class Gendy3(UGen):
         'durdist',
         'adparam',
         'ddparam',
-        'frequency',
+        'minfrequency',
+        'maxfrequency',
         'ampscale',
         'durscale',
         'init_cps',
@@ -54,10 +56,13 @@ class Gendy3(UGen):
         ddparam=1,
         durdist=1,
         durscale=0.5,
-        frequency=440,
         init_cps=12,
         knum=None,
+        maxfrequency=660,
+        minfrequency=440,
         ):
+        if knum is None:
+            knum = init_cps
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -67,9 +72,10 @@ class Gendy3(UGen):
             ddparam=ddparam,
             durdist=durdist,
             durscale=durscale,
-            frequency=frequency,
             init_cps=init_cps,
             knum=knum,
+            maxfrequency=maxfrequency,
+            minfrequency=minfrequency,
             )
 
     ### PUBLIC METHODS ###
@@ -83,27 +89,29 @@ class Gendy3(UGen):
         ddparam=1,
         durdist=1,
         durscale=0.5,
-        frequency=440,
         init_cps=12,
         knum=None,
+        maxfrequency=660,
+        minfrequency=440,
         ):
-        r'''Constructs an audio-rate Gendy3.
+        r'''Constructs an audio-rate Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3
-            Gendy3.ar()
+            >>> gendy_1
+            Gendy1.ar()
 
         Returns ugen graph.
         '''
@@ -117,9 +125,10 @@ class Gendy3(UGen):
             ddparam=ddparam,
             durdist=durdist,
             durscale=durscale,
-            frequency=frequency,
             init_cps=init_cps,
             knum=knum,
+            maxfrequency=maxfrequency,
+            minfrequency=minfrequency,
             )
         return ugen
 
@@ -132,27 +141,29 @@ class Gendy3(UGen):
         ddparam=1,
         durdist=1,
         durscale=0.5,
-        frequency=440,
         init_cps=12,
         knum=None,
+        maxfrequency=1000,
+        minfrequency=20,
         ):
-        r'''Constructs a control-rate Gendy3.
+        r'''Constructs a control-rate Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.kr(
+            >>> gendy_1 = ugentools.Gendy1.kr(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=1000,
+            ...     minfrequency=20,
             ...     )
-            >>> gendy_3
-            Gendy3.kr()
+            >>> gendy_1
+            Gendy1.kr()
 
         Returns ugen graph.
         '''
@@ -166,9 +177,10 @@ class Gendy3(UGen):
             ddparam=ddparam,
             durdist=durdist,
             durscale=durscale,
-            frequency=frequency,
             init_cps=init_cps,
             knum=knum,
+            maxfrequency=maxfrequency,
+            minfrequency=minfrequency,
             )
         return ugen
 
@@ -176,22 +188,23 @@ class Gendy3(UGen):
 
     @property
     def adparam(self):
-        r'''Gets `adparam` input of Gendy3.
+        r'''Gets `adparam` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.adparam
+            >>> gendy_1.adparam
             1.0
 
         Returns ugen input.
@@ -201,22 +214,23 @@ class Gendy3(UGen):
 
     @property
     def ampdist(self):
-        r'''Gets `ampdist` input of Gendy3.
+        r'''Gets `ampdist` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.ampdist
+            >>> gendy_1.ampdist
             1.0
 
         Returns ugen input.
@@ -226,22 +240,23 @@ class Gendy3(UGen):
 
     @property
     def ampscale(self):
-        r'''Gets `ampscale` input of Gendy3.
+        r'''Gets `ampscale` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.ampscale
+            >>> gendy_1.ampscale
             0.5
 
         Returns ugen input.
@@ -251,22 +266,23 @@ class Gendy3(UGen):
 
     @property
     def ddparam(self):
-        r'''Gets `ddparam` input of Gendy3.
+        r'''Gets `ddparam` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.ddparam
+            >>> gendy_1.ddparam
             1.0
 
         Returns ugen input.
@@ -276,22 +292,23 @@ class Gendy3(UGen):
 
     @property
     def durdist(self):
-        r'''Gets `durdist` input of Gendy3.
+        r'''Gets `durdist` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.durdist
+            >>> gendy_1.durdist
             1.0
 
         Returns ugen input.
@@ -301,22 +318,23 @@ class Gendy3(UGen):
 
     @property
     def durscale(self):
-        r'''Gets `durscale` input of Gendy3.
+        r'''Gets `durscale` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.durscale
+            >>> gendy_1.durscale
             0.5
 
         Returns ugen input.
@@ -325,48 +343,24 @@ class Gendy3(UGen):
         return self._inputs[index]
 
     @property
-    def frequency(self):
-        r'''Gets `frequency` input of Gendy3.
-
-        ::
-
-            >>> gendy_3 = ugentools.Gendy3.ar(
-            ...     adparam=1,
-            ...     ampdist=1,
-            ...     ampscale=0.5,
-            ...     ddparam=1,
-            ...     durdist=1,
-            ...     durscale=0.5,
-            ...     frequency=440,
-            ...     init_cps=12,
-            ...     knum=knum,
-            ...     )
-            >>> gendy_3.frequency
-            440.0
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('frequency')
-        return self._inputs[index]
-
-    @property
     def init_cps(self):
-        r'''Gets `init_cps` input of Gendy3.
+        r'''Gets `init_cps` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.init_cps
+            >>> gendy_1.init_cps
             12.0
 
         Returns ugen input.
@@ -376,24 +370,78 @@ class Gendy3(UGen):
 
     @property
     def knum(self):
-        r'''Gets `knum` input of Gendy3.
+        r'''Gets `knum` input of Gendy1.
 
         ::
 
-            >>> gendy_3 = ugentools.Gendy3.ar(
+            >>> gendy_1 = ugentools.Gendy1.ar(
             ...     adparam=1,
             ...     ampdist=1,
             ...     ampscale=0.5,
             ...     ddparam=1,
             ...     durdist=1,
             ...     durscale=0.5,
-            ...     frequency=440,
             ...     init_cps=12,
-            ...     knum=knum,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
             ...     )
-            >>> gendy_3.knum
+            >>> gendy_1.knum
+            10.0
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('knum')
+        return self._inputs[index]
+
+    @property
+    def maxfrequency(self):
+        r'''Gets `maxfrequency` input of Gendy1.
+
+        ::
+
+            >>> gendy_1 = ugentools.Gendy1.ar(
+            ...     adparam=1,
+            ...     ampdist=1,
+            ...     ampscale=0.5,
+            ...     ddparam=1,
+            ...     durdist=1,
+            ...     durscale=0.5,
+            ...     init_cps=12,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
+            ...     )
+            >>> gendy_1.maxfrequency
+            660.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('maxfrequency')
+        return self._inputs[index]
+
+    @property
+    def minfrequency(self):
+        r'''Gets `minfrequency` input of Gendy1.
+
+        ::
+
+            >>> gendy_1 = ugentools.Gendy1.ar(
+            ...     adparam=1,
+            ...     ampdist=1,
+            ...     ampscale=0.5,
+            ...     ddparam=1,
+            ...     durdist=1,
+            ...     durscale=0.5,
+            ...     init_cps=12,
+            ...     knum=10,
+            ...     maxfrequency=660,
+            ...     minfrequency=440,
+            ...     )
+            >>> gendy_1.minfrequency
+            440.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('minfrequency')
         return self._inputs[index]
