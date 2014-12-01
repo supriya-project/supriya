@@ -9,10 +9,11 @@ install_requires = [
     'numpy',
     'pexpect',
     'pytest',
-    #'rtmidi-python',
+    'rtmidi-python',
     'six',
     'sphinx',
     'sphinx_rtd_theme',
+    'tornado',
     'tox',
     #'wavefile',
     ]
@@ -98,6 +99,7 @@ SuperCollider via their package manager.
 - `six`
 - `sphinx_rtd_theme`
 - `sphinx`
+- `tornado`
 - `tox`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for

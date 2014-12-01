@@ -76,6 +76,7 @@ SuperCollider via their package manager.
 - `rtmidi-python`
 - `six`
 - `sphinx`
+- `tornado`
 - `tox`
 - `python-wavefile`
 

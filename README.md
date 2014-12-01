@@ -73,6 +73,7 @@ SuperCollider via their package manager.
 - `six`
 - `sphinx_rtd_theme`
 - `sphinx`
+- `tornado`
 - `tox`
 - `wavefile`
 

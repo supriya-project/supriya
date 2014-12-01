@@ -4,3 +4,4 @@ enum34
 funcsigs
 pexpect
 six
+tornado
