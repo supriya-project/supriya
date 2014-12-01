@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class HenonL(ChaosGen):
+class HenonL(UGen):
     r'''A linear-interpolating henon map chaotic generator.
 
     ::
@@ -46,7 +46,7 @@ class HenonL(ChaosGen):
         x_0=0,
         x_1=0,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,

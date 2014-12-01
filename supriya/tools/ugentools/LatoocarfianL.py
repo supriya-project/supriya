@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class LatoocarfianL(ChaosGen):
+class LatoocarfianL(UGen):
     r'''A linear-interpolating Latoocarfian chaotic generator.
 
     ::
@@ -52,7 +52,7 @@ class LatoocarfianL(ChaosGen):
         xi=0.5,
         yi=0.5,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,

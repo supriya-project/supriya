@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class CuspL(ChaosGen):
+class CuspL(UGen):
     r'''A linear-interpolating cusp map chaotic generator.
 
     ::
@@ -43,7 +43,7 @@ class CuspL(ChaosGen):
         frequency=22050,
         xi=0,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,

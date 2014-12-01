@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class FBSineL(ChaosGen):
+class FBSineL(UGen):
     r'''A linear-interpolating feedback sine with chaotic phase indexing.
 
     ::
@@ -52,7 +52,7 @@ class FBSineL(ChaosGen):
         xi=0.1,
         yi=0.1,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,

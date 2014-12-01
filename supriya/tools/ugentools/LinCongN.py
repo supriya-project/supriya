@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class LinCongN(ChaosGen):
+class LinCongN(UGen):
     r'''A non-interpolating linear congruential chaotic generator.
 
     ::
@@ -46,7 +46,7 @@ class LinCongN(ChaosGen):
         m=1,
         xi=0,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,

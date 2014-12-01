@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class GbmanL(ChaosGen):
+class GbmanL(UGen):
     r'''A non-interpolating gingerbreadman map chaotic generator.
 
     ::
@@ -40,7 +40,7 @@ class GbmanL(ChaosGen):
         xi=1.2,
         yi=2.1,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,

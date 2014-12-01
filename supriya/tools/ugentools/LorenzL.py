@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ChaosGen import ChaosGen
+from supriya.tools.synthdeftools.UGen import UGen
 
 
-class LorenzL(ChaosGen):
+class LorenzL(UGen):
     r'''A linear-interpolating Lorenz chaotic generator.
 
     ::
@@ -55,7 +55,7 @@ class LorenzL(ChaosGen):
         yi=0,
         zi=0,
         ):
-        ChaosGen.__init__(
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             b=b,
