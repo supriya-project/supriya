@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPZ1(Filter):
-    r'''
+    r'''A two point average filter.
 
     ::
 
@@ -18,7 +18,7 @@ class LPZ1(Filter):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
