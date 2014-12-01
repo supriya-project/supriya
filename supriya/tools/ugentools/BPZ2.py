@@ -3,7 +3,7 @@ from supriya.tools.ugentools.LPZ2 import LPZ2
 
 
 class BPZ2(LPZ2):
-    r'''
+    r'''A two zero fixed midpass filter.
 
     ::
 
@@ -18,7 +18,7 @@ class BPZ2(LPZ2):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 

@@ -1,24 +1,24 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LPZ1 import LPZ1
+from supriya.tools.ugentools.LPZ2 import LPZ2
 
 
-class HPZ1(LPZ1):
-    r'''
+class BRZ2(LPZ2):
+    r'''A two zero fixed midcut filter.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> hpz_1 = ugentools.HPZ1.ar(
+        >>> brz_2 = ugentools.BRZ2.ar(
         ...     source=source,
         ...     )
-        >>> hpz_1
-        HPZ1.ar()
+        >>> brz_2
+        BRZ2.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -35,7 +35,7 @@ class HPZ1(LPZ1):
         calculation_rate=None,
         source=None,
         ):
-        LPZ1.__init__(
+        LPZ2.__init__(
             self,
             calculation_rate=calculation_rate,
             source=source,
@@ -48,16 +48,16 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate HPZ1.
+        r'''Constructs an audio-rate BRZ2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_1 = ugentools.HPZ1.ar(
+            >>> brz_2 = ugentools.BRZ2.ar(
             ...     source=source,
             ...     )
-            >>> hpz_1
-            HPZ1.ar()
+            >>> brz_2
+            BRZ2.ar()
 
         Returns ugen graph.
         '''
@@ -76,16 +76,16 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate HPZ1.
+        r'''Constructs a control-rate BRZ2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_1 = ugentools.HPZ1.kr(
+            >>> brz_2 = ugentools.BRZ2.kr(
             ...     source=source,
             ...     )
-            >>> hpz_1
-            HPZ1.kr()
+            >>> brz_2
+            BRZ2.kr()
 
         Returns ugen graph.
         '''
@@ -111,15 +111,15 @@ class HPZ1(LPZ1):
 
     @property
     def source(self):
-        r'''Gets `source` input of HPZ1.
+        r'''Gets `source` input of BRZ2.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_1 = ugentools.HPZ1.ar(
+            >>> brz_2 = ugentools.BRZ2.ar(
             ...     source=source,
             ...     )
-            >>> hpz_1.source
+            >>> brz_2.source
             OutputProxy(
                 source=In(
                     bus=0.0,

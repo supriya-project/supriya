@@ -1,29 +1,31 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LPZ2 import LPZ2
+from supriya.tools.ugentools.Filter import Filter
 
 
-class HPZ2(LPZ2):
-    r'''
+class OnePole(Filter):
+    r'''A one pole filter.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> hpz_2 = ugentools.HPZ2.ar(
+        >>> one_pole = ugentools.OnePole.ar(
+        ...     coefficient=0.5,
         ...     source=source,
         ...     )
-        >>> hpz_2
-        HPZ2.ar()
+        >>> one_pole
+        OnePole.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
+        'coefficient',
         )
 
     _valid_calculation_rates = None
@@ -33,11 +35,13 @@ class HPZ2(LPZ2):
     def __init__(
         self,
         calculation_rate=None,
+        coefficient=0.5,
         source=None,
         ):
-        LPZ2.__init__(
+        Filter.__init__(
             self,
             calculation_rate=calculation_rate,
+            coefficient=coefficient,
             source=source,
             )
 
@@ -46,18 +50,20 @@ class HPZ2(LPZ2):
     @classmethod
     def ar(
         cls,
+        coefficient=0.5,
         source=None,
         ):
-        r'''Constructs an audio-rate HPZ2.
+        r'''Constructs an audio-rate OnePole.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_2 = ugentools.HPZ2.ar(
+            >>> one_pole = ugentools.OnePole.ar(
+            ...     coefficient=0.5,
             ...     source=source,
             ...     )
-            >>> hpz_2
-            HPZ2.ar()
+            >>> one_pole
+            OnePole.ar()
 
         Returns ugen graph.
         '''
@@ -65,6 +71,7 @@ class HPZ2(LPZ2):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            coefficient=coefficient,
             source=source,
             )
         return ugen
@@ -74,18 +81,20 @@ class HPZ2(LPZ2):
     @classmethod
     def kr(
         cls,
+        coefficient=0.5,
         source=None,
         ):
-        r'''Constructs a control-rate HPZ2.
+        r'''Constructs a control-rate OnePole.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_2 = ugentools.HPZ2.kr(
+            >>> one_pole = ugentools.OnePole.kr(
+            ...     coefficient=0.5,
             ...     source=source,
             ...     )
-            >>> hpz_2
-            HPZ2.kr()
+            >>> one_pole
+            OnePole.kr()
 
         Returns ugen graph.
         '''
@@ -93,6 +102,7 @@ class HPZ2(LPZ2):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
+            coefficient=coefficient,
             source=source,
             )
         return ugen
@@ -110,16 +120,36 @@ class HPZ2(LPZ2):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def source(self):
-        r'''Gets `source` input of HPZ2.
+    def coefficient(self):
+        r'''Gets `coefficient` input of OnePole.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> hpz_2 = ugentools.HPZ2.ar(
+            >>> one_pole = ugentools.OnePole.ar(
+            ...     coefficient=0.5,
             ...     source=source,
             ...     )
-            >>> hpz_2.source
+            >>> one_pole.coefficient
+            0.5
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('coefficient')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of OnePole.
+
+        ::
+
+            >>> source = ugentools.In.ar(bus=0)
+            >>> one_pole = ugentools.OnePole.ar(
+            ...     coefficient=0.5,
+            ...     source=source,
+            ...     )
+            >>> one_pole.source
             OutputProxy(
                 source=In(
                     bus=0.0,
