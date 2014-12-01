@@ -339,7 +339,14 @@ def make_ugen_module(ugen_name, ugen_definition):
 def run():
     counter = 0
     for ugen_name in sorted(ugen_definitions):
-        if ugen_name == 'UGen':
+        if ugen_name in (
+            'AbstractIn',
+            'AbstractOut',
+            'ChaosGen',
+            'SharedIn',
+            'SharedOut',
+            'UGen',
+            ):
             continue
         elif ugen_name in dir(ugentools):
             continue
