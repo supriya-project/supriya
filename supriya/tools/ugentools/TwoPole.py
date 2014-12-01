@@ -1,25 +1,26 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.TwoPole import TwoPole
+from supriya.tools.ugentools.Filter import Filter
 
 
-class APF(TwoPole):
-    r'''
+class TwoPole(Filter):
+    r'''A two pole filter.
 
     ::
 
-        >>> apf = ugentools.APF.ar(
+        >>> source = ugentools.In.ar(bus=0)
+        >>> two_pole = ugentools.TwoPole.ar(
         ...     frequency=440,
         ...     radius=0.8,
         ...     source=source,
         ...     )
-        >>> apf
-        APF.ar()
+        >>> two_pole
+        TwoPole.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Filter UGens'
 
     __slots__ = ()
 
@@ -40,7 +41,7 @@ class APF(TwoPole):
         radius=0.8,
         source=None,
         ):
-        TwoPole.__init__(
+        Filter.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -57,17 +58,18 @@ class APF(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs an audio-rate APF.
+        r'''Constructs an audio-rate TwoPole.
 
         ::
 
-            >>> apf = ugentools.APF.ar(
+            >>> source = ugentools.In.ar(bus=0)
+            >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
-            >>> apf
-            APF.ar()
+            >>> two_pole
+            TwoPole.ar()
 
         Returns ugen graph.
         '''
@@ -90,17 +92,18 @@ class APF(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs a control-rate APF.
+        r'''Constructs a control-rate TwoPole.
 
         ::
 
-            >>> apf = ugentools.APF.kr(
+            >>> source = ugentools.In.ar(bus=0)
+            >>> two_pole = ugentools.TwoPole.kr(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
-            >>> apf
-            APF.kr()
+            >>> two_pole
+            TwoPole.kr()
 
         Returns ugen graph.
         '''
@@ -128,16 +131,17 @@ class APF(TwoPole):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of APF.
+        r'''Gets `frequency` input of TwoPole.
 
         ::
 
-            >>> apf = ugentools.APF.ar(
+            >>> source = ugentools.In.ar(bus=0)
+            >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
-            >>> apf.frequency
+            >>> two_pole.frequency
             440.0
 
         Returns ugen input.
@@ -147,16 +151,17 @@ class APF(TwoPole):
 
     @property
     def radius(self):
-        r'''Gets `radius` input of APF.
+        r'''Gets `radius` input of TwoPole.
 
         ::
 
-            >>> apf = ugentools.APF.ar(
+            >>> source = ugentools.In.ar(bus=0)
+            >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
-            >>> apf.radius
+            >>> two_pole.radius
             0.8
 
         Returns ugen input.
@@ -166,16 +171,25 @@ class APF(TwoPole):
 
     @property
     def source(self):
-        r'''Gets `source` input of APF.
+        r'''Gets `source` input of TwoPole.
 
         ::
 
-            >>> apf = ugentools.APF.ar(
+            >>> source = ugentools.In.ar(bus=0)
+            >>> two_pole = ugentools.TwoPole.ar(
             ...     frequency=440,
             ...     radius=0.8,
             ...     source=source,
             ...     )
-            >>> apf.source
+            >>> two_pole.source
+            OutputProxy(
+                source=In(
+                    bus=0.0,
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=1
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
