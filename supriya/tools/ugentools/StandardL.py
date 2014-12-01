@@ -2,29 +2,31 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class GbmanN(ChaosGen):
-    r'''
+class StandardL(ChaosGen):
+    r'''A linear-interpolating standard map chaotic generator.
 
     ::
 
-        >>> gbman_n = ugentools.GbmanN.ar(
+        >>> standard_l = ugentools.StandardL.ar(
         ...     frequency=22050,
-        ...     xi=1.2,
-        ...     yi=2.1,
+        ...     k=1,
+        ...     xi=0.5,
+        ...     yi=0,
         ...     )
-        >>> gbman_n
-        GbmanN.ar()
+        >>> standard_l
+        StandardL.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'frequency',
+        'k',
         'xi',
         'yi',
         )
@@ -37,13 +39,15 @@ class GbmanN(ChaosGen):
         self,
         calculation_rate=None,
         frequency=22050,
-        xi=1.2,
-        yi=2.1,
+        k=1,
+        xi=0.5,
+        yi=0,
         ):
         ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
+            k=k,
             xi=xi,
             yi=yi,
             )
@@ -54,20 +58,22 @@ class GbmanN(ChaosGen):
     def ar(
         cls,
         frequency=22050,
-        xi=1.2,
-        yi=2.1,
+        k=1,
+        xi=0.5,
+        yi=0,
         ):
-        r'''Constructs an audio-rate GbmanN.
+        r'''Constructs an audio-rate StandardL.
 
         ::
 
-            >>> gbman_n = ugentools.GbmanN.ar(
+            >>> standard_l = ugentools.StandardL.ar(
             ...     frequency=22050,
-            ...     xi=1.2,
-            ...     yi=2.1,
+            ...     k=1,
+            ...     xi=0.5,
+            ...     yi=0,
             ...     )
-            >>> gbman_n
-            GbmanN.ar()
+            >>> standard_l
+            StandardL.ar()
 
         Returns ugen graph.
         '''
@@ -76,6 +82,7 @@ class GbmanN(ChaosGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
+            k=k,
             xi=xi,
             yi=yi,
             )
@@ -87,16 +94,17 @@ class GbmanN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of GbmanN.
+        r'''Gets `frequency` input of StandardL.
 
         ::
 
-            >>> gbman_n = ugentools.GbmanN.ar(
+            >>> standard_l = ugentools.StandardL.ar(
             ...     frequency=22050,
-            ...     xi=1.2,
-            ...     yi=2.1,
+            ...     k=1,
+            ...     xi=0.5,
+            ...     yi=0,
             ...     )
-            >>> gbman_n.frequency
+            >>> standard_l.frequency
             22050.0
 
         Returns ugen input.
@@ -105,18 +113,39 @@ class GbmanN(ChaosGen):
         return self._inputs[index]
 
     @property
-    def xi(self):
-        r'''Gets `xi` input of GbmanN.
+    def k(self):
+        r'''Gets `k` input of StandardL.
 
         ::
 
-            >>> gbman_n = ugentools.GbmanN.ar(
+            >>> standard_l = ugentools.StandardL.ar(
             ...     frequency=22050,
-            ...     xi=1.2,
-            ...     yi=2.1,
+            ...     k=1,
+            ...     xi=0.5,
+            ...     yi=0,
             ...     )
-            >>> gbman_n.xi
-            1.2
+            >>> standard_l.k
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('k')
+        return self._inputs[index]
+
+    @property
+    def xi(self):
+        r'''Gets `xi` input of StandardL.
+
+        ::
+
+            >>> standard_l = ugentools.StandardL.ar(
+            ...     frequency=22050,
+            ...     k=1,
+            ...     xi=0.5,
+            ...     yi=0,
+            ...     )
+            >>> standard_l.xi
+            0.5
 
         Returns ugen input.
         '''
@@ -125,17 +154,18 @@ class GbmanN(ChaosGen):
 
     @property
     def yi(self):
-        r'''Gets `yi` input of GbmanN.
+        r'''Gets `yi` input of StandardL.
 
         ::
 
-            >>> gbman_n = ugentools.GbmanN.ar(
+            >>> standard_l = ugentools.StandardL.ar(
             ...     frequency=22050,
-            ...     xi=1.2,
-            ...     yi=2.1,
+            ...     k=1,
+            ...     xi=0.5,
+            ...     yi=0,
             ...     )
-            >>> gbman_n.yi
-            2.1
+            >>> standard_l.yi
+            0.0
 
         Returns ugen input.
         '''

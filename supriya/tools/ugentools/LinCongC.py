@@ -2,26 +2,26 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class LinCongN(ChaosGen):
-    r'''
+class LinCongC(ChaosGen):
+    r'''A cubic-interpolating linear congruential chaotic generator.
 
     ::
 
-        >>> lin_cong_n = ugentools.LinCongN.ar(
+        >>> lin_cong_c = ugentools.LinCongC.ar(
         ...     a=1.1,
         ...     c=0.13,
         ...     frequency=22050,
         ...     m=1,
         ...     xi=0,
         ...     )
-        >>> lin_cong_n
-        LinCongN.ar()
+        >>> lin_cong_c
+        LinCongC.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -67,19 +67,19 @@ class LinCongN(ChaosGen):
         m=1,
         xi=0,
         ):
-        r'''Constructs an audio-rate LinCongN.
+        r'''Constructs an audio-rate LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n
-            LinCongN.ar()
+            >>> lin_cong_c
+            LinCongC.ar()
 
         Returns ugen graph.
         '''
@@ -101,18 +101,18 @@ class LinCongN(ChaosGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of LinCongN.
+        r'''Gets `a` input of LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n.a
+            >>> lin_cong_c.a
             1.1
 
         Returns ugen input.
@@ -122,18 +122,18 @@ class LinCongN(ChaosGen):
 
     @property
     def c(self):
-        r'''Gets `c` input of LinCongN.
+        r'''Gets `c` input of LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n.c
+            >>> lin_cong_c.c
             0.13
 
         Returns ugen input.
@@ -143,18 +143,18 @@ class LinCongN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LinCongN.
+        r'''Gets `frequency` input of LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n.frequency
+            >>> lin_cong_c.frequency
             22050.0
 
         Returns ugen input.
@@ -164,18 +164,18 @@ class LinCongN(ChaosGen):
 
     @property
     def m(self):
-        r'''Gets `m` input of LinCongN.
+        r'''Gets `m` input of LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n.m
+            >>> lin_cong_c.m
             1.0
 
         Returns ugen input.
@@ -185,18 +185,18 @@ class LinCongN(ChaosGen):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of LinCongN.
+        r'''Gets `xi` input of LinCongC.
 
         ::
 
-            >>> lin_cong_n = ugentools.LinCongN.ar(
+            >>> lin_cong_c = ugentools.LinCongC.ar(
             ...     a=1.1,
             ...     c=0.13,
             ...     frequency=22050,
             ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_n.xi
+            >>> lin_cong_c.xi
             0.0
 
         Returns ugen input.

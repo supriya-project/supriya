@@ -2,26 +2,26 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class QuadN(ChaosGen):
-    r'''
+class QuadL(ChaosGen):
+    r'''A linear-interpolating general quadratic map chaotic generator.
 
     ::
 
-        >>> quad_n = ugentools.QuadN.ar(
+        >>> quad_l = ugentools.QuadL.ar(
         ...     a=1,
         ...     b=-1,
         ...     c=-0.75,
         ...     frequency=22050,
         ...     xi=0,
         ...     )
-        >>> quad_n
-        QuadN.ar()
+        >>> quad_l
+        QuadL.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -67,19 +67,19 @@ class QuadN(ChaosGen):
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate QuadN.
+        r'''Constructs an audio-rate QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n
-            QuadN.ar()
+            >>> quad_l
+            QuadL.ar()
 
         Returns ugen graph.
         '''
@@ -101,18 +101,18 @@ class QuadN(ChaosGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of QuadN.
+        r'''Gets `a` input of QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n.a
+            >>> quad_l.a
             1.0
 
         Returns ugen input.
@@ -122,18 +122,18 @@ class QuadN(ChaosGen):
 
     @property
     def b(self):
-        r'''Gets `b` input of QuadN.
+        r'''Gets `b` input of QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n.b
+            >>> quad_l.b
             -1.0
 
         Returns ugen input.
@@ -143,18 +143,18 @@ class QuadN(ChaosGen):
 
     @property
     def c(self):
-        r'''Gets `c` input of QuadN.
+        r'''Gets `c` input of QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n.c
+            >>> quad_l.c
             -0.75
 
         Returns ugen input.
@@ -164,18 +164,18 @@ class QuadN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of QuadN.
+        r'''Gets `frequency` input of QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n.frequency
+            >>> quad_l.frequency
             22050.0
 
         Returns ugen input.
@@ -185,18 +185,18 @@ class QuadN(ChaosGen):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of QuadN.
+        r'''Gets `xi` input of QuadL.
 
         ::
 
-            >>> quad_n = ugentools.QuadN.ar(
+            >>> quad_l = ugentools.QuadL.ar(
             ...     a=1,
             ...     b=-1,
             ...     c=-0.75,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_n.xi
+            >>> quad_l.xi
             0.0
 
         Returns ugen input.

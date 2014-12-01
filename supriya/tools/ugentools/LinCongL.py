@@ -1,33 +1,35 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.CuspN import CuspN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class CuspL(CuspN):
-    r'''
+class LinCongL(ChaosGen):
+    r'''A linear-interpolating linear congruential chaotic generator.
 
     ::
 
-        >>> cusp_l = ugentools.CuspL.ar(
-        ...     a=1,
-        ...     b=1.9,
+        >>> lin_cong_l = ugentools.LinCongL.ar(
+        ...     a=1.1,
+        ...     c=0.13,
         ...     frequency=22050,
+        ...     m=1,
         ...     xi=0,
         ...     )
-        >>> cusp_l
-        CuspL.ar()
+        >>> lin_cong_l
+        LinCongL.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'frequency',
         'a',
-        'b',
+        'c',
+        'm',
         'xi',
         )
 
@@ -38,17 +40,19 @@ class CuspL(CuspN):
     def __init__(
         self,
         calculation_rate=None,
-        a=1,
-        b=1.9,
+        a=1.1,
+        c=0.13,
         frequency=22050,
+        m=1,
         xi=0,
         ):
-        CuspN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,
-            b=b,
+            c=c,
             frequency=frequency,
+            m=m,
             xi=xi,
             )
 
@@ -57,23 +61,25 @@ class CuspL(CuspN):
     @classmethod
     def ar(
         cls,
-        a=1,
-        b=1.9,
+        a=1.1,
+        c=0.13,
         frequency=22050,
+        m=1,
         xi=0,
         ):
-        r'''Constructs an audio-rate CuspL.
+        r'''Constructs an audio-rate LinCongL.
 
         ::
 
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
             ...     frequency=22050,
+            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> cusp_l
-            CuspL.ar()
+            >>> lin_cong_l
+            LinCongL.ar()
 
         Returns ugen graph.
         '''
@@ -82,8 +88,9 @@ class CuspL(CuspN):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             a=a,
-            b=b,
+            c=c,
             frequency=frequency,
+            m=m,
             xi=xi,
             )
         return ugen
@@ -94,18 +101,19 @@ class CuspL(CuspN):
 
     @property
     def a(self):
-        r'''Gets `a` input of CuspL.
+        r'''Gets `a` input of LinCongL.
 
         ::
 
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
             ...     frequency=22050,
+            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> cusp_l.a
-            1.0
+            >>> lin_cong_l.a
+            1.1
 
         Returns ugen input.
         '''
@@ -113,38 +121,40 @@ class CuspL(CuspN):
         return self._inputs[index]
 
     @property
-    def b(self):
-        r'''Gets `b` input of CuspL.
+    def c(self):
+        r'''Gets `c` input of LinCongL.
 
         ::
 
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
             ...     frequency=22050,
+            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> cusp_l.b
-            1.9
+            >>> lin_cong_l.c
+            0.13
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('b')
+        index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of CuspL.
+        r'''Gets `frequency` input of LinCongL.
 
         ::
 
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
             ...     frequency=22050,
+            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> cusp_l.frequency
+            >>> lin_cong_l.frequency
             22050.0
 
         Returns ugen input.
@@ -153,18 +163,40 @@ class CuspL(CuspN):
         return self._inputs[index]
 
     @property
-    def xi(self):
-        r'''Gets `xi` input of CuspL.
+    def m(self):
+        r'''Gets `m` input of LinCongL.
 
         ::
 
-            >>> cusp_l = ugentools.CuspL.ar(
-            ...     a=1,
-            ...     b=1.9,
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
             ...     frequency=22050,
+            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> cusp_l.xi
+            >>> lin_cong_l.m
+            1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('m')
+        return self._inputs[index]
+
+    @property
+    def xi(self):
+        r'''Gets `xi` input of LinCongL.
+
+        ::
+
+            >>> lin_cong_l = ugentools.LinCongL.ar(
+            ...     a=1.1,
+            ...     c=0.13,
+            ...     frequency=22050,
+            ...     m=1,
+            ...     xi=0,
+            ...     )
+            >>> lin_cong_l.xi
             0.0
 
         Returns ugen input.

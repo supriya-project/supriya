@@ -1,26 +1,26 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.StandardN import StandardN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class StandardL(StandardN):
-    r'''
+class StandardN(ChaosGen):
+    r'''A non-interpolating standard map chaotic generator.
 
     ::
 
-        >>> standard_l = ugentools.StandardL.ar(
+        >>> standard_n = ugentools.StandardN.ar(
         ...     frequency=22050,
         ...     k=1,
         ...     xi=0.5,
         ...     yi=0,
         ...     )
-        >>> standard_l
-        StandardL.ar()
+        >>> standard_n
+        StandardN.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -43,7 +43,7 @@ class StandardL(StandardN):
         xi=0.5,
         yi=0,
         ):
-        StandardN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -62,18 +62,18 @@ class StandardL(StandardN):
         xi=0.5,
         yi=0,
         ):
-        r'''Constructs an audio-rate StandardL.
+        r'''Constructs an audio-rate StandardN.
 
         ::
 
-            >>> standard_l = ugentools.StandardL.ar(
+            >>> standard_n = ugentools.StandardN.ar(
             ...     frequency=22050,
             ...     k=1,
             ...     xi=0.5,
             ...     yi=0,
             ...     )
-            >>> standard_l
-            StandardL.ar()
+            >>> standard_n
+            StandardN.ar()
 
         Returns ugen graph.
         '''
@@ -94,17 +94,17 @@ class StandardL(StandardN):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of StandardL.
+        r'''Gets `frequency` input of StandardN.
 
         ::
 
-            >>> standard_l = ugentools.StandardL.ar(
+            >>> standard_n = ugentools.StandardN.ar(
             ...     frequency=22050,
             ...     k=1,
             ...     xi=0.5,
             ...     yi=0,
             ...     )
-            >>> standard_l.frequency
+            >>> standard_n.frequency
             22050.0
 
         Returns ugen input.
@@ -114,17 +114,17 @@ class StandardL(StandardN):
 
     @property
     def k(self):
-        r'''Gets `k` input of StandardL.
+        r'''Gets `k` input of StandardN.
 
         ::
 
-            >>> standard_l = ugentools.StandardL.ar(
+            >>> standard_n = ugentools.StandardN.ar(
             ...     frequency=22050,
             ...     k=1,
             ...     xi=0.5,
             ...     yi=0,
             ...     )
-            >>> standard_l.k
+            >>> standard_n.k
             1.0
 
         Returns ugen input.
@@ -134,17 +134,17 @@ class StandardL(StandardN):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of StandardL.
+        r'''Gets `xi` input of StandardN.
 
         ::
 
-            >>> standard_l = ugentools.StandardL.ar(
+            >>> standard_n = ugentools.StandardN.ar(
             ...     frequency=22050,
             ...     k=1,
             ...     xi=0.5,
             ...     yi=0,
             ...     )
-            >>> standard_l.xi
+            >>> standard_n.xi
             0.5
 
         Returns ugen input.
@@ -154,17 +154,17 @@ class StandardL(StandardN):
 
     @property
     def yi(self):
-        r'''Gets `yi` input of StandardL.
+        r'''Gets `yi` input of StandardN.
 
         ::
 
-            >>> standard_l = ugentools.StandardL.ar(
+            >>> standard_n = ugentools.StandardN.ar(
             ...     frequency=22050,
             ...     k=1,
             ...     xi=0.5,
             ...     yi=0,
             ...     )
-            >>> standard_l.yi
+            >>> standard_n.yi
             0.0
 
         Returns ugen input.

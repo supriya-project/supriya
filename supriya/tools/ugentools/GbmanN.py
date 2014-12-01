@@ -1,25 +1,25 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.GbmanN import GbmanN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class GbmanL(GbmanN):
-    r'''
+class GbmanN(ChaosGen):
+    r'''A non-interpolating gingerbreadman map chaotic generator.
 
     ::
 
-        >>> gbman_l = ugentools.GbmanL.ar(
+        >>> gbman_n = ugentools.GbmanN.ar(
         ...     frequency=22050,
         ...     xi=1.2,
         ...     yi=2.1,
         ...     )
-        >>> gbman_l
-        GbmanL.ar()
+        >>> gbman_n
+        GbmanN.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -40,7 +40,7 @@ class GbmanL(GbmanN):
         xi=1.2,
         yi=2.1,
         ):
-        GbmanN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -57,17 +57,17 @@ class GbmanL(GbmanN):
         xi=1.2,
         yi=2.1,
         ):
-        r'''Constructs an audio-rate GbmanL.
+        r'''Constructs an audio-rate GbmanN.
 
         ::
 
-            >>> gbman_l = ugentools.GbmanL.ar(
+            >>> gbman_n = ugentools.GbmanN.ar(
             ...     frequency=22050,
             ...     xi=1.2,
             ...     yi=2.1,
             ...     )
-            >>> gbman_l
-            GbmanL.ar()
+            >>> gbman_n
+            GbmanN.ar()
 
         Returns ugen graph.
         '''
@@ -87,16 +87,16 @@ class GbmanL(GbmanN):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of GbmanL.
+        r'''Gets `frequency` input of GbmanN.
 
         ::
 
-            >>> gbman_l = ugentools.GbmanL.ar(
+            >>> gbman_n = ugentools.GbmanN.ar(
             ...     frequency=22050,
             ...     xi=1.2,
             ...     yi=2.1,
             ...     )
-            >>> gbman_l.frequency
+            >>> gbman_n.frequency
             22050.0
 
         Returns ugen input.
@@ -106,16 +106,16 @@ class GbmanL(GbmanN):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of GbmanL.
+        r'''Gets `xi` input of GbmanN.
 
         ::
 
-            >>> gbman_l = ugentools.GbmanL.ar(
+            >>> gbman_n = ugentools.GbmanN.ar(
             ...     frequency=22050,
             ...     xi=1.2,
             ...     yi=2.1,
             ...     )
-            >>> gbman_l.xi
+            >>> gbman_n.xi
             1.2
 
         Returns ugen input.
@@ -125,16 +125,16 @@ class GbmanL(GbmanN):
 
     @property
     def yi(self):
-        r'''Gets `yi` input of GbmanL.
+        r'''Gets `yi` input of GbmanN.
 
         ::
 
-            >>> gbman_l = ugentools.GbmanL.ar(
+            >>> gbman_n = ugentools.GbmanN.ar(
             ...     frequency=22050,
             ...     xi=1.2,
             ...     yi=2.1,
             ...     )
-            >>> gbman_l.yi
+            >>> gbman_n.yi
             2.1
 
         Returns ugen input.

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
 class FBSineN(ChaosGen):
-    r'''
+    r'''A non-interpolating feedback sine with chaotic phase indexing.
 
     ::
 
@@ -23,7 +23,7 @@ class FBSineN(ChaosGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 

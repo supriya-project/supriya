@@ -2,25 +2,25 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class CuspN(ChaosGen):
-    r'''
+class CuspL(ChaosGen):
+    r'''A linear-interpolating cusp map chaotic generator.
 
     ::
 
-        >>> cusp_n = ugentools.CuspN.ar(
+        >>> cusp_l = ugentools.CuspL.ar(
         ...     a=1,
         ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
         ...     )
-        >>> cusp_n
-        CuspN.ar()
+        >>> cusp_l
+        CuspL.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -62,18 +62,18 @@ class CuspN(ChaosGen):
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate CuspN.
+        r'''Constructs an audio-rate CuspL.
 
         ::
 
-            >>> cusp_n = ugentools.CuspN.ar(
+            >>> cusp_l = ugentools.CuspL.ar(
             ...     a=1,
             ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> cusp_n
-            CuspN.ar()
+            >>> cusp_l
+            CuspL.ar()
 
         Returns ugen graph.
         '''
@@ -94,17 +94,17 @@ class CuspN(ChaosGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of CuspN.
+        r'''Gets `a` input of CuspL.
 
         ::
 
-            >>> cusp_n = ugentools.CuspN.ar(
+            >>> cusp_l = ugentools.CuspL.ar(
             ...     a=1,
             ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> cusp_n.a
+            >>> cusp_l.a
             1.0
 
         Returns ugen input.
@@ -114,17 +114,17 @@ class CuspN(ChaosGen):
 
     @property
     def b(self):
-        r'''Gets `b` input of CuspN.
+        r'''Gets `b` input of CuspL.
 
         ::
 
-            >>> cusp_n = ugentools.CuspN.ar(
+            >>> cusp_l = ugentools.CuspL.ar(
             ...     a=1,
             ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> cusp_n.b
+            >>> cusp_l.b
             1.9
 
         Returns ugen input.
@@ -134,17 +134,17 @@ class CuspN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of CuspN.
+        r'''Gets `frequency` input of CuspL.
 
         ::
 
-            >>> cusp_n = ugentools.CuspN.ar(
+            >>> cusp_l = ugentools.CuspL.ar(
             ...     a=1,
             ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> cusp_n.frequency
+            >>> cusp_l.frequency
             22050.0
 
         Returns ugen input.
@@ -154,17 +154,17 @@ class CuspN(ChaosGen):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of CuspN.
+        r'''Gets `xi` input of CuspL.
 
         ::
 
-            >>> cusp_n = ugentools.CuspN.ar(
+            >>> cusp_l = ugentools.CuspL.ar(
             ...     a=1,
             ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> cusp_n.xi
+            >>> cusp_l.xi
             0.0
 
         Returns ugen input.

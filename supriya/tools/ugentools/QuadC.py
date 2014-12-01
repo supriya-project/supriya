@@ -1,35 +1,35 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LinCongN import LinCongN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class LinCongL(LinCongN):
-    r'''
+class QuadC(ChaosGen):
+    r'''A cubic-interpolating general quadratic map chaotic generator.
 
     ::
 
-        >>> lin_cong_l = ugentools.LinCongL.ar(
-        ...     a=1.1,
-        ...     c=0.13,
+        >>> quad_c = ugentools.QuadC.ar(
+        ...     a=1,
+        ...     b=-1,
+        ...     c=-0.75,
         ...     frequency=22050,
-        ...     m=1,
         ...     xi=0,
         ...     )
-        >>> lin_cong_l
-        LinCongL.ar()
+        >>> quad_c
+        QuadC.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'frequency',
         'a',
+        'b',
         'c',
-        'm',
         'xi',
         )
 
@@ -40,19 +40,19 @@ class LinCongL(LinCongN):
     def __init__(
         self,
         calculation_rate=None,
-        a=1.1,
-        c=0.13,
+        a=1,
+        b=-1,
+        c=-0.75,
         frequency=22050,
-        m=1,
         xi=0,
         ):
-        LinCongN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,
+            b=b,
             c=c,
             frequency=frequency,
-            m=m,
             xi=xi,
             )
 
@@ -61,25 +61,25 @@ class LinCongL(LinCongN):
     @classmethod
     def ar(
         cls,
-        a=1.1,
-        c=0.13,
+        a=1,
+        b=-1,
+        c=-0.75,
         frequency=22050,
-        m=1,
         xi=0,
         ):
-        r'''Constructs an audio-rate LinCongL.
+        r'''Constructs an audio-rate QuadC.
 
         ::
 
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
             ...     frequency=22050,
-            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_l
-            LinCongL.ar()
+            >>> quad_c
+            QuadC.ar()
 
         Returns ugen graph.
         '''
@@ -88,9 +88,9 @@ class LinCongL(LinCongN):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             a=a,
+            b=b,
             c=c,
             frequency=frequency,
-            m=m,
             xi=xi,
             )
         return ugen
@@ -101,19 +101,19 @@ class LinCongL(LinCongN):
 
     @property
     def a(self):
-        r'''Gets `a` input of LinCongL.
+        r'''Gets `a` input of QuadC.
 
         ::
 
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
             ...     frequency=22050,
-            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_l.a
-            1.1
+            >>> quad_c.a
+            1.0
 
         Returns ugen input.
         '''
@@ -121,20 +121,41 @@ class LinCongL(LinCongN):
         return self._inputs[index]
 
     @property
-    def c(self):
-        r'''Gets `c` input of LinCongL.
+    def b(self):
+        r'''Gets `b` input of QuadC.
 
         ::
 
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
             ...     frequency=22050,
-            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_l.c
-            0.13
+            >>> quad_c.b
+            -1.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('b')
+        return self._inputs[index]
+
+    @property
+    def c(self):
+        r'''Gets `c` input of QuadC.
+
+        ::
+
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
+            ...     frequency=22050,
+            ...     xi=0,
+            ...     )
+            >>> quad_c.c
+            -0.75
 
         Returns ugen input.
         '''
@@ -143,18 +164,18 @@ class LinCongL(LinCongN):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LinCongL.
+        r'''Gets `frequency` input of QuadC.
 
         ::
 
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
             ...     frequency=22050,
-            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_l.frequency
+            >>> quad_c.frequency
             22050.0
 
         Returns ugen input.
@@ -163,40 +184,19 @@ class LinCongL(LinCongN):
         return self._inputs[index]
 
     @property
-    def m(self):
-        r'''Gets `m` input of LinCongL.
-
-        ::
-
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
-            ...     frequency=22050,
-            ...     m=1,
-            ...     xi=0,
-            ...     )
-            >>> lin_cong_l.m
-            1.0
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('m')
-        return self._inputs[index]
-
-    @property
     def xi(self):
-        r'''Gets `xi` input of LinCongL.
+        r'''Gets `xi` input of QuadC.
 
         ::
 
-            >>> lin_cong_l = ugentools.LinCongL.ar(
-            ...     a=1.1,
-            ...     c=0.13,
+            >>> quad_c = ugentools.QuadC.ar(
+            ...     a=1,
+            ...     b=-1,
+            ...     c=-0.75,
             ...     frequency=22050,
-            ...     m=1,
             ...     xi=0,
             ...     )
-            >>> lin_cong_l.xi
+            >>> quad_c.xi
             0.0
 
         Returns ugen input.

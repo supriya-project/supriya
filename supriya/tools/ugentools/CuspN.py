@@ -1,27 +1,26 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.QuadN import QuadN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class QuadL(QuadN):
-    r'''
+class CuspN(ChaosGen):
+    r'''A non-interpolating cusp map chaotic generator.
 
     ::
 
-        >>> quad_l = ugentools.QuadL.ar(
+        >>> cusp_n = ugentools.CuspN.ar(
         ...     a=1,
-        ...     b=-1,
-        ...     c=-0.75,
+        ...     b=1.9,
         ...     frequency=22050,
         ...     xi=0,
         ...     )
-        >>> quad_l
-        QuadL.ar()
+        >>> cusp_n
+        CuspN.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -29,7 +28,6 @@ class QuadL(QuadN):
         'frequency',
         'a',
         'b',
-        'c',
         'xi',
         )
 
@@ -41,17 +39,15 @@ class QuadL(QuadN):
         self,
         calculation_rate=None,
         a=1,
-        b=-1,
-        c=-0.75,
+        b=1.9,
         frequency=22050,
         xi=0,
         ):
-        QuadN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,
             b=b,
-            c=c,
             frequency=frequency,
             xi=xi,
             )
@@ -62,24 +58,22 @@ class QuadL(QuadN):
     def ar(
         cls,
         a=1,
-        b=-1,
-        c=-0.75,
+        b=1.9,
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate QuadL.
+        r'''Constructs an audio-rate CuspN.
 
         ::
 
-            >>> quad_l = ugentools.QuadL.ar(
+            >>> cusp_n = ugentools.CuspN.ar(
             ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
+            ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_l
-            QuadL.ar()
+            >>> cusp_n
+            CuspN.ar()
 
         Returns ugen graph.
         '''
@@ -89,7 +83,6 @@ class QuadL(QuadN):
             calculation_rate=calculation_rate,
             a=a,
             b=b,
-            c=c,
             frequency=frequency,
             xi=xi,
             )
@@ -101,18 +94,17 @@ class QuadL(QuadN):
 
     @property
     def a(self):
-        r'''Gets `a` input of QuadL.
+        r'''Gets `a` input of CuspN.
 
         ::
 
-            >>> quad_l = ugentools.QuadL.ar(
+            >>> cusp_n = ugentools.CuspN.ar(
             ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
+            ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_l.a
+            >>> cusp_n.a
             1.0
 
         Returns ugen input.
@@ -122,19 +114,18 @@ class QuadL(QuadN):
 
     @property
     def b(self):
-        r'''Gets `b` input of QuadL.
+        r'''Gets `b` input of CuspN.
 
         ::
 
-            >>> quad_l = ugentools.QuadL.ar(
+            >>> cusp_n = ugentools.CuspN.ar(
             ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
+            ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_l.b
-            -1.0
+            >>> cusp_n.b
+            1.9
 
         Returns ugen input.
         '''
@@ -142,40 +133,18 @@ class QuadL(QuadN):
         return self._inputs[index]
 
     @property
-    def c(self):
-        r'''Gets `c` input of QuadL.
-
-        ::
-
-            >>> quad_l = ugentools.QuadL.ar(
-            ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
-            ...     frequency=22050,
-            ...     xi=0,
-            ...     )
-            >>> quad_l.c
-            -0.75
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('c')
-        return self._inputs[index]
-
-    @property
     def frequency(self):
-        r'''Gets `frequency` input of QuadL.
+        r'''Gets `frequency` input of CuspN.
 
         ::
 
-            >>> quad_l = ugentools.QuadL.ar(
+            >>> cusp_n = ugentools.CuspN.ar(
             ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
+            ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_l.frequency
+            >>> cusp_n.frequency
             22050.0
 
         Returns ugen input.
@@ -185,18 +154,17 @@ class QuadL(QuadN):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of QuadL.
+        r'''Gets `xi` input of CuspN.
 
         ::
 
-            >>> quad_l = ugentools.QuadL.ar(
+            >>> cusp_n = ugentools.CuspN.ar(
             ...     a=1,
-            ...     b=-1,
-            ...     c=-0.75,
+            ...     b=1.9,
             ...     frequency=22050,
             ...     xi=0,
             ...     )
-            >>> quad_l.xi
+            >>> cusp_n.xi
             0.0
 
         Returns ugen input.

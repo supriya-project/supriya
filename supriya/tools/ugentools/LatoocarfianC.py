@@ -2,12 +2,12 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class LatoocarfianN(ChaosGen):
-    r'''
+class LatoocarfianC(ChaosGen):
+    r'''A cubic-interpolating Latoocarfian chaotic generator.
 
     ::
 
-        >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+        >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
         ...     a=1,
         ...     b=3,
         ...     c=0.5,
@@ -16,14 +16,14 @@ class LatoocarfianN(ChaosGen):
         ...     xi=0.5,
         ...     yi=0.5,
         ...     )
-        >>> latoocarfian_n
-        LatoocarfianN.ar()
+        >>> latoocarfian_c
+        LatoocarfianC.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -77,11 +77,11 @@ class LatoocarfianN(ChaosGen):
         xi=0.5,
         yi=0.5,
         ):
-        r'''Constructs an audio-rate LatoocarfianN.
+        r'''Constructs an audio-rate LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -90,8 +90,8 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n
-            LatoocarfianN.ar()
+            >>> latoocarfian_c
+            LatoocarfianC.ar()
 
         Returns ugen graph.
         '''
@@ -115,11 +115,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of LatoocarfianN.
+        r'''Gets `a` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -128,7 +128,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.a
+            >>> latoocarfian_c.a
             1.0
 
         Returns ugen input.
@@ -138,11 +138,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def b(self):
-        r'''Gets `b` input of LatoocarfianN.
+        r'''Gets `b` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -151,7 +151,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.b
+            >>> latoocarfian_c.b
             3.0
 
         Returns ugen input.
@@ -161,11 +161,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def c(self):
-        r'''Gets `c` input of LatoocarfianN.
+        r'''Gets `c` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -174,7 +174,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.c
+            >>> latoocarfian_c.c
             0.5
 
         Returns ugen input.
@@ -184,11 +184,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def d(self):
-        r'''Gets `d` input of LatoocarfianN.
+        r'''Gets `d` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -197,7 +197,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.d
+            >>> latoocarfian_c.d
             0.5
 
         Returns ugen input.
@@ -207,11 +207,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LatoocarfianN.
+        r'''Gets `frequency` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -220,7 +220,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.frequency
+            >>> latoocarfian_c.frequency
             22050.0
 
         Returns ugen input.
@@ -230,11 +230,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def xi(self):
-        r'''Gets `xi` input of LatoocarfianN.
+        r'''Gets `xi` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -243,7 +243,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.xi
+            >>> latoocarfian_c.xi
             0.5
 
         Returns ugen input.
@@ -253,11 +253,11 @@ class LatoocarfianN(ChaosGen):
 
     @property
     def yi(self):
-        r'''Gets `yi` input of LatoocarfianN.
+        r'''Gets `yi` input of LatoocarfianC.
 
         ::
 
-            >>> latoocarfian_n = ugentools.LatoocarfianN.ar(
+            >>> latoocarfian_c = ugentools.LatoocarfianC.ar(
             ...     a=1,
             ...     b=3,
             ...     c=0.5,
@@ -266,7 +266,7 @@ class LatoocarfianN(ChaosGen):
             ...     xi=0.5,
             ...     yi=0.5,
             ...     )
-            >>> latoocarfian_n.yi
+            >>> latoocarfian_c.yi
             0.5
 
         Returns ugen input.

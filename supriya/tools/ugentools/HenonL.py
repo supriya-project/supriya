@@ -2,26 +2,26 @@
 from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class HenonN(ChaosGen):
-    r'''
+class HenonL(ChaosGen):
+    r'''A linear-interpolating henon map chaotic generator.
 
     ::
 
-        >>> henon_n = ugentools.HenonN.ar(
+        >>> henon_l = ugentools.HenonL.ar(
         ...     a=1.4,
         ...     b=0.3,
         ...     frequency=22050,
         ...     x_0=0,
         ...     x_1=0,
         ...     )
-        >>> henon_n
-        HenonN.ar()
+        >>> henon_l
+        HenonL.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -67,19 +67,19 @@ class HenonN(ChaosGen):
         x_0=0,
         x_1=0,
         ):
-        r'''Constructs an audio-rate HenonN.
+        r'''Constructs an audio-rate HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n
-            HenonN.ar()
+            >>> henon_l
+            HenonL.ar()
 
         Returns ugen graph.
         '''
@@ -101,18 +101,18 @@ class HenonN(ChaosGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of HenonN.
+        r'''Gets `a` input of HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n.a
+            >>> henon_l.a
             1.4
 
         Returns ugen input.
@@ -122,18 +122,18 @@ class HenonN(ChaosGen):
 
     @property
     def b(self):
-        r'''Gets `b` input of HenonN.
+        r'''Gets `b` input of HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n.b
+            >>> henon_l.b
             0.3
 
         Returns ugen input.
@@ -143,18 +143,18 @@ class HenonN(ChaosGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of HenonN.
+        r'''Gets `frequency` input of HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n.frequency
+            >>> henon_l.frequency
             22050.0
 
         Returns ugen input.
@@ -164,18 +164,18 @@ class HenonN(ChaosGen):
 
     @property
     def x_0(self):
-        r'''Gets `x_0` input of HenonN.
+        r'''Gets `x_0` input of HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n.x_0
+            >>> henon_l.x_0
             0.0
 
         Returns ugen input.
@@ -185,18 +185,18 @@ class HenonN(ChaosGen):
 
     @property
     def x_1(self):
-        r'''Gets `x_1` input of HenonN.
+        r'''Gets `x_1` input of HenonL.
 
         ::
 
-            >>> henon_n = ugentools.HenonN.ar(
+            >>> henon_l = ugentools.HenonL.ar(
             ...     a=1.4,
             ...     b=0.3,
             ...     frequency=22050,
             ...     x_0=0,
             ...     x_1=0,
             ...     )
-            >>> henon_n.x_1
+            >>> henon_l.x_1
             0.0
 
         Returns ugen input.

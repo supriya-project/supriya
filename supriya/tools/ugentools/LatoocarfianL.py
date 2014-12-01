@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.LatoocarfianN import LatoocarfianN
+from supriya.tools.ugentools.ChaosGen import ChaosGen
 
 
-class LatoocarfianL(LatoocarfianN):
-    r'''
+class LatoocarfianL(ChaosGen):
+    r'''A linear-interpolating Latoocarfian chaotic generator.
 
     ::
 
@@ -23,7 +23,7 @@ class LatoocarfianL(LatoocarfianN):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Chaos UGens'
 
     __slots__ = ()
 
@@ -52,7 +52,7 @@ class LatoocarfianL(LatoocarfianN):
         xi=0.5,
         yi=0.5,
         ):
-        LatoocarfianN.__init__(
+        ChaosGen.__init__(
             self,
             calculation_rate=calculation_rate,
             a=a,
