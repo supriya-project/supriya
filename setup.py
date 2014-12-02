@@ -9,7 +9,7 @@ install_requires = [
     'numpy',
     'pexpect',
     'pytest',
-    'rtmidi-python',
+    #'rtmidi-python',
     'six',
     'sphinx',
     'sphinx_rtd_theme',
