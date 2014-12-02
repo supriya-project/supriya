@@ -18,3 +18,15 @@ class DUGen(UGen):
     _valid_calculation_rates = (
         CalculationRate.DEMAND,
         )
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        **kwargs
+        ):
+        UGen.__init__(
+            self,
+            calculation_rate=CalculationRate.DEMAND,
+            **kwargs
+            )

@@ -3,24 +3,22 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbrown(DUGen):
-    r'''
+    r'''A demand-rate brownian movement generator.
 
     ::
 
-        >>> dbrown = ugentools.Dbrown.ar(
-        ...     length="float('inf')",
+        >>> dbrown = ugentools.Dbrown.new(
+        ...     length=float('inf'),
         ...     maximum=1,
         ...     minimum=0,
         ...     step=0.01,
         ...     )
         >>> dbrown
-        Dbrown.ar()
+        Dbrown()
 
     '''
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = None
 
     __slots__ = ()
 
@@ -31,21 +29,19 @@ class Dbrown(DUGen):
         'length',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        length="float('inf')",
+        length=float('inf'),
         maximum=1,
         minimum=0,
         step=0.01,
         ):
+        if length is None:
+            length = float('inf')
         DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             length=length,
             maximum=maximum,
             minimum=minimum,
@@ -57,7 +53,7 @@ class Dbrown(DUGen):
     @classmethod
     def new(
         cls,
-        length="float('inf')",
+        length=float('inf'),
         maximum=1,
         minimum=0,
         step=0.01,
@@ -67,20 +63,17 @@ class Dbrown(DUGen):
         ::
 
             >>> dbrown = ugentools.Dbrown.new(
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dbrown
-            Dbrown.new()
+            Dbrown()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             length=length,
             maximum=maximum,
             minimum=minimum,
@@ -96,13 +89,14 @@ class Dbrown(DUGen):
 
         ::
 
-            >>> dbrown = ugentools.Dbrown.ar(
-            ...     length="float('inf')",
+            >>> dbrown = ugentools.Dbrown.new(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     step=0.01,
             ...     )
             >>> dbrown.length
+            inf
 
         Returns ugen input.
         '''
@@ -115,8 +109,8 @@ class Dbrown(DUGen):
 
         ::
 
-            >>> dbrown = ugentools.Dbrown.ar(
-            ...     length="float('inf')",
+            >>> dbrown = ugentools.Dbrown.new(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     step=0.01,
@@ -135,8 +129,8 @@ class Dbrown(DUGen):
 
         ::
 
-            >>> dbrown = ugentools.Dbrown.ar(
-            ...     length="float('inf')",
+            >>> dbrown = ugentools.Dbrown.new(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     step=0.01,
@@ -155,8 +149,8 @@ class Dbrown(DUGen):
 
         ::
 
-            >>> dbrown = ugentools.Dbrown.ar(
-            ...     length="float('inf')",
+            >>> dbrown = ugentools.Dbrown.new(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     step=0.01,

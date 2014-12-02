@@ -1,45 +1,44 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ListDUGen import ListDUGen
+from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dxrand(ListDUGen):
-    r'''
+class Drand(DUGen):
+    r'''A demand-rate random sequence generator.
 
     ::
 
-        >>> dxrand = ugentools.Dxrand.ar(
+        >>> sequence = (1, 2, 3)
+        >>> drand = ugentools.Drand.new(
         ...     repeats=1,
         ...     sequence=sequence,
         ...     )
-        >>> dxrand
-        Dxrand.ar()
+        >>> drand
+        Drand()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
-        'sequence',
         'repeats',
+        'sequence',
         )
 
-    _valid_calculation_rates = None
+    _unexpanded_input_names = (
+        'sequence',
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         repeats=1,
         sequence=None,
         ):
-        ListDUGen.__init__(
+        DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -52,23 +51,21 @@ class Dxrand(ListDUGen):
         repeats=1,
         sequence=None,
         ):
-        r'''Constructs a Dxrand.
+        r'''Constructs a Drand.
 
         ::
 
-            >>> dxrand = ugentools.Dxrand.new(
+            >>> sequence = (1, 2, 3)
+            >>> drand = ugentools.Drand.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dxrand
-            Dxrand.new()
+            >>> drand
+            Drand()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -78,15 +75,16 @@ class Dxrand(ListDUGen):
 
     @property
     def repeats(self):
-        r'''Gets `repeats` input of Dxrand.
+        r'''Gets `repeats` input of Drand.
 
         ::
 
-            >>> dxrand = ugentools.Dxrand.ar(
+            >>> sequence = (1, 2, 3)
+            >>> drand = ugentools.Drand.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dxrand.repeats
+            >>> drand.repeats
             1.0
 
         Returns ugen input.
@@ -96,17 +94,19 @@ class Dxrand(ListDUGen):
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dxrand.
+        r'''Gets `sequence` input of Drand.
 
         ::
 
-            >>> dxrand = ugentools.Dxrand.ar(
+            >>> sequence = (1, 2, 3)
+            >>> drand = ugentools.Drand.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dxrand.sequence
+            >>> drand.sequence
+            (1.0, 2.0, 3.0)
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('sequence')
-        return self._inputs[index]
+        return tuple(self._inputs[index:])

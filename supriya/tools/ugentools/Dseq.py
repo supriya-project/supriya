@@ -1,45 +1,44 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ListDUGen import ListDUGen
+from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dshuf(ListDUGen):
-    r'''
+class Dseq(DUGen):
+    r'''A demand-rate sequence generator.
 
     ::
 
-        >>> dshuf = ugentools.Dshuf.ar(
+        >>> sequence = (1, 2, 3)
+        >>> dseq = ugentools.Dseq.new(
         ...     repeats=1,
         ...     sequence=sequence,
         ...     )
-        >>> dshuf
-        Dshuf.ar()
+        >>> dseq
+        Dseq()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
-        'sequence',
         'repeats',
+        'sequence',
         )
 
-    _valid_calculation_rates = None
+    _unexpanded_input_names = (
+        'sequence',
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         repeats=1,
         sequence=None,
         ):
-        ListDUGen.__init__(
+        DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -52,23 +51,21 @@ class Dshuf(ListDUGen):
         repeats=1,
         sequence=None,
         ):
-        r'''Constructs a Dshuf.
+        r'''Constructs a Dseq.
 
         ::
 
-            >>> dshuf = ugentools.Dshuf.new(
+            >>> sequence = (1, 2, 3)
+            >>> dseq = ugentools.Dseq.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dshuf
-            Dshuf.new()
+            >>> dseq
+            Dseq()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -78,15 +75,16 @@ class Dshuf(ListDUGen):
 
     @property
     def repeats(self):
-        r'''Gets `repeats` input of Dshuf.
+        r'''Gets `repeats` input of Dseq.
 
         ::
 
-            >>> dshuf = ugentools.Dshuf.ar(
+            >>> sequence = (1, 2, 3)
+            >>> dseq = ugentools.Dseq.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dshuf.repeats
+            >>> dseq.repeats
             1.0
 
         Returns ugen input.
@@ -96,17 +94,19 @@ class Dshuf(ListDUGen):
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dshuf.
+        r'''Gets `sequence` input of Dseq.
 
         ::
 
-            >>> dshuf = ugentools.Dshuf.ar(
+            >>> sequence = (1, 2, 3)
+            >>> dseq = ugentools.Dseq.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
-            >>> dshuf.sequence
+            >>> dseq.sequence
+            (1.0, 2.0, 3.0)
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('sequence')
-        return self._inputs[index]
+        return tuple(self._inputs[index:])

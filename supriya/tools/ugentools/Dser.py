@@ -1,45 +1,44 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.ListDUGen import ListDUGen
+from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dser(ListDUGen):
-    r'''
+class Dser(DUGen):
+    r'''A demand-rate sequence generator.
 
     ::
 
-        >>> dser = ugentools.Dser.ar(
+        >>> sequence = (1, 2, 3)
+        >>> dser = ugentools.Dser.new(
         ...     repeats=1,
         ...     sequence=sequence,
         ...     )
         >>> dser
-        Dser.ar()
+        Dser()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
-        'sequence',
         'repeats',
+        'sequence',
         )
 
-    _valid_calculation_rates = None
+    _unexpanded_input_names = (
+        'sequence',
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         repeats=1,
         sequence=None,
         ):
-        ListDUGen.__init__(
+        DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -56,19 +55,17 @@ class Dser(ListDUGen):
 
         ::
 
+            >>> sequence = (1, 2, 3)
             >>> dser = ugentools.Dser.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
             >>> dser
-            Dser.new()
+            Dser()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             repeats=repeats,
             sequence=sequence,
             )
@@ -82,7 +79,8 @@ class Dser(ListDUGen):
 
         ::
 
-            >>> dser = ugentools.Dser.ar(
+            >>> sequence = (1, 2, 3)
+            >>> dser = ugentools.Dser.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
@@ -100,13 +98,15 @@ class Dser(ListDUGen):
 
         ::
 
-            >>> dser = ugentools.Dser.ar(
+            >>> sequence = (1, 2, 3)
+            >>> dser = ugentools.Dser.new(
             ...     repeats=1,
             ...     sequence=sequence,
             ...     )
             >>> dser.sequence
+            (1.0, 2.0, 3.0)
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('sequence')
-        return self._inputs[index]
+        return tuple(self._inputs[index:])

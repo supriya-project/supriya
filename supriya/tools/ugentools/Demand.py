@@ -167,7 +167,6 @@ class Demand(MultiOutUGen):
             >>> demand[0].source.source
             (OutputProxy(
                 source=Dseries(
-                    calculation_rate=<CalculationRate.DEMAND: 3>,
                     length=inf,
                     start=1.0,
                     step=1.0

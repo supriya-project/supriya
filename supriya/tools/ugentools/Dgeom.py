@@ -3,23 +3,21 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dgeom(DUGen):
-    r'''
+    r'''A demand rate geometric series generator.
 
     ::
 
-        >>> dgeom = ugentools.Dgeom.ar(
+        >>> dgeom = ugentools.Dgeom.new(
         ...     grow=2,
-        ...     length="float('inf')",
+        ...     length=float('inf'),
         ...     start=1,
         ...     )
         >>> dgeom
-        Dgeom.ar()
+        Dgeom()
 
     '''
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = None
 
     __slots__ = ()
 
@@ -29,20 +27,18 @@ class Dgeom(DUGen):
         'length',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         grow=2,
-        length="float('inf')",
+        length=float('inf'),
         start=1,
         ):
+        if length is None:
+            length = float('inf')
         DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             grow=grow,
             length=length,
             start=start,
@@ -54,7 +50,7 @@ class Dgeom(DUGen):
     def new(
         cls,
         grow=2,
-        length="float('inf')",
+        length=float('inf'),
         start=1,
         ):
         r'''Constructs a Dgeom.
@@ -63,18 +59,16 @@ class Dgeom(DUGen):
 
             >>> dgeom = ugentools.Dgeom.new(
             ...     grow=2,
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     start=1,
             ...     )
             >>> dgeom
-            Dgeom.new()
+            Dgeom()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             grow=grow,
             length=length,
             start=start,
@@ -89,9 +83,9 @@ class Dgeom(DUGen):
 
         ::
 
-            >>> dgeom = ugentools.Dgeom.ar(
+            >>> dgeom = ugentools.Dgeom.new(
             ...     grow=2,
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     start=1,
             ...     )
             >>> dgeom.grow
@@ -108,12 +102,13 @@ class Dgeom(DUGen):
 
         ::
 
-            >>> dgeom = ugentools.Dgeom.ar(
+            >>> dgeom = ugentools.Dgeom.new(
             ...     grow=2,
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     start=1,
             ...     )
             >>> dgeom.length
+            inf
 
         Returns ugen input.
         '''
@@ -126,9 +121,9 @@ class Dgeom(DUGen):
 
         ::
 
-            >>> dgeom = ugentools.Dgeom.ar(
+            >>> dgeom = ugentools.Dgeom.new(
             ...     grow=2,
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     start=1,
             ...     )
             >>> dgeom.start

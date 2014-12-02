@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.DUGen import DUGen
 
 
@@ -20,8 +19,6 @@ class Dseries(DUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Demand UGens'
-
     __slots__ = ()
 
     _ordered_input_names = (
@@ -30,26 +27,18 @@ class Dseries(DUGen):
         'length',
         )
 
-    _valid_calculation_rates = (
-        CalculationRate.DEMAND,
-        )
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         length=float('inf'),
         start=1,
         step=1,
         ):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.DEMAND
         if length is None:
             length = float('inf')
         DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             length=length,
             start=start,
             step=step,
