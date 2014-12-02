@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Spring(UGen):
-    r'''
+    r'''A resonating spring physical model.
 
     ::
 
@@ -20,7 +20,7 @@ class Spring(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Physical Modelling UGens'
 
     __slots__ = ()
 

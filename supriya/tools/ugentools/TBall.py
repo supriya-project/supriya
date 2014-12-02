@@ -3,7 +3,7 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class TBall(UGen):
-    r'''
+    r'''A bouncing object physical model.
 
     ::
 
@@ -11,7 +11,7 @@ class TBall(UGen):
         >>> tball = ugentools.TBall.ar(
         ...     damping=0,
         ...     friction=0.01,
-        ...     g=10,
+        ...     gravity=10,
         ...     source=source,
         ...     )
         >>> tball
@@ -21,13 +21,13 @@ class TBall(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Physical Modelling UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
-        'g',
+        'gravity',
         'damping',
         'friction',
         )
@@ -41,7 +41,7 @@ class TBall(UGen):
         calculation_rate=None,
         damping=0,
         friction=0.01,
-        g=10,
+        gravity=10,
         source=None,
         ):
         UGen.__init__(
@@ -49,7 +49,7 @@ class TBall(UGen):
             calculation_rate=calculation_rate,
             damping=damping,
             friction=friction,
-            g=g,
+            gravity=gravity,
             source=source,
             )
 
@@ -60,7 +60,7 @@ class TBall(UGen):
         cls,
         damping=0,
         friction=0.01,
-        g=10,
+        gravity=10,
         source=None,
         ):
         r'''Constructs an audio-rate TBall.
@@ -71,7 +71,7 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.ar(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
             >>> tball
@@ -85,7 +85,7 @@ class TBall(UGen):
             calculation_rate=calculation_rate,
             damping=damping,
             friction=friction,
-            g=g,
+            gravity=gravity,
             source=source,
             )
         return ugen
@@ -95,7 +95,7 @@ class TBall(UGen):
         cls,
         damping=0,
         friction=0.01,
-        g=10,
+        gravity=10,
         source=None,
         ):
         r'''Constructs a control-rate TBall.
@@ -106,7 +106,7 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.kr(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
             >>> tball
@@ -120,7 +120,7 @@ class TBall(UGen):
             calculation_rate=calculation_rate,
             damping=damping,
             friction=friction,
-            g=g,
+            gravity=gravity,
             source=source,
             )
         return ugen
@@ -137,7 +137,7 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.ar(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
             >>> tball.damping
@@ -158,7 +158,7 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.ar(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
             >>> tball.friction
@@ -170,8 +170,8 @@ class TBall(UGen):
         return self._inputs[index]
 
     @property
-    def g(self):
-        r'''Gets `g` input of TBall.
+    def gravity(self):
+        r'''Gets `gravity` input of TBall.
 
         ::
 
@@ -179,15 +179,15 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.ar(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
-            >>> tball.g
+            >>> tball.gravity
             10.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('g')
+        index = self._ordered_input_names.index('gravity')
         return self._inputs[index]
 
     @property
@@ -200,7 +200,7 @@ class TBall(UGen):
             >>> tball = ugentools.TBall.ar(
             ...     damping=0,
             ...     friction=0.01,
-            ...     g=10,
+            ...     gravity=10,
             ...     source=source,
             ...     )
             >>> tball.source
