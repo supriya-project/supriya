@@ -3,14 +3,14 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AmpComp(PureUGen):
-    r'''
+    r'''Basic psychoacoustic amplitude compensation.
 
     ::
 
         >>> amp_comp = ugentools.AmpComp.ar(
         ...     exp=0.3333,
-        ...     frequency=frequency,
-        ...     root=root,
+        ...     frequency=1000,
+        ...     root=0,
         ...     )
         >>> amp_comp
         AmpComp.ar()
@@ -19,7 +19,7 @@ class AmpComp(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Line Utility UGens'
 
     __slots__ = ()
 
@@ -63,8 +63,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp
             AmpComp.ar()
@@ -94,8 +94,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ir(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp
             AmpComp.ir()
@@ -125,8 +125,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.kr(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp
             AmpComp.kr()
@@ -153,8 +153,8 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp.exp
             0.3333
@@ -172,10 +172,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp.frequency
+            1000.0
 
         Returns ugen input.
         '''
@@ -190,10 +191,11 @@ class AmpComp(PureUGen):
 
             >>> amp_comp = ugentools.AmpComp.ar(
             ...     exp=0.3333,
-            ...     frequency=frequency,
-            ...     root=root,
+            ...     frequency=1000,
+            ...     root=0,
             ...     )
             >>> amp_comp.root
+            0.0
 
         Returns ugen input.
         '''

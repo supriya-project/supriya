@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.AmpComp import AmpComp
+from supriya.tools.ugentools.PureUGen import PureUGen
 
 
-class AmpCompA(AmpComp):
-    r'''
+class AmpCompA(PureUGen):
+    r'''Basic psychoacoustic amplitude compensation (ANSI A-weighting curve).
 
     ::
 
@@ -20,7 +20,7 @@ class AmpCompA(AmpComp):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Line Utility UGens'
 
     __slots__ = ()
 
@@ -43,7 +43,7 @@ class AmpCompA(AmpComp):
         root=0,
         root_amp=1,
         ):
-        AmpComp.__init__(
+        PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
