@@ -1,25 +1,26 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dseries(DUGen):
-    r'''
+    r'''A demand-rate arithmetic series.
 
     ::
 
-        >>> dseries = ugentools.Dseries.ar(
-        ...     length="float('inf')",
+        >>> dseries = ugentools.Dseries.new(
+        ...     length=float('inf'),
         ...     start=1,
         ...     step=1,
         ...     )
         >>> dseries
-        Dseries.ar()
+        Dseries()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Demand UGens'
 
     __slots__ = ()
 
@@ -29,17 +30,23 @@ class Dseries(DUGen):
         'length',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.DEMAND,
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        length="float('inf')",
+        length=float('inf'),
         start=1,
         step=1,
         ):
+        from supriya.tools import synthdeftools
+        calculation_rate = synthdeftools.CalculationRate.DEMAND
+        if length is None:
+            length = float('inf')
         DUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -53,7 +60,7 @@ class Dseries(DUGen):
     @classmethod
     def new(
         cls,
-        length="float('inf')",
+        length=float('inf'),
         start=1,
         step=1,
         ):
@@ -62,19 +69,16 @@ class Dseries(DUGen):
         ::
 
             >>> dseries = ugentools.Dseries.new(
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     start=1,
             ...     step=1,
             ...     )
             >>> dseries
-            Dseries.new()
+            Dseries()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             length=length,
             start=start,
             step=step,
@@ -89,12 +93,13 @@ class Dseries(DUGen):
 
         ::
 
-            >>> dseries = ugentools.Dseries.ar(
-            ...     length="float('inf')",
+            >>> dseries = ugentools.Dseries.new(
+            ...     length=float('inf'),
             ...     start=1,
             ...     step=1,
             ...     )
             >>> dseries.length
+            inf
 
         Returns ugen input.
         '''
@@ -107,8 +112,8 @@ class Dseries(DUGen):
 
         ::
 
-            >>> dseries = ugentools.Dseries.ar(
-            ...     length="float('inf')",
+            >>> dseries = ugentools.Dseries.new(
+            ...     length=float('inf'),
             ...     start=1,
             ...     step=1,
             ...     )
@@ -126,8 +131,8 @@ class Dseries(DUGen):
 
         ::
 
-            >>> dseries = ugentools.Dseries.ar(
-            ...     length="float('inf')",
+            >>> dseries = ugentools.Dseries.new(
+            ...     length=float('inf'),
             ...     start=1,
             ...     step=1,
             ...     )

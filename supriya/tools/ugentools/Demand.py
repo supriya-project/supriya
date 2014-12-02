@@ -1,32 +1,42 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Demand(MultiOutUGen):
-    r'''
+    r'''Demands results from demand rate UGens.
 
     ::
 
+        >>> source = [
+        ...     ugentools.Dseries(),
+        ...     ugentools.Dwhite(),
+        ...     ]
+        >>> trigger = ugentools.Impulse.kr(1)
         >>> demand = ugentools.Demand.ar(
-        ...     demand_ugens=demand_ugens,
-        ...     reset=reset,
+        ...     reset=0,
+        ...     source=source,
         ...     trigger=trigger,
         ...     )
         >>> demand
-        Demand.ar()
+        UGenArray({2})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Demand UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'trigger',
         'reset',
-        'demand_ugens',
+        'source',
+        )
+
+    _unexpanded_input_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -36,15 +46,19 @@ class Demand(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        demand_ugens=None,
         reset=None,
+        source=None,
         trigger=None,
         ):
+        if not isinstance(source, collections.Sequence):
+            source = (source,)
+        channel_count = len(source)
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            demand_ugens=demand_ugens,
+            channel_count=channel_count,
             reset=reset,
+            source=source,
             trigger=trigger,
             )
 
@@ -53,21 +67,22 @@ class Demand(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        demand_ugens=None,
         reset=None,
+        source=None,
         trigger=None,
         ):
         r'''Constructs an audio-rate Demand.
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=demand_ugens,
-            ...     reset=reset,
+            ...     reset=0,
+            ...     source=source,
             ...     trigger=trigger,
             ...     )
             >>> demand
-            Demand.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -75,7 +90,7 @@ class Demand(MultiOutUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            demand_ugens=demand_ugens,
+            source=source,
             reset=reset,
             trigger=trigger,
             )
@@ -84,7 +99,7 @@ class Demand(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        demand_ugens=None,
+        source=None,
         reset=None,
         trigger=None,
         ):
@@ -92,13 +107,14 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.kr(
-            ...     demand_ugens=demand_ugens,
-            ...     reset=reset,
+            ...     reset=0,
+            ...     source=source,
             ...     trigger=trigger,
             ...     )
             >>> demand
-            Demand.kr()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -106,7 +122,7 @@ class Demand(MultiOutUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            demand_ugens=demand_ugens,
+            source=source,
             reset=reset,
             trigger=trigger,
             )
@@ -117,35 +133,19 @@ class Demand(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def demand_ugens(self):
-        r'''Gets `demand_ugens` input of Demand.
-
-        ::
-
-            >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=demand_ugens,
-            ...     reset=reset,
-            ...     trigger=trigger,
-            ...     )
-            >>> demand.demand_ugens
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('demand_ugens')
-        return self._inputs[index]
-
-    @property
     def reset(self):
         r'''Gets `reset` input of Demand.
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=demand_ugens,
-            ...     reset=reset,
+            ...     reset=0,
+            ...     source=source,
             ...     trigger=trigger,
             ...     )
-            >>> demand.reset
+            >>> demand[0].source.reset
+            0.0
 
         Returns ugen input.
         '''
@@ -153,17 +153,61 @@ class Demand(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def source(self):
+        r'''Gets `source` input of Demand.
+
+        ::
+
+            >>> trigger = ugentools.Impulse.kr(1)
+            >>> demand = ugentools.Demand.ar(
+            ...     reset=0,
+            ...     source=source,
+            ...     trigger=trigger,
+            ...     )
+            >>> demand[0].source.source
+            (OutputProxy(
+                source=Dseries(
+                    calculation_rate=<CalculationRate.DEMAND: 3>,
+                    length=inf,
+                    start=1.0,
+                    step=1.0
+                    ),
+                output_index=0
+                ), OutputProxy(
+                source=Dwhite(
+                    length=inf,
+                    maximum=1.0,
+                    minimum=0.0
+                    ),
+                output_index=0
+                ))
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return tuple(self._inputs[index:])
+
+    @property
     def trigger(self):
         r'''Gets `trigger` input of Demand.
 
         ::
 
+            >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
-            ...     demand_ugens=demand_ugens,
-            ...     reset=reset,
+            ...     reset=0,
+            ...     source=source,
             ...     trigger=trigger,
             ...     )
-            >>> demand.trigger
+            >>> demand[0].source.trigger
+            OutputProxy(
+                source=Impulse(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    frequency=1.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
