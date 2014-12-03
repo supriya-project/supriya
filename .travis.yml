@@ -14,12 +14,11 @@ before_install:
     - sleep 5
     - killall scsynth
 
-install:
+script:
+#    - python ./supriya/scr/run-supriya-doctests ./supriya
     - pip install -r requirements.txt
     - pip install -e . 
-
-script:
-    - python ./supriya/scr/run-supriya-doctests ./supriya
+    - make -C supriya/docs/ html
 
 notifications:
     email: false
