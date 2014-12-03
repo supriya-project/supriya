@@ -3,18 +3,19 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class Pluck(UGen):
-    r'''
+    r'''A Karplus-String UGen.
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
+        >>> source = ugentools.WhiteNoise.ar()
+        >>> trigger = ugentools.Dust.kr(2)
         >>> pluck = ugentools.Pluck.ar(
         ...     coefficient=0.5,
         ...     decay_time=1,
         ...     delay_time=0.2,
         ...     maximum_delay_time=0.2,
         ...     source=source,
-        ...     trigger=1,
+        ...     trigger=trigger,
         ...     )
         >>> pluck
         Pluck.ar()
@@ -23,7 +24,7 @@ class Pluck(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Delay UGens'
 
     __slots__ = ()
 
@@ -48,7 +49,7 @@ class Pluck(UGen):
         delay_time=0.2,
         maximum_delay_time=0.2,
         source=None,
-        trigger=1,
+        trigger=None,
         ):
         UGen.__init__(
             self,
@@ -71,20 +72,21 @@ class Pluck(UGen):
         delay_time=0.2,
         maximum_delay_time=0.2,
         source=None,
-        trigger=1,
+        trigger=None,
         ):
         r'''Constructs an audio-rate Pluck.
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck
             Pluck.ar()
@@ -112,14 +114,15 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.coefficient
             0.5
@@ -135,14 +138,15 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.decay_time
             1.0
@@ -158,14 +162,15 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.delay_time
             0.2
@@ -181,14 +186,15 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.maximum_delay_time
             0.2
@@ -204,21 +210,20 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.source
             OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
-                    channel_count=1
+                source=WhiteNoise(
+                    calculation_rate=<CalculationRate.AUDIO: 2>
                     ),
                 output_index=0
                 )
@@ -234,17 +239,24 @@ class Pluck(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> trigger = ugentools.Dust.kr(2)
             >>> pluck = ugentools.Pluck.ar(
             ...     coefficient=0.5,
             ...     decay_time=1,
             ...     delay_time=0.2,
             ...     maximum_delay_time=0.2,
             ...     source=source,
-            ...     trigger=1,
+            ...     trigger=trigger,
             ...     )
             >>> pluck.trigger
-            1.0
+            OutputProxy(
+                source=Dust(
+                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    density=2.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
