@@ -479,7 +479,6 @@ class TimespanCollection(SupriyaObject):
             positional_argument_values=positional_argument_values,
             )
 
-
     ### PUBLIC METHODS ###
 
     def find_timespans_starting_at(self, offset):
