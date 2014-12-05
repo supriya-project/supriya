@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dgeom(DUGen):
-    r'''A demand rate geometric series generator.
+    r'''A demand-rate geometric series generator.
 
     ::
 

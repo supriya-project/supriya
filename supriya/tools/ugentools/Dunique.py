@@ -1,26 +1,24 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dunique(UGen):
-    r'''
+class Dunique(DUGen):
+    r'''Returns the same unique series of values for several demand streams.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> dunique = ugentools.Dunique.ar(
+        >>> dunique = ugentools.Dunique(
         ...     max_buffer_size=1024,
         ...     protected=True,
         ...     source=source,
         ...     )
         >>> dunique
-        Dunique.ar()
+        Dunique()
 
     '''
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = None
 
     __slots__ = ()
 
@@ -30,20 +28,16 @@ class Dunique(UGen):
         'protected',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         max_buffer_size=1024,
         protected=True,
         source=None,
         ):
-        UGen.__init__(
+        DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             max_buffer_size=max_buffer_size,
             protected=protected,
             source=source,
@@ -69,14 +63,11 @@ class Dunique(UGen):
             ...     source=source,
             ...     )
             >>> dunique
-            Dunique.new()
+            Dunique()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             max_buffer_size=max_buffer_size,
             protected=protected,
             source=source,
@@ -92,7 +83,7 @@ class Dunique(UGen):
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dunique = ugentools.Dunique.ar(
+            >>> dunique = ugentools.Dunique(
             ...     max_buffer_size=1024,
             ...     protected=True,
             ...     source=source,
@@ -112,7 +103,7 @@ class Dunique(UGen):
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dunique = ugentools.Dunique.ar(
+            >>> dunique = ugentools.Dunique(
             ...     max_buffer_size=1024,
             ...     protected=True,
             ...     source=source,
@@ -132,7 +123,7 @@ class Dunique(UGen):
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dunique = ugentools.Dunique.ar(
+            >>> dunique = ugentools.Dunique(
             ...     max_buffer_size=1024,
             ...     protected=True,
             ...     source=source,

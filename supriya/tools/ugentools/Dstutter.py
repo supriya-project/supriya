@@ -2,46 +2,40 @@
 from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dreset(DUGen):
-    r'''
+class Dstutter(DUGen):
+    r'''A demand-rate input replicator.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
-        >>> dreset = ugentools.Dreset.ar(
-        ...     reset=0,
+        >>> dstutter = ugentools.Dstutter(
+        ...     n=2,
         ...     source=source,
         ...     )
-        >>> dreset
-        Dreset.ar()
+        >>> dstutter
+        Dstutter()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
+        'n',
         'source',
-        'reset',
         )
-
-    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        reset=0,
+        n=None,
         source=None,
         ):
         DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
-            reset=reset,
+            n=n,
             source=source,
             )
 
@@ -50,28 +44,25 @@ class Dreset(DUGen):
     @classmethod
     def new(
         cls,
-        reset=0,
+        n=None,
         source=None,
         ):
-        r'''Constructs a Dreset.
+        r'''Constructs a Dstutter.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dreset = ugentools.Dreset.new(
-            ...     reset=0,
+            >>> dstutter = ugentools.Dstutter.new(
+            ...     n=2,
             ...     source=source,
             ...     )
-            >>> dreset
-            Dreset.new()
+            >>> dstutter
+            Dstutter()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
-            reset=reset,
+            n=n,
             source=source,
             )
         return ugen
@@ -79,36 +70,36 @@ class Dreset(DUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def reset(self):
-        r'''Gets `reset` input of Dreset.
+    def n(self):
+        r'''Gets `n` input of Dstutter.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dreset = ugentools.Dreset.ar(
-            ...     reset=0,
+            >>> dstutter = ugentools.Dstutter(
+            ...     n=2,
             ...     source=source,
             ...     )
-            >>> dreset.reset
-            0.0
+            >>> dstutter.n
+            2.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('reset')
+        index = self._ordered_input_names.index('n')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dreset.
+        r'''Gets `source` input of Dstutter.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
-            >>> dreset = ugentools.Dreset.ar(
-            ...     reset=0,
+            >>> dstutter = ugentools.Dstutter(
+            ...     n=2,
             ...     source=source,
             ...     )
-            >>> dreset.source
+            >>> dstutter.source
             OutputProxy(
                 source=In(
                     bus=0.0,

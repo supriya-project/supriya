@@ -3,23 +3,21 @@ from supriya.tools.ugentools.Dwhite import Dwhite
 
 
 class Diwhite(Dwhite):
-    r'''
+    r'''An integer demand-rate white noise random generator.
 
     ::
 
-        >>> diwhite = ugentools.Diwhite.ar(
-        ...     length="float('inf')",
+        >>> diwhite = ugentools.Diwhite(
+        ...     length=float('inf'),
         ...     maximum=1,
         ...     minimum=0,
         ...     )
         >>> diwhite
-        Diwhite.ar()
+        Diwhite()
 
     '''
 
     ### CLASS VARIABLES ###
-
-    __documentation_section__ = None
 
     __slots__ = ()
 
@@ -29,20 +27,16 @@ class Diwhite(Dwhite):
         'length',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
-        length="float('inf')",
+        length=float('inf'),
         maximum=1,
         minimum=0,
         ):
         Dwhite.__init__(
             self,
-            calculation_rate=calculation_rate,
             length=length,
             maximum=maximum,
             minimum=minimum,
@@ -53,7 +47,7 @@ class Diwhite(Dwhite):
     @classmethod
     def new(
         cls,
-        length="float('inf')",
+        length=float('inf'),
         maximum=1,
         minimum=0,
         ):
@@ -62,19 +56,16 @@ class Diwhite(Dwhite):
         ::
 
             >>> diwhite = ugentools.Diwhite.new(
-            ...     length="float('inf')",
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     )
             >>> diwhite
-            Diwhite.new()
+            Diwhite()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             length=length,
             maximum=maximum,
             minimum=minimum,
@@ -89,12 +80,13 @@ class Diwhite(Dwhite):
 
         ::
 
-            >>> diwhite = ugentools.Diwhite.ar(
-            ...     length="float('inf')",
+            >>> diwhite = ugentools.Diwhite(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     )
             >>> diwhite.length
+            inf
 
         Returns ugen input.
         '''
@@ -107,8 +99,8 @@ class Diwhite(Dwhite):
 
         ::
 
-            >>> diwhite = ugentools.Diwhite.ar(
-            ...     length="float('inf')",
+            >>> diwhite = ugentools.Diwhite(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     )
@@ -126,8 +118,8 @@ class Diwhite(Dwhite):
 
         ::
 
-            >>> diwhite = ugentools.Diwhite.ar(
-            ...     length="float('inf')",
+            >>> diwhite = ugentools.Diwhite(
+            ...     length=float('inf'),
             ...     maximum=1,
             ...     minimum=0,
             ...     )

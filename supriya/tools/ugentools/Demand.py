@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Demand(MultiOutUGen):
-    r'''Demands results from demand rate UGens.
+    r'''Demands results from demand-rate UGens.
 
     ::
 

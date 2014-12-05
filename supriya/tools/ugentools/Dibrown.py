@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Dbrown import Dbrown
 
 
 class Dibrown(Dbrown):
-    r'''A demand rate brownian movement generator. 
+    r'''An integer demand-rate brownian movement generator. 
 
     ::
 

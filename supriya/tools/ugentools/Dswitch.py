@@ -1,45 +1,45 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.Dswitch1 import Dswitch1
+from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dswitch(Dswitch1):
-    r'''
+class Dswitch(DUGen):
+    r'''A demand-rate generator for embedding different inputs.
 
     ::
 
-        >>> dswitch = ugentools.Dswitch.ar(
+        >>> index = ugentools.Dseq(sequence=[0, 1, 2, 1, 0])
+        >>> sequence = (1., 2., 3.)
+        >>> dswitch = ugentools.Dswitch(
         ...     index=index,
         ...     sequence=sequence,
         ...     )
         >>> dswitch
-        Dswitch.ar()
+        Dswitch()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
-        'sequence',
         'index',
+        'sequence',
         )
 
-    _valid_calculation_rates = None
+    _unexpanded_input_names = (
+        'sequence',
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         index=None,
         sequence=None,
         ):
-        Dswitch1.__init__(
+        DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             index=index,
             sequence=sequence,
             )
@@ -56,19 +56,18 @@ class Dswitch(Dswitch1):
 
         ::
 
+            >>> index = ugentools.Dseq(sequence=[0, 1, 2, 1, 0])
+            >>> sequence = (1., 2., 3.)
             >>> dswitch = ugentools.Dswitch.new(
             ...     index=index,
             ...     sequence=sequence,
             ...     )
             >>> dswitch
-            Dswitch.new()
+            Dswitch()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             index=index,
             sequence=sequence,
             )
@@ -82,11 +81,20 @@ class Dswitch(Dswitch1):
 
         ::
 
-            >>> dswitch = ugentools.Dswitch.ar(
+            >>> index = ugentools.Dseq(sequence=[0, 1, 2, 1, 0])
+            >>> sequence = (1., 2., 3.)
+            >>> dswitch = ugentools.Dswitch(
             ...     index=index,
             ...     sequence=sequence,
             ...     )
             >>> dswitch.index
+            OutputProxy(
+                source=Dseq(
+                    repeats=1.0,
+                    sequence=(0.0, 1.0, 2.0, 1.0, 0.0)
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -99,13 +107,16 @@ class Dswitch(Dswitch1):
 
         ::
 
-            >>> dswitch = ugentools.Dswitch.ar(
+            >>> index = ugentools.Dseq(sequence=[0, 1, 2, 1, 0])
+            >>> sequence = (1., 2., 3.)
+            >>> dswitch = ugentools.Dswitch(
             ...     index=index,
             ...     sequence=sequence,
             ...     )
             >>> dswitch.sequence
+            (1.0, 2.0, 3.0)
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('sequence')
-        return self._inputs[index]
+        index = self._ordered_input_names.index('index') + 1
+        return tuple(self._inputs[index:])

@@ -2,48 +2,46 @@
 from supriya.tools.ugentools.DUGen import DUGen
 
 
-class Dbufrd(DUGen):
-    r'''
+class Dbufwr(DUGen):
+    r'''A buffer-writing demand-rate UGen.
 
     ::
 
-        >>> dbufrd = ugentools.Dbufrd.ar(
+        >>> dbufwr = ugentools.Dbufwr(
         ...     buffer_id=0,
+        ...     source=0,
         ...     loop=1,
         ...     phase=0,
         ...     )
-        >>> dbufrd
-        Dbufrd.ar()
+        >>> dbufwr
+        Dbufwr()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
-
     __slots__ = ()
 
     _ordered_input_names = (
+        'source',
         'buffer_id',
         'phase',
         'loop',
         )
 
-    _valid_calculation_rates = None
-
     ### INITIALIZER ###
 
     def __init__(
         self,
-        calculation_rate=None,
         buffer_id=0,
+        source=0,
         loop=1,
         phase=0,
         ):
         DUGen.__init__(
             self,
-            calculation_rate=calculation_rate,
             buffer_id=buffer_id,
+            source=source,
             loop=loop,
             phase=phase,
             )
@@ -54,28 +52,28 @@ class Dbufrd(DUGen):
     def new(
         cls,
         buffer_id=0,
+        source=0,
         loop=1,
         phase=0,
         ):
-        r'''Constructs a Dbufrd.
+        r'''Constructs a Dbufwr.
 
         ::
 
-            >>> dbufrd = ugentools.Dbufrd.new(
+            >>> dbufwr = ugentools.Dbufwr.new(
             ...     buffer_id=0,
+            ...     source=0,
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> dbufrd
-            Dbufrd.new()
+            >>> dbufwr
+            Dbufwr()
 
         Returns ugen graph.
         '''
-        from supriya.tools import synthdeftools
-        calculation_rate = None
         ugen = cls._new_expanded(
-            calculation_rate=calculation_rate,
             buffer_id=buffer_id,
+            source=source,
             loop=loop,
             phase=phase,
             )
@@ -85,16 +83,17 @@ class Dbufrd(DUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Dbufrd.
+        r'''Gets `buffer_id` input of Dbufwr.
 
         ::
 
-            >>> dbufrd = ugentools.Dbufrd.ar(
+            >>> dbufwr = ugentools.Dbufwr(
             ...     buffer_id=0,
+            ...     source=0,
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> dbufrd.buffer_id
+            >>> dbufwr.buffer_id
             0.0
 
         Returns ugen input.
@@ -103,17 +102,38 @@ class Dbufrd(DUGen):
         return self._inputs[index]
 
     @property
-    def loop(self):
-        r'''Gets `loop` input of Dbufrd.
+    def source(self):
+        r'''Gets `source` input of Dbufwr.
 
         ::
 
-            >>> dbufrd = ugentools.Dbufrd.ar(
+            >>> dbufwr = ugentools.Dbufwr(
             ...     buffer_id=0,
+            ...     source=0,
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> dbufrd.loop
+            >>> dbufwr.source
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return self._inputs[index]
+
+    @property
+    def loop(self):
+        r'''Gets `loop` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr(
+            ...     buffer_id=0,
+            ...     source=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.loop
             1.0
 
         Returns ugen input.
@@ -123,16 +143,17 @@ class Dbufrd(DUGen):
 
     @property
     def phase(self):
-        r'''Gets `phase` input of Dbufrd.
+        r'''Gets `phase` input of Dbufwr.
 
         ::
 
-            >>> dbufrd = ugentools.Dbufrd.ar(
+            >>> dbufwr = ugentools.Dbufwr(
             ...     buffer_id=0,
+            ...     source=0,
             ...     loop=1,
             ...     phase=0,
             ...     )
-            >>> dbufrd.phase
+            >>> dbufwr.phase
             0.0
 
         Returns ugen input.
