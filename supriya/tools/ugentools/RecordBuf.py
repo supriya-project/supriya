@@ -3,14 +3,16 @@ from supriya.tools.synthdeftools.UGen import UGen
 
 
 class RecordBuf(UGen):
-    r'''
+    r'''Records or overdubs into a buffer.
 
     ::
 
+        >>> buffer_id = 23
+        >>> source = ugentools.SoundIn.ar(bus=(0, 1))
         >>> record_buf = ugentools.RecordBuf.ar(
-        ...     buffer_id=0,
+        ...     buffer_id=buffer_id,
         ...     done_action=0,
-        ...     input_array=input_array,
+        ...     source=source,
         ...     loop=1,
         ...     offset=0,
         ...     pre_level=0,
@@ -25,12 +27,11 @@ class RecordBuf(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'input_array',
         'buffer_id',
         'offset',
         'rec_level',
@@ -39,6 +40,11 @@ class RecordBuf(UGen):
         'loop',
         'trigger',
         'done_action',
+        'source',
+        )
+
+    _unexpanded_input_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -48,9 +54,9 @@ class RecordBuf(UGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id=0,
+        buffer_id=None,
         done_action=0,
-        input_array=None,
+        source=None,
         loop=1,
         offset=0,
         pre_level=0,
@@ -63,7 +69,7 @@ class RecordBuf(UGen):
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             done_action=done_action,
-            input_array=input_array,
+            source=source,
             loop=loop,
             offset=offset,
             pre_level=pre_level,
@@ -77,9 +83,9 @@ class RecordBuf(UGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         done_action=0,
-        input_array=None,
+        source=None,
         loop=1,
         offset=0,
         pre_level=0,
@@ -91,10 +97,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -113,7 +121,7 @@ class RecordBuf(UGen):
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             done_action=done_action,
-            input_array=input_array,
+            source=source,
             loop=loop,
             offset=offset,
             pre_level=pre_level,
@@ -126,9 +134,9 @@ class RecordBuf(UGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         done_action=0,
-        input_array=None,
+        source=None,
         loop=1,
         offset=0,
         pre_level=0,
@@ -140,10 +148,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.kr(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -162,7 +172,7 @@ class RecordBuf(UGen):
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
             done_action=done_action,
-            input_array=input_array,
+            source=source,
             loop=loop,
             offset=offset,
             pre_level=pre_level,
@@ -180,10 +190,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -192,7 +204,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.buffer_id
-            0.0
+            23.0
 
         Returns ugen input.
         '''
@@ -205,10 +217,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -225,15 +239,25 @@ class RecordBuf(UGen):
         return self._inputs[index]
 
     @property
-    def input_array(self):
-        r'''Gets `input_array` input of RecordBuf.
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
+
+        Returns boolean.
+        '''
+        return True
+
+    @property
+    def source(self):
+        r'''Gets `source` input of RecordBuf.
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -241,11 +265,24 @@ class RecordBuf(UGen):
             ...     run=1,
             ...     trigger=1,
             ...     )
-            >>> record_buf.input_array
+            >>> record_buf.source
+            OutputProxy(
+                source=In(
+                    bus=OutputProxy(
+                        source=NumOutputBuses(
+                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            ),
+                        output_index=0
+                        ),
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    channel_count=2
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('input_array')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
@@ -254,10 +291,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -279,10 +318,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -304,10 +345,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -329,10 +372,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -354,10 +399,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,
@@ -379,10 +426,12 @@ class RecordBuf(UGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> record_buf = ugentools.RecordBuf.ar(
-            ...     buffer_id=0,
+            ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     input_array=input_array,
+            ...     source=source,
             ...     loop=1,
             ...     offset=0,
             ...     pre_level=0,

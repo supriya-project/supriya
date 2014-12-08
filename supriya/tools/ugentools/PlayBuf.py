@@ -3,36 +3,36 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PlayBuf(MultiOutUGen):
-    r'''
+    r'''A sample playback oscillator.
 
     ::
 
+        >>> buffer_id = 23
         >>> play_buf = ugentools.PlayBuf.ar(
-        ...     buffer_id=0,
-        ...     channel_count=channel_count,
+        ...     buffer_id=buffer_id,
+        ...     channel_count=2,
         ...     done_action=0,
         ...     loop=0,
         ...     rate=1,
-        ...     start_pos=0,
+        ...     start_position=0,
         ...     trigger=1,
         ...     )
         >>> play_buf
-        PlayBuf.ar()
+        UGenArray({2})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
         'buffer_id',
         'rate',
         'trigger',
-        'start_pos',
+        'start_position',
         'loop',
         'done_action',
         )
@@ -44,12 +44,12 @@ class PlayBuf(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         done_action=0,
         loop=0,
         rate=1,
-        start_pos=0,
+        start_position=0,
         trigger=1,
         ):
         MultiOutUGen.__init__(
@@ -60,7 +60,7 @@ class PlayBuf(MultiOutUGen):
             done_action=done_action,
             loop=loop,
             rate=rate,
-            start_pos=start_pos,
+            start_position=start_position,
             trigger=trigger,
             )
 
@@ -69,29 +69,30 @@ class PlayBuf(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         done_action=0,
         loop=0,
         rate=1,
-        start_pos=0,
+        start_position=0,
         trigger=1,
         ):
         r'''Constructs an audio-rate PlayBuf.
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
             >>> play_buf
-            PlayBuf.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -104,7 +105,7 @@ class PlayBuf(MultiOutUGen):
             done_action=done_action,
             loop=loop,
             rate=rate,
-            start_pos=start_pos,
+            start_position=start_position,
             trigger=trigger,
             )
         return ugen
@@ -112,29 +113,30 @@ class PlayBuf(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         done_action=0,
         loop=0,
         rate=1,
-        start_pos=0,
+        start_position=0,
         trigger=1,
         ):
         r'''Constructs a control-rate PlayBuf.
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.kr(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
             >>> play_buf
-            PlayBuf.kr()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -147,7 +149,7 @@ class PlayBuf(MultiOutUGen):
             done_action=done_action,
             loop=loop,
             rate=rate,
-            start_pos=start_pos,
+            start_position=start_position,
             trigger=trigger,
             )
         return ugen
@@ -162,43 +164,22 @@ class PlayBuf(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.buffer_id
-            0.0
+            >>> play_buf[0].source.buffer_id
+            23.0
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]
-
-    @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of PlayBuf.
-
-        ::
-
-            >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
-            ...     done_action=0,
-            ...     loop=0,
-            ...     rate=1,
-            ...     start_pos=0,
-            ...     trigger=1,
-            ...     )
-            >>> play_buf.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
@@ -207,16 +188,17 @@ class PlayBuf(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.done_action
+            >>> play_buf[0].source.done_action
             0.0
 
         Returns ugen input.
@@ -230,16 +212,17 @@ class PlayBuf(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.loop
+            >>> play_buf[0].source.loop
             0.0
 
         Returns ugen input.
@@ -248,21 +231,30 @@ class PlayBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
+
+        Returns boolean.
+        '''
+        return True
+
+    @property
     def rate(self):
         r'''Gets `rate` input of PlayBuf.
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.rate
+            >>> play_buf[0].source.rate
             1.0
 
         Returns ugen input.
@@ -271,26 +263,27 @@ class PlayBuf(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def start_pos(self):
-        r'''Gets `start_pos` input of PlayBuf.
+    def start_position(self):
+        r'''Gets `start_position` input of PlayBuf.
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.start_pos
+            >>> play_buf[0].source.start_position
             0.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('start_pos')
+        index = self._ordered_input_names.index('start_position')
         return self._inputs[index]
 
     @property
@@ -299,16 +292,17 @@ class PlayBuf(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> play_buf = ugentools.PlayBuf.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     done_action=0,
             ...     loop=0,
             ...     rate=1,
-            ...     start_pos=0,
+            ...     start_position=0,
             ...     trigger=1,
             ...     )
-            >>> play_buf.trigger
+            >>> play_buf[0].source.trigger
             1.0
 
         Returns ugen input.
