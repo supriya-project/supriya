@@ -12,12 +12,12 @@ class RecordBuf(UGen):
         >>> record_buf = ugentools.RecordBuf.ar(
         ...     buffer_id=buffer_id,
         ...     done_action=0,
-        ...     source=source,
         ...     loop=1,
         ...     offset=0,
-        ...     pre_level=0,
-        ...     rec_level=1,
+        ...     preexisting_level=0,
+        ...     record_level=1,
         ...     run=1,
+        ...     source=source,
         ...     trigger=1,
         ...     )
         >>> record_buf
@@ -34,8 +34,8 @@ class RecordBuf(UGen):
     _ordered_input_names = (
         'buffer_id',
         'offset',
-        'rec_level',
-        'pre_level',
+        'record_level',
+        'preexisting_level',
         'run',
         'loop',
         'trigger',
@@ -59,8 +59,8 @@ class RecordBuf(UGen):
         source=None,
         loop=1,
         offset=0,
-        pre_level=0,
-        rec_level=1,
+        preexisting_level=0,
+        record_level=1,
         run=1,
         trigger=1,
         ):
@@ -72,8 +72,8 @@ class RecordBuf(UGen):
             source=source,
             loop=loop,
             offset=offset,
-            pre_level=pre_level,
-            rec_level=rec_level,
+            preexisting_level=preexisting_level,
+            record_level=record_level,
             run=run,
             trigger=trigger,
             )
@@ -88,8 +88,8 @@ class RecordBuf(UGen):
         source=None,
         loop=1,
         offset=0,
-        pre_level=0,
-        rec_level=1,
+        preexisting_level=0,
+        record_level=1,
         run=1,
         trigger=1,
         ):
@@ -102,12 +102,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf
@@ -124,8 +124,8 @@ class RecordBuf(UGen):
             source=source,
             loop=loop,
             offset=offset,
-            pre_level=pre_level,
-            rec_level=rec_level,
+            preexisting_level=preexisting_level,
+            record_level=record_level,
             run=run,
             trigger=trigger,
             )
@@ -139,8 +139,8 @@ class RecordBuf(UGen):
         source=None,
         loop=1,
         offset=0,
-        pre_level=0,
-        rec_level=1,
+        preexisting_level=0,
+        record_level=1,
         run=1,
         trigger=1,
         ):
@@ -153,12 +153,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.kr(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf
@@ -175,8 +175,8 @@ class RecordBuf(UGen):
             source=source,
             loop=loop,
             offset=offset,
-            pre_level=pre_level,
-            rec_level=rec_level,
+            preexisting_level=preexisting_level,
+            record_level=record_level,
             run=run,
             trigger=trigger,
             )
@@ -195,12 +195,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.buffer_id
@@ -222,12 +222,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.done_action
@@ -257,12 +257,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.source
@@ -296,12 +296,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.loop
@@ -323,12 +323,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.offset
@@ -340,8 +340,8 @@ class RecordBuf(UGen):
         return self._inputs[index]
 
     @property
-    def pre_level(self):
-        r'''Gets `pre_level` input of RecordBuf.
+    def preexisting_level(self):
+        r'''Gets `preexisting_level` input of RecordBuf.
 
         ::
 
@@ -350,25 +350,25 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
-            >>> record_buf.pre_level
+            >>> record_buf.preexisting_level
             0.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('pre_level')
+        index = self._ordered_input_names.index('preexisting_level')
         return self._inputs[index]
 
     @property
-    def rec_level(self):
-        r'''Gets `rec_level` input of RecordBuf.
+    def record_level(self):
+        r'''Gets `record_level` input of RecordBuf.
 
         ::
 
@@ -377,20 +377,20 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
-            >>> record_buf.rec_level
+            >>> record_buf.record_level
             1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('rec_level')
+        index = self._ordered_input_names.index('record_level')
         return self._inputs[index]
 
     @property
@@ -404,12 +404,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.run
@@ -431,12 +431,12 @@ class RecordBuf(UGen):
             >>> record_buf = ugentools.RecordBuf.ar(
             ...     buffer_id=buffer_id,
             ...     done_action=0,
-            ...     source=source,
             ...     loop=1,
             ...     offset=0,
-            ...     pre_level=0,
-            ...     rec_level=1,
+            ...     preexisting_level=0,
+            ...     record_level=1,
             ...     run=1,
+            ...     source=source,
             ...     trigger=1,
             ...     )
             >>> record_buf.trigger
