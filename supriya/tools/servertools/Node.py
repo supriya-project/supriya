@@ -126,7 +126,7 @@ class Node(ServerObjectProxy):
         ):
         if server is None or not server.is_running:
             raise ValueError
-        if self in server._nodes:
+        if self.server is not None or self in server._nodes:
             return
         id_allocator = server.node_id_allocator
         if node_id_is_permanent:

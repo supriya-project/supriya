@@ -129,6 +129,8 @@ class Synth(Node):
         ):
         from supriya.tools import requesttools
         from supriya.tools import servertools
+        if self.is_allocated:
+            return
         add_action, node_id, target_node_id = Node.allocate(
             self,
             add_action=add_action,
