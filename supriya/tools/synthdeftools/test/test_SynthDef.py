@@ -801,3 +801,26 @@ def test_SynthDef_10():
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     assert sc_compiled_synthdef == py_compiled_synthdef
+
+
+def test_SynthDef_11():
+
+    with synthdeftools.SynthDefBuilder() as builder:
+        source = ugentools.In.ar(bus=8, channel_count=2)
+        ugentools.DetectSilence.ar(source=source)
+        ugentools.Out.ar(bus=0, source=source)
+    py_synthdef = builder.build('DetectSilenceTest')
+    py_compiled_synthdef = py_synthdef.compile()
+
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        'DetectSilenceTest',
+        r'''
+        var source, detect_silence, out;
+        source = In.ar(8, 2);
+        detect_silence = DetectSilence.ar(source);
+        out = Out.ar(0, source);
+        '''
+        )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+
+    assert sc_compiled_synthdef == py_compiled_synthdef
