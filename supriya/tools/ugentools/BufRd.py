@@ -3,30 +3,35 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BufRd(MultiOutUGen):
-    r'''
+    r'''A buffer-reading oscillator.
 
     ::
 
+        >>> buffer_id = 23
+        >>> phase = ugentools.Phasor.ar(
+        ...     rate=ugentools.BufRateScale.kr(buffer_id),
+        ...     start=0,
+        ...     stop=ugentools.BufFrames.kr(buffer_id),
+        ...     )
         >>> buf_rd = ugentools.BufRd.ar(
-        ...     buffer_id=0,
-        ...     channel_count=channel_count,
+        ...     buffer_id=buffer_id,
+        ...     channel_count=2,
         ...     interpolation=2,
         ...     loop=1,
-        ...     phase=0,
+        ...     phase=phase,
         ...     )
         >>> buf_rd
-        BufRd.ar()
+        UGenArray({2})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
         'buffer_id',
         'phase',
         'loop',
@@ -40,7 +45,7 @@ class BufRd(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         interpolation=2,
         loop=1,
@@ -61,7 +66,7 @@ class BufRd(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         interpolation=2,
         loop=1,
@@ -71,15 +76,21 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
             >>> buf_rd
-            BufRd.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -98,7 +109,7 @@ class BufRd(MultiOutUGen):
     @classmethod
     def kr(
         cls,
-        buffer_id=0,
+        buffer_id=None,
         channel_count=None,
         interpolation=2,
         loop=1,
@@ -108,15 +119,21 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.kr(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
             >>> buf_rd
-            BufRd.kr()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -142,15 +159,21 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
-            >>> buf_rd.buffer_id
-            0.0
+            >>> buf_rd[0].source.buffer_id
+            23.0
 
         Returns ugen input.
         '''
@@ -158,24 +181,12 @@ class BufRd(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of BufRd.
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
 
-        ::
-
-            >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
-            ...     interpolation=2,
-            ...     loop=1,
-            ...     phase=0,
-            ...     )
-            >>> buf_rd.channel_count
-
-        Returns ugen input.
+        Returns boolean.
         '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
+        return True
 
     @property
     def interpolation(self):
@@ -183,14 +194,20 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
-            >>> buf_rd.interpolation
+            >>> buf_rd[0].source.interpolation
             2.0
 
         Returns ugen input.
@@ -204,14 +221,20 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
-            >>> buf_rd.loop
+            >>> buf_rd[0].source.loop
             1.0
 
         Returns ugen input.
@@ -225,15 +248,43 @@ class BufRd(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
+            >>> phase = ugentools.Phasor.ar(
+            ...     rate=ugentools.BufRateScale.kr(buffer_id),
+            ...     start=0,
+            ...     stop=ugentools.BufFrames.kr(buffer_id),
+            ...     )
             >>> buf_rd = ugentools.BufRd.ar(
-            ...     buffer_id=0,
-            ...     channel_count=channel_count,
+            ...     buffer_id=buffer_id,
+            ...     channel_count=2,
             ...     interpolation=2,
             ...     loop=1,
-            ...     phase=0,
+            ...     phase=phase,
             ...     )
-            >>> buf_rd.phase
-            0.0
+            >>> buf_rd[0].source.phase
+            OutputProxy(
+                source=Phasor(
+                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    rate=OutputProxy(
+                        source=BufRateScale(
+                            buffer_id=23.0,
+                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            ),
+                        output_index=0
+                        ),
+                    reset_pos=0.0,
+                    start=0.0,
+                    stop=OutputProxy(
+                        source=BufFrames(
+                            buffer_id=23.0,
+                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            ),
+                        output_index=0
+                        ),
+                    trigger=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
