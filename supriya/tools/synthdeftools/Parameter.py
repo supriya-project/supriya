@@ -72,6 +72,10 @@ class Parameter(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def has_done_flag(self):
+        return False
+
+    @property
     def name(self):
         return self._name
 

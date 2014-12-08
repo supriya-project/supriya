@@ -438,6 +438,10 @@ class UGen(UGenMethodMixin):
         return self._calculation_rate
 
     @property
+    def has_done_flag(self):
+        return False
+
+    @property
     def inputs(self):
         r'''Gets inputs of ugen.
 
