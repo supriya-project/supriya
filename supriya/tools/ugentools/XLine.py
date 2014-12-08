@@ -170,6 +170,14 @@ class XLine(UGen):
         return self._inputs[index]
 
     @property
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
+
+        Returns boolean.
+        '''
+        return True
+
+    @property
     def start(self):
         r'''Gets `start` input of XLine.
 

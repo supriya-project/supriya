@@ -133,6 +133,14 @@ class Demand(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
+
+        Returns boolean.
+        '''
+        return True
+
+    @property
     def reset(self):
         r'''Gets `reset` input of Demand.
 

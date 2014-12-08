@@ -102,24 +102,12 @@ class Dbufwr(DUGen):
         return self._inputs[index]
 
     @property
-    def source(self):
-        r'''Gets `source` input of Dbufwr.
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
 
-        ::
-
-            >>> dbufwr = ugentools.Dbufwr(
-            ...     buffer_id=0,
-            ...     source=0,
-            ...     loop=1,
-            ...     phase=0,
-            ...     )
-            >>> dbufwr.source
-            0.0
-
-        Returns ugen input.
+        Returns boolean.
         '''
-        index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+        return True
 
     @property
     def loop(self):
@@ -159,4 +147,24 @@ class Dbufwr(DUGen):
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('phase')
+        return self._inputs[index]
+
+    @property
+    def source(self):
+        r'''Gets `source` input of Dbufwr.
+
+        ::
+
+            >>> dbufwr = ugentools.Dbufwr(
+            ...     buffer_id=0,
+            ...     source=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufwr.source
+            0.0
+
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]

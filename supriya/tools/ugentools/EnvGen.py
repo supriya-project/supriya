@@ -213,6 +213,14 @@ class EnvGen(UGen):
         return self._inputs[index]
 
     @property
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
+
+        Returns boolean.
+        '''
+        return True
+
+    @property
     def level_bias(self):
         r'''Gets `level_bias` input of EnvGen.
 
