@@ -13,7 +13,7 @@ class BufWr(UGen):
         ...     start=0,
         ...     stop=ugentools.BufFrames.kr(buffer_id),
         ...     )
-        >>> source = ugentools.SoundIn.ar(bus=0)
+        >>> source = ugentools.SoundIn.ar(bus=(0, 1))
         >>> buf_wr = ugentools.BufWr.ar(
         ...     buffer_id=buffer_id,
         ...     loop=1,
@@ -32,10 +32,14 @@ class BufWr(UGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'source',
         'buffer_id',
         'phase',
         'loop',
+        'source',
+        )
+
+    _unexpanded_input_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -79,7 +83,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -120,7 +124,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.kr(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -157,7 +161,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -192,7 +196,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -219,7 +223,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -268,7 +272,7 @@ class BufWr(UGen):
             ...     start=0,
             ...     stop=ugentools.BufFrames.kr(buffer_id),
             ...     )
-            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> source = ugentools.SoundIn.ar(bus=(0, 1))
             >>> buf_wr = ugentools.BufWr.ar(
             ...     buffer_id=buffer_id,
             ...     loop=1,
@@ -285,7 +289,7 @@ class BufWr(UGen):
                         output_index=0
                         ),
                     calculation_rate=<CalculationRate.AUDIO: 2>,
-                    channel_count=1
+                    channel_count=2
                     ),
                 output_index=0
                 )
