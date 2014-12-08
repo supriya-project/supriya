@@ -3,19 +3,20 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class VDiskIn(MultiOutUGen):
-    r'''
+    r'''Streams in audio from a file, with variable rate.
 
     ::
 
+        >>> buffer_id = 23
         >>> vdisk_in = ugentools.VDiskIn.ar(
         ...     buffer_id=buffer_id,
-        ...     channel_count=channel_count,
+        ...     channel_count=2,
         ...     loop=0,
         ...     rate=1,
         ...     send_id=0,
         ...     )
         >>> vdisk_in
-        VDiskIn.ar()
+        UGenArray({2})
 
     '''
 
@@ -26,7 +27,6 @@ class VDiskIn(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
         'buffer_id',
         'rate',
         'loop',
@@ -71,15 +71,16 @@ class VDiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> vdisk_in = ugentools.VDiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
             >>> vdisk_in
-            VDiskIn.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -105,38 +106,20 @@ class VDiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> vdisk_in = ugentools.VDiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
-            >>> vdisk_in.buffer_id
+            >>> vdisk_in[0].source.buffer_id
+            23.0
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]
-
-    @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of VDiskIn.
-
-        ::
-
-            >>> vdisk_in = ugentools.VDiskIn.ar(
-            ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
-            ...     loop=0,
-            ...     rate=1,
-            ...     send_id=0,
-            ...     )
-            >>> vdisk_in.channel_count
-
-        Returns ugen input.
-        '''
-        index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
@@ -145,14 +128,15 @@ class VDiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> vdisk_in = ugentools.VDiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
-            >>> vdisk_in.loop
+            >>> vdisk_in[0].source.loop
             0.0
 
         Returns ugen input.
@@ -166,14 +150,15 @@ class VDiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> vdisk_in = ugentools.VDiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
-            >>> vdisk_in.rate
+            >>> vdisk_in[0].source.rate
             1.0
 
         Returns ugen input.
@@ -187,14 +172,15 @@ class VDiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> vdisk_in = ugentools.VDiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     rate=1,
             ...     send_id=0,
             ...     )
-            >>> vdisk_in.send_id
+            >>> vdisk_in[0].source.send_id
             0.0
 
         Returns ugen input.

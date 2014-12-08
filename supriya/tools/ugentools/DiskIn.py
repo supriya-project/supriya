@@ -3,17 +3,18 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class DiskIn(MultiOutUGen):
-    r'''
+    r'''Streams in audio from a file.
 
     ::
 
+        >>> buffer_id = 23
         >>> disk_in = ugentools.DiskIn.ar(
         ...     buffer_id=buffer_id,
-        ...     channel_count=channel_count,
+        ...     channel_count=2,
         ...     loop=0,
         ...     )
         >>> disk_in
-        DiskIn.ar()
+        UGenArray({2})
 
     '''
 
@@ -24,7 +25,6 @@ class DiskIn(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
         'buffer_id',
         'loop',
         )
@@ -61,13 +61,14 @@ class DiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> disk_in = ugentools.DiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     )
             >>> disk_in
-            DiskIn.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -91,12 +92,14 @@ class DiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> disk_in = ugentools.DiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     )
-            >>> disk_in.buffer_id
+            >>> disk_in[0].source.buffer_id
+            23.0
 
         Returns ugen input.
         '''
@@ -104,22 +107,12 @@ class DiskIn(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def channel_count(self):
-        r'''Gets `channel_count` input of DiskIn.
+    def has_done_flag(self):
+        r'''Is true if UGen has a done flag.
 
-        ::
-
-            >>> disk_in = ugentools.DiskIn.ar(
-            ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
-            ...     loop=0,
-            ...     )
-            >>> disk_in.channel_count
-
-        Returns ugen input.
+        Returns boolean.
         '''
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
+        return True
 
     @property
     def loop(self):
@@ -127,12 +120,13 @@ class DiskIn(MultiOutUGen):
 
         ::
 
+            >>> buffer_id = 23
             >>> disk_in = ugentools.DiskIn.ar(
             ...     buffer_id=buffer_id,
-            ...     channel_count=channel_count,
+            ...     channel_count=2,
             ...     loop=0,
             ...     )
-            >>> disk_in.loop
+            >>> disk_in[0].source.loop
             0.0
 
         Returns ugen input.
