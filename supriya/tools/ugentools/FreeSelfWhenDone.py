@@ -33,7 +33,7 @@ class FreeSelfWhenDone(UGen):
         calculation_rate=None,
         source=None,
         ):
-        assert source._has_done_action
+        assert hasattr(source, 'has_done_flag') and source.has_done_flag
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,

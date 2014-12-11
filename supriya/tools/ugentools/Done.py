@@ -34,7 +34,7 @@ class Done(UGen):
         source=None,
         ):
         assert isinstance(source, UGen)
-        assert source._has_done_action
+        assert hasattr(source, 'has_done_flag') and source.has_done_flag
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
