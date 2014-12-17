@@ -7,10 +7,7 @@ before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
-    - sudo apt-get install -y jackd1
-    - sudo jackd -m -n TEST -r -d dummy -r 44100 &
-    - sleep 5
-    - scsynth -D 0 -H TEST:CLIENT -u 57751 -R 0 &
+    - xvfb-run scsynth -D 0 -H TEST:CLIENT -u 57751 -R 0 &
     - sleep 5
     - killall scsynth
 
