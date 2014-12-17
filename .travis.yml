@@ -8,7 +8,7 @@ before_install:
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo dpkg-reconfigure -p high jackd2
-    - jackd --version
+    - sudo xvfb-run sudo jackd --version
     - sudo jackd --name TEST --no-realtime --no-mlock --verbose --driver dummy -r 44100 &
     - sleep 5
 #    - xvfb-run scsynth -D 0 -H TEST:CLIENT -u 57751 -R 0 &
