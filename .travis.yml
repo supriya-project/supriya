@@ -11,7 +11,7 @@ before_install:
     - sudo apt-get install -y supercollider
     - sudo dpkg-reconfigure -p high jackd2
 #    - sudo xvfb-run sudo jackd --version
-    - xvfb-run sudo jackd --name TEST --no-realtime --no-mlock --verbose --driver dummy -r 44100 &
+    - xvfb-run sudo jackd -n TEST -r -m -V -d dummy -r 44100 &
     - sleep 10
     - xvfb-run scsynth -D 0 -H TEST:CLIENT -u 57751 -R 0 &
 #    - xvfb-run scsynth -D 0 -u 57751 -R 0 &
