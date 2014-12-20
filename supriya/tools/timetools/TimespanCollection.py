@@ -938,45 +938,25 @@ class TimespanCollection(SupriyaObject):
 
     @property
     def all_offsets(self):
-        def recurse(node):
-            result = set()
-            if node is not None:
-                if node.left_child is not None:
-                    result.update(recurse(node.left_child))
-                result.add(node.start_offset)
-                #result.add(node.stop_offset_low)
-                #result.add(node.stop_offset_high)
-                if node.right_child is not None:
-                    result.update(recurse(node.right_child))
-            return result
-        return tuple(sorted(recurse(self._root_node)))
+        offsets = set()
+        for timespan in self:
+            offsets.add(timespan.start_offset)
+            offsets.add(timespan.stop_offset)
+        return tuple(sorted(offsets))
 
     @property
     def all_start_offsets(self):
-        def recurse(node):
-            result = []
-            if node is not None:
-                if node.left_child is not None:
-                    result.extend(recurse(node.left_child))
-                result.append(node.start_offset)
-                if node.right_child is not None:
-                    result.extend(recurse(node.right_child))
-            return result
-        return tuple(recurse(self._root_node))
+        start_offsets = set()
+        for timespan in self:
+            start_offsets.add(timespan.start_offset)
+        return tuple(sorted(start_offsets))
 
     @property
     def all_stop_offsets(self):
-        def recurse(node):
-            result = set()
-            if node is not None:
-                if node.left_child is not None:
-                    result.update(recurse(node.left_child))
-                result.add(node.stop_offset_low)
-                result.add(node.stop_offset_high)
-                if node.right_child is not None:
-                    result.update(recurse(node.right_child))
-            return result
-        return tuple(sorted(recurse(self._root_node)))
+        stop_offsets = set()
+        for timespan in self:
+            stop_offsets.add(timespan.stop_offset)
+        return tuple(sorted(stop_offsets))
 
     @property
     def earliest_start_offset(self):
