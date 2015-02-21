@@ -74,7 +74,7 @@ class SynthDef(ServerObjectProxy):
         ):
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
-        compiler = synthdeftools.SynthDefByteCompiler
+        compiler = synthdeftools.SynthDefCompiler
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
@@ -498,9 +498,9 @@ class SynthDef(ServerObjectProxy):
         return self
 
     def compile(self):
-        from supriya.tools.synthdeftools import SynthDefByteCompiler
+        from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = [self]
-        result = SynthDefByteCompiler.compile_synthdefs(synthdefs)
+        result = SynthDefCompiler.compile_synthdefs(synthdefs)
         return result
 
     def free(self):
