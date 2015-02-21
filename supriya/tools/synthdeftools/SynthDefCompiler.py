@@ -37,23 +37,6 @@ class SynthDefCompiler(SupriyaObject):
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(index))
         return bytes().join(result)
 
-#    @staticmethod
-#    def compile_parameters(synthdef):
-#        result = []
-#        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-#            len(synthdef.parameters)))
-#        for value in synthdef.parameters:
-#            result.append(SynthDefCompiler.encode_float(value))
-#        result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-#            len(synthdef.parameter_names)))
-#        for key, value in sorted(
-#            synthdef.parameter_names.items(),
-#            key=lambda x: x[1],
-#            ):
-#            result.append(SynthDefCompiler.encode_string(key))
-#            result.append(SynthDefCompiler.encode_unsigned_int_32bit(value))
-#        return bytes().join(result)
-
     @staticmethod
     def compile_synthdefs(synthdefs):
         def flatten(value):
