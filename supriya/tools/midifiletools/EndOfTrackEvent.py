@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.miditools.TrackEvent import TrackEvent
+from supriya.tools.midifiletools.TrackEvent import TrackEvent
 
 
-class NoteOnEvent(TrackEvent):
-    r'''Note on event.
+class EndOfTrackEvent(TrackEvent):
+    r'''End-of-track event.
     '''
 
     ### CLASS VARIABLES ###

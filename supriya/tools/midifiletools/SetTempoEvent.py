@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.miditools.TrackEvent import TrackEvent
+from supriya.tools.midifiletools.TrackEvent import TrackEvent
 
 
 class SetTempoEvent(TrackEvent):

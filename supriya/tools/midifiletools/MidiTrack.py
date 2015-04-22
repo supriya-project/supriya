@@ -15,8 +15,8 @@ class MidiTrack(SupriyaValueObject):
     ### INITIALIZER ###
 
     def __init__(self, track_events=None):
-        from supriya.tools import miditools
-        prototype = miditools.TrackEvent
+        from supriya.tools import midifiletools
+        prototype = midifiletools.TrackEvent
         if track_events is not None:
             assert all(isinstance(_, prototype) for _ in track_events)
             track_events = tuple(track_events)

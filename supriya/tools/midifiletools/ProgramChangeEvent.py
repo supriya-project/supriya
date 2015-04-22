@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.miditools.TrackEvent import TrackEvent
+from supriya.tools.midifiletools.TrackEvent import TrackEvent
 
 
-class TimeSignatureEvent(TrackEvent):
-    r'''Time signature event.
+class ProgramChangeEvent(TrackEvent):
+    r'''Program change event.
     '''
 
     ### CLASS VARIABLES ###
