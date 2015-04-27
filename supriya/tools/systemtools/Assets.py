@@ -3,7 +3,7 @@ import fnmatch
 import os
 
 
-class Library(object):
+class Assets(object):
 
     ### SPECIAL METHODS ###
 
@@ -14,12 +14,12 @@ class Library(object):
         if not search_path:
             search_path = os.path.join(
                 supriya.__path__[0],
-                'library',
+                'assets',
                 )
         elif not os.path.isabs(search_path):
             search_path = os.path.join(
                 supriya.__path__[0],
-                'library',
+                'assets',
                 search_path,
                 )
         result = []
@@ -31,4 +31,4 @@ class Library(object):
         return result
 
 
-Library = Library()
+Assets = Assets()

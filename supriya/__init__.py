@@ -17,7 +17,7 @@ from supriya.tools.synthdeftools import Op
 from supriya.tools.synthdeftools import Range
 from supriya.tools.synthdeftools import SynthDef
 from supriya.tools.synthdeftools import SynthDefBuilder
-from supriya.tools.systemtools import Library
+from supriya.tools.systemtools import Assets
 
 from supriya import synthdefs
 

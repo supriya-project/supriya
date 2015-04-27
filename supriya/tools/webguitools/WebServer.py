@@ -23,8 +23,8 @@ class WebServer(threading.Thread):
         self.application = tornado.web.Application(
             handlers,
             cookie_secret='MAGIC',
-            static_path=systemtools.Library['webgui/static'],
-            template_path=systemtools.Library['webgui/templates'],
+            static_path=systemtools.Assets['webgui/static'],
+            template_path=systemtools.Assets['webgui/templates'],
             #static_path=os.path.join(os.path.dirname(__file__), 'static'),
             #template_path=os.path.join(os.path.dirname(__file__), 'templates'),
             websocket_allow_origin='*',
