@@ -105,24 +105,6 @@ class SynthDefBuilder(SupriyaObject):
                 )
         self._parameters[name] = parameter
 
-    def poll_ugen(
-        self,
-        ugen,
-        label=None,
-        trigger=None,
-        trigger_id=-1,
-        ):
-        from supriya.tools import ugentools
-        if trigger is None:
-            trigger = ugentools.Impulse.kr(1)
-        poll = ugentools.Poll.new(
-            source=ugen,
-            label=label,
-            trigger=trigger,
-            trigger_id=trigger_id,
-            )
-        self.add_ugens(poll)
-
     def add_ugens(self, ugens):
         from supriya.tools import synthdeftools
         if not isinstance(ugens, collections.Sequence):
@@ -147,3 +129,21 @@ class SynthDefBuilder(SupriyaObject):
             name=name,
             )
         return synthdef
+
+    def poll_ugen(
+        self,
+        ugen,
+        label=None,
+        trigger=None,
+        trigger_id=-1,
+        ):
+        from supriya.tools import ugentools
+        if trigger is None:
+            trigger = ugentools.Impulse.kr(1)
+        poll = ugentools.Poll.new(
+            source=ugen,
+            label=label,
+            trigger=trigger,
+            trigger_id=trigger_id,
+            )
+        self.add_ugens(poll)
