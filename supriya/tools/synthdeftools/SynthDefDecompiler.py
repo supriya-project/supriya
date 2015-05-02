@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from __future__ import print_function
 import struct
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -31,6 +32,11 @@ class SynthDefDecompiler(SupriyaObject):
 
         >>> sdd = synthdeftools.SynthDefDecompiler
         >>> sdd.decompile_synthdefs(compiled_synthdef)
+        NAME: 001520731aee5371fefab6b505cf64dd
+        CONSTANTS: [0.5, 0.0]
+        PNAMES: ['trigger', 'frequency']
+        PVALUES: [0.0, 440.0]
+        [None]
 
     '''
 
@@ -66,16 +72,17 @@ class SynthDefDecompiler(SupriyaObject):
     @staticmethod
     def decode_parameters(value, index):
         sdd = SynthDefDecompiler
-        parameter_names = []
         parameter_values = []
         parameter_count, index = sdd.decode_int_32bit(value, index)
         for _ in range(parameter_count):
             parameter_value, index = sdd.decode_float(value, index)
+            parameter_values.append(parameter_value)
         parameter_count, index = sdd.decode_int_32bit(value, index)
+        parameter_names = [None] * parameter_count
         for _ in range(parameter_count):
             parameter_name, index = sdd.decode_string(value, index)
-            _, index = sdd.decode_int_32bit(value, index)
-            parameter_names.append(parameter_name)
+            parameter_index, index = sdd.decode_int_32bit(value, index)
+            parameter_names[parameter_index] = parameter_name
         return parameter_names, parameter_values, index
 
     @staticmethod
@@ -83,9 +90,13 @@ class SynthDefDecompiler(SupriyaObject):
         sdd = SynthDefDecompiler
         synthdef = None
         name, index = sdd.decode_string(value, index)
+        print('NAME:', name)
         constants, index = sdd.decode_constants(value, index)
+        print('CONSTANTS:', constants)
         parameter_names, parameter_values, index = \
             sdd.decode_parameters(value, index)
+        print('PNAMES:', parameter_names)
+        print('PVALUES:', parameter_values)
         ugens = []
         ugen_count, index = sdd.decode_int_32bit(value, index)
         for _ in range(ugen_count):
