@@ -26,17 +26,39 @@ class SynthDefDecompiler(SupriyaObject):
         ...     out = ugentools.Out.ar(bus=0, source=enveloped_sin)
         ...
         >>> synthdef = builder.build()
-        >>> compiled_synthdef = synthdef.compile()
+        >>> print(synthdef)
+        SynthDef 001520731aee5371fefab6b505cf64dd {
+            0_TrigControl[0] -> 1_Decay[0:source]
+            const_0:0.5 -> 1_Decay[1:decay_time]
+            2_Control[0] -> 3_SinOsc[0:frequency]
+            const_1:0.0 -> 3_SinOsc[1:phase]
+            3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
+            1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
+            const_1:0.0 -> 5_Out[0:bus]
+            4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
+        }
 
     ::
 
+        >>> compiled_synthdef = synthdef.compile()
         >>> sdd = synthdeftools.SynthDefDecompiler
-        >>> sdd.decompile_synthdefs(compiled_synthdef)
-        NAME: 001520731aee5371fefab6b505cf64dd
-        CONSTANTS: [0.5, 0.0]
-        PNAMES: ['trigger', 'frequency']
-        PVALUES: [0.0, 440.0]
-        [None]
+        >>> decompiled_synthdef = sdd.decompile_synthdefs(compiled_synthdef)[0]
+        >>> print(decompiled_synthdef)
+        SynthDef 001520731aee5371fefab6b505cf64dd {
+            0_TrigControl[0] -> 1_Decay[0:source]
+            const_0:0.5 -> 1_Decay[1:decay_time]
+            2_Control[0] -> 3_SinOsc[0:frequency]
+            const_1:0.0 -> 3_SinOsc[1:phase]
+            3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
+            1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
+            const_1:0.0 -> 5_Out[0:bus]
+            4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
+        }
+
+    ::
+
+        >>> str(synthdef) == str(decompiled_synthdef)
+        True
 
     '''
 
@@ -87,22 +109,83 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def decompile_synthdef(value, index):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         sdd = SynthDefDecompiler
         synthdef = None
         name, index = sdd.decode_string(value, index)
-        print('NAME:', name)
         constants, index = sdd.decode_constants(value, index)
-        print('CONSTANTS:', constants)
         parameter_names, parameter_values, index = \
             sdd.decode_parameters(value, index)
-        print('PNAMES:', parameter_names)
-        print('PVALUES:', parameter_values)
         ugens = []
         ugen_count, index = sdd.decode_int_32bit(value, index)
-        for _ in range(ugen_count):
-            pass
-
+        for i in range(ugen_count):
+            ugen_name, index = sdd.decode_string(value, index)
+            calculation_rate, index = sdd.decode_int_8bit(value, index)
+            calculation_rate = synthdeftools.CalculationRate(calculation_rate)
+            input_count, index = sdd.decode_int_32bit(value, index)
+            output_count, index = sdd.decode_int_32bit(value, index)
+            special_index, index = sdd.decode_int_16bit(value, index)
+            inputs = []
+            for _ in range(input_count):
+                ugen_index, index = sdd.decode_int_32bit(value, index)
+                if ugen_index == 0xffffffff:
+                    constant_index, index = sdd.decode_int_32bit(value, index)
+                    constant_index = int(constant_index)
+                    inputs.append(constants[constant_index])
+                else:
+                    ugen = ugens[ugen_index]
+                    ugen_output_index, index = sdd.decode_int_32bit(value, index)
+                    output_proxy = ugen[ugen_output_index]
+                    inputs.append(output_proxy)
+            for _ in range(output_count):
+                output_rate, index = sdd.decode_int_8bit(value, index)
+            ugen_class = getattr(ugentools, ugen_name)
+            ugen = synthdeftools.UGen.__new__(ugen_class)
+            if issubclass(ugen_class, ugentools.Control):
+                starting_control_index = special_index
+                control_names = parameter_names[
+                    starting_control_index:
+                    starting_control_index + output_count
+                    ]
+                ugentools.Control.__init__(
+                    ugen,
+                    control_names=control_names,
+                    starting_control_index=starting_control_index,
+                    calculation_rate=calculation_rate,
+                    )
+            else:
+                kwargs = {}
+                if not ugen._unexpanded_input_names:
+                    for i, input_name in enumerate(ugen._ordered_input_names):
+                        kwargs[input_name] = inputs[i]
+                else:
+                    for i, input_name in enumerate(ugen._ordered_input_names):
+                        if input_name not in ugen._unexpanded_input_names:
+                            kwargs[input_name] = inputs[i]
+                        else:
+                            kwargs[input_name] = tuple(inputs[i:])
+                if issubclass(ugen_class, ugentools.MultiOutUGen):
+                    ugentools.MultiOutUGen.__init__(
+                        ugen,
+                        calculation_rate=calculation_rate,
+                        channel_count=output_count,
+                        special_index=special_index,
+                        **kwargs
+                        )
+                else:
+                    synthdeftools.UGen.__init__(
+                        ugen,
+                        calculation_rate=calculation_rate,
+                        special_index=special_index,
+                        **kwargs
+                        )
+            ugens.append(ugen)
         variants_count, index = sdd.decode_int_16bit(value, index)
+        synthdef = synthdeftools.SynthDef(
+            ugens=ugens,
+            name=name,
+            )
         return synthdef, index
 
     @staticmethod
