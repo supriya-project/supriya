@@ -4,6 +4,35 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefDecompiler(SupriyaObject):
+    r'''
+
+    ::
+
+        >>> from supriya.tools import synthdeftools
+        >>> from supriya.tools import ugentools
+        >>> builder = synthdeftools.SynthDefBuilder()
+        >>> builder.add_parameter('frequency', 440)
+        >>> builder.add_parameter(
+        ...     'trigger', 0, synthdeftools.ParameterRate.TRIGGER,
+        ...     )
+        >>> with builder:
+        ...     sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
+        ...     decay = ugentools.Decay.kr(
+        ...         decay_time=0.5,
+        ...         source=builder['trigger'],
+        ...         )
+        ...     enveloped_sin = sin_osc * decay
+        ...     out = ugentools.Out.ar(bus=0, source=enveloped_sin)
+        ...
+        >>> synthdef = builder.build()
+        >>> compiled_synthdef = synthdef.compile()
+
+    ::
+
+        >>> sdd = synthdeftools.SynthDefDecompiler
+        >>> sdd.decompile_synthdefs(compiled_synthdef)
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -67,32 +96,32 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def decode_string(value, index):
-        length = struct.unpack('>B', value[index:index + 1])
+        length = struct.unpack('>B', value[index:index + 1])[0]
         index += 1
         result = str(value[index:index + length])
         index += length
-        return result
+        return result, index
 
     @staticmethod
     def decode_float(value, index):
-        result = struct.unpack('>f', value[index:index + 4])
+        result = struct.unpack('>f', value[index:index + 4])[0]
         index += 4
         return result, index
 
     @staticmethod
     def decode_int_8bit(value, index):
-        result = struct.unpack('>B', value[index:index + 1])
+        result = struct.unpack('>B', value[index:index + 1])[0]
         index += 1
         return result, index
 
     @staticmethod
     def decode_int_16bit(value, index):
-        result = struct.unpack('>H', value[index:index + 2])
+        result = struct.unpack('>H', value[index:index + 2])[0]
         index += 2
         return result, index
 
     @staticmethod
     def decode_int_32bit(value, index):
-        result = struct.unpack('>I', value[index:index + 4])
+        result = struct.unpack('>I', value[index:index + 4])[0]
         index += 4
         return result, index
