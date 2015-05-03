@@ -197,9 +197,6 @@ class UGen(UGenMethodMixin):
     def _add_constant_input(self, value):
         self._inputs.append(float(value))
 
-    def _add_copies_if_needed(self):
-        pass
-
     def _add_ugen_input(self, ugen, output_index=None):
         from supriya import synthdeftools
         if isinstance(ugen, synthdeftools.Parameter):
