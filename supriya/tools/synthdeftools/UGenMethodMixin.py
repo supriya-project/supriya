@@ -1514,6 +1514,19 @@ class UGenMethodMixin(SupriyaObject):
             return result[0]
         return synthdeftools.UGenArray(result)
 
+    def _get_output_proxy(self, i):
+        from supriya import synthdeftools
+        if isinstance(i, int):
+            assert 0 <= i < len(self)
+            return synthdeftools.OutputProxy(self, i)
+        indices = i.indices(len(self))
+        assert 0 <= indices[0] <= indices[1] < len(self)
+        output_proxies = (
+            synthdeftools.OutputProxy(self, i)
+            for i in range(*indices)
+            )
+        return synthdeftools.UGenArray(output_proxies)
+
     ### PUBLIC METHODS ###
 
     def clip(self, minimum, maximum):

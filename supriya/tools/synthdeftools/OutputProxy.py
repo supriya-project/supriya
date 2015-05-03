@@ -17,7 +17,11 @@ class OutputProxy(UGenMethodMixin):
 
     def __init__(self, source=None, output_index=None):
         from supriya import synthdeftools
-        assert isinstance(source, synthdeftools.UGen)
+        prototype = (
+            synthdeftools.UGen,
+            synthdeftools.Parameter,
+            )
+        assert isinstance(source, prototype)
         assert isinstance(output_index, int)
         self._output_index = output_index
         self._source = source

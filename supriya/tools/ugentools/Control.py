@@ -53,8 +53,7 @@ class Control(MultiOutUGen):
         if type(i) == int:
             if len(self.control_names) == 1:
                 return synthdeftools.OutputProxy(self, 0)
-            else:
-                return synthdeftools.OutputProxy(self, i)
+            return synthdeftools.OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 

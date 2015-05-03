@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
@@ -34,7 +35,12 @@ class Parameter(UGenMethodMixin):
             assert isinstance(range_, synthdeftools.Range)
         self._range = range_
         self._unit = unit
-        self._value = float(value)
+        if isinstance(value, collections.Sequence):
+            value = tuple(float(_) for _ in value)
+            assert value
+        else:
+            value = float(value)
+        self._value = value
 
     ### SPECIAL METHODS ###
 
@@ -48,18 +54,21 @@ class Parameter(UGenMethodMixin):
         return True
 
     def __getitem__(self, i):
-        return self
+        return self._get_output_proxy(i)
 
     def __hash__(self):
         hash_values = (
             type(self),
             self.name,
             self.parameter_rate,
+            self.value,
             )
         return hash(hash_values)
 
     def __len__(self):
-        return 1
+        if isinstance(self.value, float):
+            return 1
+        return len(self.value)
 
     ### PRIVATE METHODS ###
 
