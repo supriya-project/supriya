@@ -824,3 +824,130 @@ def test_SynthDef_11():
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     assert sc_compiled_synthdef == py_compiled_synthdef
+
+
+def test_SynthDef_12():
+    r'''Literal array arguments.'''
+
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        'arrayarg',
+        r'''
+        |
+            amp = 0.1,
+            freqs = #[300, 400, 500, 600],
+            gate = 1
+        |
+        var env, sines;
+        env = Linen.kr(gate, 0.1, 1, 1, 2) * amp;
+        sines = SinOsc.ar(freqs).sum;
+        Out.ar(0, sines * env);
+        ''',
+        [0, 0.1, 0],
+        )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+
+    test_compiled_synthdef = bytes(
+        b'SCgf'
+        b'\x00\x00\x00\x02'
+        b'\x00\x01'
+            b'\x08arrayarg'
+                b'\x00\x00\x00\x04'
+                    b'\x00\x00\x00\x00'
+                    b'=\xcc\xcc\xcd'
+                    b'?\x80\x00\x00'
+                    b'@\x00\x00\x00'
+                b'\x00\x00\x00\x06'
+                    b'=\xcc\xcc\xcd'
+                    b'C\x96\x00\x00'
+                    b'C\xc8\x00\x00'
+                    b'C\xfa\x00\x00'
+                    b'D\x16\x00\x00'
+                    b'?\x80\x00\x00'
+                b'\x00\x00\x00\x03'
+                    b'\x03amp'
+                        b'\x00\x00\x00\x00'
+                    b'\x05freqs'
+                        b'\x00\x00\x00\x01'
+                    b'\x04gate'
+                        b'\x00\x00\x00\x05'
+                b'\x00\x00\x00\n'
+                    b'\nLagControl'
+                        b'\x01'
+                        b'\x00\x00\x00\x06'
+                        b'\x00\x00\x00\x06'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\x01'
+                            b'\x01'
+                            b'\x01'
+                            b'\x01'
+                            b'\x01'
+                            b'\x01'
+                    b'\x05Linen'
+                        b'\x01'
+                        b'\x00\x00\x00\x05'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x03\x01'
+                    b'\x0cBinaryOpUGen'
+                        b'\x01'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x02'
+                            b'\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00\x00\x00\x00\x04\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x04Sum4'
+                        b'\x02'
+                        b'\x00\x00\x00\x04'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x06\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00\x00\x05\x00\x00\x00\x00\x02'
+                    b'\x0cBinaryOpUGen'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x02'
+                            b'\x00\x00\x00\x07\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x02'
+                    b'\x03Out'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x08\x00\x00\x00\x00\x00\x00'
+        )
+
+    assert sc_compiled_synthdef == test_compiled_synthdef
