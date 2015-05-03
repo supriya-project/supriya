@@ -26,11 +26,6 @@ class OutputProxy(UGenMethodMixin):
         self._output_index = output_index
         self._source = source
 
-    ### SPECIAL METHODS ###
-
-    def __getitem__(self, i):
-        return self
-
     ### PRIVATE METHODS ###
 
     def _get_output_number(self):

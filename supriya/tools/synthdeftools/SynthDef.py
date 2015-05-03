@@ -612,7 +612,7 @@ class SynthDef(ServerObjectProxy):
             ...     audio_in = ugentools.In.ar(channel_count=1)
             ...     control_in = ugentools.In.kr(channel_count=2)
             ...     sin = ugentools.SinOsc.ar(
-            ...          frequency = audio_in[0],
+            ...          frequency=audio_in,
             ...          )
             ...     source = audio_in * control_in[1]
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
@@ -642,7 +642,7 @@ class SynthDef(ServerObjectProxy):
             ...     audio_in = ugentools.In.ar(channel_count=1)
             ...     control_in = ugentools.In.kr(channel_count=2)
             ...     sin = ugentools.SinOsc.ar(
-            ...          frequency = audio_in[0],
+            ...          frequency=audio_in,
             ...          )
             ...     source = audio_in * control_in[1]
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
@@ -676,7 +676,7 @@ class SynthDef(ServerObjectProxy):
             ...     audio_in = ugentools.In.ar(channel_count=1)
             ...     control_in = ugentools.In.kr(channel_count=2)
             ...     sin = ugentools.SinOsc.ar(
-            ...          frequency = audio_in[0],
+            ...          frequency=audio_in,
             ...          )
             ...     source = audio_in * control_in[1]
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
@@ -706,7 +706,7 @@ class SynthDef(ServerObjectProxy):
             ...     audio_in = ugentools.In.ar(channel_count=1)
             ...     control_in = ugentools.In.kr(channel_count=2)
             ...     sin = ugentools.SinOsc.ar(
-            ...          frequency = audio_in[0],
+            ...          frequency=audio_in,
             ...          )
             ...     source = audio_in * control_in[1]
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
