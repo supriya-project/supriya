@@ -13,15 +13,17 @@ class SuperColliderSynthDef(SupriyaObject):
     __documentation_section__ = 'SynthDef Internals'
 
     __slots__ = (
-        '_code',
+        '_body',
         '_name',
+        '_rates',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, name, code):
+    def __init__(self, name, body, rates=None):
         self._name = name
-        self._code = code
+        self._body = body
+        self._rates = rates
 
     ### PUBLIC METHODS ###
 
@@ -31,9 +33,12 @@ class SuperColliderSynthDef(SupriyaObject):
         input_.append('(')
         input_.append('a = SynthDef(')
         input_.append(r'    \{}, {{'.format(self.name))
-        for line in self.code.splitlines():
+        for line in self.body.splitlines():
             input_.append('    ' + line)
-        input_.append('});')
+        if self.rates:
+            input_.append('}}, {});'.format(list(self.rates)))
+        else:
+            input_.append('});')
         input_.append('a.writeDefFile("{}");'.format(directory_path))
         input_.append('0.exit;')
         input_.append(')')
@@ -59,8 +64,12 @@ class SuperColliderSynthDef(SupriyaObject):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def code(self):
-        return self._code
+    def body(self):
+        return self._body
+
+    @property
+    def rates(self):
+        return self._rates
 
     @property
     def name(self):
