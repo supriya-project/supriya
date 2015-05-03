@@ -13,7 +13,6 @@ class MultiOutUGen(UGen):
 
     __slots__ = (
         '_channel_count',
-        '_output_proxies',
         )
 
     ### INTIALIZER ###

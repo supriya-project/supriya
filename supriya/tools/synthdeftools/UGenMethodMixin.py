@@ -1517,10 +1517,12 @@ class UGenMethodMixin(SupriyaObject):
     def _get_output_proxy(self, i):
         from supriya import synthdeftools
         if isinstance(i, int):
-            assert 0 <= i < len(self)
+            if not (0 <= i < len(self)):
+                raise IndexError(i, len(self))
             return synthdeftools.OutputProxy(self, i)
         indices = i.indices(len(self))
-        assert 0 <= indices[0] <= indices[1] < len(self)
+        if not (0 <= indices[0] <= indices[1] <= len(self)):
+            raise IndexError(i, indices, len(self))
         output_proxies = (
             synthdeftools.OutputProxy(self, i)
             for i in range(*indices)

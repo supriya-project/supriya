@@ -18,7 +18,6 @@ class UGen(UGenMethodMixin):
     __slots__ = (
         '_calculation_rate',
         '_inputs',
-        '_output_proxies',
         '_special_index',
         )
 
@@ -77,10 +76,6 @@ class UGen(UGenMethodMixin):
         if kwargs:
             raise ValueError(kwargs)
         self._validate_inputs()
-        self._output_proxies = tuple(
-            synthdeftools.OutputProxy(self, i)
-            for i in range(len(self))
-            )
         if synthdeftools.SynthDefBuilder._active_builders:
             builder = synthdeftools.SynthDefBuilder._active_builders[-1]
             builder.add_ugens(self)
@@ -105,7 +100,7 @@ class UGen(UGenMethodMixin):
 
         Returns output proxy.
         '''
-        return self._output_proxies[i]
+        return self._get_output_proxy(i)
 
     def __len__(self):
         r'''Gets number of ugen outputs.
