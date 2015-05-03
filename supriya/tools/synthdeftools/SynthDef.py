@@ -584,6 +584,11 @@ class SynthDef(ServerObjectProxy):
         synth.allocate(target_node=self.server, sync=True)
         return synth
 
+    @staticmethod
+    def pretty_print_compiled_synthdefs(compiled_synthdefs):
+        result = []
+        
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -596,24 +601,6 @@ class SynthDef(ServerObjectProxy):
         md5.update(self._compiled_ugen_graph)
         anonymous_name = md5.hexdigest()
         return anonymous_name
-
-    @property
-    def constants(self):
-        return self._constants
-
-    @property
-    def input_ugens(self):
-        return tuple(_ for _ in self.ugens if _.is_input_ugen)
-
-    @property
-    def is_allocated(self):
-        if self.server is not None:
-            return self in self.server
-        return False
-
-    @property
-    def name(self):
-        return self._name
 
     @property
     def audio_input_channel_count(self):
@@ -676,6 +663,10 @@ class SynthDef(ServerObjectProxy):
         raise ValueError
 
     @property
+    def constants(self):
+        return self._constants
+
+    @property
     def control_input_channel_count(self):
         r'''Gets control input channel count of synthdef.
 
@@ -734,6 +725,20 @@ class SynthDef(ServerObjectProxy):
         elif not ugens:
             return 0
         raise ValueError
+
+    @property
+    def input_ugens(self):
+        return tuple(_ for _ in self.ugens if _.is_input_ugen)
+
+    @property
+    def is_allocated(self):
+        if self.server is not None:
+            return self in self.server
+        return False
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def output_ugens(self):
