@@ -81,6 +81,11 @@ class Parameter(UGenMethodMixin):
     ### PUBLIC PROPERTIES ###
 
     @property
+    def calculation_rate(self):
+        from supriya.tools import synthdeftools
+        return synthdeftools.CalculationRate.from_input(self)
+
+    @property
     def has_done_flag(self):
         return False
 
