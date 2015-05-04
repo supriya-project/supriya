@@ -41,6 +41,10 @@ class OutputProxy(UGenMethodMixin):
         return self.source.calculation_rate
 
     @property
+    def has_done_flag(self):
+        return self.source.has_done_flag
+
+    @property
     def output_index(self):
         return self._output_index
 

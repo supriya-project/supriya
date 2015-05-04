@@ -33,8 +33,8 @@ class Done(UGen):
         calculation_rate=None,
         source=None,
         ):
-        assert isinstance(source, UGen)
-        assert hasattr(source, 'has_done_flag') and source.has_done_flag
+        if not (hasattr(source, 'has_done_flag') and source.has_done_flag):
+            raise ValueError(repr(source))
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
