@@ -28,12 +28,12 @@ class Control(MultiOutUGen):
         starting_control_index=0,
         ):
         from supriya.tools import synthdeftools
-        names = [] 
+        names = []
         for x in control_names:
-            if isinstance(x, synthdeftools.Parameter):
-                x = x.name
-            names.append(str(x))
-        names.sort()
+            if not isinstance(x, synthdeftools.Parameter):
+                x = synthdeftools.Parameter(name=x, value=0)
+            names.append(x)
+        names.sort(key=lambda x: x.name)
         self._control_names = tuple(names)
         MultiOutUGen.__init__(
             self,
@@ -69,7 +69,10 @@ class Control(MultiOutUGen):
     ### PRIVATE METHODS ###
 
     def _get_control_index(self, control_name):
-        return self._control_names.index(control_name)
+        for i, parameter in enumerate(self._control_names):
+            if parameter.name == control_name:
+                return i
+        raise ValueError
 
     def _get_outputs(self):
         return [self.calculation_rate] * len(self)
