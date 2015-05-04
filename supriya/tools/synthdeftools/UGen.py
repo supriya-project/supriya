@@ -302,6 +302,7 @@ class UGen(UGenMethodMixin):
             [('bus', 9), ('source', (1, 2, 3))]
 
         '''
+        from supriya.tools import synthdeftools
         dictionary = dictionary.copy()
         cached_unexpanded_inputs = {}
         if unexpanded_input_names is not None:
@@ -313,14 +314,19 @@ class UGen(UGenMethodMixin):
                 del(dictionary[input_name])
         maximum_length = 1
         result = []
+        prototype = (
+            collections.Sequence,
+            synthdeftools.UGen,
+            synthdeftools.Parameter,
+            )
         for name, value in dictionary.items():
-            if isinstance(value, collections.Sequence) and \
+            if isinstance(value, prototype) and \
                 not isinstance(value, six.string_types):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
-                if isinstance(value, collections.Sequence) and \
+                if isinstance(value, prototype) and \
                     not isinstance(value, six.string_types):
                     value = value[i % len(value)]
                     result[i][name] = value
