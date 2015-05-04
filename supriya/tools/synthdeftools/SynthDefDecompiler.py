@@ -144,13 +144,13 @@ class SynthDefDecompiler(SupriyaObject):
             ugen = synthdeftools.UGen.__new__(ugen_class)
             if issubclass(ugen_class, ugentools.Control):
                 starting_control_index = special_index
-                control_names = parameter_names[
+                parameters = parameter_names[
                     starting_control_index:
                     starting_control_index + output_count
                     ]
                 ugentools.Control.__init__(
                     ugen,
-                    control_names=control_names,
+                    parameters=parameters,
                     starting_control_index=starting_control_index,
                     calculation_rate=calculation_rate,
                     )

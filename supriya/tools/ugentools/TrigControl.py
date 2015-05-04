@@ -14,13 +14,13 @@ class TrigControl(Control):
 
     def __init__(
         self,
-        control_names,
+        parameters,
         starting_control_index=0,
         ):
         from supriya.tools import synthdeftools
         Control.__init__(
             self,
-            control_names,
+            parameters,
             calculation_rate=synthdeftools.CalculationRate.CONTROL,
             starting_control_index=starting_control_index,
             )

@@ -16,28 +16,28 @@ class Control(MultiOutUGen):
 
     __slots__ = (
         '_channel_count',
-        '_control_names',
+        '_parameters',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        control_names,
+        parameters,
         calculation_rate=None,
         starting_control_index=0,
         ):
         from supriya.tools import synthdeftools
-        names = []
-        for x in control_names:
-            if not isinstance(x, synthdeftools.Parameter):
-                x = synthdeftools.Parameter(name=x, value=0)
-            names.append(x)
-        names.sort(key=lambda x: x.name)
-        self._control_names = tuple(names)
+        coerced_parameters = []
+        for parameter in parameters:
+            if not isinstance(parameter, synthdeftools.Parameter):
+                parameter = synthdeftools.Parameter(name=parameter, value=0)
+            coerced_parameters.append(parameter)
+        coerced_parameters.sort(key=lambda parameter: parameter.name)
+        self._parameters = tuple(coerced_parameters)
         MultiOutUGen.__init__(
             self,
-            channel_count=len(control_names),
+            channel_count=len(parameters),
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
             )
@@ -51,7 +51,7 @@ class Control(MultiOutUGen):
         '''
         from supriya import synthdeftools
         if type(i) == int:
-            if len(self.control_names) == 1:
+            if len(self.parameters) == 1:
                 return synthdeftools.OutputProxy(self, 0)
             return synthdeftools.OutputProxy(self, i)
         else:
@@ -64,12 +64,12 @@ class Control(MultiOutUGen):
 
         Returns integer.
         '''
-        return len(self.control_names)
+        return len(self.parameters)
 
     ### PRIVATE METHODS ###
 
     def _get_control_index(self, control_name):
-        for i, parameter in enumerate(self._control_names):
+        for i, parameter in enumerate(self._parameters):
             if parameter.name == control_name:
                 return i
         raise ValueError
@@ -80,28 +80,28 @@ class Control(MultiOutUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def control_names(self):
-        r'''Gets control names associated with control.
-
-        Returns tuple.
-        '''
-        return self._control_names
-
-    @property
     def controls(self):
         r'''Gets controls of control ugen.
 
         Returns ugen graph.
         '''
         from supriya import synthdeftools
-        if len(self.control_names) == 1:
+        if len(self.parameters) == 1:
             result = self
         else:
             result = [
                 synthdeftools.OutputProxy(self, i)
-                for i in range(len(self.control_names))
+                for i in range(len(self.parameters))
                 ]
         return result
+
+    @property
+    def parameters(self):
+        r'''Gets control names associated with control.
+
+        Returns tuple.
+        '''
+        return self._parameters
 
     @property
     def starting_control_index(self):

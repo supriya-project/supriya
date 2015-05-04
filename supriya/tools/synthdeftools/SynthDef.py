@@ -362,7 +362,7 @@ class SynthDef(ServerObjectProxy):
         starting_control_index = 0
         if scalar_parameters:
             control = ugentools.Control(
-                control_names=scalar_parameters,
+                parameters=scalar_parameters,
                 calculation_rate=synthdeftools.CalculationRate.SCALAR,
                 starting_control_index=starting_control_index,
                 )
@@ -372,7 +372,7 @@ class SynthDef(ServerObjectProxy):
                 control_mapping[parameter] = control[i]
         if trigger_parameters:
             control = ugentools.TrigControl(
-                control_names=trigger_parameters,
+                parameters=trigger_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -381,7 +381,7 @@ class SynthDef(ServerObjectProxy):
                 control_mapping[parameter] = control[i]
         if audio_parameters:
             control = ugentools.AudioControl(
-                control_names=audio_parameters,
+                parameters=audio_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
@@ -390,7 +390,7 @@ class SynthDef(ServerObjectProxy):
                 control_mapping[parameter] = control[i]
         if control_parameters:
             control = ugentools.Control(
-                control_names=control_parameters,
+                parameters=control_parameters,
                 calculation_rate=synthdeftools.CalculationRate.CONTROL,
                 starting_control_index=starting_control_index,
                 )
