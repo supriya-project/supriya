@@ -10,6 +10,7 @@ class Parameter(UGenMethodMixin):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
+        '_lag',
         '_name',
         '_parameter_rate',
         '_range',
@@ -21,6 +22,7 @@ class Parameter(UGenMethodMixin):
 
     def __init__(
         self,
+        lag=None,
         name=None,
         parameter_rate=None,
         range_=None,
@@ -29,6 +31,9 @@ class Parameter(UGenMethodMixin):
         ):
         from supriya.tools import synthdeftools
         assert name
+        if lag is not None:
+            lag = float(lag)
+        self._lag = lag
         self._name = str(name)
         self._parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
         if range_ is not None:
@@ -59,8 +64,10 @@ class Parameter(UGenMethodMixin):
     def __hash__(self):
         hash_values = (
             type(self),
+            self.lag,
             self.name,
             self.parameter_rate,
+            self.unit,
             self.value,
             )
         return hash(hash_values)
@@ -88,6 +95,10 @@ class Parameter(UGenMethodMixin):
     @property
     def has_done_flag(self):
         return False
+
+    @property
+    def lag(self):
+        return self._lag
 
     @property
     def name(self):
