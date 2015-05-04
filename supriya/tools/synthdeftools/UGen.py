@@ -38,7 +38,6 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
-        from supriya import servertools
         from supriya import synthdeftools
         assert isinstance(calculation_rate, synthdeftools.CalculationRate), \
             calculation_rate
@@ -47,31 +46,26 @@ class UGen(UGenMethodMixin):
         self._calculation_rate = calculation_rate
         self._inputs = []
         self._special_index = special_index
+        ugenlike_prototype = (
+            UGen,
+            synthdeftools.Parameter,
+            )
         for i in range(len(self._ordered_input_names)):
             input_name = self._ordered_input_names[i]
             input_value = kwargs.get(input_name, None)
             if input_name in kwargs:
                 input_value = kwargs[input_name]
                 del(kwargs[input_name])
-            prototype = (
-                UGen,
-                float,
-                int,
-                servertools.Buffer,
-                servertools.BufferGroup,
-                servertools.Bus,
-                servertools.BusGroup,
-                servertools.Node,
-                synthdeftools.OutputProxy,
-                synthdeftools.Parameter,
-                )
-            if self._unexpanded_input_names and \
-                input_name in self._unexpanded_input_names:
-                prototype += (tuple,)
+            if isinstance(input_value, ugenlike_prototype):
+                assert len(input_value) == 1
+                input_value = input_value[0]
+            if self._is_unexpanded_input_name(input_name):
                 if isinstance(input_value, collections.Sequence):
                     input_value = tuple(input_value)
-            assert isinstance(input_value, prototype), \
-                (input_name, input_value)
+                elif not self._is_valid_input(input_value):
+                    raise ValueError(input_name, input_value)
+            elif not self._is_valid_input(input_value):
+                raise ValueError(input_name, input_value)
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
@@ -359,6 +353,20 @@ class UGen(UGenMethodMixin):
 
     def _get_source(self):
         return self
+
+    def _is_unexpanded_input_name(self, input_name):
+        if self._unexpanded_input_names:
+            if input_name in self._unexpanded_input_names:
+                return True
+        return False
+
+    def _is_valid_input(self, input_value):
+        from supriya import synthdeftools
+        if isinstance(input_value, synthdeftools.OutputProxy):
+            return True
+        elif hasattr(input_value, '__float__'):
+            return True
+        return False
 
     @classmethod
     def _new_expanded(
