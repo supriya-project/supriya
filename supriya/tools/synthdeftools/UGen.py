@@ -222,39 +222,25 @@ class UGen(UGenMethodMixin):
         return True
 
     def _configure_input(self, name, value):
-        from supriya import servertools
         from supriya import synthdeftools
-        id_prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.Buffer,
-            servertools.BufferGroup,
-            servertools.Node,
-            )
-        numeric_prototype = (
-            int,
-            float,
-            )
         ugen_prototype = (
             synthdeftools.OutputProxy,
             synthdeftools.Parameter,
             synthdeftools.UGen,
             )
-        if isinstance(value, numeric_prototype):
-            self._add_constant_input(value)
+        if hasattr(value, '__float__'):
+            self._add_constant_input(float(value))
         elif isinstance(value, ugen_prototype):
             self._add_ugen_input(
                 value._get_source(),
                 value._get_output_number(),
                 )
-        elif isinstance(value, id_prototype):
-            self._add_constant_input(float(value))
         elif isinstance(value, tuple):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
-            if all(isinstance(_, numeric_prototype) for _ in value):
+            if all(hasattr(_, '__float__') for _ in value):
                 for x in value:
-                    self._add_constant_input(x)
+                    self._add_constant_input(float(x))
             elif all(isinstance(_, ugen_prototype) for _ in value):
                 for x in value:
                     self._add_ugen_input(
