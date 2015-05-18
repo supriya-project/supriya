@@ -26,6 +26,25 @@ class OutputProxy(UGenMethodMixin):
         self._output_index = output_index
         self._source = source
 
+    ### SPECIAL METHODS ###
+
+    def __eq__(self, expr):
+        if type(self) != type(expr):
+            return False
+        if self._output_index != expr._output_index:
+            return False
+        if self._source != expr._source:
+            return False
+        return True
+
+    def __hash__(self):
+        hash_values = (
+            type(self),
+            self._output_index,
+            self._source,
+            )
+        return hash(hash_values)
+
     ### PRIVATE METHODS ###
 
     def _get_output_number(self):
