@@ -939,3 +939,129 @@ def test_SynthDef_12():
 
     assert sc_compiled_synthdef == test_compiled_synthdef
     assert py_compiled_synthdef == test_compiled_synthdef
+
+
+def test_SynthDef_13():
+    r'''Literal array arguments.'''
+
+    builder = synthdeftools.SynthDefBuilder(
+        amp=0.1,
+        freqs=synthdeftools.Parameter(
+            lag=0.5,
+            value=[300, 400],
+            ),
+        )
+    with builder:
+        sines = ugentools.SinOsc.ar(
+            frequency=builder['freqs'],
+            )
+        sines = ugentools.Mix.new(sines)
+        sines = sines * builder['amp']
+        ugentools.Out.ar(
+            bus=0,
+            source=sines,
+            )
+    py_synthdef = builder.build('arrayarg')
+    py_compiled_synthdef = py_synthdef.compile()
+
+    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        'arrayarg',
+        r'''
+        |
+            amp = 0.1,
+            freqs = #[300, 400]
+        |
+        var sines;
+        sines = SinOsc.ar(freqs).sum;
+        Out.ar(0, sines * amp);
+        ''',
+        [0, 0.5],
+        )
+    sc_compiled_synthdef = bytes(sc_synthdef.compile())
+
+    test_compiled_synthdef = bytes(
+        b'SCgf'
+        b'\x00\x00\x00\x02'
+        b'\x00\x01'
+            b'\x08arrayarg'
+                b'\x00\x00\x00\x02'
+                    b'\x00\x00\x00\x00'
+                    b'?\x00\x00\x00'
+                b'\x00\x00\x00\x03'
+                    b'=\xcc\xcc\xcd'
+                    b'C\x96\x00\x00'
+                    b'C\xc8\x00\x00'
+                b'\x00\x00\x00\x02'
+                    b'\x03amp'
+                        b'\x00\x00\x00\x00'
+                    b'\x05freqs'
+                        b'\x00\x00\x00\x01'
+                b'\x00\x00\x00\x06'
+                    b'\nLagControl'
+                        b'\x01'
+                        b'\x00\x00\x00\x03'
+                        b'\x00\x00\x00\x03'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x01'
+                            b'\x01'
+                            b'\x01'
+                            b'\x01'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00'
+                                b'\x00\x00\x00\x01'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x06SinOsc'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x00'
+                                b'\x00\x00\x00\x02'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x0cBinaryOpUGen'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x00'
+                            b'\x00\x00\x00\x01'
+                                b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x02'
+                                b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x0cBinaryOpUGen'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x01'
+                        b'\x00\x02'
+                            b'\x00\x00\x00\x03'
+                                b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x00'
+                                b'\x00\x00\x00\x00'
+                            b'\x02'
+                    b'\x03Out'
+                        b'\x02'
+                        b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x00'
+                        b'\x00\x00'
+                            b'\xff\xff\xff\xff'
+                                b'\x00\x00\x00\x00'
+                            b'\x00\x00\x00\x04'
+                                b'\x00\x00\x00\x00'
+                b'\x00\x00'
+        )
+
+    assert sc_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
