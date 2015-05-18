@@ -409,11 +409,18 @@ class SynthDef(ServerObjectProxy):
             #for i, parameter in enumerate(audio_parameters):
             #    control_mapping[parameter] = control[i]
         if control_parameters:
-            control = ugentools.Control(
-                parameters=control_parameters,
-                calculation_rate=synthdeftools.CalculationRate.CONTROL,
-                starting_control_index=starting_control_index,
-                )
+            if any(_.lag for _ in control_parameters):
+                control = ugentools.LagControl(
+                    parameters=control_parameters,
+                    calculation_rate=synthdeftools.CalculationRate.CONTROL,
+                    starting_control_index=starting_control_index,
+                    )
+            else:
+                control = ugentools.Control(
+                    parameters=control_parameters,
+                    calculation_rate=synthdeftools.CalculationRate.CONTROL,
+                    starting_control_index=starting_control_index,
+                    )
             control_ugens.append(control)
             for parameter in control_parameters:
                 indexed_parameters.append((starting_control_index, parameter))

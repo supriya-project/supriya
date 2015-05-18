@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+from supriya.tools.synthdeftools.ParameterRate import ParameterRate
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
@@ -24,7 +25,7 @@ class Parameter(UGenMethodMixin):
         self,
         lag=None,
         name=None,
-        parameter_rate=None,
+        parameter_rate=ParameterRate.CONTROL,
         range_=None,
         unit=None,
         value=None,
@@ -53,26 +54,15 @@ class Parameter(UGenMethodMixin):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        if type(self) != type(expr):
-            return False
-        elif self.name != expr.name:
-            return False
-        elif self.parameter_rate != expr.parameter_rate:
-            return False
-        return True
+        from abjad.tools import systemtools
+        return systemtools.StorageFormatManager.compare(self, expr)
 
     def __getitem__(self, i):
         return self._get_output_proxy(i)
 
     def __hash__(self):
-        hash_values = (
-            type(self),
-            self.lag,
-            self.name,
-            self.parameter_rate,
-            self.unit,
-            self.value,
-            )
+        from abjad.tools import systemtools
+        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
         return hash(hash_values)
 
     def __len__(self):
