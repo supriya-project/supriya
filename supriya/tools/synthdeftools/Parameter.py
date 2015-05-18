@@ -30,12 +30,15 @@ class Parameter(UGenMethodMixin):
         value=None,
         ):
         from supriya.tools import synthdeftools
-        assert name
+        #assert name
         if lag is not None:
             lag = float(lag)
         self._lag = lag
-        self._name = str(name)
-        self._parameter_rate = synthdeftools.ParameterRate.from_expr(parameter_rate)
+        if name is not None:
+            name = str(name)
+        self._name = name
+        self._parameter_rate = synthdeftools.ParameterRate.from_expr(
+            parameter_rate)
         if range_ is not None:
             assert isinstance(range_, synthdeftools.Range)
         self._range = range_

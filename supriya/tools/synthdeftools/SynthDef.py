@@ -30,7 +30,7 @@ class SynthDef(ServerObjectProxy):
     ::
 
         >>> synthdef.allocate(server=server)
-        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19> 
+        <SynthDef: 9c4eb4778dc0faf39459fa8a5cd45c19>
 
     ::
 
@@ -60,8 +60,9 @@ class SynthDef(ServerObjectProxy):
     __slots__ = (
         '_compiled_ugen_graph',
         '_constants',
+        '_control_ugens',
+        '_indexed_parameters',
         '_name',
-        '_parameters',
         '_ugens',
         )
 
@@ -82,10 +83,13 @@ class SynthDef(ServerObjectProxy):
         ugens = self._cleanup_local_bufs(ugens)
         ugens = self._optimize_ugen_graph(ugens)
         ugens, parameters = self._extract_parameters(ugens)
-        control_ugens, control_mapping = self._collect_controls(
-            parameters,
-            )
-        self._parameters = tuple(control_mapping.keys())
+        (
+            control_ugens,
+            control_mapping,
+            indexed_parameters,
+            ) = self._collect_controls(parameters)
+        self._control_ugens = control_ugens
+        self._indexed_parameters = indexed_parameters
         self._remap_controls(ugens, control_mapping)
         ugens = control_ugens + ugens
         ugens = self._sort_ugens_topologically(ugens)
@@ -356,9 +360,10 @@ class SynthDef(ServerObjectProxy):
             }
         for parameter in parameters:
             mapping[parameter.parameter_rate].append(parameter)
-        for parameters in mapping.values():
-            parameters.sort(key=lambda x: x.name)
+        for filtered_parameters in mapping.values():
+            filtered_parameters.sort(key=lambda x: x.name)
         control_ugens = []
+        indexed_parameters = []
         starting_control_index = 0
         if scalar_parameters:
             control = ugentools.Control(
@@ -367,27 +372,42 @@ class SynthDef(ServerObjectProxy):
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(scalar_parameters)
-            for i, parameter in enumerate(scalar_parameters):
-                control_mapping[parameter] = control[i]
+            for parameter in scalar_parameters:
+                indexed_parameters.append((starting_control_index, parameter))
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(
+                control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+            #for i, parameter in enumerate(scalar_parameters):
+            #    control_mapping[parameter] = control[i]
         if trigger_parameters:
             control = ugentools.TrigControl(
                 parameters=trigger_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(trigger_parameters)
-            for i, parameter in enumerate(trigger_parameters):
-                control_mapping[parameter] = control[i]
+            for parameter in trigger_parameters:
+                indexed_parameters.append((starting_control_index, parameter))
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(
+                control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+            #for i, parameter in enumerate(trigger_parameters):
+            #    control_mapping[parameter] = control[i]
         if audio_parameters:
             control = ugentools.AudioControl(
                 parameters=audio_parameters,
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(audio_parameters)
-            for i, parameter in enumerate(audio_parameters):
-                control_mapping[parameter] = control[i]
+            for parameter in audio_parameters:
+                indexed_parameters.append((starting_control_index, parameter))
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(
+                control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+            #for i, parameter in enumerate(audio_parameters):
+            #    control_mapping[parameter] = control[i]
         if control_parameters:
             control = ugentools.Control(
                 parameters=control_parameters,
@@ -395,14 +415,20 @@ class SynthDef(ServerObjectProxy):
                 starting_control_index=starting_control_index,
                 )
             control_ugens.append(control)
-            starting_control_index += len(control_parameters)
-            for i, parameter in enumerate(control_parameters):
-                control_mapping[parameter] = control[i]
+            for parameter in control_parameters:
+                indexed_parameters.append((starting_control_index, parameter))
+                starting_control_index += len(parameter)
+            for i, output_proxy in enumerate(
+                control._get_parameter_output_proxies()):
+                control_mapping[output_proxy] = control[i]
+            #for i, parameter in enumerate(control_parameters):
+            #    control_mapping[parameter] = control[i]
         control_ugens = tuple(control_ugens)
-        return control_ugens, control_mapping
-
-    def _collect_parameters(self, controls):
-        pass
+        indexed_parameters.sort(
+            key=lambda pair: parameters.index(pair[1]),
+            )
+        indexed_parameters = tuple(indexed_parameters)
+        return control_ugens, control_mapping, indexed_parameters
 
     @staticmethod
     def _extract_parameters(ugens):
@@ -418,7 +444,8 @@ class SynthDef(ServerObjectProxy):
     @staticmethod
     def _flatten_ugens(ugens):
         def recurse(ugen):
-            flattened_ugens.append(ugen)
+            if ugen not in flattened_ugens:
+                flattened_ugens.append(ugen)
             if isinstance(ugen, synthdeftools.Parameter):
                 return
             elif isinstance(ugen, synthdeftools.OutputProxy):
@@ -584,11 +611,6 @@ class SynthDef(ServerObjectProxy):
         synth.allocate(target_node=self.server, sync=True)
         return synth
 
-    @staticmethod
-    def pretty_print_compiled_synthdefs(compiled_synthdefs):
-        result = []
-        
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -665,6 +687,10 @@ class SynthDef(ServerObjectProxy):
     @property
     def constants(self):
         return self._constants
+
+    @property
+    def control_ugens(self):
+        return self._control_ugens
 
     @property
     def control_input_channel_count(self):
@@ -745,8 +771,8 @@ class SynthDef(ServerObjectProxy):
         return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
-    def parameters(self):
-        return self._parameters
+    def indexed_parameters(self):
+        return self._indexed_parameters
 
     @property
     def ugens(self):

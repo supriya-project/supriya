@@ -856,6 +856,7 @@ def test_SynthDef_12():
             bus=0,
             source=sines,
             )
+    py_synthdef = builder.build('arrayarg')
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',

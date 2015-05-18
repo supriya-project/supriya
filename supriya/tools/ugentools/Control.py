@@ -33,11 +33,11 @@ class Control(MultiOutUGen):
             if not isinstance(parameter, synthdeftools.Parameter):
                 parameter = synthdeftools.Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
-        coerced_parameters.sort(key=lambda parameter: parameter.name)
+        #coerced_parameters.sort(key=lambda parameter: parameter.name)
         self._parameters = tuple(coerced_parameters)
         MultiOutUGen.__init__(
             self,
-            channel_count=len(parameters),
+            channel_count=len(self),
             calculation_rate=calculation_rate,
             special_index=starting_control_index,
             )
@@ -51,7 +51,7 @@ class Control(MultiOutUGen):
         '''
         from supriya import synthdeftools
         if type(i) == int:
-            if len(self.parameters) == 1:
+            if len(self) == 1:
                 return synthdeftools.OutputProxy(self, 0)
             return synthdeftools.OutputProxy(self, i)
         else:
@@ -64,7 +64,7 @@ class Control(MultiOutUGen):
 
         Returns integer.
         '''
-        return len(self.parameters)
+        return sum(len(_) for _ in self.parameters)
 
     ### PRIVATE METHODS ###
 
@@ -76,6 +76,12 @@ class Control(MultiOutUGen):
 
     def _get_outputs(self):
         return [self.calculation_rate] * len(self)
+
+    def _get_parameter_output_proxies(self):
+        output_proxies = []
+        for parameter in self.parameters:
+            output_proxies.extend(parameter)
+        return output_proxies
 
     ### PUBLIC PROPERTIES ###
 

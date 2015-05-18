@@ -22,16 +22,20 @@ class SynthDefCompiler(SupriyaObject):
     def compile_parameters(synthdef):
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            len(synthdef.parameters)))
-        for parameter in synthdef.parameters:
-            value = parameter.value
-            result.append(SynthDefCompiler.encode_float(value))
+            len(synthdef.indexed_parameters)))
+        for control_ugen in synthdef.control_ugens:
+            for parameter in control_ugen.parameters:
+                value = parameter.value
+                if not isinstance(value, tuple):
+                    value = (value,)
+                for x in value:
+                    result.append(SynthDefCompiler.encode_float(x))
+#        for index, parameter in synthdef.indexed_parameters:
+#            value = parameter.value
+#            result.append(SynthDefCompiler.encode_float(value))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            len(synthdef.parameters)))
-        for index, parameter in sorted(
-            enumerate(synthdef.parameters),
-            key=lambda x: x[1].name,
-            ):
+            len(synthdef.indexed_parameters)))
+        for index, parameter in synthdef.indexed_parameters:
             name = parameter.name
             result.append(SynthDefCompiler.encode_string(name))
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(index))
