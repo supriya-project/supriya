@@ -831,47 +831,32 @@ def test_SynthDef_12():
 
     builder = synthdeftools.SynthDefBuilder(
         amp=0.1,
-        freqs=synthdeftools.Parameter(
-            lag=0.1,
-            name='freqs',
-            value=[300, 400, 500, 600],
-            ),
-        gate=1,
+        freqs=[300, 400],
         )
     with builder:
-        env = ugentools.Linen.kr(
-            gate=builder['gate'],
-            attack_time=0.1,
-            sustain_level=1,
-            release_time=1,
-            done_action=2,
-            )
-        env *= builder['amp']
         sines = ugentools.SinOsc.ar(
             frequency=builder['freqs'],
             )
         sines = ugentools.Mix.new(sines)
-        sines = sines * env
+        sines = sines * builder['amp']
         ugentools.Out.ar(
             bus=0,
             source=sines,
             )
     py_synthdef = builder.build('arrayarg')
+    py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
         r'''
         |
             amp = 0.1,
-            freqs = #[300, 400, 500, 600],
-            gate = 1
+            freqs = #[300, 400]
         |
-        var env, sines;
-        env = Linen.kr(gate, 0.1, 1, 1, 2) * amp;
+        var sines;
         sines = SinOsc.ar(freqs).sum;
-        Out.ar(0, sines * env);
+        Out.ar(0, sines * amp);
         ''',
-        [0, 0.1, 0],
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
@@ -880,149 +865,26 @@ def test_SynthDef_12():
         b'\x00\x00\x00\x02'
         b'\x00\x01'
             b'\x08arrayarg'
-                b'\x00\x00\x00\x04'
+                b'\x00\x00\x00\x01'
                     b'\x00\x00\x00\x00'
-                    b'=\xcc\xcc\xcd'
-                    b'?\x80\x00\x00'
-                    b'@\x00\x00\x00'
-                b'\x00\x00\x00\x06'
+                b'\x00\x00\x00\x03'
                     b'=\xcc\xcc\xcd'
                     b'C\x96\x00\x00'
                     b'C\xc8\x00\x00'
-                    b'C\xfa\x00\x00'
-                    b'D\x16\x00\x00'
-                    b'?\x80\x00\x00'
-                b'\x00\x00\x00\x03'
+                b'\x00\x00\x00\x02'
                     b'\x03amp'
                         b'\x00\x00\x00\x00'
                     b'\x05freqs'
                         b'\x00\x00\x00\x01'
-                    b'\x04gate'
-                        b'\x00\x00\x00\x05'
-                b'\x00\x00\x00\n'
-                    b'\nLagControl'
-                        b'\x01'
-                        b'\x00\x00\x00\x06'
-                        b'\x00\x00\x00\x06'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x01'
-                            b'\x01'
-                            b'\x01'
-                            b'\x01'
-                            b'\x01'
-                            b'\x01'
-                    b'\x05Linen'
-                        b'\x01'
-                        b'\x00\x00\x00\x05'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x05'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x02'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x02'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x03'
-                            b'\x01'
-                    b'\x0cBinaryOpUGen'
-                        b'\x01'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x02'
-                            b'\x00\x00\x00\x01'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x00'
-                            b'\x01'
-                    b'\x06SinOsc'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x01'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x06SinOsc'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x02'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x06SinOsc'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x03'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x06SinOsc'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x00'
-                                b'\x00\x00\x00\x04'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x04Sum4'
-                        b'\x02'
-                        b'\x00\x00\x00\x04'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x00'
-                            b'\x00\x00\x00\x06'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x03'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x04'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x05'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x0cBinaryOpUGen'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x01'
-                        b'\x00\x02'
-                            b'\x00\x00\x00\x07'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x02'
-                                b'\x00\x00\x00\x00'
-                            b'\x02'
-                    b'\x03Out'
-                        b'\x02'
-                        b'\x00\x00\x00\x02'
-                        b'\x00\x00\x00\x00'
-                        b'\x00\x00'
-                            b'\xff\xff\xff\xff'
-                                b'\x00\x00\x00\x00'
-                            b'\x00\x00\x00\x08'
-                                b'\x00\x00\x00\x00'
+                b'\x00\x00\x00\x06'
+                    b'\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x01\x01\x01'
+                    b'\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x00\x02'
+                    b'\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x02\x00\x00\x00\x00\x02'
+                    b'\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02'
+                    b'\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x00\x00'
                 b'\x00\x00'
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef

@@ -22,7 +22,7 @@ class SynthDefCompiler(SupriyaObject):
     def compile_parameters(synthdef):
         result = []
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
-            len(synthdef.indexed_parameters)))
+            sum(len(_[1]) for _ in synthdef.indexed_parameters)))
         for control_ugen in synthdef.control_ugens:
             for parameter in control_ugen.parameters:
                 value = parameter.value
