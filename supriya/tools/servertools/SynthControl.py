@@ -12,6 +12,7 @@ class SynthControl(BindingTarget):
         '_binding_sources',
         '_calculation_rate',
         '_client',
+        '_index',
         '_default_value',
         '_last_unmapped_value',
         '_name',
@@ -25,6 +26,7 @@ class SynthControl(BindingTarget):
     def __init__(
         self,
         client=None,
+        index=None,
         name=None,
         range_=None,
         calculation_rate=None,
@@ -48,6 +50,9 @@ class SynthControl(BindingTarget):
             self._last_unmapped_value = self._value
         else:
             self._last_unmapped_value = self._default_value
+        if index is not None:
+            index = int(index)
+        self._index = index
 
     ### SPECIAL METHODS ###
 
@@ -94,7 +99,12 @@ class SynthControl(BindingTarget):
     ### PUBLIC METHODS ###
 
     @classmethod
-    def from_parameter(cls, parameter, client=None):
+    def from_parameter(
+        cls,
+        parameter,
+        index=0,
+        client=None,
+        ):
         from supriya.tools import synthdeftools
         assert isinstance(parameter, synthdeftools.Parameter)
         name = parameter.name
@@ -104,6 +114,7 @@ class SynthControl(BindingTarget):
         value = parameter.value
         synth_control = SynthControl(
             client=client,
+            index=index,
             name=name,
             range_=range_,
             calculation_rate=calculation_rate,
@@ -162,6 +173,10 @@ class SynthControl(BindingTarget):
     @property
     def default_value(self):
         return self._default_value
+
+    @property
+    def index(self):
+        return self._index
 
     @property
     def last_unmapped_value(self):

@@ -26,10 +26,11 @@ class SynthInterface(ControlInterface):
         synth_control_map = collections.OrderedDict()
         if synthdef is not None:
             assert isinstance(synthdef, synthdeftools.SynthDef)
-            for parameter in synthdef.parameters:
+            for index, parameter in synthdef.indexed_parameters:
                 synth_control = servertools.SynthControl.from_parameter(
                     parameter,
                     client=self,
+                    index=index,
                     )
                 synth_controls.append(synth_control)
                 synth_control_map[synth_control.name] = synth_control
