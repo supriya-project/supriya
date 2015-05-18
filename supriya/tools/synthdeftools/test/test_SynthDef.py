@@ -829,6 +829,34 @@ def test_SynthDef_11():
 def test_SynthDef_12():
     r'''Literal array arguments.'''
 
+    builder = synthdeftools.SynthDefBuilder(
+        amp=0.1,
+        freqs=synthdeftools.Parameter(
+            lag=0.1,
+            name='freqs',
+            value=[300, 400, 500, 600],
+            ),
+        gate=1,
+        )
+    with builder:
+        env = ugentools.Linen.kr(
+            gate=builder['gate'],
+            attack_time=0.1,
+            sustain_level=1,
+            release_time=1,
+            done_action=2,
+            )
+        env *= builder['amp']
+        sines = ugentools.SinOsc.ar(
+            frequency=builder['freqs'],
+            )
+        sines = ugentools.Mix.new(sines)
+        sines = sines * env
+        ugentools.Out.ar(
+            bus=0,
+            source=sines,
+            )
+
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
         r'''
