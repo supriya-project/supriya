@@ -69,6 +69,8 @@ class UGen(UGenMethodMixin):
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
+        assert all(isinstance(_, (synthdeftools.OutputProxy, float))
+            for _ in self.inputs)
         self._validate_inputs()
         if synthdeftools.SynthDefBuilder._active_builders:
             builder = synthdeftools.SynthDefBuilder._active_builders[-1]
@@ -193,9 +195,9 @@ class UGen(UGenMethodMixin):
 
     def _add_ugen_input(self, ugen, output_index=None):
         from supriya import synthdeftools
-        if isinstance(ugen, synthdeftools.Parameter):
-            output_proxy = ugen
-        elif isinstance(ugen, synthdeftools.OutputProxy):
+        #if isinstance(ugen, synthdeftools.Parameter):
+        #    output_proxy = ugen
+        if isinstance(ugen, synthdeftools.OutputProxy):
             output_proxy = ugen
         else:
             output_proxy = synthdeftools.OutputProxy(
