@@ -480,25 +480,10 @@ class SynthDef(ServerObjectProxy):
         return flattened_ugens
 
     @staticmethod
-    def _optimize_ugen_graph(ugens):
-        return ugens
-
-    @staticmethod
-    def _remap_controls(ugens, control_mapping):
-        for ugen in ugens:
-            inputs = list(ugen.inputs)
-            for i, input_ in enumerate(inputs):
-                if input_ in control_mapping:
-                    output_proxy = control_mapping[input_]
-                    inputs[i] = output_proxy
-            ugen._inputs = tuple(inputs)
-
-    @staticmethod
-    def _sort_ugens_topologically(ugens):
+    def _initialize_topological_sort(ugens):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         ugens = list(ugens)
-        available_ugens = []
         sort_bundles = {}
         width_first_antecedents = []
         for ugen in ugens:
@@ -513,6 +498,30 @@ class SynthDef(ServerObjectProxy):
                 sort_bundles[ugen].descendants,
                 key=lambda x: ugens.index(ugen),
                 )
+        return sort_bundles
+
+    @staticmethod
+    def _optimize_ugen_graph(ugens):
+#        sort_bundles = SynthDef._initialize_topological_sort(ugens)
+#        for ugen in ugens:
+#            ugen._optimize_graph(sort_bundles)
+#        return tuple(sort_bundles)
+        return ugens
+
+    @staticmethod
+    def _remap_controls(ugens, control_mapping):
+        for ugen in ugens:
+            inputs = list(ugen.inputs)
+            for i, input_ in enumerate(inputs):
+                if input_ in control_mapping:
+                    output_proxy = control_mapping[input_]
+                    inputs[i] = output_proxy
+            ugen._inputs = tuple(inputs)
+
+    @staticmethod
+    def _sort_ugens_topologically(ugens):
+        sort_bundles = SynthDef._initialize_topological_sort(ugens)
+        available_ugens = []
         for ugen in reversed(ugens):
             sort_bundles[ugen]._make_available(available_ugens)
         out_stack = []
