@@ -484,7 +484,7 @@ class SynthDef(ServerObjectProxy):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         ugens = list(ugens)
-        sort_bundles = {}
+        sort_bundles = collections.OrderedDict()
         width_first_antecedents = []
         for ugen in ugens:
             sort_bundles[ugen] = synthdeftools.UGenSortBundle(
@@ -502,11 +502,10 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def _optimize_ugen_graph(ugens):
-#        sort_bundles = SynthDef._initialize_topological_sort(ugens)
-#        for ugen in ugens:
-#            ugen._optimize_graph(sort_bundles)
-#        return tuple(sort_bundles)
-        return ugens
+        sort_bundles = SynthDef._initialize_topological_sort(ugens)
+        for ugen in ugens:
+            ugen._optimize_graph(sort_bundles)
+        return tuple(sort_bundles)
 
     @staticmethod
     def _remap_controls(ugens, control_mapping):

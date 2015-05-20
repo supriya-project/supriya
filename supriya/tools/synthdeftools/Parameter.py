@@ -78,6 +78,9 @@ class Parameter(UGenMethodMixin):
     def _get_output_number(self):
         return 0
 
+    def _optimize_graph(self, sort_bundles):
+        pass
+
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -88,6 +91,10 @@ class Parameter(UGenMethodMixin):
     @property
     def has_done_flag(self):
         return False
+
+    @property
+    def inputs(self):
+        return ()
 
     @property
     def lag(self):

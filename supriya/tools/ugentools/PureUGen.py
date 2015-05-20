@@ -17,5 +17,5 @@ class PureUGen(UGen):
 
     ### PRIVATE METHODS ###
 
-    def _optimize_graph(self):
-        self._perform_dead_code_elimination()
+    def _optimize_graph(self, sort_bundles):
+        pass

@@ -400,7 +400,7 @@ class UGen(UGenMethodMixin):
             )
         return ugen
 
-    def _optimize_graph(self):
+    def _optimize_graph(self, sort_bundles):
         pass
 
     def _validate_inputs(self):
