@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+import copy
 from abjad.tools.topleveltools import new
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -45,7 +46,7 @@ class SynthDefBuilder(SupriyaObject):
         name=None,
         **kwargs
         ):
-        self._parameters = {}
+        self._parameters = collections.OrderedDict()
         for key, value in kwargs.items():
             self.add_parameter(key, value)
         self._ugens = []
@@ -125,7 +126,18 @@ class SynthDefBuilder(SupriyaObject):
 
     def build(self, name=None):
         from supriya.tools import synthdeftools
+        SynthDef = synthdeftools.SynthDef
         ugens = list(self._parameters.values()) + list(self._ugens)
+        ugens = copy.deepcopy(ugens)
+        ugens = SynthDef._flatten_ugens(ugens)
+        ugens, parameters = SynthDef._extract_parameters(ugens)
+        (
+            control_ugens,
+            control_mapping,
+            indexed_parameters,
+            ) = SynthDef._build_control_mapping(parameters)
+        SynthDef._remap_controls(ugens, control_mapping)
+        ugens = control_ugens + ugens
         synthdef = synthdeftools.SynthDef(
             ugens,
             name=name,
