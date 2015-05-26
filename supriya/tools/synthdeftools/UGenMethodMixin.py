@@ -1460,7 +1460,7 @@ class UGenMethodMixin(SupriyaObject):
         dictionary = {'left': left, 'right': right}
         operator = synthdeftools.BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_dict in synthdeftools.UGen._expand_dictionary(dictionary):
+        for expanded_dict in ugentools.UGen._expand_dictionary(dictionary):
             left = expanded_dict['left']
             right = expanded_dict['right']
             calculation_rate = UGenMethodMixin._compute_binary_rate(
@@ -1536,7 +1536,7 @@ class UGenMethodMixin(SupriyaObject):
         from supriya.tools import ugentools
         ugens = []
         for source in self[:]:
-            method = synthdeftools.UGen._get_method_for_rate(
+            method = ugentools.UGen._get_method_for_rate(
                 ugentools.Clip, source)
             ugen = method(
                 source=source,
@@ -1563,10 +1563,10 @@ class UGenMethodMixin(SupriyaObject):
         ugens = []
         for source in self[:]:
             if exponential:
-                method = synthdeftools.UGen._get_method_for_rate(
+                method = ugentools.UGen._get_method_for_rate(
                     ugentools.LinExp, source)
             else:
-                method = synthdeftools.UGen._get_method_for_rate(
+                method = ugentools.UGen._get_method_for_rate(
                     ugentools.LinLin, source)
             ugen = method(
                 source=source,

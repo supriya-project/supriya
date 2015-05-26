@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.UGen import UGen
 
 
 class Sum3(UGen):

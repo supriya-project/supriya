@@ -2,7 +2,7 @@
 import collections
 from abjad.tools import sequencetools
 from supriya.tools.synthdeftools.CalculationRate import CalculationRate
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.UGen import UGen
 
 
 class Klank(UGen):

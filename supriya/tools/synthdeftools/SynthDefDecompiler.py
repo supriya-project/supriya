@@ -160,7 +160,7 @@ class SynthDefDecompiler(SupriyaObject):
             for _ in range(output_count):
                 output_rate, index = sdd._decode_int_8bit(value, index)
             ugen_class = getattr(ugentools, ugen_name)
-            ugen = synthdeftools.UGen.__new__(ugen_class)
+            ugen = ugentools.UGen.__new__(ugen_class)
             if issubclass(ugen_class, ugentools.Control):
                 starting_control_index = special_index
                 parameters = sdd._collect_parameters_for_control(
@@ -197,7 +197,7 @@ class SynthDefDecompiler(SupriyaObject):
                         **kwargs
                         )
                 else:
-                    synthdeftools.UGen.__init__(
+                    ugentools.UGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         special_index=special_index,

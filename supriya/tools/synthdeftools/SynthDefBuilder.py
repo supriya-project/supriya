@@ -110,10 +110,11 @@ class SynthDefBuilder(SupriyaObject):
 
     def add_ugens(self, ugens):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
-            synthdeftools.UGen,
+            ugentools.UGen,
             synthdeftools.OutputProxy,
             synthdeftools.Parameter,
             )

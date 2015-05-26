@@ -6,7 +6,7 @@ from supriya.tools import synthdeftools
 
 
 classes = documentationtools.list_all_supriya_classes(
-    bases=synthdeftools.UGen,
+    bases=ugentools.UGen,
     )
 
 classes = [_ for _ in classes if '.ugentools.' in _.__module__]

@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import collections
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.UGen import UGen
 
 
 class Poll(UGen):
@@ -89,8 +89,9 @@ class Poll(UGen):
         trigger_id=-1,
         ):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         if label is None:
-            if isinstance(source, synthdeftools.UGen):
+            if isinstance(source, ugentools.UGen):
                 label = type(source).__name__
             elif isinstance(source, synthdeftools.OutputProxy):
                 label = type(source.source).__name__

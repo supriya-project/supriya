@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import abc
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.UGen import UGen
 
 
 class WidthFirstUGen(UGen):

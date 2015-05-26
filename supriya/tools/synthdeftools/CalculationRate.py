@@ -64,11 +64,12 @@ class CalculationRate(Enumeration):
     @staticmethod
     def from_input(input_):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         if isinstance(input_, (int, float)):
             return CalculationRate.SCALAR
         elif isinstance(input_, (
             synthdeftools.OutputProxy,
-            synthdeftools.UGen,
+            ugentools.UGen,
             )):
             return input_.calculation_rate
         elif isinstance(input_, synthdeftools.Parameter):

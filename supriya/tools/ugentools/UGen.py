@@ -179,7 +179,7 @@ class UGen(UGenMethodMixin):
             if expr == 0:
                 return ugentools.Silence.ar()
             return ugentools.DC.ar(expr)
-        elif isinstance(expr, (synthdeftools.UGen, synthdeftools.OutputProxy)):
+        elif isinstance(expr, (UGen, synthdeftools.OutputProxy)):
             if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:
                 return expr
             return ugentools.K2A.ar(source=expr)
@@ -228,7 +228,7 @@ class UGen(UGenMethodMixin):
         ugen_prototype = (
             synthdeftools.OutputProxy,
             synthdeftools.Parameter,
-            synthdeftools.UGen,
+            UGen,
             )
         if hasattr(value, '__float__'):
             self._add_constant_input(float(value))
@@ -261,7 +261,7 @@ class UGen(UGenMethodMixin):
         ::
 
             >>> dictionary = {'foo': 0, 'bar': (1, 2), 'baz': (3, 4, 5)}
-            >>> result = synthdeftools.UGen._expand_dictionary(
+            >>> result = ugentools.UGen._expand_dictionary(
             ...     dictionary)
             >>> for x in result:
             ...     sorted(x.items())
@@ -273,7 +273,7 @@ class UGen(UGenMethodMixin):
         ::
 
             >>> dictionary = {'bus': (8, 9), 'source': (1, 2, 3)}
-            >>> result = synthdeftools.UGen._expand_dictionary(
+            >>> result = ugentools.UGen._expand_dictionary(
             ...     dictionary,
             ...     unexpanded_input_names=('source',),
             ...     )
@@ -298,7 +298,7 @@ class UGen(UGenMethodMixin):
         result = []
         prototype = (
             collections.Sequence,
-            synthdeftools.UGen,
+            UGen,
             synthdeftools.Parameter,
             )
         for name, value in dictionary.items():

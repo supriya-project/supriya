@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.synthdeftools.SignalRange import SignalRange
-from supriya.tools.synthdeftools.UGen import UGen
+from supriya.tools.ugentools.UGen import UGen
 
 
 class MouseButton(UGen):

@@ -75,12 +75,13 @@ class SynthDef(ServerObjectProxy):
         parameter_names=None
         ):
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         ServerObjectProxy.__init__(self)
         compiler = synthdeftools.SynthDefCompiler
         self._name = name
         ugens = copy.deepcopy(ugens)
         ugens = self._flatten_ugens(ugens)
-        assert all(isinstance(_, synthdeftools.UGen) for _ in ugens)
+        assert all(isinstance(_, ugentools.UGen) for _ in ugens)
         ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
         ugens = self._optimize_ugen_graph(ugens)
@@ -495,11 +496,12 @@ class SynthDef(ServerObjectProxy):
                     if input_.source not in flattened_ugens:
                         flattened_ugens.append(input_.source)
                         recurse(input_.source)
-                elif isinstance(input_, synthdeftools.UGen):
+                elif isinstance(input_, ugentools.UGen):
                     if input_ not in flattened_ugens:
                         flattened_ugens.append(input_)
                         recurse(input_)
         from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         flattened_ugens = []
         for ugen in ugens:
             recurse(ugen)
