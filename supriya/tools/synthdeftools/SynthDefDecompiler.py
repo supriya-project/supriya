@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import struct
+import sys
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -66,80 +67,67 @@ class SynthDefDecompiler(SupriyaObject):
 
     __documentation_section__ = 'SynthDef Internals'
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
     @staticmethod
-    def decompile_synthdefs(value):
-        synthdefs = []
-        sdd = SynthDefDecompiler
-        index = 4
-        assert value[:index] == 'SCgf'
-        file_version, index = sdd.decode_int_32bit(value, index)
-        synthdef_count, index = sdd.decode_int_16bit(value, index)
-        for _ in range(synthdef_count):
-            synthdef, index = sdd.decompile_synthdef(value, index)
-            synthdefs.append(synthdef)
-        return synthdefs
-
-    @staticmethod
-    def decode_constants(value, index):
+    def _decode_constants(value, index):
         sdd = SynthDefDecompiler
         constants = []
-        constants_count, index = sdd.decode_int_32bit(value, index)
+        constants_count, index = sdd._decode_int_32bit(value, index)
         for _ in range(constants_count):
-            constant, index = sdd.decode_float(value, index)
+            constant, index = sdd._decode_float(value, index)
             constants.append(constant)
         return constants, index
 
     @staticmethod
-    def decode_parameters(value, index):
+    def _decode_parameters(value, index):
         sdd = SynthDefDecompiler
         parameter_values = []
-        parameter_count, index = sdd.decode_int_32bit(value, index)
+        parameter_count, index = sdd._decode_int_32bit(value, index)
         for _ in range(parameter_count):
-            parameter_value, index = sdd.decode_float(value, index)
+            parameter_value, index = sdd._decode_float(value, index)
             parameter_values.append(parameter_value)
-        parameter_count, index = sdd.decode_int_32bit(value, index)
+        parameter_count, index = sdd._decode_int_32bit(value, index)
         parameter_names = [None] * parameter_count
         for _ in range(parameter_count):
-            parameter_name, index = sdd.decode_string(value, index)
-            parameter_index, index = sdd.decode_int_32bit(value, index)
+            parameter_name, index = sdd._decode_string(value, index)
+            parameter_index, index = sdd._decode_int_32bit(value, index)
             parameter_names[parameter_index] = parameter_name
         return parameter_names, parameter_values, index
 
     @staticmethod
-    def decompile_synthdef(value, index):
+    def _decompile_synthdef(value, index):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         sdd = SynthDefDecompiler
         synthdef = None
-        name, index = sdd.decode_string(value, index)
-        constants, index = sdd.decode_constants(value, index)
+        name, index = sdd._decode_string(value, index)
+        constants, index = sdd._decode_constants(value, index)
         parameter_names, parameter_values, index = \
-            sdd.decode_parameters(value, index)
+            sdd._decode_parameters(value, index)
         ugens = []
-        ugen_count, index = sdd.decode_int_32bit(value, index)
+        ugen_count, index = sdd._decode_int_32bit(value, index)
         for i in range(ugen_count):
-            ugen_name, index = sdd.decode_string(value, index)
-            calculation_rate, index = sdd.decode_int_8bit(value, index)
+            ugen_name, index = sdd._decode_string(value, index)
+            calculation_rate, index = sdd._decode_int_8bit(value, index)
             calculation_rate = synthdeftools.CalculationRate(calculation_rate)
-            input_count, index = sdd.decode_int_32bit(value, index)
-            output_count, index = sdd.decode_int_32bit(value, index)
-            special_index, index = sdd.decode_int_16bit(value, index)
+            input_count, index = sdd._decode_int_32bit(value, index)
+            output_count, index = sdd._decode_int_32bit(value, index)
+            special_index, index = sdd._decode_int_16bit(value, index)
             inputs = []
             for _ in range(input_count):
-                ugen_index, index = sdd.decode_int_32bit(value, index)
+                ugen_index, index = sdd._decode_int_32bit(value, index)
                 if ugen_index == 0xffffffff:
-                    constant_index, index = sdd.decode_int_32bit(value, index)
+                    constant_index, index = sdd._decode_int_32bit(value, index)
                     constant_index = int(constant_index)
                     inputs.append(constants[constant_index])
                 else:
                     ugen = ugens[ugen_index]
-                    ugen_output_index, index = sdd.decode_int_32bit(value, index)
+                    ugen_output_index, index = sdd._decode_int_32bit(value, index)
                     output_proxy = ugen[ugen_output_index]
                     inputs.append(output_proxy)
             for _ in range(output_count):
-                output_rate, index = sdd.decode_int_8bit(value, index)
+                output_rate, index = sdd._decode_int_8bit(value, index)
             ugen_class = getattr(ugentools, ugen_name)
             ugen = synthdeftools.UGen.__new__(ugen_class)
             if issubclass(ugen_class, ugentools.Control):
@@ -148,7 +136,7 @@ class SynthDefDecompiler(SupriyaObject):
                     starting_control_index:
                     starting_control_index + output_count
                     ]
-                ugentools.Control.__init__(
+                ugen_class.__init__(
                     ugen,
                     parameters=parameters,
                     starting_control_index=starting_control_index,
@@ -181,7 +169,7 @@ class SynthDefDecompiler(SupriyaObject):
                         **kwargs
                         )
             ugens.append(ugen)
-        variants_count, index = sdd.decode_int_16bit(value, index)
+        variants_count, index = sdd._decode_int_16bit(value, index)
         synthdef = synthdeftools.SynthDef(
             ugens=ugens,
             name=name,
@@ -189,33 +177,58 @@ class SynthDefDecompiler(SupriyaObject):
         return synthdef, index
 
     @staticmethod
-    def decode_string(value, index):
+    def _decode_string(value, index):
         length = struct.unpack('>B', value[index:index + 1])[0]
         index += 1
-        result = str(value[index:index + length])
+        result = value[index:index + length]
+        if sys.version_info[0] == 3:
+            result = result.decode('ascii')
+        else:
+            result = str(result)
         index += length
         return result, index
 
     @staticmethod
-    def decode_float(value, index):
+    def _decode_float(value, index):
         result = struct.unpack('>f', value[index:index + 4])[0]
         index += 4
         return result, index
 
     @staticmethod
-    def decode_int_8bit(value, index):
+    def _decode_int_8bit(value, index):
         result = struct.unpack('>B', value[index:index + 1])[0]
         index += 1
         return result, index
 
     @staticmethod
-    def decode_int_16bit(value, index):
+    def _decode_int_16bit(value, index):
         result = struct.unpack('>H', value[index:index + 2])[0]
         index += 2
         return result, index
 
     @staticmethod
-    def decode_int_32bit(value, index):
+    def _decode_int_32bit(value, index):
         result = struct.unpack('>I', value[index:index + 4])[0]
         index += 4
         return result, index
+
+    ### PUBLIC METHODS ###
+
+    @staticmethod
+    def decompile_synthdef(value):
+        synthdefs = SynthDefDecompiler.decompile_synthdefs(value)
+        assert len(synthdefs) == 1
+        return synthdefs[0]
+
+    @staticmethod
+    def decompile_synthdefs(value):
+        synthdefs = []
+        sdd = SynthDefDecompiler
+        index = 4
+        assert value[:index] == b'SCgf'
+        file_version, index = sdd._decode_int_32bit(value, index)
+        synthdef_count, index = sdd._decode_int_16bit(value, index)
+        for _ in range(synthdef_count):
+            synthdef, index = sdd._decompile_synthdef(value, index)
+            synthdefs.append(synthdef)
+        return synthdefs

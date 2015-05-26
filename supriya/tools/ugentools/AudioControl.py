@@ -17,6 +17,7 @@ class AudioControl(Control):
     def __init__(
         self,
         parameters,
+        calculation_rate=None,
         starting_control_index=0,
         ):
         from supriya.tools import synthdeftools

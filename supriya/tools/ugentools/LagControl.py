@@ -39,7 +39,7 @@ class LagControl(Control):
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
         lags = []
-        for parameter in parameters:
+        for parameter in self._parameters:
             lag = parameter.lag or 0.
             lags.extend([lag] * len(parameter))
         MultiOutUGen.__init__(
