@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
+import collections
 import struct
 import sys
 from abjad import new
@@ -97,7 +98,7 @@ class SynthDefDecompiler(SupriyaObject):
             parameter_index, index = sdd._decode_int_32bit(value, index)
             parameter_names.append((parameter_index, parameter_name))
         parameter_names.sort(key=lambda x: x[0])
-        indexed_parameters = {}
+        indexed_parameters = collections.OrderedDict()
         if parameter_count:
             iterator = sequencetools.iterate_sequence_nwise(parameter_names)
             for (index_one, name_one), (index_two, name_two) in iterator:
@@ -106,7 +107,7 @@ class SynthDefDecompiler(SupriyaObject):
                     value = value[0]
                 parameter = synthdeftools.Parameter(
                     name=name_one,
-                    value=parameter_values[index_one:index_two],
+                    value=value,
                     )
                 indexed_parameters[index_one] = parameter
             index_one, name_one = parameter_names[-1]
@@ -128,8 +129,7 @@ class SynthDefDecompiler(SupriyaObject):
         synthdef = None
         name, index = sdd._decode_string(value, index)
         constants, index = sdd._decode_constants(value, index)
-        indexed_parameters, index = \
-            sdd._decode_parameters(value, index)
+        indexed_parameters, index = sdd._decode_parameters(value, index)
         ugens = []
         ugen_count, index = sdd._decode_int_32bit(value, index)
         for i in range(ugen_count):
@@ -158,10 +158,12 @@ class SynthDefDecompiler(SupriyaObject):
             if issubclass(ugen_class, ugentools.Control):
                 starting_control_index = special_index
                 parameters = sdd._collect_parameters_for_control(
+                    calculation_rate,
                     indexed_parameters,
                     inputs,
                     output_count,
                     starting_control_index,
+                    ugen_class,
                     )
                 ugen_class.__init__(
                     ugen,
@@ -201,6 +203,8 @@ class SynthDefDecompiler(SupriyaObject):
             ugens=ugens,
             name=name,
             )
+        indexed_parameters = tuple(indexed_parameters.items())
+        synthdef._indexed_parameters = indexed_parameters
         return synthdef, index
 
     @staticmethod
@@ -241,20 +245,35 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _collect_parameters_for_control(
+        calculation_rate,
         indexed_parameters,
         inputs,
         output_count,
         starting_control_index,
+        ugen_class,
         ):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        parameter_rate = synthdeftools.ParameterRate.CONTROL
+        if issubclass(ugen_class, ugentools.TrigControl):
+            parameter_rate = synthdeftools.ParameterRate.TRIGGER
+        elif calculation_rate == synthdeftools.CalculationRate.SCALAR:
+            parameter_rate = synthdeftools.ParameterRate.SCALAR
+        elif calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            parameter_rate = synthdeftools.ParameterRate.AUDIO
         parameters = []
         collected_output_count = 0
-        lag = 0
+        lag = 0.0
         while collected_output_count < output_count:
             if inputs:
                 lag = inputs[collected_output_count]
-            parameter = indexed_parameters[starting_control_index]
+            parameter = indexed_parameters[
+                starting_control_index +
+                collected_output_count
+                ]
+            parameter._parameter_rate = parameter_rate
             if lag:
-                parameter = new(parameter, lag=lag)
+                parameter._lag = lag
             parameters.append(parameter)
             collected_output_count += len(parameter)
         return parameters

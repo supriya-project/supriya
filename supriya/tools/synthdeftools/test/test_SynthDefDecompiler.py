@@ -13,6 +13,7 @@ def test_SynthDefDecompiler_01():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
 
 
 def test_SynthDefDecompiler_02():
@@ -27,13 +28,14 @@ def test_SynthDefDecompiler_02():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
 
 
 def test_SynthDefDecompiler_03():
     builder = synthdeftools.SynthDefBuilder(
-        damping=0.1,
+        damping=0.5,
         delay_time=1.0,
-        room_size=0.9,
+        room_size=0.75,
         )
     with builder:
         microphone = ugentools.In.ar(bus=0)
@@ -47,6 +49,7 @@ def test_SynthDefDecompiler_03():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
 
 
 def test_SynthDefDecompiler_04():
@@ -76,11 +79,12 @@ def test_SynthDefDecompiler_04():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
 
 
 def test_SynthDefDecompiler_05():
     builder = synthdeftools.SynthDefBuilder(
-        amp=0.1,
+        amp=0.5,
         freqs=[300, 400],
         )
     with builder:
@@ -97,11 +101,12 @@ def test_SynthDefDecompiler_05():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
 
 
 def test_SynthDefDecompiler_06():
     builder = synthdeftools.SynthDefBuilder(
-        amp=0.1,
+        amp=0.5,
         freqs=synthdeftools.Parameter(
             lag=0.5,
             value=[300, 400],
@@ -121,3 +126,4 @@ def test_SynthDefDecompiler_06():
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
