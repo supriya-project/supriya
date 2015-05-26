@@ -6,17 +6,16 @@ decompiler = synthdeftools.SynthDefDecompiler
 
 
 def test_SynthDefDecompiler_01():
-
     with synthdeftools.SynthDefBuilder(freq=440) as builder:
         sine = ugentools.SinOsc.ar(frequency=builder['freq'])
         ugentools.Out.ar(bus=0, source=sine)
     old_synthdef = builder.build('test')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
 
 
 def test_SynthDefDecompiler_02():
-
     builder = synthdeftools.SynthDefBuilder(
         freq=1200,
         out=23,
@@ -27,10 +26,10 @@ def test_SynthDefDecompiler_02():
     old_synthdef = builder.build('test')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
 
 
 def test_SynthDefDecompiler_03():
-
     builder = synthdeftools.SynthDefBuilder(
         damping=0.1,
         delay_time=1.0,
@@ -47,10 +46,10 @@ def test_SynthDefDecompiler_03():
     old_synthdef = builder.build('test')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
 
 
 def test_SynthDefDecompiler_04():
-
     builder = synthdeftools.SynthDefBuilder(
         a_phase=0.0,
         freq=440,
@@ -61,7 +60,7 @@ def test_SynthDefDecompiler_04():
     with builder:
         decay = ugentools.Decay2.kr(
             source=(builder['t_trig_a'], builder['t_trig_b']),
-            attack_time=0.005,
+            attack_time=0.5,
             decay_time=builder['i_decay_time'],
             )
         sin_osc = ugentools.SinOsc.ar(
@@ -76,11 +75,10 @@ def test_SynthDefDecompiler_04():
     old_synthdef = builder.build('trigTest')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
 
 
 def test_SynthDefDecompiler_05():
-    r'''Literal array arguments.'''
-
     builder = synthdeftools.SynthDefBuilder(
         amp=0.1,
         freqs=[300, 400],
@@ -98,11 +96,10 @@ def test_SynthDefDecompiler_05():
     old_synthdef = builder.build('arrayarg')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
 
 
 def test_SynthDefDecompiler_06():
-    r'''Literal array arguments.'''
-
     builder = synthdeftools.SynthDefBuilder(
         amp=0.1,
         freqs=synthdeftools.Parameter(
@@ -123,3 +120,4 @@ def test_SynthDefDecompiler_06():
     old_synthdef = builder.build('arrayarg')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)

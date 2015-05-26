@@ -2,6 +2,8 @@
 from __future__ import print_function
 import struct
 import sys
+from abjad import new
+from abjad.tools import sequencetools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -81,6 +83,7 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decode_parameters(value, index):
+        from supriya.tools import synthdeftools
         sdd = SynthDefDecompiler
         parameter_values = []
         parameter_count, index = sdd._decode_int_32bit(value, index)
@@ -88,12 +91,34 @@ class SynthDefDecompiler(SupriyaObject):
             parameter_value, index = sdd._decode_float(value, index)
             parameter_values.append(parameter_value)
         parameter_count, index = sdd._decode_int_32bit(value, index)
-        parameter_names = [None] * parameter_count
+        parameter_names = []
         for _ in range(parameter_count):
             parameter_name, index = sdd._decode_string(value, index)
             parameter_index, index = sdd._decode_int_32bit(value, index)
-            parameter_names[parameter_index] = parameter_name
-        return parameter_names, parameter_values, index
+            parameter_names.append((parameter_index, parameter_name))
+        parameter_names.sort(key=lambda x: x[0])
+        indexed_parameters = {}
+        if parameter_count:
+            iterator = sequencetools.iterate_sequence_nwise(parameter_names)
+            for (index_one, name_one), (index_two, name_two) in iterator:
+                value = parameter_values[index_one:index_two]
+                if len(value) == 1:
+                    value = value[0]
+                parameter = synthdeftools.Parameter(
+                    name=name_one,
+                    value=parameter_values[index_one:index_two],
+                    )
+                indexed_parameters[index_one] = parameter
+            index_one, name_one = parameter_names[-1]
+            value = parameter_values[index_one:]
+            if len(value) == 1:
+                value = value[0]
+            parameter = synthdeftools.Parameter(
+                name=name_one,
+                value=value,
+                )
+            indexed_parameters[index_one] = parameter
+        return indexed_parameters, index
 
     @staticmethod
     def _decompile_synthdef(value, index):
@@ -103,7 +128,7 @@ class SynthDefDecompiler(SupriyaObject):
         synthdef = None
         name, index = sdd._decode_string(value, index)
         constants, index = sdd._decode_constants(value, index)
-        parameter_names, parameter_values, index = \
+        indexed_parameters, index = \
             sdd._decode_parameters(value, index)
         ugens = []
         ugen_count, index = sdd._decode_int_32bit(value, index)
@@ -132,10 +157,12 @@ class SynthDefDecompiler(SupriyaObject):
             ugen = synthdeftools.UGen.__new__(ugen_class)
             if issubclass(ugen_class, ugentools.Control):
                 starting_control_index = special_index
-                parameters = parameter_names[
-                    starting_control_index:
-                    starting_control_index + output_count
-                    ]
+                parameters = sdd._collect_parameters_for_control(
+                    indexed_parameters,
+                    inputs,
+                    output_count,
+                    starting_control_index,
+                    )
                 ugen_class.__init__(
                     ugen,
                     parameters=parameters,
@@ -211,6 +238,26 @@ class SynthDefDecompiler(SupriyaObject):
         result = struct.unpack('>I', value[index:index + 4])[0]
         index += 4
         return result, index
+
+    @staticmethod
+    def _collect_parameters_for_control(
+        indexed_parameters,
+        inputs,
+        output_count,
+        starting_control_index,
+        ):
+        parameters = []
+        collected_output_count = 0
+        lag = 0
+        while collected_output_count < output_count:
+            if inputs:
+                lag = inputs[collected_output_count]
+            parameter = indexed_parameters[starting_control_index]
+            if lag:
+                parameter = new(parameter, lag=lag)
+            parameters.append(parameter)
+            collected_output_count += len(parameter)
+        return parameters
 
     ### PUBLIC METHODS ###
 
