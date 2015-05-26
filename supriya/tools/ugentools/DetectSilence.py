@@ -54,6 +54,11 @@ class DetectSilence(Filter):
             time=time,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _optimize_graph(self, sort_bundles):
+        pass
+
     ### PUBLIC METHODS ###
 
     @classmethod

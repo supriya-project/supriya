@@ -403,6 +403,18 @@ class UGen(UGenMethodMixin):
     def _optimize_graph(self, sort_bundles):
         pass
 
+    def _perform_dead_code_elimination(self, sort_bundles):
+        sort_bundle = sort_bundles.get(self, None)
+        if not sort_bundle or sort_bundle.descendants:
+            return
+        del(sort_bundles[self])
+        for antecedent in tuple(sort_bundle.antecedents):
+            antecedent_bundle = sort_bundles.get(antecedent, None)
+            if not antecedent_bundle:
+                continue
+            antecedent_bundle.descendants.remove(self)
+            antecedent._optimize_graph(sort_bundles)
+
     def _validate_inputs(self):
         pass
 

@@ -10,8 +10,8 @@ def test_SynthDefCompiler_basic_01():
         sine_two = ugentools.SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
         ugentools.Out.ar(bus=0, source=sines)
-    py_synthdef_new = builder.build('foo')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('foo')
+    py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'foo',
@@ -74,7 +74,7 @@ def test_SynthDefCompiler_basic_01():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_basic_02():
@@ -83,8 +83,8 @@ def test_SynthDefCompiler_basic_02():
         sine = ugentools.SinOsc.ar()
         sine = -sine
         ugentools.Out.ar(bus=99, source=sine)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef = py_synthdef.compile()
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -135,7 +135,7 @@ def test_SynthDefCompiler_basic_02():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_basic_03():
@@ -151,8 +151,8 @@ def test_SynthDefCompiler_basic_03():
     with synthdeftools.SynthDefBuilder() as builder:
         inputs = ugentools.In.ar(bus=8, channel_count=2)
         ugentools.Out.ar(bus=0, source=inputs)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef = py_synthdef.compile()
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -189,7 +189,7 @@ def test_SynthDefCompiler_basic_03():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_basic_04():
@@ -207,8 +207,8 @@ def test_SynthDefCompiler_basic_04():
         sin_osc = ugentools.SinOsc.ar()
         ugentools.FreeSelf.kr(sin_osc)
         ugentools.Out.ar(bus=0, source=sin_osc)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef = py_synthdef.compile()
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -252,7 +252,7 @@ def test_SynthDefCompiler_basic_04():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_basic_05():

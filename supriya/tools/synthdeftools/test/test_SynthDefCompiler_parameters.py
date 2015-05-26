@@ -18,7 +18,7 @@ def test_SynthDefCompiler_parameters_01():
         sine = ugentools.SinOsc.ar(frequency=builder['freq'])
         ugentools.Out.ar(bus=0, source=sine)
     py_synthdef = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -73,7 +73,7 @@ def test_SynthDefCompiler_parameters_01():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_02():
@@ -95,7 +95,7 @@ def test_SynthDefCompiler_parameters_02():
     out = ugentools.Out.ar(bus=builder['out'], source=sine)
     builder.add_ugens(out)
     py_synthdef = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -162,7 +162,7 @@ def test_SynthDefCompiler_parameters_02():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_03():
@@ -192,7 +192,7 @@ def test_SynthDefCompiler_parameters_03():
             )
         ugentools.Out.ar(bus=0, source=delay)
     py_synthdef = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -282,7 +282,7 @@ def test_SynthDefCompiler_parameters_03():
         )
 
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_04():
@@ -327,7 +327,7 @@ def test_SynthDefCompiler_parameters_04():
             source=enveloped_sin_osc,
             )
     py_synthdef = builder.build('trigTest')
-    py_compiled_synthdef_new = py_synthdef.compile()
+    py_compiled_synthdef = py_synthdef.compile()
 
     assert py_synthdef.indexed_parameters == (
         (
@@ -491,12 +491,8 @@ def test_SynthDefCompiler_parameters_04():
                 b'\x00\x00'
         )
 
-    for i, pair in enumerate(zip(sc_compiled_synthdef, test_compiled_synthdef)):
-        x, y = pair
-        assert x == y, (i, repr(x), repr(y))
-
     assert sc_compiled_synthdef == test_compiled_synthdef
-    assert py_compiled_synthdef_new == test_compiled_synthdef
+    assert py_compiled_synthdef == test_compiled_synthdef
 
 
 def test_SynthDefCompiler_parameters_05():
