@@ -14,8 +14,9 @@ def test_SynthDefDecompiler_01():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert compiled_synthdef == new_synthdef.compile()
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
 
 
 def test_SynthDefDecompiler_02():
@@ -31,7 +32,9 @@ def test_SynthDefDecompiler_02():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
 
 
 def test_SynthDefDecompiler_03():
@@ -53,7 +56,9 @@ def test_SynthDefDecompiler_03():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
 
 
 def test_SynthDefDecompiler_04():
@@ -84,7 +89,9 @@ def test_SynthDefDecompiler_04():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
 
 
 def test_SynthDefDecompiler_05():
@@ -107,7 +114,9 @@ def test_SynthDefDecompiler_05():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
 
 
 def test_SynthDefDecompiler_06():
@@ -133,4 +142,6 @@ def test_SynthDefDecompiler_06():
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
     assert str(old_synthdef) == str(new_synthdef)
     assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
-    #assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
