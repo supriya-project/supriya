@@ -124,7 +124,7 @@ class SynthDefDecompiler(SupriyaObject):
             indexed_parameters.sort(
                 key=lambda x: parameter_names.index(x[1].name),
                 )
-            indexed_parameters = collections.OrderedDict(indexed_parameters)
+        indexed_parameters = collections.OrderedDict(indexed_parameters)
         return indexed_parameters, index
 
     @staticmethod
@@ -209,8 +209,8 @@ class SynthDefDecompiler(SupriyaObject):
             ugens=ugens,
             name=name,
             )
-        indexed_parameters = tuple(indexed_parameters.items())
-        synthdef._indexed_parameters = indexed_parameters
+        if synthdef.name == synthdef.anonymous_name:
+            synthdef._name = None
         return synthdef, index
 
     @staticmethod

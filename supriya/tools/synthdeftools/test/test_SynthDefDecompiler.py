@@ -6,6 +6,38 @@ decompiler = synthdeftools.SynthDefDecompiler
 
 
 def test_SynthDefDecompiler_01():
+    r'''Anonymous SynthDef without parameters.'''
+    with synthdeftools.SynthDefBuilder() as builder:
+        sine = ugentools.SinOsc.ar()
+        sine = -sine
+        ugentools.Out.ar(bus=99, source=sine)
+    old_synthdef = builder.build()
+    compiled_synthdef = old_synthdef.compile()
+    new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
+
+
+def test_SynthDefDecompiler_02():
+    r'''Anonymous SynthDef with one parameter.'''
+    with synthdeftools.SynthDefBuilder(freq=440) as builder:
+        sine = ugentools.SinOsc.ar(frequency=builder['freq'])
+        ugentools.Out.ar(bus=0, source=sine)
+    old_synthdef = builder.build()
+    compiled_synthdef = old_synthdef.compile()
+    new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)
+    assert str(old_synthdef) == str(new_synthdef)
+    assert old_synthdef.indexed_parameters == new_synthdef.indexed_parameters
+    assert compiled_synthdef == new_synthdef.compile()
+    assert old_synthdef.anonymous_name == new_synthdef.anonymous_name
+    assert old_synthdef.name == new_synthdef.name
+
+
+def test_SynthDefDecompiler_03():
+    r'''Named SynthDef with one parameter.'''
     with synthdeftools.SynthDefBuilder(freq=440) as builder:
         sine = ugentools.SinOsc.ar(frequency=builder['freq'])
         ugentools.Out.ar(bus=0, source=sine)
@@ -19,7 +51,8 @@ def test_SynthDefDecompiler_01():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_02():
+def test_SynthDefDecompiler_04():
+    r'''Multiple parameters.'''
     builder = synthdeftools.SynthDefBuilder(
         freq=1200,
         out=23,
@@ -37,7 +70,8 @@ def test_SynthDefDecompiler_02():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_03():
+def test_SynthDefDecompiler_05():
+    '''Multiple parameters.'''
     builder = synthdeftools.SynthDefBuilder(
         damping=0.5,
         delay_time=1.0,
@@ -61,7 +95,8 @@ def test_SynthDefDecompiler_03():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_04():
+def test_SynthDefDecompiler_06():
+    r'''Multiple parameters with different rates.'''
     builder = synthdeftools.SynthDefBuilder(
         a_phase=0.0,
         freq=440,
@@ -94,7 +129,7 @@ def test_SynthDefDecompiler_04():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_05():
+def test_SynthDefDecompiler_07():
     builder = synthdeftools.SynthDefBuilder(
         amp=0.5,
         freqs=[300, 400],
@@ -119,7 +154,8 @@ def test_SynthDefDecompiler_05():
     assert old_synthdef.name == new_synthdef.name
 
 
-def test_SynthDefDecompiler_06():
+def test_SynthDefDecompiler_08():
+    r'''Multiple parameters with different lags.'''
     builder = synthdeftools.SynthDefBuilder(
         amp=0.5,
         freqs=synthdeftools.Parameter(
