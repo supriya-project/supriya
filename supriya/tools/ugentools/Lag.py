@@ -161,7 +161,7 @@ class Lag(Filter):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     channel_count=1
                     ),
                 output_index=0

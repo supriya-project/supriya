@@ -264,11 +264,11 @@ class BufRd(MultiOutUGen):
             >>> buf_rd[0].source.phase
             OutputProxy(
                 source=Phasor(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     rate=OutputProxy(
                         source=BufRateScale(
                             buffer_id=23.0,
-                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            calculation_rate=CalculationRate.CONTROL
                             ),
                         output_index=0
                         ),
@@ -277,7 +277,7 @@ class BufRd(MultiOutUGen):
                     stop=OutputProxy(
                         source=BufFrames(
                             buffer_id=23.0,
-                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            calculation_rate=CalculationRate.CONTROL
                             ),
                         output_index=0
                         ),

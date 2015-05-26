@@ -140,7 +140,7 @@ class CoinGate(UGen):
             >>> coin_gate.trigger
             OutputProxy(
                 source=Impulse(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),

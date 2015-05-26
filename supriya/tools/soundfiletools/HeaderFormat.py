@@ -9,12 +9,12 @@ class HeaderFormat(Enumeration):
 
         >>> from supriya.tools import soundfiletools
         >>> soundfiletools.HeaderFormat.AIFF
-        <HeaderFormat.AIFF: 0>
+        HeaderFormat.AIFF
 
     ::
 
         >>> soundfiletools.HeaderFormat.from_expr('wav')
-        <HeaderFormat.WAV: 4>
+        HeaderFormat.WAV
 
     ::
 

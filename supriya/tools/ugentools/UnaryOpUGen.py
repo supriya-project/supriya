@@ -15,7 +15,7 @@ class UnaryOpUGen(UGen):
     ::
 
         >>> unary_op_ugen.operator
-        <UnaryOperator.ABSOLUTE_VALUE: 5>
+        UnaryOperator.ABSOLUTE_VALUE
 
     '''
 
@@ -55,7 +55,7 @@ class UnaryOpUGen(UGen):
             >>> source = ugentools.SinOsc.ar()
             >>> unary_op_ugen = -source
             >>> unary_op_ugen.operator
-            <UnaryOperator.NEGATIVE: 0>
+            UnaryOperator.NEGATIVE
 
         Returns unary operator.
         '''
@@ -73,7 +73,7 @@ class UnaryOpUGen(UGen):
             >>> unary_op_ugen.source
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),

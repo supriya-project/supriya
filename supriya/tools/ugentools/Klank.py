@@ -228,12 +228,12 @@ class Klank(UGen):
                 source=BinaryOpUGen(
                     left=OutputProxy(
                         source=BrownNoise(
-                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            calculation_rate=CalculationRate.AUDIO
                             ),
                         output_index=0
                         ),
                     right=0.001,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     special_index=2
                     ),
                 output_index=0

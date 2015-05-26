@@ -110,7 +110,7 @@ class ToggleFF(UGen):
             >>> toggle_ff.trigger
             OutputProxy(
                 source=Dust(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     density=1.0
                     ),
                 output_index=0

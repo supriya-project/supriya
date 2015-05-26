@@ -110,7 +110,7 @@ class Rotate2(MultiOutUGen):
             >>> rotate_2[0].source.position
             OutputProxy(
                 source=LFSaw(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     frequency=0.1,
                     initial_phase=0.0
                     ),
@@ -142,12 +142,12 @@ class Rotate2(MultiOutUGen):
                 source=BinaryOpUGen(
                     left=OutputProxy(
                         source=PinkNoise(
-                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            calculation_rate=CalculationRate.AUDIO
                             ),
                         output_index=0
                         ),
                     right=0.4,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     special_index=2
                     ),
                 output_index=0
@@ -178,7 +178,7 @@ class Rotate2(MultiOutUGen):
                 source=BinaryOpUGen(
                     left=OutputProxy(
                         source=LFTri(
-                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            calculation_rate=CalculationRate.AUDIO,
                             frequency=880.0,
                             initial_phase=0.0
                             ),
@@ -186,14 +186,14 @@ class Rotate2(MultiOutUGen):
                         ),
                     right=OutputProxy(
                         source=LFPulse(
-                            calculation_rate=<CalculationRate.CONTROL: 1>,
+                            calculation_rate=CalculationRate.CONTROL,
                             frequency=3.0,
                             initial_phase=0.0,
                             width=0.1
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     special_index=2
                     ),
                 output_index=0

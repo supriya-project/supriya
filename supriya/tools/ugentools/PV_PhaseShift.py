@@ -106,13 +106,13 @@ class PV_PhaseShift(PV_ChainUGen):
                         source=LocalBuf(
                             frame_count=2048.0,
                             channel_count=1.0,
-                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            calculation_rate=CalculationRate.SCALAR
                             ),
                         output_index=0
                         ),
                     source=OutputProxy(
                         source=WhiteNoise(
-                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            calculation_rate=CalculationRate.AUDIO
                             ),
                         output_index=0
                         ),
@@ -172,13 +172,13 @@ class PV_PhaseShift(PV_ChainUGen):
                 source=BinaryOpUGen(
                     left=OutputProxy(
                         source=LFNoise2(
-                            calculation_rate=<CalculationRate.CONTROL: 1>,
+                            calculation_rate=CalculationRate.CONTROL,
                             frequency=1.0
                             ),
                         output_index=0
                         ),
                     right=180.0,
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     special_index=2
                     ),
                 output_index=0

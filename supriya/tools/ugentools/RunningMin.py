@@ -126,7 +126,7 @@ class RunningMin(Peak):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=1
                     ),
                 output_index=0
@@ -152,7 +152,7 @@ class RunningMin(Peak):
             >>> running_min.trigger
             OutputProxy(
                 source=Impulse(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     frequency=1.0,
                     phase=0.0
                     ),

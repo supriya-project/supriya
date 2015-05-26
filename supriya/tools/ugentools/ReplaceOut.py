@@ -171,7 +171,7 @@ class ReplaceOut(UGen):
             >>> out.source
             (OutputProxy(
                 source=WhiteNoise(
-                    calculation_rate=<CalculationRate.AUDIO: 2>
+                    calculation_rate=CalculationRate.AUDIO
                     ),
                 output_index=0
                 ),)

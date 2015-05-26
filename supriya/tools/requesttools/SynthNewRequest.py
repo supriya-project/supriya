@@ -11,7 +11,7 @@ class SynthNewRequest(Request):
         >>> from supriya.tools import requesttools
         >>> from supriya.tools import servertools
         >>> request = requesttools.SynthNewRequest(
-        ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
+        ...     add_action=servertools.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
         ...     synthdef='test',
         ...     target_node_id=1000,
@@ -20,7 +20,7 @@ class SynthNewRequest(Request):
         ...     )
         >>> request
         SynthNewRequest(
-            add_action=<AddAction.ADD_TO_TAIL: 1>,
+            add_action=AddAction.ADD_TO_TAIL,
             node_id=1001,
             synthdef='test',
             target_node_id=1000,

@@ -242,7 +242,7 @@ class Phasor(UGen):
             >>> phasor.trigger
             OutputProxy(
                 source=Impulse(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     frequency=0.5,
                     phase=0.0
                     ),

@@ -233,11 +233,11 @@ class BufWr(UGen):
             >>> buf_wr.phase
             OutputProxy(
                 source=Phasor(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     rate=OutputProxy(
                         source=BufRateScale(
                             buffer_id=23.0,
-                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            calculation_rate=CalculationRate.CONTROL
                             ),
                         output_index=0
                         ),
@@ -246,7 +246,7 @@ class BufWr(UGen):
                     stop=OutputProxy(
                         source=BufFrames(
                             buffer_id=23.0,
-                            calculation_rate=<CalculationRate.CONTROL: 1>
+                            calculation_rate=CalculationRate.CONTROL
                             ),
                         output_index=0
                         ),
@@ -284,11 +284,11 @@ class BufWr(UGen):
                 source=In(
                     bus=OutputProxy(
                         source=NumOutputBuses(
-                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            calculation_rate=CalculationRate.SCALAR
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=2
                     ),
                 output_index=0

@@ -9,12 +9,12 @@ class SignalRange(Enumeration):
 
         >>> from supriya.tools import synthdeftools
         >>> synthdeftools.SignalRange.UNIPOLAR
-        <SignalRange.UNIPOLAR: 0>
+        SignalRange.UNIPOLAR
 
     ::
 
         >>> synthdeftools.SignalRange.from_expr('bipolar')
-        <SignalRange.BIPOLAR: 1>
+        SignalRange.BIPOLAR
 
     '''
 

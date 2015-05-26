@@ -17,7 +17,7 @@ class BinaryOpUGen(UGen):
     ::
 
         >>> binary_op_ugen.operator
-        <BinaryOperator.MULTIPLICATION: 2>
+        BinaryOperator.MULTIPLICATION
 
     '''
 
@@ -111,7 +111,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.left
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -133,7 +133,7 @@ class BinaryOpUGen(UGen):
             >>> right = ugentools.WhiteNoise.kr()
             >>> binary_op_ugen = left / right
             >>> binary_op_ugen.operator
-            <BinaryOperator.FLOAT_DIVISION: 4>
+            BinaryOperator.FLOAT_DIVISION
 
         Returns binary operator.
         '''
@@ -152,7 +152,7 @@ class BinaryOpUGen(UGen):
             >>> binary_op_ugen.right
             OutputProxy(
                 source=WhiteNoise(
-                    calculation_rate=<CalculationRate.CONTROL: 1>
+                    calculation_rate=CalculationRate.CONTROL
                     ),
                 output_index=0
                 )

@@ -87,7 +87,7 @@ class UGen(UGenMethodMixin):
             >>> ugen[0]
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -425,7 +425,7 @@ class UGen(UGenMethodMixin):
             ...     phase=0.5,
             ...     )
             >>> ugen.calculation_rate
-            <CalculationRate.AUDIO: 2>
+            CalculationRate.AUDIO
 
         Returns calculation-rate.
         '''
@@ -450,7 +450,7 @@ class UGen(UGenMethodMixin):
             ...
             OutputProxy(
                 source=WhiteNoise(
-                    calculation_rate=<CalculationRate.CONTROL: 1>
+                    calculation_rate=CalculationRate.CONTROL
                     ),
                 output_index=0
                 )
@@ -479,7 +479,7 @@ class UGen(UGenMethodMixin):
             ...     phase=0.5,
             ...     )
             >>> ugen.outputs
-            (<CalculationRate.AUDIO: 2>,)
+            (CalculationRate.AUDIO,)
 
         Returns tuple.
         '''
@@ -493,7 +493,7 @@ class UGen(UGenMethodMixin):
 
             >>> ugen = ugentools.SinOsc.ar()
             >>> ugen.signal_range
-            <SignalRange.BIPOLAR: 1>
+            SignalRange.BIPOLAR
 
         A bipolar signal range indicates that the ugen generates signals above
         and below zero.

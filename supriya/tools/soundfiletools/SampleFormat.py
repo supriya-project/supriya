@@ -9,12 +9,12 @@ class SampleFormat(Enumeration):
 
         >>> from supriya.tools import soundfiletools
         >>> soundfiletools.SampleFormat.INT24
-        <SampleFormat.INT24: 0>
+        SampleFormat.INT24
 
     ::
 
         >>> soundfiletools.SampleFormat.from_expr('float')
-        <SampleFormat.FLOAT: 3>
+        SampleFormat.FLOAT
 
     ::
 

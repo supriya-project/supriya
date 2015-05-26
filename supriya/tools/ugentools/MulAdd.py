@@ -207,7 +207,7 @@ class MulAdd(UGen):
             >>> mul_add.source
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),

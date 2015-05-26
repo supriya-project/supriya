@@ -140,7 +140,7 @@ class TDelay(UGen):
             >>> tdelay.source
             OutputProxy(
                 source=Dust(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     density=0.0
                     ),
                 output_index=0

@@ -122,14 +122,14 @@ class DiskOut(UGen):
             >>> disk_out.source
             (OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),
                 output_index=0
                 ), OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=442.0,
                     phase=0.0
                     ),

@@ -171,13 +171,13 @@ class DetectSilence(Filter):
                 source=BinaryOpUGen(
                     left=OutputProxy(
                         source=WhiteNoise(
-                            calculation_rate=<CalculationRate.AUDIO: 2>
+                            calculation_rate=CalculationRate.AUDIO
                             ),
                         output_index=0
                         ),
                     right=OutputProxy(
                         source=Line(
-                            calculation_rate=<CalculationRate.CONTROL: 1>,
+                            calculation_rate=CalculationRate.CONTROL,
                             done_action=0.0,
                             duration=1.0,
                             start=1.0,
@@ -185,7 +185,7 @@ class DetectSilence(Filter):
                             ),
                         output_index=0
                         ),
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     special_index=2
                     ),
                 output_index=0

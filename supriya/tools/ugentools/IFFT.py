@@ -134,7 +134,7 @@ class IFFT(WidthFirstUGen):
                 source=LocalBuf(
                     frame_count=2048.0,
                     channel_count=1.0,
-                    calculation_rate=<CalculationRate.SCALAR: 0>
+                    calculation_rate=CalculationRate.SCALAR
                     ),
                 output_index=0
                 )

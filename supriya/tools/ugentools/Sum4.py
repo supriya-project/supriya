@@ -166,7 +166,7 @@ class Sum4(UGen):
             >>> sum_4.input_four
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.3
                     ),
@@ -197,7 +197,7 @@ class Sum4(UGen):
             >>> sum_4.input_one
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.0
                     ),
@@ -228,7 +228,7 @@ class Sum4(UGen):
             >>> sum_4.input_three
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.2
                     ),
@@ -259,7 +259,7 @@ class Sum4(UGen):
             >>> sum_4.input_two
             OutputProxy(
                 source=SinOsc(
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     frequency=440.0,
                     phase=0.1
                     ),

@@ -10,12 +10,12 @@ class CalculationRate(Enumeration):
 
         >>> from supriya.tools import synthdeftools
         >>> synthdeftools.CalculationRate.AUDIO
-        <CalculationRate.AUDIO: 2>
+        CalculationRate.AUDIO
 
     ::
 
         >>> synthdeftools.CalculationRate.from_expr('demand')
-        <CalculationRate.DEMAND: 3>
+        CalculationRate.DEMAND
 
     '''
 
@@ -44,14 +44,14 @@ class CalculationRate(Enumeration):
             >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.CalculationRate.from_collection(collection)
-            <CalculationRate.AUDIO: 2>
+            CalculationRate.AUDIO
 
         ::
             >>> collection = []
             >>> collection.append(ugentools.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.CalculationRate.from_collection(collection)
-            <CalculationRate.CONTROL: 1>
+            CalculationRate.CONTROL
 
         Return calculation-rate.
         '''

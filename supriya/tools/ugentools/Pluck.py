@@ -223,7 +223,7 @@ class Pluck(UGen):
             >>> pluck.source
             OutputProxy(
                 source=WhiteNoise(
-                    calculation_rate=<CalculationRate.AUDIO: 2>
+                    calculation_rate=CalculationRate.AUDIO
                     ),
                 output_index=0
                 )
@@ -252,7 +252,7 @@ class Pluck(UGen):
             >>> pluck.trigger
             OutputProxy(
                 source=Dust(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     density=2.0
                     ),
                 output_index=0

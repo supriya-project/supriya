@@ -199,7 +199,7 @@ class BufCombL(BufCombN):
             OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=1
                     ),
                 output_index=0

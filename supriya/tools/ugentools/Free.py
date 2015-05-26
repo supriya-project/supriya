@@ -111,7 +111,7 @@ class Free(UGen):
             >>> free.trigger
             OutputProxy(
                 source=Impulse(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     frequency=1.0,
                     phase=0.0
                     ),

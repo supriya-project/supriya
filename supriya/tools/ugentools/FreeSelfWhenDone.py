@@ -84,7 +84,7 @@ class FreeSelfWhenDone(UGen):
             >>> free_self_when_done.source
             OutputProxy(
                 source=Line(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     done_action=0.0,
                     duration=1.0,
                     start=0.0,

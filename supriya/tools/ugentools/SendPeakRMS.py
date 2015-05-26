@@ -265,28 +265,28 @@ class SendPeakRMS(UGen):
             (OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=4
                     ),
                 output_index=0
                 ), OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=4
                     ),
                 output_index=1
                 ), OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=4
                     ),
                 output_index=2
                 ), OutputProxy(
                 source=In(
                     bus=0.0,
-                    calculation_rate=<CalculationRate.AUDIO: 2>,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=4
                     ),
                 output_index=3

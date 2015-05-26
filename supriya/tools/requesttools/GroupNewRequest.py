@@ -11,13 +11,13 @@ class GroupNewRequest(Request):
         >>> from supriya.tools import requesttools
         >>> from supriya.tools import servertools
         >>> request = requesttools.GroupNewRequest(
-        ...     add_action=servertools.AddAction['ADD_TO_TAIL'],
+        ...     add_action=servertools.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
         ...     target_node_id=1000,
         ...     )
         >>> request
         GroupNewRequest(
-            add_action=<AddAction.ADD_TO_TAIL: 1>,
+            add_action=AddAction.ADD_TO_TAIL,
             node_id=1001,
             target_node_id=1000
             )

@@ -90,7 +90,7 @@ class SpecCentroid(UGen):
                         source=LocalBuf(
                             frame_count=2048.0,
                             channel_count=1.0,
-                            calculation_rate=<CalculationRate.SCALAR: 0>
+                            calculation_rate=CalculationRate.SCALAR
                             ),
                         output_index=0
                         ),
@@ -98,11 +98,11 @@ class SpecCentroid(UGen):
                         source=In(
                             bus=OutputProxy(
                                 source=NumOutputBuses(
-                                    calculation_rate=<CalculationRate.SCALAR: 0>
+                                    calculation_rate=CalculationRate.SCALAR
                                     ),
                                 output_index=0
                                 ),
-                            calculation_rate=<CalculationRate.AUDIO: 2>,
+                            calculation_rate=CalculationRate.AUDIO,
                             channel_count=1
                             ),
                         output_index=0

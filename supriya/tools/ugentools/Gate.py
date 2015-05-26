@@ -125,7 +125,7 @@ class Gate(UGen):
             >>> gate.source
             OutputProxy(
                 source=WhiteNoise(
-                    calculation_rate=<CalculationRate.AUDIO: 2>
+                    calculation_rate=CalculationRate.AUDIO
                     ),
                 output_index=0
                 )
@@ -150,7 +150,7 @@ class Gate(UGen):
             >>> gate.trigger
             OutputProxy(
                 source=Dust(
-                    calculation_rate=<CalculationRate.CONTROL: 1>,
+                    calculation_rate=CalculationRate.CONTROL,
                     density=1.0
                     ),
                 output_index=0
