@@ -17,8 +17,19 @@ def test_SynthDef_parameters_01():
     with synthdeftools.SynthDefBuilder(freq=440) as builder:
         sine = ugentools.SinOsc.ar(frequency=builder['freq'])
         ugentools.Out.ar(bus=0, source=sine)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef.compile()
+
+    assert py_synthdef.indexed_parameters == (
+        (
+            0,
+            synthdeftools.Parameter(
+                name='freq',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=440.0,
+                ),
+            ),
+        )
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -83,8 +94,27 @@ def test_SynthDef_parameters_02():
     sine = ugentools.SinOsc.ar(frequency=builder['freq'])
     out = ugentools.Out.ar(bus=builder['out'], source=sine)
     builder.add_ugens(out)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef.compile()
+
+    assert py_synthdef.indexed_parameters == (
+        (
+            0,
+            synthdeftools.Parameter(
+                name='freq',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=1200.0,
+                ),
+            ),
+        (
+            1,
+            synthdeftools.Parameter(
+                name='out',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=23.0,
+                ),
+            ),
+        )
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -98,9 +128,9 @@ def test_SynthDef_parameters_02():
                     b'A\xb8\x00\x00'
                 b'\x00\x00\x00\x02'
                     b'\x04freq'
-                    b'\x00\x00\x00\x00'
+                        b'\x00\x00\x00\x00'
                     b'\x03out'
-                    b'\x00\x00\x00\x01'
+                        b'\x00\x00\x00\x01'
                 b'\x00\x00\x00\x03'
                     b'\x07Control'
                         b'\x01'
@@ -161,8 +191,35 @@ def test_SynthDef_parameters_03():
             delay_time=builder['delay_time'],
             )
         ugentools.Out.ar(bus=0, source=delay)
-    py_synthdef_new = builder.build('test')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('test')
+    py_compiled_synthdef_new = py_synthdef.compile()
+
+    assert py_synthdef.indexed_parameters == (
+        (
+            0,
+            synthdeftools.Parameter(
+                name='damping',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=0.1,
+                ),
+            ),
+        (
+            1,
+            synthdeftools.Parameter(
+                name='delay_time',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=1.0,
+                ),
+            ),
+        (
+            2,
+            synthdeftools.Parameter(
+                name='room_size',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=0.9,
+                ),
+            ),
+        )
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -178,11 +235,11 @@ def test_SynthDef_parameters_03():
                     b'?fff'
                 b'\x00\x00\x00\x03'
                     b'\x07damping'
-                    b'\x00\x00\x00\x00'
+                        b'\x00\x00\x00\x00'
                     b'\ndelay_time'
-                    b'\x00\x00\x00\x01'
+                        b'\x00\x00\x00\x01'
                     b'\x09room_size'
-                    b'\x00\x00\x00\x02'
+                        b'\x00\x00\x00\x02'
                 b'\x00\x00\x00\x04'
                     b'\x07Control'
                         b'\x01'
@@ -269,8 +326,51 @@ def test_SynthDef_parameters_04():
             bus=0,
             source=enveloped_sin_osc,
             )
-    py_synthdef_new = builder.build('trigTest')
-    py_compiled_synthdef_new = py_synthdef_new.compile()
+    py_synthdef = builder.build('trigTest')
+    py_compiled_synthdef_new = py_synthdef.compile()
+
+    assert py_synthdef.indexed_parameters == (
+        (
+            3,
+            synthdeftools.Parameter(
+                name='a_phase',
+                parameter_rate=synthdeftools.ParameterRate.AUDIO,
+                value=0.0,
+                ),
+            ),
+        (
+            4,
+            synthdeftools.Parameter(
+                name='freq',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=440.0,
+                ),
+            ),
+        (
+            0,
+            synthdeftools.Parameter(
+                name='i_decay_time',
+                parameter_rate=synthdeftools.ParameterRate.SCALAR,
+                value=1.0,
+                ),
+            ),
+        (
+            1,
+            synthdeftools.Parameter(
+                name='t_trig_a',
+                parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+                value=0.0,
+                ),
+            ),
+        (
+            2,
+            synthdeftools.Parameter(
+                name='t_trig_b',
+                parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+                value=0.0,
+                ),
+            ),
+        )
 
     test_compiled_synthdef = bytes(
         b'SCgf'
@@ -419,6 +519,25 @@ def test_SynthDef_parameters_05():
     py_synthdef = builder.build('arrayarg')
     py_compiled_synthdef = py_synthdef.compile()
 
+    assert py_synthdef.indexed_parameters == (
+        (
+            0,
+            synthdeftools.Parameter(
+                name='amp',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=0.1,
+                ),
+            ),
+        (
+            1,
+            synthdeftools.Parameter(
+                name='freqs',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=(300.0, 400.0)
+                ),
+            ),
+        )
+
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
         r'''
@@ -536,6 +655,26 @@ def test_SynthDef_parameters_06():
             )
     py_synthdef = builder.build('arrayarg')
     py_compiled_synthdef = py_synthdef.compile()
+
+    assert py_synthdef.indexed_parameters == (
+        (
+            0,
+            synthdeftools.Parameter(
+                name='amp',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=0.1,
+                ),
+            ),
+        (
+            1,
+            synthdeftools.Parameter(
+                lag=0.5,
+                name='freqs',
+                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                value=(300.0, 400.0)
+                ),
+            ),
+        )
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
