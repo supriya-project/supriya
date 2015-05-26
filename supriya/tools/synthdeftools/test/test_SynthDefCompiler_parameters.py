@@ -3,7 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-def test_SynthDef_parameters_01():
+def test_SynthDefCompiler_parameters_01():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -76,7 +76,7 @@ def test_SynthDef_parameters_01():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_parameters_02():
+def test_SynthDefCompiler_parameters_02():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -165,7 +165,7 @@ def test_SynthDef_parameters_02():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_parameters_03():
+def test_SynthDefCompiler_parameters_03():
     r'''Multiple parameters, including unused parameters.
     '''
 
@@ -285,7 +285,7 @@ def test_SynthDef_parameters_03():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_parameters_04():
+def test_SynthDefCompiler_parameters_04():
     r'''Different calculation rates.'''
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
@@ -499,7 +499,7 @@ def test_SynthDef_parameters_04():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_parameters_05():
+def test_SynthDefCompiler_parameters_05():
     r'''Literal array arguments.'''
 
     builder = synthdeftools.SynthDefBuilder(
@@ -633,7 +633,7 @@ def test_SynthDef_parameters_05():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDef_parameters_06():
+def test_SynthDefCompiler_parameters_06():
     r'''Literal array arguments.'''
 
     builder = synthdeftools.SynthDefBuilder(

@@ -3,7 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-def test_SynthDef_width_first_01():
+def test_SynthDefCompiler_width_first_01():
 
     with synthdeftools.SynthDefBuilder() as builder:
         local_buf = ugentools.LocalBuf(2048)
@@ -102,7 +102,7 @@ def test_SynthDef_width_first_01():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
-def test_SynthDef_width_first_02():
+def test_SynthDefCompiler_width_first_02():
 
     with synthdeftools.SynthDefBuilder() as builder:
         source = ugentools.PinkNoise.ar()

@@ -3,7 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-def test_SynthDef_basic_01():
+def test_SynthDefCompiler_basic_01():
 
     with synthdeftools.SynthDefBuilder() as builder:
         sine_one = ugentools.SinOsc.ar(frequency=420)
@@ -77,7 +77,7 @@ def test_SynthDef_basic_01():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_basic_02():
+def test_SynthDefCompiler_basic_02():
 
     with synthdeftools.SynthDefBuilder() as builder:
         sine = ugentools.SinOsc.ar()
@@ -138,7 +138,7 @@ def test_SynthDef_basic_02():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_basic_03():
+def test_SynthDefCompiler_basic_03():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
@@ -192,7 +192,7 @@ def test_SynthDef_basic_03():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_basic_04():
+def test_SynthDefCompiler_basic_04():
     r'''FreeSelf.
     '''
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
@@ -255,7 +255,7 @@ def test_SynthDef_basic_04():
     assert py_compiled_synthdef_new == test_compiled_synthdef
 
 
-def test_SynthDef_basic_05():
+def test_SynthDefCompiler_basic_05():
 
     with synthdeftools.SynthDefBuilder() as builder:
         source = ugentools.In.ar(bus=8, channel_count=2)
