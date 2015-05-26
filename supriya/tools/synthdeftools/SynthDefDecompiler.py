@@ -3,7 +3,6 @@ from __future__ import print_function
 import collections
 import struct
 import sys
-from abjad import new
 from abjad.tools import sequencetools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -93,14 +92,17 @@ class SynthDefDecompiler(SupriyaObject):
             parameter_values.append(parameter_value)
         parameter_count, index = sdd._decode_int_32bit(value, index)
         parameter_names = []
+        parameter_indices = []
         for _ in range(parameter_count):
             parameter_name, index = sdd._decode_string(value, index)
             parameter_index, index = sdd._decode_int_32bit(value, index)
-            parameter_names.append((parameter_index, parameter_name))
-        parameter_names.sort(key=lambda x: x[0])
-        indexed_parameters = collections.OrderedDict()
+            parameter_names.append(parameter_name)
+            parameter_indices.append(parameter_index)
+        indexed_parameters = []
         if parameter_count:
-            iterator = sequencetools.iterate_sequence_nwise(parameter_names)
+            pairs = tuple(zip(parameter_indices, parameter_names))
+            pairs = sorted(pairs, key=lambda x: x[0])
+            iterator = sequencetools.iterate_sequence_nwise(pairs)
             for (index_one, name_one), (index_two, name_two) in iterator:
                 value = parameter_values[index_one:index_two]
                 if len(value) == 1:
@@ -109,8 +111,8 @@ class SynthDefDecompiler(SupriyaObject):
                     name=name_one,
                     value=value,
                     )
-                indexed_parameters[index_one] = parameter
-            index_one, name_one = parameter_names[-1]
+                indexed_parameters.append((index_one, parameter))
+            index_one, name_one = pairs[-1]
             value = parameter_values[index_one:]
             if len(value) == 1:
                 value = value[0]
@@ -118,7 +120,11 @@ class SynthDefDecompiler(SupriyaObject):
                 name=name_one,
                 value=value,
                 )
-            indexed_parameters[index_one] = parameter
+            indexed_parameters.append((index_one, parameter))
+            indexed_parameters.sort(
+                key=lambda x: parameter_names.index(x[1].name),
+                )
+            indexed_parameters = collections.OrderedDict(indexed_parameters)
         return indexed_parameters, index
 
     @staticmethod

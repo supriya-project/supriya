@@ -30,9 +30,6 @@ class SynthDefCompiler(SupriyaObject):
                     value = (value,)
                 for x in value:
                     result.append(SynthDefCompiler.encode_float(x))
-#        for index, parameter in synthdef.indexed_parameters:
-#            value = parameter.value
-#            result.append(SynthDefCompiler.encode_float(value))
         result.append(SynthDefCompiler.encode_unsigned_int_32bit(
             len(synthdef.indexed_parameters)))
         for index, parameter in synthdef.indexed_parameters:
