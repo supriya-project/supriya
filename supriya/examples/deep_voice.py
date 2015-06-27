@@ -16,41 +16,39 @@ def run_demo():
     synthdef_builder = synthdeftools.SynthDefBuilder(
         pitch_ratio=5. / 7.,
         )
-    microphone_input = stereo_input_buses.ar()
-    compressor = ugentools.Compander.ar(
-        source=microphone_input,
-        control=ugentools.Mix.new(microphone_input),
-        clamp_time=0.01,
-        relax_time=0.01,
-        slope_above=0.5,
-        slope_below=1,
-        thresh=0.25,
-        )
-    pitch_shift = ugentools.PitchShift.ar(
-        pitch_dispersion=0.05,
-        pitch_ratio=synthdef_builder['pitch_ratio'].lag(2.0),
-        source=compressor,
-        time_dispersion=0.05,
-        window_size=0.2,
-        )
-    reverb = ugentools.FreeVerb.ar(
-        damping=0.8,
-        mix=0.33,
-        room_size=0.5,
-        source=pitch_shift,
-        )
-    speaker_output = ugentools.Out.ar(
-        bus=stereo_output_buses,
-        source=reverb,
-        )
-    synthdef_builder.add_ugen(speaker_output)
+    with synthdef_builder:
+        microphone_input = stereo_input_buses.ar()
+        compressor = ugentools.Compander.ar(
+            source=microphone_input,
+            control=ugentools.Mix.new(microphone_input),
+            clamp_time=0.01,
+            relax_time=0.01,
+            slope_above=0.5,
+            slope_below=1,
+            threshold=0.25,
+            )
+        pitch_shift = ugentools.PitchShift.ar(
+            pitch_dispersion=0.05,
+            pitch_ratio=ugentools.Lag.kr(
+                source=synthdef_builder['pitch_ratio'],
+                lag_time=2.0,
+                ),
+            source=compressor,
+            time_dispersion=0.05,
+            window_size=0.2,
+            )
+        reverb = ugentools.FreeVerb.ar(
+            damping=0.8,
+            mix=0.33,
+            room_size=0.5,
+            source=pitch_shift,
+            )
+        speaker_output = ugentools.Out.ar(
+            bus=stereo_output_buses,
+            source=reverb,
+            )
 
     synthdef = synthdef_builder.build()
-    synthdef.allocate(
-        server=server,
-        sync=True,
-        )
-
     synth = servertools.Synth(synthdef)
     synth.allocate(
         sync=True,
