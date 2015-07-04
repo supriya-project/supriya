@@ -5,3 +5,4 @@ funcsigs
 pexpect
 six
 tornado
+python-rtmidi

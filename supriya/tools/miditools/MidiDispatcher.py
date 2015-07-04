@@ -18,17 +18,17 @@ class MidiDispatcher(SupriyaObject):
     ### CLASS VARIABLES ###
 
     def __init__(self, debug=False):
-        import rtmidi_python
+        import rtmidi
         self._callback_map = {}
         self._debug = bool(debug)
         self._lock = threading.RLock()
-        self._midi_in = rtmidi_python.MidiIn()
+        self._midi_in = rtmidi.MidiIn()
         self._midi_in.ignore_types(
-            midi_sense=True,
-            midi_sysex=True,
-            midi_time=True,
+            active_sense=True,
+            sysex=True,
+            timing=True,
             )
-        self._midi_in.callback = self.__call__
+        self._midi_in.set_callback(self.__call__)
 
     ### SPECIAL METHODS ###
 

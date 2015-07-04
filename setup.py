@@ -10,6 +10,7 @@ install_requires = [
     'pexpect',
     'pytest',
     #'rtmidi-python',
+    'python-rtmidi',
     'six',
     'sphinx',
     'sphinx_rtd_theme',
