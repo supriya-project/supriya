@@ -1446,6 +1446,8 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.BinaryOperator.SUBTRACTION,
             )
 
+    __truediv__ = __div__
+
     ### PRIVATE METHODS ###
 
     @staticmethod
