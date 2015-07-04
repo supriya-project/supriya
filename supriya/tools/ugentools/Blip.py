@@ -3,13 +3,13 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Blip(UGen):
-    r'''
+    r'''A band limited impulse generator.
 
     ::
 
         >>> blip = ugentools.Blip.ar(
         ...     frequency=440,
-        ...     numharm=200,
+        ...     harmonic_count=200,
         ...     )
         >>> blip
         Blip.ar()
@@ -18,13 +18,13 @@ class Blip(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Oscillator UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'frequency',
-        'numharm',
+        'harmonic_count',
         )
 
     _valid_calculation_rates = None
@@ -35,13 +35,13 @@ class Blip(UGen):
         self,
         calculation_rate=None,
         frequency=440,
-        numharm=200,
+        harmonic_count=200,
         ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             frequency=frequency,
-            numharm=numharm,
+            harmonic_count=harmonic_count,
             )
 
     ### PUBLIC METHODS ###
@@ -50,7 +50,7 @@ class Blip(UGen):
     def ar(
         cls,
         frequency=440,
-        numharm=200,
+        harmonic_count=200,
         ):
         r'''Constructs an audio-rate Blip.
 
@@ -58,7 +58,7 @@ class Blip(UGen):
 
             >>> blip = ugentools.Blip.ar(
             ...     frequency=440,
-            ...     numharm=200,
+            ...     harmonic_count=200,
             ...     )
             >>> blip
             Blip.ar()
@@ -70,7 +70,7 @@ class Blip(UGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
-            numharm=numharm,
+            harmonic_count=harmonic_count,
             )
         return ugen
 
@@ -78,7 +78,7 @@ class Blip(UGen):
     def kr(
         cls,
         frequency=440,
-        numharm=200,
+        harmonic_count=200,
         ):
         r'''Constructs a control-rate Blip.
 
@@ -86,7 +86,7 @@ class Blip(UGen):
 
             >>> blip = ugentools.Blip.kr(
             ...     frequency=440,
-            ...     numharm=200,
+            ...     harmonic_count=200,
             ...     )
             >>> blip
             Blip.kr()
@@ -98,7 +98,7 @@ class Blip(UGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
-            numharm=numharm,
+            harmonic_count=harmonic_count,
             )
         return ugen
 
@@ -112,7 +112,7 @@ class Blip(UGen):
 
             >>> blip = ugentools.Blip.ar(
             ...     frequency=440,
-            ...     numharm=200,
+            ...     harmonic_count=200,
             ...     )
             >>> blip.frequency
             440.0
@@ -123,19 +123,19 @@ class Blip(UGen):
         return self._inputs[index]
 
     @property
-    def numharm(self):
-        r'''Gets `numharm` input of Blip.
+    def harmonic_count(self):
+        r'''Gets `harmonic_count` input of Blip.
 
         ::
 
             >>> blip = ugentools.Blip.ar(
             ...     frequency=440,
-            ...     numharm=200,
+            ...     harmonic_count=200,
             ...     )
-            >>> blip.numharm
+            >>> blip.harmonic_count
             200.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('numharm')
+        index = self._ordered_input_names.index('harmonic_count')
         return self._inputs[index]
