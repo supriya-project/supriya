@@ -16,7 +16,7 @@ class Balance2(MultiOutUGen):
         ...     right=right,
         ...     )
         >>> balance_2
-        Balance2.ar()
+        UGenArray({2})
 
     '''
 
@@ -78,7 +78,7 @@ class Balance2(MultiOutUGen):
             ...     right=right,
             ...     )
             >>> balance_2
-            Balance2.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -114,7 +114,7 @@ class Balance2(MultiOutUGen):
             ...     right=right,
             ...     )
             >>> balance_2
-            Balance2.kr()
+            UGenArray({2})
 
         Returns ugen graph.
         '''
@@ -145,8 +145,13 @@ class Balance2(MultiOutUGen):
             ...     position=0,
             ...     right=right,
             ...     )
-            >>> balance_2.left
-            WhiteNoise.ar()
+            >>> balance_2[0].source.left
+            OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=CalculationRate.AUDIO
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -167,7 +172,7 @@ class Balance2(MultiOutUGen):
             ...     position=0,
             ...     right=right,
             ...     )
-            >>> balance_2.level
+            >>> balance_2[0].source.level
             1.0
 
         Returns ugen input.
@@ -189,7 +194,7 @@ class Balance2(MultiOutUGen):
             ...     position=0.5,
             ...     right=right,
             ...     )
-            >>> balance_2.position
+            >>> balance_2[0].source.position
             0.5
 
         Returns ugen input.
@@ -211,8 +216,15 @@ class Balance2(MultiOutUGen):
             ...     position=0,
             ...     right=right,
             ...     )
-            >>> balance_2.right
-            SinOsc.ar()
+            >>> balance_2[0].source.right
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=CalculationRate.AUDIO,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
