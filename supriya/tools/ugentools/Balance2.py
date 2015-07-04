@@ -3,14 +3,16 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Balance2(MultiOutUGen):
-    r'''
+    r'''A stereo signal balancer.
 
     ::
 
+        >>> left = ugentools.WhiteNoise.ar()
+        >>> right = ugentools.SinOsc.ar()
         >>> balance_2 = ugentools.Balance2.ar(
         ...     left=left,
         ...     level=1,
-        ...     pos=0,
+        ...     position=0,
         ...     right=right,
         ...     )
         >>> balance_2
@@ -27,7 +29,7 @@ class Balance2(MultiOutUGen):
     _ordered_input_names = (
         'left',
         'right',
-        'pos',
+        'position',
         'level',
         )
 
@@ -40,15 +42,16 @@ class Balance2(MultiOutUGen):
         calculation_rate=None,
         left=None,
         level=1,
-        pos=0,
+        position=0,
         right=None,
         ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            channel_count=2,
             left=left,
             level=level,
-            pos=pos,
+            position=position,
             right=right,
             )
 
@@ -59,17 +62,19 @@ class Balance2(MultiOutUGen):
         cls,
         left=None,
         level=1,
-        pos=0,
+        position=0,
         right=None,
         ):
         r'''Constructs an audio-rate Balance2.
 
         ::
 
+            >>> left = ugentools.WhiteNoise.ar()
+            >>> right = ugentools.SinOsc.ar()
             >>> balance_2 = ugentools.Balance2.ar(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0,
             ...     right=right,
             ...     )
             >>> balance_2
@@ -83,7 +88,7 @@ class Balance2(MultiOutUGen):
             calculation_rate=calculation_rate,
             left=left,
             level=level,
-            pos=pos,
+            position=position,
             right=right,
             )
         return ugen
@@ -93,17 +98,19 @@ class Balance2(MultiOutUGen):
         cls,
         left=None,
         level=1,
-        pos=0,
+        position=0,
         right=None,
         ):
         r'''Constructs a control-rate Balance2.
 
         ::
 
+            >>> left = ugentools.WhiteNoise.kr()
+            >>> right = ugentools.SinOsc.kr()
             >>> balance_2 = ugentools.Balance2.kr(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0,
             ...     right=right,
             ...     )
             >>> balance_2
@@ -117,12 +124,10 @@ class Balance2(MultiOutUGen):
             calculation_rate=calculation_rate,
             left=left,
             level=level,
-            pos=pos,
+            position=position,
             right=right,
             )
         return ugen
-
-    # def newFromDesc(): ...
 
     ### PUBLIC PROPERTIES ###
 
@@ -132,13 +137,16 @@ class Balance2(MultiOutUGen):
 
         ::
 
+            >>> left = ugentools.WhiteNoise.ar()
+            >>> right = ugentools.SinOsc.ar()
             >>> balance_2 = ugentools.Balance2.ar(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0,
             ...     right=right,
             ...     )
             >>> balance_2.left
+            WhiteNoise.ar()
 
         Returns ugen input.
         '''
@@ -151,10 +159,12 @@ class Balance2(MultiOutUGen):
 
         ::
 
+            >>> left = ugentools.WhiteNoise.ar()
+            >>> right = ugentools.SinOsc.ar()
             >>> balance_2 = ugentools.Balance2.ar(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0,
             ...     right=right,
             ...     )
             >>> balance_2.level
@@ -166,23 +176,25 @@ class Balance2(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def pos(self):
-        r'''Gets `pos` input of Balance2.
+    def position(self):
+        r'''Gets `position` input of Balance2.
 
         ::
 
+            >>> left = ugentools.WhiteNoise.ar()
+            >>> right = ugentools.SinOsc.ar()
             >>> balance_2 = ugentools.Balance2.ar(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0.5,
             ...     right=right,
             ...     )
-            >>> balance_2.pos
-            0.0
+            >>> balance_2.position
+            0.5
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('pos')
+        index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
@@ -191,13 +203,16 @@ class Balance2(MultiOutUGen):
 
         ::
 
+            >>> left = ugentools.WhiteNoise.ar()
+            >>> right = ugentools.SinOsc.ar()
             >>> balance_2 = ugentools.Balance2.ar(
             ...     left=left,
             ...     level=1,
-            ...     pos=0,
+            ...     position=0,
             ...     right=right,
             ...     )
             >>> balance_2.right
+            SinOsc.ar()
 
         Returns ugen input.
         '''
