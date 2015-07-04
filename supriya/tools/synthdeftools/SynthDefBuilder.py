@@ -125,23 +125,23 @@ class SynthDefBuilder(SupriyaObject):
             if ugen not in self._ugens:
                 self._ugens.append(ugen)
 
-    def build(self, name=None):
+    def build(self, name=None, optimize=True):
         from supriya.tools import synthdeftools
-        SynthDef = synthdeftools.SynthDef
         ugens = list(self._parameters.values()) + list(self._ugens)
         ugens = copy.deepcopy(ugens)
-        ugens = SynthDef._flatten_ugens(ugens)
-        ugens, parameters = SynthDef._extract_parameters(ugens)
+        ugens = synthdeftools.SynthDef._flatten_ugens(ugens)
+        ugens, parameters = synthdeftools.SynthDef._extract_parameters(ugens)
         (
             control_ugens,
             control_mapping,
             indexed_parameters,
-            ) = SynthDef._build_control_mapping(parameters)
-        SynthDef._remap_controls(ugens, control_mapping)
+            ) = synthdeftools.SynthDef._build_control_mapping(parameters)
+        synthdeftools.SynthDef._remap_controls(ugens, control_mapping)
         ugens = control_ugens + ugens
         synthdef = synthdeftools.SynthDef(
             ugens,
             name=name,
+            optimize=optimize,
             )
         return synthdef
 

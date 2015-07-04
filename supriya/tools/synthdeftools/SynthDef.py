@@ -72,6 +72,7 @@ class SynthDef(ServerObjectProxy):
         self,
         ugens,
         name=None,
+        optimize=True,
         parameter_names=None
         ):
         from supriya.tools import synthdeftools
@@ -84,7 +85,8 @@ class SynthDef(ServerObjectProxy):
         assert all(isinstance(_, ugentools.UGen) for _ in ugens)
         ugens = self._cleanup_pv_chains(ugens)
         ugens = self._cleanup_local_bufs(ugens)
-        ugens = self._optimize_ugen_graph(ugens)
+        if optimize:
+            ugens = self._optimize_ugen_graph(ugens)
         ugens = self._sort_ugens_topologically(ugens)
         self._ugens = tuple(ugens)
         self._constants = self._collect_constants(self._ugens)

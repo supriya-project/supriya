@@ -1353,7 +1353,7 @@ class UGenMethodMixin(SupriyaObject):
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
         builder.add_ugens(self)
-        synthdef = builder.build()
+        synthdef = builder.build(optimize=False)
         result = str(synthdef)
         return result
 
@@ -1447,6 +1447,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     __truediv__ = __div__
+    __rtruediv__ = __rdiv__
 
     ### PRIVATE METHODS ###
 
