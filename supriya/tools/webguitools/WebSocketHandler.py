@@ -2,7 +2,7 @@
 import tornado.websocket
 
 
-class SocketHandler(tornado.websocket.WebSocketHandler):
+class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def get_compression_options(self):
         return {}
