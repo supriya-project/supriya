@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ZeroCrossing(UGen):
-    r'''
+    r'''A zero-crossing frequency follower.
 
     ::
 
@@ -18,7 +18,7 @@ class ZeroCrossing(UGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Analysis UGens'
 
     __slots__ = ()
 
@@ -78,7 +78,7 @@ class ZeroCrossing(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.In.kr(bus=0)
             >>> zero_crossing = ugentools.ZeroCrossing.kr(
             ...     source=source,
             ...     )
