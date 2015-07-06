@@ -26,6 +26,8 @@ class MultiOutUGen(UGen):
         **kwargs
         ):
         self._channel_count = int(channel_count)
+        if 'channel_count' in self._ordered_input_names:
+            kwargs['channel_count'] = channel_count
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,

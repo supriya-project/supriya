@@ -3,33 +3,33 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pan4(MultiOutUGen):
-    r'''
+    r'''A four-channel equal-power panner.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
         >>> pan_4 = ugentools.Pan4.ar(
-        ...     level=1,
+        ...     gain=1,
         ...     source=source,
-        ...     xpos=0,
-        ...     ypos=0,
+        ...     x_position=0,
+        ...     y_position=0,
         ...     )
         >>> pan_4
-        Pan4.ar()
+        UGenArray({4})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Spatialization UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'source',
-        'xpos',
-        'ypos',
-        'level',
+        'x_position',
+        'y_position',
+        'gain',
         )
 
     _valid_calculation_rates = None
@@ -39,18 +39,19 @@ class Pan4(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        level=1,
+        gain=1,
         source=None,
-        xpos=0,
-        ypos=0,
+        x_position=0,
+        y_position=0,
         ):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            level=level,
+            channel_count=4,
+            gain=gain,
             source=source,
-            xpos=xpos,
-            ypos=ypos,
+            x_position=x_position,
+            y_position=y_position,
             )
 
     ### PUBLIC METHODS ###
@@ -58,10 +59,10 @@ class Pan4(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        level=1,
+        gain=1,
         source=None,
-        xpos=0,
-        ypos=0,
+        x_position=0,
+        y_position=0,
         ):
         r'''Constructs an audio-rate Pan4.
 
@@ -69,13 +70,13 @@ class Pan4(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
             >>> pan_4
-            Pan4.ar()
+            UGenArray({4})
 
         Returns ugen graph.
         '''
@@ -83,20 +84,20 @@ class Pan4(MultiOutUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            level=level,
+            gain=gain,
             source=source,
-            xpos=xpos,
-            ypos=ypos,
+            x_position=x_position,
+            y_position=y_position,
             )
         return ugen
 
     @classmethod
     def kr(
         cls,
-        level=1,
+        gain=1,
         source=None,
-        xpos=0,
-        ypos=0,
+        x_position=0,
+        y_position=0,
         ):
         r'''Constructs a control-rate Pan4.
 
@@ -104,13 +105,13 @@ class Pan4(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.kr(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
             >>> pan_4
-            Pan4.kr()
+            UGenArray({4})
 
         Returns ugen graph.
         '''
@@ -118,36 +119,34 @@ class Pan4(MultiOutUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            level=level,
+            gain=gain,
             source=source,
-            xpos=xpos,
-            ypos=ypos,
+            x_position=x_position,
+            y_position=y_position,
             )
         return ugen
-
-    # def newFromDesc(): ...
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def level(self):
-        r'''Gets `level` input of Pan4.
+    def gain(self):
+        r'''Gets `gain` input of Pan4.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
-            >>> pan_4.level
+            >>> pan_4[0].source.gain
             1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
@@ -158,12 +157,12 @@ class Pan4(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
-            >>> pan_4.source
+            >>> pan_4[0].source.source
             OutputProxy(
                 source=In(
                     bus=0.0,
@@ -179,43 +178,43 @@ class Pan4(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def xpos(self):
-        r'''Gets `xpos` input of Pan4.
+    def x_position(self):
+        r'''Gets `x_position` input of Pan4.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
-            >>> pan_4.xpos
+            >>> pan_4[0].source.x_position
             0.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('xpos')
+        index = self._ordered_input_names.index('x_position')
         return self._inputs[index]
 
     @property
-    def ypos(self):
-        r'''Gets `ypos` input of Pan4.
+    def y_position(self):
+        r'''Gets `y_position` input of Pan4.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_4 = ugentools.Pan4.ar(
-            ...     level=1,
+            ...     gain=1,
             ...     source=source,
-            ...     xpos=0,
-            ...     ypos=0,
+            ...     x_position=0,
+            ...     y_position=0,
             ...     )
-            >>> pan_4.ypos
+            >>> pan_4[0].source.y_position
             0.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('ypos')
+        index = self._ordered_input_names.index('y_position')
         return self._inputs[index]

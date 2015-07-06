@@ -3,35 +3,35 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanAz(MultiOutUGen):
-    r'''
+    r'''A multi-channel equal-power panner.
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
         >>> pan_az = ugentools.PanAz.ar(
-        ...     channel_count=channel_count,
-        ...     level=1,
+        ...     channel_count=8,
+        ...     gain=1,
         ...     orientation=0.5,
-        ...     pos=0,
+        ...     position=0,
         ...     source=source,
         ...     width=2,
         ...     )
         >>> pan_az
-        PanAz.ar()
+        UGenArray({8})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Spatialization UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
         'channel_count',
         'source',
-        'pos',
-        'level',
+        'position',
+        'gain',
         'width',
         'orientation',
         )
@@ -43,10 +43,10 @@ class PanAz(MultiOutUGen):
     def __init__(
         self,
         calculation_rate=None,
-        channel_count=None,
-        level=1,
+        channel_count=8,
+        gain=1,
         orientation=0.5,
-        pos=0,
+        position=0,
         source=None,
         width=2,
         ):
@@ -54,9 +54,9 @@ class PanAz(MultiOutUGen):
             self,
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            level=level,
+            gain=gain,
             orientation=orientation,
-            pos=pos,
+            position=position,
             source=source,
             width=width,
             )
@@ -67,9 +67,9 @@ class PanAz(MultiOutUGen):
     def ar(
         cls,
         channel_count=None,
-        level=1,
+        gain=1,
         orientation=0.5,
-        pos=0,
+        position=0,
         source=None,
         width=2,
         ):
@@ -79,15 +79,15 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az
-            PanAz.ar()
+            UGenArray({8})
 
         Returns ugen graph.
         '''
@@ -96,9 +96,9 @@ class PanAz(MultiOutUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            level=level,
+            gain=gain,
             orientation=orientation,
-            pos=pos,
+            position=position,
             source=source,
             width=width,
             )
@@ -108,9 +108,9 @@ class PanAz(MultiOutUGen):
     def kr(
         cls,
         channel_count=None,
-        level=1,
+        gain=1,
         orientation=0.5,
-        pos=0,
+        position=0,
         source=None,
         width=2,
         ):
@@ -120,15 +120,15 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.kr(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
             >>> pan_az
-            PanAz.kr()
+            UGenArray({8})
 
         Returns ugen graph.
         '''
@@ -137,15 +137,13 @@ class PanAz(MultiOutUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            level=level,
+            gain=gain,
             orientation=orientation,
-            pos=pos,
+            position=position,
             source=source,
             width=width,
             )
         return ugen
-
-    # def newFromDesc(): ...
 
     ### PUBLIC PROPERTIES ###
 
@@ -157,41 +155,42 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.channel_count
+            >>> pan_az[0].source.channel_count
+            8
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
+        return int(self._inputs[index])
 
     @property
-    def level(self):
-        r'''Gets `level` input of PanAz.
+    def gain(self):
+        r'''Gets `gain` input of PanAz.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.level
+            >>> pan_az[0].source.gain
             1.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('level')
+        index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
@@ -202,14 +201,14 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.orientation
+            >>> pan_az[0].source.orientation
             0.5
 
         Returns ugen input.
@@ -218,26 +217,26 @@ class PanAz(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def pos(self):
-        r'''Gets `pos` input of PanAz.
+    def position(self):
+        r'''Gets `position` input of PanAz.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.pos
+            >>> pan_az[0].source.position
             0.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('pos')
+        index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
@@ -248,14 +247,14 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.source
+            >>> pan_az[0].source.source
             OutputProxy(
                 source=In(
                     bus=0.0,
@@ -278,14 +277,14 @@ class PanAz(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
-            ...     channel_count=channel_count,
-            ...     level=1,
+            ...     channel_count=8,
+            ...     gain=1,
             ...     orientation=0.5,
-            ...     pos=0,
+            ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az.width
+            >>> pan_az[0].source.width
             2.0
 
         Returns ugen input.
