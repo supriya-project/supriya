@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
@@ -7,17 +8,17 @@ class ClearBuf(WidthFirstUGen):
 
     ::
 
-        >>> clear_buf = ugentools.ClearBuf.ar(
-        ...     buffer_id=buffer_id,
+        >>> clear_buf = ugentools.ClearBuf.new(
+        ...     buffer_id=23,
         ...     )
         >>> clear_buf
-        ClearBuf.ar()
+        ClearBuf.ir()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Buffer UGens'
 
     __slots__ = ()
 
@@ -25,7 +26,9 @@ class ClearBuf(WidthFirstUGen):
         'buffer_id',
         )
 
-    _valid_calculation_rates = None
+    _valid_calculation_rates = (
+        CalculationRate.SCALAR
+        )
 
     ### INITIALIZER ###
 
@@ -52,15 +55,15 @@ class ClearBuf(WidthFirstUGen):
         ::
 
             >>> clear_buf = ugentools.ClearBuf.new(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     )
             >>> clear_buf
-            ClearBuf.new()
+            ClearBuf.ir()
 
         Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
-        calculation_rate = None
+        calculation_rate = CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -75,12 +78,13 @@ class ClearBuf(WidthFirstUGen):
 
         ::
 
-            >>> clear_buf = ugentools.ClearBuf.ar(
-            ...     buffer_id=buffer_id,
+            >>> clear_buf = ugentools.ClearBuf.new(
+            ...     buffer_id=23,
             ...     )
             >>> clear_buf.buffer_id
+            23
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]
+        return int(self._inputs[index])
