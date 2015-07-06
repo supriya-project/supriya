@@ -3,13 +3,13 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DegreeToKey(PureUGen):
-    r'''
+    r'''A signal-to-modal-pitch converter.`
 
     ::
 
         >>> source = ugentools.In.ar(bus=0)
         >>> degree_to_key = ugentools.DegreeToKey.ar(
-        ...     buffer_id=buffer_id,
+        ...     buffer_id=23,
         ...     octave=12,
         ...     source=source,
         ...     )
@@ -20,7 +20,7 @@ class DegreeToKey(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Utility UGens'
 
     __slots__ = ()
 
@@ -64,7 +64,7 @@ class DegreeToKey(PureUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     octave=12,
             ...     source=source,
             ...     )
@@ -96,7 +96,7 @@ class DegreeToKey(PureUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.kr(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     octave=12,
             ...     source=source,
             ...     )
@@ -125,16 +125,17 @@ class DegreeToKey(PureUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     octave=12,
             ...     source=source,
             ...     )
             >>> degree_to_key.buffer_id
+            23
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]
+        return int(self._inputs[index])
 
     @property
     def octave(self):
@@ -144,7 +145,7 @@ class DegreeToKey(PureUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     octave=12,
             ...     source=source,
             ...     )
@@ -164,7 +165,7 @@ class DegreeToKey(PureUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> degree_to_key = ugentools.DegreeToKey.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     octave=12,
             ...     source=source,
             ...     )
