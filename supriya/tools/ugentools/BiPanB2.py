@@ -3,18 +3,24 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BiPanB2(MultiOutUGen):
-    r'''
+    r'''A 2D ambisonic b-format panner.
 
     ::
 
+        >>> in_a = ugentools.SinOsc.ar()
+        >>> in_b = ugentools.WhiteNoise.ar()
         >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-        ...     azimuth=azimuth,
+        ...     azimuth=-0.5,
         ...     gain=1,
         ...     in_a=in_a,
         ...     in_b=in_b,
         ...     )
         >>> bi_pan_b_2
-        BiPanB2.ar()
+        UGenArray({3})
+
+    ::
+
+        >>> w, x, y = bi_pan_b_2
 
     '''
 
@@ -46,6 +52,7 @@ class BiPanB2(MultiOutUGen):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            channel_count=3,
             azimuth=azimuth,
             gain=gain,
             in_a=in_a,
@@ -66,14 +73,16 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.ar()
+            >>> in_b = ugentools.WhiteNoise.ar()
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2
-            BiPanB2.ar()
+            UGenArray({3})
 
         Returns ugen graph.
         '''
@@ -100,14 +109,16 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.kr()
+            >>> in_b = ugentools.WhiteNoise.kr()
             >>> bi_pan_b_2 = ugentools.BiPanB2.kr(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2
-            BiPanB2.kr()
+            UGenArray({3})
 
         Returns ugen graph.
         '''
@@ -132,13 +143,16 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.ar()
+            >>> in_b = ugentools.WhiteNoise.ar()
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
-            >>> bi_pan_b_2.azimuth
+            >>> bi_pan_b_2[0].source.azimuth
+            -0.5
 
         Returns ugen input.
         '''
@@ -151,13 +165,15 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.ar()
+            >>> in_b = ugentools.WhiteNoise.ar()
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
-            >>> bi_pan_b_2.gain
+            >>> bi_pan_b_2[0].source.gain
             1.0
 
         Returns ugen input.
@@ -171,13 +187,23 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.ar()
+            >>> in_b = ugentools.WhiteNoise.ar()
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
-            >>> bi_pan_b_2.in_a
+            >>> bi_pan_b_2[0].source.in_a
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=CalculationRate.AUDIO,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
@@ -190,13 +216,21 @@ class BiPanB2(MultiOutUGen):
 
         ::
 
+            >>> in_a = ugentools.SinOsc.ar()
+            >>> in_b = ugentools.WhiteNoise.ar()
             >>> bi_pan_b_2 = ugentools.BiPanB2.ar(
-            ...     azimuth=azimuth,
+            ...     azimuth=-0.5,
             ...     gain=1,
             ...     in_a=in_a,
             ...     in_b=in_b,
             ...     )
-            >>> bi_pan_b_2.in_b
+            >>> bi_pan_b_2[0].source.in_b
+            OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=CalculationRate.AUDIO
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         '''
