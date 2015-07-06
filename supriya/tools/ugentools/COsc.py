@@ -3,13 +3,13 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class COsc(PureUGen):
-    r'''
+    r'''A chorusing wavetable oscillator.
 
     ::
 
         >>> cosc = ugentools.COsc.ar(
         ...     beats=0.5,
-        ...     buffer_id=buffer_id,
+        ...     buffer_id=23,
         ...     frequency=440,
         ...     )
         >>> cosc
@@ -19,7 +19,7 @@ class COsc(PureUGen):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Oscillator UGens'
 
     __slots__ = ()
 
@@ -63,7 +63,7 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     frequency=440,
             ...     )
             >>> cosc
@@ -94,7 +94,7 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.kr(
             ...     beats=0.5,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     frequency=440,
             ...     )
             >>> cosc
@@ -122,7 +122,7 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     frequency=440,
             ...     )
             >>> cosc.beats
@@ -141,15 +141,16 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     frequency=440,
             ...     )
             >>> cosc.buffer_id
+            23
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('buffer_id')
-        return self._inputs[index]
+        return int(self._inputs[index])
 
     @property
     def frequency(self):
@@ -159,7 +160,7 @@ class COsc(PureUGen):
 
             >>> cosc = ugentools.COsc.ar(
             ...     beats=0.5,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     frequency=440,
             ...     )
             >>> cosc.frequency
