@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanB2(MultiOutUGen):
-    r'''
+    r'''A 2D ambisonic b-format panner.
 
     ::
 
@@ -14,13 +14,13 @@ class PanB2(MultiOutUGen):
         ...     source=source,
         ...     )
         >>> pan_b_2
-        PanB2.ar()
+        UGenArray({3})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Spatialization UGens'
 
     __slots__ = ()
 
@@ -44,6 +44,7 @@ class PanB2(MultiOutUGen):
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
+            channel_count=3,
             azimuth=azimuth,
             gain=gain,
             source=source,
@@ -69,7 +70,7 @@ class PanB2(MultiOutUGen):
             ...     source=source,
             ...     )
             >>> pan_b_2
-            PanB2.ar()
+            UGenArray({3})
 
         Returns ugen graph.
         '''
@@ -101,7 +102,7 @@ class PanB2(MultiOutUGen):
             ...     source=source,
             ...     )
             >>> pan_b_2
-            PanB2.kr()
+            UGenArray({3})
 
         Returns ugen graph.
         '''
@@ -114,8 +115,6 @@ class PanB2(MultiOutUGen):
             source=source,
             )
         return ugen
-
-    # def newFromDesc(): ...
 
     ### PUBLIC PROPERTIES ###
 
@@ -131,7 +130,7 @@ class PanB2(MultiOutUGen):
             ...     gain=1,
             ...     source=source,
             ...     )
-            >>> pan_b_2.azimuth
+            >>> pan_b_2[0].source.azimuth
             0.0
 
         Returns ugen input.
@@ -151,7 +150,7 @@ class PanB2(MultiOutUGen):
             ...     gain=1,
             ...     source=source,
             ...     )
-            >>> pan_b_2.gain
+            >>> pan_b_2[0].source.gain
             1.0
 
         Returns ugen input.
@@ -171,7 +170,7 @@ class PanB2(MultiOutUGen):
             ...     gain=1,
             ...     source=source,
             ...     )
-            >>> pan_b_2.source
+            >>> pan_b_2[0].source.source
             OutputProxy(
                 source=In(
                     bus=0.0,
