@@ -2,7 +2,12 @@
 -e git://github.com/Abjad/abjad.git#egg=abjad
 enum34
 funcsigs
+numpy
 pexpect
-six
-tornado
+pytest
 python-rtmidi
+six
+sphinx
+sphinx_rtd_theme
+tornado
+tox
