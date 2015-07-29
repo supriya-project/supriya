@@ -2,7 +2,7 @@
 import inspect
 import pytest
 from supriya.tools import documentationtools
-from supriya.tools import synthdeftools
+from supriya.tools import ugentools
 
 
 classes = documentationtools.list_all_supriya_classes(
