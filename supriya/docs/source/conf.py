@@ -8,8 +8,7 @@ from supriya.tools import documentationtools
 
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 
-documentationtools.SupriyaDocumentationManager.execute(
-    os.path.dirname(__file__))
+documentationtools.SupriyaDocumentationManager().execute()
 
 class CustomLatexFormatter(LatexFormatter):
     def __init__(self, **options):

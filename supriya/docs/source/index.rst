@@ -211,7 +211,7 @@ Supriya API
 ..  toctree::
     :maxdepth: 2
 
-    tools/index
+    api/index
 
 Developer Guide
 ---------------
