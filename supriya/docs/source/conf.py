@@ -6,9 +6,26 @@ from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
 from supriya.tools import documentationtools
 
+# Setup path for RTD.
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 
+# Scrape the API.
 documentationtools.SupriyaDocumentationManager().execute()
+
+# Mock out compiled extensions.
+try:
+    from unittest.mock import MagicMock
+except ImportError:
+    from mock import Mock as MagicMock
+
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+            return Mock()
+
+MOCK_MODULES = ['numpy', 'rtmidi']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
 
 class CustomLatexFormatter(LatexFormatter):
     def __init__(self, **options):

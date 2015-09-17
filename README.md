@@ -66,7 +66,6 @@ SuperCollider via their package manager.
 **supriya** has the following Python dependencies for all Python versions:
 
 - `abjad`
-- `numpy`
 - `pexpect`
 - `pytest`
 - `rtmidi-python`
@@ -75,7 +74,6 @@ SuperCollider via their package manager.
 - `sphinx`
 - `tornado`
 - `tox`
-- `wavefile`
 
 Additionally, **supriya** requires `funcsigs` with Python 2.7, and `enum34` for
 both Python 2.7 and Python 3.3.

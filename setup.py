@@ -1,12 +1,11 @@
 #!/usr/bin/env python
 
 import sys
-from distutils.core import setup
+import setuptools
 from distutils.version import StrictVersion
 
 install_requires = [
     'abjad',
-    'numpy',
     'pexpect',
     'pytest',
     'python-rtmidi',
@@ -342,8 +341,8 @@ keywords = [
     ]
 
 
-def main():
-    setup(
+if __name__ == '__main__':
+    setuptools.setup(
         author='Josiah Wolf Oberholtzer',
         author_email='josiah.oberholtzer@gmail.com',
         classifiers=classifiers,
@@ -359,7 +358,3 @@ def main():
         version='0.1',
         zip_safe=False,
         )
-
-
-if __name__ == '__main__':
-    main()

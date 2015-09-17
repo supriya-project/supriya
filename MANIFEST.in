@@ -1,0 +1,7 @@
+include README.rst
+include LICENSE
+include setup.py
+include MANIFEST.in
+recursive-include supriya *
+recursive-exclude supriya/docs/build *
+recursive-exclude supriya *.pyc
