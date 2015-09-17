@@ -11,11 +11,10 @@ install_requires = [
     'pytest',
     'python-rtmidi',
     'six',
-    'sphinx',
+    'sphinx>=1.3.1',
     'sphinx_rtd_theme',
     'tornado',
     'tox',
-    #'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
