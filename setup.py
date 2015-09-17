@@ -1,14 +1,16 @@
 #!/usr/bin/env python
 
+import os
 import sys
 import setuptools
 from distutils.version import StrictVersion
+
+on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
     'abjad',
     'pexpect',
     'pytest',
-    'python-rtmidi',
     'six',
     'sphinx>=1.3.1',
     'sphinx_rtd_theme',
@@ -20,6 +22,11 @@ if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
 if StrictVersion(version) < StrictVersion('3.3.0'):
     install_requires.append('funcsigs')
+
+if not on_rtd:
+    install_requires.extend([
+        'python-rtmidi',
+        ])
 
 long_description = '''
 supriya
