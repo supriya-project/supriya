@@ -8,6 +8,7 @@ from supriya.tools import documentationtools
 
 # Setup path for RTD.
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
+sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..', '..')))
 
 # Scrape the API.
 documentationtools.SupriyaDocumentationManager().execute()
