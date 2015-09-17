@@ -86,11 +86,11 @@ See also:
 .. autosummary::
    :nosignatures:
 
-    ~supriya.tools.synthdeftools.UGen
-    ~supriya.tools.synthdeftools.UGenArray
-    ~supriya.tools.synthdeftools.Op
+    ~supriya.tools.ugentools.UGen
     ~supriya.tools.ugentools.BinaryOpUGen
     ~supriya.tools.ugentools.UnaryOpUGen
+    ~supriya.tools.synthdeftools.UGenArray
+    ~supriya.tools.synthdeftools.Op
 
 Calculation Rate
 ----------------
