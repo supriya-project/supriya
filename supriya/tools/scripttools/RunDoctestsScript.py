@@ -155,6 +155,7 @@ class RunDoctestsScript(DirectoryScript):
             if failure_count:
                 failed_file_paths.append(os.path.relpath(file_path))
                 error_messages.append(string_buffer.getvalue())
+                string_buffer.close()
                 result_code = ''.join((
                     self.colors['RED'],
                     'FAILED',
