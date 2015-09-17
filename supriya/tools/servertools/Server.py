@@ -111,9 +111,7 @@ class Server(SupriyaObject):
         self._response_dispatcher = responsetools.ResponseDispatcher()
         self._subscription_service = servertools.SubscriptionService()
         self._osc_dispatcher = osctools.OscDispatcher()
-        self._osc_controller = osctools.OscController(
-            server=self,
-            )
+        self._osc_controller = osctools.OscController(server=self)
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
@@ -380,6 +378,7 @@ class Server(SupriyaObject):
             return self
         if not systemtools.IOManager.find_executable('scsynth'):
             raise Exception('Cannot find scsynth. Is it on your $PATH?')
+        self._osc_controller.boot()
         if server_options is None:
             server_options = self.server_options
         assert isinstance(server_options, servertools.ServerOptions)
@@ -567,6 +566,7 @@ class Server(SupriyaObject):
         self._is_running = False
         if not self._server_process.terminate():
             self._server_process.wait()
+        self._osc_controller.quit()
         self._teardown()
         self.subscription_service.notify('server-quit')
         return self

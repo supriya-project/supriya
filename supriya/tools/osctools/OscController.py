@@ -47,12 +47,23 @@ class OscController(SupriyaObject):
         server=None,
         timeout=2,
         ):
-        from supriya.tools import osctools
         self._debug_osc = bool(debug_osc)
         self._debug_udp = bool(debug_udp)
         self._server = server
         assert 0 < int(timeout)
         self._timeout = int(timeout)
+        self._socket_instance = None
+        self._listener = None
+
+    ### SPECIAL METHODS ###
+
+    def __del__(self):
+        self.quit()
+
+    ### PUBLIC METHODS ###
+
+    def boot(self):
+        from supriya.tools import osctools
         self._socket_instance = socket.socket(
             socket.AF_INET,
             socket.SOCK_DGRAM,
@@ -66,12 +77,11 @@ class OscController(SupriyaObject):
         self._listener.start()
         self._socket_instance.bind(('', 0))
 
-    ### SPECIAL METHODS ###
-
-    def __del__(self):
-        self._listener.quit(wait=True)
-
-    ### PUBLIC METHODS ###
+    def quit(self):
+        if self._listener is not None:
+            self._listener.quit(wait=True)
+        if self._socket_instance is not None:
+            self._socket_instance.close()
 
     def send(self, message):
         from supriya.tools import osctools
@@ -116,7 +126,8 @@ class OscController(SupriyaObject):
     @debug_osc.setter
     def debug_osc(self, expr):
         self._debug_osc = bool(expr)
-        self.listener.debug_osc = self.debug_osc
+        if self.listener is not None:
+            self.listener.debug_osc = self.debug_osc
 
     @property
     def debug_udp(self):
@@ -125,7 +136,8 @@ class OscController(SupriyaObject):
     @debug_udp.setter
     def debug_udp(self, expr):
         self._debug_udp = bool(expr)
-        self.listener.debug_udp = self.debug_udp
+        if self.listener is not None:
+            self.listener.debug_udp = self.debug_udp
 
     @property
     def listener(self):

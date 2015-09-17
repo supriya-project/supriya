@@ -28,12 +28,17 @@ class OscListener(SupriyaObject, threading.Thread):
         self.running = False
         self.timeout = int(timeout)
 
+    ### SPECIAL METHODS ###
+
+    def __del__(self):
+        self.quit()
+
     ### PUBLIC METHODS ###
 
     def get_message(self):
         from supriya.tools import osctools
         try:
-            data, address = self.client.socket_instance.recvfrom(2**13)
+            data, address = self.client.socket_instance.recvfrom(2 ** 13)
             if data:
                 message = osctools.OscMessage.from_datagram(data)
                 return message
