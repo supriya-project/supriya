@@ -4,7 +4,6 @@ import os
 import sys
 from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
-from supriya.tools import documentationtools
 
 # Setup path for RTD.
 sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
@@ -14,6 +13,7 @@ for x in sys.path:
     print('    {}'.format(x))
 
 # Scrape the API.
+from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager().execute()
 
 # Mock out compiled extensions.
