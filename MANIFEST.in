@@ -1,8 +1,18 @@
+global-include *.py
+global-exclude *.pyc
+
+include .travis.yml
 include LICENSE
 include MANIFEST.in
-include README.rst
+include README.md
+include graph.png
 include requirements.txt
+include setup.cfg
 include setup.py
-recursive-include supriya *
+include tox.ini
+
+recursive-include supriya/assets *
+recursive-include supriya/docs *
+recursive-include supriya/scripts *
+
 recursive-exclude supriya/docs/build *
-recursive-exclude supriya *.pyc
