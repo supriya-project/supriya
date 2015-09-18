@@ -30,6 +30,8 @@ for _ in range(3):
             stop_offset=stop_offset,
             )
         pairs.append((timespan_collection, target_timespan))
+random.shuffle(pairs)
+pairs = pairs[:20]
 
 
 @pytest.mark.parametrize('pair', pairs)
@@ -75,6 +77,8 @@ for _ in range(3):
             stop_offset=stop_offset,
             )
         pairs.append((timespan_collection, target_timespan))
+random.shuffle(pairs)
+pairs = pairs[:20]
 
 
 @pytest.mark.parametrize('pair', pairs)
