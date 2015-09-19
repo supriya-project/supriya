@@ -196,6 +196,10 @@ class SynthDef(ServerObjectProxy):
                     argument_name = ugen._ordered_input_names[i]
                 if isinstance(input_, float):
                     input_index = self._constants.index(input_)
+                    # 11 decimal places ensures some Py2/3 standardization.
+                    input_ = '{:.11f}'.format(input_).rstrip('0')
+                    if input_[-1] == '.':
+                        input_ += '0'
                     input_name = 'const_{}:{}'.format(input_index, input_)
                 else:
                     output_index = 0

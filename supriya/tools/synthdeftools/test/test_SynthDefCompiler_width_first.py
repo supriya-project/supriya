@@ -217,7 +217,7 @@ def test_SynthDefCompiler_width_first_02():
             5_LocalBuf[0] -> 6_PV_Copy[1:pv_chain_b]
             6_PV_Copy[0] -> 7_PV_BinScramble[0:pv_chain]
             const_4:0.0 -> 7_PV_BinScramble[1:wipe]
-            const_5:0.20000000298023224 -> 7_PV_BinScramble[2:width]
+            const_5:0.20000000298 -> 7_PV_BinScramble[2:width]
             const_4:0.0 -> 7_PV_BinScramble[3:trigger]
             3_FFT[0] -> 8_PV_MagFreeze[0:pv_chain]
             const_4:0.0 -> 8_PV_MagFreeze[1:freeze]
