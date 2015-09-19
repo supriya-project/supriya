@@ -10,7 +10,7 @@ before_install:
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y supercollider
     - sudo apt-get install -y libasound-dev
-    - sudo apt-get install -y libjack-dev
+    - sudo apt-get install -y libjack0
 
 install:
     - pip install -r requirements.txt
