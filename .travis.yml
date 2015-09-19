@@ -17,7 +17,7 @@ install:
     - sclang -h
 
 script:
-    - py.test -rf supriya
+    - py.test -rf -vv supriya
     - python ./supriya/scripts/run-supriya-doctests ./supriya
     - make -C supriya/docs/ html
 
