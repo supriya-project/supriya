@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+import os
+import pytest
 from abjad.tools import stringtools
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
@@ -103,6 +105,8 @@ def test_SynthDefCompiler_width_first_01():
     assert py_compiled_synthdef == test_compiled_synthdef
 
 
+@pytest.mark.skipif(os.environ.get('TRAVIS') == 'true',
+    'Needs SC 3.7 for automatic PV copying. Only 3.6.6 available.')
 def test_SynthDefCompiler_width_first_02():
 
     with synthdeftools.SynthDefBuilder() as builder:
