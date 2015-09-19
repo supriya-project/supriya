@@ -1,8 +1,10 @@
 # -*- encoding: utf-8 -*-
+import os
 import unittest
 from supriya import servertools
 
 
+@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
 class Test(unittest.TestCase):
 
     def setUp(self):
