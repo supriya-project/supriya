@@ -59,7 +59,7 @@ class SuperColliderSynthDef(SupriyaObject):
         with open(synthdef_file_path, 'rb') as f:
             result = f.read()
         shutil.rmtree(directory_path)
-        return bytearray(result)
+        return bytes(result)
 
     ### PUBLIC PROPERTIES ###
 
