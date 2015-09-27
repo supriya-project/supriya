@@ -21,6 +21,9 @@ before_install:
     - sclang -h
     - jack_connect SuperCollider:out_1 "PulseAudio JACK Source:front-left"
     - jack_connect SuperCollider:out_2 "PulseAudio JACK Source:front-right"
+    - scsynth -u 67751 &
+    - sleep 5
+    - killall scsynth
 
 install:
     - pip install -r requirements.txt
