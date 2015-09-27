@@ -13,16 +13,11 @@ before_install:
     - sudo apt-get install -y pulseaudio pulseaudio-module-jack
     - sudo apt-get install -y libasound-dev libjack-jackd2-dev
     - sudo apt-get install -y supercollider 
+    - ./travis-setup.sh
     - dbus-launch pulseaudio --start
     - sudo ldconfig
     - export DISPLAY=:99.0
     - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render -noreset
-    - sudo su -c 'echo load-module module-jack-source channels=2 connect=false >> /etc/pulse/default.pa'
-    - sudo su -c 'echo load-module module-loopback source=jack_in >> /etc/pulse/default.pa'
-    - sudo su -c 'echo @audio - rtprio 99 >> /etc/security/limits.d/audio.conf'
-    - sudo su -c 'echo @audio - memlock unlimited >> /etc/security/limits.d/audio.conf'
-    - sudo su -c 'echo @audio - nice -10 >> /etc/security/limits.d/audio.conf'
-    - sudo su -c 'echo realtime-scheduling = yes >> /etc/pulse/daemon.conf'
     - sclang -h
 
 install:
