@@ -19,6 +19,8 @@ before_install:
     - export DISPLAY=:99.0
     - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render -noreset
     - sclang -h
+    - jack_connect SuperCollider:out_1 "PulseAudio JACK Source:front-left"
+    - jack_connect SuperCollider:out_2 "PulseAudio JACK Source:front-right"
 
 install:
     - pip install -r requirements.txt
