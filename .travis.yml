@@ -17,9 +17,6 @@ before_install:
     - sudo ldconfig
     - export DISPLAY=:99.0
     - /sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1400x900x24 -ac +extension GLX +render -noreset
-    - cat > ~/.jackdrc <<EOF
-      /usr/bin/jackd -ddummy -r48000 -p1024
-      EOF
     - sudo su -c 'echo load-module module-jack-source channels=2 connect=false >> /etc/pulse/default.pa'
     - sudo su -c 'echo load-module module-loopback source=jack_in >> /etc/pulse/default.pa'
     - sudo su -c 'echo @audio - rtprio 99 >> /etc/security/limits.d/audio.conf'
