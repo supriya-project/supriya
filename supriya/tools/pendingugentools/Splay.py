@@ -1,36 +1,42 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.UGen import UGen
+from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
-class Splay(UGen):
-    r'''
+class Splay(MultiOutUGen):
+    # TODO: This is actually a pseudo ugen.
+    r'''A stereo field spreader.
 
     ::
 
+        >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
         >>> splay = ugentools.Splay.ar(
         ...     center=0,
-        ...     in_array=in_array,
+        ...     source=source,
         ...     level=1,
         ...     level_comp=True,
         ...     spread=1,
         ...     )
         >>> splay
-        Splay.ar()
+        UGenArray({2})
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Spatialization UGens'
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'in_array',
         'spread',
         'level',
         'center',
         'level_comp',
+        'source',
+        )
+
+    _unexpanded_input_names = (
+        'source',
         )
 
     _valid_calculation_rates = None
@@ -41,20 +47,38 @@ class Splay(UGen):
         self,
         calculation_rate=None,
         center=0,
-        in_array=None,
+        source=None,
         level=1,
         level_comp=True,
         spread=1,
         ):
-        UGen.__init__(
+        MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             center=center,
-            in_array=in_array,
+            channel_count=2,
+            source=source,
             level=level,
             level_comp=level_comp,
             spread=spread,
             )
+
+    ### PRIVATE METHODS ###
+
+    @classmethod
+    def _new_single(
+        cls,
+        calculation_rate=None,
+        center=0,
+        source=None,
+        level=1,
+        level_comp=True,
+        spread=1,
+        ):
+        ugen = cls(
+            **kwargs
+            )
+        return ugen
 
     ### PUBLIC METHODS ###
 
@@ -62,7 +86,7 @@ class Splay(UGen):
     def ar(
         cls,
         center=0,
-        in_array=None,
+        source=None,
         level=1,
         level_comp=True,
         spread=1,
@@ -71,9 +95,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -88,20 +113,18 @@ class Splay(UGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             center=center,
-            in_array=in_array,
+            source=source,
             level=level,
             level_comp=level_comp,
             spread=spread,
             )
         return ugen
 
-    # def arFill(): ...
-
     @classmethod
     def kr(
         cls,
         center=0,
-        in_array=None,
+        source=None,
         level=1,
         level_comp=True,
         spread=1,
@@ -110,9 +133,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.kr(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -127,14 +151,12 @@ class Splay(UGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             center=center,
-            in_array=in_array,
+            source=source,
             level=level,
             level_comp=level_comp,
             spread=spread,
             )
         return ugen
-
-    # def new1(): ...
 
     ### PUBLIC PROPERTIES ###
 
@@ -144,9 +166,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -160,23 +183,24 @@ class Splay(UGen):
         return self._inputs[index]
 
     @property
-    def in_array(self):
-        r'''Gets `in_array` input of Splay.
+    def source(self):
+        r'''Gets `source` input of Splay.
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
             ...     )
-            >>> splay.in_array
+            >>> splay.source
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('in_array')
+        index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
@@ -185,9 +209,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -206,9 +231,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
@@ -227,9 +253,10 @@ class Splay(UGen):
 
         ::
 
+            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
             >>> splay = ugentools.Splay.ar(
             ...     center=0,
-            ...     in_array=in_array,
+            ...     source=source,
             ...     level=1,
             ...     level_comp=True,
             ...     spread=1,
