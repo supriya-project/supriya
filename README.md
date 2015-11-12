@@ -17,7 +17,7 @@ Supriya lets you:
     `Response` classes
 -   schedule synthesizer events and patterns
 
-Supriya's source is hosted at https://github.com/Pulgama/supriya.
+Supriya's source is hosted at https://github.com/josiah-wolf-oberholtzer/supriya.
 
 Documentation is available at https://supriya.readthedocs.org/en/latest/.
 
@@ -27,7 +27,7 @@ Please note: this project is still under **heavy** development, is **not** yet
 stable, and is **not** yet intended for deployment in the field.
 
 Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
-an issue at https://github.com/Pulgama/supriya/issues.
+an issue at https://github.com/josiah-wolf-oberholtzer/supriya/issues.
 
 Compatible with Python 2.7, 3.3 and 3.4.
 
@@ -40,7 +40,7 @@ Installation
 
 To install, simply clone **supriya** and run the included `setup.py`:
 
-    ~$ git clone https://github.com/Pulgama/supriya.git
+    ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
     ~$ cd supriya
     supriya$ sudo python setup.py install
 
