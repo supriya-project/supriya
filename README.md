@@ -1,10 +1,10 @@
 supriya
 =======
 
-[![Latest Version](https://pypip.in/version/supriya/badge.svg)](https://pypi.python.org/pypi/supriya/)
-[![Development Status](https://pypip.in/status/supriya/badge.svg)](https://pypi.python.org/pypi/supriya/)
-[![Supported Python versions](https://pypip.in/py_versions/supriya/badge.svg)](https://pypi.python.org/pypi/supriya/)
-[![Downloads](https://pypip.in/download/supriya/badge.svg)](https://pypi.python.org/pypi/supriya/)
+[![Latest Version](https://img.shields.io/pypi/v/supriya.svg)](https://pypi.python.org/pypi/supriya/)
+[![Development Status](https://img.shields.io/pypi/status/supriya.svg)](https://pypi.python.org/pypi/supriya/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/supriya.svg)](https://pypi.python.org/pypi/supriya/)
+[![Downloads](https://img.shields.io/pypi/dm/supriya.svg)](https://pypi.python.org/pypi/supriya/)
 
 A Python interface to SuperCollider.
 
