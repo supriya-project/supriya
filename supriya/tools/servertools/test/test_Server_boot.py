@@ -15,8 +15,11 @@ class Test(unittest.TestCase):
 
     def test_Server_boot_01(self):
         for i in range(4):
+            print(i)
             assert not self.server.is_running
+            print('\tbooting...')
             self.server.boot()
             assert self.server.is_running
+            print('\tquiting...')
             self.server.quit()
         assert not self.server.is_running

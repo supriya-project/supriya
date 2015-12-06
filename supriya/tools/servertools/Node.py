@@ -125,7 +125,7 @@ class Node(ServerObjectProxy):
         server=None,
         ):
         if server is None or not server.is_running:
-            raise ValueError
+            raise ValueError(self)
         if self.server is not None or self in server._nodes:
             return
         id_allocator = server.node_id_allocator
@@ -134,9 +134,9 @@ class Node(ServerObjectProxy):
         else:
             node_id = server.node_id_allocator.allocate_node_id()
         if node_id is None:
-            raise ValueError
+            raise ValueError(self)
         elif node_id in server._nodes:
-            raise ValueError
+            raise ValueError(self)
         ServerObjectProxy.allocate(self, server=server)
         self._node_id = node_id
         self._node_id_is_permanent = bool(node_id_is_permanent)
@@ -164,16 +164,6 @@ class Node(ServerObjectProxy):
                     if not named_children[name]:
                         del(named_children[name])
 
-    def _set_parent(self, new_parent):
-        named_children = self._cache_named_children()
-        control_interface = self._cache_control_interface()
-        self._remove_named_children_from_parentage(named_children)
-        self._remove_control_interface_from_parentage(control_interface)
-        self._remove_from_parent()
-        self._parent = new_parent
-        self._restore_named_children_to_parentage(named_children)
-        self._restore_control_interface_to_parentage(control_interface)
-
     def _restore_control_interface_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
@@ -188,6 +178,16 @@ class Node(ServerObjectProxy):
                         named_children[name].update(name_dictionary[name])
                     else:
                         named_children[name] = copy.copy(name_dictionary[name])
+
+    def _set_parent(self, new_parent):
+        named_children = self._cache_named_children()
+        control_interface = self._cache_control_interface()
+        self._remove_named_children_from_parentage(named_children)
+        self._remove_control_interface_from_parentage(control_interface)
+        self._remove_from_parent()
+        self._parent = new_parent
+        self._restore_named_children_to_parentage(named_children)
+        self._restore_control_interface_to_parentage(control_interface)
 
     def _unregister_with_local_server(self):
         node_id = self.node_id

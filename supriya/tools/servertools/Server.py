@@ -360,6 +360,8 @@ class Server(SupriyaObject):
         self._root_node = None
         self._audio_input_bus_group = None
         self._audio_output_bus_group = None
+        self._nodes.clear()
+        self._synthdefs.clear()
 
     def _teardown_status_watcher(self):
         self._status_watcher.active = False
