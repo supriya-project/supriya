@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import collections
+from supriya.tools.datastructuretools.TreeContainer import TreeContainer
 from supriya.tools.servertools.Node import Node
 
 
-class Group(Node):
+class Group(Node, TreeContainer):
     r'''A group.
 
     ::
@@ -46,48 +47,43 @@ class Group(Node):
 
     def __init__(self, children=None, name=None):
         from supriya.tools import servertools
-        Node.__init__(
-            self,
-            name=name,
-            )
+        Node.__init__(self, name=name)
         self._children = []
-        self._control_interface = servertools.GroupInterface(
-            client=self,
-            )
+        self._control_interface = servertools.GroupInterface(client=self)
         self._named_children = {}
         if children is not None:
             self[:] = children
 
     ### SPECIAL METHODS ###
 
-    def __contains__(self, expr):
-        for x in self._children:
-            if x is expr:
-                return True
-        return False
+#    def __contains__(self, expr):
+#        for x in self._children:
+#            if x is expr:
+#                return True
+#        return False
 
-    def __delitem__(self, i):
-        if isinstance(i, str):
-            i = self.index(self._named_children[i])
-        if isinstance(i, int):
-            if i < 0:
-                i = len(self) + i
-            i = slice(i, i + 1)
-        self.__setitem__(i, [])
+#    def __delitem__(self, i):
+#        if isinstance(i, str):
+#            i = self.index(self._named_children[i])
+#        if isinstance(i, int):
+#            if i < 0:
+#                i = len(self) + i
+#            i = slice(i, i + 1)
+#        self.__setitem__(i, [])
 
-    def __getitem__(self, expr):
-        if isinstance(expr, (int, slice)):
-            return self._children[expr]
-        elif isinstance(expr, str):
-            return self._named_children[expr]
-        raise ValueError(expr)
+#    def __getitem__(self, expr):
+#        if isinstance(expr, (int, slice)):
+#            return self._children[expr]
+#        elif isinstance(expr, str):
+#            return self._named_children[expr]
+#        raise ValueError(expr)
 
-    def __iter__(self):
-        for child in self._children:
-            yield child
+#    def __iter__(self):
+#        for child in self._children:
+#            yield child
 
-    def __len__(self):
-        return len(self._children)
+#    def __len__(self):
+#        return len(self._children)
 
     def __setitem__(self, i, expr):
         r'''Sets `expr` in self at index `i`.
@@ -302,14 +298,14 @@ class Group(Node):
             child._unregister_with_local_server()
         return Node._unregister_with_local_server(self)
 
-    def _validate_setitem_expr(self, expr):
-        from supriya.tools import servertools
-        assert all(isinstance(_, servertools.Node) for _ in expr)
-        parentage = self.parentage
-        for x in expr:
-            assert isinstance(x, servertools.Node)
-            if isinstance(x, servertools.Group):
-                assert x not in parentage
+#    def _validate_setitem_expr(self, expr):
+#        from supriya.tools import servertools
+#        assert all(isinstance(_, servertools.Node) for _ in expr)
+#        parentage = self.parentage
+#        for x in expr:
+#            assert isinstance(x, servertools.Node)
+#            if isinstance(x, servertools.Group):
+#                assert x not in parentage
 
     ### PUBLIC METHODS ###
 
@@ -364,17 +360,17 @@ class Group(Node):
                 )
         return self
 
-    def append(self, expr):
-        self.__setitem__(
-            slice(len(self), len(self)),
-            [expr]
-            )
+#    def append(self, expr):
+#        self.__setitem__(
+#            slice(len(self), len(self)),
+#            [expr]
+#            )
 
-    def extend(self, expr):
-        self.__setitem__(
-            slice(len(self), len(self)),
-            expr
-            )
+#    def extend(self, expr):
+#        self.__setitem__(
+#            slice(len(self), len(self)),
+#            expr
+#            )
 
     def free(self):
         for node in self:
@@ -382,39 +378,39 @@ class Group(Node):
         Node.free(self)
         return self
 
-    def index(self, expr):
-        for i, child in enumerate(self._children):
-            if child is expr:
-                return i
-        else:
-            message = '{!r} not in {!r}.'
-            message = message.format(expr, self)
-            raise ValueError(message)
+#    def index(self, expr):
+#        for i, child in enumerate(self._children):
+#            if child is expr:
+#                return i
+#        else:
+#            message = '{!r} not in {!r}.'
+#            message = message.format(expr, self)
+#            raise ValueError(message)
 
-    def insert(self, i, expr):
-        self.__setitem__(
-            slice(i, i),
-            [expr]
-            )
+#    def insert(self, i, expr):
+#        self.__setitem__(
+#            slice(i, i),
+#            [expr]
+#            )
 
-    def pop(self, i=-1):
-        node = self[i]
-        del(self[i])
-        return node
+#    def pop(self, i=-1):
+#        node = self[i]
+#        del(self[i])
+#        return node
 
     def release(self):
         if 'gate' in self.controls:
             self.controls['gate'] = 0
 
-    def remove(self, node):
-        i = self.index(node)
-        del(self[i])
+#    def remove(self, node):
+#        i = self.index(node)
+#        del(self[i])
 
     ### PUBLIC PROPERTIES ###
 
-    @property
-    def children(self):
-        return tuple(self._children)
+#    @property
+#    def children(self):
+#        return tuple(self._children)
 
     @property
     def controls(self):

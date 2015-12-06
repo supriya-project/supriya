@@ -2,10 +2,11 @@
 import abc
 import collections
 import copy
+from supriya.tools.datastructuretools.TreeNode import TreeNode
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Node(ServerObjectProxy):
+class Node(ServerObjectProxy, TreeNode):
 
     ### CLASS VARIABLES ###
 
@@ -22,11 +23,10 @@ class Node(ServerObjectProxy):
     @abc.abstractmethod
     def __init__(self, name=None):
         ServerObjectProxy.__init__(self)
+        TreeNode.__init__(self, name=name)
         self._is_paused = False
-        self._name = name
         self._node_id = None
         self._node_id_is_permanent = None
-        self._parent = None
 
     ### SPECIAL METHODS ###
 
@@ -55,17 +55,6 @@ class Node(ServerObjectProxy):
         return string
 
     ### PRIVATE METHODS ###
-
-    def _cache_named_children(self):
-        name_dictionary = {}
-        if hasattr(self, '_named_children'):
-            for name, children in self._named_children.items():
-                name_dictionary[name] = copy.copy(children)
-        if hasattr(self, 'name') and self.name is not None:
-            if self.name not in name_dictionary:
-                name_dictionary[self.name] = set()
-            name_dictionary[self.name].add(self)
-        return name_dictionary
 
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
@@ -111,14 +100,6 @@ class Node(ServerObjectProxy):
                         index = new_parent.index(next_node)
                     new_parent._children.insert(index, self)
 
-    @staticmethod
-    def _iterate_nodes(nodes):
-        for x in nodes:
-            yield x
-            if hasattr(x, '_children'):
-                for y in Node._iterate_nodes(x):
-                    yield y
-
     def _register_with_local_server(
         self,
         node_id_is_permanent=False,
@@ -143,41 +124,21 @@ class Node(ServerObjectProxy):
         self._server._nodes[self._node_id] = self
         return node_id
 
-    def _remove_from_parent(self):
-        if self._parent is not None:
-            if self in self._parent:
-                self._parent._children.remove(self)
-        self._parent = None
+#    def _remove_from_parent(self):
+#        if self._parent is not None:
+#            if self in self._parent:
+#                self._parent._children.remove(self)
+#        self._parent = None
 
     def _remove_control_interface_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
                 parent._control_interface.remove_controls(name_dictionary)
 
-    def _remove_named_children_from_parentage(self, name_dictionary):
-        if self._parent is not None and name_dictionary:
-            for parent in self.parentage[1:]:
-                named_children = parent._named_children
-                for name in name_dictionary:
-                    for node in name_dictionary[name]:
-                        named_children[name].remove(node)
-                    if not named_children[name]:
-                        del(named_children[name])
-
     def _restore_control_interface_to_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:
                 parent._control_interface.add_controls(name_dictionary)
-
-    def _restore_named_children_to_parentage(self, name_dictionary):
-        if self._parent is not None and name_dictionary:
-            for parent in self.parentage[1:]:
-                named_children = parent._named_children
-                for name in name_dictionary:
-                    if name in named_children:
-                        named_children[name].update(name_dictionary[name])
-                    else:
-                        named_children[name] = copy.copy(name_dictionary[name])
 
     def _set_parent(self, new_parent):
         named_children = self._cache_named_children()
@@ -322,23 +283,23 @@ class Node(ServerObjectProxy):
                 sync=False,
                 )
 
-    def precede_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
-            expr = [expr]
-        index = self.parent.index(self)
-        self.parent[index:index] = expr
+#    def precede_by(self, expr):
+#        if not isinstance(expr, collections.Sequence):
+#            expr = [expr]
+#        index = self.parent.index(self)
+#        self.parent[index:index] = expr
 
-    def replace_with(self, expr):
-        if not isinstance(expr, collections.Sequence):
-            expr = [expr]
-        index = self.parent.index(self)
-        self.parent[index:index + 1] = expr
+#    def replace_with(self, expr):
+#        if not isinstance(expr, collections.Sequence):
+#            expr = [expr]
+#        index = self.parent.index(self)
+#        self.parent[index:index + 1] = expr
 
-    def succeed_by(self, expr):
-        if not isinstance(expr, collections.Sequence):
-            expr = [expr]
-        index = self.parent.index(self)
-        self.parent[index + 1:index + 1] = expr
+#    def succeed_by(self, expr):
+#        if not isinstance(expr, collections.Sequence):
+#            expr = [expr]
+#        index = self.parent.index(self)
+#        self.parent[index + 1:index + 1] = expr
 
     ### PUBLIC PROPERTIES ###
 
@@ -356,26 +317,26 @@ class Node(ServerObjectProxy):
     def is_running(self):
         return self.server is not None
 
-    @property
-    def name(self):
-        return self._name
+#    @property
+#    def name(self):
+#        return self._name
 
-    @name.setter
-    def name(self, expr):
-        assert isinstance(expr, (str, type(None)))
-        old_name = self._name
-        for parent in self.parentage[1:]:
-            named_children = parent._named_children
-            if old_name is not None:
-                named_children[old_name].remove(self)
-                if not named_children[old_name]:
-                    del named_children[old_name]
-            if expr is not None:
-                if expr not in named_children:
-                    named_children[expr] = set([self])
-                else:
-                    named_children[expr].add(self)
-        self._name = expr
+#    @name.setter
+#    def name(self, expr):
+#        assert isinstance(expr, (str, type(None)))
+#        old_name = self._name
+#        for parent in self.parentage[1:]:
+#            named_children = parent._named_children
+#            if old_name is not None:
+#                named_children[old_name].remove(self)
+#                if not named_children[old_name]:
+#                    del named_children[old_name]
+#            if expr is not None:
+#                if expr not in named_children:
+#                    named_children[expr] = set([self])
+#                else:
+#                    named_children[expr].add(self)
+#        self._name = expr
 
     @property
     def node_id(self):
@@ -385,15 +346,15 @@ class Node(ServerObjectProxy):
     def node_id_is_permanent(self):
         return self._node_id_is_permanent
 
-    @property
-    def parent(self):
-        return self._parent
+#    @property
+#    def parent(self):
+#        return self._parent
 
-    @property
-    def parentage(self):
-        parentage = []
-        node = self
-        while node is not None:
-            parentage.append(node)
-            node = node.parent
-        return tuple(parentage)
+#    @property
+#    def parentage(self):
+#        parentage = []
+#        node = self
+#        while node is not None:
+#            parentage.append(node)
+#            node = node.parent
+#        return tuple(parentage)

@@ -1,14 +1,21 @@
+# -*- encoding: utf-8 -*-
+import collections
+import copy
+
+
 class TreeNode(object):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        # '_name',
         # '_parent',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, name=None):
+        self._name = name
         self._parent = None
 
     ### PRIVATE METHODS ###
@@ -107,3 +114,16 @@ class TreeNode(object):
                 else:
                     named_children[expr].add(self)
         self._name = expr
+
+    @property
+    def parent(self):
+        return self._parent
+
+    @property
+    def parentage(self):
+        parentage = []
+        node = self
+        while node is not None:
+            parentage.append(node)
+            node = node.parent
+        return tuple(parentage)
