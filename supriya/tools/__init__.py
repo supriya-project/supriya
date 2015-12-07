@@ -10,6 +10,7 @@ from supriya.tools import dawtools
 from supriya.tools import documentationtools
 from supriya.tools import midifiletools
 from supriya.tools import miditools
+from supriya.tools import nrttools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import responsetools
