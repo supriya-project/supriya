@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.NRTSessionObject import NRTSessionObject
+from supriya.tools.nrttools.NRTSessionObject import NRTSessionObject
 
 
 class NRTBus(NRTSessionObject):
