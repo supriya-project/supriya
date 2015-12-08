@@ -6,7 +6,19 @@ class NRTBus(NRTSessionObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        '_kind',
+        )
 
-    def __init__(self, nrt_session, nrt_id):
+    ### INITIALIZER ###
+
+    def __init__(self, nrt_session, nrt_id, kind='control'):
+        assert kind in ('control', 'audio')
         NRTSessionObject.__init__(self, nrt_session, nrt_id)
+        self._kind = kind
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def kind(self):
+        return self._kind
