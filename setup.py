@@ -25,7 +25,9 @@ if StrictVersion(version) < StrictVersion('3.3.0'):
 
 if not on_rtd:
     install_requires.extend([
+        'numpy',
         'python-rtmidi',
+        'python-wavefile',
         ])
 
 long_description = '''
