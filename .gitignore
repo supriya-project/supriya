@@ -36,3 +36,6 @@ nosetests.xml
 .pydevproject
 .python-version
 .cache
+
+# Misc.
+.DS_Store
