@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import os
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -17,10 +18,10 @@ class SoundFile(SupriyaObject):
         file_path = os.path.abspath(file_path)
         assert os.path.exists(file_path)
         self._file_path = file_path
-        reader = wavefile.WaveReader(self.file_path)
-        self._frame_count = reader.frames
-        self._channel_count = reader.channels
-        self._sample_rate = reader.samplerate
+        with wavefile.WaveReader(self.file_path) as reader:
+            self._frame_count = reader.frames
+            self._channel_count = reader.channels
+            self._sample_rate = reader.samplerate
 
     ### PUBLIC PROPERTIES ###
 
@@ -29,7 +30,7 @@ class SoundFile(SupriyaObject):
         return self._channel_count
 
     @property
-    def duration_in_seconds(self):
+    def seconds(self):
         return float(self._frame_count) / float(self._sample_rate)
 
     @property
