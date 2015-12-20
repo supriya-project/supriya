@@ -108,21 +108,23 @@ class ServerOptions(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def as_options_string(self, port=57110):
+    def as_options_string(self, port=57110, realtime=True):
         result = []
 
-        if self.protocol == 'tcp':
-            result.append('-t')
-        else:
-            result.append('-u')
-        result.append(str(port))
+        if realtime:
+            if self.protocol == 'tcp':
+                result.append('-t')
+            else:
+                result.append('-u')
+            result.append(str(port))
 
-        result.append('-a')
-        result.append(
-            self.private_audio_bus_channel_count +
-            self.input_bus_channel_count +
-            self.output_bus_channel_count
-            )
+        if realtime:
+            result.append('-a')
+            result.append(
+                self.private_audio_bus_channel_count +
+                self.input_bus_channel_count +
+                self.output_bus_channel_count
+                )
 
         if self.control_bus_channel_count != 4096:
             result.append('-c {}'.format(self.control_bus_channel_count))
@@ -148,7 +150,7 @@ class ServerOptions(SupriyaObject):
         if self.hardware_buffer_size is not None:
             result.append('-Z {}'.format(int(self.hardware_buffer_size)))
 
-        if self.memory_size != 8192:
+        if self.memory_size != 8192 * 16:
             result.append('-m {}'.format(self.memory_size))
 
         if self.random_number_generator_count != 64:
@@ -157,8 +159,9 @@ class ServerOptions(SupriyaObject):
         if self.wire_buffer_count != 64:
             result.append('-w {}'.format(self.wire_buffer_count))
 
-        if self.sample_rate is not None:
-            result.append('-S {}'.format(int(self.sample_rate)))
+        if realtime:
+            if self.sample_rate is not None:
+                result.append('-S {}'.format(int(self.sample_rate)))
 
         if not self.load_synthdefs:
             result.append('-D 0')
@@ -172,8 +175,9 @@ class ServerOptions(SupriyaObject):
         if 0 < self.verbosity:
             result.append('-v {}'.format(self.verbosity))
 
-        if not self.zero_configuration:
-            result.append('-R 0')
+        if realtime:
+            if not self.zero_configuration:
+                result.append('-R 0')
 
         if self.restricted_path is not None:
             result.append('-P {}'.format(self.restricted_path))
@@ -181,11 +185,12 @@ class ServerOptions(SupriyaObject):
         if self.memory_locking:
             result.append('-L')
 
-        if self.input_device:
-            result.append('-H')
-            result.append(str(self.input_device))
-            if self.output_device != self.input_device:
-                result.append(str(self.output_device))
+        if realtime:
+            if self.input_device:
+                result.append('-H')
+                result.append(str(self.input_device))
+                if self.output_device != self.input_device:
+                    result.append(str(self.output_device))
 
         options_string = ' '.join(str(x) for x in result)
         return options_string
