@@ -149,15 +149,19 @@ class OscBundle(OscMixin):
         return float(date) + OscBundle._get_ntp_delta()
 
     @staticmethod
-    def _write_date(value):
+    def _write_date(value, realtime=True):
         if value is None:
             return OscBundle._immediately
-        ntp = OscBundle._system_time_to_ntp(value)
-        seconds, fraction = str(ntp).split('.')
-        seconds = int(seconds)
-        fraction = int(fraction)
-        result = struct.pack('>I', seconds)
-        result += struct.pack('>I', fraction)
+        if realtime:
+            ntp = OscBundle._system_time_to_ntp(value)
+            seconds, fraction = str(ntp).split('.')
+            seconds = int(seconds)
+            fraction = int(fraction)
+            result = struct.pack('>I', seconds)
+            result += struct.pack('>I', fraction)
+        else:
+            kSecondsToOSC = 4294967296
+            result = struct.pack('>q', int(value * kSecondsToOSC))
         return result
 
     ### PUBLIC METHODS ###
@@ -188,10 +192,22 @@ class OscBundle(OscMixin):
             )
         return osc_bundle
 
-    def to_datagram(self):
+    @staticmethod
+    def bundles_to_nonrealtime_datagram(osc_bundles):
+        datagrams = []
+        for osc_bundle in osc_bundles:
+            datagram = osc_bundle.to_datagram(realtime=False)
+            size = len(datagram)
+            size = struct.pack('>i', size)
+            datagrams.append(size)
+            datagrams.append(datagram)
+        datagram = b''.join(datagrams)
+        return datagram
+
+    def to_datagram(self, realtime=True):
         from supriya.tools import osctools
         datagram = OscBundle._bundle_prefix
-        datagram += OscBundle._write_date(self._timestamp)
+        datagram += OscBundle._write_date(self._timestamp, realtime=realtime)
         for content in self.contents:
             content_datagram = content.to_datagram()
             content_length = len(content_datagram)
