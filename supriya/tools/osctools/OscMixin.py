@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import abc
 from abjad.tools import sequencetools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -31,6 +32,16 @@ class OscMixin(SupriyaObject):
 
         '''
         datagram = bytearray(self.to_datagram())
+        return self.format_datagram(datagram)
+
+    ### PUBLIC METHODS ###
+
+    @abc.abstractmethod
+    def to_datagram(self):
+        raise NotImplementedError
+
+    @classmethod
+    def format_datagram(cls, datagram):
         result = []
         result.append('size {}'.format(len(datagram)))
         index = 0
@@ -62,8 +73,3 @@ class OscMixin(SupriyaObject):
             index += 16
         result = '\n'.join(result)
         return result
-
-    ### PUBLIC METHODS ###
-
-    def to_datagram(self):
-        raise NotImplementedError
