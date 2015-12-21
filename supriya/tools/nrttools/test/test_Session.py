@@ -21,18 +21,43 @@ class TestCase(unittest.TestCase):
         if os.path.exists(self.output_filepath):
             os.remove(self.output_filepath)
 
-    def test_01(self):
-        session = nrttools.Session()
+    def build_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder()
         with builder:
             ugentools.Out.ar(bus=0, source=ugentools.SinOsc.ar())
-        synthdef = builder.build()
-        synth_one = nrttools.Synth(synthdef, 0, 1)
+        return builder.build()
+
+    def round(self, value):
+        return float('{:.2f}'.format(value))
+
+    def assert_ok(
+        self,
+        expected_exit_code,
+        expected_duration,
+        expected_sample_rate,
+        expected_channel_count,
+        ):
+        assert os.path.exists(self.output_filepath)
+        assert expected_exit_code == 0
+        soundfile = soundfiletools.SoundFile(self.output_filepath)
+        assert self.round(soundfile.seconds) == expected_duration
+        assert soundfile.sample_rate == expected_sample_rate
+        assert soundfile.channel_count == expected_channel_count
+
+    def test_01(self):
+        session = nrttools.Session()
+        synth_one = nrttools.Synth(self.build_synthdef(), 0, 1)
         session.insert([synth_one])
         exit_code, _ = session.render(self.output_filepath)
-        assert os.path.exists(self.output_filepath)
-        assert exit_code == 0
-        soundfile = soundfiletools.SoundFile(self.output_filepath)
-        assert float('{:.2f}'.format(soundfile.seconds)) == 1.
-        assert soundfile.sample_rate == 44100
-        assert soundfile.channel_count == 8
+        self.assert_ok(exit_code, 1., 44100, 8)
+
+    def test_02(self):
+        session = nrttools.Session()
+        synth_one = nrttools.Synth(self.build_synthdef(), 0, 300)
+        session.insert([synth_one])
+        exit_code, _ = session.render(
+            self.output_filepath,
+            sample_rate=48000,
+            output_bus_channel_count=2,
+            )
+        self.assert_ok(exit_code, 300., 48000, 2)

@@ -210,9 +210,9 @@ class Session(TimespanCollection, OscMixin):
         command = self.build_command(
             output_filename,
             input_filename=None,
-            sample_rate=44100,
-            header_format=soundfiletools.HeaderFormat.AIFF,
-            sample_format=soundfiletools.SampleFormat.INT24,
+            sample_rate=sample_rate,
+            header_format=header_format,
+            sample_format=sample_format,
             **kwargs
             )
         command = command.format(file_path)
