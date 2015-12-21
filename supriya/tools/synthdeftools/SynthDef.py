@@ -802,6 +802,10 @@ class SynthDef(ServerObjectProxy):
         raise ValueError
 
     @property
+    def indexed_parameters(self):
+        return self._indexed_parameters
+
+    @property
     def input_ugens(self):
         return tuple(_ for _ in self.ugens if _.is_input_ugen)
 
@@ -816,12 +820,12 @@ class SynthDef(ServerObjectProxy):
         return self._name
 
     @property
-    def output_ugens(self):
-        return tuple(_ for _ in self.ugens if _.is_output_ugen)
+    def parameter_names(self):
+        return [parameter.name for index, parameter in self.indexed_parameters]
 
     @property
-    def indexed_parameters(self):
-        return self._indexed_parameters
+    def output_ugens(self):
+        return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
     def ugens(self):
