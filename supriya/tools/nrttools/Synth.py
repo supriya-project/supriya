@@ -34,17 +34,21 @@ class Synth(timespantools.Timespan):
 
     ### PUBLIC METHODS ###
 
-    def get_start_requests(self, mapping):
+    def get_start_request(self, mapping):
         node_id = mapping[self]
         target_node_id = 0
+        parameter_names = self.synthdef.parameter_names
+        synth_kwargs = self.synth_kwargs
+        if 'duration' in parameter_names and 'duration' not in synth_kwargs:
+            synth_kwargs['duration'] = self.duration
         request = requesttools.SynthNewRequest(
             add_action=servertools.AddAction.ADD_TO_TAIL,
             node_id=node_id,
             synthdef=self.synthdef.anonymous_name,
             target_node_id=target_node_id,
-            **self.synth_kwargs
+            **synth_kwargs
             )
-        return [request]
+        return request
 
     ### PUBLIC PROPERTIES ###
 

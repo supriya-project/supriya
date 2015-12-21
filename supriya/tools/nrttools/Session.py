@@ -193,13 +193,14 @@ class Session(TimespanCollection, OscMixin):
         self,
         output_filename,
         input_filename=None,
+        timespan=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         debug=False,
         **kwargs
         ):
-        datagram = self.to_datagram()
+        datagram = self.to_datagram(timespan=timespan)
         md5 = hashlib.md5()
         md5.update(datagram)
         md5 = md5.hexdigest()
@@ -223,8 +224,8 @@ class Session(TimespanCollection, OscMixin):
             shutil.rmtree(temp_directory_path)
             return exit_code, None
 
-    def to_datagram(self):
-        osc_bundles = self.to_osc_bundles()
+    def to_datagram(self, timespan=None):
+        osc_bundles = self.to_osc_bundles(timespan=timespan)
         datagrams = []
         for osc_bundle in osc_bundles:
             datagram = osc_bundle.to_datagram(realtime=False)
@@ -235,7 +236,7 @@ class Session(TimespanCollection, OscMixin):
         datagram = b''.join(datagrams)
         return datagram
 
-    def to_osc_bundles(self):
+    def to_osc_bundles(self, timespan=None):
         from supriya.tools import nrttools
         osc_bundles = []
         node_id_mapping = self._build_node_id_mapping()
@@ -256,18 +257,27 @@ class Session(TimespanCollection, OscMixin):
             for start_event in sorted(start_events):
                 if not isinstance(start_event, nrttools.Synth):
                     continue
-                event_requests = start_event.get_start_requests(
-                    node_id_mapping)
-                requests.extend(event_requests)
-            if stop_events:
-                node_ids = []
-                for stop_event in stop_events:
-                    if not isinstance(start_event, nrttools.Synth):
-                        continue
-                    node_ids.append(node_id_mapping[stop_event])
-                node_ids.sort()
-                request = requesttools.NodeFreeRequest(node_ids=node_ids)
+                request = start_event.get_start_request(node_id_mapping)
                 requests.append(request)
+            if stop_events:
+                free_ids = []
+                gate_ids = []
+                for stop_event in stop_events:
+                    if not isinstance(stop_event, nrttools.Synth):
+                        continue
+                    parameter_names = stop_event.synthdef.parameter_names
+                    if 'gate' in parameter_names:
+                        gate_ids.append(node_id_mapping[stop_event])
+                    else:
+                        free_ids.append(node_id_mapping[stop_event])
+                if free_ids:
+                    free_ids.sort()
+                    request = requesttools.NodeFreeRequest(node_ids=free_ids)
+                    requests.append(request)
+                if gate_ids:
+                    for node_id in sorted(gate_ids):
+                        request = requesttools.NodeSetRequest(node_id, gate=0)
+                        requests.append(request)
             osc_messages = []
             for request in requests:
                 osc_message = request.to_osc_message()
