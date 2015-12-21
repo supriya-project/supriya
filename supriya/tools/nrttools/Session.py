@@ -158,7 +158,7 @@ class Session(TimespanCollection, OscMixin):
         self,
         output_filename,
         input_filename=None,
-        sample_rate=41000,
+        sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         **kwargs
@@ -193,7 +193,7 @@ class Session(TimespanCollection, OscMixin):
         self,
         output_filename,
         input_filename=None,
-        sample_rate=41000,
+        sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         debug=False,
@@ -210,7 +210,7 @@ class Session(TimespanCollection, OscMixin):
         command = self.build_command(
             output_filename,
             input_filename=None,
-            sample_rate=41000,
+            sample_rate=44100,
             header_format=soundfiletools.HeaderFormat.AIFF,
             sample_format=soundfiletools.SampleFormat.INT24,
             **kwargs

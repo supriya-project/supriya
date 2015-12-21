@@ -8,7 +8,10 @@ class SoundFile(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_channel_count',
         '_file_path',
+        '_frame_count',
+        '_sample_rate',
         )
 
     ### INITIALIZER ###
