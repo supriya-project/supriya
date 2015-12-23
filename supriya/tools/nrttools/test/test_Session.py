@@ -112,4 +112,7 @@ class TestCase(unittest.TestCase):
             output_bus_channel_count=1,
             )
         self.assert_ok(exit_code, 1., 44100, 1)
-        with wavefile.WaveReader(self.output_file_path) as reader:
+        soundfile = soundfiletools.SoundFile(self.output_filepath)
+        for i in range(1, 100):
+            value = float(i) / 100
+            assert self.round(soundfile.at_percent(value)[0]) == value
