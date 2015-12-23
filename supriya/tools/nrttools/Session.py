@@ -219,7 +219,7 @@ class Session(TimespanCollection, OscMixin):
             if timespan.stop_offset not in prototype and \
                 all_offsets[-1] < timespan.stop_offset:
                 osc_bundle = osctools.OscBundle(
-                    timestamp=timespan.stop_offset,
+                    timestamp=float(timespan.stop_offset),
                     contents=[osctools.OscMessage(0)],
                     )
                 osc_bundles.append(osc_bundle)

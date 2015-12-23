@@ -40,7 +40,7 @@ class Synth(timespantools.Timespan):
         parameter_names = self.synthdef.parameter_names
         synth_kwargs = self.synth_kwargs
         if 'duration' in parameter_names and 'duration' not in synth_kwargs:
-            synth_kwargs['duration'] = self.duration
+            synth_kwargs['duration'] = float(self.duration)
         request = requesttools.SynthNewRequest(
             add_action=servertools.AddAction.ADD_TO_TAIL,
             node_id=node_id,
