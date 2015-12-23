@@ -27,7 +27,7 @@ class TestCase(unittest.TestCase):
         builder = synthdeftools.SynthDefBuilder()
         with builder:
             ugentools.Out.ar(
-                bus=0,
+                bus=bus,
                 source=ugentools.SinOsc.ar(),
                 )
         return builder.build()
@@ -36,10 +36,25 @@ class TestCase(unittest.TestCase):
         builder = synthdeftools.SynthDefBuilder(duration=0)
         with builder:
             ugentools.Out.ar(
-                bus=0,
+                bus=bus,
                 source=ugentools.Line.ar(
                     duration=builder['duration'],
                     ),
+                )
+        return builder.build()
+
+    def build_gate_synthdef(self, bus=0):
+        builder = synthdeftools.SynthDefBuilder(gate=1)
+        with builder:
+            envelope = synthdeftools.Envelope.asr()
+            envgen = ugentools.EnvGen.ar(
+                envelope=envelope,
+                gate=builder['gate'],
+                )
+            source = ugentools.Saw.ar() * envgen
+            ugentools.Out.ar(
+                bus=bus,
+                source=source,
                 )
         return builder.build()
 
@@ -108,7 +123,6 @@ class TestCase(unittest.TestCase):
         session.insert([synth_one])
         exit_code, _ = session.render(
             self.output_filepath,
-            sample_rate=44100,
             output_bus_channel_count=1,
             )
         self.assert_ok(exit_code, 1., 44100, 1)
@@ -116,3 +130,31 @@ class TestCase(unittest.TestCase):
         for i in range(1, 100):
             value = float(i) / 100
             assert self.round(soundfile.at_percent(value)[0]) == value
+
+    def test_05(self):
+        session = nrttools.Session()
+        synth_one = nrttools.Synth(0, 1,
+            synthdef=self.build_gate_synthdef())
+        session.insert([synth_one])
+        timespan = timespantools.Timespan(0, 3)
+        assert session.to_osc_bundles(timespan=timespan) == [
+            osctools.OscBundle(
+                timestamp=0.0,
+                contents=(
+                    osctools.OscMessage(5, bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 fc663c6d1f8badaed1bd3e25cf2220f0\x00\x00\x00\x08?\x80\x00\x00\x00\x00\x00\x00@\x00\x00\x00\xc2\xc6\x00\x00<#\xd7\n@\xa0\x00\x00\xc0\x80\x00\x00C\xdc\x00\x00\x00\x00\x00\x01?\x80\x00\x00\x00\x00\x00\x01\x04gate\x00\x00\x00\x00\x00\x00\x00\x05\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x06EnvGen\x02\x00\x00\x00\x11\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x03\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x04\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x06\xff\xff\xff\xff\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x05\xff\xff\xff\xff\x00\x00\x00\x06\x02\x03Saw\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x07\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00')),
+                    osctools.OscMessage(9, 'fc663c6d1f8badaed1bd3e25cf2220f0', 1000, 1, 0),
+                    )
+                ),
+            osctools.OscBundle(
+                timestamp=1.0,
+                contents=(
+                    osctools.OscMessage(15, 1000, 'gate', 0),
+                    )
+                ),
+            osctools.OscBundle(
+                timestamp=3.0,
+                contents=(
+                    osctools.OscMessage(0),
+                    )
+                ),
+            ]
