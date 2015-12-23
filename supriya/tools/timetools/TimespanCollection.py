@@ -38,6 +38,14 @@ class TimespanCollection(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
+    def __and__(self, timespan):
+        new_timespans = []
+        for current_timespan in self[:]:
+            result = current_timespan & timespan
+            new_timespans.extend(result)
+        self[:] = sorted(new_timespans)
+        return self
+
     def __contains__(self, timespan):
         r'''Is true if this timespan collection contains `timespan`. Otherwise
         false.
