@@ -18,9 +18,9 @@ class Synth(timespantools.Timespan):
 
     def __init__(
         self,
-        synthdef=None,
         start_offset=None,
         stop_offset=None,
+        synthdef=None,
         **synth_kwargs
         ):
         timespantools.Timespan.__init__(

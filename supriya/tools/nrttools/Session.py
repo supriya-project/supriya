@@ -212,6 +212,19 @@ class Session(TimespanCollection, OscMixin):
             requests.append(request)
         return requests
 
+    def _process_terminal_event(self, all_offsets, timespan):
+        osc_bundles = []
+        if timespan is not None:
+            prototype = (mathtools.Infinity(), mathtools.NegativeInfinity)
+            if timespan.stop_offset not in prototype and \
+                all_offsets[-1] < timespan.stop_offset:
+                osc_bundle = osctools.OscBundle(
+                    timestamp=timespan.stop_offset,
+                    contents=[osctools.OscMessage(0)],
+                    )
+                osc_bundles.append(osc_bundle)
+        return osc_bundles
+
     def _process_timespan_mask(self, timespan):
         if timespan is not None:
             assert isinstance(timespan, timespantools.Timespan)
@@ -220,10 +233,10 @@ class Session(TimespanCollection, OscMixin):
             session = session & timespan
             if timespan.start_offset not in (
                 mathtools.Infinity(), mathtools.NegativeInfinity):
-                translation = original_timespan.start_offset - \
-                    timespan.start_offset
+                translation = timespan.start_offset - \
+                    original_timespan.start_offset
                 session = session.translate(translation)
-            session = type(self)(session)
+            session = type(self)(timespans=session[:])
         else:
             session = self
         return session
@@ -317,7 +330,8 @@ class Session(TimespanCollection, OscMixin):
         session = self._process_timespan_mask(timespan)
         node_mapping = session._build_node_id_mapping()
         synthdef_mapping = session._build_synthdef_receive_offset_mapping()
-        for offset in session.all_offsets:
+        all_offsets = session.all_offsets
+        for offset in all_offsets:
             simultaneity = session.get_simultaneity_at(offset)
             start_events = set(simultaneity.start_timespans)
             stop_events = set(simultaneity.stop_timespans)
@@ -327,4 +341,5 @@ class Session(TimespanCollection, OscMixin):
             requests += self._process_stop_events(stop_events, node_mapping)
             osc_bundles += self._process_requests(
                 simultaneity.start_offset, requests)
+        osc_bundles += self._process_terminal_event(all_offsets, timespan)
         return osc_bundles
