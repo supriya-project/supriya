@@ -5,6 +5,8 @@ import shutil
 import struct
 import subprocess
 import tempfile
+from abjad.tools import mathtools
+from abjad.tools import timespantools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -152,6 +154,80 @@ class Session(TimespanCollection, OscMixin):
             offsets_to_synthdefs[offset].append(synthdef)
         return offsets_to_synthdefs
 
+    def _process_requests(self, offset, requests):
+        osc_messages = []
+        for request in requests:
+            osc_message = request.to_osc_message()
+            osc_messages.append(osc_message)
+        timestamp = float(offset)
+        osc_bundles = []
+        if requests:
+            osc_messages = [_.to_osc_message() for _ in requests]
+            osc_bundle = osctools.OscBundle(timestamp, osc_messages)
+            osc_bundles.append(osc_bundle)
+        return osc_bundles
+
+    def _process_start_events(self, start_events, node_id_mapping):
+        from supriya.tools import nrttools
+        requests = []
+        for start_event in sorted(start_events):
+            if not isinstance(start_event, nrttools.Synth):
+                continue
+            request = start_event.get_start_request(node_id_mapping)
+            requests.append(request)
+        return requests
+
+    def _process_stop_events(self, stop_events, node_id_mapping):
+        from supriya.tools import nrttools
+        requests = []
+        if stop_events:
+            free_ids = []
+            gate_ids = []
+            for stop_event in stop_events:
+                if not isinstance(stop_event, nrttools.Synth):
+                    continue
+                parameter_names = stop_event.synthdef.parameter_names
+                if 'gate' in parameter_names:
+                    gate_ids.append(node_id_mapping[stop_event])
+                else:
+                    free_ids.append(node_id_mapping[stop_event])
+            if free_ids:
+                free_ids.sort()
+                request = requesttools.NodeFreeRequest(node_ids=free_ids)
+                requests.append(request)
+            if gate_ids:
+                for node_id in sorted(gate_ids):
+                    request = requesttools.NodeSetRequest(node_id, gate=0)
+                    requests.append(request)
+        return requests
+
+    def _process_synthdef_events(self, offset, synthdef_mapping):
+        requests = []
+        synthdefs = sorted(synthdef_mapping.get(offset, []),
+            key=lambda x: x.anonymous_name)
+        if synthdefs:
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                )
+            requests.append(request)
+        return requests
+
+    def _process_timespan_mask(self, timespan):
+        if timespan is not None:
+            assert isinstance(timespan, timespantools.Timespan)
+            session = timespantools.TimespanInventory(self)
+            original_timespan = session.timespan
+            session = session & timespan
+            if timespan.start_offset not in (
+                mathtools.Infinity(), mathtools.NegativeInfinity):
+                translation = original_timespan.start_offset - \
+                    timespan.start_offset
+                session = session.translate(translation)
+            session = type(self)(session)
+        else:
+            session = self
+        return session
+
     ### PUBLIC METHODS ###
 
     def build_command(
@@ -237,54 +313,18 @@ class Session(TimespanCollection, OscMixin):
         return datagram
 
     def to_osc_bundles(self, timespan=None):
-        from supriya.tools import nrttools
         osc_bundles = []
-        node_id_mapping = self._build_node_id_mapping()
-        synthdef_mapping = self._build_synthdef_receive_offset_mapping()
-        for offset in self.all_offsets:
-            simultaneity = self.get_simultaneity_at(offset)
-            requests = []
+        session = self._process_timespan_mask(timespan)
+        node_mapping = session._build_node_id_mapping()
+        synthdef_mapping = session._build_synthdef_receive_offset_mapping()
+        for offset in session.all_offsets:
+            simultaneity = session.get_simultaneity_at(offset)
             start_events = set(simultaneity.start_timespans)
             stop_events = set(simultaneity.stop_timespans)
             stop_events.difference_update(start_events)
-            synthdefs = sorted(synthdef_mapping.get(offset, []),
-                key=lambda x: x.anonymous_name)
-            if synthdefs:
-                request = requesttools.SynthDefReceiveRequest(
-                    synthdefs=synthdefs,
-                    )
-                requests.append(request)
-            for start_event in sorted(start_events):
-                if not isinstance(start_event, nrttools.Synth):
-                    continue
-                request = start_event.get_start_request(node_id_mapping)
-                requests.append(request)
-            if stop_events:
-                free_ids = []
-                gate_ids = []
-                for stop_event in stop_events:
-                    if not isinstance(stop_event, nrttools.Synth):
-                        continue
-                    parameter_names = stop_event.synthdef.parameter_names
-                    if 'gate' in parameter_names:
-                        gate_ids.append(node_id_mapping[stop_event])
-                    else:
-                        free_ids.append(node_id_mapping[stop_event])
-                if free_ids:
-                    free_ids.sort()
-                    request = requesttools.NodeFreeRequest(node_ids=free_ids)
-                    requests.append(request)
-                if gate_ids:
-                    for node_id in sorted(gate_ids):
-                        request = requesttools.NodeSetRequest(node_id, gate=0)
-                        requests.append(request)
-            osc_messages = []
-            for request in requests:
-                osc_message = request.to_osc_message()
-                osc_messages.append(osc_message)
-            timestamp = float(simultaneity.start_offset)
-            if requests:
-                osc_messages = [_.to_osc_message() for _ in requests]
-                osc_bundle = osctools.OscBundle(timestamp, osc_messages)
-                osc_bundles.append(osc_bundle)
+            requests = self._process_synthdef_events(offset, synthdef_mapping)
+            requests += self._process_start_events(start_events, node_mapping)
+            requests += self._process_stop_events(stop_events, node_mapping)
+            osc_bundles += self._process_requests(
+                simultaneity.start_offset, requests)
         return osc_bundles
