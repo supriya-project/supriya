@@ -73,7 +73,7 @@ class ReplaceOut(UGen):
             ...     )
             >>> out
             ReplaceOut.ar()
-        
+
         Returns ugen graph.
         '''
         from supriya.tools import servertools
@@ -100,7 +100,7 @@ class ReplaceOut(UGen):
         source=None,
         ):
         r'''Constructs a control-rate overwriting bus output.
-        
+
         ::
 
             >>> source = ugentools.SinOsc.kr(frequency=[4, 2])
@@ -110,7 +110,7 @@ class ReplaceOut(UGen):
             ...     )
             >>> out
             ReplaceOut.kr()
-        
+
         Returns ugen graph.
         '''
         from supriya.tools import servertools
@@ -162,10 +162,9 @@ class ReplaceOut(UGen):
 
         ::
 
-            >>> bus = 0
             >>> source = ugentools.WhiteNoise.ar()
             >>> out = ugentools.ReplaceOut.ar(
-            ...     bus=bus,
+            ...     bus=0,
             ...     source=source,
             ...     )
             >>> out.source

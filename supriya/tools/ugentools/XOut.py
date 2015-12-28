@@ -1,16 +1,17 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.ugentools.AbstractOut import AbstractOut
+import collections
+from supriya.tools.ugentools.UGen import UGen
 
 
-class XOut(AbstractOut):
-    r'''
+class XOut(UGen):
+    r'''A cross-fading bus output unit generator.
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
+        >>> source = ugentools.WhiteNoise.ar()
         >>> xout = ugentools.XOut.ar(
-        ...     bus=bus,
-        ...     crossfade=crossfade,
+        ...     bus=0,
+        ...     crossfade=0.5,
         ...     source=source,
         ...     )
         >>> xout
@@ -20,7 +21,7 @@ class XOut(AbstractOut):
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = None
+    __documentation_section__ = 'Input/Output UGens'
 
     __slots__ = ()
 
@@ -30,18 +31,22 @@ class XOut(AbstractOut):
         'source',
         )
 
-    _valid_calculation_rates = None
+    _unexpanded_input_names = (
+        'source',
+        )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        bus=None,
-        crossfade=None,
+        bus=0,
+        crossfade=0,
         source=None,
         ):
-        AbstractOut.__init__(
+        if not isinstance(source, collections.Sequence):
+            source = (source,)
+        UGen.__init__(
             self,
             calculation_rate=calculation_rate,
             bus=bus,
@@ -54,18 +59,18 @@ class XOut(AbstractOut):
     @classmethod
     def ar(
         cls,
-        bus=None,
-        crossfade=None,
+        bus=0,
+        crossfade=0,
         source=None,
         ):
         r'''Constructs an audio-rate XOut.
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
             >>> xout = ugentools.XOut.ar(
-            ...     bus=bus,
-            ...     crossfade=crossfade,
+            ...     bus=0,
+            ...     crossfade=0.5,
             ...     source=source,
             ...     )
             >>> xout
@@ -73,8 +78,16 @@ class XOut(AbstractOut):
 
         Returns ugen graph.
         '''
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
+            bus = int(bus)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bus=bus,
@@ -83,23 +96,21 @@ class XOut(AbstractOut):
             )
         return ugen
 
-    # def isOutputUGen(): ...
-
     @classmethod
     def kr(
         cls,
-        bus=None,
-        crossfade=None,
+        bus=0,
+        crossfade=0,
         source=None,
         ):
         r'''Constructs a control-rate XOut.
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
             >>> xout = ugentools.XOut.kr(
-            ...     bus=bus,
-            ...     crossfade=crossfade,
+            ...     bus=0,
+            ...     crossfade=0.5,
             ...     source=source,
             ...     )
             >>> xout
@@ -107,8 +118,16 @@ class XOut(AbstractOut):
 
         Returns ugen graph.
         '''
+        from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
+        prototype = (
+            servertools.Bus,
+            servertools.BusGroup,
+            servertools.BusProxy,
+            )
+        if isinstance(bus, prototype):
+            bus = int(bus)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bus=bus,
@@ -116,8 +135,6 @@ class XOut(AbstractOut):
             source=source,
             )
         return ugen
-
-    # def numFixedArgs(): ...
 
     ### PUBLIC PROPERTIES ###
 
@@ -127,13 +144,14 @@ class XOut(AbstractOut):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
             >>> xout = ugentools.XOut.ar(
-            ...     bus=bus,
-            ...     crossfade=crossfade,
+            ...     bus=0,
+            ...     crossfade=0.5,
             ...     source=source,
             ...     )
             >>> xout.bus
+            0.0
 
         Returns ugen input.
         '''
@@ -146,13 +164,14 @@ class XOut(AbstractOut):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
             >>> xout = ugentools.XOut.ar(
-            ...     bus=bus,
-            ...     crossfade=crossfade,
+            ...     bus=0,
+            ...     crossfade=0.5,
             ...     source=source,
             ...     )
             >>> xout.crossfade
+            0.5
 
         Returns ugen input.
         '''
@@ -160,28 +179,30 @@ class XOut(AbstractOut):
         return self._inputs[index]
 
     @property
+    def is_output_ugen(self):
+        return True
+
+    @property
     def source(self):
         r'''Gets `source` input of XOut.
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
+            >>> source = ugentools.WhiteNoise.ar()
             >>> xout = ugentools.XOut.ar(
-            ...     bus=bus,
-            ...     crossfade=crossfade,
+            ...     bus=0,
+            ...     crossfade=0.5,
             ...     source=source,
             ...     )
             >>> xout.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
+            (OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=CalculationRate.AUDIO
                     ),
                 output_index=0
-                )
+                ),)
 
         Returns ugen input.
         '''
         index = self._ordered_input_names.index('source')
-        return self._inputs[index]
+        return tuple(self._inputs[index:])

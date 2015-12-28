@@ -73,7 +73,7 @@ class Out(UGen):
             ...     )
             >>> out
             Out.ar()
-        
+
         Returns ugen graph.
         '''
         from supriya.tools import servertools
@@ -100,7 +100,7 @@ class Out(UGen):
         source=None,
         ):
         r'''Constructs a control-rate bus output.
-        
+
         ::
 
             >>> source = ugentools.SinOsc.kr(frequency=[4, 2])
@@ -110,7 +110,7 @@ class Out(UGen):
             ...     )
             >>> out
             Out.kr()
-        
+
         Returns ugen graph.
         '''
         from supriya.tools import servertools
