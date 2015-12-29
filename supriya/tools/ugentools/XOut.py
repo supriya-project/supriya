@@ -54,6 +54,11 @@ class XOut(UGen):
             source=source,
             )
 
+    ### PRIVATE METHODS ###
+
+    def _get_outputs(self):
+        return []
+
     ### PUBLIC METHODS ###
 
     @classmethod

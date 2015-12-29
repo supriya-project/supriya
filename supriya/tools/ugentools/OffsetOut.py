@@ -25,6 +25,7 @@ class OffsetOut(UGen):
 
     _ordered_input_names = (
         'bus',
+        'source',
         )
 
     _unexpanded_input_names = (
@@ -39,15 +40,14 @@ class OffsetOut(UGen):
         bus=0,
         source=None,
         ):
+        if not isinstance(source, collections.Sequence):
+            source = [source]
         UGen.__init__(
             self,
             bus=bus,
             calculation_rate=calculation_rate,
+            source=source,
             )
-        if not isinstance(source, collections.Sequence):
-            source = [source]
-        for single_source in source:
-            self._configure_input('source', single_source)
 
     ### PRIVATE METHODS ###
 
@@ -73,7 +73,7 @@ class OffsetOut(UGen):
             ...     )
             >>> offset_out
             OffsetOut.ar()
-        
+
         Returns ugen graph.
         '''
         from supriya.tools import servertools
@@ -113,3 +113,32 @@ class OffsetOut(UGen):
         '''
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
+
+    @property
+    def is_output_ugen(self):
+        return True
+
+    @property
+    def source(self):
+        r'''Gets `source` input of OffsetOut.
+
+        ::
+
+            >>> bus = 0
+            >>> source = ugentools.WhiteNoise.ar()
+            >>> out = ugentools.OffsetOut.ar(
+            ...     bus=bus,
+            ...     source=source,
+            ...     )
+            >>> out.source
+            (OutputProxy(
+                source=WhiteNoise(
+                    calculation_rate=CalculationRate.AUDIO
+                    ),
+                output_index=0
+                ),)
+
+        Returns input.
+        '''
+        index = self._ordered_input_names.index('source')
+        return tuple(self._inputs[index:])
