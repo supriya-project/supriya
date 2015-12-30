@@ -13,8 +13,7 @@ class Envelope(SupriyaObject):
         Envelope(
             amplitudes=(0.0, 1.0, 0.0),
             durations=(1.0, 1.0),
-            curves=('linear',),
-            offset=0.0
+            curves=('linear',)
             )
 
     ::
@@ -46,7 +45,7 @@ class Envelope(SupriyaObject):
         curves='linear',
         release_node=None,
         loop_node=None,
-        offset=0.,
+        offset=None,
         ):
         assert len(amplitudes)
         assert len(durations) and len(durations) == (len(amplitudes) - 1)
@@ -66,7 +65,9 @@ class Envelope(SupriyaObject):
             loop_node = int(loop_node)
             assert 0 <= loop_node <= release_node
         self._loop_node = loop_node
-        self._offset = float(offset)
+        if offset is not None:
+            offset = float(offset)
+        self._offset = offset
 
     ### SPECIAL METHODS ###
 
@@ -80,32 +81,7 @@ class Envelope(SupriyaObject):
         return hash(hash_values)
 
     def __iter__(self):
-        from supriya.tools import synthdeftools
-        result = []
-        result.append(self.amplitudes[0])
-        result.append(len(self.durations))
-        release_node = self.release_node
-        if release_node is None:
-            release_node = -99
-        result.append(release_node)
-        loop_node = self.loop_node
-        if loop_node is None:
-            loop_node = -99
-        result.append(loop_node)
-        for i in range(len(self.durations)):
-            result.append(self.amplitudes[i + 1])
-            result.append(self.durations[i])
-            curve = self.curves[i % len(self.curves)]
-            if isinstance(curve, str):
-                shape = synthdeftools.EnvelopeShape.from_expr(curve)
-                shape = int(shape)
-                curve = 0.
-            else:
-                shape = 5
-            result.append(shape)
-            result.append(curve)
-        for x in result:
-            yield x
+        return iter(self.serialize())
 
     ### PUBLIC METHODS ###
 
@@ -127,6 +103,31 @@ class Envelope(SupriyaObject):
             release_node=release_node,
             )
 
+    @classmethod
+    def from_segments(
+        cls,
+        initial_amplitude=0,
+        segments=None,
+        release_node=None,
+        loop_node=None,
+        offset=None,
+        ):
+        amplitudes = [initial_amplitude]
+        durations = []
+        curves = []
+        for amplitude, duration, curve in segments:
+            amplitudes.append(amplitude)
+            durations.append(duration)
+            curves.append(curve)
+        return cls(
+            amplitudes=amplitudes,
+            durations=durations,
+            curves=curves,
+            release_node=release_node,
+            loop_node=loop_node,
+            offset=offset,
+            )
+
     @staticmethod
     def percussive(
         attack_time=0.01,
@@ -144,8 +145,7 @@ class Envelope(SupriyaObject):
             Envelope(
                 amplitudes=(0.0, 1.0, 0.0),
                 durations=(0.01, 1.0),
-                curves=(-4.0,),
-                offset=0.0
+                curves=(-4.0,)
                 )
 
         ::
@@ -163,6 +163,51 @@ class Envelope(SupriyaObject):
             curves=curves,
             )
 
+    def serialize(self, for_interpolation=False):
+        from supriya.tools import synthdeftools
+        result = []
+        if for_interpolation:
+            result.append(self.offset or 0)
+            result.append(self.amplitudes[0])
+            result.append(len(self.durations))
+            result.append(sum(self.durations))
+            for i in range(len(self.durations)):
+                result.append(self.durations[i])
+                curve = self.curves[i % len(self.curves)]
+                if isinstance(curve, str):
+                    shape = synthdeftools.EnvelopeShape.from_expr(curve)
+                    shape = int(shape)
+                    curve = 0.
+                else:
+                    shape = 5
+                result.append(shape)
+                result.append(curve)
+                result.append(self.amplitudes[i + 1])
+        else:
+            result.append(self.amplitudes[0])
+            result.append(len(self.durations))
+            release_node = self.release_node
+            if release_node is None:
+                release_node = -99
+            result.append(release_node)
+            loop_node = self.loop_node
+            if loop_node is None:
+                loop_node = -99
+            result.append(loop_node)
+            for i in range(len(self.durations)):
+                result.append(self.amplitudes[i + 1])
+                result.append(self.durations[i])
+                curve = self.curves[i % len(self.curves)]
+                if isinstance(curve, str):
+                    shape = synthdeftools.EnvelopeShape.from_expr(curve)
+                    shape = int(shape)
+                    curve = 0.
+                else:
+                    shape = 5
+                result.append(shape)
+                result.append(curve)
+        return result
+
     @staticmethod
     def triangle(
         duration=1.0,
@@ -178,8 +223,7 @@ class Envelope(SupriyaObject):
             Envelope(
                 amplitudes=(0.0, 1.0, 0.0),
                 durations=(0.5, 0.5),
-                curves=('linear',),
-                offset=0.0
+                curves=('linear',)
                 )
 
         ::
