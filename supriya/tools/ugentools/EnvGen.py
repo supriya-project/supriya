@@ -73,7 +73,7 @@ class EnvGen(UGen):
         if envelope is None:
             envelope = synthdeftools.Envelope()
         assert isinstance(envelope, synthdeftools.Envelope)
-        envelope = tuple(envelope)
+        envelope = envelope.serialize()
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,

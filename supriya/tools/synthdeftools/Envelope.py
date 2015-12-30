@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class Envelope(SupriyaObject):
+class Envelope(SupriyaValueObject):
     r'''An envelope.
 
     ::
@@ -68,20 +68,6 @@ class Envelope(SupriyaObject):
         if offset is not None:
             offset = float(offset)
         self._offset = offset
-
-    ### SPECIAL METHODS ###
-
-    def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
-
-    def __hash__(self, expr):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
-        return hash(hash_values)
-
-    def __iter__(self):
-        return iter(self.serialize())
 
     ### PUBLIC METHODS ###
 
