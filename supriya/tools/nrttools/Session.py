@@ -11,11 +11,11 @@ from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
+from supriya.tools import timetools
 from supriya.tools.osctools.OscMixin import OscMixin
-from supriya.tools.timetools.TimespanCollection import TimespanCollection
 
 
-class Session(TimespanCollection, OscMixin):
+class Session(OscMixin):
     r'''A non-realtime session.
 
     ::
@@ -39,10 +39,9 @@ class Session(TimespanCollection, OscMixin):
 
     ::
 
-        >>> synth_one = nrttools.Synth(0, 10, synthdef=synthdef)
-        >>> synth_two = nrttools.Synth(5, 15, synthdef=synthdef, frequency=443)
-        >>> synth_three = nrttools.Synth(0, 15, synthdef=synthdef, frequency=666)
-        >>> session.insert([synth_one, synth_two, synth_three])
+        >>> synth_a = session.add_synth(0, 10, synthdef=synthdef)
+        >>> synth_b = session.add_synth(5, 15, synthdef=synthdef, frequency=443)
+        >>> synth_c = session.add_synth(0, 15, synthdef=synthdef, frequency=666)
 
     ::
 
@@ -122,12 +121,13 @@ class Session(TimespanCollection, OscMixin):
 
     __slots__ = (
         '_session_moments',
+        '_synths',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, timespans=None):
-        TimespanCollection.__init__(self, timespans=timespans)
+    def __init__(self):
+        self._synths = timetools.TimespanCollection()
         self._session_moments = []
 
     ### PRIVATE METHODS ###
@@ -137,7 +137,7 @@ class Session(TimespanCollection, OscMixin):
         prototype = (nrttools.Synth,)
         mapping = {}
         allocator = servertools.NodeIdAllocator()
-        for timespan in sorted(self):
+        for timespan in sorted(self._synths):
             if not isinstance(timespan, prototype):
                 continue
             elif timespan in mapping:
@@ -145,11 +145,46 @@ class Session(TimespanCollection, OscMixin):
             mapping[timespan] = allocator.allocate_node_id()
         return mapping
 
+    def _build_command(
+        self,
+        output_filename,
+        input_filename=None,
+        sample_rate=44100,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        **kwargs
+        ):
+        r'''Builds non-realtime rendering command.
+
+        ::
+
+            >>> session._build_command('output.aiff')
+            'scsynth -N {} _ output.aiff 44100 aiff int24'
+
+        '''
+        parts = ['scsynth', '-N', '{}']
+        if input_filename:
+            parts.append(os.path.expanduser(input_filename))
+        else:
+            parts.append('_')
+        parts.append(os.path.expanduser(output_filename))
+        parts.append(str(int(sample_rate)))
+        header_format = soundfiletools.HeaderFormat.from_expr(header_format)
+        parts.append(header_format.name.lower())  # Must be lowercase.
+        sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
+        parts.append(sample_format.name.lower())  # Must be lowercase.
+        server_options = servertools.ServerOptions(**kwargs)
+        server_options = server_options.as_options_string(realtime=False)
+        if server_options:
+            parts.append(server_options)
+        command = ' '.join(parts)
+        return command
+
     def _build_synthdef_receive_offset_mapping(self):
         from supriya.tools import nrttools
         prototype = (nrttools.Synth,)
         synthdefs_to_offsets = {}
-        for simultaneity in self.iterate_simultaneities():
+        for simultaneity in self._synths.iterate_simultaneities():
             start_events = set(simultaneity.start_timespans)
             for start_event in start_events:
                 if not isinstance(start_event, prototype):
@@ -236,15 +271,16 @@ class Session(TimespanCollection, OscMixin):
     def _process_timespan_mask(self, timespan):
         if timespan is not None:
             assert isinstance(timespan, timespantools.Timespan)
-            session = timespantools.TimespanInventory(self)
-            original_timespan = session.timespan
-            session = session & timespan
+            synths = timespantools.TimespanInventory(self._synths)
+            original_timespan = synths.timespan
+            synths = synths & timespan
             if timespan.start_offset not in (
                 mathtools.Infinity(), mathtools.NegativeInfinity):
                 translation = timespan.start_offset - \
                     original_timespan.start_offset
-                session = session.translate(translation)
-            session = type(self)(timespans=session[:])
+                synths = synths.translate(translation)
+            session = type(self)()
+            session._synths.insert(synths[:])
         else:
             session = self
         return session
@@ -259,40 +295,25 @@ class Session(TimespanCollection, OscMixin):
             )
         return session_moment
 
-    def build_command(
+    def add_synth(
         self,
-        output_filename,
-        input_filename=None,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        **kwargs
+        start_offset=None,
+        stop_offset=None,
+        synthdef=None,
+        add_action=None,
+        **synth_kwargs
         ):
-        r'''Builds non-realtime rendering command.
-
-        ::
-
-            >>> session.build_command('output.aiff')
-            'scsynth -N {} _ output.aiff 44100 aiff int24'
-
-        '''
-        parts = ['scsynth', '-N', '{}']
-        if input_filename:
-            parts.append(os.path.expanduser(input_filename))
-        else:
-            parts.append('_')
-        parts.append(os.path.expanduser(output_filename))
-        parts.append(str(int(sample_rate)))
-        header_format = soundfiletools.HeaderFormat.from_expr(header_format)
-        parts.append(header_format.name.lower())  # Must be lowercase.
-        sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
-        parts.append(sample_format.name.lower())  # Must be lowercase.
-        server_options = servertools.ServerOptions(**kwargs)
-        server_options = server_options.as_options_string(realtime=False)
-        if server_options:
-            parts.append(server_options)
-        command = ' '.join(parts)
-        return command
+        from supriya.tools import nrttools
+        synth = nrttools.Synth(
+            self,
+            start_offset=start_offset,
+            stop_offset=stop_offset,
+            synthdef=synthdef,
+            add_action=add_action,
+            **synth_kwargs
+            )
+        self._synths.insert(synth)
+        return synth
 
     def render(
         self,
@@ -313,7 +334,7 @@ class Session(TimespanCollection, OscMixin):
         file_path = os.path.join(temp_directory_path, '{}.osc'.format(md5))
         with open(file_path, 'wb') as file_pointer:
             file_pointer.write(datagram)
-        command = self.build_command(
+        command = self._build_command(
             output_filename,
             input_filename=None,
             sample_rate=sample_rate,
@@ -346,9 +367,9 @@ class Session(TimespanCollection, OscMixin):
         session = self._process_timespan_mask(timespan)
         node_mapping = session._build_node_id_mapping()
         synthdef_mapping = session._build_synthdef_receive_offset_mapping()
-        all_offsets = session.all_offsets
+        all_offsets = session._synths.all_offsets
         for offset in all_offsets:
-            simultaneity = session.get_simultaneity_at(offset)
+            simultaneity = session._synths.get_simultaneity_at(offset)
             start_events = set(simultaneity.start_timespans)
             stop_events = set(simultaneity.stop_timespans)
             stop_events.difference_update(start_events)
