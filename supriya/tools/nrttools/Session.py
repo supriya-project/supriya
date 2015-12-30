@@ -118,7 +118,15 @@ class Session(TimespanCollection, OscMixin):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        '_session_moments',
+        )
+
+    ### INITIALIZER ###
+
+    def __init__(self, timespans=None):
+        TimespanCollection.__init__(self, timespans=timespans)
+        self._session_moments = []
 
     ### PRIVATE METHODS ###
 
@@ -243,6 +251,14 @@ class Session(TimespanCollection, OscMixin):
         return session
 
     ### PUBLIC METHODS ###
+
+    def at(self, timestep):
+        from supriya.tools import nrttools
+        session_moment = nrttools.SessionMoment(
+            session=self,
+            timestep=timestep,
+            )
+        return session_moment
 
     def build_command(
         self,
