@@ -47,8 +47,11 @@ class SyncRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        request_id = int(self.request_id)
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         sync_id = int(self.sync_id)
         message = osctools.OscMessage(
             request_id,
@@ -65,7 +68,7 @@ class SyncRequest(Request):
             responsetools.SyncedResponse: {
                 'sync_id': self.sync_id,
                 },
-            } 
+            }
 
     @property
     def request_id(self):

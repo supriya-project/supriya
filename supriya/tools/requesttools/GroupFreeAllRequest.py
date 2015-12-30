@@ -6,20 +6,17 @@ class GroupFreeAllRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        ):
+    def __init__(self):
         Request.__init__(self)
         raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
+    def to_osc_message(self, with_textual_osc_command=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###

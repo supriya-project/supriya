@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
 
@@ -6,21 +7,23 @@ class ClearScheduleRequest(Request):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
-    def __init__(
-        self,
-        ):
+    def __init__(self):
         Request.__init__(self)
-        raise NotImplementedError
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        raise NotImplementedError
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
+        contents = [request_id]
+        message = osctools.OscMessage(*contents)
+        return message
 
     ### PUBLIC PROPERTIES ###
 

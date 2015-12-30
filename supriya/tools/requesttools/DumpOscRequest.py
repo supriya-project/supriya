@@ -45,8 +45,11 @@ class DumpOscRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        request_id = int(self.request_id)
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         osc_status = int(self.osc_status)
         assert 0 <= osc_status <= 4
         message = osctools.OscMessage(

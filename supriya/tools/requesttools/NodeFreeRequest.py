@@ -51,8 +51,11 @@ class NodeFreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        request_id = int(self.request_id)
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         contents = [request_id]
         contents.extend(self.node_ids)
         message = osctools.OscMessage(*contents)

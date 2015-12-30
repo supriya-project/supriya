@@ -68,8 +68,8 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        contents = self._get_osc_message_contents()
+    def to_osc_message(self, with_textual_osc_command=False):
+        contents = self._get_osc_message_contents(with_textual_osc_command)
         contents.extend(self.channel_indices)
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)

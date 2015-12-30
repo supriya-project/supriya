@@ -83,7 +83,7 @@ class Request(SupriyaValueObject):
         return self._response
 
     @abc.abstractmethod
-    def to_osc_message(self):
+    def to_osc_message(self, with_textual_osc_command=False):
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
@@ -91,6 +91,10 @@ class Request(SupriyaValueObject):
     @property
     def condition(self):
         return self._condition
+
+    @property
+    def request_command(self):
+        return self.request_id.osc_command
 
     @property
     def response(self):

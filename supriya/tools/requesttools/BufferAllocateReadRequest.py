@@ -65,8 +65,11 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### PRIVATE METHODS ###
 
-    def _get_osc_message_contents(self):
-        request_id = int(self.request_id)
+    def _get_osc_message_contents(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         frame_count = self.frame_count
         if frame_count is None:
@@ -86,7 +89,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
+    def to_osc_message(self, with_textual_osc_command=False):
         contents = self._get_osc_message_contents()
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)

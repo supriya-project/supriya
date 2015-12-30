@@ -64,8 +64,11 @@ class BufferAllocateRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        request_id = int(self.request_id)
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
         frame_count = int(self.frame_count)
         channel_count = int(self.channel_count)

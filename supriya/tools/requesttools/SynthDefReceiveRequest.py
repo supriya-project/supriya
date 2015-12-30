@@ -25,7 +25,7 @@ class SynthDefReceiveRequest(Request):
         Request.__init__(self)
         self._completion_message = completion_message
         if synthdefs:
-            prototype = synthdeftools.SynthDef 
+            prototype = synthdeftools.SynthDef
             if isinstance(synthdefs, prototype):
                 synthdefs = (synthdefs,)
             assert all(isinstance(x, prototype) for x in synthdefs)
@@ -34,9 +34,12 @@ class SynthDefReceiveRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
+    def to_osc_message(self, with_textual_osc_command=False):
         from supriya.tools import synthdeftools
-        request_id = int(self.request_id)
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
             self.synthdefs,
             )
@@ -57,7 +60,7 @@ class SynthDefReceiveRequest(Request):
     @property
     def completion_message(self):
         return self._completion_message
-    
+
     @property
     def response_specification(self):
         from supriya.tools import responsetools

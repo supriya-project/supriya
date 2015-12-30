@@ -50,9 +50,12 @@ class SynthDefFreeRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
+    def to_osc_message(self, with_textual_osc_command=False):
         from supriya.tools import synthdeftools
-        request_id = int(self.request_id)
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         synthdef = self.synthdef
         if isinstance(synthdef, synthdeftools.SynthDef):
             synthdef = synthdef.actual_name

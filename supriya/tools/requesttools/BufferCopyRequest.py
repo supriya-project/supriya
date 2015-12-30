@@ -70,8 +70,11 @@ class BufferCopyRequest(Request):
 
     ### PUBLIC METHODS ###
 
-    def to_osc_message(self):
-        request_id = int(self.request_id)
+    def to_osc_message(self, with_textual_osc_command=False):
+        if with_textual_osc_command:
+            request_id = self.request_command
+        else:
+            request_id = int(self.request_id)
         frame_count = self.frame_count
         if frame_count is None:
             frame_count = -1
