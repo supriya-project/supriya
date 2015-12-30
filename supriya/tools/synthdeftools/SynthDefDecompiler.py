@@ -15,8 +15,8 @@ class SynthDefDecompiler(SupriyaObject):
         >>> from supriya.tools import synthdeftools
         >>> from supriya.tools import ugentools
         >>> builder = synthdeftools.SynthDefBuilder()
-        >>> builder.add_parameter('frequency', 440)
-        >>> builder.add_parameter(
+        >>> parameter = builder.add_parameter('frequency', 440)
+        >>> parameter = builder.add_parameter(
         ...     'trigger', 0, synthdeftools.ParameterRate.TRIGGER,
         ...     )
         >>> with builder:
