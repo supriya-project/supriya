@@ -107,6 +107,7 @@ class SynthDefBuilder(SupriyaObject):
                 name=name,
                 )
         self._parameters[name] = parameter
+        return parameter
 
     def add_ugens(self, ugens):
         from supriya.tools import synthdeftools
