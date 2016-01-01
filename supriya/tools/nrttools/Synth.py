@@ -3,17 +3,18 @@ from abjad.tools import timespantools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
+from supriya.tools.nrttools.SessionObject import SessionObject
 
 
-class Synth(timespantools.Timespan):
+class Synth(timespantools.Timespan, SessionObject):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
         '_add_action',
         '_session',
-        '_synthdef',
         '_synth_kwargs',
+        '_synthdef',
         )
 
     ### INITIALIZER ###
@@ -27,15 +28,13 @@ class Synth(timespantools.Timespan):
         add_action=None,
         **synth_kwargs
         ):
-        from supriya.tools import nrttools
         from supriya.tools import servertools
         timespantools.Timespan.__init__(
             self,
             start_offset=start_offset,
             stop_offset=stop_offset,
             )
-        assert isinstance(session, nrttools.Session)
-        self._session = session
+        SessionObject.__init__(self, session)
         if add_action is None:
             add_action = servertools.AddAction.ADD_TO_HEAD
         assert add_action in (

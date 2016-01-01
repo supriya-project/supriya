@@ -7,9 +7,7 @@ class SessionObject(SupriyaObject):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_session',
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
