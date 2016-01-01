@@ -120,15 +120,21 @@ class Session(OscMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_buses',
+        '_bus_events',
         '_session_moments',
         '_synths',
+        '_synth_events',
         )
 
     ### INITIALIZER ###
 
     def __init__(self):
-        self._synths = timetools.TimespanCollection()
+        self._bus_events = {}
+        self._buses = set()
         self._session_moments = []
+        self._synth_events = {}
+        self._synths = timetools.TimespanCollection()
 
     ### PRIVATE METHODS ###
 
@@ -295,6 +301,23 @@ class Session(OscMixin):
             )
         return session_moment
 
+    def add_bus(self, calculation_rate=None):
+        from supriya.tools import nrttools
+        bus = nrttools.Bus(self, calculation_rate=calculation_rate)
+        self._buses.add(bus)
+        return bus
+
+    def add_bus_group(self, bus_count=1, calculation_rate=None):
+        from supriya.tools import nrttools
+        bus_group = nrttools.BusGroup(
+            self,
+            bus_count=bus_count,
+            calculation_rate=calculation_rate,
+            )
+        for bus in bus_group:
+            self._buses.add(bus)
+        return bus_group
+
     def add_synth(
         self,
         start_offset=None,
@@ -380,3 +403,5 @@ class Session(OscMixin):
                 simultaneity.start_offset, requests)
         osc_bundles += self._process_terminal_event(all_offsets, timespan)
         return osc_bundles
+
+    ### PUBLIC PROPERTIES ###
