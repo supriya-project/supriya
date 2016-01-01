@@ -63,7 +63,7 @@ class BusGroup(ServerObjectProxy, BindingTarget):
         elif isinstance(item, slice):
             indices = item.indices(len(self))
             bus_count = indices[1] - indices[0]
-            bus_group = BusGroup(
+            bus_group = type(self)(
                 bus_count=bus_count,
                 bus_id=self.bus_id,
                 calculation_rate=self.calculation_rate,
@@ -288,6 +288,10 @@ class BusGroup(ServerObjectProxy, BindingTarget):
         return self._buses
 
     @property
+    def calculation_rate(self):
+        return self._calculation_rate
+
+    @property
     def is_allocated(self):
         return self.server is not None
 
@@ -300,7 +304,3 @@ class BusGroup(ServerObjectProxy, BindingTarget):
             map_symbol = 'c'
         map_symbol += str(self.bus_id)
         return map_symbol
-
-    @property
-    def calculation_rate(self):
-        return self._calculation_rate

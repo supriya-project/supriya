@@ -42,7 +42,8 @@ class Bus(ServerObjectProxy, BindingTarget):
         self._bus_group = bus_group
         self._bus_id = bus_id
         assert calculation_rate is not None
-        calculation_rate = synthdeftools.CalculationRate.from_expr(calculation_rate)
+        calculation_rate = synthdeftools.CalculationRate.from_expr(
+            calculation_rate)
         self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
@@ -242,10 +243,7 @@ class Bus(ServerObjectProxy, BindingTarget):
                 )
         return ugen
 
-    def set(
-        self,
-        value,
-        ):
+    def set(self, value):
         from supriya.tools import requesttools
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
