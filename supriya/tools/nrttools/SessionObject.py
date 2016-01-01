@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import abc
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -12,6 +13,7 @@ class SessionObject(SupriyaObject):
 
     ### INITIALIZER ###
 
+    @abc.abstractmethod
     def __init__(
         self,
         session,
