@@ -3,7 +3,20 @@ from supriya.tools import synthdeftools
 from supriya.tools.nrttools.SessionObject import SessionObject
 
 
-class Bus(SessionObject):
+class BusGroup(SessionObject):
+    r'''A non-realtime bus group.
+
+    ::
+
+        >>> session = nrttools.Session()
+        >>> bus_group = session.add_bus_group(8, 'audio')
+        >>> print(bus_group)
+        <BusGroup(
+            bus_count=8,
+            calculation_rate=CalculationRate.AUDIO
+            )>
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -65,7 +78,16 @@ class Bus(SessionObject):
     ### PUBLIC METHODS ###
 
     def fill(self, value):
-        pass
+        assert self.session._session_moments
+        timestep = self.session._session_moments[-1].timestep
+        for bus in self:
+            bus._set_at_timestep(timestep, value)
+
+    def get(self):
+        assert self.session._session_moments
+        timestep = self.session._session_moments[-1].timestep
+        values = [bus._get_at_timestep(timestep) for bus in self]
+        return values
 
     def get_map_symbol(self, bus_id):
         from supriya.tools import synthdeftools
@@ -80,6 +102,10 @@ class Bus(SessionObject):
         return self.buses.index(item)
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def bus_count(self):
+        return len(self._buses)
 
     @property
     def buses(self):

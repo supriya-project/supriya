@@ -1,9 +1,44 @@
-# -*- encoding: utf-8 -*-
+# -*- enoding: utf-8 -*-
+import bisect
 from supriya.tools import synthdeftools
 from supriya.tools.nrttools.SessionObject import SessionObject
 
 
 class Bus(SessionObject):
+    r'''A non-realtime bus.
+
+    ::
+
+        >>> session = nrttools.Session()
+        >>> bus = session.add_bus('control')
+        >>> print(bus)
+        <Bus(
+            calculation_rate=CalculationRate.CONTROL
+            )>
+
+    ::
+
+        >>> with session.at(1):
+        ...     bus.set_(0.5)
+        ...
+        >>> with session.at(3):
+        ...     bus.set_(0.75)
+        ...
+
+    ::
+
+        >>> for timestep in range(5):
+        ...     with session.at(timestep):
+        ...         value = bus.get()
+        ...         print(timestep, value)
+        ...
+        0 0.0
+        1 0.5
+        2 0.5
+        3 0.75
+        4 0.75
+
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -31,7 +66,51 @@ class Bus(SessionObject):
             calculation_rate)
         self._calculation_rate = calculation_rate
 
+    ### PRIVATE METHODS ###
+
+    def _get_at_timestep(self, timestep):
+        if self not in self._session._bus_events:
+            self._session._bus_events[self] = []
+        events = self._session._bus_events[self]
+        if not events:
+            return 0.
+        index = bisect.bisect_left(events, (timestep, 0.))
+        if len(events) <= index:
+            old_timestep, value = events[-1]
+        else:
+            old_timestep, value = events[index]
+        if old_timestep == timestep:
+            return value
+        index -= 1
+        if index < 0:
+            return 0.
+        _, value = events[index]
+        return value
+
+    def _set_at_timestep(self, timestep, value):
+        if self not in self._session._bus_events:
+            self._session._bus_events[self] = []
+        events = self._session._bus_events[self]
+        event = (timestep, value)
+        if not events:
+            events.append(event)
+        else:
+            index = bisect.bisect_left(events, event)
+            if len(events) <= index:
+                events.append(event)
+            old_timestep, _ = events[index]
+            if old_timestep == timestep:
+                events[index] = event
+            else:
+                events.insert(index, event)
+
     ### PUBLIC METHODS ###
+
+    def get(self):
+        assert self.session._session_moments
+        timestep = self.session._session_moments[-1].timestep
+        value = self._get_at_timestep(timestep)
+        return value
 
     def get_map_symbol(self, bus_id):
         from supriya.tools import synthdeftools
@@ -42,8 +121,10 @@ class Bus(SessionObject):
         map_symbol += str(bus_id)
         return map_symbol
 
-    def set(self, value):
-        pass
+    def set_(self, value):
+        assert self.session._session_moments
+        timestep = self.session._session_moments[-1].timestep
+        self._set_at_timestep(timestep, value)
 
     ### PUBLIC PROPERTIES ###
 

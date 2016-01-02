@@ -36,5 +36,5 @@ class SessionMoment(SupriyaValueObject):
         return self._session
 
     @property
-    def timestamp(self):
-        return self._timestamp
+    def timestep(self):
+        return self._timestep

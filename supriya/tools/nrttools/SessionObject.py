@@ -20,6 +20,24 @@ class SessionObject(SupriyaObject):
         assert isinstance(session, nrttools.Session)
         self._session = session
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _storage_format_specification(self):
+        from abjad.tools import systemtools
+        from supriya.tools import nrttools
+        manager = systemtools.StorageFormatManager
+        positional_argument_values = list(
+            manager.get_positional_argument_values(self))
+        for value in positional_argument_values[:]:
+            if isinstance(value, nrttools.Session):
+                positional_argument_values.remove(value)
+        return systemtools.StorageFormatSpecification(
+            self,
+            is_bracketed=True,
+            positional_argument_values=positional_argument_values,
+            )
+
     ### PUBLIC PROPERTIES ###
 
     @property
