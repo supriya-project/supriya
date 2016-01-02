@@ -9,12 +9,40 @@ class BusGroup(SessionObject):
     ::
 
         >>> session = nrttools.Session()
-        >>> bus_group = session.add_bus_group(8, 'audio')
+        >>> bus_group = session.add_bus_group(3, 'audio')
         >>> print(bus_group)
         <BusGroup(
-            bus_count=8,
+            bus_count=3,
             calculation_rate=CalculationRate.AUDIO
             )>
+
+    ::
+
+        >>> with session.at(1):
+        ...     bus_group[0].set_(0.333)
+        ...
+        >>> with session.at(3):
+        ...     bus_group.fill(0.5)
+        ...
+        >>> with session.at(5):
+        ...     bus_group[1].set_(0.666)
+        ...     bus_group[2].set_(0.75)
+        ...
+
+    ::
+
+        >>> for timestep in range(7):
+        ...     with session.at(timestep):
+        ...         values = bus_group.get()
+        ...         print(timestep, values)
+        ...
+        0 [0.0, 0.0, 0.0]
+        1 [0.333, 0.0, 0.0]
+        2 [0.333, 0.0, 0.0]
+        3 [0.5, 0.5, 0.5]
+        4 [0.5, 0.5, 0.5]
+        5 [0.5, 0.666, 0.75]
+        6 [0.5, 0.666, 0.75]
 
     '''
 
