@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import bisect
 from abjad.tools import timespantools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -46,9 +47,18 @@ class Synth(timespantools.Timespan, SessionObject):
         self._synthdef = synthdef
         self._synth_kwargs = synth_kwargs.copy()
 
-    ### PUBLIC METHODS ###
+    ### SPECIAL METHODS ###
 
-    def get_start_request(self, mapping):
+    def __setitem__(self, item, value):
+        from supriya.tools import nrttools
+        assert self.session._session_moments
+        timestep = self.session._session_moments[-1].timestep
+        assert isinstance(value, (int, float, nrttools.Bus, nrttools.BusGroup))
+        self._set_at_timestep(timestep, value)
+
+    ### PRIVATE METHODS ###
+
+    def _get_start_request(self, mapping):
         node_id = mapping[self]
         target_node_id = 0
         parameter_names = self.synthdef.parameter_names
@@ -63,6 +73,22 @@ class Synth(timespantools.Timespan, SessionObject):
             **synth_kwargs
             )
         return request
+
+    def _set_at_timestep(self, timestep, item, value):
+        events = self._session._events.setdefault(self, [])
+        new_payload = {item: value}
+        new_event = (timestep, new_payload)
+        if not events:
+            events.append(new_event)
+            return
+        index = bisect.bisect_left(events, new_event)
+        if len(events) <= index:
+            events.append(new_event)
+        old_timestep, old_payload = events[index]
+        if old_timestep == timestep:
+            old_payload.update(new_payload)
+        else:
+            events.insert(index, new_event)
 
     ### PUBLIC PROPERTIES ###
 
