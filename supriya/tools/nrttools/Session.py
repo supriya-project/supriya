@@ -121,19 +121,17 @@ class Session(OscMixin):
 
     __slots__ = (
         '_buses',
-        '_bus_events',
+        '_events',
         '_session_moments',
         '_synths',
-        '_synth_events',
         )
 
     ### INITIALIZER ###
 
     def __init__(self):
-        self._bus_events = {}
         self._buses = set()
+        self._events = {}
         self._session_moments = []
-        self._synth_events = {}
         self._synths = timetools.TimespanCollection()
 
     ### PRIVATE METHODS ###
@@ -222,7 +220,7 @@ class Session(OscMixin):
         for start_event in sorted(start_events):
             if not isinstance(start_event, nrttools.Synth):
                 continue
-            request = start_event.get_start_request(node_id_mapping)
+            request = start_event._get_start_request(node_id_mapping)
             requests.append(request)
         return requests
 
@@ -403,5 +401,3 @@ class Session(OscMixin):
                 simultaneity.start_offset, requests)
         osc_bundles += self._process_terminal_event(all_offsets, timespan)
         return osc_bundles
-
-    ### PUBLIC PROPERTIES ###

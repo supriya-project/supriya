@@ -3,6 +3,8 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class SessionMoment(SupriyaValueObject):
+    r'''An NRT session moment.
+    '''
 
     ### CLASS VARIABLES ###
 

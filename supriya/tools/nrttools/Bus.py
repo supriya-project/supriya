@@ -69,9 +69,7 @@ class Bus(SessionObject):
     ### PRIVATE METHODS ###
 
     def _get_at_timestep(self, timestep):
-        if self not in self._session._bus_events:
-            self._session._bus_events[self] = []
-        events = self._session._bus_events[self]
+        events = self._session._events.setdefault(self, [])
         if not events:
             return 0.
         index = bisect.bisect_left(events, (timestep, 0.))
@@ -88,21 +86,19 @@ class Bus(SessionObject):
         return value
 
     def _set_at_timestep(self, timestep, value):
-        if self not in self._session._bus_events:
-            self._session._bus_events[self] = []
-        events = self._session._bus_events[self]
+        events = self._session._events.setdefault(self, [])
         event = (timestep, value)
         if not events:
             events.append(event)
+            return
+        index = bisect.bisect_left(events, event)
+        if len(events) <= index:
+            events.append(event)
+        old_timestep, _ = events[index]
+        if old_timestep == timestep:
+            events[index] = event
         else:
-            index = bisect.bisect_left(events, event)
-            if len(events) <= index:
-                events.append(event)
-            old_timestep, _ = events[index]
-            if old_timestep == timestep:
-                events[index] = event
-            else:
-                events.insert(index, event)
+            events.insert(index, event)
 
     ### PUBLIC METHODS ###
 
