@@ -27,7 +27,7 @@ if not on_rtd:
     install_requires.extend([
         'numpy',
         'python-rtmidi',
-        'python-wavefile',
+        'wavefile',
         ])
 
 long_description = '''
