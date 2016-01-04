@@ -54,7 +54,7 @@ class Synth(timespantools.Timespan, SessionObject):
         assert self.session._session_moments
         timestep = self.session._session_moments[-1].timestep
         assert isinstance(value, (int, float, nrttools.Bus, nrttools.BusGroup))
-        self._set_at_timestep(timestep, value)
+        self._set_at_timestep(timestep, item, value)
 
     ### PRIVATE METHODS ###
 

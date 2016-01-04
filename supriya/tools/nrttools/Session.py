@@ -45,6 +45,13 @@ class Session(OscMixin):
 
     ::
 
+        >>> with session.at(7.5):
+        ...     synth_a['frequency'] = 880
+        ...     synth_b['frequency'] = 990
+        ...
+
+    ::
+
         >>> for osc_bundle in session.to_osc_bundles():
         ...     osc_bundle
         ...
@@ -184,6 +191,20 @@ class Session(OscMixin):
         command = ' '.join(parts)
         return command
 
+    def _build_event_offset_mapping(self):
+        from supriya.tools import nrttools
+        mapping = {}
+        for session_object, events in self._events.items():
+            for timestep, payload in events:
+                if timestep not in mapping:
+                    mapping[timestep] = {}, {}
+                bus_events, synth_events = mapping[timestep]
+                if isinstance(session_object, nrttools.Bus):
+                    bus_events[session_object] = payload
+                elif isinstance(session_object, nrttools.Synth):
+                    synth_events[session_object] = payload
+        return mapping
+
     def _build_synthdef_receive_offset_mapping(self):
         from supriya.tools import nrttools
         prototype = (nrttools.Synth,)
@@ -203,6 +224,14 @@ class Session(OscMixin):
                 offsets_to_synthdefs[offset] = []
             offsets_to_synthdefs[offset].append(synthdef)
         return offsets_to_synthdefs
+
+    def _process_bus_events(self, bus_events, bus_mapping):
+        requests = []
+        return requests
+
+    def _process_synth_events(self, synth_events, bus_mapping, node_mapping):
+        requests = []
+        return requests
 
     def _process_requests(self, offset, requests):
         timestamp = float(offset)
@@ -386,16 +415,25 @@ class Session(OscMixin):
     def to_osc_bundles(self, timespan=None):
         osc_bundles = []
         session = self._process_timespan_mask(timespan)
+        bus_mapping = {}
         node_mapping = session._build_node_id_mapping()
         synthdef_mapping = session._build_synthdef_receive_offset_mapping()
-        all_offsets = session._synths.all_offsets
+        event_mapping = session._build_event_offset_mapping()
+        all_offsets = set(session._synths.all_offsets)
+        all_offsets.update(event_mapping)
+        all_offsets = sorted(all_offsets)
         for offset in all_offsets:
+            requests = []
             simultaneity = session._synths.get_simultaneity_at(offset)
+            bus_events, synth_events = event_mapping.get(offset, ([], []))
             start_events = set(simultaneity.start_timespans)
             stop_events = set(simultaneity.stop_timespans)
             stop_events.difference_update(start_events)
-            requests = self._process_synthdef_events(offset, synthdef_mapping)
+            requests += self._process_synthdef_events(offset, synthdef_mapping)
+            requests += self._process_bus_events(bus_events, bus_mapping)
             requests += self._process_start_events(start_events, node_mapping)
+            requests += self._process_synth_events(
+                synth_events, bus_mapping, node_mapping)
             requests += self._process_stop_events(stop_events, node_mapping)
             osc_bundles += self._process_requests(
                 simultaneity.start_offset, requests)
