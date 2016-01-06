@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
-from supriya.tools.nrttools.SessionObject import SessionObject
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class BusGroup(SessionObject):
@@ -8,7 +8,7 @@ class BusGroup(SessionObject):
 
     ::
 
-        >>> session = nrttools.Session()
+        >>> session = nonrealtimetools.Session()
         >>> bus_group = session.add_bus_group(3, 'audio')
         >>> print(bus_group)
         <BusGroup(
@@ -62,7 +62,7 @@ class BusGroup(SessionObject):
         bus_count=1,
         calculation_rate=None,
         ):
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         SessionObject.__init__(self, session)
         assert calculation_rate is not None
         calculation_rate = synthdeftools.CalculationRate.from_expr(
@@ -71,7 +71,7 @@ class BusGroup(SessionObject):
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
-            nrttools.Bus(
+            nonrealtimetools.Bus(
                 session,
                 bus_group=self,
                 calculation_rate=self.calculation_rate,

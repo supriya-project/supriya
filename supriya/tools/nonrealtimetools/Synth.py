@@ -4,7 +4,7 @@ from abjad.tools import timespantools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
-from supriya.tools.nrttools.SessionObject import SessionObject
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Synth(timespantools.Timespan, SessionObject):
@@ -50,10 +50,10 @@ class Synth(timespantools.Timespan, SessionObject):
     ### SPECIAL METHODS ###
 
     def __setitem__(self, item, value):
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         assert self.session._session_moments
         timestep = self.session._session_moments[-1].timestep
-        assert isinstance(value, (int, float, nrttools.Bus, nrttools.BusGroup))
+        assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
         self._set_at_timestep(timestep, item, value)
 
     ### PRIVATE METHODS ###

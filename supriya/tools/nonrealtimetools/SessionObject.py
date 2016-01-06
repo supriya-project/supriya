@@ -16,8 +16,8 @@ class SessionObject(SupriyaObject):
         self,
         session,
         ):
-        from supriya.tools import nrttools
-        assert isinstance(session, nrttools.Session)
+        from supriya.tools import nonrealtimetools
+        assert isinstance(session, nonrealtimetools.Session)
         self._session = session
 
     ### PRIVATE PROPERTIES ###
@@ -25,12 +25,12 @@ class SessionObject(SupriyaObject):
     @property
     def _storage_format_specification(self):
         from abjad.tools import systemtools
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         manager = systemtools.StorageFormatManager
         positional_argument_values = list(
             manager.get_positional_argument_values(self))
         for value in positional_argument_values[:]:
-            if isinstance(value, nrttools.Session):
+            if isinstance(value, nonrealtimetools.Session):
                 positional_argument_values.remove(value)
         return systemtools.StorageFormatSpecification(
             self,

@@ -20,8 +20,8 @@ class Session(OscMixin):
 
     ::
 
-        >>> from supriya.tools import nrttools
-        >>> session = nrttools.Session()
+        >>> from supriya.tools import nonrealtimetools
+        >>> session = nonrealtimetools.Session()
 
     ::
 
@@ -144,8 +144,8 @@ class Session(OscMixin):
     ### PRIVATE METHODS ###
 
     def _build_node_id_mapping(self):
-        from supriya.tools import nrttools
-        prototype = (nrttools.Synth,)
+        from supriya.tools import nonrealtimetools
+        prototype = (nonrealtimetools.Synth,)
         mapping = {}
         allocator = servertools.NodeIdAllocator()
         for timespan in sorted(self._synths):
@@ -192,22 +192,22 @@ class Session(OscMixin):
         return command
 
     def _build_event_offset_mapping(self):
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         mapping = {}
         for session_object, events in self._events.items():
             for timestep, payload in events:
                 if timestep not in mapping:
                     mapping[timestep] = {}, {}
                 bus_events, synth_events = mapping[timestep]
-                if isinstance(session_object, nrttools.Bus):
+                if isinstance(session_object, nonrealtimetools.Bus):
                     bus_events[session_object] = payload
-                elif isinstance(session_object, nrttools.Synth):
+                elif isinstance(session_object, nonrealtimetools.Synth):
                     synth_events[session_object] = payload
         return mapping
 
     def _build_synthdef_receive_offset_mapping(self):
-        from supriya.tools import nrttools
-        prototype = (nrttools.Synth,)
+        from supriya.tools import nonrealtimetools
+        prototype = (nonrealtimetools.Synth,)
         synthdefs_to_offsets = {}
         for simultaneity in self._synths.iterate_simultaneities():
             start_events = set(simultaneity.start_timespans)
@@ -244,23 +244,23 @@ class Session(OscMixin):
         return osc_bundles
 
     def _process_start_events(self, start_events, node_id_mapping):
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         requests = []
         for start_event in sorted(start_events):
-            if not isinstance(start_event, nrttools.Synth):
+            if not isinstance(start_event, nonrealtimetools.Synth):
                 continue
             request = start_event._get_start_request(node_id_mapping)
             requests.append(request)
         return requests
 
     def _process_stop_events(self, stop_events, node_id_mapping):
-        from supriya.tools import nrttools
+        from supriya.tools import nonrealtimetools
         requests = []
         if stop_events:
             free_ids = []
             gate_ids = []
             for stop_event in stop_events:
-                if not isinstance(stop_event, nrttools.Synth):
+                if not isinstance(stop_event, nonrealtimetools.Synth):
                     continue
                 parameter_names = stop_event.synthdef.parameter_names
                 if 'gate' in parameter_names:
@@ -321,22 +321,22 @@ class Session(OscMixin):
     ### PUBLIC METHODS ###
 
     def at(self, timestep):
-        from supriya.tools import nrttools
-        session_moment = nrttools.SessionMoment(
+        from supriya.tools import nonrealtimetools
+        session_moment = nonrealtimetools.SessionMoment(
             session=self,
             timestep=timestep,
             )
         return session_moment
 
     def add_bus(self, calculation_rate=None):
-        from supriya.tools import nrttools
-        bus = nrttools.Bus(self, calculation_rate=calculation_rate)
+        from supriya.tools import nonrealtimetools
+        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
         self._buses.add(bus)
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate=None):
-        from supriya.tools import nrttools
-        bus_group = nrttools.BusGroup(
+        from supriya.tools import nonrealtimetools
+        bus_group = nonrealtimetools.BusGroup(
             self,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
@@ -353,8 +353,8 @@ class Session(OscMixin):
         add_action=None,
         **synth_kwargs
         ):
-        from supriya.tools import nrttools
-        synth = nrttools.Synth(
+        from supriya.tools import nonrealtimetools
+        synth = nonrealtimetools.Synth(
             self,
             start_offset=start_offset,
             stop_offset=stop_offset,

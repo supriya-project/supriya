@@ -16,8 +16,8 @@ class SessionMoment(SupriyaValueObject):
     ### INITIALIZER ###
 
     def __init__(self, session, timestep):
-        from supriya.tools import nrttools
-        assert isinstance(session, nrttools.Session)
+        from supriya.tools import nonrealtimetools
+        assert isinstance(session, nonrealtimetools.Session)
         timestep = float(timestep)
         assert 0 <= timestep
         self._session = session

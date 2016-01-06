@@ -2,7 +2,7 @@
 import os
 import unittest
 from abjad.tools import timespantools
-from supriya.tools import nrttools
+from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
@@ -76,13 +76,13 @@ class TestCase(unittest.TestCase):
         assert soundfile.channel_count == expected_channel_count
 
     def test_01(self):
-        session = nrttools.Session()
+        session = nonrealtimetools.Session()
         session.add_synth(0, 1, synthdef=self.build_basic_synthdef())
         exit_code, _ = session.render(self.output_filepath)
         self.assert_ok(exit_code, 1., 44100, 8)
 
     def test_02(self):
-        session = nrttools.Session()
+        session = nonrealtimetools.Session()
         session.add_synth(0, 300, synthdef=self.build_basic_synthdef())
         exit_code, _ = session.render(
             self.output_filepath,
@@ -92,7 +92,7 @@ class TestCase(unittest.TestCase):
         self.assert_ok(exit_code, 300., 48000, 2)
 
     def test_03(self):
-        session = nrttools.Session()
+        session = nonrealtimetools.Session()
         session.add_synth(1, 2, synthdef=self.build_basic_synthdef())
         timespan = timespantools.Timespan(0.5, 2.5)
         assert session.to_osc_bundles(timespan=timespan) == [
@@ -114,7 +114,7 @@ class TestCase(unittest.TestCase):
             ]
 
     def test_04(self):
-        session = nrttools.Session()
+        session = nonrealtimetools.Session()
         session.add_synth(0, 1, synthdef=self.build_duration_synthdef())
         exit_code, _ = session.render(
             self.output_filepath,
@@ -127,7 +127,7 @@ class TestCase(unittest.TestCase):
             assert self.round(soundfile.at_percent(value)[0]) == value
 
     def test_05(self):
-        session = nrttools.Session()
+        session = nonrealtimetools.Session()
         session.add_synth(0, 1, synthdef=self.build_gate_synthdef())
         timespan = timespantools.Timespan(0, 3)
         assert session.to_osc_bundles(timespan=timespan) == [
