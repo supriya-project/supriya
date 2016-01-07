@@ -127,15 +127,39 @@ class Session(OscMixin):
     ### CLASS VARIABLES ###
 
     __slots__ = (
+        '_audio_input_bus_group',
+        '_audio_output_bus_group',
         '_buses',
         '_events',
+        '_input_count',
+        '_output_count',
         '_session_moments',
         '_synths',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self):
+    def __init__(self, input_count=0, output_count=2):
+        from supriya.tools import nonrealtimetools
+
+        input_count = int(input_count or 0)
+        assert 0 <= input_count
+        self._input_count = input_count
+
+        output_count = int(output_count or 0)
+        assert 0 <= output_count
+        self._output_count = output_count
+
+        audio_input_bus_group = None
+        if self._input_count:
+            audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
+        self._audio_input_bus_group = audio_input_bus_group
+
+        audio_output_bus_group = None
+        if self._output_count:
+            audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
+        self._audio_output_bus_group = audio_output_bus_group
+
         self._buses = set()
         self._events = {}
         self._session_moments = []
@@ -439,3 +463,21 @@ class Session(OscMixin):
                 simultaneity.start_offset, requests)
         osc_bundles += self._process_terminal_event(all_offsets, timespan)
         return osc_bundles
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def audio_input_bus_group(self):
+        return self._audio_input_bus_group
+
+    @property
+    def audio_output_bus_group(self):
+        return self._audio_output_bus_group
+
+    @property
+    def input_count(self):
+        return self._input_count
+
+    @property
+    def output_count(self):
+        return self._output_count
