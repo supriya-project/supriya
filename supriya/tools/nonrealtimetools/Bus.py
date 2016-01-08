@@ -45,6 +45,7 @@ class Bus(SessionObject):
     __slots__ = (
         '_bus_group',
         '_calculation_rate',
+        '_events',
         '_session',
         )
 
@@ -65,11 +66,12 @@ class Bus(SessionObject):
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
         self._calculation_rate = calculation_rate
+        self._events = []
 
     ### PRIVATE METHODS ###
 
     def _get_at_timestep(self, timestep):
-        events = self._session._events.setdefault(self, [])
+        events = self._events
         if not events:
             return 0.
         index = bisect.bisect_left(events, (timestep, 0.))
@@ -86,7 +88,7 @@ class Bus(SessionObject):
         return value
 
     def _set_at_timestep(self, timestep, value):
-        events = self._session._events.setdefault(self, [])
+        events = self._events
         event = (timestep, value)
         if not events:
             events.append(event)
