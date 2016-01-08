@@ -820,6 +820,11 @@ class SynthDef(ServerObjectProxy):
         return self._name
 
     @property
+    def parameters(self):
+        return {parameter.name: parameter
+            for index, parameter in self.indexed_parameters}
+
+    @property
     def parameter_names(self):
         return [parameter.name for index, parameter in self.indexed_parameters]
 
