@@ -59,14 +59,14 @@ class Session(OscMixin):
             timestamp=0.0,
             contents=(
                 OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 9c4eb4778dc0faf39459fa8a5cd45c19\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01C\xdc\x00\x00\x00\x00\x00\x01\tfrequency\x00\x00\x00\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')),
-                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 1, 0),
-                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 1, 0, 'frequency', 666),
+                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0),
+                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0, 'frequency', 666),
                 )
             )
         OscBundle(
             timestamp=5.0,
             contents=(
-                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 1, 0, 'frequency', 443),
+                OscMessage('/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0, 'frequency', 443),
                 )
             )
         OscBundle(
@@ -78,7 +78,8 @@ class Session(OscMixin):
         OscBundle(
             timestamp=15.0,
             contents=(
-                OscMessage('/n_free', 1001, 1002),
+                OscMessage('/n_free', 1001),
+                OscMessage('/n_free', 1002),
                 )
             )
 
@@ -227,7 +228,16 @@ class Session(OscMixin):
                     synth_events[session_object] = payload
         return mapping
 
-    def _build_synthdef_receive_offset_mapping(self):
+    def _collect_synth_requests(self, request_mapping, id_mapping):
+        synths = sorted(self._synths, key=lambda x: (x, id_mapping[x]))
+        for synth in synths:
+            items = synth._collect_requests(id_mapping).items()
+            for timestep, synth_requests in items:
+                requests = request_mapping.setdefault(timestep, [])
+                requests.extend(synth_requests)
+        return request_mapping
+
+    def _collect_synthdef_requests(self, request_mapping):
         from supriya.tools import nonrealtimetools
         prototype = (nonrealtimetools.Synth,)
         synthdefs_to_offsets = {}
@@ -245,15 +255,14 @@ class Session(OscMixin):
             if offset not in offsets_to_synthdefs:
                 offsets_to_synthdefs[offset] = []
             offsets_to_synthdefs[offset].append(synthdef)
-        return offsets_to_synthdefs
-
-    def _process_bus_events(self, bus_events, bus_mapping):
-        requests = []
-        return requests
-
-    def _process_synth_events(self, synth_events, bus_mapping, node_mapping):
-        requests = []
-        return requests
+        for timestep, synthdefs in offsets_to_synthdefs.items():
+            synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=synthdefs,
+                )
+            requests = request_mapping.setdefault(timestep, [])
+            requests.append(request)
+        return request_mapping
 
     def _process_requests(self, offset, requests):
         timestamp = float(offset)
@@ -265,57 +274,12 @@ class Session(OscMixin):
             osc_bundles.append(osc_bundle)
         return osc_bundles
 
-    def _process_start_events(self, start_events, node_id_mapping):
-        from supriya.tools import nonrealtimetools
-        requests = []
-        for start_event in sorted(start_events):
-            if not isinstance(start_event, nonrealtimetools.Synth):
-                continue
-            request = start_event._get_start_request(node_id_mapping)
-            requests.append(request)
-        return requests
-
-    def _process_stop_events(self, stop_events, node_id_mapping):
-        from supriya.tools import nonrealtimetools
-        requests = []
-        if stop_events:
-            free_ids = []
-            gate_ids = []
-            for stop_event in stop_events:
-                if not isinstance(stop_event, nonrealtimetools.Synth):
-                    continue
-                parameter_names = stop_event.synthdef.parameter_names
-                if 'gate' in parameter_names:
-                    gate_ids.append(node_id_mapping[stop_event])
-                else:
-                    free_ids.append(node_id_mapping[stop_event])
-            if free_ids:
-                free_ids.sort()
-                request = requesttools.NodeFreeRequest(node_ids=free_ids)
-                requests.append(request)
-            if gate_ids:
-                for node_id in sorted(gate_ids):
-                    request = requesttools.NodeSetRequest(node_id, gate=0)
-                    requests.append(request)
-        return requests
-
-    def _process_synthdef_events(self, offset, synthdef_mapping):
-        requests = []
-        synthdefs = sorted(synthdef_mapping.get(offset, []),
-            key=lambda x: x.anonymous_name)
-        if synthdefs:
-            request = requesttools.SynthDefReceiveRequest(
-                synthdefs=synthdefs,
-                )
-            requests.append(request)
-        return requests
-
-    def _process_terminal_event(self, all_offsets, timespan):
+    def _process_terminal_event(self, final_timestep, timespan):
         osc_bundles = []
         if timespan is not None:
             prototype = (mathtools.Infinity(), mathtools.NegativeInfinity)
             if timespan.stop_offset not in prototype and \
-                all_offsets[-1] < timespan.stop_offset:
+                final_timestep < timespan.stop_offset:
                 osc_bundle = osctools.OscBundle(
                     timestamp=float(timespan.stop_offset),
                     contents=[osctools.OscMessage(0)],
@@ -438,32 +402,12 @@ class Session(OscMixin):
         osc_bundles = []
         session = self._process_timespan_mask(timespan)
         id_mapping = session._build_node_id_mapping()
-        synthdef_mapping = session._build_synthdef_receive_offset_mapping()
-
-        requests = {}
-        synths = sorted(self.synths, key=lambda x: (x.timespan, id_mapping[x]))
-        for synth in synths:
-            for timestep, synth_requests in \
-                synth._get_all_requests(id_mapping).items():
-                requests.setdefault(timestep, []).extend(synth_requests)
-                
-            
-            
-
-        all_offsets = set(session._synths.all_offsets)
-        all_offsets = sorted(all_offsets)
-        for offset in all_offsets:
-            requests = []
-            simultaneity = session._synths.get_simultaneity_at(offset)
-            start_events = set(simultaneity.start_timespans)
-            stop_events = set(simultaneity.stop_timespans)
-            stop_events.difference_update(start_events)
-            requests += self._process_synthdef_events(offset, synthdef_mapping)
-            requests += self._process_start_events(start_events, node_mapping)
-            requests += self._process_stop_events(stop_events, node_mapping)
-            osc_bundles += self._process_requests(
-                simultaneity.start_offset, requests)
-        osc_bundles += self._process_terminal_event(all_offsets, timespan)
+        request_mapping = {}
+        request_mapping = self._collect_synthdef_requests(request_mapping)
+        request_mapping = self._collect_synth_requests(request_mapping, id_mapping)
+        for timestep, requests in sorted(request_mapping.items()):
+            osc_bundles += self._process_requests(timestep, requests)
+        osc_bundles += self._process_terminal_event(timestep, timespan)
         return osc_bundles
 
     ### PUBLIC PROPERTIES ###

@@ -69,7 +69,7 @@ class Synth(timespantools.Timespan, SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _get_all_requests(self, id_mapping):
+    def _collect_requests(self, id_mapping):
         from supriya.tools import nonrealtimetools
         node_id = id_mapping[self]
         target_node_id = 0
@@ -80,7 +80,11 @@ class Synth(timespantools.Timespan, SessionObject):
                 timestep += self.start_offset
                 event = events_by_timestep.setdefault(timestep, {})
                 event[item] = value
-        bus_prototype = (nonrealtimetools.Bus, nonrealtimetools.BusGroup)
+        bus_prototype = (
+            nonrealtimetools.Bus, 
+            nonrealtimetools.BusGroup, 
+            type(None),
+            )
         for timestep, event in tuple(events_by_timestep.items()):
             settings = {}
             a_mappings = {}
@@ -99,7 +103,7 @@ class Synth(timespantools.Timespan, SessionObject):
                 if ('duration' in self.synthdef.parameter_names and
                     'duration' not in settings):
                     settings['duration'] = float(self.duration)
-                request = requesttools.SynthRequest(
+                request = requesttools.SynthNewRequest(
                     add_action=self.add_action,
                     node_id=node_id,
                     synthdef=self.synthdef.anonymous_name,
