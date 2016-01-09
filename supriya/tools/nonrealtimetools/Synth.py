@@ -96,6 +96,9 @@ class Synth(timespantools.Timespan, SessionObject):
                     settings[key] = value
             requests = []
             if timestep == self.start_offset:
+                if ('duration' in self.synthdef.parameter_names and
+                    'duration' not in settings):
+                    settings['duration'] = float(self.duration)
                 request = requesttools.SynthRequest(
                     add_action=self.add_action,
                     node_id=node_id,
@@ -122,6 +125,11 @@ class Synth(timespantools.Timespan, SessionObject):
                     )
                 requests.append(request)
             events_by_timestep[timestep] = requests
+        if 'gate' in self.synthdef.parameter_names:
+            end_request = requesttools.NodeSetRequest(node_id=node_id, gate=0)
+        else:
+            end_request = requesttools.NodeFreeRequest(node_ids=[node_id])
+        events_by_timestep.setdefault(self.stop_offset, []).append(end_request)
         return events_by_timestep
 
     def _get_start_request(self, mapping):

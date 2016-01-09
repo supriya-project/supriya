@@ -437,25 +437,29 @@ class Session(OscMixin):
     def to_osc_bundles(self, timespan=None):
         osc_bundles = []
         session = self._process_timespan_mask(timespan)
-        bus_mapping = {}
-        node_mapping = session._build_node_id_mapping()
+        id_mapping = session._build_node_id_mapping()
         synthdef_mapping = session._build_synthdef_receive_offset_mapping()
-        #event_mapping = session._build_event_offset_mapping()
+
+        requests = {}
+        synths = sorted(self.synths, key=lambda x: (x.timespan, id_mapping[x]))
+        for synth in synths:
+            for timestep, synth_requests in \
+                synth._get_all_requests(id_mapping).items():
+                requests.setdefault(timestep, []).extend(synth_requests)
+                
+            
+            
+
         all_offsets = set(session._synths.all_offsets)
-        #all_offsets.update(event_mapping)
         all_offsets = sorted(all_offsets)
         for offset in all_offsets:
             requests = []
             simultaneity = session._synths.get_simultaneity_at(offset)
-            #bus_events, synth_events = event_mapping.get(offset, ([], []))
             start_events = set(simultaneity.start_timespans)
             stop_events = set(simultaneity.stop_timespans)
             stop_events.difference_update(start_events)
             requests += self._process_synthdef_events(offset, synthdef_mapping)
-            #requests += self._process_bus_events(bus_events, bus_mapping)
             requests += self._process_start_events(start_events, node_mapping)
-            #requests += self._process_synth_events(
-            #    synth_events, bus_mapping, node_mapping)
             requests += self._process_stop_events(stop_events, node_mapping)
             osc_bundles += self._process_requests(
                 simultaneity.start_offset, requests)
