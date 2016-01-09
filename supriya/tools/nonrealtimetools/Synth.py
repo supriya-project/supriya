@@ -69,6 +69,61 @@ class Synth(timespantools.Timespan, SessionObject):
 
     ### PRIVATE METHODS ###
 
+    def _get_all_requests(self, id_mapping):
+        from supriya.tools import nonrealtimetools
+        node_id = id_mapping[self]
+        target_node_id = 0
+        events_by_timestep = {}
+        events_by_timestep[self.start_offset] = self.synth_kwargs.copy()
+        for item, events in self._events.items():
+            for timestep, value in events:
+                timestep += self.start_offset
+                event = events_by_timestep.setdefault(timestep, {})
+                event[item] = value
+        bus_prototype = (nonrealtimetools.Bus, nonrealtimetools.BusGroup)
+        for timestep, event in tuple(events_by_timestep.items()):
+            settings = {}
+            a_mappings = {}
+            c_mappings = {}
+            for key, value in event.items():
+                if isinstance(value, bus_prototype):
+                    if value.calculation_rate == \
+                        synthdeftools.CalculationRate.AUDIO:
+                        a_mappings[key] = value
+                    else:
+                        c_mappings[key] = value
+                else:
+                    settings[key] = value
+            requests = []
+            if timestep == self.start_offset:
+                request = requesttools.SynthRequest(
+                    add_action=self.add_action,
+                    node_id=node_id,
+                    synthdef=self.synthdef.anonymous_name,
+                    target_node_id=target_node_id,
+                    **settings
+                    )
+                requests.append(request)
+            else:
+                request = requesttools.NodeSetRequest(
+                    node_id=node_id,
+                    **settings
+                    )
+            if a_mappings:
+                request = requesttools.NodeMapToAudioBusRequest(
+                    node_id=node_id,
+                    **a_mappings
+                    )
+                requests.append(request)
+            if c_mappings:
+                request = requesttools.NodeMapToControlBusRequest(
+                    node_id=node_id,
+                    **c_mappings
+                    )
+                requests.append(request)
+            events_by_timestep[timestep] = requests
+        return events_by_timestep
+
     def _get_start_request(self, mapping):
         node_id = mapping[self]
         target_node_id = 0
