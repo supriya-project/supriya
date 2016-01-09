@@ -70,6 +70,13 @@ class Session(OscMixin):
                 )
             )
         OscBundle(
+            timestamp=7.5,
+            contents=(
+                OscMessage('/n_set', 1000, 'frequency', 880),
+                OscMessage('/n_set', 1002, 'frequency', 990),
+                )
+            )
+        OscBundle(
             timestamp=10.0,
             contents=(
                 OscMessage('/n_free', 1000),
@@ -82,46 +89,6 @@ class Session(OscMixin):
                 OscMessage('/n_free', 1002),
                 )
             )
-
-    ::
-
-        >>> print(session)
-        size 552
-           0   00 00 01 68  23 62 75 6e  64 6c 65 00  00 00 00 00   |...h#bundle.....|
-          16   00 00 00 00  00 00 00 bc  2f 64 5f 72  65 63 76 00   |......../d_recv.|
-          32   2c 62 00 00  00 00 00 a9  53 43 67 66  00 00 00 02   |,b......SCgf....|
-          48   00 01 20 39  63 34 65 62  34 37 37 38  64 63 30 66   |.. 9c4eb4778dc0f|
-          64   61 66 33 39  34 35 39 66  61 38 61 35  63 64 34 35   |af39459fa8a5cd45|
-          80   63 31 39 00  00 00 01 00  00 00 00 00  00 00 01 43   |c19............C|
-          96   dc 00 00 00  00 00 01 09  66 72 65 71  75 65 6e 63   |........frequenc|
-         112   79 00 00 00  00 00 00 00  03 07 43 6f  6e 74 72 6f   |y.........Contro|
-         128   6c 01 00 00  00 00 00 00  00 01 00 00  01 06 53 69   |l.............Si|
-         144   6e 4f 73 63  02 00 00 00  02 00 00 00  01 00 00 00   |nOsc............|
-         160   00 00 00 00  00 00 00 ff  ff ff ff 00  00 00 00 02   |................|
-         176   03 4f 75 74  02 00 00 00  02 00 00 00  00 00 00 ff   |.Out............|
-         192   ff ff ff 00  00 00 00 00  00 00 01 00  00 00 00 00   |................|
-         208   00 00 00 00  00 00 00 40  2f 73 5f 6e  65 77 00 00   |.......@/s_new..|
-         224   2c 73 69 69  69 00 00 00  39 63 34 65  62 34 37 37   |,siii...9c4eb477|
-         240   38 64 63 30  66 61 66 33  39 34 35 39  66 61 38 61   |8dc0faf39459fa8a|
-         256   35 63 64 34  35 63 31 39  00 00 00 00  00 00 03 e8   |5cd45c19........|
-         272   00 00 00 01  00 00 00 00  00 00 00 50  2f 73 5f 6e   |...........P/s_n|
-         288   65 77 00 00  2c 73 69 69  69 73 69 00  39 63 34 65   |ew..,siiisi.9c4e|
-         304   62 34 37 37  38 64 63 30  66 61 66 33  39 34 35 39   |b4778dc0faf39459|
-         320   66 61 38 61  35 63 64 34  35 63 31 39  00 00 00 00   |fa8a5cd45c19....|
-         336   00 00 03 e9  00 00 00 01  00 00 00 00  66 72 65 71   |............freq|
-         352   75 65 6e 63  79 00 00 00  00 00 02 9a  00 00 00 64   |uency..........d|
-         368   23 62 75 6e  64 6c 65 00  00 00 00 05  00 00 00 00   |#bundle.........|
-         384   00 00 00 50  2f 73 5f 6e  65 77 00 00  2c 73 69 69   |...P/s_new..,sii|
-         400   69 73 69 00  39 63 34 65  62 34 37 37  38 64 63 30   |isi.9c4eb4778dc0|
-         416   66 61 66 33  39 34 35 39  66 61 38 61  35 63 64 34   |faf39459fa8a5cd4|
-         432   35 63 31 39  00 00 00 00  00 00 03 ea  00 00 00 01   |5c19............|
-         448   00 00 00 00  66 72 65 71  75 65 6e 63  79 00 00 00   |....frequency...|
-         464   00 00 01 bb  00 00 00 24  23 62 75 6e  64 6c 65 00   |.......$#bundle.|
-         480   00 00 00 0a  00 00 00 00  00 00 00 10  2f 6e 5f 66   |............/n_f|
-         496   72 65 65 00  2c 69 00 00  00 00 03 e8  00 00 00 28   |ree.,i.........(|
-         512   23 62 75 6e  64 6c 65 00  00 00 00 0f  00 00 00 00   |#bundle.........|
-         528   00 00 00 14  2f 6e 5f 66  72 65 65 00  2c 69 69 00   |..../n_free.,ii.|
-         544   00 00 03 e9  00 00 03 ea                             |........|
 
     '''
 
@@ -229,7 +196,8 @@ class Session(OscMixin):
         return mapping
 
     def _collect_synth_requests(self, request_mapping, id_mapping):
-        synths = sorted(self._synths, key=lambda x: (x, id_mapping[x]))
+        comparator = lambda x: (x._get_timespan(x), id_mapping[x])
+        synths = sorted(self._synths[:], key=comparator)
         for synth in synths:
             items = synth._collect_requests(id_mapping).items()
             for timestep, synth_requests in items:
@@ -403,11 +371,11 @@ class Session(OscMixin):
         session = self._process_timespan_mask(timespan)
         id_mapping = session._build_node_id_mapping()
         request_mapping = {}
-        request_mapping = self._collect_synthdef_requests(request_mapping)
-        request_mapping = self._collect_synth_requests(request_mapping, id_mapping)
+        request_mapping = session._collect_synthdef_requests(request_mapping)
+        request_mapping = session._collect_synth_requests(request_mapping, id_mapping)
         for timestep, requests in sorted(request_mapping.items()):
-            osc_bundles += self._process_requests(timestep, requests)
-        osc_bundles += self._process_terminal_event(timestep, timespan)
+            osc_bundles += session._process_requests(timestep, requests)
+        osc_bundles += session._process_terminal_event(timestep, timespan)
         return osc_bundles
 
     ### PUBLIC PROPERTIES ###

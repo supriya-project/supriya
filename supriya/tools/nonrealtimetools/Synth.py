@@ -116,6 +116,7 @@ class Synth(timespantools.Timespan, SessionObject):
                     node_id=node_id,
                     **settings
                     )
+                requests.append(request)
             if a_mappings:
                 request = requesttools.NodeMapToAudioBusRequest(
                     node_id=node_id,

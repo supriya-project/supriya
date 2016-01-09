@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 import os
 import unittest
+from abjad.tools import durationtools
+from supriya.tools import requesttools
+from supriya.tools import servertools
 from supriya.tools import nonrealtimetools
-from supriya.tools import osctools
-from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -74,3 +75,46 @@ class TestCase(unittest.TestCase):
             assert synth_two['frequency'] == 880
         with session.at(5):
             assert synth_two['frequency'] == 880
+
+        id_mapping = {synth_one: 1001, synth_two: 1002}
+
+        assert synth_one._collect_requests(id_mapping) == {
+            durationtools.Offset(0, 1): [requesttools.SynthNewRequest(
+                add_action=servertools.AddAction.ADD_TO_HEAD,
+                node_id=1001,
+                synthdef='0b294b53cc4d32c522f3e537ffb23f91',
+                target_node_id=0
+                )],
+            durationtools.Offset(2, 1): [requesttools.NodeSetRequest(
+                node_id=1001,
+                frequency=550
+                )],
+            durationtools.Offset(3, 1): [requesttools.NodeSetRequest(
+                node_id=1001,
+                frequency=660
+                )],
+            durationtools.Offset(4, 1): [requesttools.NodeFreeRequest(
+                node_ids=(1001,)
+                )],
+            }
+
+        assert synth_two._collect_requests(id_mapping) == {
+            durationtools.Offset(2, 1): [requesttools.SynthNewRequest(
+                add_action=servertools.AddAction.ADD_TO_HEAD,
+                node_id=1002,
+                synthdef='0b294b53cc4d32c522f3e537ffb23f91',
+                target_node_id=0,
+                frequency=330
+                )],
+            durationtools.Offset(3, 1): [requesttools.NodeSetRequest(
+                node_id=1002,
+                frequency=770
+                )],
+            durationtools.Offset(4, 1): [requesttools.NodeSetRequest(
+                node_id=1002,
+                frequency=880
+                )],
+            durationtools.Offset(6, 1): [requesttools.NodeFreeRequest(
+                node_ids=(1002,)
+                )],
+            }
