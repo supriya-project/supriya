@@ -18,8 +18,8 @@ class Envelope(SupriyaValueObject):
 
     ::
 
-        >>> tuple(envelope)
-        (0.0, 2, -99, -99, 1.0, 1.0, 1, 0.0, 0.0, 1.0, 1, 0.0)
+        >>> envelope.serialize()
+        [0.0, 2, -99, -99, 1.0, 1.0, 1, 0.0, 0.0, 1.0, 1, 0.0]
 
     '''
 
@@ -136,8 +136,8 @@ class Envelope(SupriyaValueObject):
 
         ::
 
-            >>> tuple(envelope)
-            (0.0, 2, -99, -99, 1.0, 0.01, 5, -4.0, 0.0, 1.0, 5, -4.0)
+            >>> envelope.serialize()
+            [0.0, 2, -99, -99, 1.0, 0.01, 5, -4.0, 0.0, 1.0, 5, -4.0]
 
         '''
         amplitudes = (0, float(amplitude), 0)
@@ -214,8 +214,8 @@ class Envelope(SupriyaValueObject):
 
         ::
 
-            >>> tuple(envelope)
-            (0.0, 2, -99, -99, 1.0, 0.5, 1, 0.0, 0.0, 0.5, 1, 0.0)
+            >>> envelope.serialize()
+            [0.0, 2, -99, -99, 1.0, 0.5, 1, 0.0, 0.0, 0.5, 1, 0.0]
 
         '''
         amplitudes = (0, float(amplitude), 0)
