@@ -85,8 +85,7 @@ class Session(OscMixin):
         OscBundle(
             timestamp=15.0,
             contents=(
-                OscMessage('/n_free', 1001),
-                OscMessage('/n_free', 1002),
+                OscMessage('/n_free', 1001, 1002),
                 )
             )
 
@@ -103,6 +102,16 @@ class Session(OscMixin):
         '_session_moments',
         '_synths',
         )
+
+    _prioritized_request_types = [
+        requesttools.SynthDefReceiveRequest,
+        requesttools.ControlBusSetRequest,
+        requesttools.GroupNewRequest,
+        requesttools.SynthNewRequest,
+        requesttools.NodeMapToAudioBusRequest,
+        requesttools.NodeMapToControlBusRequest,
+        requesttools.NodeSetRequest,
+        ]
 
     ### INITIALIZER ###
 
@@ -181,20 +190,6 @@ class Session(OscMixin):
         command = ' '.join(parts)
         return command
 
-    def _build_event_offset_mapping(self):
-        from supriya.tools import nonrealtimetools
-        mapping = {}
-        for session_object, events in self._events.items():
-            for timestep, payload in events:
-                if timestep not in mapping:
-                    mapping[timestep] = {}, {}
-                bus_events, synth_events = mapping[timestep]
-                if isinstance(session_object, nonrealtimetools.Bus):
-                    bus_events[session_object] = payload
-                elif isinstance(session_object, nonrealtimetools.Synth):
-                    synth_events[session_object] = payload
-        return mapping
-
     def _collect_synth_requests(self, request_mapping, id_mapping):
         comparator = lambda x: (x._get_timespan(x), id_mapping[x])
         synths = sorted(self._synths[:], key=comparator)
@@ -234,13 +229,25 @@ class Session(OscMixin):
 
     def _process_requests(self, offset, requests):
         timestamp = float(offset)
-        osc_bundles = []
-        if requests:
-            osc_messages = [_.to_osc_message(with_textual_osc_command=True)
-                for _ in requests]
-            osc_bundle = osctools.OscBundle(timestamp, osc_messages)
-            osc_bundles.append(osc_bundle)
-        return osc_bundles
+        requests_by_type = {}
+        for request in requests:
+            requests_by_type.setdefault(type(request), []).append(request)
+        osc_messages = []
+        for request_type in self._prioritized_request_types:
+            for request in requests_by_type.get(request_type, []):
+                osc_message = request.to_osc_message(
+                    with_textual_osc_command=True,
+                    )
+                osc_messages.append(osc_message)
+        if requesttools.NodeFreeRequest in requests_by_type:
+            node_ids = []
+            for request in requests_by_type[requesttools.NodeFreeRequest]:
+                node_ids.extend(request.node_ids)
+            request = requesttools.NodeFreeRequest(node_ids=node_ids)
+            osc_message = request.to_osc_message(with_textual_osc_command=True)
+            osc_messages.append(osc_message)
+        osc_bundle = osctools.OscBundle(timestamp, osc_messages)
+        return osc_bundle
 
     def _process_terminal_event(self, final_timestep, timespan):
         osc_bundles = []
@@ -374,7 +381,8 @@ class Session(OscMixin):
         request_mapping = session._collect_synthdef_requests(request_mapping)
         request_mapping = session._collect_synth_requests(request_mapping, id_mapping)
         for timestep, requests in sorted(request_mapping.items()):
-            osc_bundles += session._process_requests(timestep, requests)
+            osc_bundle = session._process_requests(timestep, requests)
+            osc_bundles.append(osc_bundle)
         osc_bundles += session._process_terminal_event(timestep, timespan)
         return osc_bundles
 
