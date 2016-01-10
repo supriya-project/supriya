@@ -91,6 +91,10 @@ class Synth(timespantools.Timespan, SessionObject):
             c_mappings = {}
             for key, value in event.items():
                 if isinstance(value, bus_prototype):
+                    if value is None:
+                        value = -1
+                    else:
+                        value = id_mapping[value]
                     if value.calculation_rate == \
                         synthdeftools.CalculationRate.AUDIO:
                         a_mappings[key] = value
@@ -100,9 +104,19 @@ class Synth(timespantools.Timespan, SessionObject):
                     settings[key] = value
             requests = []
             if timestep == self.start_offset:
-                if ('duration' in self.synthdef.parameter_names and
-                    'duration' not in settings):
+                if 'duration' in self.synthdef.parameter_names and \
+                    'duration' not in settings:
                     settings['duration'] = float(self.duration)
+                if a_mappings:
+                    for key, value in a_mappings:
+                        if value == -1:
+                            continue
+                        settings[key] = 'a{}'.format(value)
+                if c_mappings:
+                    for key, value in c_mappings:
+                        if value == -1:
+                            continue
+                        settings[key] = 'c{}'.format(value)
                 request = requesttools.SynthNewRequest(
                     add_action=self.add_action,
                     node_id=node_id,
@@ -112,23 +126,24 @@ class Synth(timespantools.Timespan, SessionObject):
                     )
                 requests.append(request)
             else:
-                request = requesttools.NodeSetRequest(
-                    node_id=node_id,
-                    **settings
-                    )
-                requests.append(request)
-            if a_mappings:
-                request = requesttools.NodeMapToAudioBusRequest(
-                    node_id=node_id,
-                    **a_mappings
-                    )
-                requests.append(request)
-            if c_mappings:
-                request = requesttools.NodeMapToControlBusRequest(
-                    node_id=node_id,
-                    **c_mappings
-                    )
-                requests.append(request)
+                if settings:
+                    request = requesttools.NodeSetRequest(
+                        node_id=node_id,
+                        **settings
+                        )
+                    requests.append(request)
+                if a_mappings:
+                    request = requesttools.NodeMapToAudioBusRequest(
+                        node_id=node_id,
+                        **a_mappings
+                        )
+                    requests.append(request)
+                if c_mappings:
+                    request = requesttools.NodeMapToControlBusRequest(
+                        node_id=node_id,
+                        **c_mappings
+                        )
+                    requests.append(request)
             events_by_timestep[timestep] = requests
         if 'gate' in self.synthdef.parameter_names:
             end_request = requesttools.NodeSetRequest(node_id=node_id, gate=0)
