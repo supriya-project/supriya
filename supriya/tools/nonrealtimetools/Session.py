@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 import hashlib
 import os
 import shutil
@@ -11,6 +12,7 @@ from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
+from supriya.tools import synthdeftools
 from supriya.tools import timetools
 from supriya.tools.osctools.OscMixin import OscMixin
 
@@ -136,7 +138,7 @@ class Session(OscMixin):
             audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
         self._audio_output_bus_group = audio_output_bus_group
 
-        self._buses = set()
+        self._buses = collections.OrderedDict()
         self._session_moments = []
         self._synths = timetools.TimespanCollection()
 
@@ -145,14 +147,39 @@ class Session(OscMixin):
     def _build_node_id_mapping(self):
         from supriya.tools import nonrealtimetools
         prototype = (nonrealtimetools.Synth,)
-        mapping = {}
         allocator = servertools.NodeIdAllocator()
+        mapping = {}
         for timespan in sorted(self._synths):
             if not isinstance(timespan, prototype):
                 continue
             elif timespan in mapping:
                 continue
             mapping[timespan] = allocator.allocate_node_id()
+        return mapping
+
+    def _build_bus_id_mapping(self):
+        input_count = self._input_count or 0
+        output_count = self._output_count or 0
+        first_private_bus_id = input_count + output_count
+        audio_bus_allocator = servertools.BlockAllocator(
+            heap_minimum=first_private_bus_id,
+            )
+        control_bus_allocator = servertools.BlockAllocator()
+        mapping = {}
+        for bus in self._buses:
+            if bus in mapping:
+                continue
+            if bus.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+                allocator = audio_bus_allocator
+            else:
+                allocator = control_bus_allocator
+            if bus.bus_group is None:
+                mapping[bus] = allocator.allocate(1)
+            else:
+                block_id = allocator.allocate(len(bus.bus_group))
+                mapping[bus.bus_group] = block_id
+                for bus_id in range(block_id, block_id + len(bus.bus_group)):
+                    mapping[bus] = bus_id
         return mapping
 
     def _build_command(
@@ -189,6 +216,23 @@ class Session(OscMixin):
             parts.append(server_options)
         command = ' '.join(parts)
         return command
+
+    def _collect_bus_requests(self, request_mapping, id_mapping):
+        events_by_timestep = {}
+        for bus in self._buses:
+            if bus.calculation_rate != synthdeftools.CalculationRate.CONTROL:
+                continue
+            bus_id = id_mapping[bus]
+            for timestep, value in bus._events:
+                events_by_timestep.setdefault(timestep, {})[bus_id] = value
+        for timestep, events in events_by_timestep.items():
+            requests = request_mapping.setdefault(timestep, [])
+            index_value_pairs = sorted(events.items())
+            request = requesttools.ControlBusSetRequest(
+                index_value_pairs=index_value_pairs,
+                )
+            requests.append(request)
+        return request_mapping
 
     def _collect_synth_requests(self, request_mapping, id_mapping):
         comparator = lambda x: (x._get_timespan(x), id_mapping[x])
@@ -263,7 +307,7 @@ class Session(OscMixin):
         return osc_bundles
 
     def _process_timespan_mask(self, timespan):
-        if timespan is not None:
+        if timespan is not None and self._synths:
             assert isinstance(timespan, timespantools.Timespan)
             synths = timespantools.TimespanInventory(self._synths)
             original_timespan = synths.timespan
@@ -289,13 +333,13 @@ class Session(OscMixin):
             )
         return session_moment
 
-    def add_bus(self, calculation_rate=None):
+    def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
         bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
-        self._buses.add(bus)
+        self._buses[bus] = None
         return bus
 
-    def add_bus_group(self, bus_count=1, calculation_rate=None):
+    def add_bus_group(self, bus_count=1, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
         bus_group = nonrealtimetools.BusGroup(
             self,
@@ -303,7 +347,7 @@ class Session(OscMixin):
             calculation_rate=calculation_rate,
             )
         for bus in bus_group:
-            self._buses.add(bus)
+            self._buses[bus] = None
         return bus_group
 
     def add_synth(
@@ -376,10 +420,15 @@ class Session(OscMixin):
     def to_osc_bundles(self, timespan=None):
         osc_bundles = []
         session = self._process_timespan_mask(timespan)
-        id_mapping = session._build_node_id_mapping()
+        id_mapping = {}
+        id_mapping.update(session._build_node_id_mapping())
+        id_mapping.update(session._build_bus_id_mapping())
         request_mapping = {}
+        request_mapping = session._collect_bus_requests(request_mapping, id_mapping)
         request_mapping = session._collect_synthdef_requests(request_mapping)
         request_mapping = session._collect_synth_requests(request_mapping, id_mapping)
+        if not request_mapping:
+            raise ValueError
         for timestep, requests in sorted(request_mapping.items()):
             osc_bundle = session._process_requests(timestep, requests)
             osc_bundles.append(osc_bundle)

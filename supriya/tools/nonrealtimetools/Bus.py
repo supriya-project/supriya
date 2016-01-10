@@ -88,6 +88,7 @@ class Bus(SessionObject):
         return value
 
     def _set_at_timestep(self, timestep, value):
+        assert self.calculation_rate == synthdeftools.CalculationRate.CONTROL
         events = self._events
         event = (timestep, value)
         if not events:

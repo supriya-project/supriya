@@ -9,11 +9,11 @@ class BusGroup(SessionObject):
     ::
 
         >>> session = nonrealtimetools.Session()
-        >>> bus_group = session.add_bus_group(3, 'audio')
+        >>> bus_group = session.add_bus_group(3)
         >>> print(bus_group)
         <BusGroup(
             bus_count=3,
-            calculation_rate=CalculationRate.AUDIO
+            calculation_rate=CalculationRate.CONTROL
             )>
 
     ::
@@ -88,14 +88,7 @@ class BusGroup(SessionObject):
         if isinstance(item, int):
             return self._buses[item]
         elif isinstance(item, slice):
-            indices = item.indices(len(self))
-            bus_count = indices[1] - indices[0]
-            bus_group = type(self)(
-                self.session,
-                bus_count=bus_count,
-                calculation_rate=self.calculation_rate,
-                )
-            return bus_group
+            return tuple(self._buses[item])
 
     def __iter__(self):
         return iter(self.buses)

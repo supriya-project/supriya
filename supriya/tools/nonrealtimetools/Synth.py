@@ -81,8 +81,8 @@ class Synth(timespantools.Timespan, SessionObject):
                 event = events_by_timestep.setdefault(timestep, {})
                 event[item] = value
         bus_prototype = (
-            nonrealtimetools.Bus, 
-            nonrealtimetools.BusGroup, 
+            nonrealtimetools.Bus,
+            nonrealtimetools.BusGroup,
             type(None),
             )
         for timestep, event in tuple(events_by_timestep.items()):
