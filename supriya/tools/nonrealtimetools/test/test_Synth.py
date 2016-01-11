@@ -5,6 +5,7 @@ from abjad.tools import durationtools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import nonrealtimetools
+from supriya.tools import osctools
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -118,3 +119,29 @@ class TestCase(unittest.TestCase):
                 node_ids=(1002,)
                 )],
             }
+
+    def test_02(self):
+        session = nonrealtimetools.Session()
+        bus_one = session.add_bus()
+        bus_two = session.add_bus()
+        session.add_synth(
+            0, 4,
+            synthdef=self.build_synthdef(),
+            frequency=bus_one,
+            amplitude=bus_two,
+            )
+        assert session.to_osc_bundles() == [
+            osctools.OscBundle(
+                timestamp=0.0,
+                contents=(
+                    osctools.OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 0b294b53cc4d32c522f3e537ffb23f91\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04?\x80\x00\x00C\xdc\x00\x00\x00\x00\x00\x00@\x00\x00\x00\x00\x00\x00\x04\tamplitude\x00\x00\x00\x00\tfrequency\x00\x00\x00\x01\x06in_bus\x00\x00\x00\x02\x07out_bus\x00\x00\x00\x03\x00\x00\x00\x06\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x01\x01\x01\x01\x02In\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x02\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00')),
+                    osctools.OscMessage('/s_new', '0b294b53cc4d32c522f3e537ffb23f91', 1000, 0, 0, 'amplitude', 'c1', 'frequency', 'c0'),
+                    )
+                ),
+            osctools.OscBundle(
+                timestamp=4.0,
+                contents=(
+                    osctools.OscMessage('/n_free', 1000),
+                    )
+                ),
+            ]

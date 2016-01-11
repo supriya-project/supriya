@@ -92,14 +92,12 @@ class Synth(timespantools.Timespan, SessionObject):
             for key, value in event.items():
                 if isinstance(value, bus_prototype):
                     if value is None:
-                        value = -1
-                    else:
-                        value = id_mapping[value]
-                    if value.calculation_rate == \
+                        c_mappings[key] = -1
+                    elif value.calculation_rate == \
                         synthdeftools.CalculationRate.AUDIO:
-                        a_mappings[key] = value
+                        a_mappings[key] = id_mapping[value]
                     else:
-                        c_mappings[key] = value
+                        c_mappings[key] = id_mapping[value]
                 else:
                     settings[key] = value
             requests = []
@@ -108,12 +106,12 @@ class Synth(timespantools.Timespan, SessionObject):
                     'duration' not in settings:
                     settings['duration'] = float(self.duration)
                 if a_mappings:
-                    for key, value in a_mappings:
+                    for key, value in a_mappings.items():
                         if value == -1:
                             continue
                         settings[key] = 'a{}'.format(value)
                 if c_mappings:
-                    for key, value in c_mappings:
+                    for key, value in c_mappings.items():
                         if value == -1:
                             continue
                         settings[key] = 'c{}'.format(value)

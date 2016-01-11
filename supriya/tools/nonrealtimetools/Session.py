@@ -144,19 +144,6 @@ class Session(OscMixin):
 
     ### PRIVATE METHODS ###
 
-    def _build_node_id_mapping(self):
-        from supriya.tools import nonrealtimetools
-        prototype = (nonrealtimetools.Synth,)
-        allocator = servertools.NodeIdAllocator()
-        mapping = {}
-        for timespan in sorted(self._synths):
-            if not isinstance(timespan, prototype):
-                continue
-            elif timespan in mapping:
-                continue
-            mapping[timespan] = allocator.allocate_node_id()
-        return mapping
-
     def _build_bus_id_mapping(self):
         input_count = self._input_count or 0
         output_count = self._output_count or 0
@@ -166,6 +153,14 @@ class Session(OscMixin):
             )
         control_bus_allocator = servertools.BlockAllocator()
         mapping = {}
+        if output_count:
+            bus_group = self.audio_output_bus_group
+            for bus_id, bus in enumerate(bus_group):
+                mapping[bus] = bus_id
+        if input_count:
+            bus_group = self.audio_input_bus_group
+            for bus_id, bus in enumerate(bus_group, output_count):
+                mapping[bus] = bus_id
         for bus in self._buses:
             if bus in mapping:
                 continue
@@ -180,6 +175,19 @@ class Session(OscMixin):
                 mapping[bus.bus_group] = block_id
                 for bus_id in range(block_id, block_id + len(bus.bus_group)):
                     mapping[bus] = bus_id
+        return mapping
+
+    def _build_synth_id_mapping(self):
+        from supriya.tools import nonrealtimetools
+        prototype = (nonrealtimetools.Synth,)
+        allocator = servertools.NodeIdAllocator()
+        mapping = {}
+        for timespan in sorted(self._synths):
+            if not isinstance(timespan, prototype):
+                continue
+            elif timespan in mapping:
+                continue
+            mapping[timespan] = allocator.allocate_node_id()
         return mapping
 
     def _build_command(
@@ -421,7 +429,7 @@ class Session(OscMixin):
         osc_bundles = []
         session = self._process_timespan_mask(timespan)
         id_mapping = {}
-        id_mapping.update(session._build_node_id_mapping())
+        id_mapping.update(session._build_synth_id_mapping())
         id_mapping.update(session._build_bus_id_mapping())
         request_mapping = {}
         request_mapping = session._collect_bus_requests(request_mapping, id_mapping)
