@@ -39,6 +39,10 @@ class NRTMoment(object):
 
     def _register_action(self, source, target, action):
         from supriya.tools import nonrealtimetools
+        assert target in self.nodes_to_children
         action = nonrealtimetools.NRTNodeAction(
-            source=source, target=target, action=action)
+            source=source,
+            target=target,
+            action=action,
+            )
         self.actions.append(action)

@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 import bisect
 from supriya.tools import servertools
-from supriya.tools import timetools
 
 
 class NRTSession(object):
@@ -13,15 +12,11 @@ class NRTSession(object):
 
     def __init__(self):
         from supriya.tools import nonrealtimetools
-        self.nodes = timetools.TimespanCollection()
+        self.nodes = set()
         self.active_moments = []
         self.moments = {}
         self.root_node = nonrealtimetools.NRTRootNode(self)
-        initial_moment = nonrealtimetools.NRTMoment(self, 0)
-        initial_moment.nodes_to_children[self.root_node] = []
-        initial_moment.nodes_to_parent[self.root_node] = None
-        self.moments[0] = initial_moment
-        self.timesteps = [0]
+        self._setup_initial_moment()
 
     ### PRIVATE METHODS ###
 
@@ -47,6 +42,14 @@ class NRTSession(object):
             return None
         old_timestep = self.timesteps[index]
         return self.moments[old_timestep]
+
+    def _setup_initial_moment(self):
+        from supriya.tools import nonrealtimetools
+        moment = nonrealtimetools.NRTMoment(self, 0)
+        moment.nodes_to_children[self.root_node] = []
+        moment.nodes_to_parent[self.root_node] = None
+        self.moments[0] = moment
+        self.timesteps = [0]
 
     ### PUBLIC METHODS ###
 
