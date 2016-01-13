@@ -45,11 +45,12 @@ class NRTSession(object):
 
     def _setup_initial_moment(self):
         from supriya.tools import nonrealtimetools
-        moment = nonrealtimetools.NRTMoment(self, 0)
-        moment.nodes_to_children[self.root_node] = []
+        negative_infinity = float('-inf')
+        moment = nonrealtimetools.NRTMoment(self, negative_infinity)
+        moment.nodes_to_children[self.root_node] = {}
         moment.nodes_to_parent[self.root_node] = None
-        self.moments[0] = moment
-        self.timesteps = [0]
+        self.moments[negative_infinity] = moment
+        self.timesteps = [negative_infinity]
 
     ### PUBLIC METHODS ###
 

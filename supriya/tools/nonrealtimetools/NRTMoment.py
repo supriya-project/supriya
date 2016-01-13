@@ -3,6 +3,8 @@
 
 class NRTMoment(object):
 
+    ### INITIALIZER ###
+
     def __init__(self, session, timestep):
         self.actions = []
         self.nodes_to_children = {}
@@ -11,6 +13,8 @@ class NRTMoment(object):
         self.stop_nodes = set()
         self.session = session
         self.timestep = timestep
+
+    ### SPECIAL METHODS ###
 
     def __enter__(self):
         self.session.active_moments.append(self)
@@ -31,11 +35,16 @@ class NRTMoment(object):
             raise ValueError(expr)
         return self.timestep < expr.timestep
 
+    ### PRIVATE METHODS ###
+
     def _clone(self, new_timestep):
         moment = type(self)(self.session, new_timestep)
         moment.nodes_to_children = self.nodes_to_children.copy()
         moment.nodes_to_parent = self.nodes_to_parent.copy()
         return moment
+
+    def _process_actions(self):
+        pass
 
     def _register_action(self, source, target, action):
         from supriya.tools import nonrealtimetools
