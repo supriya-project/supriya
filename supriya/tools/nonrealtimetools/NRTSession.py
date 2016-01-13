@@ -65,10 +65,10 @@ class NRTSession(object):
         return new_moment
 
     def add_group(self, add_action=None):
-        self.root_node.add_group(add_action=add_action)
+        return self.root_node.add_group(add_action=add_action)
 
     def add_synth(self, duration=None, add_action=None):
-        self.root_node.add_synth(duration=duration, add_action=add_action)
+        return self.root_node.add_synth(duration=duration, add_action=add_action)
 
     def move_node(self, node, add_action=None):
         self.root_node.move_node(node, add_action=add_action)

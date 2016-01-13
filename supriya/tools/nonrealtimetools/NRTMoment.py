@@ -14,6 +14,7 @@ class NRTMoment(object):
 
     def __enter__(self):
         self.session.active_moments.append(self)
+        return self
 
     def __eq__(self, expr):
         if not isinstance(expr, type(self)):

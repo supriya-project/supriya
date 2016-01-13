@@ -17,9 +17,8 @@ class NRTSynth(NRTNode):
         duration=None,
         start_offset=None,
         ):
-        NRTNode.__init__(self, session, session_id)
+        NRTNode.__init__(self, session, session_id, start_offset=start_offset)
         self.duration = duration
-        self.start_offset = start_offset
 
     @property
     def stop_offset(self):

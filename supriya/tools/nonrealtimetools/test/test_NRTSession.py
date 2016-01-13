@@ -7,5 +7,6 @@ class TestCase(unittest.TestCase):
 
     def test_01(self):
         session = nonrealtimetools.NRTSession()
-        with session.at(1):
-            session.add_synth(duration=2)
+        with session.at(5):
+            session.add_synth(duration=10)
+        assert session.timesteps == [0, 5, 15]

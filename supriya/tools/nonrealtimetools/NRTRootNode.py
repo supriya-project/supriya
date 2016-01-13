@@ -12,4 +12,3 @@ class NRTRootNode(NRTGroup):
 
     def __init__(self, session):
         NRTGroup.__init__(self, session, 0)
-
