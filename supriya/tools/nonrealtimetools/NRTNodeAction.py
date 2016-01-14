@@ -27,7 +27,37 @@ class NRTNodeAction(object):
     ### PUBLIC METHODS ###
 
     def apply_transform(self, nodes_to_children, nodes_to_parent):
-        pass
+        assert self.target in nodes_to_children
+        if self.source not in nodes_to_children:
+            nodes_to_children[self.source] = None
+        old_parent = nodes_to_parent.get(self.source, None)
+        if old_parent:
+            children = list(nodes_to_children[old_parent])
+            children.remove(self.source)
+            if children:
+                nodes_to_children[old_parent] = tuple(children)
+            else:
+                nodes_to_children[old_parent] = None
+        if self.action in (
+            servertools.AddAction.ADD_AFTER,
+            servertools.AddAction.ADD_BEFORE,
+            ):
+            new_parent = nodes_to_parent[self.target]
+        else:
+            new_parent = self.target
+        nodes_to_parent[self.source] = new_parent
+        children = list(nodes_to_children.get(new_parent, None) or ())
+        if self.action == servertools.AddAction.ADD_TO_HEAD:
+            children.insert(0, self.source)
+        elif self.action == servertools.AddAction.ADD_TO_TAIL:
+            children.append(self.source)
+        elif self.action == servertools.AddAction.ADD_BEFORE:
+            index = children.index(self.target)
+            children.insert(index, self.source)
+        elif self.action == servertools.AddAction.ADD_AFTER:
+            index = children.index(self.target) + 1
+            children.insert(index, self.source)
+        nodes_to_children[new_parent] = tuple(children)
 
     @staticmethod
     def free_node(node, nodes_to_children, nodes_to_parent):
