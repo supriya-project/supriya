@@ -24,6 +24,15 @@ class NRTNodeAction(object):
         self._target = target
         self._action = action
 
+    ### PUBLIC METHODS ###
+
+    def apply_transform(self, nodes_to_children, nodes_to_parent):
+        pass
+
+    @staticmethod
+    def free_node(node, nodes_to_children, nodes_to_parent):
+        pass
+
     ### PUBLIC PROPERTIES ###
 
     @property
