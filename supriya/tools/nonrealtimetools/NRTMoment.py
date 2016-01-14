@@ -35,6 +35,12 @@ class NRTMoment(object):
             raise ValueError(expr)
         return self.timestep < expr.timestep
 
+    def __repr__(self):
+        return '<{} @{!r}>'.format(
+            type(self).__name__,
+            self.timestep,
+            )
+
     ### PRIVATE METHODS ###
 
     def _clone(self, new_timestep):

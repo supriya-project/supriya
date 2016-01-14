@@ -4,11 +4,26 @@ from supriya.tools import servertools
 
 class NRTNode(object):
 
+    ### INITIALIZER ###
+
     def __init__(self, session, session_id, start_offset=None):
         self.session = session
         self.session_id = int(session_id)
         self.start_offset = start_offset
+        self.duration = None
 
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        return '<{} #{} @{}:{}>'.format(
+            type(self).__name__,
+            self.session_id,
+            self.start_offset,
+            self.stop_offset,
+            )
+
+    ### PUBLIC METHODS ###
+        
     def add_group(self, add_action=None):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
@@ -49,3 +64,11 @@ class NRTNode(object):
             target=self,
             action=add_action,
             )
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def stop_offset(self):
+        if self.duration is None:
+            return None
+        return self.start_offset + self.duration
