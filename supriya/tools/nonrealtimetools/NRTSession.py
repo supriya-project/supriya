@@ -17,20 +17,57 @@ from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class NRTSession(OscMixin):
+    r'''A non-realtime session.
+
+    ::
+
+        >>> from supriya.tools import nonrealtimetools
+        >>> session = nonrealtimetools.NRTSession()
+
+    ::
+
+        >>> from supriya.tools import synthdeftools
+        >>> from supriya.tools import ugentools
+        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
+        >>> with builder:
+        ...     out = ugentools.Out.ar(
+        ...         source=ugentools.SinOsc.ar(
+        ...             frequency=builder['frequency'],
+        ...             )
+        ...         )
+        ...
+        >>> synthdef = builder.build()
+
+    ::
+
+        >>> with session.at(0):
+        ...     synth_a = session.add_synth(duration=10, synthdef=synthdef)
+        ...     synth_b = session.add_synth(duration=15, synthdef=synthdef)
+        ...
+        >>> with session.at(5):
+        ...     synth_c = session.add_synth(duration=10, synthdef=synthdef)
+        ...
+
+    ::
+
+        >>> session.to_osc_bundles()
+        []
+
+    '''
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
         '_active_moments',
-        '_offsets',
-        '_moments',
-        '_nodes',
-        '_root_node',
         '_audio_input_bus_group',
         '_audio_output_bus_group',
         '_buses',
         '_input_count',
+        '_moments',
+        '_nodes',
+        '_offsets',
         '_output_count',
+        '_root_node',
         )
 
     _prioritized_request_types = [
@@ -54,6 +91,7 @@ class NRTSession(OscMixin):
         self._offsets = []
         self._root_node = nonrealtimetools.NRTRootNode(self)
         self._setup_initial_moments()
+        self._setup_buses(input_count, output_count)
 
     ### PRIVATE METHODS ###
 
@@ -128,7 +166,8 @@ class NRTSession(OscMixin):
     def _build_synth_id_mapping(self):
         allocator = servertools.NodeIdAllocator()
         mapping = {}
-        for moment in self.moments:
+        for offset in self.offsets[1:]:
+            moment = self.moments[offset]
             for start_node in moment.start_nodes:
                 mapping[start_node] = allocator.allocate_node_id()
         return mapping
@@ -216,13 +255,25 @@ class NRTSession(OscMixin):
             )
         return new_moment
 
-    def add_group(self, add_action=None):
+    def add_group(
+        self,
+        add_action=None,
+        ):
         return self.root_node.add_group(add_action=add_action)
 
-    def add_synth(self, duration=None, add_action=None):
+    def add_synth(
+        self,
+        duration=None,
+        synthdef=None,
+        add_action=None,
+        ):
         return self.root_node.add_synth(duration=duration, add_action=add_action)
 
-    def move_node(self, node, add_action=None):
+    def move_node(
+        self,
+        node,
+        add_action=None,
+        ):
         self.root_node.move_node(node, add_action=add_action)
 
     def render(
@@ -281,7 +332,11 @@ class NRTSession(OscMixin):
         return datagram
 
     def to_osc_bundles(self, timespan=None):
-        pass
+        osc_bundles = []
+        id_mapping = {}
+        id_mapping.update(self._build_synth_id_mapping())
+        id_mapping.update(self._build_bus_id_mapping())
+        return osc_bundles
 
     ### PUBLIC PROPERTIES ###
 

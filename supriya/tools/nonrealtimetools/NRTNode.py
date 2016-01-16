@@ -23,8 +23,11 @@ class NRTNode(object):
             )
 
     ### PUBLIC METHODS ###
-        
-    def add_group(self, add_action=None):
+
+    def add_group(
+        self,
+        add_action=None,
+        ):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
         start_moment = self.session.active_moments[-1]
@@ -38,7 +41,12 @@ class NRTNode(object):
         self.session.nodes.add(node)
         return node
 
-    def add_synth(self, duration=None, add_action=None):
+    def add_synth(
+        self,
+        duration=None,
+        add_action=None,
+        synthdef=None,
+        ):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
         start_moment = self.session.active_moments[-1]
@@ -47,6 +55,7 @@ class NRTNode(object):
             session_id=len(self.session.nodes) + 1,
             duration=duration,
             start_offset=start_moment.offset,
+            synthdef=synthdef,
             )
         self.move_node(node, add_action=add_action)
         start_moment.start_nodes.add(node)
@@ -56,7 +65,11 @@ class NRTNode(object):
         self.session.nodes.add(node)
         return node
 
-    def move_node(self, node, add_action=None):
+    def move_node(
+        self,
+        node,
+        add_action=None,
+        ):
         assert self.session.active_moments
         add_action = servertools.AddAction.from_expr(add_action)
         self.session.active_moments[-1]._register_action(
