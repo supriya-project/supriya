@@ -24,6 +24,7 @@ class NRTSession(OscMixin):
         '_active_moments',
         '_offsets',
         '_moments',
+        '_nodes',
         '_root_node',
         '_audio_input_bus_group',
         '_audio_output_bus_group',
@@ -48,8 +49,9 @@ class NRTSession(OscMixin):
     def __init__(self, input_count=0, output_count=2):
         from supriya.tools import nonrealtimetools
         self._active_moments = []
-        self._offsets = []
         self._moments = {}
+        self._nodes = set()
+        self._offsets = []
         self._root_node = nonrealtimetools.NRTRootNode(self)
         self._setup_initial_moments()
 
@@ -282,6 +284,42 @@ class NRTSession(OscMixin):
         pass
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def active_moments(self):
+        return self._active_moments
+
+    @property
+    def audio_input_bus_group(self):
+        return self._audio_input_bus_group
+
+    @property
+    def audio_output_bus_group(self):
+        return self._audio_output_bus_group
+
+    @property
+    def buses(self):
+        return self._buses
+
+    @property
+    def input_count(self):
+        return self._input_count
+
+    @property
+    def moments(self):
+        return self._moments
+
+    @property
+    def nodes(self):
+        return self._nodes
+
+    @property
+    def offsets(self):
+        return self._offsets
+
+    @property
+    def output_count(self):
+        return self._output_count
 
     @property
     def root_node(self):
