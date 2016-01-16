@@ -3,16 +3,28 @@
 
 class NRTMoment(object):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = (
+        '_actions',
+        '_nodes_to_children',
+        '_nodes_to_parents',
+        '_offset',
+        '_session',
+        '_start_nodes',
+        '_stop_nodes',
+        )
+
     ### INITIALIZER ###
 
     def __init__(self, session, offset):
-        self.actions = []
-        self.nodes_to_children = {}
-        self.nodes_to_parents = {}
-        self.start_nodes = set()
-        self.stop_nodes = set()
-        self.session = session
-        self.offset = offset
+        self._actions = []
+        self._nodes_to_children = {}
+        self._nodes_to_parents = {}
+        self._start_nodes = set()
+        self._stop_nodes = set()
+        self._session = session
+        self._offset = offset
 
     ### SPECIAL METHODS ###
 
@@ -49,8 +61,8 @@ class NRTMoment(object):
 
     def _clone(self, new_offset):
         moment = type(self)(self.session, new_offset)
-        moment.nodes_to_children = self.nodes_to_children.copy()
-        moment.nodes_to_parents = self.nodes_to_parents.copy()
+        moment._nodes_to_children = self.nodes_to_children.copy()
+        moment._nodes_to_parents = self.nodes_to_parents.copy()
         return moment
 
     def _free_node(self, node):
@@ -69,8 +81,8 @@ class NRTMoment(object):
             nonrealtimetools.NRTNodeAction.free_node(
                 stop_node, nodes_to_children, nodes_to_parents)
         if nodes_to_children != self.nodes_to_children:
-            self.nodes_to_children = nodes_to_children
-            self.nodes_to_parents = nodes_to_parents
+            self._nodes_to_children = nodes_to_children
+            self._nodes_to_parents = nodes_to_parents
             next_moment = self.session._find_moment_after(self.offset)
             if next_moment is not None:
                 next_moment._process_actions(previous_moment=self)
@@ -108,7 +120,44 @@ class NRTMoment(object):
         state['offset'] = self.offset
         return state
 
+    def to_requests(self, node_id_mapping, visited_synthdefs):
+        from supriya.tools import requesttools
+        requests = []
+        synthdefs = [x for x in self.synthdefs if x not in visited_synthdefs]
+        if synthdefs:
+            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
+            requests.append(request)
+        return requests
+
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def actions(self):
+        return self._actions
+
+    @property
+    def nodes_to_children(self):
+        return self._nodes_to_children
+
+    @property
+    def nodes_to_parents(self):
+        return self._nodes_to_parents
+
+    @property
+    def offset(self):
+        return self._offset
+
+    @property
+    def session(self):
+        return self._session
+
+    @property
+    def start_nodes(self):
+        return self._start_nodes
+
+    @property
+    def stop_nodes(self):
+        return self._stop_nodes
 
     @property
     def synthdefs(self):
