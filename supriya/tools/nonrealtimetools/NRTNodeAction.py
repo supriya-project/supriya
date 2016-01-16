@@ -26,11 +26,11 @@ class NRTNodeAction(object):
 
     ### PUBLIC METHODS ###
 
-    def apply_transform(self, nodes_to_children, nodes_to_parent):
+    def apply_transform(self, nodes_to_children, nodes_to_parents):
         assert self.target in nodes_to_children
         if self.source not in nodes_to_children:
             nodes_to_children[self.source] = None
-        old_parent = nodes_to_parent.get(self.source, None)
+        old_parent = nodes_to_parents.get(self.source, None)
         if old_parent:
             children = list(nodes_to_children[old_parent])
             children.remove(self.source)
@@ -42,10 +42,10 @@ class NRTNodeAction(object):
             servertools.AddAction.ADD_AFTER,
             servertools.AddAction.ADD_BEFORE,
             ):
-            new_parent = nodes_to_parent[self.target]
+            new_parent = nodes_to_parents[self.target]
         else:
             new_parent = self.target
-        nodes_to_parent[self.source] = new_parent
+        nodes_to_parents[self.source] = new_parent
         children = list(nodes_to_children.get(new_parent, None) or ())
         if self.action == servertools.AddAction.ADD_TO_HEAD:
             children.insert(0, self.source)
@@ -60,14 +60,14 @@ class NRTNodeAction(object):
         nodes_to_children[new_parent] = tuple(children)
 
     @staticmethod
-    def free_node(node, nodes_to_children, nodes_to_parent):
+    def free_node(node, nodes_to_children, nodes_to_parents):
         for child in nodes_to_children.get(node, ()) or ():
-            NRTNodeAction.free_node(child, nodes_to_children, nodes_to_parent)
-        parent = nodes_to_parent.get(node, None)
+            NRTNodeAction.free_node(child, nodes_to_children, nodes_to_parents)
+        parent = nodes_to_parents.get(node, None)
         if node in nodes_to_children:
             del(nodes_to_children[node])
-        if node in nodes_to_parent:
-            del(nodes_to_parent[node])
+        if node in nodes_to_parents:
+            del(nodes_to_parents[node])
         if not parent:
             return
         children = list(nodes_to_children[parent])

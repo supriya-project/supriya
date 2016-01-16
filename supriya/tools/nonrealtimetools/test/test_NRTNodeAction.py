@@ -11,7 +11,7 @@ class TestCase(unittest.TestCase):
         nodes_to_children = {
             nodes[0]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             }
         action = nonrealtimetools.NRTNodeAction(
@@ -19,12 +19,12 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1],),
             nodes[1]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             }
@@ -37,7 +37,7 @@ class TestCase(unittest.TestCase):
             nodes[2]: (nodes[3],),
             nodes[3]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -48,14 +48,14 @@ class TestCase(unittest.TestCase):
             target=nodes[1],
             action=servertools.AddAction.ADD_TO_HEAD,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: (nodes[3],),
             nodes[2]: None,
             nodes[3]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -69,7 +69,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -79,13 +79,13 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[2], nodes[1]),
             nodes[1]: None,
             nodes[2]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -98,7 +98,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -108,13 +108,13 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
             nodes[2]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -125,7 +125,7 @@ class TestCase(unittest.TestCase):
         nodes_to_children = {
             nodes[0]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             }
         action = nonrealtimetools.NRTNodeAction(
@@ -133,12 +133,12 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1],),
             nodes[1]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             }
@@ -151,7 +151,7 @@ class TestCase(unittest.TestCase):
             nodes[2]: (nodes[3],),
             nodes[3]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -162,14 +162,14 @@ class TestCase(unittest.TestCase):
             target=nodes[1],
             action=servertools.AddAction.ADD_TO_TAIL,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: (nodes[3],),
             nodes[2]: None,
             nodes[3]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -183,7 +183,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -193,13 +193,13 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[2], nodes[1]),
             nodes[1]: None,
             nodes[2]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -212,7 +212,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -222,13 +222,13 @@ class TestCase(unittest.TestCase):
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
             nodes[2]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -241,7 +241,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -251,14 +251,14 @@ class TestCase(unittest.TestCase):
             target=nodes[2],
             action=servertools.AddAction.ADD_BEFORE,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[3], nodes[2]),
             nodes[1]: None,
             nodes[2]: None,
             nodes[3]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -272,7 +272,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: None,
             nodes[2]: None,
             }
-        nodes_to_parent = {
+        nodes_to_parents = {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
@@ -282,14 +282,14 @@ class TestCase(unittest.TestCase):
             target=nodes[1],
             action=servertools.AddAction.ADD_AFTER,
             )
-        action.apply_transform(nodes_to_children, nodes_to_parent)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
             nodes[0]: (nodes[1], nodes[3], nodes[2]),
             nodes[1]: None,
             nodes[2]: None,
             nodes[3]: None,
             }
-        assert nodes_to_parent == {
+        assert nodes_to_parents == {
             nodes[0]: None,
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],

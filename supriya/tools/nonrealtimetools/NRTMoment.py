@@ -8,7 +8,7 @@ class NRTMoment(object):
     def __init__(self, session, offset):
         self.actions = []
         self.nodes_to_children = {}
-        self.nodes_to_parent = {}
+        self.nodes_to_parents = {}
         self.start_nodes = set()
         self.stop_nodes = set()
         self.session = session
@@ -50,7 +50,7 @@ class NRTMoment(object):
     def _clone(self, new_offset):
         moment = type(self)(self.session, new_offset)
         moment.nodes_to_children = self.nodes_to_children.copy()
-        moment.nodes_to_parent = self.nodes_to_parent.copy()
+        moment.nodes_to_parents = self.nodes_to_parents.copy()
         return moment
 
     def _free_node(self, node):
@@ -62,15 +62,15 @@ class NRTMoment(object):
             previous_moment = self.session._find_moment_before(self.offset)
         assert previous_moment is not None
         nodes_to_children = previous_moment.nodes_to_children.copy()
-        nodes_to_parent = previous_moment.nodes_to_parent.copy()
+        nodes_to_parents = previous_moment.nodes_to_parents.copy()
         for action in self.actions:
-            action.apply_transform(nodes_to_children, nodes_to_parent)
+            action.apply_transform(nodes_to_children, nodes_to_parents)
         for stop_node in self.stop_nodes:
             nonrealtimetools.NRTNodeAction.free_node(
-                stop_node, nodes_to_children, nodes_to_parent)
+                stop_node, nodes_to_children, nodes_to_parents)
         if nodes_to_children != self.nodes_to_children:
             self.nodes_to_children = nodes_to_children
-            self.nodes_to_parent = nodes_to_parent
+            self.nodes_to_parents = nodes_to_parents
             next_moment = self.session._find_moment_after(self.offset)
             if next_moment is not None:
                 next_moment._process_actions(previous_moment=self)

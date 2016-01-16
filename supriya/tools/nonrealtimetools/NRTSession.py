@@ -45,7 +45,7 @@ class NRTSession(object):
         offset = float('-inf')
         moment = nonrealtimetools.NRTMoment(self, offset)
         moment.nodes_to_children[self.root_node] = None
-        moment.nodes_to_parent[self.root_node] = None
+        moment.nodes_to_parents[self.root_node] = None
         self.moments[offset] = moment
         self.offsets.append(offset)
         offset = 0
