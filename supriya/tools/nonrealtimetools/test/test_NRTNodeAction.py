@@ -295,4 +295,3 @@ class TestCase(unittest.TestCase):
             nodes[2]: nodes[0],
             nodes[3]: nodes[0],
             }
-

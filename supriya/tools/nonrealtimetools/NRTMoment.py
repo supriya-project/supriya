@@ -84,3 +84,39 @@ class NRTMoment(object):
             action=action,
             )
         self.actions.append(action)
+
+    ### PUBLIC METHODS ###
+
+    def report(self):
+        state = {}
+        node_hierarchy = {}
+        items = sorted(self.nodes_to_children.items(),
+            key=lambda item: item[0].session_id)
+        for parent, children in items:
+            if not children:
+                children = []
+            node_hierarchy[str(parent)] = [str(child) for child in children]
+        node_lifecycle = {}
+        if self.start_nodes:
+            node_lifecycle['start'] = sorted(str(node) for node in self.start_nodes)
+        if self.stop_nodes:
+            node_lifecycle['stop'] = sorted(str(node) for node in self.stop_nodes)
+        if node_hierarchy:
+            state['hierarchy'] = node_hierarchy
+        if node_lifecycle:
+            state['lifecycle'] = node_lifecycle
+        state['timestep'] = self.timestep
+        return state
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def synthdefs(self):
+        from supriya.tools import nonrealtimetools
+        synthdefs = set()
+        for node in self.start_nodes:
+            if not isinstance(node, nonrealtimetools.NRTSynth):
+                continue
+            synthdefs.add(node.synthdef)
+        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
+        return synthdefs

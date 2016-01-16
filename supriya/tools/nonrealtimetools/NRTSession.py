@@ -1,22 +1,19 @@
 # -*- encoding: utf-8 -*-
 import bisect
-from supriya.tools import servertools
 
 
 class NRTSession(object):
 
-    _valid_add_actions = (
-        servertools.AddAction.ADD_TO_HEAD,
-        servertools.AddAction.ADD_TO_TAIL,
-        )
+    ### INITIALIZER ###
 
     def __init__(self):
         from supriya.tools import nonrealtimetools
         self.nodes = set()
         self.active_moments = []
+        self.timesteps = []
         self.moments = {}
         self.root_node = nonrealtimetools.NRTRootNode(self)
-        self._setup_initial_moment()
+        self._setup_initial_moments()
 
     ### PRIVATE METHODS ###
 
@@ -43,14 +40,18 @@ class NRTSession(object):
         old_timestep = self.timesteps[index]
         return self.moments[old_timestep]
 
-    def _setup_initial_moment(self):
+    def _setup_initial_moments(self):
         from supriya.tools import nonrealtimetools
-        negative_infinity = float('-inf')
-        moment = nonrealtimetools.NRTMoment(self, negative_infinity)
-        moment.nodes_to_children[self.root_node] = {}
+        timestep = float('-inf')
+        moment = nonrealtimetools.NRTMoment(self, timestep)
+        moment.nodes_to_children[self.root_node] = None
         moment.nodes_to_parent[self.root_node] = None
-        self.moments[negative_infinity] = moment
-        self.timesteps = [negative_infinity]
+        self.moments[timestep] = moment
+        self.timesteps.append(timestep)
+        timestep = 0
+        moment = moment._clone(timestep)
+        self.moments[timestep] = moment
+        self.timesteps.append(timestep)
 
     ### PUBLIC METHODS ###
 
@@ -76,3 +77,20 @@ class NRTSession(object):
 
     def move_node(self, node, add_action=None):
         self.root_node.move_node(node, add_action=add_action)
+
+    def report(self):
+        states = []
+        for timestep in self.timesteps[1:]:
+            moment = self.moments[timestep]
+            state = moment.report()
+            states.append(state)
+        return states
+
+#    def to_osc_bundles(self, timespan=None):
+#        osc_bundles = []
+#        visited_synthdefs = set()
+#        for timestep in self.timesteps[1:]:
+#            moment = self.moments[timestep]
+#            requests = []
+#            synthdefs = moment.synthdefs
+#            visited_synthdefs.update(synthdefs)
