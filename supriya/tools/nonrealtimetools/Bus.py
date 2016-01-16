@@ -27,10 +27,10 @@ class Bus(SessionObject):
 
     ::
 
-        >>> for timestep in range(5):
-        ...     with session.at(timestep):
+        >>> for offset in range(5):
+        ...     with session.at(offset):
         ...         value = bus.get()
-        ...         print(timestep, value)
+        ...         print(offset, value)
         ...
         0 0.0
         1 0.5
@@ -70,16 +70,16 @@ class Bus(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _get_at_timestep(self, timestep):
+    def _get_at_offset(self, offset):
         events = self._events
         if not events:
             return 0.
-        index = bisect.bisect_left(events, (timestep, 0.))
+        index = bisect.bisect_left(events, (offset, 0.))
         if len(events) <= index:
-            old_timestep, value = events[-1]
+            old_offset, value = events[-1]
         else:
-            old_timestep, value = events[index]
-        if old_timestep == timestep:
+            old_offset, value = events[index]
+        if old_offset == offset:
             return value
         index -= 1
         if index < 0:
@@ -87,18 +87,18 @@ class Bus(SessionObject):
         _, value = events[index]
         return value
 
-    def _set_at_timestep(self, timestep, value):
+    def _set_at_offset(self, offset, value):
         assert self.calculation_rate == synthdeftools.CalculationRate.CONTROL
         events = self._events
-        event = (timestep, value)
+        event = (offset, value)
         if not events:
             events.append(event)
             return
         index = bisect.bisect_left(events, event)
         if len(events) <= index:
             events.append(event)
-        old_timestep, _ = events[index]
-        if old_timestep == timestep:
+        old_offset, _ = events[index]
+        if old_offset == offset:
             events[index] = event
         else:
             events.insert(index, event)
@@ -107,8 +107,8 @@ class Bus(SessionObject):
 
     def get(self):
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
-        value = self._get_at_timestep(timestep)
+        offset = self.session._session_moments[-1].offset
+        value = self._get_at_offset(offset)
         return value
 
     def get_map_symbol(self, bus_id):
@@ -122,8 +122,8 @@ class Bus(SessionObject):
 
     def set_(self, value):
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
-        self._set_at_timestep(timestep, value)
+        offset = self.session._session_moments[-1].offset
+        self._set_at_offset(offset, value)
 
     ### PUBLIC PROPERTIES ###
 

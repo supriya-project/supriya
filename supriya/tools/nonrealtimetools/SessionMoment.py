@@ -10,18 +10,18 @@ class SessionMoment(SupriyaValueObject):
 
     __slots__ = (
         '_session',
-        '_timestep',
+        '_offset',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, session, timestep):
+    def __init__(self, session, offset):
         from supriya.tools import nonrealtimetools
         assert isinstance(session, nonrealtimetools.Session)
-        timestep = float(timestep)
-        assert 0 <= timestep
+        offset = float(offset)
+        assert 0 <= offset
         self._session = session
-        self._timestep = timestep
+        self._offset = offset
 
     ### SPECIAL METHODS ###
 
@@ -38,5 +38,5 @@ class SessionMoment(SupriyaValueObject):
         return self._session
 
     @property
-    def timestep(self):
-        return self._timestep
+    def offset(self):
+        return self._offset

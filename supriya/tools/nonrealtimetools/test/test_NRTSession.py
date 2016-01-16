@@ -9,4 +9,4 @@ class TestCase(unittest.TestCase):
         session = nonrealtimetools.NRTSession()
         with session.at(5):
             session.add_synth(duration=10)
-        assert session.timesteps == [float('-inf'), 0, 5, 15]
+        assert session.offsets == [float('-inf'), 0, 5, 15]

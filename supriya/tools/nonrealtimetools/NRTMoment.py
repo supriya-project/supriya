@@ -5,14 +5,14 @@ class NRTMoment(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, timestep):
+    def __init__(self, session, offset):
         self.actions = []
         self.nodes_to_children = {}
         self.nodes_to_parent = {}
         self.start_nodes = set()
         self.stop_nodes = set()
         self.session = session
-        self.timestep = timestep
+        self.offset = offset
 
     ### SPECIAL METHODS ###
 
@@ -28,7 +28,7 @@ class NRTMoment(object):
             return False
         if expr.session is not self.session:
             return False
-        return expr.timestep == self.timestep
+        return expr.offset == self.offset
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.session.active_moments.pop()
@@ -37,18 +37,18 @@ class NRTMoment(object):
     def __lt__(self, expr):
         if not isinstance(expr, type(self)) or expr.session is not self.session:
             raise ValueError(expr)
-        return self.timestep < expr.timestep
+        return self.offset < expr.offset
 
     def __repr__(self):
         return '<{} @{!r}>'.format(
             type(self).__name__,
-            self.timestep,
+            self.offset,
             )
 
     ### PRIVATE METHODS ###
 
-    def _clone(self, new_timestep):
-        moment = type(self)(self.session, new_timestep)
+    def _clone(self, new_offset):
+        moment = type(self)(self.session, new_offset)
         moment.nodes_to_children = self.nodes_to_children.copy()
         moment.nodes_to_parent = self.nodes_to_parent.copy()
         return moment
@@ -59,7 +59,7 @@ class NRTMoment(object):
     def _process_actions(self, previous_moment=None):
         from supriya.tools import nonrealtimetools
         if previous_moment is None:
-            previous_moment = self.session._find_moment_before(self.timestep)
+            previous_moment = self.session._find_moment_before(self.offset)
         assert previous_moment is not None
         nodes_to_children = previous_moment.nodes_to_children.copy()
         nodes_to_parent = previous_moment.nodes_to_parent.copy()
@@ -71,7 +71,7 @@ class NRTMoment(object):
         if nodes_to_children != self.nodes_to_children:
             self.nodes_to_children = nodes_to_children
             self.nodes_to_parent = nodes_to_parent
-            next_moment = self.session._find_moment_after(self.timestep)
+            next_moment = self.session._find_moment_after(self.offset)
             if next_moment is not None:
                 next_moment._process_actions(previous_moment=self)
 
@@ -105,7 +105,7 @@ class NRTMoment(object):
             state['hierarchy'] = node_hierarchy
         if node_lifecycle:
             state['lifecycle'] = node_lifecycle
-        state['timestep'] = self.timestep
+        state['offset'] = self.offset
         return state
 
     ### PUBLIC PROPERTIES ###

@@ -31,10 +31,10 @@ class BusGroup(SessionObject):
 
     ::
 
-        >>> for timestep in range(7):
-        ...     with session.at(timestep):
+        >>> for offset in range(7):
+        ...     with session.at(offset):
         ...         values = bus_group.get()
-        ...         print(timestep, values)
+        ...         print(offset, values)
         ...
         0 [0.0, 0.0, 0.0]
         1 [0.333, 0.0, 0.0]
@@ -100,14 +100,14 @@ class BusGroup(SessionObject):
 
     def fill(self, value):
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
+        offset = self.session._session_moments[-1].offset
         for bus in self:
-            bus._set_at_timestep(timestep, value)
+            bus._set_at_offset(offset, value)
 
     def get(self):
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
-        values = [bus._get_at_timestep(timestep) for bus in self]
+        offset = self.session._session_moments[-1].offset
+        values = [bus._get_at_offset(offset) for bus in self]
         return values
 
     def get_map_symbol(self, bus_id):

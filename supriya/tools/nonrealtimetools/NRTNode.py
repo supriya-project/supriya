@@ -31,7 +31,7 @@ class NRTNode(object):
         node = nonrealtimetools.NRTGroup(
             self.session,
             session_id=len(self.session.nodes) + 1,
-            start_offset=start_moment.timestep,
+            start_offset=start_moment.offset,
             )
         self.move_node(node, add_action=add_action)
         start_moment.start_nodes.add(node)
@@ -46,7 +46,7 @@ class NRTNode(object):
             self.session,
             session_id=len(self.session.nodes) + 1,
             duration=duration,
-            start_offset=start_moment.timestep,
+            start_offset=start_moment.offset,
             )
         self.move_node(node, add_action=add_action)
         start_moment.start_nodes.add(node)

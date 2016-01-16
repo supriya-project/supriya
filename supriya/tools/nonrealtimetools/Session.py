@@ -226,15 +226,15 @@ class Session(OscMixin):
         return command
 
     def _collect_bus_requests(self, request_mapping, id_mapping):
-        events_by_timestep = {}
+        events_by_offset = {}
         for bus in self._buses:
             if bus.calculation_rate != synthdeftools.CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
-            for timestep, value in bus._events:
-                events_by_timestep.setdefault(timestep, {})[bus_id] = value
-        for timestep, events in events_by_timestep.items():
-            requests = request_mapping.setdefault(timestep, [])
+            for offset, value in bus._events:
+                events_by_offset.setdefault(offset, {})[bus_id] = value
+        for offset, events in events_by_offset.items():
+            requests = request_mapping.setdefault(offset, [])
             index_value_pairs = sorted(events.items())
             request = requesttools.ControlBusSetRequest(
                 index_value_pairs=index_value_pairs,
@@ -247,8 +247,8 @@ class Session(OscMixin):
         synths = sorted(self._synths[:], key=comparator)
         for synth in synths:
             items = synth._collect_requests(id_mapping).items()
-            for timestep, synth_requests in items:
-                requests = request_mapping.setdefault(timestep, [])
+            for offset, synth_requests in items:
+                requests = request_mapping.setdefault(offset, [])
                 requests.extend(synth_requests)
         return request_mapping
 
@@ -270,12 +270,12 @@ class Session(OscMixin):
             if offset not in offsets_to_synthdefs:
                 offsets_to_synthdefs[offset] = []
             offsets_to_synthdefs[offset].append(synthdef)
-        for timestep, synthdefs in offsets_to_synthdefs.items():
+        for offset, synthdefs in offsets_to_synthdefs.items():
             synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
             request = requesttools.SynthDefReceiveRequest(
                 synthdefs=synthdefs,
                 )
-            requests = request_mapping.setdefault(timestep, [])
+            requests = request_mapping.setdefault(offset, [])
             requests.append(request)
         return request_mapping
 
@@ -301,12 +301,12 @@ class Session(OscMixin):
         osc_bundle = osctools.OscBundle(timestamp, osc_messages)
         return osc_bundle
 
-    def _process_terminal_event(self, final_timestep, timespan):
+    def _process_terminal_event(self, final_offset, timespan):
         osc_bundles = []
         if timespan is not None:
             prototype = (mathtools.Infinity(), mathtools.NegativeInfinity)
             if timespan.stop_offset not in prototype and \
-                final_timestep < timespan.stop_offset:
+                final_offset < timespan.stop_offset:
                 osc_bundle = osctools.OscBundle(
                     timestamp=float(timespan.stop_offset),
                     contents=[osctools.OscMessage(0)],
@@ -333,11 +333,11 @@ class Session(OscMixin):
 
     ### PUBLIC METHODS ###
 
-    def at(self, timestep):
+    def at(self, offset):
         from supriya.tools import nonrealtimetools
         session_moment = nonrealtimetools.SessionMoment(
             session=self,
-            timestep=timestep,
+            offset=offset,
             )
         return session_moment
 
@@ -437,10 +437,10 @@ class Session(OscMixin):
         request_mapping = session._collect_synth_requests(request_mapping, id_mapping)
         if not request_mapping:
             raise ValueError
-        for timestep, requests in sorted(request_mapping.items()):
-            osc_bundle = session._process_requests(timestep, requests)
+        for offset, requests in sorted(request_mapping.items()):
+            osc_bundle = session._process_requests(offset, requests)
             osc_bundles.append(osc_bundle)
-        osc_bundles += session._process_terminal_event(timestep, timespan)
+        osc_bundles += session._process_terminal_event(offset, timespan)
         return osc_bundles
 
     ### PUBLIC PROPERTIES ###

@@ -57,15 +57,15 @@ class Synth(timespantools.Timespan, SessionObject):
     def __getitem__(self, item):
         from supriya.tools import nonrealtimetools
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
-        return self._get_at_timestep(timestep, item)
+        offset = self.session._session_moments[-1].offset
+        return self._get_at_offset(offset, item)
 
     def __setitem__(self, item, value):
         from supriya.tools import nonrealtimetools
         assert self.session._session_moments
-        timestep = self.session._session_moments[-1].timestep
+        offset = self.session._session_moments[-1].offset
         assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
-        self._set_at_timestep(timestep, item, value)
+        self._set_at_offset(offset, item, value)
 
     ### PRIVATE METHODS ###
 
@@ -73,19 +73,19 @@ class Synth(timespantools.Timespan, SessionObject):
         from supriya.tools import nonrealtimetools
         node_id = id_mapping[self]
         target_node_id = 0
-        events_by_timestep = {}
-        events_by_timestep[self.start_offset] = self.synth_kwargs.copy()
+        events_by_offset = {}
+        events_by_offset[self.start_offset] = self.synth_kwargs.copy()
         for item, events in self._events.items():
-            for timestep, value in events:
-                timestep += self.start_offset
-                event = events_by_timestep.setdefault(timestep, {})
+            for offset, value in events:
+                offset += self.start_offset
+                event = events_by_offset.setdefault(offset, {})
                 event[item] = value
         bus_prototype = (
             nonrealtimetools.Bus,
             nonrealtimetools.BusGroup,
             type(None),
             )
-        for timestep, event in tuple(events_by_timestep.items()):
+        for offset, event in tuple(events_by_offset.items()):
             settings = {}
             a_mappings = {}
             c_mappings = {}
@@ -101,7 +101,7 @@ class Synth(timespantools.Timespan, SessionObject):
                 else:
                     settings[key] = value
             requests = []
-            if timestep == self.start_offset:
+            if offset == self.start_offset:
                 if 'duration' in self.synthdef.parameter_names and \
                     'duration' not in settings:
                     settings['duration'] = float(self.duration)
@@ -142,13 +142,13 @@ class Synth(timespantools.Timespan, SessionObject):
                         **c_mappings
                         )
                     requests.append(request)
-            events_by_timestep[timestep] = requests
+            events_by_offset[offset] = requests
         if 'gate' in self.synthdef.parameter_names:
             end_request = requesttools.NodeSetRequest(node_id=node_id, gate=0)
         else:
             end_request = requesttools.NodeFreeRequest(node_ids=[node_id])
-        events_by_timestep.setdefault(self.stop_offset, []).append(end_request)
-        return events_by_timestep
+        events_by_offset.setdefault(self.stop_offset, []).append(end_request)
+        return events_by_offset
 
     def _get_start_request(self, mapping):
         node_id = mapping[self]
@@ -166,22 +166,22 @@ class Synth(timespantools.Timespan, SessionObject):
             )
         return request
 
-    def _get_at_timestep(self, timestep, item):
+    def _get_at_offset(self, offset, item):
         '''
         Relative to Synth start offset.
         '''
-        timestep -= self.start_offset
+        offset -= self.start_offset
         events = self._events.get(item)
         default = self.synthdef.parameters[item].value
         default = self._synth_kwargs.get(item, default)
         if not events:
             return default
-        index = bisect.bisect_left(events, (timestep, 0.))
+        index = bisect.bisect_left(events, (offset, 0.))
         if len(events) <= index:
-            old_timestep, value = events[-1]
+            old_offset, value = events[-1]
         else:
-            old_timestep, value = events[index]
-        if old_timestep == timestep:
+            old_offset, value = events[index]
+        if old_offset == offset:
             return value
         index -= 1
         if index < 0:
@@ -189,24 +189,24 @@ class Synth(timespantools.Timespan, SessionObject):
         _, value = events[index]
         return value
 
-    def _set_at_timestep(self, timestep, item, value):
+    def _set_at_offset(self, offset, item, value):
         '''
         Relative to Synth start offset.
         '''
-        timestep -= self.start_offset
-        if timestep < 0 or self.duration < timestep:
+        offset -= self.start_offset
+        if offset < 0 or self.duration < offset:
             return
         events = self._events.setdefault(item, [])
-        new_event = (timestep, value)
+        new_event = (offset, value)
         if not events:
             events.append(new_event)
             return
         index = bisect.bisect_left(events, new_event)
         if len(events) <= index:
             events.append(new_event)
-        old_timestep, old_value = events[index]
-        if old_timestep == timestep:
-            events[index] = (timestep, value)
+        old_offset, old_value = events[index]
+        if old_offset == offset:
+            events[index] = (offset, value)
         else:
             events.insert(index, new_event)
 
