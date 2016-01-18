@@ -14,19 +14,44 @@ class NRTNodeAction(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, source, action, target):
-        from supriya.tools import nonrealtimetools
-        assert isinstance(source, nonrealtimetools.NRTNode)
-        assert isinstance(target, nonrealtimetools.NRTNode)
-        action = servertools.AddAction.from_expr(action)
-        assert isinstance(action, servertools.AddAction)
+    def __init__(
+        self,
+        source=None,
+        action=None,
+        target=None,
+        ):
+        if action is not None:
+            action = servertools.AddAction.from_expr(action)
+            assert isinstance(action, servertools.AddAction)
+        if action is None:
+            assert source is not None
+            assert target is None
+        self._action = action
         self._source = source
         self._target = target
-        self._action = action
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def apply_transform(self, nodes_to_children, nodes_to_parents):
+    def _free_node(self, nodes_to_children, nodes_to_parents):
+        node = self.source
+        for child in nodes_to_children.get(node, ()) or ():
+            NRTNodeAction.free_node(child, nodes_to_children, nodes_to_parents)
+        parent = nodes_to_parents.get(node, None)
+        if node in nodes_to_children:
+            del(nodes_to_children[node])
+        if node in nodes_to_parents:
+            del(nodes_to_parents[node])
+        if not parent:
+            return
+        children = list(nodes_to_children[parent])
+        children.remove(node)
+        if children:
+            children = tuple(children)
+        else:
+            children = None
+        nodes_to_children[parent] = children
+
+    def _move_node(self, nodes_to_children, nodes_to_parents):
         assert self.target in nodes_to_children
         if self.source not in nodes_to_children:
             nodes_to_children[self.source] = None
@@ -59,24 +84,18 @@ class NRTNodeAction(object):
             children.insert(index, self.source)
         nodes_to_children[new_parent] = tuple(children)
 
+    ### PUBLIC METHODS ###
+
+    def apply_transform(self, nodes_to_children, nodes_to_parents):
+        if self.action is None:
+            self._free_node(nodes_to_children, nodes_to_parents)
+        else:
+            self._move_node(nodes_to_children, nodes_to_parents)
+
     @staticmethod
     def free_node(node, nodes_to_children, nodes_to_parents):
-        for child in nodes_to_children.get(node, ()) or ():
-            NRTNodeAction.free_node(child, nodes_to_children, nodes_to_parents)
-        parent = nodes_to_parents.get(node, None)
-        if node in nodes_to_children:
-            del(nodes_to_children[node])
-        if node in nodes_to_parents:
-            del(nodes_to_parents[node])
-        if not parent:
-            return
-        children = list(nodes_to_children[parent])
-        children.remove(node)
-        if children:
-            children = tuple(children)
-        else:
-            children = None
-        nodes_to_children[parent] = children
+        action = NRTNodeAction(source=node)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
 
     ### PUBLIC PROPERTIES ###
 
