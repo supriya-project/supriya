@@ -30,5 +30,3 @@ class NRTSynth(NRTNode):
 
     def __str__(self):
         return 'synth-{}'.format(self.session_id)
-
-    ### PUBLIC METHODS ###

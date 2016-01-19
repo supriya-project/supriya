@@ -1,16 +1,28 @@
 # -*- encoding: utf-8 -*-
+import bisect
 from supriya.tools import servertools
 
 
 class NRTNode(object):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = (
+        '_duration',
+        '_events',
+        '_session',
+        '_session_id',
+        '_start_offset',
+        )
+
     ### INITIALIZER ###
 
     def __init__(self, session, session_id, start_offset=None):
-        self.session = session
-        self.session_id = int(session_id)
-        self.start_offset = start_offset
-        self.duration = None
+        self._session = session
+        self._session_id = int(session_id)
+        self._start_offset = start_offset
+        self._duration = None
+        self._events = {}
 
     ### SPECIAL METHODS ###
 
@@ -21,6 +33,69 @@ class NRTNode(object):
             self.start_offset,
             self.stop_offset,
             )
+
+    ### SPECIAL METHODS ###
+
+    def __getitem__(self, item):
+        assert self.session._session_moments
+        offset = self.session._session_moments[-1].offset
+        return self._get_at_offset(offset, item)
+
+    def __setitem__(self, item, value):
+        from supriya.tools import nonrealtimetools
+        assert self.session._session_moments
+        offset = self.session._session_moments[-1].offset
+        assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
+        self._set_at_offset(offset, item, value)
+
+    ### PRIVATE METHODS ###
+
+    def _get_at_offset(self, offset, item):
+        '''
+        Relative to Synth start offset.
+        '''
+        offset -= self.start_offset
+        events = self._events.get(item)
+        if hasattr(self.synthdef):
+            default = self.synthdef.parameters[item].value
+            default = self._synth_kwargs.get(item, default)
+        else:
+            default = None
+        if not events:
+            return default
+        index = bisect.bisect_left(events, (offset, 0.))
+        if len(events) <= index:
+            old_offset, value = events[-1]
+        else:
+            old_offset, value = events[index]
+        if old_offset == offset:
+            return value
+        index -= 1
+        if index < 0:
+            return default
+        _, value = events[index]
+        return value
+
+    def _set_at_offset(self, offset, item, value):
+        '''
+        Relative to Synth start offset.
+        '''
+        offset -= self.start_offset
+        if offset < 0 or self.duration < offset:
+            return
+        events = self._events.setdefault(item, [])
+        new_event = (offset, value)
+        if not events:
+            events.append(new_event)
+            return
+        index = bisect.bisect_left(events, new_event)
+        if len(events) <= index:
+            events.append(new_event)
+        old_offset, old_value = events[index]
+        if old_offset == offset:
+            events[index] = (offset, value)
+        else:
+            events.insert(index, new_event)
 
     ### PUBLIC METHODS ###
 
@@ -79,6 +154,22 @@ class NRTNode(object):
             )
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def duration(self):
+        return self._duration
+
+    @property
+    def session(self):
+        return self._session
+
+    @property
+    def session_id(self):
+        return self._session_id
+
+    @property
+    def start_offset(self):
+        return self._start_offset
 
     @property
     def stop_offset(self):

@@ -55,7 +55,6 @@ class Synth(timespantools.Timespan, SessionObject):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        from supriya.tools import nonrealtimetools
         assert self.session._session_moments
         offset = self.session._session_moments[-1].offset
         return self._get_at_offset(offset, item)
@@ -149,22 +148,6 @@ class Synth(timespantools.Timespan, SessionObject):
             end_request = requesttools.NodeFreeRequest(node_ids=[node_id])
         events_by_offset.setdefault(self.stop_offset, []).append(end_request)
         return events_by_offset
-
-    def _get_start_request(self, mapping):
-        node_id = mapping[self]
-        target_node_id = 0
-        parameter_names = self.synthdef.parameter_names
-        synth_kwargs = self.synth_kwargs
-        if 'duration' in parameter_names and 'duration' not in synth_kwargs:
-            synth_kwargs['duration'] = float(self.duration)
-        request = requesttools.SynthNewRequest(
-            add_action=servertools.AddAction.ADD_TO_TAIL,
-            node_id=node_id,
-            synthdef=self.synthdef.anonymous_name,
-            target_node_id=target_node_id,
-            **synth_kwargs
-            )
-        return request
 
     def _get_at_offset(self, offset, item):
         '''

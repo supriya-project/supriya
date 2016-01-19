@@ -69,6 +69,15 @@ class NRTMoment(object):
     def _free_node(self, node):
         pass
 
+    def _iterate_nodes(self):
+        def recurse(node):
+            yield node
+            for node in self.nodes_to_children.get(node, ()):
+                for node in recurse(node):
+                    yield node
+        root_node = self.session.root_node
+        return recurse(root_node)
+
     def _process_actions(self, previous_moment=None):
         from supriya.tools import nonrealtimetools
         if previous_moment is None:
