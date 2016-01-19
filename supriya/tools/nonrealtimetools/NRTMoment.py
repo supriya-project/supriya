@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import collections
 
 
 class NRTMoment(object):
@@ -18,7 +19,7 @@ class NRTMoment(object):
     ### INITIALIZER ###
 
     def __init__(self, session, offset):
-        self._actions = []
+        self._actions = collections.OrderedDict()
         self._nodes_to_children = {}
         self._nodes_to_parents = {}
         self._start_nodes = set()
@@ -75,7 +76,7 @@ class NRTMoment(object):
         assert previous_moment is not None
         nodes_to_children = previous_moment.nodes_to_children.copy()
         nodes_to_parents = previous_moment.nodes_to_parents.copy()
-        for action in self.actions:
+        for _, action in self.actions.items():
             action.apply_transform(nodes_to_children, nodes_to_parents)
         for stop_node in self.stop_nodes:
             nonrealtimetools.NRTNodeAction.free_node(
@@ -95,7 +96,7 @@ class NRTMoment(object):
             target=target,
             action=action,
             )
-        self.actions.append(action)
+        self.actions[source] = action
 
     ### PUBLIC METHODS ###
 
@@ -127,6 +128,17 @@ class NRTMoment(object):
         if synthdefs:
             request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
             requests.append(request)
+        # collect bus settings and convert to requests
+        # collect node settings in an ordered dict
+        # traverse nodes depth-wise to collect settings per node
+        for source, action in self.actions.items():
+            if source in self.start_nodes:
+                # a new synth or group
+                # use any node settings to override a new synth's kwargs
+                # pop out any overriding settings from the settings dict
+            else:
+                # move a node
+        # convert remaining settings to requests
         return requests
 
     ### PUBLIC PROPERTIES ###
