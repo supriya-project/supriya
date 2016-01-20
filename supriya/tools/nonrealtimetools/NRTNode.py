@@ -51,6 +51,15 @@ class NRTNode(SessionObject):
 
     ### PRIVATE METHODS ###
 
+    def _collect_settings(self, offset):
+        settings = {}
+        for key, events in self._events.items():
+            index = bisect.bisect_left(events, (offset, 0.))
+            event_offset, value = events[index]
+            if offset == event_offset:
+                settings[key] = value
+        return settings
+
     def _get_at_offset(self, offset, item):
         '''
         Relative to Synth start offset.

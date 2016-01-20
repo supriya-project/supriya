@@ -66,6 +66,17 @@ class NRTMoment(object):
         moment._nodes_to_parents = self.nodes_to_parents.copy()
         return moment
 
+    def _collect_bus_settings(self):
+        pass
+
+    def _collect_node_settings(self):
+        result = collections.OrderedDict()
+        for node in self._iterate_nodes():
+            settings = node._collect_settings(self.offset)
+            if settings:
+                result[node] = settings
+        return result
+
     def _free_node(self, node):
         pass
 
@@ -130,26 +141,50 @@ class NRTMoment(object):
         state['offset'] = self.offset
         return state
 
-    def to_requests(self, node_id_mapping, visited_synthdefs):
+    def _collect_synthdefs(self, visited_synthdefs):
+        synthdefs = [x for x in self.synthdefs if x not in visited_synthdefs]
+        visited_synthdefs.update(synthdefs)
+        return synthdefs
+
+    def to_requests(self, id_mapping, visited_synthdefs):
+        from supriya.tools import nonrealtimetools
         from supriya.tools import requesttools
         requests = []
-        synthdefs = [x for x in self.synthdefs if x not in visited_synthdefs]
+        synthdefs = self._collect_synthdefs(visited_synthdefs)
         if synthdefs:
             request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
             requests.append(request)
-        # collect bus settings and convert to requests
+        node_settings = self._collect_node_settings()
         # collect node settings in an ordered dict
         # traverse nodes depth-wise to collect settings per node
         for source, action in self.actions.items():
             if source in self.start_nodes:
-                pass
+                if isinstance(source, nonrealtimetools.NRTSynth):
+                    if source in node_settings:
+                        synth_kwargs = node_settings.pop(source)
+                        request.source.to_request(
+                            action,
+                            id_mapping,
+                            **synth_kwargs
+                            )
+                    else:
+                        request.source.to_request(action, id_mapping)
+                else:
+                    request = source.to_request(action, id_mapping)
                 # a new synth or group
                 # use any node settings to override a new synth's kwargs
+                # handle floats, control buses and audio buses
                 # pop out any overriding settings from the settings dict
             else:
-                pass
-                # move a node
+                request = action.to_request(id_mapping)
+            requests.append(request)
         # convert remaining settings to requests
+        # collect bus settings and convert to requests
+        for node, settings in node_settings.items():
+            node_id = id_mapping[node]
+            # separate out floats, control buses and audio buses
+        for node in self.stop_nodes:
+            pass
         return requests
 
     ### PUBLIC PROPERTIES ###

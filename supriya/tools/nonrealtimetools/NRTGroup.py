@@ -20,3 +20,16 @@ class NRTGroup(NRTNode):
 
     def __str__(self):
         return 'group-{}'.format(self.session_id)
+
+    ### PUBLIC METHODS ###
+
+    def to_request(self, action, id_mapping):
+        source_id = id_mapping[action.source]
+        target_id = id_mapping[action.target]
+        add_action = action.action
+        request = requesttools.GroupNewRequest(
+            add_action=add_action,
+            node_id=source_id,
+            target_node_id=target_id,
+            )
+        return request

@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import requesttools
 from supriya.tools import servertools
 
 
@@ -96,6 +97,22 @@ class NRTNodeAction(object):
     def free_node(node, nodes_to_children, nodes_to_parents):
         action = NRTNodeAction(source=node)
         action.apply_transform(nodes_to_children, nodes_to_parents)
+
+    def to_request(self, id_mapping):
+        node_id_pair = requesttools.NodeIdPair(
+            node_id=id_mapping[self.source],
+            target_node_id=id_mapping[self.target],
+            )
+        if self.action == servertools.AddAction.ADD_TO_HEAD:
+            request_class = requesttools.GroupHeadRequest
+        elif self.action == servertools.AddAction.ADD_TO_TAIL:
+            request_class = requesttools.GroupTailRequest
+        elif self.action == servertools.AddAction.ADD_BEFORE:
+            request_class = requesttools.NodeBeforeRequest
+        elif self.action == servertools.AddAction.ADD_AFTER:
+            request_class = requesttools.NodeAfterRequest
+        request = request_class(node_id_pairs=[node_id_pair])
+        return request
 
     ### PUBLIC PROPERTIES ###
 

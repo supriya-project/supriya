@@ -17,7 +17,11 @@ class SessionObject(SupriyaObject):
         session,
         ):
         from supriya.tools import nonrealtimetools
-        prototype = (nonrealtimetools.Session, nonrealtimetools.NRTSession)
+        prototype = (
+            nonrealtimetools.Session, 
+            nonrealtimetools.NRTSession,
+            type(None),
+            )
         assert isinstance(session, prototype)
         self._session = session
 

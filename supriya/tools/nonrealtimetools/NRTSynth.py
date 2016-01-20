@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools.nonrealtimetools.NRTNode import NRTNode
 
@@ -42,6 +43,27 @@ class NRTSynth(NRTNode):
 
     def __str__(self):
         return 'synth-{}'.format(self.session_id)
+
+    ### PUBLIC METHODS ###
+
+    def to_request(self, action, id_mapping, **synth_kwargs):
+        from supriya.tools import nonrealtimetools
+        source_id = id_mapping[action.source]
+        target_id = id_mapping[action.target]
+        add_action = action.action
+        prototype = (nonrealtimetools.Bus, nonrealtimetools.BusGroup)
+        for key, value in synth_kwargs.items():
+            if isinstance(value, prototype):
+                bus_id = id_mapping[value]
+                synth_kwargs[key] = value.get_map_symbol(bus_id)
+        request = requesttools.SynthNewRequest(
+            add_action=add_action,
+            node_id=source_id,
+            synthdef=self.synthdef.anonymous_name,
+            target_node_id=target_id,
+            **synth_kwargs
+            )
+        return request
 
     ### PUBLIC PROPERTIES ###
 
