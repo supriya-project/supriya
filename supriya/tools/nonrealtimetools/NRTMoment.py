@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
+from supriya.tools import requesttools
 
 
 class NRTMoment(object):
@@ -141,50 +142,66 @@ class NRTMoment(object):
         state['offset'] = self.offset
         return state
 
-    def _collect_synthdefs(self, visited_synthdefs):
+    def _collect_stop_requests(self, id_mapping):
+        requests = []
+        if self.stop_nodes:
+            free_ids, gate_ids = [], []
+            for node in self.stop_nodes:
+                node_id = id_mapping[node]
+                if hasattr(node, 'synthdef') and \
+                    'gate' in node.synthdef.parameter_names:
+                    gate_ids.append(node_id)
+                else:
+                    free_ids.append(node_id)
+            free_ids.sort()
+            gate_ids.sort()
+            if free_ids:
+                request = requesttools.NodeFreeRequest(node_ids=free_ids)
+                requests.append(request)
+            if gate_ids:
+                for node_id in gate_ids:
+                    request = requesttools.NodeSetRequest(
+                        node_id=node_id,
+                        gate=0,
+                        )
+        return requests
+
+    def _collect_synthdef_requests(self, visited_synthdefs):
+        requests = []
         synthdefs = [x for x in self.synthdefs if x not in visited_synthdefs]
         visited_synthdefs.update(synthdefs)
-        return synthdefs
-
-    def to_requests(self, id_mapping, visited_synthdefs):
-        from supriya.tools import nonrealtimetools
-        from supriya.tools import requesttools
-        requests = []
-        synthdefs = self._collect_synthdefs(visited_synthdefs)
         if synthdefs:
             request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
             requests.append(request)
+        return requests
+
+    def to_requests(self, id_mapping, visited_synthdefs):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        requests.extend(self._collect_synthdef_requests(visited_synthdefs))
         node_settings = self._collect_node_settings()
-        # collect node settings in an ordered dict
-        # traverse nodes depth-wise to collect settings per node
         for source, action in self.actions.items():
             if source in self.start_nodes:
                 if isinstance(source, nonrealtimetools.NRTSynth):
                     if source in node_settings:
                         synth_kwargs = node_settings.pop(source)
-                        request.source.to_request(
+                        request = source.to_request(
                             action,
                             id_mapping,
                             **synth_kwargs
                             )
                     else:
-                        request.source.to_request(action, id_mapping)
+                        request = source.to_request(action, id_mapping)
                 else:
                     request = source.to_request(action, id_mapping)
-                # a new synth or group
-                # use any node settings to override a new synth's kwargs
-                # handle floats, control buses and audio buses
-                # pop out any overriding settings from the settings dict
             else:
                 request = action.to_request(id_mapping)
             requests.append(request)
-        # convert remaining settings to requests
         # collect bus settings and convert to requests
         for node, settings in node_settings.items():
             node_id = id_mapping[node]
             # separate out floats, control buses and audio buses
-        for node in self.stop_nodes:
-            pass
+        requests.extend(self._collect_stop_requests(id_mapping))
         return requests
 
     ### PUBLIC PROPERTIES ###
