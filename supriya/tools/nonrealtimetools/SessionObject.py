@@ -18,7 +18,6 @@ class SessionObject(SupriyaObject):
         ):
         from supriya.tools import nonrealtimetools
         prototype = (
-            nonrealtimetools.Session, 
             nonrealtimetools.NRTSession,
             type(None),
             )
