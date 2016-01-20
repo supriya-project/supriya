@@ -16,13 +16,13 @@ from supriya.tools import synthdeftools
 from supriya.tools.osctools.OscMixin import OscMixin
 
 
-class NRTSession(OscMixin):
+class Session(OscMixin):
     r'''A non-realtime session.
 
     ::
 
         >>> from supriya.tools import nonrealtimetools
-        >>> session = nonrealtimetools.NRTSession()
+        >>> session = nonrealtimetools.Session()
 
     ::
 
@@ -89,7 +89,7 @@ class NRTSession(OscMixin):
         self._moments = {}
         self._nodes = set()
         self._offsets = []
-        self._root_node = nonrealtimetools.NRTRootNode(self)
+        self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_moments()
         self._setup_buses(input_count, output_count)
 
@@ -229,7 +229,7 @@ class NRTSession(OscMixin):
     def _setup_initial_moments(self):
         from supriya.tools import nonrealtimetools
         offset = float('-inf')
-        moment = nonrealtimetools.NRTMoment(self, offset)
+        moment = nonrealtimetools.Moment(self, offset)
         moment.nodes_to_children[self.root_node] = None
         moment.nodes_to_parents[self.root_node] = None
         self.moments[offset] = moment

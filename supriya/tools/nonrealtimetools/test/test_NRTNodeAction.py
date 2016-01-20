@@ -7,14 +7,14 @@ from supriya.tools import servertools
 class TestCase(unittest.TestCase):
 
     def test_add_to_head_01(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(2)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(2)]
         nodes_to_children = {
             nodes[0]: None,
             }
         nodes_to_parents = {
             nodes[0]: None,
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
@@ -30,7 +30,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_head_02(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(4)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(4)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -43,7 +43,7 @@ class TestCase(unittest.TestCase):
             nodes[2]: nodes[0],
             nodes[3]: nodes[2],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
             action=servertools.AddAction.ADD_TO_HEAD,
@@ -63,7 +63,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_head_03(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(3)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(3)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -74,7 +74,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[2],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
@@ -92,7 +92,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_head_04(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(3)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(3)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -103,7 +103,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_HEAD,
@@ -121,14 +121,14 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_tail_01(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(2)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(2)]
         nodes_to_children = {
             nodes[0]: None,
             }
         nodes_to_parents = {
             nodes[0]: None,
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
@@ -144,7 +144,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_tail_02(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(4)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(4)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -157,7 +157,7 @@ class TestCase(unittest.TestCase):
             nodes[2]: nodes[0],
             nodes[3]: nodes[2],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
             action=servertools.AddAction.ADD_TO_TAIL,
@@ -177,7 +177,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_tail_03(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(3)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(3)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -188,7 +188,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
@@ -206,7 +206,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_to_tail_04(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(3)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(3)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -217,7 +217,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[2],
             target=nodes[0],
             action=servertools.AddAction.ADD_TO_TAIL,
@@ -235,7 +235,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_before_01(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(4)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(4)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -246,7 +246,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[2],
             action=servertools.AddAction.ADD_BEFORE,
@@ -266,7 +266,7 @@ class TestCase(unittest.TestCase):
             }
 
     def test_add_after_01(self):
-        nodes = [nonrealtimetools.NRTGroup(None, i) for i in range(4)]
+        nodes = [nonrealtimetools.Group(None, i) for i in range(4)]
         nodes_to_children = {
             nodes[0]: (nodes[1], nodes[2]),
             nodes[1]: None,
@@ -277,7 +277,7 @@ class TestCase(unittest.TestCase):
             nodes[1]: nodes[0],
             nodes[2]: nodes[0],
             }
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
             action=servertools.AddAction.ADD_AFTER,

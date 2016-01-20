@@ -4,7 +4,7 @@ from supriya.tools import servertools
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class NRTNode(SessionObject):
+class Node(SessionObject):
 
     ### CLASS VARIABLES ###
 
@@ -116,7 +116,7 @@ class NRTNode(SessionObject):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
         start_moment = self.session.active_moments[-1]
-        node = nonrealtimetools.NRTGroup(
+        node = nonrealtimetools.Group(
             self.session,
             session_id=len(self.session.nodes) + 1,
             start_offset=start_moment.offset,
@@ -136,7 +136,7 @@ class NRTNode(SessionObject):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
         start_moment = self.session.active_moments[-1]
-        node = nonrealtimetools.NRTSynth(
+        node = nonrealtimetools.Synth(
             self.session,
             session_id=len(self.session.nodes) + 1,
             duration=duration,

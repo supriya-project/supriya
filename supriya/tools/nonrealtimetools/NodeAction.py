@@ -3,7 +3,7 @@ from supriya.tools import requesttools
 from supriya.tools import servertools
 
 
-class NRTNodeAction(object):
+class NodeAction(object):
 
     ### CLASS VARIABLES ###
 
@@ -36,7 +36,7 @@ class NRTNodeAction(object):
     def _free_node(self, nodes_to_children, nodes_to_parents):
         node = self.source
         for child in nodes_to_children.get(node, ()) or ():
-            NRTNodeAction.free_node(child, nodes_to_children, nodes_to_parents)
+            NodeAction.free_node(child, nodes_to_children, nodes_to_parents)
         parent = nodes_to_parents.get(node, None)
         if node in nodes_to_children:
             del(nodes_to_children[node])
@@ -95,7 +95,7 @@ class NRTNodeAction(object):
 
     @staticmethod
     def free_node(node, nodes_to_children, nodes_to_parents):
-        action = NRTNodeAction(source=node)
+        action = NodeAction(source=node)
         action.apply_transform(nodes_to_children, nodes_to_parents)
 
     def to_request(self, id_mapping):

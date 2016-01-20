@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import requesttools
 from supriya.tools import servertools
-from supriya.tools.nonrealtimetools.NRTNode import NRTNode
+from supriya.tools.nonrealtimetools.Node import Node
 
 
-class NRTSynth(NRTNode):
+class Synth(Node):
 
     ### CLASS VARIABLES ###
 
@@ -29,7 +29,7 @@ class NRTSynth(NRTNode):
         start_offset=None,
         **synth_kwargs
         ):
-        NRTNode.__init__(
+        Node.__init__(
             self,
             session,
             session_id,

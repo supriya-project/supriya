@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import servertools
-from supriya.tools.nonrealtimetools.NRTGroup import NRTGroup
+from supriya.tools.nonrealtimetools.Group import Group
 
 
-class NRTRootNode(NRTGroup):
+class RootNode(Group):
 
     ### CLASS VARIABLES ###
 
@@ -17,7 +17,7 @@ class NRTRootNode(NRTGroup):
     ### INITIALIZER ###
 
     def __init__(self, session):
-        NRTGroup.__init__(self, session, 0)
+        Group.__init__(self, session, 0)
 
     ### SPECIAL METHODS ###
 

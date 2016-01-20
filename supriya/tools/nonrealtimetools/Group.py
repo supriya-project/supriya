@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import servertools
-from supriya.tools.nonrealtimetools.NRTNode import NRTNode
+from supriya.tools.nonrealtimetools.Node import Node
 
 
-class NRTGroup(NRTNode):
+class Group(Node):
 
     ### CLASS VARIABLES ###
 

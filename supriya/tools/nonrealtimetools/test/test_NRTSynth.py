@@ -29,7 +29,7 @@ class TestCase(unittest.TestCase):
         return builder.build()
 
     def test_01(self):
-        session = nonrealtimetools.NRTSession()
+        session = nonrealtimetools.Session()
         with session.at(0):
             synth_one = session.add_synth(
                 duration=4,

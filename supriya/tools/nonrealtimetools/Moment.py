@@ -3,7 +3,7 @@ import collections
 from supriya.tools import requesttools
 
 
-class NRTMoment(object):
+class Moment(object):
 
     ### CLASS VARIABLES ###
 
@@ -100,7 +100,7 @@ class NRTMoment(object):
         for _, action in self.actions.items():
             action.apply_transform(nodes_to_children, nodes_to_parents)
         for stop_node in self.stop_nodes:
-            nonrealtimetools.NRTNodeAction.free_node(
+            nonrealtimetools.NodeAction.free_node(
                 stop_node, nodes_to_children, nodes_to_parents)
         if nodes_to_children != self.nodes_to_children:
             self._nodes_to_children = nodes_to_children
@@ -112,7 +112,7 @@ class NRTMoment(object):
     def _register_action(self, source, target, action):
         from supriya.tools import nonrealtimetools
         assert target in self.nodes_to_children
-        action = nonrealtimetools.NRTNodeAction(
+        action = nonrealtimetools.NodeAction(
             source=source,
             target=target,
             action=action,
@@ -182,7 +182,7 @@ class NRTMoment(object):
         node_settings = self._collect_node_settings()
         for source, action in self.actions.items():
             if source in self.start_nodes:
-                if isinstance(source, nonrealtimetools.NRTSynth):
+                if isinstance(source, nonrealtimetools.Synth):
                     if source in node_settings:
                         synth_kwargs = node_settings.pop(source)
                         request = source.to_request(
@@ -239,7 +239,7 @@ class NRTMoment(object):
         from supriya.tools import nonrealtimetools
         synthdefs = set()
         for node in self.start_nodes:
-            if not isinstance(node, nonrealtimetools.NRTSynth):
+            if not isinstance(node, nonrealtimetools.Synth):
                 continue
             synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
