@@ -7,6 +7,8 @@ class NRTGroup(NRTNode):
 
     ### CLASS VARIABLES ###
 
+    __slots__ = ()
+
     _valid_add_actions = (
         servertools.AddAction.ADD_TO_HEAD,
         servertools.AddAction.ADD_TO_TAIL,

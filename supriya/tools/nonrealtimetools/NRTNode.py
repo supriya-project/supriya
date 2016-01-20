@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 import bisect
 from supriya.tools import servertools
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class NRTNode(object):
+class NRTNode(SessionObject):
 
     ### CLASS VARIABLES ###
 
@@ -17,11 +18,11 @@ class NRTNode(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, session_id, start_offset=None):
-        self._session = session
+    def __init__(self, session, session_id, duration=None, start_offset=None):
+        SessionObject.__init__(self, session)
         self._session_id = int(session_id)
         self._start_offset = start_offset
-        self._duration = None
+        self._duration = duration
         self._events = {}
 
     ### SPECIAL METHODS ###
@@ -37,14 +38,14 @@ class NRTNode(object):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._moments
+        offset = self.session._moments[-1].offset
         return self._get_at_offset(offset, item)
 
     def __setitem__(self, item, value):
         from supriya.tools import nonrealtimetools
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._moments
+        offset = self.session._moments[-1].offset
         assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
         self._set_at_offset(offset, item, value)
 
@@ -118,9 +119,10 @@ class NRTNode(object):
 
     def add_synth(
         self,
-        duration=None,
         add_action=None,
+        duration=None,
         synthdef=None,
+        **synth_kwargs
         ):
         from supriya.tools import nonrealtimetools
         assert self.session.active_moments
@@ -131,6 +133,7 @@ class NRTNode(object):
             duration=duration,
             start_offset=start_moment.offset,
             synthdef=synthdef,
+            **synth_kwargs
             )
         self.move_node(node, add_action=add_action)
         start_moment.start_nodes.add(node)
@@ -158,10 +161,6 @@ class NRTNode(object):
     @property
     def duration(self):
         return self._duration
-
-    @property
-    def session(self):
-        return self._session
 
     @property
     def session_id(self):

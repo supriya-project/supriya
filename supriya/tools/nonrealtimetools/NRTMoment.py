@@ -142,10 +142,12 @@ class NRTMoment(object):
         # traverse nodes depth-wise to collect settings per node
         for source, action in self.actions.items():
             if source in self.start_nodes:
+                pass
                 # a new synth or group
                 # use any node settings to override a new synth's kwargs
                 # pop out any overriding settings from the settings dict
             else:
+                pass
                 # move a node
         # convert remaining settings to requests
         return requests

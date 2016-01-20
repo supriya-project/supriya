@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-import os
 import unittest
 from abjad.tools import durationtools
 from supriya.tools import nonrealtimetools
-from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
@@ -11,18 +9,6 @@ from supriya.tools import ugentools
 
 
 class TestCase(unittest.TestCase):
-
-    def setUp(self):
-        self.output_filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__),
-            'output.aiff',
-            ))
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
-
-    def tearDown(self):
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
 
     def build_synthdef(self):
         builder = synthdeftools.SynthDefBuilder(
@@ -43,16 +29,18 @@ class TestCase(unittest.TestCase):
         return builder.build()
 
     def test_01(self):
-        session = nonrealtimetools.Session()
-        synth_one = session.add_synth(
-            0, 4,
-            synthdef=self.build_synthdef(),
-            )
-        synth_two = session.add_synth(
-            2, 6,
-            synthdef=self.build_synthdef(),
-            frequency=330,
-            )
+        session = nonrealtimetools.NRTSession()
+        with session.at(0):
+            synth_one = session.add_synth(
+                duration=4,
+                synthdef=self.build_synthdef(),
+                )
+        with session.at(2):
+            synth_two = session.add_synth(
+                duration=6,
+                synthdef=self.build_synthdef(),
+                frequency=330,
+                )
 
         with session.at(2):
             synth_one['frequency'] = 550
@@ -78,6 +66,8 @@ class TestCase(unittest.TestCase):
             assert synth_two['frequency'] == 880
 
         id_mapping = {synth_one: 1001, synth_two: 1002}
+
+        return
 
         assert synth_one._collect_requests(id_mapping) == {
             durationtools.Offset(0, 1): [requesttools.SynthNewRequest(
@@ -120,28 +110,3 @@ class TestCase(unittest.TestCase):
                 )],
             }
 
-    def test_02(self):
-        session = nonrealtimetools.Session()
-        bus_one = session.add_bus()
-        bus_two = session.add_bus()
-        session.add_synth(
-            0, 4,
-            synthdef=self.build_synthdef(),
-            frequency=bus_one,
-            amplitude=bus_two,
-            )
-        assert session.to_osc_bundles() == [
-            osctools.OscBundle(
-                timestamp=0.0,
-                contents=(
-                    osctools.OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 0b294b53cc4d32c522f3e537ffb23f91\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x04?\x80\x00\x00C\xdc\x00\x00\x00\x00\x00\x00@\x00\x00\x00\x00\x00\x00\x04\tamplitude\x00\x00\x00\x00\tfrequency\x00\x00\x00\x01\x06in_bus\x00\x00\x00\x02\x07out_bus\x00\x00\x00\x03\x00\x00\x00\x06\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x04\x00\x00\x01\x01\x01\x01\x02In\x02\x00\x00\x00\x01\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x02\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\xff\xff\xff\xff\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x0cBinaryOpUGen\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x02\x00\x00\x00\x03\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x04\x00\x00\x00\x00\x00\x00')),
-                    osctools.OscMessage('/s_new', '0b294b53cc4d32c522f3e537ffb23f91', 1000, 0, 0, 'amplitude', 'c1', 'frequency', 'c0'),
-                    )
-                ),
-            osctools.OscBundle(
-                timestamp=4.0,
-                contents=(
-                    osctools.OscMessage('/n_free', 1000),
-                    )
-                ),
-            ]

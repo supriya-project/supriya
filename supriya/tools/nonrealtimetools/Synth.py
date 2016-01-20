@@ -20,6 +20,8 @@ class Synth(timespantools.Timespan, SessionObject):
         '_session',
         '_synth_kwargs',
         '_synthdef',
+        '_start_offset',
+        '_stop_offset',
         )
 
     ### INITIALIZER ###

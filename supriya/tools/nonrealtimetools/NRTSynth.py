@@ -7,6 +7,11 @@ class NRTSynth(NRTNode):
 
     ### CLASS VARIABLES ###
 
+    __slots__ = (
+        '_synthdef',
+        '_synth_kwargs',
+        )
+
     _valid_add_actions = (
         servertools.AddAction.ADD_AFTER,
         servertools.AddAction.ADD_BEFORE,
@@ -21,12 +26,25 @@ class NRTSynth(NRTNode):
         duration=None,
         synthdef=None,
         start_offset=None,
+        **synth_kwargs
         ):
-        NRTNode.__init__(self, session, session_id, start_offset=start_offset)
-        self.duration = duration
-        self.synthdef = synthdef
+        NRTNode.__init__(
+            self,
+            session,
+            session_id,
+            duration=duration,
+            start_offset=start_offset,
+            )
+        self._synthdef = synthdef
+        self._synth_kwargs = synth_kwargs
 
     ### SPECIAL METHODS ###
 
     def __str__(self):
         return 'synth-{}'.format(self.session_id)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def synthdef(self):
+        return self._synthdef

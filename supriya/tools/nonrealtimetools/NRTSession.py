@@ -263,11 +263,17 @@ class NRTSession(OscMixin):
 
     def add_synth(
         self,
+        add_action=None,
         duration=None,
         synthdef=None,
-        add_action=None,
+        **synth_kwargs
         ):
-        return self.root_node.add_synth(duration=duration, add_action=add_action)
+        return self.root_node.add_synth(
+            add_action=add_action,
+            duration=duration,
+            synthdef=synthdef,
+            **synth_kwargs
+            )
 
     def move_node(
         self,
