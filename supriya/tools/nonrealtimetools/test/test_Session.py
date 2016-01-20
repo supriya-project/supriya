@@ -83,7 +83,11 @@ class TestCase(unittest.TestCase):
 
     def test_02(self):
         session = nonrealtimetools.Session()
-        session.add_synth(0, 300, synthdef=self.build_basic_synthdef())
+        with session.at(0):
+            session.add_synth(
+                duration=300,
+                synthdef=self.build_basic_synthdef(),
+                )
         exit_code, _ = session.render(
             self.output_filepath,
             sample_rate=48000,
@@ -93,7 +97,11 @@ class TestCase(unittest.TestCase):
 
     def test_03(self):
         session = nonrealtimetools.Session()
-        session.add_synth(1, 2, synthdef=self.build_basic_synthdef())
+        with session.at(1):
+            session.add_synth(
+                duration=2,
+                synthdef=self.build_basic_synthdef(),
+                )
         timespan = timespantools.Timespan(0.5, 2.5)
         assert session.to_osc_bundles(timespan=timespan) == [
             osctools.OscBundle(
@@ -115,7 +123,11 @@ class TestCase(unittest.TestCase):
 
     def test_04(self):
         session = nonrealtimetools.Session()
-        session.add_synth(0, 1, synthdef=self.build_duration_synthdef())
+        with session.at(0):
+            session.add_synth(
+                duration=1,
+                synthdef=self.build_duration_synthdef(),
+                )
         exit_code, _ = session.render(
             self.output_filepath,
             output_bus_channel_count=1,
@@ -128,7 +140,11 @@ class TestCase(unittest.TestCase):
 
     def test_05(self):
         session = nonrealtimetools.Session()
-        session.add_synth(0, 1, synthdef=self.build_gate_synthdef())
+        with session.at(0):
+            session.add_synth(
+                duration=1,
+                synthdef=self.build_gate_synthdef(),
+                )
         timespan = timespantools.Timespan(0, 3)
         assert session.to_osc_bundles(timespan=timespan) == [
             osctools.OscBundle(

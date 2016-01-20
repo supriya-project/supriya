@@ -163,6 +163,12 @@ class Session(OscMixin):
         command = ' '.join(parts)
         return command
 
+    def _build_id_mapping(self):
+        id_mapping = {}
+        id_mapping.update(self._build_bus_id_mapping())
+        id_mapping.update(self._build_synth_id_mapping())
+        return id_mapping
+
     def _build_synth_id_mapping(self):
         allocator = servertools.NodeIdAllocator()
         mapping = {}
@@ -339,9 +345,23 @@ class Session(OscMixin):
 
     def to_osc_bundles(self, timespan=None):
         osc_bundles = []
-        id_mapping = {}
-        id_mapping.update(self._build_synth_id_mapping())
-        id_mapping.update(self._build_bus_id_mapping())
+        id_mapping = self._build_id_mapping()
+        visited_synthdefs = set()
+        offsets = self.offsets[1:]
+        for i, offset in enumerate(offsets, 1):
+            moment = self.moments[offset]
+            requests = moment.to_requests(id_mapping, visited_synthdefs)
+            osc_messages = [request.to_osc_message(True)
+                for request in requests]
+            if i == len(offsets):
+                osc_message = osctools.OscMessage(0)
+                osc_messages.append(osc_message)
+            if osc_messages:
+                osc_bundle = osctools.OscBundle(
+                    timestamp=offset,
+                    contents=osc_messages,
+                    )
+                osc_bundles.append(osc_bundle)
         return osc_bundles
 
     ### PUBLIC PROPERTIES ###
