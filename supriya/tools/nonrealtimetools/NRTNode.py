@@ -38,14 +38,14 @@ class NRTNode(SessionObject):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, item):
-        assert self.session._moments
-        offset = self.session._moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         return self._get_at_offset(offset, item)
 
     def __setitem__(self, item, value):
         from supriya.tools import nonrealtimetools
-        assert self.session._moments
-        offset = self.session._moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
         self._set_at_offset(offset, item, value)
 
@@ -57,7 +57,7 @@ class NRTNode(SessionObject):
         '''
         offset -= self.start_offset
         events = self._events.get(item)
-        if hasattr(self.synthdef):
+        if hasattr(self, 'synthdef'):
             default = self.synthdef.parameters[item].value
             default = self._synth_kwargs.get(item, default)
         else:
