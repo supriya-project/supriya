@@ -31,8 +31,7 @@ class TestCase(unittest.TestCase):
             bus_two.set_(30)
         with session.at(3):
             bus_two.set_(40)
-        timespan = timespantools.Timespan(0, 4)
-        assert session.to_osc_bundles(timespan=timespan) == [
+        assert session.to_osc_bundles() == [
             osctools.OscBundle(
                 timestamp=0.0,
                 contents=(
@@ -49,11 +48,6 @@ class TestCase(unittest.TestCase):
                 timestamp=3.0,
                 contents=(
                     osctools.OscMessage('/c_set', 1, 40.0),
-                    )
-                ),
-            osctools.OscBundle(
-                timestamp=4.0,
-                contents=(
                     osctools.OscMessage(0),
                     )
                 )

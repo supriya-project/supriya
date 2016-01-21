@@ -176,7 +176,7 @@ class Moment(object):
             requests.append(request)
         return requests
 
-    def to_requests(self, id_mapping, visited_synthdefs):
+    def to_requests(self, id_mapping, visited_synthdefs, bus_settings):
         from supriya.tools import nonrealtimetools
         requests = []
         requests.extend(self._collect_synthdef_requests(visited_synthdefs))
@@ -202,6 +202,12 @@ class Moment(object):
         for node, settings in node_settings.items():
             node_id = id_mapping[node]
             # separate out floats, control buses and audio buses
+        if self.offset in bus_settings:
+            index_value_pairs = sorted(bus_settings[self.offset].items())
+            request = requesttools.ControlBusSetRequest(
+                index_value_pairs=index_value_pairs,
+                )
+            requests.append(request)
         requests.extend(self._collect_stop_requests(id_mapping))
         return requests
 

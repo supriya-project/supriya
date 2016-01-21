@@ -178,22 +178,15 @@ class Session(OscMixin):
                 mapping[start_node] = allocator.allocate_node_id()
         return mapping
 
-    def _collect_bus_requests(self, request_mapping, id_mapping):
-        events_by_offset = {}
+    def _collect_bus_settings(self, id_mapping):
+        bus_settings = {}
         for bus in self._buses:
             if bus.calculation_rate != synthdeftools.CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
             for offset, value in bus._events:
-                events_by_offset.setdefault(offset, {})[bus_id] = value
-        for offset, events in events_by_offset.items():
-            requests = request_mapping.setdefault(offset, [])
-            index_value_pairs = sorted(events.items())
-            request = requesttools.ControlBusSetRequest(
-                index_value_pairs=index_value_pairs,
-                )
-            requests.append(request)
-        return request_mapping
+                bus_settings.setdefault(offset, {})[bus_id] = value
+        return bus_settings
 
     def _find_moment_after(self, offset):
         index = bisect.bisect(self.offsets, offset)
@@ -381,10 +374,15 @@ class Session(OscMixin):
         osc_bundles = []
         id_mapping = self._build_id_mapping()
         visited_synthdefs = set()
+        bus_settings = self._collect_bus_settings(id_mapping)
         offsets = self.offsets[1:]
         for i, offset in enumerate(offsets, 1):
             moment = self.moments[offset]
-            requests = moment.to_requests(id_mapping, visited_synthdefs)
+            requests = moment.to_requests(
+                id_mapping,
+                visited_synthdefs,
+                bus_settings,
+                )
             osc_messages = [request.to_osc_message(True)
                 for request in requests]
             if i == len(offsets):
@@ -392,7 +390,7 @@ class Session(OscMixin):
                 osc_messages.append(osc_message)
             if osc_messages:
                 osc_bundle = osctools.OscBundle(
-                    timestamp=offset,
+                    timestamp=float(offset),
                     contents=osc_messages,
                     )
                 osc_bundles.append(osc_bundle)
