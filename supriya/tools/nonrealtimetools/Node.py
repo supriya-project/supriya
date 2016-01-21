@@ -20,8 +20,10 @@ class Node(SessionObject):
 
     def __init__(self, session, session_id, duration=None, start_offset=None):
         SessionObject.__init__(self, session)
+        if duration is None:
+            duration = float('inf')
         self._session_id = int(session_id)
-        self._start_offset = start_offset
+        self._start_offset = float(start_offset)
         self._duration = duration
         self._events = {}
 

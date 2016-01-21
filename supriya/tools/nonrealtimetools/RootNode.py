@@ -17,7 +17,13 @@ class RootNode(Group):
     ### INITIALIZER ###
 
     def __init__(self, session):
-        Group.__init__(self, session, 0)
+        Group.__init__(
+            self,
+            session=session,
+            session_id=0,
+            duration=None,
+            start_offset=float('-inf'),
+            )
 
     ### SPECIAL METHODS ###
 

@@ -2,14 +2,16 @@
 import collections
 from supriya.tools import requesttools
 from supriya.tools import servertools
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class Moment(object):
+class Moment(SessionObject):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
         '_actions',
+        '_is_instantaneous',
         '_nodes_to_children',
         '_nodes_to_parents',
         '_offset',
@@ -20,14 +22,15 @@ class Moment(object):
 
     ### INITIALIZER ###
 
-    def __init__(self, session, offset):
+    def __init__(self, session, offset, is_instantaneous=False):
+        SessionObject.__init__(self, session)
         self._actions = collections.OrderedDict()
         self._nodes_to_children = {}
         self._nodes_to_parents = {}
         self._start_nodes = set()
         self._stop_nodes = set()
-        self._session = session
         self._offset = offset
+        self._is_instantaneous = bool(is_instantaneous)
 
     ### SPECIAL METHODS ###
 
@@ -62,8 +65,15 @@ class Moment(object):
 
     ### PRIVATE METHODS ###
 
-    def _clone(self, new_offset):
-        moment = type(self)(self.session, new_offset)
+    def _clone(self, new_offset, is_instantaneous=False):
+        moment = type(self)(
+            self.session,
+            new_offset,
+            is_instantaneous=is_instantaneous,
+            )
+        if new_offset == self.offset:
+            moment.start_nodes.update(self.start_nodes)
+            moment.stop_nodes.update(self.stop_nodes)
         moment._nodes_to_children = self.nodes_to_children.copy()
         moment._nodes_to_parents = self.nodes_to_parents.copy()
         return moment
