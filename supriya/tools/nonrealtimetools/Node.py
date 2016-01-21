@@ -22,6 +22,7 @@ class Node(SessionObject):
         SessionObject.__init__(self, session)
         if duration is None:
             duration = float('inf')
+        start_offset = start_offset or 0
         self._session_id = int(session_id)
         self._start_offset = float(start_offset)
         self._duration = duration
