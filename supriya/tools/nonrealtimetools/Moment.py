@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import collections
 from supriya.tools import requesttools
+from supriya.tools import servertools
 
 
 class Moment(object):
@@ -67,8 +68,81 @@ class Moment(object):
         moment._nodes_to_parents = self.nodes_to_parents.copy()
         return moment
 
-    def _collect_bus_settings(self):
-        pass
+    def _collect_bus_requests(self, bus_settings):
+        requests = []
+        if self.offset in bus_settings:
+            index_value_pairs = sorted(bus_settings[self.offset].items())
+            request = requesttools.ControlBusSetRequest(
+                index_value_pairs=index_value_pairs,
+                )
+            requests.append(request)
+        return requests
+
+    def _collect_node_action_requests(self, id_mapping, node_settings):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        for source, action in self.actions.items():
+            if source in self.start_nodes:
+                if isinstance(source, nonrealtimetools.Synth):
+                    if source in node_settings:
+                        synth_kwargs = node_settings.pop(source)
+                        request = source.to_request(
+                            action,
+                            id_mapping,
+                            **synth_kwargs
+                            )
+                    else:
+                        request = source.to_request(action, id_mapping)
+                else:
+                    request = source.to_request(action, id_mapping)
+            else:
+                request = action.to_request(id_mapping)
+            requests.append(request)
+        return requests
+
+    def _collect_node_set_requests(self, id_mapping, node_settings):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        bus_prototype = (
+            nonrealtimetools.Bus,
+            nonrealtimetools.BusGroup,
+            type(None),
+            )
+        for node, settings in node_settings.items():
+            node_id = id_mapping[node]
+            a_settings = {}
+            c_settings = {}
+            n_settings = {}
+            for key, value in settings.items():
+                if isinstance(value, bus_prototype):
+                    if value is None:
+                        c_settings[key] = -1
+                    elif value.calculation_rate == servertools.CalculationRate.CONTROL:
+                        c_settings[key] = id_mapping[value]
+                    else:
+                        a_settings[key] = id_mapping[value]
+                else:
+                    n_settings[key] = value
+                if n_settings:
+                    request = requesttools.NodeSetRequest(
+                        node_id=node_id,
+                        **n_settings
+                        )
+                    requests.append(request)
+                if a_settings:
+                    request = requesttools.NodeMapToAudioBusRequest(
+                        node_id=node_id,
+                        **a_settings
+                        )
+                    requests.append(request)
+                if c_settings:
+                    request = requesttools.NodeMapToControlBusRequest(
+                        node_id=node_id,
+                        **c_settings
+                        )
+                    requests.append(request)
+            # separate out floats, control buses and audio buses
+        return requests
 
     def _collect_node_settings(self):
         result = collections.OrderedDict()
@@ -177,37 +251,12 @@ class Moment(object):
         return requests
 
     def to_requests(self, id_mapping, visited_synthdefs, bus_settings):
-        from supriya.tools import nonrealtimetools
         requests = []
-        requests.extend(self._collect_synthdef_requests(visited_synthdefs))
         node_settings = self._collect_node_settings()
-        for source, action in self.actions.items():
-            if source in self.start_nodes:
-                if isinstance(source, nonrealtimetools.Synth):
-                    if source in node_settings:
-                        synth_kwargs = node_settings.pop(source)
-                        request = source.to_request(
-                            action,
-                            id_mapping,
-                            **synth_kwargs
-                            )
-                    else:
-                        request = source.to_request(action, id_mapping)
-                else:
-                    request = source.to_request(action, id_mapping)
-            else:
-                request = action.to_request(id_mapping)
-            requests.append(request)
-        # collect bus settings and convert to requests
-        for node, settings in node_settings.items():
-            node_id = id_mapping[node]
-            # separate out floats, control buses and audio buses
-        if self.offset in bus_settings:
-            index_value_pairs = sorted(bus_settings[self.offset].items())
-            request = requesttools.ControlBusSetRequest(
-                index_value_pairs=index_value_pairs,
-                )
-            requests.append(request)
+        requests.extend(self._collect_synthdef_requests(visited_synthdefs))
+        requests.extend(self._collect_node_action_requests(id_mapping, node_settings))
+        requests.extend(self._collect_node_set_requests(id_mapping, node_settings))
+        requests.extend(self._collect_bus_requests(bus_settings))
         requests.extend(self._collect_stop_requests(id_mapping))
         return requests
 

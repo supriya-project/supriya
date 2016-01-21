@@ -77,7 +77,11 @@ class TestCase(unittest.TestCase):
 
     def test_01(self):
         session = nonrealtimetools.Session()
-        session.add_synth(0, 1, synthdef=self.build_basic_synthdef())
+        with session.at(0):
+            session.add_synth(
+                duration=1,
+                synthdef=self.build_basic_synthdef(),
+                )
         exit_code, _ = session.render(self.output_filepath)
         self.assert_ok(exit_code, 1., 44100, 8)
 
