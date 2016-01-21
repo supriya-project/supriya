@@ -8,6 +8,7 @@ import struct
 import subprocess
 import tempfile
 from abjad.tools import mathtools
+from abjad.tools import timespantools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -211,19 +212,6 @@ class Session(OscMixin):
         old_offset = self.offsets[index]
         return self.moments[old_offset]
 
-    def _process_terminal_event(self, final_offset, timespan):
-        osc_bundles = []
-        if timespan is not None:
-            prototype = (mathtools.Infinity(), mathtools.NegativeInfinity)
-            if timespan.stop_offset not in prototype and \
-                final_offset < timespan.stop_offset:
-                osc_bundle = osctools.OscBundle(
-                    timestamp=float(timespan.stop_offset),
-                    contents=[osctools.OscMessage(0)],
-                    )
-                osc_bundles.append(osc_bundle)
-        return osc_bundles
-
     def _setup_buses(self, input_count, output_count):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
@@ -371,6 +359,10 @@ class Session(OscMixin):
         return datagram
 
     def to_osc_bundles(self, timespan=None):
+        if self.duration == float('inf'):
+            assert isinstance(timespan, timespantools.Timespan)
+            assert 0 < timespan.duration < float('inf')
+
         osc_bundles = []
         id_mapping = self._build_id_mapping()
         visited_synthdefs = set()
@@ -413,6 +405,12 @@ class Session(OscMixin):
     @property
     def buses(self):
         return self._buses
+
+    @property
+    def duration(self):
+        if 1 < len(self.offsets):
+            return self.offsets[-1]
+        return 0
 
     @property
     def input_count(self):
