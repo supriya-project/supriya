@@ -106,8 +106,8 @@ class Bus(SessionObject):
     ### PUBLIC METHODS ###
 
     def get(self):
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         value = self._get_at_offset(offset)
         return value
 
@@ -121,8 +121,8 @@ class Bus(SessionObject):
         return map_symbol
 
     def set_(self, value):
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         self._set_at_offset(offset, value)
 
     ### PUBLIC PROPERTIES ###

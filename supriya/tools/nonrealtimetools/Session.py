@@ -171,12 +171,29 @@ class Session(OscMixin):
 
     def _build_synth_id_mapping(self):
         allocator = servertools.NodeIdAllocator()
-        mapping = {}
+        mapping = {self.root_node: 0}
         for offset in self.offsets[1:]:
             moment = self.moments[offset]
             for start_node in moment.start_nodes:
                 mapping[start_node] = allocator.allocate_node_id()
         return mapping
+
+    def _collect_bus_requests(self, request_mapping, id_mapping):
+        events_by_offset = {}
+        for bus in self._buses:
+            if bus.calculation_rate != synthdeftools.CalculationRate.CONTROL:
+                continue
+            bus_id = id_mapping[bus]
+            for offset, value in bus._events:
+                events_by_offset.setdefault(offset, {})[bus_id] = value
+        for offset, events in events_by_offset.items():
+            requests = request_mapping.setdefault(offset, [])
+            index_value_pairs = sorted(events.items())
+            request = requesttools.ControlBusSetRequest(
+                index_value_pairs=index_value_pairs,
+                )
+            requests.append(request)
+        return request_mapping
 
     def _find_moment_after(self, offset):
         index = bisect.bisect(self.offsets, offset)
@@ -260,6 +277,23 @@ class Session(OscMixin):
             offset,
             )
         return new_moment
+
+    def add_bus(self, calculation_rate='control'):
+        from supriya.tools import nonrealtimetools
+        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
+        self._buses[bus] = None
+        return bus
+
+    def add_bus_group(self, bus_count=1, calculation_rate='control'):
+        from supriya.tools import nonrealtimetools
+        bus_group = nonrealtimetools.BusGroup(
+            self,
+            bus_count=bus_count,
+            calculation_rate=calculation_rate,
+            )
+        for bus in bus_group:
+            self._buses[bus] = None
+        return bus_group
 
     def add_group(
         self,

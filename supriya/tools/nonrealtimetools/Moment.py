@@ -72,22 +72,23 @@ class Moment(object):
 
     def _collect_node_settings(self):
         result = collections.OrderedDict()
-        for node in self._iterate_nodes():
+        for node in self._iterate_nodes(
+            self.session.root_node,
+            self.nodes_to_children,
+            ):
             settings = node._collect_settings(self.offset)
             if settings:
                 result[node] = settings
         return result
 
-    def _free_node(self, node):
-        pass
-
-    def _iterate_nodes(self):
-        def recurse(node):
-            yield node
-            for node in self.nodes_to_children.get(node, ()):
-                for node in recurse(node):
+    @classmethod
+    def _iterate_nodes(cls, root_node, nodes_to_children):
+        def recurse(parent):
+            yield parent
+            children = nodes_to_children.get(parent, ()) or ()
+            for child in children:
+                for node in recurse(child):
                     yield node
-        root_node = self.session.root_node
         return recurse(root_node)
 
     def _process_actions(self, previous_moment=None):
