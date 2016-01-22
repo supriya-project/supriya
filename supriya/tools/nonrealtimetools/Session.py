@@ -7,7 +7,6 @@ import shutil
 import struct
 import subprocess
 import tempfile
-from abjad.tools import mathtools
 from abjad.tools import timespantools
 from supriya.tools import osctools
 from supriya.tools import requesttools
@@ -212,6 +211,41 @@ class Session(OscMixin):
         old_offset = self.offsets[index]
         return self.moments[old_offset]
 
+    def _process_timespan(self, timespan):
+        if self.duration == float('inf'):
+            assert isinstance(timespan, timespantools.Timespan)
+            assert 0 <= timespan.start_offset
+            assert 0 < timespan.duration < float('inf')
+        elif timespan is not None:
+            timespan = timespan & timespantools.Timespan(0, self.duration)
+        offset_delta = 0
+        moments = []
+        if timespan is None:
+            offset_delta = 0
+            offsets = self.offsets[1:]
+            moments = [self.moments[offset] for offset in offsets]
+        else:
+            offset_delta = timespan.start_offset
+            offsets = [_ for _ in self.offsets if
+                timespan.start_offset <= _ < timespan.stop_offset]
+            moments = [self.moments[offset] for offset in offsets]
+            initial_moment = moments[0]
+            start_offset = timespan.start_offset
+            if start_offset < initial_moment.offset:
+                initial_moment = self._find_moment_before(start_offset)
+                initial_moment = initial_moment._clone(
+                    start_offset,
+                    is_instantaneous=True,
+                    )
+            elif moments:
+                moments[0] = moments[0]._clone(
+                    start_offset,
+                    is_instantaneous=True,
+                    )
+            if moments[-1].offset != timespan.stop_offset:
+                moments.append(moments[-1]._clone(timespan.stop_offset))
+        return offset_delta, moments
+
     def _setup_buses(self, input_count, output_count):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
@@ -359,30 +393,33 @@ class Session(OscMixin):
         return datagram
 
     def to_osc_bundles(self, timespan=None):
-        if self.duration == float('inf'):
-            assert isinstance(timespan, timespantools.Timespan)
-            assert 0 < timespan.duration < float('inf')
-
-        osc_bundles = []
         id_mapping = self._build_id_mapping()
-        visited_synthdefs = set()
         bus_settings = self._collect_bus_settings(id_mapping)
-        offsets = self.offsets[1:]
-        for i, offset in enumerate(offsets, 1):
-            moment = self.moments[offset]
+        offset_delta, moments = self._process_timespan(timespan)
+        # Need to strip out no-op moments, so they don't gum things up.
+        osc_bundles = []
+        visited_synthdefs = set()
+        print(len(moments))
+        for i, moment in enumerate(moments, 1):
+            offset = float(moment.offset - offset_delta)
+            force_start = i == 1 and timespan is not None
+            force_stop = i == len(moments) and timespan is not None
+            print(i, force_start, force_stop)
             requests = moment.to_requests(
                 id_mapping,
-                visited_synthdefs,
-                bus_settings,
+                bus_settings=bus_settings,
+                force_start=force_start,
+                force_stop=force_stop,
+                visited_synthdefs=visited_synthdefs,
                 )
             osc_messages = [request.to_osc_message(True)
                 for request in requests]
-            if i == len(offsets):
+            if i == len(moments):
                 osc_message = osctools.OscMessage(0)
                 osc_messages.append(osc_message)
             if osc_messages:
                 osc_bundle = osctools.OscBundle(
-                    timestamp=float(offset),
+                    timestamp=offset,
                     contents=osc_messages,
                     )
                 osc_bundles.append(osc_bundle)

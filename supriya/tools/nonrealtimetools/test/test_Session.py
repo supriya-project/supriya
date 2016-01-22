@@ -106,21 +106,21 @@ class TestCase(unittest.TestCase):
                 duration=2,
                 synthdef=self.build_basic_synthdef(),
                 )
-        timespan = timespantools.Timespan(0.5, 2.5)
+        timespan = timespantools.Timespan(0.5, 3.5)
         assert session.to_osc_bundles(timespan=timespan) == [
             osctools.OscBundle(
                 timestamp=0.5,
                 contents=[
                     osctools.OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 d719856d7deff2696a3f807f5dc79809\x00\x00\x00\x02C\xdc\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')),
-                    osctools.OscMessage('/s_new', 'd719856d7deff2696a3f807f5dc79809', 1000, 1, 0),
+                    osctools.OscMessage('/s_new', 'd719856d7deff2696a3f807f5dc79809', 1000, 0, 0),
                     ]
                 ),
             osctools.OscBundle(
-                timestamp=1.5,
+                timestamp=2.5,
                 contents=[osctools.OscMessage('/n_free', 1000)]
                 ),
             osctools.OscBundle(
-                timestamp=2.5,
+                timestamp=3,
                 contents=[osctools.OscMessage(0)]
                 ),
             ]

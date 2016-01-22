@@ -54,13 +54,18 @@ class Node(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _collect_settings(self, offset):
+    def _collect_settings(self, offset, persistent=False):
         settings = {}
-        for key, events in self._events.items():
-            index = bisect.bisect_left(events, (offset, 0.))
-            event_offset, value = events[index]
-            if offset == event_offset:
+        if persistent:
+            for key in self._events:
+                value = self._get_at_offset(offset, key)
                 settings[key] = value
+        else:
+            for key, events in self._events.items():
+                index = bisect.bisect_left(events, (offset, 0.))
+                event_offset, value = events[index]
+                if offset == event_offset:
+                    settings[key] = value
         return settings
 
     def _get_at_offset(self, offset, item):
