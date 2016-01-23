@@ -88,21 +88,20 @@ class Moment(SessionObject):
             requests.append(request)
         return requests
 
-    def _collect_node_action_requests(self, id_mapping, node_settings, start_nodes):
+    def _collect_node_action_requests(self, id_mapping, node_settings, start_nodes, node_actions):
         from supriya.tools import nonrealtimetools
         requests = []
-        for source, action in self.actions.items():
+        for source, action in node_actions.items():
             if source in start_nodes:
                 if isinstance(source, nonrealtimetools.Synth):
+                    synth_kwargs = {} 
                     if source in node_settings:
-                        synth_kwargs = node_settings.pop(source)
-                        request = source.to_request(
-                            action,
-                            id_mapping,
-                            **synth_kwargs
-                            )
-                    else:
-                        request = source.to_request(action, id_mapping)
+                        synth_kwargs.update(node_settings.pop(source))
+                    if 'duration' in source.synthdef.parameter_names:
+                        # need to propagate in session rendering timespan
+                        # as many nodes have "infinite" duration
+                        synth_kwargs['duration'] = float(source.duration)
+                    request = source.to_request(action, id_mapping, **synth_kwargs)
                 else:
                     request = source.to_request(action, id_mapping)
             else:
@@ -171,6 +170,24 @@ class Moment(SessionObject):
                 stop_nodes.update(nonroot_nodes)
         return start_nodes, stop_nodes
 
+    def _collect_node_actions(self, force_start, start_nodes):
+        from supriya.tools import nonrealtimetools
+        if force_start:
+            node_actions = collections.OrderedDict()
+            for parent, child in self._iterate_node_pairs(
+                self.session.root_node,
+                self.nodes_to_children,
+                ):
+                action = nonrealtimetools.NodeAction(
+                    source=child,
+                    target=parent,
+                    action=servertools.AddAction.ADD_TO_TAIL,
+                    )
+                node_actions[child] = action
+        else:
+            node_actions = self.actions
+        return node_actions
+
     def _collect_node_settings(self, force_start=None):
         result = collections.OrderedDict()
         for node in self._iterate_nodes(
@@ -185,7 +202,7 @@ class Moment(SessionObject):
                 result[node] = settings
         return result
 
-    def _collect_stop_requests(self, id_mapping, stop_nodes):
+    def _collect_node_stop_requests(self, id_mapping, stop_nodes):
         requests = []
         if stop_nodes:
             free_ids, gate_ids = [], []
@@ -207,6 +224,7 @@ class Moment(SessionObject):
                         node_id=node_id,
                         gate=0,
                         )
+                    requests.append(request)
         return requests
 
     def _collect_synthdef_requests(self, visited_synthdefs, start_nodes):
@@ -234,6 +252,16 @@ class Moment(SessionObject):
             for child in children:
                 for node in recurse(child):
                     yield node
+        return recurse(root_node)
+
+    @classmethod
+    def _iterate_node_pairs(cls, root_node, nodes_to_children):
+        def recurse(parent):
+            children = nodes_to_children.get(parent, ()) or ()
+            for child in children:
+                yield parent, child 
+                for pair in recurse(child):
+                    yield pair
         return recurse(root_node)
 
     def _propagate_action_transforms(self, previous_moment=None):
@@ -300,12 +328,15 @@ class Moment(SessionObject):
         bus_settings = bus_settings or {}
         visited_synthdefs = visited_synthdefs or set()
         start_nodes, stop_nodes = self._collect_nodes(force_start, force_stop)
+        node_actions = self._collect_node_actions(force_start, start_nodes)
+        print('        Start:', start_nodes)
+        print('         Stop:', stop_nodes)
         node_settings = self._collect_node_settings(force_start)
         requests += self._collect_synthdef_requests(visited_synthdefs, start_nodes)
-        requests += self._collect_node_action_requests(id_mapping, node_settings, start_nodes)
+        requests += self._collect_node_action_requests(id_mapping, node_settings, start_nodes, node_actions)
         requests += self._collect_node_set_requests(id_mapping, node_settings)
         requests += self._collect_bus_requests(bus_settings)
-        requests += self._collect_stop_requests(id_mapping, stop_nodes)
+        requests += self._collect_node_stop_requests(id_mapping, stop_nodes)
         return requests
 
     ### PUBLIC PROPERTIES ###
