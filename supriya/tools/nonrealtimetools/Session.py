@@ -216,7 +216,7 @@ class Session(OscMixin):
             assert isinstance(timespan, timespantools.Timespan)
             assert 0 <= timespan.start_offset
             assert 0 < timespan.duration < float('inf')
-        elif timespan is not None:
+        elif timespan is not None and timespan.duration == float('inf'):
             timespan = timespan & timespantools.Timespan(0, self.duration)
         offset_delta = 0
         moments = []
@@ -243,7 +243,8 @@ class Session(OscMixin):
                     is_instantaneous=True,
                     )
             if moments[-1].offset != timespan.stop_offset:
-                moments.append(moments[-1]._clone(timespan.stop_offset))
+                terminal_moment = moments[-1]._clone(timespan.stop_offset)
+                moments.append(terminal_moment)
         return offset_delta, moments
 
     def _setup_buses(self, input_count, output_count):
@@ -399,12 +400,12 @@ class Session(OscMixin):
         # Need to strip out no-op moments, so they don't gum things up.
         osc_bundles = []
         visited_synthdefs = set()
-        print(len(moments))
+        print('Moment Count:', len(moments))
         for i, moment in enumerate(moments, 1):
             offset = float(moment.offset - offset_delta)
             force_start = i == 1 and timespan is not None
             force_stop = i == len(moments) and timespan is not None
-            print(i, force_start, force_stop)
+            print('    At moment:', i, offset, force_start, force_stop)
             requests = moment.to_requests(
                 id_mapping,
                 bus_settings=bus_settings,
@@ -412,6 +413,7 @@ class Session(OscMixin):
                 force_stop=force_stop,
                 visited_synthdefs=visited_synthdefs,
                 )
+            print('        Requests?', len(requests))
             osc_messages = [request.to_osc_message(True)
                 for request in requests]
             if i == len(moments):

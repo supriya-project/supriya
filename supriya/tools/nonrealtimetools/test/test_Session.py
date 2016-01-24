@@ -132,6 +132,22 @@ class TestCase(unittest.TestCase):
                 duration=1,
                 synthdef=self.build_duration_synthdef(),
                 )
+        assert session.to_osc_bundles() == [
+            osctools.OscBundle(
+                timestamp=0.0,
+                contents=(
+                    osctools.OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 448a8d487adfc99ec697033edc2a1227\x00\x00\x00\x02\x00\x00\x00\x00?\x80\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01\x08duration\x00\x00\x00\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x04Line\x02\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')),
+                    osctools.OscMessage('/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0),
+                    )
+                ),
+            osctools.OscBundle(
+                timestamp=1.0,
+                contents=(
+                    osctools.OscMessage('/n_free', 1000),
+                    osctools.OscMessage(0),
+                    )
+                ),
+            ]
         exit_code, _ = session.render(
             self.output_filepath,
             output_bus_channel_count=1,
@@ -140,6 +156,7 @@ class TestCase(unittest.TestCase):
         soundfile = soundfiletools.SoundFile(self.output_filepath)
         for i in range(1, 100):
             value = float(i) / 100
+            #print(i, value, self.round(soundfile.at_percent(value)[0]))
             assert self.round(soundfile.at_percent(value)[0]) == value
 
     def test_05(self):
@@ -149,7 +166,7 @@ class TestCase(unittest.TestCase):
                 duration=1,
                 synthdef=self.build_gate_synthdef(),
                 )
-        timespan = timespantools.Timespan(0, 3)
+        timespan = timespantools.Timespan(0, 2)
         assert session.to_osc_bundles(timespan=timespan) == [
             osctools.OscBundle(
                 timestamp=0.0,
@@ -165,7 +182,7 @@ class TestCase(unittest.TestCase):
                     )
                 ),
             osctools.OscBundle(
-                timestamp=3.0,
+                timestamp=2.0,
                 contents=(
                     osctools.OscMessage(0),
                     )
