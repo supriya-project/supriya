@@ -1,5 +1,11 @@
 language: python
 
+sudo: false
+
+addons:
+    apt:
+        packages:
+            build-essential
 python:
     - 2.7
     - 3.3
