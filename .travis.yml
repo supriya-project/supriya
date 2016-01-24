@@ -1,16 +1,14 @@
 language: python
 
-sudo: false
-
-addons:
-    apt:
-        packages:
-            build-essential
-            libasound1-dev
 python:
     - 2.7
     - 3.3
     - 3.4
+
+before_install:
+
+    - sudo apt-get install build-essential
+    - sudo apt-get install libasound2-dev
 
 script:
     - pip install -r requirements.txt
