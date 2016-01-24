@@ -6,6 +6,7 @@ addons:
     apt:
         packages:
             build-essential
+            libasound1-dev
 python:
     - 2.7
     - 3.3
