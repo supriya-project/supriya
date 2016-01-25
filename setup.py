@@ -328,7 +328,6 @@ classifiers = [
     'Natural Language :: English',
     'Operating System :: MacOS',
     'Operating System :: POSIX',
-    'Programming Language :: Python :: 2.7',
     'Programming Language :: Python :: 3.4',
     'Topic :: Artistic Software',
     'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
