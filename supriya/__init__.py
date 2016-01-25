@@ -1,5 +1,7 @@
 # -*- encoding: utf -*-
 
+__version__ = 0.1
+
 from supriya.tools import *
 
 from supriya.tools.bindingtools import bind

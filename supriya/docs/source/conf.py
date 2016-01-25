@@ -43,16 +43,17 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.coverage',
+    #'sphinx.ext.coverage',
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
-    'sphinx.ext.todo',
-    'sphinx.ext.viewcode',
-    'supriya.docs.ext.style',
+    #'sphinx.ext.todo',
+    #'sphinx.ext.viewcode',
+    #'supriya.docs.ext.style',
+    'supriya.docs.ext.abjadbook',
     ]
 
-if not on_rtd:
-    extensions.append('sphinx.ext.doctest')
+#if not on_rtd:
+#    extensions.append('sphinx.ext.doctest')
 
 import abjad
 import supriya
@@ -74,6 +75,8 @@ for server in servertools.Server._servers.values():
 '''
 
 doctest_test_doctest_blocks = True
+
+abjadbook_console_module_names = ['supriya']
 
 from docutils import nodes
 nodes.doctest_block = nodes.literal_block

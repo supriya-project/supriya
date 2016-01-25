@@ -24,6 +24,10 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
+        >>> graph(synthdef)  # doctest: +SKIP
+
+    ::
+
         >>> from supriya import servertools
         >>> server = servertools.Server().boot()
 
@@ -169,13 +173,17 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
-            >>> builder = synthdeftools.SynthDefBuilder()
-            >>> sin_one = ugentools.SinOsc.ar()
-            >>> sin_two = ugentools.SinOsc.ar(frequency=443)
-            >>> sum = sin_one + sin_two
-            >>> out = ugentools.Out.ar(bus=0, source=sum)
-            >>> builder.add_ugens(out)
+            >>> with synthdeftools.SynthDefBuilder() as builder:
+            ...     sin_one = ugentools.SinOsc.ar()
+            ...     sin_two = ugentools.SinOsc.ar(frequency=443)
+            ...     source = sin_one + sin_two
+            ...     out = ugentools.Out.ar(bus=0, source=source)
+            ...
             >>> synthdef = builder.build(name='test')
+
+        ::
+
+            >>> graph(synthdef)  # doctest: +SKIP
 
         ::
 
@@ -734,6 +742,13 @@ class SynthDef(ServerObjectProxy):
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+
+        ::
+
+            >>> graph(synthdef)  # doctest: +SKIP
+
+        ::
+
             >>> synthdef.audio_input_channel_count
             1
 
@@ -764,6 +779,13 @@ class SynthDef(ServerObjectProxy):
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+
+        ::
+
+            >>> graph(synthdef)  # doctest: +SKIP
+
+        ::
+
             >>> synthdef.audio_output_channel_count
             4
 
@@ -802,6 +824,13 @@ class SynthDef(ServerObjectProxy):
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+
+        ::
+
+            >>> graph(synthdef)  # doctest: +SKIP
+
+        ::
+
             >>> synthdef.control_input_channel_count
             2
 
@@ -832,6 +861,13 @@ class SynthDef(ServerObjectProxy):
             ...     audio_out = ugentools.Out.ar(source=[source] * 4)
             ...
             >>> synthdef = builder.build()
+
+        ::
+
+            >>> graph(synthdef)  # doctest: +SKIP
+
+        ::
+
             >>> synthdef.control_output_channel_count
             0
 

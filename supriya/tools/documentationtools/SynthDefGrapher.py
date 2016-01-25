@@ -3,8 +3,65 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefGrapher(SupriyaObject):
+    r'''Graphs SynthDefs.
 
-    ### PRIVATE METHODS ###
+    ..  container:: example
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.transpose([0, 3, 7])
+
+        ::
+
+            >>> graph(result)  # doctest: +SKIP
+
+        ::
+
+            >>> print(result.__graph__())
+            digraph synthdef_c481c3d42e3cfcee0267250247dab51f {
+                graph [bgcolor=transparent,
+                    color=lightslategrey,
+                    dpi=72,
+                    fontname=Arial,
+                    outputorder=edgesfirst,
+                    overlap=prism,
+                    penwidth=2,
+                    rankdir=LR,
+                    ranksep=1,
+                    splines=spline,
+                    style="dotted, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    shape=Mrecord,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                ugen_0 [fillcolor=lightsteelblue2,
+                    label="<f_0> LFNoise2\n(audio) | { { <f_1_0_0> frequency:\n500.0 } | { <f_1_1_0> 0 } }"];
+                ugen_1 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[HZ_TO_MIDI]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_2 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_3 [fillcolor=lightsteelblue2,
+                    label="<f_0> BinaryOpUGen\n[ADDITION]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right:\n3.0 } | { <f_1_1_0> 0 } }"];
+                ugen_4 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_5 [fillcolor=lightsteelblue2,
+                    label="<f_0> BinaryOpUGen\n[ADDITION]\n(audio) | { { <f_1_0_0> left | <f_1_0_1> right:\n7.0 } | { <f_1_1_0> 0 } }"];
+                ugen_6 [fillcolor=lightsteelblue2,
+                    label="<f_0> UnaryOpUGen\n[MIDI_TO_HZ]\n(audio) | { { <f_1_0_0> source } | { <f_1_1_0> 0 } }"];
+                ugen_0:f_1_1_0:e -> ugen_1:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_2:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_3:f_1_0_0:w [color=steelblue];
+                ugen_1:f_1_1_0:e -> ugen_5:f_1_0_0:w [color=steelblue];
+                ugen_3:f_1_1_0:e -> ugen_4:f_1_0_0:w [color=steelblue];
+                ugen_5:f_1_1_0:e -> ugen_6:f_1_0_0:w [color=steelblue];
+            }
+
+    '''
+
+    ### PRIVATE METHODS ###:w
 
     @staticmethod
     def _connect_nodes(synthdef, ugen_node_mapping):
@@ -144,7 +201,9 @@ class SynthDefGrapher(SupriyaObject):
     @staticmethod
     def _style_graph(graph):
         graph.attributes.update({
+            'bgcolor': 'transparent',
             'color': 'lightslategrey',
+            'dpi': 72,
             'fontname': 'Arial',
             'outputorder': 'edgesfirst',
             'overlap': 'prism',
@@ -176,7 +235,7 @@ class SynthDefGrapher(SupriyaObject):
             name='synthdef_{}'.format(synthdef.actual_name),
             )
         ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)
-        for node in ugen_node_mapping.values():
+        for node in sorted(ugen_node_mapping.values(), key=lambda x: x.name):
             graph.append(node)
         SynthDefGrapher._connect_nodes(synthdef, ugen_node_mapping)
         SynthDefGrapher._style_graph(graph)

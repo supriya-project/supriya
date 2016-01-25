@@ -1,48 +1,25 @@
 .. _index:
 
-Supriya |version|
-=================
+Supriya (|release|)
+===================
 
-Supriya is a Python interface to SuperCollider.
+..  include:: links.txt
 
-Supriya lets you:
-
--   boot and communicate with SuperCollider's `scsynth` synthesis server
--   construct and compile `SynthDef` unit generator graphs in native Python code
--   build and control graphs of synthesizers and synthesizer groups
--   object-model `scysnth` OSC communications explicitly via `Request` and
-    `Response` classes
--   schedule synthesizer events and patterns
-
-Supriya's source is hosted at https://github.com/josiah-wolf-oberholtzer/supriya.
-
-Documentation is available at http://supriya.readthedocs.org/en/latest/.
-
-Join the development mailing list at supriya-dev@googlegroups.com.
-
-..  note:: This project is still under **heavy** development, is **not** yet
-           stable, and is **not** yet intended for deployment in the field.
-
-Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
-an issue at https://github.com/josiah-wolf-oberholtzer/supriya/issues.
-
-Supriya is compatible with Python 3 only.
-
-Basta.
-
-..  image:: graph.png
-    :align: center
-
-Installation
+Introduction
 ------------
 
-To install, simply clone **supriya** and run the included `setup.py`:
+..  include:: abstract.txt
+
+Quickstart
+----------
+
+To install, clone Supriya and install via `pip`:
 
 ::
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
     ~$ cd supriya
-    supriya$ sudo python setup.py install
+    supriya$ pip install -e .
 
 To run the test suite:
 
