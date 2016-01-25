@@ -26,7 +26,7 @@ Join the development mailing list at supriya-dev@googlegroups.com.
 Send compliments or complaints to josiah.oberholtzer@gmail.com, or register
 an issue at https://github.com/josiah-wolf-oberholtzer/supriya/issues.
 
-Compatible with Python 2.7, 3.3 and 3.4. 
+Supriya is compatible with Python 3 only.
 
 Basta.
 
