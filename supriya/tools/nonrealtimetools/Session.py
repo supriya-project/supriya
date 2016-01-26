@@ -9,7 +9,6 @@ import subprocess
 import tempfile
 from abjad.tools import timespantools
 from supriya.tools import osctools
-from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
@@ -271,20 +270,20 @@ class Session(OscMixin):
     ### PUBLIC METHODS ###
 
     def at(self, offset):
+        from supriya.tools import nonrealtimetools
         assert 0 <= offset
         # Using this should return a moment, not a state.
         # No state should be created until after an edit.
         state = self._find_state_at(offset)
-        if state:
-            return state
-        old_state = self._find_state_before(offset)
-        new_state = old_state._clone(offset)
-        self.states[offset] = new_state
-        self.offsets.insert(
-            self.offsets.index(old_state.offset) + 1,
-            offset,
-            )
-        return new_state
+        if not state:
+            old_state = self._find_state_before(offset)
+            state = old_state._clone(offset)
+            self.states[offset] = state
+            self.offsets.insert(
+                self.offsets.index(old_state.offset) + 1,
+                offset,
+                )
+        return nonrealtimetools.Moment(self, offset, state)
 
     def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools

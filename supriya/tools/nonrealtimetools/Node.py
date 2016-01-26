@@ -153,10 +153,10 @@ class Node(SessionObject):
             **synth_kwargs
             )
         self.move_node(node, add_action=add_action)
-        start_moment.start_nodes.add(node)
+        start_moment.state.start_nodes.add(node)
         if node.duration:
             with self.session.at(node.stop_offset) as stop_moment:
-                stop_moment.stop_nodes.add(node)
+                stop_moment.state.stop_nodes.add(node)
         self.session.nodes.add(node)
         return node
 
@@ -167,7 +167,7 @@ class Node(SessionObject):
         ):
         assert self.session.active_moments
         add_action = servertools.AddAction.from_expr(add_action)
-        self.session.active_moments[-1]._register_action(
+        self.session.active_moments[-1].state._register_action(
             source=node,
             target=self,
             action=add_action,
