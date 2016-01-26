@@ -63,34 +63,23 @@ class Session(OscMixin):
         '_audio_output_bus_group',
         '_buses',
         '_input_count',
-        '_moments',
         '_nodes',
         '_offsets',
         '_output_count',
         '_root_node',
+        '_states',
         )
-
-    _prioritized_request_types = [
-        requesttools.SynthDefReceiveRequest,
-        requesttools.ControlBusSetRequest,
-        requesttools.GroupNewRequest,
-        requesttools.NodeOrderRequest,
-        requesttools.SynthNewRequest,
-        requesttools.NodeMapToAudioBusRequest,
-        requesttools.NodeMapToControlBusRequest,
-        requesttools.NodeSetRequest,
-        ]
 
     ### INITIALIZER ###
 
     def __init__(self, input_count=0, output_count=2):
         from supriya.tools import nonrealtimetools
         self._active_moments = []
-        self._moments = {}
+        self._states = {}
         self._nodes = set()
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
-        self._setup_initial_moments()
+        self._setup_initial_states()
         self._setup_buses(input_count, output_count)
 
     ### PRIVATE METHODS ###
@@ -173,8 +162,8 @@ class Session(OscMixin):
         allocator = servertools.NodeIdAllocator()
         mapping = {self.root_node: 0}
         for offset in self.offsets[1:]:
-            moment = self.moments[offset]
-            for start_node in moment.start_nodes:
+            state = self.states[offset]
+            for start_node in state.start_nodes:
                 mapping[start_node] = allocator.allocate_node_id()
         return mapping
 
@@ -188,18 +177,18 @@ class Session(OscMixin):
                 bus_settings.setdefault(offset, {})[bus_id] = value
         return bus_settings
 
-    def _find_moment_after(self, offset):
+    def _find_state_after(self, offset):
         index = bisect.bisect(self.offsets, offset)
         if index < len(self.offsets):
             old_offset = self.offsets[index]
             if offset < old_offset:
-                return self.moments[old_offset]
+                return self.states[old_offset]
         return None
 
-    def _find_moment_at(self, offset):
-        return self.moments.get(offset, None)
+    def _find_state_at(self, offset):
+        return self.states.get(offset, None)
 
-    def _find_moment_before(self, offset):
+    def _find_state_before(self, offset):
         index = bisect.bisect_left(self.offsets, offset)
         if index == len(self.offsets):
             index -= 1
@@ -209,7 +198,7 @@ class Session(OscMixin):
         if index < 0:
             return None
         old_offset = self.offsets[index]
-        return self.moments[old_offset]
+        return self.states[old_offset]
 
     def _process_timespan(self, timespan):
         if self.duration == float('inf'):
@@ -219,33 +208,34 @@ class Session(OscMixin):
         elif timespan is not None and timespan.duration == float('inf'):
             timespan = timespan & timespantools.Timespan(0, self.duration)
         offset_delta = 0
-        moments = []
+        states = []
         if timespan is None:
             offset_delta = 0
             offsets = self.offsets[1:]
-            moments = [self.moments[offset] for offset in offsets]
+            states = [self.states[offset] for offset in offsets]
         else:
             offset_delta = timespan.start_offset
             offsets = [_ for _ in self.offsets if
                 timespan.start_offset <= _ < timespan.stop_offset]
-            moments = [self.moments[offset] for offset in offsets]
-            initial_moment = moments[0]
+            states = [self.states[offset] for offset in offsets]
+            initial_state = states[0]
             start_offset = timespan.start_offset
-            if start_offset < initial_moment.offset:
-                initial_moment = self._find_moment_before(start_offset)
-                initial_moment = initial_moment._clone(
+            if start_offset < initial_state.offset:
+                initial_state = self._find_state_before(start_offset)
+                initial_state = initial_state._clone(
                     start_offset,
                     is_instantaneous=True,
                     )
-            elif moments:
-                moments[0] = moments[0]._clone(
+                states.insert(0, initial_state)
+            elif states:
+                states[0] = states[0]._clone(
                     start_offset,
                     is_instantaneous=True,
                     )
-            if moments[-1].offset != timespan.stop_offset:
-                terminal_moment = moments[-1]._clone(timespan.stop_offset)
-                moments.append(terminal_moment)
-        return offset_delta, moments
+            if states[-1].offset != timespan.stop_offset:
+                terminal_state = states[-1]._clone(timespan.stop_offset)
+                states.append(terminal_state)
+        return offset_delta, states
 
     def _setup_buses(self, input_count, output_count):
         from supriya.tools import nonrealtimetools
@@ -265,34 +255,36 @@ class Session(OscMixin):
             audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
         self._audio_output_bus_group = audio_output_bus_group
 
-    def _setup_initial_moments(self):
+    def _setup_initial_states(self):
         from supriya.tools import nonrealtimetools
         offset = float('-inf')
-        moment = nonrealtimetools.Moment(self, offset)
-        moment.nodes_to_children[self.root_node] = None
-        moment.nodes_to_parents[self.root_node] = None
-        self.moments[offset] = moment
+        state = nonrealtimetools.State(self, offset)
+        state.nodes_to_children[self.root_node] = None
+        state.nodes_to_parents[self.root_node] = None
+        self.states[offset] = state
         self.offsets.append(offset)
         offset = 0
-        moment = moment._clone(offset)
-        self.moments[offset] = moment
+        state = state._clone(offset)
+        self.states[offset] = state
         self.offsets.append(offset)
 
     ### PUBLIC METHODS ###
 
     def at(self, offset):
         assert 0 <= offset
-        moment = self._find_moment_at(offset)
-        if moment:
-            return moment
-        old_moment = self._find_moment_before(offset)
-        new_moment = old_moment._clone(offset)
-        self.moments[offset] = new_moment
+        # Using this should return a moment, not a state.
+        # No state should be created until after an edit.
+        state = self._find_state_at(offset)
+        if state:
+            return state
+        old_state = self._find_state_before(offset)
+        new_state = old_state._clone(offset)
+        self.states[offset] = new_state
         self.offsets.insert(
-            self.offsets.index(old_moment.offset) + 1,
+            self.offsets.index(old_state.offset) + 1,
             offset,
             )
-        return new_moment
+        return new_state
 
     def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
@@ -376,9 +368,8 @@ class Session(OscMixin):
     def report(self):
         states = []
         for offset in self.offsets[1:]:
-            moment = self.moments[offset]
-            state = moment.report()
-            states.append(state)
+            state = self.states[offset]
+            states.append(state.report())
         return states
 
     def to_datagram(self, timespan=None):
@@ -396,17 +387,17 @@ class Session(OscMixin):
     def to_osc_bundles(self, timespan=None):
         id_mapping = self._build_id_mapping()
         bus_settings = self._collect_bus_settings(id_mapping)
-        offset_delta, moments = self._process_timespan(timespan)
-        # Need to strip out no-op moments, so they don't gum things up.
+        offset_delta, states = self._process_timespan(timespan)
+        # Need to strip out no-op states, so they don't gum things up.
         osc_bundles = []
         visited_synthdefs = set()
-        print('Moment Count:', len(moments))
-        for i, moment in enumerate(moments, 1):
-            offset = float(moment.offset - offset_delta)
+        print('State Count:', len(states))
+        for i, state in enumerate(states, 1):
+            offset = float(state.offset - offset_delta)
             force_start = i == 1 and timespan is not None
-            force_stop = i == len(moments) and timespan is not None
-            print('    At moment:', i, offset, force_start, force_stop)
-            requests = moment.to_requests(
+            force_stop = i == len(states) and timespan is not None
+            print('    At state:', i, offset, force_start, force_stop)
+            requests = state.to_requests(
                 id_mapping,
                 bus_settings=bus_settings,
                 force_start=force_start,
@@ -416,7 +407,7 @@ class Session(OscMixin):
             print('        Requests?', len(requests))
             osc_messages = [request.to_osc_message(True)
                 for request in requests]
-            if i == len(moments):
+            if i == len(states):
                 osc_message = osctools.OscMessage(0)
                 osc_messages.append(osc_message)
             if osc_messages:
@@ -456,10 +447,6 @@ class Session(OscMixin):
         return self._input_count
 
     @property
-    def moments(self):
-        return self._moments
-
-    @property
     def nodes(self):
         return self._nodes
 
@@ -474,3 +461,7 @@ class Session(OscMixin):
     @property
     def root_node(self):
         return self._root_node
+
+    @property
+    def states(self):
+        return self._states

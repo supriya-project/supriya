@@ -5,7 +5,7 @@ from supriya.tools import servertools
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class Moment(SessionObject):
+class State(SessionObject):
 
     ### CLASS VARIABLES ###
 
@@ -66,17 +66,17 @@ class Moment(SessionObject):
     ### PRIVATE METHODS ###
 
     def _clone(self, new_offset, is_instantaneous=False):
-        moment = type(self)(
+        state = type(self)(
             self.session,
             new_offset,
             is_instantaneous=is_instantaneous,
             )
         if new_offset == self.offset:
-            moment.start_nodes.update(self.start_nodes)
-            moment.stop_nodes.update(self.stop_nodes)
-        moment._nodes_to_children = self.nodes_to_children.copy()
-        moment._nodes_to_parents = self.nodes_to_parents.copy()
-        return moment
+            state.start_nodes.update(self.start_nodes)
+            state.stop_nodes.update(self.stop_nodes)
+        state._nodes_to_children = self.nodes_to_children.copy()
+        state._nodes_to_parents = self.nodes_to_parents.copy()
+        return state
 
     def _collect_bus_requests(self, bus_settings):
         requests = []
@@ -264,13 +264,13 @@ class Moment(SessionObject):
                     yield pair
         return recurse(root_node)
 
-    def _propagate_action_transforms(self, previous_moment=None):
+    def _propagate_action_transforms(self, previous_state=None):
         from supriya.tools import nonrealtimetools
-        if previous_moment is None:
-            previous_moment = self.session._find_moment_before(self.offset)
-        assert previous_moment is not None
-        nodes_to_children = previous_moment.nodes_to_children.copy()
-        nodes_to_parents = previous_moment.nodes_to_parents.copy()
+        if previous_state is None:
+            previous_state = self.session._find_state_before(self.offset)
+        assert previous_state is not None
+        nodes_to_children = previous_state.nodes_to_children.copy()
+        nodes_to_parents = previous_state.nodes_to_parents.copy()
         for _, action in self.actions.items():
             action.apply_transform(nodes_to_children, nodes_to_parents)
         for stop_node in self.stop_nodes:
@@ -279,9 +279,9 @@ class Moment(SessionObject):
         if nodes_to_children != self.nodes_to_children:
             self._nodes_to_children = nodes_to_children
             self._nodes_to_parents = nodes_to_parents
-            next_moment = self.session._find_moment_after(self.offset)
-            if next_moment is not None:
-                next_moment._propagate_action_transforms(previous_moment=self)
+            next_state = self.session._find_state_after(self.offset)
+            if next_state is not None:
+                next_state._propagate_action_transforms(previous_state=self)
 
     def _register_action(self, source, target, action):
         from supriya.tools import nonrealtimetools

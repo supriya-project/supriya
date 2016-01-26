@@ -18,5 +18,5 @@ class TestCase(unittest.TestCase):
             }
         root = 'A'
 
-        iterator = nonrealtimetools.Moment._iterate_nodes(root, nodes)
+        iterator = nonrealtimetools.State._iterate_nodes(root, nodes)
         assert list(iterator) == ['A', 'B', 'C', 'E', 'G', 'F', 'D']
