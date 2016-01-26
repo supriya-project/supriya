@@ -25,8 +25,8 @@ class State(SessionObject):
     def __init__(self, session, offset, is_instantaneous=False):
         SessionObject.__init__(self, session)
         self._actions = collections.OrderedDict()
-        self._nodes_to_children = {}
-        self._nodes_to_parents = {}
+        self._nodes_to_children = None
+        self._nodes_to_parents = None
         self._start_nodes = set()
         self._stop_nodes = set()
         self._offset = offset
@@ -49,10 +49,11 @@ class State(SessionObject):
             is_instantaneous=is_instantaneous,
             )
         if new_offset == self.offset:
-            state.start_nodes.update(self.start_nodes)
-            state.stop_nodes.update(self.stop_nodes)
-        state._nodes_to_children = self.nodes_to_children.copy()
-        state._nodes_to_parents = self.nodes_to_parents.copy()
+            state._actions = self._actions.copy()
+            state._start_nodes.update(self.start_nodes)
+            state._stop_nodes.update(self.stop_nodes)
+            state._nodes_to_children = self.nodes_to_children.copy()
+            state._nodes_to_parents = self.nodes_to_parents.copy()
         return state
 
     def _collect_bus_requests(self, bus_settings):
@@ -71,7 +72,7 @@ class State(SessionObject):
         for source, action in node_actions.items():
             if source in start_nodes:
                 if isinstance(source, nonrealtimetools.Synth):
-                    synth_kwargs = {} 
+                    synth_kwargs = {}
                     if source in node_settings:
                         synth_kwargs.update(node_settings.pop(source))
                     if 'duration' in source.synthdef.parameter_names:
@@ -221,6 +222,14 @@ class State(SessionObject):
             requests.append(request)
         return requests
 
+    def _desparsify(self):
+        previous_state = self.session._find_state_before(
+            self.offset,
+            with_node_tree=True,
+            )
+        self._nodes_to_children = previous_state.nodes_to_children.copy()
+        self._nodes_to_parents = previous_state.nodes_to_parents.copy()
+
     @classmethod
     def _iterate_nodes(cls, root_node, nodes_to_children):
         def recurse(parent):
@@ -236,7 +245,7 @@ class State(SessionObject):
         def recurse(parent):
             children = nodes_to_children.get(parent, ()) or ()
             for child in children:
-                yield parent, child 
+                yield parent, child
                 for pair in recurse(child):
                     yield pair
         return recurse(root_node)
@@ -262,6 +271,8 @@ class State(SessionObject):
 
     def _register_action(self, source, target, action):
         from supriya.tools import nonrealtimetools
+        if self.nodes_to_children is None:
+            self._desparsify()
         assert target in self.nodes_to_children
         action = nonrealtimetools.NodeAction(
             source=source,
@@ -304,16 +315,18 @@ class State(SessionObject):
         requests = []
         bus_settings = bus_settings or {}
         visited_synthdefs = visited_synthdefs or set()
-        start_nodes, stop_nodes = self._collect_nodes(force_start, force_stop)
-        node_actions = self._collect_node_actions(force_start, start_nodes)
-        print('        Start:', start_nodes)
-        print('         Stop:', stop_nodes)
         node_settings = self._collect_node_settings(force_start)
-        requests += self._collect_synthdef_requests(visited_synthdefs, start_nodes)
-        requests += self._collect_node_action_requests(id_mapping, node_settings, start_nodes, node_actions)
+        if self.nodes_to_children is not None or self.stop_nodes:
+            start_nodes, stop_nodes = self._collect_nodes(force_start, force_stop)
+            node_actions = self._collect_node_actions(force_start, start_nodes)
+            print('        Start:', start_nodes)
+            print('         Stop:', stop_nodes)
+            requests += self._collect_synthdef_requests(visited_synthdefs, start_nodes)
+            requests += self._collect_node_action_requests(id_mapping, node_settings, start_nodes, node_actions)
         requests += self._collect_node_set_requests(id_mapping, node_settings)
         requests += self._collect_bus_requests(bus_settings)
-        requests += self._collect_node_stop_requests(id_mapping, stop_nodes)
+        if self.nodes_to_children is not None or self.stop_nodes:
+            requests += self._collect_node_stop_requests(id_mapping, stop_nodes)
         return requests
 
     ### PUBLIC PROPERTIES ###

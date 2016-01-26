@@ -176,8 +176,14 @@ class Session(OscMixin):
                 bus_settings.setdefault(offset, {})[bus_id] = value
         return bus_settings
 
-    def _find_state_after(self, offset):
+    def _find_state_after(self, offset, with_node_tree=None):
         index = bisect.bisect(self.offsets, offset)
+        if with_node_tree:
+            while index < len(self.offsets):
+                state = self.states[self.offsets[index]]
+                if state.nodes_to_children is not None:
+                    return state
+            return None
         if index < len(self.offsets):
             old_offset = self.offsets[index]
             if offset < old_offset:
@@ -187,7 +193,7 @@ class Session(OscMixin):
     def _find_state_at(self, offset):
         return self.states.get(offset, None)
 
-    def _find_state_before(self, offset):
+    def _find_state_before(self, offset, with_node_tree=None):
         index = bisect.bisect_left(self.offsets, offset)
         if index == len(self.offsets):
             index -= 1
@@ -196,8 +202,13 @@ class Session(OscMixin):
             index -= 1
         if index < 0:
             return None
-        old_offset = self.offsets[index]
-        return self.states[old_offset]
+        if with_node_tree:
+            while 0 <= index:
+                state = self.states[self.offsets[index]]
+                if state.nodes_to_children is not None:
+                    return state
+            return None
+        return self.states[self.offsets[index]]
 
     def _process_timespan(self, timespan):
         if self.duration == float('inf'):
@@ -258,8 +269,8 @@ class Session(OscMixin):
         from supriya.tools import nonrealtimetools
         offset = float('-inf')
         state = nonrealtimetools.State(self, offset)
-        state.nodes_to_children[self.root_node] = None
-        state.nodes_to_parents[self.root_node] = None
+        state._nodes_to_children = {self.root_node: None}
+        state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
         self.offsets.append(offset)
         offset = 0
