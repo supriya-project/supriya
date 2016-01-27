@@ -215,6 +215,11 @@ class OscBundle(OscMixin):
             datagram += content_datagram
         return datagram
 
+    def to_list(self):
+        result = [self.timestamp]
+        result.append([x.to_list() for x in self.contents])
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

@@ -11,26 +11,32 @@ class State(SessionObject):
 
     __slots__ = (
         '_actions',
-        '_is_instantaneous',
         '_nodes_to_children',
         '_nodes_to_parents',
         '_offset',
         '_session',
+        '_start_buffers',
         '_start_nodes',
+        '_stop_buffers',
         '_stop_nodes',
+        )
+
+    _ordered_buffer_request_types = (
+        requesttools.BufferZeroRequest,
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, session, offset, is_instantaneous=False):
+    def __init__(self, session, offset):
         SessionObject.__init__(self, session)
         self._actions = collections.OrderedDict()
         self._nodes_to_children = None
         self._nodes_to_parents = None
         self._start_nodes = set()
         self._stop_nodes = set()
+        self._start_buffers = set()
+        self._stop_buffers = set()
         self._offset = offset
-        self._is_instantaneous = bool(is_instantaneous)
 
     ### SPECIAL METHODS ###
 
@@ -42,19 +48,58 @@ class State(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _clone(self, new_offset, is_instantaneous=False):
+    def _clone(self, new_offset):
         state = type(self)(
             self.session,
             new_offset,
-            is_instantaneous=is_instantaneous,
             )
         if new_offset == self.offset:
             state._actions = self._actions.copy()
+            state._start_buffers.update(self.start_buffers)
+            state._stop_buffers.update(self.stop_buffers)
             state._start_nodes.update(self.start_nodes)
             state._stop_nodes.update(self.stop_nodes)
             state._nodes_to_children = self.nodes_to_children.copy()
             state._nodes_to_parents = self.nodes_to_parents.copy()
         return state
+
+    def _collect_buffer_requests(
+        self,
+        id_mapping,
+        buffer_settings,
+        start_buffers,
+        stop_buffers,
+        ):
+        requests = []
+        if start_buffers:
+            for buffer_ in sorted(start_buffers, key=lambda x: x.session_id):
+                request = requesttools.BufferAllocateRequest(
+                    buffer_id=id_mapping[buffer_],
+                    channel_count=buffer_.channel_count,
+                    frame_count=buffer_.frame_count,
+                    )
+                requests.append(request)
+        buffer_settings = buffer_settings.get(self.offset)
+        if buffer_settings:
+            for request_type in self._ordered_buffer_request_types:
+                if request_type in buffer_settings:
+                    requests.extend(buffer_settings[request_type])
+        if stop_buffers:
+            for buffer_ in sorted(stop_buffers, key=lambda x: x.session_id):
+                request = requesttools.BufferFreeRequest(
+                    buffer_id=id_mapping[buffer_],
+                    )
+                requests.append(request)
+        return requests
+
+    def _collect_buffers(self, force_stop):
+        start_buffers = self.start_buffers
+        stop_buffers = self.stop_buffers
+        if force_stop:
+            stop_buffers.update(
+                self.session._buffers.find_timespans_overlapping_offset(
+                    self.offset))
+        return start_buffers, stop_buffers
 
     def _collect_bus_requests(self, bus_settings):
         requests = []
@@ -95,6 +140,10 @@ class State(SessionObject):
             nonrealtimetools.BusGroup,
             type(None),
             )
+        buffer_prototype = (
+            nonrealtimetools.Buffer,
+            nonrealtimetools.BufferGroup,
+            )
         for node, settings in node_settings.items():
             node_id = id_mapping[node]
             a_settings = {}
@@ -109,6 +158,8 @@ class State(SessionObject):
                     else:
                         a_settings[key] = id_mapping[value]
                 else:
+                    if isinstance(value, buffer_prototype):
+                        value = id_mapping[value]
                     n_settings[key] = value
                 if n_settings:
                     request = requesttools.NodeSetRequest(
@@ -131,10 +182,10 @@ class State(SessionObject):
             # separate out floats, control buses and audio buses
         return requests
 
-    def _collect_nodes(self, force_start, force_stop):
+    def _collect_nodes(self, force_stop):
         start_nodes = self.start_nodes
         stop_nodes = self.stop_nodes
-        if force_start or force_stop:
+        if force_stop:
             nonroot_nodes = set(
                 node for node in self._iterate_nodes(
                     self.session.root_node,
@@ -142,31 +193,10 @@ class State(SessionObject):
                     )
                 if node is not self.session.root_node
                 )
-            if force_start:
-                start_nodes.update(nonroot_nodes)
-            if force_stop:
-                stop_nodes.update(nonroot_nodes)
+            stop_nodes.update(nonroot_nodes)
         return start_nodes, stop_nodes
 
-    def _collect_node_actions(self, force_start, start_nodes):
-        from supriya.tools import nonrealtimetools
-        if force_start:
-            node_actions = collections.OrderedDict()
-            for parent, child in self._iterate_node_pairs(
-                self.session.root_node,
-                self.nodes_to_children,
-                ):
-                action = nonrealtimetools.NodeAction(
-                    source=child,
-                    target=parent,
-                    action=servertools.AddAction.ADD_TO_TAIL,
-                    )
-                node_actions[child] = action
-        else:
-            node_actions = self.actions
-        return node_actions
-
-    def _collect_node_settings(self, force_start=None):
+    def _collect_node_settings(self):
         result = collections.OrderedDict()
         if self.nodes_to_children is None:
             # Current state is sparse;
@@ -185,10 +215,7 @@ class State(SessionObject):
                 self.nodes_to_children,
                 )
         for node in iterator:
-            settings = node._collect_settings(
-                self.offset,
-                persistent=force_start,
-                )
+            settings = node._collect_settings(self.offset)
             if settings:
                 result[node] = settings
         return result
@@ -236,6 +263,8 @@ class State(SessionObject):
         return requests
 
     def _desparsify(self):
+        if self._nodes_to_children is not None:
+            return
         previous_state = self.session._find_state_before(
             self.offset,
             with_node_tree=True,
@@ -299,6 +328,7 @@ class State(SessionObject):
             action=action,
             )
         self.actions[source] = action
+        self._propagate_action_transforms()
 
     ### PUBLIC METHODS ###
 
@@ -323,31 +353,6 @@ class State(SessionObject):
         state['offset'] = self.offset
         return state
 
-    def to_requests(
-        self,
-        id_mapping,
-        bus_settings=None,
-        force_start=None,
-        force_stop=None,
-        visited_synthdefs=None,
-        ):
-        requests = []
-        bus_settings = bus_settings or {}
-        visited_synthdefs = visited_synthdefs or set()
-        node_settings = self._collect_node_settings(force_start)
-        if self.nodes_to_children is not None or self.stop_nodes:
-            start_nodes, stop_nodes = self._collect_nodes(force_start, force_stop)
-            node_actions = self._collect_node_actions(force_start, start_nodes)
-            print('        Start:', start_nodes)
-            print('         Stop:', stop_nodes)
-            requests += self._collect_synthdef_requests(visited_synthdefs, start_nodes)
-            requests += self._collect_node_action_requests(id_mapping, node_settings, start_nodes, node_actions)
-        requests += self._collect_node_set_requests(id_mapping, node_settings)
-        requests += self._collect_bus_requests(bus_settings)
-        if self.nodes_to_children is not None or self.stop_nodes:
-            requests += self._collect_node_stop_requests(id_mapping, stop_nodes)
-        return requests
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -367,9 +372,27 @@ class State(SessionObject):
         return self._offset
 
     @property
+    def start_buffers(self):
+        return self._start_buffers
+
+    @property
     def start_nodes(self):
         return self._start_nodes
 
     @property
+    def stop_buffers(self):
+        return self._stop_buffers
+
+    @property
     def stop_nodes(self):
         return self._stop_nodes
+
+    @property
+    def overlap_nodes(self):
+        nodes = self.session._nodes
+        return nodes.find_timespans_overlapping_offset(self.offset)
+
+    @property
+    def overlap_buffers(self):
+        buffers = self.session._buffers
+        return buffers.find_timespans_overlapping_offset(self.offset)

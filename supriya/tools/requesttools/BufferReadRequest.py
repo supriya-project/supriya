@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import os
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -86,7 +85,6 @@ class BufferReadRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
         starting_frame_in_buffer = self.starting_frame_in_buffer
         if starting_frame_in_buffer is None:
             starting_frame_in_buffer = 0
@@ -100,7 +98,7 @@ class BufferReadRequest(Request):
         contents = [
             request_id,
             buffer_id,
-            file_path,
+            self.file_path,
             starting_frame_in_file,
             frame_count,
             starting_frame_in_buffer,
@@ -111,7 +109,7 @@ class BufferReadRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
-        contents = self._get_osc_message_contents()
+        contents = self._get_osc_message_contents(with_textual_osc_command)
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message

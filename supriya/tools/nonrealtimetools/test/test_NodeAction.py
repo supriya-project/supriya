@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
-import unittest
 from supriya.tools import nonrealtimetools
 from supriya.tools import servertools
+from supriya.tools.nonrealtimetools.TestCase import TestCase
 
 
-class TestCase(unittest.TestCase):
+class TestCase(TestCase):
 
     def test_add_to_head_01(self):
         nodes = [nonrealtimetools.Group(None, i) for i in range(2)]

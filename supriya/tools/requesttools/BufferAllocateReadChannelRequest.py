@@ -60,10 +60,13 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
             frame_count=frame_count,
             starting_frame=starting_frame,
             )
+        if channel_indices is None:
+            channel_indices = -1
         if not isinstance(channel_indices, collections.Sequence):
             channel_indices = (channel_indices,)
         channel_indices = tuple(int(_) for _ in channel_indices)
-        assert all(0 <= _ for _ in channel_indices)
+        if channel_indices != (-1,):
+            assert all(0 <= _ for _ in channel_indices)
         self._channel_indices = channel_indices
 
     ### PUBLIC METHODS ###

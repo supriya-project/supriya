@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import os
 from supriya.tools import osctools
 from supriya.tools.requesttools.BufferAllocateRequest import BufferAllocateRequest
 
@@ -77,11 +76,10 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         starting_frame = self.starting_frame
         if starting_frame is None:
             starting_frame = 0
-        file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
         contents = [
             request_id,
             buffer_id,
-            file_path,
+            self.file_path,
             starting_frame,
             frame_count,
             ]
@@ -90,7 +88,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
-        contents = self._get_osc_message_contents()
+        contents = self._get_osc_message_contents(with_textual_osc_command)
         self._coerce_completion_message_output(contents)
         message = osctools.OscMessage(*contents)
         return message

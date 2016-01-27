@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
 import os
-import unittest
-from abjad.tools import timespantools
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
+from supriya.tools.nonrealtimetools.TestCase import TestCase
 
 
-class TestCase(unittest.TestCase):
+class TestCase(TestCase):
 
     def setUp(self):
         self.output_filepath = os.path.abspath(os.path.join(

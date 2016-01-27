@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import os
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -97,14 +96,13 @@ class BufferWriteRequest(Request):
         else:
             request_id = int(self.request_id)
         buffer_id = int(self.buffer_id)
-        file_path = os.path.abspath(os.path.expanduser(str(self.file_path)))
         header_format = self.header_format.name.lower()
         sample_format = self.sample_format.name.lower()
         leave_open = int(bool(self.leave_open))
         contents = [
             request_id,
             buffer_id,
-            file_path,
+            self.file_path,
             header_format,
             sample_format,
             self.frame_count,

@@ -367,6 +367,15 @@ class OscMessage(OscMixin):
         osc_message = OscMessage(address, *contents)
         return osc_message
 
+    def to_list(self):
+        result = [self.address]
+        for x in self.contents:
+            if hasattr(x, 'to_list'):
+                result.append(x.to_list())
+            else:
+                result.append(x)
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

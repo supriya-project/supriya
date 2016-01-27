@@ -7,18 +7,18 @@ import shutil
 import struct
 import subprocess
 import tempfile
-from abjad.tools import timespantools
 from supriya.tools import osctools
+from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
+from supriya.tools import timetools
 from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class Session(OscMixin):
     r'''A non-realtime session.
-
-    ::
+::
 
         >>> from supriya.tools import nonrealtimetools
         >>> session = nonrealtimetools.Session()
@@ -49,8 +49,18 @@ class Session(OscMixin):
 
     ::
 
-        >>> session.to_osc_bundles()
-        []
+        >>> import pprint
+        >>> result = session.to_lists(duration=20)
+        >>> pprint.pprint(result)
+        [[0.0,
+          [['/d_recv',
+            bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 9c4eb4778dc0faf39459fa8a5cd45c19\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01C\xdc\x00\x00\x00\x00\x00\x01\tfrequency\x00\x00\x00\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')],
+          ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
+          ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
+        [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
+        [10.0, [['/n_free', 1000]]],
+        [15.0, [['/n_free', 1001, 1002]]],
+        [20.0, [[0]]]]
 
     '''
 
@@ -60,6 +70,7 @@ class Session(OscMixin):
         '_active_moments',
         '_audio_input_bus_group',
         '_audio_output_bus_group',
+        '_buffers',
         '_buses',
         '_input_count',
         '_nodes',
@@ -69,13 +80,31 @@ class Session(OscMixin):
         '_states',
         )
 
+    _ordered_buffer_post_alloc_request_types = (
+        requesttools.BufferReadRequest,
+        requesttools.BufferReadChannelRequest,
+        requesttools.BufferZeroRequest,
+        requesttools.BufferFillRequest,
+        requesttools.BufferGenerateRequest,
+        requesttools.BufferSetRequest,
+        requesttools.BufferSetContiguousRequest,
+        requesttools.BufferNormalizeRequest,
+        requesttools.BufferCopyRequest,
+        )
+
+    _ordered_buffer_pre_free_request_types = (
+        requesttools.BufferWriteRequest,
+        #requesttools.BufferCloseRequest,  # should be automatic
+        )
+
     ### INITIALIZER ###
 
     def __init__(self, input_count=0, output_count=2):
         from supriya.tools import nonrealtimetools
         self._active_moments = []
         self._states = {}
-        self._nodes = set()
+        self._buffers = timetools.TimespanCollection()
+        self._nodes = timetools.TimespanCollection()
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_states()
@@ -83,14 +112,37 @@ class Session(OscMixin):
 
     ### PRIVATE METHODS ###
 
-    def _build_bus_id_mapping(self):
+    def _build_id_mapping(self):
+        id_mapping = {}
+        id_mapping.update(self._build_id_mapping_for_buffers())
+        id_mapping.update(self._build_id_mapping_for_buses())
+        id_mapping.update(self._build_id_mapping_for_nodes())
+        return id_mapping
+
+    def _build_id_mapping_for_buffers(self):
+        mapping = {}
+        for buffer_ in self._buffers:
+            if buffer_ in mapping:
+                continue
+            if buffer_.buffer_group is None:
+                mapping[buffer_] = buffer_.session_id
+            else:
+                initial_id = buffer_.buffer_group[0].session_id
+                mapping[buffer_.buffer_group] = initial_id
+                for child in buffer_.buffer_group:
+                    mapping[child] = child.session_id
+        return mapping
+
+    def _build_id_mapping_for_buses(self):
         input_count = self._input_count or 0
         output_count = self._output_count or 0
         first_private_bus_id = input_count + output_count
-        audio_bus_allocator = servertools.BlockAllocator(
-            heap_minimum=first_private_bus_id,
-            )
-        control_bus_allocator = servertools.BlockAllocator()
+        allocators = {
+            synthdeftools.CalculationRate.CONTROL: servertools.BlockAllocator(
+                heap_minimum=first_private_bus_id,
+                ),
+            synthdeftools.CalculationRate.CONTROL: servertools.BlockAllocator(),
+            }
         mapping = {}
         if output_count:
             bus_group = self.audio_output_bus_group
@@ -103,10 +155,7 @@ class Session(OscMixin):
         for bus in self._buses:
             if bus in mapping:
                 continue
-            if bus.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-                allocator = audio_bus_allocator
-            else:
-                allocator = control_bus_allocator
+            allocator = allocators[bus.calculation_rate]
             if bus.bus_group is None:
                 mapping[bus] = allocator.allocate(1)
             else:
@@ -116,7 +165,17 @@ class Session(OscMixin):
                     mapping[bus] = bus_id
         return mapping
 
-    def _build_command(
+    def _build_id_mapping_for_nodes(self):
+        allocator = servertools.NodeIdAllocator()
+        mapping = {self.root_node: 0}
+        for offset in self.offsets[1:]:
+            state = self.states[offset]
+            nodes = sorted(state.start_nodes, key=lambda x: x.session_id)
+            for node in nodes:
+                mapping[node] = allocator.allocate_node_id()
+        return mapping
+
+    def _build_render_command(
         self,
         output_filename,
         input_filename=None,
@@ -129,7 +188,7 @@ class Session(OscMixin):
 
         ::
 
-            >>> session._build_command('output.aiff')
+            >>> session._build_render_command('output.aiff')
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         '''
@@ -151,20 +210,139 @@ class Session(OscMixin):
         command = ' '.join(parts)
         return command
 
-    def _build_id_mapping(self):
-        id_mapping = {}
-        id_mapping.update(self._build_bus_id_mapping())
-        id_mapping.update(self._build_synth_id_mapping())
-        return id_mapping
+    def _collect_bus_set_requests(self, bus_settings, offset):
+        requests = []
+        if offset in bus_settings:
+            index_value_pairs = sorted(bus_settings[offset].items())
+            request = requesttools.ControlBusSetRequest(
+                index_value_pairs=index_value_pairs,
+                )
+            requests.append(request)
+        return requests
 
-    def _build_synth_id_mapping(self):
-        allocator = servertools.NodeIdAllocator()
-        mapping = {self.root_node: 0}
-        for offset in self.offsets[1:]:
-            state = self.states[offset]
-            for start_node in state.start_nodes:
-                mapping[start_node] = allocator.allocate_node_id()
-        return mapping
+    def _collect_buffer_allocate_requests(
+        self,
+        buffer_open_states,
+        id_mapping,
+        start_buffers,
+        ):
+        requests = []
+        if start_buffers:
+            for buffer_ in sorted(start_buffers, key=lambda x: x.session_id):
+                arguments = dict(
+                    buffer_id=id_mapping[buffer_],
+                    frame_count=buffer_.frame_count,
+                    )
+                request_class = requesttools.BufferAllocateRequest
+                if buffer_.file_path is not None:
+                    request_class = requesttools.BufferAllocateReadRequest
+                    arguments['file_path'] = buffer_.file_path
+                    arguments['starting_frame'] = buffer_.starting_frame
+                    channel_indices = buffer_.channel_count
+                    if isinstance(channel_indices, int):
+                        channel_indices = tuple(range(buffer_.channel_count))
+                        arguments['channel_indices'] = channel_indices
+                        request_class = requesttools.BufferAllocateReadChannelRequest
+                    elif isinstance(buffer_.channel_count, tuple):
+                        arguments['channel_indices'] = channel_indices
+                        request_class = requesttools.BufferAllocateReadChannelRequest
+                else:
+                    arguments['channel_count'] = buffer_.channel_count or 1
+                    arguments['frame_count'] = arguments['frame_count'] or 1
+                try:
+                    request = request_class(**arguments)
+                except TypeError:
+                    print(request_class, arguments)
+                    raise
+                requests.append(request)
+                buffer_open_states[id_mapping[buffer_]] = False
+        return requests
+
+    def _collect_buffer_free_requests(
+        self,
+        buffer_open_states,
+        id_mapping,
+        stop_buffers,
+        ):
+        requests = []
+        if stop_buffers:
+            for buffer_ in sorted(stop_buffers, key=lambda x: x.session_id):
+                if buffer_open_states[id_mapping[buffer_]]:
+                    close_request = requesttools.BufferCloseRequest(
+                        buffer_id=id_mapping[buffer_],
+                        )
+                    requests.append(close_request)
+                request = requesttools.BufferFreeRequest(
+                    buffer_id=id_mapping[buffer_],
+                    )
+                requests.append(request)
+                del(buffer_open_states[id_mapping[buffer_]])
+        return requests
+
+    def _collect_buffer_nonlifecycle_requests(
+        self,
+        all_buffers,
+        buffer_open_states,
+        buffer_settings,
+        id_mapping,
+        offset,
+        request_types,
+        ):
+        requests = []
+        buffer_settings = buffer_settings.get(offset)
+        if not buffer_settings:
+            return requests
+        for request_type in request_types:
+            buffer_requests = buffer_settings.get(request_type)
+            if not buffer_requests:
+                continue
+            if request_type in (
+                requesttools.BufferReadRequest,
+                requesttools.BufferReadChannelRequest,
+                requesttools.BufferWriteRequest,
+                ):
+                for request in buffer_requests:
+                    buffer_id = request.buffer_id
+                    open_state = buffer_open_states[buffer_id]
+                    if open_state:
+                        close_request = requesttools.BufferCloseRequest(
+                            buffer_id=buffer_id,
+                            )
+                        requests.append(close_request)
+                    requests.append(request)
+                    open_state = bool(request.leave_open)
+                    buffer_open_states[buffer_id] = open_state
+            else:
+                requests.extend(buffer_requests)
+        return requests
+
+    def _collect_buffer_settings(self, id_mapping):
+        buffer_settings = {}
+        for buffer_ in sorted(self._buffers, key=lambda x: id_mapping[x]):
+            for event_type, events in buffer_._events.items():
+                for offset, payload in events:
+                    payload = payload.copy()
+                    for key, value in payload.items():
+                        try:
+                            if value in id_mapping:
+                                payload[key] = id_mapping[value]
+                        except TypeError:  # unhashable
+                            continue
+                    if event_type is requesttools.BufferReadRequest:
+                        if 'channel_indices' in payload:
+                            if payload['channel_indices'] is not None:
+                                event = requesttools.BufferReadChannelRequest(**payload)
+                            else:
+                                payload.pop('channel_indices')
+                                event = requesttools.BufferReadRequest(**payload)
+                        else:
+                            event = requesttools.BufferReadRequest(**payload)
+                    else:
+                        event = event_type(**payload)
+                    offset_settings = buffer_settings.setdefault(offset, {})
+                    event_type_settings = offset_settings.setdefault(event_type, [])
+                    event_type_settings.append(event)
+        return buffer_settings
 
     def _collect_bus_settings(self, id_mapping):
         bus_settings = {}
@@ -175,6 +353,236 @@ class Session(OscMixin):
             for offset, value in bus._events:
                 bus_settings.setdefault(offset, {})[bus_id] = value
         return bus_settings
+
+    def _collect_durated_objects(self, offset, is_last_offset):
+        state = self._find_state_at(offset, clone_if_missing=True)
+        start_buffers, start_nodes = state.start_buffers, state.start_nodes
+        stop_buffers = state.stop_buffers.copy()
+        stop_nodes = state.stop_nodes.copy()
+        if is_last_offset:
+            stop_buffers.update(state.overlap_buffers)
+            stop_nodes.update(state.overlap_nodes)
+        all_buffers = set(self.buffers.find_timespans_overlapping_offset(offset))
+        all_nodes = set(self.nodes.find_timespans_overlapping_offset(offset))
+        all_buffers.update(stop_buffers)
+        all_nodes.update(stop_nodes)
+        return (
+            all_buffers,
+            all_nodes,
+            start_buffers,
+            start_nodes,
+            stop_buffers,
+            stop_nodes,
+            )
+
+    def _collect_node_action_requests(
+        self,
+        duration,
+        id_mapping,
+        node_actions,
+        node_settings,
+        start_nodes,
+        ):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        for source, action in node_actions.items():
+            if source in start_nodes:
+                if isinstance(source, nonrealtimetools.Synth):
+                    synth_kwargs = {}
+                    if source in node_settings:
+                        synth_kwargs.update(node_settings.pop(source))
+                    if 'duration' in source.synthdef.parameter_names:
+                        # need to propagate in session rendering timespan
+                        # as many nodes have "infinite" duration
+                        node_duration = source.duration
+                        if duration < source.stop_offset:  # duration is session duration
+                            node_duration = duration - source.start_offset
+                        synth_kwargs['duration'] = float(node_duration)
+                    request = source.to_request(action, id_mapping, **synth_kwargs)
+                else:
+                    request = source.to_request(action, id_mapping)
+            else:
+                request = action.to_request(id_mapping)
+            requests.append(request)
+        return requests
+
+    def _collect_node_free_requests(self, id_mapping, stop_nodes):
+        requests = []
+        if stop_nodes:
+            free_ids, gate_ids = [], []
+            for node in stop_nodes:
+                node_id = id_mapping[node]
+                if hasattr(node, 'synthdef') and \
+                    'gate' in node.synthdef.parameter_names:
+                    gate_ids.append(node_id)
+                else:
+                    free_ids.append(node_id)
+            free_ids.sort()
+            gate_ids.sort()
+            if free_ids:
+                request = requesttools.NodeFreeRequest(node_ids=free_ids)
+                requests.append(request)
+            if gate_ids:
+                for node_id in gate_ids:
+                    request = requesttools.NodeSetRequest(
+                        node_id=node_id,
+                        gate=0,
+                        )
+                    requests.append(request)
+        return requests
+
+    def _collect_node_settings(self, offset, state):
+        result = collections.OrderedDict()
+        if state.nodes_to_children is None:
+            # Current state is sparse;
+            # Use previous non-sparse state's nodes to order settings.
+            state = self._find_state_before(
+                offset,
+                with_node_tree=True,
+                )
+            iterator = state._iterate_nodes(
+                self.root_node,
+                state.nodes_to_children,
+                )
+        else:
+            iterator = state._iterate_nodes(
+                self.root_node,
+                state.nodes_to_children,
+                )
+        for node in iterator:
+            settings = node._collect_settings(offset)
+            if settings:
+                result[node] = settings
+        return result
+
+    def _collect_node_set_requests(self, id_mapping, node_settings):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        bus_prototype = (
+            nonrealtimetools.Bus,
+            nonrealtimetools.BusGroup,
+            type(None),
+            )
+        buffer_prototype = (
+            nonrealtimetools.Buffer,
+            nonrealtimetools.BufferGroup,
+            )
+        for node, settings in node_settings.items():
+            node_id = id_mapping[node]
+            a_settings = {}
+            c_settings = {}
+            n_settings = {}
+            for key, value in settings.items():
+                if isinstance(value, bus_prototype):
+                    if value is None:
+                        c_settings[key] = -1
+                    elif value.calculation_rate == servertools.CalculationRate.CONTROL:
+                        c_settings[key] = id_mapping[value]
+                    else:
+                        a_settings[key] = id_mapping[value]
+                else:
+                    if isinstance(value, buffer_prototype):
+                        value = id_mapping[value]
+                    n_settings[key] = value
+                if n_settings:
+                    request = requesttools.NodeSetRequest(
+                        node_id=node_id,
+                        **n_settings
+                        )
+                    requests.append(request)
+                if a_settings:
+                    request = requesttools.NodeMapToAudioBusRequest(
+                        node_id=node_id,
+                        **a_settings
+                        )
+                    requests.append(request)
+                if c_settings:
+                    request = requesttools.NodeMapToControlBusRequest(
+                        node_id=node_id,
+                        **c_settings
+                        )
+                    requests.append(request)
+            # separate out floats, control buses and audio buses
+        return requests
+
+    def _collect_requests_at_offset(
+        self,
+        buffer_open_states,
+        buffer_settings,
+        bus_settings,
+        duration,
+        id_mapping,
+        is_last_offset,
+        offset,
+        visited_synthdefs,
+        ):
+        requests = []
+        (
+            all_buffers, all_nodes,
+            start_buffers, start_nodes,
+            stop_buffers, stop_nodes
+            ) = self._collect_durated_objects(offset, is_last_offset)
+        state = self._find_state_at(offset, clone_if_missing=True)
+        node_actions = state.actions
+        node_settings = self._collect_node_settings(offset, state)
+        requests += self._collect_synthdef_requests(
+            start_nodes,
+            visited_synthdefs,
+            )
+        requests += self._collect_buffer_allocate_requests(
+            buffer_open_states,
+            id_mapping,
+            start_buffers,
+            )
+        requests += self._collect_buffer_nonlifecycle_requests(
+            all_buffers,
+            buffer_open_states,
+            buffer_settings,
+            id_mapping,
+            offset,
+            self._ordered_buffer_post_alloc_request_types,
+            )
+        requests += self._collect_node_action_requests(
+            duration,
+            id_mapping,
+            node_actions,
+            node_settings,
+            start_nodes,
+            )
+        requests += self._collect_bus_set_requests(bus_settings, offset)
+        requests += self._collect_node_set_requests(id_mapping, node_settings)
+        requests += self._collect_node_free_requests(id_mapping, stop_nodes)
+        requests += self._collect_buffer_nonlifecycle_requests(
+            all_buffers,
+            buffer_open_states,
+            buffer_settings,
+            id_mapping,
+            offset,
+            self._ordered_buffer_pre_free_request_types,
+            )
+        requests += self._collect_buffer_free_requests(
+            buffer_open_states,
+            id_mapping,
+            stop_buffers,
+            )
+        return requests
+
+    def _collect_synthdef_requests(self, start_nodes, visited_synthdefs):
+        from supriya.tools import nonrealtimetools
+        requests = []
+        synthdefs = set()
+        for node in start_nodes:
+            if not isinstance(node, nonrealtimetools.Synth):
+                continue
+            elif node.synthdef in visited_synthdefs:
+                continue
+            synthdefs.add(node.synthdef)
+            visited_synthdefs.add(node.synthdef)
+        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
+        if synthdefs:
+            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
+            requests.append(request)
+        return requests
 
     def _find_state_after(self, offset, with_node_tree=None):
         index = bisect.bisect(self.offsets, offset)
@@ -191,8 +599,12 @@ class Session(OscMixin):
                 return self.states[old_offset]
         return None
 
-    def _find_state_at(self, offset):
-        return self.states.get(offset, None)
+    def _find_state_at(self, offset, clone_if_missing=False):
+        state = self.states.get(offset, None)
+        if state is None and clone_if_missing:
+            state = self._find_state_before(offset)
+            return state._clone(offset)
+        return state
 
     def _find_state_before(self, offset, with_node_tree=None):
         index = bisect.bisect_left(self.offsets, offset)
@@ -212,42 +624,19 @@ class Session(OscMixin):
             return None
         return self.states[self.offsets[index]]
 
-    def _process_timespan(self, timespan):
+    def _process_duration(self, duration=None):
         if self.duration == float('inf'):
-            assert isinstance(timespan, timespantools.Timespan)
-            assert 0 <= timespan.start_offset
-            assert 0 < timespan.duration < float('inf')
-        elif timespan is not None and timespan.duration == float('inf'):
-            timespan = timespan & timespantools.Timespan(0, self.duration)
-        offset_delta = 0
-        states = []
-        if timespan is None:
-            offset_delta = 0
-            offsets = self.offsets[1:]
+            assert duration is not None and 0 < duration < float('inf')
+        offsets = self.offsets[1:]
+        states = [self.states[offset] for offset in offsets]
+        if duration:
+            offsets = [offset for offset in offsets if
+                offset <= duration]
             states = [self.states[offset] for offset in offsets]
-        else:
-            offset_delta = timespan.start_offset
-            offsets = [_ for _ in self.offsets if
-                timespan.start_offset <= _ < timespan.stop_offset]
-            states = [self.states[offset] for offset in offsets]
-            initial_state = states[0]
-            start_offset = timespan.start_offset
-            if start_offset < initial_state.offset:
-                initial_state = self._find_state_before(start_offset)
-                initial_state = initial_state._clone(
-                    start_offset,
-                    is_instantaneous=True,
-                    )
-                states.insert(0, initial_state)
-            elif states:
-                states[0] = states[0]._clone(
-                    start_offset,
-                    is_instantaneous=True,
-                    )
-            if states[-1].offset != timespan.stop_offset:
-                terminal_state = states[-1]._clone(timespan.stop_offset)
+            if states[-1].offset != duration:
+                terminal_state = states[-1]._clone(duration)
                 states.append(terminal_state)
-        return offset_delta, states
+        return states
 
     def _setup_buses(self, input_count, output_count):
         from supriya.tools import nonrealtimetools
@@ -285,9 +674,9 @@ class Session(OscMixin):
     def at(self, offset):
         from supriya.tools import nonrealtimetools
         assert 0 <= offset
-        # Using this should return a moment, not a state.
-        # No state should be created until after an edit.
         state = self._find_state_at(offset)
+        if state:
+            assert state.offset in self.states
         if not state:
             old_state = self._find_state_before(offset)
             state = old_state._clone(offset)
@@ -298,10 +687,63 @@ class Session(OscMixin):
                 )
         return nonrealtimetools.Moment(self, offset, state)
 
+    def add_buffer(
+        self,
+        channel_count=None,
+        duration=None,
+        frame_count=None,
+        starting_frame=None,
+        file_path=None,
+        ):
+        from supriya.tools import nonrealtimetools
+        assert self.active_moments
+        start_moment = self.active_moments[-1]
+        buffer_ = nonrealtimetools.Buffer(
+            self,
+            channel_count=channel_count,
+            duration=duration,
+            file_path=file_path,
+            frame_count=frame_count,
+            session_id=len(self.buffers),
+            start_offset=start_moment.offset,
+            starting_frame=starting_frame,
+            )
+        start_moment.state.start_buffers.add(buffer_)
+        with self.at(buffer_.stop_offset) as stop_moment:
+            stop_moment.state.stop_buffers.add(buffer_)
+        self._buffers.insert(buffer_)
+        return buffer_
+
+    def add_buffer_group(
+        self,
+        buffer_count=1,
+        channel_count=None,
+        duration=None,
+        frame_count=None,
+        ):
+        from supriya.tools import nonrealtimetools
+        assert self.active_moments
+        start_moment = self.active_moments[-1]
+        buffer_group = nonrealtimetools.BufferGroup(
+            self,
+            buffer_count=buffer_count,
+            channel_count=channel_count,
+            duration=duration,
+            frame_count=frame_count,
+            start_offset=start_moment.offset,
+            )
+        for buffer_ in buffer_group:
+            self._buffers.insert(buffer_)
+            start_moment.state.start_buffers.add(buffer_)
+        with self.at(buffer_group.stop_offset) as stop_moment:
+            for buffer_ in buffer_group:
+                stop_moment.state.stop_buffers.add(buffer_)
+        return buffer_group
+
     def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
         bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
-        self._buses[bus] = None
+        self._buses[bus] = None  # ordered dictionary
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate='control'):
@@ -312,7 +754,7 @@ class Session(OscMixin):
             calculation_rate=calculation_rate,
             )
         for bus in bus_group:
-            self._buses[bus] = None
+            self._buses[bus] = None  # ordered dictionary
         return bus_group
 
     def add_group(
@@ -335,6 +777,26 @@ class Session(OscMixin):
             **synth_kwargs
             )
 
+    def cue_soundfile(
+        self,
+        file_path,
+        channel_count=2,
+        duration=None,
+        frame_count=1024 * 32,
+        start_frame=0,
+        ):
+        buffer_ = self.add_buffer(
+            channel_count=channel_count,
+            duration=duration,
+            frame_count=frame_count,
+            )
+        buffer_.read(
+            file_path,
+            leave_open=True,
+            start_frame=start_frame,
+            )
+        return buffer_
+
     def move_node(
         self,
         node,
@@ -346,14 +808,14 @@ class Session(OscMixin):
         self,
         output_filename,
         input_filename=None,
-        timespan=None,
+        duration=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         debug=False,
         **kwargs
         ):
-        datagram = self.to_datagram(timespan=timespan)
+        datagram = self.to_datagram(duration=duration)
         md5 = hashlib.md5()
         md5.update(datagram)
         md5 = md5.hexdigest()
@@ -361,7 +823,7 @@ class Session(OscMixin):
         file_path = os.path.join(temp_directory_path, '{}.osc'.format(md5))
         with open(file_path, 'wb') as file_pointer:
             file_pointer.write(datagram)
-        command = self._build_command(
+        command = self._build_render_command(
             output_filename,
             input_filename=None,
             sample_rate=sample_rate,
@@ -384,8 +846,8 @@ class Session(OscMixin):
             states.append(state.report())
         return states
 
-    def to_datagram(self, timespan=None):
-        osc_bundles = self.to_osc_bundles(timespan=timespan)
+    def to_datagram(self, duration=None):
+        osc_bundles = self.to_osc_bundles(duration=duration)
         datagrams = []
         for osc_bundle in osc_bundles:
             datagram = osc_bundle.to_datagram(realtime=False)
@@ -396,38 +858,50 @@ class Session(OscMixin):
         datagram = b''.join(datagrams)
         return datagram
 
-    def to_osc_bundles(self, timespan=None):
+    def to_lists(self, duration=None):
+        osc_bundles = self.to_osc_bundles(duration=duration)
+        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
+
+    def to_osc_bundles(self, duration=None):
         id_mapping = self._build_id_mapping()
+        if self.duration == float('inf'):
+            assert duration is not None and 0 < duration < float('inf')
+        duration = duration or self.duration
+        offsets = self.offsets[1:]
+        if duration not in offsets:
+            offsets.append(duration)
+            offsets.sort()
+        buffer_settings = self._collect_buffer_settings(id_mapping)
         bus_settings = self._collect_bus_settings(id_mapping)
-        offset_delta, states = self._process_timespan(timespan)
-        # Need to strip out no-op states, so they don't gum things up.
+        is_last_offset = False
         osc_bundles = []
+        buffer_open_states = {}
         visited_synthdefs = set()
-        print('State Count:', len(states))
-        for i, state in enumerate(states, 1):
-            offset = float(state.offset - offset_delta)
-            force_start = i == 1 and timespan is not None
-            force_stop = i == len(states) and timespan is not None
-            print('    At state:', i, offset, force_start, force_stop)
-            requests = state.to_requests(
+        for offset in offsets:
+            osc_messages = []
+            if offset == duration:
+                is_last_offset = True
+            requests = self._collect_requests_at_offset(
+                buffer_open_states,
+                buffer_settings,
+                bus_settings,
+                duration,
                 id_mapping,
-                bus_settings=bus_settings,
-                force_start=force_start,
-                force_stop=force_stop,
-                visited_synthdefs=visited_synthdefs,
+                is_last_offset,
+                offset,
+                visited_synthdefs,
                 )
-            print('        Requests?', len(requests))
-            osc_messages = [request.to_osc_message(True)
-                for request in requests]
-            if i == len(states):
-                osc_message = osctools.OscMessage(0)
-                osc_messages.append(osc_message)
+            osc_messages.extend(_.to_osc_message(True) for _ in requests)
+            if is_last_offset:
+                osc_messages.append(osctools.OscMessage(0))
             if osc_messages:
                 osc_bundle = osctools.OscBundle(
-                    timestamp=offset,
+                    timestamp=float(offset),
                     contents=osc_messages,
                     )
                 osc_bundles.append(osc_bundle)
+            if is_last_offset:
+                break
         return osc_bundles
 
     ### PUBLIC PROPERTIES ###
@@ -443,6 +917,10 @@ class Session(OscMixin):
     @property
     def audio_output_bus_group(self):
         return self._audio_output_bus_group
+
+    @property
+    def buffers(self):
+        return self._buffers
 
     @property
     def buses(self):

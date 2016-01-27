@@ -99,14 +99,14 @@ class BusGroup(SessionObject):
     ### PUBLIC METHODS ###
 
     def fill(self, value):
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         for bus in self:
             bus._set_at_offset(offset, value)
 
     def get(self):
-        assert self.session._session_moments
-        offset = self.session._session_moments[-1].offset
+        assert self.session._active_moments
+        offset = self.session._active_moments[-1].offset
         values = [bus._get_at_offset(offset) for bus in self]
         return values
 
