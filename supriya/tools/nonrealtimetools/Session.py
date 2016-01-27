@@ -183,6 +183,7 @@ class Session(OscMixin):
                 state = self.states[self.offsets[index]]
                 if state.nodes_to_children is not None:
                     return state
+                index += 1
             return None
         if index < len(self.offsets):
             old_offset = self.offsets[index]
@@ -207,6 +208,7 @@ class Session(OscMixin):
                 state = self.states[self.offsets[index]]
                 if state.nodes_to_children is not None:
                     return state
+                index -= 1
             return None
         return self.states[self.offsets[index]]
 

@@ -168,10 +168,23 @@ class State(SessionObject):
 
     def _collect_node_settings(self, force_start=None):
         result = collections.OrderedDict()
-        for node in self._iterate_nodes(
-            self.session.root_node,
-            self.nodes_to_children,
-            ):
+        if self.nodes_to_children is None:
+            # Current state is sparse;
+            # Use previous non-sparse state's nodes to order settings.
+            state = self.session._find_state_before(
+                self.offset,
+                with_node_tree=True,
+                )
+            iterator = self._iterate_nodes(
+                self.session.root_node,
+                state.nodes_to_children,
+                )
+        else:
+            iterator = self._iterate_nodes(
+                self.session.root_node,
+                self.nodes_to_children,
+                )
+        for node in iterator:
             settings = node._collect_settings(
                 self.offset,
                 persistent=force_start,
@@ -253,7 +266,10 @@ class State(SessionObject):
     def _propagate_action_transforms(self, previous_state=None):
         from supriya.tools import nonrealtimetools
         if previous_state is None:
-            previous_state = self.session._find_state_before(self.offset)
+            previous_state = self.session._find_state_before(
+                self.offset,
+                with_node_tree=True,
+                )
         assert previous_state is not None
         nodes_to_children = previous_state.nodes_to_children.copy()
         nodes_to_parents = previous_state.nodes_to_parents.copy()
@@ -265,7 +281,10 @@ class State(SessionObject):
         if nodes_to_children != self.nodes_to_children:
             self._nodes_to_children = nodes_to_children
             self._nodes_to_parents = nodes_to_parents
-            next_state = self.session._find_state_after(self.offset)
+            next_state = self.session._find_state_after(
+                self.offset,
+                with_node_tree=True,
+                )
             if next_state is not None:
                 next_state._propagate_action_transforms(previous_state=self)
 
