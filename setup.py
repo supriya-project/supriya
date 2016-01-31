@@ -8,7 +8,6 @@ from distutils.version import StrictVersion
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
-    'git://github.com/Abjad/abjad.git#egg=abjad',
     'abjad',
     'pexpect',
     'pytest',
@@ -71,7 +70,8 @@ To install, simply clone **supriya** and run the included `setup.py`:
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
     ~$ cd supriya
-    supriya$ sudo python setup.py install
+    supriya$ pip install -r requirements.txt
+    supriya$ pip install -e .
 
 To run the test suite:
 
