@@ -14,9 +14,12 @@ before_install:
     - sudo apt-get install -y libasound-dev libjack-jackd2-dev
     - sudo apt-get install -y supercollider 
 
-script:
-    - pip install -r requirements.txt
+install:
+    #- pip install -r requirements.txt
     - pip install -e .
+
+script:
+    - python -c 'import supriya'
 
 notifications:
     email: false
