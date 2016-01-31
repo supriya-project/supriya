@@ -8,6 +8,7 @@ from distutils.version import StrictVersion
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
+    'git://github.com/Abjad/abjad.git#egg=abjad',
     'abjad',
     'pexpect',
     'pytest',
@@ -16,9 +17,6 @@ install_requires = [
     'sphinx_rtd_theme',
     'tornado',
     'tox',
-    ]
-dependency_links = [
-    'git://github.com/Abjad/abjad.git#egg=abjad',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
