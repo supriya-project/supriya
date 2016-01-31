@@ -355,7 +355,6 @@ if __name__ == '__main__':
         author='Josiah Wolf Oberholtzer',
         author_email='josiah.oberholtzer@gmail.com',
         classifiers=classifiers,
-        dependency_links=dependency_links,
         description='A Python API for SuperCollider',
         entry_points=entry_points,
         include_package_data=True,
