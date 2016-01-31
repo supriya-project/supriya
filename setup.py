@@ -17,6 +17,9 @@ install_requires = [
     'tornado',
     'tox',
     ]
+dependency_links = [
+    'git://github.com/Abjad/abjad.git#egg=abjad',
+    ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
@@ -354,6 +357,7 @@ if __name__ == '__main__':
         author='Josiah Wolf Oberholtzer',
         author_email='josiah.oberholtzer@gmail.com',
         classifiers=classifiers,
+        dependency_links=dependency_links,
         description='A Python API for SuperCollider',
         entry_points=entry_points,
         include_package_data=True,
