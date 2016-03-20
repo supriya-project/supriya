@@ -1574,7 +1574,7 @@ class UGenMethodMixin(SupriyaObject):
     FRACTIONAL_PART = 10
     # HZ_TO_MIDI = 18
     # HZ_TO_OCTAVE = 24
-    HANNING_WINDOW = 49
+    # HANNING_WINDOW = 49
     IS_NIL = 2
     LINRAND = 39
     LOG = 25

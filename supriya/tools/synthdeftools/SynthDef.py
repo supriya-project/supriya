@@ -16,10 +16,10 @@ class SynthDef(ServerObjectProxy):
 
         >>> from supriya.tools import synthdeftools
         >>> from supriya.tools import ugentools
-        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
-        >>> sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
-        >>> out = ugentools.Out.ar(bus=0, source=sin_osc)
-        >>> builder.add_ugens(out)
+        >>> with synthdeftools.SynthDefBuilder(frequency=440) as builder:
+        ...     sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
+        ...     out = ugentools.Out.ar(bus=0, source=sin_osc)
+        ...
         >>> synthdef = builder.build()
 
     ::
@@ -109,6 +109,39 @@ class SynthDef(ServerObjectProxy):
         return True
 
     def __graph__(self):
+        r'''Graphs SynthDef.
+
+        ::
+
+            >>> print(synthdef.__graph__())
+            digraph synthdef_... {
+                graph [color=lightslategrey,
+                    fontname=Arial,
+                    outputorder=edgesfirst,
+                    overlap=prism,
+                    penwidth=2,
+                    rankdir=LR,
+                    ranksep=1,
+                    splines=spline,
+                    style="dotted, rounded"];
+                node [fontname=Arial,
+                    fontsize=12,
+                    penwidth=2,
+                    shape=Mrecord,
+                    style="filled, rounded"];
+                edge [penwidth=2];
+                ugen_0 [fillcolor=lightgoldenrod2,
+                    label="<f_0> Control\n(control) | { { <f_1_0_0> frequency:\n440.0 } }"];
+                ugen_1 [fillcolor=lightsteelblue2,
+                    label="<f_0> SinOsc\n(audio) | { { <f_1_0_0> frequency | <f_1_0_1> phase:\n0.0 } | { <f_1_1_0> 0 } }"];
+                ugen_2 [fillcolor=lightsteelblue2,
+                    label="<f_0> Out\n(audio) | { { <f_1_0_0> bus:\n0.0 | <f_1_0_1> source } }"];
+                ugen_0:f_1_0_0:e -> ugen_1:f_1_0_0:w [color=goldenrod];
+                ugen_1:f_1_1_0:e -> ugen_2:f_1_0_1:w [color=steelblue];
+            }
+
+        Returns Graphviz graph.
+        '''
         from supriya.tools import documentationtools
         return documentationtools.SynthDefGrapher.graph(self)
 

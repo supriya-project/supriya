@@ -20,7 +20,7 @@ class SynthDefGrapher(SupriyaObject):
                 head_node = ugen_node_mapping[source]
                 head_field = head_node['outputs'][input_.output_index]
                 edge = documentationtools.GraphvizEdge()
-                edge(head_field, tail_field)
+                edge.attach(head_field, tail_field)
                 edge.head_port_position = 'w'
                 edge.tail_port_position = 'e'
                 if source.calculation_rate == synthdeftools.CalculationRate.CONTROL:
@@ -103,7 +103,7 @@ class SynthDefGrapher(SupriyaObject):
             label = str(i)
             if isinstance(ugen, ugentools.Control):
                 parameter_index = ugen.special_index + i
-                parameter = synthdef.parameters[parameter_index]
+                parameter = dict(synthdef.indexed_parameters)[parameter_index]
                 parameter_name = parameter.name
                 #parameter_name = r'\n'.join(parameter.name.split('_'))
                 label = r'{}:\n{}'.format(
