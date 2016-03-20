@@ -1551,6 +1551,160 @@ class UGenMethodMixin(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    '''
+    # ABSOLUTE_VALUE = 5
+    # AMPLITUDE_TO_DB = 22
+    ARCCOS = 32
+    ARCSIN = 31
+    ARCTAN = 33
+    AS_FLOAT = 6
+    AS_INT = 7
+    BILINRAND = 40
+    BIT_NOT = 4
+    CEILING = 8
+    COIN = 44
+    COS = 29
+    COSH = 35
+    CUBED = 13
+    # DB_TO_AMPLITUDE = 21
+    DIGIT_VALUE = 45
+    DISTORT = 42
+    EXPONENTIAL = 15
+    FLOOR = 9
+    FRACTIONAL_PART = 10
+    # HZ_TO_MIDI = 18
+    # HZ_TO_OCTAVE = 24
+    HANNING_WINDOW = 49
+    IS_NIL = 2
+    LINRAND = 39
+    LOG = 25
+    LOG10 = 27
+    LOG2 = 26
+    # MIDI_TO_HZ = 17
+    # SEMITONES_TO_RATIO = 19
+    # NEGATIVE = 0
+    NOT = 1
+    NOT_NIL = 3
+    # OCTAVE_TO_HZ = 23
+    RAMP = 52
+    RAND = 37
+    RAND2 = 38
+    # RATIO_TO_SEMITONES = 20
+    # RECIPROCAL = 16
+    RECTANGLE_WINDOW = 48
+    S_CURVE = 53
+    # SIGN = 11
+    SILENCE = 46
+    SIN = 28
+    SINH = 34
+    SOFTCLIP = 43
+    SQUARE_ROOT = 14
+    SQUARED = 12
+    SUM3RAND = 41
+    TAN = 30
+    TANH = 36
+    THRU = 47
+    TRIANGLE_WINDOW = 51
+    WELCH_WINDOW = 50
+    '''
+
+    '''
+    # ABSOLUTE_DIFFERENCE = 38  # |a - b|
+    # ADDITION = 0
+    AMCLIP = 40
+    ATAN2 = 22
+    BIT_AND = 14
+    BIT_OR = 15
+    BIT_XOR = 16
+    CLIP2 = 42
+    DIFFERENCE_OF_SQUARES = 34  # a*a - b*b
+    # EQUAL = 6
+    EXCESS = 43
+    EXPRANDRANGE = 48
+    FLOAT_DIVISION = 4
+    FILL = 29
+    FIRST_ARG = 46
+    FOLD2 = 44
+    GREATEST_COMMON_DIVISOR = 18
+    GREATER_THAN_OR_EQUAL = 11
+    GREATER_THAN = 9
+    HYPOT = 23
+    HYPOTX = 24
+    INTEGER_DIVISION = 3
+    LEAST_COMMON_MULTIPLE = 17
+    LESS_THAN_OR_EQUAL = 10
+    LESS_THAN = 8
+    # MAXIMUM = 13
+    # MINIMUM = 12
+    # MODULO = 5
+    # MULTIPLICATION = 2
+    # NOT_EQUAL = 7
+    # POWER = 25
+    RANDRANGE = 47
+    RING1 = 30  # a * (b + 1) == a * b + a
+    RING2 = 31  # a * b + a + b
+    RING3 = 32  # a*a*b
+    RING4 = 33  # a*a*b - a*b*b
+    ROUND = 19
+    ROUND_UP = 20
+    SCALE_NEG = 41
+    SHIFT_LEFT = 26
+    SHIFT_RIGHT = 27
+    SQUARE_OF_DIFFERENCE = 37  # (a - b)^2
+    SQUARE_OF_SUM = 36  # (a + b)^2
+    # SUBTRACTION = 1
+    SUM_OF_SQUARES = 35  # a*a + b*b
+    THRESHOLD = 39
+    TRUNCATION = 21
+    UNSIGNED_SHIFT = 28
+    WRAP2 = 45
+    '''
+
+    def absolute_difference(self, expr):
+        r'''Calculates absolute difference between ugen graph and `expr`.
+
+        ::
+
+            >>> ugen_graph = ugentools.SinOsc.ar()
+            >>> expr = ugentools.WhiteNoise.kr()
+            >>> result = ugen_graph.absolute_difference(expr)
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                0_SinOsc[0] -> 2_BinaryOpUGen:ABSOLUTE_DIFFERENCE[0:left]
+                1_WhiteNoise[0] -> 2_BinaryOpUGen:ABSOLUTE_DIFFERENCE[1:right]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_binary_op(
+            self,
+            expr,
+            synthdeftools.BinaryOperator.ABSOLUTE_DIFFERENCE,
+            )
+
+    def amplitude_to_db(self):
+        r'''Converts ugen graph from amplitude to decibels.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.amplitude_to_db()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:AMPLITUDE_TO_DB[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.AMPLITUDE_TO_DB,
+            )
+
     def clip(self, minimum, maximum):
         r'''Clips ugen graph.
 
@@ -1559,7 +1713,7 @@ class UGenMethodMixin(SupriyaObject):
             >>> ugen_graph = ugentools.WhiteNoise.ar()
             >>> result = ugen_graph.clip(-0.25, 0.25)
             >>> print(str(result))
-            SynthDef e710843b0e0fbc5e6185afc6cdf90149 {
+            SynthDef ... {
                 0_WhiteNoise[0] -> 1_Clip[0:source]
                 const_0:-0.25 -> 1_Clip[1:minimum]
                 const_1:0.25 -> 1_Clip[2:maximum]
@@ -1572,7 +1726,7 @@ class UGenMethodMixin(SupriyaObject):
             ...     )
             >>> result = ugen_graph.clip(-0.25, 0.25)
             >>> print(str(result))
-            SynthDef 000e997ea0d7e8637c9f9040547baa50 {
+            SynthDef ... {
                 const_0:440.0 -> 0_SinOsc[0:frequency]
                 const_1:0.0 -> 0_SinOsc[1:phase]
                 0_SinOsc[0] -> 1_Clip[0:source]
@@ -1598,6 +1752,66 @@ class UGenMethodMixin(SupriyaObject):
             maximum=maximum,
             )
 
+    def db_to_amplitude(self):
+        r'''Converts ugen graph from decibels to amplitude.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.db_to_amplitude()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:DB_TO_AMPLITUDE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.DB_TO_AMPLITUDE,
+            )
+
+    def hz_to_midi(self):
+        r'''Converts ugen graph from Hertz to midi note number.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.hz_to_midi()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:HZ_TO_MIDI[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.HZ_TO_MIDI,
+            )
+
+    def hz_to_octave(self):
+        r'''Converts ugen graph from Hertz to octave number.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.hz_to_octave()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:HZ_TO_OCTAVE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.HZ_TO_OCTAVE,
+            )
+
     def lag(
         self,
         lag_time=0.5,
@@ -1609,7 +1823,7 @@ class UGenMethodMixin(SupriyaObject):
             >>> ugen_graph = ugentools.WhiteNoise.ar()
             >>> result = ugen_graph.lag(0.5)
             >>> print(str(result))
-            SynthDef 6c3e2cc1a3d54ecfaa49d567a84eae77 {
+            SynthDef ... {
                 0_WhiteNoise[0] -> 1_Lag[0:source]
                 const_0:0.5 -> 1_Lag[1:lag_time]
             }
@@ -1621,7 +1835,7 @@ class UGenMethodMixin(SupriyaObject):
             ...     )
             >>> result = ugen_graph.lag(0.5)
             >>> print(str(result))
-            SynthDef 67098a4ddab35f6e1333a80a226bf559 {
+            SynthDef ... {
                 const_0:440.0 -> 0_SinOsc[0:frequency]
                 const_1:0.0 -> 0_SinOsc[1:phase]
                 0_SinOsc[0] -> 1_Lag[0:source]
@@ -1643,6 +1857,107 @@ class UGenMethodMixin(SupriyaObject):
             lag_time=lag_time,
             )
 
+    def midi_to_hz(self):
+        r'''Converts ugen graph from midi note number to Hertz.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.midi_to_hz()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:MIDI_TO_HZ[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.MIDI_TO_HZ,
+            )
+
+    def octave_to_hz(self):
+        r'''Converts ugen graph from octave number to Hertz.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.octave_to_hz()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:OCTAVE_TO_HZ[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.OCTAVE_TO_HZ,
+            )
+
+    def ratio_to_semitones(self):
+        r'''Converts ugen graph from frequency ratio to semitone distance.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.ratio_to_semitones()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:RATIO_TO_SEMITONES[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.RATIO_TO_SEMITONES,
+            )
+
+    def reciprocal(self):
+        r'''Calculates reciprocal of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.reciprocal()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:RECIPROCAL[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.RECIPROCAL
+            )
+
+    def semitones_to_ratio(self):
+        r'''Converts ugen graph from semitone distance to frequency ratio.
+
+        ::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.semitones_to_ratio()
+            >>> print(str(result))
+            SynthDef ... {
+                0_WhiteNoise[0] -> 1_UnaryOpUGen:SEMITONES_TO_RATIO[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.SEMITONES_TO_RATIO,
+            )
+
     def scale(
         self,
         input_minimum,
@@ -1658,7 +1973,7 @@ class UGenMethodMixin(SupriyaObject):
             >>> ugen_graph = ugentools.WhiteNoise.ar()
             >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75)
             >>> print(str(result))
-            SynthDef e2295e64ed7b9c949ec22ccdc82520e3 {
+            SynthDef ... {
                 0_WhiteNoise[0] -> 1_MulAdd[0:source]
                 const_0:0.125 -> 1_MulAdd[1:multiplier]
                 const_1:0.625 -> 1_MulAdd[2:addend]
@@ -1671,7 +1986,7 @@ class UGenMethodMixin(SupriyaObject):
             ...     )
             >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75, exponential=True)
             >>> print(str(result))
-            SynthDef 88dca305143542bd40a82d8a6a337306 {
+            SynthDef ... {
                 const_0:440.0 -> 0_SinOsc[0:frequency]
                 const_1:0.0 -> 0_SinOsc[1:phase]
                 0_SinOsc[0] -> 1_LinExp[0:source]
@@ -1706,4 +2021,25 @@ class UGenMethodMixin(SupriyaObject):
             input_maximum=input_maximum,
             output_minimum=output_minimum,
             output_maximum=output_maximum,
+            )
+
+    def sign(self):
+        r'''Calculates sign of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.sign()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:SIGN[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.SIGN
             )
