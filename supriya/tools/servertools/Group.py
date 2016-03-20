@@ -56,35 +56,6 @@ class Group(Node, TreeContainer):
 
     ### SPECIAL METHODS ###
 
-#    def __contains__(self, expr):
-#        for x in self._children:
-#            if x is expr:
-#                return True
-#        return False
-
-#    def __delitem__(self, i):
-#        if isinstance(i, str):
-#            i = self.index(self._named_children[i])
-#        if isinstance(i, int):
-#            if i < 0:
-#                i = len(self) + i
-#            i = slice(i, i + 1)
-#        self.__setitem__(i, [])
-
-#    def __getitem__(self, expr):
-#        if isinstance(expr, (int, slice)):
-#            return self._children[expr]
-#        elif isinstance(expr, str):
-#            return self._named_children[expr]
-#        raise ValueError(expr)
-
-#    def __iter__(self):
-#        for child in self._children:
-#            yield child
-
-#    def __len__(self):
-#        return len(self._children)
-
     def __setitem__(self, i, expr):
         r'''Sets `expr` in self at index `i`.
 
@@ -104,8 +75,12 @@ class Group(Node, TreeContainer):
             if i < 0:
                 i = len(self) + i
             i = slice(i, i + 1)
-        if i.start == i.stop and i.start is not None \
-            and i.stop is not None and i.start <= -len(self):
+        if (
+            i.start == i.stop and
+            i.start is not None and
+            i.stop is not None and
+            i.start <= -len(self)
+            ):
             start, stop = 0, 0
         else:
             start, stop, stride = i.indices(len(self))

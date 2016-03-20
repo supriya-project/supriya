@@ -625,7 +625,7 @@ class SynthDef(ServerObjectProxy):
         synthdef = builder.build()
         return synthdef
 
-    def play(self, server=None, **kwargs):
+    def play(self, add_action=None, target_node=None, **kwargs):
         r'''Plays the synthdef on the server.
 
         ::
@@ -653,11 +653,23 @@ class SynthDef(ServerObjectProxy):
 
         '''
         from supriya.tools import servertools
+        if target_node is not None:
+            target_node = servertools.Node.expr_as_target(target_node)
+            server = target_node.server
+        else:
+            server = servertools.Server.get_default_server()
+            target_node = servertools.Node.expr_as_target(server)
+        if not server.is_running:
+            server.boot()
         if not self.is_allocated:
             self.allocate(server=server)
             self.server.sync()
         synth = servertools.Synth(self, **kwargs)
-        synth.allocate(target_node=self.server, sync=True)
+        synth.allocate(
+            add_action=add_action,
+            sync=True,
+            target_node=target_node,
+            )
         return synth
 
     ### PUBLIC PROPERTIES ###

@@ -124,12 +124,6 @@ class Node(ServerObjectProxy, TreeNode):
         self._server._nodes[self._node_id] = self
         return node_id
 
-#    def _remove_from_parent(self):
-#        if self._parent is not None:
-#            if self in self._parent:
-#                self._parent._children.remove(self)
-#        self._parent = None
-
     def _remove_control_interface_from_parentage(self, name_dictionary):
         if self._parent is not None and name_dictionary:
             for parent in self.parentage[1:]:

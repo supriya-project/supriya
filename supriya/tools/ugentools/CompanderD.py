@@ -17,7 +17,7 @@ class CompanderD(PseudoUGen):
     @classmethod
     def ar(
         cls,
-        source=0.,
+        source=None,
         threshold=0.5,
         clamp_time=0.01,
         relax_time=0.1,
