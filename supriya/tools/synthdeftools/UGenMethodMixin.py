@@ -1591,8 +1591,8 @@ class UGenMethodMixin(SupriyaObject):
     RAND2 = 38
     # RATIO_TO_SEMITONES = 20
     # RECIPROCAL = 16
-    RECTANGLE_WINDOW = 48
-    S_CURVE = 53
+    # RECTANGLE_WINDOW = 48
+    # S_CURVE = 53
     # SIGN = 11
     SILENCE = 46
     SIN = 28
@@ -1604,8 +1604,8 @@ class UGenMethodMixin(SupriyaObject):
     TAN = 30
     TANH = 36
     THRU = 47
-    TRIANGLE_WINDOW = 51
-    WELCH_WINDOW = 50
+    # TRIANGLE_WINDOW = 51
+    # WELCH_WINDOW = 50
     '''
 
     '''
@@ -1772,6 +1772,27 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.UnaryOperator.DB_TO_AMPLITUDE,
             )
 
+    def hanning_window(self):
+        r'''Calculates Hanning-window of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.hanning_window()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:HANNING_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.HANNING_WINDOW
+            )
+
     def hz_to_midi(self):
         r'''Converts ugen graph from Hertz to midi note number.
 
@@ -1917,6 +1938,27 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.UnaryOperator.RATIO_TO_SEMITONES,
             )
 
+    def rectangle_window(self):
+        r'''Calculates rectangle-window of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.rectangle_window()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:RECTANGLE_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.RECTANGLE_WINDOW
+            )
+
     def reciprocal(self):
         r'''Calculates reciprocal of ugen graph.
 
@@ -1936,6 +1978,27 @@ class UGenMethodMixin(SupriyaObject):
         return self._compute_unary_op(
             self,
             synthdeftools.UnaryOperator.RECIPROCAL
+            )
+
+    def s_curve(self):
+        r'''Calculates S-curve of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.s_curve()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:S_CURVE[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.S_CURVE
             )
 
     def semitones_to_ratio(self):
@@ -2042,4 +2105,46 @@ class UGenMethodMixin(SupriyaObject):
         return self._compute_unary_op(
             self,
             synthdeftools.UnaryOperator.SIGN
+            )
+
+    def triangle_window(self):
+        r'''Calculates triangle-window of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.triangle_window()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:TRIANGLE_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.TRIANGLE_WINDOW
+            )
+
+    def welch_window(self):
+        r'''Calculates Welch-window of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.welch_window()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:WELCH_WINDOW[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.WELCH_WINDOW
             )
