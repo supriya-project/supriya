@@ -1495,6 +1495,23 @@ class UGenMethodMixin(SupriyaObject):
             return synthdeftools.CalculationRate.CONTROL
         return synthdeftools.CalculationRate.SCALAR
 
+    def _compute_ugen_map(self, map_ugen, **kwargs):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        ugens = []
+        for source in self[:]:
+            method = ugentools.UGen._get_method_for_rate(map_ugen, source)
+            ugen = method(
+                source=source,
+                **kwargs
+                )
+            ugens.extend(ugen)
+        if 1 < len(ugens):
+            return synthdeftools.UGenArray(ugens)
+        elif len(ugens) == 1:
+            return ugens[0].source
+        return []
+
     @staticmethod
     def _compute_unary_op(source, operator):
         from supriya import synthdeftools
@@ -1535,23 +1552,96 @@ class UGenMethodMixin(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def clip(self, minimum, maximum):
-        from supriya.tools import synthdeftools
+        r'''Clips ugen graph.
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.clip(-0.25, 0.25)
+            >>> print(str(result))
+            SynthDef e710843b0e0fbc5e6185afc6cdf90149 {
+                0_WhiteNoise[0] -> 1_Clip[0:source]
+                const_0:-0.25 -> 1_Clip[1:minimum]
+                const_1:0.25 -> 1_Clip[2:maximum]
+            }
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.SinOsc.ar(
+            ...     frequency=[440, 442, 443],
+            ...     )
+            >>> result = ugen_graph.clip(-0.25, 0.25)
+            >>> print(str(result))
+            SynthDef 000e997ea0d7e8637c9f9040547baa50 {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                0_SinOsc[0] -> 1_Clip[0:source]
+                const_2:-0.25 -> 1_Clip[1:minimum]
+                const_3:0.25 -> 1_Clip[2:maximum]
+                const_4:442.0 -> 2_SinOsc[0:frequency]
+                const_1:0.0 -> 2_SinOsc[1:phase]
+                2_SinOsc[0] -> 3_Clip[0:source]
+                const_2:-0.25 -> 3_Clip[1:minimum]
+                const_3:0.25 -> 3_Clip[2:maximum]
+                const_5:443.0 -> 4_SinOsc[0:frequency]
+                const_1:0.0 -> 4_SinOsc[1:phase]
+                4_SinOsc[0] -> 5_Clip[0:source]
+                const_2:-0.25 -> 5_Clip[1:minimum]
+                const_3:0.25 -> 5_Clip[2:maximum]
+            }
+
+        '''
         from supriya.tools import ugentools
-        ugens = []
-        for source in self[:]:
-            method = ugentools.UGen._get_method_for_rate(
-                ugentools.Clip, source)
-            ugen = method(
-                source=source,
-                minimum=minimum,
-                maximum=maximum,
-                )
-            ugens.extend(ugen)
-        if 1 < len(ugens):
-            return synthdeftools.UGenArray(ugens)
-        elif len(ugens) == 1:
-            return ugens[0].source
-        return []
+        return self._compute_ugen_map(
+            ugentools.Clip,
+            minimum=minimum,
+            maximum=maximum,
+            )
+
+    def lag(
+        self,
+        lag_time=0.5,
+        ):
+        r'''Lags ugen graph.
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.lag(0.5)
+            >>> print(str(result))
+            SynthDef 6c3e2cc1a3d54ecfaa49d567a84eae77 {
+                0_WhiteNoise[0] -> 1_Lag[0:source]
+                const_0:0.5 -> 1_Lag[1:lag_time]
+            }
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.SinOsc.ar(
+            ...     frequency=[440, 442, 443],
+            ...     )
+            >>> result = ugen_graph.lag(0.5)
+            >>> print(str(result))
+            SynthDef 67098a4ddab35f6e1333a80a226bf559 {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                0_SinOsc[0] -> 1_Lag[0:source]
+                const_2:0.5 -> 1_Lag[1:lag_time]
+                const_3:442.0 -> 2_SinOsc[0:frequency]
+                const_1:0.0 -> 2_SinOsc[1:phase]
+                2_SinOsc[0] -> 3_Lag[0:source]
+                const_2:0.5 -> 3_Lag[1:lag_time]
+                const_4:443.0 -> 4_SinOsc[0:frequency]
+                const_1:0.0 -> 4_SinOsc[1:phase]
+                4_SinOsc[0] -> 5_Lag[0:source]
+                const_2:0.5 -> 5_Lag[1:lag_time]
+            }
+
+        '''
+        from supriya.tools import ugentools
+        return self._compute_ugen_map(
+            ugentools.Lag,
+            lag_time=lag_time,
+            )
 
     def scale(
         self,
@@ -1561,26 +1651,59 @@ class UGenMethodMixin(SupriyaObject):
         output_maximum,
         exponential=False,
         ):
-        from supriya.tools import synthdeftools
+        r'''Lags ugen graph.
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.WhiteNoise.ar()
+            >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75)
+            >>> print(str(result))
+            SynthDef e2295e64ed7b9c949ec22ccdc82520e3 {
+                0_WhiteNoise[0] -> 1_MulAdd[0:source]
+                const_0:0.125 -> 1_MulAdd[1:multiplier]
+                const_1:0.625 -> 1_MulAdd[2:addend]
+            }
+
+        ..  container:: example::
+
+            >>> ugen_graph = ugentools.SinOsc.ar(
+            ...     frequency=[440, 442, 443],
+            ...     )
+            >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75, exponential=True)
+            >>> print(str(result))
+            SynthDef 88dca305143542bd40a82d8a6a337306 {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                0_SinOsc[0] -> 1_LinExp[0:source]
+                const_2:-1.0 -> 1_LinExp[1:input_minimum]
+                const_3:1.0 -> 1_LinExp[2:input_maximum]
+                const_4:0.5 -> 1_LinExp[3:output_minimum]
+                const_5:0.75 -> 1_LinExp[4:output_maximum]
+                const_6:442.0 -> 2_SinOsc[0:frequency]
+                const_1:0.0 -> 2_SinOsc[1:phase]
+                2_SinOsc[0] -> 3_LinExp[0:source]
+                const_2:-1.0 -> 3_LinExp[1:input_minimum]
+                const_3:1.0 -> 3_LinExp[2:input_maximum]
+                const_4:0.5 -> 3_LinExp[3:output_minimum]
+                const_5:0.75 -> 3_LinExp[4:output_maximum]
+                const_7:443.0 -> 4_SinOsc[0:frequency]
+                const_1:0.0 -> 4_SinOsc[1:phase]
+                4_SinOsc[0] -> 5_LinExp[0:source]
+                const_2:-1.0 -> 5_LinExp[1:input_minimum]
+                const_3:1.0 -> 5_LinExp[2:input_maximum]
+                const_4:0.5 -> 5_LinExp[3:output_minimum]
+                const_5:0.75 -> 5_LinExp[4:output_maximum]
+            }
+
+        '''
         from supriya.tools import ugentools
-        ugens = []
-        for source in self[:]:
-            if exponential:
-                method = ugentools.UGen._get_method_for_rate(
-                    ugentools.LinExp, source)
-            else:
-                method = ugentools.UGen._get_method_for_rate(
-                    ugentools.LinLin, source)
-            ugen = method(
-                source=source,
-                input_minimum=input_minimum,
-                input_maximum=input_maximum,
-                output_minimum=output_minimum,
-                output_maximum=output_maximum,
-                )
-            ugens.extend(ugen)
-        if 1 < len(ugens):
-            return synthdeftools.UGenArray(ugens)
-        elif len(ugens) == 1:
-            return ugens[0].source
-        return []
+        map_ugen = ugentools.LinLin
+        if exponential:
+            map_ugen = ugentools.LinExp
+        return self._compute_ugen_map(
+            map_ugen,
+            input_minimum=input_minimum,
+            input_maximum=input_maximum,
+            output_minimum=output_minimum,
+            output_maximum=output_maximum,
+            )
