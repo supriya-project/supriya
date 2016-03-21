@@ -2107,6 +2107,64 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.UnaryOperator.SIGN
             )
 
+    def sum(self):
+        r'''Sums ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.sum()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+            }
+
+        ::
+
+            >>> ugen_graph = ugentools.SinOsc.ar([440, 442, 443])
+            >>> result = ugen_graph.sum()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:440.0 -> 0_SinOsc[0:frequency]
+                const_1:0.0 -> 0_SinOsc[1:phase]
+                const_2:442.0 -> 1_SinOsc[0:frequency]
+                const_1:0.0 -> 1_SinOsc[1:phase]
+                const_3:443.0 -> 2_SinOsc[0:frequency]
+                const_1:0.0 -> 2_SinOsc[1:phase]
+                0_SinOsc[0] -> 3_Sum3[0:input_one]
+                1_SinOsc[0] -> 3_Sum3[1:input_two]
+                2_SinOsc[0] -> 3_Sum3[2:input_three]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya.tools import ugentools
+        return ugentools.Mix.new(self)
+
+    def transpose(self, semitones):
+        r'''Transposes ugen graph by `semitones`.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.transpose([0, 3, 7])
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:HZ_TO_MIDI[0:source]
+                1_UnaryOpUGen:HZ_TO_MIDI[0] -> 2_UnaryOpUGen:MIDI_TO_HZ[0:source]
+                1_UnaryOpUGen:HZ_TO_MIDI[0] -> 3_BinaryOpUGen:ADDITION[0:left]
+                const_1:3.0 -> 3_BinaryOpUGen:ADDITION[1:right]
+                3_BinaryOpUGen:ADDITION[0] -> 4_UnaryOpUGen:MIDI_TO_HZ[0:source]
+                1_UnaryOpUGen:HZ_TO_MIDI[0] -> 5_BinaryOpUGen:ADDITION[0:left]
+                const_2:7.0 -> 5_BinaryOpUGen:ADDITION[1:right]
+                5_BinaryOpUGen:ADDITION[0] -> 6_UnaryOpUGen:MIDI_TO_HZ[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        return (self.hz_to_midi() + semitones).midi_to_hz()
+
     def triangle_window(self):
         r'''Calculates triangle-window of ugen graph.
 

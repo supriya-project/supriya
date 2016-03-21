@@ -18,7 +18,7 @@ class DC(PureUGen):
         ...     source=(1, 2, 3),
         ...     )
         UGenArray({3})
-        
+
     '''
 
     ### CLASS VARIABLES ###
