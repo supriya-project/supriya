@@ -1602,7 +1602,7 @@ class UGenMethodMixin(SupriyaObject):
     SQUARED = 12
     SUM3RAND = 41
     TAN = 30
-    TANH = 36
+    # TANH = 36
     THRU = 47
     # TRIANGLE_WINDOW = 51
     # WELCH_WINDOW = 50
@@ -2140,6 +2140,27 @@ class UGenMethodMixin(SupriyaObject):
         '''
         from supriya.tools import ugentools
         return ugentools.Mix.new(self)
+
+    def tanh(self):
+        r'''Calculates hyperbolic tangent of ugen graph.
+
+        ::
+
+            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> result = ugen_graph.tanh()
+            >>> print(str(result))
+            SynthDef ... {
+                const_0:500.0 -> 0_LFNoise2[0:frequency]
+                0_LFNoise2[0] -> 1_UnaryOpUGen:TANH[0:source]
+            }
+
+        Returns ugen graph.
+        '''
+        from supriya import synthdeftools
+        return self._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.TANH
+            )
 
     def transpose(self, semitones):
         r'''Transposes ugen graph by `semitones`.
