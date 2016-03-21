@@ -865,6 +865,10 @@ class SynthDef(ServerObjectProxy):
         return self._name
 
     @property
+    def output_ugens(self):
+        return tuple(_ for _ in self.ugens if _.is_output_ugen)
+
+    @property
     def parameters(self):
         return {parameter.name: parameter
             for index, parameter in self.indexed_parameters}
@@ -872,10 +876,6 @@ class SynthDef(ServerObjectProxy):
     @property
     def parameter_names(self):
         return [parameter.name for index, parameter in self.indexed_parameters]
-
-    @property
-    def output_ugens(self):
-        return tuple(_ for _ in self.ugens if _.is_output_ugen)
 
     @property
     def ugens(self):

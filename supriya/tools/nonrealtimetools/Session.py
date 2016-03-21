@@ -415,7 +415,7 @@ class Session(OscMixin):
                 if hasattr(node, 'synthdef') and \
                     'gate' in node.synthdef.parameter_names:
                     gate_ids.append(node_id)
-                else:
+                elif node.duration:
                     free_ids.append(node_id)
             free_ids.sort()
             gate_ids.sort()
