@@ -1,8 +1,9 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-import sys
+import os
 import pexpect
+import sys
 import time
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -378,14 +379,24 @@ class Server(SupriyaObject):
         from supriya.tools import servertools
         if self.is_running:
             return self
+        scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):
-            raise Exception('Cannot find scsynth. Is it on your $PATH?')
+            found_scsynth = False
+            for path in (
+                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
+                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
+                ):
+                if os.path.exists(path):
+                    scsynth_path = path
+                    found_scsynth = True
+            if not found_scsynth:
+                raise Exception('Cannot find scsynth. Is it on your $PATH?')
         self._osc_controller.boot()
         if server_options is None:
             server_options = self.server_options
         assert isinstance(server_options, servertools.ServerOptions)
         options_string = server_options.as_options_string(self.port)
-        command = 'scsynth {}'.format(options_string)
+        command = '{} {}'.format(scsynth_path, options_string)
         server_process = pexpect.spawn(command)
         time.sleep(0.1)
         error = 'Exception in World_OpenUDP: bind: Address already in use'
