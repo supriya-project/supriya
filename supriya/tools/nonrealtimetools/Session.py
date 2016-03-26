@@ -192,7 +192,20 @@ class Session(OscMixin):
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         '''
-        parts = ['scsynth', '-N', '{}']
+        from abjad.tools import systemtools
+        scsynth_path = 'scsynth'
+        if not systemtools.IOManager.find_executable('scsynth'):
+            found_scsynth = False
+            for path in (
+                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
+                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
+                ):
+                if os.path.exists(path):
+                    scsynth_path = path
+                    found_scsynth = True
+            if not found_scsynth:
+                raise Exception('Cannot find scsynth. Is it on your $PATH?')
+        parts = [scsynth_path, '-N', '{}']
         if input_filename:
             parts.append(os.path.expanduser(input_filename))
         else:

@@ -10,7 +10,8 @@ class TestCase(unittest.TestCase):
 
     def setUp(self):
         self.output_filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__),
+            os.path.dirname(__file__),  # relative to the base class
+            'test',
             'output.aiff',
             ))
         if os.path.exists(self.output_filepath):
