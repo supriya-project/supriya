@@ -1,0 +1,17 @@
+1. Get Supriya and SuperCollider
+````````````````````````````````
+
+Get Supriya from `GitHub`_::
+
+    ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git
+    ~$ cd supriya
+    supriya$ sudo pip install -e .
+
+Get `SuperCollider`_ from http://supercollider.github.io/.
+
+Run the tests to make sure everything's OK::
+
+    supriya$ tox 
+
+Consult our installation instructions for detailed help on getting Abjad,
+setting it up, and installing any additional dependencies like `Graphviz`_.

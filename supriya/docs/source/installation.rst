@@ -6,21 +6,49 @@ Supriya works on OSX and Unix/Linux with Python 3.3+.
 Install Supriya
 ---------------
 
-To install Supriya from its `GitHub`_ repository, via
-`git <https://git-scm.com/>`_ and `pip`_::
+Install Supriya from its `GitHub`_ repository, via `git
+<https://git-scm.com/>`_ and `pip`_::
 
     ~$ git clone https://github.com/josiah-wolf-oberholtzer/supriya.git 
     ~$ cd supriya
     supriya$ sudo pip install -e .
 
+You may need to install `libsndfile`_ in order to install some of `Supriya`_'s
+dependencies, such as `wavefile`_. On OSX, you can get `libsndfile`_ via
+`HomeBrew`. On Linux, consult your package manager.
+
 Install SuperCollider
 `````````````````````
+
+Supriya uses `SuperCollider`_ as its synthesis engine. `SuperCollider`_ is
+available on OSX, Linux and Windows (although Supriya has not been tested on
+Windows).
+
+You can download `SuperCollider`_ from http://supercollider.github.io/.
 
 Install Graphviz (optional)
 ```````````````````````````
 
-Development installation
-------------------------
+Supriya uses `Graphviz`_, an open-source graph visualization library, to create
+graphs of rhythm-trees and other tree structures, and to create visualizations
+of class hierarchies for its documentation. Graphviz is not necessary for
+creating notation with Abjad.
+
+To install `Graphviz`_ on Debian and Ubuntu::
+
+    ~$ sudo apt-get install graphviz
+
+To install `Graphviz`_ on OSX via `Homebrew`_::
+
+    ~$ brew install graphviz
+
+Once you have install `Graphviz`_, test if `Graphviz`_ is callable from your
+command-line by running the following command:
+
+..  code-block:: bash
+
+    ~$ dot -V
+    dot - graphviz version 2.38.0 (20140413.2041)
 
 Virtual environments
 --------------------
@@ -60,3 +88,16 @@ See the `virtualenvwrapper`_ documentation for instructions on how to use the
 provided tools for working creating, deleting, activating and deactivating
 virtual environments:`mkvirtualenv`, `rmvirtualenv`, `workon` and
 `deactivate`.
+
+..  _GitHub: https://github.com/Abjad/abjad
+..  _Graphviz: http://graphviz.org/
+..  _Homebrew: http://brew.sh/
+..  _PyPI: https://pypi.python.org/pypi
+..  _Python: https://www.python.org/
+..  _SuperCollider: http://supercollider.github.io/
+..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _libsndfile: http://www.mega-nerd.com/libsndfile/
+..  _pip: https://pip.pypa.io/en/stable/
+..  _virtualenv: https://readthedocs.org/projects/virtualenv/
+..  _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/
+..  _wavefile: https://pypi.python.org/pypi/wavefile/
