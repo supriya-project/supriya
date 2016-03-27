@@ -41,7 +41,9 @@ classifiers = [
     'Natural Language :: English',
     'Operating System :: MacOS',
     'Operating System :: POSIX',
+    'Programming Language :: Python :: 3.3',
     'Programming Language :: Python :: 3.4',
+    'Programming Language :: Python :: 3.5',
     'Topic :: Artistic Software',
     'Topic :: Multimedia :: Sound/Audio :: Sound Synthesis',
     ]
@@ -72,7 +74,7 @@ if __name__ == '__main__':
         include_package_data=True,
         install_requires=install_requires,
         keywords=keywords,
-        license='GPL',
+        license='MIT',
         long_description=long_description,
         name='supriya',
         packages=['supriya'],
