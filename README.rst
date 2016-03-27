@@ -1,6 +1,5 @@
-###########
 supriya 0.1
-###########
+===========
 
 `Supriya`_ is a `Python`_ interface to `SuperCollider`_.
 
@@ -147,3 +146,17 @@ Quit the server::
 
     >>> server.quit()
     <Server: offline>
+
+
+..  _GitHub: https://github.com/Abjad/abjad
+..  _Graphviz: http://graphviz.org/
+..  _Homebrew: http://brew.sh/
+..  _PyPI: https://pypi.python.org/pypi
+..  _Python: https://www.python.org/
+..  _SuperCollider: http://supercollider.github.io/
+..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  _libsndfile: http://www.mega-nerd.com/libsndfile/
+..  _pip: https://pip.pypa.io/en/stable/
+..  _virtualenv: https://readthedocs.org/projects/virtualenv/
+..  _virtualenvwrapper: https://virtualenvwrapper.readthedocs.org/en/latest/
+..  _wavefile: https://pypi.python.org/pypi/wavefile/

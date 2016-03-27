@@ -69,9 +69,4 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-..  _GitHub: https://github.com/Abjad/abjad
-..  _Graphviz: http://graphviz.org/
-..  _PyPI: https://pypi.python.org/pypi
-..  _Python: https://www.python.org/
-..  _SuperCollider: http://supercollider.github.io/
-..  _Supriya: https://github.com/josiah-wolf-oberholtzer/supriya
+..  include:: references.txt

@@ -4,7 +4,7 @@ global-exclude *.pyc
 include .travis.yml
 include LICENSE
 include MANIFEST.in
-include README.md
+include README.rst
 include graph.png
 include requirements.txt
 include setup.cfg

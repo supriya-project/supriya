@@ -4,35 +4,34 @@ import os
 import supriya
 
 
+def include(file_path, result):
+    with open(file_path, 'r') as file_pointer:
+        result.append('')
+        result.append(file_pointer.read())
+
+
 if __name__ == '__main__':
     print('Making README.rst...')
     supriya_path = supriya.__path__[0]
     version = supriya.__version__
     docs_path = os.path.join(supriya_path, 'docs', 'source')
-
     abstract_path = os.path.join(docs_path, 'abstract.txt')
     links_path = os.path.join(docs_path, 'links.txt')
     quick_install_path = os.path.join(docs_path, 'quick-install.txt')
     quick_example_path = os.path.join(docs_path, 'quick-example.txt')
+    references_path = os.path.join(docs_path, 'references.txt')
     result = 'supriya {}'.format(version)
-    result = ['#' * len(result), result, '#' * len(result)]
-    with open(abstract_path, 'r') as file_pointer:
-        result.append('')
-        result.append(file_pointer.read())
-    with open(links_path, 'r') as file_pointer:
-        result.append('')
-        result.append(file_pointer.read())
+    result = [result, '=' * len(result)]
+    include(abstract_path, result)
+    include(links_path, result)
     result.extend([
         '',
         'Quickstart',
         '----------',
         ])
-    with open(quick_install_path, 'r') as file_pointer:
-        result.append('')
-        result.append(file_pointer.read())
-    with open(quick_example_path, 'r') as file_pointer:
-        result.append('')
-        result.append(file_pointer.read())
+    include(quick_install_path, result)
+    include(quick_example_path, result)
+    include(references_path, result)
     result = '\n'.join(result)
     readme_path = os.path.join(supriya_path, '..', 'README.rst')
     with open(readme_path, 'w') as file_pointer:
