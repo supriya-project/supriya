@@ -959,6 +959,39 @@ class Buffer(ServerObjectProxy):
         response = self.get_contiguous(index_count_pairs=index_count_pairs)
         return response
 
+    def play(
+        self,
+        add_action=None,
+        bus=0,
+        level=1,
+        loop=False,
+        rate=1,
+        target_node=None,
+        ):
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        with synthdeftools.SynthDefBuilder(
+            level=1,
+            rate=1,
+            ) as builder:
+            player = ugentools.PlayBuf.ar(
+                buffer_id=self.buffer_id,
+                channel_count=self.channel_count,
+                loop=loop,
+                rate=ugentools.BufRateScale.kr(self.buffer_id) * builder['rate'],
+                )
+            if not loop:
+                ugentools.FreeSelfWhenDone.kr(player)
+            source = player * builder['level']
+            ugentools.Out.ar(bus=bus, source=source)
+        synthdef = builder.build()
+        return synthdef.play(
+            add_action=add_action,
+            level=level,
+            rate=rate,
+            target_node=target_node,
+            )
+
     def query(self):
         r'''Queries buffer.
 

@@ -727,6 +727,13 @@ class SynthDef(ServerObjectProxy):
         return anonymous_name
 
     @property
+    def audio_channel_count(self):
+        return max(
+            self.audio_input_channel_count,
+            self.audio_output_channel_count,
+            )
+
+    @property
     def audio_input_channel_count(self):
         r'''Gets audio input channel count of synthdef.
 
@@ -807,6 +814,13 @@ class SynthDef(ServerObjectProxy):
     @property
     def control_ugens(self):
         return self._control_ugens
+
+    @property
+    def control_channel_count(self):
+        return max(
+            self.control_input_channel_count,
+            self.control_output_channel_count,
+            )
 
     @property
     def control_input_channel_count(self):
