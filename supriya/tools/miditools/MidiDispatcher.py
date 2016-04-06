@@ -33,16 +33,12 @@ class MidiDispatcher(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, message, timestamp):
-        expr = (message, timestamp)
-        message = self._coerce_input(expr)
-        self.dispatch_message(message)
+        if timestamp is None:
+            message, timestamp = message
+        midi_message = MidiDispatcher._handle_message(message, timestamp)
+        self.dispatch_message(midi_message)
 
     ### PRIVATE METHODS ###
-
-    def _coerce_input(self, expr):
-        message, timestamp = expr
-        midi_message = MidiDispatcher._handle_message(message, timestamp)
-        return midi_message
 
     @staticmethod
     def _handle_controller_change_message(channel_number, data, timestamp):
