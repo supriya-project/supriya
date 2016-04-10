@@ -10,11 +10,20 @@ class SupriyaValueObject(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
+    def __copy__(self, *args):
+        from abjad.tools.topleveltools import new
+        return new(self)
+
     def __eq__(self, expr):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
+        return systemtools.TestManager.compare_objects(self, expr)
 
     def __hash__(self, expr):
         from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
-        return hash(hash_values)
+        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
+        try:
+            result = hash(hash_values)
+        except TypeError:
+            message = 'unhashable type: {}'.format(self)
+            raise TypeError(message)
+        return result

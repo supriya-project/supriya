@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import abc
 from abjad.tools import sequencetools
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class OscMixin(SupriyaObject):
+class OscMixin(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 

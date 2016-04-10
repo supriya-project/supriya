@@ -19,12 +19,11 @@ class BindingInput(BindingSource):
             output_range=output_range,
             )
 
-    ### PRIVATE PROPERTIES ###
+    ### PRIVATE METHODS ###
 
-    @property
-    def _storage_format_specification(self):
+    def _get_format_specification(self):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            keyword_argument_names=(),
+        return systemtools.FormatSpecification(
+            client=self,
+            storage_format_kwargs_names=[],
             )

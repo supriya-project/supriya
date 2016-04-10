@@ -4,15 +4,13 @@ import pytest
 from supriya.tools import documentationtools
 
 
-pytest.skip()
-
-
 _allowed_to_be_empty_string = (
     )
 
 classes = documentationtools.list_all_supriya_classes()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___str___01(class_):
     r'''All concrete classes have a string representation.

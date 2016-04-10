@@ -70,3 +70,7 @@ class Synth(Node):
     @property
     def synthdef(self):
         return self._synthdef
+
+    @property
+    def synth_kwargs(self):
+        return self._synth_kwargs.copy()

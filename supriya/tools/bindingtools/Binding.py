@@ -31,7 +31,7 @@ class Binding(SupriyaObject):
 
         ::
 
-            >>> binding = bind(source, target, range_=(0., 127.))
+            >>> binding = bind(source, target, target_range=(0., 127.))
             >>> for i in range(11):
             ...     source._send_bound_event(float(i) / 10.)
             ...
@@ -55,7 +55,7 @@ class Binding(SupriyaObject):
 
         ::
 
-            >>> binding = bind(source, target, range_=(0., 127.), exponent=2.)
+            >>> binding = bind(source, target, target_range=(0., 127.), exponent=2.)
             >>> for i in range(11):
             ...     source._send_bound_event(float(i) / 10.)
             ...
@@ -100,14 +100,14 @@ class Binding(SupriyaObject):
 
     def __call__(self, event=None):
         from supriya.tools import synthdeftools
-        if self._source_range is not None and self._target_range is not None:
+        if self._target_range is not None:
             event = float(event)
             exponent = self._exponent
             if exponent is None:
                 exponent = 1.0
             event = synthdeftools.Range.scale(
                 event,
-                self._source_range,
+                self._source_range or synthdeftools.Range(0., 1.),
                 self._target_range,
                 exponent=exponent,
                 )

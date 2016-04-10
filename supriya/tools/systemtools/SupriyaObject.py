@@ -41,7 +41,7 @@ class SupriyaObject(AbstractBase):
         '''
         from abjad.tools import systemtools
         if format_specification in ('', 'storage'):
-            return systemtools.StorageFormatManager.get_storage_format(self)
+            return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
 
     def __getstate__(self):
@@ -50,11 +50,15 @@ class SupriyaObject(AbstractBase):
         Returns dictionary.
         '''
         if hasattr(self, '__dict__'):
-            return vars(self)
-        state = {}
+            state = vars(self).copy()
+        else:
+            state = {}
         for class_ in type(self).__mro__:
             for slot in getattr(class_, '__slots__', ()):
-                state[slot] = getattr(self, slot, None)
+                try:
+                    state[slot] = getattr(self, slot)
+                except AttributeError:
+                    pass
         return state
 
     def __hash__(self):
@@ -64,7 +68,7 @@ class SupriyaObject(AbstractBase):
 
         Returns integer.
         '''
-        return id(self)
+        return super(SupriyaObject, self).__hash__()
 
     def __repr__(self):
         r'''Gets interpreter representation of Supriya object.
@@ -72,7 +76,7 @@ class SupriyaObject(AbstractBase):
         Returns string.
         '''
         from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.get_repr_format(self)
+        return systemtools.StorageFormatAgent(self).get_repr_format()
 
     def __setstate__(self, state):
         r'''Sets state of Supriya object.
@@ -84,11 +88,9 @@ class SupriyaObject(AbstractBase):
 
     ### PRIVATE PROPERTIES ###
 
-    @property
-    def _repr_specification(self):
-        return self._storage_format_specification
-
-    @property
-    def _storage_format_specification(self):
+    def _get_format_specification(self):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(self)
+        return systemtools.FormatSpecification(
+            client=self,
+            repr_is_indented=True,
+            )

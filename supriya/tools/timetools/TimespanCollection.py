@@ -294,6 +294,14 @@ class TimespanCollection(SupriyaObject):
 
     ### PRIVATE METHODS ###
 
+    def _get_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.FormatSpecification(
+            client=self,
+            storage_format_args_values=[[x for x in self]],
+            storage_format_kwargs_names=[],
+            )
+
     def _insert_node(self, node, start_offset):
         from supriya.tools import timetools
         if node is None:
@@ -470,22 +478,6 @@ class TimespanCollection(SupriyaObject):
         node._stop_offset_low = stop_offset_low
         node._stop_offset_high = stop_offset_high
         return node
-
-    ### PRIVATE PROPERTIES ###
-
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        positional_argument_values = ()
-        timespans = [x for x in self]
-        if timespans:
-            positional_argument_values = (timespans,)
-        keyword_argument_names = ()
-        return systemtools.StorageFormatSpecification(
-            self,
-            keyword_argument_names=keyword_argument_names,
-            positional_argument_values=positional_argument_values,
-            )
 
     ### PUBLIC METHODS ###
 

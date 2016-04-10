@@ -32,6 +32,13 @@ class GroupControl(BindingTarget):
 
     ### PRIVATE METHODS ###
 
+    def _get_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.FormatSpecification(
+            client=self,
+            storage_format_kwargs_names=['name'],
+            )
+
     def _map_to_bus(self, bus):
         pass
 
@@ -46,18 +53,6 @@ class GroupControl(BindingTarget):
 
     def _unmap(self):
         pass
-
-    ### PRIVATE PROPERTIES ###
-
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            keyword_argument_names=(
-                'name',
-                ),
-            )
 
     ### PUBLIC METHODS ###
 

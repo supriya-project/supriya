@@ -5,17 +5,15 @@ import pytest
 from supriya.tools import documentationtools
 
 
-pytest.skip()
-
-
 classes = documentationtools.list_all_supriya_classes()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___copy___01(class_):
     r'''All concrete classes with a storage format can copy.
     '''
-    if not '_storage_format_specification' in dir(class_):
+    if '_storage_format_specification' not in dir(class_):
         return
     if inspect.isabstract(class_):
         return

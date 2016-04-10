@@ -8,9 +8,9 @@ from distutils.version import StrictVersion
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
-    'abjad',
+    'abjad>=2.18',
     'pexpect',
-    'pytest',
+    'pytest>=3.0.0',
     'six',
     'sphinx>=1.3.1',
     'sphinx_rtd_theme',
@@ -23,6 +23,7 @@ if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('pathlib2')
 if StrictVersion(version) < StrictVersion('3.3.0'):
     install_requires.append('funcsigs')
+    install_requires.append('mock')
 
 if not on_rtd:
     install_requires.extend([

@@ -105,7 +105,7 @@ class Node(SessionObject):
         '''
         Relative to Synth start offset.
         '''
-        if offset < 0 or self.duration < offset:
+        if offset < self.start_offset or self.stop_offset <= offset:
             return
         events = self._events.setdefault(item, [])
         new_event = (offset, value)

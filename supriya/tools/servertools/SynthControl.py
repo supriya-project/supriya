@@ -82,18 +82,16 @@ class SynthControl(BindingTarget):
 
     ### PRIVATE PROPERTIES ###
 
-    @property
-    def _storage_format_specification(self):
+    def _format_specification(self):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            keyword_argument_names=(
-                'name',
-                'range_',
-                'calculation_rate',
-                'unit',
-                'value',
-                ),
+        agent = systemtools.StorageFormatAgent(self)
+        names = agent.signature_names
+        for name in ('client', 'index'):
+            if name in names:
+                names.remove(name)
+        return systemtools.FormatSpecification(
+            client=self,
+            storage_format_kwargs_names=names,
             )
 
     ### PUBLIC METHODS ###

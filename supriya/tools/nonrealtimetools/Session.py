@@ -54,13 +54,21 @@ class Session(OscMixin):
         >>> pprint.pprint(result)
         [[0.0,
           [['/d_recv',
-            bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 9c4eb4778dc0faf39459fa8a5cd45c19\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01C\xdc\x00\x00\x00\x00\x00\x01\tfrequency\x00\x00\x00\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')],
-          ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
-          ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
-        [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
-        [10.0, [['/n_free', 1000]]],
-        [15.0, [['/n_free', 1001, 1002]]],
-        [20.0, [[0]]]]
+            bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 9c4eb4778dc0faf39459fa8a5cd45'
+                      b'c19\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01C'
+                      b'\xdc\x00\x00\x00\x00\x00\x01\tfrequency\x00\x00\x00'
+                      b'\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00'
+                      b'\x00\x01\x00\x00\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00'
+                      b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff'
+                      b'\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00'
+                      b'\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00'
+                      b'\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')],
+           ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
+           ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
+         [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
+         [10.0, [['/n_free', 1000]]],
+         [15.0, [['/n_free', 1001, 1002]]],
+         [20.0, [[0]]]]
 
     '''
 
@@ -401,7 +409,7 @@ class Session(OscMixin):
         for source, action in node_actions.items():
             if source in start_nodes:
                 if isinstance(source, nonrealtimetools.Synth):
-                    synth_kwargs = {}
+                    synth_kwargs = source.synth_kwargs
                     if source in node_settings:
                         synth_kwargs.update(node_settings.pop(source))
                     if 'duration' in source.synthdef.parameter_names:
@@ -497,24 +505,24 @@ class Session(OscMixin):
                     if isinstance(value, buffer_prototype):
                         value = id_mapping[value]
                     n_settings[key] = value
-                if n_settings:
-                    request = requesttools.NodeSetRequest(
-                        node_id=node_id,
-                        **n_settings
-                        )
-                    requests.append(request)
-                if a_settings:
-                    request = requesttools.NodeMapToAudioBusRequest(
-                        node_id=node_id,
-                        **a_settings
-                        )
-                    requests.append(request)
-                if c_settings:
-                    request = requesttools.NodeMapToControlBusRequest(
-                        node_id=node_id,
-                        **c_settings
-                        )
-                    requests.append(request)
+            if n_settings:
+                request = requesttools.NodeSetRequest(
+                    node_id=node_id,
+                    **n_settings
+                    )
+                requests.append(request)
+            if a_settings:
+                request = requesttools.NodeMapToAudioBusRequest(
+                    node_id=node_id,
+                    **a_settings
+                    )
+                requests.append(request)
+            if c_settings:
+                request = requesttools.NodeMapToControlBusRequest(
+                    node_id=node_id,
+                    **c_settings
+                    )
+                requests.append(request)
             # separate out floats, control buses and audio buses
         return requests
 

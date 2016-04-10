@@ -3,8 +3,7 @@ import inspect
 import pytest
 from supriya.tools import documentationtools
 from supriya.tools import synthdeftools
-
-pytest.skip()
+from supriya.tools import ugentools
 
 ignored_names = (
     '__dict__',
@@ -39,6 +38,7 @@ for cls in classes:
 functions = documentationtools.list_all_supriya_functions()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('obj', classes)
 def test_supriya___doc___01(obj):
     r'''All classes have a docstring.
@@ -48,6 +48,7 @@ def test_supriya___doc___01(obj):
         raise Exception(message)
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('pair', class_attr_pairs)
 def test_supriya___doc___02(pair):
     r'''All methods and properties have a docstring.
@@ -60,6 +61,7 @@ def test_supriya___doc___02(pair):
             raise Exception(message)
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('obj', functions)
 def test_supriya___doc___03(obj):
     r'''All functions have a docstring.

@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class BufferProxy(SupriyaObject):
+class BufferProxy(SupriyaValueObject):
     r'''A buffer proxy.
 
     Acts as a singleton reference to a buffer on the server, tracking the state
@@ -70,59 +70,6 @@ class BufferProxy(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
-        r'''Is true this buffer proxy equals `expr`. Otherwise false.
-
-        ::
-
-            >>> buffer_proxy_one = servertools.BufferProxy(
-            ...     buffer_id=1,
-            ...     server=server,
-            ...     channel_count=2,
-            ...     frame_count=8,
-            ...     sample_rate=44100,
-            ...     )
-
-        ::
-
-            >>> buffer_proxy_two = servertools.BufferProxy(
-            ...     buffer_id=1,
-            ...     server=server,
-            ...     channel_count=2,
-            ...     frame_count=8,
-            ...     sample_rate=44100,
-            ...     )
-
-        ::
-
-            >>> buffer_proxy_three = servertools.BufferProxy(
-            ...     buffer_id=2,
-            ...     server=server,
-            ...     channel_count=1,
-            ...     frame_count=32,
-            ...     sample_rate=48000,
-            ...     )
-
-        ::
-
-            >>> buffer_proxy_one == buffer_proxy_two
-            True
-
-        ::
-
-            >>> buffer_proxy_one == buffer_proxy_three
-            False
-
-        ::
-
-            >>> buffer_proxy_two == buffer_proxy_three
-            False
-
-        Returns boolean.
-        '''
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
-
     def __float__(self):
         r'''Gets float representation of buffer proxy.
 
@@ -134,40 +81,6 @@ class BufferProxy(SupriyaObject):
         Returns float.
         '''
         return float(self.buffer_id)
-
-    def __hash__(self):
-        r'''Hashes buffer proxy.
-
-        ::
-
-            >>> buffer_proxy_one = servertools.BufferProxy(
-            ...     buffer_id=1,
-            ...     server=server,
-            ...     channel_count=2,
-            ...     frame_count=8,
-            ...     sample_rate=44100,
-            ...     )
-
-        ::
-
-            >>> buffer_proxy_two = servertools.BufferProxy(
-            ...     buffer_id=1,
-            ...     server=server,
-            ...     channel_count=2,
-            ...     frame_count=8,
-            ...     sample_rate=44100,
-            ...     )
-
-        ::
-
-            >>> hash(buffer_proxy_one) == hash(buffer_proxy_two)
-            True
-
-        Returns integer.
-        '''
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
-        return hash(hash_values)
 
     def __int__(self):
         r'''Gets integer representation of buffer proxy.

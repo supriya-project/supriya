@@ -97,23 +97,12 @@ class OscBundle(OscMixin):
         from supriya.tools import osctools
         self._timestamp = timestamp
         if contents is not None:
-            prototype = (osctools.OscMessage, osctools.OscBundle)
+            prototype = (osctools.OscMessage, type(self))
             assert all(isinstance(x, prototype) for x in contents)
             contents = tuple(contents)
         else:
             contents = ()
         self._contents = contents
-
-    ### SPECIAL METHODS ###
-
-    def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
-
-    def __hash__(self):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
-        return hash(hash_values)
 
     ### PRIVATE METHODS ###
 

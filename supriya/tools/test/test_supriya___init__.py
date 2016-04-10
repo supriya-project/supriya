@@ -8,7 +8,7 @@ from abjad.tools import mathtools
 from supriya.tools import documentationtools
 
 
-pytest.skip()
+pytestmark = pytest.mark.skip()
 
 
 classes = documentationtools.list_all_supriya_classes()
@@ -29,6 +29,7 @@ valid_types = (
 functions = documentationtools.list_all_supriya_functions()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___init___01(class_):
     r'''All concrete classes initialize from empty input.
@@ -38,6 +39,7 @@ def test_supriya___init___01(class_):
         assert instance is not None
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('obj', classes)
 def test_supriya___init___02(obj):
     r'''Make sure class initializer keyword argument values are immutable.
@@ -62,6 +64,7 @@ def test_supriya___init___02(obj):
                 assert all(isinstance(x, valid_types) for x in value)
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('obj', functions)
 def test_supriya___init___03(obj):
     r'''Make sure function keyword argument values are immutable.

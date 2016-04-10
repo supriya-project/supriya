@@ -86,6 +86,11 @@ class Request(SupriyaValueObject):
     def to_osc_message(self, with_textual_osc_command=False):
         raise NotImplementedError
 
+    def to_list(self, with_textual_osc_command=False):
+        return self.to_osc_message(
+            with_textual_osc_command=with_textual_osc_command
+            ).to_list()
+
     ### PUBLIC PROPERTIES ###
 
     @property
