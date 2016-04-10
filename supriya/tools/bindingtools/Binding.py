@@ -80,8 +80,8 @@ class Binding(SupriyaObject):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_input_range',
-        '_output_range',
+        '_target_range',
+        '_source_range',
         '_exponent',
         '_source',
         '_target',
@@ -91,31 +91,38 @@ class Binding(SupriyaObject):
 
     def __init__(self):
         self._exponent = None
-        self._input_range = None
-        self._output_range = None
         self._source = None
+        self._source_range = None
         self._target = None
+        self._target_range = None
 
     ### SPECIAL METHODS ###
 
     def __call__(self, event=None):
         from supriya.tools import synthdeftools
-        if self._output_range is not None and self._input_range is not None:
+        if self._source_range is not None and self._target_range is not None:
             event = float(event)
             exponent = self._exponent
             if exponent is None:
                 exponent = 1.0
             event = synthdeftools.Range.scale(
                 event,
-                self._input_range,
-                self._output_range,
+                self._source_range,
+                self._target_range,
                 exponent=exponent,
                 )
         self._target._receive_bound_event(event)
 
     ### PUBLIC METHODS ###
 
-    def bind(self, source, target, range_=None, exponent=None):
+    def bind(
+        self,
+        source,
+        target,
+        source_range=None,
+        target_range=None,
+        exponent=None,
+        ):
         from supriya.tools import synthdeftools
         self.unbind()
         assert hasattr(source, '_binding_targets')
@@ -124,15 +131,14 @@ class Binding(SupriyaObject):
         source._binding_targets.add(self)
         self._target = target
         self._source = source
-        input_range = None
-        if hasattr(self._source, '_output_range'):
-            input_range = self._source._output_range
-        if input_range is not None:
-            input_range = synthdeftools.Range(input_range)
-        self._input_range = input_range
-        if range_ is not None:
-            range_ = synthdeftools.Range(range_)
-        self._output_range = range_
+        source_range = source_range or getattr(self.source, '_range', None)
+        if source_range is not None:
+            source_range = synthdeftools.Range(source_range)
+        self._source_range = source_range
+        target_range = target_range or getattr(self.target, '_range', None)
+        if target_range is not None:
+            target_range = synthdeftools.Range(target_range)
+        self._target_range = target_range
         if exponent is not None:
             exponent = float(exponent)
         self._exponent = exponent
@@ -143,8 +149,8 @@ class Binding(SupriyaObject):
         if self._target is not None:
             self._target._binding_sources.remove(self)
         self._exponent = None
-        self._input_range = None
-        self._output_range = None
+        self._target_range = None
+        self._source_range = None
         self._source = None
         self._target = None
 
@@ -155,17 +161,17 @@ class Binding(SupriyaObject):
         return self._exponent
 
     @property
-    def input_range(self):
-        return self._input_range
-
-    @property
-    def output_range(self):
-        return self._output_range
-
-    @property
     def source(self):
         return self._source
 
     @property
+    def source_range(self):
+        return self._source_range
+
+    @property
     def target(self):
         return self._target
+
+    @property
+    def target_range(self):
+        return self._target_range
