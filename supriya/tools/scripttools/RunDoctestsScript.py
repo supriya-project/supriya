@@ -6,7 +6,7 @@ import os
 import sys
 from abjad.tools import stringtools
 from abjad.tools import systemtools
-from abjad.tools.developerscripttools.DirectoryScript import DirectoryScript
+from abjad.tools.commandlinetools.DirectoryScript import DirectoryScript
 try:
     from StringIO import StringIO
 except ImportError:
