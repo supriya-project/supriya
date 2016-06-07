@@ -119,7 +119,9 @@ class SynthDef(ServerObjectProxy):
 
             >>> print(synthdef.__graph__())
             digraph synthdef_... {
-                graph [color=lightslategrey,
+                graph [bgcolor=transparent,
+                    color=lightslategrey,
+                    dpi=72,
                     fontname=Arial,
                     outputorder=edgesfirst,
                     overlap=prism,

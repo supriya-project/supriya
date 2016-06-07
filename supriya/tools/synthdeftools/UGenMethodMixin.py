@@ -1528,6 +1528,14 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> ugen_graph = ugentools.SinOsc.ar(frequency=[1, 2, 3])
                 >>> print(str(ugen_graph))
+                SynthDef 4015dac116b25c54b4a6f02bcb5859cb {
+                    const_0:1.0 -> 0_SinOsc[0:frequency]
+                    const_1:0.0 -> 0_SinOsc[1:phase]
+                    const_2:2.0 -> 1_SinOsc[0:frequency]
+                    const_1:0.0 -> 1_SinOsc[1:phase]
+                    const_3:3.0 -> 2_SinOsc[0:frequency]
+                    const_1:0.0 -> 2_SinOsc[1:phase]
+                }
 
         Returns string.
         '''

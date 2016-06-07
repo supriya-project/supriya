@@ -327,7 +327,7 @@ class BufferProxy(SupriyaObject):
         ::
 
             >>> buffer_proxy.server
-            <Server: offline>
+            <Server: udp://127.0.0.1:57751, 8i8o>
 
         Returns server.
         '''
