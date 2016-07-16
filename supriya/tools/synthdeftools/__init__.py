@@ -1,6 +1,5 @@
 # -*- encoding: utf-8 -*-
-
-r'''
+'''
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
 '''
 

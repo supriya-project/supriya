@@ -2,7 +2,7 @@
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
-from supriya.tools.nonrealtimetools.TestCase import TestCase
+from base import TestCase
 
 
 class TestCase(TestCase):

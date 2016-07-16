@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import nonrealtimetools
-from supriya.tools.nonrealtimetools.TestCase import TestCase
+from base import TestCase
 
 
 class TestCase(TestCase):

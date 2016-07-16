@@ -1,34 +1,37 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
+import abjad
+import supriya
 import os
-import sys
+#import sys
+from docutils import nodes
 from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
 
 # Setup path for RTD.
-sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
+# sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
 
-print('SYS PATH')
-for x in sys.path:
-    print('    {}'.format(x))
+#print('SYS PATH')
+#for x in sys.path:
+#    print('    {}'.format(x))
 
 # Scrape the API.
-from supriya.tools import documentationtools
-documentationtools.SupriyaDocumentationManager().execute()
+#from supriya.tools import documentationtools
+#documentationtools.SupriyaDocumentationManager().execute()
 
 # Mock out compiled extensions.
-try:
-    from unittest.mock import MagicMock
-except ImportError:
-    from mock import Mock as MagicMock
+#try:
+#    from unittest.mock import MagicMock
+#except ImportError:
+#    from mock import Mock as MagicMock
 
-class Mock(MagicMock):
-    @classmethod
-    def __getattr__(cls, name):
-            return Mock()
+#class Mock(MagicMock):
+#    @classmethod
+#    def __getattr__(cls, name):
+#            return Mock()
 
-MOCK_MODULES = ['numpy', 'rtmidi']
-sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+#MOCK_MODULES = ['numpy', 'rtmidi']
+#sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
 
 
 class CustomLatexFormatter(LatexFormatter):
@@ -55,9 +58,6 @@ extensions = [
 #if not on_rtd:
 #    extensions.append('sphinx.ext.doctest')
 
-import abjad
-import supriya
-
 doctest_path = [
     os.path.abspath(abjad.__path__[0]),
     os.path.abspath(supriya.__path__[0]),
@@ -78,7 +78,6 @@ doctest_test_doctest_blocks = True
 
 abjadbook_console_module_names = ['supriya']
 
-from docutils import nodes
 nodes.doctest_block = nodes.literal_block
 
 intersphinx_mapping = {
