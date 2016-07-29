@@ -8,7 +8,6 @@ from supriya.tools import bindingtools
 from supriya.tools import clocktools
 from supriya.tools import dawtools
 from supriya.tools import documentationtools
-from supriya.tools import midifiletools
 from supriya.tools import miditools
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
