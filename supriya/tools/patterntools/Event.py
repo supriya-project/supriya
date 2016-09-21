@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
+import uuid
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -50,11 +51,13 @@ class Event(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
-    def _expand(self, settings, synthdef, uuids):
+    def _expand(self, settings, synthdef, uuids, realtime=True):
+        print('BEFORE', settings, uuids)
         settings = settings.copy()
-        for key, value in settings.items():
-            if value in uuids:
-                settings[key] = list(uuids[value])
+        if realtime:
+            for key, value in settings.items():
+                if isinstance(value, uuid.UUID) and value in uuids:
+                    settings[key] = list(uuids[value])
         maximum_length = 1
         unexpanded_settings = {}
         for key, value in settings.items():

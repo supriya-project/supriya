@@ -65,11 +65,17 @@ class NoteEvent(Event):
                 for event in events[1:]:
                     settings.update(event.settings)
                 timeline[offset] = self._expand(
-                    settings, synthdef, uuids)
+                    settings, synthdef, uuids, realtime=False)
             synths = []
             with session.at(offsets[0]):
-                for synth_kwargs in timeline[offsets[0]]:
+                for dictionary in timeline[offsets[0]]:
+                    print('DICT', dictionary)
+                    synth_kwargs = {
+                        key: value for key, value in dictionary.items()
+                        if key in synthdef.parameter_names
+                        }
                     synth = session.add_synth(
+                        add_action=self['add_action'],
                         duration=duration,
                         synthdef=synthdef,
                         **synth_kwargs
@@ -77,15 +83,23 @@ class NoteEvent(Event):
                     synths.append(synth)
             for offset in offsets[1:]:
                 with session.at(offset):
-                    for synth, synth_kwargs in zip(synths, timeline[offset]):
+                    for synth, dictionary in zip(synths, timeline[offset]):
+                        synth_kwargs = {
+                            key: value for key, value in dictionary.items()
+                            if key in synthdef.parameter_names
+                            }
                         for key, value in synth_kwargs.items():
                             synth[key] = value
         else:
             # One shot
             expanded_synth_kwargs = self._expand(
-                self.settings, synthdef, uuids)
+                self.settings, synthdef, uuids, realtime=False)
             with session.at(offset):
-                for synth_kwargs in expanded_synth_kwargs:
+                for dictionary in expanded_synth_kwargs:
+                    synth_kwargs = {
+                        key: value for key, value in dictionary.items()
+                        if key in synthdef.parameter_names
+                        }
                     synth = session.add_synth(
                         duration=self.duration,
                         synthdef=synthdef,
@@ -159,6 +173,8 @@ class NoteEvent(Event):
             for node_id, dictionary in zip(node_ids, dictionaries):
                 add_action = dictionary.pop('add_action')
                 target_node = dictionary.pop('target_node')
+                if target_node is None:
+                    target_node = 1
                 synth_kwargs = {
                     key: value for key, value in dictionary.items()
                     if key in synthdef.parameter_names
@@ -175,9 +191,13 @@ class NoteEvent(Event):
                 node_ids[node_id] = synth
         else:
             for node_id, dictionary in zip(node_ids, dictionaries):
+                synth_kwargs = {
+                    key: value for key, value in dictionary.items()
+                    if key in synthdef.parameter_names
+                    }
                 request = requesttools.NodeSetRequest(
                     node_id=node_id,
-                    **dictionary
+                    **synth_kwargs
                     )
                 requests.append(request)
         event_product = patterntools.EventProduct(

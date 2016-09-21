@@ -19,6 +19,7 @@ class GroupEvent(Event):
         delta=0,
         is_stop=None,
         target_node=None,
+        release_time=None,
         uuid=None,
         ):
         if add_action is not None:
@@ -31,6 +32,7 @@ class GroupEvent(Event):
             add_action=add_action,
             delta=delta,
             is_stop=is_stop,
+            release_time=release_time,
             target_node=target_node,
             uuid=uuid,
             )

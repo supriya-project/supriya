@@ -33,7 +33,6 @@ class TestCase(systemtools.TestCase):
                     calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
                     channel_count=2,
                     delta=0,
-                    release_time=0.2,
                     uuid=UUID('...'),
                     ),
                 index=0,

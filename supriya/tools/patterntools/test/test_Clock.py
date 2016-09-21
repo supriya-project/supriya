@@ -173,7 +173,7 @@ class TestCase(unittest.TestCase):
         now = clock.schedule(event_a)
         now = clock.schedule(event_b)
         time.sleep(1.)
-        assert [abs(round(_ - now, 3)) for _ in manifest] == [
+        assert [abs(round(_ - now, 2)) for _ in manifest] == [
             0.0, 0.0, 0.1, 0.1, 0.3, 0.3, 0.6, 0.6]
 
     def test_13(self):

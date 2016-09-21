@@ -19,6 +19,7 @@ class BusEvent(Event):
         channel_count=1,
         delta=0,
         is_stop=False,
+        release_time=None,
         uuid=None,
         ):
         assert 0 < channel_count
@@ -34,6 +35,7 @@ class BusEvent(Event):
             channel_count=channel_count,
             delta=delta,
             is_stop=is_stop,
+            release_time=release_time,
             uuid=uuid,
             )
 

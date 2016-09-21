@@ -28,7 +28,6 @@ class TestCase(systemtools.TestCase):
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.GroupEvent(
                     delta=0,
-                    release_time=0.2,
                     uuid=UUID('...'),
                     ),
                 index=0,
