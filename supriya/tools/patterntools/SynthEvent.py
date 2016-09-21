@@ -41,8 +41,46 @@ class SynthEvent(Event):
 
     ### PRIVATE METHODS ###
 
-    def _perform_nonrealtime(self):
-        raise NotImplementedError
+    def _perform_nonrealtime(
+        self,
+        session,
+        uuids,
+        offset,
+        ):
+        from supriya import synthdefs
+        from supriya.tools import nonrealtimetools
+        synthdef = self.get('synthdef') or synthdefs.default
+        synth_uuid = self.get('uuid', uuid.uuid4())
+        if not self.get('is_stop'):
+            target_node = self['target_node']
+            if isinstance(target_node, uuid.UUID) and target_node in uuids:
+                target_node = uuids[target_node]
+            prototype = (nonrealtimetools.Session, nonrealtimetools.Node)
+            if not isinstance(target_node, prototype):
+                target_node = session
+            dictionaries = self._expand(
+                self.settings,
+                synthdef,
+                uuids,
+                realtime=False,
+                synth_parameters_only=True,
+                )
+            synths = []
+            with session.at(offset):
+                for dictionary in dictionaries:
+                    synth = target_node.add_synth(
+                        add_action=self['add_action'],
+                        duration=float('inf'),
+                        synthdef=synthdef,
+                        **dictionary
+                        )
+                    synths.append(synth)
+            uuids[synth_uuid] = tuple(synths)
+        else:
+            synths = uuids[synth_uuid]
+            for synth in synths:
+                duration = offset - synth.start_offset
+                synth.set_duration(duration)
 
     def _perform_realtime(
         self,

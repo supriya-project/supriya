@@ -45,66 +45,53 @@ class NoteEvent(Event):
         offset,
         ):
         from supriya import synthdefs
+        from supriya.tools import nonrealtimetools
         synthdef = self.get('synthdef', synthdefs.default)
         synth_uuid = self.get('uuid', uuid.uuid4())
         do_not_release = self.get('_do_not_release')
-        if do_not_release:
-            timeline = uuids.setdefault(synth_uuid, {})
-            timeline.setdefault(offset, []).append(self)
-        elif synth_uuid in uuids:
-            # Pmono: release it
-            timeline = uuids[synth_uuid]
-            timeline.setdefault(offset, []).append(self)
-            offsets = sorted(timeline)
-            start_offset = offsets[0]
-            stop_offset = offset + self.duration
-            duration = stop_offset - start_offset
-            for offset in offsets:
-                events = timeline[offset]
-                settings = events[0].settings
-                for event in events[1:]:
-                    settings.update(event.settings)
-                timeline[offset] = self._expand(
-                    settings, synthdef, uuids, realtime=False)
+        dictionaries = self._expand(
+            self.settings,
+            synthdef,
+            uuids,
+            realtime=False,
+            synth_parameters_only=True,
+            )
+        if synth_uuid not in uuids:
+            # Start a synth, both Pbind and Pmono
+            duration = self.duration
+            if do_not_release:
+                duration = float('inf')
+            target_node = self['target_node']
+            if isinstance(target_node, uuid.UUID) and target_node in uuids:
+                target_node = uuids[target_node]
+            prototype = (nonrealtimetools.Session, nonrealtimetools.Node)
+            if not isinstance(target_node, prototype):
+                target_node = session
             synths = []
-            with session.at(offsets[0]):
-                for dictionary in timeline[offsets[0]]:
-                    print('DICT', dictionary)
-                    synth_kwargs = {
-                        key: value for key, value in dictionary.items()
-                        if key in synthdef.parameter_names
-                        }
-                    synth = session.add_synth(
+            with session.at(offset):
+                for dictionary in dictionaries:
+                    synth = target_node.add_synth(
                         add_action=self['add_action'],
                         duration=duration,
                         synthdef=synthdef,
-                        **synth_kwargs
+                        **dictionary
                         )
                     synths.append(synth)
-            for offset in offsets[1:]:
-                with session.at(offset):
-                    for synth, dictionary in zip(synths, timeline[offset]):
-                        synth_kwargs = {
-                            key: value for key, value in dictionary.items()
-                            if key in synthdef.parameter_names
-                            }
-                        for key, value in synth_kwargs.items():
-                            synth[key] = value
+            if do_not_release:
+                uuids[synth_uuid] = tuple(synths)
         else:
-            # One shot
-            expanded_synth_kwargs = self._expand(
-                self.settings, synthdef, uuids, realtime=False)
+            # Make settings on Pmono synth
+            # Set the duration if releasing
+            synths = uuids[synth_uuid]
             with session.at(offset):
-                for dictionary in expanded_synth_kwargs:
-                    synth_kwargs = {
-                        key: value for key, value in dictionary.items()
-                        if key in synthdef.parameter_names
-                        }
-                    synth = session.add_synth(
-                        duration=self.duration,
-                        synthdef=synthdef,
-                        **synth_kwargs
-                        )
+                for synth, dictionary in zip(synths, dictionaries):
+                    for key, value in dictionary.items():
+                        synth[key] = value
+            if not do_not_release:
+                stop_offset = offset + self.duration
+                for synth in synths:
+                    duration = stop_offset - synth.start_offset
+                    synth.set_duration(duration)
 
     def _perform_realtime(
         self,

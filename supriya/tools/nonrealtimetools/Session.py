@@ -7,6 +7,7 @@ import shutil
 import struct
 import subprocess
 import tempfile
+from abjad.tools import documentationtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -14,6 +15,10 @@ from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
 from supriya.tools.osctools.OscMixin import OscMixin
+try:
+    from queue import PriorityQueue
+except ImportError:
+    from Queue import PriorityQueue
 
 
 class Session(OscMixin):
@@ -85,6 +90,7 @@ class Session(OscMixin):
         '_offsets',
         '_output_count',
         '_root_node',
+        '_session_ids',
         '_states',
         )
 
@@ -110,6 +116,7 @@ class Session(OscMixin):
     def __init__(self, input_count=0, output_count=2):
         from supriya.tools import nonrealtimetools
         self._active_moments = []
+        self._session_ids = {}
         self._states = {}
         self._buffers = timetools.TimespanCollection()
         self._nodes = timetools.TimespanCollection()
@@ -118,7 +125,71 @@ class Session(OscMixin):
         self._setup_initial_states()
         self._setup_buses(input_count, output_count)
 
+    ### SPECIAL METHODS ###
+
+    def __graph__(self, include_controls=False):
+        from supriya.tools import nonrealtimetools
+        graph = documentationtools.GraphvizGraph()
+        for offset, state in sorted(self.states.items()):
+            if float('-inf') < offset:
+                self._apply_transitions(state.offset)
+            state_graph = state.__graph__(include_controls=include_controls)
+            subgraph = documentationtools.GraphvizSubgraph()
+            subgraph.extend(state_graph.children)
+            subgraph.attributes['label'] = str(offset)
+            graph.append(subgraph)
+        nonrealtimetools.StateGrapher._style_graph(graph)
+        return graph
+
     ### PRIVATE METHODS ###
+
+    def _apply_transitions(self, offsets, chain=True):
+        from supriya.tools import nonrealtimetools
+        if nonrealtimetools.DoNotPropagate._stack:
+            return
+        queue = PriorityQueue()
+        try:
+            for offset in offsets:
+                queue.put(offset)
+        except TypeError:
+            queue.put(offsets)
+        previous_offset = None
+        while not queue.empty():
+            offset = queue.get()
+            if offset == previous_offset:
+                continue
+            previous_offset = offset
+            state = self._find_state_at(offset, clone_if_missing=False)
+            if state is None:
+                continue
+            # TODO: automatically handle sparsifying here.
+            #elif state.is_sparse and 0 < offset:
+            #    print('SPARSE', state.offset, state.start_nodes, state.stop_nodes,
+            #        state.nodes_to_children)
+            #    state._sparsify()
+            #    changed = True
+            previous_state = self._find_state_before(
+                offset, with_node_tree=True)
+            assert previous_state is not None
+            result = nonrealtimetools.State._apply_transitions(
+                state.transitions,
+                previous_state.nodes_to_children,
+                previous_state.nodes_to_parents,
+                state.stop_nodes,
+                )
+            nodes_to_children, nodes_to_parents = result
+            changed = False
+            if nodes_to_children != state.nodes_to_children:
+                state._nodes_to_children = nodes_to_children
+                state._nodes_to_parents = nodes_to_parents
+                changed = True
+            if changed and chain:
+                next_state = self._find_state_after(
+                    offset,
+                    with_node_tree=True,
+                    )
+                if next_state is not None:
+                    queue.put(next_state.offset)
 
     def _build_id_mapping(self):
         id_mapping = {}
@@ -146,7 +217,7 @@ class Session(OscMixin):
         output_count = self._output_count or 0
         first_private_bus_id = input_count + output_count
         allocators = {
-            synthdeftools.CalculationRate.CONTROL: servertools.BlockAllocator(
+            synthdeftools.CalculationRate.AUDIO: servertools.BlockAllocator(
                 heap_minimum=first_private_bus_id,
                 ),
             synthdeftools.CalculationRate.CONTROL: servertools.BlockAllocator(),
@@ -181,6 +252,7 @@ class Session(OscMixin):
             nodes = sorted(state.start_nodes, key=lambda x: x.session_id)
             for node in nodes:
                 mapping[node] = allocator.allocate_node_id()
+                mapping[node] = node.session_id
         return mapping
 
     def _build_render_command(
@@ -544,7 +616,7 @@ class Session(OscMixin):
             stop_buffers, stop_nodes
             ) = self._collect_durated_objects(offset, is_last_offset)
         state = self._find_state_at(offset, clone_if_missing=True)
-        node_actions = state.actions
+        node_actions = state.transitions
         node_settings = self._collect_node_settings(offset, state)
         requests += self._collect_synthdef_requests(
             start_nodes,
@@ -623,8 +695,13 @@ class Session(OscMixin):
     def _find_state_at(self, offset, clone_if_missing=False):
         state = self.states.get(offset, None)
         if state is None and clone_if_missing:
-            state = self._find_state_before(offset)
-            return state._clone(offset)
+            old_state = self._find_state_before(offset, with_node_tree=True)
+            state = old_state._clone(offset)
+            self.states[offset] = state
+            self.offsets.insert(
+                self.offsets.index(old_state.offset) + 1,
+                offset,
+            )
         return state
 
     def _find_state_before(self, offset, with_node_tree=None):
@@ -644,6 +721,53 @@ class Session(OscMixin):
                 index -= 1
             return None
         return self.states[self.offsets[index]]
+
+    def _get_next_session_id(self, kind='node'):
+        default = 0
+        if kind == 'node':
+            default = 1000
+        session_id = self._session_ids.setdefault(kind, default)
+        self._session_ids[kind] += 1
+        return session_id
+
+    def _iterate_state_pairs(
+        self,
+        offset,
+        reverse=False,
+        with_node_tree=None,
+        ):
+        if reverse:
+            state_two = self._find_state_at(
+                offset,
+                clone_if_missing=True,
+                )
+            state_one = self._find_state_before(
+                state_two.offset,
+                with_node_tree=with_node_tree,
+                )
+            while state_one is not None:
+                yield state_one, state_two
+                state_two = state_one
+                state_one = self._find_state_before(
+                    state_two.offset,
+                    with_node_tree=with_node_tree,
+                    )
+        else:
+            state_one = self._find_state_at(
+                offset,
+                clone_if_missing=True,
+                )
+            state_two = self._find_state_after(
+                state_one.offset,
+                with_node_tree=with_node_tree,
+                )
+            while state_two is not None:
+                yield state_one, state_two
+                state_one = state_two
+                state_two = self._find_state_after(
+                    state_one.offset,
+                    with_node_tree=with_node_tree,
+                    )
 
     def _process_duration(self, duration=None):
         if self.duration == float('inf'):
@@ -681,7 +805,7 @@ class Session(OscMixin):
         from supriya.tools import nonrealtimetools
         offset = float('-inf')
         state = nonrealtimetools.State(self, offset)
-        state._nodes_to_children = {self.root_node: None}
+        state._nodes_to_children = {self.root_node: ()}
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
         self.offsets.append(offset)
@@ -690,23 +814,36 @@ class Session(OscMixin):
         self.states[offset] = state
         self.offsets.append(offset)
 
+    def _add_state_at(self, offset):
+        old_state = self._find_state_before(offset)
+        state = old_state._clone(offset)
+        self.states[offset] = state
+        self.offsets.insert(
+            self.offsets.index(old_state.offset) + 1,
+            offset,
+            )
+        return state
+
+    def _remove_state_at(self, offset):
+        state = self._find_state_at(offset, clone_if_missing=False)
+        if state is None:
+            return
+        assert state.is_sparse
+        self.offsets.remove(offset)
+        del(self.states[offset])
+        return state
+
     ### PUBLIC METHODS ###
 
-    def at(self, offset):
+    def at(self, offset, propagate=True):
         from supriya.tools import nonrealtimetools
         assert 0 <= offset
         state = self._find_state_at(offset)
         if state:
             assert state.offset in self.states
         if not state:
-            old_state = self._find_state_before(offset)
-            state = old_state._clone(offset)
-            self.states[offset] = state
-            self.offsets.insert(
-                self.offsets.index(old_state.offset) + 1,
-                offset,
-                )
-        return nonrealtimetools.Moment(self, offset, state)
+            state = self._add_state_at(offset)
+        return nonrealtimetools.Moment(self, offset, state, propagate)
 
     def add_buffer(
         self,
@@ -719,13 +856,14 @@ class Session(OscMixin):
         from supriya.tools import nonrealtimetools
         assert self.active_moments
         start_moment = self.active_moments[-1]
+        session_id = self._get_next_session_id('buffer')
         buffer_ = nonrealtimetools.Buffer(
             self,
             channel_count=channel_count,
             duration=duration,
             file_path=file_path,
             frame_count=frame_count,
-            session_id=len(self.buffers),
+            session_id=session_id,
             start_offset=start_moment.offset,
             starting_frame=starting_frame,
             )
@@ -781,8 +919,12 @@ class Session(OscMixin):
     def add_group(
         self,
         add_action=None,
+        duration=None
         ):
-        return self.root_node.add_group(add_action=add_action)
+        return self.root_node.add_group(
+            add_action=add_action,
+            duration=duration,
+            )
 
     def add_synth(
         self,
@@ -824,6 +966,12 @@ class Session(OscMixin):
         add_action=None,
         ):
         self.root_node.move_node(node, add_action=add_action)
+
+    def rebuild_transitions(self):
+        for state_one, state_two in self._iterate_state_pairs(
+            float('-inf'), with_node_tree=True):
+            transitions = state_two._rebuild_transitions(state_one, state_two)
+            state_two._transitions = transitions
 
     def render(
         self,
@@ -924,6 +1072,24 @@ class Session(OscMixin):
             if is_last_offset:
                 break
         return osc_bundles
+
+    def to_strings(self, include_controls=False):
+        from supriya.tools import responsetools
+        result = []
+        previous_string = None
+        for offset, state in sorted(self.states.items()):
+            if offset < 0:
+                continue
+            self._apply_transitions(state.offset)
+            query_tree_group = responsetools.QueryTreeGroup.from_state(
+                state, include_controls=include_controls)
+            string = str(query_tree_group)
+            if string == previous_string:
+                continue
+            previous_string = string
+            result.append('{}:'.format(float(round(offset, 6))))
+            result.extend(('    ' + line for line in string.split('\n')))
+        return '\n'.join(result)
 
     ### PUBLIC PROPERTIES ###
 

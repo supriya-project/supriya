@@ -21,7 +21,7 @@ class RootNode(Group):
             self,
             session=session,
             session_id=0,
-            duration=None,
+            duration=float('inf'),
             start_offset=float('-inf'),
             )
 
@@ -29,3 +29,17 @@ class RootNode(Group):
 
     def __str__(self):
         return 'root'
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def start_offset(self):
+        return float('-inf')
+
+    @property
+    def stop_offset(self):
+        return float('inf')
+
+    @property
+    def duration(self):
+        return float('inf')

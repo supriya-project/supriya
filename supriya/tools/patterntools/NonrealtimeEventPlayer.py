@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from abjad import new
 from supriya.tools.patterntools.EventPlayer import EventPlayer
 
 
@@ -37,19 +36,12 @@ class NonrealtimeEventPlayer(EventPlayer):
     ### SPECIAL METHODS ###
 
     def __call__(self):
-        from abjad.tools import systemtools
         self._cumulative_time = 0
         initial_offset = self.session.active_moments[-1].offset
         self._iterator = iter(self._pattern)
         uuids = {}
         for event in self._iterator:
-            if not isinstance(event, dict):
-                agent = systemtools.StorageFormatAgent(event)
-                event = agent.get_template_dict()
-            event = new(
-                self.event_template,
-                **event
-                )
+            #print(event)
             event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,

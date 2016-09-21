@@ -148,8 +148,8 @@ class SynthDef(ServerObjectProxy):
 
         Returns Graphviz graph.
         '''
-        from supriya.tools import documentationtools
-        return documentationtools.SynthDefGrapher.graph(self)
+        from supriya.tools import synthdeftools
+        return synthdeftools.SynthDefGrapher.graph(self)
 
     def __hash__(self):
         hash_values = (

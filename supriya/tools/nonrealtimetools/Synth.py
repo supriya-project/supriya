@@ -51,11 +51,25 @@ class Synth(Node):
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action
-        prototype = (nonrealtimetools.Bus, nonrealtimetools.BusGroup)
+        bus_prototype = (
+            nonrealtimetools.Bus,
+            nonrealtimetools.BusGroup,
+            )
+        buffer_prototype = (
+            nonrealtimetools.Buffer,
+            nonrealtimetools.BufferGroup,
+            )
+        nonmapping_keys = ['out']
         for key, value in synth_kwargs.items():
-            if isinstance(value, prototype):
+            if isinstance(value, bus_prototype):
                 bus_id = id_mapping[value]
-                synth_kwargs[key] = value.get_map_symbol(bus_id)
+                if key not in nonmapping_keys:
+                    value = value.get_map_symbol(bus_id)
+                else:
+                    value = bus_id
+                synth_kwargs[key] = value
+            elif isinstance(value, buffer_prototype):
+                synth_kwargs[key] = id_mapping[value]
         request = requesttools.SynthNewRequest(
             add_action=add_action,
             node_id=source_id,

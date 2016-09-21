@@ -41,8 +41,21 @@ class BusEvent(Event):
 
     ### PRIVATE METHODS ###
 
-    def _perform_nonrealtime(self):
-        raise NotImplementedError
+    def _perform_nonrealtime(
+        self,
+        session,
+        uuids,
+        offset,
+        ):
+        bus_uuid = self.get('uuid') or uuid.uuid4()
+        if not self.get('is_stop'):
+            bus_group = session.add_bus_group(
+                bus_count=self['channel_count'],
+                calculation_rate=self['calculation_rate'],
+                )
+            uuids[bus_uuid] = bus_group
+        else:
+            pass
 
     def _perform_realtime(
         self,

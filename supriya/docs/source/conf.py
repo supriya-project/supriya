@@ -16,8 +16,8 @@ from pygments.formatters.latex import LatexFormatter
 #    print('    {}'.format(x))
 
 # Scrape the API.
-#from supriya.tools import documentationtools
-#documentationtools.SupriyaDocumentationManager().execute()
+from supriya.tools import documentationtools
+documentationtools.SupriyaDocumentationManager().execute()
 
 # Mock out compiled extensions.
 #try:

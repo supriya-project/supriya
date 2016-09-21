@@ -259,24 +259,24 @@ class TestCase(unittest.TestCase):
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0, 'frequency', 222],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0, 'frequency', 440]]],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0, 'frequency', 440],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0, 'frequency', 222]]],
             [10.75, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0, 'frequency', 333],
-                ['/n_set', 1000, 'gate', 0]]],
+                ['/n_set', 1001, 'gate', 0]]],
             [11.0, [
-                ['/n_set', 1001, 'frequency', 660]]],
+                ['/n_set', 1000, 'frequency', 660]]],
             [11.5, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 0, 'frequency', 444],
                 ['/n_set', 1002, 'gate', 0]]],
             [12.0, [
-                ['/n_set', 1001, 'frequency', 880]]],
+                ['/n_set', 1000, 'frequency', 880]]],
             [12.25, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 0, 'frequency', 555],
                 ['/n_set', 1003, 'gate', 0]]],
             [13.0, [
-                ['/n_set', 1001, 'frequency', 990],
+                ['/n_set', 1000, 'frequency', 990],
                 ['/n_set', 1004, 'gate', 0]]],
             [14.0, [
-                ['/n_set', 1001, 'gate', 0],
+                ['/n_set', 1000, 'gate', 0],
                 [0]]]]

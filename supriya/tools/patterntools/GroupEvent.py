@@ -39,8 +39,29 @@ class GroupEvent(Event):
 
     ### PRIVATE METHODS ###
 
-    def _perform_nonrealtime(self):
-        raise NotImplementedError
+    def _perform_nonrealtime(
+        self,
+        session,
+        uuids,
+        offset,
+        ):
+        from supriya.tools import nonrealtimetools
+        group_uuid = self.get('uuid', uuid.uuid4())
+        if not self.get('is_stop'):
+            target_node = self['target_node']
+            if isinstance(target_node, uuid.UUID) and target_node in uuids:
+                target_node = uuids[target_node]
+            prototype = (nonrealtimetools.Session, nonrealtimetools.Node)
+            if not isinstance(target_node, prototype):
+                target_node = session
+            group = target_node.add_group(add_action=self['add_action'])
+            uuids[group_uuid] = group
+        else:
+            group = uuids[group_uuid]
+            duration = offset - group.start_offset
+            if self['release_time']:
+                duration += self['release_time']
+            group.set_duration(duration)
 
     def _perform_realtime(
         self,

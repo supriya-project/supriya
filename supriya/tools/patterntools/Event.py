@@ -51,13 +51,23 @@ class Event(SupriyaValueObject):
 
     ### PRIVATE METHODS ###
 
-    def _expand(self, settings, synthdef, uuids, realtime=True):
-        print('BEFORE', settings, uuids)
+    def _expand(
+        self,
+        settings,
+        synthdef,
+        uuids,
+        realtime=True,
+        synth_parameters_only=False,
+        ):
         settings = settings.copy()
-        if realtime:
-            for key, value in settings.items():
-                if isinstance(value, uuid.UUID) and value in uuids:
-                    settings[key] = list(uuids[value])
+        for key, value in settings.items():
+            if isinstance(value, uuid.UUID) and value in uuids:
+                value = uuids[value]
+                if isinstance(value, dict):
+                    value = sorted(value)[0]
+                if not isinstance(value, collections.Sequence):
+                    value = [value]
+                settings[key] = value
         maximum_length = 1
         unexpanded_settings = {}
         for key, value in settings.items():
@@ -72,6 +82,12 @@ class Event(SupriyaValueObject):
             for key, value in unexpanded_settings.items():
                 settings[key] = value[i % len(value)]
             expanded_settings.append(settings)
+        if synth_parameters_only:
+            for i, dictionary in enumerate(expanded_settings):
+                expanded_settings[i] = {
+                    key: value for key, value in dictionary.items()
+                    if key in synthdef.parameter_names
+                    }
         return expanded_settings
 
     def _get_format_specification(self):

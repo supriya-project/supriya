@@ -94,20 +94,25 @@ class Pattern(SupriyaValueObject):
             expr = self._coerce_iterator_output(next(iterator), state)
         except StopIteration:
             return
+        sent = None
+
         pre_exprs, expr = self._handle_first(expr, state)
         if pre_exprs:
             for pre_expr in pre_exprs:
-                yield pre_expr
+                sent = yield pre_expr
+
         exprs = [expr]
         for expr in iterator:
             expr = self._coerce_iterator_output(expr, state)
             exprs.append(expr)
-            yield exprs.pop(0)
+            sent = yield exprs.pop(0)
+
         expr, post_exprs = self._handle_last(exprs[0], state)
-        yield expr
+        sent = yield expr
+
         if post_exprs:
             for post_expr in post_exprs:
-                yield post_expr
+                sent = yield post_expr
 
     ### PRIVATE METHODS ###
 
