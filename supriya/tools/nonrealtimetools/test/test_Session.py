@@ -31,8 +31,9 @@ class TestCase(TestCase):
             )
         self.assert_ok(exit_code, 300., 48000, 2)
 
-    def test_04(self):
+    def test_03(self):
         session = nonrealtimetools.Session()
+        synthdef = self.build_duration_synthdef()
         with session.at(0):
             session.add_synth(
                 duration=1,
@@ -42,7 +43,7 @@ class TestCase(TestCase):
             osctools.OscBundle(
                 timestamp=0.0,
                 contents=(
-                    osctools.OscMessage('/d_recv', bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 448a8d487adfc99ec697033edc2a1227\x00\x00\x00\x02\x00\x00\x00\x00?\x80\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01\x08duration\x00\x00\x00\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x01\x04Line\x02\x00\x00\x00\x04\x00\x00\x00\x01\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')),
+                    osctools.OscMessage('/d_recv', bytearray(synthdef.compile())),
                     osctools.OscMessage('/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0),
                     )
                 ),
@@ -62,10 +63,9 @@ class TestCase(TestCase):
         soundfile = soundfiletools.SoundFile(self.output_filepath)
         for i in range(1, 100):
             value = float(i) / 100
-            #print(i, value, self.round(soundfile.at_percent(value)[0]))
             assert self.round(soundfile.at_percent(value)[0]) == value
 
-    def test_05(self):
+    def test_04(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             session.add_synth(

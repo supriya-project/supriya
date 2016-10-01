@@ -5,12 +5,12 @@ from supriya.tools import systemtools
 
 # Load systemtools dependencies second
 from supriya.tools import bindingtools
-from supriya.tools import clocktools
 from supriya.tools import dawtools
 from supriya.tools import documentationtools
 from supriya.tools import miditools
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
+from supriya.tools import patterntools
 from supriya.tools import requesttools
 from supriya.tools import responsetools
 from supriya.tools import scripttools

@@ -51,11 +51,11 @@ class OscMessage(OscMixin):
 
     def __eq__(self, expr):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
+        return systemtools.TestManager.compare_objects(self, expr)
 
     def __hash__(self):
         from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
+        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
         return hash(hash_values)
 
     def __repr__(self):
@@ -263,6 +263,14 @@ class OscMessage(OscMixin):
             raise TypeError(message)
         return type_tags, encoded_value
 
+    def _get_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.FormatSpecification(
+            client=self,
+            repr_is_indented=False,
+            storage_format_args_values=[self.address] + list(self.contents),
+            )
+
     @staticmethod
     def _read_double(payload, payload_offset):
         result = payload[payload_offset:payload_offset + 8]
@@ -312,17 +320,6 @@ class OscMessage(OscMixin):
     @staticmethod
     def _write_int(value):
         return struct.pack('>i', value)
-
-    ### PRIVATE PROPERTIES ###
-
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            is_indented=False,
-            positional_argument_values=(self.address,) + self.contents,
-            )
 
     ### PUBLIC METHODS ###
 

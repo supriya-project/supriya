@@ -37,36 +37,22 @@ def _build_default_synthdef():
         )
 
     with builder:
-
         low_pass = ugentools.LPF.ar(
             source=ugentools.Mix.new(
                 ugentools.VarSaw.ar(
                     frequency=builder['frequency'] + (
                         0,
-                        ugentools.Rand.ir(
-                            minimum=-0.4,
-                            maximum=0.,
-                            ),
-                        ugentools.Rand.ir(
-                            minimum=0.,
-                            maximum=0.4,
-                            ),
+                        ugentools.Rand.ir(minimum=-0.4, maximum=0.),
+                        ugentools.Rand.ir(minimum=0., maximum=0.4),
                         ),
                     width=0.3,
                     ),
                 ) * 0.3,
             frequency=ugentools.XLine.kr(
-                start=ugentools.Rand.ir(
-                    minimum=4000,
-                    maximum=5000,
-                    ),
-                stop=ugentools.Rand.ir(
-                    minimum=2500,
-                    maximum=3200,
-                    ),
+                start=ugentools.Rand.ir(minimum=4000, maximum=5000),
+                stop=ugentools.Rand.ir(minimum=2500, maximum=3200),
                 )
             )
-
         linen = ugentools.Linen.kr(
             attack_time=0.01,
             done_action=2,
@@ -74,18 +60,12 @@ def _build_default_synthdef():
             release_time=0.3,
             sustain_level=0.7,
             )
-
         pan = ugentools.Pan2.ar(
             source=low_pass * linen * builder['amplitude'],
             position=builder['pan'],
             )
-
-        ugentools.OffsetOut.ar(
-            bus=builder['out'],
-            source=pan,
-            )
-
-    synthdef = builder.build(name='default')
+        ugentools.OffsetOut.ar(bus=builder['out'], source=pan)
+    synthdef = builder.build()
     return synthdef
 
 default = _build_default_synthdef()

@@ -5,15 +5,13 @@ import supriya
 from supriya.tools import documentationtools
 
 
-pytest.skip()
-
-
 classes = documentationtools.list_all_supriya_classes()
 
 _classes_to_temporarily_skip = (
     )
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___format___01(class_):
     r'''All concrete classes have a storage format.
@@ -26,8 +24,8 @@ def test_supriya___format___01(class_):
         assert not instance_format == ''
 
 
-
 @pytest.mark.parametrize('class_', classes)
+@pytest.mark.skip()
 def test_supriya___format___02(class_):
     r'''All storage-formattable classes have evaluable storage format.
     '''

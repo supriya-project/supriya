@@ -68,16 +68,15 @@ class NodeMapToAudioBusRequest(Request):
 
     ### PRIVATE METHODS ###
 
-    @property
-    def _storage_format_specification(self):
+    def _get_format_specification(self):
         from abjad.tools import systemtools
-        manager = systemtools.StorageFormatManager
-        keyword_argument_names = tuple(
-            manager.get_keyword_argument_names(self))
-        keyword_argument_names += tuple(sorted(self._kwargs.keys()))
-        return systemtools.StorageFormatSpecification(
-            self,
-            keyword_argument_names=keyword_argument_names,
+        agent = systemtools.StorageFormatAgent(self)
+        names = agent.signature_keyword_names
+        names.extend(sorted(self._kwargs))
+        return systemtools.FormatSpecification(
+            client=self,
+            repr_is_indented=True,
+            storage_format_kwargs_names=names,
             )
 
     ### PUBLIC METHODS ###

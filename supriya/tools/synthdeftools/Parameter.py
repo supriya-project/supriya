@@ -55,14 +55,14 @@ class Parameter(UGenMethodMixin):
 
     def __eq__(self, expr):
         from abjad.tools import systemtools
-        return systemtools.StorageFormatManager.compare(self, expr)
+        return systemtools.TestManager.compare_objects(self, expr)
 
     def __getitem__(self, i):
         return self._get_output_proxy(i)
 
     def __hash__(self):
         from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatManager.get_hash_values(self)
+        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
         return hash(hash_values)
 
     def __len__(self):

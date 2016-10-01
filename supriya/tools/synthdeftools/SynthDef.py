@@ -148,8 +148,8 @@ class SynthDef(ServerObjectProxy):
 
         Returns Graphviz graph.
         '''
-        from supriya.tools import documentationtools
-        return documentationtools.SynthDefGrapher.graph(self)
+        from supriya.tools import synthdeftools
+        return synthdeftools.SynthDefGrapher.graph(self)
 
     def __hash__(self):
         hash_values = (
@@ -262,14 +262,6 @@ class SynthDef(ServerObjectProxy):
         return result
 
     ### PRIVATE METHODS ###
-
-    def _register_with_local_server(
-        self,
-        server=None,
-        ):
-        ServerObjectProxy.allocate(self, server=server)
-        synthdef_name = self.actual_name
-        self.server._synthdefs[synthdef_name] = self
 
     @staticmethod
     def _allocate_synthdefs(synthdefs, server):
@@ -556,6 +548,16 @@ class SynthDef(ServerObjectProxy):
             recurse(ugen)
         return flattened_ugens
 
+    def _get_format_specification(self):
+        from abjad.tools import systemtools
+        return systemtools.FormatSpecification(
+            repr_is_bracketed=True,
+            storage_format_is_bracketed=True,
+            storage_format_is_indented=False,
+            storage_format_args_values=[self.actual_name],
+            storage_format_kwargs_names=[]
+            )
+
     @staticmethod
     def _initialize_topological_sort(ugens):
         from supriya.tools import synthdeftools
@@ -583,6 +585,14 @@ class SynthDef(ServerObjectProxy):
         for ugen in ugens:
             ugen._optimize_graph(sort_bundles)
         return tuple(sort_bundles)
+
+    def _register_with_local_server(
+        self,
+        server=None,
+        ):
+        ServerObjectProxy.allocate(self, server=server)
+        synthdef_name = self.actual_name
+        self.server._synthdefs[synthdef_name] = self
 
     @staticmethod
     def _remap_controls(ugens, control_mapping):
@@ -897,6 +907,10 @@ class SynthDef(ServerObjectProxy):
         elif not ugens:
             return 0
         raise ValueError
+
+    @property
+    def has_gate(self):
+        return 'gate' in self.parameter_names
 
     @property
     def indexed_parameters(self):

@@ -43,6 +43,40 @@ class MidiDevice(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    def autobind(self, synth):
+        from supriya import bind
+        from supriya.tools import miditools
+        from supriya.tools import servertools
+        from supriya.tools import synthdeftools
+        assert isinstance(synth, servertools.Synth)
+        buttons, faders = [], []
+        for controller_name in sorted(self):
+            controller = self[controller_name]
+            if isinstance(controller, miditools.MidiButton):
+                buttons.append(controller)
+            else:
+                faders.append(controller)
+        control_rate_controls, trigger_rate_controls = [], []
+        parameters = synth.synthdef.parameters
+        controls = synth.controls._synth_control_map
+        for control_name, control in sorted(controls.items()):
+            if control.calculation_rate in (
+                synthdeftools.CalculationRate.AUDIO,
+                synthdeftools.CalculationRate.SCALAR,
+                ):
+                continue
+            elif parameters[control_name].parameter_rate is \
+                synthdeftools.ParameterRate.TRIGGER:
+                trigger_rate_controls.append(control)
+            else:
+                control_rate_controls.append(control)
+        bindings = []
+        for fader, control in zip(faders, control_rate_controls):
+            bindings.append(bind(fader, control))
+        for button, control in zip(buttons, trigger_rate_controls):
+            bindings.append(bind(button, control))
+        return bindings
+
     def close_port(self):
         self._midi_dispatcher.close_port()
 
@@ -50,6 +84,7 @@ class MidiDevice(SupriyaObject):
         return self._midi_dispatcher.list_ports()
 
     def open_port(self, port=None):
+        port = port or 0
         self._midi_dispatcher.open_port(port)
         return self
 

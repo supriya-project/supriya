@@ -38,6 +38,30 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     ### PRIVATE METHODS ###
 
+    @classmethod
+    def _from_nrt_group(cls, state, node, include_controls=False):
+        from supriya.tools import nonrealtimetools
+        from supriya.tools import responsetools
+        assert isinstance(node, nonrealtimetools.Group)
+        node_id = node.session_id
+        children = []
+        for child in (state.nodes_to_children.get(node) or ()):
+            if isinstance(child, nonrealtimetools.Group):
+                child = QueryTreeGroup._from_nrt_group(
+                    state, child, include_controls=include_controls)
+            elif isinstance(child, nonrealtimetools.Synth):
+                child = responsetools.QueryTreeSynth._from_nrt_synth(
+                    state, child, include_controls=include_controls)
+            else:
+                raise ValueError(child)
+            children.append(child)
+        children = tuple(children)
+        query_tree_group = QueryTreeGroup(
+            node_id=node_id,
+            children=children,
+            )
+        return query_tree_group
+
     def _get_str_format_pieces(self):
         result = []
         string = '{} group'.format(self.node_id)
@@ -75,6 +99,13 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             node_id=node_id,
             children=children,
             )
+        return query_tree_group
+
+    @classmethod
+    def from_state(cls, state, include_controls=False):
+        root_node = state.session.root_node
+        query_tree_group = cls._from_nrt_group(
+            state, root_node, include_controls=include_controls)
         return query_tree_group
 
     ### PUBLIC PROPERTIES ###

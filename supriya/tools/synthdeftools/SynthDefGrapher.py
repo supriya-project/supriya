@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.documentationtools.Grapher import Grapher
 
 
-class SynthDefGrapher(SupriyaObject):
+class SynthDefGrapher(Grapher):
     r'''Graphs SynthDefs.
 
     ..  container:: example
@@ -61,7 +61,7 @@ class SynthDefGrapher(SupriyaObject):
 
     '''
 
-    ### PRIVATE METHODS ###:w
+    ### PRIVATE METHODS ###
 
     @staticmethod
     def _connect_nodes(synthdef, ugen_node_mapping):

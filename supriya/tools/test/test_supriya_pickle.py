@@ -5,15 +5,13 @@ import pytest
 from supriya.tools import documentationtools
 
 
-pytest.skip()
-
-
 _classes_to_fix = (
     )
 
 classes = documentationtools.list_all_supriya_classes()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya_pickle_01(class_):
     r'''All storage-formattable classes are pickable.

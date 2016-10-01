@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 
 r'''
-Tools for creating clocks and scheduling events.
+Tools for modeling patterns.
 '''
 
 from abjad.tools import systemtools

@@ -23,9 +23,9 @@ class ResponseManager(SupriyaObject):
         >>> manager.handle_message(message)
         StatusResponse(
             actual_sample_rate=44100.00077873274,
-            average_cpu_usage=0.040679048746824265,
+            average_cpu_usage=0.040679048746824,
             group_count=2,
-            peak_cpu_usage=0.15118031203746796,
+            peak_cpu_usage=0.151180312037468,
             synth_count=0,
             synthdef_count=4,
             target_sample_rate=44100.0,

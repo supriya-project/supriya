@@ -4,12 +4,13 @@ import pytest
 from supriya.tools import documentationtools
 
 
-pytest.skip()
+pytestmark = pytest.mark.skip()
 
 
 classes = documentationtools.list_all_supriya_classes()
 
 
+@pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___hash___01(class_):
     r'''All concrete classes with __hash__ can hash.

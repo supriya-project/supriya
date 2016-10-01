@@ -8,24 +8,25 @@ class Moment(SessionObject):
 
     __slots__ = (
         '_offset',
+        '_propagate',
         '_session',
         '_state',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, session, offset, state):
+    def __init__(self, session, offset, state, propagate=True):
         SessionObject.__init__(self, session)
         self._offset = offset
         self._state = state
+        self._propagate = bool(propagate)
 
     ### SPECIAL METHODS ###
 
     def __enter__(self):
-        if self.session.active_moments:
-            previous_moment = self.session.active_moments[-1]
-            previous_moment.state._propagate_action_transforms()
         self.session.active_moments.append(self)
+        if self.propagate:
+            self.session._apply_transitions(self.state.offset)
         return self
 
     def __eq__(self, expr):
@@ -37,7 +38,8 @@ class Moment(SessionObject):
 
     def __exit__(self, exc_type, exc_value, traceback):
         self.session.active_moments.pop()
-        self.state._propagate_action_transforms()
+        if self.propagate:
+            self.session._apply_transitions(self.state.offset)
 
     def __lt__(self, expr):
         if not isinstance(expr, type(self)) or expr.session is not self.session:
@@ -55,6 +57,10 @@ class Moment(SessionObject):
     @property
     def offset(self):
         return self._offset
+
+    @property
+    def propagate(self):
+        return self._propagate
 
     @property
     def state(self):

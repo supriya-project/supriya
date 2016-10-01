@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import requesttools
 from supriya.tools import servertools
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class NodeAction(object):
+class NodeAction(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
@@ -24,6 +25,7 @@ class NodeAction(object):
         if action is not None:
             action = servertools.AddAction.from_expr(action)
             assert isinstance(action, servertools.AddAction)
+            assert source is not target
         if action is None:
             assert source is not None
             assert target is None

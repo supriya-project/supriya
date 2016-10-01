@@ -40,6 +40,43 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     ### PRIVATE METHODS ###
 
+    @classmethod
+    def _from_nrt_synth(cls, state, node, include_controls=False):
+        from supriya.tools import nonrealtimetools
+        from supriya.tools import responsetools
+        from supriya.tools import synthdeftools
+        assert isinstance(node, nonrealtimetools.Synth)
+        node_id = node.session_id
+        synthdef_name = node.synthdef
+        if isinstance(synthdef_name, synthdeftools.SynthDef):
+            synthdef_name = synthdef_name.actual_name
+        controls = []
+        if include_controls:
+            settings = node._collect_settings(state.offset, True)
+            synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
+            for name, parameter in sorted(synthdef.parameters.items()):
+                value = parameter.value
+                if node.start_offset == state.offset:
+                    if name in synth_kwargs:
+                        value = synth_kwargs[name]
+                if name in settings:
+                    value = settings[name]
+                try:
+                    value = float(value)
+                except:
+                    pass
+                control = responsetools.QueryTreeControl(
+                    control_name_or_index=name,
+                    control_value=value,
+                    )
+                controls.append(control)
+        query_tree_synth = QueryTreeSynth(
+            node_id=node_id,
+            synthdef_name=synthdef_name,
+            controls=controls,
+            )
+        return query_tree_synth
+
     def _get_str_format_pieces(self):
         result = []
         synth_string = '{} {}'.format(
