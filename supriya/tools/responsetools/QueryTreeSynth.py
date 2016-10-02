@@ -52,7 +52,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
-            settings = node._collect_settings(state.offset, True)
+            settings = node._collect_settings(state.offset, persistent=True)
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value

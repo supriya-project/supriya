@@ -524,7 +524,7 @@ class Session(OscMixin):
                     requests.append(request)
         return requests
 
-    def _collect_node_settings(self, offset, state):
+    def _collect_node_settings(self, offset, state, id_mapping):
         result = collections.OrderedDict()
         if state.nodes_to_children is None:
             # Current state is sparse;
@@ -543,7 +543,11 @@ class Session(OscMixin):
                 state.nodes_to_children,
                 )
         for node in iterator:
-            settings = node._collect_settings(offset)
+            settings = node._collect_settings(
+                offset,
+                id_mapping=id_mapping,
+                persistent=False,
+                )
             if settings:
                 result[node] = settings
         return result
@@ -617,7 +621,7 @@ class Session(OscMixin):
             ) = self._collect_durated_objects(offset, is_last_offset)
         state = self._find_state_at(offset, clone_if_missing=True)
         node_actions = state.transitions
-        node_settings = self._collect_node_settings(offset, state)
+        node_settings = self._collect_node_settings(offset, state, id_mapping)
         requests += self._collect_synthdef_requests(
             start_nodes,
             visited_synthdefs,

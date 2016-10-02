@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import uuid
+from abjad import new
 from supriya.tools.patterntools.Pattern import Pattern
 
 
@@ -10,9 +11,9 @@ class EventPattern(Pattern):
     def _coerce_iterator_output(self, expr, state=None):
         from supriya.tools import patterntools
         if not isinstance(expr, patterntools.Event):
-            if 'uuid' not in expr:
-                expr['uuid'] = uuid.uuid4()
             expr = patterntools.NoteEvent(**expr)
+        if not expr.get('uuid'):
+            expr = new(expr, uuid=uuid.uuid4())
         return expr
 
     ### PUBLIC METHODS ###

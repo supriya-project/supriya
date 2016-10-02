@@ -22,7 +22,7 @@ class Pbinop(Pattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         from supriya.tools import patterntools
         expr_one = self.expr_one
         if not isinstance(expr_one, Pattern):

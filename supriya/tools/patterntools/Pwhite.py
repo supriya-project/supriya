@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import random
 from supriya.tools.patterntools.Pattern import Pattern
 
 
@@ -25,18 +24,26 @@ class Pwhite(Pattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         def procedure(one, two):
             minimum, maximum = sorted([one, two])
-            if isinstance(minimum, int) and isinstance(maximum, int):
-                return random.randint(minimum, maximum)
-            return (random.random() + minimum) * (maximum - minimum)
-        for _ in self._loop(self._repetitions):
-            yield self._process_recursive(
-                self._minimum,
-                self._maximum,
-                procedure,
-                )
+            number = next(rng)
+            return (number + minimum) * (maximum - minimum)
+            #if isinstance(minimum, int) and isinstance(maximum, int):
+            #    return random.randint(minimum, maximum)
+            #return (random.random() + minimum) * (maximum - minimum)
+        rng, identifier = self._get_rng()
+        try:
+            for _ in self._loop(self._repetitions):
+                yield self._process_recursive(
+                    self._minimum,
+                    self._maximum,
+                    procedure,
+                    )
+        finally:
+            if identifier in Pattern._rngs:
+                del(Pattern._rngs[identifier])
+            print('DONE', identifier, Pattern._rngs)
 
     ### PUBLIC PROPERTIES ###
 

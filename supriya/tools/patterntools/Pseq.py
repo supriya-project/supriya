@@ -53,7 +53,7 @@ class Pseq(Pattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         for _ in self._loop(self._repetitions):
             for x in self._sequence:
                 if isinstance(x, Pattern):

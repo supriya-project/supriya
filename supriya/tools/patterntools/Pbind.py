@@ -34,9 +34,9 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        Event(duration=0.5, bar=3, foo=(1, 2), uuid=UUID('...'), pitch=0)
-        Event(duration=0.25, bar=3, foo=(1, 2), uuid=UUID('...'), pitch=3)
-        Event(duration=0.25, bar=3, foo=(1, 2), uuid=UUID('...'), pitch=7)
+        NoteEvent(duration=0.5, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
+        NoteEvent(duration=0.25, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
+        NoteEvent(duration=0.25, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
 
     ::
 
@@ -54,12 +54,12 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        Event(duration=1, uuid=UUID('...'), pitch=1)
-        Event(duration=1, uuid=UUID('...'), pitch=2)
-        Event(duration=1, uuid=UUID('...'), pitch=3)
-        Event(duration=1, uuid=UUID('...'), pitch=4)
-        Event(duration=1, uuid=UUID('...'), pitch=5)
-        Event(duration=1, uuid=UUID('...'), pitch=6)
+        NoteEvent(uuid=UUID('...'), pitch=1)
+        NoteEvent(uuid=UUID('...'), pitch=2)
+        NoteEvent(uuid=UUID('...'), pitch=3)
+        NoteEvent(uuid=UUID('...'), pitch=4)
+        NoteEvent(uuid=UUID('...'), pitch=5)
+        NoteEvent(uuid=UUID('...'), pitch=6)
 
     '''
 
@@ -109,7 +109,7 @@ class Pbind(EventPattern):
             template_names=names,
             )
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:
             event = {}

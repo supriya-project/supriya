@@ -286,6 +286,7 @@ class Server(SupriyaObject):
         self._setup_status_watcher()
         self._setup_allocators(self.server_options)
         self._setup_proxies()
+        self._setup_system_synthdefs()
 
     def _setup_allocators(self, server_options):
         from supriya.tools import servertools
@@ -328,6 +329,19 @@ class Server(SupriyaObject):
         self._status = None
         self._status_watcher = servertools.StatusWatcher(self)
         self._status_watcher.start()
+
+    def _setup_system_synthdefs(self):
+        from supriya import synthdefs
+        from supriya.tools import synthdeftools
+        system_synthdefs = []
+        for name in dir(synthdefs):
+            if not name.startswith('system_'):
+                continue
+            system_synthdef = getattr(synthdefs, name)
+            if not isinstance(system_synthdef, synthdeftools.SynthDef):
+                continue
+            system_synthdefs.append(system_synthdef)
+        synthdeftools.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
     def _teardown(self):
         self._teardown_proxies()
@@ -383,8 +397,8 @@ class Server(SupriyaObject):
         if not systemtools.IOManager.find_executable('scsynth'):
             found_scsynth = False
             for path in (
-                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
-                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
+                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # < 3.7
+                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # >= 3.7
                 ):
                 if os.path.exists(path):
                     scsynth_path = path

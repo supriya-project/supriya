@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from abjad.tools import stringtools
 from supriya.tools import nonrealtimetools
 from base import TestCase
 
@@ -19,7 +18,7 @@ class TestCase(TestCase):
         with session.at(15):
             group_a.move_node(group_c)
         graphviz_graph = session.__graph__()
-        assert str(graphviz_graph) == stringtools.normalize('''
+        assert str(graphviz_graph) == self.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

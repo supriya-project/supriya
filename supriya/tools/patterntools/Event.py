@@ -7,18 +7,18 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 class Event(SupriyaValueObject):
     """
-    An event.
+    An abstract event.
 
     ::
 
-        >>> event = patterntools.Event(
+        >>> event = patterntools.NoteEvent(
         ...     amplitude=0.9,
         ...     duration=10.5,
         ...     frequency=443,
         ...     panning=0.75,
         ...     )
         >>> print(format(event))
-        supriya.tools.patterntools.Event(
+        supriya.tools.patterntools.NoteEvent(
             amplitude=0.9,
             duration=10.5,
             frequency=443,
@@ -143,12 +143,8 @@ class Event(SupriyaValueObject):
     @property
     def delta(self):
         if self._delta is None:
-            return self._duration
+            return self.get('duration') or 0
         return self._delta
-
-    @property
-    def duration(self):
-        return self._duration
 
     @property
     def settings(self):

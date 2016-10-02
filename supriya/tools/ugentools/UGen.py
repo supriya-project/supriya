@@ -240,17 +240,16 @@ class UGen(UGenMethodMixin):
         elif isinstance(value, tuple):
             assert self._unexpanded_input_names
             assert name in self._unexpanded_input_names
-            if all(hasattr(_, '__float__') for _ in value):
-                for x in value:
+            for x in value:
+                if hasattr(x, '__float__'):
                     self._add_constant_input(float(x))
-            elif all(isinstance(_, ugen_prototype) for _ in value):
-                for x in value:
+                elif isinstance(x, ugen_prototype):
                     self._add_ugen_input(
                         x._get_source(),
                         x._get_output_number(),
                         )
-            else:
-                raise Exception(repr(value))
+                else:
+                    raise Exception(repr(value, x))
         else:
             raise Exception(repr(value))
 

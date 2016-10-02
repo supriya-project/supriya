@@ -1,15 +1,15 @@
 # -*- encoding: utf-8 -*-
 import time
 import types
-import unittest
-from abjad.tools import stringtools
+from abjad.tools import systemtools
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
 from supriya.tools import servertools
+from supriya.tools import synthdeftools
 
 
-class TestCase(unittest.TestCase):
+class TestCase(systemtools.TestCase):
 
     pattern = patterntools.Pbus(
         pattern=patterntools.Pbind(
@@ -46,13 +46,13 @@ class TestCase(unittest.TestCase):
             deltas.append(delta)
         return lists, deltas
 
-    def test_manual_incommunicado_pbus_01(self):
+    def test_manual_incommunicado(self):
         lists, deltas = self.manual_incommunicado(self.pattern)
         assert lists == [
             [10, [
                 ['/g_new', 1000, 0, 1],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1000,
-                    'amplitude', 1.0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 0]]],
             [11.0, [
@@ -76,7 +76,7 @@ class TestCase(unittest.TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -84,20 +84,20 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 2
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -105,26 +105,26 @@ class TestCase(unittest.TestCase):
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 3
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -132,63 +132,67 @@ class TestCase(unittest.TestCase):
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
                         1004 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 4
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
                         1004 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
+                    1001 454b69a7c505ddecc5b39762d291a5ec
+                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 4
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
 
-    def test_nonrealtime_01(self):
+    def test_nonrealtime(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             self.pattern.inscribe(session)
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1000,
-                    'amplitude', 1.0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 'a4'],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 4]]],
             [1.0, [

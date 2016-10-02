@@ -54,8 +54,8 @@ class StateGrapher(Grapher):
             bgcolor='lightgoldenrod2',
             )
         if include_controls:
-            all_settings = nrt_node._collect_settings(state.offset, True)
-            new_settings = nrt_node._collect_settings(state.offset, False)
+            all_settings = nrt_node._collect_settings(state.offset, persistent=True)
+            new_settings = nrt_node._collect_settings(state.offset, persistent=False)
             for name, value in all_settings.items():
                 kwargs = {'cellpadding': 2}
                 if name in new_settings:
@@ -89,8 +89,8 @@ class StateGrapher(Grapher):
             bgcolor='lightsteelblue2',
             )
         if include_controls:
-            all_settings = nrt_node._collect_settings(state.offset, True)
-            new_settings = nrt_node._collect_settings(state.offset, False)
+            all_settings = nrt_node._collect_settings(state.offset, persistent=True)
+            new_settings = nrt_node._collect_settings(state.offset, persistent=False)
             synthdef, synth_kwargs = nrt_node.synthdef, nrt_node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 kwargs = {'cellpadding': 2}

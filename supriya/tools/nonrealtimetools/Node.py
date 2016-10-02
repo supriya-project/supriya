@@ -79,14 +79,22 @@ class Node(SessionObject):
         self.session.nodes.insert(node)
         self.session._apply_transitions([node.start_offset, node.stop_offset])
 
-    def _collect_settings(self, offset, persistent=False):
+    def _collect_settings(self, offset, id_mapping=None, persistent=False):
         settings = {}
         if persistent:
             for key in self._events:
                 value = self._get_at_offset(offset, key)
+                if id_mapping and value in id_mapping:
+                    value = id_mapping[value]
                 settings[key] = value
         else:
             for key, events in self._events.items():
+                events = events[:]
+                for i, (event_offset, value) in enumerate(events):
+                    # TODO: This is dreadfully inefficient.
+                    if id_mapping and value in id_mapping:
+                        value = id_mapping[value]
+                        events[i] = (event_offset, value)
                 index = bisect.bisect_left(events, (offset, 0.))
                 if len(events) <= index:
                     continue

@@ -1,15 +1,14 @@
 # -*- encoding: utf-8 -*-
 import time
 import types
-import unittest
-from abjad.tools import stringtools
+from abjad.tools import systemtools
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
 from supriya.tools import servertools
 
 
-class TestCase(unittest.TestCase):
+class TestCase(systemtools.TestCase):
 
     pbind_01 = patterntools.Pbind(
         amplitude=1.0,
@@ -72,7 +71,7 @@ class TestCase(unittest.TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -80,7 +79,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -90,7 +89,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -101,7 +100,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -111,7 +110,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -122,7 +121,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -132,7 +131,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -141,7 +140,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -184,7 +183,7 @@ class TestCase(unittest.TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -192,7 +191,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -204,7 +203,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1003 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -219,7 +218,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1003 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -231,7 +230,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1005 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -246,7 +245,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1005 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -258,7 +257,7 @@ class TestCase(unittest.TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1005 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -270,7 +269,7 @@ class TestCase(unittest.TestCase):
         time.sleep(0.5)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -334,14 +333,14 @@ class TestCase(unittest.TestCase):
     def test_manual_stop_pbind_01(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         player = self.pbind_01.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -350,7 +349,7 @@ class TestCase(unittest.TestCase):
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -359,7 +358,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -367,14 +366,14 @@ class TestCase(unittest.TestCase):
     def test_manual_stop_pbind_02(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         player = self.pbind_02.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1003 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -385,7 +384,7 @@ class TestCase(unittest.TestCase):
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1003 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -396,7 +395,7 @@ class TestCase(unittest.TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r'''
+        assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')

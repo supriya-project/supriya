@@ -24,10 +24,13 @@ class QueryTreeControl(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        string = '{}: {}'.format(
-            self._control_name_or_index,
-            self._control_value,
-            )
+        key = self._control_name_or_index
+        value = self._control_value
+        try:
+            value = round(value, 6)
+        except:
+            pass
+        string = '{}: {}'.format(key, value)
         return string
 
     ### PUBLIC METHODS ###

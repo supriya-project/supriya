@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from abjad import stringtools
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from base import TestCase
@@ -13,7 +12,7 @@ class TestCase(TestCase):
             session.add_group(duration=20)
             group_b = session.add_group(duration=20)
             group_b.add_synth(duration=20)
-        assert session.to_strings(True) == stringtools.normalize('''
+        assert session.to_strings(True) == self.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 group
@@ -34,7 +33,7 @@ class TestCase(TestCase):
                 ['/n_set', 1002, 'gate', 0],
                 [0]]]]
         session.rebuild_transitions()
-        assert session.to_strings(True) == stringtools.normalize('''
+        assert session.to_strings(True) == self.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 group

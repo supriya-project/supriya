@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 import time
-import unittest
 import uuid
+from abjad.tools import systemtools
 from supriya.tools import patterntools
 
 
-class TestCase(unittest.TestCase):
+class TestCase(systemtools.TestCase):
 
     class Event(object):
 

@@ -52,7 +52,7 @@ class Pbindf(EventPattern):
             template_names=names,
             )
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         event_pattern = iter(self._event_pattern)
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:

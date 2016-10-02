@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from abjad.tools import stringtools
 from supriya.tools import nonrealtimetools
 from base import TestCase
 
@@ -19,7 +18,7 @@ class TestCase(TestCase):
             group_b['pan'] = 0.25
             group_c['pan'] = 0.75
         graphviz_graph = session.states[0].__graph__(include_controls=False)
-        assert str(graphviz_graph) == stringtools.normalize('''
+        assert str(graphviz_graph) == self.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -134,7 +133,7 @@ class TestCase(TestCase):
             }
         ''')
         graphviz_graph = session.states[0].__graph__(include_controls=True)
-        assert str(graphviz_graph) == stringtools.normalize('''
+        assert str(graphviz_graph) == self.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

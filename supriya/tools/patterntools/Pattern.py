@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import abc
 import collections
+import inspect
 import itertools
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -13,6 +14,10 @@ class Pattern(SupriyaValueObject):
     ### CLASS VARIABLES ###
 
     __slots__ = ()
+
+    _filename = __file__
+
+    _rngs = {}
 
     ### INITIALIZER ###
 
@@ -89,30 +94,25 @@ class Pattern(SupriyaValueObject):
 
     def __iter__(self):
         state = self._setup_state()
-        iterator = self._iterate()
+        iterator = self._iterate(state)
         try:
             expr = self._coerce_iterator_output(next(iterator), state)
         except StopIteration:
             return
-        sent = None
-
         pre_exprs, expr = self._handle_first(expr, state)
         if pre_exprs:
             for pre_expr in pre_exprs:
-                sent = yield pre_expr
-
+                yield pre_expr
         exprs = [expr]
         for expr in iterator:
             expr = self._coerce_iterator_output(expr, state)
             exprs.append(expr)
-            sent = yield exprs.pop(0)
-
+            yield exprs.pop(0)
         expr, post_exprs = self._handle_last(exprs[0], state)
-        sent = yield expr
-
+        yield expr
         if post_exprs:
             for post_expr in post_exprs:
-                sent = yield post_expr
+                yield post_expr
 
     ### PRIVATE METHODS ###
 
@@ -145,6 +145,36 @@ class Pattern(SupriyaValueObject):
             return len(value)
         return 1
 
+    @classmethod
+    def _get_rng(cls, seed=None):
+        from supriya.tools import patterntools
+        identifier = None
+        try:
+            stack = inspect.stack()
+            for frame_info in reversed(stack):
+                if frame_info.filename != cls._filename:
+                    continue
+                elif frame_info.function != '__iter__':
+                    continue
+                print('FOUND?', frame_info)
+                identifier = id(frame_info.frame)
+                break
+        finally:
+            del(frame_info)
+            del(stack)
+        print('IDENT', identifier)
+        print('RNGS ', cls._rngs)
+        if identifier in cls._rngs:
+            rng = cls._rngs[identifier]
+        elif identifier is None:
+            rng = iter(patterntools.RandomNumberGenerator(seed or 1))
+        else:
+            rng = cls._rngs.setdefault(
+                identifier,
+                iter(patterntools.RandomNumberGenerator(seed or 1))
+                )
+        return rng, identifier
+
     def _handle_first(self, expr, state=None):
         return None, expr
 
@@ -152,7 +182,7 @@ class Pattern(SupriyaValueObject):
         return expr, None
 
     @abc.abstractmethod
-    def _iterate(self):
+    def _iterate(self, state=None):
         raise NotImplementedError
 
     @classmethod

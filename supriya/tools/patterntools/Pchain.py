@@ -24,7 +24,7 @@ class Pchain(EventPattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self):
+    def _iterate(self, state=None):
         patterns = [iter(_) for _ in self._patterns]
         while True:
             try:
@@ -36,7 +36,11 @@ class Pchain(EventPattern):
                     template_event = next(pattern)
                 except StopIteration:
                     return
-                event = new(event, **template_event.as_dict())
+                template_dict = template_event.as_dict()
+                for key, value in tuple(template_dict.items()):
+                    if value is None:
+                        template_dict.pop(key)
+                event = new(event, **template_dict)
             yield event
 
     ### PUBLIC PROPERTIES ###

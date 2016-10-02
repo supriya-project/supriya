@@ -89,39 +89,44 @@ class SynthEvent(Event):
         timestamp=0,
         uuids=None,
         ):
+        # TODO: Should this handle multichannel expansion?
         from supriya import synthdefs
         from supriya.tools import patterntools
         node_uuid = self.get('uuid') or uuid.uuid4()
         requests = []
         synthdef = self.get('synthdef') or synthdefs.default
         if not self.get('is_stop'):
-            node_id = server.node_id_allocator.allocate_node_id()
-            uuids[node_uuid] = {
-                node_id: servertools.Synth(synthdef),
-                }
             target_node_id = self.get('target_node')
             if not target_node_id:
                 target_node_id = 1
             elif isinstance(target_node_id, uuid.UUID):
                 target_node_id = list(uuids[target_node_id])[0]
             add_action = self.get('add_action')
-            settings = self.settings.copy()
-            parameter_names = synthdef.parameter_names
-            for key in tuple(settings.keys()):
-                if key not in parameter_names:
-                    settings.pop(key)
-            request = requesttools.SynthNewRequest(
-                add_action=add_action,
-                node_id=node_id,
-                target_node_id=target_node_id,
-                synthdef=synthdef,
-                **settings
+            dictionaries = self._expand(
+                self.settings,
+                synthdef,
+                uuids,
+                realtime=False,
+                synth_parameters_only=True,
                 )
+            synths = uuids[node_uuid] = {}
+            for dictionary in dictionaries:
+                node_id = server.node_id_allocator.allocate_node_id()
+                synth = servertools.Synth(synthdef, **dictionary)
+                synths[node_id] = synth
+                request = requesttools.SynthNewRequest(
+                    add_action=add_action,
+                    node_id=node_id,
+                    target_node_id=target_node_id,
+                    synthdef=synthdef,
+                    **dictionary
+                    )
+            requests.append(request)
         else:
             request = requesttools.NodeFreeRequest(
                 node_ids=sorted(uuids[node_uuid]),
                 )
-        requests.append(request)
+            requests.append(request)
         event_product = patterntools.EventProduct(
             event=self,
             index=index,

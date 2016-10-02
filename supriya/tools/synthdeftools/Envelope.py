@@ -47,11 +47,20 @@ class Envelope(SupriyaValueObject):
         loop_node=None,
         offset=None,
         ):
+        from supriya.tools import synthdeftools
         assert len(amplitudes)
         assert len(durations) and len(durations) == (len(amplitudes) - 1)
-        amplitudes = tuple(float(x) for x in amplitudes)
-        durations = tuple(float(x) for x in durations)
-        if isinstance(curves, (int, float, str)):
+        amplitudes = list(amplitudes)
+        for i, amplitude in enumerate(amplitudes):
+            if isinstance(amplitude, int):
+                amplitudes[i] = float(amplitude)
+        durations = list(durations)
+        for i, duration in enumerate(durations):
+            if isinstance(duration, int):
+                durations[i] = float(duration)
+        if isinstance(curves, (
+            int, float, str, synthdeftools.EnvelopeShape,
+            )):
             curves = (curves,)
         elif curves is None:
             curves = ()
@@ -69,15 +78,11 @@ class Envelope(SupriyaValueObject):
             offset = float(offset)
         self._offset = offset
         self._initial_amplitude = amplitudes[0]
-        #print(self._amplitudes)
-        #print(self._durations)
-        #print(self._curves)
         self._envelope_segments = tuple(sequencetools.zip_sequences([
             amplitudes[1:],
             durations,
             curves,
             ], cyclic=True))
-        #print(self._envelope_segments)
 
     ### PUBLIC METHODS ###
 
@@ -169,7 +174,7 @@ class Envelope(SupriyaValueObject):
             result.append(self.duration)
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(duration)
-                if isinstance(curve, str):
+                if isinstance(curve, (synthdeftools.EnvelopeShape, str)):
                     shape = synthdeftools.EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.

@@ -47,14 +47,14 @@ class Ppar(EventPattern):
         >>> for x in ppar:
         ...     x
         ...
-        Event(duration=1.0, delta=0.0, uuid=UUID('...'), x=1)
-        Event(duration=0.4, uuid=UUID('...'), x=10)
-        Event(duration=0.4, uuid=UUID('...'), x=20)
-        Event(duration=0.4, delta=0.2, uuid=UUID('...'), x=30)
-        Event(duration=1.0, delta=0.2, uuid=UUID('...'), x=2)
-        Event(duration=0.4, delta=0.8, uuid=UUID('...'), x=40)
-        Event(duration=1.0, uuid=UUID('...'), x=3)
-        Event(duration=1.0, uuid=UUID('...'), x=4)
+        NoteEvent(delta=0.0, duration=1.0, uuid=UUID('...'), x=1)
+        NoteEvent(delta=0.4, duration=0.4, uuid=UUID('...'), x=10)
+        NoteEvent(delta=0.4, duration=0.4, uuid=UUID('...'), x=20)
+        NoteEvent(delta=0.2, duration=0.4, uuid=UUID('...'), x=30)
+        NoteEvent(delta=0.2, duration=1.0, uuid=UUID('...'), x=2)
+        NoteEvent(delta=0.8, duration=0.4, uuid=UUID('...'), x=40)
+        NoteEvent(delta=1.0, duration=1.0, uuid=UUID('...'), x=3)
+        NoteEvent(duration=1.0, uuid=UUID('...'), x=4)
 
     """
 
@@ -74,19 +74,18 @@ class Ppar(EventPattern):
 
     ### PRIVATE METHODS ###
 
-    def _iterate(self):
-        from supriya.tools import patterntools
-        queue = PriorityQueue()
-        for index, pattern in enumerate(self._patterns, 1):
-            queue.put(((0.0, index), iter(pattern)))
+    def _coerce_iterator_output(self, event, state):
+        return new(event, _iterator=None)
+
+    def _iterate(self, state=None):
+        queue = state[0]
         # get first event
         previous_offset, previous_event, next_event = 0.0, None, None
         while not previous_event and not queue.empty():
             (_, index), iterator = queue.get()
             try:
                 previous_event = next(iterator)
-                if not isinstance(previous_event, patterntools.Event):
-                    previous_event = patterntools.Event(**previous_event)
+                previous_event = new(previous_event, _iterator=iterator)
             except StopIteration:
                 continue
             queue.put(((previous_event.delta, index), iterator))
@@ -95,8 +94,7 @@ class Ppar(EventPattern):
             (next_offset, index), iterator = queue.get()
             try:
                 next_event = next(iterator)
-                if not isinstance(next_event, patterntools.Event):
-                    next_event = patterntools.Event(**next_event)
+                next_event = new(next_event, _iterator=iterator)
             except StopIteration:
                 continue
             queue.put(((next_offset + next_event.delta, index), iterator))
@@ -108,6 +106,15 @@ class Ppar(EventPattern):
             next_event = None
         if not next_event:
             yield previous_event
+
+    def _setup_state(self):
+        queue = PriorityQueue()
+        for index, pattern in enumerate(self._patterns, 1):
+            iterator = iter(pattern)
+            payload = ((0.0, index), iterator)
+            queue.put(payload)
+        state = (queue,)
+        return state
 
     ### PUBLIC PROPERTIES ###
 

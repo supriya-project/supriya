@@ -297,7 +297,6 @@ class SynthDef(ServerObjectProxy):
                 )
         if d_load_synthdefs:
             temp_directory_path = tempfile.mkdtemp()
-            print('TEMP:', temp_directory_path)
             for synthdef in d_load_synthdefs:
                 file_name = '{}.scsyndef'.format(synthdef.actual_name)
                 file_path = os.path.join(temp_directory_path, file_name)
@@ -311,7 +310,6 @@ class SynthDef(ServerObjectProxy):
                 sync=True,
                 )
             shutil.rmtree(temp_directory_path)
-            print('DELETED?', not os.path.exists(temp_directory_path))
 
     @staticmethod
     def _build_control_mapping(parameters):

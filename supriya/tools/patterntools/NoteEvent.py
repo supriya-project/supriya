@@ -9,9 +9,7 @@ class NoteEvent(Event):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = (
-        '_duration',
-        )
+    __slots__ = ()
 
     ### INITIALIZER ###
 
@@ -19,18 +17,18 @@ class NoteEvent(Event):
         self,
         add_action=None,
         delta=None,
-        duration=1,
+        duration=None,
         target_node=None,
         uuid=None,
         **settings
         ):
         if add_action is not None:
             add_action = servertools.AddAction.from_expr(add_action)
-        self._duration = duration
         Event.__init__(
             self,
             add_action=add_action,
             delta=delta,
+            duration=duration,
             target_node=target_node,
             uuid=uuid,
             **settings
@@ -49,6 +47,9 @@ class NoteEvent(Event):
         synthdef = self.get('synthdef', synthdefs.default)
         synth_uuid = self.get('uuid', uuid.uuid4())
         do_not_release = self.get('_do_not_release')
+        duration = self['duration']
+        if duration is None:
+            duration = 1
         dictionaries = self._expand(
             self.settings,
             synthdef,
@@ -58,7 +59,6 @@ class NoteEvent(Event):
             )
         if synth_uuid not in uuids:
             # Start a synth, both Pbind and Pmono
-            duration = self.duration
             if do_not_release:
                 duration = float('inf')
             target_node = self['target_node']
@@ -88,7 +88,7 @@ class NoteEvent(Event):
                     for key, value in dictionary.items():
                         synth[key] = value
             if not do_not_release:
-                stop_offset = offset + self.duration
+                stop_offset = offset + duration
                 for synth in synths:
                     duration = stop_offset - synth.start_offset
                     synth.set_duration(duration)
@@ -105,6 +105,9 @@ class NoteEvent(Event):
         synth_uuid = self.get('uuid') or uuid.uuid4()
         synthdef = self.get('synthdef', synthdefs.default)
         do_not_release = self.get('_do_not_release')
+        duration = self['duration']
+        if duration is None:
+            duration = 1
         dictionaries = self._expand(self.settings, synthdef, uuids)
         first_visit = False
         if synth_uuid not in uuids:
@@ -137,7 +140,7 @@ class NoteEvent(Event):
                 index=index,
                 is_stop=True,
                 requests=(),
-                timestamp=timestamp + self.duration,
+                timestamp=timestamp + duration,
                 uuid=None,
                 )
         node_ids = uuids[synth_uuid]
@@ -206,8 +209,11 @@ class NoteEvent(Event):
         uuids,
         ):
         from supriya.tools import patterntools
+        duration = self['duration']
+        if duration is None:
+            duration = 1
         requests = []
-        timestamp = timestamp + self.duration
+        timestamp = timestamp + duration
         node_ids = uuids[synth_uuid]
         if synthdef.has_gate:
             for node_id in node_ids:

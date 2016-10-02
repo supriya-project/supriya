@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 import os
-import unittest
+from abjad.tools import systemtools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-class TestCase(unittest.TestCase):
+class TestCase(systemtools.TestCase):
 
     def setUp(self):
         self.output_filepath = os.path.abspath(os.path.join(
