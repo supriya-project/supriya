@@ -27,7 +27,7 @@ Supriya is compatible with Python 3.3+ only.
 
 `GitHub`_ |
 `PyPI`_ |
-`Documentation <http://supriya.readthedocs.org/>`_ |
+`Documentation <http://supriya.mbrsi.org/>`_ |
 `Issue Tracker <https://github.com/josiah-wolf-oberholtzer/supriya/issues>`_ |
 `Mailing list <http://groups.google.com/group/supriya-dev>`_ |
 
