@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.UGen import UGen
-
+from supriya import *
 
 class Duty(UGen):
-    r'''
+    r'''A value is demanded of each UGen in the list and output according to a stream of duration values.
 
     ::
 
