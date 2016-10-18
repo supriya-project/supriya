@@ -3,39 +3,45 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SyncSaw(PureUGen):
-    r'''A hard sync sawtooth wave.
+    r'''A sawtooth wave that is hard synched to a fundamental pitch.
 
     ::
 
-        >>> ugentools.SyncSaw.ar()
+        >>> sync_saw = ugentools.SyncSaw.ar(
+        ...     saw_frequency=440,
+        ...     sync_frequency=440,
+        ...     )
+        >>> sync_saw
         SyncSaw.ar()
 
     '''
 
     ### CLASS VARIABLES ###
 
-    __documentation_section__ = 'Oscillator UGens'
+    __documentation_section__ = None
 
     __slots__ = ()
 
     _ordered_input_names = (
-        'syncFreq',
-        'sawFreq',
+        'sync_frequency',
+        'saw_frequency',
         )
+
+    _valid_calculation_rates = None
 
     ### INITIALIZER ###
 
     def __init__(
         self,
         calculation_rate=None,
-        syncFreq=440.,
-        sawFreq=440.,
+        saw_frequency=440,
+        sync_frequency=440,
         ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            syncFreq=syncFreq,
-            sawFreq=sawFreq,
+            saw_frequency=saw_frequency,
+            sync_frequency=sync_frequency,
             )
 
     ### PUBLIC METHODS ###
@@ -43,91 +49,93 @@ class SyncSaw(PureUGen):
     @classmethod
     def ar(
         cls,
-        syncFreq=440,
-        sawFreq=440,
+        saw_frequency=440,
+        sync_frequency=440,
         ):
-        r'''Constructs an audio-rate SyncSaw oscillator.
+        r'''Constructs an audio-rate SyncSaw.
 
         ::
 
-            >>> ugentools.SyncSaw.ar(
-            ...     syncFreq=443,
-            ...     sawFreq=0.25,
+            >>> sync_saw = ugentools.SyncSaw.ar(
+            ...     saw_frequency=440,
+            ...     sync_frequency=440,
             ...     )
+            >>> sync_saw
             SyncSaw.ar()
 
-        Returns unit generator graph.
+        Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            syncFreq=syncFreq,
-            sawFreq=sawFreq,
+            saw_frequency=saw_frequency,
+            sync_frequency=sync_frequency,
             )
         return ugen
 
     @classmethod
     def kr(
         cls,
-        syncFreq=440,
-        sawFreq=440,
+        saw_frequency=440,
+        sync_frequency=440,
         ):
-        r'''Constructs an control-rate SyncSaw oscillator.
+        r'''Constructs a control-rate SyncSaw.
 
         ::
 
-            >>> ugentools.SyncSaw.kr(
-            ...     syncFreq=443,
-            ...     sawFreq=0.25,
+            >>> sync_saw = ugentools.SyncSaw.kr(
+            ...     saw_frequency=440,
+            ...     sync_frequency=440,
             ...     )
+            >>> sync_saw
             SyncSaw.kr()
 
-        Returns unit generator graph.
+        Returns ugen graph.
         '''
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            syncFreq=syncFreq,
-            sawFreq=sawFreq,
+            saw_frequency=saw_frequency,
+            sync_frequency=sync_frequency,
             )
         return ugen
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def syncFreq(self):
-        r'''Gets `syncFreq` input of SyncSaw.
+    def saw_frequency(self):
+        r'''Gets `saw_frequency` input of SyncSaw.
 
         ::
 
-            >>> syncFreq = 442
             >>> sync_saw = ugentools.SyncSaw.ar(
-            ...     syncFreq=syncFreq,
+            ...     saw_frequency=440,
+            ...     sync_frequency=440,
             ...     )
-            >>> sync_saw.syncFreq
-            442.0
+            >>> sync_saw.saw_frequency
+            440.0
 
         Returns ugen input.
         '''
-        index = self._ordered_input_names.index('syncFreq')
+        index = self._ordered_input_names.index('saw_frequency')
         return self._inputs[index]
 
     @property
-    def sawFreq(self):
-        r'''Gets `sawFreq` input of SyncSaw.
+    def sync_frequency(self):
+        r'''Gets `sync_frequency` input of SyncSaw.
 
-                ::
+        ::
 
-                    >>> sawFreq = 440
-                    >>> sync_saw = ugentools.SyncSaw.ar(
-                    ...     sawFreq=sawFreq,
-                    ...     )
-                    >>> sync_saw.sawFreq
-                    440
+            >>> sync_saw = ugentools.SyncSaw.ar(
+            ...     saw_frequency=440,
+            ...     sync_frequency=440,
+            ...     )
+            >>> sync_saw.sync_frequency
+            440.0
 
-                Returns ugen input.
-                '''
-        index = self._ordered_input_names.index('sawFreq')
+        Returns ugen input.
+        '''
+        index = self._ordered_input_names.index('sync_frequency')
         return self._inputs[index]
