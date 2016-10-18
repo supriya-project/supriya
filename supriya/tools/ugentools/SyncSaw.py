@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SyncSaw(PureUGen):
-    r'''
+    r'''A sawtooth wave that is hard synched to a fundamental pitch.
 
     ::
 
