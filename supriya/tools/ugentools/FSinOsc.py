@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FSinOsc(UGen):
-    r'''
+    r'''Very fast sine wave generator (2 PowerPC instructions per output sample!) implemented using a ringing filter.
 
     ::
 
