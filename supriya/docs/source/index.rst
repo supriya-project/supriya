@@ -22,30 +22,6 @@ Quickstart
 
 ..  include:: quick-example.txt
 
-About Supriya
--------------
-
-..  toctree::
-    :maxdepth: 2
-
-    about/index
-
-User Guide
-----------
-
-..  toctree::
-    :maxdepth: 3
-
-    users/index
-
-Examples
---------
-
-..  toctree::
-    :maxdepth: 2
-
-    examples/index
-
 Supriya API
 -----------
 
@@ -53,14 +29,6 @@ Supriya API
     :maxdepth: 2
 
     api/index
-
-Developer Guide
----------------
-
-..  toctree::
-    :maxdepth: 3
-
-    developers/index
 
 Indices and tables
 ==================

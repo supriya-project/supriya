@@ -158,7 +158,6 @@ class StateGrapher(Grapher):
             state, root_node)
         node_mapping[root_node] = graphviz_root_node
         graph.append(graphviz_root_node)
-        print('IC?', include_controls)
         for parent, child in state._iterate_node_pairs(
             root_node, state.nodes_to_children):
             if isinstance(child, nonrealtimetools.Group):
