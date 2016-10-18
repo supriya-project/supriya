@@ -64,7 +64,7 @@ class OscListener(SupriyaObject, threading.Thread):
                     continue
                 if self.debug_osc:
                     if message.address != '/status.reply':
-                        print('RECV', repr(message))
+                        print('RECV', message.to_list())
                         if self.debug_udp:
                             for line in str(message).splitlines():
                                 print('    ' + line)

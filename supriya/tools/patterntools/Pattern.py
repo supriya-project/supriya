@@ -156,14 +156,11 @@ class Pattern(SupriyaValueObject):
                     continue
                 elif frame_info.function != '__iter__':
                     continue
-                print('FOUND?', frame_info)
                 identifier = id(frame_info.frame)
                 break
         finally:
             del(frame_info)
             del(stack)
-        print('IDENT', identifier)
-        print('RNGS ', cls._rngs)
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
         elif identifier is None:

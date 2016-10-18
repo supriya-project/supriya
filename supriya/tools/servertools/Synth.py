@@ -57,6 +57,7 @@ class Synth(Node):
         register_controls=None,
         **kwargs
         ):
+        from supriya import synthdefs
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, synthdeftools.SynthDef)
@@ -64,7 +65,7 @@ class Synth(Node):
             self,
             name=name,
             )
-        self._synthdef = synthdef
+        self._synthdef = synthdef or synthdefs.synthdef
         self._control_interface = servertools.SynthInterface(
             client=self,
             synthdef=self._synthdef,

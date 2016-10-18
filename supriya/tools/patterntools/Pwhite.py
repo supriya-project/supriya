@@ -28,10 +28,7 @@ class Pwhite(Pattern):
         def procedure(one, two):
             minimum, maximum = sorted([one, two])
             number = next(rng)
-            return (number + minimum) * (maximum - minimum)
-            #if isinstance(minimum, int) and isinstance(maximum, int):
-            #    return random.randint(minimum, maximum)
-            #return (random.random() + minimum) * (maximum - minimum)
+            return (number * (maximum - minimum)) + minimum
         rng, identifier = self._get_rng()
         try:
             for _ in self._loop(self._repetitions):
@@ -43,7 +40,6 @@ class Pwhite(Pattern):
         finally:
             if identifier in Pattern._rngs:
                 del(Pattern._rngs[identifier])
-            print('DONE', identifier, Pattern._rngs)
 
     ### PUBLIC PROPERTIES ###
 

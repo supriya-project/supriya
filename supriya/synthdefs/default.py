@@ -55,7 +55,7 @@ def _build_default_synthdef():
             )
         linen = ugentools.Linen.kr(
             attack_time=0.01,
-            done_action=2,
+            done_action=synthdeftools.DoneAction.FREE_SYNTH,
             gate=builder['gate'],
             release_time=0.3,
             sustain_level=0.7,

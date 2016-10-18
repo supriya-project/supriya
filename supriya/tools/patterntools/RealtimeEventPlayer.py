@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+from abjad import new
+import itertools
 import time
 try:
     from queue import PriorityQueue
@@ -19,6 +21,7 @@ class RealtimeEventPlayer(EventPlayer):
         '_pattern',
         '_server',
         '_uuids',
+        '_call_count',
         )
 
     ### INITIALIZER ###
@@ -42,19 +45,21 @@ class RealtimeEventPlayer(EventPlayer):
         self._clock = clock
         self._iterator = None
         self._uuids = {}
+        self._call_count = 0
 
     ### SPECIAL METHODS ###
 
     def __call__(self, execution_time, scheduled_time, communicate=True):
         if self._iterator is None:
-            self._iterator = self._iterate_bundles(
-                uuids=self._uuids,
+            self._iterator = self._iterate_outer(
+                pattern=self._pattern,
                 server=self._server,
-                timestamp=time.time(),
+                timestamp=scheduled_time,
+                uuids=self._uuids,
                 )
-        group, delta = next(self._iterator)
+        event_products, delta = next(self._iterator)
         node_free_ids, requests = set(), []
-        for event_product in group:
+        for event_product in event_products:
             if not event_product.event:
                 continue
             for request in event_product.requests:
@@ -85,6 +90,10 @@ class RealtimeEventPlayer(EventPlayer):
             )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc_bundle()
+            osc_bundle = new(
+                osc_bundle,
+                timestamp=osc_bundle.timestamp + self._server.latency,
+                )
             self._server.send_message(osc_bundle)
             return delta
         return consolidated_bundle, delta
@@ -114,34 +123,10 @@ class RealtimeEventPlayer(EventPlayer):
             return
         return requesttools.RequestBundle(contents=requests)
 
-    def _iterate_grouped_events(self):
-        events = []
-        for event in self._pattern:
-            events.append(event)
-            if event.delta:
-                yield tuple(events), event.delta
-                events[:] = []
-        if events:
-            yield tuple(events), 0
-
-    def _iterate_bundles(
-        self,
-        server,
-        timestamp,
-        uuids,
-        ):
-        #now = timestamp
+    @staticmethod
+    def _iterate_inner(pattern, server, timestamp, uuids):
         queue = PriorityQueue()
-        index = 0
-        group, group_delta = None, None
-        for event in self._pattern:
-            #print('EVENT?', event)
-            if group:
-                # If we previously had a null delta, check for a next event.
-                group_delta = timestamp - group[0].timestamp
-                #print('    Catching up...')
-                yield group, group_delta
-                group, group_delta = None, None
+        for index, event in enumerate(pattern):
             for event_product in event._perform_realtime(
                 index=index,
                 server=server,
@@ -149,59 +134,54 @@ class RealtimeEventPlayer(EventPlayer):
                 uuids=uuids,
                 ):
                 queue.put(event_product)
-            index += 1
+            while not queue.empty():
+                event_product = queue.get()
+                if event_product.timestamp < (timestamp + event.delta):
+                    yield event_product
+                else:
+                    queue.put(event_product)
+                    break
             timestamp += event.delta
-            if not event.delta:
-                continue
-            for group, group_delta in self._iterate_queue(queue, timestamp):
-                #print('    TS?', group[0].timestamp - now)
-                if group_delta:
-                    yield group, group_delta
-                    group, group_delta = None, None
-                #else:
-                    #print('    Continuing...')
-                # Otherwise store and attempt to pull another event.
-        if group:
-            #print('    TS?', group[0].timestamp - now)
-            yield group, group_delta
-        for group, group_delta in self._iterate_queue(queue):
-            #print('    TS?', group[0].timestamp - now)
-            yield group, group_delta
-        assert queue.empty()
-
-    def _iterate_queue(self, queue, until=None):
-        group = []
         while not queue.empty():
             event_product = queue.get()
-            if until is not None and until <= event_product.timestamp:
-                queue.put(event_product)
-                break
-            if group and event_product.timestamp != group[0].timestamp:
-                delta = event_product.timestamp - group[0].timestamp
-                yield group, delta
-                group.clear()
-            group.append(event_product)
-        if group:
-            delta = None
-            if not queue.empty():
-                event_product = queue.get()
-                delta = event_product.timestamp - group[0].timestamp
-                queue.put(event_product)
-            yield group, delta
+            yield event_product
+        assert queue.empty()
+
+    @staticmethod
+    def _iterate_outer(pattern, server, timestamp, uuids):
+        iterator = RealtimeEventPlayer._iterate_inner(
+            pattern, server, timestamp, uuids)
+        iterator = itertools.groupby(iterator, lambda x: x.timestamp)
+        pairs = []
+        try:
+            timestamp_one, grouper = next(iterator)
+        except StopIteration:
+            return
+        pairs.append((timestamp_one, tuple(grouper)))
+        for timestamp_two, grouper in iterator:
+            pairs.append((timestamp_two, tuple(grouper)))
+            timestamp_one, event_products = pairs.pop(0)
+            delta = timestamp_two - timestamp_one
+            yield event_products, delta
+        _, event_products = pairs.pop()
+        yield event_products, None
 
     ### PUBLIC METHODS ###
 
-    def pause(self):
-        pass
-
     def start(self):
+        timestamp = time.time()
         self._uuids.clear()
-        self._iterator = self._iterate_bundles(
-            uuids=self._uuids,
+        self._iterator = self._iterate_outer(
+            pattern=self._pattern,
             server=self._server,
-            timestamp=time.time(),
+            timestamp=timestamp,
+            uuids=self._uuids,
             )
-        self._clock.schedule(self)
+        self._clock.schedule(
+            self,
+            scheduled_time=timestamp,
+            absolute=True,
+            )
 
     def stop(self):
         self._clock.cancel(self)
@@ -210,6 +190,3 @@ class RealtimeEventPlayer(EventPlayer):
         self._uuids.clear()
         if bundle:
             self._server.send_message(bundle.to_osc_bundle())
-
-    def unpause(self):
-        pass

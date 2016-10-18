@@ -1,14 +1,12 @@
 # -*- encoding: utf-8 -*-
 import time
-import types
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
-from supriya.tools import servertools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     pbind_01 = patterntools.Pbind(
         amplitude=1.0,
@@ -22,29 +20,11 @@ class TestCase(systemtools.TestCase):
         frequency=patterntools.Pseq([[440, 550], [550, 660], [660, 770]]),
         )
 
-    def setUp(self):
-        self.server = servertools.Server.get_default_server().boot()
-        synthdefs.default.allocate(self.server)
-        self.server.sync()
-
-    def tearDown(self):
-        self.server.quit()
-
-    def manual_incommunicado(self, pattern, timestamp=10):
-        player = patterntools.RealtimeEventPlayer(
-            pattern,
-            server=types.SimpleNamespace(
-                node_id_allocator=servertools.NodeIdAllocator(),
-                ),
-            )
-        lists, deltas, delta = [], [], True
-        while delta is not None:
-            bundle, delta = player(timestamp, timestamp, communicate=False)
-            if delta is not None:
-                timestamp += delta
-            lists.append(bundle.to_list(True))
-            deltas.append(delta)
-        return lists, deltas
+    pbind_03 = patterntools.Pbind(
+        duration=1,
+        delta=0.25,
+        frequency=patterntools.Pseq([220, 440, 330, 660], 2),
+        )
 
     def test_manual_incommunicado_pbind_01(self):
         lists, deltas = self.manual_incommunicado(self.pbind_01)
@@ -267,7 +247,6 @@ class TestCase(systemtools.TestCase):
         ''')
         # Wait for termination
         time.sleep(0.5)
-        self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
@@ -277,6 +256,47 @@ class TestCase(systemtools.TestCase):
     def test_automatic_communicado_pbind_02(self):
         self.pbind_02.play(server=self.server)
         time.sleep(6)
+
+    def test_manual_incommunicado_pbind_03(self):
+        lists, deltas = self.manual_incommunicado(self.pbind_03)
+        assert deltas == [
+            0.25, 0.25, 0.25, 0.25,
+            0.25, 0.25, 0.25, 0.25,
+            0.25, 0.25, 0.25, None,
+            ]
+        assert lists == [
+            [10, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 1,
+                    'frequency', 220]]],
+            [10.25, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1,
+                    'frequency', 440]]],
+            [10.5, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1,
+                    'frequency', 330]]],
+            [10.75, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1,
+                    'frequency', 660]]],
+            [11.0, [
+                ['/n_set', 1000, 'gate', 0],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1,
+                    'frequency', 220]]],
+            [11.25, [
+                ['/n_set', 1001, 'gate', 0],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1,
+                    'frequency', 440]]],
+            [11.5, [
+                ['/n_set', 1002, 'gate', 0],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 1,
+                    'frequency', 330]]],
+            [11.75, [
+                ['/n_set', 1003, 'gate', 0],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1007, 0, 1,
+                    'frequency', 660]]],
+            [12.0, [['/n_set', 1004, 'gate', 0]]],
+            [12.25, [['/n_set', 1005, 'gate', 0]]],
+            [12.5, [['/n_set', 1006, 'gate', 0]]],
+            [12.75, [['/n_set', 1007, 'gate', 0]]]]
 
     def test_nonrealtime_01(self):
         session = nonrealtimetools.Session()
@@ -330,6 +350,45 @@ class TestCase(systemtools.TestCase):
                 ['/n_set', 1005, 'gate', 0],
                 [0]]]]
 
+    def test_nonrealtime_03(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            self.pbind_03.inscribe(session)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdefs.default.compile())],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
+                    'frequency', 220]]],
+            [0.25, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
+                    'frequency', 440]]],
+            [0.5, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0,
+                    'frequency', 330]]],
+            [0.75, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 0,
+                    'frequency', 660]]],
+            [1.0, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 0,
+                    'frequency', 220],
+                ['/n_set', 1000, 'gate', 0]]],
+            [1.25, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 0,
+                    'frequency', 440],
+                ['/n_set', 1001, 'gate', 0]]],
+            [1.5, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 0,
+                    'frequency', 330],
+                ['/n_set', 1002, 'gate', 0]]],
+            [1.75, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1007, 0, 0,
+                    'frequency', 660],
+                ['/n_set', 1003, 'gate', 0]]],
+            [2.0, [['/n_set', 1004, 'gate', 0]]],
+            [2.25, [['/n_set', 1005, 'gate', 0]]],
+            [2.5, [['/n_set', 1006, 'gate', 0]]],
+            [2.75, [['/n_set', 1007, 'gate', 0], [0]]]]
+
     def test_manual_stop_pbind_01(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
@@ -338,7 +397,7 @@ class TestCase(systemtools.TestCase):
                 1 group
         ''')
         player = self.pbind_01.play(server=self.server)
-        time.sleep(2)
+        time.sleep(2.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
@@ -347,7 +406,6 @@ class TestCase(systemtools.TestCase):
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
         ''')
         player.stop()
-        self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
@@ -372,6 +430,7 @@ class TestCase(systemtools.TestCase):
         ''')
         player = self.pbind_02.play(server=self.server)
         time.sleep(2)
+        self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
         assert server_state == self.normalize(r'''
             NODE TREE 0 group

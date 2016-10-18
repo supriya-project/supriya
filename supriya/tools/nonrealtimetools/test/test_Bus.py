@@ -2,7 +2,7 @@
 import os
 from supriya.tools import nonrealtimetools
 from supriya.tools import osctools
-from base import TestCase
+from nonrealtimetools_testbase import TestCase
 
 
 class TestCase(TestCase):
