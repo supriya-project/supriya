@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferCopyRequest(Request):
-    r'''A `/b_gen copy` request.
+    r"""
+    A `/b_gen copy` request.
 
     ::
 
@@ -30,7 +31,7 @@ class BufferCopyRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_GENERATE
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

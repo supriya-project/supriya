@@ -5,7 +5,8 @@ from supriya.tools.requesttools.BufferReadRequest import BufferReadRequest
 
 
 class BufferReadChannelRequest(BufferReadRequest):
-    r'''A /b_readChannel request.
+    r"""
+    A /b_readChannel request.
 
     ::
 
@@ -33,7 +34,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         >>> message.address == requesttools.RequestId.BUFFER_READ_CHANNEL
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

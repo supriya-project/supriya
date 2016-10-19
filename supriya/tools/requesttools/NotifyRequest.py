@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NotifyRequest(Request):
-    r'''A /notify message.
+    r"""
+    A /notify message.
 
     ::
 
@@ -29,7 +30,7 @@ class NotifyRequest(Request):
         >>> message.address == requesttools.RequestId.NOTIFY
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

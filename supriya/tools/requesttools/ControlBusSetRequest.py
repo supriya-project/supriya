@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class ControlBusSetRequest(Request):
-    r'''A /c_set request.
+    r"""
+    A /c_set request.
 
     ::
 
@@ -39,7 +40,7 @@ class ControlBusSetRequest(Request):
         ...     requesttools.RequestId.CONTROL_BUS_SET
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

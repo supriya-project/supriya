@@ -4,7 +4,8 @@ from supriya.tools.requesttools.BufferAllocateRequest import BufferAllocateReque
 
 
 class BufferAllocateReadRequest(BufferAllocateRequest):
-    r'''A /b_allocRead request.
+    r"""
+    A /b_allocRead request.
 
     ::
 
@@ -30,7 +31,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         >>> message.address == requesttools.RequestId.BUFFER_ALLOCATE_READ
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

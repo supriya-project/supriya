@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class StatusRequest(Request):
-    r'''A /status request.
+    r"""
+    A /status request.
 
     ::
 
@@ -24,7 +25,7 @@ class StatusRequest(Request):
         >>> message.address == requesttools.RequestId.STATUS
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

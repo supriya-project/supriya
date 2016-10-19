@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferWriteRequest(Request):
-    r'''A /b_write request.
+    r"""
+    A /b_write request.
 
     ::
 
@@ -38,7 +39,7 @@ class BufferWriteRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_WRITE
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

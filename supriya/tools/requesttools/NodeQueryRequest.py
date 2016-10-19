@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeQueryRequest(Request):
-    r'''A /n_query request.
+    r"""
+    A /n_query request.
 
     ::
 
@@ -28,7 +29,7 @@ class NodeQueryRequest(Request):
         >>> message.address == requesttools.RequestId.NODE_QUERY
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

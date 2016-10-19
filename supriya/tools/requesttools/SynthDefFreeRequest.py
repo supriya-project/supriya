@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthDefFreeRequest(Request):
-    r'''A /d_free request.
+    r"""
+    A /d_free request.
 
     ::
 
@@ -28,7 +29,7 @@ class SynthDefFreeRequest(Request):
         >>> message.address == requesttools.RequestId.SYNTHDEF_FREE
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

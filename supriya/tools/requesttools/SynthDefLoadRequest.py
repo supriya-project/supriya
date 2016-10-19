@@ -5,8 +5,9 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthDefLoadRequest(Request):
-    r'''A /d_load request.
-    '''
+    r"""
+    A /d_load request.
+    """
 
     ### CLASS VARIABLES ###
 
