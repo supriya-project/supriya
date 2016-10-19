@@ -19,7 +19,7 @@ class TestCase(TestCase):
             group_b['pan'] = 0.25
             group_c['pan'] = 0.75
         graphviz_graph = session.states[0].__graph__(include_controls=False)
-        assert str(graphviz_graph) == stringtools.normalize("""
+        assert str(graphviz_graph) == stringtools.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -132,9 +132,9 @@ class TestCase(TestCase):
                 node_3 -> node_0_1;
                 node_4 -> node_0_3;
             }
-        """)
+        ''')
         graphviz_graph = session.states[0].__graph__(include_controls=True)
-        assert str(graphviz_graph) == stringtools.normalize("""
+        assert str(graphviz_graph) == stringtools.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -335,4 +335,4 @@ class TestCase(TestCase):
                 node_3 -> node_0_1;
                 node_4 -> node_0_3;
             }
-        """)
+        ''')

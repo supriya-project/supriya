@@ -19,7 +19,7 @@ class TestCase(TestCase):
         with session.at(15):
             group_a.move_node(group_c)
         graphviz_graph = session.__graph__()
-        assert str(graphviz_graph) == stringtools.normalize("""
+        assert str(graphviz_graph) == stringtools.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -303,4 +303,4 @@ class TestCase(TestCase):
                         margin=0.05];
                 }
             }
-        """)
+        ''')

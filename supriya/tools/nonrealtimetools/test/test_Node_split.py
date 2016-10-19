@@ -12,14 +12,14 @@ class TestCase(TestCase):
         with session.at(0):
             group = session.add_group(duration=20)
             synth = session.add_synth(duration=20)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
                     1000 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -32,7 +32,7 @@ class TestCase(TestCase):
 
         with session.at(10):
             old_group, new_group = group.split()
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -43,7 +43,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -59,7 +59,7 @@ class TestCase(TestCase):
 
         with session.at(10):
             old_synth, new_synth = synth.split()
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -70,7 +70,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -99,13 +99,13 @@ class TestCase(TestCase):
         assert group._events == {
             'foo': [(5, 111), (10, 222), (15, 333)]
             }
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [['/g_new', 1000, 0, 0]]],
             [5.0, [['/n_set', 1000, 'foo', 111]]],
@@ -121,7 +121,7 @@ class TestCase(TestCase):
         assert new_group._events == {
             'foo': [(10, 222), (15, 333)],
             }
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -130,7 +130,7 @@ class TestCase(TestCase):
                     1001 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [['/g_new', 1000, 0, 0]]],
             [5.0, [['/n_set', 1000, 'foo', 111]]],
@@ -159,7 +159,7 @@ class TestCase(TestCase):
             'amplitude': [(15, 0.25), (25, 0.75)],
             'frequency': [(20, 666)],
             }
-        assert session.to_strings(True) == stringtools.normalize("""
+        assert session.to_strings(True) == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
             10.0:
@@ -180,7 +180,7 @@ class TestCase(TestCase):
                         amplitude: 0.75, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             30.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -202,7 +202,7 @@ class TestCase(TestCase):
             'amplitude': [(20, 0.25), (25, 0.75)],
             'frequency': [(20, 666)],
             }
-        assert session.to_strings(True) == stringtools.normalize("""
+        assert session.to_strings(True) == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
             10.0:
@@ -223,7 +223,7 @@ class TestCase(TestCase):
                         amplitude: 0.75, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             30.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -260,7 +260,7 @@ class TestCase(TestCase):
                 )
             children = moment.state.nodes_to_children[group]
             assert [_['frequency'] for _ in children] == [1111, 2222, 3333]
-        assert session.to_strings(True) == stringtools.normalize("""
+        assert session.to_strings(True) == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -272,7 +272,7 @@ class TestCase(TestCase):
                             amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -293,7 +293,7 @@ class TestCase(TestCase):
             _, new_group = group.split()
             children = moment.state.nodes_to_children[new_group]
             assert [_['frequency'] for _ in children] == [1111, 2222, 3333]
-        assert session.to_strings(True) == stringtools.normalize("""
+        assert session.to_strings(True) == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -314,7 +314,7 @@ class TestCase(TestCase):
                             amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -353,7 +353,7 @@ class TestCase(TestCase):
                 synth = session.add_synth(duration=20)
             with session.at(10):
                 group.move_node(synth)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -364,7 +364,7 @@ class TestCase(TestCase):
                             1001 da0982184cc8fa54cf9d288a0fe1f6ca
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -381,7 +381,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -392,7 +392,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -412,7 +412,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -423,7 +423,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -443,7 +443,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -454,7 +454,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -472,7 +472,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -483,7 +483,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -506,7 +506,7 @@ class TestCase(TestCase):
                 synth = group.add_synth(duration=20)
             with session.at(10):
                 session.move_node(synth)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1000 group
@@ -517,7 +517,7 @@ class TestCase(TestCase):
                         1000 group
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -534,7 +534,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -545,7 +545,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -564,7 +564,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -575,7 +575,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -594,7 +594,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -605,7 +605,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -623,7 +623,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -634,7 +634,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -655,14 +655,14 @@ class TestCase(TestCase):
             with session.at(0):
                 group = session.add_group(duration=20)
                 group.add_synth(duration=20)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1000 group
                             1001 da0982184cc8fa54cf9d288a0fe1f6ca
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -677,7 +677,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split()
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -688,7 +688,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -707,7 +707,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -718,7 +718,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -736,7 +736,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -747,7 +747,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -766,7 +766,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -777,7 +777,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -799,7 +799,7 @@ class TestCase(TestCase):
                 group = session.add_group(duration=20)
             with session.at(10):
                 group.add_synth(duration=10)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1000 group
@@ -809,7 +809,7 @@ class TestCase(TestCase):
                             1001 da0982184cc8fa54cf9d288a0fe1f6ca
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/g_new', 1000, 0, 0]]],
@@ -825,7 +825,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -835,7 +835,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -852,7 +852,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -862,7 +862,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -879,7 +879,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -889,7 +889,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -906,7 +906,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -916,7 +916,7 @@ class TestCase(TestCase):
                         1001 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -936,7 +936,7 @@ class TestCase(TestCase):
             with session.at(0):
                 group = session.add_group(duration=20)
                 group.add_synth(duration=10)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1000 group
@@ -946,7 +946,7 @@ class TestCase(TestCase):
                         1000 group
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -959,7 +959,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -969,7 +969,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -984,7 +984,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -994,7 +994,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1009,7 +1009,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1019,7 +1019,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1034,7 +1034,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1044,7 +1044,7 @@ class TestCase(TestCase):
                     1002 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1065,7 +1065,7 @@ class TestCase(TestCase):
                 synth = session.add_synth(duration=20)
             with session.at(10):
                 subgroup.move_node(synth)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -1078,7 +1078,7 @@ class TestCase(TestCase):
                                 1002 da0982184cc8fa54cf9d288a0fe1f6ca
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1096,7 +1096,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -1109,7 +1109,7 @@ class TestCase(TestCase):
                             1005 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1130,7 +1130,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -1143,7 +1143,7 @@ class TestCase(TestCase):
                             1002 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1163,7 +1163,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -1176,7 +1176,7 @@ class TestCase(TestCase):
                             1002 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1196,7 +1196,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 da0982184cc8fa54cf9d288a0fe1f6ca
@@ -1209,7 +1209,7 @@ class TestCase(TestCase):
                             1002 da0982184cc8fa54cf9d288a0fe1f6ca
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1235,7 +1235,7 @@ class TestCase(TestCase):
                 synth = subgroup.add_synth(duration=20)
             with session.at(10):
                 session.move_node(synth)
-            assert session.to_strings() == stringtools.normalize("""
+            assert session.to_strings() == stringtools.normalize('''
                 0.0:
                     NODE TREE 0 group
                         1000 group
@@ -1248,7 +1248,7 @@ class TestCase(TestCase):
                             1001 group
                 20.0:
                     NODE TREE 0 group
-                """)
+                ''')
             assert session.to_lists() == [
                 [0.0, [
                     ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1266,7 +1266,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1279,7 +1279,7 @@ class TestCase(TestCase):
                         1004 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1300,7 +1300,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=True)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1313,7 +1313,7 @@ class TestCase(TestCase):
                         1001 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1333,7 +1333,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=True, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1346,7 +1346,7 @@ class TestCase(TestCase):
                         1004 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -1366,7 +1366,7 @@ class TestCase(TestCase):
         session, group = make_session()
         with session.at(10):
             group.split(split_occupiers=False, split_traversers=False)
-        assert session.to_strings() == stringtools.normalize("""
+        assert session.to_strings() == stringtools.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -1379,7 +1379,7 @@ class TestCase(TestCase):
                         1001 group
             20.0:
                 NODE TREE 0 group
-            """)
+            ''')
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],

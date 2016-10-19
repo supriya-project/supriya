@@ -42,8 +42,7 @@ class TestCase(TestCase):
             ]
 
     def test_02(self):
-        r"""
-        This should fail."""
+        r'''This should fail.'''
         session = nonrealtimetools.Session()
         with session.at(0):
             group_one = session.add_group()
