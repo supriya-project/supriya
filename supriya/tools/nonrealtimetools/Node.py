@@ -136,9 +136,9 @@ class Node(SessionObject):
                     action._target = new_node
 
     def _get_at_offset(self, offset, item):
-        '''
+        """
         Relative to Synth start offset.
-        '''
+        """
         events = self._events.get(item)
         if hasattr(self, 'synthdef'):
             default = self.synthdef.parameters[item].value
@@ -161,9 +161,9 @@ class Node(SessionObject):
         return value
 
     def _set_at_offset(self, offset, item, value):
-        '''
+        """
         Relative to Synth start offset.
-        '''
+        """
         if offset < self.start_offset or self.stop_offset <= offset:
             return
         events = self._events.setdefault(item, [])

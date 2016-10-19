@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for working in non-realtime.
-'''
+"""
 
 from abjad.tools import systemtools
 

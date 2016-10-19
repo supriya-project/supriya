@@ -94,7 +94,8 @@ class TestCase(TestCase):
             assert synth_two['frequency'] == 880
 
     def test_03(self):
-        r'''Durated synths.'''
+        r"""
+        Durated synths."""
         synthdef = self.build_duration_synthdef()
         session = nonrealtimetools.Session()
         with session.at(0):

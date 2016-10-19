@@ -4,7 +4,8 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class BusGroup(SessionObject):
-    r'''A non-realtime bus group.
+    r"""
+    A non-realtime bus group.
 
     ::
 
@@ -44,7 +45,7 @@ class BusGroup(SessionObject):
         5 [0.5, 0.666, 0.75]
         6 [0.5, 0.666, 0.75]
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
