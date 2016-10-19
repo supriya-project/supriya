@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 High-level tools for synths, effects, monitoring and mixing.
-'''
+"""
 
 from abjad.tools import systemtools
 
