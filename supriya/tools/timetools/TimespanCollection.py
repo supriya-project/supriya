@@ -3,7 +3,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class TimespanCollection(SupriyaObject):
-    r'''A mutable always-sorted collection of timespans.
+    r"""
+    A mutable always-sorted collection of timespans.
 
     ::
 
@@ -18,7 +19,7 @@ class TimespanCollection(SupriyaObject):
         ...     )
         >>> timespan_collection = timetools.TimespanCollection(timespans)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class TimespanCollection(SupriyaObject):
         return self
 
     def __contains__(self, timespan):
-        r'''Is true if this timespan collection contains `timespan`. Otherwise
+        r"""
+        Is true if this timespan collection contains `timespan`. Otherwise
         false.
 
         ::
@@ -72,14 +74,15 @@ class TimespanCollection(SupriyaObject):
             False
 
         Returns boolean.
-        '''
+        """
         assert TimespanCollection._is_timespan(timespan)
         candidates = self.find_timespans_starting_at(timespan.start_offset)
         result = timespan in candidates
         return result
 
     def __getitem__(self, i):
-        r'''Gets timespan at index `i`.
+        r"""
+        Gets timespan at index `i`.
 
         ::
 
@@ -107,7 +110,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
 
         Returns timespan or timespans.
-        '''
+        """
         def recurse_by_index(node, index):
             if node.node_start_index <= index < node.node_stop_index:
                 return node.payload[index - node.node_start_index]
@@ -150,7 +153,8 @@ class TimespanCollection(SupriyaObject):
         raise TypeError('Indices must be integers or slices, got {}'.format(i))
 
     def __iter__(self):
-        r'''Iterates timespans in this timespan collection.
+        r"""
+        Iterates timespans in this timespan collection.
 
         ::
 
@@ -175,7 +179,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
 
         Returns generator.
-        '''
+        """
 
         def recurse(node):
             if node is not None:
@@ -190,7 +194,8 @@ class TimespanCollection(SupriyaObject):
         return recurse(self._root_node)
 
     def __len__(self):
-        r'''Gets length of this timespan collection.
+        r"""
+        Gets length of this timespan collection.
 
         ::
 
@@ -209,13 +214,14 @@ class TimespanCollection(SupriyaObject):
             5
 
         Returns integer.
-        '''
+        """
         if self._root_node is None:
             return 0
         return self._root_node.subtree_stop_index
 
     def __setitem__(self, i, new):
-        r'''Sets timespans at index `i` to `new`.
+        r"""
+        Sets timespans at index `i` to `new`.
 
         ::
 
@@ -233,7 +239,7 @@ class TimespanCollection(SupriyaObject):
             >>> timespan_collection[:3] = [timespantools.Timespan(100, 200)]
 
         Returns none.
-        '''
+        """
         if isinstance(i, (int, slice)):
             old = self[i]
             self.remove(old)
@@ -243,7 +249,8 @@ class TimespanCollection(SupriyaObject):
             raise TypeError(message)
 
     def __sub__(self, timespan):
-        r'''Delete material that intersects `timespan`:
+        r"""
+        Delete material that intersects `timespan`:
 
         ::
 
@@ -283,7 +290,7 @@ class TimespanCollection(SupriyaObject):
                 )
 
         Operates in place and returns timespan collection.
-        '''
+        """
         intersecting_timespans = self.find_timespans_intersecting_timespan(
             timespan)
         self.remove(intersecting_timespans)
@@ -506,7 +513,8 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def find_timespans_overlapping_offset(self, offset):
-        r'''Finds timespans overlapping `offset`.
+        r"""
+        Finds timespans overlapping `offset`.
 
         ::
 
@@ -529,7 +537,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1))
 
         Returns tuple of 0 or more timespans.
-        '''
+        """
         def recurse(node, offset, indent=0):
             result = []
             if node is not None:
@@ -547,7 +555,8 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def find_timespans_intersecting_timespan(self, timespan):
-        r'''Finds timespans overlapping `timespan`.
+        r"""
+        Finds timespans overlapping `timespan`.
 
         ::
 
@@ -571,7 +580,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1))
 
         Returns tuple of 0 or more timespans.
-        '''
+        """
         def recurse(node, timespan):
             result = []
             if node is not None:
@@ -590,7 +599,8 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def get_simultaneity_at(self, offset):
-        r'''Gets simultaneity at `offset`.
+        r"""
+        Gets simultaneity at `offset`.
 
         ::
 
@@ -613,7 +623,7 @@ class TimespanCollection(SupriyaObject):
             >>> timespan_collection.get_simultaneity_at(6.5)
             <TimespanSimultaneity(6.5 <<1>>)>
 
-        '''
+        """
         from supriya.tools import timetools
         start_timespans = self.find_timespans_starting_at(offset)
         stop_timespans = self.find_timespans_stopping_at(offset)
@@ -628,7 +638,8 @@ class TimespanCollection(SupriyaObject):
         return simultaneity
 
     def get_start_offset_after(self, offset):
-        r'''Gets start offst in this timespan collection after `offset`.
+        r"""
+        Gets start offst in this timespan collection after `offset`.
 
         ::
 
@@ -666,7 +677,7 @@ class TimespanCollection(SupriyaObject):
             >>> timespan_collection.get_start_offset_after(6) is None
             True
 
-        '''
+        """
         def recurse(node, offset):
             if node is None:
                 return None
@@ -682,7 +693,8 @@ class TimespanCollection(SupriyaObject):
         return result.start_offset
 
     def get_start_offset_before(self, offset):
-        r'''Gets start offst in this timespan collection before `offset`.
+        r"""
+        Gets start offst in this timespan collection before `offset`.
 
         ::
 
@@ -720,7 +732,7 @@ class TimespanCollection(SupriyaObject):
             >>> timespan_collection.get_start_offset_before(0) is None
             True
 
-        '''
+        """
         def recurse(node, offset):
             if node is None:
                 return None
@@ -744,7 +756,8 @@ class TimespanCollection(SupriyaObject):
         return index
 
     def insert(self, timespans):
-        r'''Inserts `timespans` into this timespan collection.
+        r"""
+        Inserts `timespans` into this timespan collection.
 
         ::
 
@@ -767,7 +780,7 @@ class TimespanCollection(SupriyaObject):
         `timespans` may be a single timespan or an iterable of timespans.
 
         Returns none.
-        '''
+        """
         if self._is_timespan(timespans):
             timespans = [timespans]
         for timespan in timespans:
@@ -781,7 +794,8 @@ class TimespanCollection(SupriyaObject):
         self,
         reverse=False,
         ):
-        r'''Iterates simultaneities in this timespan collection.
+        r"""
+        Iterates simultaneities in this timespan collection.
 
         ::
 
@@ -816,7 +830,7 @@ class TimespanCollection(SupriyaObject):
             <TimespanSimultaneity(0 <<1>>)>
 
         Returns generator.
-        '''
+        """
 
         if reverse:
             start_offset = self.latest_start_offset
@@ -840,7 +854,8 @@ class TimespanCollection(SupriyaObject):
         n=3,
         reverse=False,
         ):
-        r'''Iterates simultaneities in this timespan collection in groups of
+        r"""
+        Iterates simultaneities in this timespan collection in groups of
         `n`.
 
         ::
@@ -874,7 +889,7 @@ class TimespanCollection(SupriyaObject):
             (<TimespanSimultaneity(0 <<1>>)>, <TimespanSimultaneity(1 <<3>>)>)
 
         Returns generator.
-        '''
+        """
         n = int(n)
         assert 0 < n
         if reverse:
@@ -899,7 +914,8 @@ class TimespanCollection(SupriyaObject):
                     yield tuple(reversed(simultaneities))
 
     def remove(self, timespans):
-        r'''Removes timespans from this timespan collection.
+        r"""
+        Removes timespans from this timespan collection.
 
         ::
 
@@ -924,7 +940,7 @@ class TimespanCollection(SupriyaObject):
             Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
             Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1))
 
-        '''
+        """
         if self._is_timespan(timespans):
             timespans = [timespans]
         for timespan in timespans:
