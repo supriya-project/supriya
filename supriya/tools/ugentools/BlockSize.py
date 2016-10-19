@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class BlockSize(InfoUGenBase):
-    r'''A block size info unit generator.
+    r"""
+    A block size info unit generator.
 
     ::
 
         >>> ugentools.BlockSize.ir()
         BlockSize.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

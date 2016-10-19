@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BLowPass(BEQSuite):
-    r'''A low-pass filter.
+    r"""
+    A low-pass filter.
 
     ::
 
@@ -16,7 +17,7 @@ class BLowPass(BEQSuite):
         >>> blow_pass
         BLowPass.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class BLowPass(BEQSuite):
         reciprocal_of_q=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BLowPass.
+        r"""
+        Constructs an audio-rate BLowPass.
 
         ::
 
@@ -72,7 +74,7 @@ class BLowPass(BEQSuite):
             BLowPass.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class BLowPass(BEQSuite):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BLowPass.
+        r"""
+        Gets `frequency` input of BLowPass.
 
         ::
 
@@ -115,13 +118,14 @@ class BLowPass(BEQSuite):
             1200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def reciprocal_of_q(self):
-        r'''Gets `reciprocal_of_q` input of BLowPass.
+        r"""
+        Gets `reciprocal_of_q` input of BLowPass.
 
         ::
 
@@ -135,13 +139,14 @@ class BLowPass(BEQSuite):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reciprocal_of_q')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BLowPass.
+        r"""
+        Gets `source` input of BLowPass.
 
         ::
 
@@ -162,6 +167,6 @@ class BLowPass(BEQSuite):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,14 +3,15 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufDur(BufInfoUGenBase):
-    r'''A buffer duration info unit generator.
+    r"""
+    A buffer duration info unit generator.
 
     ::
 
         >>> ugentools.BufDur.kr(buffer_id=0)
         BufDur.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class BufDur(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufDur.
+        r"""
+        Gets `buffer_id` input of BufDur.
 
         ::
 
@@ -47,6 +49,6 @@ class BufDur(BufInfoUGenBase):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]

@@ -3,14 +3,15 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufChannels(BufInfoUGenBase):
-    r'''A buffer channel count info unit generator.
+    r"""
+    A buffer channel count info unit generator.
 
     ::
 
         >>> ugentools.BufChannels.kr(buffer_id=0)
         BufChannels.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class BufChannels(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufChannels.
+        r"""
+        Gets `buffer_id` input of BufChannels.
 
         ::
 
@@ -47,6 +49,6 @@ class BufChannels(BufInfoUGenBase):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]

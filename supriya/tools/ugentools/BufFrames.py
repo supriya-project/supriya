@@ -3,14 +3,15 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufFrames(BufInfoUGenBase):
-    r'''A buffer frame count info unit generator.
+    r"""
+    A buffer frame count info unit generator.
 
     ::
 
         >>> ugentools.BufFrames.kr(buffer_id=0)
         BufFrames.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class BufFrames(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufFrames.
+        r"""
+        Gets `buffer_id` input of BufFrames.
 
         ::
 
@@ -47,6 +49,6 @@ class BufFrames(BufInfoUGenBase):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]

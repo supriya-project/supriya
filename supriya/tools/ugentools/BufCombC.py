@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BufCombN import BufCombN
 
 
 class BufCombC(BufCombN):
-    r'''A buffer-based cubic-interpolating comb delay line unit generator.
+    r"""
+    A buffer-based cubic-interpolating comb delay line unit generator.
 
     ::
 
@@ -15,7 +16,7 @@ class BufCombC(BufCombN):
         ...     )
         BufCombC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -34,7 +35,8 @@ class BufCombC(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate buffer-based cubic-interpolating comb delay
+        r"""
+        Constructs an audio-rate buffer-based cubic-interpolating comb delay
         line.
 
         ::
@@ -51,7 +53,7 @@ class BufCombC(BufCombN):
             BufCombC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(BufCombC, cls).ar(
             buffer_id=buffer_id,
             decay_time=decay_time,
@@ -69,7 +71,8 @@ class BufCombC(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate buffer-based cubic-interpolating comb delay
+        r"""
+        Constructs a control-rate buffer-based cubic-interpolating comb delay
         line.
 
         ::
@@ -86,7 +89,7 @@ class BufCombC(BufCombN):
             BufCombC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(BufCombC, cls).kr(
             buffer_id=buffer_id,
             decay_time=decay_time,
@@ -99,7 +102,8 @@ class BufCombC(BufCombN):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufCombC.
+        r"""
+        Gets `buffer_id` input of BufCombC.
 
         ::
 
@@ -113,13 +117,14 @@ class BufCombC(BufCombN):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of BufCombC.
+        r"""
+        Gets `decay_time` input of BufCombC.
 
         ::
 
@@ -135,13 +140,14 @@ class BufCombC(BufCombN):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of BufCombC.
+        r"""
+        Gets `delay_time` input of BufCombC.
 
         ::
 
@@ -157,13 +163,14 @@ class BufCombC(BufCombN):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of BufCombC.
+        r"""
+        Gets `maximum_delay_time` input of BufCombC.
 
         ::
 
@@ -179,13 +186,14 @@ class BufCombC(BufCombN):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BufCombC.
+        r"""
+        Gets `source` input of BufCombC.
 
         ::
 
@@ -206,6 +214,6 @@ class BufCombC(BufCombN):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

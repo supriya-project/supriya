@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Amplitude(UGen):
-    r'''An amplitude follower.
+    r"""
+    An amplitude follower.
 
     ::
 
@@ -16,7 +17,7 @@ class Amplitude(UGen):
         >>> amplitude
         Amplitude.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Amplitude(UGen):
         release_time=0.01,
         source=None,
         ):
-        r'''Constructs an audio-rate Amplitude.
+        r"""
+        Constructs an audio-rate Amplitude.
 
         ::
 
@@ -72,7 +74,7 @@ class Amplitude(UGen):
             Amplitude.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class Amplitude(UGen):
         release_time=0.01,
         source=None,
         ):
-        r'''Constructs a control-rate Amplitude.
+        r"""
+        Constructs a control-rate Amplitude.
 
         ::
 
@@ -104,7 +107,7 @@ class Amplitude(UGen):
             Amplitude.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class Amplitude(UGen):
 
     @property
     def attack_time(self):
-        r'''Gets `attack_time` input of Amplitude.
+        r"""
+        Gets `attack_time` input of Amplitude.
 
         ::
 
@@ -133,13 +137,14 @@ class Amplitude(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('attack_time')
         return self._inputs[index]
 
     @property
     def release_time(self):
-        r'''Gets `release_time` input of Amplitude.
+        r"""
+        Gets `release_time` input of Amplitude.
 
         ::
 
@@ -153,13 +158,14 @@ class Amplitude(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('release_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Amplitude.
+        r"""
+        Gets `source` input of Amplitude.
 
         ::
 
@@ -180,6 +186,6 @@ class Amplitude(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
