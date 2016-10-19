@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Add(PV_ChainUGen):
-    r'''Complex addition.
+    r"""
+    Complex addition.
 
     ::
 
@@ -20,7 +21,7 @@ class PV_Add(PV_ChainUGen):
         >>> pv_add
         PV_Add.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class PV_Add(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r'''Constructs a PV_Add.
+        r"""
+        Constructs a PV_Add.
 
         ::
 
@@ -72,7 +74,7 @@ class PV_Add(PV_ChainUGen):
             PV_Add.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -83,7 +85,8 @@ class PV_Add(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_Add.
+        r"""
+        Gets `pv_chain_a` input of PV_Add.
 
         ::
 
@@ -123,13 +126,14 @@ class PV_Add(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_Add.
+        r"""
+        Gets `pv_chain_b` input of PV_Add.
 
         ::
 
@@ -171,6 +175,6 @@ class PV_Add(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]

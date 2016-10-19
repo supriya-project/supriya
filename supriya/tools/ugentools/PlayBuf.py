@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PlayBuf(MultiOutUGen):
-    r'''A sample playback oscillator.
+    r"""
+    A sample playback oscillator.
 
     ::
 
@@ -20,7 +21,7 @@ class PlayBuf(MultiOutUGen):
         >>> play_buf
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -77,7 +78,8 @@ class PlayBuf(MultiOutUGen):
         start_position=0,
         trigger=1,
         ):
-        r'''Constructs an audio-rate PlayBuf.
+        r"""
+        Constructs an audio-rate PlayBuf.
 
         ::
 
@@ -95,7 +97,7 @@ class PlayBuf(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -121,7 +123,8 @@ class PlayBuf(MultiOutUGen):
         start_position=0,
         trigger=1,
         ):
-        r'''Constructs a control-rate PlayBuf.
+        r"""
+        Constructs a control-rate PlayBuf.
 
         ::
 
@@ -139,7 +142,7 @@ class PlayBuf(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -160,7 +163,8 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of PlayBuf.
+        r"""
+        Gets `buffer_id` input of PlayBuf.
 
         ::
 
@@ -178,13 +182,14 @@ class PlayBuf(MultiOutUGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of PlayBuf.
+        r"""
+        Gets `done_action` input of PlayBuf.
 
         ::
 
@@ -202,13 +207,14 @@ class PlayBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def loop(self):
-        r'''Gets `loop` input of PlayBuf.
+        r"""
+        Gets `loop` input of PlayBuf.
 
         ::
 
@@ -226,21 +232,23 @@ class PlayBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def rate(self):
-        r'''Gets `rate` input of PlayBuf.
+        r"""
+        Gets `rate` input of PlayBuf.
 
         ::
 
@@ -258,13 +266,14 @@ class PlayBuf(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def start_position(self):
-        r'''Gets `start_position` input of PlayBuf.
+        r"""
+        Gets `start_position` input of PlayBuf.
 
         ::
 
@@ -282,13 +291,14 @@ class PlayBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start_position')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PlayBuf.
+        r"""
+        Gets `trigger` input of PlayBuf.
 
         ::
 
@@ -306,6 +316,6 @@ class PlayBuf(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

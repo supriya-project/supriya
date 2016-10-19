@@ -4,8 +4,9 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MultiOutUGen(UGen):
-    r'''Abstract base class for ugens with multiple outputs.
-    '''
+    r"""
+    Abstract base class for ugens with multiple outputs.
+    """
 
     ### CLASS VARIABLES ###
 
@@ -38,10 +39,11 @@ class MultiOutUGen(UGen):
     ### SPECIAL METHODS ###
 
     def __len__(self):
-        r'''Gets number of ugen outputs.
+        r"""
+        Gets number of ugen outputs.
 
         Returns integer.
-        '''
+        """
         return self.channel_count
 
     ### PRIVATE METHODS ###
@@ -73,8 +75,9 @@ class MultiOutUGen(UGen):
 
     @property
     def channel_count(self):
-        r'''Gets channel count of multi-output ugen.
+        r"""
+        Gets channel count of multi-output ugen.
 
         Returns integer.
-        '''
+        """
         return self._channel_count

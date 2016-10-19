@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PauseSelfWhenDone(UGen):
-    r'''Pauses the enclosing synth when `source` sets its `done` flag.
+    r"""
+    Pauses the enclosing synth when `source` sets its `done` flag.
 
     ::
 
@@ -14,7 +15,7 @@ class PauseSelfWhenDone(UGen):
         >>> pause_self_when_done
         PauseSelfWhenDone.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class PauseSelfWhenDone(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -60,7 +62,7 @@ class PauseSelfWhenDone(UGen):
             PauseSelfWhenDone.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class PauseSelfWhenDone(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of PauseSelfWhenDone.
+        r"""
+        Gets `source` input of PauseSelfWhenDone.
 
         ::
 
@@ -94,6 +97,6 @@ class PauseSelfWhenDone(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

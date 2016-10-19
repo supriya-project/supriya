@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Pluck(UGen):
-    r'''A Karplus-String UGen.
+    r"""
+    A Karplus-String UGen.
 
     ::
 
@@ -20,7 +21,7 @@ class Pluck(UGen):
         >>> pluck
         Pluck.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -74,7 +75,8 @@ class Pluck(UGen):
         source=None,
         trigger=None,
         ):
-        r'''Constructs an audio-rate Pluck.
+        r"""
+        Constructs an audio-rate Pluck.
 
         ::
 
@@ -92,7 +94,7 @@ class Pluck(UGen):
             Pluck.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -110,7 +112,8 @@ class Pluck(UGen):
 
     @property
     def coefficient(self):
-        r'''Gets `coefficient` input of Pluck.
+        r"""
+        Gets `coefficient` input of Pluck.
 
         ::
 
@@ -128,13 +131,14 @@ class Pluck(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of Pluck.
+        r"""
+        Gets `decay_time` input of Pluck.
 
         ::
 
@@ -152,13 +156,14 @@ class Pluck(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of Pluck.
+        r"""
+        Gets `delay_time` input of Pluck.
 
         ::
 
@@ -176,13 +181,14 @@ class Pluck(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of Pluck.
+        r"""
+        Gets `maximum_delay_time` input of Pluck.
 
         ::
 
@@ -200,13 +206,14 @@ class Pluck(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Pluck.
+        r"""
+        Gets `source` input of Pluck.
 
         ::
 
@@ -229,13 +236,14 @@ class Pluck(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Pluck.
+        r"""
+        Gets `trigger` input of Pluck.
 
         ::
 
@@ -259,6 +267,6 @@ class Pluck(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

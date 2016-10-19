@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class NRand(UGen):
-    r'''A sum of `n` uniform distributions.
+    r"""
+    A sum of `n` uniform distributions.
 
     ::
 
@@ -15,7 +16,7 @@ class NRand(UGen):
         >>> n_rand
         NRand.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class NRand(UGen):
         minimum=0,
         n=1,
         ):
-        r'''Constructs a scalar-rate sum of `n` uniform distributions.
+        r"""
+        Constructs a scalar-rate sum of `n` uniform distributions.
 
         ::
 
@@ -70,7 +72,7 @@ class NRand(UGen):
             UGenArray({3})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -85,7 +87,8 @@ class NRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of NRand.
+        r"""
+        Gets `maximum` input of NRand.
 
         ::
 
@@ -98,13 +101,14 @@ class NRand(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of NRand.
+        r"""
+        Gets `minimum` input of NRand.
 
         ::
 
@@ -117,13 +121,14 @@ class NRand(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def n(self):
-        r'''Gets `n` input of NRand.
+        r"""
+        Gets `n` input of NRand.
 
         ::
 
@@ -136,6 +141,6 @@ class NRand(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('n')
         return self._inputs[index]

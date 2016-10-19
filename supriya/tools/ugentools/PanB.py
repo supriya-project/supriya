@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanB(MultiOutUGen):
-    r'''A 3D ambisonic b-format panner.
+    r"""
+    A 3D ambisonic b-format panner.
 
     ::
 
@@ -17,7 +18,7 @@ class PanB(MultiOutUGen):
         >>> pan_b
         UGenArray({3})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -64,7 +65,8 @@ class PanB(MultiOutUGen):
         gain=1,
         source=None,
         ):
-        r'''Constructs an audio-rate PanB.
+        r"""
+        Constructs an audio-rate PanB.
 
         ::
 
@@ -79,7 +81,7 @@ class PanB(MultiOutUGen):
             UGenArray({3})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -99,7 +101,8 @@ class PanB(MultiOutUGen):
         gain=1,
         source=None,
         ):
-        r'''Constructs a control-rate PanB.
+        r"""
+        Constructs a control-rate PanB.
 
         ::
 
@@ -114,7 +117,7 @@ class PanB(MultiOutUGen):
             UGenArray({3})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -132,7 +135,8 @@ class PanB(MultiOutUGen):
 
     @property
     def azimuth(self):
-        r'''Gets `azimuth` input of PanB.
+        r"""
+        Gets `azimuth` input of PanB.
 
         ::
 
@@ -147,13 +151,14 @@ class PanB(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('azimuth')
         return self._inputs[index]
 
     @property
     def elevation(self):
-        r'''Gets `elevation` input of PanB.
+        r"""
+        Gets `elevation` input of PanB.
 
         ::
 
@@ -168,13 +173,14 @@ class PanB(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('elevation')
         return self._inputs[index]
 
     @property
     def gain(self):
-        r'''Gets `gain` input of PanB.
+        r"""
+        Gets `gain` input of PanB.
 
         ::
 
@@ -189,13 +195,14 @@ class PanB(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of PanB.
+        r"""
+        Gets `source` input of PanB.
 
         ::
 
@@ -217,6 +224,6 @@ class PanB(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

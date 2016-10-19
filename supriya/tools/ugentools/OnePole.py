@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class OnePole(Filter):
-    r'''A one pole filter.
+    r"""
+    A one pole filter.
 
     ::
 
@@ -15,7 +16,7 @@ class OnePole(Filter):
         >>> one_pole
         OnePole.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class OnePole(Filter):
         coefficient=0.5,
         source=None,
         ):
-        r'''Constructs an audio-rate OnePole.
+        r"""
+        Constructs an audio-rate OnePole.
 
         ::
 
@@ -66,7 +68,7 @@ class OnePole(Filter):
             OnePole.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class OnePole(Filter):
         coefficient=0.5,
         source=None,
         ):
-        r'''Constructs a control-rate OnePole.
+        r"""
+        Constructs a control-rate OnePole.
 
         ::
 
@@ -97,7 +100,7 @@ class OnePole(Filter):
             OnePole.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class OnePole(Filter):
 
     @property
     def coefficient(self):
-        r'''Gets `coefficient` input of OnePole.
+        r"""
+        Gets `coefficient` input of OnePole.
 
         ::
 
@@ -134,13 +138,14 @@ class OnePole(Filter):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of OnePole.
+        r"""
+        Gets `source` input of OnePole.
 
         ::
 
@@ -160,6 +165,6 @@ class OnePole(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_HainsworthFoote(PV_ChainUGen):
-    r'''A FFT onset detector.
+    r"""
+    A FFT onset detector.
 
     ::
 
@@ -20,7 +21,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         >>> pv_hainsworth_foote
         PV_HainsworthFoote.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -66,7 +67,8 @@ class PV_HainsworthFoote(PV_ChainUGen):
         threshold=1,
         waittime=0.04,
         ):
-        r'''Constructs an audio-rate PV_HainsworthFoote.
+        r"""
+        Constructs an audio-rate PV_HainsworthFoote.
 
         ::
 
@@ -84,7 +86,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
             PV_HainsworthFoote.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             propf=propf,
@@ -98,7 +100,8 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_HainsworthFoote.
+        r"""
+        Gets `pv_chain` input of PV_HainsworthFoote.
 
         ::
 
@@ -138,13 +141,14 @@ class PV_HainsworthFoote(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def propf(self):
-        r'''Gets `propf` input of PV_HainsworthFoote.
+        r"""
+        Gets `propf` input of PV_HainsworthFoote.
 
         ::
 
@@ -162,13 +166,14 @@ class PV_HainsworthFoote(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('propf')
         return self._inputs[index]
 
     @property
     def proph(self):
-        r'''Gets `proph` input of PV_HainsworthFoote.
+        r"""
+        Gets `proph` input of PV_HainsworthFoote.
 
         ::
             >>> pv_chain = ugentools.FFT(
@@ -186,13 +191,14 @@ class PV_HainsworthFoote(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('proph')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of PV_HainsworthFoote.
+        r"""
+        Gets `threshold` input of PV_HainsworthFoote.
 
         ::
 
@@ -210,13 +216,14 @@ class PV_HainsworthFoote(PV_ChainUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]
 
     @property
     def waittime(self):
-        r'''Gets `waittime` input of PV_HainsworthFoote.
+        r"""
+        Gets `waittime` input of PV_HainsworthFoote.
 
         ::
 
@@ -234,6 +241,6 @@ class PV_HainsworthFoote(PV_ChainUGen):
             0.04
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('waittime')
         return self._inputs[index]

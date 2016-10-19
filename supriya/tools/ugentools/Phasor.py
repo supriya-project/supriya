@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Phasor(UGen):
-    r'''A resettable linear ramp between two levels.
+    r"""
+    A resettable linear ramp between two levels.
 
     ::
 
@@ -18,7 +19,7 @@ class Phasor(UGen):
         >>> phasor
         Phasor.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -68,7 +69,8 @@ class Phasor(UGen):
         stop=1,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Phasor.
+        r"""
+        Constructs an audio-rate Phasor.
 
         ::
 
@@ -84,7 +86,7 @@ class Phasor(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class Phasor(UGen):
         stop=1,
         trigger=0,
         ):
-        r'''Constructs a control-rate Phasor.
+        r"""
+        Constructs a control-rate Phasor.
 
         ::
 
@@ -122,7 +125,7 @@ class Phasor(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -139,7 +142,8 @@ class Phasor(UGen):
 
     @property
     def rate(self):
-        r'''Gets `rate` input of Phasor.
+        r"""
+        Gets `rate` input of Phasor.
 
         ::
 
@@ -155,13 +159,14 @@ class Phasor(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def reset_pos(self):
-        r'''Gets `reset_pos` input of Phasor.
+        r"""
+        Gets `reset_pos` input of Phasor.
 
         ::
 
@@ -177,13 +182,14 @@ class Phasor(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset_pos')
         return self._inputs[index]
 
     @property
     def start(self):
-        r'''Gets `start` input of Phasor.
+        r"""
+        Gets `start` input of Phasor.
 
         ::
 
@@ -199,13 +205,14 @@ class Phasor(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
     def stop(self):
-        r'''Gets `stop` input of Phasor.
+        r"""
+        Gets `stop` input of Phasor.
 
         ::
 
@@ -221,13 +228,14 @@ class Phasor(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('stop')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Phasor.
+        r"""
+        Gets `trigger` input of Phasor.
 
         ::
 
@@ -250,6 +258,6 @@ class Phasor(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
