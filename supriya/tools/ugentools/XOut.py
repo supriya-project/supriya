@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class XOut(UGen):
-    r'''A cross-fading bus output unit generator.
+    r"""
+    A cross-fading bus output unit generator.
 
     ::
 
@@ -17,7 +18,7 @@ class XOut(UGen):
         >>> xout
         XOut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -68,7 +69,8 @@ class XOut(UGen):
         crossfade=0,
         source=None,
         ):
-        r'''Constructs an audio-rate XOut.
+        r"""
+        Constructs an audio-rate XOut.
 
         ::
 
@@ -82,7 +84,7 @@ class XOut(UGen):
             XOut.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
@@ -108,7 +110,8 @@ class XOut(UGen):
         crossfade=0,
         source=None,
         ):
-        r'''Constructs a control-rate XOut.
+        r"""
+        Constructs a control-rate XOut.
 
         ::
 
@@ -122,7 +125,7 @@ class XOut(UGen):
             XOut.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
@@ -145,7 +148,8 @@ class XOut(UGen):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of XOut.
+        r"""
+        Gets `bus` input of XOut.
 
         ::
 
@@ -159,13 +163,14 @@ class XOut(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
     @property
     def crossfade(self):
-        r'''Gets `crossfade` input of XOut.
+        r"""
+        Gets `crossfade` input of XOut.
 
         ::
 
@@ -179,7 +184,7 @@ class XOut(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('crossfade')
         return self._inputs[index]
 
@@ -189,7 +194,8 @@ class XOut(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of XOut.
+        r"""
+        Gets `source` input of XOut.
 
         ::
 
@@ -208,6 +214,6 @@ class XOut(UGen):
                 ),)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Sum4(UGen):
-    r'''A four-input summing unit generator.
+    r"""
+    A four-input summing unit generator.
 
     ::
 
@@ -19,7 +20,7 @@ class Sum4(UGen):
         ...     )
         Sum4.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -116,7 +117,8 @@ class Sum4(UGen):
         input_three=None,
         input_four=None,
         ):
-        r'''Constructs a three-input summing unit generator with multi-channel
+        r"""
+        Constructs a three-input summing unit generator with multi-channel
         expansion.
 
         ::
@@ -136,7 +138,7 @@ class Sum4(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             input_one=input_one,
             input_two=input_two,
@@ -149,7 +151,8 @@ class Sum4(UGen):
 
     @property
     def input_four(self):
-        r'''Gets `input_four` input of Sum4.
+        r"""
+        Gets `input_four` input of Sum4.
 
         ::
 
@@ -174,13 +177,14 @@ class Sum4(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_four')
         return self._inputs[index]
 
     @property
     def input_one(self):
-        r'''Gets `input_one` input of Sum4.
+        r"""
+        Gets `input_one` input of Sum4.
 
         ::
 
@@ -205,13 +209,14 @@ class Sum4(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_one')
         return self._inputs[index]
 
     @property
     def input_three(self):
-        r'''Gets `input_three` input of Sum4.
+        r"""
+        Gets `input_three` input of Sum4.
 
         ::
 
@@ -236,13 +241,14 @@ class Sum4(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_three')
         return self._inputs[index]
 
     @property
     def input_two(self):
-        r'''Gets `input_two` input of Sum4.
+        r"""
+        Gets `input_two` input of Sum4.
 
         ::
 
@@ -267,6 +273,6 @@ class Sum4(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_two')
         return self._inputs[index]

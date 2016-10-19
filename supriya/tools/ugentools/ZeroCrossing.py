@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ZeroCrossing(UGen):
-    r'''A zero-crossing frequency follower.
+    r"""
+    A zero-crossing frequency follower.
 
     ::
 
@@ -14,7 +15,7 @@ class ZeroCrossing(UGen):
         >>> zero_crossing
         ZeroCrossing.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class ZeroCrossing(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate ZeroCrossing.
+        r"""
+        Constructs an audio-rate ZeroCrossing.
 
         ::
 
@@ -60,7 +62,7 @@ class ZeroCrossing(UGen):
             ZeroCrossing.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -74,7 +76,8 @@ class ZeroCrossing(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate ZeroCrossing.
+        r"""
+        Constructs a control-rate ZeroCrossing.
 
         ::
 
@@ -86,7 +89,7 @@ class ZeroCrossing(UGen):
             ZeroCrossing.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -99,7 +102,8 @@ class ZeroCrossing(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of ZeroCrossing.
+        r"""
+        Gets `source` input of ZeroCrossing.
 
         ::
 
@@ -118,6 +122,6 @@ class ZeroCrossing(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

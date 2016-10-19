@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Spring(UGen):
-    r'''A resonating spring physical model.
+    r"""
+    A resonating spring physical model.
 
     ::
 
@@ -16,7 +17,7 @@ class Spring(UGen):
         >>> spring
         Spring.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Spring(UGen):
         source=None,
         spring=1,
         ):
-        r'''Constructs an audio-rate Spring.
+        r"""
+        Constructs an audio-rate Spring.
 
         ::
 
@@ -72,7 +74,7 @@ class Spring(UGen):
             Spring.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class Spring(UGen):
         source=None,
         spring=1,
         ):
-        r'''Constructs a control-rate Spring.
+        r"""
+        Constructs a control-rate Spring.
 
         ::
 
@@ -104,7 +107,7 @@ class Spring(UGen):
             Spring.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class Spring(UGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of Spring.
+        r"""
+        Gets `damping` input of Spring.
 
         ::
 
@@ -133,13 +137,14 @@ class Spring(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Spring.
+        r"""
+        Gets `source` input of Spring.
 
         ::
 
@@ -160,13 +165,14 @@ class Spring(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def spring(self):
-        r'''Gets `spring` input of Spring.
+        r"""
+        Gets `spring` input of Spring.
 
         ::
 
@@ -180,6 +186,6 @@ class Spring(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('spring')
         return self._inputs[index]

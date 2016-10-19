@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class WhiteNoise(UGen):
-    r'''A white noise unit generator.
+    r"""
+    A white noise unit generator.
 
     ::
 
         >>> ugentools.WhiteNoise.ar()
         WhiteNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class WhiteNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Constructs an audio-rate white noise unit generator.
+        r"""
+        Constructs an audio-rate white noise unit generator.
 
         ::
 
@@ -43,7 +45,7 @@ class WhiteNoise(UGen):
             WhiteNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,7 +57,8 @@ class WhiteNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Constructs a control-rate white noise unit generator.
+        r"""
+        Constructs a control-rate white noise unit generator.
 
         ::
 
@@ -63,7 +66,7 @@ class WhiteNoise(UGen):
             WhiteNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

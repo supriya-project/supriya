@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SubsampleOffset(InfoUGenBase):
-    r'''A subsample-offset info unit generator.
+    r"""
+    A subsample-offset info unit generator.
 
     ::
 
         >>> ugentools.SubsampleOffset.ir()
         SubsampleOffset.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

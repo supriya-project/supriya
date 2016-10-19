@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ToggleFF(UGen):
-    r'''A toggle flip-flop.
+    r"""
+    A toggle flip-flop.
 
     ::
 
@@ -14,7 +15,7 @@ class ToggleFF(UGen):
         >>> toggle_ff
         ToggleFF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class ToggleFF(UGen):
         cls,
         trigger=0,
         ):
-        r'''Constructs an audio-rate ToggleFF.
+        r"""
+        Constructs an audio-rate ToggleFF.
 
         ::
 
@@ -60,7 +62,7 @@ class ToggleFF(UGen):
             ToggleFF.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -74,7 +76,8 @@ class ToggleFF(UGen):
         cls,
         trigger=0,
         ):
-        r'''Constructs a control-rate ToggleFF.
+        r"""
+        Constructs a control-rate ToggleFF.
 
         ::
 
@@ -86,7 +89,7 @@ class ToggleFF(UGen):
             ToggleFF.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -99,7 +102,8 @@ class ToggleFF(UGen):
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of ToggleFF.
+        r"""
+        Gets `trigger` input of ToggleFF.
 
         ::
 
@@ -117,6 +121,6 @@ class ToggleFF(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

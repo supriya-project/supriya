@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class UnaryOpUGen(UGen):
-    r'''A unary operator ugen, created by applying a unary operator to a ugen.
+    r"""
+    A unary operator ugen, created by applying a unary operator to a ugen.
 
     ::
 
@@ -17,7 +18,7 @@ class UnaryOpUGen(UGen):
         >>> unary_op_ugen.operator
         UnaryOperator.ABSOLUTE_VALUE
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class UnaryOpUGen(UGen):
 
     @property
     def operator(self):
-        r'''Gets operator of UnaryOpUgen.
+        r"""
+        Gets operator of UnaryOpUgen.
 
         ::
 
@@ -58,13 +60,14 @@ class UnaryOpUGen(UGen):
             UnaryOperator.NEGATIVE
 
         Returns unary operator.
-        '''
+        """
         from supriya.tools import synthdeftools
         return synthdeftools.UnaryOperator(self.special_index)
 
     @property
     def source(self):
-        r'''Gets `source` input of UnaryOpUGen.
+        r"""
+        Gets `source` input of UnaryOpUGen.
 
         ::
 
@@ -81,6 +84,6 @@ class UnaryOpUGen(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
