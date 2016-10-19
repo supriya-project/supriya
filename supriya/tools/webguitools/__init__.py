@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for interacting with supriya via a web browser.
-'''
+"""
 
 from abjad.tools import systemtools
 
