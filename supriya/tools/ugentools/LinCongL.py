@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinCongL(UGen):
-    r'''A linear-interpolating linear congruential chaotic generator.
+    r"""
+    A linear-interpolating linear congruential chaotic generator.
 
     ::
 
@@ -17,7 +18,7 @@ class LinCongL(UGen):
         >>> lin_cong_l
         LinCongL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class LinCongL(UGen):
         m=1,
         xi=0,
         ):
-        r'''Constructs an audio-rate LinCongL.
+        r"""
+        Constructs an audio-rate LinCongL.
 
         ::
 
@@ -82,7 +84,7 @@ class LinCongL(UGen):
             LinCongL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class LinCongL(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of LinCongL.
+        r"""
+        Gets `a` input of LinCongL.
 
         ::
 
@@ -116,13 +119,14 @@ class LinCongL(UGen):
             1.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def c(self):
-        r'''Gets `c` input of LinCongL.
+        r"""
+        Gets `c` input of LinCongL.
 
         ::
 
@@ -137,13 +141,14 @@ class LinCongL(UGen):
             0.13
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LinCongL.
+        r"""
+        Gets `frequency` input of LinCongL.
 
         ::
 
@@ -158,13 +163,14 @@ class LinCongL(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def m(self):
-        r'''Gets `m` input of LinCongL.
+        r"""
+        Gets `m` input of LinCongL.
 
         ::
 
@@ -179,13 +185,14 @@ class LinCongL(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('m')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of LinCongL.
+        r"""
+        Gets `xi` input of LinCongL.
 
         ::
 
@@ -200,6 +207,6 @@ class LinCongL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]

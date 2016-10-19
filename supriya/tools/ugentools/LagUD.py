@@ -4,7 +4,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LagUD(Filter):
-    r'''An up/down lag generator.
+    r"""
+    An up/down lag generator.
 
     ::
 
@@ -16,7 +17,7 @@ class LagUD(Filter):
         ...     )
         LagUD.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -82,7 +83,8 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate lag.
+        r"""
+        Constructs a control-rate lag.
 
         ::
 
@@ -94,7 +96,7 @@ class LagUD(Filter):
             ...     )
             LagUD.ar()
 
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -112,7 +114,8 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate lag.
+        r"""
+        Constructs a control-rate lag.
 
         ::
 
@@ -124,7 +127,7 @@ class LagUD(Filter):
             ...     )
             LagUD.kr()
 
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -139,7 +142,8 @@ class LagUD(Filter):
 
     @property
     def lag_time_down(self):
-        r'''Gets `lag_time_down` input of LagUD.
+        r"""
+        Gets `lag_time_down` input of LagUD.
 
         ::
 
@@ -153,13 +157,14 @@ class LagUD(Filter):
             1.25
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time_down')
         return self._inputs[index]
 
     @property
     def lag_time_up(self):
-        r'''Gets `lag_time_up` input of LagUD.
+        r"""
+        Gets `lag_time_up` input of LagUD.
 
         ::
 
@@ -173,13 +178,14 @@ class LagUD(Filter):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time_up')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LagUD.
+        r"""
+        Gets `source` input of LagUD.
 
         ::
 
@@ -198,6 +204,6 @@ class LagUD(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

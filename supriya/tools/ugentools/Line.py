@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Line(UGen):
-    r'''A line generating unit generator.
+    r"""
+    A line generating unit generator.
 
     ::
 
         >>> ugentools.Line.ar()
         Line.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -75,7 +76,8 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Constructs an audio-rate line generator.
+        r"""
+        Constructs an audio-rate line generator.
 
         ::
 
@@ -88,7 +90,7 @@ class Line(UGen):
             Line.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         return cls._new_expanded(
@@ -107,7 +109,8 @@ class Line(UGen):
         stop=1,
         start=0,
         ):
-        r'''Constructs an audio-rate line generator.
+        r"""
+        Constructs an audio-rate line generator.
 
         ::
 
@@ -120,7 +123,7 @@ class Line(UGen):
             Line.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         return cls._new_expanded(
@@ -135,7 +138,8 @@ class Line(UGen):
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of Line.
+        r"""
+        Gets `done_action` input of Line.
 
         ::
 
@@ -147,13 +151,14 @@ class Line(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of Line.
+        r"""
+        Gets `duration` input of Line.
 
         ::
 
@@ -165,21 +170,23 @@ class Line(UGen):
             5.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def start(self):
-        r'''Gets `start` input of Line.
+        r"""
+        Gets `start` input of Line.
 
         ::
 
@@ -191,13 +198,14 @@ class Line(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
     def stop(self):
-        r'''Gets `stop` input of Line.
+        r"""
+        Gets `stop` input of Line.
 
         ::
 
@@ -209,6 +217,6 @@ class Line(UGen):
             12.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('stop')
         return self._inputs[index]

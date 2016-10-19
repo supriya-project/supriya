@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MantissaMask(UGen):
-    r'''A floating-point mantissa mask.
+    r"""
+    A floating-point mantissa mask.
 
     ::
 
@@ -15,7 +16,7 @@ class MantissaMask(UGen):
         >>> mantissa_mask
         MantissaMask.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class MantissaMask(UGen):
         bits=3,
         source=0,
         ):
-        r'''Constructs an audio-rate floating-point mantissa mask.
+        r"""
+        Constructs an audio-rate floating-point mantissa mask.
 
         ::
 
@@ -66,7 +68,7 @@ class MantissaMask(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class MantissaMask(UGen):
         bits=3,
         source=0,
         ):
-        r'''Constucts a control-rate floating-point mantissa mask.
+        r"""
+        Constucts a control-rate floating-point mantissa mask.
 
         ::
 
@@ -95,7 +98,7 @@ class MantissaMask(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class MantissaMask(UGen):
 
     @property
     def bits(self):
-        r'''Gets `bits` input of MantissaMask.
+        r"""
+        Gets `bits` input of MantissaMask.
         ::
 
             >>> source = ugentools.SinOsc.ar()
@@ -121,13 +125,14 @@ class MantissaMask(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bits')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of MantissaMask.
+        r"""
+        Gets `source` input of MantissaMask.
         ::
 
             >>> source = ugentools.SinOsc.ar()
@@ -146,6 +151,6 @@ class MantissaMask(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

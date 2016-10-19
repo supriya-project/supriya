@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinRand(UGen):
-    r'''A skewed linear random distribution.
+    r"""
+    A skewed linear random distribution.
 
     ::
 
@@ -15,7 +16,7 @@ class LinRand(UGen):
         >>> lin_rand
         LinRand.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class LinRand(UGen):
         minimum=0,
         skew=0,
         ):
-        r'''Constructs a skewed linear random distribution.
+        r"""
+        Constructs a skewed linear random distribution.
 
         ::
 
@@ -70,7 +72,7 @@ class LinRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -85,7 +87,8 @@ class LinRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of LinRand.
+        r"""
+        Gets `maximum` input of LinRand.
 
         ::
 
@@ -98,13 +101,14 @@ class LinRand(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of LinRand.
+        r"""
+        Gets `minimum` input of LinRand.
 
         ::
 
@@ -117,13 +121,14 @@ class LinRand(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def skew(self):
-        r'''Gets `skew` input of LinRand.
+        r"""
+        Gets `skew` input of LinRand.
 
         ::
 
@@ -136,6 +141,6 @@ class LinRand(UGen):
             0.9
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('skew')
         return self._inputs[index]

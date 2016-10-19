@@ -4,7 +4,8 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class LocalBuf(WidthFirstUGen):
-    r'''A synth-local buffer.
+    r"""
+    A synth-local buffer.
 
     ::
 
@@ -40,7 +41,7 @@ class LocalBuf(WidthFirstUGen):
         IFFT.ar()
         Out.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -83,7 +84,8 @@ class LocalBuf(WidthFirstUGen):
         channel_count=1,
         frame_count=1,
         ):
-        r'''Constructs a LocalBuf.
+        r"""
+        Constructs a LocalBuf.
 
         ::
 
@@ -95,7 +97,7 @@ class LocalBuf(WidthFirstUGen):
             LocalBuf.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -113,7 +115,8 @@ class LocalBuf(WidthFirstUGen):
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of LocalBuf.
+        r"""
+        Gets `channel_count` input of LocalBuf.
 
         ::
 
@@ -125,13 +128,14 @@ class LocalBuf(WidthFirstUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def frame_count(self):
-        r'''Gets `frame_count` input of LocalBuf.
+        r"""
+        Gets `frame_count` input of LocalBuf.
 
         ::
 
@@ -143,6 +147,6 @@ class LocalBuf(WidthFirstUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frame_count')
         return self._inputs[index]
