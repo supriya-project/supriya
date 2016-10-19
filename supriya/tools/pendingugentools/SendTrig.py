@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SendTrig(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class SendTrig(UGen):
         >>> send_trig
         SendTrig.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class SendTrig(UGen):
         source=None,
         value=0,
         ):
-        r'''Constructs an audio-rate SendTrig.
+        r"""
+        Constructs an audio-rate SendTrig.
 
         ::
 
@@ -72,7 +73,7 @@ class SendTrig(UGen):
             SendTrig.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +91,8 @@ class SendTrig(UGen):
         source=None,
         value=0,
         ):
-        r'''Constructs a control-rate SendTrig.
+        r"""
+        Constructs a control-rate SendTrig.
 
         ::
 
@@ -104,7 +106,7 @@ class SendTrig(UGen):
             SendTrig.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +121,8 @@ class SendTrig(UGen):
 
     @property
     def id(self):
-        r'''Gets `id` input of SendTrig.
+        r"""
+        Gets `id` input of SendTrig.
 
         ::
 
@@ -133,13 +136,14 @@ class SendTrig(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of SendTrig.
+        r"""
+        Gets `source` input of SendTrig.
 
         ::
 
@@ -160,13 +164,14 @@ class SendTrig(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def value(self):
-        r'''Gets `value` input of SendTrig.
+        r"""
+        Gets `value` input of SendTrig.
 
         ::
 
@@ -180,6 +185,6 @@ class SendTrig(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('value')
         return self._inputs[index]

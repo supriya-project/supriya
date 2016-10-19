@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InRect(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class InRect(UGen):
         >>> in_rect
         InRect.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class InRect(UGen):
         x=0,
         y=0,
         ):
-        r'''Constructs an audio-rate InRect.
+        r"""
+        Constructs an audio-rate InRect.
 
         ::
 
@@ -70,7 +71,7 @@ class InRect(UGen):
             InRect.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class InRect(UGen):
         x=0,
         y=0,
         ):
-        r'''Constructs a control-rate InRect.
+        r"""
+        Constructs a control-rate InRect.
 
         ::
 
@@ -101,7 +103,7 @@ class InRect(UGen):
             InRect.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +118,8 @@ class InRect(UGen):
 
     @property
     def rect(self):
-        r'''Gets `rect` input of InRect.
+        r"""
+        Gets `rect` input of InRect.
 
         ::
 
@@ -128,13 +131,14 @@ class InRect(UGen):
             >>> in_rect.rect
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rect')
         return self._inputs[index]
 
     @property
     def x(self):
-        r'''Gets `x` input of InRect.
+        r"""
+        Gets `x` input of InRect.
 
         ::
 
@@ -147,13 +151,14 @@ class InRect(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x')
         return self._inputs[index]
 
     @property
     def y(self):
-        r'''Gets `y` input of InRect.
+        r"""
+        Gets `y` input of InRect.
 
         ::
 
@@ -166,6 +171,6 @@ class InRect(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('y')
         return self._inputs[index]

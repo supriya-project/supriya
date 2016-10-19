@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Resonz(Filter):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class Resonz(Filter):
         >>> resonz
         Resonz.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class Resonz(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs an audio-rate Resonz.
+        r"""
+        Constructs an audio-rate Resonz.
 
         ::
 
@@ -72,7 +73,7 @@ class Resonz(Filter):
             Resonz.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +93,8 @@ class Resonz(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs a control-rate Resonz.
+        r"""
+        Constructs a control-rate Resonz.
 
         ::
 
@@ -106,7 +108,7 @@ class Resonz(Filter):
             Resonz.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +133,8 @@ class Resonz(Filter):
 
     @property
     def bwr(self):
-        r'''Gets `bwr` input of Resonz.
+        r"""
+        Gets `bwr` input of Resonz.
 
         ::
 
@@ -145,13 +148,14 @@ class Resonz(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bwr')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Resonz.
+        r"""
+        Gets `frequency` input of Resonz.
 
         ::
 
@@ -165,13 +169,14 @@ class Resonz(Filter):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Resonz.
+        r"""
+        Gets `source` input of Resonz.
 
         ::
 
@@ -192,6 +197,6 @@ class Resonz(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

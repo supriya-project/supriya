@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Sweep(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class Sweep(UGen):
         >>> sweep
         Sweep.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class Sweep(UGen):
         rate=1,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Sweep.
+        r"""
+        Constructs an audio-rate Sweep.
 
         ::
 
@@ -64,7 +65,7 @@ class Sweep(UGen):
             Sweep.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class Sweep(UGen):
         rate=1,
         trigger=0,
         ):
-        r'''Constructs a control-rate Sweep.
+        r"""
+        Constructs a control-rate Sweep.
 
         ::
 
@@ -92,7 +94,7 @@ class Sweep(UGen):
             Sweep.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class Sweep(UGen):
 
     @property
     def rate(self):
-        r'''Gets `rate` input of Sweep.
+        r"""
+        Gets `rate` input of Sweep.
 
         ::
 
@@ -118,13 +121,14 @@ class Sweep(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Sweep.
+        r"""
+        Gets `trigger` input of Sweep.
 
         ::
 
@@ -136,6 +140,6 @@ class Sweep(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

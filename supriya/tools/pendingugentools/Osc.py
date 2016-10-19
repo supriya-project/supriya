@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Osc(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Osc(PureUGen):
         >>> osc
         Osc.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class Osc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs an audio-rate Osc.
+        r"""
+        Constructs an audio-rate Osc.
 
         ::
 
@@ -70,7 +71,7 @@ class Osc(PureUGen):
             Osc.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class Osc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs a control-rate Osc.
+        r"""
+        Constructs a control-rate Osc.
 
         ::
 
@@ -101,7 +103,7 @@ class Osc(PureUGen):
             Osc.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +118,8 @@ class Osc(PureUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Osc.
+        r"""
+        Gets `buffer_id` input of Osc.
 
         ::
 
@@ -128,13 +131,14 @@ class Osc(PureUGen):
             >>> osc.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Osc.
+        r"""
+        Gets `frequency` input of Osc.
 
         ::
 
@@ -147,13 +151,14 @@ class Osc(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of Osc.
+        r"""
+        Gets `phase` input of Osc.
 
         ::
 
@@ -166,6 +171,6 @@ class Osc(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

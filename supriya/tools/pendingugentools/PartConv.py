@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PartConv(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class PartConv(UGen):
         >>> part_conv
         PartConv.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class PartConv(UGen):
         irbufnum=None,
         source=None,
         ):
-        r'''Constructs an audio-rate PartConv.
+        r"""
+        Constructs an audio-rate PartConv.
 
         ::
 
@@ -72,7 +73,7 @@ class PartConv(UGen):
             PartConv.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -91,7 +92,8 @@ class PartConv(UGen):
 
     @property
     def fftsize(self):
-        r'''Gets `fftsize` input of PartConv.
+        r"""
+        Gets `fftsize` input of PartConv.
 
         ::
 
@@ -104,13 +106,14 @@ class PartConv(UGen):
             >>> part_conv.fftsize
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('fftsize')
         return self._inputs[index]
 
     @property
     def irbufnum(self):
-        r'''Gets `irbufnum` input of PartConv.
+        r"""
+        Gets `irbufnum` input of PartConv.
 
         ::
 
@@ -123,13 +126,14 @@ class PartConv(UGen):
             >>> part_conv.irbufnum
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('irbufnum')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of PartConv.
+        r"""
+        Gets `source` input of PartConv.
 
         ::
 
@@ -150,6 +154,6 @@ class PartConv(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

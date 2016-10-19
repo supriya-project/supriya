@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class WrapIndex(Index):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class WrapIndex(Index):
         >>> wrap_index
         WrapIndex.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class WrapIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate WrapIndex.
+        r"""
+        Constructs an audio-rate WrapIndex.
 
         ::
 
@@ -66,7 +67,7 @@ class WrapIndex(Index):
             WrapIndex.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class WrapIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate WrapIndex.
+        r"""
+        Constructs a control-rate WrapIndex.
 
         ::
 
@@ -95,7 +97,7 @@ class WrapIndex(Index):
             WrapIndex.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class WrapIndex(Index):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of WrapIndex.
+        r"""
+        Gets `buffer_id` input of WrapIndex.
 
         ::
 
@@ -121,13 +124,14 @@ class WrapIndex(Index):
             >>> wrap_index.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of WrapIndex.
+        r"""
+        Gets `source` input of WrapIndex.
 
         ::
 
@@ -147,6 +151,6 @@ class WrapIndex(Index):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

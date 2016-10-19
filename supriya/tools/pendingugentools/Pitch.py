@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pitch(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -24,7 +24,7 @@ class Pitch(MultiOutUGen):
         >>> pitch
         Pitch.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -98,7 +98,8 @@ class Pitch(MultiOutUGen):
         peak_threshold=0.5,
         source=None,
         ):
-        r'''Constructs a control-rate Pitch.
+        r"""
+        Constructs a control-rate Pitch.
 
         ::
 
@@ -120,7 +121,7 @@ class Pitch(MultiOutUGen):
             Pitch.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -145,7 +146,8 @@ class Pitch(MultiOutUGen):
 
     @property
     def amp_threshold(self):
-        r'''Gets `amp_threshold` input of Pitch.
+        r"""
+        Gets `amp_threshold` input of Pitch.
 
         ::
 
@@ -167,13 +169,14 @@ class Pitch(MultiOutUGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('amp_threshold')
         return self._inputs[index]
 
     @property
     def clar(self):
-        r'''Gets `clar` input of Pitch.
+        r"""
+        Gets `clar` input of Pitch.
 
         ::
 
@@ -195,13 +198,14 @@ class Pitch(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('clar')
         return self._inputs[index]
 
     @property
     def down_sample(self):
-        r'''Gets `down_sample` input of Pitch.
+        r"""
+        Gets `down_sample` input of Pitch.
 
         ::
 
@@ -223,13 +227,14 @@ class Pitch(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('down_sample')
         return self._inputs[index]
 
     @property
     def exec_frequency(self):
-        r'''Gets `exec_frequency` input of Pitch.
+        r"""
+        Gets `exec_frequency` input of Pitch.
 
         ::
 
@@ -251,13 +256,14 @@ class Pitch(MultiOutUGen):
             100.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('exec_frequency')
         return self._inputs[index]
 
     @property
     def init_frequency(self):
-        r'''Gets `init_frequency` input of Pitch.
+        r"""
+        Gets `init_frequency` input of Pitch.
 
         ::
 
@@ -279,13 +285,14 @@ class Pitch(MultiOutUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('init_frequency')
         return self._inputs[index]
 
     @property
     def max_bins_per_octave(self):
-        r'''Gets `max_bins_per_octave` input of Pitch.
+        r"""
+        Gets `max_bins_per_octave` input of Pitch.
 
         ::
 
@@ -307,13 +314,14 @@ class Pitch(MultiOutUGen):
             16.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_bins_per_octave')
         return self._inputs[index]
 
     @property
     def max_frequency(self):
-        r'''Gets `max_frequency` input of Pitch.
+        r"""
+        Gets `max_frequency` input of Pitch.
 
         ::
 
@@ -335,13 +343,14 @@ class Pitch(MultiOutUGen):
             4000.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_frequency')
         return self._inputs[index]
 
     @property
     def median(self):
-        r'''Gets `median` input of Pitch.
+        r"""
+        Gets `median` input of Pitch.
 
         ::
 
@@ -363,13 +372,14 @@ class Pitch(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('median')
         return self._inputs[index]
 
     @property
     def min_frequency(self):
-        r'''Gets `min_frequency` input of Pitch.
+        r"""
+        Gets `min_frequency` input of Pitch.
 
         ::
 
@@ -391,13 +401,14 @@ class Pitch(MultiOutUGen):
             60.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('min_frequency')
         return self._inputs[index]
 
     @property
     def peak_threshold(self):
-        r'''Gets `peak_threshold` input of Pitch.
+        r"""
+        Gets `peak_threshold` input of Pitch.
 
         ::
 
@@ -419,13 +430,14 @@ class Pitch(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('peak_threshold')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Pitch.
+        r"""
+        Gets `source` input of Pitch.
 
         ::
 
@@ -454,6 +466,6 @@ class Pitch(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

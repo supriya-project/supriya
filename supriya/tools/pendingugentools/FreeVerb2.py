@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class FreeVerb2(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -18,7 +18,7 @@ class FreeVerb2(MultiOutUGen):
         >>> free_verb_2
         FreeVerb2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -68,7 +68,8 @@ class FreeVerb2(MultiOutUGen):
         room=0.5,
         source=None,
         ):
-        r'''Constructs an audio-rate FreeVerb2.
+        r"""
+        Constructs an audio-rate FreeVerb2.
 
         ::
 
@@ -84,7 +85,7 @@ class FreeVerb2(MultiOutUGen):
             FreeVerb2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -103,7 +104,8 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of FreeVerb2.
+        r"""
+        Gets `damping` input of FreeVerb2.
 
         ::
 
@@ -119,13 +121,14 @@ class FreeVerb2(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def in_2(self):
-        r'''Gets `in_2` input of FreeVerb2.
+        r"""
+        Gets `in_2` input of FreeVerb2.
 
         ::
 
@@ -140,13 +143,14 @@ class FreeVerb2(MultiOutUGen):
             >>> free_verb_2.in_2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_2')
         return self._inputs[index]
 
     @property
     def mix(self):
-        r'''Gets `mix` input of FreeVerb2.
+        r"""
+        Gets `mix` input of FreeVerb2.
 
         ::
 
@@ -162,13 +166,14 @@ class FreeVerb2(MultiOutUGen):
             0.33
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('mix')
         return self._inputs[index]
 
     @property
     def room(self):
-        r'''Gets `room` input of FreeVerb2.
+        r"""
+        Gets `room` input of FreeVerb2.
 
         ::
 
@@ -184,13 +189,14 @@ class FreeVerb2(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('room')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of FreeVerb2.
+        r"""
+        Gets `source` input of FreeVerb2.
 
         ::
 
@@ -213,6 +219,6 @@ class FreeVerb2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

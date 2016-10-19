@@ -3,7 +3,7 @@ from supriya.tools.ugentools.SendTrig import SendTrig
 
 
 class SendReply(SendTrig):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class SendReply(SendTrig):
         >>> send_reply
         SendReply.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class SendReply(SendTrig):
         trigger=0,
         values=None,
         ):
-        r'''Constructs an audio-rate SendReply.
+        r"""
+        Constructs an audio-rate SendReply.
 
         ::
 
@@ -76,7 +77,7 @@ class SendReply(SendTrig):
             SendReply.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class SendReply(SendTrig):
         trigger=0,
         values=None,
         ):
-        r'''Constructs a control-rate SendReply.
+        r"""
+        Constructs a control-rate SendReply.
 
         ::
 
@@ -110,7 +112,7 @@ class SendReply(SendTrig):
             SendReply.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -128,7 +130,8 @@ class SendReply(SendTrig):
 
     @property
     def cmd_name(self):
-        r'''Gets `cmd_name` input of SendReply.
+        r"""
+        Gets `cmd_name` input of SendReply.
 
         ::
 
@@ -141,13 +144,14 @@ class SendReply(SendTrig):
             >>> send_reply.cmd_name
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('cmd_name')
         return self._inputs[index]
 
     @property
     def reply_id(self):
-        r'''Gets `reply_id` input of SendReply.
+        r"""
+        Gets `reply_id` input of SendReply.
 
         ::
 
@@ -161,13 +165,14 @@ class SendReply(SendTrig):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reply_id')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of SendReply.
+        r"""
+        Gets `trigger` input of SendReply.
 
         ::
 
@@ -181,13 +186,14 @@ class SendReply(SendTrig):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
     def values(self):
-        r'''Gets `values` input of SendReply.
+        r"""
+        Gets `values` input of SendReply.
 
         ::
 
@@ -200,6 +206,6 @@ class SendReply(SendTrig):
             >>> send_reply.values
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('values')
         return self._inputs[index]

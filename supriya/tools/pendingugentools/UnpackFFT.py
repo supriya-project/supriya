@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class UnpackFFT(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class UnpackFFT(MultiOutUGen):
         >>> unpack_fft
         UnpackFFT.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class UnpackFFT(MultiOutUGen):
         frombin=0,
         tobin=None,
         ):
-        r'''Constructs a UnpackFFT.
+        r"""
+        Constructs a UnpackFFT.
 
         ::
 
@@ -76,7 +77,7 @@ class UnpackFFT(MultiOutUGen):
             UnpackFFT.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -94,7 +95,8 @@ class UnpackFFT(MultiOutUGen):
 
     @property
     def bufsize(self):
-        r'''Gets `bufsize` input of UnpackFFT.
+        r"""
+        Gets `bufsize` input of UnpackFFT.
 
         ::
 
@@ -107,13 +109,14 @@ class UnpackFFT(MultiOutUGen):
             >>> unpack_fft.bufsize
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bufsize')
         return self._inputs[index]
 
     @property
     def chain(self):
-        r'''Gets `chain` input of UnpackFFT.
+        r"""
+        Gets `chain` input of UnpackFFT.
 
         ::
 
@@ -126,13 +129,14 @@ class UnpackFFT(MultiOutUGen):
             >>> unpack_fft.chain
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chain')
         return self._inputs[index]
 
     @property
     def frombin(self):
-        r'''Gets `frombin` input of UnpackFFT.
+        r"""
+        Gets `frombin` input of UnpackFFT.
 
         ::
 
@@ -146,13 +150,14 @@ class UnpackFFT(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frombin')
         return self._inputs[index]
 
     @property
     def tobin(self):
-        r'''Gets `tobin` input of UnpackFFT.
+        r"""
+        Gets `tobin` input of UnpackFFT.
 
         ::
 
@@ -165,6 +170,6 @@ class UnpackFFT(MultiOutUGen):
             >>> unpack_fft.tobin
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('tobin')
         return self._inputs[index]

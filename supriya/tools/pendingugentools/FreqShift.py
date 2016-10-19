@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreqShift(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class FreqShift(UGen):
         >>> freq_shift
         FreqShift.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class FreqShift(UGen):
         phase=0,
         source=None,
         ):
-        r'''Constructs an audio-rate FreqShift.
+        r"""
+        Constructs an audio-rate FreqShift.
 
         ::
 
@@ -72,7 +73,7 @@ class FreqShift(UGen):
             FreqShift.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -87,7 +88,8 @@ class FreqShift(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of FreqShift.
+        r"""
+        Gets `frequency` input of FreqShift.
 
         ::
 
@@ -101,13 +103,14 @@ class FreqShift(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of FreqShift.
+        r"""
+        Gets `phase` input of FreqShift.
 
         ::
 
@@ -121,13 +124,14 @@ class FreqShift(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of FreqShift.
+        r"""
+        Gets `source` input of FreqShift.
 
         ::
 
@@ -148,6 +152,6 @@ class FreqShift(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

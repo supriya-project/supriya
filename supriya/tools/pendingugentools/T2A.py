@@ -3,7 +3,7 @@ from supriya.tools.ugentools.K2A import K2A
 
 
 class T2A(K2A):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class T2A(K2A):
         >>> t_2_a
         T2A.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class T2A(K2A):
         offset=0,
         source=None,
         ):
-        r'''Constructs an audio-rate T2A.
+        r"""
+        Constructs an audio-rate T2A.
 
         ::
 
@@ -66,7 +67,7 @@ class T2A(K2A):
             T2A.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class T2A(K2A):
 
     @property
     def offset(self):
-        r'''Gets `offset` input of T2A.
+        r"""
+        Gets `offset` input of T2A.
 
         ::
 
@@ -93,13 +95,14 @@ class T2A(K2A):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('offset')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of T2A.
+        r"""
+        Gets `source` input of T2A.
 
         ::
 
@@ -119,6 +122,6 @@ class T2A(K2A):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
