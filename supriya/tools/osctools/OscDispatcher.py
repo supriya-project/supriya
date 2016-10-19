@@ -5,7 +5,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class OscDispatcher(SupriyaObject):
-    r'''An OSC message dispatcher.
+    r"""
+    An OSC message dispatcher.
 
     ::
 
@@ -33,7 +34,7 @@ class OscDispatcher(SupriyaObject):
         >>> dispatcher.unregister_callback(osc_callback)
         >>> dispatcher(message)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,12 +52,13 @@ class OscDispatcher(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        r'''Handles `message`.
+        r"""
+        Handles `message`.
 
         Finds all matching callbacks and passes the message to each.
 
         Returns none.
-        '''
+        """
         from supriya.tools import osctools
         assert isinstance(message, osctools.OscMessage)
         callbacks = []
@@ -88,10 +90,11 @@ class OscDispatcher(SupriyaObject):
         return pattern
 
     def register_callback(self, osc_callback):
-        r'''Registers `osc_callback`.
+        r"""
+        Registers `osc_callback`.
 
         Returns none.
-        '''
+        """
         from supriya.tools import osctools
         assert isinstance(osc_callback, osctools.OscCallback)
         if osc_callback.address_pattern in self._address_map:
@@ -106,10 +109,11 @@ class OscDispatcher(SupriyaObject):
             osc_callbacks.append(osc_callback)
 
     def unregister_callback(self, osc_callback):
-        r'''Unregisters `osc_callback`.
+        r"""
+        Unregisters `osc_callback`.
 
         Returns none.
-        '''
+        """
         from supriya.tools import osctools
         assert isinstance(osc_callback, osctools.OscCallback)
         if osc_callback.address_pattern not in self._address_map:

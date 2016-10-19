@@ -13,7 +13,8 @@ class OscMixin(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        r'''Gets string representation of OSC object.
+        r"""
+        Gets string representation of OSC object.
 
         ::
 
@@ -30,7 +31,7 @@ class OscMixin(SupriyaValueObject):
              144   74 65 73 74  00 00 00 00  00 00 03 e9  00 00 00 00   |test............|
              160   00 00 00 01                                          |....|
 
-        '''
+        """
         datagram = bytearray(self.to_datagram())
         return self.format_datagram(datagram)
 

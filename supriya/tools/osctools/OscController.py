@@ -9,8 +9,9 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class OscController(SupriyaObject):
-    '''An OSC controller.
-    '''
+    """
+    An OSC controller.
+    """
 
     ### CLASS VARIABLES ###
 

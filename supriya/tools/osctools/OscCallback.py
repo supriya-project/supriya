@@ -4,7 +4,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class OscCallback(SupriyaObject):
-    r'''An OSC callback.
+    r"""
+    An OSC callback.
 
     ::
 
@@ -14,7 +15,7 @@ class OscCallback(SupriyaObject):
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -50,7 +51,8 @@ class OscCallback(SupriyaObject):
 
     @property
     def address_pattern(self):
-        r'''The address pattern of the callback.
+        r"""
+        The address pattern of the callback.
 
         ::
 
@@ -58,7 +60,7 @@ class OscCallback(SupriyaObject):
             '/*'
 
         Returns string.
-        '''
+        """
         return self._address_pattern
 
     @property
@@ -67,7 +69,8 @@ class OscCallback(SupriyaObject):
 
     @property
     def is_one_shot(self):
-        r'''Is true when the callback should be unregistered after being
+        r"""
+        Is true when the callback should be unregistered after being
         called.
 
         ::
@@ -76,13 +79,14 @@ class OscCallback(SupriyaObject):
             False
 
         Returns boolean.
-        '''
+        """
         return self._is_one_shot
 
     @property
     def procedure(self):
-        r'''Gets the procedure to be called.
+        r"""
+        Gets the procedure to be called.
 
         Returns callable.
-        '''
+        """
         return self._procedure
