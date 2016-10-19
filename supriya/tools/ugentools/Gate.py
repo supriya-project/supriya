@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Gate(UGen):
-    r'''Gates or holds.
+    r"""
+    Gates or holds.
 
     ::
 
@@ -16,7 +17,7 @@ class Gate(UGen):
         >>> gate
         Gate.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class Gate(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Gate.
+        r"""
+        Constructs an audio-rate Gate.
 
         ::
 
@@ -68,7 +70,7 @@ class Gate(UGen):
             Gate.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Gate(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate Gate.
+        r"""
+        Constructs a control-rate Gate.
 
         ::
 
@@ -98,7 +101,7 @@ class Gate(UGen):
             Gate.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -112,7 +115,8 @@ class Gate(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Gate.
+        r"""
+        Gets `source` input of Gate.
 
         ::
 
@@ -131,13 +135,14 @@ class Gate(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Gate.
+        r"""
+        Gets `trigger` input of Gate.
 
         ::
 
@@ -157,6 +162,6 @@ class Gate(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class HenonL(UGen):
-    r'''A linear-interpolating henon map chaotic generator.
+    r"""
+    A linear-interpolating henon map chaotic generator.
 
     ::
 
@@ -17,7 +18,7 @@ class HenonL(UGen):
         >>> henon_l
         HenonL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class HenonL(UGen):
         x_0=0,
         x_1=0,
         ):
-        r'''Constructs an audio-rate HenonL.
+        r"""
+        Constructs an audio-rate HenonL.
 
         ::
 
@@ -82,7 +84,7 @@ class HenonL(UGen):
             HenonL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class HenonL(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of HenonL.
+        r"""
+        Gets `a` input of HenonL.
 
         ::
 
@@ -116,13 +119,14 @@ class HenonL(UGen):
             1.4
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of HenonL.
+        r"""
+        Gets `b` input of HenonL.
 
         ::
 
@@ -137,13 +141,14 @@ class HenonL(UGen):
             0.3
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of HenonL.
+        r"""
+        Gets `frequency` input of HenonL.
 
         ::
 
@@ -158,13 +163,14 @@ class HenonL(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def x_0(self):
-        r'''Gets `x_0` input of HenonL.
+        r"""
+        Gets `x_0` input of HenonL.
 
         ::
 
@@ -179,13 +185,14 @@ class HenonL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x_0')
         return self._inputs[index]
 
     @property
     def x_1(self):
-        r'''Gets `x_1` input of HenonL.
+        r"""
+        Gets `x_1` input of HenonL.
 
         ::
 
@@ -200,6 +207,6 @@ class HenonL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x_1')
         return self._inputs[index]

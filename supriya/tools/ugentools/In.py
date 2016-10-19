@@ -3,14 +3,15 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class In(MultiOutUGen):
-    r'''A bus input unit generator.
+    r"""
+    A bus input unit generator.
 
     ::
 
         >>> ugentools.In.ar(bus=0, channel_count=4)
         UGenArray({4})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -45,7 +46,8 @@ class In(MultiOutUGen):
         bus=0,
         channel_count=1,
         ):
-        r'''Constructs an audio-rate bus input.
+        r"""
+        Constructs an audio-rate bus input.
 
         ::
 
@@ -53,7 +55,7 @@ class In(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
@@ -81,7 +83,8 @@ class In(MultiOutUGen):
         bus=0,
         channel_count=1,
         ):
-        r'''Constructs a control-rate bus input.
+        r"""
+        Constructs a control-rate bus input.
 
         ::
 
@@ -89,7 +92,7 @@ class In(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
@@ -115,7 +118,8 @@ class In(MultiOutUGen):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of DC.
+        r"""
+        Gets `bus` input of DC.
 
         ::
 
@@ -127,7 +131,7 @@ class In(MultiOutUGen):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 

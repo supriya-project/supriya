@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Hasher(UGen):
-    r'''A signal hasher.
+    r"""
+    A signal hasher.
 
     ::
 
@@ -14,7 +15,7 @@ class Hasher(UGen):
         >>> hasher
         Hasher.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class Hasher(UGen):
         cls,
         source=0,
         ):
-        r'''Constructs an audio-rate signal hasher.
+        r"""
+        Constructs an audio-rate signal hasher.
 
         ::
 
@@ -60,7 +62,7 @@ class Hasher(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -74,7 +76,8 @@ class Hasher(UGen):
         cls,
         source=0,
         ):
-        r'''Constructs a control-rate signal hasher.
+        r"""
+        Constructs a control-rate signal hasher.
 
         ::
 
@@ -86,7 +89,7 @@ class Hasher(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -99,7 +102,8 @@ class Hasher(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of SignalHasher.
+        r"""
+        Gets `source` input of SignalHasher.
 
         ::
 
@@ -118,6 +122,6 @@ class Hasher(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

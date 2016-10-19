@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class FOS(Filter):
-    r'''A first order filter section.
+    r"""
+    A first order filter section.
 
     ::
 
@@ -21,7 +22,7 @@ class FOS(Filter):
         >>> fos
         FOS.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class FOS(Filter):
         b_1=0,
         source=None,
         ):
-        r'''Constructs an audio-rate FOS.
+        r"""
+        Constructs an audio-rate FOS.
 
         ::
 
@@ -82,7 +84,7 @@ class FOS(Filter):
             FOS.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -104,7 +106,8 @@ class FOS(Filter):
         b_1=0,
         source=None,
         ):
-        r'''Constructs a control-rate FOS.
+        r"""
+        Constructs a control-rate FOS.
 
         ::
 
@@ -119,7 +122,7 @@ class FOS(Filter):
             FOS.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -145,7 +148,8 @@ class FOS(Filter):
 
     @property
     def a_0(self):
-        r'''Gets `a_0` input of FOS.
+        r"""
+        Gets `a_0` input of FOS.
 
         ::
 
@@ -160,13 +164,14 @@ class FOS(Filter):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a_0')
         return self._inputs[index]
 
     @property
     def a_1(self):
-        r'''Gets `a_1` input of FOS.
+        r"""
+        Gets `a_1` input of FOS.
 
         ::
 
@@ -181,13 +186,14 @@ class FOS(Filter):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a_1')
         return self._inputs[index]
 
     @property
     def b_1(self):
-        r'''Gets `b_1` input of FOS.
+        r"""
+        Gets `b_1` input of FOS.
 
         ::
 
@@ -202,13 +208,14 @@ class FOS(Filter):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b_1')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of FOS.
+        r"""
+        Gets `source` input of FOS.
 
         ::
 
@@ -230,6 +237,6 @@ class FOS(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

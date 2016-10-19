@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class GbmanL(UGen):
-    r'''A non-interpolating gingerbreadman map chaotic generator.
+    r"""
+    A non-interpolating gingerbreadman map chaotic generator.
 
     ::
 
@@ -15,7 +16,7 @@ class GbmanL(UGen):
         >>> gbman_l
         GbmanL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class GbmanL(UGen):
         xi=1.2,
         yi=2.1,
         ):
-        r'''Constructs an audio-rate GbmanL.
+        r"""
+        Constructs an audio-rate GbmanL.
 
         ::
 
@@ -70,7 +72,7 @@ class GbmanL(UGen):
             GbmanL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -87,7 +89,8 @@ class GbmanL(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of GbmanL.
+        r"""
+        Gets `frequency` input of GbmanL.
 
         ::
 
@@ -100,13 +103,14 @@ class GbmanL(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of GbmanL.
+        r"""
+        Gets `xi` input of GbmanL.
 
         ::
 
@@ -119,13 +123,14 @@ class GbmanL(UGen):
             1.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]
 
     @property
     def yi(self):
-        r'''Gets `yi` input of GbmanL.
+        r"""
+        Gets `yi` input of GbmanL.
 
         ::
 
@@ -138,6 +143,6 @@ class GbmanL(UGen):
             2.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('yi')
         return self._inputs[index]

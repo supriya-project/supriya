@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class HPF(Filter):
-    r'''A Highpass filter unit generator.
+    r"""
+    A Highpass filter unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class HPF(Filter):
         >>> ugentools.HPF.ar(source=source)
         HPF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs an audio-rate highpass filter.
+        r"""
+        Constructs an audio-rate highpass filter.
 
         ::
 
@@ -59,7 +61,7 @@ class HPF(Filter):
             HPF.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -75,7 +77,8 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs a control-rate highpass filter.
+        r"""
+        Constructs a control-rate highpass filter.
 
         ::
 
@@ -87,7 +90,7 @@ class HPF(Filter):
             HPF.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -101,7 +104,8 @@ class HPF(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of HPF.
+        r"""
+        Gets `frequency` input of HPF.
 
         ::
 
@@ -115,13 +119,14 @@ class HPF(Filter):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of HPF.
+        r"""
+        Gets `source` input of HPF.
 
         ::
 
@@ -140,6 +145,6 @@ class HPF(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
