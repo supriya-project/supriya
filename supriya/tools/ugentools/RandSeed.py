@@ -3,7 +3,8 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class RandSeed(WidthFirstUGen):
-    r'''Sets the synth's random generator seed.
+    r"""
+    Sets the synth's random generator seed.
 
     ::
 
@@ -15,7 +16,7 @@ class RandSeed(WidthFirstUGen):
         >>> rand_seed
         RandSeed.ar()
 
-    '''
+    """
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Noise UGens'
@@ -57,7 +58,8 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r'''Constructs an audio-rate RandSeed.
+        r"""
+        Constructs an audio-rate RandSeed.
 
         ::
 
@@ -70,7 +72,7 @@ class RandSeed(WidthFirstUGen):
             RandSeed.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -86,7 +88,8 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r'''Constructs a scalar-rate RandSeed.
+        r"""
+        Constructs a scalar-rate RandSeed.
 
         ::
 
@@ -97,7 +100,7 @@ class RandSeed(WidthFirstUGen):
             RandSeed.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -113,7 +116,8 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r'''Constructs a control-rate RandSeed.
+        r"""
+        Constructs a control-rate RandSeed.
 
         ::
 
@@ -126,7 +130,7 @@ class RandSeed(WidthFirstUGen):
             RandSeed.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -140,7 +144,8 @@ class RandSeed(WidthFirstUGen):
 
     @property
     def seed(self):
-        r'''Gets `seed` input of RandSeed.
+        r"""
+        Gets `seed` input of RandSeed.
 
         ::
 
@@ -153,13 +158,14 @@ class RandSeed(WidthFirstUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('seed')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of RandSeed.
+        r"""
+        Gets `trigger` input of RandSeed.
 
         ::
 
@@ -179,6 +185,6 @@ class RandSeed(WidthFirstUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

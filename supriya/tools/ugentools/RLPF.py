@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class RLPF(Filter):
-    r'''A resonant lowpass filter unit generator.
+    r"""
+    A resonant lowpass filter unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class RLPF(Filter):
         >>> ugentools.RLPF.ar(source=source)
         RLPF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class RLPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Constructs an audio-rate resonant lowpass filter.
+        r"""
+        Constructs an audio-rate resonant lowpass filter.
 
         ::
 
@@ -64,7 +66,7 @@ class RLPF(Filter):
             RLPF.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class RLPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Constructs a control-rate resonant lowpass filter.
+        r"""
+        Constructs a control-rate resonant lowpass filter.
 
         ::
 
@@ -95,7 +98,7 @@ class RLPF(Filter):
             RLPF.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -110,7 +113,8 @@ class RLPF(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of RLPF.
+        r"""
+        Gets `frequency` input of RLPF.
 
         ::
 
@@ -124,13 +128,14 @@ class RLPF(Filter):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def reciprocal_of_q(self):
-        r'''Gets `reciprocal_of_q` input of RLPF.
+        r"""
+        Gets `reciprocal_of_q` input of RLPF.
 
         ::
 
@@ -144,13 +149,14 @@ class RLPF(Filter):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('reciprocal_of_q')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of RLPF.
+        r"""
+        Gets `source` input of RLPF.
 
         ::
 
@@ -169,6 +175,6 @@ class RLPF(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

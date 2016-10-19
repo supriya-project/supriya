@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Min(PV_ChainUGen):
-    r'''Minimum magnitude.
+    r"""
+    Minimum magnitude.
 
     ::
 
@@ -20,7 +21,7 @@ class PV_Min(PV_ChainUGen):
         >>> pv_min
         PV_Min.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class PV_Min(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r'''Constructs a PV_Min.
+        r"""
+        Constructs a PV_Min.
 
         ::
 
@@ -72,7 +74,7 @@ class PV_Min(PV_ChainUGen):
             PV_Min.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -83,7 +85,8 @@ class PV_Min(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_Min.
+        r"""
+        Gets `pv_chain_a` input of PV_Min.
 
         ::
 
@@ -123,13 +126,14 @@ class PV_Min(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_Min.
+        r"""
+        Gets `pv_chain_b` input of PV_Min.
 
         ::
 
@@ -171,6 +175,6 @@ class PV_Min(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]

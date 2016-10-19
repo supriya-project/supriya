@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Lag import Lag
 
 
 class Ramp(Lag):
-    r'''Breaks a continuous signal into line segments.
+    r"""
+    Breaks a continuous signal into line segments.
 
     ::
 
@@ -15,7 +16,7 @@ class Ramp(Lag):
         >>> ramp
         Ramp.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Ramp(Lag):
         lag_time=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Ramp.
+        r"""
+        Constructs an audio-rate Ramp.
 
         ::
 
@@ -66,7 +68,7 @@ class Ramp(Lag):
             Ramp.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Ramp(Lag):
         lag_time=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Ramp.
+        r"""
+        Constructs a control-rate Ramp.
 
         ::
 
@@ -97,7 +100,7 @@ class Ramp(Lag):
             Ramp.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class Ramp(Lag):
 
     @property
     def lag_time(self):
-        r'''Gets `lag_time` input of Ramp.
+        r"""
+        Gets `lag_time` input of Ramp.
 
         ::
 
@@ -134,13 +138,14 @@ class Ramp(Lag):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Ramp.
+        r"""
+        Gets `source` input of Ramp.
 
         ::
 
@@ -160,6 +165,6 @@ class Ramp(Lag):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

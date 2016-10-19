@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagSmear(PV_ChainUGen):
-    r'''Averages magnitudes across bins.
+    r"""
+    Averages magnitudes across bins.
 
     ::
 
@@ -17,7 +18,7 @@ class PV_MagSmear(PV_ChainUGen):
         >>> pv_mag_smear
         PV_MagSmear.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class PV_MagSmear(PV_ChainUGen):
         bins=0,
         pv_chain=None,
         ):
-        r'''Constructs a PV_MagSmear.
+        r"""
+        Constructs a PV_MagSmear.
 
         ::
 
@@ -66,7 +68,7 @@ class PV_MagSmear(PV_ChainUGen):
             PV_MagSmear.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             bins=bins,
             pv_chain=pv_chain,
@@ -77,7 +79,8 @@ class PV_MagSmear(PV_ChainUGen):
 
     @property
     def bins(self):
-        r'''Gets `bins` input of PV_MagSmear.
+        r"""
+        Gets `bins` input of PV_MagSmear.
 
         ::
 
@@ -92,13 +95,14 @@ class PV_MagSmear(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bins')
         return self._inputs[index]
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_MagSmear.
+        r"""
+        Gets `pv_chain` input of PV_MagSmear.
 
         ::
 
@@ -135,6 +139,6 @@ class PV_MagSmear(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
