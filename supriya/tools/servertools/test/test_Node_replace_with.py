@@ -29,12 +29,12 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1001 test
                     1000 test
-            """,
+            ''',
             ), server_state
 
         synth_a.replace_with(synth_c)
@@ -42,12 +42,12 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1001 test
                     1002 test
-            """,
+            ''',
             ), server_state
 
         synth_b.replace_with([synth_d, synth_e])
@@ -55,13 +55,13 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1003 test
                     1004 test
                     1002 test
-            """,
+            ''',
             ), server_state
 
         synth_c.replace_with([synth_a, synth_e])
@@ -69,11 +69,11 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1003 test
                     1005 test
                     1004 test
-            """,
+            ''',
             ), server_state

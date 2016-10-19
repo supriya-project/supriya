@@ -26,7 +26,7 @@ class Test(unittest.TestCase):
         remote_state = str(self.server.query_remote_nodes(True))
         assert systemtools.TestManager.compare(
             remote_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -34,7 +34,7 @@ class Test(unittest.TestCase):
                             amplitude: 1.0, frequency: 440.0
                         1002 test
                             amplitude: 0.0, frequency: 440.0
-            """,
+            ''',
             ), remote_state
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
@@ -46,7 +46,7 @@ class Test(unittest.TestCase):
         remote_state = str(self.server.query_remote_nodes(True))
         assert systemtools.TestManager.compare(
             remote_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
                             amplitude: c0, frequency: 440.0
                         1002 test
                             amplitude: c0, frequency: 440.0
-            """,
+            ''',
             ), remote_state
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
@@ -66,7 +66,7 @@ class Test(unittest.TestCase):
         remote_state = str(self.server.query_remote_nodes(True))
         assert systemtools.TestManager.compare(
             remote_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -74,7 +74,7 @@ class Test(unittest.TestCase):
                             amplitude: c1, frequency: 440.0
                         1002 test
                             amplitude: c1, frequency: 440.0
-            """,
+            ''',
             ), remote_state
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
@@ -84,7 +84,7 @@ class Test(unittest.TestCase):
         remote_state = str(self.server.query_remote_nodes(True))
         assert systemtools.TestManager.compare(
             remote_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -92,7 +92,7 @@ class Test(unittest.TestCase):
                             amplitude: c1, frequency: 440.0
                         1002 test
                             amplitude: c1, frequency: 440.0
-            """,
+            ''',
             ), remote_state
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
@@ -102,7 +102,7 @@ class Test(unittest.TestCase):
         remote_state = str(self.server.query_remote_nodes(True))
         assert systemtools.TestManager.compare(
             remote_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -110,7 +110,7 @@ class Test(unittest.TestCase):
                             amplitude: 1.0, frequency: 440.0
                         1002 test
                             amplitude: 0.0, frequency: 440.0
-            """,
+            ''',
             ), remote_state
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state

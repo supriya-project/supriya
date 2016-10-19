@@ -54,7 +54,7 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -63,7 +63,7 @@ class Test(unittest.TestCase):
                             1003 test
                             1004 test
                         1005 test
-            """,
+            ''',
             ), server_state
 
         assert len(group_a) == 3
@@ -90,9 +90,9 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            """
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
-            """,
+            ''',
             ), server_state
