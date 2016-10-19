@@ -7,6 +7,7 @@ class Duty(UGen):
     A value is demanded of each UGen in the list and output according to a stream of duration values.
 
     ::
+
         >>> duty = ugentools.Duty.kr(
         ...     done_action=0,
         ...     duration=ugentools.Drand(
@@ -35,20 +36,20 @@ class Duty(UGen):
         'reset',
         'level',
         'done_action',
-    )
+        )
 
     _valid_calculation_rates = None
 
-    # ### INITIALIZER ###
+    ### INITIALIZER ###
 
     def __init__(
-            self,
-            calculation_rate=None,
-            done_action=0,
-            duration=1,
-            level=1,
-            reset=0,
-    ):
+        self,
+        calculation_rate=None,
+        done_action=0,
+        duration=1,
+        level=1,
+        reset=0,
+        ):
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -56,18 +57,18 @@ class Duty(UGen):
             duration=duration,
             level=level,
             reset=reset,
-        )
+            )
 
-    # ### PUBLIC METHODS ###
+    ### PUBLIC METHODS ###
 
     @classmethod
     def ar(
-            cls,
-            done_action=0,
-            duration=1,
-            level=1,
-            reset=0,
-    ):
+        cls,
+        done_action=0,
+        duration=1,
+        level=1,
+        reset=0,
+        ):
         r"""
         Constructs an audio-rate Duty.
 
@@ -98,17 +99,17 @@ class Duty(UGen):
             duration=duration,
             level=level,
             reset=reset,
-        )
+            )
         return ugen
 
     @classmethod
     def kr(
-            cls,
-            done_action=0,
-            duration=1,
-            level=1,
-            reset=0,
-    ):
+        cls,
+        done_action=0,
+        duration=1,
+        level=1,
+        reset=0,
+        ):
         r"""
         Constructs a control-rate Duty.
 
@@ -139,7 +140,7 @@ class Duty(UGen):
             duration=duration,
             level=level,
             reset=reset,
-        )
+            )
         return ugen
 
     # ### PUBLIC PROPERTIES ###
