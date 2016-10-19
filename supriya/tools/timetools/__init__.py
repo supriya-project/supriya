@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for modeling overlapping time structures with timespans.
-'''
+"""
 
 from abjad.tools import systemtools
 
