@@ -3,7 +3,8 @@ from supriya.tools.servertools.Node import Node
 
 
 class Synth(Node):
-    r'''A synth.
+    r"""
+    A synth.
 
     ::
 
@@ -35,7 +36,7 @@ class Synth(Node):
         >>> server.quit()
         <Server: offline>
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
