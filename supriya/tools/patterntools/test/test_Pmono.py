@@ -65,57 +65,57 @@ class TestCase(unittest.TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
-        """)
+        ''')
         # Step 1
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 2
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 3
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 4
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 0.0, pan: 0.5
-        """)
+        ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
-        """)
+        ''')
 
     def test_automatic_communicado_pmono_01(self):
         self.pmono_01.play(server=self.server)
@@ -147,65 +147,65 @@ class TestCase(unittest.TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
-        """)
+        ''')
         # Step 1
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 2
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 3
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 770.0, gate: 1.0, pan: 0.5
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         # Step 4
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 770.0, gate: 0.0, pan: 0.5
                 1000 da0982184cc8fa54cf9d288a0fe1f6ca
                     out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-        """)
+        ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
         NODE TREE 0 group
             1 group
-        """)
+        ''')
 
     def test_automatic_communicado_pmono_02(self):
         self.pmono_02.play(server=self.server)
@@ -255,69 +255,69 @@ class TestCase(unittest.TestCase):
     def test_manual_stop_pmono_01(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
-        """)
+        ''')
         player = self.pmono_01.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-        """)
+        ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
-        """)
+        ''')
 
     def test_manual_stop_pmono_02(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
-        """)
+        ''')
         player = self.pmono_02.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                     1000 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
-        """)
+        ''')
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
                     1000 da0982184cc8fa54cf9d288a0fe1f6ca
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
-        """)
+        ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == stringtools.normalize(r"""
+        assert server_state == stringtools.normalize(r'''
             NODE TREE 0 group
                 1 group
-        """)
+        ''')
