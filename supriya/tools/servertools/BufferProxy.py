@@ -3,7 +3,8 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class BufferProxy(SupriyaValueObject):
-    r'''A buffer proxy.
+    r"""
+    A buffer proxy.
 
     Acts as a singleton reference to a buffer on the server, tracking the state
     of a single buffer id and responding to `/b_info` messages. Multiple Buffer
@@ -34,7 +35,7 @@ class BufferProxy(SupriyaValueObject):
                 )
             )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -71,7 +72,8 @@ class BufferProxy(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __float__(self):
-        r'''Gets float representation of buffer proxy.
+        r"""
+        Gets float representation of buffer proxy.
 
         ::
 
@@ -79,11 +81,12 @@ class BufferProxy(SupriyaValueObject):
             0.0
 
         Returns float.
-        '''
+        """
         return float(self.buffer_id)
 
     def __int__(self):
-        r'''Gets integer representation of buffer proxy.
+        r"""
+        Gets integer representation of buffer proxy.
 
         ::
 
@@ -91,13 +94,14 @@ class BufferProxy(SupriyaValueObject):
             0
 
         Returns integer.
-        '''
+        """
         return int(self.buffer_id)
 
     ### PRIVATE METHODS ###
 
     def _handle_response(self, response):
-        r'''Updates buffer proxy with buffer-info response.
+        r"""
+        Updates buffer proxy with buffer-info response.
 
         ::
 
@@ -145,7 +149,7 @@ class BufferProxy(SupriyaValueObject):
                 )
 
         Returns none.
-        '''
+        """
         from supriya.tools import responsetools
         assert response.buffer_id == self.buffer_id
         if isinstance(response, responsetools.BufferInfoResponse):
@@ -157,7 +161,8 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def buffer_id(self):
-        r'''Gets buffer id of buffer proxy.
+        r"""
+        Gets buffer id of buffer proxy.
 
         ::
 
@@ -165,12 +170,13 @@ class BufferProxy(SupriyaValueObject):
             0
 
         Returns integer.
-        '''
+        """
         return self._buffer_id
 
     @property
     def channel_count(self):
-        r'''Gets channel count of buffer proxy.
+        r"""
+        Gets channel count of buffer proxy.
 
         ::
 
@@ -178,12 +184,13 @@ class BufferProxy(SupriyaValueObject):
             2
 
         Returns integer.
-        '''
+        """
         return self._channel_count
 
     @property
     def duration_in_seconds(self):
-        r'''Gets duration in seconds of buffer proxy.
+        r"""
+        Gets duration in seconds of buffer proxy.
 
         ::
 
@@ -191,12 +198,13 @@ class BufferProxy(SupriyaValueObject):
             0.01
 
         Returns float.
-        '''
+        """
         return float(self._frame_count) / float(self.sample_rate)
 
     @property
     def frame_count(self):
-        r'''Gets frame count of buffer proxy.
+        r"""
+        Gets frame count of buffer proxy.
 
         ::
 
@@ -204,12 +212,13 @@ class BufferProxy(SupriyaValueObject):
             441
 
         Returns integer.
-        '''
+        """
         return self._frame_count
 
     @property
     def sample_count(self):
-        r'''Gets sample count of buffer proxy.
+        r"""
+        Gets sample count of buffer proxy.
 
         ::
 
@@ -217,12 +226,13 @@ class BufferProxy(SupriyaValueObject):
             882
 
         Returns integer.
-        '''
+        """
         return self._channel_count * self._frame_count
 
     @property
     def sample_rate(self):
-        r'''Gets sample-rate of buffer proxy.
+        r"""
+        Gets sample-rate of buffer proxy.
 
         ::
 
@@ -230,12 +240,13 @@ class BufferProxy(SupriyaValueObject):
             44100
 
         Returns integer.
-        '''
+        """
         return self._sample_rate
 
     @property
     def server(self):
-        r'''Gets server of buffer proxy.
+        r"""
+        Gets server of buffer proxy.
 
         ::
 
@@ -243,5 +254,5 @@ class BufferProxy(SupriyaValueObject):
             <Server: udp://127.0.0.1:57751, 8i8o>
 
         Returns server.
-        '''
+        """
         return self._server
