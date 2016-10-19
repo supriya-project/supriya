@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dseries(DUGen):
-    r'''A demand-rate arithmetic series.
+    r"""
+    A demand-rate arithmetic series.
 
     ::
 
@@ -15,7 +16,7 @@ class Dseries(DUGen):
         >>> dseries
         Dseries()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Dseries(DUGen):
         start=1,
         step=1,
         ):
-        r'''Constructs a Dseries.
+        r"""
+        Constructs a Dseries.
 
         ::
 
@@ -66,7 +68,7 @@ class Dseries(DUGen):
             Dseries()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             length=length,
             start=start,
@@ -78,7 +80,8 @@ class Dseries(DUGen):
 
     @property
     def length(self):
-        r'''Gets `length` input of Dseries.
+        r"""
+        Gets `length` input of Dseries.
 
         ::
 
@@ -91,13 +94,14 @@ class Dseries(DUGen):
             inf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def start(self):
-        r'''Gets `start` input of Dseries.
+        r"""
+        Gets `start` input of Dseries.
 
         ::
 
@@ -110,13 +114,14 @@ class Dseries(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
     def step(self):
-        r'''Gets `step` input of Dseries.
+        r"""
+        Gets `step` input of Dseries.
 
         ::
 
@@ -129,6 +134,6 @@ class Dseries(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('step')
         return self._inputs[index]

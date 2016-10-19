@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class EnvGen(UGen):
-    r'''An envelope generator.
+    r"""
+    An envelope generator.
 
     ::
 
@@ -11,7 +12,7 @@ class EnvGen(UGen):
         >>> ugentools.EnvGen.ar(envelope=envelope)
         EnvGen.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -97,7 +98,8 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Constructs an audio-rate envelope generator.
+        r"""
+        Constructs an audio-rate envelope generator.
 
         ::
 
@@ -108,7 +110,7 @@ class EnvGen(UGen):
             EnvGen.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -132,7 +134,8 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r'''Constructs an control-rate envelope generator.
+        r"""
+        Constructs an control-rate envelope generator.
 
         ::
 
@@ -143,7 +146,7 @@ class EnvGen(UGen):
             EnvGen.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -161,7 +164,8 @@ class EnvGen(UGen):
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of EnvGen.
+        r"""
+        Gets `done_action` input of EnvGen.
 
         ::
 
@@ -173,13 +177,14 @@ class EnvGen(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def envelope(self):
-        r'''Gets `envelope` input of EnvGen.
+        r"""
+        Gets `envelope` input of EnvGen.
 
         ::
 
@@ -191,13 +196,14 @@ class EnvGen(UGen):
             (0.0, 2.0, -99.0, -99.0, 1.0, 0.01, 5.0, -4.0, 0.0, 1.0, 5.0, -4.0)
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('envelope')
         return tuple(self._inputs[index:])
 
     @property
     def gate(self):
-        r'''Gets `gate` input of EnvGen.
+        r"""
+        Gets `gate` input of EnvGen.
 
         ::
 
@@ -209,21 +215,23 @@ class EnvGen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('gate')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def level_bias(self):
-        r'''Gets `level_bias` input of EnvGen.
+        r"""
+        Gets `level_bias` input of EnvGen.
 
         ::
 
@@ -235,13 +243,14 @@ class EnvGen(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('level_bias')
         return self._inputs[index]
 
     @property
     def level_scale(self):
-        r'''Gets `level_scale` input of EnvGen.
+        r"""
+        Gets `level_scale` input of EnvGen.
 
         ::
 
@@ -253,13 +262,14 @@ class EnvGen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('level_scale')
         return self._inputs[index]
 
     @property
     def time_scale(self):
-        r'''Gets `time_scale` input of EnvGen.
+        r"""
+        Gets `time_scale` input of EnvGen.
 
         ::
 
@@ -271,6 +281,6 @@ class EnvGen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('time_scale')
         return self._inputs[index]

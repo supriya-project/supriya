@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Fold(UGen):
-    r'''Folds a signal outside given thresholds.
+    r"""
+    Folds a signal outside given thresholds.
 
     ::
 
@@ -16,7 +17,7 @@ class Fold(UGen):
         >>> fold
         Fold.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts an audio-rate Fold ugen.
+        r"""
+        Constucts an audio-rate Fold ugen.
 
         ::
 
@@ -72,7 +74,7 @@ class Fold(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a scalar-rate Fold ugen.
+        r"""
+        Constucts a scalar-rate Fold ugen.
 
         ::
 
@@ -104,7 +107,7 @@ class Fold(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -122,7 +125,8 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a control-rate Fold ugen.
+        r"""
+        Constucts a control-rate Fold ugen.
 
         ::
 
@@ -136,7 +140,7 @@ class Fold(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -151,7 +155,8 @@ class Fold(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Fold.
+        r"""
+        Gets `maximum` input of Fold.
 
         ::
 
@@ -165,13 +170,14 @@ class Fold(UGen):
             0.9
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Fold.
+        r"""
+        Gets `minimum` input of Fold.
 
         ::
 
@@ -185,13 +191,14 @@ class Fold(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `minimum` input of Fold.
+        r"""
+        Gets `minimum` input of Fold.
 
         ::
 
@@ -212,6 +219,6 @@ class Fold(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

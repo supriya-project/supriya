@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InRange(UGen):
-    r'''Tests if a signal is within a given range.
+    r"""
+    Tests if a signal is within a given range.
 
     ::
 
@@ -16,7 +17,7 @@ class InRange(UGen):
         >>> in_range
         InRange.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts an audio-rate InRange ugen.
+        r"""
+        Constucts an audio-rate InRange ugen.
 
         ::
 
@@ -72,7 +74,7 @@ class InRange(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a scalar-rate InRange ugen.
+        r"""
+        Constucts a scalar-rate InRange ugen.
 
         ::
 
@@ -104,7 +107,7 @@ class InRange(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -122,7 +125,8 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a control-rate InRange ugen.
+        r"""
+        Constucts a control-rate InRange ugen.
 
         ::
 
@@ -136,7 +140,7 @@ class InRange(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -151,7 +155,8 @@ class InRange(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of InRange.
+        r"""
+        Gets `maximum` input of InRange.
 
         ::
 
@@ -165,13 +170,14 @@ class InRange(UGen):
             0.9
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of InRange.
+        r"""
+        Gets `minimum` input of InRange.
 
         ::
 
@@ -185,13 +191,14 @@ class InRange(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `minimum` input of InRange.
+        r"""
+        Gets `minimum` input of InRange.
 
         ::
 
@@ -212,6 +219,6 @@ class InRange(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
