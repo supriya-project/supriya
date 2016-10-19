@@ -4,7 +4,8 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class CalculationRate(Enumeration):
-    r'''An enumeration of scsynth calculation-rates.
+    r"""
+    An enumeration of scsynth calculation-rates.
 
     ::
 
@@ -17,7 +18,7 @@ class CalculationRate(Enumeration):
         >>> synthdeftools.CalculationRate.from_expr('demand')
         CalculationRate.DEMAND
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -30,7 +31,8 @@ class CalculationRate(Enumeration):
 
     @staticmethod
     def from_collection(collection):
-        r'''Gets calculation-rate from a collection.
+        r"""
+        Gets calculation-rate from a collection.
 
         ::
 
@@ -54,7 +56,7 @@ class CalculationRate(Enumeration):
             CalculationRate.CONTROL
 
         Return calculation-rate.
-        '''
+        """
         rates = [
             CalculationRate.from_input(item) for item in collection
             ]

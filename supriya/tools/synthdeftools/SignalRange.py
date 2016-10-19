@@ -3,7 +3,8 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class SignalRange(Enumeration):
-    r'''An enumeration of scsynth UGen signal ranges.
+    r"""
+    An enumeration of scsynth UGen signal ranges.
 
     ::
 
@@ -16,7 +17,7 @@ class SignalRange(Enumeration):
         >>> synthdeftools.SignalRange.from_expr('bipolar')
         SignalRange.BIPOLAR
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

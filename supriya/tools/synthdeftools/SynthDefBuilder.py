@@ -6,7 +6,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefBuilder(SupriyaObject):
-    r'''A SynthDef builder.
+    r"""
+    A SynthDef builder.
 
     ::
 
@@ -26,7 +27,7 @@ class SynthDefBuilder(SupriyaObject):
         >>> out = ugentools.Out.ar(bus=0, source=enveloped_sin)
         >>> builder.add_ugens(out)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

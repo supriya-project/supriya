@@ -7,10 +7,10 @@ def test_SynthDefCompiler_parameters_01():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
-        r'''
+        r"""
         | freq = 440 |
         Out.ar(0, SinOsc.ar(freq: freq))
-        '''
+        """
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
@@ -80,10 +80,10 @@ def test_SynthDefCompiler_parameters_02():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
-        r'''
+        r"""
         arg freq=1200, out=23;
         Out.ar(out, SinOsc.ar(freq: freq));
-        '''
+        """
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
@@ -166,15 +166,16 @@ def test_SynthDefCompiler_parameters_02():
 
 
 def test_SynthDefCompiler_parameters_03():
-    r'''Multiple parameters, including unused parameters.
-    '''
+    r"""
+    Multiple parameters, including unused parameters.
+    """
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
-        r'''
+        r"""
         | damping=0.1, delay_time=1.0, room_size=0.9 |
         Out.ar(0, DelayC.ar(In.ar(0), 5.0, delay_time))
-        '''
+        """
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
@@ -286,11 +287,12 @@ def test_SynthDefCompiler_parameters_03():
 
 
 def test_SynthDefCompiler_parameters_04():
-    r'''Different calculation rates.'''
+    r"""
+    Different calculation rates."""
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'trigTest',
-        r'''
+        r"""
         |
             a_phase = 0.0,
             freq = 440,
@@ -300,7 +302,7 @@ def test_SynthDefCompiler_parameters_04():
         |
         var decay = Decay2.kr([t_trig_a, t_trig_b], 0.005, i_decay_time);
         Out.ar(0, SinOsc.ar(freq, a_phase) * decay);
-        '''
+        """
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
@@ -496,7 +498,8 @@ def test_SynthDefCompiler_parameters_04():
 
 
 def test_SynthDefCompiler_parameters_05():
-    r'''Literal array arguments.'''
+    r"""
+    Literal array arguments."""
 
     builder = synthdeftools.SynthDefBuilder(
         amp=0.1,
@@ -536,7 +539,7 @@ def test_SynthDefCompiler_parameters_05():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
-        r'''
+        r"""
         |
             amp = 0.1,
             freqs = #[300, 400]
@@ -544,7 +547,7 @@ def test_SynthDefCompiler_parameters_05():
         var sines;
         sines = SinOsc.ar(freqs).sum;
         Out.ar(0, sines * amp);
-        ''',
+        """,
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
@@ -630,7 +633,8 @@ def test_SynthDefCompiler_parameters_05():
 
 
 def test_SynthDefCompiler_parameters_06():
-    r'''Literal array arguments.'''
+    r"""
+    Literal array arguments."""
 
     builder = synthdeftools.SynthDefBuilder(
         amp=0.1,
@@ -674,7 +678,7 @@ def test_SynthDefCompiler_parameters_06():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'arrayarg',
-        r'''
+        r"""
         |
             amp = 0.1,
             freqs = #[300, 400]
@@ -682,7 +686,7 @@ def test_SynthDefCompiler_parameters_06():
         var sines;
         sines = SinOsc.ar(freqs).sum;
         Out.ar(0, sines * amp);
-        ''',
+        """,
         [0, 0.5],
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())

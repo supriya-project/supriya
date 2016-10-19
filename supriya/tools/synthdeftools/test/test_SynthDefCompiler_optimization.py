@@ -7,14 +7,14 @@ def test_SynthDefCompiler_optimization_01():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'optimized',
-        r'''
+        r"""
         var sine_a, sine_b, sine_c, sine_d;
         sine_a = SinOsc.ar(420);
         sine_b = SinOsc.ar(440);
         sine_c = SinOsc.ar(460);
         sine_d = SinOsc.ar(sine_c);
         Out.ar(0, sine_a);
-        '''
+        """
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 

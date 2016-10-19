@@ -4,7 +4,8 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class Envelope(SupriyaValueObject):
-    r'''An envelope.
+    r"""
+    An envelope.
 
     ::
 
@@ -22,7 +23,7 @@ class Envelope(SupriyaValueObject):
         >>> envelope.serialize()
         [0.0, 2, -99, -99, 1.0, 1.0, 1, 0.0, 0.0, 1.0, 1, 0.0]
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -131,7 +132,8 @@ class Envelope(SupriyaValueObject):
         amplitude=1.0,
         curve=-4.0,
         ):
-        r'''Make a percussion envelope.
+        r"""
+        Make a percussion envelope.
 
         ::
 
@@ -149,7 +151,7 @@ class Envelope(SupriyaValueObject):
             >>> envelope.serialize()
             [0.0, 2, -99, -99, 1.0, 0.01, 5, -4.0, 0.0, 1.0, 5, -4.0]
 
-        '''
+        """
         amplitudes = (0, float(amplitude), 0)
         durations = (float(attack_time), float(release_time))
         curves = (float(curve),)
@@ -207,7 +209,8 @@ class Envelope(SupriyaValueObject):
         duration=1.0,
         amplitude=1.0,
         ):
-        r'''Make a triangle envelope.
+        r"""
+        Make a triangle envelope.
 
         ::
 
@@ -225,7 +228,7 @@ class Envelope(SupriyaValueObject):
             >>> envelope.serialize()
             [0.0, 2, -99, -99, 1.0, 0.5, 1, 0.0, 0.0, 0.5, 1, 0.0]
 
-        '''
+        """
         amplitudes = (0, float(amplitude), 0)
         duration = float(duration) / 2.
         durations = (duration, duration)

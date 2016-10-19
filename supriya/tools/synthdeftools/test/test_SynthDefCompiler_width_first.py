@@ -139,7 +139,7 @@ class Test(unittest.TestCase):
 
         sc_synthdef = synthdeftools.SuperColliderSynthDef(
             'PVCopyTest',
-            r'''
+            r"""
             var source, pv_chain, pv_chain_a, pv_chain_b, ifft, out;
             source = PinkNoise.ar();
             pv_chain = FFT(LocalBuf(2048), source);
@@ -148,7 +148,7 @@ class Test(unittest.TestCase):
             pv_chain = PV_MagMul(pv_chain_a, pv_chain_b);
             ifft = IFFT.ar(pv_chain);
             out = Out.ar(0, ifft);
-            '''
+            """
             )
         sc_compiled_synthdef = bytes(sc_synthdef.compile())
         sc_synthdef = synthdeftools.SynthDefDecompiler.decompile_synthdef(
@@ -169,7 +169,7 @@ class Test(unittest.TestCase):
             'Out.ar()',
             )
 
-        assert str(py_synthdef) == stringtools.normalize(r'''
+        assert str(py_synthdef) == stringtools.normalize(r"""
             SynthDef PVCopyTest {
                 const_0:2.0 -> 1_MaxLocalBufs[0:maximum]
                 const_1:1.0 -> 2_LocalBuf[0:channel_count]
@@ -201,8 +201,8 @@ class Test(unittest.TestCase):
                 const_4:0.0 -> 11_Out[0:bus]
                 10_IFFT[0] -> 11_Out[1:source]
             }
-            ''')
-        assert str(sc_synthdef) == stringtools.normalize(r'''
+            """)
+        assert str(sc_synthdef) == stringtools.normalize(r"""
             SynthDef PVCopyTest {
                 const_0:2.0 -> 1_MaxLocalBufs[0:maximum]
                 const_1:1.0 -> 2_LocalBuf[0:channel_count]
@@ -234,7 +234,7 @@ class Test(unittest.TestCase):
                 const_4:0.0 -> 11_Out[0:bus]
                 10_IFFT[0] -> 11_Out[1:source]
             }
-            ''')
+            """)
         assert tuple(repr(_) for _ in sc_synthdef.ugens) == \
             tuple(repr(_) for _ in py_synthdef.ugens)
 

@@ -10,7 +10,8 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class SynthDef(ServerObjectProxy):
-    r'''A synth definition.
+    r"""
+    A synth definition.
 
     ::
 
@@ -55,7 +56,7 @@ class SynthDef(ServerObjectProxy):
         >>> server.quit()
         <Server: offline>
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -113,7 +114,8 @@ class SynthDef(ServerObjectProxy):
         return True
 
     def __graph__(self):
-        r'''Graphs SynthDef.
+        r"""
+        Graphs SynthDef.
 
         ::
 
@@ -147,7 +149,7 @@ class SynthDef(ServerObjectProxy):
             }
 
         Returns Graphviz graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         return synthdeftools.SynthDefGrapher.graph(self)
 
@@ -166,7 +168,8 @@ class SynthDef(ServerObjectProxy):
             )
 
     def __str__(self):
-        r'''Gets string representation of synth definition.
+        r"""
+        Gets string representation of synth definition.
 
         ::
 
@@ -202,7 +205,7 @@ class SynthDef(ServerObjectProxy):
             }
 
         Returns string.
-        '''
+        """
         def get_ugen_name(ugen):
             ugen_index = self._ugens.index(ugen)
             ugen_class = type(ugen).__name__
@@ -645,7 +648,8 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def from_ugens(ugens):
-        r'''Makes a synthdef from `ugens`.
+        r"""
+        Makes a synthdef from `ugens`.
 
         ::
 
@@ -667,7 +671,7 @@ class SynthDef(ServerObjectProxy):
             }
 
         Returns synthdef.
-        '''
+        """
         from supriya.tools import synthdeftools
         builder = synthdeftools.SynthDefBuilder()
         if isinstance(ugens, collections.Sequence):
@@ -679,7 +683,8 @@ class SynthDef(ServerObjectProxy):
         return synthdef
 
     def play(self, add_action=None, target_node=None, **kwargs):
-        r'''Plays the synthdef on the server.
+        r"""
+        Plays the synthdef on the server.
 
         ::
 
@@ -704,7 +709,7 @@ class SynthDef(ServerObjectProxy):
             >>> server.quit()
             <Server: offline>
 
-        '''
+        """
         from supriya.tools import servertools
         if target_node is not None:
             target_node = servertools.Node.expr_as_target(target_node)
@@ -747,7 +752,8 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def audio_input_channel_count(self):
-        r'''Gets audio input channel count of synthdef.
+        r"""
+        Gets audio input channel count of synthdef.
 
         ::
 
@@ -772,7 +778,7 @@ class SynthDef(ServerObjectProxy):
             1
 
         Returns integer.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugens = tuple(_ for _ in self.input_ugens
             if _.calculation_rate == synthdeftools.CalculationRate.AUDIO)
@@ -784,7 +790,8 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def audio_output_channel_count(self):
-        r'''Gets audio output channel count of synthdef.
+        r"""
+        Gets audio output channel count of synthdef.
 
         ::
 
@@ -809,7 +816,7 @@ class SynthDef(ServerObjectProxy):
             4
 
         Returns integer.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugens = tuple(_ for _ in self.output_ugens
             if _.calculation_rate == synthdeftools.CalculationRate.AUDIO)
@@ -836,7 +843,8 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def control_input_channel_count(self):
-        r'''Gets control input channel count of synthdef.
+        r"""
+        Gets control input channel count of synthdef.
 
         ::
 
@@ -861,7 +869,7 @@ class SynthDef(ServerObjectProxy):
             2
 
         Returns integer.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugens = tuple(_ for _ in self.input_ugens
             if _.calculation_rate == synthdeftools.CalculationRate.CONTROL)
@@ -873,7 +881,8 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def control_output_channel_count(self):
-        r'''Gets control output channel count of synthdef.
+        r"""
+        Gets control output channel count of synthdef.
 
         ::
 
@@ -898,7 +907,7 @@ class SynthDef(ServerObjectProxy):
             0
 
         Returns integer.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugens = tuple(_ for _ in self.output_ugens
             if _.calculation_rate == synthdeftools.CalculationRate.CONTROL)
