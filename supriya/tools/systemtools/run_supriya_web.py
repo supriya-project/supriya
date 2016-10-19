@@ -3,10 +3,11 @@ import sys
 
 
 def run_supriya_web():
-    r'''Runs Supriya with web-server.
+    r"""
+    Runs Supriya with web-server.
 
     Returns none.
-    '''
+    """
     from abjad.tools import systemtools
 
     try:

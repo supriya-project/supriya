@@ -3,10 +3,11 @@ import sys
 
 
 def run_supriya():
-    r'''Runs Supriya.
+    r"""
+    Runs Supriya.
 
     Returns none.
-    '''
+    """
     from abjad.tools import systemtools
 
     try:
