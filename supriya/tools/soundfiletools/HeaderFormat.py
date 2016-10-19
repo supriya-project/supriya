@@ -3,7 +3,8 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class HeaderFormat(Enumeration):
-    r'''An enumeration of soundfile header formats.
+    r"""
+    An enumeration of soundfile header formats.
 
     ::
 
@@ -22,7 +23,7 @@ class HeaderFormat(Enumeration):
         >>> header_format.name.lower()
         'wav'
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
