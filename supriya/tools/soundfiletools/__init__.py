@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for interacting with soundfiles.
-'''
+"""
 
 from abjad.tools import systemtools
 
