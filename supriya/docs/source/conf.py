@@ -76,7 +76,7 @@ for server in servertools.Server._servers.values():
 
 doctest_test_doctest_blocks = True
 
-abjadbook_console_module_names = ['supriya']
+abjadbook_console_module_names = ('supriya',)
 
 nodes.doctest_block = nodes.literal_block
 
