@@ -4,7 +4,7 @@ from supriya.tools.patterntools.Pbind import Pbind
 
 
 class Pmono(Pbind):
-    '''
+    """
     A monophonic pattern.
 
     ::
@@ -46,7 +46,7 @@ class Pmono(Pbind):
         NoteEvent(uuid=UUID('...'), _do_not_release=True, pitch=5)
         NoteEvent(uuid=UUID('...'), pitch=6)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

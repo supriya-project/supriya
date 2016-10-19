@@ -7,9 +7,9 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class Pattern(SupriyaValueObject):
-    '''
+    """
     Pattern base class.
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -28,7 +28,7 @@ class Pattern(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __add__(self, expr):
-        '''
+        """
         Adds `expr` to pattern.
 
         ::
@@ -60,7 +60,7 @@ class Pattern(SupriyaValueObject):
             [11, [102, 1003]]
             [[14, 15], [106, 1006], 17]
 
-        '''
+        """
         from supriya.tools import patterntools
         return patterntools.Pbinop(self, '+', expr)
 
