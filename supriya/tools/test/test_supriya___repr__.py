@@ -10,8 +10,9 @@ classes = documentationtools.list_all_supriya_classes()
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___repr___01(class_):
-    r'''All concrete classes have an interpreter representation.
-    '''
+    r"""
+    All concrete classes have an interpreter representation.
+    """
     if not inspect.isabstract(class_):
         instance = class_()
         string = repr(instance)

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ScopeOut(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class ScopeOut(UGen):
         >>> scope_out
         ScopeOut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class ScopeOut(UGen):
         buffer_id=0,
         input_array=None,
         ):
-        r'''Constructs an audio-rate ScopeOut.
+        r"""
+        Constructs an audio-rate ScopeOut.
 
         ::
 
@@ -64,7 +65,7 @@ class ScopeOut(UGen):
             ScopeOut.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class ScopeOut(UGen):
         buffer_id=0,
         input_array=None,
         ):
-        r'''Constructs a control-rate ScopeOut.
+        r"""
+        Constructs a control-rate ScopeOut.
 
         ::
 
@@ -92,7 +94,7 @@ class ScopeOut(UGen):
             ScopeOut.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class ScopeOut(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of ScopeOut.
+        r"""
+        Gets `buffer_id` input of ScopeOut.
 
         ::
 
@@ -118,13 +121,14 @@ class ScopeOut(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def input_array(self):
-        r'''Gets `input_array` input of ScopeOut.
+        r"""
+        Gets `input_array` input of ScopeOut.
 
         ::
 
@@ -135,6 +139,6 @@ class ScopeOut(UGen):
             >>> scope_out.input_array
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('input_array')
         return self._inputs[index]

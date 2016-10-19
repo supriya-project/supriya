@@ -4,7 +4,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dwrand(DUGen):
-    r'''A demand-rate weighted random sequence generator.
+    r"""
+    A demand-rate weighted random sequence generator.
 
     ::
 
@@ -18,7 +19,7 @@ class Dwrand(DUGen):
         >>> dwrand
         Dwrand()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -69,7 +70,8 @@ class Dwrand(DUGen):
         sequence=None,
         weights=None,
         ):
-        r'''Constructs a Dwrand.
+        r"""
+        Constructs a Dwrand.
 
         ::
 
@@ -84,7 +86,7 @@ class Dwrand(DUGen):
             Dwrand()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             repeats=repeats,
             sequence=sequence,
@@ -96,7 +98,8 @@ class Dwrand(DUGen):
 
     @property
     def length(self):
-        r'''Gets `length` input of Dwrand.
+        r"""
+        Gets `length` input of Dwrand.
 
         ::
 
@@ -111,13 +114,14 @@ class Dwrand(DUGen):
             4
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return int(self._inputs[index])
 
     @property
     def repeats(self):
-        r'''Gets `repeats` input of Dwrand.
+        r"""
+        Gets `repeats` input of Dwrand.
 
         ::
 
@@ -132,13 +136,14 @@ class Dwrand(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('repeats')
         return self._inputs[index]
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dwrand.
+        r"""
+        Gets `sequence` input of Dwrand.
 
         ::
 
@@ -153,14 +158,15 @@ class Dwrand(DUGen):
             (0.0, 1.0, 2.0, 7.0)
 
         Returns ugen input.
-        '''
+        """
         length = self.length
         index = self._ordered_input_names.index('length') + 1
         return tuple(self._inputs[index + length:index + (length * 2)])
 
     @property
     def weights(self):
-        r'''Gets `weights` input of Dwrand.
+        r"""
+        Gets `weights` input of Dwrand.
 
         ::
 
@@ -175,7 +181,7 @@ class Dwrand(DUGen):
             (0.4, 0.4, 0.1, 0.1)
 
         Returns ugen input.
-        '''
+        """
         length = self.length
         index = self._ordered_input_names.index('length') + 1
         return tuple(self._inputs[index:index + length])

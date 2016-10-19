@@ -40,13 +40,13 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            '''
+            """
             NODE TREE 0 group
                 1 group
                     1001 group
                     1000 group
                         1002 test
-            ''',
+            """,
             ), server_state
 
         group_b.append(synth_a)
@@ -59,13 +59,13 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            '''
+            """
             NODE TREE 0 group
                 1 group
                     1001 group
                         1002 test
                     1000 group
-            ''',
+            """,
             ), server_state
 
         synth_b = servertools.Synth(synthdef)
@@ -79,12 +79,12 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            '''
+            """
             NODE TREE 0 group
                 1 group
                     1001 group
                         1002 test
                         1003 test
                     1000 group
-            ''',
+            """,
             ), server_state

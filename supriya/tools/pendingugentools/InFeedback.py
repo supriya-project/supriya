@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AbstractIn import AbstractIn
 
 
 class InFeedback(AbstractIn):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class InFeedback(AbstractIn):
         >>> in_feedback
         InFeedback.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class InFeedback(AbstractIn):
         bus=0,
         channel_count=1,
         ):
-        r'''Constructs an audio-rate InFeedback.
+        r"""
+        Constructs an audio-rate InFeedback.
 
         ::
 
@@ -64,7 +65,7 @@ class InFeedback(AbstractIn):
             InFeedback.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class InFeedback(AbstractIn):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of InFeedback.
+        r"""
+        Gets `bus` input of InFeedback.
 
         ::
 
@@ -94,13 +96,14 @@ class InFeedback(AbstractIn):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of InFeedback.
+        r"""
+        Gets `channel_count` input of InFeedback.
 
         ::
 
@@ -112,6 +115,6 @@ class InFeedback(AbstractIn):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]

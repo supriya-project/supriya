@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_PhaseShift90(PV_MagSquared):
-    r'''Shifts phase by 90 degrees.
+    r"""
+    Shifts phase by 90 degrees.
 
     ::
 
@@ -16,7 +17,7 @@ class PV_PhaseShift90(PV_MagSquared):
         >>> pv_phase_shift_90
         PV_PhaseShift90.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class PV_PhaseShift90(PV_MagSquared):
         cls,
         pv_chain=None,
         ):
-        r'''Constructs a PV_PhaseShift90.
+        r"""
+        Constructs a PV_PhaseShift90.
 
         ::
 
@@ -60,7 +62,7 @@ class PV_PhaseShift90(PV_MagSquared):
             PV_PhaseShift90.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             )
@@ -70,7 +72,8 @@ class PV_PhaseShift90(PV_MagSquared):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_PhaseShift90.
+        r"""
+        Gets `pv_chain` input of PV_PhaseShift90.
 
         ::
 
@@ -106,6 +109,6 @@ class PV_PhaseShift90(PV_MagSquared):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

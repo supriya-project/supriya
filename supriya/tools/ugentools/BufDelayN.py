@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class BufDelayN(PureUGen):
-    r'''A buffer-based non-interpolating delay line unit generator.
+    r"""
+    A buffer-based non-interpolating delay line unit generator.
 
     ::
 
@@ -15,7 +16,7 @@ class BufDelayN(PureUGen):
         ...     )
         BufDelayN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -59,7 +60,8 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate buffer-based non-interpolating delay line.
+        r"""
+        Constructs an audio-rate buffer-based non-interpolating delay line.
 
         ::
 
@@ -74,7 +76,7 @@ class BufDelayN(PureUGen):
             BufDelayN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
@@ -95,7 +97,8 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate buffer-based non-interpolating delay line.
+        r"""
+        Constructs a control-rate buffer-based non-interpolating delay line.
 
         ::
 
@@ -110,7 +113,7 @@ class BufDelayN(PureUGen):
             BufDelayN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -126,7 +129,8 @@ class BufDelayN(PureUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufDelayN.
+        r"""
+        Gets `buffer_id` input of BufDelayN.
 
         ::
 
@@ -140,13 +144,14 @@ class BufDelayN(PureUGen):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of BufDelayN.
+        r"""
+        Gets `delay_time` input of BufDelayN.
 
         ::
 
@@ -162,13 +167,14 @@ class BufDelayN(PureUGen):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of BufDelayN.
+        r"""
+        Gets `maximum_delay_time` input of BufDelayN.
 
         ::
 
@@ -184,13 +190,14 @@ class BufDelayN(PureUGen):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BufDelayN.
+        r"""
+        Gets `source` input of BufDelayN.
 
         ::
 
@@ -211,6 +218,6 @@ class BufDelayN(PureUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

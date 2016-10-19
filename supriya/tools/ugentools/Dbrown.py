@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbrown(DUGen):
-    r'''A demand-rate brownian movement generator.
+    r"""
+    A demand-rate brownian movement generator.
 
     ::
 
@@ -16,7 +17,7 @@ class Dbrown(DUGen):
         >>> dbrown
         Dbrown()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Dbrown(DUGen):
         minimum=0,
         step=0.01,
         ):
-        r'''Constructs a Dbrown.
+        r"""
+        Constructs a Dbrown.
 
         ::
 
@@ -72,7 +74,7 @@ class Dbrown(DUGen):
             Dbrown()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             length=length,
             maximum=maximum,
@@ -85,7 +87,8 @@ class Dbrown(DUGen):
 
     @property
     def length(self):
-        r'''Gets `length` input of Dbrown.
+        r"""
+        Gets `length` input of Dbrown.
 
         ::
 
@@ -99,13 +102,14 @@ class Dbrown(DUGen):
             inf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Dbrown.
+        r"""
+        Gets `maximum` input of Dbrown.
 
         ::
 
@@ -119,13 +123,14 @@ class Dbrown(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Dbrown.
+        r"""
+        Gets `minimum` input of Dbrown.
 
         ::
 
@@ -139,13 +144,14 @@ class Dbrown(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def step(self):
-        r'''Gets `step` input of Dbrown.
+        r"""
+        Gets `step` input of Dbrown.
 
         ::
 
@@ -159,6 +165,6 @@ class Dbrown(DUGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('step')
         return self._inputs[index]

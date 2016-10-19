@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for sending, receiving and responding to MIDI messages.
-'''
+"""
 
 from abjad.tools import systemtools
 

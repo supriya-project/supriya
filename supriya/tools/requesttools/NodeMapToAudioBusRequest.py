@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeMapToAudioBusRequest(Request):
-    r'''A /n_mapa request.
+    r"""
+    A /n_mapa request.
 
     ::
 
@@ -36,7 +37,7 @@ class NodeMapToAudioBusRequest(Request):
         ...     requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

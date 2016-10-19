@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Dwhite import Dwhite
 
 
 class Diwhite(Dwhite):
-    r'''An integer demand-rate white noise random generator.
+    r"""
+    An integer demand-rate white noise random generator.
 
     ::
 
@@ -15,7 +16,7 @@ class Diwhite(Dwhite):
         >>> diwhite
         Diwhite()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class Diwhite(Dwhite):
         maximum=1,
         minimum=0,
         ):
-        r'''Constructs a Diwhite.
+        r"""
+        Constructs a Diwhite.
 
         ::
 
@@ -64,7 +66,7 @@ class Diwhite(Dwhite):
             Diwhite()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             length=length,
             maximum=maximum,
@@ -76,7 +78,8 @@ class Diwhite(Dwhite):
 
     @property
     def length(self):
-        r'''Gets `length` input of Diwhite.
+        r"""
+        Gets `length` input of Diwhite.
 
         ::
 
@@ -89,13 +92,14 @@ class Diwhite(Dwhite):
             inf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Diwhite.
+        r"""
+        Gets `maximum` input of Diwhite.
 
         ::
 
@@ -108,13 +112,14 @@ class Diwhite(Dwhite):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Diwhite.
+        r"""
+        Gets `minimum` input of Diwhite.
 
         ::
 
@@ -127,6 +132,6 @@ class Diwhite(Dwhite):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]

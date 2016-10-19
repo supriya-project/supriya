@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagSquared(PV_ChainUGen):
-    r'''Squares magnitudes.
+    r"""
+    Squares magnitudes.
 
     ::
 
@@ -16,7 +17,7 @@ class PV_MagSquared(PV_ChainUGen):
         >>> pv_mag_squared
         PV_MagSquared.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class PV_MagSquared(PV_ChainUGen):
         cls,
         pv_chain=None,
         ):
-        r'''Constructs a PV_MagSquared.
+        r"""
+        Constructs a PV_MagSquared.
 
         ::
 
@@ -60,7 +62,7 @@ class PV_MagSquared(PV_ChainUGen):
             PV_MagSquared.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             )
@@ -70,7 +72,8 @@ class PV_MagSquared(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_MagSquared.
+        r"""
+        Gets `pv_chain` input of PV_MagSquared.
 
         ::
 
@@ -106,6 +109,6 @@ class PV_MagSquared(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

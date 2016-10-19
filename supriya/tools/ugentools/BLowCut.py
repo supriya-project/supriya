@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BHiCut import BHiCut
 
 
 class BLowCut(BHiCut):
-    r'''A low-cut filter.
+    r"""
+    A low-cut filter.
 
     ::
 
@@ -17,7 +18,7 @@ class BLowCut(BHiCut):
         >>> blow_cut
         BLowCut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -65,7 +66,8 @@ class BLowCut(BHiCut):
         order=2,
         source=None,
         ):
-        r'''Constructs an audio-rate BLowCut.
+        r"""
+        Constructs an audio-rate BLowCut.
 
         ::
 
@@ -80,7 +82,7 @@ class BLowCut(BHiCut):
             BLowCut.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class BLowCut(BHiCut):
         order=2,
         source=None,
         ):
-        r'''Constructs a control-rate BLowCut.
+        r"""
+        Constructs a control-rate BLowCut.
 
         ::
 
@@ -121,7 +124,7 @@ class BLowCut(BHiCut):
             BLowCut.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -153,7 +156,8 @@ class BLowCut(BHiCut):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BLowCut.
+        r"""
+        Gets `frequency` input of BLowCut.
 
         ::
 
@@ -168,13 +172,14 @@ class BLowCut(BHiCut):
             1200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def max_order(self):
-        r'''Gets `max_order` input of BLowCut.
+        r"""
+        Gets `max_order` input of BLowCut.
 
         ::
 
@@ -189,13 +194,14 @@ class BLowCut(BHiCut):
             5.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_order')
         return self._inputs[index]
 
     @property
     def order(self):
-        r'''Gets `order` input of BLowCut.
+        r"""
+        Gets `order` input of BLowCut.
 
         ::
 
@@ -210,13 +216,14 @@ class BLowCut(BHiCut):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('order')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BLowCut.
+        r"""
+        Gets `source` input of BLowCut.
 
         ::
 
@@ -238,6 +245,6 @@ class BLowCut(BHiCut):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

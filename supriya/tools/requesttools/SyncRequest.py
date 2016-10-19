@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SyncRequest(Request):
-    r'''A /sync request.
+    r"""
+    A /sync request.
 
     ::
 
@@ -28,7 +29,7 @@ class SyncRequest(Request):
         >>> message.address == requesttools.RequestId.SYNC
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Peak import Peak
 
 
 class RunningMax(Peak):
-    r'''Tracks maximum signal amplitude.
+    r"""
+    Tracks maximum signal amplitude.
 
     ::
 
@@ -16,7 +17,7 @@ class RunningMax(Peak):
         >>> running_max
         RunningMax.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class RunningMax(Peak):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate RunningMax.
+        r"""
+        Constructs an audio-rate RunningMax.
 
         ::
 
@@ -68,7 +70,7 @@ class RunningMax(Peak):
             RunningMax.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class RunningMax(Peak):
         source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate RunningMax.
+        r"""
+        Constructs a control-rate RunningMax.
 
         ::
 
@@ -98,7 +101,7 @@ class RunningMax(Peak):
             RunningMax.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -112,7 +115,8 @@ class RunningMax(Peak):
 
     @property
     def source(self):
-        r'''Gets `source` input of RunningMax.
+        r"""
+        Gets `source` input of RunningMax.
 
         ::
 
@@ -133,13 +137,14 @@ class RunningMax(Peak):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of RunningMax.
+        r"""
+        Gets `trigger` input of RunningMax.
 
         ::
 
@@ -160,6 +165,6 @@ class RunningMax(Peak):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

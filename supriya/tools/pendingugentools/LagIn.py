@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AbstractIn import AbstractIn
 
 
 class LagIn(AbstractIn):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class LagIn(AbstractIn):
         >>> lag_in
         LagIn.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -59,7 +59,8 @@ class LagIn(AbstractIn):
         channel_count=1,
         lag=0.1,
         ):
-        r'''Constructs a control-rate LagIn.
+        r"""
+        Constructs a control-rate LagIn.
 
         ::
 
@@ -72,7 +73,7 @@ class LagIn(AbstractIn):
             LagIn.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -89,7 +90,8 @@ class LagIn(AbstractIn):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of LagIn.
+        r"""
+        Gets `bus` input of LagIn.
 
         ::
 
@@ -102,13 +104,14 @@ class LagIn(AbstractIn):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of LagIn.
+        r"""
+        Gets `channel_count` input of LagIn.
 
         ::
 
@@ -121,13 +124,14 @@ class LagIn(AbstractIn):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def lag(self):
-        r'''Gets `lag` input of LagIn.
+        r"""
+        Gets `lag` input of LagIn.
 
         ::
 
@@ -140,6 +144,6 @@ class LagIn(AbstractIn):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag')
         return self._inputs[index]

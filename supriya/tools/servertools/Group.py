@@ -6,7 +6,8 @@ from supriya.tools.servertools.Node import Node
 
 
 class Group(Node, TreeContainer):
-    r'''A group.
+    r"""
+    A group.
 
     ::
 
@@ -31,7 +32,7 @@ class Group(Node, TreeContainer):
         >>> server.quit()
         <Server: offline>
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class Group(Node, TreeContainer):
     ### SPECIAL METHODS ###
 
     def __setitem__(self, i, expr):
-        r'''Sets `expr` in self at index `i`.
+        r"""
+        Sets `expr` in self at index `i`.
 
         ::
 
@@ -65,7 +67,7 @@ class Group(Node, TreeContainer):
             >>> group_two = Group()
             >>> group_one.append(group_two)
 
-        '''
+        """
         self._validate_setitem_expr(expr)
         if isinstance(i, slice):
             assert isinstance(expr, collections.Sequence)

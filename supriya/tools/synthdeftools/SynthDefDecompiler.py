@@ -8,7 +8,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefDecompiler(SupriyaObject):
-    r'''
+    r"""
 
     ::
 
@@ -63,7 +63,7 @@ class SynthDefDecompiler(SupriyaObject):
         >>> str(synthdef) == str(decompiled_synthdef)
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

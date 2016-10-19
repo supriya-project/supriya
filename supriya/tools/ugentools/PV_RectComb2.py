@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RectComb2(PV_ChainUGen):
-    r'''Makes gaps in the spectrum.
+    r"""
+    Makes gaps in the spectrum.
 
     ::
 
@@ -23,7 +24,7 @@ class PV_RectComb2(PV_ChainUGen):
         >>> pv_rect_comb_2
         PV_RectComb2.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -69,7 +70,8 @@ class PV_RectComb2(PV_ChainUGen):
         phase=0,
         width=0.5,
         ):
-        r'''Constructs a PV_RectComb2.
+        r"""
+        Constructs a PV_RectComb2.
 
         ::
 
@@ -90,7 +92,7 @@ class PV_RectComb2(PV_ChainUGen):
             PV_RectComb2.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -104,7 +106,8 @@ class PV_RectComb2(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_RectComb2.
+        r"""
+        Gets `pv_chain_a` input of PV_RectComb2.
 
         ::
 
@@ -147,13 +150,14 @@ class PV_RectComb2(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_RectComb2.
+        r"""
+        Gets `pv_chain_b` input of PV_RectComb2.
 
         ::
 
@@ -198,13 +202,14 @@ class PV_RectComb2(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]
 
     @property
     def num_teeth(self):
-        r'''Gets `num_teeth` input of PV_RectComb2.
+        r"""
+        Gets `num_teeth` input of PV_RectComb2.
 
         ::
 
@@ -225,13 +230,14 @@ class PV_RectComb2(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('num_teeth')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of PV_RectComb2.
+        r"""
+        Gets `phase` input of PV_RectComb2.
 
         ::
 
@@ -252,13 +258,14 @@ class PV_RectComb2(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of PV_RectComb2.
+        r"""
+        Gets `width` input of PV_RectComb2.
 
         ::
 
@@ -279,6 +286,6 @@ class PV_RectComb2(PV_ChainUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]

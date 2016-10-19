@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGetRequest(Request):
-    r'''A /b_get request.
+    r"""
+    A /b_get request.
 
     ::
 
@@ -30,7 +31,7 @@ class BufferGetRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_GET
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

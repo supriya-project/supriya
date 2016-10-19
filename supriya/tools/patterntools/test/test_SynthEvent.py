@@ -28,7 +28,7 @@ class TestCase(systemtools.TestCase):
             )
         assert len(event_products) == 1
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.SynthEvent(
                     delta=0,
@@ -51,7 +51,7 @@ class TestCase(systemtools.TestCase):
                 timestamp=100.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(event_products[0]),
             )
         assert node_uuid in uuids
@@ -79,7 +79,7 @@ class TestCase(systemtools.TestCase):
             )
         assert len(event_products) == 1
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.SynthEvent(
                     delta=0,
@@ -96,6 +96,6 @@ class TestCase(systemtools.TestCase):
                 timestamp=100.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(event_products[0]),
             )

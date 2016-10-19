@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class VDiskIn(MultiOutUGen):
-    r'''Streams in audio from a file, with variable rate.
+    r"""
+    Streams in audio from a file, with variable rate.
 
     ::
 
@@ -18,7 +19,7 @@ class VDiskIn(MultiOutUGen):
         >>> vdisk_in
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class VDiskIn(MultiOutUGen):
         rate=1,
         send_id=0,
         ):
-        r'''Constructs an audio-rate VDiskIn.
+        r"""
+        Constructs an audio-rate VDiskIn.
 
         ::
 
@@ -83,7 +85,7 @@ class VDiskIn(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -102,7 +104,8 @@ class VDiskIn(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of VDiskIn.
+        r"""
+        Gets `buffer_id` input of VDiskIn.
 
         ::
 
@@ -118,21 +121,23 @@ class VDiskIn(MultiOutUGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def loop(self):
-        r'''Gets `loop` input of VDiskIn.
+        r"""
+        Gets `loop` input of VDiskIn.
 
         ::
 
@@ -148,13 +153,14 @@ class VDiskIn(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def rate(self):
-        r'''Gets `rate` input of VDiskIn.
+        r"""
+        Gets `rate` input of VDiskIn.
 
         ::
 
@@ -170,13 +176,14 @@ class VDiskIn(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def send_id(self):
-        r'''Gets `send_id` input of VDiskIn.
+        r"""
+        Gets `send_id` input of VDiskIn.
 
         ::
 
@@ -192,6 +199,6 @@ class VDiskIn(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('send_id')
         return self._inputs[index]

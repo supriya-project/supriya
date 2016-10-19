@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MaxLocalBufs(UGen):
-    r'''Sets the maximum number of local buffers in a synth.
+    r"""
+    Sets the maximum number of local buffers in a synth.
 
     Used internally by LocalBuf.
 
@@ -14,7 +15,7 @@ class MaxLocalBufs(UGen):
         >>> max_local_bufs
         MaxLocalBufs.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class MaxLocalBufs(UGen):
     ### PUBLIC METHODS ###
 
     def increment(self):
-        r'''Increments maximum local buffer count.
+        r"""
+        Increments maximum local buffer count.
 
         ::
 
@@ -63,14 +65,15 @@ class MaxLocalBufs(UGen):
             2.0
 
         Returns none.
-        '''
+        """
         self._inputs[0] += 1
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of MaxLocalBufs.
+        r"""
+        Gets `maximum` input of MaxLocalBufs.
 
         ::
 
@@ -79,6 +82,6 @@ class MaxLocalBufs(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]

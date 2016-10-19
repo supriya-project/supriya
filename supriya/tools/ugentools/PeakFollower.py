@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PeakFollower(UGen):
-    r'''Tracks peak signal amplitude.
+    r"""
+    Tracks peak signal amplitude.
 
     ::
 
@@ -15,7 +16,7 @@ class PeakFollower(UGen):
         >>> peak_follower
         PeakFollower.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class PeakFollower(UGen):
         decay=0.999,
         source=None,
         ):
-        r'''Constructs an audio-rate PeakFollower.
+        r"""
+        Constructs an audio-rate PeakFollower.
 
         ::
 
@@ -66,7 +68,7 @@ class PeakFollower(UGen):
             PeakFollower.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class PeakFollower(UGen):
         decay=0.999,
         source=None,
         ):
-        r'''Constructs a control-rate PeakFollower.
+        r"""
+        Constructs a control-rate PeakFollower.
 
         ::
 
@@ -95,7 +98,7 @@ class PeakFollower(UGen):
             PeakFollower.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class PeakFollower(UGen):
 
     @property
     def decay(self):
-        r'''Gets `decay` input of PeakFollower.
+        r"""
+        Gets `decay` input of PeakFollower.
 
         ::
 
@@ -122,13 +126,14 @@ class PeakFollower(UGen):
             0.999
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('decay')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of PeakFollower.
+        r"""
+        Gets `source` input of PeakFollower.
 
         ::
 
@@ -148,6 +153,6 @@ class PeakFollower(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

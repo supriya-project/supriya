@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DelayN import DelayN
 
 
 class DelayC(DelayN):
-    r'''A cubic-interpolating delay line unit generator.
+    r"""
+    A cubic-interpolating delay line unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class DelayC(DelayN):
         >>> ugentools.DelayC.ar(source=source)
         DelayC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -28,7 +29,8 @@ class DelayC(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate cubic-interpolating delay line.
+        r"""
+        Constructs an audio-rate cubic-interpolating delay line.
 
         ::
 
@@ -41,7 +43,7 @@ class DelayC(DelayN):
             DelayC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(DelayC, cls).ar(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -55,7 +57,8 @@ class DelayC(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate cubic-interpolating delay line.
+        r"""
+        Constructs a control-rate cubic-interpolating delay line.
 
         ::
 
@@ -68,7 +71,7 @@ class DelayC(DelayN):
             DelayC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(DelayC, cls).kr(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -79,7 +82,8 @@ class DelayC(DelayN):
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of DelayC.
+        r"""
+        Gets `delay_time` input of DelayC.
 
         ::
 
@@ -93,13 +97,14 @@ class DelayC(DelayN):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of DelayC.
+        r"""
+        Gets `maximum_delay_time` input of DelayC.
 
         ::
 
@@ -113,13 +118,14 @@ class DelayC(DelayN):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DelayC.
+        r"""
+        Gets `source` input of DelayC.
 
         ::
 
@@ -138,6 +144,6 @@ class DelayC(DelayN):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

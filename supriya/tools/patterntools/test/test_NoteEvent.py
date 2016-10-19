@@ -23,7 +23,7 @@ class TestCase(systemtools.TestCase):
             )
         assert start_product.uuid == stop_product.uuid
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -44,11 +44,11 @@ class TestCase(systemtools.TestCase):
                 timestamp=100.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(start_product),
             )
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -66,7 +66,7 @@ class TestCase(systemtools.TestCase):
                 timestamp=101.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(stop_product),
             )
 
@@ -86,7 +86,7 @@ class TestCase(systemtools.TestCase):
             )
         assert start_product.uuid == stop_product.uuid
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -121,11 +121,11 @@ class TestCase(systemtools.TestCase):
                 timestamp=100.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(start_product),
             )
         self.compare_strings(
-            '''
+            """
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -151,6 +151,6 @@ class TestCase(systemtools.TestCase):
                 timestamp=101.0,
                 uuid=UUID('...'),
                 )
-            ''',
+            """,
             format(stop_product),
             )

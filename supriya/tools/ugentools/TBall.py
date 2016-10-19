@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TBall(UGen):
-    r'''A bouncing object physical model.
+    r"""
+    A bouncing object physical model.
 
     ::
 
@@ -17,7 +18,7 @@ class TBall(UGen):
         >>> tball
         TBall.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +64,8 @@ class TBall(UGen):
         gravity=10,
         source=None,
         ):
-        r'''Constructs an audio-rate TBall.
+        r"""
+        Constructs an audio-rate TBall.
 
         ::
 
@@ -78,7 +80,7 @@ class TBall(UGen):
             TBall.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -98,7 +100,8 @@ class TBall(UGen):
         gravity=10,
         source=None,
         ):
-        r'''Constructs a control-rate TBall.
+        r"""
+        Constructs a control-rate TBall.
 
         ::
 
@@ -113,7 +116,7 @@ class TBall(UGen):
             TBall.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -129,7 +132,8 @@ class TBall(UGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of TBall.
+        r"""
+        Gets `damping` input of TBall.
 
         ::
 
@@ -144,13 +148,14 @@ class TBall(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def friction(self):
-        r'''Gets `friction` input of TBall.
+        r"""
+        Gets `friction` input of TBall.
 
         ::
 
@@ -165,13 +170,14 @@ class TBall(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('friction')
         return self._inputs[index]
 
     @property
     def gravity(self):
-        r'''Gets `gravity` input of TBall.
+        r"""
+        Gets `gravity` input of TBall.
 
         ::
 
@@ -186,13 +192,14 @@ class TBall(UGen):
             10.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gravity')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of TBall.
+        r"""
+        Gets `source` input of TBall.
 
         ::
 
@@ -214,6 +221,6 @@ class TBall(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

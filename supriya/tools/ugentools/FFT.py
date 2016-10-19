@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class FFT(PV_ChainUGen):
-    r'''A fast Fourier transform.
+    r"""
+    A fast Fourier transform.
 
     ::
 
@@ -20,7 +21,7 @@ class FFT(PV_ChainUGen):
         >>> fft
         FFT.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -73,7 +74,8 @@ class FFT(PV_ChainUGen):
         window_size=0,
         window_type=0,
         ):
-        r'''Constructs a FFT.
+        r"""
+        Constructs a FFT.
 
         ::
 
@@ -91,7 +93,7 @@ class FFT(PV_ChainUGen):
             FFT.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugen = cls._new_expanded(
             active=active,
@@ -107,7 +109,8 @@ class FFT(PV_ChainUGen):
 
     @property
     def active(self):
-        r'''Gets `active` input of FFT.
+        r"""
+        Gets `active` input of FFT.
 
         ::
 
@@ -125,13 +128,14 @@ class FFT(PV_ChainUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('active')
         return self._inputs[index]
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of FFT.
+        r"""
+        Gets `buffer_id` input of FFT.
 
         ::
 
@@ -156,22 +160,24 @@ class FFT(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def fft_size(self):
-        r'''Gets FFT size as UGen input.
+        r"""
+        Gets FFT size as UGen input.
 
         Returns ugen input.
-        '''
+        """
         from supriya.tools import ugentools
         return ugentools.BufFrames.ir(self.buffer_id)
 
     @property
     def hop(self):
-        r'''Gets `hop` input of FFT.
+        r"""
+        Gets `hop` input of FFT.
 
         ::
 
@@ -189,13 +195,14 @@ class FFT(PV_ChainUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('hop')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of FFT.
+        r"""
+        Gets `source` input of FFT.
 
         ::
 
@@ -225,13 +232,14 @@ class FFT(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def window_size(self):
-        r'''Gets `window_size` input of FFT.
+        r"""
+        Gets `window_size` input of FFT.
 
         ::
 
@@ -249,13 +257,14 @@ class FFT(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_size')
         return self._inputs[index]
 
     @property
     def window_type(self):
-        r'''Gets `window_type` input of FFT.
+        r"""
+        Gets `window_type` input of FFT.
 
         ::
 
@@ -273,6 +282,6 @@ class FFT(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_type')
         return self._inputs[index]

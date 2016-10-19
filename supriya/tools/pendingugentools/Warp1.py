@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Warp1(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -21,7 +21,7 @@ class Warp1(MultiOutUGen):
         >>> warp_1
         Warp1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -87,7 +87,8 @@ class Warp1(MultiOutUGen):
         window_rand_ratio=0,
         window_size=0.2,
         ):
-        r'''Constructs an audio-rate Warp1.
+        r"""
+        Constructs an audio-rate Warp1.
 
         ::
 
@@ -106,7 +107,7 @@ class Warp1(MultiOutUGen):
             Warp1.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -129,7 +130,8 @@ class Warp1(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Warp1.
+        r"""
+        Gets `buffer_id` input of Warp1.
 
         ::
 
@@ -148,13 +150,14 @@ class Warp1(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of Warp1.
+        r"""
+        Gets `channel_count` input of Warp1.
 
         ::
 
@@ -173,13 +176,14 @@ class Warp1(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def envbufnum(self):
-        r'''Gets `envbufnum` input of Warp1.
+        r"""
+        Gets `envbufnum` input of Warp1.
 
         ::
 
@@ -198,13 +202,14 @@ class Warp1(MultiOutUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('envbufnum')
         return self._inputs[index]
 
     @property
     def frequency_scaling(self):
-        r'''Gets `frequency_scaling` input of Warp1.
+        r"""
+        Gets `frequency_scaling` input of Warp1.
 
         ::
 
@@ -223,13 +228,14 @@ class Warp1(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency_scaling')
         return self._inputs[index]
 
     @property
     def interpolate(self):
-        r'''Gets `interpolate` input of Warp1.
+        r"""
+        Gets `interpolate` input of Warp1.
 
         ::
 
@@ -248,13 +254,14 @@ class Warp1(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolate')
         return self._inputs[index]
 
     @property
     def overlaps(self):
-        r'''Gets `overlaps` input of Warp1.
+        r"""
+        Gets `overlaps` input of Warp1.
 
         ::
 
@@ -273,13 +280,14 @@ class Warp1(MultiOutUGen):
             8.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('overlaps')
         return self._inputs[index]
 
     @property
     def pointer(self):
-        r'''Gets `pointer` input of Warp1.
+        r"""
+        Gets `pointer` input of Warp1.
 
         ::
 
@@ -298,13 +306,14 @@ class Warp1(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pointer')
         return self._inputs[index]
 
     @property
     def window_rand_ratio(self):
-        r'''Gets `window_rand_ratio` input of Warp1.
+        r"""
+        Gets `window_rand_ratio` input of Warp1.
 
         ::
 
@@ -323,13 +332,14 @@ class Warp1(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_rand_ratio')
         return self._inputs[index]
 
     @property
     def window_size(self):
-        r'''Gets `window_size` input of Warp1.
+        r"""
+        Gets `window_size` input of Warp1.
 
         ::
 
@@ -348,6 +358,6 @@ class Warp1(MultiOutUGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_size')
         return self._inputs[index]

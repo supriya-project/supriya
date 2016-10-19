@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for object-modeling OSC requests made to **scsynth**.
-'''
+"""
 
 from abjad.tools import systemtools
 

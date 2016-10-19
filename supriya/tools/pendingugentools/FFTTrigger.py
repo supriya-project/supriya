@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class FFTTrigger(PV_ChainUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class FFTTrigger(PV_ChainUGen):
         >>> ffttrigger
         FFTTrigger.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class FFTTrigger(PV_ChainUGen):
         hop=0.5,
         polar=0,
         ):
-        r'''Constructs a FFTTrigger.
+        r"""
+        Constructs a FFTTrigger.
 
         ::
 
@@ -70,7 +71,7 @@ class FFTTrigger(PV_ChainUGen):
             FFTTrigger.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class FFTTrigger(PV_ChainUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of FFTTrigger.
+        r"""
+        Gets `buffer_id` input of FFTTrigger.
 
         ::
 
@@ -97,13 +99,14 @@ class FFTTrigger(PV_ChainUGen):
             >>> ffttrigger.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def hop(self):
-        r'''Gets `hop` input of FFTTrigger.
+        r"""
+        Gets `hop` input of FFTTrigger.
 
         ::
 
@@ -116,13 +119,14 @@ class FFTTrigger(PV_ChainUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('hop')
         return self._inputs[index]
 
     @property
     def polar(self):
-        r'''Gets `polar` input of FFTTrigger.
+        r"""
+        Gets `polar` input of FFTTrigger.
 
         ::
 
@@ -135,6 +139,6 @@ class FFTTrigger(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('polar')
         return self._inputs[index]

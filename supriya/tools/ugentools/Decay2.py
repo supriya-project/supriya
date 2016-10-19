@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Decay2(Filter):
-    r'''A leaky signal integrator.
+    r"""
+    A leaky signal integrator.
 
     ::
 
@@ -14,7 +15,7 @@ class Decay2(Filter):
         >>> decay_2
         Decay2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs an audio-rate leaky signal integrator.
+        r"""
+        Constructs an audio-rate leaky signal integrator.
 
         ::
 
@@ -64,7 +66,7 @@ class Decay2(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs a control-rate leaky signal integrator.
+        r"""
+        Constructs a control-rate leaky signal integrator.
 
         ::
 
@@ -94,7 +97,7 @@ class Decay2(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class Decay2(Filter):
 
     @property
     def attack_time(self):
-        r'''Gets `attack_time` input of Decay2.
+        r"""
+        Gets `attack_time` input of Decay2.
 
         ::
 
@@ -125,13 +129,14 @@ class Decay2(Filter):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('attack_time')
         return self._inputs[index]
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of Decay2.
+        r"""
+        Gets `decay_time` input of Decay2.
 
         ::
 
@@ -147,13 +152,14 @@ class Decay2(Filter):
             0.25
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Decay2.
+        r"""
+        Gets `source` input of Decay2.
 
         ::
 
@@ -176,6 +182,6 @@ class Decay2(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

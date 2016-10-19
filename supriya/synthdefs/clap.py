@@ -2,7 +2,7 @@
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
-r'''
+r"""
 SynthDef("clap", {
     arg outBus=0, amp = 0.5;
     var env1, env2, out, noise1, noise2;
@@ -37,7 +37,7 @@ SynthDef("clap", {
 
     Out.ar(outBus, out.dup);
 })
-'''
+"""
 
 def _build_clap_synthdef():
 

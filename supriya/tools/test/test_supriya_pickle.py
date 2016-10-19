@@ -14,8 +14,9 @@ classes = documentationtools.list_all_supriya_classes()
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya_pickle_01(class_):
-    r'''All storage-formattable classes are pickable.
-    '''
+    r"""
+    All storage-formattable classes are pickable.
+    """
     if '_storage_format_specification' in dir(class_):
         if not inspect.isabstract(class_):
             if class_ not in _classes_to_fix:

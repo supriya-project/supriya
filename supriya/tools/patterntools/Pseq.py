@@ -4,7 +4,7 @@ from supriya.tools.patterntools.Pattern import Pattern
 
 
 class Pseq(Pattern):
-    '''
+    """
     A sequence pattern.
 
     ::
@@ -32,7 +32,7 @@ class Pseq(Pattern):
         >>> list(pattern)
         [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

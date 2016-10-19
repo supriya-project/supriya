@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class Shaper(Index):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Shaper(Index):
         >>> shaper
         Shaper.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class Shaper(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate Shaper.
+        r"""
+        Constructs an audio-rate Shaper.
 
         ::
 
@@ -66,7 +67,7 @@ class Shaper(Index):
             Shaper.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class Shaper(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate Shaper.
+        r"""
+        Constructs a control-rate Shaper.
 
         ::
 
@@ -95,7 +97,7 @@ class Shaper(Index):
             Shaper.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class Shaper(Index):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Shaper.
+        r"""
+        Gets `buffer_id` input of Shaper.
 
         ::
 
@@ -121,13 +124,14 @@ class Shaper(Index):
             >>> shaper.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Shaper.
+        r"""
+        Gets `source` input of Shaper.
 
         ::
 
@@ -147,6 +151,6 @@ class Shaper(Index):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

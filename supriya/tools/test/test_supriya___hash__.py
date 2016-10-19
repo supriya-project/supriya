@@ -13,8 +13,9 @@ classes = documentationtools.list_all_supriya_classes()
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___hash___01(class_):
-    r'''All concrete classes with __hash__ can hash.
-    '''
+    r"""
+    All concrete classes with __hash__ can hash.
+    """
     if not inspect.isabstract(class_):
         if getattr(class_, '__hash__', None):
             instance = class_()

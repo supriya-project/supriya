@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TDelay(UGen):
-    r'''A trigger delay.
+    r"""
+    A trigger delay.
 
     ::
 
@@ -15,7 +16,7 @@ class TDelay(UGen):
         >>> tdelay
         TDelay.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class TDelay(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate TDelay.
+        r"""
+        Constructs an audio-rate TDelay.
 
         ::
 
@@ -66,7 +68,7 @@ class TDelay(UGen):
             TDelay.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class TDelay(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate TDelay.
+        r"""
+        Constructs a control-rate TDelay.
 
         ::
 
@@ -95,7 +98,7 @@ class TDelay(UGen):
             TDelay.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class TDelay(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of TDelay.
+        r"""
+        Gets `duration` input of TDelay.
 
         ::
 
@@ -122,13 +126,14 @@ class TDelay(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of TDelay.
+        r"""
+        Gets `source` input of TDelay.
 
         ::
 
@@ -147,6 +152,6 @@ class TDelay(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

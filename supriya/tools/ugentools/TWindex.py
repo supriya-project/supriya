@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TWindex(UGen):
-    r'''A triggered windex.
+    r"""
+    A triggered windex.
 
     ::
 
@@ -16,7 +17,7 @@ class TWindex(UGen):
         >>> t_windex
         TWindex.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class TWindex(UGen):
         normalize=0,
         trigger=None,
         ):
-        r'''Constructs an audio-rate triggered windex.
+        r"""
+        Constructs an audio-rate triggered windex.
 
         ::
 
@@ -76,7 +78,7 @@ class TWindex(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -94,7 +96,8 @@ class TWindex(UGen):
         normalize=0,
         trigger=None,
         ):
-        r'''Constructs a control-rate triggered windex.
+        r"""
+        Constructs a control-rate triggered windex.
 
         ::
 
@@ -108,7 +111,7 @@ class TWindex(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -123,7 +126,8 @@ class TWindex(UGen):
 
     @property
     def array(self):
-        r'''Gets `array` input of TWindex.
+        r"""
+        Gets `array` input of TWindex.
 
         ::
 
@@ -137,13 +141,14 @@ class TWindex(UGen):
             (1.0, 2.0, 3.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('array')
         return tuple(self._inputs[index:])
 
     @property
     def normalize(self):
-        r'''Gets `normalize` input of TWindex.
+        r"""
+        Gets `normalize` input of TWindex.
 
         ::
 
@@ -157,13 +162,14 @@ class TWindex(UGen):
             False
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('normalize')
         return bool(self._inputs[index])
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of TWindex.
+        r"""
+        Gets `trigger` input of TWindex.
 
         ::
 
@@ -184,6 +190,6 @@ class TWindex(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

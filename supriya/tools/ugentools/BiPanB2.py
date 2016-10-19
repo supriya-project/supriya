@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BiPanB2(MultiOutUGen):
-    r'''A 2D ambisonic b-format panner.
+    r"""
+    A 2D ambisonic b-format panner.
 
     ::
 
@@ -22,7 +23,7 @@ class BiPanB2(MultiOutUGen):
 
         >>> w, x, y = bi_pan_b_2
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -69,7 +70,8 @@ class BiPanB2(MultiOutUGen):
         in_a=None,
         in_b=None,
         ):
-        r'''Constructs an audio-rate BiPanB2.
+        r"""
+        Constructs an audio-rate BiPanB2.
 
         ::
 
@@ -85,7 +87,7 @@ class BiPanB2(MultiOutUGen):
             UGenArray({3})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -105,7 +107,8 @@ class BiPanB2(MultiOutUGen):
         in_a=None,
         in_b=None,
         ):
-        r'''Constructs a control-rate BiPanB2.
+        r"""
+        Constructs a control-rate BiPanB2.
 
         ::
 
@@ -121,7 +124,7 @@ class BiPanB2(MultiOutUGen):
             UGenArray({3})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -139,7 +142,8 @@ class BiPanB2(MultiOutUGen):
 
     @property
     def azimuth(self):
-        r'''Gets `azimuth` input of BiPanB2.
+        r"""
+        Gets `azimuth` input of BiPanB2.
 
         ::
 
@@ -155,13 +159,14 @@ class BiPanB2(MultiOutUGen):
             -0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('azimuth')
         return self._inputs[index]
 
     @property
     def gain(self):
-        r'''Gets `gain` input of BiPanB2.
+        r"""
+        Gets `gain` input of BiPanB2.
 
         ::
 
@@ -177,13 +182,14 @@ class BiPanB2(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def in_a(self):
-        r'''Gets `in_a` input of BiPanB2.
+        r"""
+        Gets `in_a` input of BiPanB2.
 
         ::
 
@@ -206,13 +212,14 @@ class BiPanB2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_a')
         return self._inputs[index]
 
     @property
     def in_b(self):
-        r'''Gets `in_b` input of BiPanB2.
+        r"""
+        Gets `in_b` input of BiPanB2.
 
         ::
 
@@ -233,6 +240,6 @@ class BiPanB2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_b')
         return self._inputs[index]

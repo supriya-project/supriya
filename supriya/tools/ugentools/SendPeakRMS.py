@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SendPeakRMS(UGen):
-    r'''Tracks peak and power of a signal for GUI applications.
+    r"""
+    Tracks peak and power of a signal for GUI applications.
 
     ::
 
@@ -19,7 +20,7 @@ class SendPeakRMS(UGen):
         >>> send_peak_rms
         SendPeakRMS.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -83,7 +84,8 @@ class SendPeakRMS(UGen):
         reply_rate=20,
         source=None,
         ):
-        r'''Constructs an audio-rate SendPeakRMS.
+        r"""
+        Constructs an audio-rate SendPeakRMS.
 
         ::
 
@@ -99,7 +101,7 @@ class SendPeakRMS(UGen):
             SendPeakRMS.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_single(
@@ -121,7 +123,8 @@ class SendPeakRMS(UGen):
         reply_rate=20,
         source=None,
         ):
-        r'''Constructs a control-rate SendPeakRMS.
+        r"""
+        Constructs a control-rate SendPeakRMS.
 
         ::
 
@@ -137,7 +140,7 @@ class SendPeakRMS(UGen):
             SendPeakRMS.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_single(
@@ -156,7 +159,8 @@ class SendPeakRMS(UGen):
 
     @property
     def command_name(self):
-        r'''Gets `command_name` input of SendPeakRMS.
+        r"""
+        Gets `command_name` input of SendPeakRMS.
 
         ::
 
@@ -172,7 +176,7 @@ class SendPeakRMS(UGen):
             '/reply'
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reply_id') + 1
         source_length = int(self._inputs[index])
         index += source_length + 2
@@ -183,7 +187,8 @@ class SendPeakRMS(UGen):
 
     @property
     def peak_lag(self):
-        r'''Gets `peak_lag` input of SendPeakRMS.
+        r"""
+        Gets `peak_lag` input of SendPeakRMS.
 
         ::
 
@@ -199,13 +204,14 @@ class SendPeakRMS(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('peak_lag')
         return self._inputs[index]
 
     @property
     def reply_id(self):
-        r'''Gets `reply_id` input of SendPeakRMS.
+        r"""
+        Gets `reply_id` input of SendPeakRMS.
 
         ::
 
@@ -221,13 +227,14 @@ class SendPeakRMS(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reply_id')
         return self._inputs[index]
 
     @property
     def reply_rate(self):
-        r'''Gets `reply_rate` input of SendPeakRMS.
+        r"""
+        Gets `reply_rate` input of SendPeakRMS.
 
         ::
 
@@ -243,13 +250,14 @@ class SendPeakRMS(UGen):
             20.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reply_rate')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of SendPeakRMS.
+        r"""
+        Gets `source` input of SendPeakRMS.
 
         ::
 
@@ -293,7 +301,7 @@ class SendPeakRMS(UGen):
                 ))
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reply_id') + 1
         source_length = int(self._inputs[index])
         start = index + 1

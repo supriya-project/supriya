@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for modeling unit generators (UGens).
-'''
+"""
 
 from abjad.tools import systemtools
 

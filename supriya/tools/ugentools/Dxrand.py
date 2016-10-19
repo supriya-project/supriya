@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dxrand(DUGen):
-    r'''A demand-rate random sequence generator.
+    r"""
+    A demand-rate random sequence generator.
 
     ::
 
@@ -15,7 +16,7 @@ class Dxrand(DUGen):
         >>> dxrand
         Dxrand()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class Dxrand(DUGen):
         repeats=1,
         sequence=None,
         ):
-        r'''Constructs a Dxrand.
+        r"""
+        Constructs a Dxrand.
 
         ::
 
@@ -64,7 +66,7 @@ class Dxrand(DUGen):
             Dxrand()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugen = cls._new_expanded(
             repeats=repeats,
@@ -76,7 +78,8 @@ class Dxrand(DUGen):
 
     @property
     def repeats(self):
-        r'''Gets `repeats` input of Dxrand.
+        r"""
+        Gets `repeats` input of Dxrand.
 
         ::
 
@@ -89,13 +92,14 @@ class Dxrand(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('repeats')
         return self._inputs[index]
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dxrand.
+        r"""
+        Gets `sequence` input of Dxrand.
 
         ::
 
@@ -108,6 +112,6 @@ class Dxrand(DUGen):
             (1.0, 2.0, 3.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('sequence')
         return tuple(self._inputs[index:])

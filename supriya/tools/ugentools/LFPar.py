@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFPar(PureUGen):
-    r'''A parabolic oscillator unit generator.
+    r"""
+    A parabolic oscillator unit generator.
 
     ::
 
         >>> ugentools.LFPar.ar()
         LFPar.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs an audio-rate parabolic oscillator.
+        r"""
+        Constructs an audio-rate parabolic oscillator.
 
         ::
 
@@ -57,7 +59,7 @@ class LFPar(PureUGen):
             LFPar.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs a control-rate parabolic oscillator.
+        r"""
+        Constructs a control-rate parabolic oscillator.
 
         ::
 
@@ -84,7 +87,7 @@ class LFPar(PureUGen):
             LFPar.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -98,7 +101,8 @@ class LFPar(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFPar.
+        r"""
+        Gets `frequency` input of LFPar.
 
         ::
 
@@ -110,13 +114,14 @@ class LFPar(PureUGen):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFPar.
+        r"""
+        Gets `initial_phase` input of LFPar.
 
         ::
 
@@ -128,6 +133,6 @@ class LFPar(PureUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]

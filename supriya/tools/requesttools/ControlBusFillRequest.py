@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class ControlBusFillRequest(Request):
-    r'''A /c_fill request.
+    r"""
+    A /c_fill request.
 
     ::
 
@@ -35,7 +36,7 @@ class ControlBusFillRequest(Request):
         ...     requesttools.RequestId.CONTROL_BUS_FILL
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

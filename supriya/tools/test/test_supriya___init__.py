@@ -32,8 +32,9 @@ functions = documentationtools.list_all_supriya_functions()
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___init___01(class_):
-    r'''All concrete classes initialize from empty input.
-    '''
+    r"""
+    All concrete classes initialize from empty input.
+    """
     if not inspect.isabstract(class_):
         instance = class_()
         assert instance is not None
@@ -42,8 +43,9 @@ def test_supriya___init___01(class_):
 @pytest.mark.skip()
 @pytest.mark.parametrize('obj', classes)
 def test_supriya___init___02(obj):
-    r'''Make sure class initializer keyword argument values are immutable.
-    '''
+    r"""
+    Make sure class initializer keyword argument values are immutable.
+    """
     for attr in inspect.classify_class_attrs(obj):
         if attr.defining_class is not obj:
             continue
@@ -67,8 +69,9 @@ def test_supriya___init___02(obj):
 @pytest.mark.skip()
 @pytest.mark.parametrize('obj', functions)
 def test_supriya___init___03(obj):
-    r'''Make sure function keyword argument values are immutable.
-    '''
+    r"""
+    Make sure function keyword argument values are immutable.
+    """
     if isinstance(obj, functools.partial):
         obj = obj.function
     argument_specification = inspect.getargspec(obj)

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class RandID(WidthFirstUGen):
-    r'''Sets the synth's random generator ID.
+    r"""
+    Sets the synth's random generator ID.
 
     ::
 
@@ -13,7 +14,7 @@ class RandID(WidthFirstUGen):
         >>> rand_id
         RandID.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class RandID(WidthFirstUGen):
         cls,
         rand_id=0,
         ):
-        r'''Constructs a scalar-rate RandID.
+        r"""
+        Constructs a scalar-rate RandID.
 
         ::
 
@@ -63,7 +65,7 @@ class RandID(WidthFirstUGen):
             RandID.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -77,7 +79,8 @@ class RandID(WidthFirstUGen):
         cls,
         rand_id=0,
         ):
-        r'''Constructs a control-rate RandID.
+        r"""
+        Constructs a control-rate RandID.
 
         ::
 
@@ -88,7 +91,7 @@ class RandID(WidthFirstUGen):
             RandID.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -101,7 +104,8 @@ class RandID(WidthFirstUGen):
 
     @property
     def rand_id(self):
-        r'''Gets `rand_id` input of RandID.
+        r"""
+        Gets `rand_id` input of RandID.
 
         ::
 
@@ -112,6 +116,6 @@ class RandID(WidthFirstUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rand_id')
         return self._inputs[index]

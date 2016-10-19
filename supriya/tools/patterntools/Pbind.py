@@ -4,7 +4,7 @@ from supriya.tools.patterntools.EventPattern import EventPattern
 
 
 class Pbind(EventPattern):
-    '''
+    """
     A pattern binding.
 
     ::
@@ -61,7 +61,7 @@ class Pbind(EventPattern):
         Event(duration=1, uuid=UUID('...'), pitch=5)
         Event(duration=1, uuid=UUID('...'), pitch=6)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

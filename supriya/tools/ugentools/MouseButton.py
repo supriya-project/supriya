@@ -5,14 +5,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MouseButton(UGen):
-    r'''A mouse-button tracker.
+    r"""
+    A mouse-button tracker.
 
     ::
 
         >>> ugentools.MouseButton.kr()
         MouseButton.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class MouseButton(UGen):
         maximum=1,
         minimum=0,
         ):
-        r'''Constructs a control-rate mouse button tracking unit generator.
+        r"""
+        Constructs a control-rate mouse button tracking unit generator.
 
         ::
 
@@ -70,7 +72,7 @@ class MouseButton(UGen):
             MouseButton.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -85,7 +87,8 @@ class MouseButton(UGen):
 
     @property
     def lag(self):
-        r'''Gets `lag` input of MouseButton.
+        r"""
+        Gets `lag` input of MouseButton.
 
         ::
 
@@ -98,13 +101,14 @@ class MouseButton(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag')
         return self._inputs[index]
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of MouseButton.
+        r"""
+        Gets `maximum` input of MouseButton.
 
         ::
 
@@ -117,13 +121,14 @@ class MouseButton(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of MouseButton.
+        r"""
+        Gets `minimum` input of MouseButton.
 
         ::
 
@@ -136,6 +141,6 @@ class MouseButton(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]

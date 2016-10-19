@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for sending, receiving and handling OSC messages.
-'''
+"""
 
 from abjad.tools import systemtools
 

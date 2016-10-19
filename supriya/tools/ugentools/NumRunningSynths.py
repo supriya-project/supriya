@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumRunningSynths(InfoUGenBase):
-    r'''A number of running synths info unit generator.
+    r"""
+    A number of running synths info unit generator.
 
     ::
 
         >>> ugentools.NumRunningSynths.ir()
         NumRunningSynths.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -33,7 +34,8 @@ class NumRunningSynths(InfoUGenBase):
 
     @classmethod
     def kr(cls, **kwargs):
-        r'''Construct a control-rate ugen.
+        r"""
+        Construct a control-rate ugen.
 
         ::
 
@@ -41,7 +43,7 @@ class NumRunningSynths(InfoUGenBase):
             NumRunningSynths.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

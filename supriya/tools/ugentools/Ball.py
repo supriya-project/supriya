@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Ball(UGen):
-    r'''A bouncing ball physical model.
+    r"""
+    A bouncing ball physical model.
 
     ::
 
@@ -17,7 +18,7 @@ class Ball(UGen):
         >>> ball
         Ball.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +64,8 @@ class Ball(UGen):
         gravity=1,
         source=None,
         ):
-        r'''Constructs an audio-rate Ball.
+        r"""
+        Constructs an audio-rate Ball.
 
         ::
 
@@ -78,7 +80,7 @@ class Ball(UGen):
             Ball.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -98,7 +100,8 @@ class Ball(UGen):
         gravity=1,
         source=None,
         ):
-        r'''Constructs a control-rate Ball.
+        r"""
+        Constructs a control-rate Ball.
 
         ::
 
@@ -113,7 +116,7 @@ class Ball(UGen):
             Ball.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -129,7 +132,8 @@ class Ball(UGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of Ball.
+        r"""
+        Gets `damping` input of Ball.
 
         ::
 
@@ -144,13 +148,14 @@ class Ball(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def friction(self):
-        r'''Gets `friction` input of Ball.
+        r"""
+        Gets `friction` input of Ball.
 
         ::
 
@@ -165,13 +170,14 @@ class Ball(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('friction')
         return self._inputs[index]
 
     @property
     def gravity(self):
-        r'''Gets `gravity` input of Ball.
+        r"""
+        Gets `gravity` input of Ball.
 
         ::
 
@@ -186,13 +192,14 @@ class Ball(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gravity')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Ball.
+        r"""
+        Gets `source` input of Ball.
 
         ::
 
@@ -214,6 +221,6 @@ class Ball(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

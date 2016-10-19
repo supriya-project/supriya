@@ -6,7 +6,8 @@ from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class OscMessage(OscMixin):
-    r'''An OSC message.
+    r"""
+    An OSC message.
 
     ::
 
@@ -21,7 +22,7 @@ class OscMessage(OscMixin):
         >>> osctools.OscMessage.from_datagram(datagram)
         OscMessage('/g_new', 0, 0)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

@@ -22,7 +22,8 @@ except ImportError:
 
 
 class Session(OscMixin):
-    r'''A non-realtime session.
+    r"""
+    A non-realtime session.
 ::
 
         >>> from supriya.tools import nonrealtimetools
@@ -75,7 +76,7 @@ class Session(OscMixin):
          [15.0, [['/n_free', 1001, 1002]]],
          [20.0, [[0]]]]
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -264,14 +265,15 @@ class Session(OscMixin):
         sample_format=soundfiletools.SampleFormat.INT24,
         **kwargs
         ):
-        r'''Builds non-realtime rendering command.
+        r"""
+        Builds non-realtime rendering command.
 
         ::
 
             >>> session._build_render_command('output.aiff')
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
-        '''
+        """
         from abjad.tools import systemtools
         scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):

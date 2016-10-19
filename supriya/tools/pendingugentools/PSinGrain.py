@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PSinGrain(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class PSinGrain(UGen):
         >>> psin_grain
         PSinGrain.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class PSinGrain(UGen):
         duration=0.2,
         frequency=440,
         ):
-        r'''Constructs an audio-rate PSinGrain.
+        r"""
+        Constructs an audio-rate PSinGrain.
 
         ::
 
@@ -70,7 +71,7 @@ class PSinGrain(UGen):
             PSinGrain.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class PSinGrain(UGen):
 
     @property
     def amp(self):
-        r'''Gets `amp` input of PSinGrain.
+        r"""
+        Gets `amp` input of PSinGrain.
 
         ::
 
@@ -98,13 +100,14 @@ class PSinGrain(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('amp')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of PSinGrain.
+        r"""
+        Gets `duration` input of PSinGrain.
 
         ::
 
@@ -117,13 +120,14 @@ class PSinGrain(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of PSinGrain.
+        r"""
+        Gets `frequency` input of PSinGrain.
 
         ::
 
@@ -136,6 +140,6 @@ class PSinGrain(UGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

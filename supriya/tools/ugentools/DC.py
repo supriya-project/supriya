@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DC(PureUGen):
-    r'''A DC unit generator.
+    r"""
+    A DC unit generator.
 
     ::
 
@@ -19,7 +20,7 @@ class DC(PureUGen):
         ...     )
         UGenArray({3})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate DC generator.
+        r"""
+        Constructs an audio-rate DC generator.
 
         ::
 
@@ -61,7 +63,7 @@ class DC(PureUGen):
             DC.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -75,7 +77,8 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate DC generator.
+        r"""
+        Constructs a control-rate DC generator.
 
         ::
 
@@ -85,7 +88,7 @@ class DC(PureUGen):
             DC.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -98,7 +101,8 @@ class DC(PureUGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of DC.
+        r"""
+        Gets `source` input of DC.
 
         ::
 
@@ -110,6 +114,6 @@ class DC(PureUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

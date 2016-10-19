@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFDNoise3(UGen):
-    r'''A dynamic polynomial noise generator.
+    r"""
+    A dynamic polynomial noise generator.
 
     ::
 
         >>> ugentools.LFDNoise3.ar()
         LFDNoise3.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -44,7 +45,8 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs an audio-rate polynomial noise generator.
+        r"""
+        Constructs an audio-rate polynomial noise generator.
 
         ::
 
@@ -54,7 +56,7 @@ class LFDNoise3(UGen):
             LFDNoise3.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -68,7 +70,8 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs a control-rate polynomial noise generator.
+        r"""
+        Constructs a control-rate polynomial noise generator.
 
         ::
 
@@ -78,7 +81,7 @@ class LFDNoise3(UGen):
             LFDNoise3.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -91,7 +94,8 @@ class LFDNoise3(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFDNoise3.
+        r"""
+        Gets `frequency` input of LFDNoise3.
 
         ::
 
@@ -103,6 +107,6 @@ class LFDNoise3(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

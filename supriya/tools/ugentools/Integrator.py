@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Integrator(Filter):
-    r'''A leaky integrator.
+    r"""
+    A leaky integrator.
 
     ::
 
@@ -15,7 +16,7 @@ class Integrator(Filter):
         >>> integrator
         Integrator.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Integrator(Filter):
         coefficient=1,
         source=None,
         ):
-        r'''Constructs an audio-rate Integrator.
+        r"""
+        Constructs an audio-rate Integrator.
 
         ::
 
@@ -66,7 +68,7 @@ class Integrator(Filter):
             Integrator.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Integrator(Filter):
         coefficient=1,
         source=None,
         ):
-        r'''Constructs a control-rate Integrator.
+        r"""
+        Constructs a control-rate Integrator.
 
         ::
 
@@ -97,7 +100,7 @@ class Integrator(Filter):
             Integrator.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class Integrator(Filter):
 
     @property
     def coefficient(self):
-        r'''Gets `coefficient` input of Integrator.
+        r"""
+        Gets `coefficient` input of Integrator.
 
         ::
 
@@ -134,13 +138,14 @@ class Integrator(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Integrator.
+        r"""
+        Gets `source` input of Integrator.
 
         ::
 
@@ -160,6 +165,6 @@ class Integrator(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

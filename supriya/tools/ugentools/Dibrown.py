@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Dbrown import Dbrown
 
 
 class Dibrown(Dbrown):
-    r'''An integer demand-rate brownian movement generator. 
+    r"""
+    An integer demand-rate brownian movement generator.
 
     ::
 
@@ -16,7 +17,7 @@ class Dibrown(Dbrown):
         >>> dibrown
         Dibrown()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Dibrown(Dbrown):
         minimum=0,
         step=0.01,
         ):
-        r'''Constructs a Dibrown.
+        r"""
+        Constructs a Dibrown.
 
         ::
 
@@ -72,7 +74,7 @@ class Dibrown(Dbrown):
             Dibrown()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             length=length,
             maximum=maximum,
@@ -85,7 +87,8 @@ class Dibrown(Dbrown):
 
     @property
     def length(self):
-        r'''Gets `length` input of Dibrown.
+        r"""
+        Gets `length` input of Dibrown.
 
         ::
 
@@ -99,13 +102,14 @@ class Dibrown(Dbrown):
             inf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Dibrown.
+        r"""
+        Gets `maximum` input of Dibrown.
 
         ::
 
@@ -119,13 +123,14 @@ class Dibrown(Dbrown):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Dibrown.
+        r"""
+        Gets `minimum` input of Dibrown.
 
         ::
 
@@ -139,13 +144,14 @@ class Dibrown(Dbrown):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def step(self):
-        r'''Gets `step` input of Dibrown.
+        r"""
+        Gets `step` input of Dibrown.
 
         ::
 
@@ -159,6 +165,6 @@ class Dibrown(Dbrown):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('step')
         return self._inputs[index]

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SplayAz(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -20,7 +20,7 @@ class SplayAz(UGen):
         >>> splay_az
         SplayAz.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -82,7 +82,8 @@ class SplayAz(UGen):
         spread=1,
         width=2,
         ):
-        r'''Constructs an audio-rate SplayAz.
+        r"""
+        Constructs an audio-rate SplayAz.
 
         ::
 
@@ -100,7 +101,7 @@ class SplayAz(UGen):
             SplayAz.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -130,7 +131,8 @@ class SplayAz(UGen):
         spread=1,
         width=2,
         ):
-        r'''Constructs a control-rate SplayAz.
+        r"""
+        Constructs a control-rate SplayAz.
 
         ::
 
@@ -148,7 +150,7 @@ class SplayAz(UGen):
             SplayAz.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -168,7 +170,8 @@ class SplayAz(UGen):
 
     @property
     def center(self):
-        r'''Gets `center` input of SplayAz.
+        r"""
+        Gets `center` input of SplayAz.
 
         ::
 
@@ -186,13 +189,14 @@ class SplayAz(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('center')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of SplayAz.
+        r"""
+        Gets `channel_count` input of SplayAz.
 
         ::
 
@@ -210,13 +214,14 @@ class SplayAz(UGen):
             4.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def in_array(self):
-        r'''Gets `in_array` input of SplayAz.
+        r"""
+        Gets `in_array` input of SplayAz.
 
         ::
 
@@ -233,13 +238,14 @@ class SplayAz(UGen):
             >>> splay_az.in_array
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_array')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of SplayAz.
+        r"""
+        Gets `level` input of SplayAz.
 
         ::
 
@@ -257,13 +263,14 @@ class SplayAz(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def level_comp(self):
-        r'''Gets `level_comp` input of SplayAz.
+        r"""
+        Gets `level_comp` input of SplayAz.
 
         ::
 
@@ -281,13 +288,14 @@ class SplayAz(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level_comp')
         return self._inputs[index]
 
     @property
     def orientation(self):
-        r'''Gets `orientation` input of SplayAz.
+        r"""
+        Gets `orientation` input of SplayAz.
 
         ::
 
@@ -305,13 +313,14 @@ class SplayAz(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('orientation')
         return self._inputs[index]
 
     @property
     def spread(self):
-        r'''Gets `spread` input of SplayAz.
+        r"""
+        Gets `spread` input of SplayAz.
 
         ::
 
@@ -329,13 +338,14 @@ class SplayAz(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('spread')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of SplayAz.
+        r"""
+        Gets `width` input of SplayAz.
 
         ::
 
@@ -353,6 +363,6 @@ class SplayAz(UGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]

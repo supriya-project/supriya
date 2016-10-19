@@ -3,7 +3,8 @@ from supriya.tools.ugentools.LPZ1 import LPZ1
 
 
 class HPZ1(LPZ1):
-    r'''A two point difference filter.
+    r"""
+    A two point difference filter.
 
     ::
 
@@ -14,7 +15,7 @@ class HPZ1(LPZ1):
         >>> hpz_1
         HPZ1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate HPZ1.
+        r"""
+        Constructs an audio-rate HPZ1.
 
         ::
 
@@ -60,7 +62,7 @@ class HPZ1(LPZ1):
             HPZ1.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate HPZ1.
+        r"""
+        Constructs a control-rate HPZ1.
 
         ::
 
@@ -88,7 +91,7 @@ class HPZ1(LPZ1):
             HPZ1.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +114,8 @@ class HPZ1(LPZ1):
 
     @property
     def source(self):
-        r'''Gets `source` input of HPZ1.
+        r"""
+        Gets `source` input of HPZ1.
 
         ::
 
@@ -130,6 +134,6 @@ class HPZ1(LPZ1):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

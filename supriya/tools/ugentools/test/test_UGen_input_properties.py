@@ -31,8 +31,9 @@ pairs.sort(key=lambda x: (x[0].__name__, x[1]))
 
 @pytest.mark.parametrize('pair', pairs)
 def test_UGen_input_properties_01(pair):
-    r'''All classes have a docstring.
-    '''
+    r"""
+    All classes have a docstring.
+    """
     cls, input_name = pair
     if not hasattr(cls, input_name):
         message = '{} has no input property for: {}'.format(

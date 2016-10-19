@@ -14,8 +14,9 @@ classes = documentationtools.list_all_supriya_classes()
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___deepcopy___01(class_):
-    r'''All concrete classes with a storage format can copy.
-    '''
+    r"""
+    All concrete classes with a storage format can copy.
+    """
     if '_storage_format_specification' not in dir(class_):
         return
     if inspect.isabstract(class_):

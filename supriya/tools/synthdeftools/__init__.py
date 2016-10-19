@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
-'''
+"""
 Tools for constructing and compiling synthesizer definitions (SynthDefs).
-'''
+"""
 
 from abjad.tools import systemtools
 

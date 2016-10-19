@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BufRd(MultiOutUGen):
-    r'''A buffer-reading oscillator.
+    r"""
+    A buffer-reading oscillator.
 
     ::
 
@@ -23,7 +24,7 @@ class BufRd(MultiOutUGen):
         >>> buf_rd
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -72,7 +73,8 @@ class BufRd(MultiOutUGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs an audio-rate BufRd.
+        r"""
+        Constructs an audio-rate BufRd.
 
         ::
 
@@ -93,7 +95,7 @@ class BufRd(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -115,7 +117,8 @@ class BufRd(MultiOutUGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs a control-rate BufRd.
+        r"""
+        Constructs a control-rate BufRd.
 
         ::
 
@@ -136,7 +139,7 @@ class BufRd(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -155,7 +158,8 @@ class BufRd(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufRd.
+        r"""
+        Gets `buffer_id` input of BufRd.
 
         ::
 
@@ -176,21 +180,23 @@ class BufRd(MultiOutUGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def interpolation(self):
-        r'''Gets `interpolation` input of BufRd.
+        r"""
+        Gets `interpolation` input of BufRd.
 
         ::
 
@@ -211,13 +217,14 @@ class BufRd(MultiOutUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolation')
         return self._inputs[index]
 
     @property
     def loop(self):
-        r'''Gets `loop` input of BufRd.
+        r"""
+        Gets `loop` input of BufRd.
 
         ::
 
@@ -238,13 +245,14 @@ class BufRd(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of BufRd.
+        r"""
+        Gets `phase` input of BufRd.
 
         ::
 
@@ -287,6 +295,6 @@ class BufRd(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

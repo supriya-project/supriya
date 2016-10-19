@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Schmidt(UGen):
-    r'''A Schmidt trigger.
+    r"""
+    A Schmidt trigger.
 
     ::
 
@@ -16,7 +17,7 @@ class Schmidt(UGen):
         >>> schmidt
         Schmidt.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts an audio-rate Schmidt ugen.
+        r"""
+        Constucts an audio-rate Schmidt ugen.
 
         ::
 
@@ -72,7 +74,7 @@ class Schmidt(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a scalar-rate Schmidt ugen.
+        r"""
+        Constucts a scalar-rate Schmidt ugen.
 
         ::
 
@@ -104,7 +107,7 @@ class Schmidt(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -122,7 +125,8 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r'''Constucts a control-rate Schmidt ugen.
+        r"""
+        Constucts a control-rate Schmidt ugen.
 
         ::
 
@@ -136,7 +140,7 @@ class Schmidt(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -151,7 +155,8 @@ class Schmidt(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Schmidt.
+        r"""
+        Gets `maximum` input of Schmidt.
 
         ::
 
@@ -165,13 +170,14 @@ class Schmidt(UGen):
             0.9
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Schmidt.
+        r"""
+        Gets `minimum` input of Schmidt.
 
         ::
 
@@ -185,13 +191,14 @@ class Schmidt(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `minimum` input of Schmidt.
+        r"""
+        Gets `minimum` input of Schmidt.
 
         ::
 
@@ -212,6 +219,6 @@ class Schmidt(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

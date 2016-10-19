@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FSinOsc(UGen):
-    r'''Very fast sine wave generator (2 PowerPC instructions per output sample!) implemented using a ringing filter.
+    r"""
+    Very fast sine wave generator (2 PowerPC instructions per output sample!) implemented using a ringing filter.
 
     ::
 
@@ -14,7 +15,7 @@ class FSinOsc(UGen):
         >>> fsin_osc
         FSinOsc.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class FSinOsc(UGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs an audio-rate FSinOsc.
+        r"""
+        Constructs an audio-rate FSinOsc.
 
         ::
 
@@ -64,7 +66,7 @@ class FSinOsc(UGen):
             FSinOsc.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +82,8 @@ class FSinOsc(UGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs a control-rate FSinOsc.
+        r"""
+        Constructs a control-rate FSinOsc.
 
         ::
 
@@ -92,7 +95,7 @@ class FSinOsc(UGen):
             FSinOsc.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +109,8 @@ class FSinOsc(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of FSinOsc.
+        r"""
+        Gets `frequency` input of FSinOsc.
 
         ::
 
@@ -118,13 +122,14 @@ class FSinOsc(UGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of FSinOsc.
+        r"""
+        Gets `initial_phase` input of FSinOsc.
 
         ::
 
@@ -136,6 +141,6 @@ class FSinOsc(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]

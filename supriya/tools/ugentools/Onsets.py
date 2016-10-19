@@ -5,7 +5,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Onsets(UGen):
-    r'''An onset detector.
+    r"""
+    An onset detector.
 
     ::
 
@@ -25,7 +26,7 @@ class Onsets(UGen):
         >>> onsets
         Onsets.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -92,7 +93,8 @@ class Onsets(UGen):
         threshold=0.5,
         whtype=1,
         ):
-        r'''Constructs a control-rate Onsets.
+        r"""
+        Constructs a control-rate Onsets.
 
         ::
 
@@ -113,7 +115,7 @@ class Onsets(UGen):
             Onsets.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             floor=floor,
@@ -131,7 +133,8 @@ class Onsets(UGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of Onsets.
+        r"""
+        Gets `pv_chain` input of Onsets.
 
         ::
 
@@ -181,13 +184,14 @@ class Onsets(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def floor(self):
-        r'''Gets `floor` input of Onsets.
+        r"""
+        Gets `floor` input of Onsets.
 
         ::
 
@@ -208,13 +212,14 @@ class Onsets(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('floor')
         return self._inputs[index]
 
     @property
     def medianspan(self):
-        r'''Gets `medianspan` input of Onsets.
+        r"""
+        Gets `medianspan` input of Onsets.
 
         ::
 
@@ -235,13 +240,14 @@ class Onsets(UGen):
             11.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('medianspan')
         return self._inputs[index]
 
     @property
     def mingap(self):
-        r'''Gets `mingap` input of Onsets.
+        r"""
+        Gets `mingap` input of Onsets.
 
         ::
 
@@ -262,13 +268,14 @@ class Onsets(UGen):
             10.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('mingap')
         return self._inputs[index]
 
     @property
     def odftype(self):
-        r'''Gets `odftype` input of Onsets.
+        r"""
+        Gets `odftype` input of Onsets.
 
         ::
 
@@ -289,13 +296,14 @@ class Onsets(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('odftype')
         return self._inputs[index]
 
     @property
     def rawodf(self):
-        r'''Gets `rawodf` input of Onsets.
+        r"""
+        Gets `rawodf` input of Onsets.
 
         ::
 
@@ -316,13 +324,14 @@ class Onsets(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rawodf')
         return self._inputs[index]
 
     @property
     def relaxtime(self):
-        r'''Gets `relaxtime` input of Onsets.
+        r"""
+        Gets `relaxtime` input of Onsets.
 
         ::
 
@@ -343,13 +352,14 @@ class Onsets(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('relaxtime')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of Onsets.
+        r"""
+        Gets `threshold` input of Onsets.
 
         ::
 
@@ -370,13 +380,14 @@ class Onsets(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]
 
     @property
     def whtype(self):
-        r'''Gets `whtype` input of Onsets.
+        r"""
+        Gets `whtype` input of Onsets.
 
         ::
 
@@ -397,6 +408,6 @@ class Onsets(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('whtype')
         return self._inputs[index]

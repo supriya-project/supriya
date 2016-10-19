@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagAbove(PV_ChainUGen):
-    r'''Passes magnitudes above threshold.
+    r"""
+    Passes magnitudes above threshold.
 
     ::
 
@@ -17,7 +18,7 @@ class PV_MagAbove(PV_ChainUGen):
         >>> pv_mag_above
         PV_MagAbove.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class PV_MagAbove(PV_ChainUGen):
         pv_chain=None,
         threshold=0,
         ):
-        r'''Constructs a PV_MagAbove.
+        r"""
+        Constructs a PV_MagAbove.
 
         ::
 
@@ -66,7 +68,7 @@ class PV_MagAbove(PV_ChainUGen):
             PV_MagAbove.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             threshold=threshold,
@@ -77,7 +79,8 @@ class PV_MagAbove(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_MagAbove.
+        r"""
+        Gets `pv_chain` input of PV_MagAbove.
 
         ::
 
@@ -114,13 +117,14 @@ class PV_MagAbove(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of PV_MagAbove.
+        r"""
+        Gets `threshold` input of PV_MagAbove.
 
         ::
 
@@ -135,6 +139,6 @@ class PV_MagAbove(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class RecordBuf(UGen):
-    r'''Records or overdubs into a buffer.
+    r"""
+    Records or overdubs into a buffer.
 
     ::
 
@@ -23,7 +24,7 @@ class RecordBuf(UGen):
         >>> record_buf
         RecordBuf.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -93,7 +94,8 @@ class RecordBuf(UGen):
         run=1,
         trigger=1,
         ):
-        r'''Constructs an audio-rate RecordBuf.
+        r"""
+        Constructs an audio-rate RecordBuf.
 
         ::
 
@@ -114,7 +116,7 @@ class RecordBuf(UGen):
             RecordBuf.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -144,7 +146,8 @@ class RecordBuf(UGen):
         run=1,
         trigger=1,
         ):
-        r'''Constructs a control-rate RecordBuf.
+        r"""
+        Constructs a control-rate RecordBuf.
 
         ::
 
@@ -165,7 +168,7 @@ class RecordBuf(UGen):
             RecordBuf.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -186,7 +189,8 @@ class RecordBuf(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of RecordBuf.
+        r"""
+        Gets `buffer_id` input of RecordBuf.
 
         ::
 
@@ -207,13 +211,14 @@ class RecordBuf(UGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of RecordBuf.
+        r"""
+        Gets `done_action` input of RecordBuf.
 
         ::
 
@@ -234,21 +239,23 @@ class RecordBuf(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def source(self):
-        r'''Gets `source` input of RecordBuf.
+        r"""
+        Gets `source` input of RecordBuf.
 
         ::
 
@@ -281,13 +288,14 @@ class RecordBuf(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def loop(self):
-        r'''Gets `loop` input of RecordBuf.
+        r"""
+        Gets `loop` input of RecordBuf.
 
         ::
 
@@ -308,13 +316,14 @@ class RecordBuf(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def offset(self):
-        r'''Gets `offset` input of RecordBuf.
+        r"""
+        Gets `offset` input of RecordBuf.
 
         ::
 
@@ -335,13 +344,14 @@ class RecordBuf(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('offset')
         return self._inputs[index]
 
     @property
     def preexisting_level(self):
-        r'''Gets `preexisting_level` input of RecordBuf.
+        r"""
+        Gets `preexisting_level` input of RecordBuf.
 
         ::
 
@@ -362,13 +372,14 @@ class RecordBuf(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('preexisting_level')
         return self._inputs[index]
 
     @property
     def record_level(self):
-        r'''Gets `record_level` input of RecordBuf.
+        r"""
+        Gets `record_level` input of RecordBuf.
 
         ::
 
@@ -389,13 +400,14 @@ class RecordBuf(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('record_level')
         return self._inputs[index]
 
     @property
     def run(self):
-        r'''Gets `run` input of RecordBuf.
+        r"""
+        Gets `run` input of RecordBuf.
 
         ::
 
@@ -416,13 +428,14 @@ class RecordBuf(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('run')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of RecordBuf.
+        r"""
+        Gets `trigger` input of RecordBuf.
 
         ::
 
@@ -443,6 +456,6 @@ class RecordBuf(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

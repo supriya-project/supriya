@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PulseDivider(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class PulseDivider(UGen):
         >>> pulse_divider
         PulseDivider.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class PulseDivider(UGen):
         start=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate PulseDivider.
+        r"""
+        Constructs an audio-rate PulseDivider.
 
         ::
 
@@ -70,7 +71,7 @@ class PulseDivider(UGen):
             PulseDivider.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class PulseDivider(UGen):
         start=0,
         trigger=0,
         ):
-        r'''Constructs a control-rate PulseDivider.
+        r"""
+        Constructs a control-rate PulseDivider.
 
         ::
 
@@ -101,7 +103,7 @@ class PulseDivider(UGen):
             PulseDivider.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +118,8 @@ class PulseDivider(UGen):
 
     @property
     def div(self):
-        r'''Gets `div` input of PulseDivider.
+        r"""
+        Gets `div` input of PulseDivider.
 
         ::
 
@@ -129,13 +132,14 @@ class PulseDivider(UGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('div')
         return self._inputs[index]
 
     @property
     def start(self):
-        r'''Gets `start` input of PulseDivider.
+        r"""
+        Gets `start` input of PulseDivider.
 
         ::
 
@@ -148,13 +152,14 @@ class PulseDivider(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PulseDivider.
+        r"""
+        Gets `trigger` input of PulseDivider.
 
         ::
 
@@ -167,6 +172,6 @@ class PulseDivider(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

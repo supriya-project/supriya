@@ -14,8 +14,9 @@ _classes_to_temporarily_skip = (
 @pytest.mark.skip()
 @pytest.mark.parametrize('class_', classes)
 def test_supriya___format___01(class_):
-    r'''All concrete classes have a storage format.
-    '''
+    r"""
+    All concrete classes have a storage format.
+    """
     if '_storage_format_specification' in dir(class_) and \
         not inspect.isabstract(class_):
         instance = class_()
@@ -27,8 +28,9 @@ def test_supriya___format___01(class_):
 @pytest.mark.parametrize('class_', classes)
 @pytest.mark.skip()
 def test_supriya___format___02(class_):
-    r'''All storage-formattable classes have evaluable storage format.
-    '''
+    r"""
+    All storage-formattable classes have evaluable storage format.
+    """
     if '_storage_format_specification' in dir(class_) and \
         not inspect.isabstract(class_) and \
         class_ not in _classes_to_temporarily_skip:

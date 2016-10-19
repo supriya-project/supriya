@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TExpRand(UGen):
-    r'''A triggered exponential random number generator.
+    r"""
+    A triggered exponential random number generator.
 
     ::
 
@@ -16,7 +17,7 @@ class TExpRand(UGen):
         >>> t_exp_rand
         TExpRand.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class TExpRand(UGen):
         minimum=0.01,
         trigger=0,
         ):
-        r'''Constructs an audio-rate triggered exponential random number
+        r"""
+        Constructs an audio-rate triggered exponential random number
         generator.
 
         ::
@@ -73,7 +75,7 @@ class TExpRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -91,7 +93,8 @@ class TExpRand(UGen):
         minimum=0.01,
         trigger=0,
         ):
-        r'''Constructs a control-rate triggered exponential random number
+        r"""
+        Constructs a control-rate triggered exponential random number
         generator.
 
         ::
@@ -106,7 +109,7 @@ class TExpRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class TExpRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of TExpRand.
+        r"""
+        Gets `maximum` input of TExpRand.
 
         ::
 
@@ -135,13 +139,14 @@ class TExpRand(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of TExpRand.
+        r"""
+        Gets `minimum` input of TExpRand.
 
         ::
 
@@ -155,13 +160,14 @@ class TExpRand(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of TExpRand.
+        r"""
+        Gets `trigger` input of TExpRand.
 
         ::
 
@@ -183,6 +189,6 @@ class TExpRand(UGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

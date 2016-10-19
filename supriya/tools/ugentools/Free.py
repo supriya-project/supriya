@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Free(UGen):
-    r'''Frees the node at `node_id` when triggered by `trigger`.
+    r"""
+    Frees the node at `node_id` when triggered by `trigger`.
 
     ::
 
@@ -16,7 +17,7 @@ class Free(UGen):
         >>> free
         Free.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Free(UGen):
         trigger=None,
         node_id=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -66,7 +68,7 @@ class Free(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -80,7 +82,8 @@ class Free(UGen):
 
     @property
     def node_id(self):
-        r'''Gets `node_id` input of Free.
+        r"""
+        Gets `node_id` input of Free.
 
         ::
 
@@ -93,13 +96,14 @@ class Free(UGen):
             1000.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('node_id')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Free.
+        r"""
+        Gets `trigger` input of Free.
 
         ::
 
@@ -119,6 +123,6 @@ class Free(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

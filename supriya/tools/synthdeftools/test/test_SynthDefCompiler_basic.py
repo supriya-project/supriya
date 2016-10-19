@@ -142,9 +142,9 @@ def test_SynthDefCompiler_basic_03():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
-        r'''
+        r"""
         Out.ar(0, In.ar(8, 2))
-        '''
+        """
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
@@ -193,13 +193,14 @@ def test_SynthDefCompiler_basic_03():
 
 
 def test_SynthDefCompiler_basic_04():
-    r'''FreeSelf.
-    '''
+    r"""
+    FreeSelf.
+    """
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'test',
-        r'''
+        r"""
         Out.ar(0, FreeSelf.kr(SinOsc.ar()))
-        '''
+        """
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
@@ -266,12 +267,12 @@ def test_SynthDefCompiler_basic_05():
 
     sc_synthdef = synthdeftools.SuperColliderSynthDef(
         'DetectSilenceTest',
-        r'''
+        r"""
         var source, detect_silence, out;
         source = In.ar(8, 2);
         detect_silence = DetectSilence.ar(source);
         out = Out.ar(0, source);
-        '''
+        """
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 

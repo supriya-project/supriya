@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TRand(UGen):
-    r'''A triggered random number generator.
+    r"""
+    A triggered random number generator.
 
     ::
 
@@ -16,7 +17,7 @@ class TRand(UGen):
         >>> t_rand
         TRand.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class TRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate triggered random number generator.
+        r"""
+        Constructs an audio-rate triggered random number generator.
 
         ::
 
@@ -72,7 +74,7 @@ class TRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class TRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r'''Constructs a control-rate triggered random number generator.
+        r"""
+        Constructs a control-rate triggered random number generator.
 
         ::
 
@@ -104,7 +107,7 @@ class TRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class TRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of TRand.
+        r"""
+        Gets `maximum` input of TRand.
 
         ::
 
@@ -133,13 +137,14 @@ class TRand(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of TRand.
+        r"""
+        Gets `minimum` input of TRand.
 
         ::
 
@@ -153,13 +158,14 @@ class TRand(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of TRand.
+        r"""
+        Gets `trigger` input of TRand.
 
         ::
 
@@ -181,6 +187,6 @@ class TRand(UGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

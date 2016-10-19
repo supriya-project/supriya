@@ -35,7 +35,7 @@ class Test(unittest.TestCase):
         server_state = str(self.server.query_remote_nodes())
         assert systemtools.TestManager.compare(
             server_state,
-            '''
+            """
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -45,7 +45,7 @@ class Test(unittest.TestCase):
                             1004 test
                             1005 group
                         1006 test
-            ''',
+            """,
             ), server_state
 
         assert group_a[0] is synth_a

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ModDif(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class ModDif(UGen):
         >>> mod_dif
         ModDif.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r'''Constructs an audio-rate ModDif.
+        r"""
+        Constructs an audio-rate ModDif.
 
         ::
 
@@ -70,7 +71,7 @@ class ModDif(UGen):
             ModDif.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r'''Constructs a scale-rate ModDif.
+        r"""
+        Constructs a scale-rate ModDif.
 
         ::
 
@@ -101,7 +103,7 @@ class ModDif(UGen):
             ModDif.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -119,7 +121,8 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r'''Constructs a control-rate ModDif.
+        r"""
+        Constructs a control-rate ModDif.
 
         ::
 
@@ -132,7 +135,7 @@ class ModDif(UGen):
             ModDif.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -147,7 +150,8 @@ class ModDif(UGen):
 
     @property
     def mod(self):
-        r'''Gets `mod` input of ModDif.
+        r"""
+        Gets `mod` input of ModDif.
 
         ::
 
@@ -160,13 +164,14 @@ class ModDif(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('mod')
         return self._inputs[index]
 
     @property
     def x(self):
-        r'''Gets `x` input of ModDif.
+        r"""
+        Gets `x` input of ModDif.
 
         ::
 
@@ -179,13 +184,14 @@ class ModDif(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x')
         return self._inputs[index]
 
     @property
     def y(self):
-        r'''Gets `y` input of ModDif.
+        r"""
+        Gets `y` input of ModDif.
 
         ::
 
@@ -198,6 +204,6 @@ class ModDif(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('y')
         return self._inputs[index]

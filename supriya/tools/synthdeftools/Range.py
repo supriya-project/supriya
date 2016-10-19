@@ -4,7 +4,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Range(SupriyaObject):
-    r'''A range.
+    r"""
+    A range.
 
     ::
 
@@ -46,7 +47,7 @@ class Range(SupriyaObject):
             maximum=3.0
             )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -88,7 +89,8 @@ class Range(SupriyaObject):
 
     @staticmethod
     def scale(value, input_range, output_range, exponent=1.):
-        r'''Scales `value` from `input_range` to `output_range`.
+        r"""
+        Scales `value` from `input_range` to `output_range`.
 
         Curve value exponentially by `exponent`.
 
@@ -118,7 +120,7 @@ class Range(SupriyaObject):
             1.0355...
 
         Returns float.
-        '''
+        """
         value = (value - input_range.minimum) / input_range.width        
         if exponent != 1:
             value = pow(value, exponent)

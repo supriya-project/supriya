@@ -3,10 +3,11 @@ import sys
 
 
 def run_supriya_web():
-    r'''Runs Supriya with web-server.
+    r"""
+    Runs Supriya with web-server.
 
     Returns none.
-    '''
+    """
     from abjad.tools import systemtools
 
     try:
@@ -25,6 +26,6 @@ def run_supriya_web():
         )
     commands = ' '.join(commands)
 
-    command = r'''python -i {} -c "{}"'''
+    command = r""" python -i {} -c "{}""""
     command = command.format(file_name, commands)
     systemtools.IOManager.spawn_subprocess(command)

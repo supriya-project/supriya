@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DelTapWr(UGen):
-    r'''A delay tap writer unit generator.
+    r"""
+    A delay tap writer unit generator.
 
     ::
 
@@ -33,7 +34,7 @@ class DelTapWr(UGen):
         >>> tapout
         DelTapRd.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -70,7 +71,8 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate delay tap write.
+        r"""
+        Constructs an audio-rate delay tap write.
 
         ::
 
@@ -84,7 +86,7 @@ class DelTapWr(UGen):
             DelTapWr.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
@@ -101,7 +103,8 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate delay tap write.
+        r"""
+        Constructs an audio-rate delay tap write.
 
         ::
 
@@ -115,7 +118,7 @@ class DelTapWr(UGen):
             DelTapWr.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         source = cls._as_audio_rate_input(source)
@@ -130,7 +133,8 @@ class DelTapWr(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DelTapWr.
+        r"""
+        Gets `buffer_id` input of DelTapWr.
 
         ::
 
@@ -144,13 +148,14 @@ class DelTapWr(UGen):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DelTapWr.
+        r"""
+        Gets `source` input of DelTapWr.
 
         ::
 
@@ -171,6 +176,6 @@ class DelTapWr(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

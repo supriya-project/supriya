@@ -6,7 +6,8 @@ from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class OscBundle(OscMixin):
-    r'''An OSC bundle.
+    r"""
+    An OSC bundle.
 
     ::
 
@@ -75,7 +76,7 @@ class OscBundle(OscMixin):
         >>> decoded_bundle == outer_bundle
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

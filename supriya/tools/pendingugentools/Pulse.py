@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Pulse(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class Pulse(UGen):
         >>> pulse
         Pulse.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class Pulse(UGen):
         frequency=440,
         width=0.5,
         ):
-        r'''Constructs an audio-rate Pulse.
+        r"""
+        Constructs an audio-rate Pulse.
 
         ::
 
@@ -64,7 +65,7 @@ class Pulse(UGen):
             Pulse.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class Pulse(UGen):
         frequency=440,
         width=0.5,
         ):
-        r'''Constructs a control-rate Pulse.
+        r"""
+        Constructs a control-rate Pulse.
 
         ::
 
@@ -92,7 +94,7 @@ class Pulse(UGen):
             Pulse.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class Pulse(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Pulse.
+        r"""
+        Gets `frequency` input of Pulse.
 
         ::
 
@@ -118,13 +121,14 @@ class Pulse(UGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of Pulse.
+        r"""
+        Gets `width` input of Pulse.
 
         ::
 
@@ -136,6 +140,6 @@ class Pulse(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]
