@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class HilbertFIR(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class HilbertFIR(UGen):
         >>> hilbert_fir
         HilbertFIR.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class HilbertFIR(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate HilbertFIR.
+        r"""
+        Constructs an audio-rate HilbertFIR.
 
         ::
 
@@ -66,7 +67,7 @@ class HilbertFIR(UGen):
             HilbertFIR.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class HilbertFIR(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of HilbertFIR.
+        r"""
+        Gets `buffer_id` input of HilbertFIR.
 
         ::
 
@@ -92,13 +94,14 @@ class HilbertFIR(UGen):
             >>> hilbert_fir.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of HilbertFIR.
+        r"""
+        Gets `source` input of HilbertFIR.
 
         ::
 
@@ -118,6 +121,6 @@ class HilbertFIR(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

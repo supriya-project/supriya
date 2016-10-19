@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class IndexInBetween(Index):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class IndexInBetween(Index):
         >>> index_in_between
         IndexInBetween.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class IndexInBetween(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate IndexInBetween.
+        r"""
+        Constructs an audio-rate IndexInBetween.
 
         ::
 
@@ -66,7 +67,7 @@ class IndexInBetween(Index):
             IndexInBetween.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class IndexInBetween(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate IndexInBetween.
+        r"""
+        Constructs a control-rate IndexInBetween.
 
         ::
 
@@ -95,7 +97,7 @@ class IndexInBetween(Index):
             IndexInBetween.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class IndexInBetween(Index):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of IndexInBetween.
+        r"""
+        Gets `buffer_id` input of IndexInBetween.
 
         ::
 
@@ -121,13 +124,14 @@ class IndexInBetween(Index):
             >>> index_in_between.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of IndexInBetween.
+        r"""
+        Gets `source` input of IndexInBetween.
 
         ::
 
@@ -147,6 +151,6 @@ class IndexInBetween(Index):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

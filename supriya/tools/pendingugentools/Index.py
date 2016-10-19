@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Index(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Index(PureUGen):
         >>> index
         Index.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class Index(PureUGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate Index.
+        r"""
+        Constructs an audio-rate Index.
 
         ::
 
@@ -66,7 +67,7 @@ class Index(PureUGen):
             Index.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class Index(PureUGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate Index.
+        r"""
+        Constructs a control-rate Index.
 
         ::
 
@@ -95,7 +97,7 @@ class Index(PureUGen):
             Index.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class Index(PureUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Index.
+        r"""
+        Gets `buffer_id` input of Index.
 
         ::
 
@@ -121,13 +124,14 @@ class Index(PureUGen):
             >>> index.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Index.
+        r"""
+        Gets `source` input of Index.
 
         ::
 
@@ -147,6 +151,6 @@ class Index(PureUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Pan2 import Pan2
 
 
 class LinPan2(Pan2):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class LinPan2(Pan2):
         >>> lin_pan_2
         LinPan2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class LinPan2(Pan2):
         pos=0,
         source=None,
         ):
-        r'''Constructs an audio-rate LinPan2.
+        r"""
+        Constructs an audio-rate LinPan2.
 
         ::
 
@@ -72,7 +73,7 @@ class LinPan2(Pan2):
             LinPan2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +91,8 @@ class LinPan2(Pan2):
         pos=0,
         source=None,
         ):
-        r'''Constructs a control-rate LinPan2.
+        r"""
+        Constructs a control-rate LinPan2.
 
         ::
 
@@ -104,7 +106,7 @@ class LinPan2(Pan2):
             LinPan2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +123,8 @@ class LinPan2(Pan2):
 
     @property
     def level(self):
-        r'''Gets `level` input of LinPan2.
+        r"""
+        Gets `level` input of LinPan2.
 
         ::
 
@@ -135,13 +138,14 @@ class LinPan2(Pan2):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def pos(self):
-        r'''Gets `pos` input of LinPan2.
+        r"""
+        Gets `pos` input of LinPan2.
 
         ::
 
@@ -155,13 +159,14 @@ class LinPan2(Pan2):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pos')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LinPan2.
+        r"""
+        Gets `source` input of LinPan2.
 
         ::
 
@@ -182,6 +187,6 @@ class LinPan2(Pan2):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

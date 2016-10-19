@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainSin(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -19,7 +19,7 @@ class GrainSin(MultiOutUGen):
         >>> grain_sin
         GrainSin.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -77,7 +77,8 @@ class GrainSin(MultiOutUGen):
         pan=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate GrainSin.
+        r"""
+        Constructs an audio-rate GrainSin.
 
         ::
 
@@ -94,7 +95,7 @@ class GrainSin(MultiOutUGen):
             GrainSin.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -115,7 +116,8 @@ class GrainSin(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of GrainSin.
+        r"""
+        Gets `channel_count` input of GrainSin.
 
         ::
 
@@ -132,13 +134,14 @@ class GrainSin(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of GrainSin.
+        r"""
+        Gets `duration` input of GrainSin.
 
         ::
 
@@ -155,13 +158,14 @@ class GrainSin(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def envbufnum(self):
-        r'''Gets `envbufnum` input of GrainSin.
+        r"""
+        Gets `envbufnum` input of GrainSin.
 
         ::
 
@@ -178,13 +182,14 @@ class GrainSin(MultiOutUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('envbufnum')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of GrainSin.
+        r"""
+        Gets `frequency` input of GrainSin.
 
         ::
 
@@ -201,13 +206,14 @@ class GrainSin(MultiOutUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def max_grains(self):
-        r'''Gets `max_grains` input of GrainSin.
+        r"""
+        Gets `max_grains` input of GrainSin.
 
         ::
 
@@ -224,13 +230,14 @@ class GrainSin(MultiOutUGen):
             512.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_grains')
         return self._inputs[index]
 
     @property
     def pan(self):
-        r'''Gets `pan` input of GrainSin.
+        r"""
+        Gets `pan` input of GrainSin.
 
         ::
 
@@ -247,13 +254,14 @@ class GrainSin(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of GrainSin.
+        r"""
+        Gets `trigger` input of GrainSin.
 
         ::
 
@@ -270,6 +278,6 @@ class GrainSin(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

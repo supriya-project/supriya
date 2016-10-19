@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Tap(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Tap(UGen):
         >>> tap
         Tap.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class Tap(UGen):
         channel_count=1,
         delay_time=0.2,
         ):
-        r'''Constructs an audio-rate Tap.
+        r"""
+        Constructs an audio-rate Tap.
 
         ::
 
@@ -70,7 +71,7 @@ class Tap(UGen):
             Tap.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class Tap(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Tap.
+        r"""
+        Gets `buffer_id` input of Tap.
 
         ::
 
@@ -98,13 +100,14 @@ class Tap(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of Tap.
+        r"""
+        Gets `channel_count` input of Tap.
 
         ::
 
@@ -117,13 +120,14 @@ class Tap(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of Tap.
+        r"""
+        Gets `delay_time` input of Tap.
 
         ::
 
@@ -136,6 +140,6 @@ class Tap(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
