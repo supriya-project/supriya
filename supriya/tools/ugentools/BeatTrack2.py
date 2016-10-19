@@ -4,7 +4,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BeatTrack2(MultiOutUGen):
-    r'''A template-matching beat-tracker.
+    r"""
+    A template-matching beat-tracker.
 
     ::
 
@@ -19,7 +20,7 @@ class BeatTrack2(MultiOutUGen):
         >>> beat_track_2
         UGenArray({6})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -76,7 +77,8 @@ class BeatTrack2(MultiOutUGen):
         weighting_scheme=-2.1,
         window_size=2,
         ):
-        r'''Constructs a control-rate BeatTrack2.
+        r"""
+        Constructs a control-rate BeatTrack2.
 
         ::
 
@@ -92,7 +94,7 @@ class BeatTrack2(MultiOutUGen):
             UGenArray({6})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -110,7 +112,8 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def bus_index(self):
-        r'''Gets `bus_index` input of BeatTrack2.
+        r"""
+        Gets `bus_index` input of BeatTrack2.
 
         ::
 
@@ -126,13 +129,14 @@ class BeatTrack2(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus_index')
         return self._inputs[index]
 
     @property
     def lock(self):
-        r'''Gets `lock` input of BeatTrack2.
+        r"""
+        Gets `lock` input of BeatTrack2.
 
         ::
 
@@ -148,13 +152,14 @@ class BeatTrack2(MultiOutUGen):
             False
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lock')
         return bool(self._inputs[index])
 
     @property
     def feature_count(self):
-        r'''Gets `feature_count` input of BeatTrack2.
+        r"""
+        Gets `feature_count` input of BeatTrack2.
 
         ::
 
@@ -170,13 +175,14 @@ class BeatTrack2(MultiOutUGen):
             4.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('feature_count')
         return self._inputs[index]
 
     @property
     def phase_accuracy(self):
-        r'''Gets `phase_accuracy` input of BeatTrack2.
+        r"""
+        Gets `phase_accuracy` input of BeatTrack2.
 
         ::
 
@@ -192,13 +198,14 @@ class BeatTrack2(MultiOutUGen):
             0.02
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase_accuracy')
         return self._inputs[index]
 
     @property
     def weighting_scheme(self):
-        r'''Gets `weighting_scheme` input of BeatTrack2.
+        r"""
+        Gets `weighting_scheme` input of BeatTrack2.
 
         ::
 
@@ -214,13 +221,14 @@ class BeatTrack2(MultiOutUGen):
             -2.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('weighting_scheme')
         return self._inputs[index]
 
     @property
     def window_size(self):
-        r'''Gets `window_size` input of BeatTrack2.
+        r"""
+        Gets `window_size` input of BeatTrack2.
 
         ::
 
@@ -236,6 +244,6 @@ class BeatTrack2(MultiOutUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_size')
         return self._inputs[index]

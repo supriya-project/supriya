@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Changed(PseudoUGen):
-    r'''Triggers when a value changes.
+    r"""
+    Triggers when a value changes.
 
     ::
 
@@ -21,7 +22,7 @@ class Changed(PseudoUGen):
             const_0:0.0 -> 3_BinaryOpUGen:GREATER_THAN[1:right]
         }
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -37,7 +38,8 @@ class Changed(PseudoUGen):
         source=None,
         threshold=0,
         ):
-        r'''Constructs an audio-rate Changed.
+        r"""
+        Constructs an audio-rate Changed.
 
         ::
 
@@ -56,7 +58,7 @@ class Changed(PseudoUGen):
             }
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import ugentools
         ugen = abs(ugentools.HPZ1.ar(source=source)) > threshold
         return ugen
@@ -69,7 +71,8 @@ class Changed(PseudoUGen):
         source=None,
         threshold=0,
         ):
-        r'''Constructs a control-rate Changed.
+        r"""
+        Constructs a control-rate Changed.
 
         ::
 
@@ -88,7 +91,7 @@ class Changed(PseudoUGen):
             }
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import ugentools
         ugen = abs(ugentools.HPZ1.kr(source=source)) > threshold
         return ugen

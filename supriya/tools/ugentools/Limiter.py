@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Limiter(UGen):
-    r'''A peak limiter.
+    r"""
+    A peak limiter.
 
     ::
 
@@ -16,7 +17,7 @@ class Limiter(UGen):
         >>> limiter
         Limiter.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Limiter(UGen):
         level=1,
         source=None,
         ):
-        r'''Constructs an audio-rate Limiter.
+        r"""
+        Constructs an audio-rate Limiter.
 
         ::
 
@@ -72,7 +74,7 @@ class Limiter(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -87,7 +89,8 @@ class Limiter(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of Limiter.
+        r"""
+        Gets `duration` input of Limiter.
 
         ::
 
@@ -101,13 +104,14 @@ class Limiter(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of Limiter.
+        r"""
+        Gets `level` input of Limiter.
 
         ::
 
@@ -121,13 +125,14 @@ class Limiter(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Limiter.
+        r"""
+        Gets `source` input of Limiter.
 
         ::
 
@@ -148,6 +153,6 @@ class Limiter(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

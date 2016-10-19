@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SyncSaw(PureUGen):
-    r'''A sawtooth wave that is hard synched to a fundamental pitch.
+    r"""
+    A sawtooth wave that is hard synched to a fundamental pitch.
 
     ::
 
@@ -14,7 +15,7 @@ class SyncSaw(PureUGen):
         >>> sync_saw
         SyncSaw.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class SyncSaw(PureUGen):
         saw_frequency=440,
         sync_frequency=440,
         ):
-        r'''Constructs an audio-rate SyncSaw.
+        r"""
+        Constructs an audio-rate SyncSaw.
 
         ::
 
@@ -64,7 +66,7 @@ class SyncSaw(PureUGen):
             SyncSaw.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +82,8 @@ class SyncSaw(PureUGen):
         saw_frequency=440,
         sync_frequency=440,
         ):
-        r'''Constructs a control-rate SyncSaw.
+        r"""
+        Constructs a control-rate SyncSaw.
 
         ::
 
@@ -92,7 +95,7 @@ class SyncSaw(PureUGen):
             SyncSaw.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +109,8 @@ class SyncSaw(PureUGen):
 
     @property
     def saw_frequency(self):
-        r'''Gets `saw_frequency` input of SyncSaw.
+        r"""
+        Gets `saw_frequency` input of SyncSaw.
 
         ::
 
@@ -118,13 +122,14 @@ class SyncSaw(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('saw_frequency')
         return self._inputs[index]
 
     @property
     def sync_frequency(self):
-        r'''Gets `sync_frequency` input of SyncSaw.
+        r"""
+        Gets `sync_frequency` input of SyncSaw.
 
         ::
 
@@ -136,6 +141,6 @@ class SyncSaw(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('sync_frequency')
         return self._inputs[index]

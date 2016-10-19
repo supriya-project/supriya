@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Blip(UGen):
-    r'''A band limited impulse generator.
+    r"""
+    A band limited impulse generator.
 
     ::
 
@@ -14,7 +15,7 @@ class Blip(UGen):
         >>> blip
         Blip.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Blip(UGen):
         frequency=440,
         harmonic_count=200,
         ):
-        r'''Constructs an audio-rate Blip.
+        r"""
+        Constructs an audio-rate Blip.
 
         ::
 
@@ -64,7 +66,7 @@ class Blip(UGen):
             Blip.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +82,8 @@ class Blip(UGen):
         frequency=440,
         harmonic_count=200,
         ):
-        r'''Constructs a control-rate Blip.
+        r"""
+        Constructs a control-rate Blip.
 
         ::
 
@@ -92,7 +95,7 @@ class Blip(UGen):
             Blip.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +109,8 @@ class Blip(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Blip.
+        r"""
+        Gets `frequency` input of Blip.
 
         ::
 
@@ -118,13 +122,14 @@ class Blip(UGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def harmonic_count(self):
-        r'''Gets `harmonic_count` input of Blip.
+        r"""
+        Gets `harmonic_count` input of Blip.
 
         ::
 
@@ -136,6 +141,6 @@ class Blip(UGen):
             200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('harmonic_count')
         return self._inputs[index]

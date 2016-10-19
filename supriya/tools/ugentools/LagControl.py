@@ -4,8 +4,9 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class LagControl(Control):
-    r'''A lagged control-rate control ugen.
-    '''
+    r"""
+    A lagged control-rate control ugen.
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,9 +55,10 @@ class LagControl(Control):
 
     @property
     def lags(self):
-        r'''Gets `lags` input of LagControl.
+        r"""
+        Gets `lags` input of LagControl.
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lags')
         return tuple(self._inputs[index:])

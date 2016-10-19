@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LeakDC(Filter):
-    r'''A DC blocker.
+    r"""
+    A DC blocker.
 
     ::
 
@@ -15,7 +16,7 @@ class LeakDC(Filter):
         >>> leak_d_c
         LeakDC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class LeakDC(Filter):
         coefficient=0.995,
         source=0,
         ):
-        r'''Constructs an audio-rate DC blocker.
+        r"""
+        Constructs an audio-rate DC blocker.
 
         ::
 
@@ -66,7 +68,7 @@ class LeakDC(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class LeakDC(Filter):
         coefficient=0.9,
         source=0,
         ):
-        r'''Constructs a control-rate DC blocker.
+        r"""
+        Constructs a control-rate DC blocker.
 
         ::
 
@@ -95,7 +98,7 @@ class LeakDC(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class LeakDC(Filter):
 
     @property
     def coefficient(self):
-        r'''Gets `coefficient` input of LeakDC.
+        r"""
+        Gets `coefficient` input of LeakDC.
 
         ::
 
@@ -122,13 +126,14 @@ class LeakDC(Filter):
             0.995
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LeakDC.
+        r"""
+        Gets `source` input of LeakDC.
 
         ::
 
@@ -148,6 +153,6 @@ class LeakDC(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

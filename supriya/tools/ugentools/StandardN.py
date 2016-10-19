@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class StandardN(UGen):
-    r'''A non-interpolating standard map chaotic generator.
+    r"""
+    A non-interpolating standard map chaotic generator.
 
     ::
 
@@ -16,7 +17,7 @@ class StandardN(UGen):
         >>> standard_n
         StandardN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class StandardN(UGen):
         xi=0.5,
         yi=0,
         ):
-        r'''Constructs an audio-rate StandardN.
+        r"""
+        Constructs an audio-rate StandardN.
 
         ::
 
@@ -76,7 +78,7 @@ class StandardN(UGen):
             StandardN.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -94,7 +96,8 @@ class StandardN(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of StandardN.
+        r"""
+        Gets `frequency` input of StandardN.
 
         ::
 
@@ -108,13 +111,14 @@ class StandardN(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def k(self):
-        r'''Gets `k` input of StandardN.
+        r"""
+        Gets `k` input of StandardN.
 
         ::
 
@@ -128,13 +132,14 @@ class StandardN(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('k')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of StandardN.
+        r"""
+        Gets `xi` input of StandardN.
 
         ::
 
@@ -148,13 +153,14 @@ class StandardN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]
 
     @property
     def yi(self):
-        r'''Gets `yi` input of StandardN.
+        r"""
+        Gets `yi` input of StandardN.
 
         ::
 
@@ -168,6 +174,6 @@ class StandardN(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('yi')
         return self._inputs[index]

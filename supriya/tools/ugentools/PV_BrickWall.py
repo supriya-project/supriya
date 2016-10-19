@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BrickWall(PV_ChainUGen):
-    r'''Zeros bins.
+    r"""
+    Zeros bins.
 
     - If wipe == 0 then there is no effect.
     - If wipe > 0 then it acts like a high pass filter, clearing bins from the
@@ -23,7 +24,7 @@ class PV_BrickWall(PV_ChainUGen):
         >>> pv_brick_wall
         PV_BrickWall.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class PV_BrickWall(PV_ChainUGen):
         pv_chain=None,
         wipe=0,
         ):
-        r'''Constructs a PV_BrickWall.
+        r"""
+        Constructs a PV_BrickWall.
 
         ::
 
@@ -72,7 +74,7 @@ class PV_BrickWall(PV_ChainUGen):
             PV_BrickWall.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             wipe=wipe,
@@ -83,7 +85,8 @@ class PV_BrickWall(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_BrickWall.
+        r"""
+        Gets `pv_chain` input of PV_BrickWall.
 
         ::
 
@@ -120,13 +123,14 @@ class PV_BrickWall(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def wipe(self):
-        r'''Gets `wipe` input of PV_BrickWall.
+        r"""
+        Gets `wipe` input of PV_BrickWall.
 
         ::
 
@@ -141,6 +145,6 @@ class PV_BrickWall(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('wipe')
         return self._inputs[index]

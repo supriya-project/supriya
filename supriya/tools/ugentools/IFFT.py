@@ -3,7 +3,8 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class IFFT(WidthFirstUGen):
-    r'''An inverse fast Fourier transform.
+    r"""
+    An inverse fast Fourier transform.
 
     ::
 
@@ -16,7 +17,7 @@ class IFFT(WidthFirstUGen):
         >>> ifft
         IFFT.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class IFFT(WidthFirstUGen):
         window_size=0,
         window_type=0,
         ):
-        r'''Constructs an audio-rate IFFT.
+        r"""
+        Constructs an audio-rate IFFT.
 
         ::
 
@@ -72,7 +74,7 @@ class IFFT(WidthFirstUGen):
             IFFT.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class IFFT(WidthFirstUGen):
         window_size=0,
         window_type=0,
         ):
-        r'''Constructs a control-rate IFFT.
+        r"""
+        Constructs a control-rate IFFT.
 
         ::
 
@@ -104,7 +107,7 @@ class IFFT(WidthFirstUGen):
             IFFT.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class IFFT(WidthFirstUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of IFFT.
+        r"""
+        Gets `pv_chain` input of IFFT.
 
         ::
 
@@ -140,13 +144,14 @@ class IFFT(WidthFirstUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def window_size(self):
-        r'''Gets `window_size` input of IFFT.
+        r"""
+        Gets `window_size` input of IFFT.
 
         ::
 
@@ -160,13 +165,14 @@ class IFFT(WidthFirstUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_size')
         return self._inputs[index]
 
     @property
     def window_type(self):
-        r'''Gets `window_type` input of IFFT.
+        r"""
+        Gets `window_type` input of IFFT.
 
         ::
 
@@ -180,6 +186,6 @@ class IFFT(WidthFirstUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('window_type')
         return self._inputs[index]

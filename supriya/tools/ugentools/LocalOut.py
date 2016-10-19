@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LocalOut(UGen):
-    r'''A SynthDef-local bus output.
+    r"""
+    A SynthDef-local bus output.
 
     ::
 
@@ -14,7 +15,7 @@ class LocalOut(UGen):
         ...     )
         LocalOut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate SynthDef-local bus output.
+        r"""
+        Constructs an audio-rate SynthDef-local bus output.
 
         ::
 
@@ -68,7 +70,7 @@ class LocalOut(UGen):
             LocalOut.ar()
         
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate SynthDef-local bus output.
+        r"""
+        Constructs a control-rate SynthDef-local bus output.
 
         ::
 
@@ -96,7 +99,7 @@ class LocalOut(UGen):
             LocalOut.kr()
         
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class LocalOut(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of local_out.
+        r"""
+        Gets `source` input of local_out.
 
         ::
 
@@ -126,6 +130,6 @@ class LocalOut(UGen):
                 ),)
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])

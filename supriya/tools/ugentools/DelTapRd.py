@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DelTapRd(UGen):
-    r'''A delay tap reader unit generator.
+    r"""
+    A delay tap reader unit generator.
 
     ::
 
@@ -33,7 +34,7 @@ class DelTapRd(UGen):
         >>> tapout
         DelTapRd.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -79,7 +80,8 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs an audio-rate delay tap reader.
+        r"""
+        Constructs an audio-rate delay tap reader.
 
         ::
 
@@ -99,7 +101,7 @@ class DelTapRd(UGen):
             DelTapRd.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -119,7 +121,8 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r'''Constructs a control-rate delay tap reader.
+        r"""
+        Constructs a control-rate delay tap reader.
 
         ::
 
@@ -139,7 +142,7 @@ class DelTapRd(UGen):
             DelTapRd.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -155,7 +158,8 @@ class DelTapRd(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DelTapRd.
+        r"""
+        Gets `buffer_id` input of DelTapRd.
 
         ::
 
@@ -173,13 +177,14 @@ class DelTapRd(UGen):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of DelTapRd.
+        r"""
+        Gets `delay_time` input of DelTapRd.
 
         ::
 
@@ -197,13 +202,14 @@ class DelTapRd(UGen):
             0.2
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def interpolation(self):
-        r'''Gets `interpolation` input of DelTapRd.
+        r"""
+        Gets `interpolation` input of DelTapRd.
 
         ::
 
@@ -222,13 +228,14 @@ class DelTapRd(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolation')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of DelTapRd.
+        r"""
+        Gets `phase` input of DelTapRd.
 
         ::
 
@@ -259,6 +266,6 @@ class DelTapRd(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

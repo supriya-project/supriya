@@ -4,7 +4,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Lag2(Filter):
-    r'''An exponential lag generator.
+    r"""
+    An exponential lag generator.
 
     ::
 
@@ -16,7 +17,7 @@ class Lag2(Filter):
         >>> lag_2
         Lag2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Lag2(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Lag2.
+        r"""
+        Constructs an audio-rate Lag2.
 
         ::
 
@@ -71,7 +73,7 @@ class Lag2(Filter):
             Lag2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -89,7 +91,8 @@ class Lag2(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Lag2.
+        r"""
+        Constructs a control-rate Lag2.
 
         ::
 
@@ -102,7 +105,7 @@ class Lag2(Filter):
             Lag2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -126,7 +129,8 @@ class Lag2(Filter):
 
     @property
     def lag_time(self):
-        r'''Gets `lag_time` input of Lag2.
+        r"""
+        Gets `lag_time` input of Lag2.
 
         ::
 
@@ -139,13 +143,14 @@ class Lag2(Filter):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Lag2.
+        r"""
+        Gets `source` input of Lag2.
 
         ::
 
@@ -165,6 +170,6 @@ class Lag2(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

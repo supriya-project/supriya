@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinScramble(PV_ChainUGen):
-    r'''Scrambles bins.
+    r"""
+    Scrambles bins.
 
     ::
 
@@ -19,7 +20,7 @@ class PV_BinScramble(PV_ChainUGen):
         >>> pv_bin_scramble
         PV_BinScramble.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class PV_BinScramble(PV_ChainUGen):
         width=0.2,
         wipe=0,
         ):
-        r'''Constructs a PV_BinScramble.
+        r"""
+        Constructs a PV_BinScramble.
 
         ::
 
@@ -78,7 +80,7 @@ class PV_BinScramble(PV_ChainUGen):
             PV_BinScramble.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             trigger=trigger,
@@ -91,7 +93,8 @@ class PV_BinScramble(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_BinScramble.
+        r"""
+        Gets `pv_chain` input of PV_BinScramble.
 
         ::
 
@@ -130,13 +133,14 @@ class PV_BinScramble(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PV_BinScramble.
+        r"""
+        Gets `trigger` input of PV_BinScramble.
 
         ::
 
@@ -153,13 +157,14 @@ class PV_BinScramble(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of PV_BinScramble.
+        r"""
+        Gets `width` input of PV_BinScramble.
 
         ::
 
@@ -176,13 +181,14 @@ class PV_BinScramble(PV_ChainUGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]
 
     @property
     def wipe(self):
-        r'''Gets `wipe` input of PV_BinScramble.
+        r"""
+        Gets `wipe` input of PV_BinScramble.
 
         ::
 
@@ -199,6 +205,6 @@ class PV_BinScramble(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('wipe')
         return self._inputs[index]

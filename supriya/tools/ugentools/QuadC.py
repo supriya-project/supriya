@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class QuadC(UGen):
-    r'''A cubic-interpolating general quadratic map chaotic generator.
+    r"""
+    A cubic-interpolating general quadratic map chaotic generator.
 
     ::
 
@@ -17,7 +18,7 @@ class QuadC(UGen):
         >>> quad_c
         QuadC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class QuadC(UGen):
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate QuadC.
+        r"""
+        Constructs an audio-rate QuadC.
 
         ::
 
@@ -82,7 +84,7 @@ class QuadC(UGen):
             QuadC.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class QuadC(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of QuadC.
+        r"""
+        Gets `a` input of QuadC.
 
         ::
 
@@ -116,13 +119,14 @@ class QuadC(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of QuadC.
+        r"""
+        Gets `b` input of QuadC.
 
         ::
 
@@ -137,13 +141,14 @@ class QuadC(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def c(self):
-        r'''Gets `c` input of QuadC.
+        r"""
+        Gets `c` input of QuadC.
 
         ::
 
@@ -158,13 +163,14 @@ class QuadC(UGen):
             -0.75
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of QuadC.
+        r"""
+        Gets `frequency` input of QuadC.
 
         ::
 
@@ -179,13 +185,14 @@ class QuadC(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of QuadC.
+        r"""
+        Gets `xi` input of QuadC.
 
         ::
 
@@ -200,6 +207,6 @@ class QuadC(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]

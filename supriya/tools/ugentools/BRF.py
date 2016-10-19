@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class BRF(Filter):
-    r'''A 2nd order Butterworth band-reject filter.
+    r"""
+    A 2nd order Butterworth band-reject filter.
 
     ::
 
@@ -12,7 +13,7 @@ class BRF(Filter):
         >>> b_r_f
         BRF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Constructs an audio-rate band-reject filter.
+        r"""
+        Constructs an audio-rate band-reject filter.
 
         ::
 
@@ -66,7 +68,7 @@ class BRF(Filter):
             BRF.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r'''Constructs a control-rate band-reject filter.
+        r"""
+        Constructs a control-rate band-reject filter.
 
         ::
 
@@ -98,7 +101,7 @@ class BRF(Filter):
             BRF.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -113,7 +116,8 @@ class BRF(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BRF.
+        r"""
+        Gets `frequency` input of BRF.
 
         ::
 
@@ -127,13 +131,14 @@ class BRF(Filter):
             440.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def reciprocal_of_q(self):
-        r'''Gets `reciprocal_of_q` input of BRF.
+        r"""
+        Gets `reciprocal_of_q` input of BRF.
 
         ::
 
@@ -147,13 +152,14 @@ class BRF(Filter):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('reciprocal_of_q')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BRF.
+        r"""
+        Gets `source` input of BRF.
 
         ::
 
@@ -172,6 +178,6 @@ class BRF(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,9 +3,10 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Compander(UGen):
-    r'''A general purpose hard-knee dynamics processor.
+    r"""
+    A general purpose hard-knee dynamics processor.
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class Compander(UGen):
         source=0.,
         threshold=0.5,
         ):
-        r'''Constructs an audio-rate dynamics processor.
+        r"""
+        Constructs an audio-rate dynamics processor.
 
         ::
 
@@ -73,7 +75,7 @@ class Compander(UGen):
             Compander.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class Compander(UGen):
 
     @property
     def clamp_time(self):
-        r'''Gets `clamp_time` input of Compander.
+        r"""
+        Gets `clamp_time` input of Compander.
 
         ::
 
@@ -106,13 +109,14 @@ class Compander(UGen):
             0.01
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('clamp_time')
         return self._inputs[index]
 
     @property
     def control(self):
-        r'''Gets `control` input of Compander.
+        r"""
+        Gets `control` input of Compander.
 
         ::
 
@@ -126,13 +130,14 @@ class Compander(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('control')
         return self._inputs[index]
 
     @property
     def relax_time(self):
-        r'''Gets `relax_time` input of Compander.
+        r"""
+        Gets `relax_time` input of Compander.
 
         ::
 
@@ -146,13 +151,14 @@ class Compander(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('relax_time')
         return self._inputs[index]
 
     @property
     def slope_above(self):
-        r'''Gets `slope_above` input of Compander.
+        r"""
+        Gets `slope_above` input of Compander.
 
         ::
 
@@ -166,13 +172,14 @@ class Compander(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('slope_above')
         return self._inputs[index]
 
     @property
     def slope_below(self):
-        r'''Gets `slope_below` input of Compander.
+        r"""
+        Gets `slope_below` input of Compander.
 
         ::
 
@@ -186,13 +193,14 @@ class Compander(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('slope_below')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Compander.
+        r"""
+        Gets `source` input of Compander.
 
         ::
 
@@ -211,13 +219,14 @@ class Compander(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of Compander.
+        r"""
+        Gets `threshold` input of Compander.
 
         ::
 
@@ -231,6 +240,6 @@ class Compander(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]

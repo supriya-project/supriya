@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class KeyTrack(UGen):
-    r'''A key tracker.
+    r"""
+    A key tracker.
 
     ::
 
@@ -18,7 +19,7 @@ class KeyTrack(UGen):
         >>> key_track
         KeyTrack.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class KeyTrack(UGen):
         chroma_leak=0.5,
         key_decay=2,
         ):
-        r'''Constructs a control-rate KeyTrack.
+        r"""
+        Constructs a control-rate KeyTrack.
 
         ::
 
@@ -74,7 +76,7 @@ class KeyTrack(UGen):
             KeyTrack.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             chroma_leak=chroma_leak,
@@ -86,7 +88,8 @@ class KeyTrack(UGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of KeyTrack.
+        r"""
+        Gets `pv_chain` input of KeyTrack.
 
         ::
 
@@ -130,13 +133,14 @@ class KeyTrack(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def chroma_leak(self):
-        r'''Gets `chroma_leak` input of KeyTrack.
+        r"""
+        Gets `chroma_leak` input of KeyTrack.
 
         ::
 
@@ -151,13 +155,14 @@ class KeyTrack(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chroma_leak')
         return self._inputs[index]
 
     @property
     def key_decay(self):
-        r'''Gets `key_decay` input of KeyTrack.
+        r"""
+        Gets `key_decay` input of KeyTrack.
 
         ::
 
@@ -172,6 +177,6 @@ class KeyTrack(UGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('key_decay')
         return self._inputs[index]

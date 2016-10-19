@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pan2(MultiOutUGen):
-    r'''A two channel equal power panner.
+    r"""
+    A two channel equal power panner.
 
     ::
 
@@ -14,7 +15,7 @@ class Pan2(MultiOutUGen):
         >>> pan_2
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -55,7 +56,8 @@ class Pan2(MultiOutUGen):
         position=0.,
         source=None,
         ):
-        r'''Constructs an audio-rate two channel equal power panner.
+        r"""
+        Constructs an audio-rate two channel equal power panner.
 
         ::
 
@@ -67,7 +69,7 @@ class Pan2(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class Pan2(MultiOutUGen):
 
     @property
     def level(self):
-        r'''Gets `level` input of Pan2.
+        r"""
+        Gets `level` input of Pan2.
 
         ::
 
@@ -97,13 +100,14 @@ class Pan2(MultiOutUGen):
             0.9
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def position(self):
-        r'''Gets `position` input of Pan2.
+        r"""
+        Gets `position` input of Pan2.
 
         ::
 
@@ -118,13 +122,14 @@ class Pan2(MultiOutUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Pan2.
+        r"""
+        Gets `source` input of Pan2.
 
         ::
 
@@ -142,6 +147,6 @@ class Pan2(MultiOutUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

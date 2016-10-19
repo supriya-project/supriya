@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Latch(UGen):
-    r'''Samples and holds.
+    r"""
+    Samples and holds.
 
     ::
 
@@ -16,7 +17,7 @@ class Latch(UGen):
         >>> latch
         Latch.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class Latch(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Latch.
+        r"""
+        Constructs an audio-rate Latch.
 
         ::
 
@@ -68,7 +70,7 @@ class Latch(UGen):
             Latch.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Latch(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate Latch.
+        r"""
+        Constructs a control-rate Latch.
 
         ::
 
@@ -98,7 +101,7 @@ class Latch(UGen):
             Latch.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -112,7 +115,8 @@ class Latch(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Latch.
+        r"""
+        Gets `source` input of Latch.
 
         ::
 
@@ -132,13 +136,14 @@ class Latch(UGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Latch.
+        r"""
+        Gets `trigger` input of Latch.
 
         ::
 
@@ -158,6 +163,6 @@ class Latch(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

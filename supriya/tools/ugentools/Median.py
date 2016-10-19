@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Median(Filter):
-    r'''A median filter.
+    r"""
+    A median filter.
 
     ::
 
@@ -15,7 +16,7 @@ class Median(Filter):
         >>> median
         Median.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Median(Filter):
         length=3,
         source=None,
         ):
-        r'''Constructs an audio-rate Median.
+        r"""
+        Constructs an audio-rate Median.
 
         ::
 
@@ -66,7 +68,7 @@ class Median(Filter):
             Median.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Median(Filter):
         length=3,
         source=None,
         ):
-        r'''Constructs a control-rate Median.
+        r"""
+        Constructs a control-rate Median.
 
         ::
 
@@ -97,7 +100,7 @@ class Median(Filter):
             Median.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class Median(Filter):
 
     @property
     def length(self):
-        r'''Gets `length` input of Median.
+        r"""
+        Gets `length` input of Median.
 
         ::
 
@@ -134,13 +138,14 @@ class Median(Filter):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Median.
+        r"""
+        Gets `source` input of Median.
 
         ::
 
@@ -160,6 +165,6 @@ class Median(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -4,7 +4,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BeatTrack(MultiOutUGen):
-    r'''Autocorrelation beat tracker.
+    r"""
+    Autocorrelation beat tracker.
 
     ::
 
@@ -17,7 +18,7 @@ class BeatTrack(MultiOutUGen):
         >>> beat_track
         UGenArray({4})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class BeatTrack(MultiOutUGen):
         pv_chain=None,
         lock=0,
         ):
-        r'''Constructs a control-rate BeatTrack.
+        r"""
+        Constructs a control-rate BeatTrack.
 
         ::
 
@@ -71,7 +73,7 @@ class BeatTrack(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             lock=lock,
@@ -84,7 +86,8 @@ class BeatTrack(MultiOutUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of BeatTrack.
+        r"""
+        Gets `pv_chain` input of BeatTrack.
 
         ::
 
@@ -127,13 +130,14 @@ class BeatTrack(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def lock(self):
-        r'''Gets `lock` input of BeatTrack.
+        r"""
+        Gets `lock` input of BeatTrack.
 
         ::
 
@@ -147,6 +151,6 @@ class BeatTrack(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lock')
         return self._inputs[index]

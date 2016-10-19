@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreeSelfWhenDone(UGen):
-    r'''Frees the enclosing synth when `source` sets its `done` flag.
+    r"""
+    Frees the enclosing synth when `source` sets its `done` flag.
 
     ::
 
@@ -14,7 +15,7 @@ class FreeSelfWhenDone(UGen):
         >>> free_self_when_done
         FreeSelfWhenDone.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class FreeSelfWhenDone(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -60,7 +62,7 @@ class FreeSelfWhenDone(UGen):
             FreeSelfWhenDone.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class FreeSelfWhenDone(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of FreeSelfWhenDone.
+        r"""
+        Gets `source` input of FreeSelfWhenDone.
 
         ::
 
@@ -94,6 +97,6 @@ class FreeSelfWhenDone(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

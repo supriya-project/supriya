@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MulAdd(UGen):
-    r'''An Optimized multiplication / addition ugen.
+    r"""
+    An Optimized multiplication / addition ugen.
 
     ::
 
@@ -16,7 +17,7 @@ class MulAdd(UGen):
         >>> mul_add
         MulAdd.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -116,7 +117,8 @@ class MulAdd(UGen):
         multiplier=1.0,
         addend=0.0,
         ):
-        r'''Constructs a multiplication / addition ugen.
+        r"""
+        Constructs a multiplication / addition ugen.
 
         ::
 
@@ -132,7 +134,7 @@ class MulAdd(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         # TODO: handle case of array as source
         calculation_rate = synthdeftools.CalculationRate.from_input((source, multiplier, addend))
@@ -148,7 +150,8 @@ class MulAdd(UGen):
 
     @property
     def addend(self):
-        r'''Gets `addend` input of MulAdd.
+        r"""
+        Gets `addend` input of MulAdd.
 
         ::
 
@@ -164,13 +167,14 @@ class MulAdd(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('addend')
         return self._inputs[index]
 
     @property
     def multiplier(self):
-        r'''Gets `multiplier` input of MulAdd.
+        r"""
+        Gets `multiplier` input of MulAdd.
 
         ::
 
@@ -186,13 +190,14 @@ class MulAdd(UGen):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('multiplier')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of MulAdd.
+        r"""
+        Gets `source` input of MulAdd.
 
         ::
 
@@ -215,6 +220,6 @@ class MulAdd(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

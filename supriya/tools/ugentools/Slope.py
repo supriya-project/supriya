@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Slope(Filter):
-    r'''Calculates slope of signal.
+    r"""
+    Calculates slope of signal.
 
     ::
 
@@ -14,7 +15,7 @@ class Slope(Filter):
         >>> slope
         Slope.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class Slope(Filter):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate Slope.
+        r"""
+        Constructs an audio-rate Slope.
 
         ::
 
@@ -60,7 +62,7 @@ class Slope(Filter):
             Slope.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class Slope(Filter):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate Slope.
+        r"""
+        Constructs a control-rate Slope.
 
         ::
 
@@ -88,7 +91,7 @@ class Slope(Filter):
             Slope.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +114,8 @@ class Slope(Filter):
 
     @property
     def source(self):
-        r'''Gets `source` input of Slope.
+        r"""
+        Gets `source` input of Slope.
 
         ::
 
@@ -130,6 +134,6 @@ class Slope(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

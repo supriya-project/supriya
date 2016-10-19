@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Diffuser(PV_ChainUGen):
-    r'''Shifts phases randomly.
+    r"""
+    Shifts phases randomly.
 
     ::
 
@@ -17,7 +18,7 @@ class PV_Diffuser(PV_ChainUGen):
         >>> pv_diffuser
         PV_Diffuser.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class PV_Diffuser(PV_ChainUGen):
         pv_chain=None,
         trigger=0,
         ):
-        r'''Constructs a PV_Diffuser.
+        r"""
+        Constructs a PV_Diffuser.
 
         ::
 
@@ -66,7 +68,7 @@ class PV_Diffuser(PV_ChainUGen):
             PV_Diffuser.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             trigger=trigger,
@@ -77,7 +79,8 @@ class PV_Diffuser(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_Diffuser.
+        r"""
+        Gets `pv_chain` input of PV_Diffuser.
 
         ::
 
@@ -114,13 +117,14 @@ class PV_Diffuser(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PV_Diffuser.
+        r"""
+        Gets `trigger` input of PV_Diffuser.
 
         ::
 
@@ -135,6 +139,6 @@ class PV_Diffuser(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

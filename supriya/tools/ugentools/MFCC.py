@@ -4,7 +4,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class MFCC(MultiOutUGen):
-    r'''Mel frequency cepstral coefficients.
+    r"""
+    Mel frequency cepstral coefficients.
 
     ::
 
@@ -17,7 +18,7 @@ class MFCC(MultiOutUGen):
         >>> mfcc
         UGenArray({13})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -55,7 +56,8 @@ class MFCC(MultiOutUGen):
         pv_chain=None,
         channel_count=13,
         ):
-        r'''Constructs a control-rate MFCC.
+        r"""
+        Constructs a control-rate MFCC.
 
         ::
 
@@ -69,7 +71,7 @@ class MFCC(MultiOutUGen):
             UGenArray({13})
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             channel_count=channel_count,
@@ -80,7 +82,8 @@ class MFCC(MultiOutUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of MFCC.
+        r"""
+        Gets `pv_chain` input of MFCC.
 
         ::
 
@@ -123,6 +126,6 @@ class MFCC(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

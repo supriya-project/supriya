@@ -3,8 +3,9 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class CompanderD(PseudoUGen):
-    r'''A convenience constructor for Compander.
-    '''
+    r"""
+    A convenience constructor for Compander.
+    """
 
     ### CLASS VARIABLES ###
 
@@ -24,7 +25,8 @@ class CompanderD(PseudoUGen):
         slope_above=1.,
         slope_below=1.,
         ):
-        r'''Constructs an audio-rate dynamics processor.
+        r"""
+        Constructs an audio-rate dynamics processor.
 
         ::
 
@@ -48,7 +50,7 @@ class CompanderD(PseudoUGen):
             }
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         calculation_rate = synthdeftools.CalculationRate.AUDIO

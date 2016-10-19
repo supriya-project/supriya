@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BLowShelf(BEQSuite):
-    r'''A low-shelf filter.
+    r"""
+    A low-shelf filter.
 
     ::
 
@@ -17,7 +18,7 @@ class BLowShelf(BEQSuite):
         >>> blow_shelf
         BLowShelf.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +64,8 @@ class BLowShelf(BEQSuite):
         reciprocal_of_s=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BLowShelf.
+        r"""
+        Constructs an audio-rate BLowShelf.
 
         ::
 
@@ -78,7 +80,7 @@ class BLowShelf(BEQSuite):
             BLowShelf.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -108,7 +110,8 @@ class BLowShelf(BEQSuite):
 
     @property
     def gain(self):
-        r'''Gets `gain` input of BLowShelf.
+        r"""
+        Gets `gain` input of BLowShelf.
 
         ::
 
@@ -123,13 +126,14 @@ class BLowShelf(BEQSuite):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BLowShelf.
+        r"""
+        Gets `frequency` input of BLowShelf.
 
         ::
 
@@ -144,13 +148,14 @@ class BLowShelf(BEQSuite):
             1200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def reciprocal_of_s(self):
-        r'''Gets `reciprocal_of_s` input of BLowShelf.
+        r"""
+        Gets `reciprocal_of_s` input of BLowShelf.
 
         ::
 
@@ -165,13 +170,14 @@ class BLowShelf(BEQSuite):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reciprocal_of_s')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BLowShelf.
+        r"""
+        Gets `source` input of BLowShelf.
 
         ::
 
@@ -193,6 +199,6 @@ class BLowShelf(BEQSuite):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Trig1(UGen):
-    r'''A timed trigger.
+    r"""
+    A timed trigger.
 
     ::
 
@@ -15,7 +16,7 @@ class Trig1(UGen):
         >>> trig_1
         Trig1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Trig1.
+        r"""
+        Constructs an audio-rate Trig1.
 
         ::
 
@@ -66,7 +68,7 @@ class Trig1(UGen):
             Trig1.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Trig1.
+        r"""
+        Constructs a control-rate Trig1.
 
         ::
 
@@ -95,7 +98,7 @@ class Trig1(UGen):
             Trig1.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class Trig1(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of Trig1.
+        r"""
+        Gets `duration` input of Trig1.
 
         ::
 
@@ -122,13 +126,14 @@ class Trig1(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Trig1.
+        r"""
+        Gets `source` input of Trig1.
 
         ::
 
@@ -147,6 +152,6 @@ class Trig1(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

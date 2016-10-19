@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Pause(UGen):
-    r'''Pauses the node at `node_id` when triggered by `trigger`.
+    r"""
+    Pauses the node at `node_id` when triggered by `trigger`.
 
     ::
 
@@ -16,7 +17,7 @@ class Pause(UGen):
         >>> pause
         Pause.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Pause(UGen):
         trigger=None,
         node_id=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -66,7 +68,7 @@ class Pause(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -80,7 +82,8 @@ class Pause(UGen):
 
     @property
     def node_id(self):
-        r'''Gets `node_id` input of Pause.
+        r"""
+        Gets `node_id` input of Pause.
 
         ::
 
@@ -94,13 +97,14 @@ class Pause(UGen):
             1000.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('node_id')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Pause.
+        r"""
+        Gets `trigger` input of Pause.
 
         ::
 
@@ -121,6 +125,6 @@ class Pause(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

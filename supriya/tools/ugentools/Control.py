@@ -3,12 +3,13 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):
-    r'''A control-rate control ugen.
+    r"""
+    A control-rate control ugen.
 
     Control ugens can be set and routed externally to interact with a running
     synth. Controls are created from the parameters of a synthesizer
     definition, and typically do not need to be created by hand.
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -45,10 +46,11 @@ class Control(MultiOutUGen):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        r'''Gets output proxy at `i`, via index or control name.
+        r"""
+        Gets output proxy at `i`, via index or control name.
 
         Returns output proxy.
-        '''
+        """
         from supriya import synthdeftools
         if type(i) == int:
             if len(self) == 1:
@@ -58,12 +60,13 @@ class Control(MultiOutUGen):
             return self[self._get_control_index(i)]
 
     def __len__(self):
-        r'''Gets number of ugen outputs.
+        r"""
+        Gets number of ugen outputs.
 
         Equal to the number of control names.
 
         Returns integer.
-        '''
+        """
         return sum(len(_) for _ in self.parameters)
 
     ### PRIVATE METHODS ###
@@ -87,10 +90,11 @@ class Control(MultiOutUGen):
 
     @property
     def controls(self):
-        r'''Gets controls of control ugen.
+        r"""
+        Gets controls of control ugen.
 
         Returns ugen graph.
-        '''
+        """
         from supriya import synthdeftools
         if len(self.parameters) == 1:
             result = self
@@ -103,18 +107,20 @@ class Control(MultiOutUGen):
 
     @property
     def parameters(self):
-        r'''Gets control names associated with control.
+        r"""
+        Gets control names associated with control.
 
         Returns tuple.
-        '''
+        """
         return self._parameters
 
     @property
     def starting_control_index(self):
-        r'''Gets starting control index of control ugen.
+        r"""
+        Gets starting control index of control ugen.
 
         Equivalent to the control ugen's special index.
 
         Returns integer.
-        '''
+        """
         return self._special_index

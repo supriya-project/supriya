@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumInputBuses(InfoUGenBase):
-    r'''A number of input buses info unit generator.
+    r"""
+    A number of input buses info unit generator.
 
     ::
 
         >>> ugentools.NumInputBuses.ir()
         NumInputBuses.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

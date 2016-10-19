@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Peak(UGen):
-    r'''Tracks peak signal amplitude.
+    r"""
+    Tracks peak signal amplitude.
 
     ::
 
@@ -16,7 +17,7 @@ class Peak(UGen):
         >>> peak
         Peak.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +55,8 @@ class Peak(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Peak.
+        r"""
+        Constructs an audio-rate Peak.
 
         ::
 
@@ -68,7 +70,7 @@ class Peak(UGen):
             Peak.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +86,8 @@ class Peak(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate Peak.
+        r"""
+        Constructs a control-rate Peak.
 
         ::
 
@@ -98,7 +101,7 @@ class Peak(UGen):
             Peak.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -112,7 +115,8 @@ class Peak(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Peak.
+        r"""
+        Gets `source` input of Peak.
 
         ::
 
@@ -133,13 +137,14 @@ class Peak(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Peak.
+        r"""
+        Gets `trigger` input of Peak.
 
         ::
 
@@ -160,6 +165,6 @@ class Peak(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

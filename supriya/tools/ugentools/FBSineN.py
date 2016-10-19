@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FBSineN(UGen):
-    r'''A non-interpolating feedback sine with chaotic phase indexing.
+    r"""
+    A non-interpolating feedback sine with chaotic phase indexing.
 
     ::
 
@@ -19,7 +20,7 @@ class FBSineN(UGen):
         >>> fbsine_n
         FBSineN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -77,7 +78,8 @@ class FBSineN(UGen):
         xi=0.1,
         yi=0.1,
         ):
-        r'''Constructs an audio-rate FBSineN.
+        r"""
+        Constructs an audio-rate FBSineN.
 
         ::
 
@@ -94,7 +96,7 @@ class FBSineN(UGen):
             FBSineN.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -115,7 +117,8 @@ class FBSineN(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of FBSineN.
+        r"""
+        Gets `a` input of FBSineN.
 
         ::
 
@@ -132,13 +135,14 @@ class FBSineN(UGen):
             1.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def c(self):
-        r'''Gets `c` input of FBSineN.
+        r"""
+        Gets `c` input of FBSineN.
 
         ::
 
@@ -155,13 +159,14 @@ class FBSineN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def fb(self):
-        r'''Gets `fb` input of FBSineN.
+        r"""
+        Gets `fb` input of FBSineN.
 
         ::
 
@@ -178,13 +183,14 @@ class FBSineN(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('fb')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of FBSineN.
+        r"""
+        Gets `frequency` input of FBSineN.
 
         ::
 
@@ -201,13 +207,14 @@ class FBSineN(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def im(self):
-        r'''Gets `im` input of FBSineN.
+        r"""
+        Gets `im` input of FBSineN.
 
         ::
 
@@ -224,13 +231,14 @@ class FBSineN(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('im')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of FBSineN.
+        r"""
+        Gets `xi` input of FBSineN.
 
         ::
 
@@ -247,13 +255,14 @@ class FBSineN(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]
 
     @property
     def yi(self):
-        r'''Gets `yi` input of FBSineN.
+        r"""
+        Gets `yi` input of FBSineN.
 
         ::
 
@@ -270,6 +279,6 @@ class FBSineN(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('yi')
         return self._inputs[index]

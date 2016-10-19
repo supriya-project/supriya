@@ -4,7 +4,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Lag3UD(Filter):
-    r'''An up/down exponential lag generator.
+    r"""
+    An up/down exponential lag generator.
 
     ::
 
@@ -17,7 +18,7 @@ class Lag3UD(Filter):
         >>> lag_3_ud
         Lag3UD.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class Lag3UD(Filter):
         lag_time_u=0.1,
         source=None,
         ):
-        r'''Constructs an audio-rate Lag3UD.
+        r"""
+        Constructs an audio-rate Lag3UD.
 
         ::
 
@@ -76,7 +78,7 @@ class Lag3UD(Filter):
             Lag3UD.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +98,8 @@ class Lag3UD(Filter):
         lag_time_u=0.1,
         source=None,
         ):
-        r'''Constructs a control-rate Lag3UD.
+        r"""
+        Constructs a control-rate Lag3UD.
 
         ::
 
@@ -110,7 +113,7 @@ class Lag3UD(Filter):
             Lag3UD.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -135,7 +138,8 @@ class Lag3UD(Filter):
 
     @property
     def lag_time_d(self):
-        r'''Gets `lag_time_d` input of Lag3UD.
+        r"""
+        Gets `lag_time_d` input of Lag3UD.
 
         ::
 
@@ -149,13 +153,14 @@ class Lag3UD(Filter):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time_d')
         return self._inputs[index]
 
     @property
     def lag_time_u(self):
-        r'''Gets `lag_time_u` input of Lag3UD.
+        r"""
+        Gets `lag_time_u` input of Lag3UD.
 
         ::
 
@@ -169,13 +174,14 @@ class Lag3UD(Filter):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag_time_u')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Lag3UD.
+        r"""
+        Gets `source` input of Lag3UD.
 
         ::
 
@@ -196,6 +202,6 @@ class Lag3UD(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

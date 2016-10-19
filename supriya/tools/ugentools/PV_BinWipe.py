@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinWipe(PV_ChainUGen):
-    r'''Copies low bins from one input and the high bins of the other.
+    r"""
+    Copies low bins from one input and the high bins of the other.
 
     ::
 
@@ -21,7 +22,7 @@ class PV_BinWipe(PV_ChainUGen):
         >>> pv_bin_wipe
         PV_BinWipe.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -59,7 +60,8 @@ class PV_BinWipe(PV_ChainUGen):
         pv_chain_b=None,
         wipe=0,
         ):
-        r'''Constructs a PV_BinWipe.
+        r"""
+        Constructs a PV_BinWipe.
 
         ::
 
@@ -78,7 +80,7 @@ class PV_BinWipe(PV_ChainUGen):
             PV_BinWipe.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -90,7 +92,8 @@ class PV_BinWipe(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_BinWipe.
+        r"""
+        Gets `pv_chain_a` input of PV_BinWipe.
 
         ::
 
@@ -132,13 +135,14 @@ class PV_BinWipe(PV_ChainUGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_BinWipe.
+        r"""
+        Gets `pv_chain_b` input of PV_BinWipe.
 
         ::
 
@@ -182,13 +186,14 @@ class PV_BinWipe(PV_ChainUGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]
 
     @property
     def wipe(self):
-        r'''Gets `wipe` input of PV_BinWipe.
+        r"""
+        Gets `wipe` input of PV_BinWipe.
 
         ::
 
@@ -207,6 +212,6 @@ class PV_BinWipe(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('wipe')
         return self._inputs[index]

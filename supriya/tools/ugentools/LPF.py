@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPF(Filter):
-    r'''A lowpass filter unit generator.
+    r"""
+    A lowpass filter unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class LPF(Filter):
         >>> ugentools.LPF.ar(source=source)
         LPF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs an audio-rate lowpass filter.
+        r"""
+        Constructs an audio-rate lowpass filter.
 
         ::
 
@@ -59,7 +61,7 @@ class LPF(Filter):
             LPF.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -75,7 +77,8 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs a control-rate lowpass filter.
+        r"""
+        Constructs a control-rate lowpass filter.
 
         ::
 
@@ -87,7 +90,7 @@ class LPF(Filter):
             LPF.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -101,7 +104,8 @@ class LPF(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LPF.
+        r"""
+        Gets `frequency` input of LPF.
 
         ::
 
@@ -115,13 +119,14 @@ class LPF(Filter):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LPF.
+        r"""
+        Gets `source` input of LPF.
 
         ::
 
@@ -140,6 +145,6 @@ class LPF(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

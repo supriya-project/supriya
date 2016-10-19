@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFPulse(PureUGen):
-    r'''A non-band-limited pulse oscillator.
+    r"""
+    A non-band-limited pulse oscillator.
 
     ::
 
         >>> ugentools.LFPulse.ar()
         LFPulse.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class LFPulse(PureUGen):
         initial_phase=0,
         width=0.5,
         ):
-        r'''Constructs an audio-rate non-band-limited pulse oscillator.
+        r"""
+        Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
 
@@ -64,7 +66,7 @@ class LFPulse(PureUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class LFPulse(PureUGen):
         initial_phase=0,
         width=0.5,
         ):
-        r'''Constructs an audio-rate non-band-limited pulse oscillator.
+        r"""
+        Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
 
@@ -94,7 +97,7 @@ class LFPulse(PureUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class LFPulse(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFPulse.
+        r"""
+        Gets `frequency` input of LFPulse.
 
         ::
 
@@ -122,13 +126,14 @@ class LFPulse(PureUGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFPulse.
+        r"""
+        Gets `initial_phase` input of LFPulse.
 
         ::
 
@@ -141,13 +146,14 @@ class LFPulse(PureUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of LFPulse.
+        r"""
+        Gets `width` input of LFPulse.
 
         ::
 
@@ -160,6 +166,6 @@ class LFPulse(PureUGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]

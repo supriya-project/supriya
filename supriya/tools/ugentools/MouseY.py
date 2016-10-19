@@ -5,7 +5,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MouseY(UGen):
-    r'''A mouse cursor tracker.
+    r"""
+    A mouse cursor tracker.
 
     MouseY tracks the y-axis of the mouse cursor position.
 
@@ -14,7 +15,7 @@ class MouseY(UGen):
         >>> ugentools.MouseY.kr()
         MouseY.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -65,7 +66,8 @@ class MouseY(UGen):
         minimum=0,
         warp=0,
         ):
-        r'''Constructs a control-rate mouse cursor tracking unit generator.
+        r"""
+        Constructs a control-rate mouse cursor tracking unit generator.
 
         ::
 
@@ -78,7 +80,7 @@ class MouseY(UGen):
             MouseY.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -94,7 +96,8 @@ class MouseY(UGen):
 
     @property
     def lag(self):
-        r'''Gets `lag` input of MouseY.
+        r"""
+        Gets `lag` input of MouseY.
 
         ::
 
@@ -108,13 +111,14 @@ class MouseY(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag')
         return self._inputs[index]
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of MouseY.
+        r"""
+        Gets `maximum` input of MouseY.
 
         ::
 
@@ -128,13 +132,14 @@ class MouseY(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of MouseY.
+        r"""
+        Gets `minimum` input of MouseY.
 
         ::
 
@@ -148,13 +153,14 @@ class MouseY(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def warp(self):
-        r'''Gets `warp` input of MouseY.
+        r"""
+        Gets `warp` input of MouseY.
 
         ::
 
@@ -168,6 +174,6 @@ class MouseY(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('warp')
         return self._inputs[index]

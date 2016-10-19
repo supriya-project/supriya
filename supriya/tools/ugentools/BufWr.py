@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BufWr(UGen):
-    r'''A buffer-writing oscillator.
+    r"""
+    A buffer-writing oscillator.
 
     ::
 
@@ -23,7 +24,7 @@ class BufWr(UGen):
         >>> buf_wr
         BufWr.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -73,7 +74,8 @@ class BufWr(UGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs an audio-rate BufWr.
+        r"""
+        Constructs an audio-rate BufWr.
 
         ::
 
@@ -94,7 +96,7 @@ class BufWr(UGen):
             BufWr.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -114,7 +116,8 @@ class BufWr(UGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs a control-rate BufWr.
+        r"""
+        Constructs a control-rate BufWr.
 
         ::
 
@@ -135,7 +138,7 @@ class BufWr(UGen):
             BufWr.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -151,7 +154,8 @@ class BufWr(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufWr.
+        r"""
+        Gets `buffer_id` input of BufWr.
 
         ::
 
@@ -172,21 +176,23 @@ class BufWr(UGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def loop(self):
-        r'''Gets `loop` input of BufWr.
+        r"""
+        Gets `loop` input of BufWr.
 
         ::
 
@@ -207,13 +213,14 @@ class BufWr(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of BufWr.
+        r"""
+        Gets `phase` input of BufWr.
 
         ::
 
@@ -256,13 +263,14 @@ class BufWr(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BufWr.
+        r"""
+        Gets `source` input of BufWr.
 
         ::
 
@@ -295,6 +303,6 @@ class BufWr(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

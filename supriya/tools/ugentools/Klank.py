@@ -6,7 +6,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Klank(UGen):
-    r'''A bank of resonators.
+    r"""
+    A bank of resonators.
 
     ::
 
@@ -25,7 +26,7 @@ class Klank(UGen):
         >>> klank
         Klank.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -95,7 +96,8 @@ class Klank(UGen):
         source=None,
         specifications=None,
         ):
-        r'''Constructs an audio-rate Klank.
+        r"""
+        Constructs an audio-rate Klank.
 
         ::
 
@@ -110,7 +112,7 @@ class Klank(UGen):
             Klank.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -129,7 +131,8 @@ class Klank(UGen):
 
     @property
     def decay_scale(self):
-        r'''Gets `decay_scale` source of Klank.
+        r"""
+        Gets `decay_scale` source of Klank.
 
         ::
 
@@ -149,13 +152,14 @@ class Klank(UGen):
             1.0
 
         Returns ugen source.
-        '''
+        """
         index = self._ordered_input_names.index('decay_scale')
         return self._inputs[index]
 
     @property
     def frequency_offset(self):
-        r'''Gets `frequency_offset` source of Klank.
+        r"""
+        Gets `frequency_offset` source of Klank.
 
         ::
 
@@ -175,13 +179,14 @@ class Klank(UGen):
             0.0
 
         Returns ugen source.
-        '''
+        """
         index = self._ordered_input_names.index('frequency_offset')
         return self._inputs[index]
 
     @property
     def frequency_scale(self):
-        r'''Gets `frequency_scale` source of Klank.
+        r"""
+        Gets `frequency_scale` source of Klank.
 
         ::
 
@@ -201,13 +206,14 @@ class Klank(UGen):
             1.0
 
         Returns ugen source.
-        '''
+        """
         index = self._ordered_input_names.index('frequency_scale')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` source of Klank.
+        r"""
+        Gets `source` source of Klank.
 
         ::
 
@@ -240,13 +246,14 @@ class Klank(UGen):
                 )
 
         Returns ugen source.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def specifications(self):
-        r'''Gets `specifications` source of Klank.
+        r"""
+        Gets `specifications` source of Klank.
 
         ::
 
@@ -266,6 +273,6 @@ class Klank(UGen):
             (200.0, 1.0, 1.0, 671.0, 1.0, 1.0, 1153.0, 1.0, 1.0, 1723.0, 1.0, 1.0)
 
         Returns ugen source.
-        '''
+        """
         index = self._ordered_input_names.index('specifications')
         return tuple(self._inputs[index:])

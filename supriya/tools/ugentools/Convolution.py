@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Convolution(UGen):
-    r'''A real-time convolver.
+    r"""
+    A real-time convolver.
 
     ::
 
@@ -20,7 +21,7 @@ class Convolution(UGen):
         >>> convolution
         Convolution.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class Convolution(UGen):
         kernel=None,
         source=None,
         ):
-        r'''Constructs an audio-rate Convolution.
+        r"""
+        Constructs an audio-rate Convolution.
 
         ::
 
@@ -80,7 +82,7 @@ class Convolution(UGen):
             Convolution.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -95,7 +97,8 @@ class Convolution(UGen):
 
     @property
     def framesize(self):
-        r'''Gets `framesize` input of Convolution.
+        r"""
+        Gets `framesize` input of Convolution.
 
         ::
 
@@ -113,13 +116,14 @@ class Convolution(UGen):
             512
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('framesize')
         return int(self._inputs[index])
 
     @property
     def kernel(self):
-        r'''Gets `kernel` input of Convolution.
+        r"""
+        Gets `kernel` input of Convolution.
 
         ::
 
@@ -241,13 +245,14 @@ class Convolution(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('kernel')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Convolution.
+        r"""
+        Gets `source` input of Convolution.
 
         ::
 
@@ -272,6 +277,6 @@ class Convolution(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

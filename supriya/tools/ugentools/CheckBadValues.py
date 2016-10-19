@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CheckBadValues(UGen):
-    r'''Tests for infinity, not-a-number, and denormals.
+    r"""
+    Tests for infinity, not-a-number, and denormals.
 
     ::
 
@@ -18,7 +19,7 @@ class CheckBadValues(UGen):
         >>> check_bad_values
         CheckBadValues.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
-        r'''Constructs an audio-rate CheckBadValues.
+        r"""
+        Constructs an audio-rate CheckBadValues.
 
         ::
 
@@ -77,7 +79,7 @@ class CheckBadValues(UGen):
             CheckBadValues.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -95,7 +97,8 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
-        r'''Constructs a control-rate CheckBadValues.
+        r"""
+        Constructs a control-rate CheckBadValues.
 
         ::
 
@@ -111,7 +114,7 @@ class CheckBadValues(UGen):
             CheckBadValues.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -126,7 +129,8 @@ class CheckBadValues(UGen):
 
     @property
     def post_mode(self):
-        r'''Gets `post_mode` input of CheckBadValues.
+        r"""
+        Gets `post_mode` input of CheckBadValues.
 
         ::
 
@@ -142,13 +146,14 @@ class CheckBadValues(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('post_mode')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of CheckBadValues.
+        r"""
+        Gets `source` input of CheckBadValues.
 
         ::
 
@@ -171,13 +176,14 @@ class CheckBadValues(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def ugen_id(self):
-        r'''Gets `ugen_id` of CheckBadValues.
+        r"""
+        Gets `ugen_id` of CheckBadValues.
 
         ::
 
@@ -193,6 +199,6 @@ class CheckBadValues(UGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('ugen_id')
         return self._inputs[index]

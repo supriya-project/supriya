@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreeSelf(UGen):
-    r'''Frees the enclosing synth when triggered by `trigger`.
+    r"""
+    Frees the enclosing synth when triggered by `trigger`.
 
     ::
 
@@ -14,7 +15,7 @@ class FreeSelf(UGen):
         >>> free_self
         FreeSelf.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class FreeSelf(UGen):
         cls,
         trigger=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -58,7 +60,7 @@ class FreeSelf(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -71,7 +73,8 @@ class FreeSelf(UGen):
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of FreeSelf.
+        r"""
+        Gets `trigger` input of FreeSelf.
 
         ::
 
@@ -90,6 +93,6 @@ class FreeSelf(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

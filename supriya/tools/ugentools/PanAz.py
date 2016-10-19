@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanAz(MultiOutUGen):
-    r'''A multi-channel equal-power panner.
+    r"""
+    A multi-channel equal-power panner.
 
     ::
 
@@ -19,7 +20,7 @@ class PanAz(MultiOutUGen):
         >>> pan_az
         UGenArray({8})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -73,7 +74,8 @@ class PanAz(MultiOutUGen):
         source=None,
         width=2,
         ):
-        r'''Constructs an audio-rate PanAz.
+        r"""
+        Constructs an audio-rate PanAz.
 
         ::
 
@@ -90,7 +92,7 @@ class PanAz(MultiOutUGen):
             UGenArray({8})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -114,7 +116,8 @@ class PanAz(MultiOutUGen):
         source=None,
         width=2,
         ):
-        r'''Constructs a control-rate PanAz.
+        r"""
+        Constructs a control-rate PanAz.
 
         ::
 
@@ -131,7 +134,7 @@ class PanAz(MultiOutUGen):
             UGenArray({8})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -149,7 +152,8 @@ class PanAz(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of PanAz.
+        r"""
+        Gets `channel_count` input of PanAz.
 
         ::
 
@@ -166,13 +170,14 @@ class PanAz(MultiOutUGen):
             8
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return int(self._inputs[index])
 
     @property
     def gain(self):
-        r'''Gets `gain` input of PanAz.
+        r"""
+        Gets `gain` input of PanAz.
 
         ::
 
@@ -189,13 +194,14 @@ class PanAz(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def orientation(self):
-        r'''Gets `orientation` input of PanAz.
+        r"""
+        Gets `orientation` input of PanAz.
 
         ::
 
@@ -212,13 +218,14 @@ class PanAz(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('orientation')
         return self._inputs[index]
 
     @property
     def position(self):
-        r'''Gets `position` input of PanAz.
+        r"""
+        Gets `position` input of PanAz.
 
         ::
 
@@ -235,13 +242,14 @@ class PanAz(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of PanAz.
+        r"""
+        Gets `source` input of PanAz.
 
         ::
 
@@ -265,13 +273,14 @@ class PanAz(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of PanAz.
+        r"""
+        Gets `width` input of PanAz.
 
         ::
 
@@ -288,6 +297,6 @@ class PanAz(MultiOutUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]
