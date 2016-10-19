@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DelayN(PureUGen):
-    r'''A non-interpolating delay line unit generator.
+    r"""
+    A non-interpolating delay line unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class DelayN(PureUGen):
         >>> ugentools.DelayN.ar(source=source)
         DelayN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate non-interpolating delay line.
+        r"""
+        Constructs an audio-rate non-interpolating delay line.
 
         ::
 
@@ -64,7 +66,7 @@ class DelayN(PureUGen):
             DelayN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
@@ -83,7 +85,8 @@ class DelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate non-interpolating delay line.
+        r"""
+        Constructs a control-rate non-interpolating delay line.
 
         ::
 
@@ -96,7 +99,7 @@ class DelayN(PureUGen):
             DelayN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -111,7 +114,8 @@ class DelayN(PureUGen):
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of DelayN.
+        r"""
+        Gets `delay_time` input of DelayN.
 
         ::
 
@@ -125,13 +129,14 @@ class DelayN(PureUGen):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of DelayN.
+        r"""
+        Gets `maximum_delay_time` input of DelayN.
 
         ::
 
@@ -145,13 +150,14 @@ class DelayN(PureUGen):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DelayN.
+        r"""
+        Gets `source` input of DelayN.
 
         ::
 
@@ -170,6 +176,6 @@ class DelayN(PureUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

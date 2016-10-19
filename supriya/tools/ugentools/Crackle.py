@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Crackle(UGen):
-    r'''A chaotic noise generator.
+    r"""
+    A chaotic noise generator.
 
     ::
 
@@ -13,7 +14,7 @@ class Crackle(UGen):
         >>> crackle
         Crackle.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class Crackle(UGen):
         cls,
         chaos_parameter=1.5,
         ):
-        r'''Constructs an audio-rate chaotic noise generator.
+        r"""
+        Constructs an audio-rate chaotic noise generator.
 
         ::
 
@@ -58,7 +60,7 @@ class Crackle(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -72,7 +74,8 @@ class Crackle(UGen):
         cls,
         chaos_parameter=1.5,
         ):
-        r'''Constructs a control-rate chaotic noise generator.
+        r"""
+        Constructs a control-rate chaotic noise generator.
 
         ::
 
@@ -83,7 +86,7 @@ class Crackle(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -96,7 +99,8 @@ class Crackle(UGen):
     
     @property
     def chaos_parameter(self):
-        r'''Gets `chaos_parameter` input of Crackle.
+        r"""
+        Gets `chaos_parameter` input of Crackle.
 
         ::
 
@@ -107,6 +111,6 @@ class Crackle(UGen):
             1.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chaos_parameter')
         return self._inputs[index]

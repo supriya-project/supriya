@@ -4,7 +4,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class ClearBuf(WidthFirstUGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class ClearBuf(WidthFirstUGen):
         >>> clear_buf
         ClearBuf.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -50,7 +50,8 @@ class ClearBuf(WidthFirstUGen):
         cls,
         buffer_id=None,
         ):
-        r'''Constructs a ClearBuf.
+        r"""
+        Constructs a ClearBuf.
 
         ::
 
@@ -61,7 +62,7 @@ class ClearBuf(WidthFirstUGen):
             ClearBuf.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -74,7 +75,8 @@ class ClearBuf(WidthFirstUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of ClearBuf.
+        r"""
+        Gets `buffer_id` input of ClearBuf.
 
         ::
 
@@ -85,6 +87,6 @@ class ClearBuf(WidthFirstUGen):
             23
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return int(self._inputs[index])

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Decay(Filter):
-    r'''A leaky signal integrator.
+    r"""
+    A leaky signal integrator.
 
     ::
 
@@ -14,7 +15,7 @@ class Decay(Filter):
         >>> decay
         Decay.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class Decay(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs an audio-rate leaky signal integrator.
+        r"""
+        Constructs an audio-rate leaky signal integrator.
 
         ::
 
@@ -60,7 +62,7 @@ class Decay(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class Decay(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r'''Constructs a control-rate leaky signal integrator.
+        r"""
+        Constructs a control-rate leaky signal integrator.
 
         ::
 
@@ -88,7 +91,7 @@ class Decay(Filter):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -102,7 +105,8 @@ class Decay(Filter):
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of Decay.
+        r"""
+        Gets `decay_time` input of Decay.
 
         ::
 
@@ -116,13 +120,14 @@ class Decay(Filter):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Decay.
+        r"""
+        Gets `source` input of Decay.
 
         ::
 
@@ -143,6 +148,6 @@ class Decay(Filter):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

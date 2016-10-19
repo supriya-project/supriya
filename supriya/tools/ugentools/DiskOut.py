@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DiskOut(UGen):
-    r'''Records to a soundfile to disk.
+    r"""
+    Records to a soundfile to disk.
 
     ::
 
@@ -17,7 +18,7 @@ class DiskOut(UGen):
         >>> disk_out
         DiskOut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class DiskOut(UGen):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate DiskOut.
+        r"""
+        Constructs an audio-rate DiskOut.
 
         ::
 
@@ -75,7 +77,7 @@ class DiskOut(UGen):
             DiskOut.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -89,7 +91,8 @@ class DiskOut(UGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DiskOut.
+        r"""
+        Gets `buffer_id` input of DiskOut.
 
         ::
 
@@ -103,13 +106,14 @@ class DiskOut(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DiskOut.
+        r"""
+        Gets `source` input of DiskOut.
 
         ::
 
@@ -137,6 +141,6 @@ class DiskOut(UGen):
                 ))
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])

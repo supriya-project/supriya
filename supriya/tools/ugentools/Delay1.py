@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Delay1(PureUGen):
-    r'''A one-sample delay line unit generator.
+    r"""
+    A one-sample delay line unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class Delay1(PureUGen):
         >>> ugentools.Delay1.ar(source=source)
         Delay1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -43,7 +44,8 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate one-sample delay line.
+        r"""
+        Constructs an audio-rate one-sample delay line.
 
         ::
 
@@ -54,7 +56,7 @@ class Delay1(PureUGen):
             Delay1.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -68,7 +70,8 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate one-sample delay line.
+        r"""
+        Constructs a control-rate one-sample delay line.
 
         ::
 
@@ -79,7 +82,7 @@ class Delay1(PureUGen):
             Delay1.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +95,8 @@ class Delay1(PureUGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Delay1.
+        r"""
+        Gets `source` input of Delay1.
 
         ::
 
@@ -111,6 +115,6 @@ class Delay1(PureUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

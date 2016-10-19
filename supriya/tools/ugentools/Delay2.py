@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Delay1 import Delay1
 
 
 class Delay2(Delay1):
-    r'''A two-sample delay line unit generator.
+    r"""
+    A two-sample delay line unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class Delay2(Delay1):
         >>> ugentools.Delay2.ar(source=source)
         Delay2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -28,7 +29,8 @@ class Delay2(Delay1):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate two-sample delay line.
+        r"""
+        Constructs an audio-rate two-sample delay line.
 
         ::
 
@@ -39,7 +41,7 @@ class Delay2(Delay1):
             Delay2.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(Delay2, cls).ar(
             source=source,
             )
@@ -49,7 +51,8 @@ class Delay2(Delay1):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate two-sample delay line.
+        r"""
+        Constructs a control-rate two-sample delay line.
 
         ::
 
@@ -60,7 +63,7 @@ class Delay2(Delay1):
             Delay2.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(Delay2, cls).kr(
             source=source,
             )
@@ -69,7 +72,8 @@ class Delay2(Delay1):
 
     @property
     def source(self):
-        r'''Gets `source` input of Delay2.
+        r"""
+        Gets `source` input of Delay2.
 
         ::
 
@@ -88,6 +92,6 @@ class Delay2(Delay1):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

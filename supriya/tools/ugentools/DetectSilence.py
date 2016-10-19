@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class DetectSilence(Filter):
-    r'''Evaluates `done_action` when input falls below `threshold`.
+    r"""
+    Evaluates `done_action` when input falls below `threshold`.
 
     ::
 
@@ -18,7 +19,7 @@ class DetectSilence(Filter):
         >>> detect_silence
         DetectSilence.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -69,7 +70,8 @@ class DetectSilence(Filter):
         source=0,
         time=0.1,
         ):
-        r'''Constructs an audio-rate DetectSilence.
+        r"""
+        Constructs an audio-rate DetectSilence.
 
         ::
 
@@ -85,7 +87,7 @@ class DetectSilence(Filter):
             DetectSilence.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -105,7 +107,8 @@ class DetectSilence(Filter):
         source=0,
         time=0.1,
         ):
-        r'''Constructs a control-rate DetectSilence.
+        r"""
+        Constructs a control-rate DetectSilence.
 
         ::
 
@@ -121,7 +124,7 @@ class DetectSilence(Filter):
             DetectSilence.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -137,7 +140,8 @@ class DetectSilence(Filter):
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of DetectSilence.
+        r"""
+        Gets `done_action` input of DetectSilence.
 
         ::
 
@@ -153,13 +157,14 @@ class DetectSilence(Filter):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DetectSilence.
+        r"""
+        Gets `source` input of DetectSilence.
 
         ::
 
@@ -197,13 +202,14 @@ class DetectSilence(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of DetectSilence.
+        r"""
+        Gets `threshold` input of DetectSilence.
 
         ::
 
@@ -219,13 +225,14 @@ class DetectSilence(Filter):
             0.0001
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]
 
     @property
     def time(self):
-        r'''Gets `time` input of DetectSilence.
+        r"""
+        Gets `time` input of DetectSilence.
 
         ::
 
@@ -241,6 +248,6 @@ class DetectSilence(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('time')
         return self._inputs[index]

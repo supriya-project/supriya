@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CoinGate(UGen):
-    r'''A probabilistic trigger gate.
+    r"""
+    A probabilistic trigger gate.
 
     ::
 
@@ -15,7 +16,7 @@ class CoinGate(UGen):
         >>> coin_gate
         CoinGate.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class CoinGate(UGen):
         probability=None,
         trigger=None,
         ):
-        r'''Constructs an audio-rate probabilitic trigger gate.
+        r"""
+        Constructs an audio-rate probabilitic trigger gate.
 
         ::
 
@@ -66,7 +68,7 @@ class CoinGate(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +84,8 @@ class CoinGate(UGen):
         probability=None,
         trigger=None,
         ):
-        r'''Constructs a control-rate probabilitic trigger gate.
+        r"""
+        Constructs a control-rate probabilitic trigger gate.
 
         ::
 
@@ -95,7 +98,7 @@ class CoinGate(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class CoinGate(UGen):
 
     @property
     def probability(self):
-        r'''Gets `probability` input of Crackle.
+        r"""
+        Gets `probability` input of Crackle.
 
         ::
 
@@ -122,13 +126,14 @@ class CoinGate(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('probability')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Crackle.
+        r"""
+        Gets `trigger` input of Crackle.
 
         ::
 
@@ -148,6 +153,6 @@ class CoinGate(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

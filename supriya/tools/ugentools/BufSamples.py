@@ -3,14 +3,15 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufSamples(BufInfoUGenBase):
-    r'''A buffer sample count info unit generator.
+    r"""
+    A buffer sample count info unit generator.
 
     ::
 
         >>> ugentools.BufSamples.kr(buffer_id=0)
         BufSamples.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class BufSamples(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufSamples.
+        r"""
+        Gets `buffer_id` input of BufSamples.
 
         ::
 
@@ -47,6 +49,6 @@ class BufSamples(BufInfoUGenBase):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
