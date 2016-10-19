@@ -5,7 +5,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Poll(UGen):
-    r'''A UGen poller.
+    r"""
+    A UGen poller.
 
     ::
 
@@ -60,7 +61,7 @@ class Poll(UGen):
             ...     )
             >>> server.register_response_callback(response_callback)
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -175,7 +176,8 @@ class Poll(UGen):
 
     @property
     def label(self):
-        r'''Gets `label` input of Poll.
+        r"""
+        Gets `label` input of Poll.
 
         ::
 
@@ -191,7 +193,7 @@ class Poll(UGen):
             'Foo'
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger_id') + 2
         characters = self._inputs[index:]
         characters = [chr(int(_)) for _ in characters]
@@ -200,7 +202,8 @@ class Poll(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Poll.
+        r"""
+        Gets `source` input of Poll.
 
         ::
 
@@ -223,13 +226,14 @@ class Poll(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Poll.
+        r"""
+        Gets `trigger` input of Poll.
 
         ::
 
@@ -252,13 +256,14 @@ class Poll(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
     def trigger_id(self):
-        r'''Gets `trigger_id` input of Poll.
+        r"""
+        Gets `trigger_id` input of Poll.
 
         ::
 
@@ -274,6 +279,6 @@ class Poll(UGen):
             1234.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger_id')
         return self._inputs[index]

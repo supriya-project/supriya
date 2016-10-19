@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PinkNoise(UGen):
-    r'''A pink noise unit generator.
+    r"""
+    A pink noise unit generator.
 
     ::
 
         >>> ugentools.PinkNoise.ar()
         PinkNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class PinkNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Constructs an audio-rate pink noise unit generator.
+        r"""
+        Constructs an audio-rate pink noise unit generator.
 
         ::
 
@@ -43,7 +45,7 @@ class PinkNoise(UGen):
             PinkNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,7 +57,8 @@ class PinkNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Constructs a control-rate pink noise unit generator.
+        r"""
+        Constructs a control-rate pink noise unit generator.
 
         ::
 
@@ -63,7 +66,7 @@ class PinkNoise(UGen):
             PinkNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

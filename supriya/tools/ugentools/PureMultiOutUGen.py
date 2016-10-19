@@ -3,11 +3,12 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PureMultiOutUGen(MultiOutUGen):
-    r'''Abstract base class for multi-output ugens with no side-effects.
+    r"""
+    Abstract base class for multi-output ugens with no side-effects.
 
     These ugens may be optimized out of ugen graphs during SynthDef
     compilation.
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

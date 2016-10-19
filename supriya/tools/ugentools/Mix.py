@@ -4,7 +4,8 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Mix(PseudoUGen):
-    r'''A down-to-mono signal mixer.
+    r"""
+    A down-to-mono signal mixer.
 
     ::
 
@@ -73,7 +74,7 @@ class Mix(PseudoUGen):
             18_Sum3[0] -> 19_Sum4[3:input_four]
         }
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

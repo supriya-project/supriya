@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_ConformalMap(PV_ChainUGen):
-    r'''Complex plane attack.
+    r"""
+    Complex plane attack.
 
     ::
 
@@ -18,7 +19,7 @@ class PV_ConformalMap(PV_ChainUGen):
         >>> pv_conformal_map
         PV_ConformalMap.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -56,7 +57,8 @@ class PV_ConformalMap(PV_ChainUGen):
         areal=0,
         pv_chain=None,
         ):
-        r'''Constructs a PV_ConformalMap.
+        r"""
+        Constructs a PV_ConformalMap.
 
         ::
 
@@ -72,7 +74,7 @@ class PV_ConformalMap(PV_ChainUGen):
             PV_ConformalMap.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             aimag=aimag,
             areal=areal,
@@ -84,7 +86,8 @@ class PV_ConformalMap(PV_ChainUGen):
 
     @property
     def aimag(self):
-        r'''Gets `aimag` input of PV_ConformalMap.
+        r"""
+        Gets `aimag` input of PV_ConformalMap.
 
         ::
 
@@ -100,13 +103,14 @@ class PV_ConformalMap(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('aimag')
         return self._inputs[index]
 
     @property
     def areal(self):
-        r'''Gets `areal` input of PV_ConformalMap.
+        r"""
+        Gets `areal` input of PV_ConformalMap.
 
         ::
 
@@ -119,13 +123,14 @@ class PV_ConformalMap(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('areal')
         return self._inputs[index]
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_ConformalMap.
+        r"""
+        Gets `pv_chain` input of PV_ConformalMap.
 
         ::
 
@@ -163,6 +168,6 @@ class PV_ConformalMap(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

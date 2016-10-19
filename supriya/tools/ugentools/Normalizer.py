@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Normalizer(UGen):
-    r'''A dynamics flattener.
+    r"""
+    A dynamics flattener.
 
     ::
 
@@ -16,7 +17,7 @@ class Normalizer(UGen):
         >>> normalizer
         Normalizer.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Normalizer(UGen):
         level=1,
         source=None,
         ):
-        r'''Constructs an audio-rate Normalizer.
+        r"""
+        Constructs an audio-rate Normalizer.
 
         ::
 
@@ -72,7 +74,7 @@ class Normalizer(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -87,7 +89,8 @@ class Normalizer(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of Normalizer.
+        r"""
+        Gets `duration` input of Normalizer.
 
         ::
 
@@ -101,13 +104,14 @@ class Normalizer(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of Normalizer.
+        r"""
+        Gets `level` input of Normalizer.
 
         ::
 
@@ -121,13 +125,14 @@ class Normalizer(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Normalizer.
+        r"""
+        Gets `source` input of Normalizer.
 
         ::
 
@@ -148,6 +153,6 @@ class Normalizer(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
