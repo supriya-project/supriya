@@ -3,7 +3,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Binding(SupriyaObject):
-    r'''A binding.
+    r"""
+    A binding.
 
     ::
 
@@ -75,7 +76,7 @@ class Binding(SupriyaObject):
 
             >>> binding.unbind()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
