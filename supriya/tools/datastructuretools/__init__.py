@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for working with generic datastructures.
-'''
+"""
 
 from abjad.tools import systemtools
 
