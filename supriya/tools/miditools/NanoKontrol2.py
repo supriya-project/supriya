@@ -3,7 +3,8 @@ from supriya.tools.miditools.MidiDevice import MidiDevice
 
 
 class NanoKontrol2(MidiDevice):
-    r'''A Korg NanoKontrol2 midi device.
+    r"""
+    A Korg NanoKontrol2 midi device.
 
     ::
 
@@ -87,7 +88,7 @@ class NanoKontrol2(MidiDevice):
             controller_number=0
             )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
