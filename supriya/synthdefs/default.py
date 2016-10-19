@@ -5,7 +5,7 @@ from supriya.tools import ugentools
 
 def _build_default_synthdef():
 
-    r'''
+    r"""
     SynthDef(\default, { arg out=0, freq=440, amp=0.1, pan=0, gate=1;
         var z;
         z = LPF.ar(
@@ -22,7 +22,7 @@ def _build_default_synthdef():
         z = z * Linen.kr(gate, 0.01, 0.7, 0.3, 2);
         OffsetOut.ar(out, Pan2.ar(z, pan, amp));
     }, [\ir]).add;
-    '''
+    """
 
     builder = synthdeftools.SynthDefBuilder(
         amplitude=0.1,
