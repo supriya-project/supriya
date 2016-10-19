@@ -14,8 +14,8 @@ AbstractBase = abc.ABCMeta(
 
 
 class SupriyaObject(AbstractBase):
-    '''Abstract base class from which many custom classes inherit.
-    '''
+    """Abstract base class from which many custom classes inherit.
+    """
 
     ### CLASS VARIABLES ###
 
@@ -24,31 +24,34 @@ class SupriyaObject(AbstractBase):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        r'''Is true when ID of `expr` equals ID of Supriya object.
+        r"""
+        Is true when ID of `expr` equals ID of Supriya object.
         Otherwise false.
 
         Returns boolean.
-        '''
+        """
         return id(self) == id(expr)
 
     def __format__(self, format_specification=''):
-        r'''Formats Supriya object.
+        r"""
+        Formats Supriya object.
 
         Set `format_specification` to `''` or `'storage'`.
         Interprets `''` equal to `'storage'`.
 
         Returns string.
-        '''
+        """
         from abjad.tools import systemtools
         if format_specification in ('', 'storage'):
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
 
     def __getstate__(self):
-        r'''Gets state of Supriya object.
+        r"""
+        Gets state of Supriya object.
 
         Returns dictionary.
-        '''
+        """
         if hasattr(self, '__dict__'):
             state = vars(self).copy()
         else:
@@ -62,27 +65,30 @@ class SupriyaObject(AbstractBase):
         return state
 
     def __hash__(self):
-        r'''Hashes Supriya object.
+        r"""
+        Hashes Supriya object.
 
         Required to be explicitely re-defined on Python 3 if __eq__ changes.
 
         Returns integer.
-        '''
+        """
         return super(SupriyaObject, self).__hash__()
 
     def __repr__(self):
-        r'''Gets interpreter representation of Supriya object.
+        r"""
+        Gets interpreter representation of Supriya object.
 
         Returns string.
-        '''
+        """
         from abjad.tools import systemtools
         return systemtools.StorageFormatAgent(self).get_repr_format()
 
     def __setstate__(self, state):
-        r'''Sets state of Supriya object.
+        r"""
+        Sets state of Supriya object.
 
         Returns none.
-        '''
+        """
         for key, value in state.items():
             setattr(self, key, value)
 

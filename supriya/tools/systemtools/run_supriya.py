@@ -3,10 +3,11 @@ import sys
 
 
 def run_supriya():
-    r'''Runs Supriya.
+    r"""
+    Runs Supriya.
 
     Returns none.
-    '''
+    """
     from abjad.tools import systemtools
 
     try:
@@ -22,6 +23,6 @@ def run_supriya():
         )
     commands = ' '.join(commands)
 
-    command = r'''python -i {} -c "{}"'''
+    command = r""" python -i {} -c '{}'"""
     command = command.format(file_name, commands)
     systemtools.IOManager.spawn_subprocess(command)

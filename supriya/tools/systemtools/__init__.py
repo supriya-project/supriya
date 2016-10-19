@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Low-level system tools and various base classes.
-'''
+"""
 
 from supriya.tools.systemtools.Dispatcher import Dispatcher
 from supriya.tools.systemtools.Enumeration import Enumeration
