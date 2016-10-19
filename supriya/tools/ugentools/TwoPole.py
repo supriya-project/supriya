@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class TwoPole(Filter):
-    r'''A two pole filter.
+    r"""
+    A two pole filter.
 
     ::
 
@@ -16,7 +17,7 @@ class TwoPole(Filter):
         >>> two_pole
         TwoPole.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class TwoPole(Filter):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs an audio-rate TwoPole.
+        r"""
+        Constructs an audio-rate TwoPole.
 
         ::
 
@@ -72,7 +74,7 @@ class TwoPole(Filter):
             TwoPole.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class TwoPole(Filter):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs a control-rate TwoPole.
+        r"""
+        Constructs a control-rate TwoPole.
 
         ::
 
@@ -106,7 +109,7 @@ class TwoPole(Filter):
             TwoPole.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +134,8 @@ class TwoPole(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of TwoPole.
+        r"""
+        Gets `frequency` input of TwoPole.
 
         ::
 
@@ -145,13 +149,14 @@ class TwoPole(Filter):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def radius(self):
-        r'''Gets `radius` input of TwoPole.
+        r"""
+        Gets `radius` input of TwoPole.
 
         ::
 
@@ -165,13 +170,14 @@ class TwoPole(Filter):
             0.8
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('radius')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of TwoPole.
+        r"""
+        Gets `source` input of TwoPole.
 
         ::
 
@@ -192,6 +198,6 @@ class TwoPole(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

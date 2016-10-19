@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SpecPcile(UGen):
-    r'''Find a percentile of FFT magnitude spectrum.
+    r"""
+    Find a percentile of FFT magnitude spectrum.
 
     ::
 
@@ -18,7 +19,7 @@ class SpecPcile(UGen):
         >>> spec_pcile
         SpecPcile.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class SpecPcile(UGen):
         fraction=0.5,
         interpolate=0,
         ):
-        r'''Constructs a control-rate SpecPcile.
+        r"""
+        Constructs a control-rate SpecPcile.
 
         ::
 
@@ -76,7 +78,7 @@ class SpecPcile(UGen):
             SpecPcile.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
@@ -89,7 +91,8 @@ class SpecPcile(UGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of SpecPcile.
+        r"""
+        Gets `pv_chain` input of SpecPcile.
 
         ::
 
@@ -133,13 +136,14 @@ class SpecPcile(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def fraction(self):
-        r'''Gets `fraction` input of SpecPcile.
+        r"""
+        Gets `fraction` input of SpecPcile.
 
         ::
 
@@ -154,13 +158,14 @@ class SpecPcile(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('fraction')
         return self._inputs[index]
 
     @property
     def interpolate(self):
-        r'''Gets `interpolate` input of SpecPcile.
+        r"""
+        Gets `interpolate` input of SpecPcile.
 
         ::
 
@@ -175,6 +180,6 @@ class SpecPcile(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolate')
         return self._inputs[index]

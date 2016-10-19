@@ -8,8 +8,9 @@ from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
 
 class UGen(UGenMethodMixin):
-    r'''A UGen.
-    '''
+    r"""
+    A UGen.
+    """
 
     ### CLASS VARIABLES ###
 
@@ -79,7 +80,8 @@ class UGen(UGenMethodMixin):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        r'''Gets output proxy at index `i`.
+        r"""
+        Gets output proxy at index `i`.
 
         ::
 
@@ -95,18 +97,20 @@ class UGen(UGenMethodMixin):
                 )
 
         Returns output proxy.
-        '''
+        """
         return self._get_output_proxy(i)
 
     def __len__(self):
-        r'''Gets number of ugen outputs.
+        r"""
+        Gets number of ugen outputs.
 
         Returns integer.
-        '''
+        """
         return 1
 
     def __repr__(self):
-        r'''Gets interpreter representation of ugen.
+        r"""
+        Gets interpreter representation of ugen.
 
         ::
 
@@ -127,7 +131,7 @@ class UGen(UGenMethodMixin):
             'Rand.ir()'
 
         Returns string.
-        '''
+        """
         from supriya.tools import synthdeftools
         if self.calculation_rate == synthdeftools.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
@@ -143,7 +147,8 @@ class UGen(UGenMethodMixin):
         return string
 
     def __str__(self):
-        r'''Gets string format of ugen.
+        r"""
+        Gets string format of ugen.
 
         ::
 
@@ -166,7 +171,7 @@ class UGen(UGenMethodMixin):
                 2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1:source]
             }
 
-        '''
+        """
         return UGenMethodMixin.__str__(self)
 
     ### PRIVATE METHODS ###
@@ -255,7 +260,8 @@ class UGen(UGenMethodMixin):
 
     @staticmethod
     def _expand_dictionary(dictionary, unexpanded_input_names=None):
-        r'''Expands a dictionary into multichannel dictionaries.
+        r"""
+        Expands a dictionary into multichannel dictionaries.
 
         ::
 
@@ -282,7 +288,7 @@ class UGen(UGenMethodMixin):
             [('bus', 8), ('source', (1, 2, 3))]
             [('bus', 9), ('source', (1, 2, 3))]
 
-        '''
+        """
         from supriya.tools import synthdeftools
         dictionary = dictionary.copy()
         cached_unexpanded_inputs = {}
@@ -427,7 +433,8 @@ class UGen(UGenMethodMixin):
 
     @property
     def calculation_rate(self):
-        r'''Gets calculation-rate of ugen.
+        r"""
+        Gets calculation-rate of ugen.
 
         ::
 
@@ -439,7 +446,7 @@ class UGen(UGenMethodMixin):
             CalculationRate.AUDIO
 
         Returns calculation-rate.
-        '''
+        """
         return self._calculation_rate
 
     @property
@@ -448,7 +455,8 @@ class UGen(UGenMethodMixin):
 
     @property
     def inputs(self):
-        r'''Gets inputs of ugen.
+        r"""
+        Gets inputs of ugen.
 
         ::
 
@@ -468,7 +476,7 @@ class UGen(UGenMethodMixin):
             0.5
 
         Returns tuple.
-        '''
+        """
         return tuple(self._inputs)
 
     @property
@@ -481,7 +489,8 @@ class UGen(UGenMethodMixin):
 
     @property
     def outputs(self):
-        r'''Gets outputs of ugen.
+        r"""
+        Gets outputs of ugen.
 
         ::
 
@@ -493,12 +502,13 @@ class UGen(UGenMethodMixin):
             (CalculationRate.AUDIO,)
 
         Returns tuple.
-        '''
+        """
         return tuple(self._get_outputs())
 
     @property
     def signal_range(self):
-        r'''Gets signal range of ugen.
+        r"""
+        Gets signal range of ugen.
 
         ::
 
@@ -513,12 +523,13 @@ class UGen(UGenMethodMixin):
         of 0 or greater.
 
         Returns signal range.
-        '''
+        """
         return self._signal_range
 
     @property
     def special_index(self):
-        r'''Gets special index of ugen.
+        r"""
+        Gets special index of ugen.
 
         ::
 
@@ -535,5 +546,5 @@ class UGen(UGenMethodMixin):
         controls.
 
         Returns integer.
-        '''
+        """
         return self._special_index
