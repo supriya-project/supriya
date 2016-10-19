@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagFreeze(PV_ChainUGen):
-    r'''Freezes magnitudes.
+    r"""
+    Freezes magnitudes.
 
     ::
 
@@ -17,7 +18,7 @@ class PV_MagFreeze(PV_ChainUGen):
         >>> pv_mag_freeze
         PV_MagFreeze.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class PV_MagFreeze(PV_ChainUGen):
         pv_chain=None,
         freeze=0,
         ):
-        r'''Constructs a PV_MagFreeze.
+        r"""
+        Constructs a PV_MagFreeze.
 
         ::
 
@@ -66,7 +68,7 @@ class PV_MagFreeze(PV_ChainUGen):
             PV_MagFreeze.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             freeze=freeze,
@@ -77,7 +79,8 @@ class PV_MagFreeze(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_MagFreeze.
+        r"""
+        Gets `pv_chain` input of PV_MagFreeze.
 
         ::
 
@@ -114,13 +117,14 @@ class PV_MagFreeze(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def freeze(self):
-        r'''Gets `freeze` input of PV_MagFreeze.
+        r"""
+        Gets `freeze` input of PV_MagFreeze.
 
         ::
 
@@ -135,6 +139,6 @@ class PV_MagFreeze(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freeze')
         return self._inputs[index]

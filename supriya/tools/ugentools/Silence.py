@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Silence(PseudoUGen):
-    r'''An audio-rate silence pseudo-unit generator.
+    r"""
+    An audio-rate silence pseudo-unit generator.
 
     ::
 
         >>> ugentools.Silence.ar(channel_count=2)
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

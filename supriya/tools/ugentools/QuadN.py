@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class QuadN(UGen):
-    r'''A non-interpolating general quadratic map chaotic generator.
+    r"""
+    A non-interpolating general quadratic map chaotic generator.
 
     ::
 
@@ -17,7 +18,7 @@ class QuadN(UGen):
         >>> quad_n
         QuadN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class QuadN(UGen):
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate QuadN.
+        r"""
+        Constructs an audio-rate QuadN.
 
         ::
 
@@ -82,7 +84,7 @@ class QuadN(UGen):
             QuadN.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class QuadN(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of QuadN.
+        r"""
+        Gets `a` input of QuadN.
 
         ::
 
@@ -116,13 +119,14 @@ class QuadN(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of QuadN.
+        r"""
+        Gets `b` input of QuadN.
 
         ::
 
@@ -137,13 +141,14 @@ class QuadN(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def c(self):
-        r'''Gets `c` input of QuadN.
+        r"""
+        Gets `c` input of QuadN.
 
         ::
 
@@ -158,13 +163,14 @@ class QuadN(UGen):
             -0.75
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of QuadN.
+        r"""
+        Gets `frequency` input of QuadN.
 
         ::
 
@@ -179,13 +185,14 @@ class QuadN(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of QuadN.
+        r"""
+        Gets `xi` input of QuadN.
 
         ::
 
@@ -200,6 +207,6 @@ class QuadN(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Rotate2(MultiOutUGen):
-    r'''Equal-power sound-field rotator.
+    r"""
+    Equal-power sound-field rotator.
 
     ::
 
@@ -20,7 +21,7 @@ class Rotate2(MultiOutUGen):
         UGenArray({2})
 
     Returns an array of the rotator's left and right outputs.
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -94,7 +95,8 @@ class Rotate2(MultiOutUGen):
 
     @property
     def position(self):
-        r'''Gets `position` property of Rotate2.
+        r"""
+        Gets `position` property of Rotate2.
 
         ::
 
@@ -118,13 +120,14 @@ class Rotate2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
     def x(self):
-        r'''Gets `x` input of Rotate2.
+        r"""
+        Gets `x` input of Rotate2.
 
         ::
 
@@ -154,13 +157,14 @@ class Rotate2(MultiOutUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('x')
         return self._inputs[index]
 
     @property
     def y(self):
-        r'''Gets `y` input of Rotate2.
+        r"""
+        Gets `y` input of Rotate2.
 
         ::
 
@@ -200,6 +204,6 @@ class Rotate2(MultiOutUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('y')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_PhaseShift(PV_ChainUGen):
-    r'''Shifts phase.
+    r"""
+    Shifts phase.
 
     ::
         
@@ -19,7 +20,7 @@ class PV_PhaseShift(PV_ChainUGen):
         >>> pv_phase_shift
         PV_PhaseShift.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class PV_PhaseShift(PV_ChainUGen):
         integrate=0,
         shift=None,
         ):
-        r'''Constructs a PV_PhaseShift.
+        r"""
+        Constructs a PV_PhaseShift.
 
         ::
 
@@ -74,7 +76,7 @@ class PV_PhaseShift(PV_ChainUGen):
             PV_PhaseShift.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             integrate=integrate,
@@ -86,7 +88,8 @@ class PV_PhaseShift(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_PhaseShift.
+        r"""
+        Gets `pv_chain` input of PV_PhaseShift.
 
         ::
 
@@ -125,13 +128,14 @@ class PV_PhaseShift(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def integrate(self):
-        r'''Gets `integrate` input of PV_PhaseShift.
+        r"""
+        Gets `integrate` input of PV_PhaseShift.
 
         ::
 
@@ -148,13 +152,14 @@ class PV_PhaseShift(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('integrate')
         return self._inputs[index]
 
     @property
     def shift(self):
-        r'''Gets `shift` input of PV_PhaseShift.
+        r"""
+        Gets `shift` input of PV_PhaseShift.
 
         ::
 
@@ -185,6 +190,6 @@ class PV_PhaseShift(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('shift')
         return self._inputs[index]

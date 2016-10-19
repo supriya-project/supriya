@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SampleDur(InfoUGenBase):
-    r'''A sample duration info unit generator.
+    r"""
+    A sample duration info unit generator.
 
     ::
 
         >>> ugentools.SampleDur.ir()
         SampleDur.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

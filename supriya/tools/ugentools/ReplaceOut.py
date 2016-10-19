@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ReplaceOut(UGen):
-    r'''An overwriting bus output unit generator.
+    r"""
+    An overwriting bus output unit generator.
 
     ::
 
@@ -15,7 +16,7 @@ class ReplaceOut(UGen):
         ...     )
         ReplaceOut.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class ReplaceOut(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs an audio-rate overwriting bus output.
+        r"""
+        Constructs an audio-rate overwriting bus output.
 
         ::
 
@@ -75,7 +77,7 @@ class ReplaceOut(UGen):
             ReplaceOut.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
@@ -99,7 +101,8 @@ class ReplaceOut(UGen):
         bus=0,
         source=None,
         ):
-        r'''Constructs a control-rate overwriting bus output.
+        r"""
+        Constructs a control-rate overwriting bus output.
 
         ::
 
@@ -112,7 +115,7 @@ class ReplaceOut(UGen):
             ReplaceOut.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
@@ -134,7 +137,8 @@ class ReplaceOut(UGen):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of ReplaceOut.
+        r"""
+        Gets `bus` input of ReplaceOut.
 
         ::
 
@@ -148,7 +152,7 @@ class ReplaceOut(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
@@ -158,7 +162,8 @@ class ReplaceOut(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of ReplaceOut.
+        r"""
+        Gets `source` input of ReplaceOut.
 
         ::
 
@@ -176,6 +181,6 @@ class ReplaceOut(UGen):
                 ),)
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])

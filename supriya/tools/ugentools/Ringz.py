@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Ringz(Filter):
-    r'''A ringing filter.
+    r"""
+    A ringing filter.
 
     ::
 
@@ -16,7 +17,7 @@ class Ringz(Filter):
         >>> ringz
         Ringz.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Ringz(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs an audio-rate Ringz.
+        r"""
+        Constructs an audio-rate Ringz.
 
         ::
 
@@ -72,7 +74,7 @@ class Ringz(Filter):
             Ringz.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class Ringz(Filter):
         frequency=440,
         source=None,
         ):
-        r'''Constructs a control-rate Ringz.
+        r"""
+        Constructs a control-rate Ringz.
 
         ::
 
@@ -106,7 +109,7 @@ class Ringz(Filter):
             Ringz.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +134,8 @@ class Ringz(Filter):
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of Ringz.
+        r"""
+        Gets `decay_time` input of Ringz.
 
         ::
 
@@ -145,13 +149,14 @@ class Ringz(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Ringz.
+        r"""
+        Gets `frequency` input of Ringz.
 
         ::
 
@@ -165,13 +170,14 @@ class Ringz(Filter):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Ringz.
+        r"""
+        Gets `source` input of Ringz.
 
         ::
 
@@ -192,6 +198,6 @@ class Ringz(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

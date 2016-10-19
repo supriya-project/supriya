@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class RadiansPerSample(InfoUGenBase):
-    r'''A radians-per-sample info unit generator.
+    r"""
+    A radians-per-sample info unit generator.
 
     ::
 
         >>> ugentools.RadiansPerSample.ir()
         RadiansPerSample.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

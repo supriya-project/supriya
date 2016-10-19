@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RandWipe(PV_ChainUGen):
-    r'''Crossfades in random bin order.
+    r"""
+    Crossfades in random bin order.
 
     ::
 
@@ -22,7 +23,7 @@ class PV_RandWipe(PV_ChainUGen):
         >>> pv_rand_wipe
         PV_RandWipe.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -64,7 +65,8 @@ class PV_RandWipe(PV_ChainUGen):
         trigger=0,
         wipe=0,
         ):
-        r'''Constructs a PV_RandWipe.
+        r"""
+        Constructs a PV_RandWipe.
 
         ::
 
@@ -84,7 +86,7 @@ class PV_RandWipe(PV_ChainUGen):
             PV_RandWipe.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -97,7 +99,8 @@ class PV_RandWipe(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_RandWipe.
+        r"""
+        Gets `pv_chain_a` input of PV_RandWipe.
 
         ::
 
@@ -139,13 +142,14 @@ class PV_RandWipe(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_RandWipe.
+        r"""
+        Gets `pv_chain_b` input of PV_RandWipe.
 
         ::
 
@@ -189,13 +193,14 @@ class PV_RandWipe(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PV_RandWipe.
+        r"""
+        Gets `trigger` input of PV_RandWipe.
 
         ::
 
@@ -215,13 +220,14 @@ class PV_RandWipe(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
     def wipe(self):
-        r'''Gets `wipe` input of PV_RandWipe.
+        r"""
+        Gets `wipe` input of PV_RandWipe.
 
         ::
 
@@ -241,6 +247,6 @@ class PV_RandWipe(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('wipe')
         return self._inputs[index]

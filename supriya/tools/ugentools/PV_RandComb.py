@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RandComb(PV_ChainUGen):
-    r'''Passes random bins.
+    r"""
+    Passes random bins.
 
     ::
 
@@ -18,7 +19,7 @@ class PV_RandComb(PV_ChainUGen):
         >>> pv_rand_comb
         PV_RandComb.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -56,7 +57,8 @@ class PV_RandComb(PV_ChainUGen):
         trigger=0,
         wipe=0,
         ):
-        r'''Constructs a PV_RandComb.
+        r"""
+        Constructs a PV_RandComb.
 
         ::
 
@@ -72,7 +74,7 @@ class PV_RandComb(PV_ChainUGen):
             PV_RandComb.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             trigger=trigger,
@@ -84,7 +86,8 @@ class PV_RandComb(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_RandComb.
+        r"""
+        Gets `pv_chain` input of PV_RandComb.
 
         ::
 
@@ -122,13 +125,14 @@ class PV_RandComb(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PV_RandComb.
+        r"""
+        Gets `trigger` input of PV_RandComb.
 
         ::
 
@@ -144,13 +148,14 @@ class PV_RandComb(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
 
     @property
     def wipe(self):
-        r'''Gets `wipe` input of PV_RandComb.
+        r"""
+        Gets `wipe` input of PV_RandComb.
 
         ::
 
@@ -166,6 +171,6 @@ class PV_RandComb(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('wipe')
         return self._inputs[index]
