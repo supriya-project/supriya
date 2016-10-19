@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Timer(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -13,7 +13,7 @@ class Timer(UGen):
         >>> timer
         Timer.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +47,8 @@ class Timer(UGen):
         cls,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Timer.
+        r"""
+        Constructs an audio-rate Timer.
 
         ::
 
@@ -58,7 +59,7 @@ class Timer(UGen):
             Timer.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -72,7 +73,8 @@ class Timer(UGen):
         cls,
         trigger=0,
         ):
-        r'''Constructs a control-rate Timer.
+        r"""
+        Constructs a control-rate Timer.
 
         ::
 
@@ -83,7 +85,7 @@ class Timer(UGen):
             Timer.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -96,7 +98,8 @@ class Timer(UGen):
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Timer.
+        r"""
+        Gets `trigger` input of Timer.
 
         ::
 
@@ -107,6 +110,6 @@ class Timer(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

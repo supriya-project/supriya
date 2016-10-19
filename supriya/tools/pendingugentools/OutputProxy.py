@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class OutputProxy(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class OutputProxy(UGen):
         >>> output_proxy
         OutputProxy.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class OutputProxy(UGen):
         its_source_ugen=None,
         rate=None,
         ):
-        r'''Constructs a OutputProxy.
+        r"""
+        Constructs a OutputProxy.
 
         ::
 
@@ -70,7 +71,7 @@ class OutputProxy(UGen):
             OutputProxy.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class OutputProxy(UGen):
 
     @property
     def index(self):
-        r'''Gets `index` input of OutputProxy.
+        r"""
+        Gets `index` input of OutputProxy.
 
         ::
 
@@ -97,13 +99,14 @@ class OutputProxy(UGen):
             >>> output_proxy.index
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index')
         return self._inputs[index]
 
     @property
     def its_source_ugen(self):
-        r'''Gets `its_source_ugen` input of OutputProxy.
+        r"""
+        Gets `its_source_ugen` input of OutputProxy.
 
         ::
 
@@ -115,13 +118,14 @@ class OutputProxy(UGen):
             >>> output_proxy.its_source_ugen
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('its_source_ugen')
         return self._inputs[index]
 
     @property
     def rate(self):
-        r'''Gets `rate` input of OutputProxy.
+        r"""
+        Gets `rate` input of OutputProxy.
 
         ::
 
@@ -133,6 +137,6 @@ class OutputProxy(UGen):
             >>> output_proxy.rate
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InBus(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class InBus(UGen):
         >>> in_bus
         InBus.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class InBus(UGen):
         clip=None,
         offset=0,
         ):
-        r'''Constructs an audio-rate InBus.
+        r"""
+        Constructs an audio-rate InBus.
 
         ::
 
@@ -76,7 +77,7 @@ class InBus(UGen):
             InBus.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class InBus(UGen):
         clip=None,
         offset=0,
         ):
-        r'''Constructs a control-rate InBus.
+        r"""
+        Constructs a control-rate InBus.
 
         ::
 
@@ -110,7 +112,7 @@ class InBus(UGen):
             InBus.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -128,7 +130,8 @@ class InBus(UGen):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of InBus.
+        r"""
+        Gets `bus` input of InBus.
 
         ::
 
@@ -141,13 +144,14 @@ class InBus(UGen):
             >>> in_bus.bus
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of InBus.
+        r"""
+        Gets `channel_count` input of InBus.
 
         ::
 
@@ -160,13 +164,14 @@ class InBus(UGen):
             >>> in_bus.channel_count
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def clip(self):
-        r'''Gets `clip` input of InBus.
+        r"""
+        Gets `clip` input of InBus.
 
         ::
 
@@ -179,13 +184,14 @@ class InBus(UGen):
             >>> in_bus.clip
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('clip')
         return self._inputs[index]
 
     @property
     def offset(self):
-        r'''Gets `offset` input of InBus.
+        r"""
+        Gets `offset` input of InBus.
 
         ::
 
@@ -199,6 +205,6 @@ class InBus(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('offset')
         return self._inputs[index]

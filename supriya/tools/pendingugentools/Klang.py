@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Klang(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Klang(UGen):
         >>> klang
         Klang.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class Klang(UGen):
         freqscale=1,
         specifications_array_ref=None,
         ):
-        r'''Constructs an audio-rate Klang.
+        r"""
+        Constructs an audio-rate Klang.
 
         ::
 
@@ -70,7 +71,7 @@ class Klang(UGen):
             Klang.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -87,7 +88,8 @@ class Klang(UGen):
 
     @property
     def freqoffset(self):
-        r'''Gets `freqoffset` input of Klang.
+        r"""
+        Gets `freqoffset` input of Klang.
 
         ::
 
@@ -100,13 +102,14 @@ class Klang(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freqoffset')
         return self._inputs[index]
 
     @property
     def freqscale(self):
-        r'''Gets `freqscale` input of Klang.
+        r"""
+        Gets `freqscale` input of Klang.
 
         ::
 
@@ -119,13 +122,14 @@ class Klang(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freqscale')
         return self._inputs[index]
 
     @property
     def specifications_array_ref(self):
-        r'''Gets `specifications_array_ref` input of Klang.
+        r"""
+        Gets `specifications_array_ref` input of Klang.
 
         ::
 
@@ -137,6 +141,6 @@ class Klang(UGen):
             >>> klang.specifications_array_ref
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('specifications_array_ref')
         return self._inputs[index]

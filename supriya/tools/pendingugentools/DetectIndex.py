@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class DetectIndex(Index):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class DetectIndex(Index):
         >>> detect_index
         DetectIndex.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class DetectIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate DetectIndex.
+        r"""
+        Constructs an audio-rate DetectIndex.
 
         ::
 
@@ -66,7 +67,7 @@ class DetectIndex(Index):
             DetectIndex.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class DetectIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate DetectIndex.
+        r"""
+        Constructs a control-rate DetectIndex.
 
         ::
 
@@ -95,7 +97,7 @@ class DetectIndex(Index):
             DetectIndex.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class DetectIndex(Index):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DetectIndex.
+        r"""
+        Gets `buffer_id` input of DetectIndex.
 
         ::
 
@@ -121,13 +124,14 @@ class DetectIndex(Index):
             >>> detect_index.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DetectIndex.
+        r"""
+        Gets `source` input of DetectIndex.
 
         ::
 
@@ -147,6 +151,6 @@ class DetectIndex(Index):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinXFade2(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class LinXFade2(UGen):
         >>> lin_xfade_2
         LinXFade2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class LinXFade2(UGen):
         level=1,
         pan=0,
         ):
-        r'''Constructs an audio-rate LinXFade2.
+        r"""
+        Constructs an audio-rate LinXFade2.
 
         ::
 
@@ -76,7 +77,7 @@ class LinXFade2(UGen):
             LinXFade2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class LinXFade2(UGen):
         level=1,
         pan=0,
         ):
-        r'''Constructs a control-rate LinXFade2.
+        r"""
+        Constructs a control-rate LinXFade2.
 
         ::
 
@@ -110,7 +112,7 @@ class LinXFade2(UGen):
             LinXFade2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -126,7 +128,8 @@ class LinXFade2(UGen):
 
     @property
     def in_a(self):
-        r'''Gets `in_a` input of LinXFade2.
+        r"""
+        Gets `in_a` input of LinXFade2.
 
         ::
 
@@ -139,13 +142,14 @@ class LinXFade2(UGen):
             >>> lin_xfade_2.in_a
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_a')
         return self._inputs[index]
 
     @property
     def in_b(self):
-        r'''Gets `in_b` input of LinXFade2.
+        r"""
+        Gets `in_b` input of LinXFade2.
 
         ::
 
@@ -159,13 +163,14 @@ class LinXFade2(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('in_b')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of LinXFade2.
+        r"""
+        Gets `level` input of LinXFade2.
 
         ::
 
@@ -179,13 +184,14 @@ class LinXFade2(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def pan(self):
-        r'''Gets `pan` input of LinXFade2.
+        r"""
+        Gets `pan` input of LinXFade2.
 
         ::
 
@@ -199,6 +205,6 @@ class LinXFade2(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pan')
         return self._inputs[index]

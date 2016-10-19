@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class VarLag(Filter):
-    r'''
+    r"""
 
     ::
 
@@ -18,7 +18,7 @@ class VarLag(Filter):
         >>> var_lag
         VarLag.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -68,7 +68,8 @@ class VarLag(Filter):
         time=0.1,
         warp=5,
         ):
-        r'''Constructs an audio-rate VarLag.
+        r"""
+        Constructs an audio-rate VarLag.
 
         ::
 
@@ -84,7 +85,7 @@ class VarLag(Filter):
             VarLag.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -108,7 +109,8 @@ class VarLag(Filter):
         time=0.1,
         warp=5,
         ):
-        r'''Constructs a control-rate VarLag.
+        r"""
+        Constructs a control-rate VarLag.
 
         ::
 
@@ -124,7 +126,7 @@ class VarLag(Filter):
             VarLag.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -153,7 +155,8 @@ class VarLag(Filter):
 
     @property
     def curvature(self):
-        r'''Gets `curvature` input of VarLag.
+        r"""
+        Gets `curvature` input of VarLag.
 
         ::
 
@@ -169,13 +172,14 @@ class VarLag(Filter):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('curvature')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of VarLag.
+        r"""
+        Gets `source` input of VarLag.
 
         ::
 
@@ -198,13 +202,14 @@ class VarLag(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def start(self):
-        r'''Gets `start` input of VarLag.
+        r"""
+        Gets `start` input of VarLag.
 
         ::
 
@@ -219,13 +224,14 @@ class VarLag(Filter):
             >>> var_lag.start
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]
 
     @property
     def time(self):
-        r'''Gets `time` input of VarLag.
+        r"""
+        Gets `time` input of VarLag.
 
         ::
 
@@ -241,13 +247,14 @@ class VarLag(Filter):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('time')
         return self._inputs[index]
 
     @property
     def warp(self):
-        r'''Gets `warp` input of VarLag.
+        r"""
+        Gets `warp` input of VarLag.
 
         ::
 
@@ -263,6 +270,6 @@ class VarLag(Filter):
             5.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('warp')
         return self._inputs[index]

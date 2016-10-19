@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AbstractIn import AbstractIn
 
 
 class InTrig(AbstractIn):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class InTrig(AbstractIn):
         >>> in_trig
         InTrig.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -54,7 +54,8 @@ class InTrig(AbstractIn):
         bus=0,
         channel_count=1,
         ):
-        r'''Constructs a control-rate InTrig.
+        r"""
+        Constructs a control-rate InTrig.
 
         ::
 
@@ -66,7 +67,7 @@ class InTrig(AbstractIn):
             InTrig.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class InTrig(AbstractIn):
 
     @property
     def bus(self):
-        r'''Gets `bus` input of InTrig.
+        r"""
+        Gets `bus` input of InTrig.
 
         ::
 
@@ -94,13 +96,14 @@ class InTrig(AbstractIn):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bus')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of InTrig.
+        r"""
+        Gets `channel_count` input of InTrig.
 
         ::
 
@@ -112,6 +115,6 @@ class InTrig(AbstractIn):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]

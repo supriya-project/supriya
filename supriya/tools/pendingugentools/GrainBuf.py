@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainBuf(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -22,7 +22,7 @@ class GrainBuf(MultiOutUGen):
         >>> grain_buf
         GrainBuf.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -92,7 +92,8 @@ class GrainBuf(MultiOutUGen):
         sndbuf=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate GrainBuf.
+        r"""
+        Constructs an audio-rate GrainBuf.
 
         ::
 
@@ -112,7 +113,7 @@ class GrainBuf(MultiOutUGen):
             GrainBuf.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -136,7 +137,8 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of GrainBuf.
+        r"""
+        Gets `channel_count` input of GrainBuf.
 
         ::
 
@@ -156,13 +158,14 @@ class GrainBuf(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of GrainBuf.
+        r"""
+        Gets `duration` input of GrainBuf.
 
         ::
 
@@ -182,13 +185,14 @@ class GrainBuf(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def envbufnum(self):
-        r'''Gets `envbufnum` input of GrainBuf.
+        r"""
+        Gets `envbufnum` input of GrainBuf.
 
         ::
 
@@ -208,13 +212,14 @@ class GrainBuf(MultiOutUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('envbufnum')
         return self._inputs[index]
 
     @property
     def interpolate(self):
-        r'''Gets `interpolate` input of GrainBuf.
+        r"""
+        Gets `interpolate` input of GrainBuf.
 
         ::
 
@@ -234,13 +239,14 @@ class GrainBuf(MultiOutUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolate')
         return self._inputs[index]
 
     @property
     def max_grains(self):
-        r'''Gets `max_grains` input of GrainBuf.
+        r"""
+        Gets `max_grains` input of GrainBuf.
 
         ::
 
@@ -260,13 +266,14 @@ class GrainBuf(MultiOutUGen):
             512.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_grains')
         return self._inputs[index]
 
     @property
     def pan(self):
-        r'''Gets `pan` input of GrainBuf.
+        r"""
+        Gets `pan` input of GrainBuf.
 
         ::
 
@@ -286,13 +293,14 @@ class GrainBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
     def pos(self):
-        r'''Gets `pos` input of GrainBuf.
+        r"""
+        Gets `pos` input of GrainBuf.
 
         ::
 
@@ -312,13 +320,14 @@ class GrainBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pos')
         return self._inputs[index]
 
     @property
     def rate(self):
-        r'''Gets `rate` input of GrainBuf.
+        r"""
+        Gets `rate` input of GrainBuf.
 
         ::
 
@@ -338,13 +347,14 @@ class GrainBuf(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def sndbuf(self):
-        r'''Gets `sndbuf` input of GrainBuf.
+        r"""
+        Gets `sndbuf` input of GrainBuf.
 
         ::
 
@@ -363,13 +373,14 @@ class GrainBuf(MultiOutUGen):
             >>> grain_buf.sndbuf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('sndbuf')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of GrainBuf.
+        r"""
+        Gets `trigger` input of GrainBuf.
 
         ::
 
@@ -389,6 +400,6 @@ class GrainBuf(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

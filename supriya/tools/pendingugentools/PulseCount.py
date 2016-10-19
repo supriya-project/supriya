@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PulseCount(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class PulseCount(UGen):
         >>> pulse_count
         PulseCount.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class PulseCount(UGen):
         reset=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate PulseCount.
+        r"""
+        Constructs an audio-rate PulseCount.
 
         ::
 
@@ -64,7 +65,7 @@ class PulseCount(UGen):
             PulseCount.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class PulseCount(UGen):
         reset=0,
         trigger=0,
         ):
-        r'''Constructs a control-rate PulseCount.
+        r"""
+        Constructs a control-rate PulseCount.
 
         ::
 
@@ -92,7 +94,7 @@ class PulseCount(UGen):
             PulseCount.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class PulseCount(UGen):
 
     @property
     def reset(self):
-        r'''Gets `reset` input of PulseCount.
+        r"""
+        Gets `reset` input of PulseCount.
 
         ::
 
@@ -118,13 +121,14 @@ class PulseCount(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PulseCount.
+        r"""
+        Gets `trigger` input of PulseCount.
 
         ::
 
@@ -136,6 +140,6 @@ class PulseCount(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

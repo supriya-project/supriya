@@ -3,7 +3,7 @@ from supriya.tools.ugentools.OnePole import OnePole
 
 
 class OneZero(OnePole):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class OneZero(OnePole):
         >>> one_zero
         OneZero.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class OneZero(OnePole):
         coefficient=0.5,
         source=None,
         ):
-        r'''Constructs an audio-rate OneZero.
+        r"""
+        Constructs an audio-rate OneZero.
 
         ::
 
@@ -66,7 +67,7 @@ class OneZero(OnePole):
             OneZero.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -84,7 +85,8 @@ class OneZero(OnePole):
         coefficient=0.5,
         source=None,
         ):
-        r'''Constructs a control-rate OneZero.
+        r"""
+        Constructs a control-rate OneZero.
 
         ::
 
@@ -97,7 +99,7 @@ class OneZero(OnePole):
             OneZero.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +123,8 @@ class OneZero(OnePole):
 
     @property
     def coefficient(self):
-        r'''Gets `coefficient` input of OneZero.
+        r"""
+        Gets `coefficient` input of OneZero.
 
         ::
 
@@ -134,13 +137,14 @@ class OneZero(OnePole):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('coefficient')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of OneZero.
+        r"""
+        Gets `source` input of OneZero.
 
         ::
 
@@ -160,6 +164,6 @@ class OneZero(OnePole):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

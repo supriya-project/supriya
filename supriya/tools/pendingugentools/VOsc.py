@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VOsc(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class VOsc(PureUGen):
         >>> vosc
         VOsc.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class VOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs an audio-rate VOsc.
+        r"""
+        Constructs an audio-rate VOsc.
 
         ::
 
@@ -70,7 +71,7 @@ class VOsc(PureUGen):
             VOsc.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class VOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs a control-rate VOsc.
+        r"""
+        Constructs a control-rate VOsc.
 
         ::
 
@@ -101,7 +103,7 @@ class VOsc(PureUGen):
             VOsc.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +118,8 @@ class VOsc(PureUGen):
 
     @property
     def bufpos(self):
-        r'''Gets `bufpos` input of VOsc.
+        r"""
+        Gets `bufpos` input of VOsc.
 
         ::
 
@@ -128,13 +131,14 @@ class VOsc(PureUGen):
             >>> vosc.bufpos
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bufpos')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of VOsc.
+        r"""
+        Gets `frequency` input of VOsc.
 
         ::
 
@@ -147,13 +151,14 @@ class VOsc(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of VOsc.
+        r"""
+        Gets `phase` input of VOsc.
 
         ::
 
@@ -166,6 +171,6 @@ class VOsc(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

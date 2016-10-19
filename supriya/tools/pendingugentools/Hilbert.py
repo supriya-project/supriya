@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Hilbert(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class Hilbert(MultiOutUGen):
         >>> hilbert
         Hilbert.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +48,8 @@ class Hilbert(MultiOutUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate Hilbert.
+        r"""
+        Constructs an audio-rate Hilbert.
 
         ::
 
@@ -60,7 +61,7 @@ class Hilbert(MultiOutUGen):
             Hilbert.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -75,7 +76,8 @@ class Hilbert(MultiOutUGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Hilbert.
+        r"""
+        Gets `source` input of Hilbert.
 
         ::
 
@@ -94,6 +96,6 @@ class Hilbert(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

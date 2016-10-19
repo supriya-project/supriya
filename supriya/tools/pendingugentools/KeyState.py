@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class KeyState(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class KeyState(UGen):
         >>> key_state
         KeyState.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class KeyState(UGen):
         maxval=1,
         minval=0,
         ):
-        r'''Constructs a control-rate KeyState.
+        r"""
+        Constructs a control-rate KeyState.
 
         ::
 
@@ -76,7 +77,7 @@ class KeyState(UGen):
             KeyState.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -92,7 +93,8 @@ class KeyState(UGen):
 
     @property
     def keycode(self):
-        r'''Gets `keycode` input of KeyState.
+        r"""
+        Gets `keycode` input of KeyState.
 
         ::
 
@@ -106,13 +108,14 @@ class KeyState(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('keycode')
         return self._inputs[index]
 
     @property
     def lag(self):
-        r'''Gets `lag` input of KeyState.
+        r"""
+        Gets `lag` input of KeyState.
 
         ::
 
@@ -126,13 +129,14 @@ class KeyState(UGen):
             0.2
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('lag')
         return self._inputs[index]
 
     @property
     def maxval(self):
-        r'''Gets `maxval` input of KeyState.
+        r"""
+        Gets `maxval` input of KeyState.
 
         ::
 
@@ -146,13 +150,14 @@ class KeyState(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maxval')
         return self._inputs[index]
 
     @property
     def minval(self):
-        r'''Gets `minval` input of KeyState.
+        r"""
+        Gets `minval` input of KeyState.
 
         ::
 
@@ -166,6 +171,6 @@ class KeyState(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minval')
         return self._inputs[index]
