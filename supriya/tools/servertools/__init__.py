@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+r'''
 Tools for interacting with and modeling objects on the SuperCollider
 **scsynth** synthesis server.
-"""
+'''
 
 from abjad.tools import systemtools
 

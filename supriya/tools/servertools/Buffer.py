@@ -4,8 +4,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Buffer(ServerObjectProxy):
-    r"""
-    A buffer.
+    r'''A buffer.
 
     ::
 
@@ -34,7 +33,7 @@ class Buffer(ServerObjectProxy):
         >>> buffer_
         <Buffer: None>
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -69,8 +68,7 @@ class Buffer(ServerObjectProxy):
     ### SPECIAL METHODS ###
 
     def __float__(self):
-        r"""
-        Gets float representation of buffer.
+        r'''Gets float representation of buffer.
 
         ::
 
@@ -111,14 +109,13 @@ class Buffer(ServerObjectProxy):
             ValueError: Cannot cast unallocated buffer to float.
 
         Returns float.
-        """
+        '''
         if not self.is_allocated:
             raise ValueError('Cannot cast unallocated buffer to float.')
         return float(self.buffer_id)
 
     def __int__(self):
-        r"""
-        Gets integer representation of buffer.
+        r'''Gets integer representation of buffer.
 
         ::
 
@@ -159,14 +156,13 @@ class Buffer(ServerObjectProxy):
             ValueError: Cannot cast unallocated buffer to int.
 
         Returns integer.
-        """
+        '''
         if not self.is_allocated:
             raise ValueError('Cannot cast unallocated buffer to int.')
         return int(self.buffer_id)
 
     def __repr__(self):
-        r"""
-        Gets interpreter representation of buffer.
+        r'''Gets interpreter representation of buffer.
 
         ::
 
@@ -187,7 +183,7 @@ class Buffer(ServerObjectProxy):
             '<Buffer: None>'
 
         Returns string.
-        """
+        '''
         string = '<{}: {}>'.format(
             type(self).__name__,
             self.buffer_id
@@ -291,8 +287,7 @@ class Buffer(ServerObjectProxy):
         server=None,
         sync=True,
         ):
-        r"""
-        Allocates buffer on `server`.
+        r'''Allocates buffer on `server`.
 
         ::
 
@@ -339,7 +334,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_three.free()
 
         Returns buffer.
-        """
+        '''
         if self.buffer_group is not None:
             return
         if self.is_allocated:
@@ -377,8 +372,7 @@ class Buffer(ServerObjectProxy):
         starting_frame=None,
         sync=True,
         ):
-        r"""
-        Allocates buffer on `server` with contents read from `file_path`.
+        r'''Allocates buffer on `server` with contents read from `file_path`.
 
         ::
 
@@ -426,7 +420,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.free()
 
         Returns buffer.
-        """
+        '''
         if self.buffer_group is not None:
             return
         if self.is_allocated:
@@ -456,8 +450,7 @@ class Buffer(ServerObjectProxy):
         self,
         sync=True,
         ):
-        r"""
-        Closes buffer, if it was open during a read or write process by
+        r'''Closes buffer, if it was open during a read or write process by
         the DiskIn or DiskOut UGens.
 
         ::
@@ -474,7 +467,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -494,8 +487,7 @@ class Buffer(ServerObjectProxy):
         target_starting_frame=None,
         sync=True,
         ):
-        r"""
-        Copies data in this buffer into another buffer.
+        r'''Copies data in this buffer into another buffer.
 
         ::
 
@@ -512,7 +504,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -536,8 +528,7 @@ class Buffer(ServerObjectProxy):
         target_starting_frame=None,
         sync=True,
         ):
-        r"""
-        Copies data from another buffer into this buffer.
+        r'''Copies data from another buffer into this buffer.
 
         ::
 
@@ -558,7 +549,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -578,8 +569,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_count_value_triples=None,
         ):
-        r"""
-        Fills contiguous blocks of samples with values.
+        r'''Fills contiguous blocks of samples with values.
 
         ::
 
@@ -597,7 +587,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         request = requesttools.BufferFillRequest(
             buffer_id=self.buffer_id,
@@ -609,11 +599,10 @@ class Buffer(ServerObjectProxy):
             )
 
     def free(self):
-        r"""
-        Frees buffer.
+        r'''Frees buffer.
 
         Returns none.
-        """
+        '''
         if not self.is_allocated:
             return
         buffer_id = self._unregister_with_local_server()
@@ -636,8 +625,7 @@ class Buffer(ServerObjectProxy):
         should_clear_first=True,
         sync=True,
         ):
-        r"""
-        Fills buffer with Chebyshev polynomial.
+        r'''Fills buffer with Chebyshev polynomial.
 
         ::
 
@@ -666,7 +654,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -690,8 +678,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
-        Fills buffer with sum of sinusoids via `/b_gen sine1`.
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine1`.
 
         ::
 
@@ -720,7 +707,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -745,8 +732,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
-        Fills buffer with sum of sinusoids via `/b_gen sine2`.
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine2`.
 
         ::
 
@@ -776,7 +762,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -803,8 +789,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
-        Fills buffer with sum of sinusoids via `/b_gen sine3`.
+        r'''Fills buffer with sum of sinusoids via `/b_gen sine3`.
 
         ::
 
@@ -835,7 +820,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -857,8 +842,7 @@ class Buffer(ServerObjectProxy):
         self,
         indices=None,
         ):
-        r"""
-        Gets sample values at `indices`.
+        r'''Gets sample values at `indices`.
 
         ::
 
@@ -876,7 +860,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns buffer-set response.
-        """
+        '''
         from supriya.tools import requesttools
         from supriya.tools import responsetools
         if not self.is_allocated:
@@ -896,8 +880,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_count_pairs=None,
         ):
-        r"""
-        Gets contiguous sample values.
+        r'''Gets contiguous sample values.
 
         ::
 
@@ -917,7 +900,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns buffer-set-contiguous response.
-        """
+        '''
         from supriya.tools import requesttools
         from supriya.tools import responsetools
         if not self.is_allocated:
@@ -936,8 +919,7 @@ class Buffer(ServerObjectProxy):
         frame_ids=None,
         completion_callback=None,
         ):
-        r"""
-        Gets frames at `frame_ids`.
+        r'''Gets frames at `frame_ids`.
 
         ::
 
@@ -961,7 +943,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns buffer-set-contiguous response.
-        """
+        '''
         if not self.is_allocated:
             raise Exception
         if isinstance(frame_ids, int):
@@ -1007,8 +989,7 @@ class Buffer(ServerObjectProxy):
             )
 
     def query(self):
-        r"""
-        Queries buffer.
+        r'''Queries buffer.
 
         ::
 
@@ -1029,7 +1010,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns buffer-info response.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -1053,8 +1034,7 @@ class Buffer(ServerObjectProxy):
         starting_frame_in_file=None,
         sync=True,
         ):
-        r"""
-        Reads contents of `file_path` into buffer.
+        r'''Reads contents of `file_path` into buffer.
 
         ::
 
@@ -1100,7 +1080,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             return
@@ -1139,8 +1119,7 @@ class Buffer(ServerObjectProxy):
         index_value_pairs=None,
         sync=False,
         ):
-        r"""
-        Sets samples.
+        r'''Sets samples.
 
         ::
 
@@ -1164,7 +1143,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -1182,8 +1161,7 @@ class Buffer(ServerObjectProxy):
         index_values_pairs=None,
         sync=False,
         ):
-        r"""
-        Sets contiguous blocks of samples.
+        r'''Sets contiguous blocks of samples.
 
         ::
 
@@ -1205,7 +1183,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -1229,8 +1207,7 @@ class Buffer(ServerObjectProxy):
         starting_frame=None,
         sync=True,
         ):
-        r"""
-        Writes buffer to disk.
+        r'''Writes buffer to disk.
 
         ::
 
@@ -1269,7 +1246,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -1293,8 +1270,7 @@ class Buffer(ServerObjectProxy):
         completion_message=None,
         sync=True,
         ):
-        r"""
-        Zero all samples in buffer.
+        r'''Zero all samples in buffer.
 
         ::
 
@@ -1329,7 +1305,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_.free()
 
         Returns none.
-        """
+        '''
         from supriya.tools import requesttools
         if not self.is_allocated:
             raise Exception
@@ -1346,8 +1322,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def buffer_group(self):
-        r"""
-        Gets buffer group.
+        r'''Gets buffer group.
 
         ::
 
@@ -1382,13 +1357,12 @@ class Buffer(ServerObjectProxy):
             True
 
         Returns BufferGroup or none.
-        """
+        '''
         return self._buffer_group
 
     @property
     def buffer_id(self):
-        r"""
-        Gets buffer id.
+        r'''Gets buffer id.
 
         ::
 
@@ -1446,7 +1420,7 @@ class Buffer(ServerObjectProxy):
             None
 
         Returns integer or none.
-        """
+        '''
         if self._buffer_group is not None:
             if self._buffer_group.buffer_id is not None:
                 group_id = self._buffer_group.buffer_id
@@ -1457,8 +1431,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def channel_count(self):
-        r"""
-        Gets channel count.
+        r'''Gets channel count.
 
         ::
 
@@ -1489,7 +1462,7 @@ class Buffer(ServerObjectProxy):
             >>> buffer_two.free()
 
         Returns integer.
-        """
+        '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.channel_count
@@ -1497,8 +1470,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def duration_in_seconds(self):
-        r"""
-        Gets duration in seconds.
+        r'''Gets duration in seconds.
 
         ::
 
@@ -1519,7 +1491,7 @@ class Buffer(ServerObjectProxy):
             0.0
 
         Returns float.
-        """
+        '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.duration_in_seconds
@@ -1527,8 +1499,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def frame_count(self):
-        r"""
-        Gets frame count.
+        r'''Gets frame count.
 
         ::
 
@@ -1549,7 +1520,7 @@ class Buffer(ServerObjectProxy):
             0
 
         Returns integer.
-        """
+        '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.frame_count
@@ -1557,8 +1528,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def sample_count(self):
-        r"""
-        Gets sample count.
+        r'''Gets sample count.
 
         ::
 
@@ -1609,7 +1579,7 @@ class Buffer(ServerObjectProxy):
             0
 
         Returns integer.
-        """
+        '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.sample_count
@@ -1617,8 +1587,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def sample_rate(self):
-        r"""
-        Gets sample-rate.
+        r'''Gets sample-rate.
 
         ::
 
@@ -1639,7 +1608,7 @@ class Buffer(ServerObjectProxy):
             0
 
         Returns float.
-        """
+        '''
         if self.is_allocated:
             proxy = self.server._buffer_proxies[self.buffer_id]
             return proxy.sample_rate
@@ -1647,8 +1616,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def is_allocated(self):
-        r"""
-        Is true if buffer is allocated. Otherwise false.
+        r'''Is true if buffer is allocated. Otherwise false.
 
         ::
 
@@ -1669,15 +1637,14 @@ class Buffer(ServerObjectProxy):
             False
 
         Returns boolean
-        """
+        '''
         if self.buffer_group is not None:
             return self.buffer_group.is_allocated
         return self.server is not None
 
     @property
     def server(self):
-        r"""
-        Gets associated server.
+        r'''Gets associated server.
 
         ::
 
@@ -1698,7 +1665,7 @@ class Buffer(ServerObjectProxy):
             True
 
         Returns server or none.
-        """
+        '''
         if self.buffer_group is not None:
             return self.buffer_group.server
         return self._server

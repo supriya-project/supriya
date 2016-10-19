@@ -4,8 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class NodeIdAllocator(SupriyaObject):
-    r"""
-    A node ID allocator.
+    r'''A node ID allocator.
 
     ::
 
@@ -36,7 +35,7 @@ class NodeIdAllocator(SupriyaObject):
         >>> allocator.allocate_permanent_node_id()
         2
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 

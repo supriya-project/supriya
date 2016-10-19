@@ -4,9 +4,8 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Bus(ServerObjectProxy, BindingTarget):
-    r"""
-    A bus.
-    """
+    r'''A bus.
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -112,8 +111,7 @@ class Bus(ServerObjectProxy, BindingTarget):
         return self
 
     def ar(self):
-        r"""
-        Creates an audio-rate input ugen subgraph.
+        r'''Creates an audio-rate input ugen subgraph.
 
         ::
 
@@ -136,7 +134,7 @@ class Bus(ServerObjectProxy, BindingTarget):
             }
 
         Returns ugen.
-        """
+        '''
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = 1
@@ -203,8 +201,7 @@ class Bus(ServerObjectProxy, BindingTarget):
         return value
 
     def kr(self):
-        r"""
-        Creates a control-rate input ugen subgraph.
+        r'''Creates a control-rate input ugen subgraph.
 
         ::
 
@@ -227,7 +224,7 @@ class Bus(ServerObjectProxy, BindingTarget):
             }
 
         Returns ugen.
-        """
+        '''
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         channel_count = 1

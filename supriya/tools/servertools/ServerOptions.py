@@ -4,15 +4,14 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class ServerOptions(SupriyaObject):
-    r"""
-    SuperCollider server option configuration.
+    r'''SuperCollider server option configuration.
 
     ::
 
         >>> from supriya import servertools
         >>> options = servertools.ServerOptions()
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 

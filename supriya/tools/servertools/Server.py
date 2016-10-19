@@ -9,8 +9,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Server(SupriyaObject):
-    r"""
-    An scsynth server proxy.
+    r'''An scsynth server proxy.
 
     ::
 
@@ -24,7 +23,7 @@ class Server(SupriyaObject):
         >>> server.quit()
         <Server: offline>
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -432,8 +431,7 @@ class Server(SupriyaObject):
         return Server._default_server
 
     def query_local_nodes(self, include_controls=False):
-        r"""
-        Queries all node proxies in Python.
+        r'''Queries all node proxies in Python.
 
         ::
 
@@ -493,7 +491,7 @@ class Server(SupriyaObject):
             <Server: offline>
 
         Returns server query-tree group response.
-        """
+        '''
         from supriya.tools import responsetools
         query_tree_group = responsetools.QueryTreeGroup.from_group(
             self.root_node,
@@ -502,8 +500,7 @@ class Server(SupriyaObject):
         return query_tree_group
 
     def query_remote_nodes(self, include_controls=False):
-        r"""
-        Queries all nodes on scsynth.
+        r'''Queries all nodes on scsynth.
 
         ::
 
@@ -562,7 +559,7 @@ class Server(SupriyaObject):
             <Server: offline>
 
         Returns server query-tree group response.
-        """
+        '''
         from supriya.tools import requesttools
         request = requesttools.GroupQueryTreeRequest(
             node_id=0,

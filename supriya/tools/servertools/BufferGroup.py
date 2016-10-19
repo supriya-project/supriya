@@ -4,8 +4,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class BufferGroup(ServerObjectProxy):
-    r"""
-    A buffer group.
+    r'''A buffer group.
 
     ::
 
@@ -35,7 +34,7 @@ class BufferGroup(ServerObjectProxy):
 
         >>> buffer_group.free()
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -71,11 +70,10 @@ class BufferGroup(ServerObjectProxy):
         return float(self.buffer_id)
 
     def __getitem__(self, index):
-        r"""
-        Gets buffer at `index`.
+        r'''Gets buffer at `index`.
 
         Returns buffer.
-        """
+        '''
         return self._buffers[index]
 
     def __int__(self):
@@ -85,19 +83,17 @@ class BufferGroup(ServerObjectProxy):
         return iter(self.buffers)
 
     def __len__(self):
-        r"""
-        Gets length of buffer group.
+        r'''Gets length of buffer group.
 
         Returns integer.
-        """
+        '''
         return len(self._buffers)
 
     def __repr__(self):
-        r"""
-        Gets interpreter representation of buffer group.
+        r'''Gets interpreter representation of buffer group.
 
         Returns string.
-        """
+        '''
         string = '<{}: {{{}}} @ {}>'.format(
             type(self).__name__,
             len(self),
@@ -131,11 +127,10 @@ class BufferGroup(ServerObjectProxy):
         server=None,
         sync=True,
         ):
-        r"""
-        Allocates buffer group.
+        r'''Allocates buffer group.
 
         Returns buffer group.
-        """
+        '''
         from supriya.tools import servertools
         if self.is_allocated:
             return
@@ -158,11 +153,10 @@ class BufferGroup(ServerObjectProxy):
         return self
 
     def free(self):
-        r"""
-        Frees all buffers in buffer group.
+        r'''Frees all buffers in buffer group.
 
         Returns none.
-        """
+        '''
         if not self.is_allocated:
             return
         for buffer_ in self:
@@ -180,8 +174,7 @@ class BufferGroup(ServerObjectProxy):
         file_paths,
         server=None,
         ):
-        r"""
-        Create a buffer group from `file_paths`.
+        r'''Create a buffer group from `file_paths`.
 
         ::
 
@@ -204,7 +197,7 @@ class BufferGroup(ServerObjectProxy):
             (<Buffer: 3>, 44100)
 
         Returns buffer group.
-        """
+        '''
         from supriya.tools import servertools
         for file_path in file_paths:
             assert os.path.exists(file_path)
@@ -223,36 +216,32 @@ class BufferGroup(ServerObjectProxy):
         return buffer_group
 
     def zero(self):
-        r"""
-        Analogous to SuperCollider's Buffer.zero.
-        """
+        r'''Analogous to SuperCollider's Buffer.zero.
+        '''
         raise NotImplementedError
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def buffer_id(self):
-        r"""
-        Gets initial buffer id.
+        r'''Gets initial buffer id.
 
         Returns integer or none.
-        """
+        '''
         return self._buffer_id
 
     @property
     def buffers(self):
-        r"""
-        Gets associated buffers.
+        r'''Gets associated buffers.
 
         Returns tuple or buffers.
-        """
+        '''
         return self._buffers
 
     @property
     def is_allocated(self):
-        r"""
-        Is true when buffer group is allocated. Otherwise false.
+        r'''Is true when buffer group is allocated. Otherwise false.
 
         Returns boolean.
-        """
+        '''
         return self.server is not None

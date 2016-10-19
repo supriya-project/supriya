@@ -3,8 +3,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class AddAction(Enumeration):
-    r"""
-    An enumeration of scsynth node add actions.
+    r'''An enumeration of scsynth node add actions.
 
     ::
 
@@ -17,7 +16,7 @@ class AddAction(Enumeration):
         >>> servertools.AddAction.from_expr('add before')
         AddAction.ADD_BEFORE
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 

@@ -5,8 +5,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class BlockAllocator(SupriyaObject):
-    r"""
-    A block allocator.
+    r'''A block allocator.
 
     ::
 
@@ -41,7 +40,7 @@ class BlockAllocator(SupriyaObject):
         >>> allocator.allocate(8)
         8
 
-    """
+    '''
 
     ### CLASS VARIABLES ###
 
@@ -182,14 +181,12 @@ class BlockAllocator(SupriyaObject):
 
     @property
     def heap_maximum(self):
-        r"""
-        Maximum allocatable index.
-        """
+        r'''Maximum allocatable index.
+        '''
         return self._heap_maximum
 
     @property
     def heap_minimum(self):
-        r"""
-        Minimum allocatable index.
-        """
+        r'''Minimum allocatable index.
+        '''
         return self._heap_minimum
