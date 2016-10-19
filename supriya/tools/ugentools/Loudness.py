@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Loudness(UGen):
-    r'''Extraction of instantaneous loudness in `sones`.
+    r"""
+    Extraction of instantaneous loudness in `sones`.
 
     ::
 
@@ -18,7 +19,7 @@ class Loudness(UGen):
         >>> loudness
         Loudness.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class Loudness(UGen):
         smask=0.25,
         tmask=1,
         ):
-        r'''Constructs a control-rate Loudness.
+        r"""
+        Constructs a control-rate Loudness.
 
         ::
 
@@ -76,7 +78,7 @@ class Loudness(UGen):
             Loudness.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             smask=smask,
@@ -88,7 +90,8 @@ class Loudness(UGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of Loudness.
+        r"""
+        Gets `pv_chain` input of Loudness.
 
         ::
 
@@ -132,13 +135,14 @@ class Loudness(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def smask(self):
-        r'''Gets `smask` input of Loudness.
+        r"""
+        Gets `smask` input of Loudness.
 
         ::
 
@@ -153,13 +157,14 @@ class Loudness(UGen):
             0.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('smask')
         return self._inputs[index]
 
     @property
     def tmask(self):
-        r'''Gets `tmask` input of Loudness.
+        r"""
+        Gets `tmask` input of Loudness.
 
         ::
 
@@ -174,6 +179,6 @@ class Loudness(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('tmask')
         return self._inputs[index]

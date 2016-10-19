@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SinOsc(PureUGen):
-    r'''A sinusoid oscillator unit generator.
+    r"""
+    A sinusoid oscillator unit generator.
 
     ::
 
         >>> ugentools.SinOsc.ar()
         SinOsc.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs an audio-rate sinusoid oscillator.
+        r"""
+        Constructs an audio-rate sinusoid oscillator.
 
         ::
 
@@ -57,7 +59,7 @@ class SinOsc(PureUGen):
             SinOsc.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs a control-rate sinusoid oscillator.
+        r"""
+        Constructs a control-rate sinusoid oscillator.
 
         ::
 
@@ -84,7 +87,7 @@ class SinOsc(PureUGen):
             SinOsc.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -98,7 +101,8 @@ class SinOsc(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of SinOsc.
+        r"""
+        Gets `frequency` input of SinOsc.
 
         ::
 
@@ -110,13 +114,14 @@ class SinOsc(PureUGen):
             442.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of SinOsc.
+        r"""
+        Gets `phase` input of SinOsc.
 
         ::
 
@@ -128,6 +133,6 @@ class SinOsc(PureUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

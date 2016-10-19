@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinShift(PV_ChainUGen):
-    r'''Shifts and stretches bin positions.
+    r"""
+    Shifts and stretches bin positions.
 
     ::
 
@@ -19,7 +20,7 @@ class PV_BinShift(PV_ChainUGen):
         >>> pv_bin_shift
         PV_BinShift.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class PV_BinShift(PV_ChainUGen):
         shift=0,
         stretch=1,
         ):
-        r'''Constructs a PV_BinShift.
+        r"""
+        Constructs a PV_BinShift.
 
         ::
 
@@ -78,7 +80,7 @@ class PV_BinShift(PV_ChainUGen):
             PV_BinShift.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             interpolate=interpolate,
@@ -91,7 +93,8 @@ class PV_BinShift(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_BinShift.
+        r"""
+        Gets `pv_chain` input of PV_BinShift.
 
         ::
 
@@ -130,13 +133,14 @@ class PV_BinShift(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def interpolate(self):
-        r'''Gets `interpolate` input of PV_BinShift.
+        r"""
+        Gets `interpolate` input of PV_BinShift.
 
         ::
 
@@ -153,13 +157,14 @@ class PV_BinShift(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolate')
         return self._inputs[index]
 
     @property
     def shift(self):
-        r'''Gets `shift` input of PV_BinShift.
+        r"""
+        Gets `shift` input of PV_BinShift.
 
         ::
 
@@ -176,13 +181,14 @@ class PV_BinShift(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('shift')
         return self._inputs[index]
 
     @property
     def stretch(self):
-        r'''Gets `stretch` input of PV_BinShift.
+        r"""
+        Gets `stretch` input of PV_BinShift.
 
         ::
 
@@ -199,6 +205,6 @@ class PV_BinShift(PV_ChainUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('stretch')
         return self._inputs[index]

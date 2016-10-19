@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class COsc(PureUGen):
-    r'''A chorusing wavetable oscillator.
+    r"""
+    A chorusing wavetable oscillator.
 
     ::
 
@@ -15,7 +16,7 @@ class COsc(PureUGen):
         >>> cosc
         COsc.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class COsc(PureUGen):
         buffer_id=None,
         frequency=440,
         ):
-        r'''Constructs an audio-rate COsc.
+        r"""
+        Constructs an audio-rate COsc.
 
         ::
 
@@ -70,7 +72,7 @@ class COsc(PureUGen):
             COsc.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +90,8 @@ class COsc(PureUGen):
         buffer_id=None,
         frequency=440,
         ):
-        r'''Constructs a control-rate COsc.
+        r"""
+        Constructs a control-rate COsc.
 
         ::
 
@@ -101,7 +104,7 @@ class COsc(PureUGen):
             COsc.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +119,8 @@ class COsc(PureUGen):
 
     @property
     def beats(self):
-        r'''Gets `beats` input of COsc.
+        r"""
+        Gets `beats` input of COsc.
 
         ::
 
@@ -129,13 +133,14 @@ class COsc(PureUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('beats')
         return self._inputs[index]
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of COsc.
+        r"""
+        Gets `buffer_id` input of COsc.
 
         ::
 
@@ -148,13 +153,14 @@ class COsc(PureUGen):
             23
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return int(self._inputs[index])
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of COsc.
+        r"""
+        Gets `frequency` input of COsc.
 
         ::
 
@@ -167,6 +173,6 @@ class COsc(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

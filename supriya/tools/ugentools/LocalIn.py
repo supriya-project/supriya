@@ -5,14 +5,15 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class LocalIn(MultiOutUGen):
-    r'''A SynthDef-local bus input.
+    r"""
+    A SynthDef-local bus input.
 
     ::
 
         >>> ugentools.LocalIn.ar(channel_count=2)
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class LocalIn(MultiOutUGen):
         channel_count=1,
         default=0,
         ):
-        r'''Constructs an audio-rate local in.
+        r"""
+        Constructs an audio-rate local in.
 
         ::
 
@@ -72,7 +74,7 @@ class LocalIn(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +90,8 @@ class LocalIn(MultiOutUGen):
         channel_count=1,
         default=0,
         ):
-        r'''Constructs a control-rate local in.
+        r"""
+        Constructs a control-rate local in.
 
         ::
 
@@ -99,7 +102,7 @@ class LocalIn(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -113,7 +116,8 @@ class LocalIn(MultiOutUGen):
 
     @property
     def default(self):
-        r'''Gets `default` input of LocalIn.
+        r"""
+        Gets `default` input of LocalIn.
 
         ::
 
@@ -122,6 +126,6 @@ class LocalIn(MultiOutUGen):
             (0.0, 0.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('default')
         return tuple(self._inputs[index:])

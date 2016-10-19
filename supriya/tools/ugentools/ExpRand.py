@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ExpRand(UGen):
-    r'''An exponential random distribution.
+    r"""
+    An exponential random distribution.
 
     ::
 
@@ -11,7 +12,7 @@ class ExpRand(UGen):
         >>> exp_rand
         ExpRand.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -49,7 +50,8 @@ class ExpRand(UGen):
         maximum=1,
         minimum=0.01,
         ):
-        r'''Constructs a scalar-rate exponential random distribution.
+        r"""
+        Constructs a scalar-rate exponential random distribution.
 
         ::
 
@@ -61,7 +63,7 @@ class ExpRand(UGen):
             UGenArray({3})
 
         returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -75,7 +77,8 @@ class ExpRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of ExpRand.
+        r"""
+        Gets `maximum` input of ExpRand.
 
         ::
 
@@ -87,13 +90,14 @@ class ExpRand(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of ExpRand.
+        r"""
+        Gets `minimum` input of ExpRand.
 
         ::
 
@@ -105,6 +109,6 @@ class ExpRand(UGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]

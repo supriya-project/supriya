@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPZ1(Filter):
-    r'''A two point average filter.
+    r"""
+    A two point average filter.
 
     ::
 
@@ -14,7 +15,7 @@ class LPZ1(Filter):
         >>> lpz_1
         LPZ1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class LPZ1(Filter):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate LPZ1.
+        r"""
+        Constructs an audio-rate LPZ1.
 
         ::
 
@@ -60,7 +62,7 @@ class LPZ1(Filter):
             LPZ1.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class LPZ1(Filter):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate LPZ1.
+        r"""
+        Constructs a control-rate LPZ1.
 
         ::
 
@@ -88,7 +91,7 @@ class LPZ1(Filter):
             LPZ1.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +114,8 @@ class LPZ1(Filter):
 
     @property
     def source(self):
-        r'''Gets `source` input of LPZ1.
+        r"""
+        Gets `source` input of LPZ1.
 
         ::
 
@@ -130,6 +134,6 @@ class LPZ1(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

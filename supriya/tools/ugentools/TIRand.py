@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TIRand(UGen):
-    r'''A triggered integer random number generator.
+    r"""
+    A triggered integer random number generator.
 
     ::
 
@@ -16,7 +17,7 @@ class TIRand(UGen):
         >>> t_i_rand
         TIRand.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -60,7 +61,8 @@ class TIRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate triggered integer random number generator.
+        r"""
+        Constructs an audio-rate triggered integer random number generator.
 
         ::
 
@@ -74,7 +76,7 @@ class TIRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class TIRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r'''Constructs a control-rate triggered integer random number generator.
+        r"""
+        Constructs a control-rate triggered integer random number generator.
 
         ::
 
@@ -106,7 +109,7 @@ class TIRand(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -121,7 +124,8 @@ class TIRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of TIRand.
+        r"""
+        Gets `maximum` input of TIRand.
 
         ::
 
@@ -135,13 +139,14 @@ class TIRand(UGen):
             127.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of TIRand.
+        r"""
+        Gets `minimum` input of TIRand.
 
         ::
 
@@ -155,13 +160,14 @@ class TIRand(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of TIRand.
+        r"""
+        Gets `trigger` input of TIRand.
 
         ::
 
@@ -183,6 +189,6 @@ class TIRand(UGen):
 
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

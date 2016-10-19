@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dreset(DUGen):
-    r'''Resets demand-rate UGens.
+    r"""
+    Resets demand-rate UGens.
 
     ::
 
@@ -15,7 +16,7 @@ class Dreset(DUGen):
         >>> dreset
         Dreset()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class Dreset(DUGen):
         reset=0,
         source=None,
         ):
-        r'''Constructs a Dreset.
+        r"""
+        Constructs a Dreset.
 
         ::
 
@@ -60,7 +62,7 @@ class Dreset(DUGen):
             Dreset()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             reset=reset,
             source=source,
@@ -71,7 +73,8 @@ class Dreset(DUGen):
 
     @property
     def reset(self):
-        r'''Gets `reset` input of Dreset.
+        r"""
+        Gets `reset` input of Dreset.
 
         ::
 
@@ -84,13 +87,14 @@ class Dreset(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dreset.
+        r"""
+        Gets `source` input of Dreset.
 
         ::
 
@@ -110,6 +114,6 @@ class Dreset(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

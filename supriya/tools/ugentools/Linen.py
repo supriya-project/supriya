@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Linen(UGen):
-    r'''A simple line generating unit generator.
+    r"""
+    A simple line generating unit generator.
 
     ::
 
         >>> ugentools.Linen.kr()
         Linen.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -59,7 +60,8 @@ class Linen(UGen):
         release_time=1.,
         sustain_level=1.,
         ):
-        r'''Constructs an audio-rate line generator.
+        r"""
+        Constructs an audio-rate line generator.
 
         ::
 
@@ -72,7 +74,7 @@ class Linen(UGen):
             Linen.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -89,7 +91,8 @@ class Linen(UGen):
 
     @property
     def attack_time(self):
-        r'''Gets `attack_time` input of Linen.
+        r"""
+        Gets `attack_time` input of Linen.
 
         ::
 
@@ -101,13 +104,14 @@ class Linen(UGen):
             0.01
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('attack_time')
         return self._inputs[index]
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of Linen.
+        r"""
+        Gets `done_action` input of Linen.
 
         ::
 
@@ -119,13 +123,14 @@ class Linen(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def gate(self):
-        r'''Gets `gate` input of Linen.
+        r"""
+        Gets `gate` input of Linen.
 
         ::
 
@@ -137,21 +142,23 @@ class Linen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('gate')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def release_time(self):
-        r'''Gets `release_time` input of Linen.
+        r"""
+        Gets `release_time` input of Linen.
 
         ::
 
@@ -163,13 +170,14 @@ class Linen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('release_time')
         return self._inputs[index]
 
     @property
     def sustain_level(self):
-        r'''Gets `sustain_level` input of Linen.
+        r"""
+        Gets `sustain_level` input of Linen.
 
         ::
 
@@ -181,6 +189,6 @@ class Linen(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('sustain_level')
         return self._inputs[index]

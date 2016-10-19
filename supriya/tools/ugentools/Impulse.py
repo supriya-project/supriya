@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Impulse(PureUGen):
-    r'''A non-band-limited single-sample impulse generator unit generator.
+    r"""
+    A non-band-limited single-sample impulse generator unit generator.
 
     ::
 
         >>> ugentools.Impulse.ar()
         Impulse.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs an audio-rate non-band-limited single-sample impulse
+        r"""
+        Constructs an audio-rate non-band-limited single-sample impulse
         generator.
 
         ::
@@ -58,7 +60,7 @@ class Impulse(PureUGen):
             Impulse.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -74,7 +76,8 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r'''Constructs a control-rate non-band-limited single-sample impulse
+        r"""
+        Constructs a control-rate non-band-limited single-sample impulse
         generator.
 
         ::
@@ -86,7 +89,7 @@ class Impulse(PureUGen):
             Impulse.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -100,7 +103,8 @@ class Impulse(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Impulse.
+        r"""
+        Gets `frequency` input of Impulse.
 
         ::
 
@@ -112,13 +116,14 @@ class Impulse(PureUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of Impulse.
+        r"""
+        Gets `phase` input of Impulse.
 
         ::
 
@@ -130,6 +135,6 @@ class Impulse(PureUGen):
             0.25
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

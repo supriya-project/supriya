@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Logistic(UGen):
-    r'''A chaotic noise function.
+    r"""
+    A chaotic noise function.
 
     ::
 
@@ -15,7 +16,7 @@ class Logistic(UGen):
         >>> logistic
         Logistic.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class Logistic(UGen):
         frequency=1000,
         initial_y=0.5,
         ):
-        r'''Constructs an audio-rate chaotic noise function.
+        r"""
+        Constructs an audio-rate chaotic noise function.
 
         ::
 
@@ -70,7 +72,7 @@ class Logistic(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +90,8 @@ class Logistic(UGen):
         frequency=1000,
         initial_y=0.5,
         ):
-        r'''Constructs a control-rate chaotic noise function.
+        r"""
+        Constructs a control-rate chaotic noise function.
 
         ::
 
@@ -101,7 +104,7 @@ class Logistic(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -116,7 +119,8 @@ class Logistic(UGen):
 
     @property
     def chaos_parameter(self):
-        r'''Gets `chaos_parameter` input of Logistic.
+        r"""
+        Gets `chaos_parameter` input of Logistic.
 
         ::
 
@@ -129,13 +133,14 @@ class Logistic(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chaos_parameter')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Logistic.
+        r"""
+        Gets `frequency` input of Logistic.
 
         ::
 
@@ -148,13 +153,14 @@ class Logistic(UGen):
             1000.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_y(self):
-        r'''Gets `initial_y` input of Logistic.
+        r"""
+        Gets `initial_y` input of Logistic.
 
         ::
 
@@ -167,6 +173,6 @@ class Logistic(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_y')
         return self._inputs[index]

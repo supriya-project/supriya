@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BHiShelf(BEQSuite):
-    r'''A high-shelf filter.
+    r"""
+    A high-shelf filter.
 
     ::
 
@@ -17,7 +18,7 @@ class BHiShelf(BEQSuite):
         >>> bhi_shelf
         BHiShelf.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +64,8 @@ class BHiShelf(BEQSuite):
         reciprocal_of_s=1,
         source=None,
         ):
-        r'''Constructs an audio-rate BHiShelf.
+        r"""
+        Constructs an audio-rate BHiShelf.
 
         ::
 
@@ -78,7 +80,7 @@ class BHiShelf(BEQSuite):
             BHiShelf.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -108,7 +110,8 @@ class BHiShelf(BEQSuite):
 
     @property
     def gain(self):
-        r'''Gets `gain` input of BHiShelf.
+        r"""
+        Gets `gain` input of BHiShelf.
 
         ::
 
@@ -123,13 +126,14 @@ class BHiShelf(BEQSuite):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BHiShelf.
+        r"""
+        Gets `frequency` input of BHiShelf.
 
         ::
 
@@ -144,13 +148,14 @@ class BHiShelf(BEQSuite):
             1200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def reciprocal_of_s(self):
-        r'''Gets `reciprocal_of_s` input of BHiShelf.
+        r"""
+        Gets `reciprocal_of_s` input of BHiShelf.
 
         ::
 
@@ -165,13 +170,14 @@ class BHiShelf(BEQSuite):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reciprocal_of_s')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BHiShelf.
+        r"""
+        Gets `source` input of BHiShelf.
 
         ::
 
@@ -193,6 +199,6 @@ class BHiShelf(BEQSuite):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

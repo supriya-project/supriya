@@ -4,7 +4,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SpecCentroid(UGen):
-    r'''A spectral centroid measure.
+    r"""
+    A spectral centroid measure.
 
     ::
 
@@ -16,7 +17,7 @@ class SpecCentroid(UGen):
         >>> spec_centroid
         SpecCentroid.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class SpecCentroid(UGen):
         cls,
         pv_chain=None,
         ):
-        r'''Constructs a control-rate SpecCentroid.
+        r"""
+        Constructs a control-rate SpecCentroid.
 
         ::
 
@@ -64,7 +66,7 @@ class SpecCentroid(UGen):
             SpecCentroid.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             )
@@ -74,7 +76,8 @@ class SpecCentroid(UGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of SpecCentroid.
+        r"""
+        Gets `pv_chain` input of SpecCentroid.
 
         ::
 
@@ -116,6 +119,6 @@ class SpecCentroid(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pan4(MultiOutUGen):
-    r'''A four-channel equal-power panner.
+    r"""
+    A four-channel equal-power panner.
 
     ::
 
@@ -17,7 +18,7 @@ class Pan4(MultiOutUGen):
         >>> pan_4
         UGenArray({4})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -64,7 +65,8 @@ class Pan4(MultiOutUGen):
         x_position=0,
         y_position=0,
         ):
-        r'''Constructs an audio-rate Pan4.
+        r"""
+        Constructs an audio-rate Pan4.
 
         ::
 
@@ -79,7 +81,7 @@ class Pan4(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -99,7 +101,8 @@ class Pan4(MultiOutUGen):
         x_position=0,
         y_position=0,
         ):
-        r'''Constructs a control-rate Pan4.
+        r"""
+        Constructs a control-rate Pan4.
 
         ::
 
@@ -114,7 +117,7 @@ class Pan4(MultiOutUGen):
             UGenArray({4})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -130,7 +133,8 @@ class Pan4(MultiOutUGen):
 
     @property
     def gain(self):
-        r'''Gets `gain` input of Pan4.
+        r"""
+        Gets `gain` input of Pan4.
 
         ::
 
@@ -145,13 +149,14 @@ class Pan4(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Pan4.
+        r"""
+        Gets `source` input of Pan4.
 
         ::
 
@@ -173,13 +178,14 @@ class Pan4(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def x_position(self):
-        r'''Gets `x_position` input of Pan4.
+        r"""
+        Gets `x_position` input of Pan4.
 
         ::
 
@@ -194,13 +200,14 @@ class Pan4(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x_position')
         return self._inputs[index]
 
     @property
     def y_position(self):
-        r'''Gets `y_position` input of Pan4.
+        r"""
+        Gets `y_position` input of Pan4.
 
         ::
 
@@ -215,6 +222,6 @@ class Pan4(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('y_position')
         return self._inputs[index]

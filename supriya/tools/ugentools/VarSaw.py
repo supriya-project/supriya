@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VarSaw(PureUGen):
-    r'''A sawtooth-triangle oscillator with variable duty.
+    r"""
+    A sawtooth-triangle oscillator with variable duty.
 
     ::
 
         >>> ugentools.VarSaw.ar()
         VarSaw.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -50,7 +51,8 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Constructs an audio-rate sawtooth-triangle oscillator with variable
+        r"""
+        Constructs an audio-rate sawtooth-triangle oscillator with variable
         duty.
 
         ::
@@ -63,7 +65,7 @@ class VarSaw(PureUGen):
             VarSaw.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -81,7 +83,8 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r'''Constructs a control-rate sawtooth-triangle oscillator with variable
+        r"""
+        Constructs a control-rate sawtooth-triangle oscillator with variable
         duty.
 
         ::
@@ -94,7 +97,7 @@ class VarSaw(PureUGen):
             VarSaw.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +112,8 @@ class VarSaw(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of VarSaw.
+        r"""
+        Gets `frequency` input of VarSaw.
 
         ::
 
@@ -121,13 +125,14 @@ class VarSaw(PureUGen):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of VarSaw.
+        r"""
+        Gets `initial_phase` input of VarSaw.
 
         ::
 
@@ -139,13 +144,14 @@ class VarSaw(PureUGen):
             0.25
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of VarSaw.
+        r"""
+        Gets `width` input of VarSaw.
 
         ::
 
@@ -157,6 +163,6 @@ class VarSaw(PureUGen):
             0.9
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]

@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFNoise1(UGen):
-    r'''A ramp noise generator.
+    r"""
+    A ramp noise generator.
 
     ::
 
         >>> ugentools.LFNoise1.ar()
         LFNoise1.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -44,7 +45,8 @@ class LFNoise1(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs an audio-rate ramp noise generator.
+        r"""
+        Constructs an audio-rate ramp noise generator.
 
         ::
 
@@ -54,7 +56,7 @@ class LFNoise1(UGen):
             LFNoise1.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -68,7 +70,8 @@ class LFNoise1(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs a control-rate ramp noise generator.
+        r"""
+        Constructs a control-rate ramp noise generator.
 
         ::
 
@@ -78,7 +81,7 @@ class LFNoise1(UGen):
             LFNoise1.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -91,7 +94,8 @@ class LFNoise1(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFNoise1.
+        r"""
+        Gets `frequency` input of LFNoise1.
 
         ::
 
@@ -103,6 +107,6 @@ class LFNoise1(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

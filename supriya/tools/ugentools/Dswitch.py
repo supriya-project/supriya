@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dswitch(DUGen):
-    r'''A demand-rate generator for embedding different inputs.
+    r"""
+    A demand-rate generator for embedding different inputs.
 
     ::
 
@@ -16,7 +17,7 @@ class Dswitch(DUGen):
         >>> dswitch
         Dswitch()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Dswitch(DUGen):
         index=None,
         sequence=None,
         ):
-        r'''Constructs a Dswitch.
+        r"""
+        Constructs a Dswitch.
 
         ::
 
@@ -66,7 +68,7 @@ class Dswitch(DUGen):
             Dswitch()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             index=index,
             sequence=sequence,
@@ -77,7 +79,8 @@ class Dswitch(DUGen):
 
     @property
     def index(self):
-        r'''Gets `index` input of Dswitch.
+        r"""
+        Gets `index` input of Dswitch.
 
         ::
 
@@ -97,13 +100,14 @@ class Dswitch(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index')
         return self._inputs[index]
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dswitch.
+        r"""
+        Gets `sequence` input of Dswitch.
 
         ::
 
@@ -117,6 +121,6 @@ class Dswitch(DUGen):
             (1.0, 2.0, 3.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index') + 1
         return tuple(self._inputs[index:])

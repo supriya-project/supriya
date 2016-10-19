@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class IRand(UGen):
-    r'''An integer uniform random distribution.
+    r"""
+    An integer uniform random distribution.
 
     ::
 
         >>> ugentools.IRand.ir()
         IRand.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -50,7 +51,8 @@ class IRand(UGen):
         maximum=127,
         minimum=0,
         ):
-        r'''Constructs a scalar-rate integer uniform random distribution.
+        r"""
+        Constructs a scalar-rate integer uniform random distribution.
 
         ::
 
@@ -62,7 +64,7 @@ class IRand(UGen):
             UGenArray({3})
 
         returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class IRand(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of IRand.
+        r"""
+        Gets `maximum` input of IRand.
 
         ::
 
@@ -88,13 +91,14 @@ class IRand(UGen):
             127.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of IRand.
+        r"""
+        Gets `minimum` input of IRand.
 
         ::
 
@@ -106,6 +110,6 @@ class IRand(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]

@@ -4,7 +4,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_CopyPhase(PV_ChainUGen):
-    r'''Copies magnitudes and phases.
+    r"""
+    Copies magnitudes and phases.
 
     ::
 
@@ -21,7 +22,7 @@ class PV_CopyPhase(PV_ChainUGen):
         >>> pv_copy_phase
         PV_CopyPhase.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -55,7 +56,8 @@ class PV_CopyPhase(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r'''Constructs a PV_CopyPhase.
+        r"""
+        Constructs a PV_CopyPhase.
 
         ::
 
@@ -73,7 +75,7 @@ class PV_CopyPhase(PV_ChainUGen):
             PV_CopyPhase.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain_a=pv_chain_a,
             pv_chain_b=pv_chain_b,
@@ -84,7 +86,8 @@ class PV_CopyPhase(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r'''Gets `pv_chain_a` input of PV_CopyPhase.
+        r"""
+        Gets `pv_chain_a` input of PV_CopyPhase.
 
         ::
 
@@ -124,13 +127,14 @@ class PV_CopyPhase(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_a')
         return self._inputs[index]
 
     @property
     def pv_chain_b(self):
-        r'''Gets `pv_chain_b` input of PV_CopyPhase.
+        r"""
+        Gets `pv_chain_b` input of PV_CopyPhase.
 
         ::
 
@@ -172,6 +176,6 @@ class PV_CopyPhase(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain_b')
         return self._inputs[index]

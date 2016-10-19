@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Saw(PureUGen):
-    r'''A band-limited sawtooth oscillator unit generator.
+    r"""
+    A band-limited sawtooth oscillator unit generator.
 
     ::
 
         >>> ugentools.Saw.ar()
         Saw.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -42,7 +43,8 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Constructs an audio-rate band-limited sawtooth oscillator.
+        r"""
+        Constructs an audio-rate band-limited sawtooth oscillator.
 
         ::
 
@@ -52,7 +54,7 @@ class Saw(PureUGen):
             Saw.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -66,7 +68,8 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r'''Constructs a control-rate band-limited sawtooth oscillator.
+        r"""
+        Constructs a control-rate band-limited sawtooth oscillator.
 
         ::
 
@@ -76,7 +79,7 @@ class Saw(PureUGen):
             Saw.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -89,7 +92,8 @@ class Saw(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Saw.
+        r"""
+        Gets `frequency` input of Saw.
 
         ::
 
@@ -101,6 +105,6 @@ class Saw(PureUGen):
             443.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

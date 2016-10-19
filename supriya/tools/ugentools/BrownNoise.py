@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BrownNoise(UGen):
-    r'''A brown noise unit generator.
+    r"""
+    A brown noise unit generator.
 
     ::
 
         >>> ugentools.BrownNoise.ar()
         BrownNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class BrownNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Constructs an audio-rate brown noise unit generator.
+        r"""
+        Constructs an audio-rate brown noise unit generator.
 
         ::
 
@@ -43,7 +45,7 @@ class BrownNoise(UGen):
             BrownNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,7 +57,8 @@ class BrownNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Constructs a control-rate brown noise unit generator.
+        r"""
+        Constructs a control-rate brown noise unit generator.
 
         ::
 
@@ -63,7 +66,7 @@ class BrownNoise(UGen):
             BrownNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

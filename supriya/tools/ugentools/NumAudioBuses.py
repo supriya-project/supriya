@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumAudioBuses(InfoUGenBase):
-    r'''A number of audio buses info unit generator.
+    r"""
+    A number of audio buses info unit generator.
 
     ::
 
         >>> ugentools.NumAudioBuses.ir()
         NumAudioBuses.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LorenzL(UGen):
-    r'''A linear-interpolating Lorenz chaotic generator.
+    r"""
+    A linear-interpolating Lorenz chaotic generator.
 
     ::
 
@@ -20,7 +21,7 @@ class LorenzL(UGen):
         >>> lorenz_l
         LorenzL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -82,7 +83,8 @@ class LorenzL(UGen):
         yi=0,
         zi=0,
         ):
-        r'''Constructs an audio-rate LorenzL.
+        r"""
+        Constructs an audio-rate LorenzL.
 
         ::
 
@@ -100,7 +102,7 @@ class LorenzL(UGen):
             LorenzL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -122,7 +124,8 @@ class LorenzL(UGen):
 
     @property
     def b(self):
-        r'''Gets `b` input of LorenzL.
+        r"""
+        Gets `b` input of LorenzL.
 
         ::
 
@@ -140,13 +143,14 @@ class LorenzL(UGen):
             2.667
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LorenzL.
+        r"""
+        Gets `frequency` input of LorenzL.
 
         ::
 
@@ -164,13 +168,14 @@ class LorenzL(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def h(self):
-        r'''Gets `h` input of LorenzL.
+        r"""
+        Gets `h` input of LorenzL.
 
         ::
 
@@ -188,13 +193,14 @@ class LorenzL(UGen):
             0.05
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('h')
         return self._inputs[index]
 
     @property
     def r(self):
-        r'''Gets `r` input of LorenzL.
+        r"""
+        Gets `r` input of LorenzL.
 
         ::
 
@@ -212,13 +218,14 @@ class LorenzL(UGen):
             28.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('r')
         return self._inputs[index]
 
     @property
     def s(self):
-        r'''Gets `s` input of LorenzL.
+        r"""
+        Gets `s` input of LorenzL.
 
         ::
 
@@ -236,13 +243,14 @@ class LorenzL(UGen):
             10.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('s')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of LorenzL.
+        r"""
+        Gets `xi` input of LorenzL.
 
         ::
 
@@ -260,13 +268,14 @@ class LorenzL(UGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]
 
     @property
     def yi(self):
-        r'''Gets `yi` input of LorenzL.
+        r"""
+        Gets `yi` input of LorenzL.
 
         ::
 
@@ -284,13 +293,14 @@ class LorenzL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('yi')
         return self._inputs[index]
 
     @property
     def zi(self):
-        r'''Gets `zi` input of LorenzL.
+        r"""
+        Gets `zi` input of LorenzL.
 
         ::
 
@@ -308,6 +318,6 @@ class LorenzL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('zi')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Sum3(UGen):
-    r'''A three-input summing unit generator.
+    r"""
+    A three-input summing unit generator.
 
     ::
 
@@ -17,7 +18,7 @@ class Sum3(UGen):
         ...     )
         Sum3.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -89,7 +90,8 @@ class Sum3(UGen):
         input_two=None,
         input_three=None,
         ):
-        r'''Constructs a three-input summing unit generator with multi-channel
+        r"""
+        Constructs a three-input summing unit generator with multi-channel
         expansion.
 
         ::
@@ -107,7 +109,7 @@ class Sum3(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             input_one=input_one,
             input_two=input_two,
@@ -119,7 +121,8 @@ class Sum3(UGen):
 
     @property
     def input_one(self):
-        r'''Gets `input_one` input of Sum3.
+        r"""
+        Gets `input_one` input of Sum3.
 
         ::
 
@@ -142,13 +145,14 @@ class Sum3(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_one')
         return self._inputs[index]
 
     @property
     def input_three(self):
-        r'''Gets `input_three` input of Sum3.
+        r"""
+        Gets `input_three` input of Sum3.
 
         ::
 
@@ -171,13 +175,14 @@ class Sum3(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_three')
         return self._inputs[index]
 
     @property
     def input_two(self):
-        r'''Gets `input_two` input of Sum3.
+        r"""
+        Gets `input_two` input of Sum3.
 
         ::
 
@@ -200,6 +205,6 @@ class Sum3(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('input_two')
         return self._inputs[index]

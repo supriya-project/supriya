@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PitchShift(UGen):
-    r'''A pitch shift unit generator.
+    r"""
+    A pitch shift unit generator.
 
     ::
 
@@ -13,7 +14,7 @@ class PitchShift(UGen):
         ...     )
         PitchShift.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -61,7 +62,8 @@ class PitchShift(UGen):
         time_dispersion=0.0,
         window_size=0.2,
         ):
-        r'''Constructs an audio-rate pitch shifter.
+        r"""
+        Constructs an audio-rate pitch shifter.
 
         ::
 
@@ -75,7 +77,7 @@ class PitchShift(UGen):
             ...     )
             PitchShift.ar()
 
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class PitchShift(UGen):
 
     @property
     def pitch_dispersion(self):
-        r'''Gets `pitch_dispersion` input of PitchShift.
+        r"""
+        Gets `pitch_dispersion` input of PitchShift.
 
         ::
 
@@ -106,13 +109,14 @@ class PitchShift(UGen):
             0.01
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('pitch_dispersion')
         return self._inputs[index]
 
     @property
     def pitch_ratio(self):
-        r'''Gets `pitch_ratio` input of PitchShift.
+        r"""
+        Gets `pitch_ratio` input of PitchShift.
 
         ::
 
@@ -126,13 +130,14 @@ class PitchShift(UGen):
             0.8
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('pitch_ratio')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of PitchShift.
+        r"""
+        Gets `source` input of PitchShift.
 
         ::
 
@@ -156,13 +161,14 @@ class PitchShift(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def time_dispersion(self):
-        r'''Gets `time_dispersion` input of PitchShift.
+        r"""
+        Gets `time_dispersion` input of PitchShift.
 
         ::
 
@@ -176,13 +182,14 @@ class PitchShift(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('time_dispersion')
         return self._inputs[index]
 
     @property
     def window_size(self):
-        r'''Gets `window_size` input of PitchShift.
+        r"""
+        Gets `window_size` input of PitchShift.
 
         ::
 
@@ -196,6 +203,6 @@ class PitchShift(UGen):
             0.2
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('window_size')
         return self._inputs[index]

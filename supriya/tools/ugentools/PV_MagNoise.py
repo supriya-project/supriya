@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_MagNoise(PV_MagSquared):
-    r'''Multiplies magnitudes by noise.
+    r"""
+    Multiplies magnitudes by noise.
 
     ::
 
@@ -16,7 +17,7 @@ class PV_MagNoise(PV_MagSquared):
         >>> pv_mag_noise
         PV_MagNoise.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class PV_MagNoise(PV_MagSquared):
         cls,
         pv_chain=None,
         ):
-        r'''Constructs a PV_MagNoise.
+        r"""
+        Constructs a PV_MagNoise.
 
         ::
 
@@ -60,7 +62,7 @@ class PV_MagNoise(PV_MagSquared):
             PV_MagNoise.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             )
@@ -70,7 +72,8 @@ class PV_MagNoise(PV_MagSquared):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_MagNoise.
+        r"""
+        Gets `pv_chain` input of PV_MagNoise.
 
         ::
 
@@ -106,6 +109,6 @@ class PV_MagNoise(PV_MagSquared):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]

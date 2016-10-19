@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class ControlDur(InfoUGenBase):
-    r'''A control duration info unit generator.
+    r"""
+    A control duration info unit generator.
 
     ::
 
         >>> ugentools.ControlDur.ir()
         ControlDur.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

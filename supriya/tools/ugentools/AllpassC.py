@@ -3,7 +3,8 @@ from supriya.tools.ugentools.AllpassN import AllpassN
 
 
 class AllpassC(AllpassN):
-    r'''A cubic-interpolating allpass delay line unit generator.
+    r"""
+    A cubic-interpolating allpass delay line unit generator.
 
     ::
 
@@ -12,7 +13,7 @@ class AllpassC(AllpassN):
         >>> allpass_c
         AllpassC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -30,7 +31,8 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate cubic-interpolating allpass delay line.
+        r"""
+        Constructs an audio-rate cubic-interpolating allpass delay line.
 
         ::
 
@@ -45,7 +47,7 @@ class AllpassC(AllpassN):
             AllpassC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(AllpassC, cls).ar(
             decay_time=decay_time,
             delay_time=delay_time,
@@ -61,7 +63,8 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate cubic-interpolating allpass delay line.
+        r"""
+        Constructs a control-rate cubic-interpolating allpass delay line.
 
         ::
 
@@ -76,7 +79,7 @@ class AllpassC(AllpassN):
             AllpassC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(AllpassC, cls).kr(
             decay_time=decay_time,
             delay_time=delay_time,
@@ -88,7 +91,8 @@ class AllpassC(AllpassN):
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of AllpassC.
+        r"""
+        Gets `decay_time` input of AllpassC.
 
         ::
 
@@ -102,13 +106,14 @@ class AllpassC(AllpassN):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of AllpassC.
+        r"""
+        Gets `delay_time` input of AllpassC.
 
         ::
 
@@ -122,13 +127,14 @@ class AllpassC(AllpassN):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of AllpassC.
+        r"""
+        Gets `maximum_delay_time` input of AllpassC.
 
         ::
 
@@ -142,13 +148,14 @@ class AllpassC(AllpassN):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of AllpassC.
+        r"""
+        Gets `source` input of AllpassC.
 
         ::
 
@@ -167,6 +174,6 @@ class AllpassC(AllpassN):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbufrd(DUGen):
-    r'''A buffer-reading demand-rate UGen.
+    r"""
+    A buffer-reading demand-rate UGen.
 
     ::
 
@@ -15,7 +16,7 @@ class Dbufrd(DUGen):
         >>> dbufrd
         Dbufrd()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class Dbufrd(DUGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs a Dbufrd.
+        r"""
+        Constructs a Dbufrd.
 
         ::
 
@@ -64,7 +66,7 @@ class Dbufrd(DUGen):
             Dbufrd()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
             loop=loop,
@@ -76,7 +78,8 @@ class Dbufrd(DUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Dbufrd.
+        r"""
+        Gets `buffer_id` input of Dbufrd.
 
         ::
 
@@ -89,21 +92,23 @@ class Dbufrd(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def loop(self):
-        r'''Gets `loop` input of Dbufrd.
+        r"""
+        Gets `loop` input of Dbufrd.
 
         ::
 
@@ -116,13 +121,14 @@ class Dbufrd(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of Dbufrd.
+        r"""
+        Gets `phase` input of Dbufrd.
 
         ::
 
@@ -135,6 +141,6 @@ class Dbufrd(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]

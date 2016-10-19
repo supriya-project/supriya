@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Dust2(UGen):
-    r'''A bipolar random impulse generator.
+    r"""
+    A bipolar random impulse generator.
 
     ::
 
@@ -13,7 +14,7 @@ class Dust2(UGen):
         >>> dust_2
         Dust2.ar()
 
-    '''
+    """
 
 
     ### CLASS VARIABLES ###
@@ -46,7 +47,8 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Constructs an audio-rate bipolar random impulse generator.
+        r"""
+        Constructs an audio-rate bipolar random impulse generator.
 
         ::
 
@@ -56,7 +58,7 @@ class Dust2(UGen):
             UGenArray({2})
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -70,7 +72,8 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r'''Constructs a control-rate bipolar random impulse generator.
+        r"""
+        Constructs a control-rate bipolar random impulse generator.
 
         ::
 
@@ -80,7 +83,7 @@ class Dust2(UGen):
             UGenArray({2})
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -93,7 +96,8 @@ class Dust2(UGen):
 
     @property
     def density(self):
-        r'''Gets `density` input of Dust2.
+        r"""
+        Gets `density` input of Dust2.
 
         ::
 
@@ -105,6 +109,6 @@ class Dust2(UGen):
             0.25
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('density')
         return self._inputs[index]

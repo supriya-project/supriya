@@ -3,14 +3,15 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class ControlRate(InfoUGenBase):
-    r'''A control-rate info unit generator.
+    r"""
+    A control-rate info unit generator.
 
     ::
 
         >>> ugentools.ControlRate.ir()
         ControlRate.ir()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

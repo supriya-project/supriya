@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Balance2(MultiOutUGen):
-    r'''A stereo signal balancer.
+    r"""
+    A stereo signal balancer.
 
     ::
 
@@ -18,7 +19,7 @@ class Balance2(MultiOutUGen):
         >>> balance_2
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -65,7 +66,8 @@ class Balance2(MultiOutUGen):
         position=0,
         right=None,
         ):
-        r'''Constructs an audio-rate Balance2.
+        r"""
+        Constructs an audio-rate Balance2.
 
         ::
 
@@ -81,7 +83,7 @@ class Balance2(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class Balance2(MultiOutUGen):
         position=0,
         right=None,
         ):
-        r'''Constructs a control-rate Balance2.
+        r"""
+        Constructs a control-rate Balance2.
 
         ::
 
@@ -117,7 +120,7 @@ class Balance2(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -133,7 +136,8 @@ class Balance2(MultiOutUGen):
 
     @property
     def left(self):
-        r'''Gets `left` input of Balance2.
+        r"""
+        Gets `left` input of Balance2.
 
         ::
 
@@ -154,13 +158,14 @@ class Balance2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('left')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of Balance2.
+        r"""
+        Gets `level` input of Balance2.
 
         ::
 
@@ -176,13 +181,14 @@ class Balance2(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def position(self):
-        r'''Gets `position` input of Balance2.
+        r"""
+        Gets `position` input of Balance2.
 
         ::
 
@@ -198,13 +204,14 @@ class Balance2(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
     def right(self):
-        r'''Gets `right` input of Balance2.
+        r"""
+        Gets `right` input of Balance2.
 
         ::
 
@@ -227,6 +234,6 @@ class Balance2(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('right')
         return self._inputs[index]

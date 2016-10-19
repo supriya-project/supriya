@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dunique(DUGen):
-    r'''Returns the same unique series of values for several demand streams.
+    r"""
+    Returns the same unique series of values for several demand streams.
 
     ::
 
@@ -16,7 +17,7 @@ class Dunique(DUGen):
         >>> dunique
         Dunique()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Dunique(DUGen):
         protected=True,
         source=None,
         ):
-        r'''Constructs a Dunique.
+        r"""
+        Constructs a Dunique.
 
         ::
 
@@ -66,7 +68,7 @@ class Dunique(DUGen):
             Dunique()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             max_buffer_size=max_buffer_size,
             protected=protected,
@@ -78,7 +80,8 @@ class Dunique(DUGen):
 
     @property
     def max_buffer_size(self):
-        r'''Gets `max_buffer_size` input of Dunique.
+        r"""
+        Gets `max_buffer_size` input of Dunique.
 
         ::
 
@@ -92,13 +95,14 @@ class Dunique(DUGen):
             1024.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_buffer_size')
         return self._inputs[index]
 
     @property
     def protected(self):
-        r'''Gets `protected` input of Dunique.
+        r"""
+        Gets `protected` input of Dunique.
 
         ::
 
@@ -112,13 +116,14 @@ class Dunique(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('protected')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dunique.
+        r"""
+        Gets `source` input of Dunique.
 
         ::
 
@@ -139,6 +144,6 @@ class Dunique(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

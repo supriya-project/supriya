@@ -3,7 +3,8 @@ from supriya.tools.ugentools.LPZ2 import LPZ2
 
 
 class BPZ2(LPZ2):
-    r'''A two zero fixed midpass filter.
+    r"""
+    A two zero fixed midpass filter.
 
     ::
 
@@ -14,7 +15,7 @@ class BPZ2(LPZ2):
         >>> bpz_2
         BPZ2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class BPZ2(LPZ2):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate BPZ2.
+        r"""
+        Constructs an audio-rate BPZ2.
 
         ::
 
@@ -60,7 +62,7 @@ class BPZ2(LPZ2):
             BPZ2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -76,7 +78,8 @@ class BPZ2(LPZ2):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate BPZ2.
+        r"""
+        Constructs a control-rate BPZ2.
 
         ::
 
@@ -88,7 +91,7 @@ class BPZ2(LPZ2):
             BPZ2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +114,8 @@ class BPZ2(LPZ2):
 
     @property
     def source(self):
-        r'''Gets `source` input of BPZ2.
+        r"""
+        Gets `source` input of BPZ2.
 
         ::
 
@@ -130,6 +134,6 @@ class BPZ2(LPZ2):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

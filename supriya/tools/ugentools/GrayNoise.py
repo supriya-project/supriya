@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class GrayNoise(UGen):
-    r'''A gray noise unit generator.
+    r"""
+    A gray noise unit generator.
 
     ::
 
         >>> ugentools.GrayNoise.ar()
         GrayNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class GrayNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Constructs an audio-rate gray noise unit generator.
+        r"""
+        Constructs an audio-rate gray noise unit generator.
 
         ::
 
@@ -43,7 +45,7 @@ class GrayNoise(UGen):
             GrayNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,7 +57,8 @@ class GrayNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Constructs a control-rate gray noise unit generator.
+        r"""
+        Constructs a control-rate gray noise unit generator.
 
         ::
 
@@ -63,7 +66,7 @@ class GrayNoise(UGen):
             GrayNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

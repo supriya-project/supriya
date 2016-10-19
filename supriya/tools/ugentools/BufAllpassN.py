@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class BufAllpassN(PureUGen):
-    r'''A buffer-based non-interpolating allpass delay line unit generator.
+    r"""
+    A buffer-based non-interpolating allpass delay line unit generator.
 
     ::
 
@@ -15,7 +16,7 @@ class BufAllpassN(PureUGen):
         ...     )
         BufAllpassN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +64,8 @@ class BufAllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate buffer-based non-interpolating allpass delay
+        r"""
+        Constructs an audio-rate buffer-based non-interpolating allpass delay
         line.
 
         ::
@@ -80,7 +82,7 @@ class BufAllpassN(PureUGen):
             BufAllpassN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         source = cls._as_audio_rate_input(source)
@@ -103,7 +105,8 @@ class BufAllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate buffer-based non-interpolating allpass delay
+        r"""
+        Constructs a control-rate buffer-based non-interpolating allpass delay
         line.
 
         ::
@@ -120,7 +123,7 @@ class BufAllpassN(PureUGen):
             BufAllpassN.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -137,7 +140,8 @@ class BufAllpassN(PureUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufAllpassN.
+        r"""
+        Gets `buffer_id` input of BufAllpassN.
 
         ::
 
@@ -151,13 +155,14 @@ class BufAllpassN(PureUGen):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of BufAllpassN.
+        r"""
+        Gets `decay_time` input of BufAllpassN.
 
         ::
 
@@ -173,13 +178,14 @@ class BufAllpassN(PureUGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of BufAllpassN.
+        r"""
+        Gets `delay_time` input of BufAllpassN.
 
         ::
 
@@ -195,13 +201,14 @@ class BufAllpassN(PureUGen):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of BufAllpassN.
+        r"""
+        Gets `maximum_delay_time` input of BufAllpassN.
 
         ::
 
@@ -217,13 +224,14 @@ class BufAllpassN(PureUGen):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BufAllpassN.
+        r"""
+        Gets `source` input of BufAllpassN.
 
         ::
 
@@ -244,6 +252,6 @@ class BufAllpassN(PureUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

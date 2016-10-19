@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreeVerb(UGen):
-    r'''A FreeVerb reverb unit generator.
+    r"""
+    A FreeVerb reverb unit generator.
 
     ::
 
@@ -13,7 +14,7 @@ class FreeVerb(UGen):
         ...     )
         FreeVerb.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class FreeVerb(UGen):
         room_size=0.5,
         source=None,
         ):
-        r'''Constructs an audio-rate FreeVerb reverb unit.
+        r"""
+        Constructs an audio-rate FreeVerb reverb unit.
 
         ::
 
@@ -70,7 +72,7 @@ class FreeVerb(UGen):
             ...     )
             FreeVerb.ar()
 
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -86,7 +88,8 @@ class FreeVerb(UGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of FreeVerb.
+        r"""
+        Gets `damping` input of FreeVerb.
 
         ::
 
@@ -100,13 +103,14 @@ class FreeVerb(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def mix(self):
-        r'''Gets `mix` input of FreeVerb.
+        r"""
+        Gets `mix` input of FreeVerb.
 
         ::
 
@@ -120,13 +124,14 @@ class FreeVerb(UGen):
             0.33
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('mix')
         return self._inputs[index]
 
     @property
     def room_size(self):
-        r'''Gets `room_size` input of FreeVerb.
+        r"""
+        Gets `room_size` input of FreeVerb.
 
         ::
 
@@ -140,13 +145,14 @@ class FreeVerb(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('room_size')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of FreeVerb.
+        r"""
+        Gets `source` input of FreeVerb.
 
         ::
 
@@ -165,6 +171,6 @@ class FreeVerb(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

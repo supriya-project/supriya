@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dstutter(DUGen):
-    r'''A demand-rate input replicator.
+    r"""
+    A demand-rate input replicator.
 
     ::
 
@@ -15,7 +16,7 @@ class Dstutter(DUGen):
         >>> dstutter
         Dstutter()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -47,7 +48,8 @@ class Dstutter(DUGen):
         n=None,
         source=None,
         ):
-        r'''Constructs a Dstutter.
+        r"""
+        Constructs a Dstutter.
 
         ::
 
@@ -60,7 +62,7 @@ class Dstutter(DUGen):
             Dstutter()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             n=n,
             source=source,
@@ -71,7 +73,8 @@ class Dstutter(DUGen):
 
     @property
     def n(self):
-        r'''Gets `n` input of Dstutter.
+        r"""
+        Gets `n` input of Dstutter.
 
         ::
 
@@ -84,13 +87,14 @@ class Dstutter(DUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('n')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dstutter.
+        r"""
+        Gets `source` input of Dstutter.
 
         ::
 
@@ -110,6 +114,6 @@ class Dstutter(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Slew(Filter):
-    r'''A slew rate limiter.
+    r"""
+    A slew rate limiter.
 
     ::
 
@@ -16,7 +17,7 @@ class Slew(Filter):
         >>> slew
         Slew.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class Slew(Filter):
         source=None,
         up=1,
         ):
-        r'''Constructs an audio-rate Slew.
+        r"""
+        Constructs an audio-rate Slew.
 
         ::
 
@@ -72,7 +74,7 @@ class Slew(Filter):
             Slew.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class Slew(Filter):
         source=None,
         up=1,
         ):
-        r'''Constructs a control-rate Slew.
+        r"""
+        Constructs a control-rate Slew.
 
         ::
 
@@ -106,7 +109,7 @@ class Slew(Filter):
             Slew.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +134,8 @@ class Slew(Filter):
 
     @property
     def dn(self):
-        r'''Gets `dn` input of Slew.
+        r"""
+        Gets `dn` input of Slew.
 
         ::
 
@@ -145,13 +149,14 @@ class Slew(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('dn')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Slew.
+        r"""
+        Gets `source` input of Slew.
 
         ::
 
@@ -172,13 +177,14 @@ class Slew(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def up(self):
-        r'''Gets `up` input of Slew.
+        r"""
+        Gets `up` input of Slew.
 
         ::
 
@@ -192,6 +198,6 @@ class Slew(Filter):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('up')
         return self._inputs[index]

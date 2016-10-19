@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Convolution2(UGen):
-    r'''Strict convolution with fixed kernel which can be updated using a trigger signal.
+    r"""
+    Strict convolution with fixed kernel which can be updated using a trigger signal.
 
     ::
 
@@ -21,7 +22,7 @@ class Convolution2(UGen):
         >>> convolution_2
         Convolution2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class Convolution2(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Convolution2.
+        r"""
+        Constructs an audio-rate Convolution2.
 
         ::
 
@@ -86,7 +88,7 @@ class Convolution2(UGen):
             Convolution2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -102,7 +104,8 @@ class Convolution2(UGen):
 
     @property
     def framesize(self):
-        r'''Gets `framesize` input of Convolution2.
+        r"""
+        Gets `framesize` input of Convolution2.
 
         ::
 
@@ -121,13 +124,14 @@ class Convolution2(UGen):
             2048.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
     def kernel(self):
-        r'''Gets `kernel` input of Convolution2.
+        r"""
+        Gets `kernel` input of Convolution2.
 
         ::
 
@@ -250,13 +254,14 @@ class Convolution2(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('kernel')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Convolution2.
+        r"""
+        Gets `source` input of Convolution2.
 
         ::
 
@@ -282,13 +287,14 @@ class Convolution2(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Convolution2.
+        r"""
+        Gets `trigger` input of Convolution2.
 
         ::
 
@@ -307,6 +313,6 @@ class Convolution2(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

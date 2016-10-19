@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dgeom(DUGen):
-    r'''A demand-rate geometric series generator.
+    r"""
+    A demand-rate geometric series generator.
 
     ::
 
@@ -15,7 +16,7 @@ class Dgeom(DUGen):
         >>> dgeom
         Dgeom()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +54,8 @@ class Dgeom(DUGen):
         length=float('inf'),
         start=1,
         ):
-        r'''Constructs a Dgeom.
+        r"""
+        Constructs a Dgeom.
 
         ::
 
@@ -66,7 +68,7 @@ class Dgeom(DUGen):
             Dgeom()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         ugen = cls._new_expanded(
             grow=grow,
@@ -79,7 +81,8 @@ class Dgeom(DUGen):
 
     @property
     def grow(self):
-        r'''Gets `grow` input of Dgeom.
+        r"""
+        Gets `grow` input of Dgeom.
 
         ::
 
@@ -92,13 +95,14 @@ class Dgeom(DUGen):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('grow')
         return self._inputs[index]
 
     @property
     def length(self):
-        r'''Gets `length` input of Dgeom.
+        r"""
+        Gets `length` input of Dgeom.
 
         ::
 
@@ -111,13 +115,14 @@ class Dgeom(DUGen):
             inf
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('length')
         return self._inputs[index]
 
     @property
     def start(self):
-        r'''Gets `start` input of Dgeom.
+        r"""
+        Gets `start` input of Dgeom.
 
         ::
 
@@ -130,6 +135,6 @@ class Dgeom(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('start')
         return self._inputs[index]

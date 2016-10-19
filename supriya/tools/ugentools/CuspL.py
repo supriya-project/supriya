@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CuspL(UGen):
-    r'''A linear-interpolating cusp map chaotic generator.
+    r"""
+    A linear-interpolating cusp map chaotic generator.
 
     ::
 
@@ -16,7 +17,7 @@ class CuspL(UGen):
         >>> cusp_l
         CuspL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class CuspL(UGen):
         frequency=22050,
         xi=0,
         ):
-        r'''Constructs an audio-rate CuspL.
+        r"""
+        Constructs an audio-rate CuspL.
 
         ::
 
@@ -76,7 +78,7 @@ class CuspL(UGen):
             CuspL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -94,7 +96,8 @@ class CuspL(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of CuspL.
+        r"""
+        Gets `a` input of CuspL.
 
         ::
 
@@ -108,13 +111,14 @@ class CuspL(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of CuspL.
+        r"""
+        Gets `b` input of CuspL.
 
         ::
 
@@ -128,13 +132,14 @@ class CuspL(UGen):
             1.9
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of CuspL.
+        r"""
+        Gets `frequency` input of CuspL.
 
         ::
 
@@ -148,13 +153,14 @@ class CuspL(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of CuspL.
+        r"""
+        Gets `xi` input of CuspL.
 
         ::
 
@@ -168,6 +174,6 @@ class CuspL(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Done(UGen):
-    r'''Triggers when `source` sets its `done` flag.
+    r"""
+    Triggers when `source` sets its `done` flag.
 
     ::
 
@@ -14,7 +15,7 @@ class Done(UGen):
         >>> done
         Done.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +49,8 @@ class Done(UGen):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate "done" trigger.
+        r"""
+        Constructs a control-rate "done" trigger.
 
         ::
 
@@ -60,7 +62,7 @@ class Done(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class Done(UGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of Done.
+        r"""
+        Gets `source` input of Done.
 
         ::
 
@@ -94,6 +97,6 @@ class Done(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

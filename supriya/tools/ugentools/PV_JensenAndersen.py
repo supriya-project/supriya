@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_JensenAndersen(PV_ChainUGen):
-    r'''A FFT feature detector for onset detection.
+    r"""
+    A FFT feature detector for onset detection.
 
     ::
 
@@ -22,7 +23,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         >>> pv_jensen_andersen
         PV_JensenAndersen.kr()
         
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -76,7 +77,8 @@ class PV_JensenAndersen(PV_ChainUGen):
         threshold=1,
         waittime=0.04,
         ):
-        r'''Constructs an audio-rate PV_JensenAndersen.
+        r"""
+        Constructs an audio-rate PV_JensenAndersen.
 
         ::
 
@@ -96,7 +98,7 @@ class PV_JensenAndersen(PV_ChainUGen):
             PV_JensenAndersen.kr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             prophfc=prophfc,
@@ -112,7 +114,8 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r'''Gets `pv_chain` input of PV_JensenAndersen.
+        r"""
+        Gets `pv_chain` input of PV_JensenAndersen.
 
         ::
 
@@ -154,13 +157,14 @@ class PV_JensenAndersen(PV_ChainUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pv_chain')
         return self._inputs[index]
 
     @property
     def prophfc(self):
-        r'''Gets `prophfc` input of PV_JensenAndersen.
+        r"""
+        Gets `prophfc` input of PV_JensenAndersen.
 
         ::
 
@@ -180,13 +184,14 @@ class PV_JensenAndersen(PV_ChainUGen):
             0.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('prophfc')
         return self._inputs[index]
 
     @property
     def prophfe(self):
-        r'''Gets `prophfe` input of PV_JensenAndersen.
+        r"""
+        Gets `prophfe` input of PV_JensenAndersen.
 
         ::
 
@@ -203,13 +208,14 @@ class PV_JensenAndersen(PV_ChainUGen):
             0.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('prophfe')
         return self._inputs[index]
 
     @property
     def propsc(self):
-        r'''Gets `propsc` input of PV_JensenAndersen.
+        r"""
+        Gets `propsc` input of PV_JensenAndersen.
 
         ::
 
@@ -229,13 +235,14 @@ class PV_JensenAndersen(PV_ChainUGen):
             0.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('propsc')
         return self._inputs[index]
 
     @property
     def propsf(self):
-        r'''Gets `propsf` input of PV_JensenAndersen.
+        r"""
+        Gets `propsf` input of PV_JensenAndersen.
 
         ::
 
@@ -255,13 +262,14 @@ class PV_JensenAndersen(PV_ChainUGen):
             0.25
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('propsf')
         return self._inputs[index]
 
     @property
     def threshold(self):
-        r'''Gets `threshold` input of PV_JensenAndersen.
+        r"""
+        Gets `threshold` input of PV_JensenAndersen.
 
         ::
 
@@ -281,13 +289,14 @@ class PV_JensenAndersen(PV_ChainUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('threshold')
         return self._inputs[index]
 
     @property
     def waittime(self):
-        r'''Gets `waittime` input of PV_JensenAndersen.
+        r"""
+        Gets `waittime` input of PV_JensenAndersen.
 
         ::
 
@@ -307,6 +316,6 @@ class PV_JensenAndersen(PV_ChainUGen):
             0.04
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('waittime')
         return self._inputs[index]

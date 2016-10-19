@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PauseSelf(UGen):
-    r'''Pauses the enclosing synth when triggered by `trigger`.
+    r"""
+    Pauses the enclosing synth when triggered by `trigger`.
     
     ::
 
@@ -14,7 +15,7 @@ class PauseSelf(UGen):
         >>> pause_self
         PauseSelf.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class PauseSelf(UGen):
         cls,
         trigger=None,
         ):
-        r'''Constructs a control-rate ugen.
+        r"""
+        Constructs a control-rate ugen.
 
         ::
 
@@ -58,7 +60,7 @@ class PauseSelf(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -71,7 +73,8 @@ class PauseSelf(UGen):
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of PauseSelf.
+        r"""
+        Gets `trigger` input of PauseSelf.
 
         ::
 
@@ -90,6 +93,6 @@ class PauseSelf(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

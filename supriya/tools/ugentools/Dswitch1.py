@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dswitch1(DUGen):
-    r'''A demand-rate generator for switching between inputs.
+    r"""
+    A demand-rate generator for switching between inputs.
 
     ::
 
@@ -16,7 +17,7 @@ class Dswitch1(DUGen):
         >>> dswitch_1
         Dswitch1()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +53,8 @@ class Dswitch1(DUGen):
         index=None,
         sequence=None,
         ):
-        r'''Constructs a Dswitch1.
+        r"""
+        Constructs a Dswitch1.
 
         ::
 
@@ -66,7 +68,7 @@ class Dswitch1(DUGen):
             Dswitch1()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             index=index,
             sequence=sequence,
@@ -77,7 +79,8 @@ class Dswitch1(DUGen):
 
     @property
     def index(self):
-        r'''Gets `index` input of Dswitch1.
+        r"""
+        Gets `index` input of Dswitch1.
 
         ::
 
@@ -97,13 +100,14 @@ class Dswitch1(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index')
         return self._inputs[index]
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dswitch1.
+        r"""
+        Gets `sequence` input of Dswitch1.
 
         ::
 
@@ -117,6 +121,6 @@ class Dswitch1(DUGen):
             (1.0, 2.0, 3.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index') + 1
         return tuple(self._inputs[index:])
