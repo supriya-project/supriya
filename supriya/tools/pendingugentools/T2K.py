@@ -3,7 +3,7 @@ from supriya.tools.ugentools.A2K import A2K
 
 
 class T2K(A2K):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class T2K(A2K):
         >>> t_2_k
         T2K.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -48,7 +48,8 @@ class T2K(A2K):
         cls,
         source=None,
         ):
-        r'''Constructs a control-rate T2K.
+        r"""
+        Constructs a control-rate T2K.
 
         ::
 
@@ -60,7 +61,7 @@ class T2K(A2K):
             T2K.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -73,7 +74,8 @@ class T2K(A2K):
 
     @property
     def source(self):
-        r'''Gets `source` input of T2K.
+        r"""
+        Gets `source` input of T2K.
 
         ::
 
@@ -92,6 +94,6 @@ class T2K(A2K):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

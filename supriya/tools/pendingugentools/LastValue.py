@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LastValue(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class LastValue(UGen):
         >>> last_value
         LastValue.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class LastValue(UGen):
         diff=0.01,
         source=None,
         ):
-        r'''Constructs an audio-rate LastValue.
+        r"""
+        Constructs an audio-rate LastValue.
 
         ::
 
@@ -66,7 +67,7 @@ class LastValue(UGen):
             LastValue.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class LastValue(UGen):
         diff=0.01,
         source=None,
         ):
-        r'''Constructs a control-rate LastValue.
+        r"""
+        Constructs a control-rate LastValue.
 
         ::
 
@@ -95,7 +97,7 @@ class LastValue(UGen):
             LastValue.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class LastValue(UGen):
 
     @property
     def diff(self):
-        r'''Gets `diff` input of LastValue.
+        r"""
+        Gets `diff` input of LastValue.
 
         ::
 
@@ -122,13 +125,14 @@ class LastValue(UGen):
             0.01
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('diff')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LastValue.
+        r"""
+        Gets `source` input of LastValue.
 
         ::
 
@@ -148,6 +152,6 @@ class LastValue(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

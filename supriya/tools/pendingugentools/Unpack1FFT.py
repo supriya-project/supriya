@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Unpack1FFT(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class Unpack1FFT(UGen):
         >>> unpack_1_fft
         Unpack1FFT.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class Unpack1FFT(UGen):
         chain=None,
         whichmeasure=0,
         ):
-        r'''Constructs a Unpack1FFT.
+        r"""
+        Constructs a Unpack1FFT.
 
         ::
 
@@ -76,7 +77,7 @@ class Unpack1FFT(UGen):
             Unpack1FFT.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -92,7 +93,8 @@ class Unpack1FFT(UGen):
 
     @property
     def binindex(self):
-        r'''Gets `binindex` input of Unpack1FFT.
+        r"""
+        Gets `binindex` input of Unpack1FFT.
 
         ::
 
@@ -105,13 +107,14 @@ class Unpack1FFT(UGen):
             >>> unpack_1_fft.binindex
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('binindex')
         return self._inputs[index]
 
     @property
     def bufsize(self):
-        r'''Gets `bufsize` input of Unpack1FFT.
+        r"""
+        Gets `bufsize` input of Unpack1FFT.
 
         ::
 
@@ -124,13 +127,14 @@ class Unpack1FFT(UGen):
             >>> unpack_1_fft.bufsize
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bufsize')
         return self._inputs[index]
 
     @property
     def chain(self):
-        r'''Gets `chain` input of Unpack1FFT.
+        r"""
+        Gets `chain` input of Unpack1FFT.
 
         ::
 
@@ -143,13 +147,14 @@ class Unpack1FFT(UGen):
             >>> unpack_1_fft.chain
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chain')
         return self._inputs[index]
 
     @property
     def whichmeasure(self):
-        r'''Gets `whichmeasure` input of Unpack1FFT.
+        r"""
+        Gets `whichmeasure` input of Unpack1FFT.
 
         ::
 
@@ -163,6 +168,6 @@ class Unpack1FFT(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('whichmeasure')
         return self._inputs[index]

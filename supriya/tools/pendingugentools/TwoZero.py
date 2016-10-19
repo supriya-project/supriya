@@ -3,7 +3,7 @@ from supriya.tools.ugentools.TwoPole import TwoPole
 
 
 class TwoZero(TwoPole):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class TwoZero(TwoPole):
         >>> two_zero
         TwoZero.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +58,8 @@ class TwoZero(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs an audio-rate TwoZero.
+        r"""
+        Constructs an audio-rate TwoZero.
 
         ::
 
@@ -72,7 +73,7 @@ class TwoZero(TwoPole):
             TwoZero.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +93,8 @@ class TwoZero(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs a control-rate TwoZero.
+        r"""
+        Constructs a control-rate TwoZero.
 
         ::
 
@@ -106,7 +108,7 @@ class TwoZero(TwoPole):
             TwoZero.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +133,8 @@ class TwoZero(TwoPole):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of TwoZero.
+        r"""
+        Gets `frequency` input of TwoZero.
 
         ::
 
@@ -145,13 +148,14 @@ class TwoZero(TwoPole):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def radius(self):
-        r'''Gets `radius` input of TwoZero.
+        r"""
+        Gets `radius` input of TwoZero.
 
         ::
 
@@ -165,13 +169,14 @@ class TwoZero(TwoPole):
             0.8
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('radius')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of TwoZero.
+        r"""
+        Gets `source` input of TwoZero.
 
         ::
 
@@ -192,6 +197,6 @@ class TwoZero(TwoPole):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

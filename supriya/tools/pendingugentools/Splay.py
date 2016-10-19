@@ -4,7 +4,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 class Splay(MultiOutUGen):
     # TODO: This is actually a pseudo ugen.
-    r'''A stereo field spreader.
+    r"""
+    A stereo field spreader.
 
     ::
 
@@ -19,7 +20,7 @@ class Splay(MultiOutUGen):
         >>> splay
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -91,7 +92,8 @@ class Splay(MultiOutUGen):
         level_comp=True,
         spread=1,
         ):
-        r'''Constructs an audio-rate Splay.
+        r"""
+        Constructs an audio-rate Splay.
 
         ::
 
@@ -107,7 +109,7 @@ class Splay(MultiOutUGen):
             Splay.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -129,7 +131,8 @@ class Splay(MultiOutUGen):
         level_comp=True,
         spread=1,
         ):
-        r'''Constructs a control-rate Splay.
+        r"""
+        Constructs a control-rate Splay.
 
         ::
 
@@ -145,7 +148,7 @@ class Splay(MultiOutUGen):
             Splay.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -162,7 +165,8 @@ class Splay(MultiOutUGen):
 
     @property
     def center(self):
-        r'''Gets `center` input of Splay.
+        r"""
+        Gets `center` input of Splay.
 
         ::
 
@@ -178,13 +182,14 @@ class Splay(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('center')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Splay.
+        r"""
+        Gets `source` input of Splay.
 
         ::
 
@@ -199,13 +204,14 @@ class Splay(MultiOutUGen):
             >>> splay.source
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of Splay.
+        r"""
+        Gets `level` input of Splay.
 
         ::
 
@@ -221,13 +227,14 @@ class Splay(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def level_comp(self):
-        r'''Gets `level_comp` input of Splay.
+        r"""
+        Gets `level_comp` input of Splay.
 
         ::
 
@@ -243,13 +250,14 @@ class Splay(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level_comp')
         return self._inputs[index]
 
     @property
     def spread(self):
-        r'''Gets `spread` input of Splay.
+        r"""
+        Gets `spread` input of Splay.
 
         ::
 
@@ -265,6 +273,6 @@ class Splay(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('spread')
         return self._inputs[index]

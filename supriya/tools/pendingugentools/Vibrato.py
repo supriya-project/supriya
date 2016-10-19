@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Vibrato(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -20,7 +20,7 @@ class Vibrato(PureUGen):
         >>> vibrato
         Vibrato.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -82,7 +82,8 @@ class Vibrato(PureUGen):
         rate=6,
         rate_variation=0.04,
         ):
-        r'''Constructs an audio-rate Vibrato.
+        r"""
+        Constructs an audio-rate Vibrato.
 
         ::
 
@@ -100,7 +101,7 @@ class Vibrato(PureUGen):
             Vibrato.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -128,7 +129,8 @@ class Vibrato(PureUGen):
         rate=6,
         rate_variation=0.04,
         ):
-        r'''Constructs a control-rate Vibrato.
+        r"""
+        Constructs a control-rate Vibrato.
 
         ::
 
@@ -146,7 +148,7 @@ class Vibrato(PureUGen):
             Vibrato.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -166,7 +168,8 @@ class Vibrato(PureUGen):
 
     @property
     def delay(self):
-        r'''Gets `delay` input of Vibrato.
+        r"""
+        Gets `delay` input of Vibrato.
 
         ::
 
@@ -184,13 +187,14 @@ class Vibrato(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('delay')
         return self._inputs[index]
 
     @property
     def depth(self):
-        r'''Gets `depth` input of Vibrato.
+        r"""
+        Gets `depth` input of Vibrato.
 
         ::
 
@@ -208,13 +212,14 @@ class Vibrato(PureUGen):
             0.02
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('depth')
         return self._inputs[index]
 
     @property
     def depth_variation(self):
-        r'''Gets `depth_variation` input of Vibrato.
+        r"""
+        Gets `depth_variation` input of Vibrato.
 
         ::
 
@@ -232,13 +237,14 @@ class Vibrato(PureUGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('depth_variation')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of Vibrato.
+        r"""
+        Gets `frequency` input of Vibrato.
 
         ::
 
@@ -256,13 +262,14 @@ class Vibrato(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of Vibrato.
+        r"""
+        Gets `initial_phase` input of Vibrato.
 
         ::
 
@@ -280,13 +287,14 @@ class Vibrato(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]
 
     @property
     def onset(self):
-        r'''Gets `onset` input of Vibrato.
+        r"""
+        Gets `onset` input of Vibrato.
 
         ::
 
@@ -304,13 +312,14 @@ class Vibrato(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('onset')
         return self._inputs[index]
 
     @property
     def rate(self):
-        r'''Gets `rate` input of Vibrato.
+        r"""
+        Gets `rate` input of Vibrato.
 
         ::
 
@@ -328,13 +337,14 @@ class Vibrato(PureUGen):
             6.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def rate_variation(self):
-        r'''Gets `rate_variation` input of Vibrato.
+        r"""
+        Gets `rate_variation` input of Vibrato.
 
         ::
 
@@ -352,6 +362,6 @@ class Vibrato(PureUGen):
             0.04
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate_variation')
         return self._inputs[index]

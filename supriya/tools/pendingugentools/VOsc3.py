@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VOsc3(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class VOsc3(PureUGen):
         >>> vosc_3
         VOsc3.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class VOsc3(PureUGen):
         freq_2=220,
         freq_3=440,
         ):
-        r'''Constructs an audio-rate VOsc3.
+        r"""
+        Constructs an audio-rate VOsc3.
 
         ::
 
@@ -76,7 +77,7 @@ class VOsc3(PureUGen):
             VOsc3.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class VOsc3(PureUGen):
         freq_2=220,
         freq_3=440,
         ):
-        r'''Constructs a control-rate VOsc3.
+        r"""
+        Constructs a control-rate VOsc3.
 
         ::
 
@@ -110,7 +112,7 @@ class VOsc3(PureUGen):
             VOsc3.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -126,7 +128,8 @@ class VOsc3(PureUGen):
 
     @property
     def bufpos(self):
-        r'''Gets `bufpos` input of VOsc3.
+        r"""
+        Gets `bufpos` input of VOsc3.
 
         ::
 
@@ -139,13 +142,14 @@ class VOsc3(PureUGen):
             >>> vosc_3.bufpos
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bufpos')
         return self._inputs[index]
 
     @property
     def freq_1(self):
-        r'''Gets `freq_1` input of VOsc3.
+        r"""
+        Gets `freq_1` input of VOsc3.
 
         ::
 
@@ -159,13 +163,14 @@ class VOsc3(PureUGen):
             110.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freq_1')
         return self._inputs[index]
 
     @property
     def freq_2(self):
-        r'''Gets `freq_2` input of VOsc3.
+        r"""
+        Gets `freq_2` input of VOsc3.
 
         ::
 
@@ -179,13 +184,14 @@ class VOsc3(PureUGen):
             220.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freq_2')
         return self._inputs[index]
 
     @property
     def freq_3(self):
-        r'''Gets `freq_3` input of VOsc3.
+        r"""
+        Gets `freq_3` input of VOsc3.
 
         ::
 
@@ -199,6 +205,6 @@ class VOsc3(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freq_3')
         return self._inputs[index]

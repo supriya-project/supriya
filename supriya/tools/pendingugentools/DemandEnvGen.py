@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DemandEnvGen(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -22,7 +22,7 @@ class DemandEnvGen(UGen):
         >>> demand_env_gen
         DemandEnvGen.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -92,7 +92,8 @@ class DemandEnvGen(UGen):
         shape=1,
         time_scale=1,
         ):
-        r'''Constructs an audio-rate DemandEnvGen.
+        r"""
+        Constructs an audio-rate DemandEnvGen.
 
         ::
 
@@ -112,7 +113,7 @@ class DemandEnvGen(UGen):
             DemandEnvGen.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -144,7 +145,8 @@ class DemandEnvGen(UGen):
         shape=1,
         time_scale=1,
         ):
-        r'''Constructs a control-rate DemandEnvGen.
+        r"""
+        Constructs a control-rate DemandEnvGen.
 
         ::
 
@@ -164,7 +166,7 @@ class DemandEnvGen(UGen):
             DemandEnvGen.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -186,7 +188,8 @@ class DemandEnvGen(UGen):
 
     @property
     def curve(self):
-        r'''Gets `curve` input of DemandEnvGen.
+        r"""
+        Gets `curve` input of DemandEnvGen.
 
         ::
 
@@ -206,13 +209,14 @@ class DemandEnvGen(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('curve')
         return self._inputs[index]
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of DemandEnvGen.
+        r"""
+        Gets `done_action` input of DemandEnvGen.
 
         ::
 
@@ -232,13 +236,14 @@ class DemandEnvGen(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of DemandEnvGen.
+        r"""
+        Gets `duration` input of DemandEnvGen.
 
         ::
 
@@ -257,13 +262,14 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen.duration
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def gate(self):
-        r'''Gets `gate` input of DemandEnvGen.
+        r"""
+        Gets `gate` input of DemandEnvGen.
 
         ::
 
@@ -283,13 +289,14 @@ class DemandEnvGen(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gate')
         return self._inputs[index]
 
     @property
     def level(self):
-        r'''Gets `level` input of DemandEnvGen.
+        r"""
+        Gets `level` input of DemandEnvGen.
 
         ::
 
@@ -308,13 +315,14 @@ class DemandEnvGen(UGen):
             >>> demand_env_gen.level
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level')
         return self._inputs[index]
 
     @property
     def level_bias(self):
-        r'''Gets `level_bias` input of DemandEnvGen.
+        r"""
+        Gets `level_bias` input of DemandEnvGen.
 
         ::
 
@@ -334,13 +342,14 @@ class DemandEnvGen(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level_bias')
         return self._inputs[index]
 
     @property
     def level_scale(self):
-        r'''Gets `level_scale` input of DemandEnvGen.
+        r"""
+        Gets `level_scale` input of DemandEnvGen.
 
         ::
 
@@ -360,13 +369,14 @@ class DemandEnvGen(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('level_scale')
         return self._inputs[index]
 
     @property
     def reset(self):
-        r'''Gets `reset` input of DemandEnvGen.
+        r"""
+        Gets `reset` input of DemandEnvGen.
 
         ::
 
@@ -386,13 +396,14 @@ class DemandEnvGen(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def shape(self):
-        r'''Gets `shape` input of DemandEnvGen.
+        r"""
+        Gets `shape` input of DemandEnvGen.
 
         ::
 
@@ -412,13 +423,14 @@ class DemandEnvGen(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('shape')
         return self._inputs[index]
 
     @property
     def time_scale(self):
-        r'''Gets `time_scale` input of DemandEnvGen.
+        r"""
+        Gets `time_scale` input of DemandEnvGen.
 
         ::
 
@@ -438,6 +450,6 @@ class DemandEnvGen(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('time_scale')
         return self._inputs[index]

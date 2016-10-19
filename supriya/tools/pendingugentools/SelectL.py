@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SelectL(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class SelectL(UGen):
         >>> select_l
         SelectL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class SelectL(UGen):
         array=None,
         which=None,
         ):
-        r'''Constructs an audio-rate SelectL.
+        r"""
+        Constructs an audio-rate SelectL.
 
         ::
 
@@ -64,7 +65,7 @@ class SelectL(UGen):
             SelectL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class SelectL(UGen):
         array=None,
         which=None,
         ):
-        r'''Constructs a control-rate SelectL.
+        r"""
+        Constructs a control-rate SelectL.
 
         ::
 
@@ -94,7 +96,7 @@ class SelectL(UGen):
             SelectL.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -108,7 +110,8 @@ class SelectL(UGen):
 
     @property
     def array(self):
-        r'''Gets `array` input of SelectL.
+        r"""
+        Gets `array` input of SelectL.
 
         ::
 
@@ -119,13 +122,14 @@ class SelectL(UGen):
             >>> select_l.array
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('array')
         return self._inputs[index]
 
     @property
     def which(self):
-        r'''Gets `which` input of SelectL.
+        r"""
+        Gets `which` input of SelectL.
 
         ::
 
@@ -136,6 +140,6 @@ class SelectL(UGen):
             >>> select_l.which
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('which')
         return self._inputs[index]

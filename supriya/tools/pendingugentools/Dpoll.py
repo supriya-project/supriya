@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dpoll(DUGen):
-    r'''
+    r"""
 
     ::
 
@@ -17,7 +17,7 @@ class Dpoll(DUGen):
         >>> dpoll
         Dpoll.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +63,8 @@ class Dpoll(DUGen):
         source=None,
         trigid=-1,
         ):
-        r'''Constructs a Dpoll.
+        r"""
+        Constructs a Dpoll.
 
         ::
 
@@ -78,7 +79,7 @@ class Dpoll(DUGen):
             Dpoll.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class Dpoll(DUGen):
 
     @property
     def label(self):
-        r'''Gets `label` input of Dpoll.
+        r"""
+        Gets `label` input of Dpoll.
 
         ::
 
@@ -110,13 +112,14 @@ class Dpoll(DUGen):
             >>> dpoll.label
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('label')
         return self._inputs[index]
 
     @property
     def run(self):
-        r'''Gets `run` input of Dpoll.
+        r"""
+        Gets `run` input of Dpoll.
 
         ::
 
@@ -131,13 +134,14 @@ class Dpoll(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('run')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dpoll.
+        r"""
+        Gets `source` input of Dpoll.
 
         ::
 
@@ -159,13 +163,14 @@ class Dpoll(DUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigid(self):
-        r'''Gets `trigid` input of Dpoll.
+        r"""
+        Gets `trigid` input of Dpoll.
 
         ::
 
@@ -180,6 +185,6 @@ class Dpoll(DUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigid')
         return self._inputs[index]

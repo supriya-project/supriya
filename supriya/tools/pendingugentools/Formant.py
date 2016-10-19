@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Formant(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class Formant(PureUGen):
         >>> formant
         Formant.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class Formant(PureUGen):
         formfrequency=1760,
         fundfrequency=440,
         ):
-        r'''Constructs an audio-rate Formant.
+        r"""
+        Constructs an audio-rate Formant.
 
         ::
 
@@ -70,7 +71,7 @@ class Formant(PureUGen):
             Formant.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class Formant(PureUGen):
 
     @property
     def bwfrequency(self):
-        r'''Gets `bwfrequency` input of Formant.
+        r"""
+        Gets `bwfrequency` input of Formant.
 
         ::
 
@@ -98,13 +100,14 @@ class Formant(PureUGen):
             880.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bwfrequency')
         return self._inputs[index]
 
     @property
     def formfrequency(self):
-        r'''Gets `formfrequency` input of Formant.
+        r"""
+        Gets `formfrequency` input of Formant.
 
         ::
 
@@ -117,13 +120,14 @@ class Formant(PureUGen):
             1760.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('formfrequency')
         return self._inputs[index]
 
     @property
     def fundfrequency(self):
-        r'''Gets `fundfrequency` input of Formant.
+        r"""
+        Gets `fundfrequency` input of Formant.
 
         ::
 
@@ -136,6 +140,6 @@ class Formant(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('fundfrequency')
         return self._inputs[index]

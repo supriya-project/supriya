@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class SetBuf(WidthFirstUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class SetBuf(WidthFirstUGen):
         >>> set_buf
         SetBuf.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class SetBuf(WidthFirstUGen):
         offset=0,
         values=None,
         ):
-        r'''Constructs a SetBuf.
+        r"""
+        Constructs a SetBuf.
 
         ::
 
@@ -70,7 +71,7 @@ class SetBuf(WidthFirstUGen):
             SetBuf.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -85,7 +86,8 @@ class SetBuf(WidthFirstUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of SetBuf.
+        r"""
+        Gets `buffer_id` input of SetBuf.
 
         ::
 
@@ -97,13 +99,14 @@ class SetBuf(WidthFirstUGen):
             >>> set_buf.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def offset(self):
-        r'''Gets `offset` input of SetBuf.
+        r"""
+        Gets `offset` input of SetBuf.
 
         ::
 
@@ -116,13 +119,14 @@ class SetBuf(WidthFirstUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('offset')
         return self._inputs[index]
 
     @property
     def values(self):
-        r'''Gets `values` input of SetBuf.
+        r"""
+        Gets `values` input of SetBuf.
 
         ::
 
@@ -134,6 +138,6 @@ class SetBuf(WidthFirstUGen):
             >>> set_buf.values
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('values')
         return self._inputs[index]

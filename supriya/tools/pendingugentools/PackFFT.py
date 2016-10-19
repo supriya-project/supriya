@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PackFFT(PV_ChainUGen):
-    r'''
+    r"""
 
     ::
 
@@ -18,7 +18,7 @@ class PackFFT(PV_ChainUGen):
         >>> pack_fft
         PackFFT.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -72,7 +72,8 @@ class PackFFT(PV_ChainUGen):
         tobin=None,
         zeroothers=0,
         ):
-        r'''Constructs a PackFFT.
+        r"""
+        Constructs a PackFFT.
 
         ::
 
@@ -88,7 +89,7 @@ class PackFFT(PV_ChainUGen):
             PackFFT.new()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
@@ -106,7 +107,8 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def bufsize(self):
-        r'''Gets `bufsize` input of PackFFT.
+        r"""
+        Gets `bufsize` input of PackFFT.
 
         ::
 
@@ -121,13 +123,14 @@ class PackFFT(PV_ChainUGen):
             >>> pack_fft.bufsize
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bufsize')
         return self._inputs[index]
 
     @property
     def chain(self):
-        r'''Gets `chain` input of PackFFT.
+        r"""
+        Gets `chain` input of PackFFT.
 
         ::
 
@@ -142,13 +145,14 @@ class PackFFT(PV_ChainUGen):
             >>> pack_fft.chain
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('chain')
         return self._inputs[index]
 
     @property
     def frombin(self):
-        r'''Gets `frombin` input of PackFFT.
+        r"""
+        Gets `frombin` input of PackFFT.
 
         ::
 
@@ -164,13 +168,14 @@ class PackFFT(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frombin')
         return self._inputs[index]
 
     @property
     def magsphases(self):
-        r'''Gets `magsphases` input of PackFFT.
+        r"""
+        Gets `magsphases` input of PackFFT.
 
         ::
 
@@ -185,13 +190,14 @@ class PackFFT(PV_ChainUGen):
             >>> pack_fft.magsphases
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('magsphases')
         return self._inputs[index]
 
     @property
     def tobin(self):
-        r'''Gets `tobin` input of PackFFT.
+        r"""
+        Gets `tobin` input of PackFFT.
 
         ::
 
@@ -206,13 +212,14 @@ class PackFFT(PV_ChainUGen):
             >>> pack_fft.tobin
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('tobin')
         return self._inputs[index]
 
     @property
     def zeroothers(self):
-        r'''Gets `zeroothers` input of PackFFT.
+        r"""
+        Gets `zeroothers` input of PackFFT.
 
         ::
 
@@ -228,6 +235,6 @@ class PackFFT(PV_ChainUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('zeroothers')
         return self._inputs[index]

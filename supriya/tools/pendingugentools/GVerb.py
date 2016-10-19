@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GVerb(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -23,7 +23,7 @@ class GVerb(MultiOutUGen):
         >>> gverb
         GVerb.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -93,7 +93,8 @@ class GVerb(MultiOutUGen):
         spread=15,
         taillevel=0.5,
         ):
-        r'''Constructs an audio-rate GVerb.
+        r"""
+        Constructs an audio-rate GVerb.
 
         ::
 
@@ -114,7 +115,7 @@ class GVerb(MultiOutUGen):
             GVerb.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -138,7 +139,8 @@ class GVerb(MultiOutUGen):
 
     @property
     def damping(self):
-        r'''Gets `damping` input of GVerb.
+        r"""
+        Gets `damping` input of GVerb.
 
         ::
 
@@ -159,13 +161,14 @@ class GVerb(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('damping')
         return self._inputs[index]
 
     @property
     def drylevel(self):
-        r'''Gets `drylevel` input of GVerb.
+        r"""
+        Gets `drylevel` input of GVerb.
 
         ::
 
@@ -186,13 +189,14 @@ class GVerb(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('drylevel')
         return self._inputs[index]
 
     @property
     def earlyreflevel(self):
-        r'''Gets `earlyreflevel` input of GVerb.
+        r"""
+        Gets `earlyreflevel` input of GVerb.
 
         ::
 
@@ -213,13 +217,14 @@ class GVerb(MultiOutUGen):
             0.7
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('earlyreflevel')
         return self._inputs[index]
 
     @property
     def inputbw(self):
-        r'''Gets `inputbw` input of GVerb.
+        r"""
+        Gets `inputbw` input of GVerb.
 
         ::
 
@@ -240,13 +245,14 @@ class GVerb(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('inputbw')
         return self._inputs[index]
 
     @property
     def maxroomsize(self):
-        r'''Gets `maxroomsize` input of GVerb.
+        r"""
+        Gets `maxroomsize` input of GVerb.
 
         ::
 
@@ -267,13 +273,14 @@ class GVerb(MultiOutUGen):
             300.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maxroomsize')
         return self._inputs[index]
 
     @property
     def revtime(self):
-        r'''Gets `revtime` input of GVerb.
+        r"""
+        Gets `revtime` input of GVerb.
 
         ::
 
@@ -294,13 +301,14 @@ class GVerb(MultiOutUGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('revtime')
         return self._inputs[index]
 
     @property
     def roomsize(self):
-        r'''Gets `roomsize` input of GVerb.
+        r"""
+        Gets `roomsize` input of GVerb.
 
         ::
 
@@ -321,13 +329,14 @@ class GVerb(MultiOutUGen):
             10.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('roomsize')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of GVerb.
+        r"""
+        Gets `source` input of GVerb.
 
         ::
 
@@ -355,13 +364,14 @@ class GVerb(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def spread(self):
-        r'''Gets `spread` input of GVerb.
+        r"""
+        Gets `spread` input of GVerb.
 
         ::
 
@@ -382,13 +392,14 @@ class GVerb(MultiOutUGen):
             15.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('spread')
         return self._inputs[index]
 
     @property
     def taillevel(self):
-        r'''Gets `taillevel` input of GVerb.
+        r"""
+        Gets `taillevel` input of GVerb.
 
         ::
 
@@ -409,6 +420,6 @@ class GVerb(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('taillevel')
         return self._inputs[index]

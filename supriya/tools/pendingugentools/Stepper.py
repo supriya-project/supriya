@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Stepper(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -18,7 +18,7 @@ class Stepper(UGen):
         >>> stepper
         Stepper.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -72,7 +72,8 @@ class Stepper(UGen):
         step=1,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Stepper.
+        r"""
+        Constructs an audio-rate Stepper.
 
         ::
 
@@ -88,7 +89,7 @@ class Stepper(UGen):
             Stepper.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -112,7 +113,8 @@ class Stepper(UGen):
         step=1,
         trigger=0,
         ):
-        r'''Constructs a control-rate Stepper.
+        r"""
+        Constructs a control-rate Stepper.
 
         ::
 
@@ -128,7 +130,7 @@ class Stepper(UGen):
             Stepper.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -146,7 +148,8 @@ class Stepper(UGen):
 
     @property
     def maximum(self):
-        r'''Gets `maximum` input of Stepper.
+        r"""
+        Gets `maximum` input of Stepper.
 
         ::
 
@@ -162,13 +165,14 @@ class Stepper(UGen):
             7.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum')
         return self._inputs[index]
 
     @property
     def minimum(self):
-        r'''Gets `minimum` input of Stepper.
+        r"""
+        Gets `minimum` input of Stepper.
 
         ::
 
@@ -184,13 +188,14 @@ class Stepper(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('minimum')
         return self._inputs[index]
 
     @property
     def reset(self):
-        r'''Gets `reset` input of Stepper.
+        r"""
+        Gets `reset` input of Stepper.
 
         ::
 
@@ -206,13 +211,14 @@ class Stepper(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def resetval(self):
-        r'''Gets `resetval` input of Stepper.
+        r"""
+        Gets `resetval` input of Stepper.
 
         ::
 
@@ -227,13 +233,14 @@ class Stepper(UGen):
             >>> stepper.resetval
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('resetval')
         return self._inputs[index]
 
     @property
     def step(self):
-        r'''Gets `step` input of Stepper.
+        r"""
+        Gets `step` input of Stepper.
 
         ::
 
@@ -249,13 +256,14 @@ class Stepper(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('step')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Stepper.
+        r"""
+        Gets `trigger` input of Stepper.
 
         ::
 
@@ -271,6 +279,6 @@ class Stepper(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
