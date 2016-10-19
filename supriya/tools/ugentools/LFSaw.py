@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFSaw(PureUGen):
-    r'''A non-band-limited sawtooth oscillator unit generator.
+    r"""
+    A non-band-limited sawtooth oscillator unit generator.
 
     ::
 
         >>> ugentools.LFSaw.ar()
         LFSaw.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs an audio-rate non-band-limited sawtooth oscillator.
+        r"""
+        Constructs an audio-rate non-band-limited sawtooth oscillator.
 
         ::
 
@@ -57,7 +59,7 @@ class LFSaw(PureUGen):
             LFSaw.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs a control-rate non-band-limited sawtooth oscillator.
+        r"""
+        Constructs a control-rate non-band-limited sawtooth oscillator.
 
         ::
 
@@ -84,7 +87,7 @@ class LFSaw(PureUGen):
             LFSaw.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -98,7 +101,8 @@ class LFSaw(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFSaw.
+        r"""
+        Gets `frequency` input of LFSaw.
 
         ::
 
@@ -110,13 +114,14 @@ class LFSaw(PureUGen):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFSaw.
+        r"""
+        Gets `initial_phase` input of LFSaw.
 
         ::
 
@@ -128,6 +133,6 @@ class LFSaw(PureUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]

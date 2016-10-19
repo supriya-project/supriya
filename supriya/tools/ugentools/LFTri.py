@@ -3,14 +3,15 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFTri(PureUGen):
-    r'''A non-band-limited triangle oscillator unit generator.
+    r"""
+    A non-band-limited triangle oscillator unit generator.
 
     ::
 
         >>> ugentools.LFTri.ar()
         LFTri.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class LFTri(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs an audio-rate non-band-limited triangle oscillator.
+        r"""
+        Constructs an audio-rate non-band-limited triangle oscillator.
 
         ::
 
@@ -57,7 +59,7 @@ class LFTri(PureUGen):
             LFTri.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -73,7 +75,8 @@ class LFTri(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r'''Constructs a control-rate non-band-limited triangle oscillator.
+        r"""
+        Constructs a control-rate non-band-limited triangle oscillator.
 
         ::
 
@@ -84,7 +87,7 @@ class LFTri(PureUGen):
             LFTri.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -98,7 +101,8 @@ class LFTri(PureUGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFTri.
+        r"""
+        Gets `frequency` input of LFTri.
 
         ::
 
@@ -110,13 +114,14 @@ class LFTri(PureUGen):
             442.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFTri.
+        r"""
+        Gets `initial_phase` input of LFTri.
 
         ::
 
@@ -128,6 +133,6 @@ class LFTri(PureUGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]

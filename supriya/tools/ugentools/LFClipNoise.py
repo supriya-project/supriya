@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFClipNoise(UGen):
-    r'''A dynamic clipped noise generator.
+    r"""
+    A dynamic clipped noise generator.
 
     ::
 
         >>> ugentools.LFClipNoise.ar()
         LFClipNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -44,7 +45,8 @@ class LFClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs an audio-rate clipped noise generator.
+        r"""
+        Constructs an audio-rate clipped noise generator.
 
         ::
 
@@ -54,7 +56,7 @@ class LFClipNoise(UGen):
             LFClipNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -68,7 +70,8 @@ class LFClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r'''Constructs a control-rate clipped noise generator.
+        r"""
+        Constructs a control-rate clipped noise generator.
 
         ::
 
@@ -78,7 +81,7 @@ class LFClipNoise(UGen):
             LFClipNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -91,7 +94,8 @@ class LFClipNoise(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LFClipNoise.
+        r"""
+        Gets `frequency` input of LFClipNoise.
 
         ::
 
@@ -103,6 +107,6 @@ class LFClipNoise(UGen):
             0.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LinExp(PureUGen):
-    r'''A linear-to-exponential range mapper.
+    r"""
+    A linear-to-exponential range mapper.
 
     ::
 
@@ -18,7 +19,7 @@ class LinExp(PureUGen):
         >>> lin_exp
         LinExp.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -68,7 +69,8 @@ class LinExp(PureUGen):
         output_minimum=1,
         source=None,
         ):
-        r'''Constructs an audio-rate linear-to-exponential range mapper.
+        r"""
+        Constructs an audio-rate linear-to-exponential range mapper.
 
         ::
 
@@ -84,7 +86,7 @@ class LinExp(PureUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class LinExp(PureUGen):
         output_minimum=1,
         source=0,
         ):
-        r'''Constructs a control-rate linear-to-exponential range mapper.
+        r"""
+        Constructs a control-rate linear-to-exponential range mapper.
 
         ::
 
@@ -122,7 +125,7 @@ class LinExp(PureUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -139,7 +142,8 @@ class LinExp(PureUGen):
 
     @property
     def input_maximum(self):
-        r'''Gets `input_maximum` input of LinExp.
+        r"""
+        Gets `input_maximum` input of LinExp.
 
         ::
 
@@ -155,13 +159,14 @@ class LinExp(PureUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('input_maximum')
         return self._inputs[index]
 
     @property
     def input_minimum(self):
-        r'''Gets `input_minimum` input of LinExp.
+        r"""
+        Gets `input_minimum` input of LinExp.
 
         ::
 
@@ -177,13 +182,14 @@ class LinExp(PureUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('input_minimum')
         return self._inputs[index]
 
     @property
     def output_maximum(self):
-        r'''Gets `output_maximum` input of LinExp.
+        r"""
+        Gets `output_maximum` input of LinExp.
 
         ::
 
@@ -199,13 +205,14 @@ class LinExp(PureUGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('output_maximum')
         return self._inputs[index]
 
     @property
     def output_minimum(self):
-        r'''Gets `output_minimum` input of LinExp.
+        r"""
+        Gets `output_minimum` input of LinExp.
 
         ::
 
@@ -221,13 +228,14 @@ class LinExp(PureUGen):
             20.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('output_minimum')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of LinExp.
+        r"""
+        Gets `source` input of LinExp.
 
         ::
 
@@ -250,6 +258,6 @@ class LinExp(PureUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

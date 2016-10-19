@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFGauss(UGen):
-    r'''A non-band-limited gaussian function oscillator.
+    r"""
+    A non-band-limited gaussian function oscillator.
 
     ::
 
         >>> ugentools.LFGauss.ar()
         LFGauss.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +63,8 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
         ):
-        r'''Constructs an audio-rate non-band-limited gaussian function
+        r"""
+        Constructs an audio-rate non-band-limited gaussian function
         oscillator.
 
         ::
@@ -77,7 +79,7 @@ class LFGauss(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -99,7 +101,8 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
         ):
-        r'''Constructs a control-rate non-band-limited gaussian function
+        r"""
+        Constructs a control-rate non-band-limited gaussian function
         oscillator.
 
         ::
@@ -114,7 +117,7 @@ class LFGauss(UGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +134,8 @@ class LFGauss(UGen):
 
     @property
     def duration(self):
-        r'''Gets `duration` input of LFSaw.
+        r"""
+        Gets `duration` input of LFSaw.
 
         ::
 
@@ -146,13 +150,14 @@ class LFGauss(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def done_action(self):
-        r'''Gets `done_action` input of LFSaw.
+        r"""
+        Gets `done_action` input of LFSaw.
 
         ::
 
@@ -167,13 +172,14 @@ class LFGauss(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('done_action')
         return self._inputs[index]
 
     @property
     def initial_phase(self):
-        r'''Gets `initial_phase` input of LFSaw.
+        r"""
+        Gets `initial_phase` input of LFSaw.
 
         ::
 
@@ -188,13 +194,14 @@ class LFGauss(UGen):
             0.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('initial_phase')
         return self._inputs[index]
 
     @property
     def loop(self):
-        r'''Gets `loop` input of LFSaw.
+        r"""
+        Gets `loop` input of LFSaw.
 
         ::
 
@@ -209,13 +216,14 @@ class LFGauss(UGen):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def width(self):
-        r'''Gets `width` input of LFSaw.
+        r"""
+        Gets `width` input of LFSaw.
 
         ::
 
@@ -230,6 +238,6 @@ class LFGauss(UGen):
             0.1
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('width')
         return self._inputs[index]

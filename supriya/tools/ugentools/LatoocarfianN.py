@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LatoocarfianN(UGen):
-    r'''A non-interpolating Latoocarfian chaotic generator.
+    r"""
+    A non-interpolating Latoocarfian chaotic generator.
 
     ::
 
@@ -19,7 +20,7 @@ class LatoocarfianN(UGen):
         >>> latoocarfian_n
         LatoocarfianN.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -77,7 +78,8 @@ class LatoocarfianN(UGen):
         xi=0.5,
         yi=0.5,
         ):
-        r'''Constructs an audio-rate LatoocarfianN.
+        r"""
+        Constructs an audio-rate LatoocarfianN.
 
         ::
 
@@ -94,7 +96,7 @@ class LatoocarfianN(UGen):
             LatoocarfianN.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -115,7 +117,8 @@ class LatoocarfianN(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of LatoocarfianN.
+        r"""
+        Gets `a` input of LatoocarfianN.
 
         ::
 
@@ -132,13 +135,14 @@ class LatoocarfianN(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of LatoocarfianN.
+        r"""
+        Gets `b` input of LatoocarfianN.
 
         ::
 
@@ -155,13 +159,14 @@ class LatoocarfianN(UGen):
             3.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]
 
     @property
     def c(self):
-        r'''Gets `c` input of LatoocarfianN.
+        r"""
+        Gets `c` input of LatoocarfianN.
 
         ::
 
@@ -178,13 +183,14 @@ class LatoocarfianN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('c')
         return self._inputs[index]
 
     @property
     def d(self):
-        r'''Gets `d` input of LatoocarfianN.
+        r"""
+        Gets `d` input of LatoocarfianN.
 
         ::
 
@@ -201,13 +207,14 @@ class LatoocarfianN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('d')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of LatoocarfianN.
+        r"""
+        Gets `frequency` input of LatoocarfianN.
 
         ::
 
@@ -224,13 +231,14 @@ class LatoocarfianN(UGen):
             22050.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def xi(self):
-        r'''Gets `xi` input of LatoocarfianN.
+        r"""
+        Gets `xi` input of LatoocarfianN.
 
         ::
 
@@ -247,13 +255,14 @@ class LatoocarfianN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('xi')
         return self._inputs[index]
 
     @property
     def yi(self):
-        r'''Gets `yi` input of LatoocarfianN.
+        r"""
+        Gets `yi` input of LatoocarfianN.
 
         ::
 
@@ -270,6 +279,6 @@ class LatoocarfianN(UGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('yi')
         return self._inputs[index]
