@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for Supriya's project maintenance scripts.
-'''
+"""
 
 from abjad.tools import systemtools
 
