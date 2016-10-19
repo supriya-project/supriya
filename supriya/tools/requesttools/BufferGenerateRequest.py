@@ -6,7 +6,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGenerateRequest(Request):
-    r'''A /b_gen request.
+    r"""
+    A /b_gen request.
 
     This requests models the 'cheby', 'sine1', 'sine2' and 'sine3' /b_gen
     commands.
@@ -50,7 +51,7 @@ class BufferGenerateRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_GENERATE
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

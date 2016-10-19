@@ -3,7 +3,8 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class NodeIdPair(SupriyaValueObject):
-    r'''A node id pair.
+    r"""
+    A node id pair.
 
     ::
 
@@ -18,7 +19,7 @@ class NodeIdPair(SupriyaValueObject):
             target_node_id=1000
             )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

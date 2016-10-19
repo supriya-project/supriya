@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeSetRequest(Request):
-    r'''A /n_set request.
+    r"""
+    A /n_set request.
 
     ::
 
@@ -34,7 +35,7 @@ class NodeSetRequest(Request):
         >>> message.address == requesttools.RequestId.NODE_SET
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

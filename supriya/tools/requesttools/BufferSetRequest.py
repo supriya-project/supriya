@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferSetRequest(Request):
-    r'''A /b_set request.
+    r"""
+    A /b_set request.
 
     ::
 
@@ -38,7 +39,7 @@ class BufferSetRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_SET
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

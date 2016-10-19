@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGetContiguousRequest(Request):
-    r'''A /b_getn request.
+    r"""
+    A /b_getn request.
 
     ::
 
@@ -33,7 +34,7 @@ class BufferGetContiguousRequest(Request):
         >>> message.address == requesttools.RequestId.BUFFER_GET_CONTIGUOUS
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

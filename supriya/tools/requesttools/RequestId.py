@@ -3,8 +3,9 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class RequestId(Enumeration):
-    r'''An enumeration of scsynth message types.
-    '''
+    r"""
+    An enumeration of scsynth message types.
+    """
 
     ### CLASS VARIABLES ###
 

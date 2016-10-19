@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class DumpOscRequest(Request):
-    r'''A /dumpOSC request.
+    r"""
+    A /dumpOSC request.
 
     ::
 
@@ -26,7 +27,7 @@ class DumpOscRequest(Request):
         >>> message.address == requesttools.RequestId.DUMP_OSC
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

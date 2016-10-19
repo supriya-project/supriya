@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class ControlBusGetContiguousRequest(Request):
-    r'''A /c_getn request.
+    r"""
+    A /c_getn request.
 
     ::
 
@@ -39,7 +40,7 @@ class ControlBusGetContiguousRequest(Request):
         ...     requesttools.RequestId.CONTROL_BUS_GET_CONTIGUOUS
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

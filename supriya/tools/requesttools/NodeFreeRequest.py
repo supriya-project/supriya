@@ -5,7 +5,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeFreeRequest(Request):
-    r'''A /n_free request.
+    r"""
+    A /n_free request.
 
     ::
 
@@ -29,7 +30,7 @@ class NodeFreeRequest(Request):
         >>> message.address == requesttools.RequestId.NODE_FREE
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 

@@ -4,8 +4,9 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthDefReceiveRequest(Request):
-    r'''A /d_recv request.
-    '''
+    r"""
+    A /d_recv request.
+    """
 
     ### CLASS VARIABLES ###
 

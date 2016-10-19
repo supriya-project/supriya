@@ -4,7 +4,8 @@ from supriya.tools.requesttools.Request import Request
 
 
 class GroupNewRequest(Request):
-    r'''A /g_new request.
+    r"""
+    A /g_new request.
 
     ::
 
@@ -33,7 +34,7 @@ class GroupNewRequest(Request):
         >>> message.address == requesttools.RequestId.GROUP_NEW
         True
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
