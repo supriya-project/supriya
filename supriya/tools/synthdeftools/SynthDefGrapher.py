@@ -3,7 +3,8 @@ from supriya.tools.documentationtools.Grapher import Grapher
 
 
 class SynthDefGrapher(Grapher):
-    r'''Graphs SynthDefs.
+    r"""
+    Graphs SynthDefs.
 
     ..  container:: example
 
@@ -59,7 +60,7 @@ class SynthDefGrapher(Grapher):
                 ugen_5:f_1_1_0:e -> ugen_6:f_1_0_0:w [color=steelblue];
             }
 
-    '''
+    """
 
     ### PRIVATE METHODS ###
 

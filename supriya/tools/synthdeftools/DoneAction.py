@@ -3,7 +3,8 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class DoneAction(Enumeration):
-    r'''An enumeration of scsynth UGen "done" actions.
+    r"""
+    An enumeration of scsynth UGen "done" actions.
 
     ::
 
@@ -16,7 +17,7 @@ class DoneAction(Enumeration):
         >>> synthdeftools.DoneAction.from_expr('pause synth')
         DoneAction.PAUSE_SYNTH
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
