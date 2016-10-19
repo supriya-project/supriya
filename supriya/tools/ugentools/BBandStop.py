@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BBandStop(BEQSuite):
-    r'''A band-stop filter.
+    r"""
+    A band-stop filter.
 
     ::
 
@@ -16,7 +17,7 @@ class BBandStop(BEQSuite):
         >>> bband_stop
         BBandStop.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class BBandStop(BEQSuite):
         frequency=1200,
         source=None,
         ):
-        r'''Constructs an audio-rate BBandStop.
+        r"""
+        Constructs an audio-rate BBandStop.
 
         ::
 
@@ -72,7 +74,7 @@ class BBandStop(BEQSuite):
             BBandStop.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -101,7 +103,8 @@ class BBandStop(BEQSuite):
 
     @property
     def bandwidth(self):
-        r'''Gets `bandwidth` input of BBandStop.
+        r"""
+        Gets `bandwidth` input of BBandStop.
 
         ::
 
@@ -115,13 +118,14 @@ class BBandStop(BEQSuite):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('bandwidth')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of BBandStop.
+        r"""
+        Gets `frequency` input of BBandStop.
 
         ::
 
@@ -135,13 +139,14 @@ class BBandStop(BEQSuite):
             1200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BBandStop.
+        r"""
+        Gets `source` input of BBandStop.
 
         ::
 
@@ -162,6 +167,6 @@ class BBandStop(BEQSuite):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

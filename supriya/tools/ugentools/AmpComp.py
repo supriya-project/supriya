@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AmpComp(PureUGen):
-    r'''Basic psychoacoustic amplitude compensation.
+    r"""
+    Basic psychoacoustic amplitude compensation.
 
     ::
 
@@ -15,7 +16,7 @@ class AmpComp(PureUGen):
         >>> amp_comp
         AmpComp.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r'''Constructs an audio-rate AmpComp.
+        r"""
+        Constructs an audio-rate AmpComp.
 
         ::
 
@@ -70,7 +72,7 @@ class AmpComp(PureUGen):
             AmpComp.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +90,8 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r'''Constructs a scale-rate AmpComp.
+        r"""
+        Constructs a scale-rate AmpComp.
 
         ::
 
@@ -101,7 +104,7 @@ class AmpComp(PureUGen):
             AmpComp.ir()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.SCALAR
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r'''Constructs a control-rate AmpComp.
+        r"""
+        Constructs a control-rate AmpComp.
 
         ::
 
@@ -132,7 +136,7 @@ class AmpComp(PureUGen):
             AmpComp.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -147,7 +151,8 @@ class AmpComp(PureUGen):
 
     @property
     def exp(self):
-        r'''Gets `exp` input of AmpComp.
+        r"""
+        Gets `exp` input of AmpComp.
 
         ::
 
@@ -160,13 +165,14 @@ class AmpComp(PureUGen):
             0.3333
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('exp')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of AmpComp.
+        r"""
+        Gets `frequency` input of AmpComp.
 
         ::
 
@@ -179,13 +185,14 @@ class AmpComp(PureUGen):
             1000.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def root(self):
-        r'''Gets `root` input of AmpComp.
+        r"""
+        Gets `root` input of AmpComp.
 
         ::
 
@@ -198,6 +205,6 @@ class AmpComp(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('root')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.BufDelayN import BufDelayN
 
 
 class BufDelayC(BufDelayN):
-    r'''A buffer-based cubic-interpolating delay line unit generator.
+    r"""
+    A buffer-based cubic-interpolating delay line unit generator.
 
     ::
 
@@ -15,7 +16,7 @@ class BufDelayC(BufDelayN):
         ...     )
         BufDelayC.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -33,7 +34,8 @@ class BufDelayC(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate buffer-based cubic-interpolating delay line.
+        r"""
+        Constructs an audio-rate buffer-based cubic-interpolating delay line.
 
         ::
 
@@ -48,7 +50,7 @@ class BufDelayC(BufDelayN):
             BufDelayC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(BufDelayC, cls).ar(
             buffer_id=buffer_id,
             delay_time=delay_time,
@@ -64,7 +66,8 @@ class BufDelayC(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate buffer-based cubic-interpolating delay line.
+        r"""
+        Constructs a control-rate buffer-based cubic-interpolating delay line.
 
         ::
 
@@ -79,7 +82,7 @@ class BufDelayC(BufDelayN):
             BufDelayC.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(BufDelayC, cls).kr(
             buffer_id=buffer_id,
             delay_time=delay_time,
@@ -91,7 +94,8 @@ class BufDelayC(BufDelayN):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of BufDelayC.
+        r"""
+        Gets `buffer_id` input of BufDelayC.
 
         ::
 
@@ -105,13 +109,14 @@ class BufDelayC(BufDelayN):
             23.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of BufDelayC.
+        r"""
+        Gets `delay_time` input of BufDelayC.
 
         ::
 
@@ -127,13 +132,14 @@ class BufDelayC(BufDelayN):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of BufDelayC.
+        r"""
+        Gets `maximum_delay_time` input of BufDelayC.
 
         ::
 
@@ -149,13 +155,14 @@ class BufDelayC(BufDelayN):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of BufDelayC.
+        r"""
+        Gets `source` input of BufDelayC.
 
         ::
 
@@ -176,6 +183,6 @@ class BufDelayC(BufDelayN):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

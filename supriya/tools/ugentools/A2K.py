@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class A2K(PureUGen):
-    r'''An audio-rate to control-rate convert unit generator.
+    r"""
+    An audio-rate to control-rate convert unit generator.
 
     ::
 
@@ -14,7 +15,7 @@ class A2K(PureUGen):
         >>> a_2_k
         A2K.kr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -46,7 +47,8 @@ class A2K(PureUGen):
         cls,
         source=None,
         ):
-        r'''Constructs an audio-rate to control-rate converter.
+        r"""
+        Constructs an audio-rate to control-rate converter.
 
         ::
 
@@ -57,7 +59,7 @@ class A2K(PureUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -70,7 +72,8 @@ class A2K(PureUGen):
 
     @property
     def source(self):
-        r'''Gets `source` input of A2K.
+        r"""
+        Gets `source` input of A2K.
 
         ::
 
@@ -89,6 +92,6 @@ class A2K(PureUGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

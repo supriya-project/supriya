@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BinaryOpUGen(UGen):
-    r'''A binary operator ugen, created by applying a binary operator to two
+    r"""
+    A binary operator ugen, created by applying a binary operator to two
     ugens.
 
     ::
@@ -19,7 +20,7 @@ class BinaryOpUGen(UGen):
         >>> binary_op_ugen.operator
         BinaryOperator.MULTIPLICATION
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -101,7 +102,8 @@ class BinaryOpUGen(UGen):
 
     @property
     def left(self):
-        r'''Gets `left` input of BinaryOpUGen.
+        r"""
+        Gets `left` input of BinaryOpUGen.
 
         ::
 
@@ -119,13 +121,14 @@ class BinaryOpUGen(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('left')
         return self._inputs[index]
 
     @property
     def operator(self):
-        r'''Gets operator of BinaryOpUgen.
+        r"""
+        Gets operator of BinaryOpUgen.
 
         ::
 
@@ -136,13 +139,14 @@ class BinaryOpUGen(UGen):
             BinaryOperator.FLOAT_DIVISION
 
         Returns binary operator.
-        '''
+        """
         from supriya.tools import synthdeftools
         return synthdeftools.BinaryOperator(self.special_index)
 
     @property
     def right(self):
-        r'''Gets `right` input of BinaryOpUGen.
+        r"""
+        Gets `right` input of BinaryOpUGen.
 
         ::
 
@@ -158,6 +162,6 @@ class BinaryOpUGen(UGen):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('right')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class APF(UGen):
-    r'''An all-pass filter.
+    r"""
+    An all-pass filter.
 
     ::
 
@@ -16,7 +17,7 @@ class APF(UGen):
         >>> apf
         APF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class APF(UGen):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs an audio-rate APF.
+        r"""
+        Constructs an audio-rate APF.
 
         ::
 
@@ -72,7 +74,7 @@ class APF(UGen):
             APF.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -92,7 +94,8 @@ class APF(UGen):
         radius=0.8,
         source=None,
         ):
-        r'''Constructs a control-rate APF.
+        r"""
+        Constructs a control-rate APF.
 
         ::
 
@@ -106,7 +109,7 @@ class APF(UGen):
             APF.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -131,7 +134,8 @@ class APF(UGen):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of APF.
+        r"""
+        Gets `frequency` input of APF.
 
         ::
 
@@ -145,13 +149,14 @@ class APF(UGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def radius(self):
-        r'''Gets `radius` input of APF.
+        r"""
+        Gets `radius` input of APF.
 
         ::
 
@@ -165,13 +170,14 @@ class APF(UGen):
             0.8
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('radius')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of APF.
+        r"""
+        Gets `source` input of APF.
 
         ::
 
@@ -192,6 +198,6 @@ class APF(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
