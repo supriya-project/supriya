@@ -14,7 +14,8 @@ AbstractBase = abc.ABCMeta(
 
 
 class SupriyaObject(AbstractBase):
-    """Abstract base class from which many custom classes inherit.
+    """
+    Abstract base class from which many custom classes inherit.
     """
 
     ### CLASS VARIABLES ###
