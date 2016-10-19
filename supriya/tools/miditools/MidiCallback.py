@@ -4,7 +4,8 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class MidiCallback(SupriyaObject):
-    r'''A MIDI callback.
+    r"""
+    A MIDI callback.
 
     ::
 
@@ -14,7 +15,7 @@ class MidiCallback(SupriyaObject):
         ...     procedure=lambda x: print(x),
         ...     )
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
