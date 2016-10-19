@@ -3,7 +3,8 @@ from supriya.tools.ugentools.CombN import CombN
 
 
 class CombL(CombN):
-    r'''A linear interpolating comb delay line unit generator.
+    r"""
+    A linear interpolating comb delay line unit generator.
 
     ::
 
@@ -11,7 +12,7 @@ class CombL(CombN):
         >>> ugentools.CombL.ar(source=source)
         CombL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -29,7 +30,8 @@ class CombL(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs an audio-rate linear-interpolating comb delay line.
+        r"""
+        Constructs an audio-rate linear-interpolating comb delay line.
 
         ::
 
@@ -43,7 +45,7 @@ class CombL(CombN):
             CombL.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(CombL, cls).ar(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -58,7 +60,8 @@ class CombL(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r'''Constructs a control-rate linear-interpolating comb delay line.
+        r"""
+        Constructs a control-rate linear-interpolating comb delay line.
 
         ::
 
@@ -72,7 +75,7 @@ class CombL(CombN):
             CombL.ar()
 
         Returns unit generator graph.
-        '''
+        """
         return super(CombL, cls).kr(
             delay_time=delay_time,
             maximum_delay_time=maximum_delay_time,
@@ -83,7 +86,8 @@ class CombL(CombN):
 
     @property
     def decay_time(self):
-        r'''Gets `decay_time` input of CombL.
+        r"""
+        Gets `decay_time` input of CombL.
 
         ::
 
@@ -97,13 +101,14 @@ class CombL(CombN):
             1.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('decay_time')
         return self._inputs[index]
 
     @property
     def delay_time(self):
-        r'''Gets `delay_time` input of CombL.
+        r"""
+        Gets `delay_time` input of CombL.
 
         ::
 
@@ -117,13 +122,14 @@ class CombL(CombN):
             1.5
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('delay_time')
         return self._inputs[index]
 
     @property
     def maximum_delay_time(self):
-        r'''Gets `maximum_delay_time` input of CombL.
+        r"""
+        Gets `maximum_delay_time` input of CombL.
 
         ::
 
@@ -137,13 +143,14 @@ class CombL(CombN):
             2.0
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('maximum_delay_time')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of CombL.
+        r"""
+        Gets `source` input of CombL.
 
         ::
 
@@ -162,6 +169,6 @@ class CombL(CombN):
                 )
 
         Returns input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

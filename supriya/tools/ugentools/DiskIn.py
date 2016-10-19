@@ -3,7 +3,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class DiskIn(MultiOutUGen):
-    r'''Streams in audio from a file.
+    r"""
+    Streams in audio from a file.
 
     ::
 
@@ -16,7 +17,7 @@ class DiskIn(MultiOutUGen):
         >>> disk_in
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +58,8 @@ class DiskIn(MultiOutUGen):
         channel_count=None,
         loop=0,
         ):
-        r'''Constructs an audio-rate DiskIn.
+        r"""
+        Constructs an audio-rate DiskIn.
 
         ::
 
@@ -71,7 +73,7 @@ class DiskIn(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +90,8 @@ class DiskIn(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DiskIn.
+        r"""
+        Gets `buffer_id` input of DiskIn.
 
         ::
 
@@ -102,21 +105,23 @@ class DiskIn(MultiOutUGen):
             23.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def loop(self):
-        r'''Gets `loop` input of DiskIn.
+        r"""
+        Gets `loop` input of DiskIn.
 
         ::
 
@@ -130,6 +135,6 @@ class DiskIn(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]

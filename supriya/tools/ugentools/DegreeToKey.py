@@ -3,7 +3,8 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DegreeToKey(PureUGen):
-    r'''A signal-to-modal-pitch converter.`
+    r"""
+    A signal-to-modal-pitch converter.`
 
     ::
 
@@ -16,7 +17,7 @@ class DegreeToKey(PureUGen):
         >>> degree_to_key
         DegreeToKey.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -58,7 +59,8 @@ class DegreeToKey(PureUGen):
         octave=12,
         source=None,
         ):
-        r'''Constructs an audio-rate DegreeToKey.
+        r"""
+        Constructs an audio-rate DegreeToKey.
 
         ::
 
@@ -72,7 +74,7 @@ class DegreeToKey(PureUGen):
             DegreeToKey.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -90,7 +92,8 @@ class DegreeToKey(PureUGen):
         octave=12,
         source=None,
         ):
-        r'''Constructs a control-rate DegreeToKey.
+        r"""
+        Constructs a control-rate DegreeToKey.
 
         ::
 
@@ -104,7 +107,7 @@ class DegreeToKey(PureUGen):
             DegreeToKey.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -119,7 +122,8 @@ class DegreeToKey(PureUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of DegreeToKey.
+        r"""
+        Gets `buffer_id` input of DegreeToKey.
 
         ::
 
@@ -133,13 +137,14 @@ class DegreeToKey(PureUGen):
             23
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return int(self._inputs[index])
 
     @property
     def octave(self):
-        r'''Gets `octave` input of DegreeToKey.
+        r"""
+        Gets `octave` input of DegreeToKey.
 
         ::
 
@@ -153,13 +158,14 @@ class DegreeToKey(PureUGen):
             12.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('octave')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of DegreeToKey.
+        r"""
+        Gets `source` input of DegreeToKey.
 
         ::
 
@@ -180,6 +186,6 @@ class DegreeToKey(PureUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

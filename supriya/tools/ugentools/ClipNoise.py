@@ -3,14 +3,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ClipNoise(UGen):
-    r'''A clipped noise unit generator.
+    r"""
+    A clipped noise unit generator.
 
     ::
 
         >>> ugentools.ClipNoise.ar()
         ClipNoise.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -35,7 +36,8 @@ class ClipNoise(UGen):
     def ar(
         cls,
         ):
-        r'''Constructs an audio-rate clipped noise unit generator.
+        r"""
+        Constructs an audio-rate clipped noise unit generator.
 
         ::
 
@@ -43,7 +45,7 @@ class ClipNoise(UGen):
             ClipNoise.ar()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -55,7 +57,8 @@ class ClipNoise(UGen):
     def kr(
         cls,
         ):
-        r'''Constructs a control-rate clipped noise unit generator.
+        r"""
+        Constructs a control-rate clipped noise unit generator.
 
         ::
 
@@ -63,7 +66,7 @@ class ClipNoise(UGen):
             ClipNoise.kr()
 
         Returns unit generator graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(

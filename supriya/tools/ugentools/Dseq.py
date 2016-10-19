@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dseq(DUGen):
-    r'''A demand-rate sequence generator.
+    r"""
+    A demand-rate sequence generator.
 
     ::
 
@@ -15,7 +16,7 @@ class Dseq(DUGen):
         >>> dseq
         Dseq()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -51,7 +52,8 @@ class Dseq(DUGen):
         repeats=1,
         sequence=None,
         ):
-        r'''Constructs a Dseq.
+        r"""
+        Constructs a Dseq.
 
         ::
 
@@ -64,7 +66,7 @@ class Dseq(DUGen):
             Dseq()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             repeats=repeats,
             sequence=sequence,
@@ -75,7 +77,8 @@ class Dseq(DUGen):
 
     @property
     def repeats(self):
-        r'''Gets `repeats` input of Dseq.
+        r"""
+        Gets `repeats` input of Dseq.
 
         ::
 
@@ -88,13 +91,14 @@ class Dseq(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('repeats')
         return self._inputs[index]
 
     @property
     def sequence(self):
-        r'''Gets `sequence` input of Dseq.
+        r"""
+        Gets `sequence` input of Dseq.
 
         ::
 
@@ -107,6 +111,6 @@ class Dseq(DUGen):
             (1.0, 2.0, 3.0)
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('sequence')
         return tuple(self._inputs[index:])

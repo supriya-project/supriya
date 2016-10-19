@@ -3,7 +3,8 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbufwr(DUGen):
-    r'''A buffer-writing demand-rate UGen.
+    r"""
+    A buffer-writing demand-rate UGen.
 
     ::
 
@@ -16,7 +17,7 @@ class Dbufwr(DUGen):
         >>> dbufwr
         Dbufwr()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -56,7 +57,8 @@ class Dbufwr(DUGen):
         loop=1,
         phase=0,
         ):
-        r'''Constructs a Dbufwr.
+        r"""
+        Constructs a Dbufwr.
 
         ::
 
@@ -70,7 +72,7 @@ class Dbufwr(DUGen):
             Dbufwr()
 
         Returns ugen graph.
-        '''
+        """
         ugen = cls._new_expanded(
             buffer_id=buffer_id,
             source=source,
@@ -83,7 +85,8 @@ class Dbufwr(DUGen):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of Dbufwr.
+        r"""
+        Gets `buffer_id` input of Dbufwr.
 
         ::
 
@@ -97,21 +100,23 @@ class Dbufwr(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def loop(self):
-        r'''Gets `loop` input of Dbufwr.
+        r"""
+        Gets `loop` input of Dbufwr.
 
         ::
 
@@ -125,13 +130,14 @@ class Dbufwr(DUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('loop')
         return self._inputs[index]
 
     @property
     def phase(self):
-        r'''Gets `phase` input of Dbufwr.
+        r"""
+        Gets `phase` input of Dbufwr.
 
         ::
 
@@ -145,13 +151,14 @@ class Dbufwr(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('phase')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Dbufwr.
+        r"""
+        Gets `source` input of Dbufwr.
 
         ::
 
@@ -165,6 +172,6 @@ class Dbufwr(DUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

@@ -3,7 +3,8 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Convolution3(UGen):
-    r'''Strict convolution with fixed kernel which can be updated using a trigger signal.
+    r"""
+    Strict convolution with fixed kernel which can be updated using a trigger signal.
 
     ::
 
@@ -21,7 +22,7 @@ class Convolution3(UGen):
         >>> convolution_3
         Convolution3.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +68,8 @@ class Convolution3(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs an audio-rate Convolution3.
+        r"""
+        Constructs an audio-rate Convolution3.
 
         ::
 
@@ -86,7 +88,7 @@ class Convolution3(UGen):
             Convolution3.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class Convolution3(UGen):
         source=None,
         trigger=0,
         ):
-        r'''Constructs a control-rate Convolution3.
+        r"""
+        Constructs a control-rate Convolution3.
 
         ::
 
@@ -125,7 +128,7 @@ class Convolution3(UGen):
             Convolution3.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -141,7 +144,8 @@ class Convolution3(UGen):
 
     @property
     def framesize(self):
-        r'''Gets `framesize` input of Convolution3.
+        r"""
+        Gets `framesize` input of Convolution3.
 
         ::
 
@@ -160,13 +164,14 @@ class Convolution3(UGen):
             2048.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('framesize')
         return self._inputs[index]
 
     @property
     def kernel(self):
-        r'''Gets `kernel` input of Convolution3.
+        r"""
+        Gets `kernel` input of Convolution3.
 
         ::
 
@@ -289,13 +294,14 @@ class Convolution3(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('kernel')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Convolution3.
+        r"""
+        Gets `source` input of Convolution3.
 
         ::
 
@@ -321,13 +327,14 @@ class Convolution3(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Convolution3.
+        r"""
+        Gets `trigger` input of Convolution3.
 
         ::
 
@@ -346,6 +353,6 @@ class Convolution3(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

@@ -4,7 +4,8 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Demand(MultiOutUGen):
-    r'''Demands results from demand-rate UGens.
+    r"""
+    Demands results from demand-rate UGens.
 
     ::
 
@@ -21,7 +22,7 @@ class Demand(MultiOutUGen):
         >>> demand
         UGenArray({2})
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -71,7 +72,8 @@ class Demand(MultiOutUGen):
         source=None,
         trigger=None,
         ):
-        r'''Constructs an audio-rate Demand.
+        r"""
+        Constructs an audio-rate Demand.
 
         ::
 
@@ -85,7 +87,7 @@ class Demand(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -103,7 +105,8 @@ class Demand(MultiOutUGen):
         reset=None,
         trigger=None,
         ):
-        r'''Constructs a control-rate Demand.
+        r"""
+        Constructs a control-rate Demand.
 
         ::
 
@@ -117,7 +120,7 @@ class Demand(MultiOutUGen):
             UGenArray({2})
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -134,15 +137,17 @@ class Demand(MultiOutUGen):
 
     @property
     def has_done_flag(self):
-        r'''Is true if UGen has a done flag.
+        r"""
+        Is true if UGen has a done flag.
 
         Returns boolean.
-        '''
+        """
         return True
 
     @property
     def reset(self):
-        r'''Gets `reset` input of Demand.
+        r"""
+        Gets `reset` input of Demand.
 
         ::
 
@@ -156,13 +161,14 @@ class Demand(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of Demand.
+        r"""
+        Gets `source` input of Demand.
 
         ::
 
@@ -190,13 +196,14 @@ class Demand(MultiOutUGen):
                 ))
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of Demand.
+        r"""
+        Gets `trigger` input of Demand.
 
         ::
 
@@ -217,6 +224,6 @@ class Demand(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]
