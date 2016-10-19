@@ -1,8 +1,8 @@
 # -*- encoding: utf-8 -*-
 
-r'''
+r"""
 Tools for creating Supriya's documentation.
-'''
+"""
 
 from abjad.tools import systemtools
 
