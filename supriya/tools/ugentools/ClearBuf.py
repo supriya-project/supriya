@@ -4,7 +4,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class ClearBuf(WidthFirstUGen):
-    r"""
+    """
 
     ::
 
@@ -50,7 +50,7 @@ class ClearBuf(WidthFirstUGen):
         cls,
         buffer_id=None,
         ):
-        r"""
+        """
         Constructs a ClearBuf.
 
         ::
@@ -75,7 +75,7 @@ class ClearBuf(WidthFirstUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of ClearBuf.
 
         ::

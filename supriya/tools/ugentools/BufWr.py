@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BufWr(UGen):
-    r"""
+    """
     A buffer-writing oscillator.
 
     ::
@@ -74,7 +74,7 @@ class BufWr(UGen):
         loop=1,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate BufWr.
 
         ::
@@ -116,7 +116,7 @@ class BufWr(UGen):
         loop=1,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate BufWr.
 
         ::
@@ -154,7 +154,7 @@ class BufWr(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufWr.
 
         ::
@@ -182,7 +182,7 @@ class BufWr(UGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -191,7 +191,7 @@ class BufWr(UGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of BufWr.
 
         ::
@@ -219,7 +219,7 @@ class BufWr(UGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of BufWr.
 
         ::
@@ -269,7 +269,7 @@ class BufWr(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufWr.
 
         ::

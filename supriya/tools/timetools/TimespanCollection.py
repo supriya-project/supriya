@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class TimespanCollection(SupriyaObject):
-    r"""
+    """
     A mutable always-sorted collection of timespans.
 
     ::
@@ -48,7 +48,7 @@ class TimespanCollection(SupriyaObject):
         return self
 
     def __contains__(self, timespan):
-        r"""
+        """
         Is true if this timespan collection contains `timespan`. Otherwise
         false.
 
@@ -81,7 +81,7 @@ class TimespanCollection(SupriyaObject):
         return result
 
     def __getitem__(self, i):
-        r"""
+        """
         Gets timespan at index `i`.
 
         ::
@@ -153,7 +153,7 @@ class TimespanCollection(SupriyaObject):
         raise TypeError('Indices must be integers or slices, got {}'.format(i))
 
     def __iter__(self):
-        r"""
+        """
         Iterates timespans in this timespan collection.
 
         ::
@@ -194,7 +194,7 @@ class TimespanCollection(SupriyaObject):
         return recurse(self._root_node)
 
     def __len__(self):
-        r"""
+        """
         Gets length of this timespan collection.
 
         ::
@@ -220,7 +220,7 @@ class TimespanCollection(SupriyaObject):
         return self._root_node.subtree_stop_index
 
     def __setitem__(self, i, new):
-        r"""
+        """
         Sets timespans at index `i` to `new`.
 
         ::
@@ -249,7 +249,7 @@ class TimespanCollection(SupriyaObject):
             raise TypeError(message)
 
     def __sub__(self, timespan):
-        r"""
+        """
         Delete material that intersects `timespan`:
 
         ::
@@ -513,7 +513,7 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def find_timespans_overlapping_offset(self, offset):
-        r"""
+        """
         Finds timespans overlapping `offset`.
 
         ::
@@ -555,7 +555,7 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def find_timespans_intersecting_timespan(self, timespan):
-        r"""
+        """
         Finds timespans overlapping `timespan`.
 
         ::
@@ -599,7 +599,7 @@ class TimespanCollection(SupriyaObject):
         return tuple(results)
 
     def get_simultaneity_at(self, offset):
-        r"""
+        """
         Gets simultaneity at `offset`.
 
         ::
@@ -638,7 +638,7 @@ class TimespanCollection(SupriyaObject):
         return simultaneity
 
     def get_start_offset_after(self, offset):
-        r"""
+        """
         Gets start offst in this timespan collection after `offset`.
 
         ::
@@ -693,7 +693,7 @@ class TimespanCollection(SupriyaObject):
         return result.start_offset
 
     def get_start_offset_before(self, offset):
-        r"""
+        """
         Gets start offst in this timespan collection before `offset`.
 
         ::
@@ -756,7 +756,7 @@ class TimespanCollection(SupriyaObject):
         return index
 
     def insert(self, timespans):
-        r"""
+        """
         Inserts `timespans` into this timespan collection.
 
         ::
@@ -794,7 +794,7 @@ class TimespanCollection(SupriyaObject):
         self,
         reverse=False,
         ):
-        r"""
+        """
         Iterates simultaneities in this timespan collection.
 
         ::
@@ -854,7 +854,7 @@ class TimespanCollection(SupriyaObject):
         n=3,
         reverse=False,
         ):
-        r"""
+        """
         Iterates simultaneities in this timespan collection in groups of
         `n`.
 
@@ -914,7 +914,7 @@ class TimespanCollection(SupriyaObject):
                     yield tuple(reversed(simultaneities))
 
     def remove(self, timespans):
-        r"""
+        """
         Removes timespans from this timespan collection.
 
         ::

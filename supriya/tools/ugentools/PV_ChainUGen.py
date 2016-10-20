@@ -4,7 +4,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class PV_ChainUGen(WidthFirstUGen):
-    r"""
+    """
     Abstract base class for all phase-vocoder-chain unit generators.
     """
 
@@ -36,7 +36,7 @@ class PV_ChainUGen(WidthFirstUGen):
 
     @property
     def fft_size(self):
-        r"""
+        """
         Gets FFT size as UGen input.
 
         Returns ugen input.

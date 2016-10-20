@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SpecCentroid(UGen):
-    r"""
+    """
     A spectral centroid measure.
 
     ::
@@ -52,7 +52,7 @@ class SpecCentroid(UGen):
         cls,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a control-rate SpecCentroid.
 
         ::
@@ -76,7 +76,7 @@ class SpecCentroid(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of SpecCentroid.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Compander(UGen):
-    r"""
+    """
     A general purpose hard-knee dynamics processor.
 
     """
@@ -62,7 +62,7 @@ class Compander(UGen):
         source=0.,
         threshold=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate dynamics processor.
 
         ::
@@ -94,7 +94,7 @@ class Compander(UGen):
 
     @property
     def clamp_time(self):
-        r"""
+        """
         Gets `clamp_time` input of Compander.
 
         ::
@@ -115,7 +115,7 @@ class Compander(UGen):
 
     @property
     def control(self):
-        r"""
+        """
         Gets `control` input of Compander.
 
         ::
@@ -136,7 +136,7 @@ class Compander(UGen):
 
     @property
     def relax_time(self):
-        r"""
+        """
         Gets `relax_time` input of Compander.
 
         ::
@@ -157,7 +157,7 @@ class Compander(UGen):
 
     @property
     def slope_above(self):
-        r"""
+        """
         Gets `slope_above` input of Compander.
 
         ::
@@ -178,7 +178,7 @@ class Compander(UGen):
 
     @property
     def slope_below(self):
-        r"""
+        """
         Gets `slope_below` input of Compander.
 
         ::
@@ -199,7 +199,7 @@ class Compander(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Compander.
 
         ::
@@ -225,7 +225,7 @@ class Compander(UGen):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of Compander.
 
         ::

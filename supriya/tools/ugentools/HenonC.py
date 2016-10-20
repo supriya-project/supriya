@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class HenonC(UGen):
-    r"""
+    """
     A cubic-interpolating henon map chaotic generator.
 
     ::
@@ -68,7 +68,7 @@ class HenonC(UGen):
         x_0=0,
         x_1=0,
         ):
-        r"""
+        """
         Constructs an audio-rate HenonC.
 
         ::
@@ -103,7 +103,7 @@ class HenonC(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of HenonC.
 
         ::
@@ -125,7 +125,7 @@ class HenonC(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of HenonC.
 
         ::
@@ -147,7 +147,7 @@ class HenonC(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of HenonC.
 
         ::
@@ -169,7 +169,7 @@ class HenonC(UGen):
 
     @property
     def x_0(self):
-        r"""
+        """
         Gets `x_0` input of HenonC.
 
         ::
@@ -191,7 +191,7 @@ class HenonC(UGen):
 
     @property
     def x_1(self):
-        r"""
+        """
         Gets `x_1` input of HenonC.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InRect(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class InRect(UGen):
         x=0,
         y=0,
         ):
-        r"""
+        """
         Constructs an audio-rate InRect.
 
         ::
@@ -89,7 +89,7 @@ class InRect(UGen):
         x=0,
         y=0,
         ):
-        r"""
+        """
         Constructs a control-rate InRect.
 
         ::
@@ -118,7 +118,7 @@ class InRect(UGen):
 
     @property
     def rect(self):
-        r"""
+        """
         Gets `rect` input of InRect.
 
         ::
@@ -137,7 +137,7 @@ class InRect(UGen):
 
     @property
     def x(self):
-        r"""
+        """
         Gets `x` input of InRect.
 
         ::
@@ -157,7 +157,7 @@ class InRect(UGen):
 
     @property
     def y(self):
-        r"""
+        """
         Gets `y` input of InRect.
 
         ::

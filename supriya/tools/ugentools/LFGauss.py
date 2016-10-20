@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFGauss(UGen):
-    r"""
+    """
     A non-band-limited gaussian function oscillator.
 
     ::
@@ -63,7 +63,7 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
         ):
-        r"""
+        """
         Constructs an audio-rate non-band-limited gaussian function
         oscillator.
 
@@ -101,7 +101,7 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
         ):
-        r"""
+        """
         Constructs a control-rate non-band-limited gaussian function
         oscillator.
 
@@ -134,7 +134,7 @@ class LFGauss(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of LFSaw.
 
         ::
@@ -156,7 +156,7 @@ class LFGauss(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of LFSaw.
 
         ::
@@ -178,7 +178,7 @@ class LFGauss(UGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of LFSaw.
 
         ::
@@ -200,7 +200,7 @@ class LFGauss(UGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of LFSaw.
 
         ::
@@ -222,7 +222,7 @@ class LFGauss(UGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of LFSaw.
 
         ::

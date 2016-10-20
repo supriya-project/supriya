@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class FFT(PV_ChainUGen):
-    r"""
+    """
     A fast Fourier transform.
 
     ::
@@ -74,7 +74,7 @@ class FFT(PV_ChainUGen):
         window_size=0,
         window_type=0,
         ):
-        r"""
+        """
         Constructs a FFT.
 
         ::
@@ -109,7 +109,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def active(self):
-        r"""
+        """
         Gets `active` input of FFT.
 
         ::
@@ -134,7 +134,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of FFT.
 
         ::
@@ -166,7 +166,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def fft_size(self):
-        r"""
+        """
         Gets FFT size as UGen input.
 
         Returns ugen input.
@@ -176,7 +176,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def hop(self):
-        r"""
+        """
         Gets `hop` input of FFT.
 
         ::
@@ -201,7 +201,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of FFT.
 
         ::
@@ -238,7 +238,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def window_size(self):
-        r"""
+        """
         Gets `window_size` input of FFT.
 
         ::
@@ -263,7 +263,7 @@ class FFT(PV_ChainUGen):
 
     @property
     def window_type(self):
-        r"""
+        """
         Gets `window_type` input of FFT.
 
         ::

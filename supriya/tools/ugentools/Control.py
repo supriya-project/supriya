@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Control(MultiOutUGen):
-    r"""
+    """
     A control-rate control ugen.
 
     Control ugens can be set and routed externally to interact with a running
@@ -46,7 +46,7 @@ class Control(MultiOutUGen):
     ### SPECIAL METHODS ###
 
     def __getitem__(self, i):
-        r"""
+        """
         Gets output proxy at `i`, via index or control name.
 
         Returns output proxy.
@@ -60,7 +60,7 @@ class Control(MultiOutUGen):
             return self[self._get_control_index(i)]
 
     def __len__(self):
-        r"""
+        """
         Gets number of ugen outputs.
 
         Equal to the number of control names.
@@ -90,7 +90,7 @@ class Control(MultiOutUGen):
 
     @property
     def controls(self):
-        r"""
+        """
         Gets controls of control ugen.
 
         Returns ugen graph.
@@ -107,7 +107,7 @@ class Control(MultiOutUGen):
 
     @property
     def parameters(self):
-        r"""
+        """
         Gets control names associated with control.
 
         Returns tuple.
@@ -116,7 +116,7 @@ class Control(MultiOutUGen):
 
     @property
     def starting_control_index(self):
-        r"""
+        """
         Gets starting control index of control ugen.
 
         Equivalent to the control ugen's special index.

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Rand(UGen):
-    r"""
+    """
     A uniform random distribution.
 
     ::
@@ -47,7 +47,7 @@ class Rand(UGen):
         minimum=0.,
         maximum=1.,
         ):
-        r"""
+        """
         Constructs a scalar-rate uniform random distribution.
 
         ::
@@ -73,7 +73,7 @@ class Rand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Rand.
 
         ::
@@ -94,7 +94,7 @@ class Rand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Rand.
 
         ::

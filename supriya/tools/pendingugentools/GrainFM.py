@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainFM(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -87,7 +87,7 @@ class GrainFM(MultiOutUGen):
         pan=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate GrainFM.
 
         ::
@@ -130,7 +130,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def carfrequency(self):
-        r"""
+        """
         Gets `carfrequency` input of GrainFM.
 
         ::
@@ -156,7 +156,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of GrainFM.
 
         ::
@@ -182,7 +182,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of GrainFM.
 
         ::
@@ -208,7 +208,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def envbufnum(self):
-        r"""
+        """
         Gets `envbufnum` input of GrainFM.
 
         ::
@@ -234,7 +234,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def index(self):
-        r"""
+        """
         Gets `index` input of GrainFM.
 
         ::
@@ -260,7 +260,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def max_grains(self):
-        r"""
+        """
         Gets `max_grains` input of GrainFM.
 
         ::
@@ -286,7 +286,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def modfrequency(self):
-        r"""
+        """
         Gets `modfrequency` input of GrainFM.
 
         ::
@@ -312,7 +312,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def pan(self):
-        r"""
+        """
         Gets `pan` input of GrainFM.
 
         ::
@@ -338,7 +338,7 @@ class GrainFM(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of GrainFM.
 
         ::

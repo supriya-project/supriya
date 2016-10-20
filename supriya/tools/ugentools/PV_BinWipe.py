@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinWipe(PV_ChainUGen):
-    r"""
+    """
     Copies low bins from one input and the high bins of the other.
 
     ::
@@ -60,7 +60,7 @@ class PV_BinWipe(PV_ChainUGen):
         pv_chain_b=None,
         wipe=0,
         ):
-        r"""
+        """
         Constructs a PV_BinWipe.
 
         ::
@@ -92,7 +92,7 @@ class PV_BinWipe(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_BinWipe.
 
         ::
@@ -141,7 +141,7 @@ class PV_BinWipe(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_BinWipe.
 
         ::
@@ -192,7 +192,7 @@ class PV_BinWipe(PV_ChainUGen):
 
     @property
     def wipe(self):
-        r"""
+        """
         Gets `wipe` input of PV_BinWipe.
 
         ::

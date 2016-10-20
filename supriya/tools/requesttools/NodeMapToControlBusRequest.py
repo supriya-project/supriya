@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeMapToControlBusRequest(Request):
-    r"""
+    """
     A /n_map request.
 
     ::

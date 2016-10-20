@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class FFTTrigger(PV_ChainUGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class FFTTrigger(PV_ChainUGen):
         hop=0.5,
         polar=0,
         ):
-        r"""
+        """
         Constructs a FFTTrigger.
 
         ::
@@ -86,7 +86,7 @@ class FFTTrigger(PV_ChainUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of FFTTrigger.
 
         ::
@@ -105,7 +105,7 @@ class FFTTrigger(PV_ChainUGen):
 
     @property
     def hop(self):
-        r"""
+        """
         Gets `hop` input of FFTTrigger.
 
         ::
@@ -125,7 +125,7 @@ class FFTTrigger(PV_ChainUGen):
 
     @property
     def polar(self):
-        r"""
+        """
         Gets `polar` input of FFTTrigger.
 
         ::

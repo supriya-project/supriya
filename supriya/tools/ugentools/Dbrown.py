@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbrown(DUGen):
-    r"""
+    """
     A demand-rate brownian movement generator.
 
     ::
@@ -59,7 +59,7 @@ class Dbrown(DUGen):
         minimum=0,
         step=0.01,
         ):
-        r"""
+        """
         Constructs a Dbrown.
 
         ::
@@ -87,7 +87,7 @@ class Dbrown(DUGen):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dbrown.
 
         ::
@@ -108,7 +108,7 @@ class Dbrown(DUGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Dbrown.
 
         ::
@@ -129,7 +129,7 @@ class Dbrown(DUGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Dbrown.
 
         ::
@@ -150,7 +150,7 @@ class Dbrown(DUGen):
 
     @property
     def step(self):
-        r"""
+        """
         Gets `step` input of Dbrown.
 
         ::

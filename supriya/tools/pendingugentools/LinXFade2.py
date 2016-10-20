@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinXFade2(UGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class LinXFade2(UGen):
         level=1,
         pan=0,
         ):
-        r"""
+        """
         Constructs an audio-rate LinXFade2.
 
         ::
@@ -97,7 +97,7 @@ class LinXFade2(UGen):
         level=1,
         pan=0,
         ):
-        r"""
+        """
         Constructs a control-rate LinXFade2.
 
         ::
@@ -128,7 +128,7 @@ class LinXFade2(UGen):
 
     @property
     def in_a(self):
-        r"""
+        """
         Gets `in_a` input of LinXFade2.
 
         ::
@@ -148,7 +148,7 @@ class LinXFade2(UGen):
 
     @property
     def in_b(self):
-        r"""
+        """
         Gets `in_b` input of LinXFade2.
 
         ::
@@ -169,7 +169,7 @@ class LinXFade2(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of LinXFade2.
 
         ::
@@ -190,7 +190,7 @@ class LinXFade2(UGen):
 
     @property
     def pan(self):
-        r"""
+        """
         Gets `pan` input of LinXFade2.
 
         ::

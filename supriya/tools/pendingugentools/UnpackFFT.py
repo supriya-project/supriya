@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class UnpackFFT(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class UnpackFFT(MultiOutUGen):
         frombin=0,
         tobin=None,
         ):
-        r"""
+        """
         Constructs a UnpackFFT.
 
         ::
@@ -95,7 +95,7 @@ class UnpackFFT(MultiOutUGen):
 
     @property
     def bufsize(self):
-        r"""
+        """
         Gets `bufsize` input of UnpackFFT.
 
         ::
@@ -115,7 +115,7 @@ class UnpackFFT(MultiOutUGen):
 
     @property
     def chain(self):
-        r"""
+        """
         Gets `chain` input of UnpackFFT.
 
         ::
@@ -135,7 +135,7 @@ class UnpackFFT(MultiOutUGen):
 
     @property
     def frombin(self):
-        r"""
+        """
         Gets `frombin` input of UnpackFFT.
 
         ::
@@ -156,7 +156,7 @@ class UnpackFFT(MultiOutUGen):
 
     @property
     def tobin(self):
-        r"""
+        """
         Gets `tobin` input of UnpackFFT.
 
         ::

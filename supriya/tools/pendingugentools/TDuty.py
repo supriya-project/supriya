@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Duty import Duty
 
 
 class TDuty(Duty):
-    r"""
+    """
 
     ::
 
@@ -67,7 +67,7 @@ class TDuty(Duty):
         level=1,
         reset=0,
         ):
-        r"""
+        """
         Constructs an audio-rate TDuty.
 
         ::
@@ -105,7 +105,7 @@ class TDuty(Duty):
         level=1,
         reset=0,
         ):
-        r"""
+        """
         Constructs a control-rate TDuty.
 
         ::
@@ -138,7 +138,7 @@ class TDuty(Duty):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of TDuty.
 
         ::
@@ -160,7 +160,7 @@ class TDuty(Duty):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of TDuty.
 
         ::
@@ -182,7 +182,7 @@ class TDuty(Duty):
 
     @property
     def gap_first(self):
-        r"""
+        """
         Gets `gap_first` input of TDuty.
 
         ::
@@ -204,7 +204,7 @@ class TDuty(Duty):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of TDuty.
 
         ::
@@ -226,7 +226,7 @@ class TDuty(Duty):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of TDuty.
 
         ::

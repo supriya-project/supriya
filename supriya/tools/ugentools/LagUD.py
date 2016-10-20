@@ -4,7 +4,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LagUD(Filter):
-    r"""
+    """
     An up/down lag generator.
 
     ::
@@ -83,7 +83,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate lag.
 
         ::
@@ -114,7 +114,7 @@ class LagUD(Filter):
         lag_time_up=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate lag.
 
         ::
@@ -142,7 +142,7 @@ class LagUD(Filter):
 
     @property
     def lag_time_down(self):
-        r"""
+        """
         Gets `lag_time_down` input of LagUD.
 
         ::
@@ -163,7 +163,7 @@ class LagUD(Filter):
 
     @property
     def lag_time_up(self):
-        r"""
+        """
         Gets `lag_time_up` input of LagUD.
 
         ::
@@ -184,7 +184,7 @@ class LagUD(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LagUD.
 
         ::

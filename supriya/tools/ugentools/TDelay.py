@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TDelay(UGen):
-    r"""
+    """
     A trigger delay.
 
     ::
@@ -54,7 +54,7 @@ class TDelay(UGen):
         duration=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate TDelay.
 
         ::
@@ -84,7 +84,7 @@ class TDelay(UGen):
         duration=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate TDelay.
 
         ::
@@ -112,7 +112,7 @@ class TDelay(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of TDelay.
 
         ::
@@ -132,7 +132,7 @@ class TDelay(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of TDelay.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFCub(PureUGen):
-    r"""
+    """
     A sine-like oscillator unit generator.
 
     ::
@@ -47,7 +47,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate sine-like oscillator.
 
         ::
@@ -75,7 +75,7 @@ class LFCub(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate sine-like oscillator.
 
         ::
@@ -101,7 +101,7 @@ class LFCub(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFCub.
 
         ::
@@ -120,7 +120,7 @@ class LFCub(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of LFCub.
 
         ::

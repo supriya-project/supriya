@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferCloseRequest(Request):
-    r"""
+    """
     A /b_close request.
 
     ::

@@ -6,7 +6,7 @@ from supriya.tools.servertools.Node import Node
 
 
 class Group(Node, TreeContainer):
-    r"""
+    """
     A group.
 
     ::
@@ -58,7 +58,7 @@ class Group(Node, TreeContainer):
     ### SPECIAL METHODS ###
 
     def __setitem__(self, i, expr):
-        r"""
+        """
         Sets `expr` in self at index `i`.
 
         ::

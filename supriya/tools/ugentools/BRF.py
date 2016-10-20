@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class BRF(Filter):
-    r"""
+    """
     A 2nd order Butterworth band-reject filter.
 
     ::
@@ -53,7 +53,7 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate band-reject filter.
 
         ::
@@ -86,7 +86,7 @@ class BRF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate band-reject filter.
 
         ::
@@ -116,7 +116,7 @@ class BRF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BRF.
 
         ::
@@ -137,7 +137,7 @@ class BRF(Filter):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BRF.
 
         ::
@@ -158,7 +158,7 @@ class BRF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BRF.
 
         ::

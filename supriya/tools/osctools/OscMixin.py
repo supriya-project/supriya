@@ -13,7 +13,7 @@ class OscMixin(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __str__(self):
-        r"""
+        """
         Gets string representation of OSC object.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.K2A import K2A
 
 
 class T2A(K2A):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class T2A(K2A):
         offset=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate T2A.
 
         ::
@@ -81,7 +81,7 @@ class T2A(K2A):
 
     @property
     def offset(self):
-        r"""
+        """
         Gets `offset` input of T2A.
 
         ::
@@ -101,7 +101,7 @@ class T2A(K2A):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of T2A.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BBandPass(BEQSuite):
-    r"""
+    """
     A band-pass filter.
 
     ::
@@ -59,7 +59,7 @@ class BBandPass(BEQSuite):
         frequency=1200,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BBandPass.
 
         ::
@@ -103,7 +103,7 @@ class BBandPass(BEQSuite):
 
     @property
     def bandwidth(self):
-        r"""
+        """
         Gets `bandwidth` input of BBandPass.
 
         ::
@@ -124,7 +124,7 @@ class BBandPass(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BBandPass.
 
         ::
@@ -145,7 +145,7 @@ class BBandPass(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BBandPass.
 
         ::

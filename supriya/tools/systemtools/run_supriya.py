@@ -3,7 +3,7 @@ import sys
 
 
 def run_supriya():
-    r"""
+    """
     Runs Supriya.
 
     Returns none.

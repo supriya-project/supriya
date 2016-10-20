@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class XFadeRotate(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class XFadeRotate(MultiOutUGen):
         n=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate XFadeRotate.
 
         ::
@@ -83,7 +83,7 @@ class XFadeRotate(MultiOutUGen):
         n=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate XFadeRotate.
 
         ::
@@ -113,7 +113,7 @@ class XFadeRotate(MultiOutUGen):
 
     @property
     def n(self):
-        r"""
+        """
         Gets `n` input of XFadeRotate.
 
         ::
@@ -133,7 +133,7 @@ class XFadeRotate(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of XFadeRotate.
 
         ::

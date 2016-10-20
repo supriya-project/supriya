@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Vibrato(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -82,7 +82,7 @@ class Vibrato(PureUGen):
         rate=6,
         rate_variation=0.04,
         ):
-        r"""
+        """
         Constructs an audio-rate Vibrato.
 
         ::
@@ -129,7 +129,7 @@ class Vibrato(PureUGen):
         rate=6,
         rate_variation=0.04,
         ):
-        r"""
+        """
         Constructs a control-rate Vibrato.
 
         ::
@@ -168,7 +168,7 @@ class Vibrato(PureUGen):
 
     @property
     def delay(self):
-        r"""
+        """
         Gets `delay` input of Vibrato.
 
         ::
@@ -193,7 +193,7 @@ class Vibrato(PureUGen):
 
     @property
     def depth(self):
-        r"""
+        """
         Gets `depth` input of Vibrato.
 
         ::
@@ -218,7 +218,7 @@ class Vibrato(PureUGen):
 
     @property
     def depth_variation(self):
-        r"""
+        """
         Gets `depth_variation` input of Vibrato.
 
         ::
@@ -243,7 +243,7 @@ class Vibrato(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Vibrato.
 
         ::
@@ -268,7 +268,7 @@ class Vibrato(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of Vibrato.
 
         ::
@@ -293,7 +293,7 @@ class Vibrato(PureUGen):
 
     @property
     def onset(self):
-        r"""
+        """
         Gets `onset` input of Vibrato.
 
         ::
@@ -318,7 +318,7 @@ class Vibrato(PureUGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of Vibrato.
 
         ::
@@ -343,7 +343,7 @@ class Vibrato(PureUGen):
 
     @property
     def rate_variation(self):
-        r"""
+        """
         Gets `rate_variation` input of Vibrato.
 
         ::

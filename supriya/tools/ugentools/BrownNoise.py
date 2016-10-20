@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BrownNoise(UGen):
-    r"""
+    """
     A brown noise unit generator.
 
     ::
@@ -36,7 +36,7 @@ class BrownNoise(UGen):
     def ar(
         cls,
         ):
-        r"""
+        """
         Constructs an audio-rate brown noise unit generator.
 
         ::
@@ -57,7 +57,7 @@ class BrownNoise(UGen):
     def kr(
         cls,
         ):
-        r"""
+        """
         Constructs a control-rate brown noise unit generator.
 
         ::

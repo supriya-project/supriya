@@ -6,7 +6,7 @@ from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class OscMessage(OscMixin):
-    r"""
+    """
     An OSC message.
 
     ::

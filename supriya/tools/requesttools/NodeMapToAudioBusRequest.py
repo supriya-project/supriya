@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeMapToAudioBusRequest(Request):
-    r"""
+    """
     A /n_mapa request.
 
     ::

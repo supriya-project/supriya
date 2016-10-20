@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class QuadN(UGen):
-    r"""
+    """
     A non-interpolating general quadratic map chaotic generator.
 
     ::
@@ -68,7 +68,7 @@ class QuadN(UGen):
         frequency=22050,
         xi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate QuadN.
 
         ::
@@ -103,7 +103,7 @@ class QuadN(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of QuadN.
 
         ::
@@ -125,7 +125,7 @@ class QuadN(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of QuadN.
 
         ::
@@ -147,7 +147,7 @@ class QuadN(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of QuadN.
 
         ::
@@ -169,7 +169,7 @@ class QuadN(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of QuadN.
 
         ::
@@ -191,7 +191,7 @@ class QuadN(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of QuadN.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Warp1(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -87,7 +87,7 @@ class Warp1(MultiOutUGen):
         window_rand_ratio=0,
         window_size=0.2,
         ):
-        r"""
+        """
         Constructs an audio-rate Warp1.
 
         ::
@@ -130,7 +130,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of Warp1.
 
         ::
@@ -156,7 +156,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of Warp1.
 
         ::
@@ -182,7 +182,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def envbufnum(self):
-        r"""
+        """
         Gets `envbufnum` input of Warp1.
 
         ::
@@ -208,7 +208,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def frequency_scaling(self):
-        r"""
+        """
         Gets `frequency_scaling` input of Warp1.
 
         ::
@@ -234,7 +234,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def interpolate(self):
-        r"""
+        """
         Gets `interpolate` input of Warp1.
 
         ::
@@ -260,7 +260,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def overlaps(self):
-        r"""
+        """
         Gets `overlaps` input of Warp1.
 
         ::
@@ -286,7 +286,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def pointer(self):
-        r"""
+        """
         Gets `pointer` input of Warp1.
 
         ::
@@ -312,7 +312,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def window_rand_ratio(self):
-        r"""
+        """
         Gets `window_rand_ratio` input of Warp1.
 
         ::
@@ -338,7 +338,7 @@ class Warp1(MultiOutUGen):
 
     @property
     def window_size(self):
-        r"""
+        """
         Gets `window_size` input of Warp1.
 
         ::

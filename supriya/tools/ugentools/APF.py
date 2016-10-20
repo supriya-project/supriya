@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class APF(UGen):
-    r"""
+    """
     An all-pass filter.
 
     ::
@@ -59,7 +59,7 @@ class APF(UGen):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate APF.
 
         ::
@@ -94,7 +94,7 @@ class APF(UGen):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate APF.
 
         ::
@@ -134,7 +134,7 @@ class APF(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of APF.
 
         ::
@@ -155,7 +155,7 @@ class APF(UGen):
 
     @property
     def radius(self):
-        r"""
+        """
         Gets `radius` input of APF.
 
         ::
@@ -176,7 +176,7 @@ class APF(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of APF.
 
         ::

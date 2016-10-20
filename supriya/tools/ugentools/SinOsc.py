@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SinOsc(PureUGen):
-    r"""
+    """
     A sinusoid oscillator unit generator.
 
     ::
@@ -47,7 +47,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate sinusoid oscillator.
 
         ::
@@ -75,7 +75,7 @@ class SinOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate sinusoid oscillator.
 
         ::
@@ -101,7 +101,7 @@ class SinOsc(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of SinOsc.
 
         ::
@@ -120,7 +120,7 @@ class SinOsc(PureUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of SinOsc.
 
         ::

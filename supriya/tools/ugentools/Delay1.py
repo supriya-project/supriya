@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Delay1(PureUGen):
-    r"""
+    """
     A one-sample delay line unit generator.
 
     ::
@@ -44,7 +44,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate one-sample delay line.
 
         ::
@@ -70,7 +70,7 @@ class Delay1(PureUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate one-sample delay line.
 
         ::
@@ -95,7 +95,7 @@ class Delay1(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Delay1.
 
         ::

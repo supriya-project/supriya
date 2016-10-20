@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class TimespanSimultaneity(SupriyaObject):
-    r"""
+    """
     A simultaneity of timespans in a timespan collection.
     """
 
@@ -42,7 +42,7 @@ class TimespanSimultaneity(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __repr__(self):
-        r"""
+        """
         Gets the repr of this simultaneity.
         """
         return '<{}({} <<{}>>)>'.format(
@@ -55,7 +55,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def next_simultaneity(self):
-        r"""
+        """
         Gets the next simultaneity in this simultaneity's timespan
         collection.
         """
@@ -69,7 +69,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def next_start_offset(self):
-        r"""
+        """
         Gets the next simultaneity start offset in this simultaneity's
         timespan collection.
         """
@@ -81,7 +81,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def overlap_timespans(self):
-        r"""
+        """
         Gets the timespans in this simultaneity which overlap this
         simultaneity's start offset.
         """
@@ -89,7 +89,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def previous_simultaneity(self):
-        r"""
+        """
         Gets the previous simultaneity in this simultaneity's timespan
         collection.
         """
@@ -103,7 +103,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def previous_start_offset(self):
-        r"""
+        """
         Gets the previous simultaneity start offset in this simultaneity's
         timespan collection.
         """
@@ -115,14 +115,14 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def start_offset(self):
-        r"""
+        """
         Gets this simultaneity's start offset.
         """
         return self._start_offset
 
     @property
     def start_timespans(self):
-        r"""
+        """
         Gets the timespans in this simultaneity which start at this
         simultaneity's start offset.
         """
@@ -130,7 +130,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def stop_timespans(self):
-        r"""
+        """
         Gets the timespans in this simultaneity which stop at this
         simultaneity's start offset.
         """
@@ -138,7 +138,7 @@ class TimespanSimultaneity(SupriyaObject):
 
     @property
     def timespan_collection(self):
-        r"""
+        """
         Gets this simultaneity's timespan collection.
         """
         return self._timespan_collection

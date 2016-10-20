@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class OscN(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class OscN(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate OscN.
 
         ::
@@ -89,7 +89,7 @@ class OscN(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate OscN.
 
         ::
@@ -118,7 +118,7 @@ class OscN(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of OscN.
 
         ::
@@ -137,7 +137,7 @@ class OscN(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of OscN.
 
         ::
@@ -157,7 +157,7 @@ class OscN(PureUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of OscN.
 
         ::

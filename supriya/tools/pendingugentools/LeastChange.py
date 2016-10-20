@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MostChange import MostChange
 
 
 class LeastChange(MostChange):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class LeastChange(MostChange):
         a=0,
         b=0,
         ):
-        r"""
+        """
         Constructs an audio-rate LeastChange.
 
         ::
@@ -81,7 +81,7 @@ class LeastChange(MostChange):
         a=0,
         b=0,
         ):
-        r"""
+        """
         Constructs a control-rate LeastChange.
 
         ::
@@ -108,7 +108,7 @@ class LeastChange(MostChange):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of LeastChange.
 
         ::
@@ -127,7 +127,7 @@ class LeastChange(MostChange):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of LeastChange.
 
         ::

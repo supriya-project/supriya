@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TWindex(UGen):
-    r"""
+    """
     A triggered windex.
 
     ::
@@ -63,7 +63,7 @@ class TWindex(UGen):
         normalize=0,
         trigger=None,
         ):
-        r"""
+        """
         Constructs an audio-rate triggered windex.
 
         ::
@@ -96,7 +96,7 @@ class TWindex(UGen):
         normalize=0,
         trigger=None,
         ):
-        r"""
+        """
         Constructs a control-rate triggered windex.
 
         ::
@@ -126,7 +126,7 @@ class TWindex(UGen):
 
     @property
     def array(self):
-        r"""
+        """
         Gets `array` input of TWindex.
 
         ::
@@ -147,7 +147,7 @@ class TWindex(UGen):
 
     @property
     def normalize(self):
-        r"""
+        """
         Gets `normalize` input of TWindex.
 
         ::
@@ -168,7 +168,7 @@ class TWindex(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of TWindex.
 
         ::

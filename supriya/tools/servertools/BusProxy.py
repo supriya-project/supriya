@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class BusProxy(SupriyaObject):
-    r"""
+    """
     A buffer proxy.
     """
 

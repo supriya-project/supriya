@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TIRand(UGen):
-    r"""
+    """
     A triggered integer random number generator.
 
     ::
@@ -61,7 +61,7 @@ class TIRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate triggered integer random number generator.
 
         ::
@@ -94,7 +94,7 @@ class TIRand(UGen):
         minimum=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate triggered integer random number generator.
 
         ::
@@ -124,7 +124,7 @@ class TIRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of TIRand.
 
         ::
@@ -145,7 +145,7 @@ class TIRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of TIRand.
 
         ::
@@ -166,7 +166,7 @@ class TIRand(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of TIRand.
 
         ::

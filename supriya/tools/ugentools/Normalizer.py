@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Normalizer(UGen):
-    r"""
+    """
     A dynamics flattener.
 
     ::
@@ -59,7 +59,7 @@ class Normalizer(UGen):
         level=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Normalizer.
 
         ::
@@ -89,7 +89,7 @@ class Normalizer(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of Normalizer.
 
         ::
@@ -110,7 +110,7 @@ class Normalizer(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of Normalizer.
 
         ::
@@ -131,7 +131,7 @@ class Normalizer(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Normalizer.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Blip(UGen):
-    r"""
+    """
     A band limited impulse generator.
 
     ::
@@ -53,7 +53,7 @@ class Blip(UGen):
         frequency=440,
         harmonic_count=200,
         ):
-        r"""
+        """
         Constructs an audio-rate Blip.
 
         ::
@@ -82,7 +82,7 @@ class Blip(UGen):
         frequency=440,
         harmonic_count=200,
         ):
-        r"""
+        """
         Constructs a control-rate Blip.
 
         ::
@@ -109,7 +109,7 @@ class Blip(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Blip.
 
         ::
@@ -128,7 +128,7 @@ class Blip(UGen):
 
     @property
     def harmonic_count(self):
-        r"""
+        """
         Gets `harmonic_count` input of Blip.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PeakFollower(UGen):
-    r"""
+    """
     Tracks peak signal amplitude.
 
     ::
@@ -54,7 +54,7 @@ class PeakFollower(UGen):
         decay=0.999,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate PeakFollower.
 
         ::
@@ -84,7 +84,7 @@ class PeakFollower(UGen):
         decay=0.999,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate PeakFollower.
 
         ::
@@ -112,7 +112,7 @@ class PeakFollower(UGen):
 
     @property
     def decay(self):
-        r"""
+        """
         Gets `decay` input of PeakFollower.
 
         ::
@@ -132,7 +132,7 @@ class PeakFollower(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PeakFollower.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BAllPass(BEQSuite):
-    r"""
+    """
     An all-pass filter.
 
     ::
@@ -59,7 +59,7 @@ class BAllPass(BEQSuite):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BAllPass.
 
         ::
@@ -103,7 +103,7 @@ class BAllPass(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BAllPass.
 
         ::
@@ -124,7 +124,7 @@ class BAllPass(BEQSuite):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BAllPass.
 
         ::
@@ -145,7 +145,7 @@ class BAllPass(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BAllPass.
 
         ::

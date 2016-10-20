@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagDiv(PV_ChainUGen):
-    r"""
+    """
     Divides magnitudes.
 
     ::
@@ -60,7 +60,7 @@ class PV_MagDiv(PV_ChainUGen):
         pv_chain_b=None,
         zeroed=0.0001,
         ):
-        r"""
+        """
         Constructs a PV_MagDiv.
 
         ::
@@ -92,7 +92,7 @@ class PV_MagDiv(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_MagDiv.
 
         ::
@@ -141,7 +141,7 @@ class PV_MagDiv(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_MagDiv.
 
         ::
@@ -191,7 +191,7 @@ class PV_MagDiv(PV_ChainUGen):
 
     @property
     def zeroed(self):
-        r"""
+        """
         Gets `zeroed` input of PV_MagDiv.
 
         ::

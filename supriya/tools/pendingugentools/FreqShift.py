@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreqShift(UGen):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class FreqShift(UGen):
         phase=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate FreqShift.
 
         ::
@@ -88,7 +88,7 @@ class FreqShift(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of FreqShift.
 
         ::
@@ -109,7 +109,7 @@ class FreqShift(UGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of FreqShift.
 
         ::
@@ -130,7 +130,7 @@ class FreqShift(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of FreqShift.
 
         ::

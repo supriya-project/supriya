@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Silence(PseudoUGen):
-    r"""
+    """
     An audio-rate silence pseudo-unit generator.
 
     ::

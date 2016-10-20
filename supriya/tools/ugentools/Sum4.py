@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Sum4(UGen):
-    r"""
+    """
     A four-input summing unit generator.
 
     ::
@@ -117,7 +117,7 @@ class Sum4(UGen):
         input_three=None,
         input_four=None,
         ):
-        r"""
+        """
         Constructs a three-input summing unit generator with multi-channel
         expansion.
 
@@ -151,7 +151,7 @@ class Sum4(UGen):
 
     @property
     def input_four(self):
-        r"""
+        """
         Gets `input_four` input of Sum4.
 
         ::
@@ -183,7 +183,7 @@ class Sum4(UGen):
 
     @property
     def input_one(self):
-        r"""
+        """
         Gets `input_one` input of Sum4.
 
         ::
@@ -215,7 +215,7 @@ class Sum4(UGen):
 
     @property
     def input_three(self):
-        r"""
+        """
         Gets `input_three` input of Sum4.
 
         ::
@@ -247,7 +247,7 @@ class Sum4(UGen):
 
     @property
     def input_two(self):
-        r"""
+        """
         Gets `input_two` input of Sum4.
 
         ::

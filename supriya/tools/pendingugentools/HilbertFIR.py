@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class HilbertFIR(UGen):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class HilbertFIR(UGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate HilbertFIR.
 
         ::
@@ -81,7 +81,7 @@ class HilbertFIR(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of HilbertFIR.
 
         ::
@@ -100,7 +100,7 @@ class HilbertFIR(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of HilbertFIR.
 
         ::

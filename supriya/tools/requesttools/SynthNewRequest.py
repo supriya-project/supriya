@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthNewRequest(Request):
-    r"""
+    """
     A /s_new request.
 
     ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PartConv(UGen):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class PartConv(UGen):
         irbufnum=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate PartConv.
 
         ::
@@ -92,7 +92,7 @@ class PartConv(UGen):
 
     @property
     def fftsize(self):
-        r"""
+        """
         Gets `fftsize` input of PartConv.
 
         ::
@@ -112,7 +112,7 @@ class PartConv(UGen):
 
     @property
     def irbufnum(self):
-        r"""
+        """
         Gets `irbufnum` input of PartConv.
 
         ::
@@ -132,7 +132,7 @@ class PartConv(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PartConv.
 
         ::

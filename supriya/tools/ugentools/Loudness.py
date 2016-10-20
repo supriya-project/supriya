@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Loudness(UGen):
-    r"""
+    """
     Extraction of instantaneous loudness in `sones`.
 
     ::
@@ -62,7 +62,7 @@ class Loudness(UGen):
         smask=0.25,
         tmask=1,
         ):
-        r"""
+        """
         Constructs a control-rate Loudness.
 
         ::
@@ -90,7 +90,7 @@ class Loudness(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of Loudness.
 
         ::
@@ -141,7 +141,7 @@ class Loudness(UGen):
 
     @property
     def smask(self):
-        r"""
+        """
         Gets `smask` input of Loudness.
 
         ::
@@ -163,7 +163,7 @@ class Loudness(UGen):
 
     @property
     def tmask(self):
-        r"""
+        """
         Gets `tmask` input of Loudness.
 
         ::

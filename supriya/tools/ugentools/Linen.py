@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Linen(UGen):
-    r"""
+    """
     A simple line generating unit generator.
 
     ::
@@ -60,7 +60,7 @@ class Linen(UGen):
         release_time=1.,
         sustain_level=1.,
         ):
-        r"""
+        """
         Constructs an audio-rate line generator.
 
         ::
@@ -91,7 +91,7 @@ class Linen(UGen):
 
     @property
     def attack_time(self):
-        r"""
+        """
         Gets `attack_time` input of Linen.
 
         ::
@@ -110,7 +110,7 @@ class Linen(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of Linen.
 
         ::
@@ -129,7 +129,7 @@ class Linen(UGen):
 
     @property
     def gate(self):
-        r"""
+        """
         Gets `gate` input of Linen.
 
         ::
@@ -148,7 +148,7 @@ class Linen(UGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -157,7 +157,7 @@ class Linen(UGen):
 
     @property
     def release_time(self):
-        r"""
+        """
         Gets `release_time` input of Linen.
 
         ::
@@ -176,7 +176,7 @@ class Linen(UGen):
 
     @property
     def sustain_level(self):
-        r"""
+        """
         Gets `sustain_level` input of Linen.
 
         ::

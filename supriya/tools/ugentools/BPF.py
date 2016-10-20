@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class BPF(Filter):
-    r"""
+    """
     A 2nd order Butterworth bandpass filter.
 
     ::
@@ -53,7 +53,7 @@ class BPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate bandpass filter.
 
         ::
@@ -86,7 +86,7 @@ class BPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate bandpass filter.
 
         ::
@@ -116,7 +116,7 @@ class BPF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BPF.
 
         ::
@@ -137,7 +137,7 @@ class BPF(Filter):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BPF.
 
         ::
@@ -158,7 +158,7 @@ class BPF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BPF.
 
         ::

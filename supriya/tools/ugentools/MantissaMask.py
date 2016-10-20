@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MantissaMask(UGen):
-    r"""
+    """
     A floating-point mantissa mask.
 
     ::
@@ -54,7 +54,7 @@ class MantissaMask(UGen):
         bits=3,
         source=0,
         ):
-        r"""
+        """
         Constructs an audio-rate floating-point mantissa mask.
 
         ::
@@ -84,7 +84,7 @@ class MantissaMask(UGen):
         bits=3,
         source=0,
         ):
-        r"""
+        """
         Constucts a control-rate floating-point mantissa mask.
 
         ::
@@ -112,7 +112,7 @@ class MantissaMask(UGen):
 
     @property
     def bits(self):
-        r"""
+        """
         Gets `bits` input of MantissaMask.
         ::
 
@@ -131,7 +131,7 @@ class MantissaMask(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of MantissaMask.
         ::
 

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class BufInfoUGenBase(InfoUGenBase):
-    r"""
+    """
     Abstract base class for buffer information ugens.
 
     Buffer information ugens expose both scalar-rate and control-rate
@@ -39,7 +39,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     @classmethod
     def ir(cls, buffer_id=None):
-        r"""
+        """
         Constructs a scalar-rate buffer information ugen.
 
         Returns ugen graph.
@@ -54,7 +54,7 @@ class BufInfoUGenBase(InfoUGenBase):
 
     @classmethod
     def kr(cls, buffer_id=None):
-        r"""
+        """
         Constructs a control-rate buffer information ugen.
 
         Returns ugen graph.

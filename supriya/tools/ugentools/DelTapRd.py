@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DelTapRd(UGen):
-    r"""
+    """
     A delay tap reader unit generator.
 
     ::
@@ -80,7 +80,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r"""
+        """
         Constructs an audio-rate delay tap reader.
 
         ::
@@ -121,7 +121,7 @@ class DelTapRd(UGen):
         delay_time=None,
         interpolation=True,
         ):
-        r"""
+        """
         Constructs a control-rate delay tap reader.
 
         ::
@@ -158,7 +158,7 @@ class DelTapRd(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DelTapRd.
 
         ::
@@ -183,7 +183,7 @@ class DelTapRd(UGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of DelTapRd.
 
         ::
@@ -208,7 +208,7 @@ class DelTapRd(UGen):
 
     @property
     def interpolation(self):
-        r"""
+        """
         Gets `interpolation` input of DelTapRd.
 
         ::
@@ -234,7 +234,7 @@ class DelTapRd(UGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of DelTapRd.
 
         ::

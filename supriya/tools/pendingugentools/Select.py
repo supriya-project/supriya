@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Select(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class Select(PureUGen):
         array=None,
         which=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Select.
 
         ::
@@ -81,7 +81,7 @@ class Select(PureUGen):
         array=None,
         which=None,
         ):
-        r"""
+        """
         Constructs a control-rate Select.
 
         ::
@@ -108,7 +108,7 @@ class Select(PureUGen):
 
     @property
     def array(self):
-        r"""
+        """
         Gets `array` input of Select.
 
         ::
@@ -126,7 +126,7 @@ class Select(PureUGen):
 
     @property
     def which(self):
-        r"""
+        """
         Gets `which` input of Select.
 
         ::

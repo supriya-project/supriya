@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFNoise2(UGen):
-    r"""
+    """
     A quadratic noise generator.
 
     ::
@@ -45,7 +45,7 @@ class LFNoise2(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs an audio-rate quadratic noise generator.
 
         ::
@@ -70,7 +70,7 @@ class LFNoise2(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs a control-rate quadratic noise generator.
 
         ::
@@ -94,7 +94,7 @@ class LFNoise2(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFNoise2.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BufRd(MultiOutUGen):
-    r"""
+    """
     A buffer-reading oscillator.
 
     ::
@@ -73,7 +73,7 @@ class BufRd(MultiOutUGen):
         loop=1,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate BufRd.
 
         ::
@@ -117,7 +117,7 @@ class BufRd(MultiOutUGen):
         loop=1,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate BufRd.
 
         ::
@@ -158,7 +158,7 @@ class BufRd(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufRd.
 
         ::
@@ -186,7 +186,7 @@ class BufRd(MultiOutUGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -195,7 +195,7 @@ class BufRd(MultiOutUGen):
 
     @property
     def interpolation(self):
-        r"""
+        """
         Gets `interpolation` input of BufRd.
 
         ::
@@ -223,7 +223,7 @@ class BufRd(MultiOutUGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of BufRd.
 
         ::
@@ -251,7 +251,7 @@ class BufRd(MultiOutUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of BufRd.
 
         ::

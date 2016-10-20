@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BHiShelf(BEQSuite):
-    r"""
+    """
     A high-shelf filter.
 
     ::
@@ -64,7 +64,7 @@ class BHiShelf(BEQSuite):
         reciprocal_of_s=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BHiShelf.
 
         ::
@@ -110,7 +110,7 @@ class BHiShelf(BEQSuite):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of BHiShelf.
 
         ::
@@ -132,7 +132,7 @@ class BHiShelf(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BHiShelf.
 
         ::
@@ -154,7 +154,7 @@ class BHiShelf(BEQSuite):
 
     @property
     def reciprocal_of_s(self):
-        r"""
+        """
         Gets `reciprocal_of_s` input of BHiShelf.
 
         ::
@@ -176,7 +176,7 @@ class BHiShelf(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BHiShelf.
 
         ::

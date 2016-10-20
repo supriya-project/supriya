@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AmpComp(PureUGen):
-    r"""
+    """
     Basic psychoacoustic amplitude compensation.
 
     ::
@@ -58,7 +58,7 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r"""
+        """
         Constructs an audio-rate AmpComp.
 
         ::
@@ -90,7 +90,7 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r"""
+        """
         Constructs a scale-rate AmpComp.
 
         ::
@@ -122,7 +122,7 @@ class AmpComp(PureUGen):
         frequency=None,
         root=None,
         ):
-        r"""
+        """
         Constructs a control-rate AmpComp.
 
         ::
@@ -151,7 +151,7 @@ class AmpComp(PureUGen):
 
     @property
     def exp(self):
-        r"""
+        """
         Gets `exp` input of AmpComp.
 
         ::
@@ -171,7 +171,7 @@ class AmpComp(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of AmpComp.
 
         ::
@@ -191,7 +191,7 @@ class AmpComp(PureUGen):
 
     @property
     def root(self):
-        r"""
+        """
         Gets `root` input of AmpComp.
 
         ::

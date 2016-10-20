@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class ServerOptions(SupriyaObject):
-    r"""
+    """
     SuperCollider server option configuration.
 
     ::

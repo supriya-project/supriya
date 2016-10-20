@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dbufwr(DUGen):
-    r"""
+    """
     A buffer-writing demand-rate UGen.
 
     ::
@@ -57,7 +57,7 @@ class Dbufwr(DUGen):
         loop=1,
         phase=0,
         ):
-        r"""
+        """
         Constructs a Dbufwr.
 
         ::
@@ -85,7 +85,7 @@ class Dbufwr(DUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of Dbufwr.
 
         ::
@@ -106,7 +106,7 @@ class Dbufwr(DUGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -115,7 +115,7 @@ class Dbufwr(DUGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of Dbufwr.
 
         ::
@@ -136,7 +136,7 @@ class Dbufwr(DUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of Dbufwr.
 
         ::
@@ -157,7 +157,7 @@ class Dbufwr(DUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Dbufwr.
 
         ::

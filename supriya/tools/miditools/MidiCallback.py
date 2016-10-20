@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class MidiCallback(SupriyaObject):
-    r"""
+    """
     A MIDI callback.
 
     ::

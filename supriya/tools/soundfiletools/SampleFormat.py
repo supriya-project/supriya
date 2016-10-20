@@ -3,7 +3,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class SampleFormat(Enumeration):
-    r"""
+    """
     An enumeration of soundfile sample formats.
 
     ::

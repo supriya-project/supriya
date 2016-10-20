@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFDClipNoise(UGen):
-    r"""
+    """
     A clipped noise generator.
 
     ::
@@ -45,7 +45,7 @@ class LFDClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs an audio-rate dynamic clipped noise generator.
 
         ::
@@ -70,7 +70,7 @@ class LFDClipNoise(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs a control-rate dynamic clipped noise generator.
 
         ::
@@ -94,7 +94,7 @@ class LFDClipNoise(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFDClipNoise.
 
         ::

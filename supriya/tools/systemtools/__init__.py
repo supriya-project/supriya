@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+"""
 Low-level system tools and various base classes.
 """
 

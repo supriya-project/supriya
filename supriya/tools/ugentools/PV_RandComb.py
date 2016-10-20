@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RandComb(PV_ChainUGen):
-    r"""
+    """
     Passes random bins.
 
     ::
@@ -57,7 +57,7 @@ class PV_RandComb(PV_ChainUGen):
         trigger=0,
         wipe=0,
         ):
-        r"""
+        """
         Constructs a PV_RandComb.
 
         ::
@@ -86,7 +86,7 @@ class PV_RandComb(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_RandComb.
 
         ::
@@ -131,7 +131,7 @@ class PV_RandComb(PV_ChainUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PV_RandComb.
 
         ::
@@ -154,7 +154,7 @@ class PV_RandComb(PV_ChainUGen):
 
     @property
     def wipe(self):
-        r"""
+        """
         Gets `wipe` input of PV_RandComb.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagFreeze(PV_ChainUGen):
-    r"""
+    """
     Freezes magnitudes.
 
     ::
@@ -52,7 +52,7 @@ class PV_MagFreeze(PV_ChainUGen):
         pv_chain=None,
         freeze=0,
         ):
-        r"""
+        """
         Constructs a PV_MagFreeze.
 
         ::
@@ -79,7 +79,7 @@ class PV_MagFreeze(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_MagFreeze.
 
         ::
@@ -123,7 +123,7 @@ class PV_MagFreeze(PV_ChainUGen):
 
     @property
     def freeze(self):
-        r"""
+        """
         Gets `freeze` input of PV_MagFreeze.
 
         ::

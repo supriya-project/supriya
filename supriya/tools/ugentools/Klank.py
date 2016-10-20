@@ -6,7 +6,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Klank(UGen):
-    r"""
+    """
     A bank of resonators.
 
     ::
@@ -96,7 +96,7 @@ class Klank(UGen):
         source=None,
         specifications=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Klank.
 
         ::
@@ -131,7 +131,7 @@ class Klank(UGen):
 
     @property
     def decay_scale(self):
-        r"""
+        """
         Gets `decay_scale` source of Klank.
 
         ::
@@ -158,7 +158,7 @@ class Klank(UGen):
 
     @property
     def frequency_offset(self):
-        r"""
+        """
         Gets `frequency_offset` source of Klank.
 
         ::
@@ -185,7 +185,7 @@ class Klank(UGen):
 
     @property
     def frequency_scale(self):
-        r"""
+        """
         Gets `frequency_scale` source of Klank.
 
         ::
@@ -212,7 +212,7 @@ class Klank(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` source of Klank.
 
         ::
@@ -252,7 +252,7 @@ class Klank(UGen):
 
     @property
     def specifications(self):
-        r"""
+        """
         Gets `specifications` source of Klank.
 
         ::

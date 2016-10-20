@@ -3,7 +3,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class SignalRange(Enumeration):
-    r"""
+    """
     An enumeration of scsynth UGen signal ranges.
 
     ::

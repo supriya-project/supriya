@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFDNoise3(UGen):
-    r"""
+    """
     A dynamic polynomial noise generator.
 
     ::
@@ -45,7 +45,7 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs an audio-rate polynomial noise generator.
 
         ::
@@ -70,7 +70,7 @@ class LFDNoise3(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs a control-rate polynomial noise generator.
 
         ::
@@ -94,7 +94,7 @@ class LFDNoise3(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFDNoise3.
 
         ::

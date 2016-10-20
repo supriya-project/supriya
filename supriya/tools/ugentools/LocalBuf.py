@@ -4,7 +4,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class LocalBuf(WidthFirstUGen):
-    r"""
+    """
     A synth-local buffer.
 
     ::
@@ -84,7 +84,7 @@ class LocalBuf(WidthFirstUGen):
         channel_count=1,
         frame_count=1,
         ):
-        r"""
+        """
         Constructs a LocalBuf.
 
         ::
@@ -115,7 +115,7 @@ class LocalBuf(WidthFirstUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of LocalBuf.
 
         ::
@@ -134,7 +134,7 @@ class LocalBuf(WidthFirstUGen):
 
     @property
     def frame_count(self):
-        r"""
+        """
         Gets `frame_count` input of LocalBuf.
 
         ::

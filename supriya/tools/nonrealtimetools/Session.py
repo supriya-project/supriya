@@ -22,7 +22,7 @@ except ImportError:
 
 
 class Session(OscMixin):
-    r"""
+    """
     A non-realtime session.
 ::
 
@@ -265,7 +265,7 @@ class Session(OscMixin):
         sample_format=soundfiletools.SampleFormat.INT24,
         **kwargs
         ):
-        r"""
+        """
         Builds non-realtime rendering command.
 
         ::

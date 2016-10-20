@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 class Splay(MultiOutUGen):
     # TODO: This is actually a pseudo ugen.
-    r"""
+    """
     A stereo field spreader.
 
     ::
@@ -92,7 +92,7 @@ class Splay(MultiOutUGen):
         level_comp=True,
         spread=1,
         ):
-        r"""
+        """
         Constructs an audio-rate Splay.
 
         ::
@@ -131,7 +131,7 @@ class Splay(MultiOutUGen):
         level_comp=True,
         spread=1,
         ):
-        r"""
+        """
         Constructs a control-rate Splay.
 
         ::
@@ -165,7 +165,7 @@ class Splay(MultiOutUGen):
 
     @property
     def center(self):
-        r"""
+        """
         Gets `center` input of Splay.
 
         ::
@@ -188,7 +188,7 @@ class Splay(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Splay.
 
         ::
@@ -210,7 +210,7 @@ class Splay(MultiOutUGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of Splay.
 
         ::
@@ -233,7 +233,7 @@ class Splay(MultiOutUGen):
 
     @property
     def level_comp(self):
-        r"""
+        """
         Gets `level_comp` input of Splay.
 
         ::
@@ -256,7 +256,7 @@ class Splay(MultiOutUGen):
 
     @property
     def spread(self):
-        r"""
+        """
         Gets `spread` input of Splay.
 
         ::

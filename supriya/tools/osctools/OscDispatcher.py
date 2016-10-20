@@ -5,7 +5,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class OscDispatcher(SupriyaObject):
-    r"""
+    """
     An OSC message dispatcher.
 
     ::
@@ -52,7 +52,7 @@ class OscDispatcher(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __call__(self, message):
-        r"""
+        """
         Handles `message`.
 
         Finds all matching callbacks and passes the message to each.
@@ -90,7 +90,7 @@ class OscDispatcher(SupriyaObject):
         return pattern
 
     def register_callback(self, osc_callback):
-        r"""
+        """
         Registers `osc_callback`.
 
         Returns none.
@@ -109,7 +109,7 @@ class OscDispatcher(SupriyaObject):
             osc_callbacks.append(osc_callback)
 
     def unregister_callback(self, osc_callback):
-        r"""
+        """
         Unregisters `osc_callback`.
 
         Returns none.

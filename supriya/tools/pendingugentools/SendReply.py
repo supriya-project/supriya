@@ -3,7 +3,7 @@ from supriya.tools.ugentools.SendTrig import SendTrig
 
 
 class SendReply(SendTrig):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class SendReply(SendTrig):
         trigger=0,
         values=None,
         ):
-        r"""
+        """
         Constructs an audio-rate SendReply.
 
         ::
@@ -97,7 +97,7 @@ class SendReply(SendTrig):
         trigger=0,
         values=None,
         ):
-        r"""
+        """
         Constructs a control-rate SendReply.
 
         ::
@@ -130,7 +130,7 @@ class SendReply(SendTrig):
 
     @property
     def cmd_name(self):
-        r"""
+        """
         Gets `cmd_name` input of SendReply.
 
         ::
@@ -150,7 +150,7 @@ class SendReply(SendTrig):
 
     @property
     def reply_id(self):
-        r"""
+        """
         Gets `reply_id` input of SendReply.
 
         ::
@@ -171,7 +171,7 @@ class SendReply(SendTrig):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of SendReply.
 
         ::
@@ -192,7 +192,7 @@ class SendReply(SendTrig):
 
     @property
     def values(self):
-        r"""
+        """
         Gets `values` input of SendReply.
 
         ::

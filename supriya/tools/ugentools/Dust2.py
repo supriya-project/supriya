@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Dust2(UGen):
-    r"""
+    """
     A bipolar random impulse generator.
 
     ::
@@ -47,7 +47,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r"""
+        """
         Constructs an audio-rate bipolar random impulse generator.
 
         ::
@@ -72,7 +72,7 @@ class Dust2(UGen):
         cls,
         density=0,
         ):
-        r"""
+        """
         Constructs a control-rate bipolar random impulse generator.
 
         ::
@@ -96,7 +96,7 @@ class Dust2(UGen):
 
     @property
     def density(self):
-        r"""
+        """
         Gets `density` input of Dust2.
 
         ::

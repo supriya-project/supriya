@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumBuffers(InfoUGenBase):
-    r"""
+    """
     A number of buffers info unit generator.
 
     ::

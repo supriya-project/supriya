@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BLowPass(BEQSuite):
-    r"""
+    """
     A low-pass filter.
 
     ::
@@ -59,7 +59,7 @@ class BLowPass(BEQSuite):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BLowPass.
 
         ::
@@ -103,7 +103,7 @@ class BLowPass(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BLowPass.
 
         ::
@@ -124,7 +124,7 @@ class BLowPass(BEQSuite):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BLowPass.
 
         ::
@@ -145,7 +145,7 @@ class BLowPass(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BLowPass.
 
         ::

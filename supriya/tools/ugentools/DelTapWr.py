@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DelTapWr(UGen):
-    r"""
+    """
     A delay tap writer unit generator.
 
     ::
@@ -71,7 +71,7 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate delay tap write.
 
         ::
@@ -103,7 +103,7 @@ class DelTapWr(UGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate delay tap write.
 
         ::
@@ -133,7 +133,7 @@ class DelTapWr(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DelTapWr.
 
         ::
@@ -154,7 +154,7 @@ class DelTapWr(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DelTapWr.
 
         ::

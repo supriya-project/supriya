@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Fold(UGen):
-    r"""
+    """
     Folds a signal outside given thresholds.
 
     ::
@@ -59,7 +59,7 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts an audio-rate Fold ugen.
 
         ::
@@ -92,7 +92,7 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a scalar-rate Fold ugen.
 
         ::
@@ -125,7 +125,7 @@ class Fold(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a control-rate Fold ugen.
 
         ::
@@ -155,7 +155,7 @@ class Fold(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Fold.
 
         ::
@@ -176,7 +176,7 @@ class Fold(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Fold.
 
         ::
@@ -197,7 +197,7 @@ class Fold(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `minimum` input of Fold.
 
         ::

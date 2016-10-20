@@ -4,7 +4,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Buffer(ServerObjectProxy):
-    r"""
+    """
     A buffer.
 
     ::
@@ -69,7 +69,7 @@ class Buffer(ServerObjectProxy):
     ### SPECIAL METHODS ###
 
     def __float__(self):
-        r"""
+        """
         Gets float representation of buffer.
 
         ::
@@ -117,7 +117,7 @@ class Buffer(ServerObjectProxy):
         return float(self.buffer_id)
 
     def __int__(self):
-        r"""
+        """
         Gets integer representation of buffer.
 
         ::
@@ -165,7 +165,7 @@ class Buffer(ServerObjectProxy):
         return int(self.buffer_id)
 
     def __repr__(self):
-        r"""
+        """
         Gets interpreter representation of buffer.
 
         ::
@@ -291,7 +291,7 @@ class Buffer(ServerObjectProxy):
         server=None,
         sync=True,
         ):
-        r"""
+        """
         Allocates buffer on `server`.
 
         ::
@@ -377,7 +377,7 @@ class Buffer(ServerObjectProxy):
         starting_frame=None,
         sync=True,
         ):
-        r"""
+        """
         Allocates buffer on `server` with contents read from `file_path`.
 
         ::
@@ -456,7 +456,7 @@ class Buffer(ServerObjectProxy):
         self,
         sync=True,
         ):
-        r"""
+        """
         Closes buffer, if it was open during a read or write process by
         the DiskIn or DiskOut UGens.
 
@@ -494,7 +494,7 @@ class Buffer(ServerObjectProxy):
         target_starting_frame=None,
         sync=True,
         ):
-        r"""
+        """
         Copies data in this buffer into another buffer.
 
         ::
@@ -536,7 +536,7 @@ class Buffer(ServerObjectProxy):
         target_starting_frame=None,
         sync=True,
         ):
-        r"""
+        """
         Copies data from another buffer into this buffer.
 
         ::
@@ -578,7 +578,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_count_value_triples=None,
         ):
-        r"""
+        """
         Fills contiguous blocks of samples with values.
 
         ::
@@ -609,7 +609,7 @@ class Buffer(ServerObjectProxy):
             )
 
     def free(self):
-        r"""
+        """
         Frees buffer.
 
         Returns none.
@@ -636,7 +636,7 @@ class Buffer(ServerObjectProxy):
         should_clear_first=True,
         sync=True,
         ):
-        r"""
+        """
         Fills buffer with Chebyshev polynomial.
 
         ::
@@ -690,7 +690,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
+        """
         Fills buffer with sum of sinusoids via `/b_gen sine1`.
 
         ::
@@ -745,7 +745,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
+        """
         Fills buffer with sum of sinusoids via `/b_gen sine2`.
 
         ::
@@ -803,7 +803,7 @@ class Buffer(ServerObjectProxy):
         should_normalize=True,
         sync=True,
         ):
-        r"""
+        """
         Fills buffer with sum of sinusoids via `/b_gen sine3`.
 
         ::
@@ -857,7 +857,7 @@ class Buffer(ServerObjectProxy):
         self,
         indices=None,
         ):
-        r"""
+        """
         Gets sample values at `indices`.
 
         ::
@@ -896,7 +896,7 @@ class Buffer(ServerObjectProxy):
         self,
         index_count_pairs=None,
         ):
-        r"""
+        """
         Gets contiguous sample values.
 
         ::
@@ -936,7 +936,7 @@ class Buffer(ServerObjectProxy):
         frame_ids=None,
         completion_callback=None,
         ):
-        r"""
+        """
         Gets frames at `frame_ids`.
 
         ::
@@ -1007,7 +1007,7 @@ class Buffer(ServerObjectProxy):
             )
 
     def query(self):
-        r"""
+        """
         Queries buffer.
 
         ::
@@ -1053,7 +1053,7 @@ class Buffer(ServerObjectProxy):
         starting_frame_in_file=None,
         sync=True,
         ):
-        r"""
+        """
         Reads contents of `file_path` into buffer.
 
         ::
@@ -1139,7 +1139,7 @@ class Buffer(ServerObjectProxy):
         index_value_pairs=None,
         sync=False,
         ):
-        r"""
+        """
         Sets samples.
 
         ::
@@ -1182,7 +1182,7 @@ class Buffer(ServerObjectProxy):
         index_values_pairs=None,
         sync=False,
         ):
-        r"""
+        """
         Sets contiguous blocks of samples.
 
         ::
@@ -1229,7 +1229,7 @@ class Buffer(ServerObjectProxy):
         starting_frame=None,
         sync=True,
         ):
-        r"""
+        """
         Writes buffer to disk.
 
         ::
@@ -1293,7 +1293,7 @@ class Buffer(ServerObjectProxy):
         completion_message=None,
         sync=True,
         ):
-        r"""
+        """
         Zero all samples in buffer.
 
         ::
@@ -1346,7 +1346,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def buffer_group(self):
-        r"""
+        """
         Gets buffer group.
 
         ::
@@ -1387,7 +1387,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets buffer id.
 
         ::
@@ -1457,7 +1457,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets channel count.
 
         ::
@@ -1497,7 +1497,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def duration_in_seconds(self):
-        r"""
+        """
         Gets duration in seconds.
 
         ::
@@ -1527,7 +1527,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def frame_count(self):
-        r"""
+        """
         Gets frame count.
 
         ::
@@ -1557,7 +1557,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def sample_count(self):
-        r"""
+        """
         Gets sample count.
 
         ::
@@ -1617,7 +1617,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def sample_rate(self):
-        r"""
+        """
         Gets sample-rate.
 
         ::
@@ -1647,7 +1647,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def is_allocated(self):
-        r"""
+        """
         Is true if buffer is allocated. Otherwise false.
 
         ::
@@ -1676,7 +1676,7 @@ class Buffer(ServerObjectProxy):
 
     @property
     def server(self):
-        r"""
+        """
         Gets associated server.
 
         ::

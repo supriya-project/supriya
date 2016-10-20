@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class DetectIndex(Index):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class DetectIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DetectIndex.
 
         ::
@@ -83,7 +83,7 @@ class DetectIndex(Index):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate DetectIndex.
 
         ::
@@ -111,7 +111,7 @@ class DetectIndex(Index):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DetectIndex.
 
         ::
@@ -130,7 +130,7 @@ class DetectIndex(Index):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DetectIndex.
 
         ::

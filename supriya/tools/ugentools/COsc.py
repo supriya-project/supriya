@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class COsc(PureUGen):
-    r"""
+    """
     A chorusing wavetable oscillator.
 
     ::
@@ -58,7 +58,7 @@ class COsc(PureUGen):
         buffer_id=None,
         frequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate COsc.
 
         ::
@@ -90,7 +90,7 @@ class COsc(PureUGen):
         buffer_id=None,
         frequency=440,
         ):
-        r"""
+        """
         Constructs a control-rate COsc.
 
         ::
@@ -119,7 +119,7 @@ class COsc(PureUGen):
 
     @property
     def beats(self):
-        r"""
+        """
         Gets `beats` input of COsc.
 
         ::
@@ -139,7 +139,7 @@ class COsc(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of COsc.
 
         ::
@@ -159,7 +159,7 @@ class COsc(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of COsc.
 
         ::

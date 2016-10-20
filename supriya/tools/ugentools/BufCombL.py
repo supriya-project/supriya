@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufCombN import BufCombN
 
 
 class BufCombL(BufCombN):
-    r"""
+    """
     A buffer-based linear-interpolating comb delay line unit generator.
 
     ::
@@ -35,7 +35,7 @@ class BufCombL(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate buffer-based linear-interpolating comb delay
         line.
 
@@ -71,7 +71,7 @@ class BufCombL(BufCombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate buffer-based linear-interpolating comb delay
         line.
 
@@ -102,7 +102,7 @@ class BufCombL(BufCombN):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufCombL.
 
         ::
@@ -123,7 +123,7 @@ class BufCombL(BufCombN):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of BufCombL.
 
         ::
@@ -146,7 +146,7 @@ class BufCombL(BufCombN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of BufCombL.
 
         ::
@@ -169,7 +169,7 @@ class BufCombL(BufCombN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of BufCombL.
 
         ::
@@ -192,7 +192,7 @@ class BufCombL(BufCombN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufCombL.
 
         ::

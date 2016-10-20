@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Pan2 import Pan2
 
 
 class LinPan2(Pan2):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class LinPan2(Pan2):
         pos=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate LinPan2.
 
         ::
@@ -91,7 +91,7 @@ class LinPan2(Pan2):
         pos=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate LinPan2.
 
         ::
@@ -123,7 +123,7 @@ class LinPan2(Pan2):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of LinPan2.
 
         ::
@@ -144,7 +144,7 @@ class LinPan2(Pan2):
 
     @property
     def pos(self):
-        r"""
+        """
         Gets `pos` input of LinPan2.
 
         ::
@@ -165,7 +165,7 @@ class LinPan2(Pan2):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LinPan2.
 
         ::

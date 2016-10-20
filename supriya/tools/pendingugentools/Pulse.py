@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Pulse(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class Pulse(UGen):
         frequency=440,
         width=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate Pulse.
 
         ::
@@ -81,7 +81,7 @@ class Pulse(UGen):
         frequency=440,
         width=0.5,
         ):
-        r"""
+        """
         Constructs a control-rate Pulse.
 
         ::
@@ -108,7 +108,7 @@ class Pulse(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Pulse.
 
         ::
@@ -127,7 +127,7 @@ class Pulse(UGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of Pulse.
 
         ::

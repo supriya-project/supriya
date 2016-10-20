@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Gate(UGen):
-    r"""
+    """
     Gates or holds.
 
     ::
@@ -55,7 +55,7 @@ class Gate(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Gate.
 
         ::
@@ -86,7 +86,7 @@ class Gate(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Gate.
 
         ::
@@ -115,7 +115,7 @@ class Gate(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Gate.
 
         ::
@@ -141,7 +141,7 @@ class Gate(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Gate.
 
         ::

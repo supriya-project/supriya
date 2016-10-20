@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PSinGrain(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class PSinGrain(UGen):
         duration=0.2,
         frequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate PSinGrain.
 
         ::
@@ -86,7 +86,7 @@ class PSinGrain(UGen):
 
     @property
     def amp(self):
-        r"""
+        """
         Gets `amp` input of PSinGrain.
 
         ::
@@ -106,7 +106,7 @@ class PSinGrain(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of PSinGrain.
 
         ::
@@ -126,7 +126,7 @@ class PSinGrain(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of PSinGrain.
 
         ::

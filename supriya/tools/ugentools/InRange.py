@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InRange(UGen):
-    r"""
+    """
     Tests if a signal is within a given range.
 
     ::
@@ -59,7 +59,7 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts an audio-rate InRange ugen.
 
         ::
@@ -92,7 +92,7 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a scalar-rate InRange ugen.
 
         ::
@@ -125,7 +125,7 @@ class InRange(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a control-rate InRange ugen.
 
         ::
@@ -155,7 +155,7 @@ class InRange(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of InRange.
 
         ::
@@ -176,7 +176,7 @@ class InRange(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of InRange.
 
         ::
@@ -197,7 +197,7 @@ class InRange(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `minimum` input of InRange.
 
         ::

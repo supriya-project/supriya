@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class ControlBusFillRequest(Request):
-    r"""
+    """
     A /c_fill request.
 
     ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufSampleRate(BufInfoUGenBase):
-    r"""
+    """
     A buffer sample-rate info unit generator.
 
     ::
@@ -36,7 +36,7 @@ class BufSampleRate(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufSampleRate.
 
         ::

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Dust(UGen):
-    r"""
+    """
     A unipolar random impulse generator.
 
     ::
@@ -49,7 +49,7 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r"""
+        """
         Constructs an audio-rate unipolar random impulse generator.
 
         ::
@@ -74,7 +74,7 @@ class Dust(UGen):
         cls,
         density=0,
         ):
-        r"""
+        """
         Constructs a control-rate unipolar random impulse generator.
 
         ::
@@ -98,7 +98,7 @@ class Dust(UGen):
 
     @property
     def density(self):
-        r"""
+        """
         Gets `density` input of Dust.
 
         ::

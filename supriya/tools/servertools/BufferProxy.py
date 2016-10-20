@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class BufferProxy(SupriyaValueObject):
-    r"""
+    """
     A buffer proxy.
 
     Acts as a singleton reference to a buffer on the server, tracking the state
@@ -72,7 +72,7 @@ class BufferProxy(SupriyaValueObject):
     ### SPECIAL METHODS ###
 
     def __float__(self):
-        r"""
+        """
         Gets float representation of buffer proxy.
 
         ::
@@ -85,7 +85,7 @@ class BufferProxy(SupriyaValueObject):
         return float(self.buffer_id)
 
     def __int__(self):
-        r"""
+        """
         Gets integer representation of buffer proxy.
 
         ::
@@ -100,7 +100,7 @@ class BufferProxy(SupriyaValueObject):
     ### PRIVATE METHODS ###
 
     def _handle_response(self, response):
-        r"""
+        """
         Updates buffer proxy with buffer-info response.
 
         ::
@@ -161,7 +161,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets buffer id of buffer proxy.
 
         ::
@@ -175,7 +175,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets channel count of buffer proxy.
 
         ::
@@ -189,7 +189,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def duration_in_seconds(self):
-        r"""
+        """
         Gets duration in seconds of buffer proxy.
 
         ::
@@ -203,7 +203,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def frame_count(self):
-        r"""
+        """
         Gets frame count of buffer proxy.
 
         ::
@@ -217,7 +217,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def sample_count(self):
-        r"""
+        """
         Gets sample count of buffer proxy.
 
         ::
@@ -231,7 +231,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def sample_rate(self):
-        r"""
+        """
         Gets sample-rate of buffer proxy.
 
         ::
@@ -245,7 +245,7 @@ class BufferProxy(SupriyaValueObject):
 
     @property
     def server(self):
-        r"""
+        """
         Gets server of buffer proxy.
 
         ::

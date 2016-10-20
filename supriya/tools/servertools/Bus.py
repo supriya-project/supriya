@@ -4,7 +4,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class Bus(ServerObjectProxy, BindingTarget):
-    r"""
+    """
     A bus.
     """
 
@@ -112,7 +112,7 @@ class Bus(ServerObjectProxy, BindingTarget):
         return self
 
     def ar(self):
-        r"""
+        """
         Creates an audio-rate input ugen subgraph.
 
         ::
@@ -203,7 +203,7 @@ class Bus(ServerObjectProxy, BindingTarget):
         return value
 
     def kr(self):
-        r"""
+        """
         Creates a control-rate input ugen subgraph.
 
         ::

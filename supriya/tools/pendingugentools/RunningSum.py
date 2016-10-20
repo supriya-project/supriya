@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class RunningSum(UGen):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class RunningSum(UGen):
         numsamp=40,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate RunningSum.
 
         ::
@@ -83,7 +83,7 @@ class RunningSum(UGen):
         numsamp=40,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate RunningSum.
 
         ::
@@ -113,7 +113,7 @@ class RunningSum(UGen):
 
     @property
     def numsamp(self):
-        r"""
+        """
         Gets `numsamp` input of RunningSum.
 
         ::
@@ -133,7 +133,7 @@ class RunningSum(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of RunningSum.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Impulse(PureUGen):
-    r"""
+    """
     A non-band-limited single-sample impulse generator unit generator.
 
     ::
@@ -47,7 +47,7 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate non-band-limited single-sample impulse
         generator.
 
@@ -76,7 +76,7 @@ class Impulse(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate non-band-limited single-sample impulse
         generator.
 
@@ -103,7 +103,7 @@ class Impulse(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Impulse.
 
         ::
@@ -122,7 +122,7 @@ class Impulse(PureUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of Impulse.
 
         ::

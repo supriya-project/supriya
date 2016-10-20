@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferCopyRequest(Request):
-    r"""
+    """
     A `/b_gen copy` request.
 
     ::

@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferFreeRequest(Request):
-    r"""
+    """
     A /b_free request.
 
     ::

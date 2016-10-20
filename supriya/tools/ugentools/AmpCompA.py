@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AmpCompA(PureUGen):
-    r"""
+    """
     Basic psychoacoustic amplitude compensation (ANSI A-weighting curve).
 
     ::
@@ -63,7 +63,7 @@ class AmpCompA(PureUGen):
         root=0,
         root_amp=1,
         ):
-        r"""
+        """
         Constructs an audio-rate AmpCompA.
 
         ::
@@ -98,7 +98,7 @@ class AmpCompA(PureUGen):
         root=0,
         root_amp=1,
         ):
-        r"""
+        """
         Constructs a scale-rate AmpCompA.
 
         ::
@@ -133,7 +133,7 @@ class AmpCompA(PureUGen):
         root=0,
         root_amp=1,
         ):
-        r"""
+        """
         Constructs a control-rate AmpCompA.
 
         ::
@@ -164,7 +164,7 @@ class AmpCompA(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of AmpCompA.
 
         ::
@@ -185,7 +185,7 @@ class AmpCompA(PureUGen):
 
     @property
     def min_amp(self):
-        r"""
+        """
         Gets `min_amp` input of AmpCompA.
 
         ::
@@ -206,7 +206,7 @@ class AmpCompA(PureUGen):
 
     @property
     def root(self):
-        r"""
+        """
         Gets `root` input of AmpCompA.
 
         ::
@@ -227,7 +227,7 @@ class AmpCompA(PureUGen):
 
     @property
     def root_amp(self):
-        r"""
+        """
         Gets `root_amp` input of AmpCompA.
 
         ::

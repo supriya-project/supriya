@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Formant(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class Formant(PureUGen):
         formfrequency=1760,
         fundfrequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate Formant.
 
         ::
@@ -86,7 +86,7 @@ class Formant(PureUGen):
 
     @property
     def bwfrequency(self):
-        r"""
+        """
         Gets `bwfrequency` input of Formant.
 
         ::
@@ -106,7 +106,7 @@ class Formant(PureUGen):
 
     @property
     def formfrequency(self):
-        r"""
+        """
         Gets `formfrequency` input of Formant.
 
         ::
@@ -126,7 +126,7 @@ class Formant(PureUGen):
 
     @property
     def fundfrequency(self):
-        r"""
+        """
         Gets `fundfrequency` input of Formant.
 
         ::

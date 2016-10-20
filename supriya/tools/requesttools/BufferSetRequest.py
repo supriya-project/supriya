@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferSetRequest(Request):
-    r"""
+    """
     A /b_set request.
 
     ::

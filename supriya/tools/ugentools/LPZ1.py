@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPZ1(Filter):
-    r"""
+    """
     A two point average filter.
 
     ::
@@ -49,7 +49,7 @@ class LPZ1(Filter):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate LPZ1.
 
         ::
@@ -78,7 +78,7 @@ class LPZ1(Filter):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate LPZ1.
 
         ::
@@ -114,7 +114,7 @@ class LPZ1(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LPZ1.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagSquared(PV_ChainUGen):
-    r"""
+    """
     Squares magnitudes.
 
     ::
@@ -47,7 +47,7 @@ class PV_MagSquared(PV_ChainUGen):
         cls,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a PV_MagSquared.
 
         ::
@@ -72,7 +72,7 @@ class PV_MagSquared(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_MagSquared.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinRand(UGen):
-    r"""
+    """
     A skewed linear random distribution.
 
     ::
@@ -58,7 +58,7 @@ class LinRand(UGen):
         minimum=0,
         skew=0,
         ):
-        r"""
+        """
         Constructs a skewed linear random distribution.
 
         ::
@@ -87,7 +87,7 @@ class LinRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of LinRand.
 
         ::
@@ -107,7 +107,7 @@ class LinRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of LinRand.
 
         ::
@@ -127,7 +127,7 @@ class LinRand(UGen):
 
     @property
     def skew(self):
-        r"""
+        """
         Gets `skew` input of LinRand.
 
         ::

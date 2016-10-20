@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class WhiteNoise(UGen):
-    r"""
+    """
     A white noise unit generator.
 
     ::
@@ -36,7 +36,7 @@ class WhiteNoise(UGen):
     def ar(
         cls,
         ):
-        r"""
+        """
         Constructs an audio-rate white noise unit generator.
 
         ::
@@ -57,7 +57,7 @@ class WhiteNoise(UGen):
     def kr(
         cls,
         ):
-        r"""
+        """
         Constructs a control-rate white noise unit generator.
 
         ::

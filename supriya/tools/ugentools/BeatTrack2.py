@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BeatTrack2(MultiOutUGen):
-    r"""
+    """
     A template-matching beat-tracker.
 
     ::
@@ -77,7 +77,7 @@ class BeatTrack2(MultiOutUGen):
         weighting_scheme=-2.1,
         window_size=2,
         ):
-        r"""
+        """
         Constructs a control-rate BeatTrack2.
 
         ::
@@ -112,7 +112,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def bus_index(self):
-        r"""
+        """
         Gets `bus_index` input of BeatTrack2.
 
         ::
@@ -135,7 +135,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def lock(self):
-        r"""
+        """
         Gets `lock` input of BeatTrack2.
 
         ::
@@ -158,7 +158,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def feature_count(self):
-        r"""
+        """
         Gets `feature_count` input of BeatTrack2.
 
         ::
@@ -181,7 +181,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def phase_accuracy(self):
-        r"""
+        """
         Gets `phase_accuracy` input of BeatTrack2.
 
         ::
@@ -204,7 +204,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def weighting_scheme(self):
-        r"""
+        """
         Gets `weighting_scheme` input of BeatTrack2.
 
         ::
@@ -227,7 +227,7 @@ class BeatTrack2(MultiOutUGen):
 
     @property
     def window_size(self):
-        r"""
+        """
         Gets `window_size` input of BeatTrack2.
 
         ::

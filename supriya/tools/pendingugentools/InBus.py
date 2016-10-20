@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class InBus(UGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class InBus(UGen):
         clip=None,
         offset=0,
         ):
-        r"""
+        """
         Constructs an audio-rate InBus.
 
         ::
@@ -97,7 +97,7 @@ class InBus(UGen):
         clip=None,
         offset=0,
         ):
-        r"""
+        """
         Constructs a control-rate InBus.
 
         ::
@@ -130,7 +130,7 @@ class InBus(UGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of InBus.
 
         ::
@@ -150,7 +150,7 @@ class InBus(UGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of InBus.
 
         ::
@@ -170,7 +170,7 @@ class InBus(UGen):
 
     @property
     def clip(self):
-        r"""
+        """
         Gets `clip` input of InBus.
 
         ::
@@ -190,7 +190,7 @@ class InBus(UGen):
 
     @property
     def offset(self):
-        r"""
+        """
         Gets `offset` input of InBus.
 
         ::

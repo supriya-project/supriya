@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DelayN import DelayN
 
 
 class DelayL(DelayN):
-    r"""
+    """
     A linear-interpolating delay line unit generator.
 
     ::
@@ -29,7 +29,7 @@ class DelayL(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate linear-interpolating delay line.
 
         ::
@@ -57,7 +57,7 @@ class DelayL(DelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate linear-interpolating delay line.
 
         ::
@@ -82,7 +82,7 @@ class DelayL(DelayN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of DelayL.
 
         ::
@@ -103,7 +103,7 @@ class DelayL(DelayN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of DelayL.
 
         ::
@@ -124,7 +124,7 @@ class DelayL(DelayN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DelayL.
 
         ::

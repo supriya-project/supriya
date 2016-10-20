@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VOsc3(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class VOsc3(PureUGen):
         freq_2=220,
         freq_3=440,
         ):
-        r"""
+        """
         Constructs an audio-rate VOsc3.
 
         ::
@@ -97,7 +97,7 @@ class VOsc3(PureUGen):
         freq_2=220,
         freq_3=440,
         ):
-        r"""
+        """
         Constructs a control-rate VOsc3.
 
         ::
@@ -128,7 +128,7 @@ class VOsc3(PureUGen):
 
     @property
     def bufpos(self):
-        r"""
+        """
         Gets `bufpos` input of VOsc3.
 
         ::
@@ -148,7 +148,7 @@ class VOsc3(PureUGen):
 
     @property
     def freq_1(self):
-        r"""
+        """
         Gets `freq_1` input of VOsc3.
 
         ::
@@ -169,7 +169,7 @@ class VOsc3(PureUGen):
 
     @property
     def freq_2(self):
-        r"""
+        """
         Gets `freq_2` input of VOsc3.
 
         ::
@@ -190,7 +190,7 @@ class VOsc3(PureUGen):
 
     @property
     def freq_3(self):
-        r"""
+        """
         Gets `freq_3` input of VOsc3.
 
         ::

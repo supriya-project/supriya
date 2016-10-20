@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Median(Filter):
-    r"""
+    """
     A median filter.
 
     ::
@@ -54,7 +54,7 @@ class Median(Filter):
         length=3,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Median.
 
         ::
@@ -86,7 +86,7 @@ class Median(Filter):
         length=3,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Median.
 
         ::
@@ -124,7 +124,7 @@ class Median(Filter):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Median.
 
         ::
@@ -144,7 +144,7 @@ class Median(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Median.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class IRand(UGen):
-    r"""
+    """
     An integer uniform random distribution.
 
     ::
@@ -51,7 +51,7 @@ class IRand(UGen):
         maximum=127,
         minimum=0,
         ):
-        r"""
+        """
         Constructs a scalar-rate integer uniform random distribution.
 
         ::
@@ -78,7 +78,7 @@ class IRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of IRand.
 
         ::
@@ -97,7 +97,7 @@ class IRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of IRand.
 
         ::

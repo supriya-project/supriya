@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PitchShift(UGen):
-    r"""
+    """
     A pitch shift unit generator.
 
     ::
@@ -62,7 +62,7 @@ class PitchShift(UGen):
         time_dispersion=0.0,
         window_size=0.2,
         ):
-        r"""
+        """
         Constructs an audio-rate pitch shifter.
 
         ::
@@ -94,7 +94,7 @@ class PitchShift(UGen):
 
     @property
     def pitch_dispersion(self):
-        r"""
+        """
         Gets `pitch_dispersion` input of PitchShift.
 
         ::
@@ -115,7 +115,7 @@ class PitchShift(UGen):
 
     @property
     def pitch_ratio(self):
-        r"""
+        """
         Gets `pitch_ratio` input of PitchShift.
 
         ::
@@ -136,7 +136,7 @@ class PitchShift(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PitchShift.
 
         ::
@@ -167,7 +167,7 @@ class PitchShift(UGen):
 
     @property
     def time_dispersion(self):
-        r"""
+        """
         Gets `time_dispersion` input of PitchShift.
 
         ::
@@ -188,7 +188,7 @@ class PitchShift(UGen):
 
     @property
     def window_size(self):
-        r"""
+        """
         Gets `window_size` input of PitchShift.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dunique(DUGen):
-    r"""
+    """
     Returns the same unique series of values for several demand streams.
 
     ::
@@ -53,7 +53,7 @@ class Dunique(DUGen):
         protected=True,
         source=None,
         ):
-        r"""
+        """
         Constructs a Dunique.
 
         ::
@@ -80,7 +80,7 @@ class Dunique(DUGen):
 
     @property
     def max_buffer_size(self):
-        r"""
+        """
         Gets `max_buffer_size` input of Dunique.
 
         ::
@@ -101,7 +101,7 @@ class Dunique(DUGen):
 
     @property
     def protected(self):
-        r"""
+        """
         Gets `protected` input of Dunique.
 
         ::
@@ -122,7 +122,7 @@ class Dunique(DUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Dunique.
 
         ::

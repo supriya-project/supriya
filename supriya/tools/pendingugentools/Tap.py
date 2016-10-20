@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Tap(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class Tap(UGen):
         channel_count=1,
         delay_time=0.2,
         ):
-        r"""
+        """
         Constructs an audio-rate Tap.
 
         ::
@@ -86,7 +86,7 @@ class Tap(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of Tap.
 
         ::
@@ -106,7 +106,7 @@ class Tap(UGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of Tap.
 
         ::
@@ -126,7 +126,7 @@ class Tap(UGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of Tap.
 
         ::

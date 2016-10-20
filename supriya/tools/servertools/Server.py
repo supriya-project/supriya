@@ -9,7 +9,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Server(SupriyaObject):
-    r"""
+    """
     An scsynth server proxy.
 
     ::
@@ -446,7 +446,7 @@ class Server(SupriyaObject):
         return Server._default_server
 
     def query_local_nodes(self, include_controls=False):
-        r"""
+        """
         Queries all node proxies in Python.
 
         ::
@@ -516,7 +516,7 @@ class Server(SupriyaObject):
         return query_tree_group
 
     def query_remote_nodes(self, include_controls=False):
-        r"""
+        """
         Queries all nodes on scsynth.
 
         ::

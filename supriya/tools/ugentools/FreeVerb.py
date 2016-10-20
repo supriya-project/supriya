@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FreeVerb(UGen):
-    r"""
+    """
     A FreeVerb reverb unit generator.
 
     ::
@@ -58,7 +58,7 @@ class FreeVerb(UGen):
         room_size=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate FreeVerb reverb unit.
 
         ::
@@ -88,7 +88,7 @@ class FreeVerb(UGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of FreeVerb.
 
         ::
@@ -109,7 +109,7 @@ class FreeVerb(UGen):
 
     @property
     def mix(self):
-        r"""
+        """
         Gets `mix` input of FreeVerb.
 
         ::
@@ -130,7 +130,7 @@ class FreeVerb(UGen):
 
     @property
     def room_size(self):
-        r"""
+        """
         Gets `room_size` input of FreeVerb.
 
         ::
@@ -151,7 +151,7 @@ class FreeVerb(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of FreeVerb.
 
         ::

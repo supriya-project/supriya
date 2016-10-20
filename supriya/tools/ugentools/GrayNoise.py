@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class GrayNoise(UGen):
-    r"""
+    """
     A gray noise unit generator.
 
     ::
@@ -36,7 +36,7 @@ class GrayNoise(UGen):
     def ar(
         cls,
         ):
-        r"""
+        """
         Constructs an audio-rate gray noise unit generator.
 
         ::
@@ -57,7 +57,7 @@ class GrayNoise(UGen):
     def kr(
         cls,
         ):
-        r"""
+        """
         Constructs a control-rate gray noise unit generator.
 
         ::

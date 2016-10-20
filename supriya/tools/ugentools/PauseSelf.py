@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PauseSelf(UGen):
-    r"""
+    """
     Pauses the enclosing synth when triggered by `trigger`.
     
     ::
@@ -47,7 +47,7 @@ class PauseSelf(UGen):
         cls,
         trigger=None,
         ):
-        r"""
+        """
         Constructs a control-rate ugen.
 
         ::
@@ -73,7 +73,7 @@ class PauseSelf(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PauseSelf.
 
         ::

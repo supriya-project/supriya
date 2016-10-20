@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PulseCount import PulseCount
 
 
 class SetResetFF(PulseCount):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class SetResetFF(PulseCount):
         reset=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate SetResetFF.
 
         ::
@@ -81,7 +81,7 @@ class SetResetFF(PulseCount):
         reset=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate SetResetFF.
 
         ::
@@ -108,7 +108,7 @@ class SetResetFF(PulseCount):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of SetResetFF.
 
         ::
@@ -127,7 +127,7 @@ class SetResetFF(PulseCount):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of SetResetFF.
 
         ::

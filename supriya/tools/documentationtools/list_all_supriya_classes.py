@@ -3,7 +3,7 @@ from abjad.tools import documentationtools
 
 
 def list_all_supriya_classes(bases=None):
-    r"""
+    """
     Lists all supriya classes.
     """
     classes = documentationtools.list_all_classes(modules='supriya.tools')

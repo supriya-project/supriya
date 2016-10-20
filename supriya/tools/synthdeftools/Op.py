@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Op(SupriyaObject):
-    r"""
+    """
     Creates binary and unary operations.
     """
 
@@ -126,7 +126,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def absolute_difference(left, right):
-        r"""
+        """
         Calculates absolute difference between `left` and `right`.
 
         ::
@@ -153,7 +153,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def absolute_value(source):
-        r"""
+        """
         Calculates absolute value of `source`.
 
         ::
@@ -176,7 +176,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def amplitude_to_db(source):
-        r"""
+        """
         Converts `source` from amplitude to decibels.
 
         ::
@@ -199,7 +199,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_hanning_window(source):
-        r"""
+        """
         Calculates Hanning window value at `source`.
 
         ::
@@ -222,7 +222,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_rectangle_window(source):
-        r"""
+        """
         Calculates rectangle window value at `source`.
 
         ::
@@ -245,7 +245,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_s_curve(source):
-        r"""
+        """
         Calculates S-curve value at `source`.
 
         ::
@@ -268,7 +268,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_triangle_window(source):
-        r"""
+        """
         Calculates triangle window value at `source`.
 
         ::
@@ -291,7 +291,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def as_welch_window(source):
-        r"""
+        """
         Calculates Welch window value at `source`.
 
         ::
@@ -314,7 +314,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def ceiling(source):
-        r"""
+        """
         Calculates the ceiling of `source`.
 
         ::
@@ -337,7 +337,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def cubed(source):
-        r"""
+        """
         Calculates the cube of `source`.
 
         ::
@@ -360,7 +360,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def db_to_amplitude(source):
-        r"""
+        """
         Converts `source` from decibels to amplitude.
 
         ::
@@ -383,7 +383,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def distort(source):
-        r"""
+        """
         Distorts `source` non-linearly.
 
         ::
@@ -406,7 +406,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def exponential(source):
-        r"""
+        """
         Calculates the natural exponential function of `source`.
 
         ::
@@ -429,7 +429,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def floor(source):
-        r"""
+        """
         Calculates the floor of `source`.
 
         ::
@@ -452,7 +452,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def fractional_part(source):
-        r"""
+        """
         Calculates the fraction part of `source`.
 
         ::
@@ -475,7 +475,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def hz_to_midi(source):
-        r"""
+        """
         Converts `source` from Hertz to midi note number.
 
         ::
@@ -498,7 +498,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def hz_to_octave(source):
-        r"""
+        """
         Converts `source` from Hertz to octave number.
 
         ::
@@ -521,7 +521,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def is_equal(left, right):
-        r"""
+        """
         Calculates equality between `left` and `right`.
 
         ::
@@ -548,7 +548,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def is_not_equal(left, right):
-        r"""
+        """
         Calculates inequality between `left` and `right`.
 
         ::
@@ -575,7 +575,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log(source):
-        r"""
+        """
         Calculates the natural logarithm of `source`.
 
         ::
@@ -598,7 +598,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log2(source):
-        r"""
+        """
         Calculates the base-2 logarithm of `source`.
 
         ::
@@ -621,7 +621,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def log10(source):
-        r"""
+        """
         Calculates the base-10 logarithm of `source`.
 
         ::
@@ -644,7 +644,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def maximum(left, right):
-        r"""
+        """
         Calculates maximum between `left` and `right`.
 
         ::
@@ -671,7 +671,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def midi_to_hz(source):
-        r"""
+        """
         Converts `source` from midi note number to Hertz.
 
         ::
@@ -694,7 +694,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def minimum(left, right):
-        r"""
+        """
         Calculates minimum between `left` and `right`.
 
         ::
@@ -721,7 +721,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def octave_to_hz(source):
-        r"""
+        """
         Converts `source` from octave number to Hertz.
 
         ::
@@ -744,7 +744,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def power(left, right):
-        r"""
+        """
         Calculates `left` raised to the power of `right`.
 
         ::
@@ -771,7 +771,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def ratio_to_semitones(source):
-        r"""
+        """
         Converts `source` from frequency ratio to semitone distance.
 
         ::
@@ -794,7 +794,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def reciprocal(source):
-        r"""
+        """
         Calculates reciprocal of `source`.
 
         ::
@@ -817,7 +817,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def semitones_to_ratio(source):
-        r"""
+        """
         Converts `source` from semitone distance to frequency ratio.
 
         ::
@@ -840,7 +840,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def sign(source):
-        r"""
+        """
         Calculates sign of `source`.
 
         ::
@@ -863,7 +863,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def softclip(source):
-        r"""
+        """
         Distorts `source` non-linearly.
 
         ::
@@ -886,7 +886,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def square_root(source):
-        r"""
+        """
         Calculates square root of `source`.
 
         ::
@@ -909,7 +909,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def squared(source):
-        r"""
+        """
         Calculates square of `source`.
 
         ::
@@ -932,7 +932,7 @@ class Op(SupriyaObject):
 
     @staticmethod
     def tanh(source):
-        r"""
+        """
         Calculates hyperbolic tangent of `source`.
 
         ::

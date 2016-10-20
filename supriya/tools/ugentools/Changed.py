@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
 class Changed(PseudoUGen):
-    r"""
+    """
     Triggers when a value changes.
 
     ::
@@ -38,7 +38,7 @@ class Changed(PseudoUGen):
         source=None,
         threshold=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Changed.
 
         ::
@@ -71,7 +71,7 @@ class Changed(PseudoUGen):
         source=None,
         threshold=0,
         ):
-        r"""
+        """
         Constructs a control-rate Changed.
 
         ::

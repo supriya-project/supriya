@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dreset(DUGen):
-    r"""
+    """
     Resets demand-rate UGens.
 
     ::
@@ -48,7 +48,7 @@ class Dreset(DUGen):
         reset=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a Dreset.
 
         ::
@@ -73,7 +73,7 @@ class Dreset(DUGen):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of Dreset.
 
         ::
@@ -93,7 +93,7 @@ class Dreset(DUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Dreset.
 
         ::

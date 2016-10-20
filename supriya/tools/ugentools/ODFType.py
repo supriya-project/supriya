@@ -3,7 +3,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class ODFType(Enumeration):
-    r"""
+    """
     ODFType enumeration, used by Onsets.
     """
 

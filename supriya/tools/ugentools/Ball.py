@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Ball(UGen):
-    r"""
+    """
     A bouncing ball physical model.
 
     ::
@@ -64,7 +64,7 @@ class Ball(UGen):
         gravity=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Ball.
 
         ::
@@ -100,7 +100,7 @@ class Ball(UGen):
         gravity=1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Ball.
 
         ::
@@ -132,7 +132,7 @@ class Ball(UGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of Ball.
 
         ::
@@ -154,7 +154,7 @@ class Ball(UGen):
 
     @property
     def friction(self):
-        r"""
+        """
         Gets `friction` input of Ball.
 
         ::
@@ -176,7 +176,7 @@ class Ball(UGen):
 
     @property
     def gravity(self):
-        r"""
+        """
         Gets `gravity` input of Ball.
 
         ::
@@ -198,7 +198,7 @@ class Ball(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Ball.
 
         ::

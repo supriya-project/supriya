@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Min(PV_ChainUGen):
-    r"""
+    """
     Minimum magnitude.
 
     ::
@@ -55,7 +55,7 @@ class PV_Min(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r"""
+        """
         Constructs a PV_Min.
 
         ::
@@ -85,7 +85,7 @@ class PV_Min(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_Min.
 
         ::
@@ -132,7 +132,7 @@ class PV_Min(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_Min.
 
         ::

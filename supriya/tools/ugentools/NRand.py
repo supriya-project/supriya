@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class NRand(UGen):
-    r"""
+    """
     A sum of `n` uniform distributions.
 
     ::
@@ -58,7 +58,7 @@ class NRand(UGen):
         minimum=0,
         n=1,
         ):
-        r"""
+        """
         Constructs a scalar-rate sum of `n` uniform distributions.
 
         ::
@@ -87,7 +87,7 @@ class NRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of NRand.
 
         ::
@@ -107,7 +107,7 @@ class NRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of NRand.
 
         ::
@@ -127,7 +127,7 @@ class NRand(UGen):
 
     @property
     def n(self):
-        r"""
+        """
         Gets `n` input of NRand.
 
         ::

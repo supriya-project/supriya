@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanB(MultiOutUGen):
-    r"""
+    """
     A 3D ambisonic b-format panner.
 
     ::
@@ -65,7 +65,7 @@ class PanB(MultiOutUGen):
         gain=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate PanB.
 
         ::
@@ -101,7 +101,7 @@ class PanB(MultiOutUGen):
         gain=1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate PanB.
 
         ::
@@ -135,7 +135,7 @@ class PanB(MultiOutUGen):
 
     @property
     def azimuth(self):
-        r"""
+        """
         Gets `azimuth` input of PanB.
 
         ::
@@ -157,7 +157,7 @@ class PanB(MultiOutUGen):
 
     @property
     def elevation(self):
-        r"""
+        """
         Gets `elevation` input of PanB.
 
         ::
@@ -179,7 +179,7 @@ class PanB(MultiOutUGen):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of PanB.
 
         ::
@@ -201,7 +201,7 @@ class PanB(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PanB.
 
         ::

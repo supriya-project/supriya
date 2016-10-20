@@ -3,7 +3,7 @@ from supriya.tools.documentationtools.Grapher import Grapher
 
 
 class SynthDefGrapher(Grapher):
-    r"""
+    """
     Graphs SynthDefs.
 
     ..  container:: example

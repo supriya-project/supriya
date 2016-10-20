@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SendPeakRMS(UGen):
-    r"""
+    """
     Tracks peak and power of a signal for GUI applications.
 
     ::
@@ -84,7 +84,7 @@ class SendPeakRMS(UGen):
         reply_rate=20,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate SendPeakRMS.
 
         ::
@@ -123,7 +123,7 @@ class SendPeakRMS(UGen):
         reply_rate=20,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate SendPeakRMS.
 
         ::
@@ -159,7 +159,7 @@ class SendPeakRMS(UGen):
 
     @property
     def command_name(self):
-        r"""
+        """
         Gets `command_name` input of SendPeakRMS.
 
         ::
@@ -187,7 +187,7 @@ class SendPeakRMS(UGen):
 
     @property
     def peak_lag(self):
-        r"""
+        """
         Gets `peak_lag` input of SendPeakRMS.
 
         ::
@@ -210,7 +210,7 @@ class SendPeakRMS(UGen):
 
     @property
     def reply_id(self):
-        r"""
+        """
         Gets `reply_id` input of SendPeakRMS.
 
         ::
@@ -233,7 +233,7 @@ class SendPeakRMS(UGen):
 
     @property
     def reply_rate(self):
-        r"""
+        """
         Gets `reply_rate` input of SendPeakRMS.
 
         ::
@@ -256,7 +256,7 @@ class SendPeakRMS(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of SendPeakRMS.
 
         ::

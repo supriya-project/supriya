@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DynKlank(UGen):
-    r"""
+    """
 
     ::
 
@@ -67,7 +67,7 @@ class DynKlank(UGen):
         input=None,
         specifications_array_ref=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DynKlank.
 
         ::
@@ -105,7 +105,7 @@ class DynKlank(UGen):
         input=None,
         specifications_array_ref=None,
         ):
-        r"""
+        """
         Constructs a control-rate DynKlank.
 
         ::
@@ -140,7 +140,7 @@ class DynKlank(UGen):
 
     @property
     def decayscale(self):
-        r"""
+        """
         Gets `decayscale` input of DynKlank.
 
         ::
@@ -162,7 +162,7 @@ class DynKlank(UGen):
 
     @property
     def freqoffset(self):
-        r"""
+        """
         Gets `freqoffset` input of DynKlank.
 
         ::
@@ -184,7 +184,7 @@ class DynKlank(UGen):
 
     @property
     def freqscale(self):
-        r"""
+        """
         Gets `freqscale` input of DynKlank.
 
         ::
@@ -206,7 +206,7 @@ class DynKlank(UGen):
 
     @property
     def input(self):
-        r"""
+        """
         Gets `input` input of DynKlank.
 
         ::
@@ -227,7 +227,7 @@ class DynKlank(UGen):
 
     @property
     def specifications_array_ref(self):
-        r"""
+        """
         Gets `specifications_array_ref` input of DynKlank.
 
         ::

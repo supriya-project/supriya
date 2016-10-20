@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_ConformalMap(PV_ChainUGen):
-    r"""
+    """
     Complex plane attack.
 
     ::
@@ -57,7 +57,7 @@ class PV_ConformalMap(PV_ChainUGen):
         areal=0,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a PV_ConformalMap.
 
         ::
@@ -86,7 +86,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
     @property
     def aimag(self):
-        r"""
+        """
         Gets `aimag` input of PV_ConformalMap.
 
         ::
@@ -109,7 +109,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
     @property
     def areal(self):
-        r"""
+        """
         Gets `areal` input of PV_ConformalMap.
 
         ::
@@ -129,7 +129,7 @@ class PV_ConformalMap(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_ConformalMap.
 
         ::

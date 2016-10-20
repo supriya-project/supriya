@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeQueryRequest(Request):
-    r"""
+    """
     A /n_query request.
 
     ::

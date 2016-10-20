@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Diffuser(PV_ChainUGen):
-    r"""
+    """
     Shifts phases randomly.
 
     ::
@@ -52,7 +52,7 @@ class PV_Diffuser(PV_ChainUGen):
         pv_chain=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a PV_Diffuser.
 
         ::
@@ -79,7 +79,7 @@ class PV_Diffuser(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_Diffuser.
 
         ::
@@ -123,7 +123,7 @@ class PV_Diffuser(PV_ChainUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PV_Diffuser.
 
         ::

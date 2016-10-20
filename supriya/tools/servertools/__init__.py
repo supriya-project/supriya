@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+"""
 Tools for interacting with and modeling objects on the SuperCollider
 **scsynth** synthesis server.
 """

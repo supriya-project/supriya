@@ -5,7 +5,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class ResponseManager(SupriyaObject):
-    r"""
+    """
     Handles OSC responses from scsynth.
 
     ::

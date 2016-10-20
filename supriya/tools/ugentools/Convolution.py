@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Convolution(UGen):
-    r"""
+    """
     A real-time convolver.
 
     ::
@@ -63,7 +63,7 @@ class Convolution(UGen):
         kernel=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Convolution.
 
         ::
@@ -97,7 +97,7 @@ class Convolution(UGen):
 
     @property
     def framesize(self):
-        r"""
+        """
         Gets `framesize` input of Convolution.
 
         ::
@@ -122,7 +122,7 @@ class Convolution(UGen):
 
     @property
     def kernel(self):
-        r"""
+        """
         Gets `kernel` input of Convolution.
 
         ::
@@ -251,7 +251,7 @@ class Convolution(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Convolution.
 
         ::

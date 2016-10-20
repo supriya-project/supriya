@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinScramble(PV_ChainUGen):
-    r"""
+    """
     Scrambles bins.
 
     ::
@@ -62,7 +62,7 @@ class PV_BinScramble(PV_ChainUGen):
         width=0.2,
         wipe=0,
         ):
-        r"""
+        """
         Constructs a PV_BinScramble.
 
         ::
@@ -93,7 +93,7 @@ class PV_BinScramble(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_BinScramble.
 
         ::
@@ -139,7 +139,7 @@ class PV_BinScramble(PV_ChainUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PV_BinScramble.
 
         ::
@@ -163,7 +163,7 @@ class PV_BinScramble(PV_ChainUGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of PV_BinScramble.
 
         ::
@@ -187,7 +187,7 @@ class PV_BinScramble(PV_ChainUGen):
 
     @property
     def wipe(self):
-        r"""
+        """
         Gets `wipe` input of PV_BinScramble.
 
         ::

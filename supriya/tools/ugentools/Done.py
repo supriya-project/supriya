@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Done(UGen):
-    r"""
+    """
     Triggers when `source` sets its `done` flag.
 
     ::
@@ -49,7 +49,7 @@ class Done(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate "done" trigger.
 
         ::
@@ -75,7 +75,7 @@ class Done(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Done.
 
         ::

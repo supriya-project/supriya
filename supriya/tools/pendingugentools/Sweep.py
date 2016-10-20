@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Sweep(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class Sweep(UGen):
         rate=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Sweep.
 
         ::
@@ -81,7 +81,7 @@ class Sweep(UGen):
         rate=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Sweep.
 
         ::
@@ -108,7 +108,7 @@ class Sweep(UGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of Sweep.
 
         ::
@@ -127,7 +127,7 @@ class Sweep(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Sweep.
 
         ::

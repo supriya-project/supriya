@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFPar(PureUGen):
-    r"""
+    """
     A parabolic oscillator unit generator.
 
     ::
@@ -47,7 +47,7 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate parabolic oscillator.
 
         ::
@@ -75,7 +75,7 @@ class LFPar(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate parabolic oscillator.
 
         ::
@@ -101,7 +101,7 @@ class LFPar(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFPar.
 
         ::
@@ -120,7 +120,7 @@ class LFPar(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of LFPar.
 
         ::

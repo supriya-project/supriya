@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RectComb(PV_ChainUGen):
-    r"""
+    """
     Makes gaps in the spectrum.
 
     ::
@@ -62,7 +62,7 @@ class PV_RectComb(PV_ChainUGen):
         phase=0,
         width=0.5,
         ):
-        r"""
+        """
         Constructs a PV_RectComb.
 
         ::
@@ -93,7 +93,7 @@ class PV_RectComb(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_RectComb.
 
         ::
@@ -139,7 +139,7 @@ class PV_RectComb(PV_ChainUGen):
 
     @property
     def num_teeth(self):
-        r"""
+        """
         Gets `num_teeth` input of PV_RectComb.
 
         ::
@@ -163,7 +163,7 @@ class PV_RectComb(PV_ChainUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of PV_RectComb.
 
         ::
@@ -187,7 +187,7 @@ class PV_RectComb(PV_ChainUGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of PV_RectComb.
 
         ::

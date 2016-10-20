@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dswitch1(DUGen):
-    r"""
+    """
     A demand-rate generator for switching between inputs.
 
     ::
@@ -53,7 +53,7 @@ class Dswitch1(DUGen):
         index=None,
         sequence=None,
         ):
-        r"""
+        """
         Constructs a Dswitch1.
 
         ::
@@ -79,7 +79,7 @@ class Dswitch1(DUGen):
 
     @property
     def index(self):
-        r"""
+        """
         Gets `index` input of Dswitch1.
 
         ::
@@ -106,7 +106,7 @@ class Dswitch1(DUGen):
 
     @property
     def sequence(self):
-        r"""
+        """
         Gets `sequence` input of Dswitch1.
 
         ::

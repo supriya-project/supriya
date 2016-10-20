@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Wrap(UGen):
-    r"""
+    """
     Wraps a signal outside given thresholds.
 
     ::
@@ -59,7 +59,7 @@ class Wrap(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts an audio-rate Wrap ugen.
 
         ::
@@ -92,7 +92,7 @@ class Wrap(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a scalar-rate Wrap ugen.
 
         ::
@@ -125,7 +125,7 @@ class Wrap(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a control-rate Wrap ugen.
 
         ::
@@ -155,7 +155,7 @@ class Wrap(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Wrap.
 
         ::
@@ -176,7 +176,7 @@ class Wrap(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Wrap.
 
         ::
@@ -197,7 +197,7 @@ class Wrap(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `minimum` input of Wrap.
 
         ::

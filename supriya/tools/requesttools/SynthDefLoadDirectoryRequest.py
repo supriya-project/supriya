@@ -5,7 +5,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthDefLoadDirectoryRequest(Request):
-    r"""
+    """
     A /d_loadDir request.
     """
 

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SpecFlatness(UGen):
-    r"""
+    """
     A spectral flatness measure.
 
     ::
@@ -52,7 +52,7 @@ class SpecFlatness(UGen):
         cls,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a control-rate SpecFlatness.
 
         ::
@@ -76,7 +76,7 @@ class SpecFlatness(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of SpecFlatness.
 
         ::

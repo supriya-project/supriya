@@ -4,7 +4,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Div(PV_ChainUGen):
-    r"""
+    """
     Complex division.
 
     ::
@@ -56,7 +56,7 @@ class PV_Div(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r"""
+        """
         Constructs a PV_Div.
 
         ::
@@ -86,7 +86,7 @@ class PV_Div(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_Div.
 
         ::
@@ -133,7 +133,7 @@ class PV_Div(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_Div.
 
         ::

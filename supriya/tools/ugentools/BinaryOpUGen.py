@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class BinaryOpUGen(UGen):
-    r"""
+    """
     A binary operator ugen, created by applying a binary operator to two
     ugens.
 
@@ -102,7 +102,7 @@ class BinaryOpUGen(UGen):
 
     @property
     def left(self):
-        r"""
+        """
         Gets `left` input of BinaryOpUGen.
 
         ::
@@ -127,7 +127,7 @@ class BinaryOpUGen(UGen):
 
     @property
     def operator(self):
-        r"""
+        """
         Gets operator of BinaryOpUgen.
 
         ::
@@ -145,7 +145,7 @@ class BinaryOpUGen(UGen):
 
     @property
     def right(self):
-        r"""
+        """
         Gets `right` input of BinaryOpUGen.
 
         ::

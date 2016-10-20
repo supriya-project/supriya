@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Latch(UGen):
-    r"""
+    """
     Samples and holds.
 
     ::
@@ -55,7 +55,7 @@ class Latch(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Latch.
 
         ::
@@ -86,7 +86,7 @@ class Latch(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Latch.
 
         ::
@@ -115,7 +115,7 @@ class Latch(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Latch.
 
         ::
@@ -142,7 +142,7 @@ class Latch(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Latch.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AbstractIn import AbstractIn
 
 
 class LagIn(AbstractIn):
-    r"""
+    """
 
     ::
 
@@ -59,7 +59,7 @@ class LagIn(AbstractIn):
         channel_count=1,
         lag=0.1,
         ):
-        r"""
+        """
         Constructs a control-rate LagIn.
 
         ::
@@ -90,7 +90,7 @@ class LagIn(AbstractIn):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of LagIn.
 
         ::
@@ -110,7 +110,7 @@ class LagIn(AbstractIn):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of LagIn.
 
         ::
@@ -130,7 +130,7 @@ class LagIn(AbstractIn):
 
     @property
     def lag(self):
-        r"""
+        """
         Gets `lag` input of LagIn.
 
         ::

@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class NodeIdAllocator(SupriyaObject):
-    r"""
+    """
     A node ID allocator.
 
     ::

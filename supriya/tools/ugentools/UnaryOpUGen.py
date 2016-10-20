@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class UnaryOpUGen(UGen):
-    r"""
+    """
     A unary operator ugen, created by applying a unary operator to a ugen.
 
     ::
@@ -49,7 +49,7 @@ class UnaryOpUGen(UGen):
 
     @property
     def operator(self):
-        r"""
+        """
         Gets operator of UnaryOpUgen.
 
         ::
@@ -66,7 +66,7 @@ class UnaryOpUGen(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of UnaryOpUGen.
 
         ::

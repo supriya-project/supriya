@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class DiskIn(MultiOutUGen):
-    r"""
+    """
     Streams in audio from a file.
 
     ::
@@ -58,7 +58,7 @@ class DiskIn(MultiOutUGen):
         channel_count=None,
         loop=0,
         ):
-        r"""
+        """
         Constructs an audio-rate DiskIn.
 
         ::
@@ -90,7 +90,7 @@ class DiskIn(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DiskIn.
 
         ::
@@ -111,7 +111,7 @@ class DiskIn(MultiOutUGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -120,7 +120,7 @@ class DiskIn(MultiOutUGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of DiskIn.
 
         ::

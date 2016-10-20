@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainSin(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -77,7 +77,7 @@ class GrainSin(MultiOutUGen):
         pan=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate GrainSin.
 
         ::
@@ -116,7 +116,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of GrainSin.
 
         ::
@@ -140,7 +140,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of GrainSin.
 
         ::
@@ -164,7 +164,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def envbufnum(self):
-        r"""
+        """
         Gets `envbufnum` input of GrainSin.
 
         ::
@@ -188,7 +188,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of GrainSin.
 
         ::
@@ -212,7 +212,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def max_grains(self):
-        r"""
+        """
         Gets `max_grains` input of GrainSin.
 
         ::
@@ -236,7 +236,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def pan(self):
-        r"""
+        """
         Gets `pan` input of GrainSin.
 
         ::
@@ -260,7 +260,7 @@ class GrainSin(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of GrainSin.
 
         ::

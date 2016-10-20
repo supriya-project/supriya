@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class StandardN(UGen):
-    r"""
+    """
     A non-interpolating standard map chaotic generator.
 
     ::
@@ -63,7 +63,7 @@ class StandardN(UGen):
         xi=0.5,
         yi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate StandardN.
 
         ::
@@ -96,7 +96,7 @@ class StandardN(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of StandardN.
 
         ::
@@ -117,7 +117,7 @@ class StandardN(UGen):
 
     @property
     def k(self):
-        r"""
+        """
         Gets `k` input of StandardN.
 
         ::
@@ -138,7 +138,7 @@ class StandardN(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of StandardN.
 
         ::
@@ -159,7 +159,7 @@ class StandardN(UGen):
 
     @property
     def yi(self):
-        r"""
+        """
         Gets `yi` input of StandardN.
 
         ::

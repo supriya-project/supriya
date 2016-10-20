@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class OnePole(Filter):
-    r"""
+    """
     A one pole filter.
 
     ::
@@ -54,7 +54,7 @@ class OnePole(Filter):
         coefficient=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate OnePole.
 
         ::
@@ -86,7 +86,7 @@ class OnePole(Filter):
         coefficient=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate OnePole.
 
         ::
@@ -124,7 +124,7 @@ class OnePole(Filter):
 
     @property
     def coefficient(self):
-        r"""
+        """
         Gets `coefficient` input of OnePole.
 
         ::
@@ -144,7 +144,7 @@ class OnePole(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of OnePole.
 
         ::

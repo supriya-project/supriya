@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LPF(Filter):
-    r"""
+    """
     A lowpass filter unit generator.
 
     ::
@@ -48,7 +48,7 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate lowpass filter.
 
         ::
@@ -77,7 +77,7 @@ class LPF(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate lowpass filter.
 
         ::
@@ -104,7 +104,7 @@ class LPF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LPF.
 
         ::
@@ -125,7 +125,7 @@ class LPF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LPF.
 
         ::

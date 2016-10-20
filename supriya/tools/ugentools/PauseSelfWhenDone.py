@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PauseSelfWhenDone(UGen):
-    r"""
+    """
     Pauses the enclosing synth when `source` sets its `done` flag.
 
     ::
@@ -49,7 +49,7 @@ class PauseSelfWhenDone(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate ugen.
 
         ::
@@ -75,7 +75,7 @@ class PauseSelfWhenDone(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PauseSelfWhenDone.
 
         ::

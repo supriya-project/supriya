@@ -5,7 +5,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MouseY(UGen):
-    r"""
+    """
     A mouse cursor tracker.
 
     MouseY tracks the y-axis of the mouse cursor position.
@@ -66,7 +66,7 @@ class MouseY(UGen):
         minimum=0,
         warp=0,
         ):
-        r"""
+        """
         Constructs a control-rate mouse cursor tracking unit generator.
 
         ::
@@ -96,7 +96,7 @@ class MouseY(UGen):
 
     @property
     def lag(self):
-        r"""
+        """
         Gets `lag` input of MouseY.
 
         ::
@@ -117,7 +117,7 @@ class MouseY(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of MouseY.
 
         ::
@@ -138,7 +138,7 @@ class MouseY(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of MouseY.
 
         ::
@@ -159,7 +159,7 @@ class MouseY(UGen):
 
     @property
     def warp(self):
-        r"""
+        """
         Gets `warp` input of MouseY.
 
         ::

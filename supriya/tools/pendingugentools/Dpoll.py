@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dpoll(DUGen):
-    r"""
+    """
 
     ::
 
@@ -63,7 +63,7 @@ class Dpoll(DUGen):
         source=None,
         trigid=-1,
         ):
-        r"""
+        """
         Constructs a Dpoll.
 
         ::
@@ -97,7 +97,7 @@ class Dpoll(DUGen):
 
     @property
     def label(self):
-        r"""
+        """
         Gets `label` input of Dpoll.
 
         ::
@@ -118,7 +118,7 @@ class Dpoll(DUGen):
 
     @property
     def run(self):
-        r"""
+        """
         Gets `run` input of Dpoll.
 
         ::
@@ -140,7 +140,7 @@ class Dpoll(DUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Dpoll.
 
         ::
@@ -169,7 +169,7 @@ class Dpoll(DUGen):
 
     @property
     def trigid(self):
-        r"""
+        """
         Gets `trigid` input of Dpoll.
 
         ::

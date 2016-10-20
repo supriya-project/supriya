@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ToggleFF(UGen):
-    r"""
+    """
     A toggle flip-flop.
 
     ::
@@ -49,7 +49,7 @@ class ToggleFF(UGen):
         cls,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate ToggleFF.
 
         ::
@@ -76,7 +76,7 @@ class ToggleFF(UGen):
         cls,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate ToggleFF.
 
         ::
@@ -102,7 +102,7 @@ class ToggleFF(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of ToggleFF.
 
         ::

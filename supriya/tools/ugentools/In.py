@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class In(MultiOutUGen):
-    r"""
+    """
     A bus input unit generator.
 
     ::
@@ -46,7 +46,7 @@ class In(MultiOutUGen):
         bus=0,
         channel_count=1,
         ):
-        r"""
+        """
         Constructs an audio-rate bus input.
 
         ::
@@ -83,7 +83,7 @@ class In(MultiOutUGen):
         bus=0,
         channel_count=1,
         ):
-        r"""
+        """
         Constructs a control-rate bus input.
 
         ::
@@ -118,7 +118,7 @@ class In(MultiOutUGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of DC.
 
         ::

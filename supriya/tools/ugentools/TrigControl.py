@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Control import Control
 
 
 class TrigControl(Control):
-    r"""
+    """
     A trigger-rate control ugen.
     """
 

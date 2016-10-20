@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VOsc(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class VOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate VOsc.
 
         ::
@@ -89,7 +89,7 @@ class VOsc(PureUGen):
         frequency=440,
         phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate VOsc.
 
         ::
@@ -118,7 +118,7 @@ class VOsc(PureUGen):
 
     @property
     def bufpos(self):
-        r"""
+        """
         Gets `bufpos` input of VOsc.
 
         ::
@@ -137,7 +137,7 @@ class VOsc(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of VOsc.
 
         ::
@@ -157,7 +157,7 @@ class VOsc(PureUGen):
 
     @property
     def phase(self):
-        r"""
+        """
         Gets `phase` input of VOsc.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.miditools.MidiDevice import MidiDevice
 
 
 class NanoKontrol2(MidiDevice):
-    r"""
+    """
     A Korg NanoKontrol2 midi device.
 
     ::

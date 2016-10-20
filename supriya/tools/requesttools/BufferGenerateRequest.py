@@ -6,7 +6,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGenerateRequest(Request):
-    r"""
+    """
     A /b_gen request.
 
     This requests models the 'cheby', 'sine1', 'sine2' and 'sine3' /b_gen

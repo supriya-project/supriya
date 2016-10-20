@@ -4,7 +4,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Lag3(Filter):
-    r"""
+    """
     An exponential lag generator.
 
     ::
@@ -58,7 +58,7 @@ class Lag3(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Lag3.
 
         ::
@@ -90,7 +90,7 @@ class Lag3(Filter):
         lag_time=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Lag3.
 
         ::
@@ -128,7 +128,7 @@ class Lag3(Filter):
 
     @property
     def lag_time(self):
-        r"""
+        """
         Gets `lag_time` input of Lag3.
 
         ::
@@ -148,7 +148,7 @@ class Lag3(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Lag3.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Spring(UGen):
-    r"""
+    """
     A resonating spring physical model.
 
     ::
@@ -59,7 +59,7 @@ class Spring(UGen):
         source=None,
         spring=1,
         ):
-        r"""
+        """
         Constructs an audio-rate Spring.
 
         ::
@@ -92,7 +92,7 @@ class Spring(UGen):
         source=None,
         spring=1,
         ):
-        r"""
+        """
         Constructs a control-rate Spring.
 
         ::
@@ -122,7 +122,7 @@ class Spring(UGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of Spring.
 
         ::
@@ -143,7 +143,7 @@ class Spring(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Spring.
 
         ::
@@ -171,7 +171,7 @@ class Spring(UGen):
 
     @property
     def spring(self):
-        r"""
+        """
         Gets `spring` input of Spring.
 
         ::

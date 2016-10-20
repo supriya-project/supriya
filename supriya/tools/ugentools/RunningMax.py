@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Peak import Peak
 
 
 class RunningMax(Peak):
-    r"""
+    """
     Tracks maximum signal amplitude.
 
     ::
@@ -55,7 +55,7 @@ class RunningMax(Peak):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate RunningMax.
 
         ::
@@ -86,7 +86,7 @@ class RunningMax(Peak):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate RunningMax.
 
         ::
@@ -115,7 +115,7 @@ class RunningMax(Peak):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of RunningMax.
 
         ::
@@ -143,7 +143,7 @@ class RunningMax(Peak):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of RunningMax.
 
         ::

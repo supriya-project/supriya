@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Ringz(Filter):
-    r"""
+    """
     A ringing filter.
 
     ::
@@ -59,7 +59,7 @@ class Ringz(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Ringz.
 
         ::
@@ -94,7 +94,7 @@ class Ringz(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Ringz.
 
         ::
@@ -134,7 +134,7 @@ class Ringz(Filter):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of Ringz.
 
         ::
@@ -155,7 +155,7 @@ class Ringz(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Ringz.
 
         ::
@@ -176,7 +176,7 @@ class Ringz(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Ringz.
 
         ::

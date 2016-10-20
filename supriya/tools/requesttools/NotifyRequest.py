@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NotifyRequest(Request):
-    r"""
+    """
     A /notify message.
 
     ::

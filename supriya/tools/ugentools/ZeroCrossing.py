@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ZeroCrossing(UGen):
-    r"""
+    """
     A zero-crossing frequency follower.
 
     ::
@@ -49,7 +49,7 @@ class ZeroCrossing(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate ZeroCrossing.
 
         ::
@@ -76,7 +76,7 @@ class ZeroCrossing(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate ZeroCrossing.
 
         ::
@@ -102,7 +102,7 @@ class ZeroCrossing(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of ZeroCrossing.
 
         ::

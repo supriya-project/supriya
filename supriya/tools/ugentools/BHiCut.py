@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BHiCut(BEQSuite):
-    r"""
+    """
     A high-cut filter.
 
     ::
@@ -66,7 +66,7 @@ class BHiCut(BEQSuite):
         order=2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BHiCut.
 
         ::
@@ -108,7 +108,7 @@ class BHiCut(BEQSuite):
         order=2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate BHiCut.
 
         ::
@@ -156,7 +156,7 @@ class BHiCut(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BHiCut.
 
         ::
@@ -178,7 +178,7 @@ class BHiCut(BEQSuite):
 
     @property
     def max_order(self):
-        r"""
+        """
         Gets `max_order` input of BHiCut.
 
         ::
@@ -200,7 +200,7 @@ class BHiCut(BEQSuite):
 
     @property
     def order(self):
-        r"""
+        """
         Gets `order` input of BHiCut.
 
         ::
@@ -222,7 +222,7 @@ class BHiCut(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BHiCut.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_HainsworthFoote(PV_ChainUGen):
-    r"""
+    """
     A FFT onset detector.
 
     ::
@@ -67,7 +67,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
         threshold=1,
         waittime=0.04,
         ):
-        r"""
+        """
         Constructs an audio-rate PV_HainsworthFoote.
 
         ::
@@ -100,7 +100,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_HainsworthFoote.
 
         ::
@@ -147,7 +147,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def propf(self):
-        r"""
+        """
         Gets `propf` input of PV_HainsworthFoote.
 
         ::
@@ -172,7 +172,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def proph(self):
-        r"""
+        """
         Gets `proph` input of PV_HainsworthFoote.
 
         ::
@@ -197,7 +197,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of PV_HainsworthFoote.
 
         ::
@@ -222,7 +222,7 @@ class PV_HainsworthFoote(PV_ChainUGen):
 
     @property
     def waittime(self):
-        r"""
+        """
         Gets `waittime` input of PV_HainsworthFoote.
 
         ::

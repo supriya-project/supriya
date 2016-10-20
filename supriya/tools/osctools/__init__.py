@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+"""
 Tools for sending, receiving and handling OSC messages.
 """
 
