@@ -8,7 +8,7 @@ class VOsc(PureUGen):
     ::
 
         >>> vosc = ugentools.VOsc.ar(
-        ...     bufpos=bufpos,
+        ...     bufpos=ugentools.MouseX.kr(0,7),
         ...     frequency=440,
         ...     phase=0,
         ...     )
@@ -63,7 +63,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -95,7 +95,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.kr(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -124,11 +124,21 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
             >>> vosc.bufpos
+            OutputProxy(
+                source=MouseX(
+                    calculation_rate=CalculationRate.CONTROL,
+                    lag=0.0,
+                    maximum=7.0,
+                    minimum=0.0,
+                    warp=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
@@ -143,7 +153,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -163,7 +173,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
