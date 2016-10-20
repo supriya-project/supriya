@@ -7,13 +7,13 @@ __all__ = []
 
 
 def _build_link_audio_synthdef(channel_count):
-    '''
+    """
     SynthDef("system_link_audio_" ++ i, {
         arg out=0, in=16, vol=1, level=1, lag=0.05, doneAction=2;
         var env = EnvGate(doneAction:doneAction, curve:'sin') * Lag.kr(vol * level, lag);
         Out.ar(out, InFeedback.ar(in, i) * env);
     }, [\kr, \kr, \kr, \kr, \kr, \ir]).add;
-    '''
+    """
     name = 'system_link_audio_{}'.format(channel_count)
     builder = synthdeftools.SynthDefBuilder(
         name=name,
@@ -50,13 +50,13 @@ def _build_link_audio_synthdef(channel_count):
 
 
 def _build_link_control_synthdef(channel_count):
-    '''
+    """
     SynthDef("system_link_control_" ++ i, {
         arg out=0, in=16, doneAction=2;
         var env = EnvGate(doneAction:doneAction, curve:'lin');
         Out.kr(out, In.kr(in, i) * env);
     }, [\kr, \kr, \ir]).add;
-    '''
+    """
     name = 'system_link_control_{}'.format(channel_count)
     builder = synthdeftools.SynthDefBuilder(
         name=name,
