@@ -8,7 +8,7 @@ class VOsc3(PureUGen):
     ::
 
         >>> vosc_3 = ugentools.VOsc3.ar(
-        ...     bufpos=bufpos,
+        ...     bufpos=ugentools.MouseX.kr(0,7),
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,
@@ -68,7 +68,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -103,7 +103,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.kr(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -134,12 +134,22 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
             >>> vosc_3.bufpos
+            OutputProxy(
+                source=MouseX(
+                    calculation_rate=CalculationRate.CONTROL,
+                    lag=0.0,
+                    maximum=7.0,
+                    minimum=0.0,
+                    warp=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
@@ -154,7 +164,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -175,7 +185,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -196,7 +206,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     bufpos=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
