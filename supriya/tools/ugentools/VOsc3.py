@@ -4,6 +4,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 class VOsc3(PureUGen):
     """
+    A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
     ::
 

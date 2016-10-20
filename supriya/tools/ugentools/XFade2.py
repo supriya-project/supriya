@@ -4,6 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 class XFade2(UGen):
     """
+    Two channel equal power crossfader.
 
     ::
 
