@@ -55,26 +55,18 @@ class Session(OscMixin):
 
     ::
 
-        >>> import pprint
         >>> result = session.to_lists(duration=20)
-        >>> pprint.pprint(result)
-        [[0.0,
-          [['/d_recv',
-            bytearray(b'SCgf\x00\x00\x00\x02\x00\x01 9c4eb4778dc0faf39459fa8a5cd45'
-                      b'c19\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x01C'
-                      b'\xdc\x00\x00\x00\x00\x00\x01\tfrequency\x00\x00\x00'
-                      b'\x00\x00\x00\x00\x03\x07Control\x01\x00\x00\x00\x00\x00\x00'
-                      b'\x00\x01\x00\x00\x01\x06SinOsc\x02\x00\x00\x00\x02\x00\x00\x00'
-                      b'\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff'
-                      b'\xff\xff\xff\x00\x00\x00\x00\x02\x03Out\x02\x00\x00\x00'
-                      b'\x02\x00\x00\x00\x00\x00\x00\xff\xff\xff\xff\x00'
-                      b'\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00')],
-           ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
-           ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
-         [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
-         [10.0, [['/n_free', 1000]]],
-         [15.0, [['/n_free', 1001, 1002]]],
-         [20.0, [[0]]]]
+        >>> result == [
+        ...     [0.0, [
+        ...         ['/d_recv', bytearray(synthdef.compile())],
+        ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
+        ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
+        ...     [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
+        ...     [10.0, [['/n_free', 1000]]],
+        ...     [15.0, [['/n_free', 1001, 1002]]],
+        ...     [20.0, [[0]]],
+        ... ]
+        True
 
     """
 
