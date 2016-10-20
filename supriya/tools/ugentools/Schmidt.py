@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Schmidt(UGen):
-    r"""
+    """
     A Schmidt trigger.
 
     ::
@@ -59,7 +59,7 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts an audio-rate Schmidt ugen.
 
         ::
@@ -92,7 +92,7 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a scalar-rate Schmidt ugen.
 
         ::
@@ -125,7 +125,7 @@ class Schmidt(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a control-rate Schmidt ugen.
 
         ::
@@ -155,7 +155,7 @@ class Schmidt(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Schmidt.
 
         ::
@@ -176,7 +176,7 @@ class Schmidt(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Schmidt.
 
         ::
@@ -197,7 +197,7 @@ class Schmidt(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `minimum` input of Schmidt.
 
         ::

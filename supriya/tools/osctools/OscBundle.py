@@ -6,7 +6,7 @@ from supriya.tools.osctools.OscMixin import OscMixin
 
 
 class OscBundle(OscMixin):
-    r"""
+    """
     An OSC bundle.
 
     ::

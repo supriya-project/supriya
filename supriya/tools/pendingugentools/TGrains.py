@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class TGrains(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -87,7 +87,7 @@ class TGrains(MultiOutUGen):
         rate=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate TGrains.
 
         ::
@@ -130,7 +130,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def amp(self):
-        r"""
+        """
         Gets `amp` input of TGrains.
 
         ::
@@ -156,7 +156,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of TGrains.
 
         ::
@@ -182,7 +182,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def center_pos(self):
-        r"""
+        """
         Gets `center_pos` input of TGrains.
 
         ::
@@ -208,7 +208,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of TGrains.
 
         ::
@@ -233,7 +233,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of TGrains.
 
         ::
@@ -259,7 +259,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def interpolate(self):
-        r"""
+        """
         Gets `interpolate` input of TGrains.
 
         ::
@@ -285,7 +285,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def pan(self):
-        r"""
+        """
         Gets `pan` input of TGrains.
 
         ::
@@ -311,7 +311,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of TGrains.
 
         ::
@@ -337,7 +337,7 @@ class TGrains(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of TGrains.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class RandID(WidthFirstUGen):
-    r"""
+    """
     Sets the synth's random generator ID.
 
     ::
@@ -53,7 +53,7 @@ class RandID(WidthFirstUGen):
         cls,
         rand_id=0,
         ):
-        r"""
+        """
         Constructs a scalar-rate RandID.
 
         ::
@@ -79,7 +79,7 @@ class RandID(WidthFirstUGen):
         cls,
         rand_id=0,
         ):
-        r"""
+        """
         Constructs a control-rate RandID.
 
         ::
@@ -104,7 +104,7 @@ class RandID(WidthFirstUGen):
 
     @property
     def rand_id(self):
-        r"""
+        """
         Gets `rand_id` input of RandID.
 
         ::

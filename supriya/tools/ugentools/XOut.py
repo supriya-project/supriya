@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class XOut(UGen):
-    r"""
+    """
     A cross-fading bus output unit generator.
 
     ::
@@ -69,7 +69,7 @@ class XOut(UGen):
         crossfade=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate XOut.
 
         ::
@@ -110,7 +110,7 @@ class XOut(UGen):
         crossfade=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate XOut.
 
         ::
@@ -148,7 +148,7 @@ class XOut(UGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of XOut.
 
         ::
@@ -169,7 +169,7 @@ class XOut(UGen):
 
     @property
     def crossfade(self):
-        r"""
+        """
         Gets `crossfade` input of XOut.
 
         ::
@@ -194,7 +194,7 @@ class XOut(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of XOut.
 
         ::

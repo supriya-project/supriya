@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_RandWipe(PV_ChainUGen):
-    r"""
+    """
     Crossfades in random bin order.
 
     ::
@@ -65,7 +65,7 @@ class PV_RandWipe(PV_ChainUGen):
         trigger=0,
         wipe=0,
         ):
-        r"""
+        """
         Constructs a PV_RandWipe.
 
         ::
@@ -99,7 +99,7 @@ class PV_RandWipe(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_RandWipe.
 
         ::
@@ -148,7 +148,7 @@ class PV_RandWipe(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_RandWipe.
 
         ::
@@ -199,7 +199,7 @@ class PV_RandWipe(PV_ChainUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PV_RandWipe.
 
         ::
@@ -226,7 +226,7 @@ class PV_RandWipe(PV_ChainUGen):
 
     @property
     def wipe(self):
-        r"""
+        """
         Gets `wipe` input of PV_RandWipe.
 
         ::

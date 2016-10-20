@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class RandSeed(WidthFirstUGen):
-    r"""
+    """
     Sets the synth's random generator seed.
 
     ::
@@ -58,7 +58,7 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate RandSeed.
 
         ::
@@ -88,7 +88,7 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a scalar-rate RandSeed.
 
         ::
@@ -116,7 +116,7 @@ class RandSeed(WidthFirstUGen):
         seed=56789,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate RandSeed.
 
         ::
@@ -144,7 +144,7 @@ class RandSeed(WidthFirstUGen):
 
     @property
     def seed(self):
-        r"""
+        """
         Gets `seed` input of RandSeed.
 
         ::
@@ -164,7 +164,7 @@ class RandSeed(WidthFirstUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of RandSeed.
 
         ::

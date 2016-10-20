@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dxrand(DUGen):
-    r"""
+    """
     A demand-rate random sequence generator.
 
     ::
@@ -52,7 +52,7 @@ class Dxrand(DUGen):
         repeats=1,
         sequence=None,
         ):
-        r"""
+        """
         Constructs a Dxrand.
 
         ::
@@ -78,7 +78,7 @@ class Dxrand(DUGen):
 
     @property
     def repeats(self):
-        r"""
+        """
         Gets `repeats` input of Dxrand.
 
         ::
@@ -98,7 +98,7 @@ class Dxrand(DUGen):
 
     @property
     def sequence(self):
-        r"""
+        """
         Gets `sequence` input of Dxrand.
 
         ::

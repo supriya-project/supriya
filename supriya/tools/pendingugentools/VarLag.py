@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class VarLag(Filter):
-    r"""
+    """
 
     ::
 
@@ -68,7 +68,7 @@ class VarLag(Filter):
         time=0.1,
         warp=5,
         ):
-        r"""
+        """
         Constructs an audio-rate VarLag.
 
         ::
@@ -109,7 +109,7 @@ class VarLag(Filter):
         time=0.1,
         warp=5,
         ):
-        r"""
+        """
         Constructs a control-rate VarLag.
 
         ::
@@ -155,7 +155,7 @@ class VarLag(Filter):
 
     @property
     def curvature(self):
-        r"""
+        """
         Gets `curvature` input of VarLag.
 
         ::
@@ -178,7 +178,7 @@ class VarLag(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of VarLag.
 
         ::
@@ -208,7 +208,7 @@ class VarLag(Filter):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of VarLag.
 
         ::
@@ -230,7 +230,7 @@ class VarLag(Filter):
 
     @property
     def time(self):
-        r"""
+        """
         Gets `time` input of VarLag.
 
         ::
@@ -253,7 +253,7 @@ class VarLag(Filter):
 
     @property
     def warp(self):
-        r"""
+        """
         Gets `warp` input of VarLag.
 
         ::

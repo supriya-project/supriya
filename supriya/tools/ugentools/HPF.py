@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class HPF(Filter):
-    r"""
+    """
     A Highpass filter unit generator.
 
     ::
@@ -48,7 +48,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate highpass filter.
 
         ::
@@ -77,7 +77,7 @@ class HPF(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate highpass filter.
 
         ::
@@ -104,7 +104,7 @@ class HPF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of HPF.
 
         ::
@@ -125,7 +125,7 @@ class HPF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of HPF.
 
         ::

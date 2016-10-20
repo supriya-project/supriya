@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagAbove(PV_ChainUGen):
-    r"""
+    """
     Passes magnitudes above threshold.
 
     ::
@@ -52,7 +52,7 @@ class PV_MagAbove(PV_ChainUGen):
         pv_chain=None,
         threshold=0,
         ):
-        r"""
+        """
         Constructs a PV_MagAbove.
 
         ::
@@ -79,7 +79,7 @@ class PV_MagAbove(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_MagAbove.
 
         ::
@@ -123,7 +123,7 @@ class PV_MagAbove(PV_ChainUGen):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of PV_MagAbove.
 
         ::

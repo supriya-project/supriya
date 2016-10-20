@@ -8,7 +8,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class OscListener(SupriyaObject, threading.Thread):
-    r"""
+    """
     An OSC listener
     """
 

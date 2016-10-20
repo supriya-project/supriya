@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class QuadL(UGen):
-    r"""
+    """
     A linear-interpolating general quadratic map chaotic generator.
 
     ::
@@ -68,7 +68,7 @@ class QuadL(UGen):
         frequency=22050,
         xi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate QuadL.
 
         ::
@@ -103,7 +103,7 @@ class QuadL(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of QuadL.
 
         ::
@@ -125,7 +125,7 @@ class QuadL(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of QuadL.
 
         ::
@@ -147,7 +147,7 @@ class QuadL(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of QuadL.
 
         ::
@@ -169,7 +169,7 @@ class QuadL(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of QuadL.
 
         ::
@@ -191,7 +191,7 @@ class QuadL(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of QuadL.
 
         ::

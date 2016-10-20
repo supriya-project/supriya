@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PanAz(MultiOutUGen):
-    r"""
+    """
     A multi-channel equal-power panner.
 
     ::
@@ -74,7 +74,7 @@ class PanAz(MultiOutUGen):
         source=None,
         width=2,
         ):
-        r"""
+        """
         Constructs an audio-rate PanAz.
 
         ::
@@ -116,7 +116,7 @@ class PanAz(MultiOutUGen):
         source=None,
         width=2,
         ):
-        r"""
+        """
         Constructs a control-rate PanAz.
 
         ::
@@ -152,7 +152,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of PanAz.
 
         ::
@@ -176,7 +176,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of PanAz.
 
         ::
@@ -200,7 +200,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def orientation(self):
-        r"""
+        """
         Gets `orientation` input of PanAz.
 
         ::
@@ -224,7 +224,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def position(self):
-        r"""
+        """
         Gets `position` input of PanAz.
 
         ::
@@ -248,7 +248,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of PanAz.
 
         ::
@@ -279,7 +279,7 @@ class PanAz(MultiOutUGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of PanAz.
 
         ::

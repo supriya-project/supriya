@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_JensenAndersen(PV_ChainUGen):
-    r"""
+    """
     A FFT feature detector for onset detection.
 
     ::
@@ -77,7 +77,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         threshold=1,
         waittime=0.04,
         ):
-        r"""
+        """
         Constructs an audio-rate PV_JensenAndersen.
 
         ::
@@ -114,7 +114,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_JensenAndersen.
 
         ::
@@ -163,7 +163,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def prophfc(self):
-        r"""
+        """
         Gets `prophfc` input of PV_JensenAndersen.
 
         ::
@@ -190,7 +190,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def prophfe(self):
-        r"""
+        """
         Gets `prophfe` input of PV_JensenAndersen.
 
         ::
@@ -214,7 +214,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def propsc(self):
-        r"""
+        """
         Gets `propsc` input of PV_JensenAndersen.
 
         ::
@@ -241,7 +241,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def propsf(self):
-        r"""
+        """
         Gets `propsf` input of PV_JensenAndersen.
 
         ::
@@ -268,7 +268,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of PV_JensenAndersen.
 
         ::
@@ -295,7 +295,7 @@ class PV_JensenAndersen(PV_ChainUGen):
 
     @property
     def waittime(self):
-        r"""
+        """
         Gets `waittime` input of PV_JensenAndersen.
 
         ::

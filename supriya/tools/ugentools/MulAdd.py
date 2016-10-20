@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MulAdd(UGen):
-    r"""
+    """
     An Optimized multiplication / addition ugen.
 
     ::
@@ -117,7 +117,7 @@ class MulAdd(UGen):
         multiplier=1.0,
         addend=0.0,
         ):
-        r"""
+        """
         Constructs a multiplication / addition ugen.
 
         ::
@@ -150,7 +150,7 @@ class MulAdd(UGen):
 
     @property
     def addend(self):
-        r"""
+        """
         Gets `addend` input of MulAdd.
 
         ::
@@ -173,7 +173,7 @@ class MulAdd(UGen):
 
     @property
     def multiplier(self):
-        r"""
+        """
         Gets `multiplier` input of MulAdd.
 
         ::
@@ -196,7 +196,7 @@ class MulAdd(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of MulAdd.
 
         ::

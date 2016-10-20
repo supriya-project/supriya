@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ReplaceOut(UGen):
-    r"""
+    """
     An overwriting bus output unit generator.
 
     ::
@@ -63,7 +63,7 @@ class ReplaceOut(UGen):
         bus=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate overwriting bus output.
 
         ::
@@ -101,7 +101,7 @@ class ReplaceOut(UGen):
         bus=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate overwriting bus output.
 
         ::
@@ -137,7 +137,7 @@ class ReplaceOut(UGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of ReplaceOut.
 
         ::
@@ -162,7 +162,7 @@ class ReplaceOut(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of ReplaceOut.
 
         ::

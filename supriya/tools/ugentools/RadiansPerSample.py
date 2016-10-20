@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class RadiansPerSample(InfoUGenBase):
-    r"""
+    """
     A radians-per-sample info unit generator.
 
     ::

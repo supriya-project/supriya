@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Peak(UGen):
-    r"""
+    """
     Tracks peak signal amplitude.
 
     ::
@@ -55,7 +55,7 @@ class Peak(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Peak.
 
         ::
@@ -86,7 +86,7 @@ class Peak(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Peak.
 
         ::
@@ -115,7 +115,7 @@ class Peak(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Peak.
 
         ::
@@ -143,7 +143,7 @@ class Peak(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Peak.
 
         ::

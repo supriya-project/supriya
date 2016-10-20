@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Klang(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class Klang(UGen):
         freqscale=1,
         specifications_array_ref=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Klang.
 
         ::
@@ -88,7 +88,7 @@ class Klang(UGen):
 
     @property
     def freqoffset(self):
-        r"""
+        """
         Gets `freqoffset` input of Klang.
 
         ::
@@ -108,7 +108,7 @@ class Klang(UGen):
 
     @property
     def freqscale(self):
-        r"""
+        """
         Gets `freqscale` input of Klang.
 
         ::
@@ -128,7 +128,7 @@ class Klang(UGen):
 
     @property
     def specifications_array_ref(self):
-        r"""
+        """
         Gets `specifications_array_ref` input of Klang.
 
         ::

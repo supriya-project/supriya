@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ExpRand(UGen):
-    r"""
+    """
     An exponential random distribution.
 
     ::
@@ -50,7 +50,7 @@ class ExpRand(UGen):
         maximum=1,
         minimum=0.01,
         ):
-        r"""
+        """
         Constructs a scalar-rate exponential random distribution.
 
         ::
@@ -77,7 +77,7 @@ class ExpRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of ExpRand.
 
         ::
@@ -96,7 +96,7 @@ class ExpRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of ExpRand.
 
         ::

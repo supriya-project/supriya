@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MostChange(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class MostChange(UGen):
         a=0,
         b=0,
         ):
-        r"""
+        """
         Constructs an audio-rate MostChange.
 
         ::
@@ -81,7 +81,7 @@ class MostChange(UGen):
         a=0,
         b=0,
         ):
-        r"""
+        """
         Constructs a control-rate MostChange.
 
         ::
@@ -108,7 +108,7 @@ class MostChange(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of MostChange.
 
         ::
@@ -127,7 +127,7 @@ class MostChange(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of MostChange.
 
         ::

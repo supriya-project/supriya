@@ -36,7 +36,7 @@ pairs = pairs[:20]
 
 @pytest.mark.parametrize('pair', pairs)
 def test_TimeCollection_find_timespans_intersecting_timespan_01(pair):
-    r"""
+    """
     Non-overlapping."""
     found_by_search = set(
         timespan_collection.find_timespans_intersecting_timespan(
@@ -84,7 +84,7 @@ pairs = pairs[:20]
 
 @pytest.mark.parametrize('pair', pairs)
 def test_TimeCollection_find_timespans_intersecting_timespan_02(pair):
-    r"""
+    """
     Non-overlapping."""
     found_by_search = set(
         timespan_collection.find_timespans_intersecting_timespan(

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufAllpassN import BufAllpassN
 
 
 class BufAllpassL(BufAllpassN):
-    r"""
+    """
     A buffer-based linear-interpolating allpass delay line unit generator.
 
     ::
@@ -35,7 +35,7 @@ class BufAllpassL(BufAllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate buffer-based linear-interpolating allpass
         delay line.
 
@@ -71,7 +71,7 @@ class BufAllpassL(BufAllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate buffer-based linear-interpolating allpass
         delay line.
 
@@ -102,7 +102,7 @@ class BufAllpassL(BufAllpassN):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufAllpassL.
 
         ::
@@ -123,7 +123,7 @@ class BufAllpassL(BufAllpassN):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of BufAllpassL.
 
         ::
@@ -146,7 +146,7 @@ class BufAllpassL(BufAllpassN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of BufAllpassL.
 
         ::
@@ -169,7 +169,7 @@ class BufAllpassL(BufAllpassN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of BufAllpassL.
 
         ::
@@ -192,7 +192,7 @@ class BufAllpassL(BufAllpassN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufAllpassL.
 
         ::

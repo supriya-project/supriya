@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class GroupNewRequest(Request):
-    r"""
+    """
     A /g_new request.
 
     ::

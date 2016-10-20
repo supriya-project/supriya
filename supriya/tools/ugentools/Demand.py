@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Demand(MultiOutUGen):
-    r"""
+    """
     Demands results from demand-rate UGens.
 
     ::
@@ -72,7 +72,7 @@ class Demand(MultiOutUGen):
         source=None,
         trigger=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Demand.
 
         ::
@@ -105,7 +105,7 @@ class Demand(MultiOutUGen):
         reset=None,
         trigger=None,
         ):
-        r"""
+        """
         Constructs a control-rate Demand.
 
         ::
@@ -137,7 +137,7 @@ class Demand(MultiOutUGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -146,7 +146,7 @@ class Demand(MultiOutUGen):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of Demand.
 
         ::
@@ -167,7 +167,7 @@ class Demand(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Demand.
 
         ::
@@ -202,7 +202,7 @@ class Demand(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Demand.
 
         ::

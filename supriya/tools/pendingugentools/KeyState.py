@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class KeyState(UGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class KeyState(UGen):
         maxval=1,
         minval=0,
         ):
-        r"""
+        """
         Constructs a control-rate KeyState.
 
         ::
@@ -93,7 +93,7 @@ class KeyState(UGen):
 
     @property
     def keycode(self):
-        r"""
+        """
         Gets `keycode` input of KeyState.
 
         ::
@@ -114,7 +114,7 @@ class KeyState(UGen):
 
     @property
     def lag(self):
-        r"""
+        """
         Gets `lag` input of KeyState.
 
         ::
@@ -135,7 +135,7 @@ class KeyState(UGen):
 
     @property
     def maxval(self):
-        r"""
+        """
         Gets `maxval` input of KeyState.
 
         ::
@@ -156,7 +156,7 @@ class KeyState(UGen):
 
     @property
     def minval(self):
-        r"""
+        """
         Gets `minval` input of KeyState.
 
         ::

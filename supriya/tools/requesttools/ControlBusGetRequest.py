@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class ControlBusGetRequest(Request):
-    r"""
+    """
     A /c_get request.
 
     ::

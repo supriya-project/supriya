@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dgeom(DUGen):
-    r"""
+    """
     A demand-rate geometric series generator.
 
     ::
@@ -54,7 +54,7 @@ class Dgeom(DUGen):
         length=float('inf'),
         start=1,
         ):
-        r"""
+        """
         Constructs a Dgeom.
 
         ::
@@ -81,7 +81,7 @@ class Dgeom(DUGen):
 
     @property
     def grow(self):
-        r"""
+        """
         Gets `grow` input of Dgeom.
 
         ::
@@ -101,7 +101,7 @@ class Dgeom(DUGen):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dgeom.
 
         ::
@@ -121,7 +121,7 @@ class Dgeom(DUGen):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of Dgeom.
 
         ::

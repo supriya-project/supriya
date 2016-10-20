@@ -4,7 +4,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class CalculationRate(Enumeration):
-    r"""
+    """
     An enumeration of scsynth calculation-rates.
 
     ::
@@ -31,7 +31,7 @@ class CalculationRate(Enumeration):
 
     @staticmethod
     def from_collection(collection):
-        r"""
+        """
         Gets calculation-rate from a collection.
 
         ::

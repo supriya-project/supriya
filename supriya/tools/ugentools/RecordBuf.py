@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class RecordBuf(UGen):
-    r"""
+    """
     Records or overdubs into a buffer.
 
     ::
@@ -94,7 +94,7 @@ class RecordBuf(UGen):
         run=1,
         trigger=1,
         ):
-        r"""
+        """
         Constructs an audio-rate RecordBuf.
 
         ::
@@ -146,7 +146,7 @@ class RecordBuf(UGen):
         run=1,
         trigger=1,
         ):
-        r"""
+        """
         Constructs a control-rate RecordBuf.
 
         ::
@@ -189,7 +189,7 @@ class RecordBuf(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of RecordBuf.
 
         ::
@@ -217,7 +217,7 @@ class RecordBuf(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of RecordBuf.
 
         ::
@@ -245,7 +245,7 @@ class RecordBuf(UGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -254,7 +254,7 @@ class RecordBuf(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of RecordBuf.
 
         ::
@@ -294,7 +294,7 @@ class RecordBuf(UGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of RecordBuf.
 
         ::
@@ -322,7 +322,7 @@ class RecordBuf(UGen):
 
     @property
     def offset(self):
-        r"""
+        """
         Gets `offset` input of RecordBuf.
 
         ::
@@ -350,7 +350,7 @@ class RecordBuf(UGen):
 
     @property
     def preexisting_level(self):
-        r"""
+        """
         Gets `preexisting_level` input of RecordBuf.
 
         ::
@@ -378,7 +378,7 @@ class RecordBuf(UGen):
 
     @property
     def record_level(self):
-        r"""
+        """
         Gets `record_level` input of RecordBuf.
 
         ::
@@ -406,7 +406,7 @@ class RecordBuf(UGen):
 
     @property
     def run(self):
-        r"""
+        """
         Gets `run` input of RecordBuf.
 
         ::
@@ -434,7 +434,7 @@ class RecordBuf(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of RecordBuf.
 
         ::

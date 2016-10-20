@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class ServerObjectProxy(SupriyaObject):
-    r"""
+    """
     A proxy of an object on a server.
 
     Server objects can be allocated and freed.

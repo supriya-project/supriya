@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SyncRequest(Request):
-    r"""
+    """
     A /sync request.
 
     ::

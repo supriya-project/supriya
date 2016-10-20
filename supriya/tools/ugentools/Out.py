@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Out(UGen):
-    r"""
+    """
     A bus output unit generator.
 
     ::
@@ -63,7 +63,7 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate bus output.
 
         ::
@@ -101,7 +101,7 @@ class Out(UGen):
         bus=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate bus output.
 
         ::
@@ -137,7 +137,7 @@ class Out(UGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of Out.
 
         ::
@@ -162,7 +162,7 @@ class Out(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Out.
 
         ::

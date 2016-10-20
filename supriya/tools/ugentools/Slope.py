@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Slope(Filter):
-    r"""
+    """
     Calculates slope of signal.
 
     ::
@@ -49,7 +49,7 @@ class Slope(Filter):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Slope.
 
         ::
@@ -78,7 +78,7 @@ class Slope(Filter):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Slope.
 
         ::
@@ -114,7 +114,7 @@ class Slope(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Slope.
 
         ::

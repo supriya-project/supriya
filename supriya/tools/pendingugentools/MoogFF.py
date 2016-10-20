@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class MoogFF(Filter):
-    r"""
+    """
 
     ::
 
@@ -63,7 +63,7 @@ class MoogFF(Filter):
         reset=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate MoogFF.
 
         ::
@@ -101,7 +101,7 @@ class MoogFF(Filter):
         reset=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate MoogFF.
 
         ::
@@ -143,7 +143,7 @@ class MoogFF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of MoogFF.
 
         ::
@@ -165,7 +165,7 @@ class MoogFF(Filter):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of MoogFF.
 
         ::
@@ -187,7 +187,7 @@ class MoogFF(Filter):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of MoogFF.
 
         ::
@@ -209,7 +209,7 @@ class MoogFF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of MoogFF.
 
         ::

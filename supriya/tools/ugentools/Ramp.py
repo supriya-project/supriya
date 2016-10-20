@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Lag import Lag
 
 
 class Ramp(Lag):
-    r"""
+    """
     Breaks a continuous signal into line segments.
 
     ::
@@ -54,7 +54,7 @@ class Ramp(Lag):
         lag_time=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Ramp.
 
         ::
@@ -86,7 +86,7 @@ class Ramp(Lag):
         lag_time=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Ramp.
 
         ::
@@ -124,7 +124,7 @@ class Ramp(Lag):
 
     @property
     def lag_time(self):
-        r"""
+        """
         Gets `lag_time` input of Ramp.
 
         ::
@@ -144,7 +144,7 @@ class Ramp(Lag):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Ramp.
 
         ::

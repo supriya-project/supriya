@@ -25,7 +25,7 @@ class SupriyaObject(AbstractBase):
     ### SPECIAL METHODS ###
 
     def __eq__(self, expr):
-        r"""
+        """
         Is true when ID of `expr` equals ID of Supriya object.
         Otherwise false.
 
@@ -34,7 +34,7 @@ class SupriyaObject(AbstractBase):
         return id(self) == id(expr)
 
     def __format__(self, format_specification=''):
-        r"""
+        """
         Formats Supriya object.
 
         Set `format_specification` to `''` or `'storage'`.
@@ -48,7 +48,7 @@ class SupriyaObject(AbstractBase):
         return str(self)
 
     def __getstate__(self):
-        r"""
+        """
         Gets state of Supriya object.
 
         Returns dictionary.
@@ -66,7 +66,7 @@ class SupriyaObject(AbstractBase):
         return state
 
     def __hash__(self):
-        r"""
+        """
         Hashes Supriya object.
 
         Required to be explicitely re-defined on Python 3 if __eq__ changes.
@@ -76,7 +76,7 @@ class SupriyaObject(AbstractBase):
         return super(SupriyaObject, self).__hash__()
 
     def __repr__(self):
-        r"""
+        """
         Gets interpreter representation of Supriya object.
 
         Returns string.
@@ -85,7 +85,7 @@ class SupriyaObject(AbstractBase):
         return systemtools.StorageFormatAgent(self).get_repr_format()
 
     def __setstate__(self, state):
-        r"""
+        """
         Sets state of Supriya object.
 
         Returns none.

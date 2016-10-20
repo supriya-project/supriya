@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LorenzL(UGen):
-    r"""
+    """
     A linear-interpolating Lorenz chaotic generator.
 
     ::
@@ -83,7 +83,7 @@ class LorenzL(UGen):
         yi=0,
         zi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate LorenzL.
 
         ::
@@ -124,7 +124,7 @@ class LorenzL(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of LorenzL.
 
         ::
@@ -149,7 +149,7 @@ class LorenzL(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LorenzL.
 
         ::
@@ -174,7 +174,7 @@ class LorenzL(UGen):
 
     @property
     def h(self):
-        r"""
+        """
         Gets `h` input of LorenzL.
 
         ::
@@ -199,7 +199,7 @@ class LorenzL(UGen):
 
     @property
     def r(self):
-        r"""
+        """
         Gets `r` input of LorenzL.
 
         ::
@@ -224,7 +224,7 @@ class LorenzL(UGen):
 
     @property
     def s(self):
-        r"""
+        """
         Gets `s` input of LorenzL.
 
         ::
@@ -249,7 +249,7 @@ class LorenzL(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of LorenzL.
 
         ::
@@ -274,7 +274,7 @@ class LorenzL(UGen):
 
     @property
     def yi(self):
-        r"""
+        """
         Gets `yi` input of LorenzL.
 
         ::
@@ -299,7 +299,7 @@ class LorenzL(UGen):
 
     @property
     def zi(self):
-        r"""
+        """
         Gets `zi` input of LorenzL.
 
         ::

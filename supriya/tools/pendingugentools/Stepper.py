@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Stepper(UGen):
-    r"""
+    """
 
     ::
 
@@ -72,7 +72,7 @@ class Stepper(UGen):
         step=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Stepper.
 
         ::
@@ -113,7 +113,7 @@ class Stepper(UGen):
         step=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Stepper.
 
         ::
@@ -148,7 +148,7 @@ class Stepper(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Stepper.
 
         ::
@@ -171,7 +171,7 @@ class Stepper(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Stepper.
 
         ::
@@ -194,7 +194,7 @@ class Stepper(UGen):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of Stepper.
 
         ::
@@ -217,7 +217,7 @@ class Stepper(UGen):
 
     @property
     def resetval(self):
-        r"""
+        """
         Gets `resetval` input of Stepper.
 
         ::
@@ -239,7 +239,7 @@ class Stepper(UGen):
 
     @property
     def step(self):
-        r"""
+        """
         Gets `step` input of Stepper.
 
         ::
@@ -262,7 +262,7 @@ class Stepper(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Stepper.
 
         ::

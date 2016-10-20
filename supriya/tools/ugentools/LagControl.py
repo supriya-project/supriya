@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class LagControl(Control):
-    r"""
+    """
     A lagged control-rate control ugen.
     """
 
@@ -55,7 +55,7 @@ class LagControl(Control):
 
     @property
     def lags(self):
-        r"""
+        """
         Gets `lags` input of LagControl.
 
         Returns ugen input.

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class SetBuf(WidthFirstUGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class SetBuf(WidthFirstUGen):
         offset=0,
         values=None,
         ):
-        r"""
+        """
         Constructs a SetBuf.
 
         ::
@@ -86,7 +86,7 @@ class SetBuf(WidthFirstUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of SetBuf.
 
         ::
@@ -105,7 +105,7 @@ class SetBuf(WidthFirstUGen):
 
     @property
     def offset(self):
-        r"""
+        """
         Gets `offset` input of SetBuf.
 
         ::
@@ -125,7 +125,7 @@ class SetBuf(WidthFirstUGen):
 
     @property
     def values(self):
-        r"""
+        """
         Gets `values` input of SetBuf.
 
         ::

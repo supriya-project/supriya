@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FSinOsc(UGen):
-    r"""
+    """
     Very fast sine wave generator (2 PowerPC instructions per output sample!) implemented using a ringing filter.
 
     ::
@@ -53,7 +53,7 @@ class FSinOsc(UGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate FSinOsc.
 
         ::
@@ -82,7 +82,7 @@ class FSinOsc(UGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate FSinOsc.
 
         ::
@@ -109,7 +109,7 @@ class FSinOsc(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of FSinOsc.
 
         ::
@@ -128,7 +128,7 @@ class FSinOsc(UGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of FSinOsc.
 
         ::

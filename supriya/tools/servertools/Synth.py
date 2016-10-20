@@ -3,7 +3,7 @@ from supriya.tools.servertools.Node import Node
 
 
 class Synth(Node):
-    r"""
+    """
     A synth.
 
     ::

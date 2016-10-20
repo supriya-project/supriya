@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dshuf(DUGen):
-    r"""
+    """
     A demand-rate random sequence generator.
 
     ::
@@ -52,7 +52,7 @@ class Dshuf(DUGen):
         repeats=1,
         sequence=None,
         ):
-        r"""
+        """
         Constructs a Dshuf.
 
         ::
@@ -77,7 +77,7 @@ class Dshuf(DUGen):
 
     @property
     def repeats(self):
-        r"""
+        """
         Gets `repeats` input of Dshuf.
 
         ::
@@ -97,7 +97,7 @@ class Dshuf(DUGen):
 
     @property
     def sequence(self):
-        r"""
+        """
         Gets `sequence` input of Dshuf.
 
         ::

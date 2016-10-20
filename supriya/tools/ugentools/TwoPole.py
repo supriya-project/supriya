@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class TwoPole(Filter):
-    r"""
+    """
     A two pole filter.
 
     ::
@@ -59,7 +59,7 @@ class TwoPole(Filter):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate TwoPole.
 
         ::
@@ -94,7 +94,7 @@ class TwoPole(Filter):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate TwoPole.
 
         ::
@@ -134,7 +134,7 @@ class TwoPole(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of TwoPole.
 
         ::
@@ -155,7 +155,7 @@ class TwoPole(Filter):
 
     @property
     def radius(self):
-        r"""
+        """
         Gets `radius` input of TwoPole.
 
         ::
@@ -176,7 +176,7 @@ class TwoPole(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of TwoPole.
 
         ::

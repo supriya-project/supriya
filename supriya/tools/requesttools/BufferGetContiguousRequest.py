@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferGetContiguousRequest(Request):
-    r"""
+    """
     A /b_getn request.
 
     ::

@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class GroupQueryTreeRequest(Request):
-    r"""
+    """
     A /g_queryTree request.
 
     ::

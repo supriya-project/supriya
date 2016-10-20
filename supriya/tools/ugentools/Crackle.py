@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Crackle(UGen):
-    r"""
+    """
     A chaotic noise generator.
 
     ::
@@ -48,7 +48,7 @@ class Crackle(UGen):
         cls,
         chaos_parameter=1.5,
         ):
-        r"""
+        """
         Constructs an audio-rate chaotic noise generator.
 
         ::
@@ -74,7 +74,7 @@ class Crackle(UGen):
         cls,
         chaos_parameter=1.5,
         ):
-        r"""
+        """
         Constructs a control-rate chaotic noise generator.
 
         ::
@@ -99,7 +99,7 @@ class Crackle(UGen):
     
     @property
     def chaos_parameter(self):
-        r"""
+        """
         Gets `chaos_parameter` input of Crackle.
 
         ::

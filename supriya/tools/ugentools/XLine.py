@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class XLine(UGen):
-    r"""
+    """
     An exponential line generating unit generator.
 
     ::
@@ -76,7 +76,7 @@ class XLine(UGen):
         stop=1,
         start=0,
         ):
-        r"""
+        """
         Constructs an audio-rate exponential line generator.
 
         ::
@@ -109,7 +109,7 @@ class XLine(UGen):
         stop=1,
         start=0,
         ):
-        r"""
+        """
         Constructs a control-rate exponential line generator.
 
         ::
@@ -138,7 +138,7 @@ class XLine(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of XLine.
 
         ::
@@ -157,7 +157,7 @@ class XLine(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of XLine.
 
         ::
@@ -176,7 +176,7 @@ class XLine(UGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -185,7 +185,7 @@ class XLine(UGen):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of XLine.
 
         ::
@@ -204,7 +204,7 @@ class XLine(UGen):
 
     @property
     def stop(self):
-        r"""
+        """
         Gets `stop` input of XLine.
 
         ::

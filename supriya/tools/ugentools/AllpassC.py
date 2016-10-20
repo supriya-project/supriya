@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AllpassN import AllpassN
 
 
 class AllpassC(AllpassN):
-    r"""
+    """
     A cubic-interpolating allpass delay line unit generator.
 
     ::
@@ -31,7 +31,7 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate cubic-interpolating allpass delay line.
 
         ::
@@ -63,7 +63,7 @@ class AllpassC(AllpassN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate cubic-interpolating allpass delay line.
 
         ::
@@ -91,7 +91,7 @@ class AllpassC(AllpassN):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of AllpassC.
 
         ::
@@ -112,7 +112,7 @@ class AllpassC(AllpassN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of AllpassC.
 
         ::
@@ -133,7 +133,7 @@ class AllpassC(AllpassN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of AllpassC.
 
         ::
@@ -154,7 +154,7 @@ class AllpassC(AllpassN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of AllpassC.
 
         ::

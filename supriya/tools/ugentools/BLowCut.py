@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BHiCut import BHiCut
 
 
 class BLowCut(BHiCut):
-    r"""
+    """
     A low-cut filter.
 
     ::
@@ -66,7 +66,7 @@ class BLowCut(BHiCut):
         order=2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BLowCut.
 
         ::
@@ -108,7 +108,7 @@ class BLowCut(BHiCut):
         order=2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate BLowCut.
 
         ::
@@ -156,7 +156,7 @@ class BLowCut(BHiCut):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BLowCut.
 
         ::
@@ -178,7 +178,7 @@ class BLowCut(BHiCut):
 
     @property
     def max_order(self):
-        r"""
+        """
         Gets `max_order` input of BLowCut.
 
         ::
@@ -200,7 +200,7 @@ class BLowCut(BHiCut):
 
     @property
     def order(self):
-        r"""
+        """
         Gets `order` input of BLowCut.
 
         ::
@@ -222,7 +222,7 @@ class BLowCut(BHiCut):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BLowCut.
 
         ::

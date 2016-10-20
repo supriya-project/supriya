@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+"""
 Tools for object-modeling OSC responses received from **scsynth**.
 """
 

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFPulse(PureUGen):
-    r"""
+    """
     A non-band-limited pulse oscillator.
 
     ::
@@ -53,7 +53,7 @@ class LFPulse(PureUGen):
         initial_phase=0,
         width=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
@@ -84,7 +84,7 @@ class LFPulse(PureUGen):
         initial_phase=0,
         width=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate non-band-limited pulse oscillator.
 
         ::
@@ -112,7 +112,7 @@ class LFPulse(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFPulse.
 
         ::
@@ -132,7 +132,7 @@ class LFPulse(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of LFPulse.
 
         ::
@@ -152,7 +152,7 @@ class LFPulse(PureUGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of LFPulse.
 
         ::

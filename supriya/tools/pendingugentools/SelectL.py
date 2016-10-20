@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SelectL(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class SelectL(UGen):
         array=None,
         which=None,
         ):
-        r"""
+        """
         Constructs an audio-rate SelectL.
 
         ::
@@ -83,7 +83,7 @@ class SelectL(UGen):
         array=None,
         which=None,
         ):
-        r"""
+        """
         Constructs a control-rate SelectL.
 
         ::
@@ -110,7 +110,7 @@ class SelectL(UGen):
 
     @property
     def array(self):
-        r"""
+        """
         Gets `array` input of SelectL.
 
         ::
@@ -128,7 +128,7 @@ class SelectL(UGen):
 
     @property
     def which(self):
-        r"""
+        """
         Gets `which` input of SelectL.
 
         ::

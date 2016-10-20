@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class WidthFirstUGen(UGen):
-    r"""
+    """
     Abstract base class for UGens with a width-first sort order.
     """
 

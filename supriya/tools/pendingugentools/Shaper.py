@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class Shaper(Index):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class Shaper(Index):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Shaper.
 
         ::
@@ -83,7 +83,7 @@ class Shaper(Index):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Shaper.
 
         ::
@@ -111,7 +111,7 @@ class Shaper(Index):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of Shaper.
 
         ::
@@ -130,7 +130,7 @@ class Shaper(Index):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Shaper.
 
         ::

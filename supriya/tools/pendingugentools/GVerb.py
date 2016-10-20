@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GVerb(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -93,7 +93,7 @@ class GVerb(MultiOutUGen):
         spread=15,
         taillevel=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate GVerb.
 
         ::
@@ -139,7 +139,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of GVerb.
 
         ::
@@ -167,7 +167,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def drylevel(self):
-        r"""
+        """
         Gets `drylevel` input of GVerb.
 
         ::
@@ -195,7 +195,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def earlyreflevel(self):
-        r"""
+        """
         Gets `earlyreflevel` input of GVerb.
 
         ::
@@ -223,7 +223,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def inputbw(self):
-        r"""
+        """
         Gets `inputbw` input of GVerb.
 
         ::
@@ -251,7 +251,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def maxroomsize(self):
-        r"""
+        """
         Gets `maxroomsize` input of GVerb.
 
         ::
@@ -279,7 +279,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def revtime(self):
-        r"""
+        """
         Gets `revtime` input of GVerb.
 
         ::
@@ -307,7 +307,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def roomsize(self):
-        r"""
+        """
         Gets `roomsize` input of GVerb.
 
         ::
@@ -335,7 +335,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of GVerb.
 
         ::
@@ -370,7 +370,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def spread(self):
-        r"""
+        """
         Gets `spread` input of GVerb.
 
         ::
@@ -398,7 +398,7 @@ class GVerb(MultiOutUGen):
 
     @property
     def taillevel(self):
-        r"""
+        """
         Gets `taillevel` input of GVerb.
 
         ::

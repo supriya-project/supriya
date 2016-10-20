@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Binding(SupriyaObject):
-    r"""
+    """
     A binding.
 
     ::

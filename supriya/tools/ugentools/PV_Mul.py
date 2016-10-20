@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_Mul(PV_ChainUGen):
-    r"""
+    """
     Complex multiplication.
 
     ::
@@ -55,7 +55,7 @@ class PV_Mul(PV_ChainUGen):
         pv_chain_a=None,
         pv_chain_b=None,
         ):
-        r"""
+        """
         Constructs a PV_Mul.
 
         ::
@@ -85,7 +85,7 @@ class PV_Mul(PV_ChainUGen):
 
     @property
     def pv_chain_a(self):
-        r"""
+        """
         Gets `pv_chain_a` input of PV_Mul.
 
         ::
@@ -132,7 +132,7 @@ class PV_Mul(PV_ChainUGen):
 
     @property
     def pv_chain_b(self):
-        r"""
+        """
         Gets `pv_chain_b` input of PV_Mul.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class EnvGen(UGen):
-    r"""
+    """
     An envelope generator.
 
     ::
@@ -98,7 +98,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r"""
+        """
         Constructs an audio-rate envelope generator.
 
         ::
@@ -134,7 +134,7 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        r"""
+        """
         Constructs an control-rate envelope generator.
 
         ::
@@ -164,7 +164,7 @@ class EnvGen(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of EnvGen.
 
         ::
@@ -183,7 +183,7 @@ class EnvGen(UGen):
 
     @property
     def envelope(self):
-        r"""
+        """
         Gets `envelope` input of EnvGen.
 
         ::
@@ -202,7 +202,7 @@ class EnvGen(UGen):
 
     @property
     def gate(self):
-        r"""
+        """
         Gets `gate` input of EnvGen.
 
         ::
@@ -221,7 +221,7 @@ class EnvGen(UGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -230,7 +230,7 @@ class EnvGen(UGen):
 
     @property
     def level_bias(self):
-        r"""
+        """
         Gets `level_bias` input of EnvGen.
 
         ::
@@ -249,7 +249,7 @@ class EnvGen(UGen):
 
     @property
     def level_scale(self):
-        r"""
+        """
         Gets `level_scale` input of EnvGen.
 
         ::
@@ -268,7 +268,7 @@ class EnvGen(UGen):
 
     @property
     def time_scale(self):
-        r"""
+        """
         Gets `time_scale` input of EnvGen.
 
         ::

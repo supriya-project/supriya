@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Hilbert(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -48,7 +48,7 @@ class Hilbert(MultiOutUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Hilbert.
 
         ::
@@ -76,7 +76,7 @@ class Hilbert(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Hilbert.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Balance2(MultiOutUGen):
-    r"""
+    """
     A stereo signal balancer.
 
     ::
@@ -66,7 +66,7 @@ class Balance2(MultiOutUGen):
         position=0,
         right=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Balance2.
 
         ::
@@ -103,7 +103,7 @@ class Balance2(MultiOutUGen):
         position=0,
         right=None,
         ):
-        r"""
+        """
         Constructs a control-rate Balance2.
 
         ::
@@ -136,7 +136,7 @@ class Balance2(MultiOutUGen):
 
     @property
     def left(self):
-        r"""
+        """
         Gets `left` input of Balance2.
 
         ::
@@ -164,7 +164,7 @@ class Balance2(MultiOutUGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of Balance2.
 
         ::
@@ -187,7 +187,7 @@ class Balance2(MultiOutUGen):
 
     @property
     def position(self):
-        r"""
+        """
         Gets `position` input of Balance2.
 
         ::
@@ -210,7 +210,7 @@ class Balance2(MultiOutUGen):
 
     @property
     def right(self):
-        r"""
+        """
         Gets `right` input of Balance2.
 
         ::

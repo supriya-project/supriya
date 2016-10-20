@@ -3,7 +3,7 @@ from supriya.tools.ugentools.AbstractIn import AbstractIn
 
 
 class InTrig(AbstractIn):
-    r"""
+    """
 
     ::
 
@@ -54,7 +54,7 @@ class InTrig(AbstractIn):
         bus=0,
         channel_count=1,
         ):
-        r"""
+        """
         Constructs a control-rate InTrig.
 
         ::
@@ -83,7 +83,7 @@ class InTrig(AbstractIn):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of InTrig.
 
         ::
@@ -102,7 +102,7 @@ class InTrig(AbstractIn):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of InTrig.
 
         ::

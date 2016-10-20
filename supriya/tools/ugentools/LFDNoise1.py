@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LFDNoise1(UGen):
-    r"""
+    """
     A dynamic ramp noise generator.
 
     ::
@@ -45,7 +45,7 @@ class LFDNoise1(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs an audio-rate ramp noise generator.
 
         ::
@@ -70,7 +70,7 @@ class LFDNoise1(UGen):
         cls,
         frequency=500,
         ):
-        r"""
+        """
         Constructs a control-rate ramp noise generator.
 
         ::
@@ -94,7 +94,7 @@ class LFDNoise1(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFDNoise1.
 
         ::

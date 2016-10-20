@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class CombN(PureUGen):
-    r"""
+    """
     A non-interpolating comb delay line unit generator.
 
     ::
@@ -56,7 +56,7 @@ class CombN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate non-interpolating comb delay line.
 
         ::
@@ -92,7 +92,7 @@ class CombN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate non-interpolating comb delay line.
 
         ::
@@ -123,7 +123,7 @@ class CombN(PureUGen):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of CombN.
 
         ::
@@ -144,7 +144,7 @@ class CombN(PureUGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of CombN.
 
         ::
@@ -165,7 +165,7 @@ class CombN(PureUGen):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of CombN.
 
         ::
@@ -186,7 +186,7 @@ class CombN(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of CombN.
 
         ::

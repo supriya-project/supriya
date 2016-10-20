@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_PhaseShift90(PV_MagSquared):
-    r"""
+    """
     Shifts phase by 90 degrees.
 
     ::
@@ -47,7 +47,7 @@ class PV_PhaseShift90(PV_MagSquared):
         cls,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a PV_PhaseShift90.
 
         ::
@@ -72,7 +72,7 @@ class PV_PhaseShift90(PV_MagSquared):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_PhaseShift90.
 
         ::

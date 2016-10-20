@@ -14,7 +14,7 @@ class UGenMethodMixin(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __abs__(self):
-        r"""
+        """
         Gets absolute value of ugen graph.
 
         ..  container:: example
@@ -80,7 +80,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __add__(self, expr):
-        r"""
+        """
         Adds `expr` to ugen graph.
 
         ..  container:: example
@@ -182,7 +182,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __div__(self, expr):
-        r"""
+        """
         Divides ugen graph by `expr`.
 
         ..  container:: example
@@ -284,7 +284,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __graph__(self):
-        r"""
+        """
         Gets Graphviz representation of ugen graph.
 
         Returns GraphvizGraph instance.
@@ -297,7 +297,7 @@ class UGenMethodMixin(SupriyaObject):
         return result
 
     def __ge__(self, expr):
-        r"""
+        """
         Tests if ugen graph if greater than or equal to `expr`.
 
         ..  container:: example
@@ -399,7 +399,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __gt__(self, expr):
-        r"""
+        """
         Tests if ugen graph if greater than `expr`.
 
         ..  container:: example
@@ -501,7 +501,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __le__(self, expr):
-        r"""
+        """
         Tests if ugen graph if less than or equal to `expr`.
 
         ..  container:: example
@@ -603,7 +603,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __lt__(self, expr):
-        r"""
+        """
         Tests if ugen graph if less than `expr`.
 
         ..  container:: example
@@ -705,7 +705,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __mod__(self, expr):
-        r"""
+        """
         Gets modulo of ugen graph and `expr`.
 
         ..  container:: example
@@ -807,7 +807,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __mul__(self, expr):
-        r"""
+        """
         Multiplies ugen graph by `expr`.
 
         ..  container:: example
@@ -909,7 +909,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __neg__(self):
-        r"""
+        """
         Negates ugen graph.
 
         ..  container:: example
@@ -975,7 +975,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __pow__(self, expr):
-        r"""
+        """
         Raises ugen graph to the power of `expr`.
 
         ..  container:: example
@@ -1077,7 +1077,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rpow__(self, expr):
-        r"""
+        """
         Raises `expr` to the power of ugen graph.
 
         ..  container:: example
@@ -1152,7 +1152,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __radd__(self, expr):
-        r"""
+        """
         Adds ugen graph to `expr`.
 
         ..  container:: example
@@ -1227,7 +1227,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rdiv__(self, expr):
-        r"""
+        """
         Divides `expr` by ugen graph.
 
         ..  container:: example
@@ -1302,7 +1302,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rmod__(self, expr):
-        r"""
+        """
         Gets modulo of `expr` and ugen graph.
 
         ..  container:: example
@@ -1377,7 +1377,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rmul__(self, expr):
-        r"""
+        """
         Multiplies `expr` by ugen graph.
 
         ..  container:: example
@@ -1452,7 +1452,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __rsub__(self, expr):
-        r"""
+        """
         Subtracts ugen graph from `expr`.
 
         ..  container:: example
@@ -1527,7 +1527,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def __str__(self):
-        r"""
+        """
         Gets string representation of ugen graph.
 
         ..  container:: example
@@ -1566,7 +1566,7 @@ class UGenMethodMixin(SupriyaObject):
         return result
 
     def __sub__(self, expr):
-        r"""
+        """
         Subtracts `expr` from ugen graph.
 
         ..  container:: example
@@ -1882,7 +1882,7 @@ class UGenMethodMixin(SupriyaObject):
     """
 
     def absolute_difference(self, expr):
-        r"""
+        """
         Calculates absolute difference between ugen graph and `expr`.
 
         ..  container:: example
@@ -1917,7 +1917,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def amplitude_to_db(self):
-        r"""
+        """
         Converts ugen graph from amplitude to decibels.
 
         ..  container:: example
@@ -1947,7 +1947,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def clip(self, minimum, maximum):
-        r"""
+        """
         Clips ugen graph.
 
         ..  container:: example
@@ -2017,7 +2017,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def db_to_amplitude(self):
-        r"""
+        """
         Converts ugen graph from decibels to amplitude.
 
         ..  container:: example
@@ -2047,7 +2047,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def hanning_window(self):
-        r"""
+        """
         Calculates Hanning-window of ugen graph.
 
         ..  container:: example
@@ -2078,7 +2078,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def hz_to_midi(self):
-        r"""
+        """
         Converts ugen graph from Hertz to midi note number.
 
         ..  container:: example
@@ -2108,7 +2108,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def hz_to_octave(self):
-        r"""
+        """
         Converts ugen graph from Hertz to octave number.
 
         ..  container:: example
@@ -2141,7 +2141,7 @@ class UGenMethodMixin(SupriyaObject):
         self,
         lag_time=0.5,
         ):
-        r"""
+        """
         Lags ugen graph.
 
         ..  container:: example
@@ -2202,7 +2202,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def midi_to_hz(self):
-        r"""
+        """
         Converts ugen graph from midi note number to Hertz.
 
         ..  container:: example
@@ -2232,7 +2232,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def octave_to_hz(self):
-        r"""
+        """
         Converts ugen graph from octave number to Hertz.
 
         ..  container:: example
@@ -2262,7 +2262,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def ratio_to_semitones(self):
-        r"""
+        """
         Converts ugen graph from frequency ratio to semitone distance.
 
         ..  container:: example
@@ -2292,7 +2292,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def rectangle_window(self):
-        r"""
+        """
         Calculates rectangle-window of ugen graph.
 
         ..  container:: example
@@ -2323,7 +2323,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def reciprocal(self):
-        r"""
+        """
         Calculates reciprocal of ugen graph.
 
         ..  container:: example
@@ -2354,7 +2354,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def s_curve(self):
-        r"""
+        """
         Calculates S-curve of ugen graph.
 
         ..  container:: example
@@ -2385,7 +2385,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def semitones_to_ratio(self):
-        r"""
+        """
         Converts ugen graph from semitone distance to frequency ratio.
 
         ..  container:: example
@@ -2422,7 +2422,7 @@ class UGenMethodMixin(SupriyaObject):
         output_maximum,
         exponential=False,
         ):
-        r"""
+        """
         Scales ugen graph from `input_minimum` and `input_maximum` to
         `output_minimum` and `output_maximum`.
 
@@ -2500,7 +2500,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def sign(self):
-        r"""
+        """
         Calculates sign of ugen graph.
 
         ..  container:: example
@@ -2531,7 +2531,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def sum(self):
-        r"""
+        """
         Sums ugen graph.
 
         ..  container:: example
@@ -2588,7 +2588,7 @@ class UGenMethodMixin(SupriyaObject):
         return ugentools.Mix.new(self)
 
     def tanh(self):
-        r"""
+        """
         Calculates hyperbolic tangent of ugen graph.
 
         ..  container:: example
@@ -2619,7 +2619,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def transpose(self, semitones):
-        r"""
+        """
         Transposes ugen graph by `semitones`.
 
         ..  container:: example
@@ -2653,7 +2653,7 @@ class UGenMethodMixin(SupriyaObject):
         return (self.hz_to_midi() + semitones).midi_to_hz()
 
     def triangle_window(self):
-        r"""
+        """
         Calculates triangle-window of ugen graph.
 
         ..  container:: example
@@ -2684,7 +2684,7 @@ class UGenMethodMixin(SupriyaObject):
             )
 
     def welch_window(self):
-        r"""
+        """
         Calculates Welch-window of ugen graph.
 
         ..  container:: example

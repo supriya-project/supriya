@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_MagSmear(PV_ChainUGen):
-    r"""
+    """
     Averages magnitudes across bins.
 
     ::
@@ -52,7 +52,7 @@ class PV_MagSmear(PV_ChainUGen):
         bins=0,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a PV_MagSmear.
 
         ::
@@ -79,7 +79,7 @@ class PV_MagSmear(PV_ChainUGen):
 
     @property
     def bins(self):
-        r"""
+        """
         Gets `bins` input of PV_MagSmear.
 
         ::
@@ -101,7 +101,7 @@ class PV_MagSmear(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_MagSmear.
 
         ::

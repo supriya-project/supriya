@@ -6,7 +6,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefBuilder(SupriyaObject):
-    r"""
+    """
     A SynthDef builder.
 
     ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CheckBadValues(UGen):
-    r"""
+    """
     Tests for infinity, not-a-number, and denormals.
 
     ::
@@ -62,7 +62,7 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate CheckBadValues.
 
         ::
@@ -97,7 +97,7 @@ class CheckBadValues(UGen):
         post_mode=2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate CheckBadValues.
 
         ::
@@ -129,7 +129,7 @@ class CheckBadValues(UGen):
 
     @property
     def post_mode(self):
-        r"""
+        """
         Gets `post_mode` input of CheckBadValues.
 
         ::
@@ -152,7 +152,7 @@ class CheckBadValues(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of CheckBadValues.
 
         ::
@@ -182,7 +182,7 @@ class CheckBadValues(UGen):
 
     @property
     def ugen_id(self):
-        r"""
+        """
         Gets `ugen_id` of CheckBadValues.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class DecodeB2(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -67,7 +67,7 @@ class DecodeB2(MultiOutUGen):
         x=None,
         y=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DecodeB2.
 
         ::
@@ -105,7 +105,7 @@ class DecodeB2(MultiOutUGen):
         x=None,
         y=None,
         ):
-        r"""
+        """
         Constructs a control-rate DecodeB2.
 
         ::
@@ -140,7 +140,7 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of DecodeB2.
 
         ::
@@ -161,7 +161,7 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def orientation(self):
-        r"""
+        """
         Gets `orientation` input of DecodeB2.
 
         ::
@@ -183,7 +183,7 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def w(self):
-        r"""
+        """
         Gets `w` input of DecodeB2.
 
         ::
@@ -204,7 +204,7 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def x(self):
-        r"""
+        """
         Gets `x` input of DecodeB2.
 
         ::
@@ -225,7 +225,7 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def y(self):
-        r"""
+        """
         Gets `y` input of DecodeB2.
 
         ::

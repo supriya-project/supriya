@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Saw(PureUGen):
-    r"""
+    """
     A band-limited sawtooth oscillator unit generator.
 
     ::
@@ -43,7 +43,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate band-limited sawtooth oscillator.
 
         ::
@@ -68,7 +68,7 @@ class Saw(PureUGen):
         cls,
         frequency=440,
         ):
-        r"""
+        """
         Constructs a control-rate band-limited sawtooth oscillator.
 
         ::
@@ -92,7 +92,7 @@ class Saw(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Saw.
 
         ::

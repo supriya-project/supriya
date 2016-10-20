@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Pluck(UGen):
-    r"""
+    """
     A Karplus-String UGen.
 
     ::
@@ -75,7 +75,7 @@ class Pluck(UGen):
         source=None,
         trigger=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Pluck.
 
         ::
@@ -112,7 +112,7 @@ class Pluck(UGen):
 
     @property
     def coefficient(self):
-        r"""
+        """
         Gets `coefficient` input of Pluck.
 
         ::
@@ -137,7 +137,7 @@ class Pluck(UGen):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of Pluck.
 
         ::
@@ -162,7 +162,7 @@ class Pluck(UGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of Pluck.
 
         ::
@@ -187,7 +187,7 @@ class Pluck(UGen):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of Pluck.
 
         ::
@@ -212,7 +212,7 @@ class Pluck(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Pluck.
 
         ::
@@ -242,7 +242,7 @@ class Pluck(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Pluck.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Unpack1FFT(UGen):
-    r"""
+    """
 
     ::
 
@@ -62,7 +62,7 @@ class Unpack1FFT(UGen):
         chain=None,
         whichmeasure=0,
         ):
-        r"""
+        """
         Constructs a Unpack1FFT.
 
         ::
@@ -93,7 +93,7 @@ class Unpack1FFT(UGen):
 
     @property
     def binindex(self):
-        r"""
+        """
         Gets `binindex` input of Unpack1FFT.
 
         ::
@@ -113,7 +113,7 @@ class Unpack1FFT(UGen):
 
     @property
     def bufsize(self):
-        r"""
+        """
         Gets `bufsize` input of Unpack1FFT.
 
         ::
@@ -133,7 +133,7 @@ class Unpack1FFT(UGen):
 
     @property
     def chain(self):
-        r"""
+        """
         Gets `chain` input of Unpack1FFT.
 
         ::
@@ -153,7 +153,7 @@ class Unpack1FFT(UGen):
 
     @property
     def whichmeasure(self):
-        r"""
+        """
         Gets `whichmeasure` input of Unpack1FFT.
 
         ::

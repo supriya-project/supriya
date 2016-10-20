@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class VarSaw(PureUGen):
-    r"""
+    """
     A sawtooth-triangle oscillator with variable duty.
 
     ::
@@ -51,7 +51,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate sawtooth-triangle oscillator with variable
         duty.
 
@@ -83,7 +83,7 @@ class VarSaw(PureUGen):
         initial_phase=0.,
         width=0.5,
         ):
-        r"""
+        """
         Constructs a control-rate sawtooth-triangle oscillator with variable
         duty.
 
@@ -112,7 +112,7 @@ class VarSaw(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of VarSaw.
 
         ::
@@ -131,7 +131,7 @@ class VarSaw(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of VarSaw.
 
         ::
@@ -150,7 +150,7 @@ class VarSaw(PureUGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of VarSaw.
 
         ::

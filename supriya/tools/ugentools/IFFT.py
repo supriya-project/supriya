@@ -3,7 +3,7 @@ from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
 
 
 class IFFT(WidthFirstUGen):
-    r"""
+    """
     An inverse fast Fourier transform.
 
     ::
@@ -59,7 +59,7 @@ class IFFT(WidthFirstUGen):
         window_size=0,
         window_type=0,
         ):
-        r"""
+        """
         Constructs an audio-rate IFFT.
 
         ::
@@ -92,7 +92,7 @@ class IFFT(WidthFirstUGen):
         window_size=0,
         window_type=0,
         ):
-        r"""
+        """
         Constructs a control-rate IFFT.
 
         ::
@@ -122,7 +122,7 @@ class IFFT(WidthFirstUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of IFFT.
 
         ::
@@ -150,7 +150,7 @@ class IFFT(WidthFirstUGen):
 
     @property
     def window_size(self):
-        r"""
+        """
         Gets `window_size` input of IFFT.
 
         ::
@@ -171,7 +171,7 @@ class IFFT(WidthFirstUGen):
 
     @property
     def window_type(self):
-        r"""
+        """
         Gets `window_type` input of IFFT.
 
         ::

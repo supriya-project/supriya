@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Peak import Peak
 
 
 class RunningMin(Peak):
-    r"""
+    """
     Tracks minimum signal amplitude.
 
     ::
@@ -55,7 +55,7 @@ class RunningMin(Peak):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate RunningMin.
 
         ::
@@ -86,7 +86,7 @@ class RunningMin(Peak):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate RunningMin.
 
         ::
@@ -115,7 +115,7 @@ class RunningMin(Peak):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of RunningMin.
 
         ::
@@ -143,7 +143,7 @@ class RunningMin(Peak):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of RunningMin.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DemandEnvGen(UGen):
-    r"""
+    """
 
     ::
 
@@ -92,7 +92,7 @@ class DemandEnvGen(UGen):
         shape=1,
         time_scale=1,
         ):
-        r"""
+        """
         Constructs an audio-rate DemandEnvGen.
 
         ::
@@ -145,7 +145,7 @@ class DemandEnvGen(UGen):
         shape=1,
         time_scale=1,
         ):
-        r"""
+        """
         Constructs a control-rate DemandEnvGen.
 
         ::
@@ -188,7 +188,7 @@ class DemandEnvGen(UGen):
 
     @property
     def curve(self):
-        r"""
+        """
         Gets `curve` input of DemandEnvGen.
 
         ::
@@ -215,7 +215,7 @@ class DemandEnvGen(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of DemandEnvGen.
 
         ::
@@ -242,7 +242,7 @@ class DemandEnvGen(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of DemandEnvGen.
 
         ::
@@ -268,7 +268,7 @@ class DemandEnvGen(UGen):
 
     @property
     def gate(self):
-        r"""
+        """
         Gets `gate` input of DemandEnvGen.
 
         ::
@@ -295,7 +295,7 @@ class DemandEnvGen(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of DemandEnvGen.
 
         ::
@@ -321,7 +321,7 @@ class DemandEnvGen(UGen):
 
     @property
     def level_bias(self):
-        r"""
+        """
         Gets `level_bias` input of DemandEnvGen.
 
         ::
@@ -348,7 +348,7 @@ class DemandEnvGen(UGen):
 
     @property
     def level_scale(self):
-        r"""
+        """
         Gets `level_scale` input of DemandEnvGen.
 
         ::
@@ -375,7 +375,7 @@ class DemandEnvGen(UGen):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of DemandEnvGen.
 
         ::
@@ -402,7 +402,7 @@ class DemandEnvGen(UGen):
 
     @property
     def shape(self):
-        r"""
+        """
         Gets `shape` input of DemandEnvGen.
 
         ::
@@ -429,7 +429,7 @@ class DemandEnvGen(UGen):
 
     @property
     def time_scale(self):
-        r"""
+        """
         Gets `time_scale` input of DemandEnvGen.
 
         ::

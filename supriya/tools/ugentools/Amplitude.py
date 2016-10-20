@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Amplitude(UGen):
-    r"""
+    """
     An amplitude follower.
 
     ::
@@ -59,7 +59,7 @@ class Amplitude(UGen):
         release_time=0.01,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Amplitude.
 
         ::
@@ -92,7 +92,7 @@ class Amplitude(UGen):
         release_time=0.01,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Amplitude.
 
         ::
@@ -122,7 +122,7 @@ class Amplitude(UGen):
 
     @property
     def attack_time(self):
-        r"""
+        """
         Gets `attack_time` input of Amplitude.
 
         ::
@@ -143,7 +143,7 @@ class Amplitude(UGen):
 
     @property
     def release_time(self):
-        r"""
+        """
         Gets `release_time` input of Amplitude.
 
         ::
@@ -164,7 +164,7 @@ class Amplitude(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Amplitude.
 
         ::

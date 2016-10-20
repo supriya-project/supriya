@@ -3,7 +3,7 @@ from supriya.tools.ugentools.LPZ2 import LPZ2
 
 
 class HPZ2(LPZ2):
-    r"""
+    """
     A two zero fixed midcut filter.
 
     ::
@@ -49,7 +49,7 @@ class HPZ2(LPZ2):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate HPZ2.
 
         ::
@@ -78,7 +78,7 @@ class HPZ2(LPZ2):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate HPZ2.
 
         ::
@@ -114,7 +114,7 @@ class HPZ2(LPZ2):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of HPZ2.
 
         ::

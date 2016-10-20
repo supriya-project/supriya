@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TBall(UGen):
-    r"""
+    """
     A bouncing object physical model.
 
     ::
@@ -64,7 +64,7 @@ class TBall(UGen):
         gravity=10,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate TBall.
 
         ::
@@ -100,7 +100,7 @@ class TBall(UGen):
         gravity=10,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate TBall.
 
         ::
@@ -132,7 +132,7 @@ class TBall(UGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of TBall.
 
         ::
@@ -154,7 +154,7 @@ class TBall(UGen):
 
     @property
     def friction(self):
-        r"""
+        """
         Gets `friction` input of TBall.
 
         ::
@@ -176,7 +176,7 @@ class TBall(UGen):
 
     @property
     def gravity(self):
-        r"""
+        """
         Gets `gravity` input of TBall.
 
         ::
@@ -198,7 +198,7 @@ class TBall(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of TBall.
 
         ::

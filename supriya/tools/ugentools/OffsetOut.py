@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class OffsetOut(UGen):
-    r"""
+    """
     A bus output unit generator with sample-accurate timing.
 
     ::
@@ -63,7 +63,7 @@ class OffsetOut(UGen):
         bus=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a sample-accurately-timed audio-rate bus output.
 
         ::
@@ -98,7 +98,7 @@ class OffsetOut(UGen):
 
     @property
     def bus(self):
-        r"""
+        """
         Gets `bus` input of OffsetOut.
 
         ::
@@ -123,7 +123,7 @@ class OffsetOut(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of OffsetOut.
 
         ::

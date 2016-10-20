@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Integrator(Filter):
-    r"""
+    """
     A leaky integrator.
 
     ::
@@ -54,7 +54,7 @@ class Integrator(Filter):
         coefficient=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Integrator.
 
         ::
@@ -86,7 +86,7 @@ class Integrator(Filter):
         coefficient=1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Integrator.
 
         ::
@@ -124,7 +124,7 @@ class Integrator(Filter):
 
     @property
     def coefficient(self):
-        r"""
+        """
         Gets `coefficient` input of Integrator.
 
         ::
@@ -144,7 +144,7 @@ class Integrator(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Integrator.
 
         ::

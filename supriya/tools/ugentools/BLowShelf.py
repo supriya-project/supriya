@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BLowShelf(BEQSuite):
-    r"""
+    """
     A low-shelf filter.
 
     ::
@@ -64,7 +64,7 @@ class BLowShelf(BEQSuite):
         reciprocal_of_s=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BLowShelf.
 
         ::
@@ -110,7 +110,7 @@ class BLowShelf(BEQSuite):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of BLowShelf.
 
         ::
@@ -132,7 +132,7 @@ class BLowShelf(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BLowShelf.
 
         ::
@@ -154,7 +154,7 @@ class BLowShelf(BEQSuite):
 
     @property
     def reciprocal_of_s(self):
-        r"""
+        """
         Gets `reciprocal_of_s` input of BLowShelf.
 
         ::
@@ -176,7 +176,7 @@ class BLowShelf(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BLowShelf.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CuspL(UGen):
-    r"""
+    """
     A linear-interpolating cusp map chaotic generator.
 
     ::
@@ -63,7 +63,7 @@ class CuspL(UGen):
         frequency=22050,
         xi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate CuspL.
 
         ::
@@ -96,7 +96,7 @@ class CuspL(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of CuspL.
 
         ::
@@ -117,7 +117,7 @@ class CuspL(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of CuspL.
 
         ::
@@ -138,7 +138,7 @@ class CuspL(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of CuspL.
 
         ::
@@ -159,7 +159,7 @@ class CuspL(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of CuspL.
 
         ::

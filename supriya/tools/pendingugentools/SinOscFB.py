@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SinOscFB(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class SinOscFB(PureUGen):
         feedback=0,
         frequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate SinOscFB.
 
         ::
@@ -81,7 +81,7 @@ class SinOscFB(PureUGen):
         feedback=0,
         frequency=440,
         ):
-        r"""
+        """
         Constructs a control-rate SinOscFB.
 
         ::
@@ -108,7 +108,7 @@ class SinOscFB(PureUGen):
 
     @property
     def feedback(self):
-        r"""
+        """
         Gets `feedback` input of SinOscFB.
 
         ::
@@ -127,7 +127,7 @@ class SinOscFB(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of SinOscFB.
 
         ::

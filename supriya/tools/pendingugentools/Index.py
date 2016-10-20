@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class Index(PureUGen):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class Index(PureUGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Index.
 
         ::
@@ -83,7 +83,7 @@ class Index(PureUGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Index.
 
         ::
@@ -111,7 +111,7 @@ class Index(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of Index.
 
         ::
@@ -130,7 +130,7 @@ class Index(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Index.
 
         ::

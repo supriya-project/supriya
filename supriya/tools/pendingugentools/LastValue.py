@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LastValue(UGen):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class LastValue(UGen):
         diff=0.01,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate LastValue.
 
         ::
@@ -83,7 +83,7 @@ class LastValue(UGen):
         diff=0.01,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate LastValue.
 
         ::
@@ -111,7 +111,7 @@ class LastValue(UGen):
 
     @property
     def diff(self):
-        r"""
+        """
         Gets `diff` input of LastValue.
 
         ::
@@ -131,7 +131,7 @@ class LastValue(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LastValue.
 
         ::

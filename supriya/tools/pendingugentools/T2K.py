@@ -3,7 +3,7 @@ from supriya.tools.ugentools.A2K import A2K
 
 
 class T2K(A2K):
-    r"""
+    """
 
     ::
 
@@ -48,7 +48,7 @@ class T2K(A2K):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate T2K.
 
         ::
@@ -74,7 +74,7 @@ class T2K(A2K):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of T2K.
 
         ::

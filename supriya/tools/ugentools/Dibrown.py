@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Dbrown import Dbrown
 
 
 class Dibrown(Dbrown):
-    r"""
+    """
     An integer demand-rate brownian movement generator.
 
     ::
@@ -59,7 +59,7 @@ class Dibrown(Dbrown):
         minimum=0,
         step=0.01,
         ):
-        r"""
+        """
         Constructs a Dibrown.
 
         ::
@@ -87,7 +87,7 @@ class Dibrown(Dbrown):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dibrown.
 
         ::
@@ -108,7 +108,7 @@ class Dibrown(Dbrown):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Dibrown.
 
         ::
@@ -129,7 +129,7 @@ class Dibrown(Dbrown):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Dibrown.
 
         ::
@@ -150,7 +150,7 @@ class Dibrown(Dbrown):
 
     @property
     def step(self):
-        r"""
+        """
         Gets `step` input of Dibrown.
 
         ::

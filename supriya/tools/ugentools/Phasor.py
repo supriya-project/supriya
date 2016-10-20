@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Phasor(UGen):
-    r"""
+    """
     A resettable linear ramp between two levels.
 
     ::
@@ -69,7 +69,7 @@ class Phasor(UGen):
         stop=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Phasor.
 
         ::
@@ -108,7 +108,7 @@ class Phasor(UGen):
         stop=1,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate Phasor.
 
         ::
@@ -142,7 +142,7 @@ class Phasor(UGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of Phasor.
 
         ::
@@ -165,7 +165,7 @@ class Phasor(UGen):
 
     @property
     def reset_pos(self):
-        r"""
+        """
         Gets `reset_pos` input of Phasor.
 
         ::
@@ -188,7 +188,7 @@ class Phasor(UGen):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of Phasor.
 
         ::
@@ -211,7 +211,7 @@ class Phasor(UGen):
 
     @property
     def stop(self):
-        r"""
+        """
         Gets `stop` input of Phasor.
 
         ::
@@ -234,7 +234,7 @@ class Phasor(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Phasor.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class NodeIdPair(SupriyaValueObject):
-    r"""
+    """
     A node id pair.
 
     ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufChannels(BufInfoUGenBase):
-    r"""
+    """
     A buffer channel count info unit generator.
 
     ::
@@ -36,7 +36,7 @@ class BufChannels(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufChannels.
 
         ::

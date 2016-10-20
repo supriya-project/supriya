@@ -8,7 +8,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SynthDefDecompiler(SupriyaObject):
-    r"""
+    """
 
     ::
 

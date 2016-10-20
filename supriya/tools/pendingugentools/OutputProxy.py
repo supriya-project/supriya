@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class OutputProxy(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class OutputProxy(UGen):
         its_source_ugen=None,
         rate=None,
         ):
-        r"""
+        """
         Constructs a OutputProxy.
 
         ::
@@ -86,7 +86,7 @@ class OutputProxy(UGen):
 
     @property
     def index(self):
-        r"""
+        """
         Gets `index` input of OutputProxy.
 
         ::
@@ -105,7 +105,7 @@ class OutputProxy(UGen):
 
     @property
     def its_source_ugen(self):
-        r"""
+        """
         Gets `its_source_ugen` input of OutputProxy.
 
         ::
@@ -124,7 +124,7 @@ class OutputProxy(UGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of OutputProxy.
 
         ::

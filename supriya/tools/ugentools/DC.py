@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DC(PureUGen):
-    r"""
+    """
     A DC unit generator.
 
     ::
@@ -52,7 +52,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DC generator.
 
         ::
@@ -77,7 +77,7 @@ class DC(PureUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate DC generator.
 
         ::
@@ -101,7 +101,7 @@ class DC(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DC.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class PlayBuf(MultiOutUGen):
-    r"""
+    """
     A sample playback oscillator.
 
     ::
@@ -78,7 +78,7 @@ class PlayBuf(MultiOutUGen):
         start_position=0,
         trigger=1,
         ):
-        r"""
+        """
         Constructs an audio-rate PlayBuf.
 
         ::
@@ -123,7 +123,7 @@ class PlayBuf(MultiOutUGen):
         start_position=0,
         trigger=1,
         ):
-        r"""
+        """
         Constructs a control-rate PlayBuf.
 
         ::
@@ -163,7 +163,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of PlayBuf.
 
         ::
@@ -188,7 +188,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of PlayBuf.
 
         ::
@@ -213,7 +213,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def loop(self):
-        r"""
+        """
         Gets `loop` input of PlayBuf.
 
         ::
@@ -238,7 +238,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def has_done_flag(self):
-        r"""
+        """
         Is true if UGen has a done flag.
 
         Returns boolean.
@@ -247,7 +247,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of PlayBuf.
 
         ::
@@ -272,7 +272,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def start_position(self):
-        r"""
+        """
         Gets `start_position` input of PlayBuf.
 
         ::
@@ -297,7 +297,7 @@ class PlayBuf(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PlayBuf.
 
         ::

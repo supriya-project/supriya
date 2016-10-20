@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Convolution2L(UGen):
-    r"""
+    """
     Strict convolution with fixed kernel which can be updated using a trigger signal.
 
     ::
@@ -73,7 +73,7 @@ class Convolution2L(UGen):
         source=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Convolution2L.
 
         ::
@@ -111,7 +111,7 @@ class Convolution2L(UGen):
 
     @property
     def crossfade(self):
-        r"""
+        """
         Gets `crossfade` input of Convolution2L.
 
         ::
@@ -138,7 +138,7 @@ class Convolution2L(UGen):
 
     @property
     def framesize(self):
-        r"""
+        """
         Gets `framesize` input of Convolution2L.
 
         ::
@@ -165,7 +165,7 @@ class Convolution2L(UGen):
 
     @property
     def kernel(self):
-        r"""
+        """
         Gets `kernel` input of Convolution2L.
 
         ::
@@ -296,7 +296,7 @@ class Convolution2L(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Convolution2L.
 
         ::
@@ -330,7 +330,7 @@ class Convolution2L(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Convolution2L.
 
         ::

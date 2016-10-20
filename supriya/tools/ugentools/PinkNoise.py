@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PinkNoise(UGen):
-    r"""
+    """
     A pink noise unit generator.
 
     ::
@@ -36,7 +36,7 @@ class PinkNoise(UGen):
     def ar(
         cls,
         ):
-        r"""
+        """
         Constructs an audio-rate pink noise unit generator.
 
         ::
@@ -57,7 +57,7 @@ class PinkNoise(UGen):
     def kr(
         cls,
         ):
-        r"""
+        """
         Constructs a control-rate pink noise unit generator.
 
         ::

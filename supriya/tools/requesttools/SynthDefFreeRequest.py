@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class SynthDefFreeRequest(Request):
-    r"""
+    """
     A /d_free request.
 
     ::

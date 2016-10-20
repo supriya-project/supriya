@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SendTrig(UGen):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class SendTrig(UGen):
         source=None,
         value=0,
         ):
-        r"""
+        """
         Constructs an audio-rate SendTrig.
 
         ::
@@ -91,7 +91,7 @@ class SendTrig(UGen):
         source=None,
         value=0,
         ):
-        r"""
+        """
         Constructs a control-rate SendTrig.
 
         ::
@@ -121,7 +121,7 @@ class SendTrig(UGen):
 
     @property
     def id(self):
-        r"""
+        """
         Gets `id` input of SendTrig.
 
         ::
@@ -142,7 +142,7 @@ class SendTrig(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of SendTrig.
 
         ::
@@ -170,7 +170,7 @@ class SendTrig(UGen):
 
     @property
     def value(self):
-        r"""
+        """
         Gets `value` input of SendTrig.
 
         ::

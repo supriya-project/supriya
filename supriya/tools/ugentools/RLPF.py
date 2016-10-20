@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class RLPF(Filter):
-    r"""
+    """
     A resonant lowpass filter unit generator.
 
     ::
@@ -52,7 +52,7 @@ class RLPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate resonant lowpass filter.
 
         ::
@@ -84,7 +84,7 @@ class RLPF(Filter):
         reciprocal_of_q=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate resonant lowpass filter.
 
         ::
@@ -113,7 +113,7 @@ class RLPF(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of RLPF.
 
         ::
@@ -134,7 +134,7 @@ class RLPF(Filter):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of RLPF.
 
         ::
@@ -155,7 +155,7 @@ class RLPF(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of RLPF.
 
         ::

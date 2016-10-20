@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class MFCC(MultiOutUGen):
-    r"""
+    """
     Mel frequency cepstral coefficients.
 
     ::
@@ -56,7 +56,7 @@ class MFCC(MultiOutUGen):
         pv_chain=None,
         channel_count=13,
         ):
-        r"""
+        """
         Constructs a control-rate MFCC.
 
         ::
@@ -82,7 +82,7 @@ class MFCC(MultiOutUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of MFCC.
 
         ::

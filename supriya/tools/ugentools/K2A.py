@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class K2A(PureUGen):
-    r"""
+    """
     A control-rate to audio-rate converter unit generator.
 
     ::
@@ -47,7 +47,7 @@ class K2A(PureUGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate to audio-rate converter.
 
         ::
@@ -72,7 +72,7 @@ class K2A(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of K2A.
 
         ::

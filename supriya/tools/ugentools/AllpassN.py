@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class AllpassN(PureUGen):
-    r"""
+    """
     A non-interpolating allpass delay line unit generator.
 
     ::
@@ -57,7 +57,7 @@ class AllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate non-interpolating allpass delay line.
 
         ::
@@ -94,7 +94,7 @@ class AllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate non-interpolating allpass delay line.
 
         ::
@@ -126,7 +126,7 @@ class AllpassN(PureUGen):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of AllpassN.
 
         ::
@@ -147,7 +147,7 @@ class AllpassN(PureUGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of AllpassN.
 
         ::
@@ -168,7 +168,7 @@ class AllpassN(PureUGen):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of AllpassN.
 
         ::
@@ -189,7 +189,7 @@ class AllpassN(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of AllpassN.
 
         ::

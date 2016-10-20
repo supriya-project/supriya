@@ -4,7 +4,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class BufferGroup(ServerObjectProxy):
-    r"""
+    """
     A buffer group.
 
     ::
@@ -71,7 +71,7 @@ class BufferGroup(ServerObjectProxy):
         return float(self.buffer_id)
 
     def __getitem__(self, index):
-        r"""
+        """
         Gets buffer at `index`.
 
         Returns buffer.
@@ -85,7 +85,7 @@ class BufferGroup(ServerObjectProxy):
         return iter(self.buffers)
 
     def __len__(self):
-        r"""
+        """
         Gets length of buffer group.
 
         Returns integer.
@@ -93,7 +93,7 @@ class BufferGroup(ServerObjectProxy):
         return len(self._buffers)
 
     def __repr__(self):
-        r"""
+        """
         Gets interpreter representation of buffer group.
 
         Returns string.
@@ -131,7 +131,7 @@ class BufferGroup(ServerObjectProxy):
         server=None,
         sync=True,
         ):
-        r"""
+        """
         Allocates buffer group.
 
         Returns buffer group.
@@ -158,7 +158,7 @@ class BufferGroup(ServerObjectProxy):
         return self
 
     def free(self):
-        r"""
+        """
         Frees all buffers in buffer group.
 
         Returns none.
@@ -180,7 +180,7 @@ class BufferGroup(ServerObjectProxy):
         file_paths,
         server=None,
         ):
-        r"""
+        """
         Create a buffer group from `file_paths`.
 
         ::
@@ -223,7 +223,7 @@ class BufferGroup(ServerObjectProxy):
         return buffer_group
 
     def zero(self):
-        r"""
+        """
         Analogous to SuperCollider's Buffer.zero.
         """
         raise NotImplementedError
@@ -232,7 +232,7 @@ class BufferGroup(ServerObjectProxy):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets initial buffer id.
 
         Returns integer or none.
@@ -241,7 +241,7 @@ class BufferGroup(ServerObjectProxy):
 
     @property
     def buffers(self):
-        r"""
+        """
         Gets associated buffers.
 
         Returns tuple or buffers.
@@ -250,7 +250,7 @@ class BufferGroup(ServerObjectProxy):
 
     @property
     def is_allocated(self):
-        r"""
+        """
         Is true when buffer group is allocated. Otherwise false.
 
         Returns boolean.

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BPeakEQ(BEQSuite):
-    r"""
+    """
     A parametric equalizer.
 
     ::
@@ -64,7 +64,7 @@ class BPeakEQ(BEQSuite):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BPeakEQ.
 
         ::
@@ -110,7 +110,7 @@ class BPeakEQ(BEQSuite):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of BPeakEQ.
 
         ::
@@ -132,7 +132,7 @@ class BPeakEQ(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BPeakEQ.
 
         ::
@@ -154,7 +154,7 @@ class BPeakEQ(BEQSuite):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BPeakEQ.
 
         ::
@@ -176,7 +176,7 @@ class BPeakEQ(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BPeakEQ.
 
         ::

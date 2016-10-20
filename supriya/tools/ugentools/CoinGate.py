@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class CoinGate(UGen):
-    r"""
+    """
     A probabilistic trigger gate.
 
     ::
@@ -54,7 +54,7 @@ class CoinGate(UGen):
         probability=None,
         trigger=None,
         ):
-        r"""
+        """
         Constructs an audio-rate probabilitic trigger gate.
 
         ::
@@ -84,7 +84,7 @@ class CoinGate(UGen):
         probability=None,
         trigger=None,
         ):
-        r"""
+        """
         Constructs a control-rate probabilitic trigger gate.
 
         ::
@@ -112,7 +112,7 @@ class CoinGate(UGen):
 
     @property
     def probability(self):
-        r"""
+        """
         Gets `probability` input of Crackle.
 
         ::
@@ -132,7 +132,7 @@ class CoinGate(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Crackle.
 
         ::

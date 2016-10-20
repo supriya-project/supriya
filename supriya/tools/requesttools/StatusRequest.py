@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class StatusRequest(Request):
-    r"""
+    """
     A /status request.
 
     ::

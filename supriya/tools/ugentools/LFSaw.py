@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LFSaw(PureUGen):
-    r"""
+    """
     A non-band-limited sawtooth oscillator unit generator.
 
     ::
@@ -47,7 +47,7 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs an audio-rate non-band-limited sawtooth oscillator.
 
         ::
@@ -75,7 +75,7 @@ class LFSaw(PureUGen):
         frequency=440,
         initial_phase=0,
         ):
-        r"""
+        """
         Constructs a control-rate non-band-limited sawtooth oscillator.
 
         ::
@@ -101,7 +101,7 @@ class LFSaw(PureUGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LFSaw.
 
         ::
@@ -120,7 +120,7 @@ class LFSaw(PureUGen):
 
     @property
     def initial_phase(self):
-        r"""
+        """
         Gets `initial_phase` input of LFSaw.
 
         ::

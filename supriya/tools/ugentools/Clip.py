@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Clip(UGen):
-    r"""
+    """
     Clips a signal outside given thresholds.
 
     ::
@@ -59,7 +59,7 @@ class Clip(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts an audio-rate Clip ugen.
 
         ::
@@ -92,7 +92,7 @@ class Clip(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a scalar-rate Clip ugen.
 
         ::
@@ -125,7 +125,7 @@ class Clip(UGen):
         minimum=0,
         source=None,
         ):
-        r"""
+        """
         Constucts a control-rate Clip ugen.
 
         ::
@@ -155,7 +155,7 @@ class Clip(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Clip.
 
         ::
@@ -176,7 +176,7 @@ class Clip(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Clip.
 
         ::
@@ -197,7 +197,7 @@ class Clip(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `minimum` input of Clip.
 
         ::

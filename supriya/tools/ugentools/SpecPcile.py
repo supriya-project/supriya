@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SpecPcile(UGen):
-    r"""
+    """
     Find a percentile of FFT magnitude spectrum.
 
     ::
@@ -62,7 +62,7 @@ class SpecPcile(UGen):
         fraction=0.5,
         interpolate=0,
         ):
-        r"""
+        """
         Constructs a control-rate SpecPcile.
 
         ::
@@ -91,7 +91,7 @@ class SpecPcile(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of SpecPcile.
 
         ::
@@ -142,7 +142,7 @@ class SpecPcile(UGen):
 
     @property
     def fraction(self):
-        r"""
+        """
         Gets `fraction` input of SpecPcile.
 
         ::
@@ -164,7 +164,7 @@ class SpecPcile(UGen):
 
     @property
     def interpolate(self):
-        r"""
+        """
         Gets `interpolate` input of SpecPcile.
 
         ::

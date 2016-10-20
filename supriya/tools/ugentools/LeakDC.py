@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class LeakDC(Filter):
-    r"""
+    """
     A DC blocker.
 
     ::
@@ -54,7 +54,7 @@ class LeakDC(Filter):
         coefficient=0.995,
         source=0,
         ):
-        r"""
+        """
         Constructs an audio-rate DC blocker.
 
         ::
@@ -84,7 +84,7 @@ class LeakDC(Filter):
         coefficient=0.9,
         source=0,
         ):
-        r"""
+        """
         Constructs a control-rate DC blocker.
 
         ::
@@ -112,7 +112,7 @@ class LeakDC(Filter):
 
     @property
     def coefficient(self):
-        r"""
+        """
         Gets `coefficient` input of LeakDC.
 
         ::
@@ -132,7 +132,7 @@ class LeakDC(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LeakDC.
 
         ::

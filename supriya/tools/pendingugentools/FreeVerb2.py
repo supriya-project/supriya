@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class FreeVerb2(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -68,7 +68,7 @@ class FreeVerb2(MultiOutUGen):
         room=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate FreeVerb2.
 
         ::
@@ -104,7 +104,7 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def damping(self):
-        r"""
+        """
         Gets `damping` input of FreeVerb2.
 
         ::
@@ -127,7 +127,7 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def in_2(self):
-        r"""
+        """
         Gets `in_2` input of FreeVerb2.
 
         ::
@@ -149,7 +149,7 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def mix(self):
-        r"""
+        """
         Gets `mix` input of FreeVerb2.
 
         ::
@@ -172,7 +172,7 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def room(self):
-        r"""
+        """
         Gets `room` input of FreeVerb2.
 
         ::
@@ -195,7 +195,7 @@ class FreeVerb2(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of FreeVerb2.
 
         ::

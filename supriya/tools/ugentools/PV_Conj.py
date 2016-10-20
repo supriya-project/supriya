@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 
 class PV_Conj(PV_MagSquared):
-    r"""
+    """
     Complex conjugate.
 
     ::
@@ -47,7 +47,7 @@ class PV_Conj(PV_MagSquared):
         cls,
         pv_chain=None,
         ):
-        r"""
+        """
         Constructs a PV_Conj.
 
         ::
@@ -72,7 +72,7 @@ class PV_Conj(PV_MagSquared):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_Conj.
 
         ::

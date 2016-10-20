@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PackFFT(PV_ChainUGen):
-    r"""
+    """
 
     ::
 
@@ -72,7 +72,7 @@ class PackFFT(PV_ChainUGen):
         tobin=None,
         zeroothers=0,
         ):
-        r"""
+        """
         Constructs a PackFFT.
 
         ::
@@ -107,7 +107,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def bufsize(self):
-        r"""
+        """
         Gets `bufsize` input of PackFFT.
 
         ::
@@ -129,7 +129,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def chain(self):
-        r"""
+        """
         Gets `chain` input of PackFFT.
 
         ::
@@ -151,7 +151,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def frombin(self):
-        r"""
+        """
         Gets `frombin` input of PackFFT.
 
         ::
@@ -174,7 +174,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def magsphases(self):
-        r"""
+        """
         Gets `magsphases` input of PackFFT.
 
         ::
@@ -196,7 +196,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def tobin(self):
-        r"""
+        """
         Gets `tobin` input of PackFFT.
 
         ::
@@ -218,7 +218,7 @@ class PackFFT(PV_ChainUGen):
 
     @property
     def zeroothers(self):
-        r"""
+        """
         Gets `zeroothers` input of PackFFT.
 
         ::

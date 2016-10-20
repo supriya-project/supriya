@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufFrames(BufInfoUGenBase):
-    r"""
+    """
     A buffer frame count info unit generator.
 
     ::
@@ -36,7 +36,7 @@ class BufFrames(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufFrames.
 
         ::

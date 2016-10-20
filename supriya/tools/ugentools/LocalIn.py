@@ -5,7 +5,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class LocalIn(MultiOutUGen):
-    r"""
+    """
     A SynthDef-local bus input.
 
     ::
@@ -62,7 +62,7 @@ class LocalIn(MultiOutUGen):
         channel_count=1,
         default=0,
         ):
-        r"""
+        """
         Constructs an audio-rate local in.
 
         ::
@@ -90,7 +90,7 @@ class LocalIn(MultiOutUGen):
         channel_count=1,
         default=0,
         ):
-        r"""
+        """
         Constructs a control-rate local in.
 
         ::
@@ -116,7 +116,7 @@ class LocalIn(MultiOutUGen):
 
     @property
     def default(self):
-        r"""
+        """
         Gets `default` input of LocalIn.
 
         ::

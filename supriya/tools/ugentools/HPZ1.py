@@ -3,7 +3,7 @@ from supriya.tools.ugentools.LPZ1 import LPZ1
 
 
 class HPZ1(LPZ1):
-    r"""
+    """
     A two point difference filter.
 
     ::
@@ -49,7 +49,7 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate HPZ1.
 
         ::
@@ -78,7 +78,7 @@ class HPZ1(LPZ1):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate HPZ1.
 
         ::
@@ -114,7 +114,7 @@ class HPZ1(LPZ1):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of HPZ1.
 
         ::

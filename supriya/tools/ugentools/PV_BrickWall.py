@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BrickWall(PV_ChainUGen):
-    r"""
+    """
     Zeros bins.
 
     - If wipe == 0 then there is no effect.
@@ -58,7 +58,7 @@ class PV_BrickWall(PV_ChainUGen):
         pv_chain=None,
         wipe=0,
         ):
-        r"""
+        """
         Constructs a PV_BrickWall.
 
         ::
@@ -85,7 +85,7 @@ class PV_BrickWall(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_BrickWall.
 
         ::
@@ -129,7 +129,7 @@ class PV_BrickWall(PV_ChainUGen):
 
     @property
     def wipe(self):
-        r"""
+        """
         Gets `wipe` input of PV_BrickWall.
 
         ::

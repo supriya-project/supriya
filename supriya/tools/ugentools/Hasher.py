@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Hasher(UGen):
-    r"""
+    """
     A signal hasher.
 
     ::
@@ -49,7 +49,7 @@ class Hasher(UGen):
         cls,
         source=0,
         ):
-        r"""
+        """
         Constructs an audio-rate signal hasher.
 
         ::
@@ -76,7 +76,7 @@ class Hasher(UGen):
         cls,
         source=0,
         ):
-        r"""
+        """
         Constructs a control-rate signal hasher.
 
         ::
@@ -102,7 +102,7 @@ class Hasher(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of SignalHasher.
 
         ::

@@ -3,7 +3,7 @@ import sys
 
 
 def run_supriya_web():
-    r"""
+    """
     Runs Supriya with web-server.
 
     Returns none.

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Rotate2(MultiOutUGen):
-    r"""
+    """
     Equal-power sound-field rotator.
 
     ::
@@ -95,7 +95,7 @@ class Rotate2(MultiOutUGen):
 
     @property
     def position(self):
-        r"""
+        """
         Gets `position` property of Rotate2.
 
         ::
@@ -126,7 +126,7 @@ class Rotate2(MultiOutUGen):
 
     @property
     def x(self):
-        r"""
+        """
         Gets `x` input of Rotate2.
 
         ::
@@ -163,7 +163,7 @@ class Rotate2(MultiOutUGen):
 
     @property
     def y(self):
-        r"""
+        """
         Gets `y` input of Rotate2.
 
         ::

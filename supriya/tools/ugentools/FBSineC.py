@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class FBSineC(UGen):
-    r"""
+    """
     A cubic-interpolating feedback sine with chaotic phase indexing.
 
     ::
@@ -78,7 +78,7 @@ class FBSineC(UGen):
         xi=0.1,
         yi=0.1,
         ):
-        r"""
+        """
         Constructs an audio-rate FBSineC.
 
         ::
@@ -117,7 +117,7 @@ class FBSineC(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of FBSineC.
 
         ::
@@ -141,7 +141,7 @@ class FBSineC(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of FBSineC.
 
         ::
@@ -165,7 +165,7 @@ class FBSineC(UGen):
 
     @property
     def fb(self):
-        r"""
+        """
         Gets `fb` input of FBSineC.
 
         ::
@@ -189,7 +189,7 @@ class FBSineC(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of FBSineC.
 
         ::
@@ -213,7 +213,7 @@ class FBSineC(UGen):
 
     @property
     def im(self):
-        r"""
+        """
         Gets `im` input of FBSineC.
 
         ::
@@ -237,7 +237,7 @@ class FBSineC(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of FBSineC.
 
         ::
@@ -261,7 +261,7 @@ class FBSineC(UGen):
 
     @property
     def yi(self):
-        r"""
+        """
         Gets `yi` input of FBSineC.
 
         ::

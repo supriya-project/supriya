@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class IEnvGen(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class IEnvGen(UGen):
         envelope=None,
         index=None,
         ):
-        r"""
+        """
         Constructs an audio-rate IEnvGen.
 
         ::
@@ -83,7 +83,7 @@ class IEnvGen(UGen):
         envelope=None,
         index=None,
         ):
-        r"""
+        """
         Constructs a control-rate IEnvGen.
 
         ::
@@ -112,7 +112,7 @@ class IEnvGen(UGen):
 
     @property
     def envelope(self):
-        r"""
+        """
         Gets `envelope` input of IEnvGen.
 
         ::
@@ -130,7 +130,7 @@ class IEnvGen(UGen):
 
     @property
     def index(self):
-        r"""
+        """
         Gets `index` input of IEnvGen.
 
         ::

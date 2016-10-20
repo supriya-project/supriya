@@ -4,7 +4,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class BeatTrack(MultiOutUGen):
-    r"""
+    """
     Autocorrelation beat tracker.
 
     ::
@@ -58,7 +58,7 @@ class BeatTrack(MultiOutUGen):
         pv_chain=None,
         lock=0,
         ):
-        r"""
+        """
         Constructs a control-rate BeatTrack.
 
         ::
@@ -86,7 +86,7 @@ class BeatTrack(MultiOutUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of BeatTrack.
 
         ::
@@ -136,7 +136,7 @@ class BeatTrack(MultiOutUGen):
 
     @property
     def lock(self):
-        r"""
+        """
         Gets `lock` input of BeatTrack.
 
         ::

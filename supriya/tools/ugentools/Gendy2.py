@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Gendy2(UGen):
-    r"""
+    """
     A dynamic stochastic synthesis generator.
 
     ::
@@ -105,7 +105,7 @@ class Gendy2(UGen):
         maxfrequency=660,
         minfrequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate Gendy2.
 
         ::
@@ -164,7 +164,7 @@ class Gendy2(UGen):
         maxfrequency=1000,
         minfrequency=20,
         ):
-        r"""
+        """
         Constructs a control-rate Gendy2.
 
         ::
@@ -211,7 +211,7 @@ class Gendy2(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of Gendy2.
 
         ::
@@ -240,7 +240,7 @@ class Gendy2(UGen):
 
     @property
     def adparam(self):
-        r"""
+        """
         Gets `adparam` input of Gendy2.
 
         ::
@@ -269,7 +269,7 @@ class Gendy2(UGen):
 
     @property
     def ampdist(self):
-        r"""
+        """
         Gets `ampdist` input of Gendy2.
 
         ::
@@ -298,7 +298,7 @@ class Gendy2(UGen):
 
     @property
     def ampscale(self):
-        r"""
+        """
         Gets `ampscale` input of Gendy2.
 
         ::
@@ -327,7 +327,7 @@ class Gendy2(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of Gendy2.
 
         ::
@@ -356,7 +356,7 @@ class Gendy2(UGen):
 
     @property
     def ddparam(self):
-        r"""
+        """
         Gets `ddparam` input of Gendy2.
 
         ::
@@ -385,7 +385,7 @@ class Gendy2(UGen):
 
     @property
     def durdist(self):
-        r"""
+        """
         Gets `durdist` input of Gendy2.
 
         ::
@@ -414,7 +414,7 @@ class Gendy2(UGen):
 
     @property
     def durscale(self):
-        r"""
+        """
         Gets `durscale` input of Gendy2.
 
         ::
@@ -443,7 +443,7 @@ class Gendy2(UGen):
 
     @property
     def init_cps(self):
-        r"""
+        """
         Gets `init_cps` input of Gendy2.
 
         ::
@@ -472,7 +472,7 @@ class Gendy2(UGen):
 
     @property
     def knum(self):
-        r"""
+        """
         Gets `knum` input of Gendy2.
 
         ::
@@ -501,7 +501,7 @@ class Gendy2(UGen):
 
     @property
     def maxfrequency(self):
-        r"""
+        """
         Gets `maxfrequency` input of Gendy2.
 
         ::
@@ -530,7 +530,7 @@ class Gendy2(UGen):
 
     @property
     def minfrequency(self):
-        r"""
+        """
         Gets `minfrequency` input of Gendy2.
 
         ::

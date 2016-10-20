@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class BufAllpassN(PureUGen):
-    r"""
+    """
     A buffer-based non-interpolating allpass delay line unit generator.
 
     ::
@@ -64,7 +64,7 @@ class BufAllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate buffer-based non-interpolating allpass delay
         line.
 
@@ -105,7 +105,7 @@ class BufAllpassN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate buffer-based non-interpolating allpass delay
         line.
 
@@ -140,7 +140,7 @@ class BufAllpassN(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufAllpassN.
 
         ::
@@ -161,7 +161,7 @@ class BufAllpassN(PureUGen):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of BufAllpassN.
 
         ::
@@ -184,7 +184,7 @@ class BufAllpassN(PureUGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of BufAllpassN.
 
         ::
@@ -207,7 +207,7 @@ class BufAllpassN(PureUGen):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of BufAllpassN.
 
         ::
@@ -230,7 +230,7 @@ class BufAllpassN(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufAllpassN.
 
         ::

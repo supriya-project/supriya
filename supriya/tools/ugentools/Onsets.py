@@ -5,7 +5,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Onsets(UGen):
-    r"""
+    """
     An onset detector.
 
     ::
@@ -93,7 +93,7 @@ class Onsets(UGen):
         threshold=0.5,
         whtype=1,
         ):
-        r"""
+        """
         Constructs a control-rate Onsets.
 
         ::
@@ -133,7 +133,7 @@ class Onsets(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of Onsets.
 
         ::
@@ -190,7 +190,7 @@ class Onsets(UGen):
 
     @property
     def floor(self):
-        r"""
+        """
         Gets `floor` input of Onsets.
 
         ::
@@ -218,7 +218,7 @@ class Onsets(UGen):
 
     @property
     def medianspan(self):
-        r"""
+        """
         Gets `medianspan` input of Onsets.
 
         ::
@@ -246,7 +246,7 @@ class Onsets(UGen):
 
     @property
     def mingap(self):
-        r"""
+        """
         Gets `mingap` input of Onsets.
 
         ::
@@ -274,7 +274,7 @@ class Onsets(UGen):
 
     @property
     def odftype(self):
-        r"""
+        """
         Gets `odftype` input of Onsets.
 
         ::
@@ -302,7 +302,7 @@ class Onsets(UGen):
 
     @property
     def rawodf(self):
-        r"""
+        """
         Gets `rawodf` input of Onsets.
 
         ::
@@ -330,7 +330,7 @@ class Onsets(UGen):
 
     @property
     def relaxtime(self):
-        r"""
+        """
         Gets `relaxtime` input of Onsets.
 
         ::
@@ -358,7 +358,7 @@ class Onsets(UGen):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of Onsets.
 
         ::
@@ -386,7 +386,7 @@ class Onsets(UGen):
 
     @property
     def whtype(self):
-        r"""
+        """
         Gets `whtype` input of Onsets.
 
         ::

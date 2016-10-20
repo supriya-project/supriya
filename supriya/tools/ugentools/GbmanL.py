@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class GbmanL(UGen):
-    r"""
+    """
     A non-interpolating gingerbreadman map chaotic generator.
 
     ::
@@ -58,7 +58,7 @@ class GbmanL(UGen):
         xi=1.2,
         yi=2.1,
         ):
-        r"""
+        """
         Constructs an audio-rate GbmanL.
 
         ::
@@ -89,7 +89,7 @@ class GbmanL(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of GbmanL.
 
         ::
@@ -109,7 +109,7 @@ class GbmanL(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of GbmanL.
 
         ::
@@ -129,7 +129,7 @@ class GbmanL(UGen):
 
     @property
     def yi(self):
-        r"""
+        """
         Gets `yi` input of GbmanL.
 
         ::

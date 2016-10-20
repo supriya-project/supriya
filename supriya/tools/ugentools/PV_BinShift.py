@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_BinShift(PV_ChainUGen):
-    r"""
+    """
     Shifts and stretches bin positions.
 
     ::
@@ -62,7 +62,7 @@ class PV_BinShift(PV_ChainUGen):
         shift=0,
         stretch=1,
         ):
-        r"""
+        """
         Constructs a PV_BinShift.
 
         ::
@@ -93,7 +93,7 @@ class PV_BinShift(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_BinShift.
 
         ::
@@ -139,7 +139,7 @@ class PV_BinShift(PV_ChainUGen):
 
     @property
     def interpolate(self):
-        r"""
+        """
         Gets `interpolate` input of PV_BinShift.
 
         ::
@@ -163,7 +163,7 @@ class PV_BinShift(PV_ChainUGen):
 
     @property
     def shift(self):
-        r"""
+        """
         Gets `shift` input of PV_BinShift.
 
         ::
@@ -187,7 +187,7 @@ class PV_BinShift(PV_ChainUGen):
 
     @property
     def stretch(self):
-        r"""
+        """
         Gets `stretch` input of PV_BinShift.
 
         ::

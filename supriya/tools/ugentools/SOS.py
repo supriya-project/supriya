@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class SOS(Filter):
-    r"""
+    """
     A second-order filter section.
 
     ::
@@ -78,7 +78,7 @@ class SOS(Filter):
         b_2=0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate SOS.
 
         ::
@@ -122,7 +122,7 @@ class SOS(Filter):
         b_2=0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate SOS.
 
         ::
@@ -168,7 +168,7 @@ class SOS(Filter):
 
     @property
     def a_0(self):
-        r"""
+        """
         Gets `a_0` input of SOS.
 
         ::
@@ -192,7 +192,7 @@ class SOS(Filter):
 
     @property
     def a_1(self):
-        r"""
+        """
         Gets `a_1` input of SOS.
 
         ::
@@ -216,7 +216,7 @@ class SOS(Filter):
 
     @property
     def a_2(self):
-        r"""
+        """
         Gets `a_2` input of SOS.
 
         ::
@@ -240,7 +240,7 @@ class SOS(Filter):
 
     @property
     def b_1(self):
-        r"""
+        """
         Gets `b_1` input of SOS.
 
         ::
@@ -264,7 +264,7 @@ class SOS(Filter):
 
     @property
     def b_2(self):
-        r"""
+        """
         Gets `b_2` input of SOS.
 
         ::
@@ -288,7 +288,7 @@ class SOS(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of SOS.
 
         ::

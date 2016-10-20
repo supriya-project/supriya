@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufDelayN import BufDelayN
 
 
 class BufDelayL(BufDelayN):
-    r"""
+    """
     A buffer-based linear-interpolating delay line unit generator.
 
     ::
@@ -34,7 +34,7 @@ class BufDelayL(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate buffer-based linear-interpolating delay line.
 
         ::
@@ -66,7 +66,7 @@ class BufDelayL(BufDelayN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate buffer-based linear-interpolating delay line.
 
         ::
@@ -94,7 +94,7 @@ class BufDelayL(BufDelayN):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufDelayL.
 
         ::
@@ -115,7 +115,7 @@ class BufDelayL(BufDelayN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of BufDelayL.
 
         ::
@@ -138,7 +138,7 @@ class BufDelayL(BufDelayN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of BufDelayL.
 
         ::
@@ -161,7 +161,7 @@ class BufDelayL(BufDelayN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufDelayL.
 
         ::

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LocalOut(UGen):
-    r"""
+    """
     A SynthDef-local bus output.
 
     ::
@@ -55,7 +55,7 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate SynthDef-local bus output.
 
         ::
@@ -84,7 +84,7 @@ class LocalOut(UGen):
         cls,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate SynthDef-local bus output.
 
         ::
@@ -112,7 +112,7 @@ class LocalOut(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of local_out.
 
         ::

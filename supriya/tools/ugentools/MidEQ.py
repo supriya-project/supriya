@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class MidEQ(Filter):
-    r"""
+    """
     A parametric filter.
 
     ::
@@ -64,7 +64,7 @@ class MidEQ(Filter):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate MidEQ.
 
         ::
@@ -102,7 +102,7 @@ class MidEQ(Filter):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate MidEQ.
 
         ::
@@ -144,7 +144,7 @@ class MidEQ(Filter):
 
     @property
     def db(self):
-        r"""
+        """
         Gets `db` input of MidEQ.
 
         ::
@@ -166,7 +166,7 @@ class MidEQ(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of MidEQ.
 
         ::
@@ -188,7 +188,7 @@ class MidEQ(Filter):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of MidEQ.
 
         ::
@@ -210,7 +210,7 @@ class MidEQ(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of MidEQ.
 
         ::

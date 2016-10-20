@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ClipNoise(UGen):
-    r"""
+    """
     A clipped noise unit generator.
 
     ::
@@ -36,7 +36,7 @@ class ClipNoise(UGen):
     def ar(
         cls,
         ):
-        r"""
+        """
         Constructs an audio-rate clipped noise unit generator.
 
         ::
@@ -57,7 +57,7 @@ class ClipNoise(UGen):
     def kr(
         cls,
         ):
-        r"""
+        """
         Constructs a control-rate clipped noise unit generator.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class LinExp(PureUGen):
-    r"""
+    """
     A linear-to-exponential range mapper.
 
     ::
@@ -69,7 +69,7 @@ class LinExp(PureUGen):
         output_minimum=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate linear-to-exponential range mapper.
 
         ::
@@ -108,7 +108,7 @@ class LinExp(PureUGen):
         output_minimum=1,
         source=0,
         ):
-        r"""
+        """
         Constructs a control-rate linear-to-exponential range mapper.
 
         ::
@@ -142,7 +142,7 @@ class LinExp(PureUGen):
 
     @property
     def input_maximum(self):
-        r"""
+        """
         Gets `input_maximum` input of LinExp.
 
         ::
@@ -165,7 +165,7 @@ class LinExp(PureUGen):
 
     @property
     def input_minimum(self):
-        r"""
+        """
         Gets `input_minimum` input of LinExp.
 
         ::
@@ -188,7 +188,7 @@ class LinExp(PureUGen):
 
     @property
     def output_maximum(self):
-        r"""
+        """
         Gets `output_maximum` input of LinExp.
 
         ::
@@ -211,7 +211,7 @@ class LinExp(PureUGen):
 
     @property
     def output_minimum(self):
-        r"""
+        """
         Gets `output_minimum` input of LinExp.
 
         ::
@@ -234,7 +234,7 @@ class LinExp(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of LinExp.
 
         ::

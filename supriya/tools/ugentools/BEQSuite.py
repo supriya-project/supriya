@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class BEQSuite(Filter):
-    r"""
+    """
     Abstract base class of all BEQSuite UGens.
     """
 

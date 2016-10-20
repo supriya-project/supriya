@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DiskOut(UGen):
-    r"""
+    """
     Records to a soundfile to disk.
 
     ::
@@ -62,7 +62,7 @@ class DiskOut(UGen):
         buffer_id=None,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DiskOut.
 
         ::
@@ -91,7 +91,7 @@ class DiskOut(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DiskOut.
 
         ::
@@ -112,7 +112,7 @@ class DiskOut(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DiskOut.
 
         ::

@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class Envelope(SupriyaValueObject):
-    r"""
+    """
     An envelope.
 
     ::
@@ -137,7 +137,7 @@ class Envelope(SupriyaValueObject):
         amplitude=1.0,
         curve=-4.0,
         ):
-        r"""
+        """
         Make a percussion envelope.
 
         ::
@@ -214,7 +214,7 @@ class Envelope(SupriyaValueObject):
         duration=1.0,
         amplitude=1.0,
         ):
-        r"""
+        """
         Make a triangle envelope.
 
         ::

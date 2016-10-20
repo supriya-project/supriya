@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BBandStop(BEQSuite):
-    r"""
+    """
     A band-stop filter.
 
     ::
@@ -59,7 +59,7 @@ class BBandStop(BEQSuite):
         frequency=1200,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BBandStop.
 
         ::
@@ -103,7 +103,7 @@ class BBandStop(BEQSuite):
 
     @property
     def bandwidth(self):
-        r"""
+        """
         Gets `bandwidth` input of BBandStop.
 
         ::
@@ -124,7 +124,7 @@ class BBandStop(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BBandStop.
 
         ::
@@ -145,7 +145,7 @@ class BBandStop(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BBandStop.
 
         ::

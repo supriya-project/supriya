@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class BufDelayN(PureUGen):
-    r"""
+    """
     A buffer-based non-interpolating delay line unit generator.
 
     ::
@@ -60,7 +60,7 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate buffer-based non-interpolating delay line.
 
         ::
@@ -97,7 +97,7 @@ class BufDelayN(PureUGen):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate buffer-based non-interpolating delay line.
 
         ::
@@ -129,7 +129,7 @@ class BufDelayN(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufDelayN.
 
         ::
@@ -150,7 +150,7 @@ class BufDelayN(PureUGen):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of BufDelayN.
 
         ::
@@ -173,7 +173,7 @@ class BufDelayN(PureUGen):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of BufDelayN.
 
         ::
@@ -196,7 +196,7 @@ class BufDelayN(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BufDelayN.
 
         ::

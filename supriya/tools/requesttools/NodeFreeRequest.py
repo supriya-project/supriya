@@ -5,7 +5,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class NodeFreeRequest(Request):
-    r"""
+    """
     A /n_free request.
 
     ::

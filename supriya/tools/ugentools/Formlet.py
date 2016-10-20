@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Formlet(Filter):
-    r"""
+    """
     A FOF-like filter.
 
     ::
@@ -64,7 +64,7 @@ class Formlet(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Formlet.
 
         ::
@@ -102,7 +102,7 @@ class Formlet(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Formlet.
 
         ::
@@ -144,7 +144,7 @@ class Formlet(Filter):
 
     @property
     def attack_time(self):
-        r"""
+        """
         Gets `attack_time` input of Formlet.
 
         ::
@@ -166,7 +166,7 @@ class Formlet(Filter):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of Formlet.
 
         ::
@@ -188,7 +188,7 @@ class Formlet(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Formlet.
 
         ::
@@ -210,7 +210,7 @@ class Formlet(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Formlet.
 
         ::

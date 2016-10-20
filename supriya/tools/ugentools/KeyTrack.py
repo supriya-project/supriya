@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class KeyTrack(UGen):
-    r"""
+    """
     A key tracker.
 
     ::
@@ -62,7 +62,7 @@ class KeyTrack(UGen):
         chroma_leak=0.5,
         key_decay=2,
         ):
-        r"""
+        """
         Constructs a control-rate KeyTrack.
 
         ::
@@ -88,7 +88,7 @@ class KeyTrack(UGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of KeyTrack.
 
         ::
@@ -139,7 +139,7 @@ class KeyTrack(UGen):
 
     @property
     def chroma_leak(self):
-        r"""
+        """
         Gets `chroma_leak` input of KeyTrack.
 
         ::
@@ -161,7 +161,7 @@ class KeyTrack(UGen):
 
     @property
     def key_decay(self):
-        r"""
+        """
         Gets `key_decay` input of KeyTrack.
 
         ::

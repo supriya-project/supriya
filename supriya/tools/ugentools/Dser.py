@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dser(DUGen):
-    r"""
+    """
     A demand-rate sequence generator.
 
     ::
@@ -52,7 +52,7 @@ class Dser(DUGen):
         repeats=1,
         sequence=None,
         ):
-        r"""
+        """
         Constructs a Dser.
 
         ::
@@ -77,7 +77,7 @@ class Dser(DUGen):
 
     @property
     def repeats(self):
-        r"""
+        """
         Gets `repeats` input of Dser.
 
         ::
@@ -97,7 +97,7 @@ class Dser(DUGen):
 
     @property
     def sequence(self):
-        r"""
+        """
         Gets `sequence` input of Dser.
 
         ::

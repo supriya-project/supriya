@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Duty(UGen):
-    r"""
+    """
     A value is demanded of each UGen in the list and output according to a stream of duration values.
 
     ::
@@ -69,7 +69,7 @@ class Duty(UGen):
         level=1,
         reset=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Duty.
 
         ::
@@ -110,7 +110,7 @@ class Duty(UGen):
         level=1,
         reset=0,
         ):
-        r"""
+        """
         Constructs a control-rate Duty.
 
         ::
@@ -147,7 +147,7 @@ class Duty(UGen):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of Duty.
 
         ::
@@ -174,7 +174,7 @@ class Duty(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of Duty.
 
         ::
@@ -207,7 +207,7 @@ class Duty(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of Duty.
 
         ::
@@ -240,7 +240,7 @@ class Duty(UGen):
 
     @property
     def reset(self):
-        r"""
+        """
         Gets `reset` input of Duty.
 
         ::

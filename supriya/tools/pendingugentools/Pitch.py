@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pitch(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -98,7 +98,7 @@ class Pitch(MultiOutUGen):
         peak_threshold=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Pitch.
 
         ::
@@ -146,7 +146,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def amp_threshold(self):
-        r"""
+        """
         Gets `amp_threshold` input of Pitch.
 
         ::
@@ -175,7 +175,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def clar(self):
-        r"""
+        """
         Gets `clar` input of Pitch.
 
         ::
@@ -204,7 +204,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def down_sample(self):
-        r"""
+        """
         Gets `down_sample` input of Pitch.
 
         ::
@@ -233,7 +233,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def exec_frequency(self):
-        r"""
+        """
         Gets `exec_frequency` input of Pitch.
 
         ::
@@ -262,7 +262,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def init_frequency(self):
-        r"""
+        """
         Gets `init_frequency` input of Pitch.
 
         ::
@@ -291,7 +291,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def max_bins_per_octave(self):
-        r"""
+        """
         Gets `max_bins_per_octave` input of Pitch.
 
         ::
@@ -320,7 +320,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def max_frequency(self):
-        r"""
+        """
         Gets `max_frequency` input of Pitch.
 
         ::
@@ -349,7 +349,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def median(self):
-        r"""
+        """
         Gets `median` input of Pitch.
 
         ::
@@ -378,7 +378,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def min_frequency(self):
-        r"""
+        """
         Gets `min_frequency` input of Pitch.
 
         ::
@@ -407,7 +407,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def peak_threshold(self):
-        r"""
+        """
         Gets `peak_threshold` input of Pitch.
 
         ::
@@ -436,7 +436,7 @@ class Pitch(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Pitch.
 
         ::

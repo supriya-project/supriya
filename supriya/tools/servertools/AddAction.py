@@ -3,7 +3,7 @@ from supriya.tools.systemtools.Enumeration import Enumeration
 
 
 class AddAction(Enumeration):
-    r"""
+    """
     An enumeration of scsynth node add actions.
 
     ::

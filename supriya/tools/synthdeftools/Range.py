@@ -4,7 +4,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class Range(SupriyaObject):
-    r"""
+    """
     A range.
 
     ::
@@ -89,7 +89,7 @@ class Range(SupriyaObject):
 
     @staticmethod
     def scale(value, input_range, output_range, exponent=1.):
-        r"""
+        """
         Scales `value` from `input_range` to `output_range`.
 
         Curve value exponentially by `exponent`.

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dwrand(DUGen):
-    r"""
+    """
     A demand-rate weighted random sequence generator.
 
     ::
@@ -70,7 +70,7 @@ class Dwrand(DUGen):
         sequence=None,
         weights=None,
         ):
-        r"""
+        """
         Constructs a Dwrand.
 
         ::
@@ -98,7 +98,7 @@ class Dwrand(DUGen):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dwrand.
 
         ::
@@ -120,7 +120,7 @@ class Dwrand(DUGen):
 
     @property
     def repeats(self):
-        r"""
+        """
         Gets `repeats` input of Dwrand.
 
         ::
@@ -142,7 +142,7 @@ class Dwrand(DUGen):
 
     @property
     def sequence(self):
-        r"""
+        """
         Gets `sequence` input of Dwrand.
 
         ::
@@ -165,7 +165,7 @@ class Dwrand(DUGen):
 
     @property
     def weights(self):
-        r"""
+        """
         Gets `weights` input of Dwrand.
 
         ::

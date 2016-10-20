@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class Pan4(MultiOutUGen):
-    r"""
+    """
     A four-channel equal-power panner.
 
     ::
@@ -65,7 +65,7 @@ class Pan4(MultiOutUGen):
         x_position=0,
         y_position=0,
         ):
-        r"""
+        """
         Constructs an audio-rate Pan4.
 
         ::
@@ -101,7 +101,7 @@ class Pan4(MultiOutUGen):
         x_position=0,
         y_position=0,
         ):
-        r"""
+        """
         Constructs a control-rate Pan4.
 
         ::
@@ -133,7 +133,7 @@ class Pan4(MultiOutUGen):
 
     @property
     def gain(self):
-        r"""
+        """
         Gets `gain` input of Pan4.
 
         ::
@@ -155,7 +155,7 @@ class Pan4(MultiOutUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Pan4.
 
         ::
@@ -184,7 +184,7 @@ class Pan4(MultiOutUGen):
 
     @property
     def x_position(self):
-        r"""
+        """
         Gets `x_position` input of Pan4.
 
         ::
@@ -206,7 +206,7 @@ class Pan4(MultiOutUGen):
 
     @property
     def y_position(self):
-        r"""
+        """
         Gets `y_position` input of Pan4.
 
         ::

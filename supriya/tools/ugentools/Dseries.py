@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dseries(DUGen):
-    r"""
+    """
     A demand-rate arithmetic series.
 
     ::
@@ -54,7 +54,7 @@ class Dseries(DUGen):
         start=1,
         step=1,
         ):
-        r"""
+        """
         Constructs a Dseries.
 
         ::
@@ -80,7 +80,7 @@ class Dseries(DUGen):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dseries.
 
         ::
@@ -100,7 +100,7 @@ class Dseries(DUGen):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of Dseries.
 
         ::
@@ -120,7 +120,7 @@ class Dseries(DUGen):
 
     @property
     def step(self):
-        r"""
+        """
         Gets `step` input of Dseries.
 
         ::

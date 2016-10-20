@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class DumpOscRequest(Request):
-    r"""
+    """
     A /dumpOSC request.
 
     ::

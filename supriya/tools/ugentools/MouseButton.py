@@ -5,7 +5,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MouseButton(UGen):
-    r"""
+    """
     A mouse-button tracker.
 
     ::
@@ -59,7 +59,7 @@ class MouseButton(UGen):
         maximum=1,
         minimum=0,
         ):
-        r"""
+        """
         Constructs a control-rate mouse button tracking unit generator.
 
         ::
@@ -87,7 +87,7 @@ class MouseButton(UGen):
 
     @property
     def lag(self):
-        r"""
+        """
         Gets `lag` input of MouseButton.
 
         ::
@@ -107,7 +107,7 @@ class MouseButton(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of MouseButton.
 
         ::
@@ -127,7 +127,7 @@ class MouseButton(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of MouseButton.
 
         ::

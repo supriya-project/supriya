@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class PulseDivider(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class PulseDivider(UGen):
         start=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate PulseDivider.
 
         ::
@@ -89,7 +89,7 @@ class PulseDivider(UGen):
         start=0,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate PulseDivider.
 
         ::
@@ -118,7 +118,7 @@ class PulseDivider(UGen):
 
     @property
     def div(self):
-        r"""
+        """
         Gets `div` input of PulseDivider.
 
         ::
@@ -138,7 +138,7 @@ class PulseDivider(UGen):
 
     @property
     def start(self):
-        r"""
+        """
         Gets `start` input of PulseDivider.
 
         ::
@@ -158,7 +158,7 @@ class PulseDivider(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of PulseDivider.
 
         ::

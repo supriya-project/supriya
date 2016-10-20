@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Resonz(Filter):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class Resonz(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Resonz.
 
         ::
@@ -93,7 +93,7 @@ class Resonz(Filter):
         frequency=440,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Resonz.
 
         ::
@@ -133,7 +133,7 @@ class Resonz(Filter):
 
     @property
     def bwr(self):
-        r"""
+        """
         Gets `bwr` input of Resonz.
 
         ::
@@ -154,7 +154,7 @@ class Resonz(Filter):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of Resonz.
 
         ::
@@ -175,7 +175,7 @@ class Resonz(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Resonz.
 
         ::

@@ -5,7 +5,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Poll(UGen):
-    r"""
+    """
     A UGen poller.
 
     ::
@@ -176,7 +176,7 @@ class Poll(UGen):
 
     @property
     def label(self):
-        r"""
+        """
         Gets `label` input of Poll.
 
         ::
@@ -202,7 +202,7 @@ class Poll(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Poll.
 
         ::
@@ -232,7 +232,7 @@ class Poll(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Poll.
 
         ::
@@ -262,7 +262,7 @@ class Poll(UGen):
 
     @property
     def trigger_id(self):
-        r"""
+        """
         Gets `trigger_id` input of Poll.
 
         ::

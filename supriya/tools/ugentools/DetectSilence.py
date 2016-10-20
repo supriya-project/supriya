@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class DetectSilence(Filter):
-    r"""
+    """
     Evaluates `done_action` when input falls below `threshold`.
 
     ::
@@ -70,7 +70,7 @@ class DetectSilence(Filter):
         source=0,
         time=0.1,
         ):
-        r"""
+        """
         Constructs an audio-rate DetectSilence.
 
         ::
@@ -107,7 +107,7 @@ class DetectSilence(Filter):
         source=0,
         time=0.1,
         ):
-        r"""
+        """
         Constructs a control-rate DetectSilence.
 
         ::
@@ -140,7 +140,7 @@ class DetectSilence(Filter):
 
     @property
     def done_action(self):
-        r"""
+        """
         Gets `done_action` input of DetectSilence.
 
         ::
@@ -163,7 +163,7 @@ class DetectSilence(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DetectSilence.
 
         ::
@@ -208,7 +208,7 @@ class DetectSilence(Filter):
 
     @property
     def threshold(self):
-        r"""
+        """
         Gets `threshold` input of DetectSilence.
 
         ::
@@ -231,7 +231,7 @@ class DetectSilence(Filter):
 
     @property
     def time(self):
-        r"""
+        """
         Gets `time` input of DetectSilence.
 
         ::

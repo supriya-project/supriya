@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ModDif(UGen):
-    r"""
+    """
 
     ::
 
@@ -57,7 +57,7 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r"""
+        """
         Constructs an audio-rate ModDif.
 
         ::
@@ -89,7 +89,7 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r"""
+        """
         Constructs a scale-rate ModDif.
 
         ::
@@ -121,7 +121,7 @@ class ModDif(UGen):
         x=0,
         y=0,
         ):
-        r"""
+        """
         Constructs a control-rate ModDif.
 
         ::
@@ -150,7 +150,7 @@ class ModDif(UGen):
 
     @property
     def mod(self):
-        r"""
+        """
         Gets `mod` input of ModDif.
 
         ::
@@ -170,7 +170,7 @@ class ModDif(UGen):
 
     @property
     def x(self):
-        r"""
+        """
         Gets `x` input of ModDif.
 
         ::
@@ -190,7 +190,7 @@ class ModDif(UGen):
 
     @property
     def y(self):
-        r"""
+        """
         Gets `y` input of ModDif.
 
         ::

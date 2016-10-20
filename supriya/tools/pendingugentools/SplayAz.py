@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class SplayAz(UGen):
-    r"""
+    """
 
     ::
 
@@ -82,7 +82,7 @@ class SplayAz(UGen):
         spread=1,
         width=2,
         ):
-        r"""
+        """
         Constructs an audio-rate SplayAz.
 
         ::
@@ -131,7 +131,7 @@ class SplayAz(UGen):
         spread=1,
         width=2,
         ):
-        r"""
+        """
         Constructs a control-rate SplayAz.
 
         ::
@@ -170,7 +170,7 @@ class SplayAz(UGen):
 
     @property
     def center(self):
-        r"""
+        """
         Gets `center` input of SplayAz.
 
         ::
@@ -195,7 +195,7 @@ class SplayAz(UGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of SplayAz.
 
         ::
@@ -220,7 +220,7 @@ class SplayAz(UGen):
 
     @property
     def in_array(self):
-        r"""
+        """
         Gets `in_array` input of SplayAz.
 
         ::
@@ -244,7 +244,7 @@ class SplayAz(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of SplayAz.
 
         ::
@@ -269,7 +269,7 @@ class SplayAz(UGen):
 
     @property
     def level_comp(self):
-        r"""
+        """
         Gets `level_comp` input of SplayAz.
 
         ::
@@ -294,7 +294,7 @@ class SplayAz(UGen):
 
     @property
     def orientation(self):
-        r"""
+        """
         Gets `orientation` input of SplayAz.
 
         ::
@@ -319,7 +319,7 @@ class SplayAz(UGen):
 
     @property
     def spread(self):
-        r"""
+        """
         Gets `spread` input of SplayAz.
 
         ::
@@ -344,7 +344,7 @@ class SplayAz(UGen):
 
     @property
     def width(self):
-        r"""
+        """
         Gets `width` input of SplayAz.
 
         ::

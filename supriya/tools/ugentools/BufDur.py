@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BufInfoUGenBase import BufInfoUGenBase
 
 
 class BufDur(BufInfoUGenBase):
-    r"""
+    """
     A buffer duration info unit generator.
 
     ::
@@ -36,7 +36,7 @@ class BufDur(BufInfoUGenBase):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of BufDur.
 
         ::

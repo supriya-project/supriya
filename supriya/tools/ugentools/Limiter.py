@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Limiter(UGen):
-    r"""
+    """
     A peak limiter.
 
     ::
@@ -59,7 +59,7 @@ class Limiter(UGen):
         level=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Limiter.
 
         ::
@@ -89,7 +89,7 @@ class Limiter(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of Limiter.
 
         ::
@@ -110,7 +110,7 @@ class Limiter(UGen):
 
     @property
     def level(self):
-        r"""
+        """
         Gets `level` input of Limiter.
 
         ::
@@ -131,7 +131,7 @@ class Limiter(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Limiter.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
 class PV_PhaseShift(PV_ChainUGen):
-    r"""
+    """
     Shifts phase.
 
     ::
@@ -58,7 +58,7 @@ class PV_PhaseShift(PV_ChainUGen):
         integrate=0,
         shift=None,
         ):
-        r"""
+        """
         Constructs a PV_PhaseShift.
 
         ::
@@ -88,7 +88,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
     @property
     def pv_chain(self):
-        r"""
+        """
         Gets `pv_chain` input of PV_PhaseShift.
 
         ::
@@ -134,7 +134,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
     @property
     def integrate(self):
-        r"""
+        """
         Gets `integrate` input of PV_PhaseShift.
 
         ::
@@ -158,7 +158,7 @@ class PV_PhaseShift(PV_ChainUGen):
 
     @property
     def shift(self):
-        r"""
+        """
         Gets `shift` input of PV_PhaseShift.
 
         ::

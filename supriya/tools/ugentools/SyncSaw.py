@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SyncSaw(PureUGen):
-    r"""
+    """
     A sawtooth wave that is hard synched to a fundamental pitch.
 
     ::
@@ -53,7 +53,7 @@ class SyncSaw(PureUGen):
         saw_frequency=440,
         sync_frequency=440,
         ):
-        r"""
+        """
         Constructs an audio-rate SyncSaw.
 
         ::
@@ -82,7 +82,7 @@ class SyncSaw(PureUGen):
         saw_frequency=440,
         sync_frequency=440,
         ):
-        r"""
+        """
         Constructs a control-rate SyncSaw.
 
         ::
@@ -109,7 +109,7 @@ class SyncSaw(PureUGen):
 
     @property
     def saw_frequency(self):
-        r"""
+        """
         Gets `saw_frequency` input of SyncSaw.
 
         ::
@@ -128,7 +128,7 @@ class SyncSaw(PureUGen):
 
     @property
     def sync_frequency(self):
-        r"""
+        """
         Gets `sync_frequency` input of SyncSaw.
 
         ::

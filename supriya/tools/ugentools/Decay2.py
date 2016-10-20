@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class Decay2(Filter):
-    r"""
+    """
     A leaky signal integrator.
 
     ::
@@ -53,7 +53,7 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate leaky signal integrator.
 
         ::
@@ -84,7 +84,7 @@ class Decay2(Filter):
         decay_time=1.0,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate leaky signal integrator.
 
         ::
@@ -112,7 +112,7 @@ class Decay2(Filter):
 
     @property
     def attack_time(self):
-        r"""
+        """
         Gets `attack_time` input of Decay2.
 
         ::
@@ -135,7 +135,7 @@ class Decay2(Filter):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of Decay2.
 
         ::
@@ -158,7 +158,7 @@ class Decay2(Filter):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Decay2.
 
         ::

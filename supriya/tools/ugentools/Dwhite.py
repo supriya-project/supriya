@@ -3,7 +3,7 @@ from supriya.tools.ugentools.DUGen import DUGen
 
 
 class Dwhite(DUGen):
-    r"""
+    """
     A demand-rate white noise random generator.
 
     ::
@@ -54,7 +54,7 @@ class Dwhite(DUGen):
         maximum=1,
         minimum=0,
         ):
-        r"""
+        """
         Constructs a Dwhite.
 
         ::
@@ -80,7 +80,7 @@ class Dwhite(DUGen):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Dwhite.
 
         ::
@@ -100,7 +100,7 @@ class Dwhite(DUGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Dwhite.
 
         ::
@@ -120,7 +120,7 @@ class Dwhite(DUGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Dwhite.
 
         ::

@@ -5,7 +5,7 @@ from supriya.tools.requesttools.BufferAllocateReadRequest import BufferAllocateR
 
 
 class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
-    r"""
+    """
     A /b_allocRead request.
 
     ::

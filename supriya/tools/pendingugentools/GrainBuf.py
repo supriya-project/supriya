@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainBuf(MultiOutUGen):
-    r"""
+    """
 
     ::
 
@@ -92,7 +92,7 @@ class GrainBuf(MultiOutUGen):
         sndbuf=None,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate GrainBuf.
 
         ::
@@ -137,7 +137,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r"""
+        """
         Gets `channel_count` input of GrainBuf.
 
         ::
@@ -164,7 +164,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of GrainBuf.
 
         ::
@@ -191,7 +191,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def envbufnum(self):
-        r"""
+        """
         Gets `envbufnum` input of GrainBuf.
 
         ::
@@ -218,7 +218,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def interpolate(self):
-        r"""
+        """
         Gets `interpolate` input of GrainBuf.
 
         ::
@@ -245,7 +245,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def max_grains(self):
-        r"""
+        """
         Gets `max_grains` input of GrainBuf.
 
         ::
@@ -272,7 +272,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def pan(self):
-        r"""
+        """
         Gets `pan` input of GrainBuf.
 
         ::
@@ -299,7 +299,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def pos(self):
-        r"""
+        """
         Gets `pos` input of GrainBuf.
 
         ::
@@ -326,7 +326,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def rate(self):
-        r"""
+        """
         Gets `rate` input of GrainBuf.
 
         ::
@@ -353,7 +353,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def sndbuf(self):
-        r"""
+        """
         Gets `sndbuf` input of GrainBuf.
 
         ::
@@ -379,7 +379,7 @@ class GrainBuf(MultiOutUGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of GrainBuf.
 
         ::

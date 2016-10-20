@@ -3,7 +3,7 @@ from supriya.tools.ugentools.OnePole import OnePole
 
 
 class OneZero(OnePole):
-    r"""
+    """
 
     ::
 
@@ -53,7 +53,7 @@ class OneZero(OnePole):
         coefficient=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate OneZero.
 
         ::
@@ -85,7 +85,7 @@ class OneZero(OnePole):
         coefficient=0.5,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate OneZero.
 
         ::
@@ -123,7 +123,7 @@ class OneZero(OnePole):
 
     @property
     def coefficient(self):
-        r"""
+        """
         Gets `coefficient` input of OneZero.
 
         ::
@@ -143,7 +143,7 @@ class OneZero(OnePole):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of OneZero.
 
         ::

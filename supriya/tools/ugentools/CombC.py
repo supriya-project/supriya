@@ -3,7 +3,7 @@ from supriya.tools.ugentools.CombN import CombN
 
 
 class CombC(CombN):
-    r"""
+    """
     A cubic-interpolating comb delay line unit generator.
 
     ::
@@ -30,7 +30,7 @@ class CombC(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate cubic-interpolating comb delay line.
 
         ::
@@ -60,7 +60,7 @@ class CombC(CombN):
         maximum_delay_time=0.2,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate cubic-interpolating comb delay line.
 
         ::
@@ -86,7 +86,7 @@ class CombC(CombN):
 
     @property
     def decay_time(self):
-        r"""
+        """
         Gets `decay_time` input of CombC.
 
         ::
@@ -107,7 +107,7 @@ class CombC(CombN):
 
     @property
     def delay_time(self):
-        r"""
+        """
         Gets `delay_time` input of CombC.
 
         ::
@@ -128,7 +128,7 @@ class CombC(CombN):
 
     @property
     def maximum_delay_time(self):
-        r"""
+        """
         Gets `maximum_delay_time` input of CombC.
 
         ::
@@ -149,7 +149,7 @@ class CombC(CombN):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of CombC.
 
         ::

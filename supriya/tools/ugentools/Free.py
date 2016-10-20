@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Free(UGen):
-    r"""
+    """
     Frees the node at `node_id` when triggered by `trigger`.
 
     ::
@@ -53,7 +53,7 @@ class Free(UGen):
         trigger=None,
         node_id=None,
         ):
-        r"""
+        """
         Constructs a control-rate ugen.
 
         ::
@@ -82,7 +82,7 @@ class Free(UGen):
 
     @property
     def node_id(self):
-        r"""
+        """
         Gets `node_id` input of Free.
 
         ::
@@ -102,7 +102,7 @@ class Free(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of Free.
 
         ::

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LinCongC(UGen):
-    r"""
+    """
     A cubic-interpolating linear congruential chaotic generator.
 
     ::
@@ -68,7 +68,7 @@ class LinCongC(UGen):
         m=1,
         xi=0,
         ):
-        r"""
+        """
         Constructs an audio-rate LinCongC.
 
         ::
@@ -103,7 +103,7 @@ class LinCongC(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of LinCongC.
 
         ::
@@ -125,7 +125,7 @@ class LinCongC(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of LinCongC.
 
         ::
@@ -147,7 +147,7 @@ class LinCongC(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LinCongC.
 
         ::
@@ -169,7 +169,7 @@ class LinCongC(UGen):
 
     @property
     def m(self):
-        r"""
+        """
         Gets `m` input of LinCongC.
 
         ::
@@ -191,7 +191,7 @@ class LinCongC(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of LinCongC.
 
         ::

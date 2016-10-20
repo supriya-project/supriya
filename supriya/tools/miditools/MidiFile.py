@@ -3,7 +3,7 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class MidiFile(SupriyaValueObject):
-    r"""
+    """
     MIDI file.
     """
 
@@ -27,7 +27,7 @@ class MidiFile(SupriyaValueObject):
 
     @property
     def midi_tracks(self):
-        r"""
+        """
         Gets MIDI tracks in MIDI file.
         """
         return self._midi_tracks

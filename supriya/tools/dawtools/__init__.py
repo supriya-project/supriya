@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-r"""
+"""
 High-level tools for synths, effects, monitoring and mixing.
 """
 

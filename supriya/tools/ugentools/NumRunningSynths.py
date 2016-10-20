@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class NumRunningSynths(InfoUGenBase):
-    r"""
+    """
     A number of running synths info unit generator.
 
     ::
@@ -34,7 +34,7 @@ class NumRunningSynths(InfoUGenBase):
 
     @classmethod
     def kr(cls, **kwargs):
-        r"""
+        """
         Construct a control-rate ugen.
 
         ::

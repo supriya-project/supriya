@@ -3,7 +3,7 @@ from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 
 
 class SampleDur(InfoUGenBase):
-    r"""
+    """
     A sample duration info unit generator.
 
     ::

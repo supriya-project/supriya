@@ -10,7 +10,7 @@ from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
 class SynthDef(ServerObjectProxy):
-    r"""
+    """
     A synth definition.
 
     ::
@@ -114,7 +114,7 @@ class SynthDef(ServerObjectProxy):
         return True
 
     def __graph__(self):
-        r"""
+        """
         Graphs SynthDef.
 
         ::
@@ -168,7 +168,7 @@ class SynthDef(ServerObjectProxy):
             )
 
     def __str__(self):
-        r"""
+        """
         Gets string representation of synth definition.
 
         ::
@@ -646,7 +646,7 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def from_ugens(ugens):
-        r"""
+        """
         Makes a synthdef from `ugens`.
 
         ::
@@ -681,7 +681,7 @@ class SynthDef(ServerObjectProxy):
         return synthdef
 
     def play(self, add_action=None, target_node=None, **kwargs):
-        r"""
+        """
         Plays the synthdef on the server.
 
         ::
@@ -750,7 +750,7 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def audio_input_channel_count(self):
-        r"""
+        """
         Gets audio input channel count of synthdef.
 
         ::
@@ -788,7 +788,7 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def audio_output_channel_count(self):
-        r"""
+        """
         Gets audio output channel count of synthdef.
 
         ::
@@ -841,7 +841,7 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def control_input_channel_count(self):
-        r"""
+        """
         Gets control input channel count of synthdef.
 
         ::
@@ -879,7 +879,7 @@ class SynthDef(ServerObjectProxy):
 
     @property
     def control_output_channel_count(self):
-        r"""
+        """
         Gets control output channel count of synthdef.
 
         ::

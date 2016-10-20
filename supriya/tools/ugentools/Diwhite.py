@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Dwhite import Dwhite
 
 
 class Diwhite(Dwhite):
-    r"""
+    """
     An integer demand-rate white noise random generator.
 
     ::
@@ -52,7 +52,7 @@ class Diwhite(Dwhite):
         maximum=1,
         minimum=0,
         ):
-        r"""
+        """
         Constructs a Diwhite.
 
         ::
@@ -78,7 +78,7 @@ class Diwhite(Dwhite):
 
     @property
     def length(self):
-        r"""
+        """
         Gets `length` input of Diwhite.
 
         ::
@@ -98,7 +98,7 @@ class Diwhite(Dwhite):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of Diwhite.
 
         ::
@@ -118,7 +118,7 @@ class Diwhite(Dwhite):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of Diwhite.
 
         ::

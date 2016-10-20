@@ -3,7 +3,7 @@ from supriya.tools.ugentools.TwoPole import TwoPole
 
 
 class TwoZero(TwoPole):
-    r"""
+    """
 
     ::
 
@@ -58,7 +58,7 @@ class TwoZero(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate TwoZero.
 
         ::
@@ -93,7 +93,7 @@ class TwoZero(TwoPole):
         radius=0.8,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate TwoZero.
 
         ::
@@ -133,7 +133,7 @@ class TwoZero(TwoPole):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of TwoZero.
 
         ::
@@ -154,7 +154,7 @@ class TwoZero(TwoPole):
 
     @property
     def radius(self):
-        r"""
+        """
         Gets `radius` input of TwoZero.
 
         ::
@@ -175,7 +175,7 @@ class TwoZero(TwoPole):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of TwoZero.
 
         ::

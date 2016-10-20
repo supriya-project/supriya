@@ -5,7 +5,7 @@ from supriya.tools.miditools.MidiCallback import MidiCallback
 
 
 class MidiController(MidiCallback, BindingSource):
-    r"""
+    """
     A MIDI controller change callback.
 
     ::
@@ -68,7 +68,7 @@ class MidiController(MidiCallback, BindingSource):
 
     @property
     def controller_number(self):
-        r"""
+        """
         Gets callback controller number.
 
         ::
@@ -82,7 +82,7 @@ class MidiController(MidiCallback, BindingSource):
 
     @property
     def dispatcher_key(self):
-        r"""
+        """
         Gets callback dispatcher key.
 
         ::

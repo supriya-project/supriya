@@ -3,7 +3,7 @@ from abjad.tools import documentationtools
 
 
 def list_all_supriya_functions():
-    r"""
+    """
     Lists all supriya functions.
     """
     functions = documentationtools.list_all_functions(modules='supriya.tools')

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class LatoocarfianL(UGen):
-    r"""
+    """
     A linear-interpolating Latoocarfian chaotic generator.
 
     ::
@@ -78,7 +78,7 @@ class LatoocarfianL(UGen):
         xi=0.5,
         yi=0.5,
         ):
-        r"""
+        """
         Constructs an audio-rate LatoocarfianL.
 
         ::
@@ -117,7 +117,7 @@ class LatoocarfianL(UGen):
 
     @property
     def a(self):
-        r"""
+        """
         Gets `a` input of LatoocarfianL.
 
         ::
@@ -141,7 +141,7 @@ class LatoocarfianL(UGen):
 
     @property
     def b(self):
-        r"""
+        """
         Gets `b` input of LatoocarfianL.
 
         ::
@@ -165,7 +165,7 @@ class LatoocarfianL(UGen):
 
     @property
     def c(self):
-        r"""
+        """
         Gets `c` input of LatoocarfianL.
 
         ::
@@ -189,7 +189,7 @@ class LatoocarfianL(UGen):
 
     @property
     def d(self):
-        r"""
+        """
         Gets `d` input of LatoocarfianL.
 
         ::
@@ -213,7 +213,7 @@ class LatoocarfianL(UGen):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of LatoocarfianL.
 
         ::
@@ -237,7 +237,7 @@ class LatoocarfianL(UGen):
 
     @property
     def xi(self):
-        r"""
+        """
         Gets `xi` input of LatoocarfianL.
 
         ::
@@ -261,7 +261,7 @@ class LatoocarfianL(UGen):
 
     @property
     def yi(self):
-        r"""
+        """
         Gets `yi` input of LatoocarfianL.
 
         ::

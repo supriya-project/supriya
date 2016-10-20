@@ -4,7 +4,7 @@ from supriya.tools.requesttools.Request import Request
 
 
 class BufferNormalizeRequest(Request):
-    r"""
+    """
     A `/b_gen normalize` request.
 
     ::

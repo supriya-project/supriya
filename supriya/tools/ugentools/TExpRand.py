@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class TExpRand(UGen):
-    r"""
+    """
     A triggered exponential random number generator.
 
     ::
@@ -59,7 +59,7 @@ class TExpRand(UGen):
         minimum=0.01,
         trigger=0,
         ):
-        r"""
+        """
         Constructs an audio-rate triggered exponential random number
         generator.
 
@@ -93,7 +93,7 @@ class TExpRand(UGen):
         minimum=0.01,
         trigger=0,
         ):
-        r"""
+        """
         Constructs a control-rate triggered exponential random number
         generator.
 
@@ -124,7 +124,7 @@ class TExpRand(UGen):
 
     @property
     def maximum(self):
-        r"""
+        """
         Gets `maximum` input of TExpRand.
 
         ::
@@ -145,7 +145,7 @@ class TExpRand(UGen):
 
     @property
     def minimum(self):
-        r"""
+        """
         Gets `minimum` input of TExpRand.
 
         ::
@@ -166,7 +166,7 @@ class TExpRand(UGen):
 
     @property
     def trigger(self):
-        r"""
+        """
         Gets `trigger` input of TExpRand.
 
         ::

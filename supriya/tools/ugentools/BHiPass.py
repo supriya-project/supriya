@@ -3,7 +3,7 @@ from supriya.tools.ugentools.BEQSuite import BEQSuite
 
 
 class BHiPass(BEQSuite):
-    r"""
+    """
     A high-pass filter.
 
     ::
@@ -59,7 +59,7 @@ class BHiPass(BEQSuite):
         reciprocal_of_q=1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate BHiPass.
 
         ::
@@ -103,7 +103,7 @@ class BHiPass(BEQSuite):
 
     @property
     def frequency(self):
-        r"""
+        """
         Gets `frequency` input of BHiPass.
 
         ::
@@ -124,7 +124,7 @@ class BHiPass(BEQSuite):
 
     @property
     def reciprocal_of_q(self):
-        r"""
+        """
         Gets `reciprocal_of_q` input of BHiPass.
 
         ::
@@ -145,7 +145,7 @@ class BHiPass(BEQSuite):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of BHiPass.
 
         ::

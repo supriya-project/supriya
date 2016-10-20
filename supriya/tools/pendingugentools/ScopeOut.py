@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ScopeOut(UGen):
-    r"""
+    """
 
     ::
 
@@ -52,7 +52,7 @@ class ScopeOut(UGen):
         buffer_id=0,
         input_array=None,
         ):
-        r"""
+        """
         Constructs an audio-rate ScopeOut.
 
         ::
@@ -81,7 +81,7 @@ class ScopeOut(UGen):
         buffer_id=0,
         input_array=None,
         ):
-        r"""
+        """
         Constructs a control-rate ScopeOut.
 
         ::
@@ -108,7 +108,7 @@ class ScopeOut(UGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of ScopeOut.
 
         ::
@@ -127,7 +127,7 @@ class ScopeOut(UGen):
 
     @property
     def input_array(self):
-        r"""
+        """
         Gets `input_array` input of ScopeOut.
 
         ::

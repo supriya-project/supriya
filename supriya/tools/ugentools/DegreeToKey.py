@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class DegreeToKey(PureUGen):
-    r"""
+    """
     A signal-to-modal-pitch converter.`
 
     ::
@@ -59,7 +59,7 @@ class DegreeToKey(PureUGen):
         octave=12,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate DegreeToKey.
 
         ::
@@ -92,7 +92,7 @@ class DegreeToKey(PureUGen):
         octave=12,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate DegreeToKey.
 
         ::
@@ -122,7 +122,7 @@ class DegreeToKey(PureUGen):
 
     @property
     def buffer_id(self):
-        r"""
+        """
         Gets `buffer_id` input of DegreeToKey.
 
         ::
@@ -143,7 +143,7 @@ class DegreeToKey(PureUGen):
 
     @property
     def octave(self):
-        r"""
+        """
         Gets `octave` input of DegreeToKey.
 
         ::
@@ -164,7 +164,7 @@ class DegreeToKey(PureUGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of DegreeToKey.
 
         ::

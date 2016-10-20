@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class Trig1(UGen):
-    r"""
+    """
     A timed trigger.
 
     ::
@@ -54,7 +54,7 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs an audio-rate Trig1.
 
         ::
@@ -84,7 +84,7 @@ class Trig1(UGen):
         duration=0.1,
         source=None,
         ):
-        r"""
+        """
         Constructs a control-rate Trig1.
 
         ::
@@ -112,7 +112,7 @@ class Trig1(UGen):
 
     @property
     def duration(self):
-        r"""
+        """
         Gets `duration` input of Trig1.
 
         ::
@@ -132,7 +132,7 @@ class Trig1(UGen):
 
     @property
     def source(self):
-        r"""
+        """
         Gets `source` input of Trig1.
 
         ::

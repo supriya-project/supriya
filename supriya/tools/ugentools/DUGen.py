@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DUGen(UGen):
-    r"""
+    """
     Abstract base class of demand-rate UGens.
     """
 
