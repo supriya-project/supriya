@@ -4,6 +4,7 @@ from supriya.tools.ugentools.TwoPole import TwoPole
 
 class TwoZero(TwoPole):
     """
+    A two zero filter.
 
     ::
 
