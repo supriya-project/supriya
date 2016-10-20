@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Filter import Filter
 
 
 class MoogFF(Filter):
-    r'''
+    r"""
 
     ::
 
@@ -17,7 +17,7 @@ class MoogFF(Filter):
         >>> moog_ff
         MoogFF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -63,7 +63,8 @@ class MoogFF(Filter):
         reset=0,
         source=None,
         ):
-        r'''Constructs an audio-rate MoogFF.
+        r"""
+        Constructs an audio-rate MoogFF.
 
         ::
 
@@ -78,7 +79,7 @@ class MoogFF(Filter):
             MoogFF.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -100,7 +101,8 @@ class MoogFF(Filter):
         reset=0,
         source=None,
         ):
-        r'''Constructs a control-rate MoogFF.
+        r"""
+        Constructs a control-rate MoogFF.
 
         ::
 
@@ -115,7 +117,7 @@ class MoogFF(Filter):
             MoogFF.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -141,7 +143,8 @@ class MoogFF(Filter):
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of MoogFF.
+        r"""
+        Gets `frequency` input of MoogFF.
 
         ::
 
@@ -156,13 +159,14 @@ class MoogFF(Filter):
             100.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]
 
     @property
     def gain(self):
-        r'''Gets `gain` input of MoogFF.
+        r"""
+        Gets `gain` input of MoogFF.
 
         ::
 
@@ -177,13 +181,14 @@ class MoogFF(Filter):
             2.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('gain')
         return self._inputs[index]
 
     @property
     def reset(self):
-        r'''Gets `reset` input of MoogFF.
+        r"""
+        Gets `reset` input of MoogFF.
 
         ::
 
@@ -198,13 +203,14 @@ class MoogFF(Filter):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of MoogFF.
+        r"""
+        Gets `source` input of MoogFF.
 
         ::
 
@@ -226,6 +232,6 @@ class MoogFF(Filter):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

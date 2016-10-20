@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MostChange import MostChange
 
 
 class LeastChange(MostChange):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class LeastChange(MostChange):
         >>> least_change
         LeastChange.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class LeastChange(MostChange):
         a=0,
         b=0,
         ):
-        r'''Constructs an audio-rate LeastChange.
+        r"""
+        Constructs an audio-rate LeastChange.
 
         ::
 
@@ -64,7 +65,7 @@ class LeastChange(MostChange):
             LeastChange.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class LeastChange(MostChange):
         a=0,
         b=0,
         ):
-        r'''Constructs a control-rate LeastChange.
+        r"""
+        Constructs a control-rate LeastChange.
 
         ::
 
@@ -92,7 +94,7 @@ class LeastChange(MostChange):
             LeastChange.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class LeastChange(MostChange):
 
     @property
     def a(self):
-        r'''Gets `a` input of LeastChange.
+        r"""
+        Gets `a` input of LeastChange.
 
         ::
 
@@ -118,13 +121,14 @@ class LeastChange(MostChange):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of LeastChange.
+        r"""
+        Gets `b` input of LeastChange.
 
         ::
 
@@ -136,6 +140,6 @@ class LeastChange(MostChange):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]

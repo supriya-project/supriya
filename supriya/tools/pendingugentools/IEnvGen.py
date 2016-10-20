@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class IEnvGen(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class IEnvGen(UGen):
         >>> ienv_gen
         IEnvGen.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class IEnvGen(UGen):
         envelope=None,
         index=None,
         ):
-        r'''Constructs an audio-rate IEnvGen.
+        r"""
+        Constructs an audio-rate IEnvGen.
 
         ::
 
@@ -64,7 +65,7 @@ class IEnvGen(UGen):
             IEnvGen.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class IEnvGen(UGen):
         envelope=None,
         index=None,
         ):
-        r'''Constructs a control-rate IEnvGen.
+        r"""
+        Constructs a control-rate IEnvGen.
 
         ::
 
@@ -94,7 +96,7 @@ class IEnvGen(UGen):
             IEnvGen.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -110,7 +112,8 @@ class IEnvGen(UGen):
 
     @property
     def envelope(self):
-        r'''Gets `envelope` input of IEnvGen.
+        r"""
+        Gets `envelope` input of IEnvGen.
 
         ::
 
@@ -121,13 +124,14 @@ class IEnvGen(UGen):
             >>> ienv_gen.envelope
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('envelope')
         return self._inputs[index]
 
     @property
     def index(self):
-        r'''Gets `index` input of IEnvGen.
+        r"""
+        Gets `index` input of IEnvGen.
 
         ::
 
@@ -138,6 +142,6 @@ class IEnvGen(UGen):
             >>> ienv_gen.index
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index')
         return self._inputs[index]

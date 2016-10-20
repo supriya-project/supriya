@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class DecodeB2(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -17,7 +17,7 @@ class DecodeB2(MultiOutUGen):
         >>> decode_b_2
         DecodeB2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -67,7 +67,8 @@ class DecodeB2(MultiOutUGen):
         x=None,
         y=None,
         ):
-        r'''Constructs an audio-rate DecodeB2.
+        r"""
+        Constructs an audio-rate DecodeB2.
 
         ::
 
@@ -82,7 +83,7 @@ class DecodeB2(MultiOutUGen):
             DecodeB2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -104,7 +105,8 @@ class DecodeB2(MultiOutUGen):
         x=None,
         y=None,
         ):
-        r'''Constructs a control-rate DecodeB2.
+        r"""
+        Constructs a control-rate DecodeB2.
 
         ::
 
@@ -119,7 +121,7 @@ class DecodeB2(MultiOutUGen):
             DecodeB2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -138,7 +140,8 @@ class DecodeB2(MultiOutUGen):
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of DecodeB2.
+        r"""
+        Gets `channel_count` input of DecodeB2.
 
         ::
 
@@ -152,13 +155,14 @@ class DecodeB2(MultiOutUGen):
             >>> decode_b_2.channel_count
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def orientation(self):
-        r'''Gets `orientation` input of DecodeB2.
+        r"""
+        Gets `orientation` input of DecodeB2.
 
         ::
 
@@ -173,13 +177,14 @@ class DecodeB2(MultiOutUGen):
             0.5
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('orientation')
         return self._inputs[index]
 
     @property
     def w(self):
-        r'''Gets `w` input of DecodeB2.
+        r"""
+        Gets `w` input of DecodeB2.
 
         ::
 
@@ -193,13 +198,14 @@ class DecodeB2(MultiOutUGen):
             >>> decode_b_2.w
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('w')
         return self._inputs[index]
 
     @property
     def x(self):
-        r'''Gets `x` input of DecodeB2.
+        r"""
+        Gets `x` input of DecodeB2.
 
         ::
 
@@ -213,13 +219,14 @@ class DecodeB2(MultiOutUGen):
             >>> decode_b_2.x
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('x')
         return self._inputs[index]
 
     @property
     def y(self):
-        r'''Gets `y` input of DecodeB2.
+        r"""
+        Gets `y` input of DecodeB2.
 
         ::
 
@@ -233,6 +240,6 @@ class DecodeB2(MultiOutUGen):
             >>> decode_b_2.y
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('y')
         return self._inputs[index]

@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class RunningSum(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class RunningSum(UGen):
         >>> running_sum
         RunningSum.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class RunningSum(UGen):
         numsamp=40,
         source=None,
         ):
-        r'''Constructs an audio-rate RunningSum.
+        r"""
+        Constructs an audio-rate RunningSum.
 
         ::
 
@@ -66,7 +67,7 @@ class RunningSum(UGen):
             RunningSum.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class RunningSum(UGen):
         numsamp=40,
         source=None,
         ):
-        r'''Constructs a control-rate RunningSum.
+        r"""
+        Constructs a control-rate RunningSum.
 
         ::
 
@@ -95,7 +97,7 @@ class RunningSum(UGen):
             RunningSum.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +113,8 @@ class RunningSum(UGen):
 
     @property
     def numsamp(self):
-        r'''Gets `numsamp` input of RunningSum.
+        r"""
+        Gets `numsamp` input of RunningSum.
 
         ::
 
@@ -124,13 +127,14 @@ class RunningSum(UGen):
             40.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('numsamp')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of RunningSum.
+        r"""
+        Gets `source` input of RunningSum.
 
         ::
 
@@ -150,6 +154,6 @@ class RunningSum(UGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

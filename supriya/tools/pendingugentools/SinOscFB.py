@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 
 class SinOscFB(PureUGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class SinOscFB(PureUGen):
         >>> sin_osc_fb
         SinOscFB.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class SinOscFB(PureUGen):
         feedback=0,
         frequency=440,
         ):
-        r'''Constructs an audio-rate SinOscFB.
+        r"""
+        Constructs an audio-rate SinOscFB.
 
         ::
 
@@ -64,7 +65,7 @@ class SinOscFB(PureUGen):
             SinOscFB.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class SinOscFB(PureUGen):
         feedback=0,
         frequency=440,
         ):
-        r'''Constructs a control-rate SinOscFB.
+        r"""
+        Constructs a control-rate SinOscFB.
 
         ::
 
@@ -92,7 +94,7 @@ class SinOscFB(PureUGen):
             SinOscFB.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class SinOscFB(PureUGen):
 
     @property
     def feedback(self):
-        r'''Gets `feedback` input of SinOscFB.
+        r"""
+        Gets `feedback` input of SinOscFB.
 
         ::
 
@@ -118,13 +121,14 @@ class SinOscFB(PureUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('feedback')
         return self._inputs[index]
 
     @property
     def frequency(self):
-        r'''Gets `frequency` input of SinOscFB.
+        r"""
+        Gets `frequency` input of SinOscFB.
 
         ::
 
@@ -136,6 +140,6 @@ class SinOscFB(PureUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('frequency')
         return self._inputs[index]

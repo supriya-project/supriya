@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class DynKlang(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class DynKlang(UGen):
         >>> dyn_klang
         DynKlang.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,8 @@ class DynKlang(UGen):
         freqscale=1,
         specifications_array_ref=None,
         ):
-        r'''Constructs an audio-rate DynKlang.
+        r"""
+        Constructs an audio-rate DynKlang.
 
         ::
 
@@ -70,7 +71,7 @@ class DynKlang(UGen):
             DynKlang.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -88,7 +89,8 @@ class DynKlang(UGen):
         freqscale=1,
         specifications_array_ref=None,
         ):
-        r'''Constructs a control-rate DynKlang.
+        r"""
+        Constructs a control-rate DynKlang.
 
         ::
 
@@ -101,7 +103,7 @@ class DynKlang(UGen):
             DynKlang.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -118,7 +120,8 @@ class DynKlang(UGen):
 
     @property
     def freqoffset(self):
-        r'''Gets `freqoffset` input of DynKlang.
+        r"""
+        Gets `freqoffset` input of DynKlang.
 
         ::
 
@@ -131,13 +134,14 @@ class DynKlang(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freqoffset')
         return self._inputs[index]
 
     @property
     def freqscale(self):
-        r'''Gets `freqscale` input of DynKlang.
+        r"""
+        Gets `freqscale` input of DynKlang.
 
         ::
 
@@ -150,13 +154,14 @@ class DynKlang(UGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('freqscale')
         return self._inputs[index]
 
     @property
     def specifications_array_ref(self):
-        r'''Gets `specifications_array_ref` input of DynKlang.
+        r"""
+        Gets `specifications_array_ref` input of DynKlang.
 
         ::
 
@@ -168,6 +173,6 @@ class DynKlang(UGen):
             >>> dyn_klang.specifications_array_ref
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('specifications_array_ref')
         return self._inputs[index]

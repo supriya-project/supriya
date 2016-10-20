@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class MostChange(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class MostChange(UGen):
         >>> most_change
         MostChange.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class MostChange(UGen):
         a=0,
         b=0,
         ):
-        r'''Constructs an audio-rate MostChange.
+        r"""
+        Constructs an audio-rate MostChange.
 
         ::
 
@@ -64,7 +65,7 @@ class MostChange(UGen):
             MostChange.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class MostChange(UGen):
         a=0,
         b=0,
         ):
-        r'''Constructs a control-rate MostChange.
+        r"""
+        Constructs a control-rate MostChange.
 
         ::
 
@@ -92,7 +94,7 @@ class MostChange(UGen):
             MostChange.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class MostChange(UGen):
 
     @property
     def a(self):
-        r'''Gets `a` input of MostChange.
+        r"""
+        Gets `a` input of MostChange.
 
         ::
 
@@ -118,13 +121,14 @@ class MostChange(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('a')
         return self._inputs[index]
 
     @property
     def b(self):
-        r'''Gets `b` input of MostChange.
+        r"""
+        Gets `b` input of MostChange.
 
         ::
 
@@ -136,6 +140,6 @@ class MostChange(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('b')
         return self._inputs[index]

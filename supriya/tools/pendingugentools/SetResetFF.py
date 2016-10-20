@@ -3,7 +3,7 @@ from supriya.tools.ugentools.PulseCount import PulseCount
 
 
 class SetResetFF(PulseCount):
-    r'''
+    r"""
 
     ::
 
@@ -14,7 +14,7 @@ class SetResetFF(PulseCount):
         >>> set_reset_ff
         SetResetFF.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -52,7 +52,8 @@ class SetResetFF(PulseCount):
         reset=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate SetResetFF.
+        r"""
+        Constructs an audio-rate SetResetFF.
 
         ::
 
@@ -64,7 +65,7 @@ class SetResetFF(PulseCount):
             SetResetFF.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -80,7 +81,8 @@ class SetResetFF(PulseCount):
         reset=0,
         trigger=0,
         ):
-        r'''Constructs a control-rate SetResetFF.
+        r"""
+        Constructs a control-rate SetResetFF.
 
         ::
 
@@ -92,7 +94,7 @@ class SetResetFF(PulseCount):
             SetResetFF.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -106,7 +108,8 @@ class SetResetFF(PulseCount):
 
     @property
     def reset(self):
-        r'''Gets `reset` input of SetResetFF.
+        r"""
+        Gets `reset` input of SetResetFF.
 
         ::
 
@@ -118,13 +121,14 @@ class SetResetFF(PulseCount):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('reset')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of SetResetFF.
+        r"""
+        Gets `trigger` input of SetResetFF.
 
         ::
 
@@ -136,6 +140,6 @@ class SetResetFF(PulseCount):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

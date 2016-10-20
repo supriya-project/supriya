@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class GrainFM(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -21,7 +21,7 @@ class GrainFM(MultiOutUGen):
         >>> grain_fm
         GrainFM.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -87,7 +87,8 @@ class GrainFM(MultiOutUGen):
         pan=0,
         trigger=0,
         ):
-        r'''Constructs an audio-rate GrainFM.
+        r"""
+        Constructs an audio-rate GrainFM.
 
         ::
 
@@ -106,7 +107,7 @@ class GrainFM(MultiOutUGen):
             GrainFM.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -129,7 +130,8 @@ class GrainFM(MultiOutUGen):
 
     @property
     def carfrequency(self):
-        r'''Gets `carfrequency` input of GrainFM.
+        r"""
+        Gets `carfrequency` input of GrainFM.
 
         ::
 
@@ -148,13 +150,14 @@ class GrainFM(MultiOutUGen):
             440.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('carfrequency')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of GrainFM.
+        r"""
+        Gets `channel_count` input of GrainFM.
 
         ::
 
@@ -173,13 +176,14 @@ class GrainFM(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of GrainFM.
+        r"""
+        Gets `duration` input of GrainFM.
 
         ::
 
@@ -198,13 +202,14 @@ class GrainFM(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def envbufnum(self):
-        r'''Gets `envbufnum` input of GrainFM.
+        r"""
+        Gets `envbufnum` input of GrainFM.
 
         ::
 
@@ -223,13 +228,14 @@ class GrainFM(MultiOutUGen):
             -1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('envbufnum')
         return self._inputs[index]
 
     @property
     def index(self):
-        r'''Gets `index` input of GrainFM.
+        r"""
+        Gets `index` input of GrainFM.
 
         ::
 
@@ -248,13 +254,14 @@ class GrainFM(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('index')
         return self._inputs[index]
 
     @property
     def max_grains(self):
-        r'''Gets `max_grains` input of GrainFM.
+        r"""
+        Gets `max_grains` input of GrainFM.
 
         ::
 
@@ -273,13 +280,14 @@ class GrainFM(MultiOutUGen):
             512.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_grains')
         return self._inputs[index]
 
     @property
     def modfrequency(self):
-        r'''Gets `modfrequency` input of GrainFM.
+        r"""
+        Gets `modfrequency` input of GrainFM.
 
         ::
 
@@ -298,13 +306,14 @@ class GrainFM(MultiOutUGen):
             200.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('modfrequency')
         return self._inputs[index]
 
     @property
     def pan(self):
-        r'''Gets `pan` input of GrainFM.
+        r"""
+        Gets `pan` input of GrainFM.
 
         ::
 
@@ -323,13 +332,14 @@ class GrainFM(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of GrainFM.
+        r"""
+        Gets `trigger` input of GrainFM.
 
         ::
 
@@ -348,6 +358,6 @@ class GrainFM(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

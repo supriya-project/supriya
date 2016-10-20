@@ -3,7 +3,7 @@ from supriya.tools.ugentools.Index import Index
 
 
 class IndexL(Index):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class IndexL(Index):
         >>> index_l
         IndexL.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class IndexL(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs an audio-rate IndexL.
+        r"""
+        Constructs an audio-rate IndexL.
 
         ::
 
@@ -66,7 +67,7 @@ class IndexL(Index):
             IndexL.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class IndexL(Index):
         buffer_id=None,
         source=None,
         ):
-        r'''Constructs a control-rate IndexL.
+        r"""
+        Constructs a control-rate IndexL.
 
         ::
 
@@ -95,7 +97,7 @@ class IndexL(Index):
             IndexL.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -109,7 +111,8 @@ class IndexL(Index):
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of IndexL.
+        r"""
+        Gets `buffer_id` input of IndexL.
 
         ::
 
@@ -121,13 +124,14 @@ class IndexL(Index):
             >>> index_l.buffer_id
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of IndexL.
+        r"""
+        Gets `source` input of IndexL.
 
         ::
 
@@ -147,6 +151,6 @@ class IndexL(Index):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

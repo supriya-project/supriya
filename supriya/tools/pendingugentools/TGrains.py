@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class TGrains(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -21,7 +21,7 @@ class TGrains(MultiOutUGen):
         >>> tgrains
         TGrains.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -87,7 +87,8 @@ class TGrains(MultiOutUGen):
         rate=1,
         trigger=0,
         ):
-        r'''Constructs an audio-rate TGrains.
+        r"""
+        Constructs an audio-rate TGrains.
 
         ::
 
@@ -106,7 +107,7 @@ class TGrains(MultiOutUGen):
             TGrains.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -129,7 +130,8 @@ class TGrains(MultiOutUGen):
 
     @property
     def amp(self):
-        r'''Gets `amp` input of TGrains.
+        r"""
+        Gets `amp` input of TGrains.
 
         ::
 
@@ -148,13 +150,14 @@ class TGrains(MultiOutUGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('amp')
         return self._inputs[index]
 
     @property
     def buffer_id(self):
-        r'''Gets `buffer_id` input of TGrains.
+        r"""
+        Gets `buffer_id` input of TGrains.
 
         ::
 
@@ -173,13 +176,14 @@ class TGrains(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
     def center_pos(self):
-        r'''Gets `center_pos` input of TGrains.
+        r"""
+        Gets `center_pos` input of TGrains.
 
         ::
 
@@ -198,13 +202,14 @@ class TGrains(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('center_pos')
         return self._inputs[index]
 
     @property
     def channel_count(self):
-        r'''Gets `channel_count` input of TGrains.
+        r"""
+        Gets `channel_count` input of TGrains.
 
         ::
 
@@ -222,13 +227,14 @@ class TGrains(MultiOutUGen):
             >>> tgrains.channel_count
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('channel_count')
         return self._inputs[index]
 
     @property
     def duration(self):
-        r'''Gets `duration` input of TGrains.
+        r"""
+        Gets `duration` input of TGrains.
 
         ::
 
@@ -247,13 +253,14 @@ class TGrains(MultiOutUGen):
             0.1
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('duration')
         return self._inputs[index]
 
     @property
     def interpolate(self):
-        r'''Gets `interpolate` input of TGrains.
+        r"""
+        Gets `interpolate` input of TGrains.
 
         ::
 
@@ -272,13 +279,14 @@ class TGrains(MultiOutUGen):
             4.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('interpolate')
         return self._inputs[index]
 
     @property
     def pan(self):
-        r'''Gets `pan` input of TGrains.
+        r"""
+        Gets `pan` input of TGrains.
 
         ::
 
@@ -297,13 +305,14 @@ class TGrains(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('pan')
         return self._inputs[index]
 
     @property
     def rate(self):
-        r'''Gets `rate` input of TGrains.
+        r"""
+        Gets `rate` input of TGrains.
 
         ::
 
@@ -322,13 +331,14 @@ class TGrains(MultiOutUGen):
             1.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('rate')
         return self._inputs[index]
 
     @property
     def trigger(self):
-        r'''Gets `trigger` input of TGrains.
+        r"""
+        Gets `trigger` input of TGrains.
 
         ::
 
@@ -347,6 +357,6 @@ class TGrains(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('trigger')
         return self._inputs[index]

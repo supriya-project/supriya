@@ -3,7 +3,7 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
 class XFadeRotate(MultiOutUGen):
-    r'''
+    r"""
 
     ::
 
@@ -15,7 +15,7 @@ class XFadeRotate(MultiOutUGen):
         >>> xfade_rotate
         XFadeRotate.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -53,7 +53,8 @@ class XFadeRotate(MultiOutUGen):
         n=0,
         source=None,
         ):
-        r'''Constructs an audio-rate XFadeRotate.
+        r"""
+        Constructs an audio-rate XFadeRotate.
 
         ::
 
@@ -66,7 +67,7 @@ class XFadeRotate(MultiOutUGen):
             XFadeRotate.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -82,7 +83,8 @@ class XFadeRotate(MultiOutUGen):
         n=0,
         source=None,
         ):
-        r'''Constructs a control-rate XFadeRotate.
+        r"""
+        Constructs a control-rate XFadeRotate.
 
         ::
 
@@ -95,7 +97,7 @@ class XFadeRotate(MultiOutUGen):
             XFadeRotate.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -111,7 +113,8 @@ class XFadeRotate(MultiOutUGen):
 
     @property
     def n(self):
-        r'''Gets `n` input of XFadeRotate.
+        r"""
+        Gets `n` input of XFadeRotate.
 
         ::
 
@@ -124,13 +127,14 @@ class XFadeRotate(MultiOutUGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('n')
         return self._inputs[index]
 
     @property
     def source(self):
-        r'''Gets `source` input of XFadeRotate.
+        r"""
+        Gets `source` input of XFadeRotate.
 
         ::
 
@@ -150,6 +154,6 @@ class XFadeRotate(MultiOutUGen):
                 )
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('source')
         return self._inputs[index]

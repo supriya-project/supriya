@@ -3,7 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 
 class ScopeOut2(UGen):
-    r'''
+    r"""
 
     ::
 
@@ -16,7 +16,7 @@ class ScopeOut2(UGen):
         >>> scope_out_2
         ScopeOut2.ar()
 
-    '''
+    """
 
     ### CLASS VARIABLES ###
 
@@ -62,7 +62,8 @@ class ScopeOut2(UGen):
         scope_frames=None,
         scope_num=0,
         ):
-        r'''Constructs an audio-rate ScopeOut2.
+        r"""
+        Constructs an audio-rate ScopeOut2.
 
         ::
 
@@ -76,7 +77,7 @@ class ScopeOut2(UGen):
             ScopeOut2.ar()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
@@ -96,7 +97,8 @@ class ScopeOut2(UGen):
         scope_frames=None,
         scope_num=0,
         ):
-        r'''Constructs a control-rate ScopeOut2.
+        r"""
+        Constructs a control-rate ScopeOut2.
 
         ::
 
@@ -110,7 +112,7 @@ class ScopeOut2(UGen):
             ScopeOut2.kr()
 
         Returns ugen graph.
-        '''
+        """
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
@@ -126,7 +128,8 @@ class ScopeOut2(UGen):
 
     @property
     def input_array(self):
-        r'''Gets `input_array` input of ScopeOut2.
+        r"""
+        Gets `input_array` input of ScopeOut2.
 
         ::
 
@@ -139,13 +142,14 @@ class ScopeOut2(UGen):
             >>> scope_out_2.input_array
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('input_array')
         return self._inputs[index]
 
     @property
     def max_frames(self):
-        r'''Gets `max_frames` input of ScopeOut2.
+        r"""
+        Gets `max_frames` input of ScopeOut2.
 
         ::
 
@@ -159,13 +163,14 @@ class ScopeOut2(UGen):
             4096.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('max_frames')
         return self._inputs[index]
 
     @property
     def scope_frames(self):
-        r'''Gets `scope_frames` input of ScopeOut2.
+        r"""
+        Gets `scope_frames` input of ScopeOut2.
 
         ::
 
@@ -178,13 +183,14 @@ class ScopeOut2(UGen):
             >>> scope_out_2.scope_frames
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('scope_frames')
         return self._inputs[index]
 
     @property
     def scope_num(self):
-        r'''Gets `scope_num` input of ScopeOut2.
+        r"""
+        Gets `scope_num` input of ScopeOut2.
 
         ::
 
@@ -198,6 +204,6 @@ class ScopeOut2(UGen):
             0.0
 
         Returns ugen input.
-        '''
+        """
         index = self._ordered_input_names.index('scope_num')
         return self._inputs[index]
