@@ -4,6 +4,7 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 class Vibrato(PureUGen):
     """
+    Vibrato is a slow frequency modulation.
 
     ::
 
