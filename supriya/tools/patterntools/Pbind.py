@@ -113,6 +113,8 @@ class Pbind(EventPattern):
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:
             event = {}
+            if self.synthdef:
+                event['synthdef'] = self.synthdef
             for name, pattern in patterns.items():
                 try:
                     event[name] = next(pattern)

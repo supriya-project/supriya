@@ -1,6 +1,5 @@
 -e git://github.com/Abjad/abjad.git#egg=abjad
 numpy
-pexpect
 pytest>=3.0.0
 python-rtmidi
 six

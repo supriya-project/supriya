@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     pattern = patterntools.Pbindf(
         patterntools.Pbind(

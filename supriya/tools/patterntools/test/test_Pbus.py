@@ -1,15 +1,13 @@
 # -*- encoding: utf-8 -*-
 import time
-import types
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
-from supriya.tools import servertools
 from supriya.tools import synthdeftools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     pattern = patterntools.Pbus(
         pattern=patterntools.Pbind(
@@ -19,32 +17,6 @@ class TestCase(systemtools.TestCase):
             ),
         release_time=0.25,
         )
-
-    def setUp(self):
-        self.server = servertools.Server.get_default_server().boot()
-        synthdefs.default.allocate(self.server)
-        self.server.sync()
-
-    def tearDown(self):
-        self.server.quit()
-
-    def manual_incommunicado(self, pattern, timestamp=10):
-        player = patterntools.RealtimeEventPlayer(
-            pattern,
-            server=types.SimpleNamespace(
-                audio_bus_allocator=servertools.BlockAllocator(),
-                control_bus_allocator=servertools.BlockAllocator(),
-                node_id_allocator=servertools.NodeIdAllocator(),
-                ),
-            )
-        lists, deltas, delta = [], [], True
-        while delta is not None:
-            bundle, delta = player(timestamp, timestamp, communicate=False)
-            if delta is not None:
-                timestamp += delta
-            lists.append(bundle.to_list(True))
-            deltas.append(delta)
-        return lists, deltas
 
     def test_manual_incommunicado(self):
         lists, deltas = self.manual_incommunicado(self.pattern)

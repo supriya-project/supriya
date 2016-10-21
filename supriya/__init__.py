@@ -22,6 +22,6 @@ from supriya.tools.synthdeftools import SynthDef
 from supriya.tools.synthdeftools import SynthDefBuilder
 from supriya.tools.systemtools import Assets
 
-#from supriya import synthdefs
-
 from abjad.tools.topleveltools import graph, new
+
+from supriya import synthdefs

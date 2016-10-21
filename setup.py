@@ -9,7 +9,6 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
     'abjad>=2.18',
-    'pexpect',
     'pytest>=3.0.0',
     'six',
     'sphinx>=1.3.1',

@@ -41,7 +41,6 @@ class NonrealtimeEventPlayer(EventPlayer):
         self._iterator = iter(self._pattern)
         uuids = {}
         for event in self._iterator:
-            #print(event)
             event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,

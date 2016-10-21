@@ -86,7 +86,6 @@ class OscController(SupriyaObject):
 
     def send(self, message):
         from supriya.tools import osctools
-        from supriya.tools import requesttools
         prototype = (
             str,
             tuple,
@@ -103,12 +102,9 @@ class OscController(SupriyaObject):
                 *message[1:]
                 )
         if self.debug_osc:
-            if not isinstance(message, osctools.OscMessage) or \
-                message.address not in (
-                    '/status',
-                    requesttools.RequestId.STATUS
-                    ):
-                print('SEND', repr(message))
+            as_list = message.to_list()
+            if as_list != [2]:
+                print('SEND', message.to_list())
                 if self.debug_udp:
                     for line in str(message).splitlines():
                         print('    ' + line)

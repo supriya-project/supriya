@@ -126,25 +126,28 @@ class NoteEvent(Event):
             timestamp,
             uuids,
             )
-        if not do_not_release:
-            stop_product = self._build_stop_bundle(
-                index,
-                synth_uuid,
-                synthdef,
-                timestamp,
-                uuids,
-                )
+        if self.get('duration'):
+            if not do_not_release:
+                stop_product = self._build_stop_bundle(
+                    index,
+                    synth_uuid,
+                    synthdef,
+                    timestamp,
+                    uuids,
+                    )
+            else:
+                stop_product = patterntools.EventProduct(
+                    event=None,
+                    index=index,
+                    is_stop=True,
+                    requests=(),
+                    timestamp=timestamp + duration,
+                    uuid=None,
+                    )
+            return [start_product, stop_product]
         else:
-            stop_product = patterntools.EventProduct(
-                event=None,
-                index=index,
-                is_stop=True,
-                requests=(),
-                timestamp=timestamp + duration,
-                uuid=None,
-                )
-        node_ids = uuids[synth_uuid]
-        return [start_product, stop_product]
+            uuids.pop(synth_uuid)
+            return [start_product]
 
     def _build_start_bundle(
         self,
@@ -214,7 +217,7 @@ class NoteEvent(Event):
             duration = 1
         requests = []
         timestamp = timestamp + duration
-        node_ids = uuids[synth_uuid]
+        node_ids = sorted(uuids[synth_uuid])
         if synthdef.has_gate:
             for node_id in node_ids:
                 request = requesttools.NodeSetRequest(

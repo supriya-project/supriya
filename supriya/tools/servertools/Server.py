@@ -2,9 +2,9 @@
 from __future__ import print_function
 import atexit
 import os
-import pexpect
-import sys
+import subprocess
 import time
+from abjad import new
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -109,7 +109,7 @@ class Server(SupriyaObject):
 
         ### OSC MESSAGING ###
 
-        self._latency = 100
+        self._latency = 0.1
         self._response_dispatcher = responsetools.ResponseDispatcher()
         self._subscription_service = servertools.SubscriptionService()
         self._osc_dispatcher = osctools.OscDispatcher()
@@ -270,18 +270,6 @@ class Server(SupriyaObject):
             self._control_bus_proxies[bus_id] = control_bus_proxy
         return control_bus_proxy
 
-    def _read(self):
-        string = ''
-        while True:
-            try:
-                char = self._server_process.read_nonblocking(timeout=1.0)
-                if 2 < sys.version_info[0]:
-                    char = str(char, 'utf-8')
-                string += char
-            except (pexpect.TIMEOUT, pexpect.EOF):
-                break
-        return string
-
     def _setup(self):
         self._setup_notifications()
         self._setup_status_watcher()
@@ -411,29 +399,11 @@ class Server(SupriyaObject):
             server_options = self.server_options
         assert isinstance(server_options, servertools.ServerOptions)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {}'.format(scsynth_path, options_string)
-        server_process = pexpect.spawn(command)
-        time.sleep(0.1)
-        error = 'Exception in World_OpenUDP: bind: Address already in use'
-        success = 'SuperCollider 3 server ready.'
-        string = server_process.read_nonblocking(timeout=1.0)
-        if 2 < sys.version_info[0]:
-            string = str(string, 'utf-8')
-        while True:
-            try:
-                char = server_process.read_nonblocking(timeout=1.0)
-                if 2 < sys.version_info[0]:
-                    char = str(char, 'utf-8')
-                string += char
-            except (pexpect.TIMEOUT, pexpect.EOF):
-                break
-        if error in string:
-            raise Exception(error)
-        assert success in string, string
-        server_process.logfile_read = sys.stdout
+        command = '{} {} -V 0'.format(scsynth_path, options_string)
+        self._server_process = subprocess.Popen(command, shell=True)
+        time.sleep(0.25)
         self._is_running = True
         self._server_options = server_options
-        self._server_process = server_process
         self._setup()
         self.sync()
         self.subscription_service.notify('server-booted')
@@ -608,11 +578,8 @@ class Server(SupriyaObject):
         self.response_dispatcher.register_callback(response_callback)
 
     def send_message(self, message):
-        #from supriya.tools import osctools
         if not message or not self.is_running:
             return
-        #if isinstance(message, osctools.OscMessage) and message.address != 2:
-        #    print('SEND:', message)
         self._osc_controller.send(message)
 
     def sync(self, sync_id=None):

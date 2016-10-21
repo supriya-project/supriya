@@ -1,6 +1,4 @@
 # -*- encoding: utf-8 -*-
-import pexpect
-import sys
 import threading
 import time
 
@@ -17,6 +15,8 @@ class StatusWatcher(threading.Thread):
         '_response_callback',
         '_server',
         )
+
+    max_attempts = 5
 
     ### INITIALIZER ###
 
@@ -56,12 +56,12 @@ class StatusWatcher(threading.Thread):
         request = requesttools.StatusRequest()
         message = request.to_osc_message()
         while self._active:
-            if 5 < self.attempts:
+            if self.max_attempts == self.attempts:
                 self.server.quit()
                 break
             self.server.send_message(message)
             self._attempts += 1
-            time.sleep(0.2)
+            time.sleep(0.1)
         self.server.unregister_response_callback(self.response_callback)
 
     ### PUBLIC PROPERTIES ###
