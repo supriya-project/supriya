@@ -9,7 +9,7 @@ class VOsc(PureUGen):
     ::
 
         >>> vosc = ugentools.VOsc.ar(
-        ...     bufpos=ugentools.MouseX.kr(0,7),
+        ...     buffer_id=ugentools.MouseX.kr(0,7),
         ...     frequency=440,
         ...     phase=0,
         ...     )
@@ -25,7 +25,7 @@ class VOsc(PureUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'bufpos',
+        'buffer_id',
         'frequency',
         'phase',
         )
@@ -37,14 +37,14 @@ class VOsc(PureUGen):
     def __init__(
         self,
         calculation_rate=None,
-        bufpos=None,
+        buffer_id=None,
         frequency=440,
         phase=0,
         ):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             frequency=frequency,
             phase=phase,
             )
@@ -54,7 +54,7 @@ class VOsc(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=None,
+        buffer_id=None,
         frequency=440,
         phase=0,
         ):
@@ -64,7 +64,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=ugentools.MouseX.kr(0,7),
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -77,7 +77,7 @@ class VOsc(PureUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             frequency=frequency,
             phase=phase,
             )
@@ -86,7 +86,7 @@ class VOsc(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=None,
+        buffer_id=None,
         frequency=440,
         phase=0,
         ):
@@ -96,7 +96,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.kr(
-            ...     bufpos=ugentools.MouseX.kr(0,7),
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -109,7 +109,7 @@ class VOsc(PureUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             frequency=frequency,
             phase=phase,
             )
@@ -118,18 +118,18 @@ class VOsc(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bufpos(self):
+    def buffer_id(self):
         """
-        Gets `bufpos` input of VOsc.
+        Gets `buffer_id` input of VOsc.
 
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=ugentools.MouseX.kr(0,7),
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
-            >>> vosc.bufpos
+            >>> vosc.buffer_id
             OutputProxy(
                 source=MouseX(
                     calculation_rate=CalculationRate.CONTROL,
@@ -143,7 +143,7 @@ class VOsc(PureUGen):
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bufpos')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -154,7 +154,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=ugentools.MouseX.kr(0,7),
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
@@ -174,7 +174,7 @@ class VOsc(PureUGen):
         ::
 
             >>> vosc = ugentools.VOsc.ar(
-            ...     bufpos=ugentools.MouseX.kr(0,7),
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     frequency=440,
             ...     phase=0,
             ...     )
