@@ -4,6 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 class Pulse(UGen):
     """
+    Band limited pulse wave generator with pulse width modulation.
 
     ::
 

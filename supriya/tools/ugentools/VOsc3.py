@@ -4,11 +4,12 @@ from supriya.tools.ugentools.PureUGen import PureUGen
 
 class VOsc3(PureUGen):
     """
+    A wavetable lookup oscillator which can be swept smoothly across wavetables.
 
     ::
 
         >>> vosc_3 = ugentools.VOsc3.ar(
-        ...     bufpos=bufpos,
+        ...     buffer_id=ugentools.MouseX.kr(0,7),
         ...     freq_1=110,
         ...     freq_2=220,
         ...     freq_3=440,
@@ -25,7 +26,7 @@ class VOsc3(PureUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'bufpos',
+        'buffer_id',
         'freq_1',
         'freq_2',
         'freq_3',
@@ -38,7 +39,7 @@ class VOsc3(PureUGen):
     def __init__(
         self,
         calculation_rate=None,
-        bufpos=None,
+        buffer_id=None,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -46,7 +47,7 @@ class VOsc3(PureUGen):
         PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             freq_1=freq_1,
             freq_2=freq_2,
             freq_3=freq_3,
@@ -57,7 +58,7 @@ class VOsc3(PureUGen):
     @classmethod
     def ar(
         cls,
-        bufpos=None,
+        buffer_id=None,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -68,7 +69,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -82,7 +83,7 @@ class VOsc3(PureUGen):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             freq_1=freq_1,
             freq_2=freq_2,
             freq_3=freq_3,
@@ -92,7 +93,7 @@ class VOsc3(PureUGen):
     @classmethod
     def kr(
         cls,
-        bufpos=None,
+        buffer_id=None,
         freq_1=110,
         freq_2=220,
         freq_3=440,
@@ -103,7 +104,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.kr(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -117,7 +118,7 @@ class VOsc3(PureUGen):
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
-            bufpos=bufpos,
+            buffer_id=buffer_id,
             freq_1=freq_1,
             freq_2=freq_2,
             freq_3=freq_3,
@@ -127,23 +128,33 @@ class VOsc3(PureUGen):
     ### PUBLIC PROPERTIES ###
 
     @property
-    def bufpos(self):
+    def buffer_id(self):
         """
-        Gets `bufpos` input of VOsc3.
+        Gets `buffer_id` input of VOsc3.
 
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
             ...     )
-            >>> vosc_3.bufpos
+            >>> vosc_3.buffer_id
+            OutputProxy(
+                source=MouseX(
+                    calculation_rate=CalculationRate.CONTROL,
+                    lag=0.0,
+                    maximum=7.0,
+                    minimum=0.0,
+                    warp=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('bufpos')
+        index = self._ordered_input_names.index('buffer_id')
         return self._inputs[index]
 
     @property
@@ -154,7 +165,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -175,7 +186,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,
@@ -196,7 +207,7 @@ class VOsc3(PureUGen):
         ::
 
             >>> vosc_3 = ugentools.VOsc3.ar(
-            ...     bufpos=bufpos,
+            ...     buffer_id=ugentools.MouseX.kr(0,7),
             ...     freq_1=110,
             ...     freq_2=220,
             ...     freq_3=440,

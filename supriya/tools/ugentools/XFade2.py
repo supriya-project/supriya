@@ -4,14 +4,15 @@ from supriya.tools.ugentools.UGen import UGen
 
 class XFade2(UGen):
     """
+    Two channel equal power crossfader.
 
     ::
 
         >>> xfade_2 = ugentools.XFade2.ar(
-        ...     in_a=in_a,
-        ...     in_b=0,
+        ...     in_a=ugentools.Saw.ar(),
+        ...     in_b=ugentools.SinOsc.ar(),
         ...     level=1,
-        ...     pan=0,
+        ...     pan=ugentools.LFTri.kr(frequency=0.1),
         ...     )
         >>> xfade_2
         XFade2.ar()
@@ -68,10 +69,10 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2
             XFade2.ar()
@@ -103,10 +104,10 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.kr(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2
             XFade2.kr()
@@ -134,12 +135,19 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.in_a
+            OutputProxy(
+                source=Saw(
+                    calculation_rate=CalculationRate.AUDIO,
+                    frequency=440.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
@@ -154,13 +162,20 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.in_b
-            0.0
+            OutputProxy(
+                source=SinOsc(
+                    calculation_rate=CalculationRate.AUDIO,
+                    frequency=440.0,
+                    phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
@@ -175,10 +190,10 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.level
             1.0
@@ -196,13 +211,20 @@ class XFade2(UGen):
         ::
 
             >>> xfade_2 = ugentools.XFade2.ar(
-            ...     in_a=in_a,
-            ...     in_b=0,
+            ...     in_a=ugentools.Saw.ar(),
+            ...     in_b=ugentools.SinOsc.ar(),
             ...     level=1,
-            ...     pan=0,
+            ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.pan
-            0.0
+            OutputProxy(
+                source=LFTri(
+                    calculation_rate=CalculationRate.CONTROL,
+                    frequency=0.1,
+                    initial_phase=0.0
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
