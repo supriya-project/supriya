@@ -8,10 +8,10 @@ from distutils.version import StrictVersion
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
-    'abjad>=2.18',
+    'abjad>=2.19',
     'pytest>=3.0.0',
     'six',
-    'sphinx>=1.3.1',
+    'sphinx>=1.4',
     'sphinx_rtd_theme',
     'tornado',
     'tox',
