@@ -8,6 +8,7 @@ except ImportError:
     from Queue import PriorityQueue
 from supriya.tools import requesttools
 from supriya.tools import servertools
+from supriya.tools import systemtools
 from supriya.tools.patterntools.EventPlayer import EventPlayer
 
 
@@ -21,7 +22,6 @@ class RealtimeEventPlayer(EventPlayer):
         '_pattern',
         '_server',
         '_uuids',
-        '_call_count',
         )
 
     ### INITIALIZER ###
@@ -45,7 +45,6 @@ class RealtimeEventPlayer(EventPlayer):
         self._clock = clock
         self._iterator = None
         self._uuids = {}
-        self._call_count = 0
 
     ### SPECIAL METHODS ###
 
@@ -168,7 +167,14 @@ class RealtimeEventPlayer(EventPlayer):
 
     ### PUBLIC METHODS ###
 
+    def notify(self, topic, event):
+        if topic == 'server-quit':
+            self.stop()
+
     def start(self):
+        if not self._server.is_running:
+            return
+        systemtools.PubSub.subscribe(self, 'server-quit')
         timestamp = time.time()
         self._uuids.clear()
         self._iterator = self._iterate_outer(
@@ -187,6 +193,7 @@ class RealtimeEventPlayer(EventPlayer):
         self._clock.cancel(self)
         self._iterator = None
         bundle = self._collect_stop_requests()
-        self._uuids.clear()
-        if bundle:
+        if bundle and self._server.is_running:
             self._server.send_message(bundle.to_osc_bundle())
+        self._uuids.clear()
+        systemtools.PubSub.unsubscribe(self, 'server-quit')

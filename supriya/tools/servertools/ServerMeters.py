@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 from abjad.tools import sequencetools
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools import systemtools
 
 
-class ServerMeters(SupriyaObject):
+class ServerMeters(systemtools.SupriyaObject):
 
     ### CLASS VARIABLES ###
 
@@ -82,7 +82,7 @@ class ServerMeters(SupriyaObject):
             rms_levels.append(rms)
         self._output_meter_peak_levels = tuple(peak_levels)
         self._output_meter_rms_levels = tuple(rms_levels)
-        self.server.subscription_service.notify(
+        systemtools.PubSub.notify(
             'server-meters',
             {
                 'input_meter_peak_levels': self._input_meter_peak_levels,

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import threading
 import tornado.web
+from supriya.tools import systemtools
 
 
 class WebServer(threading.Thread):
@@ -8,14 +9,13 @@ class WebServer(threading.Thread):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        from supriya.tools import systemtools
         from supriya.tools import webguitools
         threading.Thread.__init__(self)
         self.server = server
-        self.server.subscription_service.subscribe(self, 'server-booted')
-        self.server.subscription_service.subscribe(self, 'server-meters')
-        self.server.subscription_service.subscribe(self, 'server-quit')
-        self.server.subscription_service.subscribe(self, 'server-status')
+        systemtools.PubSub.subscribe(self, 'server-booted')
+        systemtools.PubSub.subscribe(self, 'server-meters')
+        systemtools.PubSub.subscribe(self, 'server-quit')
+        systemtools.PubSub.subscribe(self, 'server-status')
         handlers = [
             (r'/', webguitools.MainHandler),
             (r'/websocket', webguitools.SocketHandler),

@@ -4,8 +4,9 @@ import atexit
 import os
 import subprocess
 import time
-from abjad import new
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from abjad.tools.systemtools import IOManager
+from supriya.tools.systemtools import PubSub
+from supriya.tools.systemtools import SupriyaObject
 
 
 class Server(SupriyaObject):
@@ -60,7 +61,6 @@ class Server(SupriyaObject):
         '_server_process',
         '_status',
         '_status_watcher',
-        '_subscription_service',
         '_sync_id',
         '_synthdefs',
         )
@@ -111,7 +111,6 @@ class Server(SupriyaObject):
 
         self._latency = 0.1
         self._response_dispatcher = responsetools.ResponseDispatcher()
-        self._subscription_service = servertools.SubscriptionService()
         self._osc_dispatcher = osctools.OscDispatcher()
         self._osc_controller = osctools.OscController(server=self)
         for callback in (
@@ -378,12 +377,11 @@ class Server(SupriyaObject):
         self,
         server_options=None,
         ):
-        from abjad.tools import systemtools
         from supriya.tools import servertools
         if self.is_running:
             return self
         scsynth_path = 'scsynth'
-        if not systemtools.IOManager.find_executable('scsynth'):
+        if not IOManager.find_executable('scsynth'):
             found_scsynth = False
             for path in (
                 '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # < 3.7
@@ -399,14 +397,14 @@ class Server(SupriyaObject):
             server_options = self.server_options
         assert isinstance(server_options, servertools.ServerOptions)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {} -V 0'.format(scsynth_path, options_string)
+        command = '{} {} -V -1'.format(scsynth_path, options_string)
         self._server_process = subprocess.Popen(command, shell=True)
         time.sleep(0.25)
         self._is_running = True
         self._server_options = server_options
         self._setup()
         self.sync()
-        self.subscription_service.notify('server-booted')
+        PubSub.notify('server-booted')
         return self
 
     @staticmethod
@@ -568,7 +566,7 @@ class Server(SupriyaObject):
             self._server_process.wait()
         self._osc_controller.quit()
         self._teardown()
-        self.subscription_service.notify('server-quit')
+        PubSub.notify('server-quit')
         return self
 
     def register_osc_callback(self, osc_callback):
@@ -695,7 +693,3 @@ class Server(SupriyaObject):
     @property
     def status(self):
         return self._status
-
-    @property
-    def subscription_service(self):
-        return self._subscription_service
