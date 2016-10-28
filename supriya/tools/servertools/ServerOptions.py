@@ -87,7 +87,9 @@ class ServerOptions(SupriyaObject):
         self._control_bus_channel_count = int(control_bus_channel_count)
         self._hardware_buffer_size = hardware_buffer_size
         self._initial_node_id = int(initial_node_id)
-        self._input_bus_channel_count = int(input_bus_channel_count)
+        input_bus_channel_count = int(input_bus_channel_count or 8)
+        assert 0 <= input_bus_channel_count
+        self._input_bus_channel_count = input_bus_channel_count
         self._input_device = input_device
         self._input_stream_mask = bool(input_stream_mask)
         self._load_synthdefs = load_synthdefs
@@ -95,7 +97,9 @@ class ServerOptions(SupriyaObject):
         self._maximum_synthdef_count = int(maximum_synthdef_count)
         self._memory_locking = bool(memory_locking)
         self._memory_size = int(memory_size)
-        self._output_bus_channel_count = int(output_bus_channel_count)
+        output_bus_channel_count = int(output_bus_channel_count or 8)
+        assert 0 <= output_bus_channel_count
+        self._output_bus_channel_count = output_bus_channel_count
         self._output_device = output_device
         self._output_stream_mask = bool(output_stream_mask)
         self._protocol = protocol

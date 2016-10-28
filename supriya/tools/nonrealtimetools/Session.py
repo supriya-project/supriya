@@ -3,10 +3,12 @@ import bisect
 import collections
 import hashlib
 import os
+import pathlib
 import shutil
 import struct
 import subprocess
 import tempfile
+from abjad import new
 from abjad.tools import documentationtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
@@ -24,7 +26,8 @@ except ImportError:
 class Session(OscMixin):
     """
     A non-realtime session.
-::
+
+    ::
 
         >>> from supriya.tools import nonrealtimetools
         >>> session = nonrealtimetools.Session()
@@ -78,10 +81,9 @@ class Session(OscMixin):
         '_audio_output_bus_group',
         '_buffers',
         '_buses',
-        '_input_count',
         '_nodes',
         '_offsets',
-        '_output_count',
+        '_options',
         '_root_node',
         '_session_ids',
         '_states',
@@ -106,8 +108,16 @@ class Session(OscMixin):
 
     ### INITIALIZER ###
 
-    def __init__(self, input_count=0, output_count=2):
+    def __init__(
+        self,
+        input_bus_channel_count=None,
+        output_bus_channel_count=None,
+        ):
         from supriya.tools import nonrealtimetools
+        self._options = servertools.ServerOptions(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            )
         self._active_moments = []
         self._session_ids = {}
         self._states = {}
@@ -116,7 +126,7 @@ class Session(OscMixin):
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_states()
-        self._setup_buses(input_count, output_count)
+        self._setup_buses()
 
     ### SPECIAL METHODS ###
 
@@ -206,8 +216,8 @@ class Session(OscMixin):
         return mapping
 
     def _build_id_mapping_for_buses(self):
-        input_count = self._input_count or 0
-        output_count = self._output_count or 0
+        input_count = self._options._input_bus_channel_count
+        output_count = self._options._output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
             synthdeftools.CalculationRate.AUDIO: servertools.BlockAllocator(
@@ -218,10 +228,12 @@ class Session(OscMixin):
         mapping = {}
         if output_count:
             bus_group = self.audio_output_bus_group
+            mapping[bus_group] = 0
             for bus_id, bus in enumerate(bus_group):
                 mapping[bus] = bus_id
         if input_count:
             bus_group = self.audio_input_bus_group
+            mapping[bus_group] = output_count
             for bus_id, bus in enumerate(bus_group, output_count):
                 mapping[bus] = bus_id
         for bus in self._buses:
@@ -252,10 +264,10 @@ class Session(OscMixin):
         self,
         output_filename,
         input_filename=None,
+        server_options=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
-        **kwargs
         ):
         """
         Builds non-realtime rendering command.
@@ -267,6 +279,7 @@ class Session(OscMixin):
 
         """
         from abjad.tools import systemtools
+        server_options = server_options or servertools.ServerOptions()
         scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):
             found_scsynth = False
@@ -290,7 +303,6 @@ class Session(OscMixin):
         parts.append(header_format.name.lower())  # Must be lowercase.
         sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
         parts.append(sample_format.name.lower())  # Must be lowercase.
-        server_options = servertools.ServerOptions(**kwargs)
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
@@ -781,23 +793,15 @@ class Session(OscMixin):
                 states.append(terminal_state)
         return states
 
-    def _setup_buses(self, input_count, output_count):
+    def _setup_buses(self):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
-        input_count = int(input_count or 0)
-        assert 0 <= input_count
-        self._input_count = input_count
-        output_count = int(output_count or 0)
-        assert 0 <= output_count
-        self._output_count = output_count
-        audio_input_bus_group = None
-        if self._input_count:
-            audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
-        self._audio_input_bus_group = audio_input_bus_group
-        audio_output_bus_group = None
-        if self._output_count:
-            audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
-        self._audio_output_bus_group = audio_output_bus_group
+        self._audio_input_bus_group = None
+        if self._options._input_bus_channel_count:
+            self._audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
+        self._audio_output_bus_group = None
+        if self._options._output_bus_channel_count:
+            self._audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):
         from supriya.tools import nonrealtimetools
@@ -941,11 +945,17 @@ class Session(OscMixin):
     def cue_soundfile(
         self,
         file_path,
-        channel_count=2,
+        channel_count=None,
         duration=None,
         frame_count=1024 * 32,
-        start_frame=0,
+        starting_frame=0,
         ):
+        if isinstance(file_path, str):
+            file_path = pathlib.Path(file_path)
+        if isinstance(file_path, pathlib.Path):
+            assert file_path.exists()
+            soundfile = soundfiletools.SoundFile(str(file_path))
+            channel_count = channel_count or soundfile.channel_count
         buffer_ = self.add_buffer(
             channel_count=channel_count,
             duration=duration,
@@ -954,7 +964,7 @@ class Session(OscMixin):
         buffer_.read(
             file_path,
             leave_open=True,
-            start_frame=start_frame,
+            starting_frame_in_file=starting_frame,
             )
         return buffer_
 
@@ -982,6 +992,8 @@ class Session(OscMixin):
         debug=False,
         **kwargs
         ):
+        old_server_options = self._options
+        new_server_options = new(old_server_options, **kwargs)
         datagram = self.to_datagram(duration=duration)
         md5 = hashlib.md5()
         md5.update(datagram)
@@ -992,13 +1004,14 @@ class Session(OscMixin):
             file_pointer.write(datagram)
         command = self._build_render_command(
             output_filename,
-            input_filename=None,
+            input_filename=input_filename,
+            server_options=new_server_options,
             sample_rate=sample_rate,
             header_format=header_format,
             sample_format=sample_format,
-            **kwargs
             )
         command = command.format(file_path)
+        print('DOING IT', command)
         exit_code = subprocess.call(command, shell=True)
         if debug:
             return exit_code, file_path
@@ -1118,10 +1131,6 @@ class Session(OscMixin):
         return 0
 
     @property
-    def input_count(self):
-        return self._input_count
-
-    @property
     def nodes(self):
         return self._nodes
 
@@ -1130,8 +1139,8 @@ class Session(OscMixin):
         return self._offsets
 
     @property
-    def output_count(self):
-        return self._output_count
+    def options(self):
+        return self._options
 
     @property
     def root_node(self):

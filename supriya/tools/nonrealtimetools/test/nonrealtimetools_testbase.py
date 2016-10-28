@@ -9,16 +9,20 @@ from supriya.tools import ugentools
 class TestCase(systemtools.TestCase):
 
     def setUp(self):
+        self.output_filepaths = []
+        self.output_directory = os.path.dirname(__file__)
         self.output_filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__),  # relative to the base class
-            'output.aiff',
+            self.output_directory, 'output.aiff',
             ))
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        self.output_filepaths.append(self.output_filepath)
+        for output_filepath in self.output_filepaths:
+            if os.path.exists(output_filepath):
+                os.remove(output_filepath)
 
     def tearDown(self):
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        for output_filepath in self.output_filepaths:
+            if os.path.exists(output_filepath):
+                os.remove(output_filepath)
 
     def build_basic_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder()
@@ -60,14 +64,16 @@ class TestCase(systemtools.TestCase):
 
     def assert_ok(
         self,
-        expected_exit_code,
+        exit_code,
         expected_duration,
         expected_sample_rate,
         expected_channel_count,
+        filepath=None,
         ):
-        assert os.path.exists(self.output_filepath)
-        assert expected_exit_code == 0
-        soundfile = soundfiletools.SoundFile(self.output_filepath)
-        assert self.round(soundfile.seconds) == expected_duration
-        assert soundfile.sample_rate == expected_sample_rate
-        assert soundfile.channel_count == expected_channel_count
+        filepath = filepath or self.output_filepath
+        assert os.path.exists(filepath), filepath
+        assert exit_code == 0, exit_code
+        soundfile = soundfiletools.SoundFile(filepath)
+        assert self.round(soundfile.seconds) == expected_duration, self.round(soundfile.seconds)
+        assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
+        assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
