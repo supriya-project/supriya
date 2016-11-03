@@ -415,7 +415,12 @@ class Session(OscMixin):
                 requests.extend(buffer_requests)
         return requests
 
-    def _collect_buffer_settings(self, id_mapping):
+    def _collect_buffer_settings(
+        self,
+        id_mapping,
+        memo=None,
+        render_directory=None,
+        ):
         buffer_settings = {}
         for buffer_ in sorted(self._buffers, key=lambda x: id_mapping[x]):
             for event_type, events in buffer_._events.items():
@@ -990,11 +995,17 @@ class Session(OscMixin):
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         debug=False,
+        memo=None,
+        render_directory=None,
         **kwargs
         ):
         old_server_options = self._options
         new_server_options = new(old_server_options, **kwargs)
-        datagram = self.to_datagram(duration=duration)
+        datagram = self.to_datagram(
+            duration=duration,
+            memo=memo,
+            render_directory=render_directory,
+            )
         md5 = hashlib.md5()
         md5.update(datagram)
         md5 = md5.hexdigest()
@@ -1026,8 +1037,17 @@ class Session(OscMixin):
             states.append(state.report())
         return states
 
-    def to_datagram(self, duration=None):
-        osc_bundles = self.to_osc_bundles(duration=duration)
+    def to_datagram(
+        self,
+        duration=None,
+        memo=None,
+        render_directory=None,
+        ):
+        osc_bundles = self.to_osc_bundles(
+            duration=duration,
+            memo=memo,
+            render_directory=render_directory,
+            )
         datagrams = []
         for osc_bundle in osc_bundles:
             datagram = osc_bundle.to_datagram(realtime=False)
@@ -1038,11 +1058,25 @@ class Session(OscMixin):
         datagram = b''.join(datagrams)
         return datagram
 
-    def to_lists(self, duration=None):
-        osc_bundles = self.to_osc_bundles(duration=duration)
+    def to_lists(
+        self,
+        duration=None,
+        memo=None,
+        render_directory=None,
+        ):
+        osc_bundles = self.to_osc_bundles(
+            duration=duration,
+            memo=memo,
+            render_directory=render_directory,
+            )
         return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
-    def to_osc_bundles(self, duration=None):
+    def to_osc_bundles(
+        self,
+        duration=None,
+        memo=None,
+        render_directory=None,
+        ):
         id_mapping = self._build_id_mapping()
         if self.duration == float('inf'):
             assert duration is not None and 0 < duration < float('inf')
@@ -1051,7 +1085,11 @@ class Session(OscMixin):
         if duration not in offsets:
             offsets.append(duration)
             offsets.sort()
-        buffer_settings = self._collect_buffer_settings(id_mapping)
+        buffer_settings = self._collect_buffer_settings(
+            id_mapping,
+            memo=memo,
+            render_directory=render_directory,
+            )
         bus_settings = self._collect_bus_settings(id_mapping)
         is_last_offset = False
         osc_bundles = []

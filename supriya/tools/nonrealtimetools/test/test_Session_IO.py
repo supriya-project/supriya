@@ -348,7 +348,7 @@ class TestCase(TestCase):
             0.99: [-0.5, 0.0],
             }
 
-    def test_04(self):
+    def test_03(self):
         """
         Soundfile DiskIn input.
         """
@@ -398,7 +398,7 @@ class TestCase(TestCase):
             }
 
     @unittest.skip('TODO')
-    def test_06(self):
+    def test_04(self):
         """
         Session DiskIn input.
         """
