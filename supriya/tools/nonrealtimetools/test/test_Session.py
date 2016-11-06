@@ -14,7 +14,7 @@ class TestCase(TestCase):
                 duration=1,
                 synthdef=self.build_basic_synthdef(),
                 )
-        exit_code, _ = session.render(self.output_filepath)
+        exit_code = session.render(self.output_file_path)
         self.assert_ok(exit_code, 1., 44100, 8)
 
     def test_02(self):
@@ -24,8 +24,8 @@ class TestCase(TestCase):
                 duration=300,
                 synthdef=self.build_basic_synthdef(),
                 )
-        exit_code, _ = session.render(
-            self.output_filepath,
+        exit_code = session.render(
+            self.output_file_path,
             sample_rate=48000,
             output_bus_channel_count=2,
             )
@@ -55,12 +55,12 @@ class TestCase(TestCase):
                     )
                 ),
             ]
-        exit_code, _ = session.render(
-            self.output_filepath,
+        exit_code = session.render(
+            self.output_file_path,
             output_bus_channel_count=1,
             )
         self.assert_ok(exit_code, 1., 44100, 1)
-        soundfile = soundfiletools.SoundFile(self.output_filepath)
+        soundfile = soundfiletools.SoundFile(self.output_file_path)
         for i in range(1, 100):
             value = float(i) / 100
             assert self.round(soundfile.at_percent(value)[0]) == value

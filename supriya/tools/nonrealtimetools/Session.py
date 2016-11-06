@@ -1,14 +1,9 @@
 # -*- encoding: utf-8 -*-
 import bisect
 import collections
-import hashlib
 import os
 import pathlib
-import shutil
 import struct
-import subprocess
-import tempfile
-from abjad import new
 from abjad.tools import documentationtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
@@ -81,12 +76,15 @@ class Session(OscMixin):
         '_audio_output_bus_group',
         '_buffers',
         '_buses',
+        '_input',
+        '_name',
         '_nodes',
         '_offsets',
         '_options',
         '_root_node',
         '_session_ids',
         '_states',
+        '_transcript',
         )
 
     _ordered_buffer_post_alloc_request_types = (
@@ -112,6 +110,8 @@ class Session(OscMixin):
         self,
         input_bus_channel_count=None,
         output_bus_channel_count=None,
+        input_=None,
+        name=None,
         ):
         from supriya.tools import nonrealtimetools
         self._options = servertools.ServerOptions(
@@ -127,6 +127,11 @@ class Session(OscMixin):
         self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_states()
         self._setup_buses()
+        if input_ is not None and not isinstance(input_, type(self)):
+            input_ = str(input_)
+        self._input = input_
+        self._name = name
+        self._transcript = None
 
     ### SPECIAL METHODS ###
 
@@ -143,6 +148,12 @@ class Session(OscMixin):
             graph.append(subgraph)
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
+
+    def __eq__(self, expr):
+        return self is expr
+
+    def __hash__(self):
+        return id(self)
 
     ### PRIVATE METHODS ###
 
@@ -263,7 +274,7 @@ class Session(OscMixin):
     def _build_render_command(
         self,
         output_filename,
-        input_filename=None,
+        input_file_path=None,
         server_options=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
@@ -293,8 +304,8 @@ class Session(OscMixin):
             if not found_scsynth:
                 raise Exception('Cannot find scsynth. Is it on your $PATH?')
         parts = [scsynth_path, '-N', '{}']
-        if input_filename:
-            parts.append(os.path.expanduser(input_filename))
+        if input_file_path:
+            parts.append(os.path.expanduser(input_file_path))
         else:
             parts.append('_')
         parts.append(os.path.expanduser(output_filename))
@@ -418,8 +429,6 @@ class Session(OscMixin):
     def _collect_buffer_settings(
         self,
         id_mapping,
-        memo=None,
-        render_directory=None,
         ):
         buffer_settings = {}
         for buffer_ in sorted(self._buffers, key=lambda x: id_mapping[x]):
@@ -961,6 +970,8 @@ class Session(OscMixin):
             assert file_path.exists()
             soundfile = soundfiletools.SoundFile(str(file_path))
             channel_count = channel_count or soundfile.channel_count
+        elif isinstance(file_path, type(self)):
+            channel_count = channel_count or len(file_path.audio_output_bus_group)
         buffer_ = self.add_buffer(
             channel_count=channel_count,
             duration=duration,
@@ -988,47 +999,30 @@ class Session(OscMixin):
 
     def render(
         self,
-        output_filename,
-        input_filename=None,
+        output_file_path,
+        debug=None,
         duration=None,
-        sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
+        input_file_path=None,
+        render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
-        debug=False,
-        memo=None,
-        render_directory=None,
+        sample_rate=44100,
         **kwargs
         ):
-        old_server_options = self._options
-        new_server_options = new(old_server_options, **kwargs)
-        datagram = self.to_datagram(
+        from supriya.tools import nonrealtimetools
+        renderer = nonrealtimetools.SessionRenderer(self)
+        exit_code, transcript = renderer.render(
+            output_file_path,
             duration=duration,
-            memo=memo,
-            render_directory=render_directory,
-            )
-        md5 = hashlib.md5()
-        md5.update(datagram)
-        md5 = md5.hexdigest()
-        temp_directory_path = tempfile.mkdtemp()
-        file_path = os.path.join(temp_directory_path, '{}.osc'.format(md5))
-        with open(file_path, 'wb') as file_pointer:
-            file_pointer.write(datagram)
-        command = self._build_render_command(
-            output_filename,
-            input_filename=input_filename,
-            server_options=new_server_options,
             sample_rate=sample_rate,
             header_format=header_format,
             sample_format=sample_format,
+            render_path=render_path,
+            debug=debug,
+            **kwargs
             )
-        command = command.format(file_path)
-        print('DOING IT', command)
-        exit_code = subprocess.call(command, shell=True)
-        if debug:
-            return exit_code, file_path
-        else:
-            shutil.rmtree(temp_directory_path)
-            return exit_code, None
+        self._transcript = transcript
+        return exit_code
 
     def report(self):
         states = []
@@ -1040,13 +1034,9 @@ class Session(OscMixin):
     def to_datagram(
         self,
         duration=None,
-        memo=None,
-        render_directory=None,
         ):
         osc_bundles = self.to_osc_bundles(
             duration=duration,
-            memo=memo,
-            render_directory=render_directory,
             )
         datagrams = []
         for osc_bundle in osc_bundles:
@@ -1061,21 +1051,40 @@ class Session(OscMixin):
     def to_lists(
         self,
         duration=None,
-        memo=None,
-        render_directory=None,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        render_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
         ):
-        osc_bundles = self.to_osc_bundles(
+        from supriya.tools import nonrealtimetools
+        return nonrealtimetools.SessionRenderer(self).to_lists(
             duration=duration,
-            memo=memo,
-            render_directory=render_directory,
+            header_format=header_format,
+            render_path=render_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
             )
-        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
     def to_osc_bundles(
         self,
         duration=None,
-        memo=None,
-        render_directory=None,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        render_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
+        ):
+        from supriya.tools import nonrealtimetools
+        return nonrealtimetools.SessionRenderer(self).to_osc_bundles(
+            duration=duration,
+            header_format=header_format,
+            render_path=render_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            )
+
+    def _to_non_xrefd_osc_bundles(
+        self,
+        duration=None,
         ):
         id_mapping = self._build_id_mapping()
         if self.duration == float('inf'):
@@ -1087,8 +1096,6 @@ class Session(OscMixin):
             offsets.sort()
         buffer_settings = self._collect_buffer_settings(
             id_mapping,
-            memo=memo,
-            render_directory=render_directory,
             )
         bus_settings = self._collect_bus_settings(id_mapping)
         is_last_offset = False
@@ -1169,6 +1176,14 @@ class Session(OscMixin):
         return 0
 
     @property
+    def input_(self):
+        return self._input
+
+    @property
+    def name(self):
+        return self._name
+
+    @property
     def nodes(self):
         return self._nodes
 
@@ -1187,3 +1202,7 @@ class Session(OscMixin):
     @property
     def states(self):
         return self._states
+
+    @property
+    def transcript(self):
+        return self._transcript

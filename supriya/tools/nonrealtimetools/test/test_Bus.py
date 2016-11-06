@@ -8,16 +8,16 @@ from nonrealtimetools_testbase import TestCase
 class TestCase(TestCase):
 
     def setUp(self):
-        self.output_filepath = os.path.abspath(os.path.join(
+        self.output_file_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__),
             'output.aiff',
             ))
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        if os.path.exists(self.output_file_path):
+            os.remove(self.output_file_path)
 
     def tearDown(self):
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        if os.path.exists(self.output_file_path):
+            os.remove(self.output_file_path)
 
     def test_01(self):
         session = nonrealtimetools.Session()
