@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import functools
 import threading
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -64,3 +65,26 @@ class PubSub(SupriyaObject):
             topics = cls._subscribers[subscriber]
             for topic in topics.copy():
                 cls._unsubscribe(subscriber, topic)
+
+    ### DECORATORS ###
+
+    @classmethod
+    def subscribe_before(cls, topic):
+        def decorator(function):
+            @functools.wraps(function)
+            def wrapper(self, *args, **kwargs):
+                cls.subscribe(self, topic)
+                return function(self, *args, **kwargs)
+            return wrapper
+        return decorator
+
+    @classmethod
+    def unsubscribe_after(cls, topic):
+        def decorator(function):
+            @functools.wraps(function)
+            def wrapper(self, *args, **kwargs):
+                return_value = function(self, *args, **kwargs)
+                cls.unsubscribe(self, topic)
+                return return_value
+            return wrapper
+        return decorator

@@ -171,10 +171,10 @@ class RealtimeEventPlayer(EventPlayer):
         if topic == 'server-quit':
             self.stop()
 
+    @systemtools.PubSub.subscribe_before('server-quit')
     def start(self):
         if not self._server.is_running:
             return
-        systemtools.PubSub.subscribe(self, 'server-quit')
         timestamp = time.time()
         self._uuids.clear()
         self._iterator = self._iterate_outer(
@@ -189,6 +189,7 @@ class RealtimeEventPlayer(EventPlayer):
             absolute=True,
             )
 
+    @systemtools.PubSub.unsubscribe_after('server-quit')
     def stop(self):
         self._clock.cancel(self)
         self._iterator = None
@@ -196,4 +197,3 @@ class RealtimeEventPlayer(EventPlayer):
         if bundle and self._server.is_running:
             self._server.send_message(bundle.to_osc_bundle())
         self._uuids.clear()
-        systemtools.PubSub.unsubscribe(self, 'server-quit')

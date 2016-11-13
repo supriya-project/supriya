@@ -14,7 +14,7 @@ class TestCase(TestCase):
                 duration=1,
                 synthdef=self.build_basic_synthdef(),
                 )
-        exit_code = session.render(self.output_file_path)
+        exit_code, _ = session.render(self.output_file_path)
         self.assert_ok(exit_code, 1., 44100, 8)
 
     def test_02(self):
@@ -24,7 +24,7 @@ class TestCase(TestCase):
                 duration=300,
                 synthdef=self.build_basic_synthdef(),
                 )
-        exit_code = session.render(
+        exit_code, _ = session.render(
             self.output_file_path,
             sample_rate=48000,
             output_bus_channel_count=2,
@@ -55,7 +55,7 @@ class TestCase(TestCase):
                     )
                 ),
             ]
-        exit_code = session.render(
+        exit_code, _ = session.render(
             self.output_file_path,
             output_bus_channel_count=1,
             )

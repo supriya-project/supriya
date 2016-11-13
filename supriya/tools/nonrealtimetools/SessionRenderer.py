@@ -101,29 +101,9 @@ class SessionRenderer(SupriyaObject):
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
-        """
-        Builds non-realtime rendering command.
-
-        ::
-
-            >>> session._build_render_command('output.aiff')
-            'scsynth -N {} _ output.aiff 44100 aiff int24'
-
-        """
-        from abjad.tools import systemtools
+        from supriya import supriya_configuration
         server_options = server_options or servertools.ServerOptions()
-        scsynth_path = 'scsynth'
-        if not systemtools.IOManager.find_executable('scsynth'):
-            found_scsynth = False
-            for path in (
-                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
-                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
-                ):
-                if os.path.exists(path):
-                    scsynth_path = path
-                    found_scsynth = True
-            if not found_scsynth:
-                raise Exception('Cannot find scsynth. Is it on your $PATH?')
+        scsynth_path = supriya_configuration.scsynth_path
         parts = [scsynth_path, '-N', os.path.relpath(session_file_path)]
         if input_file_path:
             parts.append(os.path.relpath(os.path.expanduser(input_file_path)))
@@ -318,7 +298,7 @@ class SessionRenderer(SupriyaObject):
 
     def render(
         self,
-        output_file_path,
+        output_file_path=None,
         debug=None,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
@@ -327,6 +307,8 @@ class SessionRenderer(SupriyaObject):
         sample_rate=44100,
         **kwargs
         ):
+        from supriya import supriya_configuration
+        render_path = render_path or supriya_configuration.output_directory
         self.transcript[:] = []
         original_output_file_path = output_file_path
         prerender_tuples = self._collect_prerender_tuples(
@@ -347,7 +329,7 @@ class SessionRenderer(SupriyaObject):
                 session_file_path,
                 ) = prerender_tuple
             extension = header_format.name.lower()
-            if i < len(prerender_tuples) - 1:
+            if i < len(prerender_tuples) - 1 or not output_file_path:
                 output_file_path, _ = os.path.splitext(session_file_path)
                 output_file_path = '{}.{}'.format(output_file_path, extension)
             else:
@@ -368,7 +350,7 @@ class SessionRenderer(SupriyaObject):
                 )
             if exit_code:
                 raise Exception(exit_code)
-        return exit_code, self.transcript
+        return exit_code, self.transcript, output_file_path
 
     ### PUBLIC PROPERTIES ###
 

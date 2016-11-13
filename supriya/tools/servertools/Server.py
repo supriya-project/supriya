@@ -1,10 +1,8 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-import os
 import subprocess
 import time
-from abjad.tools.systemtools import IOManager
 from supriya.tools.systemtools import PubSub
 from supriya.tools.systemtools import SupriyaObject
 
@@ -377,21 +375,11 @@ class Server(SupriyaObject):
         self,
         server_options=None,
         ):
+        from supriya import supriya_configuration
         from supriya.tools import servertools
         if self.is_running:
             return self
-        scsynth_path = 'scsynth'
-        if not IOManager.find_executable('scsynth'):
-            found_scsynth = False
-            for path in (
-                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # < 3.7
-                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # >= 3.7
-                ):
-                if os.path.exists(path):
-                    scsynth_path = path
-                    found_scsynth = True
-            if not found_scsynth:
-                raise Exception('Cannot find scsynth. Is it on your $PATH?')
+        scsynth_path = supriya_configuration.scsynth_path
         self._osc_controller.boot()
         if server_options is None:
             server_options = self.server_options

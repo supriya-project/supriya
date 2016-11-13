@@ -176,12 +176,6 @@ class Session(OscMixin):
             state = self._find_state_at(offset, clone_if_missing=False)
             if state is None:
                 continue
-            # TODO: automatically handle sparsifying here.
-            #elif state.is_sparse and 0 < offset:
-            #    print('SPARSE', state.offset, state.start_nodes, state.stop_nodes,
-            #        state.nodes_to_children)
-            #    state._sparsify()
-            #    changed = True
             previous_state = self._find_state_before(
                 offset, with_node_tree=True)
             assert previous_state is not None
@@ -248,7 +242,7 @@ class Session(OscMixin):
             for bus_id, bus in enumerate(bus_group, output_count):
                 mapping[bus] = bus_id
         for bus in self._buses:
-            if bus in mapping:
+            if bus in mapping or bus.bus_group in mapping:
                 continue
             allocator = allocators[bus.calculation_rate]
             if bus.bus_group is None:
@@ -362,7 +356,6 @@ class Session(OscMixin):
                 try:
                     request = request_class(**arguments)
                 except TypeError:
-                    print(request_class, arguments)
                     raise
                 requests.append(request)
                 buffer_open_states[id_mapping[buffer_]] = False
@@ -999,7 +992,7 @@ class Session(OscMixin):
 
     def render(
         self,
-        output_file_path,
+        output_file_path=None,
         debug=None,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
@@ -1011,7 +1004,7 @@ class Session(OscMixin):
         ):
         from supriya.tools import nonrealtimetools
         renderer = nonrealtimetools.SessionRenderer(self)
-        exit_code, transcript = renderer.render(
+        exit_code, transcript, output_file_path = renderer.render(
             output_file_path,
             duration=duration,
             sample_rate=sample_rate,
@@ -1022,7 +1015,7 @@ class Session(OscMixin):
             **kwargs
             )
         self._transcript = transcript
-        return exit_code
+        return exit_code, output_file_path
 
     def report(self):
         states = []

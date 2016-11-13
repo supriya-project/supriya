@@ -164,16 +164,16 @@ class TestCase(TestCase):
                         ]))],
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 'a4'],
+                    'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
-                    'amplitude', 1.0, 'frequency', 440, 'out', 4]]],
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
             [1.0, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000,
-                    'amplitude', 1.0, 'frequency', 660, 'out', 4],
+                    'amplitude', 1.0, 'frequency', 660, 'out', 16],
                 ['/n_set', 1002, 'gate', 0]]],
             [3.0, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1000,
-                    'amplitude', 1.0, 'frequency', 880, 'out', 4],
+                    'amplitude', 1.0, 'frequency', 880, 'out', 16],
                 ['/n_set', 1003, 'gate', 0]]],
             [6.0, [['/n_set', 1004, 'gate', 0]]],
             [6.25, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]

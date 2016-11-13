@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import os
+from supriya import supriya_configuration
 from supriya.tools import nonrealtimetools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
@@ -95,6 +96,27 @@ class TestCase(TestCase):
             0.99: [round(x, 6) for x in soundfile.at_percent(0.99)],
             }
 
+    def test_00a(self):
+        """
+        No input, no output file path specified, no render path specified.
+        """
+        session = self._make_session()
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert output_file_path.startswith(
+            supriya_configuration.output_directory)
+
+    def test_00b(self):
+        """
+        No input, no output file path specified, render path specified.
+        """
+        session = self._make_session()
+        exit_code, output_file_path = session.render(
+            render_path=self.output_directory,
+            )
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert output_file_path.startswith(self.output_directory)
+
     def test_01(self):
         """
         No input.
@@ -109,7 +131,7 @@ class TestCase(TestCase):
             [6.0, [['/n_set', 1000, 'source', 0.75]]],
             [8.0, [['/n_set', 1000, 'source', 1.0]]],
             [10.0, [['/n_free', 1000], [0]]]]
-        exit_code = session.render(
+        exit_code, _ = session.render(
             self.output_file_path,
             render_path=self.output_directory,
             )
@@ -130,7 +152,7 @@ class TestCase(TestCase):
         path_one = os.path.join(self.output_directory, 'output-one.aiff')
         path_two = os.path.join(self.output_directory, 'output-two.aiff')
         session_one = self._make_session()
-        exit_code = session_one.render(
+        exit_code, _ = session_one.render(
             path_one,
             render_path=self.output_directory,
             )
@@ -145,7 +167,7 @@ class TestCase(TestCase):
                 out_bus=session_two.audio_output_bus_group,
                 multiplier=-0.5,
                 )
-        exit_code = session_two.render(
+        exit_code, _ = session_two.render(
             path_two,
             render_path=self.output_directory,
             )
@@ -166,7 +188,7 @@ class TestCase(TestCase):
         path_one = os.path.join(self.output_directory, 'output-one.aiff')
         path_two = os.path.join(self.output_directory, 'output-two.aiff')
         session_one = self._make_session()
-        exit_code = session_one.render(
+        exit_code, _ = session_one.render(
             path_one,
             render_path=self.output_directory,
             )
@@ -191,7 +213,7 @@ class TestCase(TestCase):
                 ['/s_new', '1d83a887914f0ac8ac3de461f4cc637c', 1000, 0, 0,
                     'in_bus', 4, 'multiplier', -0.5, 'out_bus', 0]]],
             [10.0, [['/n_free', 1000], [0]]]]
-        exit_code = session_two.render(
+        exit_code, _ = session_two.render(
             path_two,
             render_path=self.output_directory,
             )
@@ -229,7 +251,7 @@ class TestCase(TestCase):
                 ['/s_new', '76abe8508565e1ca3dd243fe960a6945', 1000, 0, 0,
                     'in_bus', 8, 'multiplier', -0.5, 'out_bus', 0]]],
             [10.0, [['/n_free', 1000], [0]]]]
-        exit_code = session_two.render(
+        exit_code, _ = session_two.render(
             self.output_file_path,
             render_path=self.output_directory,
             )
@@ -250,7 +272,7 @@ class TestCase(TestCase):
         path_one = os.path.join(self.output_directory, 'output-one.aiff')
         path_two = os.path.join(self.output_directory, 'output-two.aiff')
         session_one = self._make_session()
-        exit_code = session_one.render(
+        exit_code, _ = session_one.render(
             path_one,
             render_path=self.output_directory,
             )
@@ -278,7 +300,7 @@ class TestCase(TestCase):
                 ['/n_free', 1000],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        exit_code = session_two.render(
+        exit_code, _ = session_two.render(
             path_two,
             render_path=self.output_directory,
             )
@@ -330,7 +352,7 @@ class TestCase(TestCase):
                 ['/n_free', 1000],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        exit_code = session_two.render(
+        exit_code, _ = session_two.render(
             self.output_file_path,
             render_path=self.output_directory,
             )
@@ -430,7 +452,7 @@ class TestCase(TestCase):
                 ['/b_free', 0], [0]]]]
         assert not os.path.exists(buffer_one_path)
         assert not os.path.exists(buffer_two_path)
-        exit_code = session_three.render(
+        exit_code, _ = session_three.render(
             self.output_file_path,
             render_path=self.output_directory,
             )
@@ -562,7 +584,7 @@ class TestCase(TestCase):
                 ['/b_close', 1],
                 ['/b_free', 1],
                 [0]]]]
-        exit_code = session_three.render(
+        exit_code, _ = session_three.render(
             self.output_file_path,
             render_path=self.output_directory,
             )
