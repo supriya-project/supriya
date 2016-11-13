@@ -16,6 +16,7 @@ try:
     from queue import PriorityQueue
 except ImportError:
     from Queue import PriorityQueue
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Session(OscMixin):
@@ -156,6 +157,16 @@ class Session(OscMixin):
         return id(self)
 
     ### PRIVATE METHODS ###
+
+    def _add_state_at(self, offset):
+        old_state = self._find_state_before(offset)
+        state = old_state._clone(offset)
+        self.states[offset] = state
+        self.offsets.insert(
+            self.offsets.index(old_state.offset) + 1,
+            offset,
+            )
+        return state
 
     def _apply_transitions(self, offsets, chain=True):
         from supriya.tools import nonrealtimetools
@@ -823,16 +834,6 @@ class Session(OscMixin):
         self.states[offset] = state
         self.offsets.append(offset)
 
-    def _add_state_at(self, offset):
-        old_state = self._find_state_before(offset)
-        state = old_state._clone(offset)
-        self.states[offset] = state
-        self.offsets.insert(
-            self.offsets.index(old_state.offset) + 1,
-            offset,
-            )
-        return state
-
     def _remove_state_at(self, offset):
         state = self._find_state_at(offset, clone_if_missing=False)
         if state is None:
@@ -841,6 +842,53 @@ class Session(OscMixin):
         self.offsets.remove(offset)
         del(self.states[offset])
         return state
+
+    def _to_non_xrefd_osc_bundles(
+        self,
+        duration=None,
+        ):
+        id_mapping = self._build_id_mapping()
+        if self.duration == float('inf'):
+            assert duration is not None and 0 < duration < float('inf')
+        duration = duration or self.duration
+        offsets = self.offsets[1:]
+        if duration not in offsets:
+            offsets.append(duration)
+            offsets.sort()
+        buffer_settings = self._collect_buffer_settings(
+            id_mapping,
+            )
+        bus_settings = self._collect_bus_settings(id_mapping)
+        is_last_offset = False
+        osc_bundles = []
+        buffer_open_states = {}
+        visited_synthdefs = set()
+        for offset in offsets:
+            osc_messages = []
+            if offset == duration:
+                is_last_offset = True
+            requests = self._collect_requests_at_offset(
+                buffer_open_states,
+                buffer_settings,
+                bus_settings,
+                duration,
+                id_mapping,
+                is_last_offset,
+                offset,
+                visited_synthdefs,
+                )
+            osc_messages.extend(_.to_osc_message(True) for _ in requests)
+            if is_last_offset:
+                osc_messages.append(osctools.OscMessage(0))
+            if osc_messages:
+                osc_bundle = osctools.OscBundle(
+                    timestamp=float(offset),
+                    contents=osc_messages,
+                    )
+                osc_bundles.append(osc_bundle)
+            if is_last_offset:
+                break
+        return osc_bundles
 
     ### PUBLIC METHODS ###
 
@@ -854,6 +902,7 @@ class Session(OscMixin):
             state = self._add_state_at(offset)
         return nonrealtimetools.Moment(self, offset, state, propagate)
 
+    @SessionObject.require_offset
     def add_buffer(
         self,
         channel_count=None,
@@ -861,9 +910,9 @@ class Session(OscMixin):
         frame_count=None,
         starting_frame=None,
         file_path=None,
+        offset=None,
         ):
         from supriya.tools import nonrealtimetools
-        assert self.active_moments
         start_moment = self.active_moments[-1]
         session_id = self._get_next_session_id('buffer')
         buffer_ = nonrealtimetools.Buffer(
@@ -873,7 +922,7 @@ class Session(OscMixin):
             file_path=file_path,
             frame_count=frame_count,
             session_id=session_id,
-            start_offset=start_moment.offset,
+            start_offset=offset,
             starting_frame=starting_frame,
             )
         start_moment.state.start_buffers.add(buffer_)
@@ -882,15 +931,16 @@ class Session(OscMixin):
         self._buffers.insert(buffer_)
         return buffer_
 
+    @SessionObject.require_offset
     def add_buffer_group(
         self,
         buffer_count=1,
         channel_count=None,
         duration=None,
         frame_count=None,
+        offset=None,
         ):
         from supriya.tools import nonrealtimetools
-        assert self.active_moments
         start_moment = self.active_moments[-1]
         buffer_group = nonrealtimetools.BufferGroup(
             self,
@@ -898,7 +948,7 @@ class Session(OscMixin):
             channel_count=channel_count,
             duration=duration,
             frame_count=frame_count,
-            start_offset=start_moment.offset,
+            start_offset=offset,
             )
         for buffer_ in buffer_group:
             self._buffers.insert(buffer_)
@@ -928,11 +978,13 @@ class Session(OscMixin):
     def add_group(
         self,
         add_action=None,
-        duration=None
+        duration=None,
+        offset=None,
         ):
         return self.root_node.add_group(
             add_action=add_action,
             duration=duration,
+            offset=offset,
             )
 
     def add_synth(
@@ -940,15 +992,18 @@ class Session(OscMixin):
         add_action=None,
         duration=None,
         synthdef=None,
+        offset=None,
         **synth_kwargs
         ):
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
             synthdef=synthdef,
+            offset=offset,
             **synth_kwargs
             )
 
+    @SessionObject.require_offset
     def cue_soundfile(
         self,
         file_path,
@@ -956,6 +1011,7 @@ class Session(OscMixin):
         duration=None,
         frame_count=1024 * 32,
         starting_frame=0,
+        offset=None,
         ):
         if isinstance(file_path, str):
             file_path = pathlib.Path(file_path)
@@ -969,11 +1025,13 @@ class Session(OscMixin):
             channel_count=channel_count,
             duration=duration,
             frame_count=frame_count,
+            offset=offset,
             )
         buffer_.read(
             file_path,
             leave_open=True,
             starting_frame_in_file=starting_frame,
+            offset=offset,
             )
         return buffer_
 
@@ -981,8 +1039,13 @@ class Session(OscMixin):
         self,
         node,
         add_action=None,
+        offset=None,
         ):
-        self.root_node.move_node(node, add_action=add_action)
+        self.root_node.move_node(
+            node,
+            add_action=add_action,
+            offset=offset,
+            )
 
     def rebuild_transitions(self):
         for state_one, state_two in self._iterate_state_pairs(
@@ -1074,53 +1137,6 @@ class Session(OscMixin):
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
-
-    def _to_non_xrefd_osc_bundles(
-        self,
-        duration=None,
-        ):
-        id_mapping = self._build_id_mapping()
-        if self.duration == float('inf'):
-            assert duration is not None and 0 < duration < float('inf')
-        duration = duration or self.duration
-        offsets = self.offsets[1:]
-        if duration not in offsets:
-            offsets.append(duration)
-            offsets.sort()
-        buffer_settings = self._collect_buffer_settings(
-            id_mapping,
-            )
-        bus_settings = self._collect_bus_settings(id_mapping)
-        is_last_offset = False
-        osc_bundles = []
-        buffer_open_states = {}
-        visited_synthdefs = set()
-        for offset in offsets:
-            osc_messages = []
-            if offset == duration:
-                is_last_offset = True
-            requests = self._collect_requests_at_offset(
-                buffer_open_states,
-                buffer_settings,
-                bus_settings,
-                duration,
-                id_mapping,
-                is_last_offset,
-                offset,
-                visited_synthdefs,
-                )
-            osc_messages.extend(_.to_osc_message(True) for _ in requests)
-            if is_last_offset:
-                osc_messages.append(osctools.OscMessage(0))
-            if osc_messages:
-                osc_bundle = osctools.OscBundle(
-                    timestamp=float(offset),
-                    contents=osc_messages,
-                    )
-                osc_bundles.append(osc_bundle)
-            if is_last_offset:
-                break
-        return osc_bundles
 
     def to_strings(self, include_controls=False):
         from supriya.tools import responsetools

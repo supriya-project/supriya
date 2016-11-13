@@ -266,42 +266,42 @@ class Node(SessionObject):
 
     ### CONSTRUCTORS ###
 
+    @SessionObject.require_offset
     def add_group(
         self,
         add_action=None,
         duration=None,
+        offset=None,
         ):
         from supriya.tools import nonrealtimetools
-        assert self.session.active_moments
-        start_moment = self.session.active_moments[-1]
         session_id = self.session._get_next_session_id('node')
         node = nonrealtimetools.Group(
             self.session,
             session_id=session_id,
             duration=duration,
-            start_offset=start_moment.offset,
+            start_offset=offset,
             )
         self._add_node(node, add_action)
         return node
 
+    @SessionObject.require_offset
     def add_synth(
         self,
         add_action=None,
         duration=None,
         synthdef=None,
+        offset=None,
         **synth_kwargs
         ):
         from supriya import synthdefs
         from supriya.tools import nonrealtimetools
-        assert self.session.active_moments
-        start_moment = self.session.active_moments[-1]
         session_id = self.session._get_next_session_id('node')
         synthdef = synthdef or synthdefs.default
         node = nonrealtimetools.Synth(
             self.session,
             session_id=session_id,
             duration=duration,
-            start_offset=start_moment.offset,
+            start_offset=offset,
             synthdef=synthdef,
             **synth_kwargs
             )
@@ -310,13 +310,14 @@ class Node(SessionObject):
 
     ### MUTATORS ###
 
+    @SessionObject.require_offset
     def move_node(
         self,
         node,
         add_action=None,
+        offset=None,
         ):
         from supriya.tools import nonrealtimetools
-        assert self.session.active_moments
         state = self.session.active_moments[-1].state
         if state.nodes_to_parents is None:
             state._desparsify()
@@ -335,7 +336,6 @@ class Node(SessionObject):
         self.session._apply_transitions([state.offset, node.stop_offset])
 
     def delete(self):
-        #print('DELETING', self)
         start_state = self.session._find_state_at(self.start_offset)
         start_state.start_nodes.remove(self)
         stop_state = self.session._find_state_at(self.stop_offset)
@@ -402,17 +402,18 @@ class Node(SessionObject):
                 new_stop_offset,
                 ])
 
+    @SessionObject.require_offset
     def split(
         self,
         split_occupiers=True,
         split_traversers=True,
+        offset=None,
         ):
         assert self.session.active_moments
-        moment = self.session.active_moments[-1]
-        state = moment.state
+        state = self.session.active_moments[-1].state
         self.session._apply_transitions(state.offset)
         shards = self._split(
-            moment.offset,
+            offset,
             split_occupiers=split_occupiers,
             split_traversers=split_traversers,
             )
@@ -424,17 +425,9 @@ class Node(SessionObject):
 
     ### RELATIONS ###
 
+    @SessionObject.require_offset
     def inspect_children(self, offset=None):
-        if offset is None:
-            assert self.session.active_moments
-            moment = self.session.active_moments[-1]
-            this_state = moment.state
-            offset = moment.offset
-        else:
-            this_state = self.session._get_state_at(
-                offset,
-                clone_if_missing=True,
-                )
+        this_state = self.session._find_state_at(offset, clone_if_missing=True)
         prev_state = self.session._find_state_before(this_state.offset, True)
         prev_state._desparsify()
         this_state._desparsify()
@@ -471,18 +464,18 @@ class Node(SessionObject):
         stopping = tuple(sorted(stopping, key=lambda x: x.session_id))
         return (entering, exiting, occupying, starting, stopping)
 
-    def get_parent(self):
-        assert self.session.active_moments
-        state = self.session.active_moments[-1].state
+    @SessionObject.require_offset
+    def get_parent(self, offset=None):
+        state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
         elif self.stop_offset == state.offset:
             state = self.session._find_state_before(state.offset, True)
         return state.nodes_to_parents.get(self) or None
 
-    def get_parentage(self):
-        assert self.session.active_moments
-        state = self.session.active_moments[-1].state
+    @SessionObject.require_offset
+    def get_parentage(self, offset=None):
+        state = self.session._find_state_at(offset, clone_if_missing=True)
         if not state.nodes_to_children:
             state = self.session._find_state_before(state.offset, True)
         node = self
