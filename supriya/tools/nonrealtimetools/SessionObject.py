@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import abc
+import functools
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -40,6 +41,24 @@ class SessionObject(SupriyaObject):
             client=self,
             storage_format_args_values=values,
             )
+
+    @staticmethod
+    def require_offset(function):
+        @functools.wraps(function)
+        def wrapper(self, *args, **kwargs):
+            if isinstance(self, nonrealtimetools.Session):
+                session = self
+            else:
+                session = self.session
+            if 'offset' not in kwargs or kwargs['offset'] is None:
+                assert session._active_moments
+                offset = session._active_moments[-1].offset
+                kwargs['offset'] = offset
+                return function(self, *args, **kwargs)
+            with session.at(kwargs['offset']):
+                return function(self, *args, **kwargs)
+        from supriya.tools import nonrealtimetools
+        return wrapper
 
     ### PUBLIC PROPERTIES ###
 

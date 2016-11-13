@@ -51,13 +51,16 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         frame_count=None,
         starting_frame=None,
         ):
+        from supriya.tools import nonrealtimetools
         BufferAllocateRequest.__init__(
             self,
             buffer_id=buffer_id,
             frame_count=frame_count,
             completion_message=completion_message,
             )
-        self._file_path = str(file_path)
+        if not isinstance(file_path, nonrealtimetools.Session):
+            file_path = str(file_path)
+        self._file_path = file_path
         if starting_frame is not None:
             starting_frame = int(starting_frame)
             assert 0 <= starting_frame

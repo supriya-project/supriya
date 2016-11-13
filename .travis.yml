@@ -1,13 +1,9 @@
 language: python
 
 python:
-    - 3.3
-    - 3.4
     - 3.5
 
 before_install:
-    - sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FABAEF95
-    - sudo add-apt-repository -y ppa:supercollider/ppa
     - sudo apt-get update -qq
     - sudo apt-get install -y graphviz
     - sudo apt-get install -y pulseaudio pulseaudio-module-jack

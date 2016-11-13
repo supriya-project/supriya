@@ -1,12 +1,9 @@
 # -*- encoding: utf-8 -*-
 import bisect
 import collections
-import hashlib
 import os
-import shutil
+import pathlib
 import struct
-import subprocess
-import tempfile
 from abjad.tools import documentationtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
@@ -19,12 +16,14 @@ try:
     from queue import PriorityQueue
 except ImportError:
     from Queue import PriorityQueue
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Session(OscMixin):
     """
     A non-realtime session.
-::
+
+    ::
 
         >>> from supriya.tools import nonrealtimetools
         >>> session = nonrealtimetools.Session()
@@ -78,13 +77,15 @@ class Session(OscMixin):
         '_audio_output_bus_group',
         '_buffers',
         '_buses',
-        '_input_count',
+        '_input',
+        '_name',
         '_nodes',
         '_offsets',
-        '_output_count',
+        '_options',
         '_root_node',
         '_session_ids',
         '_states',
+        '_transcript',
         )
 
     _ordered_buffer_post_alloc_request_types = (
@@ -106,8 +107,18 @@ class Session(OscMixin):
 
     ### INITIALIZER ###
 
-    def __init__(self, input_count=0, output_count=2):
+    def __init__(
+        self,
+        input_bus_channel_count=None,
+        output_bus_channel_count=None,
+        input_=None,
+        name=None,
+        ):
         from supriya.tools import nonrealtimetools
+        self._options = servertools.ServerOptions(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            )
         self._active_moments = []
         self._session_ids = {}
         self._states = {}
@@ -116,7 +127,12 @@ class Session(OscMixin):
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_states()
-        self._setup_buses(input_count, output_count)
+        self._setup_buses()
+        if input_ is not None and not isinstance(input_, type(self)):
+            input_ = str(input_)
+        self._input = input_
+        self._name = name
+        self._transcript = None
 
     ### SPECIAL METHODS ###
 
@@ -134,7 +150,23 @@ class Session(OscMixin):
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
 
+    def __eq__(self, expr):
+        return self is expr
+
+    def __hash__(self):
+        return id(self)
+
     ### PRIVATE METHODS ###
+
+    def _add_state_at(self, offset):
+        old_state = self._find_state_before(offset)
+        state = old_state._clone(offset)
+        self.states[offset] = state
+        self.offsets.insert(
+            self.offsets.index(old_state.offset) + 1,
+            offset,
+            )
+        return state
 
     def _apply_transitions(self, offsets, chain=True):
         from supriya.tools import nonrealtimetools
@@ -155,12 +187,6 @@ class Session(OscMixin):
             state = self._find_state_at(offset, clone_if_missing=False)
             if state is None:
                 continue
-            # TODO: automatically handle sparsifying here.
-            #elif state.is_sparse and 0 < offset:
-            #    print('SPARSE', state.offset, state.start_nodes, state.stop_nodes,
-            #        state.nodes_to_children)
-            #    state._sparsify()
-            #    changed = True
             previous_state = self._find_state_before(
                 offset, with_node_tree=True)
             assert previous_state is not None
@@ -206,8 +232,8 @@ class Session(OscMixin):
         return mapping
 
     def _build_id_mapping_for_buses(self):
-        input_count = self._input_count or 0
-        output_count = self._output_count or 0
+        input_count = self._options._input_bus_channel_count
+        output_count = self._options._output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
             synthdeftools.CalculationRate.AUDIO: servertools.BlockAllocator(
@@ -218,14 +244,16 @@ class Session(OscMixin):
         mapping = {}
         if output_count:
             bus_group = self.audio_output_bus_group
+            mapping[bus_group] = 0
             for bus_id, bus in enumerate(bus_group):
                 mapping[bus] = bus_id
         if input_count:
             bus_group = self.audio_input_bus_group
+            mapping[bus_group] = output_count
             for bus_id, bus in enumerate(bus_group, output_count):
                 mapping[bus] = bus_id
         for bus in self._buses:
-            if bus in mapping:
+            if bus in mapping or bus.bus_group in mapping:
                 continue
             allocator = allocators[bus.calculation_rate]
             if bus.bus_group is None:
@@ -251,11 +279,11 @@ class Session(OscMixin):
     def _build_render_command(
         self,
         output_filename,
-        input_filename=None,
+        input_file_path=None,
+        server_options=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
-        **kwargs
         ):
         """
         Builds non-realtime rendering command.
@@ -267,6 +295,7 @@ class Session(OscMixin):
 
         """
         from abjad.tools import systemtools
+        server_options = server_options or servertools.ServerOptions()
         scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):
             found_scsynth = False
@@ -280,8 +309,8 @@ class Session(OscMixin):
             if not found_scsynth:
                 raise Exception('Cannot find scsynth. Is it on your $PATH?')
         parts = [scsynth_path, '-N', '{}']
-        if input_filename:
-            parts.append(os.path.expanduser(input_filename))
+        if input_file_path:
+            parts.append(os.path.expanduser(input_file_path))
         else:
             parts.append('_')
         parts.append(os.path.expanduser(output_filename))
@@ -290,7 +319,6 @@ class Session(OscMixin):
         parts.append(header_format.name.lower())  # Must be lowercase.
         sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
         parts.append(sample_format.name.lower())  # Must be lowercase.
-        server_options = servertools.ServerOptions(**kwargs)
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
@@ -339,7 +367,6 @@ class Session(OscMixin):
                 try:
                     request = request_class(**arguments)
                 except TypeError:
-                    print(request_class, arguments)
                     raise
                 requests.append(request)
                 buffer_open_states[id_mapping[buffer_]] = False
@@ -403,7 +430,10 @@ class Session(OscMixin):
                 requests.extend(buffer_requests)
         return requests
 
-    def _collect_buffer_settings(self, id_mapping):
+    def _collect_buffer_settings(
+        self,
+        id_mapping,
+        ):
         buffer_settings = {}
         for buffer_ in sorted(self._buffers, key=lambda x: id_mapping[x]):
             for event_type, events in buffer_._events.items():
@@ -781,23 +811,15 @@ class Session(OscMixin):
                 states.append(terminal_state)
         return states
 
-    def _setup_buses(self, input_count, output_count):
+    def _setup_buses(self):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
-        input_count = int(input_count or 0)
-        assert 0 <= input_count
-        self._input_count = input_count
-        output_count = int(output_count or 0)
-        assert 0 <= output_count
-        self._output_count = output_count
-        audio_input_bus_group = None
-        if self._input_count:
-            audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
-        self._audio_input_bus_group = audio_input_bus_group
-        audio_output_bus_group = None
-        if self._output_count:
-            audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
-        self._audio_output_bus_group = audio_output_bus_group
+        self._audio_input_bus_group = None
+        if self._options._input_bus_channel_count:
+            self._audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
+        self._audio_output_bus_group = None
+        if self._options._output_bus_channel_count:
+            self._audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):
         from supriya.tools import nonrealtimetools
@@ -812,16 +834,6 @@ class Session(OscMixin):
         self.states[offset] = state
         self.offsets.append(offset)
 
-    def _add_state_at(self, offset):
-        old_state = self._find_state_before(offset)
-        state = old_state._clone(offset)
-        self.states[offset] = state
-        self.offsets.insert(
-            self.offsets.index(old_state.offset) + 1,
-            offset,
-            )
-        return state
-
     def _remove_state_at(self, offset):
         state = self._find_state_at(offset, clone_if_missing=False)
         if state is None:
@@ -831,205 +843,10 @@ class Session(OscMixin):
         del(self.states[offset])
         return state
 
-    ### PUBLIC METHODS ###
-
-    def at(self, offset, propagate=True):
-        from supriya.tools import nonrealtimetools
-        assert 0 <= offset
-        state = self._find_state_at(offset)
-        if state:
-            assert state.offset in self.states
-        if not state:
-            state = self._add_state_at(offset)
-        return nonrealtimetools.Moment(self, offset, state, propagate)
-
-    def add_buffer(
+    def _to_non_xrefd_osc_bundles(
         self,
-        channel_count=None,
         duration=None,
-        frame_count=None,
-        starting_frame=None,
-        file_path=None,
         ):
-        from supriya.tools import nonrealtimetools
-        assert self.active_moments
-        start_moment = self.active_moments[-1]
-        session_id = self._get_next_session_id('buffer')
-        buffer_ = nonrealtimetools.Buffer(
-            self,
-            channel_count=channel_count,
-            duration=duration,
-            file_path=file_path,
-            frame_count=frame_count,
-            session_id=session_id,
-            start_offset=start_moment.offset,
-            starting_frame=starting_frame,
-            )
-        start_moment.state.start_buffers.add(buffer_)
-        with self.at(buffer_.stop_offset) as stop_moment:
-            stop_moment.state.stop_buffers.add(buffer_)
-        self._buffers.insert(buffer_)
-        return buffer_
-
-    def add_buffer_group(
-        self,
-        buffer_count=1,
-        channel_count=None,
-        duration=None,
-        frame_count=None,
-        ):
-        from supriya.tools import nonrealtimetools
-        assert self.active_moments
-        start_moment = self.active_moments[-1]
-        buffer_group = nonrealtimetools.BufferGroup(
-            self,
-            buffer_count=buffer_count,
-            channel_count=channel_count,
-            duration=duration,
-            frame_count=frame_count,
-            start_offset=start_moment.offset,
-            )
-        for buffer_ in buffer_group:
-            self._buffers.insert(buffer_)
-            start_moment.state.start_buffers.add(buffer_)
-        with self.at(buffer_group.stop_offset) as stop_moment:
-            for buffer_ in buffer_group:
-                stop_moment.state.stop_buffers.add(buffer_)
-        return buffer_group
-
-    def add_bus(self, calculation_rate='control'):
-        from supriya.tools import nonrealtimetools
-        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
-        self._buses[bus] = None  # ordered dictionary
-        return bus
-
-    def add_bus_group(self, bus_count=1, calculation_rate='control'):
-        from supriya.tools import nonrealtimetools
-        bus_group = nonrealtimetools.BusGroup(
-            self,
-            bus_count=bus_count,
-            calculation_rate=calculation_rate,
-            )
-        for bus in bus_group:
-            self._buses[bus] = None  # ordered dictionary
-        return bus_group
-
-    def add_group(
-        self,
-        add_action=None,
-        duration=None
-        ):
-        return self.root_node.add_group(
-            add_action=add_action,
-            duration=duration,
-            )
-
-    def add_synth(
-        self,
-        add_action=None,
-        duration=None,
-        synthdef=None,
-        **synth_kwargs
-        ):
-        return self.root_node.add_synth(
-            add_action=add_action,
-            duration=duration,
-            synthdef=synthdef,
-            **synth_kwargs
-            )
-
-    def cue_soundfile(
-        self,
-        file_path,
-        channel_count=2,
-        duration=None,
-        frame_count=1024 * 32,
-        start_frame=0,
-        ):
-        buffer_ = self.add_buffer(
-            channel_count=channel_count,
-            duration=duration,
-            frame_count=frame_count,
-            )
-        buffer_.read(
-            file_path,
-            leave_open=True,
-            start_frame=start_frame,
-            )
-        return buffer_
-
-    def move_node(
-        self,
-        node,
-        add_action=None,
-        ):
-        self.root_node.move_node(node, add_action=add_action)
-
-    def rebuild_transitions(self):
-        for state_one, state_two in self._iterate_state_pairs(
-            float('-inf'), with_node_tree=True):
-            transitions = state_two._rebuild_transitions(state_one, state_two)
-            state_two._transitions = transitions
-
-    def render(
-        self,
-        output_filename,
-        input_filename=None,
-        duration=None,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        debug=False,
-        **kwargs
-        ):
-        datagram = self.to_datagram(duration=duration)
-        md5 = hashlib.md5()
-        md5.update(datagram)
-        md5 = md5.hexdigest()
-        temp_directory_path = tempfile.mkdtemp()
-        file_path = os.path.join(temp_directory_path, '{}.osc'.format(md5))
-        with open(file_path, 'wb') as file_pointer:
-            file_pointer.write(datagram)
-        command = self._build_render_command(
-            output_filename,
-            input_filename=None,
-            sample_rate=sample_rate,
-            header_format=header_format,
-            sample_format=sample_format,
-            **kwargs
-            )
-        command = command.format(file_path)
-        exit_code = subprocess.call(command, shell=True)
-        if debug:
-            return exit_code, file_path
-        else:
-            shutil.rmtree(temp_directory_path)
-            return exit_code, None
-
-    def report(self):
-        states = []
-        for offset in self.offsets[1:]:
-            state = self.states[offset]
-            states.append(state.report())
-        return states
-
-    def to_datagram(self, duration=None):
-        osc_bundles = self.to_osc_bundles(duration=duration)
-        datagrams = []
-        for osc_bundle in osc_bundles:
-            datagram = osc_bundle.to_datagram(realtime=False)
-            size = len(datagram)
-            size = struct.pack('>i', size)
-            datagrams.append(size)
-            datagrams.append(datagram)
-        datagram = b''.join(datagrams)
-        return datagram
-
-    def to_lists(self, duration=None):
-        osc_bundles = self.to_osc_bundles(duration=duration)
-        return [osc_bundle.to_list() for osc_bundle in osc_bundles]
-
-    def to_osc_bundles(self, duration=None):
         id_mapping = self._build_id_mapping()
         if self.duration == float('inf'):
             assert duration is not None and 0 < duration < float('inf')
@@ -1038,7 +855,9 @@ class Session(OscMixin):
         if duration not in offsets:
             offsets.append(duration)
             offsets.sort()
-        buffer_settings = self._collect_buffer_settings(id_mapping)
+        buffer_settings = self._collect_buffer_settings(
+            id_mapping,
+            )
         bus_settings = self._collect_bus_settings(id_mapping)
         is_last_offset = False
         osc_bundles = []
@@ -1070,6 +889,254 @@ class Session(OscMixin):
             if is_last_offset:
                 break
         return osc_bundles
+
+    ### PUBLIC METHODS ###
+
+    def at(self, offset, propagate=True):
+        from supriya.tools import nonrealtimetools
+        assert 0 <= offset
+        state = self._find_state_at(offset)
+        if state:
+            assert state.offset in self.states
+        if not state:
+            state = self._add_state_at(offset)
+        return nonrealtimetools.Moment(self, offset, state, propagate)
+
+    @SessionObject.require_offset
+    def add_buffer(
+        self,
+        channel_count=None,
+        duration=None,
+        frame_count=None,
+        starting_frame=None,
+        file_path=None,
+        offset=None,
+        ):
+        from supriya.tools import nonrealtimetools
+        start_moment = self.active_moments[-1]
+        session_id = self._get_next_session_id('buffer')
+        buffer_ = nonrealtimetools.Buffer(
+            self,
+            channel_count=channel_count,
+            duration=duration,
+            file_path=file_path,
+            frame_count=frame_count,
+            session_id=session_id,
+            start_offset=offset,
+            starting_frame=starting_frame,
+            )
+        start_moment.state.start_buffers.add(buffer_)
+        with self.at(buffer_.stop_offset) as stop_moment:
+            stop_moment.state.stop_buffers.add(buffer_)
+        self._buffers.insert(buffer_)
+        return buffer_
+
+    @SessionObject.require_offset
+    def add_buffer_group(
+        self,
+        buffer_count=1,
+        channel_count=None,
+        duration=None,
+        frame_count=None,
+        offset=None,
+        ):
+        from supriya.tools import nonrealtimetools
+        start_moment = self.active_moments[-1]
+        buffer_group = nonrealtimetools.BufferGroup(
+            self,
+            buffer_count=buffer_count,
+            channel_count=channel_count,
+            duration=duration,
+            frame_count=frame_count,
+            start_offset=offset,
+            )
+        for buffer_ in buffer_group:
+            self._buffers.insert(buffer_)
+            start_moment.state.start_buffers.add(buffer_)
+        with self.at(buffer_group.stop_offset) as stop_moment:
+            for buffer_ in buffer_group:
+                stop_moment.state.stop_buffers.add(buffer_)
+        return buffer_group
+
+    def add_bus(self, calculation_rate='control'):
+        from supriya.tools import nonrealtimetools
+        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
+        self._buses[bus] = None  # ordered dictionary
+        return bus
+
+    def add_bus_group(self, bus_count=1, calculation_rate='control'):
+        from supriya.tools import nonrealtimetools
+        bus_group = nonrealtimetools.BusGroup(
+            self,
+            bus_count=bus_count,
+            calculation_rate=calculation_rate,
+            )
+        for bus in bus_group:
+            self._buses[bus] = None  # ordered dictionary
+        return bus_group
+
+    def add_group(
+        self,
+        add_action=None,
+        duration=None,
+        offset=None,
+        ):
+        return self.root_node.add_group(
+            add_action=add_action,
+            duration=duration,
+            offset=offset,
+            )
+
+    def add_synth(
+        self,
+        add_action=None,
+        duration=None,
+        synthdef=None,
+        offset=None,
+        **synth_kwargs
+        ):
+        return self.root_node.add_synth(
+            add_action=add_action,
+            duration=duration,
+            synthdef=synthdef,
+            offset=offset,
+            **synth_kwargs
+            )
+
+    @SessionObject.require_offset
+    def cue_soundfile(
+        self,
+        file_path,
+        channel_count=None,
+        duration=None,
+        frame_count=1024 * 32,
+        starting_frame=0,
+        offset=None,
+        ):
+        if isinstance(file_path, str):
+            file_path = pathlib.Path(file_path)
+        if isinstance(file_path, pathlib.Path):
+            assert file_path.exists()
+            soundfile = soundfiletools.SoundFile(str(file_path))
+            channel_count = channel_count or soundfile.channel_count
+        elif isinstance(file_path, type(self)):
+            channel_count = channel_count or len(file_path.audio_output_bus_group)
+        buffer_ = self.add_buffer(
+            channel_count=channel_count,
+            duration=duration,
+            frame_count=frame_count,
+            offset=offset,
+            )
+        buffer_.read(
+            file_path,
+            leave_open=True,
+            starting_frame_in_file=starting_frame,
+            offset=offset,
+            )
+        return buffer_
+
+    def move_node(
+        self,
+        node,
+        add_action=None,
+        offset=None,
+        ):
+        self.root_node.move_node(
+            node,
+            add_action=add_action,
+            offset=offset,
+            )
+
+    def rebuild_transitions(self):
+        for state_one, state_two in self._iterate_state_pairs(
+            float('-inf'), with_node_tree=True):
+            transitions = state_two._rebuild_transitions(state_one, state_two)
+            state_two._transitions = transitions
+
+    def render(
+        self,
+        output_file_path=None,
+        debug=None,
+        duration=None,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        input_file_path=None,
+        render_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
+        **kwargs
+        ):
+        from supriya.tools import nonrealtimetools
+        renderer = nonrealtimetools.SessionRenderer(self)
+        exit_code, transcript, output_file_path = renderer.render(
+            output_file_path,
+            duration=duration,
+            sample_rate=sample_rate,
+            header_format=header_format,
+            sample_format=sample_format,
+            render_path=render_path,
+            debug=debug,
+            **kwargs
+            )
+        self._transcript = transcript
+        return exit_code, output_file_path
+
+    def report(self):
+        states = []
+        for offset in self.offsets[1:]:
+            state = self.states[offset]
+            states.append(state.report())
+        return states
+
+    def to_datagram(
+        self,
+        duration=None,
+        ):
+        osc_bundles = self.to_osc_bundles(
+            duration=duration,
+            )
+        datagrams = []
+        for osc_bundle in osc_bundles:
+            datagram = osc_bundle.to_datagram(realtime=False)
+            size = len(datagram)
+            size = struct.pack('>i', size)
+            datagrams.append(size)
+            datagrams.append(datagram)
+        datagram = b''.join(datagrams)
+        return datagram
+
+    def to_lists(
+        self,
+        duration=None,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        render_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
+        ):
+        from supriya.tools import nonrealtimetools
+        return nonrealtimetools.SessionRenderer(self).to_lists(
+            duration=duration,
+            header_format=header_format,
+            render_path=render_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            )
+
+    def to_osc_bundles(
+        self,
+        duration=None,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        render_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
+        ):
+        from supriya.tools import nonrealtimetools
+        return nonrealtimetools.SessionRenderer(self).to_osc_bundles(
+            duration=duration,
+            header_format=header_format,
+            render_path=render_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
+            )
 
     def to_strings(self, include_controls=False):
         from supriya.tools import responsetools
@@ -1118,8 +1185,12 @@ class Session(OscMixin):
         return 0
 
     @property
-    def input_count(self):
-        return self._input_count
+    def input_(self):
+        return self._input
+
+    @property
+    def name(self):
+        return self._name
 
     @property
     def nodes(self):
@@ -1130,8 +1201,8 @@ class Session(OscMixin):
         return self._offsets
 
     @property
-    def output_count(self):
-        return self._output_count
+    def options(self):
+        return self._options
 
     @property
     def root_node(self):
@@ -1140,3 +1211,7 @@ class Session(OscMixin):
     @property
     def states(self):
         return self._states
+
+    @property
+    def transcript(self):
+        return self._transcript

@@ -57,11 +57,14 @@ class BufferReadRequest(Request):
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
         ):
+        from supriya.tools import nonrealtimetools
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
             completion_message)
-        self._file_path = str(file_path)
+        if not isinstance(file_path, nonrealtimetools.Session):
+            file_path = str(file_path)
+        self._file_path = file_path
         if frame_count is not None:
             frame_count = int(frame_count)
             assert -1 <= frame_count

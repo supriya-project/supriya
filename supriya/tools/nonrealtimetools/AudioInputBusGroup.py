@@ -10,11 +10,10 @@ class AudioInputBusGroup(BusGroup):
         session,
         ):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        bus_count = session.input_count
+        bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
             self,
             session,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
             )
-        

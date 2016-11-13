@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
 import os
+import pathlib
+import shutil
 from abjad.tools import systemtools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
@@ -8,17 +10,26 @@ from supriya.tools import ugentools
 
 class TestCase(systemtools.TestCase):
 
+    test_path = pathlib.Path(__file__).parent
+
     def setUp(self):
-        self.output_filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__),  # relative to the base class
-            'output.aiff',
+        self.directory_items = set(self.test_path.iterdir())
+        self.output_directory = os.path.dirname(__file__)
+        self.output_file_path = os.path.abspath(os.path.join(
+            self.output_directory, 'output.aiff',
             ))
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        self.original_curdir = os.path.abspath(os.curdir)
+        os.chdir(self.output_directory)
 
     def tearDown(self):
-        if os.path.exists(self.output_filepath):
-            os.remove(self.output_filepath)
+        for path in sorted(self.test_path.iterdir()):
+            if path in self.directory_items:
+                continue
+            if path.is_file():
+                path.unlink()
+            else:
+                shutil.rmtree(str(path))
+        os.chdir(self.original_curdir)
 
     def build_basic_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder()
@@ -60,14 +71,16 @@ class TestCase(systemtools.TestCase):
 
     def assert_ok(
         self,
-        expected_exit_code,
+        exit_code,
         expected_duration,
         expected_sample_rate,
         expected_channel_count,
+        file_path=None,
         ):
-        assert os.path.exists(self.output_filepath)
-        assert expected_exit_code == 0
-        soundfile = soundfiletools.SoundFile(self.output_filepath)
-        assert self.round(soundfile.seconds) == expected_duration
-        assert soundfile.sample_rate == expected_sample_rate
-        assert soundfile.channel_count == expected_channel_count
+        file_path = file_path or self.output_file_path
+        assert os.path.exists(file_path), file_path
+        assert exit_code == 0, exit_code
+        soundfile = soundfiletools.SoundFile(file_path)
+        assert self.round(soundfile.seconds) == expected_duration, self.round(soundfile.seconds)
+        assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
+        assert soundfile.channel_count == expected_channel_count, soundfile.channel_count

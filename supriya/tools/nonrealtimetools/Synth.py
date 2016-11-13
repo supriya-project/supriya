@@ -59,14 +59,15 @@ class Synth(Node):
             nonrealtimetools.Buffer,
             nonrealtimetools.BufferGroup,
             )
-        nonmapping_keys = ['out']
+        #nonmapping_keys = ['out']
         for key, value in synth_kwargs.items():
             if isinstance(value, bus_prototype):
                 bus_id = id_mapping[value]
-                if key not in nonmapping_keys:
-                    value = value.get_map_symbol(bus_id)
-                else:
-                    value = bus_id
+                #if key not in nonmapping_keys:
+                #    value = value.get_map_symbol(bus_id)
+                #else:
+                #    value = bus_id
+                value = bus_id
                 synth_kwargs[key] = value
             elif isinstance(value, buffer_prototype):
                 synth_kwargs[key] = id_mapping[value]

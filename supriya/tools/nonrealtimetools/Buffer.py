@@ -59,9 +59,8 @@ class Buffer(SessionObject):
 
     ### PRIVATE METHODS ###
 
-    def _set_event(self, item, value):
-        assert self.session._active_moments
-        offset = self.session._active_moments[-1].offset
+    @SessionObject.require_offset
+    def _set_event(self, item, value, offset=None):
         if offset < 0 or self.duration < offset:
             return
         events = self._events.setdefault(item, [])
@@ -80,12 +79,12 @@ class Buffer(SessionObject):
 
     ### PUBLIC METHODS ###
 
-    def close(self):
+    def close(self, offset=None):
         event_type = requesttools.BufferCloseRequest
         event_kwargs = dict(
             buffer_id=self,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def copy_from(
         self,
@@ -93,6 +92,7 @@ class Buffer(SessionObject):
         frame_count=None,
         source_starting_frame=None,
         target_starting_frame=None,
+        offset=None,
         ):
         event_type = requesttools.BufferCopyRequest
         event_kwargs = dict(
@@ -102,7 +102,7 @@ class Buffer(SessionObject):
             target_buffer_id=self,
             target_starting_frame=target_starting_frame,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def copy_to(
         self,
@@ -110,6 +110,7 @@ class Buffer(SessionObject):
         frame_count=None,
         source_starting_frame=None,
         target_starting_frame=None,
+        offset=None,
         ):
         event_type = requesttools.BufferCopyRequest
         event_kwargs = dict(
@@ -119,18 +120,19 @@ class Buffer(SessionObject):
             target_buffer_id=target_buffer_id,
             target_starting_frame=target_starting_frame,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill(
         self,
         index_count_value_triples=None,
+        offset=None,
         ):
         event_type = requesttools.BufferFillRequest
         event_kwargs = dict(
             buffer_id=self,
             index_count_value_triples=index_count_value_triples,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_chebyshev(
         self,
@@ -138,6 +140,7 @@ class Buffer(SessionObject):
         as_wavetable=True,
         should_normalize=True,
         should_clear_first=True,
+        offset=None,
         ):
         event_type = requesttools.BufferGenerateRequest
         event_kwargs = dict(
@@ -148,7 +151,7 @@ class Buffer(SessionObject):
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_1(
         self,
@@ -156,6 +159,7 @@ class Buffer(SessionObject):
         as_wavetable=True,
         should_clear_first=True,
         should_normalize=True,
+        offset=None,
         ):
         event_type = requesttools.BufferGenerateRequest
         event_kwargs = dict(
@@ -166,7 +170,7 @@ class Buffer(SessionObject):
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_2(
         self,
@@ -175,6 +179,7 @@ class Buffer(SessionObject):
         as_wavetable=True,
         should_clear_first=True,
         should_normalize=True,
+        offset=None,
         ):
         event_type = requesttools.BufferGenerateRequest
         event_kwargs = dict(
@@ -186,7 +191,7 @@ class Buffer(SessionObject):
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def fill_via_sine_3(
         self,
@@ -196,6 +201,7 @@ class Buffer(SessionObject):
         as_wavetable=True,
         should_clear_first=True,
         should_normalize=True,
+        offset=None,
         ):
         event_type = requesttools.BufferGenerateRequest
         event_kwargs = dict(
@@ -208,7 +214,7 @@ class Buffer(SessionObject):
             should_clear_first=bool(should_clear_first),
             should_normalize=bool(should_normalize),
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def read(
         self,
@@ -218,6 +224,7 @@ class Buffer(SessionObject):
         leave_open=None,
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
+        offset=None,
         ):
         event_type = requesttools.BufferReadRequest
         # need to optionally coerce to BufferReadChannelRequest on compile
@@ -230,29 +237,31 @@ class Buffer(SessionObject):
             starting_frame_in_buffer=starting_frame_in_buffer,
             starting_frame_in_file=starting_frame_in_file,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def set(
         self,
         index_value_pairs=None,
+        offset=None,
         ):
         event_type = requesttools.BufferSetRequest
         event_kwargs = dict(
             buffer_id=self,
             index_value_pairs=index_value_pairs,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def set_contiguous(
         self,
         index_values_pairs=None,
+        offset=None,
         ):
         event_type = requesttools.BufferSetContiguousRequest
         event_kwargs = dict(
             buffer_id=self,
             index_values_pairs=index_values_pairs,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     def write(
         self,
@@ -262,6 +271,7 @@ class Buffer(SessionObject):
         leave_open=False,
         sample_format='int24',
         starting_frame=None,
+        offset=None,
         ):
         event_type = requesttools.BufferWriteRequest
         event_kwargs = dict(
@@ -273,14 +283,14 @@ class Buffer(SessionObject):
             sample_format=sample_format,
             starting_frame=starting_frame,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
-    def zero(self):
+    def zero(self, offset=None):
         event_type = requesttools.BufferZeroRequest
         event_kwargs = dict(
             buffer_id=self,
             )
-        self._set_event(event_type, event_kwargs)
+        self._set_event(event_type, event_kwargs, offset=offset)
 
     ### PUBLIC PROPERTIES ###
 
