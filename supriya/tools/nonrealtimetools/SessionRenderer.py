@@ -3,6 +3,7 @@ import hashlib
 import os
 import struct
 import subprocess
+from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools.systemtools import SupriyaObject
@@ -63,7 +64,6 @@ class SessionRenderer(SupriyaObject):
         self,
         datagram,
         input_file_path,
-        render_path,
         session,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
@@ -87,8 +87,6 @@ class SessionRenderer(SupriyaObject):
             md5.update(value)
         md5 = md5.hexdigest()
         file_path = '{}.osc'.format(md5)
-        if render_path is not None:
-            file_path = os.path.join(render_path, file_path)
         return file_path
 
     def _build_render_command(
@@ -153,7 +151,7 @@ class SessionRenderer(SupriyaObject):
         self,
         session,
         duration=None,
-        render_path=None,
+        render_path='',
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
@@ -177,11 +175,13 @@ class SessionRenderer(SupriyaObject):
                 header_format=header_format,
                 )
             input_file_path = session_file_paths.get(input_, input_)
+            if input_file_path and input_file_path.startswith(render_path):
+                input_file_path = os.path.relpath(
+                    input_file_path, render_path)
             datagram = self._build_datagram(osc_bundles)
             session_file_paths[session] = self._build_file_path(
                 datagram,
                 input_file_path,
-                render_path,
                 session,
                 header_format=header_format,
                 sample_format=sample_format,
@@ -258,14 +258,12 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
         osc_bundles = self.to_osc_bundles(
             duration=duration,
             header_format=header_format,
-            render_path=render_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -275,7 +273,6 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
@@ -283,7 +280,6 @@ class SessionRenderer(SupriyaObject):
             self.session,
             duration=duration,
             header_format=header_format,
-            render_path=render_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -314,7 +310,6 @@ class SessionRenderer(SupriyaObject):
         prerender_tuples = self._collect_prerender_tuples(
             self.session,
             duration=duration,
-            render_path=render_path,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
@@ -337,19 +332,25 @@ class SessionRenderer(SupriyaObject):
             if input_file_path and input_file_path.endswith('.osc'):
                 input_file_path, _ = os.path.splitext(input_file_path)
                 input_file_path = '{}.{}'.format(input_file_path, extension)
-            self._write_datagram(session_file_path, datagram)
-            exit_code = self._render_datagram(
-                session,
-                input_file_path,
-                output_file_path,
-                session_file_path,
-                header_format=header_format,
-                sample_format=sample_format,
-                sample_rate=sample_rate,
-                **kwargs
-                )
+            with TemporaryDirectoryChange(directory=render_path):
+                self._write_datagram(session_file_path, datagram)
+                exit_code = self._render_datagram(
+                    session,
+                    input_file_path,
+                    output_file_path,
+                    session_file_path,
+                    header_format=header_format,
+                    sample_format=sample_format,
+                    sample_rate=sample_rate,
+                    **kwargs
+                    )
             if exit_code:
                 raise Exception(exit_code)
+        if not os.path.isabs(output_file_path) and render_path:
+            output_file_path = os.path.join(
+                render_path,
+                output_file_path,
+                )
         return exit_code, self.transcript, output_file_path
 
     ### PUBLIC PROPERTIES ###

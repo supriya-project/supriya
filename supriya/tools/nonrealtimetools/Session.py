@@ -1108,7 +1108,6 @@ class Session(OscMixin):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
@@ -1116,7 +1115,6 @@ class Session(OscMixin):
         return nonrealtimetools.SessionRenderer(self).to_lists(
             duration=duration,
             header_format=header_format,
-            render_path=render_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -1125,7 +1123,6 @@ class Session(OscMixin):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
@@ -1133,7 +1130,6 @@ class Session(OscMixin):
         return nonrealtimetools.SessionRenderer(self).to_osc_bundles(
             duration=duration,
             header_format=header_format,
-            render_path=render_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
