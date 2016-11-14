@@ -59,6 +59,4 @@ class SupriyaConfiguration(Configuration):
                 if os.path.exists(path):
                     scsynth_path = path
                     found_scsynth = True
-            if not found_scsynth:
-                raise Exception('Cannot find scsynth. Is it on your $PATH?')
         return scsynth_path
