@@ -87,20 +87,7 @@ class NodeAction(SupriyaValueObject):
             children.insert(index, self.source)
         nodes_to_children[new_parent] = tuple(children)
 
-    ### PUBLIC METHODS ###
-
-    def apply_transform(self, nodes_to_children, nodes_to_parents):
-        if self.action is None:
-            self._free_node(nodes_to_children, nodes_to_parents)
-        else:
-            self._move_node(nodes_to_children, nodes_to_parents)
-
-    @staticmethod
-    def free_node(node, nodes_to_children, nodes_to_parents):
-        action = NodeAction(source=node)
-        action.apply_transform(nodes_to_children, nodes_to_parents)
-
-    def to_request(self, id_mapping):
+    def _to_request(self, id_mapping):
         node_id_pair = requesttools.NodeIdPair(
             node_id=id_mapping[self.source],
             target_node_id=id_mapping[self.target],
@@ -115,6 +102,19 @@ class NodeAction(SupriyaValueObject):
             request_class = requesttools.NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request
+
+    ### PUBLIC METHODS ###
+
+    def apply_transform(self, nodes_to_children, nodes_to_parents):
+        if self.action is None:
+            self._free_node(nodes_to_children, nodes_to_parents)
+        else:
+            self._move_node(nodes_to_children, nodes_to_parents)
+
+    @staticmethod
+    def free_node(node, nodes_to_children, nodes_to_parents):
+        action = NodeAction(source=node)
+        action.apply_transform(nodes_to_children, nodes_to_parents)
 
     ### PUBLIC PROPERTIES ###
 

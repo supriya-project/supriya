@@ -151,3 +151,11 @@ class Bus(SessionObject):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def start_offset(self):
+        return float('-inf')
+
+    @property
+    def stop_offset(self):
+        return float('inf')

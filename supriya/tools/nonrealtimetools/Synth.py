@@ -44,9 +44,9 @@ class Synth(Node):
     def __str__(self):
         return 'synth-{}'.format(self.session_id)
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def to_request(self, action, id_mapping, **synth_kwargs):
+    def _to_request(self, action, id_mapping, **synth_kwargs):
         from supriya.tools import nonrealtimetools
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]

@@ -42,6 +42,8 @@ class SessionObject(SupriyaObject):
             storage_format_args_values=values,
             )
 
+    ### PUBLIC METHODS ###
+
     @staticmethod
     def require_offset(function):
         @functools.wraps(function)
@@ -51,10 +53,13 @@ class SessionObject(SupriyaObject):
             else:
                 session = self.session
             if 'offset' not in kwargs or kwargs['offset'] is None:
-                assert session._active_moments
+                if not session._active_moments:
+                    raise ValueError('No active moment.')
                 offset = session._active_moments[-1].offset
                 kwargs['offset'] = offset
-                return function(self, *args, **kwargs)
+            if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
+                raise ValueError('Offset {} must intersect [{}, {}]'.format(
+                    float(offset), self.start_offset, self.stop_offset))
             with session.at(kwargs['offset']):
                 return function(self, *args, **kwargs)
         from supriya.tools import nonrealtimetools
