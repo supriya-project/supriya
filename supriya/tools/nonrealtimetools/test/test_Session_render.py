@@ -117,6 +117,80 @@ class TestCase(TestCase):
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert output_file_path.startswith(self.output_directory)
 
+    def test_00c(self):
+        """
+        No input, no output file path specified, no render path specified,
+        output already exists.
+        """
+        session = self._make_session()
+        osc_path = os.path.join(
+            supriya_configuration.output_directory,
+            '7b3f85710f19667f73f745b8ac8080a0.osc',
+            )
+        aiff_path = os.path.join(
+            supriya_configuration.output_directory,
+            '7b3f85710f19667f73f745b8ac8080a0.aiff',
+            )
+        if os.path.exists(osc_path):
+            os.unlink(osc_path)
+        if os.path.exists(aiff_path):
+            os.unlink(aiff_path)
+        os.chdir(supriya_configuration.output_directory)
+
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert session.transcript == [
+            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
+            '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            ]
+        assert output_file_path == aiff_path
+        assert os.path.exists(osc_path)
+        assert os.path.exists(aiff_path)
+
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert session.transcript == [
+            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. OSC file already exists.',
+            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            ]
+        assert output_file_path == aiff_path
+        assert os.path.exists(osc_path)
+        assert os.path.exists(aiff_path)
+
+        os.unlink(osc_path)
+
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert session.transcript == [
+            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            ]
+        assert output_file_path == aiff_path
+        assert os.path.exists(osc_path)
+        assert os.path.exists(aiff_path)
+
+        os.unlink(aiff_path)
+
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert session.transcript == [
+            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. OSC file already exists.',
+            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
+            '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            ]
+        assert output_file_path == aiff_path
+        assert os.path.exists(osc_path)
+        assert os.path.exists(aiff_path)
+
     def test_01(self):
         """
         No input.
@@ -331,21 +405,12 @@ class TestCase(TestCase):
                 buffer_id=buffer_,
                 duration=10,
                 )
-        session_two.to_lists(
-            render_path=self.output_directory,
-            )
-        assert session_two.to_lists(
-            render_path=self.output_directory,
-            ) == [
+        session_two.to_lists()
+        assert session_two.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
-                ['/b_read', 0,
-                    os.path.join(
-                        self.output_directory,
-                        '7b3f85710f19667f73f745b8ac8080a0.aiff',
-                        ),
-                    0, -1, 0, 1],
+                ['/b_read', 0, '7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0]]],
             [10.0, [
@@ -412,13 +477,8 @@ class TestCase(TestCase):
             multiplier_synthdef,
             ])
         compiled_synthdefs = bytearray(compiled_synthdefs)
-        buffer_one_path = os.path.join(
-            self.output_directory,
-            '7b3f85710f19667f73f745b8ac8080a0.aiff',
-            )
-        assert session_two.to_lists(
-            render_path=self.output_directory,
-            ) == [
+        buffer_one_path = '7b3f85710f19667f73f745b8ac8080a0.aiff'
+        assert session_two.to_lists() == [
             [0.0, [
                 ['/d_recv', compiled_synthdefs],
                 ['/b_alloc', 0, 32768, 8],
@@ -431,13 +491,8 @@ class TestCase(TestCase):
                 ['/n_free', 1000, 1001],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        buffer_two_path = os.path.join(
-            self.output_directory,
-            '040f81c9b46e4cced3548d875aa22bf5.aiff',
-            )
-        assert session_three.to_lists(
-            render_path=self.output_directory,
-            ) == [
+        buffer_two_path = '8444629a191a0f99df48d8e812a60697.aiff'
+        assert session_three.to_lists() == [
             [0.0, [
                 ['/d_recv', compiled_synthdefs],
                 ['/b_alloc', 0, 32768, 8],
@@ -530,15 +585,7 @@ class TestCase(TestCase):
                 buffer_id=buffer_two,
                 duration=10,
                 )
-        session_one_path = os.path.join(
-            self.output_directory,
-            'c6d86f3d482a8bac1f7cc6650017da8e.aiff',
-            )
-        session_two_path = os.path.join(
-            self.output_directory,
-            '22ec377ab40eae7861328a068ac0a322.aiff',
-            )
-        assert session_one.to_lists(render_path=self.output_directory) == [
+        assert session_one.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(self._build_dc_synthdef(8).compile())],
                 ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
@@ -548,13 +595,13 @@ class TestCase(TestCase):
             [6.0, [['/n_set', 1000, 'source', 0.1875]]],
             [8.0, [['/n_set', 1000, 'source', 0.25]]],
             [10.0, [['/n_free', 1000], [0]]]]
-        assert session_two.to_lists(render_path=self.output_directory) == [
+        assert session_two.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(diskin_synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_alloc', 1, 32768, 8],
-                ['/b_read', 0, session_one_path, 0, -1, 0, 1],
-                ['/b_read', 1, session_one_path, 0, -1, 0, 1],
+                ['/b_read', 0, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
+                ['/b_read', 1, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1001, 0, 0,
@@ -566,13 +613,13 @@ class TestCase(TestCase):
                 ['/b_close', 1],
                 ['/b_free', 1],
                 [0]]]]
-        assert session_three.to_lists(render_path=self.output_directory) == [
+        assert session_three.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(diskin_synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_alloc', 1, 32768, 8],
-                ['/b_read', 0, session_one_path, 0, -1, 0, 1],
-                ['/b_read', 1, session_two_path, 0, -1, 0, 1],
+                ['/b_read', 0, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
+                ['/b_read', 1, '988ae28d3d84ae2b458d64ce15ffb989.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1001, 0, 0,
@@ -584,6 +631,14 @@ class TestCase(TestCase):
                 ['/b_close', 1],
                 ['/b_free', 1],
                 [0]]]]
+        session_one_path = os.path.join(
+            self.output_directory,
+            'c6d86f3d482a8bac1f7cc6650017da8e.aiff',
+            )
+        session_two_path = os.path.join(
+            self.output_directory,
+            '988ae28d3d84ae2b458d64ce15ffb989.aiff',
+            )
         exit_code, _ = session_three.render(
             self.output_file_path,
             render_path=self.output_directory,
@@ -621,14 +676,14 @@ class TestCase(TestCase):
             'Rendering c6d86f3d482a8bac1f7cc6650017da8e.osc.',
             '    Command: scsynth -N c6d86f3d482a8bac1f7cc6650017da8e.osc _ c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24',
             '    Rendered c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code 0.',
-            'Writing 22ec377ab40eae7861328a068ac0a322.osc.',
-            '    Wrote 22ec377ab40eae7861328a068ac0a322.osc.',
-            'Rendering 22ec377ab40eae7861328a068ac0a322.osc.',
-            '    Command: scsynth -N 22ec377ab40eae7861328a068ac0a322.osc _ 22ec377ab40eae7861328a068ac0a322.aiff 44100 aiff int24',
-            '    Rendered 22ec377ab40eae7861328a068ac0a322.osc with exit code 0.',
-            'Writing d77c598009b7162df4d7d5a7a9c99fd5.osc.',
-            '    Wrote d77c598009b7162df4d7d5a7a9c99fd5.osc.',
-            'Rendering d77c598009b7162df4d7d5a7a9c99fd5.osc.',
-            '    Command: scsynth -N d77c598009b7162df4d7d5a7a9c99fd5.osc _ output.aiff 44100 aiff int24',
-            '    Rendered d77c598009b7162df4d7d5a7a9c99fd5.osc with exit code 0.',
+            'Writing 988ae28d3d84ae2b458d64ce15ffb989.osc.',
+            '    Wrote 988ae28d3d84ae2b458d64ce15ffb989.osc.',
+            'Rendering 988ae28d3d84ae2b458d64ce15ffb989.osc.',
+            '    Command: scsynth -N 988ae28d3d84ae2b458d64ce15ffb989.osc _ 988ae28d3d84ae2b458d64ce15ffb989.aiff 44100 aiff int24',
+            '    Rendered 988ae28d3d84ae2b458d64ce15ffb989.osc with exit code 0.',
+            'Writing 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
+            '    Wrote 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
+            'Rendering 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
+            '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ output.aiff 44100 aiff int24',
+            '    Rendered 73b90e1467ddd06f4afa06dff1f5cb41.osc with exit code 0.',
             ]
