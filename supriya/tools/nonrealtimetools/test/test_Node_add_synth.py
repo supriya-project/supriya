@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya import synthdefs
 from nonrealtimetools_testbase import TestCase
 from supriya.tools import nonrealtimetools
 
@@ -57,3 +58,14 @@ class TestCase(TestCase):
             node = session.add_synth(duration=10, offset=13)
             with self.assertRaises(ValueError):
                 node.add_synth(duration=1)
+
+    def test_06(self):
+        """
+        Defaults.
+        """
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            synth = session.add_synth()
+        assert synth.synthdef == synthdefs.default
+        assert synth.duration == float('inf')
+        assert synth.start_offset == 0.
