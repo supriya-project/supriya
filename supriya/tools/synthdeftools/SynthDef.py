@@ -114,7 +114,7 @@ class SynthDef(ServerObjectProxy):
         return True
 
     def __graph__(self):
-        """
+        r"""
         Graphs SynthDef.
 
         ::

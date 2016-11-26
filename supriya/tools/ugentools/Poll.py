@@ -61,6 +61,10 @@ class Poll(UGen):
             ...     )
             >>> server.register_response_callback(response_callback)
 
+        ::
+
+            >>> server.quit()
+
     """
 
     ### CLASS VARIABLES ###

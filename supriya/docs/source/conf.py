@@ -8,31 +8,9 @@ from docutils import nodes
 from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
 
-# Setup path for RTD.
-# sys.path.insert(0, os.path.abspath(os.path.join('..', '..', '..')))
-
-#print('SYS PATH')
-#for x in sys.path:
-#    print('    {}'.format(x))
-
 # Scrape the API.
 from supriya.tools import documentationtools
 documentationtools.SupriyaDocumentationManager().execute()
-
-# Mock out compiled extensions.
-#try:
-#    from unittest.mock import MagicMock
-#except ImportError:
-#    from mock import Mock as MagicMock
-
-#class Mock(MagicMock):
-#    @classmethod
-#    def __getattr__(cls, name):
-#            return Mock()
-
-#MOCK_MODULES = ['numpy', 'rtmidi']
-#sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
-
 
 class CustomLatexFormatter(LatexFormatter):
     def __init__(self, **options):
@@ -46,22 +24,28 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    #'sphinx.ext.coverage',
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
-    #'sphinx.ext.todo',
-    #'sphinx.ext.viewcode',
-    #'supriya.docs.ext.style',
+    'sphinx.ext.viewcode',
     'supriya.docs.ext.abjadbook',
     ]
-
-#if not on_rtd:
-#    extensions.append('sphinx.ext.doctest')
 
 doctest_path = [
     os.path.abspath(abjad.__path__[0]),
     os.path.abspath(supriya.__path__[0]),
     ]
+
+abjadbook_global_setup = r'''
+from __future__ import print_function
+from abjad import *
+from supriya import *
+'''
+
+abjadbook_global_cleanup = r'''
+for server in servertools.Server._servers.values():
+    server.quit()
+
+'''
 
 doctest_global_setup = r'''
 from __future__ import print_function
