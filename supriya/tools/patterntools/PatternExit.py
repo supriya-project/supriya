@@ -1,0 +1,2 @@
+class PatternExit(Exception):
+    pass

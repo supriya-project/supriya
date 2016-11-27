@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 from supriya.tools.patterntools.EventPlayer import EventPlayer
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class NonrealtimeEventPlayer(EventPlayer):
@@ -36,10 +36,10 @@ class NonrealtimeEventPlayer(EventPlayer):
 
     @SessionObject.require_offset
     def __call__(self, offset=None):
+        maximum_offset = None
         offset = offset or 0
         self._iterator = iter(self._pattern)
         uuids = {}
-        maximum_offset = None
         if self.duration is not None:
             maximum_offset = offset + self.duration
         for event in self._iterator:
@@ -50,8 +50,6 @@ class NonrealtimeEventPlayer(EventPlayer):
                 offset=offset,
                 )
             offset += event.delta
-            if maximum_offset and maximum_offset <= offset:
-                self._iterator.throw(True)
 
     ### PUBLIC PROPERTIES ###
 

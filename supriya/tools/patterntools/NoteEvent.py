@@ -45,11 +45,11 @@ class NoteEvent(Event):
         ):
         from supriya import synthdefs
         from supriya.tools import nonrealtimetools
-        settings = self.settings
+        settings = self.settings.copy()  # Do not mutate in place.
         synthdef = self.get('synthdef', synthdefs.default)
         synth_uuid = self.get('uuid', uuid.uuid4())
         do_not_release = self.get('_do_not_release')
-        duration = self['duration']
+        duration = self.get('duration')
         if duration is None:
             duration = 1
         if 'duration' in settings:

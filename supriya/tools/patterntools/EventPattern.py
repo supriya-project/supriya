@@ -22,6 +22,7 @@ class EventPattern(Pattern):
         self,
         session,
         duration=None,
+        offset=None,
         ):
         from supriya.tools import patterntools
         event_player = patterntools.NonrealtimeEventPlayer(
@@ -29,7 +30,7 @@ class EventPattern(Pattern):
             session=session,
             duration=duration,
             )
-        event_player()
+        event_player(offset=offset)
 
     def play(self, clock=None, event_template=None, server=None):
         from supriya.tools import patterntools
