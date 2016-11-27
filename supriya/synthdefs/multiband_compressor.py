@@ -1,34 +1,35 @@
 # -*- encoding: utf-8 -*-
-from supriya import *
+from supriya import SynthDefBuilder
+from supriya import ugentools
 
 
-def _make_synthdef():
+def _make_synthdef(channel_count=2):
     with SynthDefBuilder(
         frequency_1=100,
         frequency_2=1000,
         frequency_3=3000,
-        band_1_gain=1,
-        band_2_gain=1,
-        band_3_gain=1,
-        band_4_gain=1,
         band_1_clamp_time=0.01,
-        band_2_clamp_time=0.01,
-        band_3_clamp_time=0.01,
-        band_4_clamp_time=0.01,
+        band_1_gain=1,
         band_1_relax_time=0.1,
-        band_2_relax_time=0.1,
-        band_3_relax_time=0.1,
-        band_4_relax_time=0.1,
         band_1_slope=0.5,
-        band_2_slope=0.5,
-        band_3_slope=0.5,
-        band_4_slope=0.5,
         band_1_threshold=0.9,
+        band_2_clamp_time=0.01,
+        band_2_gain=1,
+        band_2_relax_time=0.1,
+        band_2_slope=0.5,
         band_2_threshold=0.9,
+        band_3_clamp_time=0.01,
+        band_3_gain=1,
+        band_3_relax_time=0.1,
+        band_3_slope=0.5,
         band_3_threshold=0.9,
+        band_4_clamp_time=0.01,
+        band_4_gain=1,
+        band_4_relax_time=0.1,
+        band_4_slope=0.5,
         band_4_threshold=0.9,
         ) as builder:
-        source = ugentools.In.ar(bus=0, channel_count=2)
+        source = ugentools.In.ar(bus=0, channel_count=channel_count)
         band_1 = ugentools.LPF.ar(
             frequency=builder['frequency_1'],
             source=source,
@@ -87,8 +88,7 @@ def _make_synthdef():
         ugentools.ReplaceOut.ar(bus=0, source=source)
     return builder.build()
 
-
-multiband_compressor = _make_synthdef()
+multiband_compressor = _make_synthdef(channel_count=2)
 
 __all__ = (
     'multiband_compressor',
