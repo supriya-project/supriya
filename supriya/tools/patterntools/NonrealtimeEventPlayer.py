@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 from supriya.tools.patterntools.EventPlayer import EventPlayer
 
 
@@ -7,7 +8,7 @@ class NonrealtimeEventPlayer(EventPlayer):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_maximum_duration',
+        '_duration',
         '_session',
         )
 
@@ -17,42 +18,46 @@ class NonrealtimeEventPlayer(EventPlayer):
         self,
         pattern,
         session,
-        event_template=None,
-        maximum_duration=None,
+        duration=None,
         ):
         from supriya.tools import nonrealtimetools
         EventPlayer.__init__(
             self,
             pattern,
-            event_template,
             )
         assert isinstance(session, nonrealtimetools.Session)
         self._session = session
         if self.pattern.is_infinite:
-            maximum_duration = float(maximum_duration)
-            assert maximum_duration
-        self._maximum_duration = maximum_duration
+            duration = float(duration)
+            assert duration
+        self._duration = duration
 
     ### SPECIAL METHODS ###
 
-    def __call__(self):
-        self._cumulative_time = 0
-        initial_offset = self.session.active_moments[-1].offset
+    @SessionObject.require_offset
+    def __call__(self, offset=None):
+        offset = offset or 0
         self._iterator = iter(self._pattern)
         uuids = {}
+        maximum_offset = None
+        if self.duration is not None:
+            maximum_offset = offset + self.duration
         for event in self._iterator:
             event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,
-                offset=initial_offset + self._cumulative_time,
+                maximum_offset=maximum_offset,
+                offset=offset,
                 )
-            self._cumulative_time += event.delta
+            offset += event.delta
+            if maximum_offset and maximum_offset <= offset:
+                self._iterator.throw(True)
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def maximum_duration(self):
-        return self._maximum_duration
+    def duration(self):
+        return self._duration
 
     @property
     def session(self):

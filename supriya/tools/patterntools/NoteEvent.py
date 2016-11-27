@@ -41,17 +41,21 @@ class NoteEvent(Event):
         session,
         uuids,
         offset,
+        maximum_offset=None,
         ):
         from supriya import synthdefs
         from supriya.tools import nonrealtimetools
+        settings = self.settings
         synthdef = self.get('synthdef', synthdefs.default)
         synth_uuid = self.get('uuid', uuid.uuid4())
         do_not_release = self.get('_do_not_release')
         duration = self['duration']
         if duration is None:
             duration = 1
+        if 'duration' in settings:
+            duration = settings.pop('duration')
         dictionaries = self._expand(
-            self.settings,
+            settings,
             synthdef,
             uuids,
             realtime=False,

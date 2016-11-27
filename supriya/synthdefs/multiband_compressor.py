@@ -28,8 +28,13 @@ def _make_synthdef(channel_count=2):
         band_4_relax_time=0.1,
         band_4_slope=0.5,
         band_4_threshold=0.9,
+        in_=0,
+        out=0,
         ) as builder:
-        source = ugentools.In.ar(bus=0, channel_count=channel_count)
+        source = ugentools.In.ar(
+            bus=builder['in_'],
+            channel_count=channel_count,
+            )
         band_1 = ugentools.LPF.ar(
             frequency=builder['frequency_1'],
             source=source,
@@ -85,7 +90,7 @@ def _make_synthdef(channel_count=2):
             input_three=band_3,
             input_four=band_4,
             )
-        ugentools.ReplaceOut.ar(bus=0, source=source)
+        ugentools.ReplaceOut.ar(bus=builder['out'], source=source)
     return builder.build()
 
 multiband_compressor = _make_synthdef(channel_count=2)

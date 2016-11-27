@@ -67,7 +67,7 @@ class Pwhite(Pattern):
 
     @property
     def is_infinite(self):
-        return self.iterations is None
+        return self._repetitions is None
 
     @property
     def minimum(self):
@@ -76,3 +76,7 @@ class Pwhite(Pattern):
     @property
     def maximum(self):
         return self._maximum
+
+    @property
+    def repetitions(self):
+        return self._repetitions

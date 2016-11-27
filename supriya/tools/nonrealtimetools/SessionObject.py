@@ -62,9 +62,10 @@ class SessionObject(SupriyaObject):
                     raise ValueError('No active moment.')
                 offset = session._active_moments[-1].offset
                 kwargs['offset'] = offset
-            if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
-                raise ValueError('Offset {} must intersect [{}, {}]'.format(
-                    float(offset), self.start_offset, self.stop_offset))
+            if isinstance(self, SessionObject):
+                if not (self.start_offset <= kwargs['offset'] <= self.stop_offset):
+                    raise ValueError('Offset {} must intersect [{}, {}]'.format(
+                        float(offset), self.start_offset, self.stop_offset))
             with session.at(kwargs['offset']):
                 return function(self, *args, **kwargs)
         from supriya.tools import nonrealtimetools

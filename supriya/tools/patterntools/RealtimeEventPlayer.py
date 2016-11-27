@@ -104,15 +104,17 @@ class RealtimeEventPlayer(EventPlayer):
         requests = []
         gated_node_ids = []
         freed_node_ids = []
-        for _, node_ids in self._uuids.items():
-            for node_id, node in node_ids.items():
+        for _, proxy_ids in self._uuids.items():
+            for proxy_id, proxy in proxy_ids.items():
+                if not isinstance(proxy, servertools.Node):
+                    continue
                 if (
-                    isinstance(node, nonrealtimetools.Synth) and
-                    node.synthdef.has_gate
+                    isinstance(proxy, nonrealtimetools.Synth) and
+                    proxy.synthdef.has_gate
                 ):
-                    gated_node_ids.append(node_id)
+                    gated_node_ids.append(proxy_id)
                 else:
-                    freed_node_ids.append(node_id)
+                    freed_node_ids.append(proxy_id)
         if freed_node_ids:
             request = requesttools.NodeFreeRequest(
                 node_ids=sorted(freed_node_ids),
