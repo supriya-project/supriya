@@ -64,6 +64,7 @@ class Poll(UGen):
         ::
 
             >>> server.quit()
+            <Server: offline>
 
     """
 

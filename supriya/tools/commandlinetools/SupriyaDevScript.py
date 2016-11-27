@@ -31,18 +31,20 @@ class SupriyaDevScript(AbjDevScript):
 
     @property
     def commandline_script_classes(self):
-        from abjad.tools.commandlinetools import CommandlineScript
+        from abjad.tools import commandlinetools as abjad_commandlinetools
         from supriya.tools import commandlinetools
         classes = []
         for name in sorted(dir(commandlinetools)):
             obj = getattr(commandlinetools, name)
             if not isinstance(obj, type):
                 continue
-            elif not issubclass(obj, CommandlineScript):
+            elif not issubclass(obj, abjad_commandlinetools.CommandlineScript):
                 continue
             elif issubclass(obj, type(self)):
                 continue
             elif inspect.isabstract(obj):
                 continue
             classes.append(obj)
+        classes.append(abjad_commandlinetools.DoctestScript)
+        classes.sort(key=lambda x: x.__name__)
         return classes
