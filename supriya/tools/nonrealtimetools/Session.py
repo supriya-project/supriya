@@ -71,6 +71,8 @@ class Session(OscMixin):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Non-realtime Session'
+
     __slots__ = (
         '_active_moments',
         '_audio_input_bus_group',

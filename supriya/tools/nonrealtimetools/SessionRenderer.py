@@ -11,8 +11,13 @@ from supriya.tools.systemtools import Trellis
 
 
 class SessionRenderer(SupriyaObject):
+    """
+    Renders non-realtime sessions as audio files.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
 
     __slots__ = (
         '_session',

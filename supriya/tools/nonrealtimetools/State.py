@@ -5,8 +5,13 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class State(SessionObject):
+    """
+    A non-realtime state.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
 
     __slots__ = (
         '_transitions',

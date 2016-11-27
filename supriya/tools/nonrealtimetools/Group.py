@@ -5,8 +5,13 @@ from supriya.tools.nonrealtimetools.Node import Node
 
 
 class Group(Node):
+    """
+    A non-realtime group.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = ()
 

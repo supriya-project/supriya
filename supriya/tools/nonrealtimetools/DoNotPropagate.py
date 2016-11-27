@@ -1,6 +1,15 @@
+# -*- encoding: utf-8 -*-
+
+
 class DoNotPropagate(object):
+    """
+    Context manager which prevents propagation of node hierarchy changes across
+    states.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
 
     _stack = []
 

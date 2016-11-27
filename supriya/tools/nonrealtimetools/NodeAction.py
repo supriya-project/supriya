@@ -5,8 +5,13 @@ from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
 class NodeAction(SupriyaValueObject):
+    """
+    A non-realtime state transition.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
 
     __slots__ = (
         '_source',

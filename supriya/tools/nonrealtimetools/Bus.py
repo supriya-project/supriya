@@ -43,6 +43,8 @@ class Bus(SessionObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Session Objects'
+
     __slots__ = (
         '_bus_group',
         '_calculation_rate',

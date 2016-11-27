@@ -5,8 +5,13 @@ from supriya.tools.nonrealtimetools.Node import Node
 
 
 class Synth(Node):
+    """
+    A non-realtime synth.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = (
         '_synthdef',

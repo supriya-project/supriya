@@ -5,8 +5,13 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
 class SessionObject(SupriyaObject):
+    """
+    A non-realtime session object, analogous to ServerObjectProxy.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
 
     __slots__ = ()
 
