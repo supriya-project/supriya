@@ -63,7 +63,7 @@ class ServerOptions(SupriyaObject):
         maximum_node_count=1024,
         maximum_synthdef_count=1024,
         memory_locking=False,
-        memory_size=8192 * 16,
+        memory_size=8192 * 64,
         output_bus_channel_count=8,
         output_device=None,
         output_stream_mask=False,
