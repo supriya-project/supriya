@@ -99,20 +99,20 @@ class Pattern(SupriyaValueObject):
             expr = self._coerce_iterator_output(next(iterator), state)
         except StopIteration:
             return
-        pre_exprs, expr = self._handle_first(expr, state)
-        if pre_exprs:
-            for pre_expr in pre_exprs:
-                yield pre_expr
-        exprs = [expr]
+        exprs = self._handle_first(expr, state)
+        while len(exprs) > 1:
+            expr = exprs.pop(0)
+            yield expr
         for expr in iterator:
             expr = self._coerce_iterator_output(expr, state)
             exprs.append(expr)
-            yield exprs.pop(0)
-        expr, post_exprs = self._handle_last(exprs[0], state)
-        yield expr
-        if post_exprs:
-            for post_expr in post_exprs:
-                yield post_expr
+            expr = exprs.pop(0)
+            yield expr
+        assert len(exprs) == 1
+        exprs.extend(self._handle_last(exprs.pop(), state))
+        while len(exprs):
+            expr = exprs.pop(0)
+            yield expr
 
     ### PRIVATE METHODS ###
 
@@ -173,10 +173,10 @@ class Pattern(SupriyaValueObject):
         return rng, identifier
 
     def _handle_first(self, expr, state=None):
-        return None, expr
+        return [expr]
 
     def _handle_last(self, expr, state=None):
-        return expr, None
+        return [expr]
 
     @abc.abstractmethod
     def _iterate(self, state=None):

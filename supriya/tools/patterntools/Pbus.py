@@ -83,8 +83,7 @@ class Pbus(EventPattern):
             target_node=state['group_uuid'],
             uuid=state['link_uuid'],
             )
-        events = [bus_event, group_event, link_event]
-        return events, expr
+        return [bus_event, group_event, link_event, expr]
 
     def _handle_last(self, expr, state):
         from supriya.tools import patterntools
@@ -103,8 +102,7 @@ class Pbus(EventPattern):
             uuid=state['bus_uuid'],
             is_stop=True,
             )
-        events = [link_event, group_event, bus_event]
-        return expr, events
+        return [expr, link_event, group_event, bus_event]
 
     def _iterate(self, state=None):
         return iter(self.pattern)
