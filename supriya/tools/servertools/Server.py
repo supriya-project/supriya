@@ -374,16 +374,19 @@ class Server(SupriyaObject):
     def boot(
         self,
         server_options=None,
+        **kwargs
         ):
+        from supriya import new
         from supriya import supriya_configuration
         from supriya.tools import servertools
         if self.is_running:
             return self
         scsynth_path = supriya_configuration.scsynth_path
         self._osc_controller.boot()
-        if server_options is None:
-            server_options = self.server_options
+        server_options = server_options or servertools.ServerOptions()
         assert isinstance(server_options, servertools.ServerOptions)
+        if kwargs:
+            server_options = new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
         command = '{} {} -V -1'.format(scsynth_path, options_string)
         self._server_process = subprocess.Popen(command, shell=True)

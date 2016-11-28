@@ -60,4 +60,4 @@ class TestCase(TestCase):
         with session.at(5):
             assert node.get_parent() is group_one
         with session.at(15):
-            assert node.get_parent() is group_one
+            assert node.get_parent() is group_two
