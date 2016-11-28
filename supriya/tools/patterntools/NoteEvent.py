@@ -18,17 +18,22 @@ class NoteEvent(Event):
         add_action=None,
         delta=None,
         duration=None,
+        is_stop=False,
         target_node=None,
         uuid=None,
         **settings
         ):
         if add_action is not None:
             add_action = servertools.AddAction.from_expr(add_action)
+        is_stop = is_stop or None
+        if is_stop:
+            is_stop = bool(is_stop)
         Event.__init__(
             self,
             add_action=add_action,
             delta=delta,
             duration=duration,
+            is_stop=is_stop,
             target_node=target_node,
             uuid=uuid,
             **settings
