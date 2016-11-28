@@ -177,3 +177,66 @@ class TestCase(TestCase):
                 ['/n_set', 1003, 'gate', 0]]],
             [6.0, [['/n_set', 1004, 'gate', 0]]],
             [6.25, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_send_01(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(4):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('SynthEvent', False),
+            ('NoteEvent', False),
+            ('SynthEvent', True),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_02(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(3):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('SynthEvent', False),
+            ('SynthEvent', True),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_03(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(2):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_04(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(1):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('BusEvent', True),
+            ]

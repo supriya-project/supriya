@@ -93,25 +93,38 @@ class Pattern(SupriyaValueObject):
         return patterntools.Pbinop(self, '-', expr)
 
     def __iter__(self):
+        yield_count = 0
+        should_stop = False
         state = self._setup_state()
         iterator = self._iterate(state)
         try:
-            expr = self._coerce_iterator_output(next(iterator), state)
+            expr = next(iterator)
+            expr = self._coerce_iterator_output(expr, state)
         except StopIteration:
             return
         exprs = self._handle_first(expr, state)
         while len(exprs) > 1:
             expr = exprs.pop(0)
-            yield expr
-        for expr in iterator:
-            expr = self._coerce_iterator_output(expr, state)
-            exprs.append(expr)
-            expr = exprs.pop(0)
-            yield expr
-        assert len(exprs) == 1
-        exprs.extend(self._handle_last(exprs.pop(), state))
-        while len(exprs):
-            expr = exprs.pop(0)
+            should_stop = yield expr
+            yield_count += 1
+            if should_stop:
+                iterator.send(True)
+                exprs[:] = [exprs[0]]
+                break
+        if not should_stop:
+            try:
+                for expr in iterator:
+                    expr = self._coerce_iterator_output(expr, state)
+                    exprs.append(expr)
+                    expr = exprs.pop(0)
+                    should_stop = yield expr
+                    if should_stop:
+                        iterator.send(True)
+                        break
+            except StopIteration:
+                pass
+        exprs.extend(self._handle_last(exprs.pop(), state, yield_count))
+        for expr in exprs:
             yield expr
 
     ### PRIVATE METHODS ###
@@ -175,7 +188,7 @@ class Pattern(SupriyaValueObject):
     def _handle_first(self, expr, state=None):
         return [expr]
 
-    def _handle_last(self, expr, state=None):
+    def _handle_last(self, expr, state=None, yield_count=0):
         return [expr]
 
     @abc.abstractmethod

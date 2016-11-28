@@ -48,19 +48,21 @@ class Pgpar(Ppar):
         events.append(expr)
         return events
 
-    def _handle_last(self, expr, state):
+    def _handle_last(self, expr, state=None, yield_count=0):
         from supriya.tools import patterntools
         _, group_uuids, _ = state
         delta = expr.delta
         delta += (self._release_time or 0)
         expr = new(expr, delta=delta)
-        events = [expr]
+        events = []
         for group_uuid in group_uuids:
             group_event = patterntools.GroupEvent(
                 uuid=group_uuid,
                 is_stop=True,
                 )
             events.append(group_event)
+        events = events[-yield_count:]
+        events.insert(0, expr)
         return events
 
     def _setup_state(self):

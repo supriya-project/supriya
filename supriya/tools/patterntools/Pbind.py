@@ -120,7 +120,9 @@ class Pbind(EventPattern):
                     event[name] = next(pattern)
                 except StopIteration:
                     return
-            yield event
+            should_stop = yield event
+            if should_stop:
+                return
 
     ### PUBLIC PROPERTIES ###
 
