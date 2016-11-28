@@ -27,6 +27,6 @@ class TestCase(TestCase):
         assert [
             (type(x).__name__, x.get('is_stop') or False)
             for x in events] == [
-            ('NoteEvent', False),
-            ('NoteEvent', False),
+            ('NoteEvent', True),
+            ('NoteEvent', True),
             ]

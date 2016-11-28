@@ -190,7 +190,7 @@ class TestCase(TestCase):
             ('BusEvent', False),
             ('GroupEvent', False),
             ('SynthEvent', False),
-            ('NoteEvent', False),
+            ('NoteEvent', True),
             ('SynthEvent', True),
             ('GroupEvent', True),
             ('BusEvent', True),

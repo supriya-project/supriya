@@ -21,7 +21,7 @@ class Pmono(Pbind):
         ...
         NoteEvent(duration=0.5, uuid=UUID('...'), _do_not_release=True, pitch=0)
         NoteEvent(duration=0.25, uuid=UUID('...'), _do_not_release=True, pitch=3)
-        NoteEvent(duration=0.25, uuid=UUID('...'), pitch=7)
+        NoteEvent(duration=0.25, is_stop=True, uuid=UUID('...'), pitch=7)
 
     ::
 
@@ -41,10 +41,10 @@ class Pmono(Pbind):
         ...
         NoteEvent(uuid=UUID('...'), _do_not_release=True, pitch=1)
         NoteEvent(uuid=UUID('...'), _do_not_release=True, pitch=2)
-        NoteEvent(uuid=UUID('...'), pitch=3)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=3)
         NoteEvent(uuid=UUID('...'), _do_not_release=True, pitch=4)
         NoteEvent(uuid=UUID('...'), _do_not_release=True, pitch=5)
-        NoteEvent(uuid=UUID('...'), pitch=6)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=6)
 
     """
 
@@ -67,6 +67,7 @@ class Pmono(Pbind):
         for event_dict in generator:
             event_dicts.append(event_dict)
             event_dicts[0]['_do_not_release'] = True
+            event_dicts[0]['is_stop'] = False
             yield event_dicts.pop(0)
         if event_dicts:
             yield event_dicts[0]

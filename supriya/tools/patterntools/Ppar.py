@@ -47,14 +47,14 @@ class Ppar(EventPattern):
         >>> for x in ppar:
         ...     x
         ...
-        NoteEvent(delta=0.0, duration=1.0, uuid=UUID('...'), x=1)
-        NoteEvent(delta=0.4, duration=0.4, uuid=UUID('...'), x=10)
-        NoteEvent(delta=0.4, duration=0.4, uuid=UUID('...'), x=20)
-        NoteEvent(delta=0.2, duration=0.4, uuid=UUID('...'), x=30)
-        NoteEvent(delta=0.2, duration=1.0, uuid=UUID('...'), x=2)
-        NoteEvent(delta=0.8, duration=0.4, uuid=UUID('...'), x=40)
-        NoteEvent(delta=1.0, duration=1.0, uuid=UUID('...'), x=3)
-        NoteEvent(duration=1.0, uuid=UUID('...'), x=4)
+        NoteEvent(delta=0.0, duration=1.0, is_stop=True, uuid=UUID('...'), x=1)
+        NoteEvent(delta=0.4, duration=0.4, is_stop=True, uuid=UUID('...'), x=10)
+        NoteEvent(delta=0.4, duration=0.4, is_stop=True, uuid=UUID('...'), x=20)
+        NoteEvent(delta=0.2, duration=0.4, is_stop=True, uuid=UUID('...'), x=30)
+        NoteEvent(delta=0.2, duration=1.0, is_stop=True, uuid=UUID('...'), x=2)
+        NoteEvent(delta=0.8, duration=0.4, is_stop=True, uuid=UUID('...'), x=40)
+        NoteEvent(delta=1.0, duration=1.0, is_stop=True, uuid=UUID('...'), x=3)
+        NoteEvent(duration=1.0, is_stop=True, uuid=UUID('...'), x=4)
 
     """
 

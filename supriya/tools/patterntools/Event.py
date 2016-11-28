@@ -22,6 +22,7 @@ class Event(SupriyaValueObject):
             amplitude=0.9,
             duration=10.5,
             frequency=443,
+            is_stop=True,
             panning=0.75,
             )
 
