@@ -49,7 +49,11 @@ class NonrealtimeEventPlayer(EventPlayer):
                 maximum_offset=maximum_offset,
                 offset=offset,
                 )
-            offset += event.delta
+            if event.delta:
+                offset += event.delta
+            if maximum_offset is not None and offset >= maximum_offset:
+                self._iterator.send(True)
+        return offset
 
     ### PUBLIC PROPERTIES ###
 

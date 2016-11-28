@@ -298,7 +298,7 @@ class TestCase(TestCase):
             [12.5, [['/n_set', 1006, 'gate', 0]]],
             [12.75, [['/n_set', 1007, 'gate', 0]]]]
 
-    def test_nonrealtime_01(self):
+    def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             self.pbind_01.inscribe(session)
@@ -320,7 +320,39 @@ class TestCase(TestCase):
                 [0]]],
             ]
 
-    def test_nonrealtime_02(self):
+    def test_nonrealtime_01b(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.pbind_01.inscribe(session, duration=3)
+        assert final_offset == 3.0
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdefs.default.compile())],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
+                    'amplitude', 1.0, 'frequency', 440]]],
+            [1.0, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
+                    'amplitude', 1.0, 'frequency', 660],
+                ['/n_set', 1000, 'gate', 0]]],
+            [3.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_nonrealtime_01c(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.pbind_01.inscribe(session, duration=2)
+        assert final_offset == 3.0
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdefs.default.compile())],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
+                    'amplitude', 1.0, 'frequency', 440]]],
+            [1.0, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
+                    'amplitude', 1.0, 'frequency', 660],
+                ['/n_set', 1000, 'gate', 0]]],
+            [3.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_nonrealtime_02a(self):
         session = nonrealtimetools.Session()
         with session.at(10):
             self.pbind_02.inscribe(session)
@@ -350,7 +382,7 @@ class TestCase(TestCase):
                 ['/n_set', 1005, 'gate', 0],
                 [0]]]]
 
-    def test_nonrealtime_03(self):
+    def test_nonrealtime_03a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             self.pbind_03.inscribe(session)
