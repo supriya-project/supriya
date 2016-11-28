@@ -113,7 +113,7 @@ class NoteEvent(Event):
         from supriya.tools import patterntools
         synth_uuid = self.get('uuid') or uuid.uuid4()
         synthdef = self.get('synthdef', synthdefs.default)
-        do_not_release = self.get('_do_not_release')
+        is_stop = self.get('is_stop')
         duration = self['duration']
         if duration is None:
             duration = 1
@@ -136,7 +136,7 @@ class NoteEvent(Event):
             uuids,
             )
         if self.get('duration'):
-            if not do_not_release:
+            if is_stop:
                 stop_product = self._build_stop_bundle(
                     index,
                     synth_uuid,
