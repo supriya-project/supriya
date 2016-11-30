@@ -20,7 +20,6 @@ version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
     install_requires.append('pathlib2')
-
 if not on_rtd:
     install_requires.extend([
         'numpy',

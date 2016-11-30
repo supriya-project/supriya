@@ -1719,8 +1719,13 @@ class UGenMethodMixin(SupriyaObject):
     def _compute_ugen_map(self, map_ugen, **kwargs):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
+        sources = []
         ugens = []
-        for source in self[:]:
+        if len(self) == 1:
+            sources = [self]
+        else:
+            sources = self
+        for source in sources:
             method = ugentools.UGen._get_method_for_rate(map_ugen, source)
             ugen = method(
                 source=source,

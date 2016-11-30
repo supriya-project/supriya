@@ -36,13 +36,25 @@ class NonrealtimeEventPlayer(EventPlayer):
 
     @SessionObject.require_offset
     def __call__(self, offset=None):
+        should_stop = False
         maximum_offset = None
-        offset = offset or 0
-        self._iterator = iter(self._pattern)
-        uuids = {}
         if self.duration is not None:
             maximum_offset = offset + self.duration
-        for event in self._iterator:
+        offset = offset or 0
+        iterator = iter(self._pattern)
+        uuids = {}
+        while True:
+            try:
+                if should_stop:
+                    print('FETCHING VIA SEND')
+                    event = iterator.send(True)
+                else:
+                    print('FETCHING VIA NEXT')
+                    event = next(iterator)
+            except StopIteration:
+                print('    TERMINATING', offset)
+                break
+            self._debug(event, offset)
             event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,
@@ -51,9 +63,20 @@ class NonrealtimeEventPlayer(EventPlayer):
                 )
             if event.delta:
                 offset += event.delta
-            if maximum_offset is not None and offset >= maximum_offset:
-                self._iterator.send(True)
+                if (
+                    not should_stop and
+                    maximum_offset and
+                    maximum_offset <= offset
+                ):
+                    print('MAXED OUT:', offset, maximum_offset)
+                    should_stop = True
         return offset
+
+    ### PRIVATE METHODS ###
+
+    def _debug(self, event, offset):
+        print('    EVENT:', type(event).__name__, offset, event.get('uuid'),
+            event.get('duration'))
 
     ### PUBLIC PROPERTIES ###
 
