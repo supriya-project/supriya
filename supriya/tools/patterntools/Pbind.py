@@ -34,9 +34,9 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(duration=0.5, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
-        NoteEvent(duration=0.25, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
-        NoteEvent(duration=0.25, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
+        NoteEvent(duration=0.5, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
+        NoteEvent(duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
+        NoteEvent(duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
 
     ::
 
@@ -54,12 +54,12 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(uuid=UUID('...'), pitch=1)
-        NoteEvent(uuid=UUID('...'), pitch=2)
-        NoteEvent(uuid=UUID('...'), pitch=3)
-        NoteEvent(uuid=UUID('...'), pitch=4)
-        NoteEvent(uuid=UUID('...'), pitch=5)
-        NoteEvent(uuid=UUID('...'), pitch=6)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=1)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=2)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=3)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=4)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=5)
+        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=6)
 
     """
 
@@ -120,7 +120,9 @@ class Pbind(EventPattern):
                     event[name] = next(pattern)
                 except StopIteration:
                     return
-            yield event
+            should_stop = yield event
+            if should_stop:
+                return
 
     ### PUBLIC PROPERTIES ###
 

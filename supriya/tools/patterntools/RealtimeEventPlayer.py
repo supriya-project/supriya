@@ -100,17 +100,25 @@ class RealtimeEventPlayer(EventPlayer):
     ### PRIVATE METHODS ###
 
     def _collect_stop_requests(self):
+        from supriya.tools import nonrealtimetools
         requests = []
         gated_node_ids = []
         freed_node_ids = []
-        for _, node_ids in self._uuids.items():
-            for node_id, synth in node_ids.items():
-                if synth.synthdef.has_gate:
-                    gated_node_ids.append(node_id)
+        for _, proxy_ids in self._uuids.items():
+            for proxy_id, proxy in proxy_ids.items():
+                if not isinstance(proxy, servertools.Node):
+                    continue
+                if (
+                    isinstance(proxy, nonrealtimetools.Synth) and
+                    proxy.synthdef.has_gate
+                ):
+                    gated_node_ids.append(proxy_id)
                 else:
-                    freed_node_ids.append(node_id)
+                    freed_node_ids.append(proxy_id)
         if freed_node_ids:
-            request = requesttools.NodeFreeRequest(node_ids=sorted(node_ids))
+            request = requesttools.NodeFreeRequest(
+                node_ids=sorted(freed_node_ids),
+                )
             requests.append(request)
         for node_id in sorted(gated_node_ids):
             request = requesttools.NodeSetRequest(
@@ -196,4 +204,3 @@ class RealtimeEventPlayer(EventPlayer):
         bundle = self._collect_stop_requests()
         if bundle and self._server.is_running:
             self._server.send_message(bundle.to_osc_bundle())
-        self._uuids.clear()

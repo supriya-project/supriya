@@ -5,8 +5,13 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Buffer(SessionObject):
+    """
+    A non-realtime buffer.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = (
         '_buffer_group',

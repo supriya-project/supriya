@@ -46,6 +46,7 @@ class BusEvent(Event):
         session,
         uuids,
         offset,
+        maximum_offset=None,
         ):
         bus_uuid = self.get('uuid') or uuid.uuid4()
         if not self.get('is_stop'):

@@ -18,17 +18,22 @@ class NoteEvent(Event):
         add_action=None,
         delta=None,
         duration=None,
+        is_stop=True,
         target_node=None,
         uuid=None,
         **settings
         ):
         if add_action is not None:
             add_action = servertools.AddAction.from_expr(add_action)
+        is_stop = is_stop or None
+        if is_stop:
+            is_stop = bool(is_stop)
         Event.__init__(
             self,
             add_action=add_action,
             delta=delta,
             duration=duration,
+            is_stop=is_stop,
             target_node=target_node,
             uuid=uuid,
             **settings
@@ -41,17 +46,21 @@ class NoteEvent(Event):
         session,
         uuids,
         offset,
+        maximum_offset=None,
         ):
         from supriya import synthdefs
         from supriya.tools import nonrealtimetools
+        settings = self.settings.copy()  # Do not mutate in place.
         synthdef = self.get('synthdef', synthdefs.default)
         synth_uuid = self.get('uuid', uuid.uuid4())
-        do_not_release = self.get('_do_not_release')
-        duration = self['duration']
+        is_stop = self.get('is_stop')
+        duration = self.get('duration')
         if duration is None:
             duration = 1
+        if 'duration' in settings:
+            duration = settings.pop('duration')
         dictionaries = self._expand(
-            self.settings,
+            settings,
             synthdef,
             uuids,
             realtime=False,
@@ -59,7 +68,7 @@ class NoteEvent(Event):
             )
         if synth_uuid not in uuids:
             # Start a synth, both Pbind and Pmono
-            if do_not_release:
+            if not is_stop:
                 duration = float('inf')
             target_node = self['target_node']
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
@@ -77,7 +86,7 @@ class NoteEvent(Event):
                         **dictionary
                         )
                     synths.append(synth)
-            if do_not_release:
+            if not is_stop:
                 uuids[synth_uuid] = tuple(synths)
         else:
             # Make settings on Pmono synth
@@ -87,7 +96,7 @@ class NoteEvent(Event):
                 for synth, dictionary in zip(synths, dictionaries):
                     for key, value in dictionary.items():
                         synth[key] = value
-            if not do_not_release:
+            if is_stop:
                 stop_offset = offset + duration
                 for synth in synths:
                     duration = stop_offset - synth.start_offset
@@ -104,7 +113,7 @@ class NoteEvent(Event):
         from supriya.tools import patterntools
         synth_uuid = self.get('uuid') or uuid.uuid4()
         synthdef = self.get('synthdef', synthdefs.default)
-        do_not_release = self.get('_do_not_release')
+        is_stop = self.get('is_stop')
         duration = self['duration']
         if duration is None:
             duration = 1
@@ -127,7 +136,7 @@ class NoteEvent(Event):
             uuids,
             )
         if self.get('duration'):
-            if not do_not_release:
+            if is_stop:
                 stop_product = self._build_stop_bundle(
                     index,
                     synth_uuid,

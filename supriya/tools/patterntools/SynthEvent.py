@@ -46,6 +46,7 @@ class SynthEvent(Event):
         session,
         uuids,
         offset,
+        maximum_offset=None,
         ):
         from supriya import synthdefs
         from supriya.tools import nonrealtimetools

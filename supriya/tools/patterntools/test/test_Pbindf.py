@@ -21,6 +21,7 @@ class TestCase(TestCase):
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.111,
                 duration=1.0,
+                is_stop=True,
                 pan=0.0,
                 uuid=UUID('...'),
                 )
@@ -32,6 +33,7 @@ class TestCase(TestCase):
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.333,
                 duration=2.0,
+                is_stop=True,
                 pan=0.5,
                 uuid=UUID('...'),
                 )
@@ -43,6 +45,7 @@ class TestCase(TestCase):
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.666,
                 duration=3.0,
+                is_stop=True,
                 pan=1.0,
                 uuid=UUID('...'),
                 )

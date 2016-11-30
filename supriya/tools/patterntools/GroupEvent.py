@@ -44,6 +44,7 @@ class GroupEvent(Event):
         session,
         uuids,
         offset,
+        maximum_offset=None,
         ):
         from supriya.tools import nonrealtimetools
         group_uuid = self.get('uuid', uuid.uuid4())

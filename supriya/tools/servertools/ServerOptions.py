@@ -63,7 +63,7 @@ class ServerOptions(SupriyaObject):
         maximum_node_count=1024,
         maximum_synthdef_count=1024,
         memory_locking=False,
-        memory_size=8192 * 16,
+        memory_size=8192,
         output_bus_channel_count=8,
         output_device=None,
         output_stream_mask=False,
@@ -155,7 +155,7 @@ class ServerOptions(SupriyaObject):
         if self.hardware_buffer_size is not None:
             result.append('-Z {}'.format(int(self.hardware_buffer_size)))
 
-        if self.memory_size != 8192 * 16:
+        if self.memory_size != 8192:
             result.append('-m {}'.format(self.memory_size))
 
         if self.random_number_generator_count != 64:

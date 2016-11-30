@@ -20,7 +20,6 @@ version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
     install_requires.append('pathlib2')
-
 if not on_rtd:
     install_requires.extend([
         'numpy',
@@ -48,7 +47,8 @@ classifiers = [
 
 entry_points = {
     'console_scripts': [
-        'supriya = supriya.tools.systemtools.run_supriya:run_supriya'
+        'sjv = supriya.tools.commandlinetools.run_sjv:run_sjv',
+        'supriya = supriya.tools.systemtools.run_supriya:run_supriya',
         ],
     }
 

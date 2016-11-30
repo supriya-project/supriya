@@ -3,8 +3,13 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class BufferGroup(SessionObject):
+    """
+    A non-realtime buffer group.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = (
         '_buffers',

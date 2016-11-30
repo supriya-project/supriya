@@ -40,6 +40,49 @@ class Pbus(EventPattern):
         assert 0 <= release_time
         self._release_time = release_time
 
+    ### SPECIAL METHODS ###
+
+    def __iter__(self):
+        yield_count = 0
+        should_stop = False
+        state = self._setup_state()
+        iterator = self._iterate(state)
+        try:
+            expr = next(iterator)
+            expr = self._coerce_iterator_output(expr, state)
+        except StopIteration:
+            return
+        exprs = self._handle_first(expr, state)
+        while len(exprs) > 1:
+            expr = exprs.pop(0)
+            print('    YIELDING (A):', type(expr).__name__, expr.get('uuid'))
+            should_stop = yield expr
+            yield_count += 1
+            if should_stop:
+                print('    SHOULD STOP (A)')
+                iterator.send(True)
+                exprs[:] = [exprs[0]]
+                break
+        if not should_stop:
+            try:
+                for expr in iterator:
+                    expr = self._coerce_iterator_output(expr, state)
+                    exprs.append(expr)
+                    expr = exprs.pop(0)
+                    print('    YIELDING (B):', type(expr).__name__, expr.get('uuid'))
+                    should_stop = yield expr
+                    if should_stop:
+                        print('    SHOULD STOP (B)')
+                        iterator.send(True)
+                        break
+            except StopIteration:
+                pass
+        assert len(exprs) == 1
+        exprs.extend(self._handle_last(exprs.pop(), state, yield_count))
+        for expr in exprs:
+            print('    YIELDING (C):', type(expr).__name__, expr.get('uuid'))
+            yield expr
+
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state):
@@ -83,10 +126,9 @@ class Pbus(EventPattern):
             target_node=state['group_uuid'],
             uuid=state['link_uuid'],
             )
-        events = [bus_event, group_event, link_event]
-        return events, expr
+        return [bus_event, group_event, link_event, expr]
 
-    def _handle_last(self, expr, state):
+    def _handle_last(self, expr, state=None, yield_count=0):
         from supriya.tools import patterntools
         delta = expr.delta
         delta += (self._release_time or 0)
@@ -104,7 +146,9 @@ class Pbus(EventPattern):
             is_stop=True,
             )
         events = [link_event, group_event, bus_event]
-        return expr, events
+        events = events[-yield_count:]
+        events.insert(0, expr)
+        return events
 
     def _iterate(self, state=None):
         return iter(self.pattern)

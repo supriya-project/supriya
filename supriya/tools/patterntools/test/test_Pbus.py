@@ -151,7 +151,7 @@ class TestCase(TestCase):
                 1 group
         ''')
 
-    def test_nonrealtime(self):
+    def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             self.pattern.inscribe(session)
@@ -177,3 +177,90 @@ class TestCase(TestCase):
                 ['/n_set', 1003, 'gate', 0]]],
             [6.0, [['/n_set', 1004, 'gate', 0]]],
             [6.25, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_nonrealtime_01b(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.pattern.inscribe(session, duration=2)
+        assert final_offset == 3.25
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 16],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
+            [1.0, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 660, 'out', 16],
+                ['/n_set', 1002, 'gate', 0]]],
+            [3.0, [['/n_set', 1003, 'gate', 0]]],
+            [3.25, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_send_01(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(4):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('SynthEvent', False),
+            ('NoteEvent', True),
+            ('SynthEvent', True),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_02(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(3):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('SynthEvent', False),
+            ('SynthEvent', True),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_03(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(2):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('GroupEvent', False),
+            ('GroupEvent', True),
+            ('BusEvent', True),
+            ]
+
+    def test_send_04(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(1):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('BusEvent', False),
+            ('BusEvent', True),
+            ]

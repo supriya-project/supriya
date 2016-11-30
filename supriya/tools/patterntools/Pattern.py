@@ -93,26 +93,39 @@ class Pattern(SupriyaValueObject):
         return patterntools.Pbinop(self, '-', expr)
 
     def __iter__(self):
+        yield_count = 0
+        should_stop = False
         state = self._setup_state()
         iterator = self._iterate(state)
         try:
-            expr = self._coerce_iterator_output(next(iterator), state)
+            expr = next(iterator)
+            expr = self._coerce_iterator_output(expr, state)
         except StopIteration:
             return
-        pre_exprs, expr = self._handle_first(expr, state)
-        if pre_exprs:
-            for pre_expr in pre_exprs:
-                yield pre_expr
-        exprs = [expr]
-        for expr in iterator:
-            expr = self._coerce_iterator_output(expr, state)
-            exprs.append(expr)
-            yield exprs.pop(0)
-        expr, post_exprs = self._handle_last(exprs[0], state)
-        yield expr
-        if post_exprs:
-            for post_expr in post_exprs:
-                yield post_expr
+        exprs = self._handle_first(expr, state)
+        while len(exprs) > 1:
+            expr = exprs.pop(0)
+            should_stop = yield expr
+            yield_count += 1
+            if should_stop:
+                iterator.send(True)
+                exprs[:] = [exprs[0]]
+                break
+        if not should_stop:
+            try:
+                for expr in iterator:
+                    expr = self._coerce_iterator_output(expr, state)
+                    exprs.append(expr)
+                    expr = exprs.pop(0)
+                    should_stop = yield expr
+                    if should_stop:
+                        iterator.send(True)
+                        break
+            except StopIteration:
+                pass
+        exprs.extend(self._handle_last(exprs.pop(), state, yield_count))
+        for expr in exprs:
+            yield expr
 
     ### PRIVATE METHODS ###
 
@@ -173,10 +186,10 @@ class Pattern(SupriyaValueObject):
         return rng, identifier
 
     def _handle_first(self, expr, state=None):
-        return None, expr
+        return [expr]
 
-    def _handle_last(self, expr, state=None):
-        return expr, None
+    def _handle_last(self, expr, state=None, yield_count=0):
+        return [expr]
 
     @abc.abstractmethod
     def _iterate(self, state=None):

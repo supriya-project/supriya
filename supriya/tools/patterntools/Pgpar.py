@@ -45,9 +45,10 @@ class Pgpar(Ppar):
                 add_action='ADD_TO_TAIL',
                 )
             events.append(group_event)
-        return events, expr
+        events.append(expr)
+        return events
 
-    def _handle_last(self, expr, state):
+    def _handle_last(self, expr, state=None, yield_count=0):
         from supriya.tools import patterntools
         _, group_uuids, _ = state
         delta = expr.delta
@@ -60,7 +61,9 @@ class Pgpar(Ppar):
                 is_stop=True,
                 )
             events.append(group_event)
-        return expr, events
+        events = events[-yield_count:]
+        events.insert(0, expr)
+        return events
 
     def _setup_state(self):
         queue = PriorityQueue()

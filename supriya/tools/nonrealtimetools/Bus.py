@@ -43,6 +43,8 @@ class Bus(SessionObject):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Session Objects'
+
     __slots__ = (
         '_bus_group',
         '_calculation_rate',
@@ -151,3 +153,11 @@ class Bus(SessionObject):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def start_offset(self):
+        return float('-inf')
+
+    @property
+    def stop_offset(self):
+        return float('inf')

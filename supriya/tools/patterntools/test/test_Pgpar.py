@@ -83,3 +83,47 @@ class TestCase(TestCase):
                 ['/n_set', 1006, 'gate', 0]]],
             [14.0, [['/n_set', 1002, 'gate', 0]]],
             [14.25, [['/n_free', 1000, 1001], [0]]]]
+
+    def test_send_01(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(3):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('GroupEvent', False),
+            ('GroupEvent', False),
+            ('NoteEvent', False),
+            ('GroupEvent', True),
+            ('GroupEvent', True),
+            ]
+
+    def test_send_02(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(2):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('GroupEvent', False),
+            ('GroupEvent', False),
+            ('GroupEvent', True),
+            ('GroupEvent', True),
+            ]
+
+    def test_send_03(self):
+        events, iterator = [], iter(self.pattern)
+        for _ in range(1):
+            events.append(next(iterator))
+        iterator.send(True)
+        events.extend(iterator)
+        assert [
+            (type(x).__name__, x.get('is_stop') or False)
+            for x in events] == [
+            ('GroupEvent', False),
+            ('GroupEvent', True),
+            ]

@@ -18,14 +18,19 @@ class EventPattern(Pattern):
 
     ### PUBLIC METHODS ###
 
-    def inscribe(self, session, event_template=None):
+    def inscribe(
+        self,
+        session,
+        duration=None,
+        offset=None,
+        ):
         from supriya.tools import patterntools
         event_player = patterntools.NonrealtimeEventPlayer(
             self,
             session=session,
-            event_template=event_template,
+            duration=duration,
             )
-        event_player()
+        return event_player(offset=offset)
 
     def play(self, clock=None, event_template=None, server=None):
         from supriya.tools import patterntools
@@ -33,7 +38,6 @@ class EventPattern(Pattern):
         event_player = patterntools.RealtimeEventPlayer(
             self,
             clock=clock,
-            event_template=event_template,
             server=server or servertools.Server.get_default_server(),
             )
         event_player.start()

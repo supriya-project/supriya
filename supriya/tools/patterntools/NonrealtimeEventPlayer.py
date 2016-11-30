@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.patterntools.EventPlayer import EventPlayer
+from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class NonrealtimeEventPlayer(EventPlayer):
@@ -7,7 +8,7 @@ class NonrealtimeEventPlayer(EventPlayer):
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_maximum_duration',
+        '_duration',
         '_session',
         )
 
@@ -17,42 +18,71 @@ class NonrealtimeEventPlayer(EventPlayer):
         self,
         pattern,
         session,
-        event_template=None,
-        maximum_duration=None,
+        duration=None,
         ):
         from supriya.tools import nonrealtimetools
         EventPlayer.__init__(
             self,
             pattern,
-            event_template,
             )
         assert isinstance(session, nonrealtimetools.Session)
         self._session = session
         if self.pattern.is_infinite:
-            maximum_duration = float(maximum_duration)
-            assert maximum_duration
-        self._maximum_duration = maximum_duration
+            duration = float(duration)
+            assert duration
+        self._duration = duration
 
     ### SPECIAL METHODS ###
 
-    def __call__(self):
-        self._cumulative_time = 0
-        initial_offset = self.session.active_moments[-1].offset
-        self._iterator = iter(self._pattern)
+    @SessionObject.require_offset
+    def __call__(self, offset=None):
+        should_stop = False
+        maximum_offset = None
+        if self.duration is not None:
+            maximum_offset = offset + self.duration
+        offset = offset or 0
+        iterator = iter(self._pattern)
         uuids = {}
-        for event in self._iterator:
+        while True:
+            try:
+                if should_stop:
+                    print('FETCHING VIA SEND')
+                    event = iterator.send(True)
+                else:
+                    print('FETCHING VIA NEXT')
+                    event = next(iterator)
+            except StopIteration:
+                print('    TERMINATING', offset)
+                break
+            self._debug(event, offset)
             event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,
-                offset=initial_offset + self._cumulative_time,
+                maximum_offset=maximum_offset,
+                offset=offset,
                 )
-            self._cumulative_time += event.delta
+            if event.delta:
+                offset += event.delta
+                if (
+                    not should_stop and
+                    maximum_offset and
+                    maximum_offset <= offset
+                ):
+                    print('MAXED OUT:', offset, maximum_offset)
+                    should_stop = True
+        return offset
+
+    ### PRIVATE METHODS ###
+
+    def _debug(self, event, offset):
+        print('    EVENT:', type(event).__name__, offset, event.get('uuid'),
+            event.get('duration'))
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def maximum_duration(self):
-        return self._maximum_duration
+    def duration(self):
+        return self._duration
 
     @property
     def session(self):

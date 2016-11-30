@@ -7,8 +7,13 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Node(SessionObject):
+    """
+    A non-realtime node.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = (
         '_duration',

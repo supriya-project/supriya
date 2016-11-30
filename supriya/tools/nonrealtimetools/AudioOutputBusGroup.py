@@ -4,6 +4,17 @@ from supriya.tools.nonrealtimetools.BusGroup import BusGroup
 
 
 class AudioOutputBusGroup(BusGroup):
+    """
+    A non-realtime audio output bus group.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
+
+    __slots__ = ()
+
+    ### INITIALIZER ###
 
     def __init__(
         self,

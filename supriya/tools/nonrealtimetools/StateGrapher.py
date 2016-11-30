@@ -4,6 +4,15 @@ from supriya.tools.documentationtools.Grapher import Grapher
 
 
 class StateGrapher(Grapher):
+    """
+    Graphs non-realtime sessions via Graphviz.
+    """
+
+    ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Internals'
+
+    ### PRIVATE METHODS ###
 
     @staticmethod
     def _create_graphviz_table_cell(label, with_rule=False, **kwargs):

@@ -71,6 +71,8 @@ class Session(OscMixin):
 
     ### CLASS VARIABLES ###
 
+    __documentation_section__ = 'Non-realtime Session'
+
     __slots__ = (
         '_active_moments',
         '_audio_input_bus_group',
@@ -515,11 +517,11 @@ class Session(OscMixin):
                         if duration < source.stop_offset:  # duration is session duration
                             node_duration = duration - source.start_offset
                         synth_kwargs['duration'] = float(node_duration)
-                    request = source.to_request(action, id_mapping, **synth_kwargs)
+                    request = source._to_request(action, id_mapping, **synth_kwargs)
                 else:
-                    request = source.to_request(action, id_mapping)
+                    request = source._to_request(action, id_mapping)
             else:
-                request = action.to_request(id_mapping)
+                request = action._to_request(id_mapping)
             requests.append(request)
         return requests
 
@@ -1205,8 +1207,16 @@ class Session(OscMixin):
         return self._root_node
 
     @property
+    def start_offset(self):
+        return self.root_node.start_offset
+
+    @property
     def states(self):
         return self._states
+
+    @property
+    def stop_offset(self):
+        return self.root_node.stop_offset
 
     @property
     def transcript(self):

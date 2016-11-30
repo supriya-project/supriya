@@ -4,8 +4,13 @@ from supriya.tools.nonrealtimetools.Group import Group
 
 
 class RootNode(Group):
+    """
+    A non-realtime root node.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = ()
 

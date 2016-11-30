@@ -5,8 +5,13 @@ from supriya.tools.nonrealtimetools.Node import Node
 
 
 class Group(Node):
+    """
+    A non-realtime group.
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = ()
 
@@ -22,9 +27,9 @@ class Group(Node):
     def __str__(self):
         return 'group-{}'.format(self.session_id)
 
-    ### PUBLIC METHODS ###
+    ### PRIVATE METHODS ###
 
-    def to_request(self, action, id_mapping):
+    def _to_request(self, action, id_mapping):
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action

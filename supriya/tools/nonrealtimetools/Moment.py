@@ -3,8 +3,19 @@ from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
 class Moment(SessionObject):
+    """
+    A moment-in-time referencing a singleton non-realtime state.
+
+    ::
+
+        >>> session = nonrealtimetools.Session()
+        >>> moment = session.at(10.5)
+
+    """
 
     ### CLASS VARIABLES ###
+
+    __documentation_section__ = 'Session Objects'
 
     __slots__ = (
         '_offset',
