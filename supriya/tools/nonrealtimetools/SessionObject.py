@@ -53,6 +53,7 @@ class SessionObject(SupriyaObject):
     def require_offset(function):
         @functools.wraps(function)
         def wrapper(self, *args, **kwargs):
+            from supriya.tools import nonrealtimetools
             if isinstance(self, nonrealtimetools.Session):
                 session = self
             else:
@@ -68,7 +69,6 @@ class SessionObject(SupriyaObject):
                         float(offset), self.start_offset, self.stop_offset))
             with session.at(kwargs['offset']):
                 return function(self, *args, **kwargs)
-        from supriya.tools import nonrealtimetools
         return wrapper
 
     ### PUBLIC PROPERTIES ###
