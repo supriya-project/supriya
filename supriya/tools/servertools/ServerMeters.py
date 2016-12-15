@@ -94,6 +94,7 @@ class ServerMeters(systemtools.SupriyaObject):
 
     ### PUBLIC METHODS ###
 
+    @systemtools.PubSub.subscribe_before('server-quitting')
     def allocate(self):
         from supriya.tools import osctools
         from supriya.tools import servertools
@@ -127,6 +128,7 @@ class ServerMeters(systemtools.SupriyaObject):
             )
         return self
 
+    @systemtools.PubSub.unsubscribe_after('server-quitting')
     def free(self):
         self.server.unregister_osc_callback(self._input_meter_callback)
         self.server.unregister_osc_callback(self._output_meter_callback)
@@ -136,6 +138,21 @@ class ServerMeters(systemtools.SupriyaObject):
         self._output_meter_callback = None
         self._input_meter_synth = None
         self._output_meter_synth = None
+
+    def notify(self, topic, event):
+        if topic == 'server-quitting':
+            self.free()
+
+    def to_dict(self):
+        result = {
+            'server-meters': {
+                'input_meter_peak_levels': self._input_meter_peak_levels,
+                'input_meter_rms_levels': self._input_meter_rms_levels,
+                'output_meter_peak_levels': self._output_meter_peak_levels,
+                'output_meter_rms_levels': self._output_meter_rms_levels,
+                },
+            }
+        return result
 
     ### PUBLIC PROPERTIES ###
 

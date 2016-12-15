@@ -44,6 +44,64 @@ class StatusResponse(Response):
         self._target_sample_rate = target_sample_rate
         self._ugen_count = ugen_count
 
+    ### PUBLIC METHODS ###
+
+    def to_dict(self):
+        """
+        Convert StatusResponse to JSON-serializable dictionay.
+
+        ::
+
+            >>> status_response = responsetools.StatusResponse(
+            ...     actual_sample_rate=44100.05692801021,
+            ...     average_cpu_usage=8.151924133300781,
+            ...     group_count=6,
+            ...     peak_cpu_usage=15.151398658752441,
+            ...     synth_count=19,
+            ...     synthdef_count=42,
+            ...     target_sample_rate=44100.0,
+            ...     ugen_count=685
+            ...     )
+
+        ::
+
+            >>> import json
+            >>> result = status_response.to_dict()
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(',', ': '),
+            ...     sort_keys=True,
+            ...     )
+            >>> print(result)
+            {
+                "status": {
+                    "actual_sample_rate": 44100.05692801021,
+                    "average_cpu_usage": 8.151924133300781,
+                    "group_count": 6,
+                    "peak_cpu_usage": 15.151398658752441,
+                    "synth_count": 19,
+                    "synthdef_count": 42,
+                    "target_sample_rate": 44100.0,
+                    "ugen_count": 685
+                }
+            }
+
+        """
+        result = {
+            'status': {
+                'actual_sample_rate': self.actual_sample_rate,
+                'average_cpu_usage': self.average_cpu_usage,
+                'group_count': self.group_count,
+                'peak_cpu_usage': self.peak_cpu_usage,
+                'synth_count': self.synth_count,
+                'synthdef_count': self.synthdef_count,
+                'target_sample_rate': self.target_sample_rate,
+                'ugen_count': self.ugen_count,
+                },
+            }
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

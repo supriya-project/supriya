@@ -108,6 +108,126 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
             state, root_node, include_controls=include_controls)
         return query_tree_group
 
+    def to_dict(self):
+        """
+        Convert QueryTreeGroup to JSON-serializable dictionary.
+
+        ::
+
+            >>> query_tree_group = responsetools.QueryTreeGroup(
+            ...     node_id=1002,
+            ...     children=(
+            ...         responsetools.QueryTreeSynth(
+            ...             node_id=1105,
+            ...             synthdef_name='dca557070c6b57164557041ac746fb3f',
+            ...             controls=(
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='damping',
+            ...                     control_value=0.06623425334692,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='duration',
+            ...                     control_value=3.652155876159668,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='level',
+            ...                     control_value=0.894767701625824,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='out',
+            ...                     control_value=16.0,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='room_size',
+            ...                     control_value=0.918643176555634,
+            ...                     ),
+            ...                 ),
+            ...             ),
+            ...         responsetools.QueryTreeSynth(
+            ...             node_id=1098,
+            ...             synthdef_name='cc754c63533fdcf412a44ef6adb1a8f0',
+            ...             controls=(
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='duration',
+            ...                     control_value=5.701356887817383,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='level',
+            ...                     control_value=0.959683060646057,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='out',
+            ...                     control_value=16.0,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='pitch_dispersion',
+            ...                     control_value=0.040342573076487,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='pitch_shift',
+            ...                     control_value=10.517594337463379,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='time_dispersion',
+            ...                     control_value=0.666014134883881,
+            ...                     ),
+            ...                 responsetools.QueryTreeControl(
+            ...                     control_name_or_index='window_size',
+            ...                     control_value=1.014111995697021,
+            ...                     ),
+            ...                 ),
+            ...             ),
+            ...         ),
+            ...     )
+
+        ::
+
+            >>> import json
+            >>> result = query_tree_group.to_dict()
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(',', ': '),
+            ...     sort_keys=True,
+            ...     )
+            >>> print(result)
+            {
+                "children": [
+                    {
+                        "controls": {
+                            "damping": 0.06623425334692,
+                            "duration": 3.652155876159668,
+                            "level": 0.894767701625824,
+                            "out": 16.0,
+                            "room_size": 0.918643176555634
+                        },
+                        "node_id": 1105,
+                        "synthdef": "dca557070c6b57164557041ac746fb3f"
+                    },
+                    {
+                        "controls": {
+                            "duration": 5.701356887817383,
+                            "level": 0.959683060646057,
+                            "out": 16.0,
+                            "pitch_dispersion": 0.040342573076487,
+                            "pitch_shift": 10.517594337463379,
+                            "time_dispersion": 0.666014134883881,
+                            "window_size": 1.014111995697021
+                        },
+                        "node_id": 1098,
+                        "synthdef": "cc754c63533fdcf412a44ef6adb1a8f0"
+                    }
+                ],
+                "node_id": 1002
+            }
+
+        """
+        result = {
+            'node_id': self.node_id,
+            'children': [x.to_dict() for x in self.children]
+            }
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property
