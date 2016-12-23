@@ -388,7 +388,7 @@ class Server(SupriyaObject):
         if kwargs:
             server_options = new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {} -V -1'.format(scsynth_path, options_string)
+        command = '{} {} -v -1'.format(scsynth_path, options_string)
         self._server_process = subprocess.Popen(command, shell=True)
         time.sleep(0.25)
         self._is_running = True
