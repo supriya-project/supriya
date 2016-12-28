@@ -89,7 +89,7 @@ class StatusResponse(Response):
 
         """
         result = {
-            'status': {
+            'server_status': {
                 'actual_sample_rate': self.actual_sample_rate,
                 'average_cpu_usage': self.average_cpu_usage,
                 'group_count': self.group_count,
