@@ -144,12 +144,21 @@ class ServerMeters(systemtools.SupriyaObject):
             self.free()
 
     def to_dict(self):
+        input_meter_levels, output_meter_levels = [], []
+        for peak, rms in zip(
+            self._input_meter_peak_levels,
+            self._input_meter_rms_levels,
+            ):
+            input_meter_levels.append(dict(peak=peak, rms=rms))
+        for peak, rms in zip(
+            self._output_meter_peak_levels,
+            self._output_meter_rms_levels,
+            ):
+            output_meter_levels.append(dict(peak=peak, rms=rms))
         result = {
-            'server-meters': {
-                'input_meter_peak_levels': self._input_meter_peak_levels,
-                'input_meter_rms_levels': self._input_meter_rms_levels,
-                'output_meter_peak_levels': self._output_meter_peak_levels,
-                'output_meter_rms_levels': self._output_meter_rms_levels,
+            'server_meters': {
+                'input_meter_levels': self._input_meter_levels,
+                'output_meter_levels': self._output_meter_levels,
                 },
             }
         return result

@@ -352,7 +352,7 @@ class QueryTreeResponse(Response):
             ...     )
             >>> print(result)
             {
-                "server-tree": {
+                "server_tree": {
                     "children": [
                         {
                             "children": [
@@ -482,7 +482,7 @@ class QueryTreeResponse(Response):
             ...     )
             >>> print(result)
             {
-                "server-tree": [
+                "server_tree": [
                     {
                         "children": [
                             1,
@@ -639,10 +639,10 @@ class QueryTreeResponse(Response):
 
         data = self.query_tree_group.to_dict()
         if not flat:
-            return {'server-tree': data}
+            return {'server_tree': data}
         nodes = []
         recurse(data, None, nodes)
-        return {'server-tree': nodes}
+        return {'server_tree': nodes}
 
     ### PUBLIC PROPERTIES ###
 
