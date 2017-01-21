@@ -12,7 +12,7 @@ install_requires = [
     'pytest>=3.0.0',
     'pytest-timeout>=1.2.0',
     'six',
-    'sphinx>=1.4',
+    'sphinx>=1.5.0',
     'sphinx_rtd_theme',
     'tornado',
     'tox',
