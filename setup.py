@@ -10,6 +10,7 @@ on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 install_requires = [
     'abjad>=2.19',
     'pytest>=3.0.0',
+    'pytest-timeout>=1.2.0',
     'six',
     'sphinx>=1.4',
     'sphinx_rtd_theme',

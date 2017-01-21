@@ -1,6 +1,7 @@
 abjad>=2.19
 numpy
 pytest>=3.0.0
+pytest-timeout>=1.2.0
 python-rtmidi
 six
 sphinx>=1.4
