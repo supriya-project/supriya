@@ -1,10 +1,6 @@
 # -*- encoding: utf-8 -*-
 import uuid
 from abjad import new
-try:
-    from queue import PriorityQueue
-except ImportError:
-    from Queue import PriorityQueue
 from supriya.tools.patterntools.Ppar import Ppar
 
 
@@ -30,51 +26,41 @@ class Pgpar(Ppar):
 
     ### PRIVATE METHODS ###
 
-    def _coerce_iterator_output(self, event, state):
-        iterator = event.get('_iterator')
-        group_uuid = state[2][iterator]
-        return new(event, target_node=group_uuid, _iterator=None)
-
-    def _handle_first(self, expr, state):
+    def _coerce_iterator_output(self, expr, state):
         from supriya.tools import patterntools
-        _, group_uuids, _ = state
-        events = []
+        iterator = expr.get('_iterator')
+        iterators_to_group_uuids = state['iterators_to_group_uuids']
+        kwargs = {'_iterator': None}
+        if (
+            isinstance(expr, patterntools.NoteEvent) or
+            not expr.get('is_stop')
+            ):
+            kwargs['target_node'] = iterators_to_group_uuids[iterator]
+        return new(expr, **kwargs)
+
+    def _setup_peripherals(self, initial_expr, state):
+        from supriya.tools import patterntools
+        group_uuids = state.get('group_uuids')
+        peripheral_starts, peripheral_stops = [], []
         for group_uuid in group_uuids:
-            group_event = patterntools.GroupEvent(
+            start_group_event = patterntools.GroupEvent(
                 uuid=group_uuid,
                 add_action='ADD_TO_TAIL',
                 )
-            events.append(group_event)
-        events.append(expr)
-        return events
-
-    def _handle_last(self, expr, state=None, yield_count=0):
-        from supriya.tools import patterntools
-        _, group_uuids, _ = state
-        delta = expr.delta
-        delta += (self._release_time or 0)
-        expr = new(expr, delta=delta)
-        events = []
-        for group_uuid in group_uuids:
-            group_event = patterntools.GroupEvent(
+            stop_group_event = patterntools.GroupEvent(
                 uuid=group_uuid,
                 is_stop=True,
                 )
-            events.append(group_event)
-        events = events[-yield_count:]
-        events.insert(0, expr)
-        return events
+            peripheral_starts.append(start_group_event)
+            peripheral_stops.append(stop_group_event)
+        return peripheral_starts, peripheral_stops
 
     def _setup_state(self):
-        queue = PriorityQueue()
-        group_uuids = []
-        iterators_to_group_uuids = {}
-        for index, pattern in enumerate(self._patterns, 1):
-            iterator = iter(pattern)
+        state = super(Pgpar, self)._setup_state()
+        state['group_uuids'] = []
+        state['iterators_to_group_uuids'] = {}
+        for iterator in state['iterators']:
             group_uuid = uuid.uuid4()
-            payload = ((0.0, index), iterator)
-            queue.put(payload)
-            group_uuids.append(group_uuid)
-            iterators_to_group_uuids[iterator] = group_uuid
-        state = (queue, group_uuids, iterators_to_group_uuids)
+            state['group_uuids'].append(group_uuid)
+            state['iterators_to_group_uuids'][iterator] = group_uuid
         return state

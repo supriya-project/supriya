@@ -3,7 +3,9 @@ import abc
 import collections
 import inspect
 import itertools
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from abjad import new
+from supriya.tools.systemtools import Enumeration
+from supriya.tools.systemtools import SupriyaValueObject
 
 
 class Pattern(SupriyaValueObject):
@@ -18,6 +20,11 @@ class Pattern(SupriyaValueObject):
     _filename = __file__
 
     _rngs = {}
+
+    class PatternState(Enumeration):
+        CONTINUE = 0
+        REALTIME_STOP = 1
+        NONREALTIME_STOP = 2
 
     ### INITIALIZER ###
 
@@ -93,43 +100,61 @@ class Pattern(SupriyaValueObject):
         return patterntools.Pbinop(self, '-', expr)
 
     def __iter__(self):
-        yield_count = 0
-        should_stop = False
+        from supriya.tools import patterntools
+        should_stop = self.PatternState.CONTINUE
         state = self._setup_state()
         iterator = self._iterate(state)
         try:
-            expr = next(iterator)
-            expr = self._coerce_iterator_output(expr, state)
+            initial_expr = next(iterator)
+            initial_expr = self._coerce_iterator_output_recursively(
+                initial_expr, state)
         except StopIteration:
             return
-        exprs = self._handle_first(expr, state)
-        while len(exprs) > 1:
-            expr = exprs.pop(0)
-            should_stop = yield expr
-            yield_count += 1
-            if should_stop:
-                iterator.send(True)
-                exprs[:] = [exprs[0]]
-                break
+        peripheral_starts, peripheral_stops = self._setup_peripherals(
+            initial_expr, state)
+        if peripheral_starts:
+            peripheral_starts = patterntools.CompositeEvent(
+                delta=0.0,
+                events=peripheral_starts,
+                )
+            should_stop = yield peripheral_starts
         if not should_stop:
-            try:
-                for expr in iterator:
-                    expr = self._coerce_iterator_output(expr, state)
-                    exprs.append(expr)
-                    expr = exprs.pop(0)
+            should_stop = yield initial_expr
+            while True:
+                try:
+                    expr = iterator.send(should_stop)
+                    expr = self._coerce_iterator_output_recursively(
+                        expr, state)
                     should_stop = yield expr
-                    if should_stop:
-                        iterator.send(True)
-                        break
-            except StopIteration:
-                pass
-        exprs.extend(self._handle_last(exprs.pop(), state, yield_count))
-        for expr in exprs:
-            yield expr
+                except StopIteration:
+                    break
+            if peripheral_stops:
+                null_event = self._setup_pre_peripheral_stops_null_event()
+                if null_event:
+                    peripheral_stops.insert(0, null_event)
+        if peripheral_stops:
+            peripheral_stops = patterntools.CompositeEvent(
+                delta=0.0,
+                events=peripheral_stops,
+                is_stop=True,
+                )
+            yield peripheral_stops
 
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state=None):
+        return expr
+
+    def _coerce_iterator_output_recursively(self, expr, state=None):
+        from supriya.tools import patterntools
+        if isinstance(expr, patterntools.CompositeEvent):
+            coerced_events = [
+                self._coerce_iterator_output(child_event, state=state)
+                for child_event in expr.get('events') or ()
+                ]
+            expr = new(expr, events=coerced_events)
+        else:
+            expr = self._coerce_iterator_output(expr, state=state)
         return expr
 
     @classmethod
@@ -141,9 +166,15 @@ class Pattern(SupriyaValueObject):
             value = float(value)
         return value
 
+    def _debug(self, *args, **kwargs):
+        if getattr(self, 'DEBUG', False):
+            print(*args, **kwargs)
+
     @classmethod
     def _freeze_recursive(cls, value):
-        if (
+        if isinstance(value, str):
+            return value
+        elif (
             isinstance(value, collections.Sequence) and
             not isinstance(value, Pattern)
             ):
@@ -159,41 +190,28 @@ class Pattern(SupriyaValueObject):
         return 1
 
     @classmethod
-    def _get_rng(cls, seed=None):
+    def _get_rng(cls):
         from supriya.tools import patterntools
+        pseed_file_path = inspect.getfile(patterntools.Pseed)
         identifier = None
         try:
             stack = inspect.stack()
-            for frame_info in reversed(stack):
-                if frame_info.filename != cls._filename:
-                    continue
-                elif frame_info.function != '__iter__':
-                    continue
-                identifier = id(frame_info.frame)
-                break
+            for frame_info in stack:
+                if (
+                    frame_info.filename == pseed_file_path and
+                    frame_info.function == '_iterate'
+                    ):
+                    identifier = id(frame_info.frame)
+                    break
         finally:
             del(frame_info)
             del(stack)
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
         elif identifier is None:
-            rng = iter(patterntools.RandomNumberGenerator(seed or 1))
-        else:
-            rng = cls._rngs.setdefault(
-                identifier,
-                iter(patterntools.RandomNumberGenerator(seed or 1))
-                )
-        return rng, identifier
-
-    def _handle_first(self, expr, state=None):
-        return [expr]
-
-    def _handle_last(self, expr, state=None, yield_count=0):
-        return [expr]
-
-    @abc.abstractmethod
-    def _iterate(self, state=None):
-        raise NotImplementedError
+            rng = patterntools.RandomNumberGenerator.get_stdlib_rng()
+            cls._rngs[identifier] = rng
+        return rng
 
     @classmethod
     def _loop(cls, repetitions=None):
@@ -226,7 +244,17 @@ class Pattern(SupriyaValueObject):
         return result
 
     def _setup_state(self):
-        return None
+        return {}
+
+    def _setup_peripherals(self, initial_expr, state):
+        return None, None
+
+    def _setup_pre_peripheral_stops_null_event(self):
+        from supriya.tools import patterntools
+        delta = self._release_time or 0
+        if not delta:
+            return
+        return patterntools.NullEvent(delta=delta)
 
     ### PUBLIC PROPERTIES ###
 

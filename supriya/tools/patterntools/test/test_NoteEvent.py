@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 import types
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 from supriya.tools import servertools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         event = patterntools.NoteEvent(
@@ -16,13 +16,14 @@ class TestCase(systemtools.TestCase):
         server = types.SimpleNamespace(
             node_id_allocator=servertools.NodeIdAllocator(),
             )
-        start_product, stop_product = event._perform_realtime(
+        event_products = event._perform_realtime(
             server=server,
             timestamp=100.0,
             uuids={},
             )
-        assert start_product.uuid == stop_product.uuid
-        self.compare_strings(
+        assert event_products[0].uuid == event_products[1].uuid
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
@@ -43,13 +44,8 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
-            ''',
-            format(start_product),
-            )
-        self.compare_strings(
-            '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -66,10 +62,10 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=101.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(stop_product),
+            replace_uuids=True,
             )
 
     def test__perform_realtime_02(self):
@@ -81,13 +77,13 @@ class TestCase(systemtools.TestCase):
         server = types.SimpleNamespace(
             node_id_allocator=servertools.NodeIdAllocator(),
             )
-        start_product, stop_product = event._perform_realtime(
+        event_products = event._perform_realtime(
             server=server,
             timestamp=100.0,
             uuids={},
             )
-        assert start_product.uuid == stop_product.uuid
-        self.compare_strings(
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
@@ -122,13 +118,8 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
-            ''',
-            format(start_product),
-            )
-        self.compare_strings(
-            '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.NoteEvent(
                     delta=10.0,
@@ -153,8 +144,8 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=101.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(stop_product),
+            replace_uuids=True,
             )

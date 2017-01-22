@@ -29,17 +29,16 @@ class Pwhite(Pattern):
             minimum, maximum = sorted([one, two])
             number = next(rng)
             return (number * (maximum - minimum)) + minimum
-        rng, identifier = self._get_rng()
-        try:
-            for _ in self._loop(self._repetitions):
-                yield self._process_recursive(
-                    self._minimum,
-                    self._maximum,
-                    procedure,
-                    )
-        finally:
-            if identifier in Pattern._rngs:
-                del(Pattern._rngs[identifier])
+        rng = self._get_rng()
+        for _ in self._loop(self._repetitions):
+            expr = self._process_recursive(
+                self._minimum,
+                self._maximum,
+                procedure,
+                )
+            should_stop = yield expr
+            if should_stop:
+                return
 
     ### PUBLIC PROPERTIES ###
 

@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 import uuid
+from abjad import new
 from supriya.tools.patterntools.Pbind import Pbind
 
 
@@ -55,28 +56,21 @@ class Pmono(Pbind):
     ### PRIVATE METHODS ###
 
     def _iterate(self, state=None):
-        patterns = self._coerce_pattern_pairs(self._patterns)
         synth_uuid = uuid.uuid4()
-        generator = self._iterate_inner(patterns, synth_uuid)
-        event_dicts = []
+        iterator = super(Pmono, self)._iterate(state=state)
+        events = []
         try:
-            first_event = next(generator)
-            event_dicts.append(first_event)
+            events.append(next(iterator))
         except StopIteration:
             return
-        for event_dict in generator:
-            event_dicts.append(event_dict)
-            event_dicts[0]['is_stop'] = False
-            yield event_dicts.pop(0)
-        if event_dicts:
-            yield event_dicts[0]
-
-    def _iterate_inner(self, patterns, uuid):
-        while True:
-            event = {'uuid': uuid}
-            for name, pattern in patterns.items():
-                try:
-                    event[name] = next(pattern)
-                except StopIteration:
-                    return
+        for event in iterator:
+            events.append(event)
+            event = new(events.pop(0), uuid=synth_uuid, is_stop=None)
+            should_stop = yield event
+            if should_stop:
+                return
+        assert len(events) == 1
+        if events:
+            event = events.pop()
+            event = new(event, uuid=synth_uuid, is_stop=True)
             yield event

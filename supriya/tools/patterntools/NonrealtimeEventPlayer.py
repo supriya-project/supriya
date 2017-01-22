@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools.patterntools.EventPlayer import EventPlayer
+from supriya.tools.patterntools.Pattern import Pattern
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
@@ -36,47 +37,71 @@ class NonrealtimeEventPlayer(EventPlayer):
 
     @SessionObject.require_offset
     def __call__(self, offset=None):
-        should_stop = False
+        from supriya.tools import patterntools
+        should_stop = Pattern.PatternState.CONTINUE
         maximum_offset = None
         if self.duration is not None:
             maximum_offset = offset + self.duration
         offset = offset or 0
+        actual_stop_offset = offset
         iterator = iter(self._pattern)
         uuids = {}
+        try:
+            event = next(iterator)
+        except StopIteration:
+            return offset
+        if (
+            self.duration is not None and
+            isinstance(event, patterntools.NoteEvent) and
+            self._get_stop_offset(offset, event) > maximum_offset
+            ):
+            return offset
+        performed_stop_offset = event._perform_nonrealtime(
+            session=self.session,
+            uuids=uuids,
+            maximum_offset=maximum_offset,
+            offset=offset,
+            )
+        offset += event.delta
+        actual_stop_offset = max(
+            actual_stop_offset,
+            performed_stop_offset,
+            )
         while True:
             try:
-                if should_stop:
-                    print('FETCHING VIA SEND')
-                    event = iterator.send(True)
-                else:
-                    print('FETCHING VIA NEXT')
-                    event = next(iterator)
+                event = iterator.send(should_stop)
             except StopIteration:
-                print('    TERMINATING', offset)
                 break
-            self._debug(event, offset)
-            event._perform_nonrealtime(
+            if (
+                maximum_offset is not None and
+                isinstance(event, patterntools.NoteEvent) and
+                self._get_stop_offset(offset, event) > maximum_offset
+                ):
+                should_stop = Pattern.PatternState.NONREALTIME_STOP
+                continue
+            performed_stop_offset = event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,
                 maximum_offset=maximum_offset,
                 offset=offset,
                 )
-            if event.delta:
-                offset += event.delta
-                if (
-                    not should_stop and
-                    maximum_offset and
-                    maximum_offset <= offset
-                ):
-                    print('MAXED OUT:', offset, maximum_offset)
-                    should_stop = True
-        return offset
+            offset += event.delta
+            actual_stop_offset = max(
+                actual_stop_offset,
+                performed_stop_offset,
+                )
+        return actual_stop_offset
 
     ### PRIVATE METHODS ###
 
     def _debug(self, event, offset):
         print('    EVENT:', type(event).__name__, offset, event.get('uuid'),
             event.get('duration'))
+
+    def _get_stop_offset(self, offset, event):
+        duration = event.get('duration') or 0
+        delta = event.get('delta') or 0
+        return offset + max(duration, delta)
 
     ### PUBLIC PROPERTIES ###
 

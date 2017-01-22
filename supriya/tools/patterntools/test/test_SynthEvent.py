@@ -1,13 +1,13 @@
 # -*- encoding: utf-8 -*-
 import types
 import uuid
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import patterntools
 from supriya.tools import servertools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         node_uuid = uuid.uuid4()
@@ -26,16 +26,16 @@ class TestCase(systemtools.TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        assert len(event_products) == 1
-        self.compare_strings(
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.SynthEvent(
-                    delta=0,
+                    delta=0.0,
                     out=4,
                     pan=0.25,
                     synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
-                    uuid=UUID('...'),
+                    uuid=UUID('A'),
                     ),
                 index=0,
                 requests=[
@@ -49,10 +49,10 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(event_products[0]),
+            replace_uuids=True,
             )
         assert node_uuid in uuids
         assert isinstance(uuids[node_uuid], dict)
@@ -77,14 +77,14 @@ class TestCase(systemtools.TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        assert len(event_products) == 1
-        self.compare_strings(
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.SynthEvent(
-                    delta=0,
+                    delta=0.0,
                     is_stop=True,
-                    uuid=UUID('...'),
+                    uuid=UUID('A'),
                     ),
                 index=0,
                 is_stop=True,
@@ -94,8 +94,8 @@ class TestCase(systemtools.TestCase):
                         ),
                     ],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(event_products[0]),
+            replace_uuids=True,
             )

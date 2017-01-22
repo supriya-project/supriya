@@ -40,115 +40,23 @@ class Pbus(EventPattern):
         assert 0 <= release_time
         self._release_time = release_time
 
-    ### SPECIAL METHODS ###
-
-    def __iter__(self):
-        yield_count = 0
-        should_stop = False
-        state = self._setup_state()
-        iterator = self._iterate(state)
-        try:
-            expr = next(iterator)
-            expr = self._coerce_iterator_output(expr, state)
-        except StopIteration:
-            return
-        exprs = self._handle_first(expr, state)
-        while len(exprs) > 1:
-            expr = exprs.pop(0)
-            print('    YIELDING (A):', type(expr).__name__, expr.get('uuid'))
-            should_stop = yield expr
-            yield_count += 1
-            if should_stop:
-                print('    SHOULD STOP (A)')
-                iterator.send(True)
-                exprs[:] = [exprs[0]]
-                break
-        if not should_stop:
-            try:
-                for expr in iterator:
-                    expr = self._coerce_iterator_output(expr, state)
-                    exprs.append(expr)
-                    expr = exprs.pop(0)
-                    print('    YIELDING (B):', type(expr).__name__, expr.get('uuid'))
-                    should_stop = yield expr
-                    if should_stop:
-                        print('    SHOULD STOP (B)')
-                        iterator.send(True)
-                        break
-            except StopIteration:
-                pass
-        assert len(exprs) == 1
-        exprs.extend(self._handle_last(exprs.pop(), state, yield_count))
-        for expr in exprs:
-            print('    YIELDING (C):', type(expr).__name__, expr.get('uuid'))
-            yield expr
-
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state):
         from supriya.tools import patterntools
         expr = super(Pbus, self)._coerce_iterator_output(expr)
-        kwargs = {}
-        if expr.get('target_node') is None:
-            kwargs['target_node'] = state['group_uuid']
-        if (isinstance(expr, patterntools.NoteEvent) and
-            expr.get('out') is None):
-            kwargs['out'] = state['bus_uuid']
-        expr = new(expr, **kwargs)
+        if (
+            isinstance(expr, patterntools.NoteEvent) or
+            not expr.get('is_stop')
+            ):
+            kwargs = {}
+            if expr.get('target_node') is None:
+                kwargs['target_node'] = state['group_uuid']
+            if (isinstance(expr, patterntools.NoteEvent) and
+                expr.get('out') is None):
+                kwargs['out'] = state['bus_uuid']
+            expr = new(expr, **kwargs)
         return expr
-
-    def _handle_first(self, expr, state):
-        from supriya import synthdefs
-        from supriya.tools import patterntools
-        from supriya.tools import synthdeftools
-        channel_count = self.channel_count
-        if channel_count is None:
-            synthdef = expr.get('synthdef') or synthdefs.default
-            channel_count = synthdef.audio_output_channel_count
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            link_synthdef_name = 'system_link_audio_{}'.format(channel_count)
-        else:
-            link_synthdef_name = 'system_link_control_{}'.format(channel_count)
-        link_synthdef = getattr(synthdefs, link_synthdef_name)
-        bus_event = patterntools.BusEvent(
-            calculation_rate=self.calculation_rate,
-            channel_count=channel_count,
-            uuid=state['bus_uuid'],
-            )
-        group_event = patterntools.GroupEvent(
-            uuid=state['group_uuid'],
-            )
-        link_event = patterntools.SynthEvent(
-            add_action='ADD_AFTER',
-            amplitude=1.0,
-            in_=state['bus_uuid'],
-            synthdef=link_synthdef,
-            target_node=state['group_uuid'],
-            uuid=state['link_uuid'],
-            )
-        return [bus_event, group_event, link_event, expr]
-
-    def _handle_last(self, expr, state=None, yield_count=0):
-        from supriya.tools import patterntools
-        delta = expr.delta
-        delta += (self._release_time or 0)
-        expr = new(expr, delta=delta)
-        link_event = patterntools.SynthEvent(
-            uuid=state['link_uuid'],
-            is_stop=True,
-            )
-        group_event = patterntools.GroupEvent(
-            uuid=state['group_uuid'],
-            is_stop=True,
-            )
-        bus_event = patterntools.BusEvent(
-            uuid=state['bus_uuid'],
-            is_stop=True,
-            )
-        events = [link_event, group_event, bus_event]
-        events = events[-yield_count:]
-        events.insert(0, expr)
-        return events
 
     def _iterate(self, state=None):
         return iter(self.pattern)
@@ -159,6 +67,59 @@ class Pbus(EventPattern):
             'link_uuid': uuid.uuid4(),
             'group_uuid': uuid.uuid4(),
             }
+
+    def _setup_peripherals(self, initial_expr, state):
+        from supriya import synthdefs
+        from supriya.tools import patterntools
+        from supriya.tools import synthdeftools
+        channel_count = self.channel_count
+        if channel_count is None:
+            synthdef = initial_expr.get('synthdef') or synthdefs.default
+            channel_count = synthdef.audio_output_channel_count
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            link_synthdef_name = 'system_link_audio_{}'.format(channel_count)
+        else:
+            link_synthdef_name = 'system_link_control_{}'.format(channel_count)
+        link_synthdef = getattr(synthdefs, link_synthdef_name)
+        start_bus_event = patterntools.BusEvent(
+            calculation_rate=self.calculation_rate,
+            channel_count=channel_count,
+            uuid=state['bus_uuid'],
+            )
+        start_group_event = patterntools.GroupEvent(
+            uuid=state['group_uuid'],
+            )
+        start_link_event = patterntools.SynthEvent(
+            add_action='ADD_AFTER',
+            amplitude=1.0,
+            in_=state['bus_uuid'],
+            synthdef=link_synthdef,
+            target_node=state['group_uuid'],
+            uuid=state['link_uuid'],
+            )
+        stop_link_event = patterntools.SynthEvent(
+            uuid=state['link_uuid'],
+            is_stop=True,
+            )
+        stop_group_event = patterntools.GroupEvent(
+            uuid=state['group_uuid'],
+            is_stop=True,
+            )
+        stop_bus_event = patterntools.BusEvent(
+            uuid=state['bus_uuid'],
+            is_stop=True,
+            )
+        peripheral_starts = [
+            start_bus_event,
+            start_group_event,
+            start_link_event,
+            ]
+        peripheral_stops = [
+            stop_link_event,
+            stop_group_event,
+            stop_bus_event,
+            ]
+        return peripheral_starts, peripheral_stops
 
     ### PUBLIC PROPERTIES ###
 

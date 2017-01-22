@@ -1,249 +1,986 @@
 # -*- encoding: utf-8 -*-
-import time
-from patterntools_testbase import TestCase
+import pytest
+
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
+from supriya.tools import synthdeftools
+
+from patterntools_testbase import TestCase
 
 
 class TestCase(TestCase):
 
-    pattern = patterntools.Ppar([
-        patterntools.Pmono(
+    ppar_01 = patterntools.Ppar([
+        patterntools.Pbind(
             amplitude=1.0,
             duration=1.0,
-            frequency=patterntools.Pseq([440, 660, 880, 990], 1),
+            frequency=patterntools.Pseq([440, 660], 1),
+            ),
+        patterntools.Pmono(
+            amplitude=1.0,
+            duration=0.75,
+            frequency=patterntools.Pseq([222, 333, 444], 1),
+            ),
+        ])
+
+    ppar_02 = patterntools.Ppar([
+        patterntools.Pbind(
+            amplitude=1.0,
+            duration=1.0,
+            frequency=patterntools.Pseq([440, 660, 880], 1),
+            ),
+        ])
+
+    ppar_03 = patterntools.Ppar([
+        patterntools.Pbind(
+            amplitude=1.0,
+            duration=1.0,
+            frequency=patterntools.Pseq([440, 660, 880], 1),
             ),
         patterntools.Pbind(
             amplitude=1.0,
             duration=0.75,
-            frequency=patterntools.Pseq([222, 333, 444, 555], 1),
+            frequency=patterntools.Pseq([], 1),
             ),
         ])
 
-    def test_manual_incommunicado(self):
-        lists, deltas = self.manual_incommunicado(self.pattern, 10)
-        assert lists == [
-            [10, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 1,
-                    'amplitude', 1.0, 'frequency', 440],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1,
-                    'amplitude', 1.0, 'frequency', 222]]],
-            [10.75, [
-                ['/n_set', 1001, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1,
-                    'amplitude', 1.0, 'frequency', 333]]],
-            [11.0, [['/n_set', 1000, 'amplitude', 1.0, 'frequency', 660]]],
-            [11.5, [
-                ['/n_set', 1002, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1,
-                    'amplitude', 1.0, 'frequency', 444]]],
-            [12.0, [['/n_set', 1000, 'amplitude', 1.0, 'frequency', 880]]],
-            [12.25, [
-                ['/n_set', 1003, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1,
-                    'amplitude', 1.0, 'frequency', 555]]],
-            [13.0, [
-                ['/n_set', 1004, 'gate', 0],
-                ['/n_set', 1000, 'amplitude', 1.0, 'frequency', 990]]],
-            [14.0, [['/n_set', 1000, 'gate', 0]]]]
-        assert deltas == [0.75, 0.25, 0.5, 0.5, 0.25, 0.75, 1.0, None]
+    ppar_04 = patterntools.Ppar([
+        patterntools.Pbus(
+            patterntools.Pbind(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=patterntools.Pseq([440, 660], 1),
+                ),
+            ),
+        patterntools.Pbus(
+            patterntools.Pmono(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=patterntools.Pseq([222, 333, 444], 1),
+                ),
+            ),
+        ])
 
-    def test_manual_communicado(self):
-        player = patterntools.RealtimeEventPlayer(
-            self.pattern,
-            server=self.server,
+    ppar_05 = patterntools.Ppar([
+        patterntools.Pbus(
+            patterntools.Pbind(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=patterntools.Pseq([440, 660, 880], 1),
+                ),
+            ),
+        ])
+
+    @pytest.mark.timeout(2)
+    def test___iter___01(self):
+        events = list(self.ppar_01)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.25,
+                duration=0.75,
+                frequency=333,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.5,
+                duration=1.0,
+                frequency=660,
+                is_stop=True,
+                uuid=UUID('C'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=444,
+                is_stop=True,
+                uuid=UUID('B'),
+                )
+            ''',
+            replace_uuids=True,
             )
-        # Initial State
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-        ''')
-        # Step 1
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 222.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 2
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 333.0, gate: 1.0, pan: 0.5
-                1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 222.0, gate: 0.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-        ''')
-        # Wait for termination
-        time.sleep(0.5)
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 333.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 3
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 333.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 4
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1003 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 444.0, gate: 1.0, pan: 0.5
-                1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 333.0, gate: 0.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        ''')
-        # Wait for termination
-        time.sleep(0.5)
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1003 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 444.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 5
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1003 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 444.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 6
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1004 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 555.0, gate: 1.0, pan: 0.5
-                1003 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 444.0, gate: 0.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-        ''')
-        # Wait for termination
-        time.sleep(0.5)
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1004 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 555.0, gate: 1.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 7
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1004 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 555.0, gate: 0.0, pan: 0.5
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 990.0, gate: 1.0, pan: 0.5
-        ''')
-        # Wait for termination
-        time.sleep(0.5)
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 990.0, gate: 1.0, pan: 0.5
-        ''')
-        # Step 8
-        player(0, 0)
-        self.server.sync()
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-                1000 da0982184cc8fa54cf9d288a0fe1f6ca
-                    out: 0.0, amplitude: 1.0, frequency: 990.0, gate: 0.0, pan: 0.5
-        ''')
-        # Wait for termination
-        time.sleep(0.5)
-        server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
-        NODE TREE 0 group
-            1 group
-        ''')
 
-    def test_automatic_communicado(self):
-        self.pattern.play(server=self.server)
-        time.sleep(4)
+    @pytest.mark.timeout(2)
+    def test___iter___02(self):
+        events = list(self.ppar_02)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=660,
+                is_stop=True,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=880,
+                is_stop=True,
+                uuid=UUID('C'),
+                )
+            ''',
+            replace_uuids=True,
+            )
 
-    def test_nonrealtime(self):
+    @pytest.mark.timeout(2)
+    def test___iter___03(self):
+        events = list(self.ppar_03)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=660,
+                is_stop=True,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=880,
+                is_stop=True,
+                uuid=UUID('C'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    @pytest.mark.timeout(10)
+    def test___iter___04(self):
+        events = list(self.ppar_04)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('A'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('A'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('B'),
+                        uuid=UUID('C'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                out=UUID('A'),
+                target_node=UUID('B'),
+                uuid=UUID('D'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('E'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('E'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('F'),
+                        uuid=UUID('G'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                out=UUID('E'),
+                target_node=UUID('F'),
+                uuid=UUID('H'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.25,
+                duration=0.75,
+                frequency=333,
+                out=UUID('E'),
+                target_node=UUID('F'),
+                uuid=UUID('H'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.5,
+                duration=1.0,
+                frequency=660,
+                is_stop=True,
+                out=UUID('A'),
+                target_node=UUID('B'),
+                uuid=UUID('I'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.5,
+                duration=0.75,
+                frequency=444,
+                is_stop=True,
+                out=UUID('E'),
+                target_node=UUID('F'),
+                uuid=UUID('H'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.25,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('A'),
+                        ),
+                    ),
+                    is_stop=True,
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('E'),
+                        ),
+                    ),
+                    is_stop=True,
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_01a(self):
+        events = self.setup_send(self.ppar_01, iterations=1)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_01b(self):
+        events = self.setup_send(self.ppar_01, iterations=2)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                uuid=UUID('B'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_01c(self):
+        events = self.setup_send(self.ppar_01, iterations=3)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.25,
+                duration=0.75,
+                frequency=333,
+                uuid=UUID('B'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_01d(self):
+        events = self.setup_send(self.ppar_01, iterations=4)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.25,
+                duration=0.75,
+                frequency=333,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.5,
+                duration=1.0,
+                frequency=660,
+                is_stop=True,
+                uuid=UUID('C'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_04a(self):
+        events = self.setup_send(self.ppar_04, iterations=1)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('A'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('A'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('B'),
+                        uuid=UUID('C'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('A'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_04b(self):
+        events = self.setup_send(self.ppar_04, iterations=2)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('A'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('A'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('B'),
+                        uuid=UUID('C'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                out=UUID('A'),
+                target_node=UUID('B'),
+                uuid=UUID('D'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('A'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_04c(self):
+        events = self.setup_send(self.ppar_04, iterations=3)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('A'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('A'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('B'),
+                        uuid=UUID('C'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                out=UUID('A'),
+                target_node=UUID('B'),
+                uuid=UUID('D'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('E'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('E'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('F'),
+                        uuid=UUID('G'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.25,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('E'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('A'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send_04d(self):
+        events = self.setup_send(self.ppar_04, iterations=4)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('A'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('A'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('B'),
+                        uuid=UUID('C'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                delta=0.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                out=UUID('A'),
+                target_node=UUID('B'),
+                uuid=UUID('D'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.BusEvent(
+                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        channel_count=2,
+                        delta=0.0,
+                        uuid=UUID('E'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        amplitude=1.0,
+                        delta=0.0,
+                        in_=UUID('E'),
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        target_node=UUID('F'),
+                        uuid=UUID('G'),
+                        ),
+                    ),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=0.75,
+                frequency=222,
+                out=UUID('E'),
+                target_node=UUID('F'),
+                uuid=UUID('H'),
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.5,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('B'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('A'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            supriya.tools.patterntools.CompositeEvent(
+                delta=0.0,
+                events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
+                    supriya.tools.patterntools.SynthEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.GroupEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('F'),
+                        ),
+                    supriya.tools.patterntools.BusEvent(
+                        delta=0.0,
+                        is_stop=True,
+                        uuid=UUID('E'),
+                        ),
+                    ),
+                is_stop=True,
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
-        with session.at(10):
-            self.pattern.inscribe(session)
+        with session.at(0):
+            final_offset = self.ppar_01.inscribe(session)
         assert session.to_lists() == [
-            [10.0, [
+            [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
                     'amplitude', 1.0, 'frequency', 222]]],
-            [10.75, [
+            [0.75, [
+                ['/n_set', 1001, 'amplitude', 1.0, 'frequency', 333]]],
+            [1.0, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0,
-                    'amplitude', 1.0, 'frequency', 333],
-                ['/n_set', 1001, 'gate', 0]]],
-            [11.0, [
-                ['/n_set', 1000, 'amplitude', 1.0, 'frequency', 660]]],
-            [11.5, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 0,
-                    'amplitude', 1.0, 'frequency', 444],
+                    'amplitude', 1.0, 'frequency', 660],
+                ['/n_set', 1000, 'gate', 0]]],
+            [1.5, [
+                ['/n_set', 1001, 'amplitude', 1.0, 'frequency', 444]]],
+            [2.0, [
                 ['/n_set', 1002, 'gate', 0]]],
-            [12.0, [
-                ['/n_set', 1000, 'amplitude', 1.0, 'frequency', 880]]],
-            [12.25, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 0,
-                    'amplitude', 1.0, 'frequency', 555],
-                ['/n_set', 1003, 'gate', 0]]],
-            [13.0, [
-                ['/n_set', 1000, 'amplitude', 1.0, 'frequency', 990],
-                ['/n_set', 1004, 'gate', 0]]],
-            [14.0, [
-                ['/n_set', 1000, 'gate', 0],
+            [2.25, [
+                ['/n_set', 1001, 'gate', 0], [0]]]]
+        assert final_offset == 2.25
+
+    def test_nonrealtime_01b(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.ppar_01.inscribe(session, duration=1.75)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdefs.default.compile())],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
+                    'amplitude', 1.0, 'frequency', 440],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
+                    'amplitude', 1.0, 'frequency', 222]]],
+            [0.75, [
+                ['/n_set', 1001, 'amplitude', 1.0, 'frequency', 333]]],
+            [1.0, [
+                ['/n_set', 1000, 'gate', 0]]],
+            [1.5, [
+                ['/n_set', 1001, 'gate', 0],
                 [0]]]]
+        assert final_offset == 1.5
+
+    def test_nonrealtime_04a(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.ppar_04.inscribe(session)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 16],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16],
+                ['/g_new', 1003, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1004, 3, 1003,
+                    'in_', 18],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1003,
+                    'amplitude', 1.0, 'frequency', 222, 'out', 18]]],
+            [0.75, [
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
+            [1.0, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 660, 'out', 16],
+                ['/n_set', 1002, 'gate', 0]]],
+            [1.5, [
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 444, 'out', 18]]],
+            [2.0, [
+                ['/n_set', 1006, 'gate', 0]]],
+            [2.25, [
+                ['/n_free', 1000],
+                ['/n_set', 1001, 'gate', 0],
+                ['/n_set', 1005, 'gate', 0]]],
+            [2.5, [
+                ['/n_free', 1003],
+                ['/n_set', 1004, 'gate', 0], [0]]]]
+        assert final_offset == 2.5
+
+    def test_nonrealtime_04b(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.ppar_04.inscribe(session, duration=1.75)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 16],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16],
+                ['/g_new', 1003, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1004, 3, 1003,
+                    'in_', 18],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1003,
+                    'amplitude', 1.0, 'frequency', 222, 'out', 18]]],
+            [0.75, [
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
+            [1.0, [
+                ['/n_set', 1002, 'gate', 0]]],
+            [1.25, [
+                ['/n_free', 1000],
+                ['/n_set', 1001, 'gate', 0]]],
+            [1.5, [
+                ['/n_set', 1005, 'gate', 0]]],
+            [1.75, [
+                ['/n_free', 1003],
+                ['/n_set', 1004, 'gate', 0],
+                [0]]]]
+
+        assert final_offset == 1.75
+
+    def test_nonrealtime_05a(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.ppar_05.inscribe(session)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 16],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
+            [0.75, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 660, 'out', 16],
+                ['/n_set', 1002, 'gate', 0]]],
+            [1.5, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 880, 'out', 16],
+                ['/n_set', 1003, 'gate', 0]]],
+            [2.25, [
+                ['/n_set', 1004, 'gate', 0]]],
+            [2.5, [
+                ['/n_free', 1000],
+                ['/n_set', 1001, 'gate', 0],
+                [0]]]]
+        assert final_offset == 2.5
+
+    def test_nonrealtime_05b(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            final_offset = self.ppar_05.inscribe(session, duration=1.75)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(
+                    synthdeftools.SynthDefCompiler.compile_synthdefs([
+                        synthdefs.system_link_audio_2,
+                        synthdefs.default,
+                        ]))],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                    'in_', 16],
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
+            [0.75, [
+                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000,
+                    'amplitude', 1.0, 'frequency', 660, 'out', 16],
+                ['/n_set', 1002, 'gate', 0]]],
+            [1.5, [
+                ['/n_set', 1003, 'gate', 0]]],
+            [1.75, [
+                ['/n_free', 1000],
+                ['/n_set', 1001, 'gate', 0],
+                [0]]]]
+        assert final_offset == 1.75
