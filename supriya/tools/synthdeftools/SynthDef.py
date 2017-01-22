@@ -728,6 +728,98 @@ class SynthDef(ServerObjectProxy):
             )
         return synth
 
+    def to_dict(self):
+        """
+        Convert SynthDef to JSON-serializable dictionay.
+
+        ::
+
+            >>> import json
+            >>> result = synthdefs.default.to_dict()
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(',', ': '),
+            ...     sort_keys=True,
+            ...     )
+            >>> print(result)
+            {
+                "synthdef": {
+                    "hash": "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    "name": "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    "parameters": {
+                        "amplitude": {
+                            "range": [
+                                0,
+                                1
+                            ],
+                            "rate": "control",
+                            "unit": null,
+                            "value": 0.1
+                        },
+                        "frequency": {
+                            "range": [
+                                0,
+                                1
+                            ],
+                            "rate": "control",
+                            "unit": null,
+                            "value": 440.0
+                        },
+                        "gate": {
+                            "range": [
+                                0,
+                                1
+                            ],
+                            "rate": "control",
+                            "unit": null,
+                            "value": 1.0
+                        },
+                        "out": {
+                            "range": [
+                                0,
+                                1
+                            ],
+                            "rate": "scalar",
+                            "unit": null,
+                            "value": 0.0
+                        },
+                        "pan": {
+                            "range": [
+                                0,
+                                1
+                            ],
+                            "rate": "control",
+                            "unit": null,
+                            "value": 0.5
+                        }
+                    }
+                }
+            }
+
+        """
+        result = {
+            'name': self.actual_name,
+            'hash': self.anonymous_name,
+            'parameters': {},
+            }
+        for parameter_name, parameter in self.parameters.items():
+            range_ = [0, 1]
+            if parameter.range_:
+                range_ = [
+                    parameter.range_.minimum,
+                    parameter.range_.maximum,
+                    ]
+            rate = parameter.parameter_rate.name.lower()
+            result['parameters'][parameter_name] = {
+                'rate': rate,
+                'range': range_,
+                'unit': parameter.unit,
+                'value': parameter.value,
+                }
+        result = {'synthdef': result}
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property

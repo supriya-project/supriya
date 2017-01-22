@@ -117,6 +117,58 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             )
         return query_tree_synth
 
+    def to_dict(self):
+        """
+        Convert QueryTreeSynth to JSON-serializable dictionary.
+
+        ::
+
+            >>> query_tree_synth = responsetools.QueryTreeSynth(
+            ...     node_id=1001,
+            ...     synthdef_name='c1aa521afab5b0c0ce3d744690951649',
+            ...     controls=(
+            ...         responsetools.QueryTreeControl(
+            ...             control_name_or_index='level',
+            ...             control_value=1.0,
+            ...             ),
+            ...         responsetools.QueryTreeControl(
+            ...             control_name_or_index='out',
+            ...             control_value=0.0,
+            ...             ),
+            ...         ),
+            ...     )
+
+        ::
+
+            >>> import json
+            >>> result = query_tree_synth.to_dict()
+            >>> result = json.dumps(
+            ...     result,
+            ...     indent=4,
+            ...     separators=(',', ': '),
+            ...     sort_keys=True,
+            ...     )
+            >>> print(result)
+            {
+                "controls": {
+                    "level": 1.0,
+                    "out": 0.0
+                },
+                "node_id": 1001,
+                "synthdef": "c1aa521afab5b0c0ce3d744690951649"
+            }
+
+        """
+        result = {
+            'node_id': self.node_id,
+            'synthdef': self.synthdef_name,
+            'controls': {}
+            }
+        for control in self.controls:
+            name = control.control_name_or_index
+            result['controls'][name] = control.control_value
+        return result
+
     ### PUBLIC PROPERTIES ###
 
     @property
