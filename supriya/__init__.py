@@ -10,7 +10,7 @@ from supriya.tools.soundfiletools import (
     HeaderFormat, SampleFormat, SoundFile,
     )
 from supriya.tools.synthdeftools import (
-    CalculationRate, DoneAction, Op, Range, SynthDef, SynthDefBuilder,
+    CalculationRate, DoneAction, Range, SynthDef, SynthDefBuilder,
     )
 from supriya.tools.systemtools import (
     Assets, SupriyaConfiguration,

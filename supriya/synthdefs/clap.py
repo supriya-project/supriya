@@ -41,12 +41,10 @@ SynthDef("clap", {
 
 def _build_clap_synthdef():
 
-    builder = synthdeftools.SynthDefBuilder(
+    with synthdeftools.SynthDefBuilder(
         out=0,
         amplitude=0.5,
-        )
-
-    with builder:
+        ) as builder:
 
         envelope_one = synthdeftools.Envelope(
             amplitudes=(0, 1, 0, 1, 0, 1, 0, 1, 0),
@@ -92,7 +90,7 @@ def _build_clap_synthdef():
 
         result = noise_one + noise_two
         result = result * 2
-        result = synthdeftools.Op.softclip(result)
+        result = result.softclip()
         result = result * builder['amplitude']
 
         ugentools.Out.ar(

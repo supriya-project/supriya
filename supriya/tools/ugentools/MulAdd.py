@@ -76,7 +76,6 @@ class MulAdd(UGen):
         calculation_rate=None,
         source=None,
         ):
-        from supriya.tools import synthdeftools
         if multiplier == 0.0:
             return addend
         minus = multiplier == -1
@@ -85,7 +84,7 @@ class MulAdd(UGen):
         if no_multiplier and no_addend:
             return source
         if minus and no_addend:
-            return synthdeftools.Op.negative(source)
+            return -source
         if no_addend:
             return source * multiplier
         if minus:

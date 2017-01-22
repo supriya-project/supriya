@@ -39,15 +39,15 @@ class Poll(UGen):
 
         ::
 
-            >>> builder = SynthDefBuilder()
-            >>> sine = ugentools.SinOsc.ar()
-            >>> trigger = ugentools.Impulse.kr(1)
-            >>> poll = ugentools.Poll.ar(
-            ...     source=sine,
-            ...     trigger=trigger,
-            ...     trigger_id=1234,
-            ...     )
-            >>> builder.add_ugens([sine, trigger, poll])
+            >>> with SynthDefBuilder() as builder:
+            ...     sine = ugentools.SinOsc.ar()
+            ...     trigger = ugentools.Impulse.kr(1)
+            ...     poll = ugentools.Poll.ar(
+            ...         source=sine,
+            ...         trigger=trigger,
+            ...         trigger_id=1234,
+            ...         )
+            ...
             >>> synthdef = builder.build()
 
         ::
