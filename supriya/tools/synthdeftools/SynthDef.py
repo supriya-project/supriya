@@ -78,7 +78,8 @@ class SynthDef(ServerObjectProxy):
         ugens,
         name=None,
         optimize=True,
-        parameter_names=None
+        parameter_names=None,
+        **kwargs
         ):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
@@ -101,6 +102,13 @@ class SynthDef(ServerObjectProxy):
             parameter_names=parameter_names,
             )
         self._compiled_ugen_graph = compiler.compile_ugen_graph(self)
+#        if 'decompiled' not in kwargs:
+#            try:
+#                decompiler = synthdeftools.SynthDefDecompiler
+#                assert decompiler.decompile_synthdef(self.compile()) == self
+#            except:
+#                print('Decompiled SynthDef does not match compiled SynthDef.')
+#                raise
 
     ### SPECIAL METHODS ###
 
@@ -644,68 +652,16 @@ class SynthDef(ServerObjectProxy):
             request.communicate(server=self.server)
         ServerObjectProxy.free(self)
 
-    @staticmethod
-    def from_ugens(ugens):
-        """
-        Makes a synthdef from `ugens`.
-
-        ::
-
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
-            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.5)
-            >>> synthdef = synthdeftools.SynthDef.from_ugens(ugen)
-
-        ::
-
-            >>> print(synthdef)
-            SynthDef e0041b72f3e50206267d5f426f7c592f {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
-                const_2:0.5 -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
-                const_1:0.0 -> 2_Out[0:bus]
-                1_BinaryOpUGen:MULTIPLICATION[0] -> 2_Out[1:source]
-            }
-
-        Returns synthdef.
-        """
-        from supriya.tools import synthdeftools
-        builder = synthdeftools.SynthDefBuilder()
-        if isinstance(ugens, collections.Sequence):
-            for ugen in ugens:
-                builder.add_ugens(ugen)
-        elif isinstance(ugens, synthdeftools.UGenMethodMixin):
-            builder.add_ugens(ugens)
-        synthdef = builder.build()
-        return synthdef
-
     def play(self, add_action=None, target_node=None, **kwargs):
         """
         Plays the synthdef on the server.
 
         ::
 
-            >>> from supriya.tools import servertools
-            >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
-
-        ::
-
-            >>> server = servertools.Server()
-            >>> server.boot()
-            <Server: udp://127.0.0.1:57751, 8i8o>
-
-        ::
-
-            >>> ugen = ugentools.Out.ar(source=ugentools.SinOsc.ar() * 0.01)
-            >>> synthdef = synthdeftools.SynthDef.from_ugens(ugen)
+            >>> server = Server().boot()
+            >>> synthdef = synthdefs.default
             >>> synth = synthdef.play()
-
-        ::
-
-            >>> server.quit()
-            <Server: offline>
+            >>> server = server.quit()
 
         """
         from supriya.tools import servertools
@@ -1006,6 +962,15 @@ class SynthDef(ServerObjectProxy):
         elif not ugens:
             return 0
         raise ValueError
+
+    @property
+    def done_actions(self):
+        done_actions = set()
+        for ugen in self.ugens:
+            done_action = ugen._get_done_action()
+            if done_action is not None:
+                done_actions.add(done_action)
+        return sorted(done_actions)
 
     @property
     def has_gate(self):

@@ -20,6 +20,7 @@ class UGen(UGenMethodMixin):
         '_calculation_rate',
         '_inputs',
         '_special_index',
+        '_uuid',
         )
 
     _ordered_input_names = ()
@@ -73,9 +74,13 @@ class UGen(UGenMethodMixin):
         assert all(isinstance(_, (synthdeftools.OutputProxy, float))
             for _ in self.inputs)
         self._validate_inputs()
+        self._uuid = None
         if synthdeftools.SynthDefBuilder._active_builders:
             builder = synthdeftools.SynthDefBuilder._active_builders[-1]
-            builder.add_ugens(self)
+            self._uuid = builder._uuid
+        self._check_inputs_share_same_uuid()
+        if self._uuid is not None:
+            builder._add_ugens(self)
 
     ### SPECIAL METHODS ###
 
@@ -211,6 +216,16 @@ class UGen(UGenMethodMixin):
                 )
         self._inputs.append(output_proxy)
 
+    def _check_inputs_share_same_uuid(self):
+        from supriya.tools import synthdeftools
+        for input_ in self.inputs:
+            if not isinstance(input_, synthdeftools.OutputProxy):
+                continue
+            if input_.source._uuid != self._uuid:
+                message = 'UGen input in different scope: {!r}'
+                message = message.format(input_.source)
+                raise ValueError(message)
+
     def _check_rate_same_as_first_input_rate(self):
         from supriya import synthdeftools
         first_input_rate = synthdeftools.CalculationRate.from_input(
@@ -322,6 +337,12 @@ class UGen(UGenMethodMixin):
         for expanded_inputs in result:
             expanded_inputs.update(cached_unexpanded_inputs)
         return result
+
+    def _get_done_action(self):
+        from supriya.tools import synthdeftools
+        if 'done_action' not in self._ordered_input_names:
+            return None
+        return synthdeftools.DoneAction.from_expr(int(self.done_action))
 
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
