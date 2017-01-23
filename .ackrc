@@ -1,1 +1,7 @@
+--ignore-dir=.cache
+--ignore-dir=.git
+--ignore-dir=.tox
+--ignore-dir=build
+--ignore-dir=dist
+--ignore-dir=supriya.egg-info
 --ignore-dir=supriya/docs/build

@@ -83,6 +83,18 @@ class TestCase(TestCase):
             synth['source'] = 0.75 * multiplier
         with session.at(8):
             synth['source'] = 1.0 * multiplier
+        assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdef.compile())],
+                ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
+                    'source', 0]]],
+            [2.0, [['/n_set', 1000, 'source', 0.25 * multiplier]]],
+            [4.0, [['/n_set', 1000, 'source', 0.5 * multiplier]]],
+            [6.0, [['/n_set', 1000, 'source', 0.75 * multiplier]]],
+            [8.0, [['/n_set', 1000, 'source', 1.0 * multiplier]]],
+            [10.0, [['/n_free', 1000], [0]]]
+            ]
         return session
 
     def _sample(self, file_path):
@@ -105,6 +117,14 @@ class TestCase(TestCase):
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert output_file_path.startswith(
             supriya_configuration.output_directory)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
 
     def test_00b(self):
         """
@@ -116,6 +136,14 @@ class TestCase(TestCase):
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert output_file_path.startswith(self.output_directory)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
 
     def test_00c(self):
         """
@@ -139,6 +167,14 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
         assert session.transcript == [
             'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
@@ -152,6 +188,14 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
         assert session.transcript == [
             'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. OSC file already exists.',
@@ -166,6 +210,14 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
         assert session.transcript == [
             'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
@@ -180,6 +232,14 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
+        assert self._sample(output_file_path) == {
+            0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
+            0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
+            0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+            0.61: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
+            0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
+            }
         assert session.transcript == [
             'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. OSC file already exists.',
@@ -196,9 +256,11 @@ class TestCase(TestCase):
         No input.
         """
         session = self._make_session()
+        synthdef = self._build_dc_synthdef(8)
+        assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', self._build_dc_synthdef(8).compile()],
+                ['/d_recv', synthdef.compile()],
                 ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0, 'source', 0]]],
             [2.0, [['/n_set', 1000, 'source', 0.25]]],
             [4.0, [['/n_set', 1000, 'source', 0.5]]],

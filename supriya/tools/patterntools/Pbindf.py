@@ -20,7 +20,7 @@ class Pbindf(EventPattern):
 
     def __init__(self, event_pattern=None, **patterns):
         from supriya.tools import patterntools
-        assert isinstance(event_pattern, patterntools.EventPattern)
+        assert isinstance(event_pattern, patterntools.Pattern)
         self._event_pattern = event_pattern
         self._patterns = tuple(sorted(patterns.items()))
 
@@ -53,20 +53,26 @@ class Pbindf(EventPattern):
             )
 
     def _iterate(self, state=None):
-        event_pattern = iter(self._event_pattern)
-        patterns = self._coerce_pattern_pairs(self._patterns)
+        should_stop = self.PatternState.CONTINUE
+        event_iterator = iter(self._event_pattern)
+        key_iterators = self._coerce_pattern_pairs(self._patterns)
+        template_dict = {}
         while True:
             try:
-                event = next(event_pattern)
+                if not should_stop:
+                    expr = next(event_iterator)
+                else:
+                    expr = event_iterator.send(True)
             except StopIteration:
                 return
-            template_dict = {}
-            for name, pattern in patterns.items():
+            expr = self._coerce_iterator_output(expr)
+            for name, key_iterator in key_iterators.items():
                 try:
-                    template_dict[name] = next(pattern)
+                    template_dict[name] = next(key_iterator)
                 except StopIteration:
-                    return
-            yield new(event, **template_dict)
+                    continue
+            expr = new(expr, **template_dict)
+            should_stop = yield expr
 
     ### PUBLIC PROPERTIES ###
 

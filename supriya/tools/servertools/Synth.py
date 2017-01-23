@@ -17,15 +17,22 @@ class Synth(Node):
 
         >>> from supriya import synthdeftools
         >>> from supriya import ugentools
-        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
-        >>> sin_osc = ugentools.SinOsc.ar(
-        ...     frequency=builder['frequency'],
-        ...     ) * 0.5
-        >>> out = ugentools.Out.ar(bus=(0, 1), source=sin_osc)
-        >>> builder.add_ugens(out)
+        >>> with synthdeftools.SynthDefBuilder(
+        ...     amplitude=0.0,
+        ...     frequency=440.0,
+        ...     ) as builder:
+        ...     sin_osc = ugentools.SinOsc.ar(
+        ...         frequency=builder['frequency'],
+        ...         )
+        ...     sin_osc *= builder['amplitude']
+        ...     out = ugentools.Out.ar(
+        ...         bus=0,
+        ...         source=[sin_osc, sin_osc],
+        ...         )
+        ...
         >>> synthdef = builder.build()
         >>> synthdef.allocate()
-        <SynthDef: 49e59effd11f9576d6640f027e8410d6>
+        <SynthDef: e41193ac8b7216f49ff0d477876a3bf3>
 
     ::
 

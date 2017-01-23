@@ -16,7 +16,7 @@ class SynthEvent(Event):
     def __init__(
         self,
         add_action=None,
-        delta=0,
+        delta=0.0,
         is_stop=None,
         synthdef=None,
         target_node=None,
@@ -28,6 +28,10 @@ class SynthEvent(Event):
         is_stop = is_stop or None
         if is_stop:
             is_stop = bool(is_stop)
+            add_action = None
+            synthdef = None
+            target_node = None
+            settings = {}
         Event.__init__(
             self,
             add_action=add_action,
@@ -82,6 +86,7 @@ class SynthEvent(Event):
             for synth in synths:
                 duration = offset - synth.start_offset
                 synth.set_duration(duration)
+        return offset + self.delta
 
     def _perform_realtime(
         self,

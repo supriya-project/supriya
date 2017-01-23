@@ -87,13 +87,12 @@ def test_SynthDefCompiler_parameters_02():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    builder = synthdeftools.SynthDefBuilder(
+    with synthdeftools.SynthDefBuilder(
         freq=1200,
         out=23,
-        )
-    sine = ugentools.SinOsc.ar(frequency=builder['freq'])
-    out = ugentools.Out.ar(bus=builder['out'], source=sine)
-    builder.add_ugens(out)
+        ) as builder:
+        sine = ugentools.SinOsc.ar(frequency=builder['freq'])
+        ugentools.Out.ar(bus=builder['out'], source=sine)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 

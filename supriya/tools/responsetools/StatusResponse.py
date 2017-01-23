@@ -75,7 +75,7 @@ class StatusResponse(Response):
             ...     )
             >>> print(result)
             {
-                "status": {
+                "server_status": {
                     "actual_sample_rate": 44100.05692801021,
                     "average_cpu_usage": 8.151924133300781,
                     "group_count": 6,

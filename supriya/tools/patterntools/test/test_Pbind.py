@@ -1,9 +1,11 @@
 # -*- encoding: utf-8 -*-
 import time
-from patterntools_testbase import TestCase
+
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
+
+from patterntools_testbase import TestCase
 
 
 class TestCase(TestCase):
@@ -25,6 +27,42 @@ class TestCase(TestCase):
         delta=0.25,
         frequency=patterntools.Pseq([220, 440, 330, 660], 2),
         )
+
+    def test___iter___(self):
+        events = list(self.pbind_01)
+        self.compare_objects_as_strings(
+            events,
+            '''
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=1.0,
+                frequency=440,
+                is_stop=True,
+                uuid=UUID('A'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=2.0,
+                frequency=660,
+                is_stop=True,
+                uuid=UUID('B'),
+                )
+            supriya.tools.patterntools.NoteEvent(
+                amplitude=1.0,
+                duration=3.0,
+                frequency=880,
+                is_stop=True,
+                uuid=UUID('C'),
+                )
+            ''',
+            replace_uuids=True,
+            )
+
+    def test_send(self):
+        iterator = iter(self.pbind_01)
+        next(iterator)
+        with self.assertRaises(StopIteration):
+            iterator.send(True)
 
     def test_manual_incommunicado_pbind_01(self):
         lists, deltas = self.manual_incommunicado(self.pbind_01)
@@ -301,7 +339,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            self.pbind_01.inscribe(session)
+            final_offset = self.pbind_01.inscribe(session)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -319,12 +357,12 @@ class TestCase(TestCase):
                 ['/n_set', 1002, 'gate', 0],
                 [0]]],
             ]
+        assert final_offset == 6.0
 
     def test_nonrealtime_01b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = self.pbind_01.inscribe(session, duration=3)
-        assert final_offset == 3.0
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -335,27 +373,26 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 660],
                 ['/n_set', 1000, 'gate', 0]]],
             [3.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+        assert final_offset == 3.0
 
     def test_nonrealtime_01c(self):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = self.pbind_01.inscribe(session, duration=2)
-        assert final_offset == 3.0
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440]]],
             [1.0, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
-                    'amplitude', 1.0, 'frequency', 660],
-                ['/n_set', 1000, 'gate', 0]]],
-            [3.0, [['/n_set', 1001, 'gate', 0], [0]]]]
+                ['/n_set', 1000, 'gate', 0],
+                [0]]]]
+        assert final_offset == 1.0
 
     def test_nonrealtime_02a(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            self.pbind_02.inscribe(session)
+            final_offset = self.pbind_02.inscribe(session)
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -381,11 +418,12 @@ class TestCase(TestCase):
                 ['/n_set', 1004, 'gate', 0],
                 ['/n_set', 1005, 'gate', 0],
                 [0]]]]
+        assert final_offset == 16.0
 
     def test_nonrealtime_03a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            self.pbind_03.inscribe(session)
+            final_offset = self.pbind_03.inscribe(session)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -420,6 +458,7 @@ class TestCase(TestCase):
             [2.25, [['/n_set', 1005, 'gate', 0]]],
             [2.5, [['/n_set', 1006, 'gate', 0]]],
             [2.75, [['/n_set', 1007, 'gate', 0], [0]]]]
+        assert final_offset == 2.75
 
     def test_manual_stop_pbind_01(self):
         # Initial State

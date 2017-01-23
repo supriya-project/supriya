@@ -52,6 +52,7 @@ class NoteEvent(Event):
         from supriya.tools import nonrealtimetools
         settings = self.settings.copy()  # Do not mutate in place.
         synthdef = self.get('synthdef', synthdefs.default)
+        synthdef = synthdef or synthdefs.default
         synth_uuid = self.get('uuid', uuid.uuid4())
         is_stop = self.get('is_stop')
         duration = self.get('duration')
@@ -67,9 +68,7 @@ class NoteEvent(Event):
             synth_parameters_only=True,
             )
         if synth_uuid not in uuids:
-            # Start a synth, both Pbind and Pmono
-            if not is_stop:
-                duration = float('inf')
+            # Begin a Pbind or Pmono synth
             target_node = self['target_node']
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
@@ -89,18 +88,16 @@ class NoteEvent(Event):
             if not is_stop:
                 uuids[synth_uuid] = tuple(synths)
         else:
-            # Make settings on Pmono synth
-            # Set the duration if releasing
+            # Extend and make settings on a Pmono synth
             synths = uuids[synth_uuid]
-            with session.at(offset):
-                for synth, dictionary in zip(synths, dictionaries):
+            stop_offset = offset + duration
+            for synth, dictionary in zip(synths, dictionaries):
+                duration = stop_offset - synth.start_offset
+                synth.set_duration(duration)
+                with session.at(offset):
                     for key, value in dictionary.items():
                         synth[key] = value
-            if is_stop:
-                stop_offset = offset + duration
-                for synth in synths:
-                    duration = stop_offset - synth.start_offset
-                    synth.set_duration(duration)
+        return offset + max(self.delta, self.get('duration', 0))
 
     def _perform_realtime(
         self,
@@ -113,6 +110,7 @@ class NoteEvent(Event):
         from supriya.tools import patterntools
         synth_uuid = self.get('uuid') or uuid.uuid4()
         synthdef = self.get('synthdef', synthdefs.default)
+        synthdef = synthdef or synthdefs.default
         is_stop = self.get('is_stop')
         duration = self['duration']
         if duration is None:
@@ -221,6 +219,7 @@ class NoteEvent(Event):
         uuids,
         ):
         from supriya.tools import patterntools
+        from supriya.tools import synthdeftools
         duration = self['duration']
         if duration is None:
             duration = 1
@@ -234,6 +233,11 @@ class NoteEvent(Event):
                     gate=0,
                     )
                 requests.append(request)
+        elif any(
+            x >= synthdeftools.DoneAction.FREE_SYNTH
+            for x in synthdef.done_actions
+            ):
+            pass
         else:
             request = requesttools.NodeFreeRequest(
                 node_ids=node_ids,

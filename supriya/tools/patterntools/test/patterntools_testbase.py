@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import re
 import types
 from abjad.tools import systemtools
 from supriya import synthdefs
@@ -20,6 +21,24 @@ class TestCase(systemtools.TestCase):
         self.server.debug_osc = True
         self.server.latency = 0.0
 
+    def compare_objects_as_strings(self, objects, string, replace_uuids=False):
+        pattern = re.compile(r"\bUUID\('(.*)'\)")
+        objects_string = '\n'.join(format(x) for x in objects)
+        if replace_uuids:
+            matches = []
+            search_offset = 0
+            while True:
+                match = pattern.search(objects_string, search_offset)
+                if not match:
+                    break
+                group = match.groups()[0]
+                if group not in matches:
+                    matches.append(group)
+                search_offset = match.end()
+            for i, match in enumerate(matches, 65):
+                objects_string = objects_string.replace(match, chr(i))
+        return self.compare_strings(objects_string, string)
+
     def tearDown(self):
         self.server.debug_osc = False
         self.server.quit()
@@ -38,3 +57,17 @@ class TestCase(systemtools.TestCase):
             lists.append(bundle.to_list(True))
             deltas.append(delta)
         return lists, deltas
+
+    def setup_send(self, pattern, iterations):
+        events, iterator = [], iter(pattern)
+        for i in range(iterations):
+            event = next(iterator)
+            events.append(event)
+        try:
+            event = iterator.send(True)
+            events.append(event)
+            for j, event in enumerate(iterator):
+                events.append(event)
+        except StopIteration:
+            pass
+        return events

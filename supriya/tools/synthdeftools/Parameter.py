@@ -16,6 +16,7 @@ class Parameter(UGenMethodMixin):
         '_parameter_rate',
         '_range',
         '_unit',
+        '_uuid',
         '_value',
         )
 
@@ -44,9 +45,10 @@ class Parameter(UGenMethodMixin):
             assert isinstance(range_, synthdeftools.Range)
         self._range = range_
         self._unit = unit
+        self._uuid = None
         if isinstance(value, collections.Sequence):
             value = tuple(float(_) for _ in value)
-            assert value
+            assert value, value
         else:
             value = float(value)
         self._value = value

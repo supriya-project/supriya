@@ -4,10 +4,13 @@ from supriya.tools import ugentools
 
 
 def _build_test_synthdef():
-    builder = synthdeftools.SynthDefBuilder()
-    builder.add_parameter('frequency', 440)
-    builder.add_parameter('amplitude', 1.0, 'audio')
-    with builder:
+    with synthdeftools.SynthDefBuilder(
+        frequency=440,
+        amplitude=synthdeftools.Parameter(
+            value=1.0,
+            parameter_rate=synthdeftools.ParameterRate.AUDIO,
+            ),
+        ) as builder:
         sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
         enveloped_sin = sin_osc * builder['amplitude']
         ugentools.Out.ar(bus=0, source=enveloped_sin)

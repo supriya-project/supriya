@@ -73,9 +73,11 @@ class Pbind(EventPattern):
     ### INITIALIZER ###
 
     def __init__(self, synthdef=None, **patterns):
+        from supriya.tools import patterntools
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, (
             synthdeftools.SynthDef,
+            patterntools.Pattern,
             type(None),
             ))
         self._synthdef = synthdef
@@ -95,6 +97,10 @@ class Pbind(EventPattern):
             if not isinstance(pattern, patterntools.Pattern):
                 pattern = patterntools.Pseq([pattern], None)
             patterns[name] = iter(pattern)
+        synthdef = self.synthdef
+        if not isinstance(synthdef, patterntools.Pattern):
+            synthdef = patterntools.Pseq([synthdef], None)
+        patterns['synthdef'] = iter(synthdef)
         return patterns
 
     def _get_format_specification(self):
@@ -112,15 +118,14 @@ class Pbind(EventPattern):
     def _iterate(self, state=None):
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:
-            event = {}
-            if self.synthdef:
-                event['synthdef'] = self.synthdef
+            expr = {}
             for name, pattern in patterns.items():
                 try:
-                    event[name] = next(pattern)
+                    expr[name] = next(pattern)
                 except StopIteration:
                     return
-            should_stop = yield event
+            expr = self._coerce_iterator_output(expr)
+            should_stop = yield expr
             if should_stop:
                 return
 

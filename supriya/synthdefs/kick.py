@@ -23,7 +23,7 @@ def _build_kick_synthdef():
             envelope=envelope,
             gate=gate
             )
-        envelope = synthdeftools.Op.squared(envelope)
+        envelope = envelope.squared()
 
         ### NOISE COMPONENT ###
 
@@ -31,7 +31,7 @@ def _build_kick_synthdef():
         noise = ugentools.BPF.ar(
             source=noise,
             frequency=ugentools.LinLin.ar(
-                source=synthdeftools.Op.cubed(envelope),
+                source=envelope.cubed(),
                 output_minimum=30,
                 output_maximum=120,
                 ),
@@ -49,7 +49,7 @@ def _build_kick_synthdef():
                 ),
             )
         pitch = pitch * 2.0
-        pitch = synthdeftools.Op.distort(pitch)
+        pitch = pitch.distort()
         pitch = ugentools.RLPF.ar(
             source=pitch,
             frequency=ugentools.LinLin.ar(

@@ -1,21 +1,40 @@
 language: python
 
+sudo: required
+
 python:
     - 3.5
 
+env:
+    global:
+        AUDIODEV=null
+
 before_install:
     - sudo apt-get update -qq
-    - sudo apt-get install -y graphviz
-    - sudo apt-get install -y pulseaudio pulseaudio-module-jack
-    - sudo apt-get install -y libasound-dev libjack-jackd2-dev
-    - sudo apt-get install -y supercollider 
+    - sudo usermod -a -G audio travis
+    - sudo apt-get install -y build-essential
+    - sudo apt-get install -y portaudio19-dev libasound2-dev alsa-utils alsa-oss
+    - sudo apt-get install -y jackd libjack-dev libjack0
+    - sudo apt-get install -y supercollider graphviz
+    - sudo bash ./prep-dummy-soundcard.sh
+    - sudo -E su $USER -c "scsynth -h || true"
 
 install:
     - pip install -r requirements.txt
     - pip install -e .
 
+before_script:
+    - "export DISPLAY=:99.0"
+    - "sh -e /etc/init.d/xvfb start"
+    - sleep 3 # give xvfb time to start
+    - sudo jackd -r -ddummy -r44100 -p1024 &
+    - sleep 3 # give jackd time to start
+
 script:
-    - python -c 'import supriya'
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; ./server-test.py"
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya'"
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; sjv doctest supriya"
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test -vv supriya/tools/nonrealtimetools"
 
 notifications:
     email: false

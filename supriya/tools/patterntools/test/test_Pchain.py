@@ -19,10 +19,10 @@ class TestCase(TestCase):
             ),
         ])
 
-    def test_iter(self):
-        events = [event for event in self.pattern]
-        assert len(events) == 3
-        self.compare_strings(
+    def test___iter__(self):
+        events = list(self.pattern)
+        self.compare_objects_as_strings(
+            events,
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.111,
@@ -30,34 +30,24 @@ class TestCase(TestCase):
                 frequency=440,
                 is_stop=True,
                 pan=0.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
-            ''',
-            format(events[0]),
-            )
-        self.compare_strings(
-            '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.333,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
                 pan=0.5,
-                uuid=UUID('...'),
+                uuid=UUID('B'),
                 )
-            ''',
-            format(events[1]),
-            )
-        self.compare_strings(
-            '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.666,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
                 pan=1.0,
-                uuid=UUID('...'),
+                uuid=UUID('C'),
                 )
             ''',
-            format(events[2]),
+            replace_uuids=True,
             )

@@ -17,26 +17,33 @@ class BusEvent(Event):
         self,
         calculation_rate='AUDIO',
         channel_count=1,
-        delta=0,
+        delta=0.0,
         is_stop=False,
-        release_time=None,
         uuid=None,
+        **settings
         ):
-        assert 0 < channel_count
+        if channel_count is not None:
+            assert 0 < channel_count
         if calculation_rate is not None:
             calculation_rate = synthdeftools.CalculationRate.from_expr(
                 calculation_rate)
         is_stop = is_stop or None
         if is_stop:
             is_stop = bool(is_stop)
+            calculation_rate = None
+            channel_count = None
+        settings = {
+            key: value for key, value in settings.items()
+            if key.startswith('_')
+            }
         Event.__init__(
             self,
             calculation_rate=calculation_rate,
             channel_count=channel_count,
             delta=delta,
             is_stop=is_stop,
-            release_time=release_time,
             uuid=uuid,
+            **settings
             )
 
     ### PRIVATE METHODS ###
@@ -57,6 +64,7 @@ class BusEvent(Event):
             uuids[bus_uuid] = bus_group
         else:
             pass
+        return offset + self.delta
 
     def _perform_realtime(
         self,

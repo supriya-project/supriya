@@ -54,9 +54,8 @@ class TestCase(TestCase):
                 ['/n_set', 1008, 'gate', 0],
                 ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 990, 'out', 0]]],
             [14.0, [['/n_set', 1004, 'gate', 0]]],
-            [14.25, [['/n_free', 1002, 1003]]],
-            [14.5, [['/n_free', 1000, 1001]]]]
-        assert deltas == [0.75, 0.25, 0.5, 0.5, 0.25, 0.75, 1.0, 0.25, 0.25, None]
+            [14.25, [['/n_free', 1000, 1001, 1002, 1003]]]]
+        assert deltas == [0.75, 0.25, 0.5, 0.5, 0.25, 0.75, 1.0, 0.25, None]
 
     def test_nonrealtime(self):
         session = nonrealtimetools.Session()
@@ -100,8 +99,6 @@ class TestCase(TestCase):
             [14.0, [
                 ['/n_set', 1004, 'gate', 0]]],
             [14.25, [
-                ['/n_free', 1002, 1003]]],
-            [14.5, [
-                ['/n_free', 1000],
+                ['/n_free', 1000, 1002, 1003],
                 ['/n_set', 1001, 'gate', 0],
                 [0]]]]

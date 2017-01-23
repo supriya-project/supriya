@@ -53,13 +53,9 @@ def test_SynthDefDecompiler_03():
 
 def test_SynthDefDecompiler_04():
     r'''Multiple parameters.'''
-    builder = synthdeftools.SynthDefBuilder(
-        freq=1200,
-        out=23,
-        )
-    sine = ugentools.SinOsc.ar(frequency=builder['freq'])
-    out = ugentools.Out.ar(bus=builder['out'], source=sine)
-    builder.add_ugens(out)
+    with synthdeftools.SynthDefBuilder(freq=1200, out=23) as builder:
+        sine = ugentools.SinOsc.ar(frequency=builder['freq'])
+        ugentools.Out.ar(bus=builder['out'], source=sine)
     old_synthdef = builder.build('test')
     compiled_synthdef = old_synthdef.compile()
     new_synthdef = decompiler.decompile_synthdef(compiled_synthdef)

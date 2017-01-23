@@ -1,2 +1,3 @@
 --ignore-dir=docs/build
+--ignore-dir=docs/source/api
 

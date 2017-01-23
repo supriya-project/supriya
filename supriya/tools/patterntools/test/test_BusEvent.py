@@ -1,12 +1,12 @@
 # -*- encoding: utf-8 -*-
 import types
 import uuid
-from abjad.tools import systemtools
+from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 from supriya.tools import servertools
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         bus_uuid = uuid.uuid4()
@@ -25,23 +25,23 @@ class TestCase(systemtools.TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        assert len(event_products) == 1
-        self.compare_strings(
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.BusEvent(
                     calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
                     channel_count=2,
-                    delta=0,
-                    uuid=UUID('...'),
+                    delta=0.0,
+                    uuid=UUID('A'),
                     ),
                 index=0,
                 requests=[],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(event_products[0]),
+            replace_uuids=True,
             )
         assert bus_uuid in uuids
         assert isinstance(uuids[bus_uuid], dict)
@@ -53,7 +53,6 @@ class TestCase(systemtools.TestCase):
             calculation_rate='audio',
             channel_count=2,
             is_stop=True,
-            release_time=0,
             uuid=bus_uuid,
             )
         server = types.SimpleNamespace(
@@ -73,24 +72,21 @@ class TestCase(systemtools.TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        assert len(event_products) == 1
-        self.compare_strings(
+        self.compare_objects_as_strings(
+            event_products,
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.BusEvent(
-                    calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
-                    channel_count=2,
-                    delta=0,
+                    delta=0.0,
                     is_stop=True,
-                    release_time=0,
-                    uuid=UUID('...'),
+                    uuid=UUID('A'),
                     ),
                 index=0,
                 is_stop=True,
                 requests=[],
                 timestamp=100.0,
-                uuid=UUID('...'),
+                uuid=UUID('A'),
                 )
             ''',
-            format(event_products[0]),
+            replace_uuids=True,
             )
