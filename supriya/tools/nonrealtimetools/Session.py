@@ -85,6 +85,7 @@ class Session(object):
         '_nodes',
         '_offsets',
         '_options',
+        '_padding',
         '_root_node',
         '_session_ids',
         '_states',
@@ -116,6 +117,7 @@ class Session(object):
         output_bus_channel_count=None,
         input_=None,
         name=None,
+        padding=None,
         ):
         from supriya.tools import nonrealtimetools
         self._options = servertools.ServerOptions(
@@ -123,21 +125,22 @@ class Session(object):
             output_bus_channel_count=output_bus_channel_count,
             )
         self._active_moments = []
-        self._session_ids = {}
-        self._states = {}
-        self._buffers = timetools.TimespanCollection(
-            accelerated=True)
-        self._nodes = timetools.TimespanCollection(
-            accelerated=True)
+        self._buffers = timetools.TimespanCollection(accelerated=True)
+        self._name = name
+        self._nodes = timetools.TimespanCollection(accelerated=True)
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
-        self._setup_initial_states()
-        self._setup_buses()
+        self._session_ids = {}
+        self._states = {}
+        self._transcript = None
         if input_ is not None and not isinstance(input_, type(self)):
             input_ = str(input_)
         self._input = input_
-        self._name = name
-        self._transcript = None
+        if padding is not None:
+            padding = float(padding)
+        self._padding = padding
+        self._setup_initial_states()
+        self._setup_buses()
 
     ### SPECIAL METHODS ###
 
@@ -805,20 +808,6 @@ class Session(object):
                     with_node_tree=with_node_tree,
                     )
 
-    def _process_duration(self, duration=None):
-        if self.duration == float('inf'):
-            assert duration is not None and 0 < duration < float('inf')
-        offsets = self.offsets[1:]
-        states = [self.states[offset] for offset in offsets]
-        if duration:
-            offsets = [offset for offset in offsets if
-                offset <= duration]
-            states = [self.states[offset] for offset in offsets]
-            if states[-1].offset != duration:
-                terminal_state = states[-1]._clone(duration)
-                states.append(terminal_state)
-        return states
-
     def _setup_buses(self):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
@@ -837,7 +826,7 @@ class Session(object):
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
         self.offsets.append(offset)
-        offset = 0
+        offset = 0.0
         state = state._clone(offset)
         self.states[offset] = state
         self.offsets.append(offset)
@@ -902,6 +891,7 @@ class Session(object):
 
     def at(self, offset, propagate=True):
         from supriya.tools import nonrealtimetools
+        offset = float(offset)
         assert 0 <= offset
         state = self._find_state_at(offset)
         if state:
@@ -1221,13 +1211,23 @@ class Session(object):
 
     @property
     def duration(self):
-        if 1 < len(self.offsets):
-            return self.offsets[-1]
-        return 0
+        duration = 0.0
+        for duration in reversed(self.offsets):
+            if duration < float('inf'):
+                break
+        if duration < 0.0:
+            duration = 0.0
+        if duration > 0.0 and self.padding:
+            duration += self.padding
+        return duration
 
     @property
     def input_(self):
         return self._input
+
+    @property
+    def input_bus_channel_count(self):
+        return self.options.input_bus_channel_count
 
     @property
     def name(self):
@@ -1246,29 +1246,21 @@ class Session(object):
         return self._options
 
     @property
-    def root_node(self):
-        return self._root_node
+    def output_bus_channel_count(self):
+        return self.options.output_bus_channel_count
 
     @property
-    def start_offset(self):
-        return self.root_node.start_offset
+    def padding(self):
+        return self._padding
+
+    @property
+    def root_node(self):
+        return self._root_node
 
     @property
     def states(self):
         return self._states
 
     @property
-    def stop_offset(self):
-        return self.root_node.stop_offset
-
-    @property
     def transcript(self):
         return self._transcript
-
-    @property
-    def input_bus_channel_count(self):
-        return self.options.input_bus_channel_count
-
-    @property
-    def output_bus_channel_count(self):
-        return self.options.output_bus_channel_count
