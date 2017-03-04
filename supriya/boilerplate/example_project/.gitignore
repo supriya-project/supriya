@@ -42,12 +42,6 @@ nosetests.xml
 # Etc.
 .DS_Store
 
-# Abjad IDE
-*backup
-__illustrate_segment__.py
-__output_material__.py
-__illustrate_material__.py
-*.candidate.ly
-*.candidate.ps
-*.candidate.pdf
-illustration.pdf
+# Supriya
+render.aif*
+render.wav*

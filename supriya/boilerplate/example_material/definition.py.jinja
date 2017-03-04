@@ -1,0 +1,25 @@
+# -*- encoding: utf-8 -*-
+import supriya
+from {{project_package_name}} import project_settings
+
+
+{{package_name}} = supriya.Session.from_project_settings(project_settings)
+
+with supriya.synthdeftools.SynthDefBuilder(
+    duration=1.,
+    out_bus=0,
+    ) as builder:
+    source = supriya.ugentools.Line.ar(
+        duration=builder['duration'],
+        )
+    supriya.ugentools.Out.ar(
+        bus=builder['out_bus'],
+        source=[source] * len({{package_name}}.audio_output_bus_group),
+        )
+ramp_synthdef = builder.build()
+
+with {{package_name}}.at(0):
+    {{package_name}}.add_synth(
+        duration=1,
+        synthdef=ramp_synthdef,
+        )

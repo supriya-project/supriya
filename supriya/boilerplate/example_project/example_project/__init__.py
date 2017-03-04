@@ -1,5 +1,12 @@
 # -*- encoding: utf-8 -*-
-from {{project_package_name}} import tools
-from {{project_package_name}} import synthdefs
-from {{project_package_name}} import materials
-from {{project_package_name}} import composites
+import os
+from supriya.tools.commandlinetools import ProjectSettings
+
+
+project_settings = ProjectSettings(os.path.join(
+    os.path.dirname(__file__),
+    'project-settings.yml',
+    ))
+
+del os
+del ProjectSettings
