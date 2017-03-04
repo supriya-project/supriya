@@ -283,13 +283,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.25,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -307,13 +307,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -472,13 +472,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -539,13 +539,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -630,13 +630,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.25,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -654,13 +654,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -753,13 +753,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.5,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -777,13 +777,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -880,14 +880,15 @@ class TestCase(TestCase):
             [1.5, [
                 ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 444, 'out', 18]]],
             [2.0, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1006, 'gate', 0]]],
             [2.25, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
+                ['/n_set', 1004, 'gate', 0],
                 ['/n_set', 1005, 'gate', 0]]],
             [2.5, [
                 ['/n_free', 1003],
-                ['/n_set', 1004, 'gate', 0], [0]]]]
+                [0]]]]
         assert final_offset == 2.5
 
     def test_nonrealtime_04b(self):
@@ -917,15 +918,15 @@ class TestCase(TestCase):
             [0.75, [
                 ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
             [1.0, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1002, 'gate', 0]]],
             [1.25, [
-                ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0]]],
+                ['/n_free', 1000]]],
             [1.5, [
+                ['/n_set', 1004, 'gate', 0],
                 ['/n_set', 1005, 'gate', 0]]],
             [1.75, [
                 ['/n_free', 1003],
-                ['/n_set', 1004, 'gate', 0],
                 [0]]]]
 
         assert final_offset == 1.75
@@ -958,10 +959,10 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 880, 'out', 16],
                 ['/n_set', 1003, 'gate', 0]]],
             [2.25, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1004, 'gate', 0]]],
             [2.5, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
                 [0]]]]
         assert final_offset == 2.5
 
@@ -989,9 +990,9 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 660, 'out', 16],
                 ['/n_set', 1002, 'gate', 0]]],
             [1.5, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1003, 'gate', 0]]],
             [1.75, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
                 [0]]]]
         assert final_offset == 1.75

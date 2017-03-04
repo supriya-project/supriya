@@ -17,8 +17,6 @@ class Pattern(SupriyaValueObject):
 
     __slots__ = ()
 
-    _filename = __file__
-
     _rngs = {}
 
     class PatternState(Enumeration):
@@ -128,10 +126,10 @@ class Pattern(SupriyaValueObject):
                     should_stop = yield expr
                 except StopIteration:
                     break
-            if peripheral_stops:
-                null_event = self._setup_pre_peripheral_stops_null_event()
-                if null_event:
-                    peripheral_stops.insert(0, null_event)
+            #if peripheral_stops:
+            #    null_event = self._setup_pre_peripheral_stops_null_event()
+            #    if null_event:
+            #        peripheral_stops.insert(0, null_event)
         if peripheral_stops:
             peripheral_stops = patterntools.CompositeEvent(
                 delta=0.0,
@@ -250,12 +248,12 @@ class Pattern(SupriyaValueObject):
     def _setup_peripherals(self, initial_expr, state):
         return None, None
 
-    def _setup_pre_peripheral_stops_null_event(self):
-        from supriya.tools import patterntools
-        delta = self._release_time or 0
-        if not delta:
-            return
-        return patterntools.NullEvent(delta=delta)
+#    def _setup_pre_peripheral_stops_null_event(self):
+#        from supriya.tools import patterntools
+#        delta = self._release_time or 0
+#        if not delta:
+#            return
+#        return patterntools.NullEvent(delta=delta)
 
     ### PUBLIC PROPERTIES ###
 

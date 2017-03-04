@@ -12,6 +12,7 @@ class Pbus(EventPattern):
         '_calculation_rate',
         '_channel_count',
         '_pattern',
+        '_release_time',
         )
 
     ### INITIALIZER ###
@@ -92,6 +93,7 @@ class Pbus(EventPattern):
         start_link_event = patterntools.SynthEvent(
             add_action='ADD_AFTER',
             amplitude=1.0,
+            #fade_time=self.release_time,
             in_=state['bus_uuid'],
             synthdef=link_synthdef,
             target_node=state['group_uuid'],
@@ -114,11 +116,14 @@ class Pbus(EventPattern):
             start_group_event,
             start_link_event,
             ]
-        peripheral_stops = [
-            stop_link_event,
+        peripheral_stops = [stop_link_event]
+        delta = self._release_time or 0
+        if delta:
+            peripheral_stops.append(patterntools.NullEvent(delta=delta))
+        peripheral_stops.extend([
             stop_group_event,
             stop_bus_event,
-            ]
+            ])
         return peripheral_starts, peripheral_stops
 
     ### PUBLIC PROPERTIES ###
@@ -142,3 +147,7 @@ class Pbus(EventPattern):
     @property
     def pattern(self):
         return self._pattern
+
+    @property
+    def release_time(self):
+        return self._release_time

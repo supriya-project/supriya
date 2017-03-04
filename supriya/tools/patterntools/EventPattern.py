@@ -6,6 +6,10 @@ from supriya.tools.patterntools.Pattern import Pattern
 
 class EventPattern(Pattern):
 
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
     ### SPECIAL METHODS ###
 
     def _coerce_iterator_output(self, expr, state=None):
