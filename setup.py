@@ -8,6 +8,8 @@ from distutils.version import StrictVersion
 on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
 
 install_requires = [
+    'PyYAML',
+    'cython',
     'abjad>=2.19',
     'pytest>=3.0.0',
     'pytest-timeout>=1.2.0',
