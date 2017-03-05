@@ -50,7 +50,7 @@ class TestCase(TestCase):
                         margin=0.05];
                 }
                 subgraph cluster_1 {
-                    graph [label="0"];
+                    graph [label="0.0"];
                     subgraph cluster_1_0 {
                         node_1_0_0 [label=<
                             <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">

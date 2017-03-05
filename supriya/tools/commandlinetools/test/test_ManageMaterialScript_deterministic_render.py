@@ -59,11 +59,11 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Wrote e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-            Rendering e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Command: scsynth -N e95bcfe59c3cbbe232f42f5c113b3e95.osc _ e95bcfe59c3cbbe232f42f5c113b3e95.aiff 44100 aiff int24 -i 0 -o 2
-                Rendered e95bcfe59c3cbbe232f42f5c113b3e95.osc with exit code 0.
+            Writing cc0574461ace85f1fe1798cc15a59575.osc.
+                Wrote cc0574461ace85f1fe1798cc15a59575.osc.
+            Rendering cc0574461ace85f1fe1798cc15a59575.osc.
+                Command: scsynth -N cc0574461ace85f1fe1798cc15a59575.osc _ cc0574461ace85f1fe1798cc15a59575.aiff 44100 aiff int24 -i 0 -o 2
+                Rendered cc0574461ace85f1fe1798cc15a59575.osc with exit code 0.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
@@ -81,10 +81,10 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Skipped e95bcfe59c3cbbe232f42f5c113b3e95.osc. OSC file already exists.
-            Rendering e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Skipped e95bcfe59c3cbbe232f42f5c113b3e95.osc. Output already exists.
+            Writing cc0574461ace85f1fe1798cc15a59575.osc.
+                Skipped cc0574461ace85f1fe1798cc15a59575.osc. OSC file already exists.
+            Rendering cc0574461ace85f1fe1798cc15a59575.osc.
+                Skipped cc0574461ace85f1fe1798cc15a59575.osc. Output already exists.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
@@ -102,10 +102,10 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Skipped e95bcfe59c3cbbe232f42f5c113b3e95.osc. OSC file already exists.
-            Rendering e95bcfe59c3cbbe232f42f5c113b3e95.osc.
-                Skipped e95bcfe59c3cbbe232f42f5c113b3e95.osc. Output already exists.
+            Writing cc0574461ace85f1fe1798cc15a59575.osc.
+                Skipped cc0574461ace85f1fe1798cc15a59575.osc. OSC file already exists.
+            Rendering cc0574461ace85f1fe1798cc15a59575.osc.
+                Skipped cc0574461ace85f1fe1798cc15a59575.osc. Output already exists.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
