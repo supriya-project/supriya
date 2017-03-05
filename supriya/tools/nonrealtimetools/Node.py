@@ -109,10 +109,17 @@ class Node(SessionObject):
         return settings
 
     def _fixup_duration(self, new_duration):
+        old_duration = self._duration
+        if old_duration == new_duration:
+            return
         with self.session.at(self.stop_offset, propagate=False) as moment:
+            parent = self.get_parent()
             if self in moment.state.stop_nodes:
                 moment.state.stop_nodes.remove(self)
+            moment.state._sparsify()
+        self.session.nodes.remove(self)
         self._duration = new_duration
+        self.session.nodes.insert(self)
         with self.session.at(self.stop_offset, propagate=False) as moment:
             moment.state.stop_nodes.add(self)
 
@@ -282,8 +289,8 @@ class Node(SessionObject):
         session_id = self.session._get_next_session_id('node')
         node = nonrealtimetools.Group(
             self.session,
-            session_id=session_id,
             duration=duration,
+            session_id=session_id,
             start_offset=offset,
             )
         self._add_node(node, add_action)
@@ -387,7 +394,9 @@ class Node(SessionObject):
                 parent = self.get_parent()
                 moment.state.stop_nodes.remove(self)
                 moment.state._sparsify()
-            self._duration = new_duration
+            self._fixup_duration(new_duration)
+            with self.session.at(old_stop_offset, propagate=False) as moment:
+                moment.state._sparsify()
             while parent is not None and parent.stop_offset < new_stop_offset:
                 with self.session.at(parent.stop_offset, propagate=False) as moment:
                     action = nonrealtimetools.NodeAction(

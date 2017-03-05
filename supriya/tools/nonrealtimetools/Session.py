@@ -11,7 +11,6 @@ from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
-from supriya.tools.osctools.OscMixin import OscMixin
 try:
     from queue import PriorityQueue
 except ImportError:
@@ -19,7 +18,7 @@ except ImportError:
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class Session(OscMixin):
+class Session(object):
     """
     A non-realtime session.
 
@@ -73,6 +72,8 @@ class Session(OscMixin):
 
     __documentation_section__ = 'Non-realtime Session'
 
+    __is_terminal_ajv_list_item__ = True
+
     __slots__ = (
         '_active_moments',
         '_audio_input_bus_group',
@@ -124,8 +125,10 @@ class Session(OscMixin):
         self._active_moments = []
         self._session_ids = {}
         self._states = {}
-        self._buffers = timetools.TimespanCollection()
-        self._nodes = timetools.TimespanCollection()
+        self._buffers = timetools.TimespanCollection(
+            accelerated=True)
+        self._nodes = timetools.TimespanCollection(
+            accelerated=True)
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
         self._setup_initial_states()
@@ -152,11 +155,14 @@ class Session(OscMixin):
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
 
-    def __eq__(self, expr):
-        return self is expr
+#    def __eq__(self, expr):
+#        return self is expr
+#
+#    def __hash__(self):
+#        return id(self)
 
-    def __hash__(self):
-        return id(self)
+    def __render__(self, **kwargs):
+        return self
 
     ### PRIVATE METHODS ###
 
@@ -481,8 +487,8 @@ class Session(OscMixin):
         if is_last_offset:
             stop_buffers.update(state.overlap_buffers)
             stop_nodes.update(state.overlap_nodes)
-        all_buffers = set(self.buffers.find_timespans_overlapping_offset(offset))
-        all_nodes = set(self.nodes.find_timespans_overlapping_offset(offset))
+        all_buffers = set(self.buffers.find_intersection(offset))
+        all_nodes = set(self.nodes.find_intersection(offset))
         all_buffers.update(stop_buffers)
         all_nodes.update(stop_nodes)
         return (
@@ -702,8 +708,8 @@ class Session(OscMixin):
             synthdefs.add(node.synthdef)
             visited_synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
-        if synthdefs:
-            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
+        for synthdef in synthdefs:
+            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdef)
             requests.append(request)
         return requests
 
@@ -1000,8 +1006,8 @@ class Session(OscMixin):
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
-            synthdef=synthdef,
             offset=offset,
+            synthdef=synthdef,
             **synth_kwargs
             )
 
@@ -1037,6 +1043,35 @@ class Session(OscMixin):
             )
         return buffer_
 
+    @classmethod
+    def from_project_settings(cls, project_settings):
+        from supriya.tools import commandlinetools
+        from supriya.tools import servertools
+        assert isinstance(project_settings, commandlinetools.ProjectSettings)
+        server_options = servertools.ServerOptions(
+            **project_settings.get('server_options', {})
+            )
+        input_bus_channel_count = server_options.input_bus_channel_count
+        output_bus_channel_count = server_options.output_bus_channel_count
+        return cls(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            )
+
+    def inscribe(
+        self,
+        pattern,
+        duration=None,
+        offset=None,
+        seed=None,
+        ):
+        return self.root_node.inscribe(
+            pattern,
+            duration=duration,
+            offset=offset,
+            seed=seed,
+            )
+
     def move_node(
         self,
         node,
@@ -1065,10 +1100,18 @@ class Session(OscMixin):
         render_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
+        print_transcript=None,
+        transcript_prefix=None,
         **kwargs
         ):
         from supriya.tools import nonrealtimetools
-        renderer = nonrealtimetools.SessionRenderer(self)
+        duration = (duration or self.duration) or 0.
+        assert 0. < duration < float('inf')
+        renderer = nonrealtimetools.SessionRenderer(
+            session=self,
+            print_transcript=print_transcript,
+            transcript_prefix=transcript_prefix,
+            )
         exit_code, transcript, output_file_path = renderer.render(
             output_file_path,
             duration=duration,
@@ -1221,3 +1264,11 @@ class Session(OscMixin):
     @property
     def transcript(self):
         return self._transcript
+
+    @property
+    def input_bus_channel_count(self):
+        return self.options.input_bus_channel_count
+
+    @property
+    def output_bus_channel_count(self):
+        return self.options.output_bus_channel_count

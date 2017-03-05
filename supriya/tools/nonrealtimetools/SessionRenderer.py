@@ -6,6 +6,10 @@ import subprocess
 from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
+from supriya.tools.nonrealtimetools import (
+    NonrealtimeRenderError,
+    NonrealtimeOutputMissing,
+)
 from supriya.tools.systemtools import SupriyaObject
 from supriya.tools.systemtools import Trellis
 
@@ -21,14 +25,28 @@ class SessionRenderer(SupriyaObject):
 
     __slots__ = (
         '_session',
+        '_print_transcript',
         '_transcript',
+        '_transcript_prefix',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(
+        self,
+        session,
+        print_transcript=None,
+        transcript_prefix=None,
+        ):
         self._session = session
-        self._transcript = []
+        self._session._transcript = self._transcript = []
+        if print_transcript:
+            print_transcript = bool(print_transcript)
+        self._print_transcript = print_transcript
+        transcript_prefix = transcript_prefix or None
+        if transcript_prefix:
+            transcript_prefix = str(transcript_prefix)
+        self._transcript_prefix = transcript_prefix
 
     ### PRIVATE METHODS ###
 
@@ -124,6 +142,9 @@ class SessionRenderer(SupriyaObject):
         command = ' '.join(parts)
         return command
 
+    def _call_subprocess(self, command):
+        return subprocess.call(command, shell=True)
+
     def _collect_prerender_data(
         self,
         session,
@@ -172,6 +193,12 @@ class SessionRenderer(SupriyaObject):
             duration=duration,
             )
         assert trellis.is_acyclic()
+        for trellis_session in trellis:
+            if trellis_session is session:
+                constraint_duration = (duration or session.duration) or 0.
+            else:
+                constraint_duration = session.duration
+            assert 0. < constraint_duration < float('inf')
         for i, session in enumerate(trellis):
             input_, osc_bundles = compiled_sessions[session]
             osc_bundles = self._build_bundles(
@@ -215,14 +242,22 @@ class SessionRenderer(SupriyaObject):
         **kwargs
         ):
         from supriya import new
-        self.transcript.append('Rendering {}.'.format(
+        self._report('Rendering {}.'.format(
             os.path.relpath(session_file_path)))
+        #for offset, events in session.to_lists():
+        #    print('{}:'.format(offset))
+        #    for event in events:
+        #        print('    {}'.format(event))
         if os.path.exists(output_file_path):
-            self.transcript.append(
-                '    Skipped {}. Output already exists.'.format(
-                    os.path.relpath(session_file_path)))
+            self._report('    Skipped {}. Output already exists.'.format(
+                os.path.relpath(session_file_path)))
             return 0
         old_server_options = session._options
+        #kwargs.update(
+        #    maximum_node_count=4096,
+        #    memory_size=8192 * 16,
+        #    wire_buffer_count=256,
+        #    )
         new_server_options = new(old_server_options, **kwargs)
         command = self._build_render_command(
             input_file_path,
@@ -233,29 +268,41 @@ class SessionRenderer(SupriyaObject):
             header_format=header_format,
             sample_format=sample_format,
             )
-        self.transcript.append('    Command: {}'.format(command))
-        exit_code = subprocess.call(command, shell=True)
-        self.transcript.append('    Rendered {} with exit code {}.'.format(
+        self._report('    Command: {}'.format(command))
+        exit_code = self._call_subprocess(command)
+        self._report('    Rendered {} with exit code {}.'.format(
             os.path.relpath(session_file_path), exit_code))
         return exit_code
 
-    def _write_datagram(self, file_path, datagram):
-        self.transcript.append(
-            'Writing {}.'.format(os.path.relpath(file_path)))
-        should_write = True
-        if os.path.exists(file_path):
+    def _read(self, file_path):
+        contents = None
+        try:
             with open(file_path, 'rb') as file_pointer:
-                if file_pointer.read() == datagram:
-                    should_write = False
-        if should_write:
-            with open(file_path, 'wb') as file_pointer:
-                file_pointer.write(datagram)
-            self.transcript.append(
-                '    Wrote {}.'.format(os.path.relpath(file_path)))
+                contents = file_pointer.read()
+        except FileNotFoundError:
+            pass
+        return contents
+
+    def _report(self, message):
+        if self.transcript_prefix:
+            message = '{}{}'.format(self.transcript_prefix, message)
+        if self.print_transcript:
+            print(message)
+        self.transcript.append(message)
+
+    def _write(self, file_path, contents):
+        with open(file_path, 'wb') as file_pointer:
+            file_pointer.write(contents)
+
+    def _write_datagram(self, file_path, new_datagram):
+        self._report('Writing {}.'.format(os.path.relpath(file_path)))
+        old_datagram = self._read(file_path)
+        if old_datagram == new_datagram:
+            self._report('    Skipped {}. OSC file already exists.'.format(
+                os.path.relpath(file_path)))
         else:
-            self.transcript.append(
-                '    Skipped {}. OSC file already exists.'.format(
-                    os.path.relpath(file_path)))
+            self._write(file_path, new_datagram)
+            self._report('    Wrote {}.'.format(os.path.relpath(file_path)))
 
     ### PUBLIC METHODS ###
 
@@ -337,7 +384,7 @@ class SessionRenderer(SupriyaObject):
             if input_file_path and input_file_path.endswith('.osc'):
                 input_file_path, _ = os.path.splitext(input_file_path)
                 input_file_path = '{}.{}'.format(input_file_path, extension)
-            with TemporaryDirectoryChange(directory=render_path):
+            with TemporaryDirectoryChange(directory=str(render_path)):
                 self._write_datagram(session_file_path, datagram)
                 exit_code = self._render_datagram(
                     session,
@@ -350,12 +397,16 @@ class SessionRenderer(SupriyaObject):
                     **kwargs
                     )
             if exit_code:
-                raise Exception(exit_code)
+                self._report('    SuperCollider errored!')
+                raise NonrealtimeRenderError(exit_code)
         if not os.path.isabs(output_file_path) and render_path:
             output_file_path = os.path.join(
-                render_path,
+                str(render_path),
                 output_file_path,
                 )
+        if not os.path.exists(output_file_path):
+            self._report('    Output file is missing!')
+            raise NonrealtimeOutputMissing(output_file_path)
         return exit_code, self.transcript, output_file_path
 
     ### PUBLIC PROPERTIES ###
@@ -365,5 +416,13 @@ class SessionRenderer(SupriyaObject):
         return self._session
 
     @property
+    def print_transcript(self):
+        return self._print_transcript
+
+    @property
     def transcript(self):
         return self._transcript
+
+    @property
+    def transcript_prefix(self):
+        return self._transcript_prefix

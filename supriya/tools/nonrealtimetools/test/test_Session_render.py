@@ -534,15 +534,19 @@ class TestCase(TestCase):
                 synthdef=multiplier_synthdef,
                 multiplier=-0.5,
                 )
-        compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs([
-            diskin_synthdef,
-            multiplier_synthdef,
-            ])
-        compiled_synthdefs = bytearray(compiled_synthdefs)
+
+        d_recv_commands = []
+        for synthdef in sorted(
+            [diskin_synthdef, multiplier_synthdef],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
+
         buffer_one_path = '7b3f85710f19667f73f745b8ac8080a0.aiff'
         assert session_two.to_lists() == [
             [0.0, [
-                ['/d_recv', compiled_synthdefs],
+                *d_recv_commands,
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_read', 0, buffer_one_path, 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
@@ -553,10 +557,10 @@ class TestCase(TestCase):
                 ['/n_free', 1000, 1001],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        buffer_two_path = '8444629a191a0f99df48d8e812a60697.aiff'
+        buffer_two_path = 'd7a731a2149b910848fc46f08a586378.aiff'
         assert session_three.to_lists() == [
             [0.0, [
-                ['/d_recv', compiled_synthdefs],
+                *d_recv_commands,
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_read', 0, buffer_two_path, 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,

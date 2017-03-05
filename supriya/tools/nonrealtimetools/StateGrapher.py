@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from abjad.tools import documentationtools
-from supriya.tools.documentationtools.Grapher import Grapher
+from supriya.tools.systemtools.Grapher import Grapher
 
 
 class StateGrapher(Grapher):
