@@ -105,3 +105,25 @@ class TestCase(systemtools.TestCase):
         output_one = [next(iterator_one) for _ in range(10)]
         output_two = [next(iterator_two) for _ in range(10)]
         assert output_one == output_two
+
+    def test_grouped(self):
+        """
+        Pbind builds subgenerators deterministically.
+        """
+        pattern = patterntools.Pseed(
+            pattern=patterntools.Pbind(
+                a=patterntools.Pwhite(),
+                b=patterntools.Pwhite(),
+                c=patterntools.Pwhite(),
+                d=patterntools.Pwhite(),
+                uuid=666,
+                ),
+            seed=0,
+            )
+        iterator_a = iter(pattern)
+        iterator_b = iter(pattern)
+        iterator_c = iter(pattern)
+        output_a = [next(iterator_a) for _ in range(10)]
+        output_b = [next(iterator_b) for _ in range(10)]
+        output_c = [next(iterator_c) for _ in range(10)]
+        assert output_a == output_b == output_c

@@ -4,7 +4,6 @@ import pytest
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
-from supriya.tools import synthdeftools
 
 from patterntools_testbase import TestCase
 
@@ -806,7 +805,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_01.inscribe(session)
+            final_offset = session.inscribe(self.ppar_01)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -831,7 +830,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_01.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_01, duration=1.75)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -851,14 +850,17 @@ class TestCase(TestCase):
     def test_nonrealtime_04a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_04.inscribe(session)
+            final_offset = session.inscribe(self.ppar_04)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -891,14 +893,17 @@ class TestCase(TestCase):
     def test_nonrealtime_04b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_04.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_04, duration=1.75)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -928,14 +933,17 @@ class TestCase(TestCase):
     def test_nonrealtime_05a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_05.inscribe(session)
+            final_offset = session.inscribe(self.ppar_05)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -960,14 +968,17 @@ class TestCase(TestCase):
     def test_nonrealtime_05b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_05.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_05, duration=1.75)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],

@@ -191,26 +191,27 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _get_rng(cls):
-        from supriya.tools import patterntools
-        pseed_file_path = inspect.getfile(patterntools.Pseed)
+        from supriya.tools.patterntools import Pseed, RandomNumberGenerator
+        pseed_file_path = Pseed._file_path
         identifier = None
         try:
-            stack = inspect.stack()
-            for frame_info in stack:
+            frame = inspect.currentframe()
+            while frame is not None:
+                file_path = frame.f_code.co_filename
+                function_name = frame.f_code.co_name
                 if (
-                    frame_info.filename == pseed_file_path and
-                    frame_info.function == '_iterate'
+                    file_path == pseed_file_path and
+                    function_name == '_iterate'
                     ):
-                    identifier = id(frame_info.frame)
+                    identifier = id(frame)
                     break
+                frame = frame.f_back
         finally:
-            del(frame_info)
-            del(stack)
+            del(frame)
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
-        elif identifier is None:
-            rng = patterntools.RandomNumberGenerator.get_stdlib_rng()
-            cls._rngs[identifier] = rng
+        else:
+            rng = RandomNumberGenerator.get_stdlib_rng()
         return rng
 
     @classmethod

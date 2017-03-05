@@ -313,7 +313,7 @@ class TestCase(TestCase):
     def test_nonrealtime(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            self.pattern.inscribe(session)
+            session.inscribe(self.pattern)
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],

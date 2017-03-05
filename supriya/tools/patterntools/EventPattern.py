@@ -12,25 +12,11 @@ class EventPattern(Pattern):
         from supriya.tools import patterntools
         if not isinstance(expr, patterntools.Event):
             expr = patterntools.NoteEvent(**expr)
-        if not expr.get('uuid'):
+        if expr.get('uuid') is None:
             expr = new(expr, uuid=uuid.uuid4())
         return expr
 
     ### PUBLIC METHODS ###
-
-    def inscribe(
-        self,
-        session,
-        duration=None,
-        offset=None,
-        ):
-        from supriya.tools import patterntools
-        event_player = patterntools.NonrealtimeEventPlayer(
-            self,
-            session=session,
-            duration=duration,
-            )
-        return event_player(offset=offset)
 
     def play(self, clock=None, event_template=None, server=None):
         from supriya.tools import patterntools
