@@ -2,7 +2,7 @@
 import abc
 import collections
 import copy
-from supriya.tools.datastructuretools.TreeNode import TreeNode
+from supriya.tools.systemtools.TreeNode import TreeNode
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 

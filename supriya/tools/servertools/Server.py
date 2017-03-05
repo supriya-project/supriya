@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 from __future__ import print_function
 import atexit
-import os
 import subprocess
 import time
 from supriya.tools.systemtools import PubSub
@@ -531,7 +530,7 @@ class Server(SupriyaObject):
             NODE TREE 0 group
                 1 group
                     1001 group
-                        1003 e41193ac8b7216f49ff0d477876a3bf3 
+                        1003 e41193ac8b7216f49ff0d477876a3bf3
                     1000 group
                         1002 group
 
