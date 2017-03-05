@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.documentationtools.Grapher import Grapher
+from supriya.tools.systemtools.Grapher import Grapher
 
 
 class SynthDefGrapher(Grapher):
