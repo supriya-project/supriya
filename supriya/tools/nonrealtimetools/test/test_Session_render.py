@@ -10,6 +10,11 @@ from nonrealtimetools_testbase import TestCase
 
 class TestCase(TestCase):
 
+    render_yml_path = os.path.join(
+        supriya_configuration.output_directory,
+        'render.yml',
+        )
+
     def _build_dc_synthdef(self, channel_count=1):
         with synthdeftools.SynthDefBuilder(
             out_bus=0,
@@ -125,6 +130,9 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
+        assert os.path.exists(
+            os.path.join(supriya_configuration.output_directory, 'render.yml'),
+            )
 
     def test_00b(self):
         """
@@ -144,6 +152,9 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
+        assert os.path.exists(
+            os.path.join(supriya_configuration.output_directory, 'render.yml'),
+            )
 
     def test_00c(self):
         """
@@ -181,6 +192,7 @@ class TestCase(TestCase):
             'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
             '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            'Writing render.yml.',
             ]
         assert output_file_path == aiff_path
         assert os.path.exists(osc_path)
@@ -201,6 +213,7 @@ class TestCase(TestCase):
             '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. OSC file already exists.',
             'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            'Writing render.yml.',
             ]
         assert output_file_path == aiff_path
         assert os.path.exists(osc_path)
@@ -223,6 +236,7 @@ class TestCase(TestCase):
             '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
             'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            'Writing render.yml.',
             ]
         assert output_file_path == aiff_path
         assert os.path.exists(osc_path)
@@ -246,6 +260,7 @@ class TestCase(TestCase):
             'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
             '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
             '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            'Writing render.yml.',
             ]
         assert output_file_path == aiff_path
         assert os.path.exists(osc_path)
@@ -280,6 +295,11 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: 7b3f85710f19667f73f745b8ac8080a0
+        source: null
+        ''')
 
     def test_02(self):
         """
@@ -316,6 +336,11 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: 65b7bd8b684275a2cca552b5ba4acc6a
+        source: null
+        ''')
 
     def test_03(self):
         """
@@ -362,6 +387,11 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: db0bef5bf38b0f477fa3bfadce58e1ca
+        source: null
+        ''')
 
     def test_04(self):
         """
@@ -400,6 +430,12 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: cf7a6b66194f0292ed98dd4190e02718
+        source:
+        - 7b3f85710f19667f73f745b8ac8080a0
+        ''')
 
     def test_05(self):
         """
@@ -449,6 +485,11 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: a654e4754d9ada817587f5f95177f65d
+        source: null
+        ''')
 
     def test_06(self):
         """
@@ -492,6 +533,12 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: 99b3d6bd682960a74e8e78a0ad413600
+        source:
+        - 7b3f85710f19667f73f745b8ac8080a0
+        ''')
 
     def test_07(self):
         """
@@ -604,6 +651,13 @@ class TestCase(TestCase):
             0.81: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
             0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
             }
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: f163f0fd844c070089704321bee40bcd
+        source:
+        - d7a731a2149b910848fc46f08a586378
+        - 7b3f85710f19667f73f745b8ac8080a0
+        ''')
 
     def test_08(self):
         """
@@ -752,4 +806,12 @@ class TestCase(TestCase):
             'Rendering 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
             '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ output.aiff 44100 aiff int24',
             '    Rendered 73b90e1467ddd06f4afa06dff1f5cb41.osc with exit code 0.',
+            'Writing render.yml.',
             ]
+        assert os.path.exists(self.render_yml_path)
+        self.compare_file_contents(self.render_yml_path, '''
+        render: 73b90e1467ddd06f4afa06dff1f5cb41
+        source:
+        - 988ae28d3d84ae2b458d64ce15ffb989
+        - c6d86f3d482a8bac1f7cc6650017da8e
+        ''')

@@ -18,6 +18,9 @@ class TestCase(systemtools.TestCase):
         self.output_file_path = os.path.abspath(os.path.join(
             self.output_directory, 'output.aiff',
             ))
+        self.render_yml_path = os.path.abspath(os.path.join(
+            self.output_directory, 'render.yml',
+            ))
         self.original_curdir = os.path.abspath(os.curdir)
         os.chdir(self.output_directory)
 

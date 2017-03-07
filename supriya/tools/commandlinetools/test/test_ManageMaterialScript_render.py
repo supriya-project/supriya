@@ -27,6 +27,7 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/renders/.gitignore',
         'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
         'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
+        'test_project/test_project/renders/render.yml',
         'test_project/test_project/synthdefs/.gitignore',
         'test_project/test_project/synthdefs/__init__.py',
         'test_project/test_project/test/.gitignore',
@@ -261,6 +262,7 @@ class Test(ProjectPackageScriptTestCase):
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing renders/render.yml.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_one/
         Rendering test_project/materials/material_three/
@@ -269,6 +271,7 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing renders/render.yml.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
@@ -277,6 +280,7 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing renders/render.yml.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
@@ -346,6 +350,7 @@ class Test(ProjectPackageScriptTestCase):
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing renders/render.yml.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
@@ -354,6 +359,7 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing renders/render.yml.
                 Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
@@ -403,16 +409,17 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         self.compare_captured_output(r'''
-            Render candidates: 'test_material' ...
-            Rendering test_project/materials/test_material/
-                Importing test_project.materials.test_material.definition
-                Writing 95cecb2c724619fe502164459560ba5d.osc.
-                    Wrote 95cecb2c724619fe502164459560ba5d.osc.
-                Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                    Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                    Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-                        Python/SC runtime: 0 seconds
-                Rendered test_project/materials/test_material/
+        Render candidates: 'test_material' ...
+        Rendering test_project/materials/test_material/
+            Importing test_project.materials.test_material.definition
+            Writing 95cecb2c724619fe502164459560ba5d.osc.
+                Wrote 95cecb2c724619fe502164459560ba5d.osc.
+            Rendering 95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing renders/render.yml.
+                Python/SC runtime: 0 seconds
+            Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
         self.compare_path_contents(
             self.inner_project_path,
