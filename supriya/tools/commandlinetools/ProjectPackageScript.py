@@ -384,7 +384,7 @@ class ProjectPackageScript(CommandlineScript):
         pass
 
     def _report_time(self, timer, prefix='Runtime'):
-        message = '        {}: {} {}'
+        message = '    {}: {} {}'
         total_time = int(timer.elapsed_time)
         identifier = stringtools.pluralize('second', total_time)
         message = message.format(prefix, total_time, identifier)

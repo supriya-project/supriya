@@ -220,6 +220,7 @@ class ManageMaterialScript(ProjectPackageScript):
                     render_path=self._renders_path,
                     print_transcript=True,
                     transcript_prefix='    ',
+                    build_render_yml=True,
                     **server_options
                     )
             except (NonrealtimeRenderError, NonrealtimeOutputMissing):

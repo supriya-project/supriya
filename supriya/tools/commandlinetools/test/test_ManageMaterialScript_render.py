@@ -206,7 +206,7 @@ class Test(ProjectPackageScriptTestCase):
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 1.
                 SuperCollider errored!
-                Python/SC runtime: 0 seconds
+            Python/SC runtime: 0 seconds
             Render failed. Exiting.
         '''.replace('/', os.path.sep))
 
@@ -235,7 +235,7 @@ class Test(ProjectPackageScriptTestCase):
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
                 Output file is missing!
-                Python/SC runtime: 0 seconds
+            Python/SC runtime: 0 seconds
             Render failed. Exiting.
         '''.replace('/', os.path.sep))
 
@@ -263,25 +263,28 @@ class Test(ProjectPackageScriptTestCase):
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Wrote renders/render.yml.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_one/
         Rendering test_project/materials/material_three/
             Importing test_project.materials.material_three.definition
             Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
+                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Skipped renders/render.yml. File already exists.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
             Importing test_project.materials.material_two.definition
             Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
+                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Skipped renders/render.yml. File already exists.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
         assert self.materials_path.joinpath(
@@ -351,16 +354,18 @@ class Test(ProjectPackageScriptTestCase):
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Wrote renders/render.yml.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
             Importing test_project.materials.material_two.definition
             Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. OSC file already exists.
+                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Skipped renders/render.yml. File already exists.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
         assert not self.materials_path.joinpath(
@@ -418,7 +423,8 @@ class Test(ProjectPackageScriptTestCase):
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing renders/render.yml.
-                Python/SC runtime: 0 seconds
+                Wrote renders/render.yml.
+            Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
         self.compare_path_contents(

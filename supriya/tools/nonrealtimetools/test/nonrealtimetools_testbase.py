@@ -80,7 +80,7 @@ class TestCase(systemtools.TestCase):
         expected_channel_count,
         file_path=None,
         ):
-        file_path = file_path or self.output_file_path
+        file_path = str(file_path or self.output_file_path)
         assert os.path.exists(file_path), file_path
         assert exit_code == 0, exit_code
         soundfile = soundfiletools.SoundFile(file_path)
