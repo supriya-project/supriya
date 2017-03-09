@@ -217,7 +217,7 @@ class ManageMaterialScript(ProjectPackageScript):
             server_options = self._build_nrt_server_options(session)
             try:
                 exit_code, output_file_path = session.render(
-                    render_path=self._renders_path,
+                    render_directory_path=self._renders_path,
                     print_transcript=True,
                     transcript_prefix='    ',
                     build_render_yml=True,

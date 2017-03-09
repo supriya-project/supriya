@@ -10,29 +10,30 @@ from supriya.tools import ugentools
 
 class TestCase(systemtools.TestCase):
 
-    test_path = pathlib.Path(__file__).parent
+    test_directory_path = pathlib.Path(__file__).parent
+    output_directory_path = test_directory_path / 'output'
+    render_directory_path = test_directory_path / 'render'
+    output_file_path = test_directory_path / 'output' / 'output.aiff'
+    render_yml_file_path = test_directory_path / 'output' / 'render.yml'
+
+    @classmethod
+    def setUpClass(cls):
+        cls.original_curdir = os.path.abspath(os.curdir)
+        os.chdir(str(cls.test_directory_path))
+
+    @classmethod
+    def tearDownClass(cls):
+        os.chdir(cls.original_curdir)
 
     def setUp(self):
-        self.directory_items = set(self.test_path.iterdir())
-        self.output_directory = os.path.dirname(__file__)
-        self.output_file_path = os.path.abspath(os.path.join(
-            self.output_directory, 'output.aiff',
-            ))
-        self.render_yml_path = os.path.abspath(os.path.join(
-            self.output_directory, 'render.yml',
-            ))
-        self.original_curdir = os.path.abspath(os.curdir)
-        os.chdir(self.output_directory)
+        for path in [self.output_directory_path]:
+            if not path.exists():
+                path.mkdir()
 
     def tearDown(self):
-        for path in sorted(self.test_path.iterdir()):
-            if path in self.directory_items:
-                continue
-            if path.is_file():
-                path.unlink()
-            else:
+        for path in [self.output_directory_path]:
+            if path.exists():
                 shutil.rmtree(str(path))
-        os.chdir(self.original_curdir)
 
     def build_basic_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder()
@@ -80,8 +81,8 @@ class TestCase(systemtools.TestCase):
         expected_channel_count,
         file_path=None,
         ):
-        file_path = str(file_path or self.output_file_path)
-        assert os.path.exists(file_path), file_path
+        file_path = pathlib.Path(file_path or self.output_file_path)
+        assert file_path.exists(), file_path
         assert exit_code == 0, exit_code
         soundfile = soundfiletools.SoundFile(file_path)
         assert self.round(soundfile.seconds) == expected_duration, self.round(soundfile.seconds)

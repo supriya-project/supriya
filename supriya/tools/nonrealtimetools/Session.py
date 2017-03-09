@@ -1087,7 +1087,7 @@ class Session(object):
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
         input_file_path=None,
-        render_path=None,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         print_transcript=None,
@@ -1108,7 +1108,7 @@ class Session(object):
             sample_rate=sample_rate,
             header_format=header_format,
             sample_format=sample_format,
-            render_path=render_path,
+            render_directory_path=render_directory_path,
             debug=debug,
             **kwargs
             )

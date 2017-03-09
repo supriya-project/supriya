@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import os
 import pathlib
 from supriya import supriya_configuration
 from supriya.tools import nonrealtimetools
@@ -116,7 +115,7 @@ class TestCase(TestCase):
         session = self._make_session()
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pathlib.Path(supriya_configuration.output_directory) in \
+        assert pathlib.Path(supriya_configuration.output_directory_path) in \
             output_file_path.parents
         assert self._sample(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -133,10 +132,10 @@ class TestCase(TestCase):
         """
         session = self._make_session()
         exit_code, output_file_path = session.render(
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pathlib.Path(self.output_directory) in output_file_path.parents
+        assert pathlib.Path(self.output_directory_path) in output_file_path.parents
         assert self._sample(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -153,11 +152,11 @@ class TestCase(TestCase):
         """
         session = self._make_session()
         osc_path = pathlib.Path().joinpath(
-            supriya_configuration.output_directory,
+            supriya_configuration.output_directory_path,
             '7b3f85710f19667f73f745b8ac8080a0.osc',
             )
         aiff_path = pathlib.Path().joinpath(
-            supriya_configuration.output_directory,
+            supriya_configuration.output_directory_path,
             '7b3f85710f19667f73f745b8ac8080a0.aiff',
             )
         if osc_path.exists():
@@ -269,7 +268,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session.render(
             self.output_file_path,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -281,8 +280,8 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: 7b3f85710f19667f73f745b8ac8080a0
         source: null
         ''')
@@ -291,12 +290,12 @@ class TestCase(TestCase):
         """
         Soundfile NRT input, matched channels.
         """
-        path_one = os.path.join(self.output_directory, 'output-one.aiff')
-        path_two = os.path.join(self.output_directory, 'output-two.aiff')
+        path_one = self.output_directory_path / 'output-one.aiff'
+        path_two = self.output_directory_path / 'output-two.aiff'
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -312,7 +311,7 @@ class TestCase(TestCase):
                 )
         exit_code, _ = session_two.render(
             path_two,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_two)
@@ -324,8 +323,8 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: 65b7bd8b684275a2cca552b5ba4acc6a
         source: null
         ''')
@@ -334,12 +333,12 @@ class TestCase(TestCase):
         """
         Soundfile NRT input, mismatched channels.
         """
-        path_one = os.path.join(self.output_directory, 'output-one.aiff')
-        path_two = os.path.join(self.output_directory, 'output-two.aiff')
+        path_one = self.output_directory_path / 'output-one.aiff'
+        path_two = self.output_directory_path / 'output-two.aiff'
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -365,7 +364,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session_two.render(
             path_two,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 4, file_path=path_two)
@@ -377,8 +376,8 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: db0bef5bf38b0f477fa3bfadce58e1ca
         source: null
         ''')
@@ -409,7 +408,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session_two.render(
             self.output_file_path,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -421,8 +420,8 @@ class TestCase(TestCase):
             0.81: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             0.99: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: cf7a6b66194f0292ed98dd4190e02718
         source:
         - 7b3f85710f19667f73f745b8ac8080a0
@@ -432,12 +431,12 @@ class TestCase(TestCase):
         """
         Soundfile DiskIn input.
         """
-        path_one = os.path.join(self.output_directory, 'output-one.aiff')
-        path_two = os.path.join(self.output_directory, 'output-two.aiff')
+        path_one = self.output_directory_path / 'output-one.aiff'
+        path_two = self.output_directory_path / 'output-two.aiff'
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -457,7 +456,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
-                ['/b_read', 0, path_one, 0, -1, 0, 1],
+                ['/b_read', 0, str(path_one), 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0]]],
             [10.0, [
@@ -466,7 +465,7 @@ class TestCase(TestCase):
                 ['/b_free', 0], [0]]]]
         exit_code, _ = session_two.render(
             path_two,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_two)
@@ -478,9 +477,9 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
-        render: a654e4754d9ada817587f5f95177f65d
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
+        render: 7c7ca76f353e0a7bebdab29bc3f81f85
         source: null
         ''')
 
@@ -515,7 +514,7 @@ class TestCase(TestCase):
                 ['/b_free', 0], [0]]]]
         exit_code, _ = session_two.render(
             self.output_file_path,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -527,8 +526,8 @@ class TestCase(TestCase):
             0.81: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: 99b3d6bd682960a74e8e78a0ad413600
         source:
         - 7b3f85710f19667f73f745b8ac8080a0
@@ -584,12 +583,12 @@ class TestCase(TestCase):
             compiled_synthdef = bytearray(synthdef.compile())
             d_recv_commands.append(['/d_recv', compiled_synthdef])
 
-        buffer_one_path = '7b3f85710f19667f73f745b8ac8080a0.aiff'
+        buffer_one_name = '7b3f85710f19667f73f745b8ac8080a0.aiff'
         assert session_two.to_lists() == [
             [0.0, [
                 *d_recv_commands,
                 ['/b_alloc', 0, 32768, 8],
-                ['/b_read', 0, buffer_one_path, 0, -1, 0, 1],
+                ['/b_read', 0, buffer_one_name, 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '76abe8508565e1ca3dd243fe960a6945', 1001, 3, 1000,
@@ -598,12 +597,13 @@ class TestCase(TestCase):
                 ['/n_free', 1000, 1001],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        buffer_two_path = 'd7a731a2149b910848fc46f08a586378.aiff'
+
+        buffer_two_name = 'd7a731a2149b910848fc46f08a586378.aiff'
         assert session_three.to_lists() == [
             [0.0, [
                 *d_recv_commands,
                 ['/b_alloc', 0, 32768, 8],
-                ['/b_read', 0, buffer_two_path, 0, -1, 0, 1],
+                ['/b_read', 0, buffer_two_name, 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '76abe8508565e1ca3dd243fe960a6945', 1001, 3, 1000,
@@ -612,11 +612,15 @@ class TestCase(TestCase):
                 ['/n_free', 1000, 1001],
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
-        assert not os.path.exists(buffer_one_path)
-        assert not os.path.exists(buffer_two_path)
+
+        buffer_one_path = self.output_directory_path / buffer_one_name
+        buffer_two_path = self.output_directory_path / buffer_two_name
+
+        assert not buffer_one_path.exists()
+        assert not buffer_two_path.exists()
         exit_code, _ = session_three.render(
             self.output_file_path,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=buffer_one_path)
@@ -646,8 +650,8 @@ class TestCase(TestCase):
             0.81: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
             0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
             }
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: f163f0fd844c070089704321bee40bcd
         source:
         - d7a731a2149b910848fc46f08a586378
@@ -746,17 +750,15 @@ class TestCase(TestCase):
                 ['/b_close', 1],
                 ['/b_free', 1],
                 [0]]]]
-        session_one_path = os.path.join(
-            self.output_directory,
+        session_one_path = self.output_directory_path.joinpath(
             'c6d86f3d482a8bac1f7cc6650017da8e.aiff',
             )
-        session_two_path = os.path.join(
-            self.output_directory,
+        session_two_path = self.output_directory_path.joinpath(
             '988ae28d3d84ae2b458d64ce15ffb989.aiff',
             )
         exit_code, _ = session_three.render(
             self.output_file_path,
-            render_path=self.output_directory,
+            render_directory_path=self.output_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=session_one_path)
@@ -802,11 +804,11 @@ class TestCase(TestCase):
             'Rendering 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
             '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ output.aiff 44100 aiff int24',
             '    Rendered 73b90e1467ddd06f4afa06dff1f5cb41.osc with exit code 0.',
-            'Writing render.yml.',
-            '    Wrote render.yml.',
+            'Writing output/render.yml.',
+            '    Wrote output/render.yml.',
             ]
-        assert os.path.exists(self.render_yml_path)
-        self.compare_file_contents(self.render_yml_path, '''
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
         render: 73b90e1467ddd06f4afa06dff1f5cb41
         source:
         - 988ae28d3d84ae2b458d64ce15ffb989

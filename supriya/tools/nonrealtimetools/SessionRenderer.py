@@ -76,9 +76,10 @@ class SessionRenderer(SupriyaObject):
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
         md5 = hashlib.md5()
-        hash_values = [datagram]
+        md5.update(datagram)
+        hash_values = []
         if input_file_path is not None:
-            hash_values.append(str(input_file_path))
+            hash_values.append(input_file_path)
         for value in (
             session.options.input_bus_channel_count,
             session.options.output_bus_channel_count,
@@ -86,12 +87,11 @@ class SessionRenderer(SupriyaObject):
             header_format,
             sample_format,
             ):
-            hash_values.append(str(value))
+            hash_values.append(value)
         for value in hash_values:
-            if isinstance(value, pathlib.Path):
+            if not isinstance(value, str):
                 value = str(value)
-            if isinstance(value, str):
-                value = value.encode()
+            value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
         file_path = '{}.osc'.format(md5)
@@ -199,7 +199,7 @@ class SessionRenderer(SupriyaObject):
         self,
         session,
         duration=None,
-        render_path=None,
+        render_directory_path=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
@@ -220,8 +220,8 @@ class SessionRenderer(SupriyaObject):
                 header_format=header_format,
                 )
             input_file_path = self.session_file_paths.get(input_, input_)
-            if input_file_path and render_path in input_file_path.parents:
-                input_file_path = input_file_path.relative_to(render_path)
+            if input_file_path and render_directory_path in input_file_path.parents:
+                input_file_path = input_file_path.relative_to(render_directory_path)
             datagram = self._build_datagram(osc_bundles)
             session_file_path = self._build_file_path(
                 datagram,
@@ -369,7 +369,7 @@ class SessionRenderer(SupriyaObject):
         debug=None,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         build_render_yml=None,
@@ -378,8 +378,8 @@ class SessionRenderer(SupriyaObject):
         from supriya import supriya_configuration
         extension = '.{}'.format(header_format.name.lower())
         self.transcript[:] = []
-        render_path = render_path or supriya_configuration.output_directory
-        render_path = pathlib.Path(render_path).expanduser().absolute()
+        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
+        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
         if output_file_path is not None:
             output_file_path = pathlib.Path(output_file_path)
             output_file_path = output_file_path.expanduser().absolute()
@@ -388,7 +388,7 @@ class SessionRenderer(SupriyaObject):
             self.session,
             duration=duration,
             header_format=header_format,
-            render_path=render_path,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -410,7 +410,7 @@ class SessionRenderer(SupriyaObject):
                 output_file_path = original_output_file_path
             if input_file_path and input_file_path.suffix == '.osc':
                 input_file_path = input_file_path.with_suffix(extension)
-            with TemporaryDirectoryChange(directory=str(render_path)):
+            with TemporaryDirectoryChange(directory=str(render_directory_path)):
                 self._write_datagram(session_file_path, datagram)
                 exit_code = self._render_datagram(
                     session,
@@ -425,8 +425,8 @@ class SessionRenderer(SupriyaObject):
             if exit_code:
                 self._report('    SuperCollider errored!')
                 raise NonrealtimeRenderError(exit_code)
-        if not output_file_path.is_absolute() and render_path:
-            output_file_path = render_path / output_file_path
+        if not output_file_path.is_absolute() and render_directory_path:
+            output_file_path = render_directory_path / output_file_path
         if not output_file_path.exists():
             self._report('    Output file is missing!')
             raise NonrealtimeOutputMissing(output_file_path)
