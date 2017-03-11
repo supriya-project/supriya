@@ -22,12 +22,12 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/materials/test_material/__init__.py',
         'test_project/test_project/materials/test_material/definition.py',
         'test_project/test_project/materials/test_material/render.aiff',
+        'test_project/test_project/materials/test_material/render.yml',
         'test_project/test_project/metadata.json',
         'test_project/test_project/project-settings.yml',
         'test_project/test_project/renders/.gitignore',
         'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
         'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
-        'test_project/test_project/renders/render.yml',
         'test_project/test_project/synthdefs/.gitignore',
         'test_project/test_project/synthdefs/__init__.py',
         'test_project/test_project/test/.gitignore',
@@ -169,14 +169,14 @@ class Test(ProjectPackageScriptTestCase):
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
         Traceback (most recent call last):
-          File ".../commandlinetools/ProjectPackageScript.py", line 183, in _import_path
+          File ".../commandlinetools/ProjectPackageScript.py", line ..., in _import_path
             return importlib.import_module(path)
           ...
-          File ".../test_project/test_project/materials/__init__.py", line 6, in <module>
+          File ".../test_project/test_project/materials/__init__.py", line ..., in <module>
             globals(),
           File ".../ImportManager.py", line 120, in import_material_packages
             output_module = __import__(output_module_path, fromlist=['*'])
-          File ".../test_project/test_project/materials/test_material/definition.py", line 27, in <module>
+          File ".../test_project/test_project/materials/test_material/definition.py", line ..., in <module>
             failure = 1 / 0
         ZeroDivisionError: division by zero
         '''.replace('/', os.path.sep))
@@ -262,8 +262,8 @@ class Test(ProjectPackageScriptTestCase):
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing renders/render.yml.
-                Wrote renders/render.yml.
+            Writing test_project/materials/material_one/render.yml.
+                Wrote test_project/materials/material_one/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_one/
         Rendering test_project/materials/material_three/
@@ -272,8 +272,8 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing renders/render.yml.
-                Skipped renders/render.yml. File already exists.
+            Writing test_project/materials/material_three/render.yml.
+                Wrote test_project/materials/material_three/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
@@ -282,8 +282,8 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing renders/render.yml.
-                Skipped renders/render.yml. File already exists.
+            Writing test_project/materials/material_two/render.yml.
+                Wrote test_project/materials/material_two/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
@@ -353,8 +353,8 @@ class Test(ProjectPackageScriptTestCase):
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing renders/render.yml.
-                Wrote renders/render.yml.
+            Writing test_project/materials/material_three/render.yml.
+                Wrote test_project/materials/material_three/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
@@ -363,8 +363,8 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing renders/render.yml.
-                Skipped renders/render.yml. File already exists.
+            Writing test_project/materials/material_two/render.yml.
+                Wrote test_project/materials/material_two/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_two/
         '''.replace('/', os.path.sep))
@@ -422,8 +422,8 @@ class Test(ProjectPackageScriptTestCase):
             Rendering 95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing renders/render.yml.
-                Wrote renders/render.yml.
+            Writing test_project/materials/test_material/render.yml.
+                Wrote test_project/materials/test_material/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))

@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import hashlib
 import pathlib
+import shutil
 import struct
 import subprocess
 import yaml
@@ -75,6 +76,7 @@ class SessionRenderer(SupriyaObject):
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
+        #print('BUILDING FILE PATH')
         md5 = hashlib.md5()
         md5.update(datagram)
         hash_values = []
@@ -91,6 +93,7 @@ class SessionRenderer(SupriyaObject):
         for value in hash_values:
             if not isinstance(value, str):
                 value = str(value)
+            #print('    ' + value)
             value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
@@ -220,8 +223,11 @@ class SessionRenderer(SupriyaObject):
                 header_format=header_format,
                 )
             input_file_path = self.session_file_paths.get(input_, input_)
-            if input_file_path and render_directory_path in input_file_path.parents:
-                input_file_path = input_file_path.relative_to(render_directory_path)
+            if input_file_path:
+                input_file_path = self.get_path_relative_to_render_path(
+                    input_file_path, render_directory_path)
+            #if input_file_path and render_directory_path in input_file_path.parents:
+            #    input_file_path = input_file_path.relative_to(render_directory_path)
             datagram = self._build_datagram(osc_bundles)
             session_file_path = self._build_file_path(
                 datagram,
@@ -328,12 +334,14 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
         osc_bundles = self.to_osc_bundles(
             duration=duration,
             header_format=header_format,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -343,14 +351,19 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
+        from supriya import supriya_configuration
         self._reset()
+        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
+        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
         self._collect_prerender_tuples(
             self.session,
             duration=duration,
             header_format=header_format,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -362,6 +375,27 @@ class SessionRenderer(SupriyaObject):
             session_file_path,
             ) = self.prerender_tuples[-1]
         return osc_bundles
+
+    @classmethod
+    def get_path_relative_to_render_path(cls, target_path, render_path):
+        target_path = pathlib.Path(target_path)
+        render_path = pathlib.Path(render_path)
+        try:
+            return target_path.relative_to(render_path)
+        except ValueError:
+            pass
+        target_path = pathlib.Path(target_path)
+        render_path = pathlib.Path(render_path)
+        target_path_parents = set(target_path.parents)
+        render_path_parents = set(render_path.parents)
+        common_parents = target_path_parents.intersection(render_path_parents)
+        if not common_parents:
+            return target_path
+        common_parent = sorted(common_parents)[-1]
+        target_path = target_path.relative_to(common_parent)
+        render_path = render_path.relative_to(common_parent)
+        parts = ['..' for _ in render_path.parts] + [target_path]
+        return pathlib.Path().joinpath(*parts)
 
     def render(
         self,
@@ -404,10 +438,7 @@ class SessionRenderer(SupriyaObject):
                 ) = prerender_tuple
             prefix = session_file_path.with_suffix('').name
             session_prefixes.append(prefix)
-            if i < len(self.prerender_tuples) - 1 or not output_file_path:
-                output_file_path = session_file_path.with_suffix(extension)
-            else:
-                output_file_path = original_output_file_path
+            output_file_path = session_file_path.with_suffix(extension)
             if input_file_path and input_file_path.suffix == '.osc':
                 input_file_path = input_file_path.with_suffix(extension)
             with TemporaryDirectoryChange(directory=str(render_directory_path)):
@@ -425,15 +456,22 @@ class SessionRenderer(SupriyaObject):
             if exit_code:
                 self._report('    SuperCollider errored!')
                 raise NonrealtimeRenderError(exit_code)
-        if not output_file_path.is_absolute() and render_directory_path:
-            output_file_path = render_directory_path / output_file_path
+        output_file_path = render_directory_path / output_file_path
         if not output_file_path.exists():
             self._report('    Output file is missing!')
             raise NonrealtimeOutputMissing(output_file_path)
+        if original_output_file_path is not None:
+            shutil.copy(
+                str(output_file_path),
+                str(original_output_file_path),
+                )
         if build_render_yml:
+            output_directory = (
+                original_output_file_path or output_file_path
+                ).parent
             render_yaml = self._build_render_yaml(session_prefixes)
             self._write_render_yaml(
-                output_file_path.parent / 'render.yml',
+                output_directory / 'render.yml',
                 render_yaml,
                 )
         return exit_code, self.transcript, output_file_path

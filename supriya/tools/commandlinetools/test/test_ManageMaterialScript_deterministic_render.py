@@ -64,8 +64,8 @@ class Test(ProjectPackageScriptTestCase):
             Rendering cc0574461ace85f1fe1798cc15a59575.osc.
                 Command: scsynth -N cc0574461ace85f1fe1798cc15a59575.osc _ cc0574461ace85f1fe1798cc15a59575.aiff 44100 aiff int24 -i 0 -o 2
                 Rendered cc0574461ace85f1fe1798cc15a59575.osc with exit code 0.
-            Writing renders/render.yml.
-                Wrote renders/render.yml.
+            Writing test_project/materials/test_material/render.yml.
+                Wrote test_project/materials/test_material/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
@@ -87,8 +87,8 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped cc0574461ace85f1fe1798cc15a59575.osc. File already exists.
             Rendering cc0574461ace85f1fe1798cc15a59575.osc.
                 Skipped cc0574461ace85f1fe1798cc15a59575.osc. Output already exists.
-            Writing renders/render.yml.
-                Skipped renders/render.yml. File already exists.
+            Writing test_project/materials/test_material/render.yml.
+                Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
@@ -110,8 +110,8 @@ class Test(ProjectPackageScriptTestCase):
                 Skipped cc0574461ace85f1fe1798cc15a59575.osc. File already exists.
             Rendering cc0574461ace85f1fe1798cc15a59575.osc.
                 Skipped cc0574461ace85f1fe1798cc15a59575.osc. Output already exists.
-            Writing renders/render.yml.
-                Skipped renders/render.yml. File already exists.
+            Writing test_project/materials/test_material/render.yml.
+                Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))

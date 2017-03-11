@@ -132,10 +132,11 @@ class TestCase(TestCase):
         """
         session = self._make_session()
         exit_code, output_file_path = session.render(
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pathlib.Path(self.output_directory_path) in output_file_path.parents
+        assert pathlib.Path(self.render_directory_path) in \
+            output_file_path.parents
         assert self._sample(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -260,7 +261,8 @@ class TestCase(TestCase):
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', synthdef.compile()],
-                ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0, 'source', 0]]],
+                ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
+                    'source', 0]]],
             [2.0, [['/n_set', 1000, 'source', 0.25]]],
             [4.0, [['/n_set', 1000, 'source', 0.5]]],
             [6.0, [['/n_set', 1000, 'source', 0.75]]],
@@ -268,7 +270,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session.render(
             self.output_file_path,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -295,7 +297,7 @@ class TestCase(TestCase):
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -311,7 +313,7 @@ class TestCase(TestCase):
                 )
         exit_code, _ = session_two.render(
             path_two,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_two)
@@ -325,7 +327,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 65b7bd8b684275a2cca552b5ba4acc6a
+        render: 34a8138953258b32d05ed6e09ebdf5b7
         source: null
         ''')
 
@@ -338,7 +340,7 @@ class TestCase(TestCase):
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -364,7 +366,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session_two.render(
             path_two,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 4, file_path=path_two)
@@ -378,7 +380,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: db0bef5bf38b0f477fa3bfadce58e1ca
+        render: f90a25f63698e1c8c4f6fe63d7d87bc4
         source: null
         ''')
 
@@ -408,7 +410,7 @@ class TestCase(TestCase):
             [10.0, [['/n_free', 1000], [0]]]]
         exit_code, _ = session_two.render(
             self.output_file_path,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -436,7 +438,7 @@ class TestCase(TestCase):
         session_one = self._make_session()
         exit_code, _ = session_one.render(
             path_one,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_one)
@@ -465,7 +467,7 @@ class TestCase(TestCase):
                 ['/b_free', 0], [0]]]]
         exit_code, _ = session_two.render(
             path_two,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=path_two)
@@ -514,7 +516,7 @@ class TestCase(TestCase):
                 ['/b_free', 0], [0]]]]
         exit_code, _ = session_two.render(
             self.output_file_path,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8)
@@ -613,14 +615,14 @@ class TestCase(TestCase):
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
 
-        buffer_one_path = self.output_directory_path / buffer_one_name
-        buffer_two_path = self.output_directory_path / buffer_two_name
+        buffer_one_path = self.render_directory_path / buffer_one_name
+        buffer_two_path = self.render_directory_path / buffer_two_name
 
         assert not buffer_one_path.exists()
         assert not buffer_two_path.exists()
         exit_code, _ = session_three.render(
             self.output_file_path,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=buffer_one_path)
@@ -750,15 +752,15 @@ class TestCase(TestCase):
                 ['/b_close', 1],
                 ['/b_free', 1],
                 [0]]]]
-        session_one_path = self.output_directory_path.joinpath(
+        session_one_path = self.render_directory_path.joinpath(
             'c6d86f3d482a8bac1f7cc6650017da8e.aiff',
             )
-        session_two_path = self.output_directory_path.joinpath(
+        session_two_path = self.render_directory_path.joinpath(
             '988ae28d3d84ae2b458d64ce15ffb989.aiff',
             )
         exit_code, _ = session_three.render(
             self.output_file_path,
-            render_directory_path=self.output_directory_path,
+            render_directory_path=self.render_directory_path,
             build_render_yml=True,
             )
         self.assert_ok(exit_code, 10., 44100, 8, file_path=session_one_path)
@@ -802,7 +804,7 @@ class TestCase(TestCase):
             'Writing 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
             '    Wrote 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
             'Rendering 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
-            '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ output.aiff 44100 aiff int24',
+            '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ 73b90e1467ddd06f4afa06dff1f5cb41.aiff 44100 aiff int24',
             '    Rendered 73b90e1467ddd06f4afa06dff1f5cb41.osc with exit code 0.',
             'Writing output/render.yml.',
             '    Wrote output/render.yml.',

@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import contextlib
 import importlib
 import jinja2
 import json
@@ -12,6 +13,8 @@ import traceback
 from abjad.tools import stringtools
 from abjad.tools import systemtools
 from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
+from abjad.tools.systemtools import TemporaryDirectoryChange
+from supriya.tools.systemtools import Profiler
 
 
 class ProjectPackageScript(CommandlineScript):
@@ -284,6 +287,17 @@ class ProjectPackageScript(CommandlineScript):
                 print('    Missing: {!s}'.format(necessary_path))
             sys.exit(1)
         return path
+
+    def _process_args(self, args):
+        self._setup_paths(args.project_path)
+        exit_stack = contextlib.ExitStack()
+        tdc = TemporaryDirectoryChange(str(self.outer_project_path))
+        with exit_stack:
+            exit_stack.enter_context(tdc)
+            if args.profile:
+                profiler = Profiler()
+                exit_stack.enter_context(profiler)
+            self._process_args_inner(args)
 
     def _read_json(self, path, strict=False, verbose=True):
         if verbose:

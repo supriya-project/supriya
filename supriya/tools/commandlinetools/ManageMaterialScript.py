@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
 import collections
-import contextlib
 import inspect
 import os
-import pathlib
 import sys
 import traceback
 from abjad.tools import systemtools
@@ -156,52 +154,46 @@ class ManageMaterialScript(ProjectPackageScript):
     def _list_material_subpackages(self, project_path=None):
         return self._list_subpackages('materials', project_path=project_path)
 
-    def _process_args(self, args):
-        from supriya.tools import systemtools
-        exit_stack = contextlib.ExitStack()
-        with exit_stack:
-            if args.profile:
-                profiler = systemtools.Profiler()
-                exit_stack.enter_context(profiler)
-            self._setup_paths(args.project_path)
-            if args.new is not None:
-                self._handle_new(
-                    force=args.force,
-                    material_name=args.new,
-                    )
-            if args.edit is not None:
-                self._handle_edit(
-                    material_names=args.edit,
-                    )
-            if args.render is not None:
-                self._handle_render(
-                    force=args.force,
-                    material_names=args.render,
-                    )
-            if args.list_:
-                self._handle_list()
-            if args.copy is not None:
-                self._handle_copy(
-                    source_material_name=args.copy[0],
-                    target_material_name=args.copy[1],
-                    force=args.force,
-                    )
-            if args.rename is not None:
-                self._handle_rename(
-                    source_material_name=args.rename[0],
-                    target_material_name=args.rename[1],
-                    force=args.force,
-                    )
-            if args.delete is not None:
-                self._handle_delete(
-                    material_name=args.delete,
-                    )
+    def _process_args_inner(self, args):
+        if args.new is not None:
+            self._handle_new(
+                force=args.force,
+                material_name=args.new,
+                )
+        if args.edit is not None:
+            self._handle_edit(
+                material_names=args.edit,
+                )
+        if args.render is not None:
+            self._handle_render(
+                force=args.force,
+                material_names=args.render,
+                )
+        if args.list_:
+            self._handle_list()
+        if args.copy is not None:
+            self._handle_copy(
+                source_material_name=args.copy[0],
+                target_material_name=args.copy[1],
+                force=args.force,
+                )
+        if args.rename is not None:
+            self._handle_rename(
+                source_material_name=args.rename[0],
+                target_material_name=args.rename[1],
+                force=args.force,
+                )
+        if args.delete is not None:
+            self._handle_delete(
+                material_name=args.delete,
+                )
 
     def _render_one_material(self, material_directory_path):
         print('Rendering {path!s}{sep}'.format(
             path=material_directory_path.relative_to(
                 self.inner_project_path.parent),
             sep=os.path.sep))
+        output_file_path = material_directory_path / 'render.aiff'
         with systemtools.Timer() as timer:
             material = self._import_material(material_directory_path)
             if not hasattr(material, '__render__'):
@@ -217,6 +209,7 @@ class ManageMaterialScript(ProjectPackageScript):
             server_options = self._build_nrt_server_options(session)
             try:
                 exit_code, output_file_path = session.render(
+                    output_file_path=output_file_path,
                     render_directory_path=self._renders_path,
                     print_transcript=True,
                     transcript_prefix='    ',
@@ -229,13 +222,6 @@ class ManageMaterialScript(ProjectPackageScript):
             if exit_code:
                 print('    Render failed. Exiting.')
                 sys.exit(1)
-            output_file_path = pathlib.Path(output_file_path)
-            file_extension = output_file_path.suffix
-            render_file_path = material_directory_path.joinpath('render')
-            render_file_path = render_file_path.with_suffix(file_extension)
-            if render_file_path.is_symlink():
-                render_file_path.unlink()
-            render_file_path.symlink_to(output_file_path)
 
     def _build_nrt_server_options(self, session):
         from supriya.tools import commandlinetools
