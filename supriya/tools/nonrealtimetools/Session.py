@@ -1034,7 +1034,13 @@ class Session(object):
         return buffer_
 
     @classmethod
-    def from_project_settings(cls, project_settings):
+    def from_project_settings(
+        cls,
+        project_settings,
+        input_=None,
+        name=None,
+        padding=None,
+        ):
         from supriya.tools import commandlinetools
         from supriya.tools import servertools
         assert isinstance(project_settings, commandlinetools.ProjectSettings)
@@ -1046,6 +1052,9 @@ class Session(object):
         return cls(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
+            input_=input_,
+            name=name,
+            padding=padding,
             )
 
     def inscribe(

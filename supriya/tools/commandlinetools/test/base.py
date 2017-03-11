@@ -2,6 +2,7 @@
 import pathlib
 import shutil
 import sys
+from abjad.tools import stringtools
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
 from supriya.tools import soundfiletools
@@ -53,6 +54,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         material_name='test_material',
         force=False,
         expect_error=False,
+        definition_contents=None,
         ):
         script = commandlinetools.ManageMaterialScript()
         command = ['--new', material_name]
@@ -68,10 +70,13 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
-        return self.inner_project_path.joinpath(
-            'materials',
-            material_name,
-            )
+        material_path = self.inner_project_path / 'materials' / material_name
+        if definition_contents:
+            definition_contents = stringtools.normalize(definition_contents)
+            definition_file_path = material_path / 'definition.py'
+            with open(str(definition_file_path), 'w') as file_pointer:
+                file_pointer.write(definition_contents)
+        return material_path
 
     def create_project(self, force=False, expect_error=False):
         script = commandlinetools.ManageProjectScript()
@@ -97,14 +102,13 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                 except SystemExit:
                     raise RuntimeError('SystemExit')
 
-    def sample(self, file_path):
+    def sample(self, file_path, rounding=6):
         soundfile = soundfiletools.SoundFile(file_path)
         return {
-            0.0: [round(x, 6) for x in soundfile.at_percent(0)],
-            0.21: [round(x, 6) for x in soundfile.at_percent(0.21)],
-            0.41: [round(x, 6) for x in soundfile.at_percent(0.41)],
-            0.61: [round(x, 6) for x in soundfile.at_percent(0.61)],
-            0.81: [round(x, 6) for x in soundfile.at_percent(0.81)],
-            0.99: [round(x, 6) for x in soundfile.at_percent(0.99)],
+            0.0: [round(x, rounding) for x in soundfile.at_percent(0)],
+            0.21: [round(x, rounding) for x in soundfile.at_percent(0.21)],
+            0.41: [round(x, rounding) for x in soundfile.at_percent(0.41)],
+            0.61: [round(x, rounding) for x in soundfile.at_percent(0.61)],
+            0.81: [round(x, rounding) for x in soundfile.at_percent(0.81)],
+            0.99: [round(x, rounding) for x in soundfile.at_percent(0.99)],
             }
-

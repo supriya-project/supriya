@@ -1,5 +1,7 @@
 # -*- encoding: utf-8 -*-
+import jinja2
 import os
+import yaml
 from unittest import mock
 from abjad.tools import stringtools
 from abjad.tools import systemtools
@@ -10,30 +12,41 @@ from base import ProjectPackageScriptTestCase
 
 class Test(ProjectPackageScriptTestCase):
 
-    expected_files = [
-        'test_project/test_project/__init__.py',
-        'test_project/test_project/assets/.gitignore',
-        'test_project/test_project/composites/.gitignore',
-        'test_project/test_project/composites/__init__.py',
-        'test_project/test_project/distribution/.gitignore',
-        'test_project/test_project/etc/.gitignore',
-        'test_project/test_project/materials/.gitignore',
-        'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/materials/test_material/__init__.py',
-        'test_project/test_project/materials/test_material/definition.py',
-        'test_project/test_project/materials/test_material/render.aiff',
-        'test_project/test_project/materials/test_material/render.yml',
-        'test_project/test_project/metadata.json',
-        'test_project/test_project/project-settings.yml',
-        'test_project/test_project/renders/.gitignore',
-        'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
-        'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
-        'test_project/test_project/synthdefs/.gitignore',
-        'test_project/test_project/synthdefs/__init__.py',
-        'test_project/test_project/test/.gitignore',
-        'test_project/test_project/tools/.gitignore',
-        'test_project/test_project/tools/__init__.py',
-        ]
+    chain_template = jinja2.Template(stringtools.normalize('''
+    # -*- encoding: utf-8 -*-
+    import supriya
+    from test_project import project_settings
+    from test_project.materials.{{ input_material_name }}.definition import {{ input_material_name }}
+
+
+    {{ output_material_name }} = supriya.Session.from_project_settings(
+        project_settings,
+        input_={{ input_material_name }},
+        )
+
+    with supriya.SynthDefBuilder(
+        in_bus=0,
+        out_bus=0,
+        multiplier=1,
+        ) as builder:
+        source = supriya.ugentools.In.ar(
+            bus=builder['in_bus'],
+            channel_count=len({{ output_material_name }}.audio_output_bus_group),
+            )
+        supriya.ugentools.ReplaceOut.ar(
+            bus=builder['out_bus'],
+            source=source * builder['multiplier'],
+            )
+    multiplier_synthdef = builder.build()
+
+    with {{ output_material_name }}.at(0):
+        {{ output_material_name }}.add_synth(
+            duration=1,
+            in_bus={{ output_material_name }}.audio_input_bus_group,
+            multiplier={{ multiplier }},
+            synthdef=multiplier_synthdef,
+            )
+    '''))
 
     def test_missing_material(self):
         """
@@ -429,7 +442,30 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
         self.compare_path_contents(
             self.inner_project_path,
-            self.expected_files,
+            [
+                'test_project/test_project/__init__.py',
+                'test_project/test_project/assets/.gitignore',
+                'test_project/test_project/composites/.gitignore',
+                'test_project/test_project/composites/__init__.py',
+                'test_project/test_project/distribution/.gitignore',
+                'test_project/test_project/etc/.gitignore',
+                'test_project/test_project/materials/.gitignore',
+                'test_project/test_project/materials/__init__.py',
+                'test_project/test_project/materials/test_material/__init__.py',
+                'test_project/test_project/materials/test_material/definition.py',
+                'test_project/test_project/materials/test_material/render.aiff',
+                'test_project/test_project/materials/test_material/render.yml',
+                'test_project/test_project/metadata.json',
+                'test_project/test_project/project-settings.yml',
+                'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/synthdefs/.gitignore',
+                'test_project/test_project/synthdefs/__init__.py',
+                'test_project/test_project/test/.gitignore',
+                'test_project/test_project/tools/.gitignore',
+                'test_project/test_project/tools/__init__.py',
+                ]
             )
         assert self.sample(
             str(self.materials_path.joinpath('test_material', 'render.aiff'))
@@ -440,4 +476,166 @@ class Test(ProjectPackageScriptTestCase):
             0.61: [0.610839] * 8,
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
+            }
+
+    def test_success_chained(self):
+        self.create_project()
+        self.create_material('material_one')
+        self.create_material(
+            'material_two',
+            definition_contents=self.chain_template.render(
+                input_material_name='material_one',
+                output_material_name='material_two',
+                multiplier=0.5,
+                ),
+            )
+        material_three_path = self.create_material(
+            'material_three',
+            definition_contents=self.chain_template.render(
+                input_material_name='material_two',
+                output_material_name='material_three',
+                multiplier=-1.0,
+                ),
+            )
+
+        project_settings_path = self.inner_project_path / 'project-settings.yml'
+        with open(str(project_settings_path), 'r') as file_pointer:
+            project_settings = file_pointer.read()
+        project_settings = project_settings.replace(
+            'input_bus_channel_count: 8',
+            'input_bus_channel_count: 2',
+            )
+        project_settings = project_settings.replace(
+            'output_bus_channel_count: 8',
+            'output_bus_channel_count: 2',
+            )
+        with open(str(project_settings_path), 'w') as file_pointer:
+            file_pointer.write(project_settings)
+
+        self.compare_path_contents(
+            self.inner_project_path,
+            [
+                'test_project/test_project/__init__.py',
+                'test_project/test_project/assets/.gitignore',
+                'test_project/test_project/composites/.gitignore',
+                'test_project/test_project/composites/__init__.py',
+                'test_project/test_project/distribution/.gitignore',
+                'test_project/test_project/etc/.gitignore',
+                'test_project/test_project/materials/.gitignore',
+                'test_project/test_project/materials/__init__.py',
+                'test_project/test_project/materials/material_one/__init__.py',
+                'test_project/test_project/materials/material_one/definition.py',
+                'test_project/test_project/materials/material_three/__init__.py',
+                'test_project/test_project/materials/material_three/definition.py',
+                'test_project/test_project/materials/material_two/__init__.py',
+                'test_project/test_project/materials/material_two/definition.py',
+                'test_project/test_project/metadata.json',
+                'test_project/test_project/project-settings.yml',
+                'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/synthdefs/.gitignore',
+                'test_project/test_project/synthdefs/__init__.py',
+                'test_project/test_project/test/.gitignore',
+                'test_project/test_project/tools/.gitignore',
+                'test_project/test_project/tools/__init__.py']
+            )
+
+        script = commandlinetools.ManageMaterialScript()
+        command = ['--render', 'material_three']
+        with systemtools.RedirectedStreams(stdout=self.string_io):
+            with systemtools.TemporaryDirectoryChange(
+                str(self.inner_project_path)):
+                try:
+                    script(command)
+                except SystemExit as e:
+                    raise RuntimeError('SystemExit: {}'.format(e.code))
+
+        self.compare_path_contents(
+            self.inner_project_path,
+            [
+                'test_project/test_project/__init__.py',
+                'test_project/test_project/assets/.gitignore',
+                'test_project/test_project/composites/.gitignore',
+                'test_project/test_project/composites/__init__.py',
+                'test_project/test_project/distribution/.gitignore',
+                'test_project/test_project/etc/.gitignore',
+                'test_project/test_project/materials/.gitignore',
+                'test_project/test_project/materials/__init__.py',
+                'test_project/test_project/materials/material_one/__init__.py',
+                'test_project/test_project/materials/material_one/definition.py',
+                'test_project/test_project/materials/material_three/__init__.py',
+                'test_project/test_project/materials/material_three/definition.py',
+                'test_project/test_project/materials/material_three/render.aiff',
+                'test_project/test_project/materials/material_three/render.yml',
+                'test_project/test_project/materials/material_two/__init__.py',
+                'test_project/test_project/materials/material_two/definition.py',
+                'test_project/test_project/metadata.json',
+                'test_project/test_project/project-settings.yml',
+                'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/renders/73e0e852b98949e898e652c3804f7349.aiff',
+                'test_project/test_project/renders/73e0e852b98949e898e652c3804f7349.osc',
+                'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff',
+                'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.osc',
+                'test_project/test_project/renders/f231b83f67da97b079f2cc59ed9e6916.aiff',
+                'test_project/test_project/renders/f231b83f67da97b079f2cc59ed9e6916.osc',
+                'test_project/test_project/synthdefs/.gitignore',
+                'test_project/test_project/synthdefs/__init__.py',
+                'test_project/test_project/test/.gitignore',
+                'test_project/test_project/tools/.gitignore',
+                'test_project/test_project/tools/__init__.py']
+            )
+
+        self.compare_captured_output(r'''
+        Render candidates: 'material_three' ...
+        Rendering test_project/materials/material_three/
+            Importing test_project.materials.material_three.definition
+            Writing aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Wrote aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+            Rendering aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Command: scsynth -N aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
+            Writing 73e0e852b98949e898e652c3804f7349.osc.
+                Wrote 73e0e852b98949e898e652c3804f7349.osc.
+            Rendering 73e0e852b98949e898e652c3804f7349.osc.
+                Command: scsynth -N 73e0e852b98949e898e652c3804f7349.osc aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 73e0e852b98949e898e652c3804f7349.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered 73e0e852b98949e898e652c3804f7349.osc with exit code 0.
+            Writing f231b83f67da97b079f2cc59ed9e6916.osc.
+                Wrote f231b83f67da97b079f2cc59ed9e6916.osc.
+            Rendering f231b83f67da97b079f2cc59ed9e6916.osc.
+                Command: scsynth -N f231b83f67da97b079f2cc59ed9e6916.osc 73e0e852b98949e898e652c3804f7349.aiff f231b83f67da97b079f2cc59ed9e6916.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered f231b83f67da97b079f2cc59ed9e6916.osc with exit code 0.
+            Writing test_project/materials/material_three/render.yml.
+                Wrote test_project/materials/material_three/render.yml.
+            Python/SC runtime: 0 seconds
+            Rendered test_project/materials/material_three/
+        ''')
+
+        render_yml_file_path = material_three_path / 'render.yml'
+        with open(str(render_yml_file_path), 'r') as file_pointer:
+            render_yml = yaml.load(file_pointer.read())
+        assert render_yml == {
+            'render': 'f231b83f67da97b079f2cc59ed9e6916',
+            'source': [
+                '73e0e852b98949e898e652c3804f7349',
+                'aa1ca9fda49a2dd38a1a2b8a91a76cca',
+                ],
+            }
+
+        material_three_render_sample = self.sample(
+            str(material_three_path / 'render.aiff'),
+            rounding=2,
+            )
+
+        material_three_source_sample = self.sample(
+            str(self.renders_path / '{}.aiff'.format(render_yml['render'])),
+            rounding=2,
+            )
+
+        assert material_three_render_sample == material_three_source_sample
+        assert material_three_render_sample == {
+            0.0: [-0.0, -0.0],
+            0.21: [-0.11, -0.11],
+            0.41: [-0.21, -0.21],
+            0.61: [-0.31, -0.31],
+            0.81: [-0.41, -0.41],
+            0.99: [-0.5, -0.5],
             }
