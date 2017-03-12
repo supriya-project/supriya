@@ -187,7 +187,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            self.pmono_01.inscribe(session)
+            session.inscribe(self.pmono_01)
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -205,7 +205,7 @@ class TestCase(TestCase):
     def test_nonrealtime_02(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            self.pmono_02.inscribe(session)
+            session.inscribe(self.pmono_02)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],

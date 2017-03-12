@@ -8,9 +8,16 @@ from docutils import nodes
 from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
 
-# Scrape the API.
-from supriya.tools import documentationtools
-documentationtools.SupriyaDocumentationManager().execute()
+
+class SupriyaDocumentationManager(abjad.documentationtools.DocumentationManager):
+    api_directory_name = 'api'
+    api_title = 'Supriya API'
+    root_package_name = 'supriya'
+    source_directory_path_parts = ('docs', 'source')
+    tools_packages_package_path = 'supriya.tools'
+
+SupriyaDocumentationManager().execute()
+
 
 class CustomLatexFormatter(LatexFormatter):
     def __init__(self, **options):

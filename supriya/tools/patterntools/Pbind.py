@@ -93,7 +93,7 @@ class Pbind(EventPattern):
     def _coerce_pattern_pairs(self, patterns):
         from supriya.tools import patterntools
         patterns = dict(patterns)
-        for name, pattern in patterns.items():
+        for name, pattern in sorted(patterns.items()):
             if not isinstance(pattern, patterntools.Pattern):
                 pattern = patterntools.Pseq([pattern], None)
             patterns[name] = iter(pattern)
@@ -119,7 +119,7 @@ class Pbind(EventPattern):
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:
             expr = {}
-            for name, pattern in patterns.items():
+            for name, pattern in sorted(patterns.items()):
                 try:
                     expr[name] = next(pattern)
                 except StopIteration:

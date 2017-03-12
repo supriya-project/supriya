@@ -197,7 +197,7 @@ class State(SessionObject):
                 transitions, a_children, a_parents, stop_nodes,
                 )
             counter += 1
-            if counter == 10:
+            if counter == 100:
                 raise Exception
         return transitions
 
@@ -266,13 +266,17 @@ class State(SessionObject):
 
     @property
     def overlap_nodes(self):
-        nodes = self.session._nodes
-        return nodes.find_timespans_overlapping_offset(self.offset)
+        timespan_collection = self.session._nodes
+        intersection = timespan_collection.find_intersection(self.offset)
+        overlap = [_ for _ in intersection if _.start_offset < self.offset]
+        return overlap
 
     @property
     def overlap_buffers(self):
-        buffers = self.session._buffers
-        return buffers.find_timespans_overlapping_offset(self.offset)
+        timespan_collection = self.session._buffers
+        intersection = timespan_collection.find_intersection(self.offset)
+        overlap = [_ for _ in intersection if _.start_offset < self.offset]
+        return overlap
 
     @property
     def transitions(self):

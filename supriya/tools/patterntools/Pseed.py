@@ -14,6 +14,8 @@ class Pseed(Pattern):
         '_seed',
         )
 
+    _file_path = __file__
+
     ### INITIALIZER ###
 
     def __init__(self, pattern, seed=0):

@@ -1,2 +1,4 @@
+*.c
+*.html
 *.aif*
 *.osc

@@ -1,11 +1,17 @@
 # -*- encoding: utf-8 -*-
 import hashlib
-import os
+import pathlib
+import shutil
 import struct
 import subprocess
+import yaml
 from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
+from supriya.tools.nonrealtimetools import (
+    NonrealtimeRenderError,
+    NonrealtimeOutputMissing,
+)
 from supriya.tools.systemtools import SupriyaObject
 from supriya.tools.systemtools import Trellis
 
@@ -21,38 +27,34 @@ class SessionRenderer(SupriyaObject):
 
     __slots__ = (
         '_session',
+        '_print_transcript',
+        '_trellis',
         '_transcript',
+        '_transcript_prefix',
+        '_compiled_sessions',
+        '_session_file_paths',
+        '_prerender_tuples',
         )
 
     ### INITIALIZER ###
 
-    def __init__(self, session):
+    def __init__(
+        self,
+        session,
+        print_transcript=None,
+        transcript_prefix=None,
+        ):
         self._session = session
-        self._transcript = []
+        if print_transcript:
+            print_transcript = bool(print_transcript)
+        self._print_transcript = print_transcript
+        transcript_prefix = transcript_prefix or None
+        if transcript_prefix:
+            transcript_prefix = str(transcript_prefix)
+        self._transcript_prefix = transcript_prefix
+        self._reset()
 
     ### PRIVATE METHODS ###
-
-    def _build_bundles(
-        self,
-        osc_bundles,
-        session_file_paths,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        ):
-        extension = header_format.name.lower()
-        for osc_bundle in osc_bundles:
-            for osc_message in osc_bundle.contents:
-                contents = list(osc_message.contents)
-                for i, x in enumerate(contents):
-                    try:
-                        if x in session_file_paths:
-                            session_file_path = session_file_paths[x]
-                            session_file_path, _ = os.path.splitext(session_file_path)
-                            session_file_path = '{}.{}'.format(session_file_path, extension)
-                            contents[i] = session_file_path
-                    except TypeError:
-                        pass
-                osc_message._contents = tuple(contents)
-        return osc_bundles
 
     def _build_datagram(self, osc_bundles):
         datagrams = []
@@ -74,8 +76,10 @@ class SessionRenderer(SupriyaObject):
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
+        #print('BUILDING FILE PATH')
         md5 = hashlib.md5()
-        hash_values = [datagram]
+        md5.update(datagram)
+        hash_values = []
         if input_file_path is not None:
             hash_values.append(input_file_path)
         for value in (
@@ -85,14 +89,16 @@ class SessionRenderer(SupriyaObject):
             header_format,
             sample_format,
             ):
-            hash_values.append(str(value))
+            hash_values.append(value)
         for value in hash_values:
-            if isinstance(value, str):
-                value = value.encode()
+            if not isinstance(value, str):
+                value = str(value)
+            #print('    ' + value)
+            value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
         file_path = '{}.osc'.format(md5)
-        return file_path
+        return pathlib.Path(file_path)
 
     def _build_render_command(
         self,
@@ -105,14 +111,21 @@ class SessionRenderer(SupriyaObject):
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
         from supriya import supriya_configuration
+        cwd = pathlib.Path.cwd()
         server_options = server_options or servertools.ServerOptions()
         scsynth_path = supriya_configuration.scsynth_path
-        parts = [scsynth_path, '-N', os.path.relpath(session_file_path)]
+        if session_file_path.is_absolute():
+            session_file_path = session_file_path.relative_to(cwd)
+        parts = [scsynth_path, '-N', session_file_path]
         if input_file_path:
-            parts.append(os.path.relpath(os.path.expanduser(input_file_path)))
+            if input_file_path.is_absolute():
+                input_file_path = input_file_path.relative_to(cwd)
+            parts.append(input_file_path)
         else:
             parts.append('_')
-        parts.append(os.path.relpath(os.path.expanduser(output_file_path)))
+        if output_file_path.is_absolute() and cwd in output_file_path.parents:
+            output_file_path = output_file_path.relative_to(cwd)
+        parts.append(output_file_path)
         parts.append(str(int(sample_rate)))
         header_format = soundfiletools.HeaderFormat.from_expr(header_format)
         parts.append(header_format.name.lower())  # Must be lowercase.
@@ -121,70 +134,102 @@ class SessionRenderer(SupriyaObject):
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
-        command = ' '.join(parts)
+        command = ' '.join(str(_) for _ in parts)
         return command
+
+    def _build_render_yaml(self, session_prefixes):
+        session_prefixes = session_prefixes[:]
+        render_data = {'render': session_prefixes.pop(), 'source': None}
+        if session_prefixes:
+            render_data['source'] = list(reversed(session_prefixes))
+        render_yaml = yaml.dump(
+            render_data,
+            default_flow_style=False,
+            indent=4,
+            )
+        return render_yaml
+
+    def _build_xrefd_bundles(
+        self,
+        osc_bundles,
+        session_file_paths,
+        header_format=soundfiletools.HeaderFormat.AIFF,
+        ):
+        extension = '.{}'.format(header_format.name.lower())
+        for osc_bundle in osc_bundles:
+            for osc_message in osc_bundle.contents:
+                contents = list(osc_message.contents)
+                for i, x in enumerate(contents):
+                    try:
+                        if x in session_file_paths:
+                            session_file_path = session_file_paths[x].with_suffix(extension)
+                            contents[i] = str(session_file_path)
+                    except TypeError:
+                        pass
+                osc_message._contents = tuple(contents)
+        return osc_bundles
+
+    def _call_subprocess(self, command):
+        return subprocess.call(command, shell=True)
 
     def _collect_prerender_data(
         self,
         session,
-        compiled_sessions,
-        trellis,
         duration=None,
         ):
         from supriya.tools import nonrealtimetools
         input_ = session.input_
-        bundles = session._to_non_xrefd_osc_bundles(duration)
-        compiled_sessions[session] = input_, bundles
+        if isinstance(input_, str):
+            input_ = pathlib.Path(input_)
+        non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
+        self.compiled_sessions[session] = input_, non_xrefd_bundles
         if session is self.session:
-            trellis.add(session)
+            self.trellis.add(session)
         if isinstance(input_, nonrealtimetools.Session):
-            if input_ not in trellis:
-                self._collect_prerender_data(
-                    input_, compiled_sessions, trellis)
-            trellis.add(input_, parent=session)
-        for bundle in bundles:
-            for request in bundle.contents:
+            if input_ not in self.trellis:
+                self._collect_prerender_data(input_)
+            self.trellis.add(input_, parent=session)
+        for non_xrefd_bundle in non_xrefd_bundles:
+            for request in non_xrefd_bundle.contents:
                 for x in request.contents:
                     if not isinstance(x, nonrealtimetools.Session):
                         continue
-                    if x not in trellis:
-                        self._collect_prerender_data(
-                            x, compiled_sessions, trellis)
-                    trellis.add(x, parent=session)
+                    if x not in self.trellis:
+                        self._collect_prerender_data(x)
+                    self.trellis.add(x, parent=session)
 
     def _collect_prerender_tuples(
         self,
         session,
         duration=None,
-        render_path='',
+        render_directory_path=None,
         sample_rate=44100,
         header_format=soundfiletools.HeaderFormat.AIFF,
         sample_format=soundfiletools.SampleFormat.INT24,
         ):
-        trellis = Trellis()
-        compiled_sessions = {}
-        session_file_paths = {}
-        prerender_tuples = []
-        self._collect_prerender_data(
-            session,
-            compiled_sessions,
-            trellis,
-            duration=duration,
-            )
-        assert trellis.is_acyclic()
-        for i, session in enumerate(trellis):
-            input_, osc_bundles = compiled_sessions[session]
-            osc_bundles = self._build_bundles(
-                osc_bundles,
-                session_file_paths,
+        self._collect_prerender_data(session, duration=duration)
+        assert self.trellis.is_acyclic()
+        for trellis_session in self.trellis:
+            if trellis_session is session:
+                constraint_duration = (duration or session.duration) or 0.
+            else:
+                constraint_duration = session.duration
+            assert 0. < constraint_duration < float('inf')
+        for session in self.trellis:
+            input_, non_xrefd_bundles = self.compiled_sessions[session]
+            osc_bundles = self._build_xrefd_bundles(
+                non_xrefd_bundles,
+                self.session_file_paths,
                 header_format=header_format,
                 )
-            input_file_path = session_file_paths.get(input_, input_)
-            if input_file_path and input_file_path.startswith(render_path):
-                input_file_path = os.path.relpath(
-                    input_file_path, render_path)
+            input_file_path = self.session_file_paths.get(input_, input_)
+            if input_file_path:
+                input_file_path = self.get_path_relative_to_render_path(
+                    input_file_path, render_directory_path)
+            #if input_file_path and render_directory_path in input_file_path.parents:
+            #    input_file_path = input_file_path.relative_to(render_directory_path)
             datagram = self._build_datagram(osc_bundles)
-            session_file_paths[session] = self._build_file_path(
+            session_file_path = self._build_file_path(
                 datagram,
                 input_file_path,
                 session,
@@ -192,7 +237,7 @@ class SessionRenderer(SupriyaObject):
                 sample_format=sample_format,
                 sample_rate=sample_rate,
                 )
-            session_file_path = session_file_paths[session]
+            self.session_file_paths[session] = session_file_path
             prerender_tuple = (
                 datagram,
                 input_file_path,
@@ -200,8 +245,8 @@ class SessionRenderer(SupriyaObject):
                 session,
                 session_file_path,
                 )
-            prerender_tuples.append(prerender_tuple)
-        return prerender_tuples
+            self.prerender_tuples.append(prerender_tuple)
+        return self.prerender_tuples
 
     def _render_datagram(
         self,
@@ -215,12 +260,14 @@ class SessionRenderer(SupriyaObject):
         **kwargs
         ):
         from supriya import new
-        self.transcript.append('Rendering {}.'.format(
-            os.path.relpath(session_file_path)))
-        if os.path.exists(output_file_path):
-            self.transcript.append(
-                '    Skipped {}. Output already exists.'.format(
-                    os.path.relpath(session_file_path)))
+        relative_session_file_path = session_file_path
+        if relative_session_file_path.is_absolute():
+            relative_session_file_path = session_file_path.relative_to(
+                pathlib.Path.cwd())
+        self._report('Rendering {}.'.format(relative_session_file_path))
+        if output_file_path.exists():
+            self._report('    Skipped {}. Output already exists.'.format(
+                relative_session_file_path))
             return 0
         old_server_options = session._options
         new_server_options = new(old_server_options, **kwargs)
@@ -233,29 +280,53 @@ class SessionRenderer(SupriyaObject):
             header_format=header_format,
             sample_format=sample_format,
             )
-        self.transcript.append('    Command: {}'.format(command))
-        exit_code = subprocess.call(command, shell=True)
-        self.transcript.append('    Rendered {} with exit code {}.'.format(
-            os.path.relpath(session_file_path), exit_code))
+        self._report('    Command: {}'.format(command))
+        exit_code = self._call_subprocess(command)
+        self._report('    Rendered {} with exit code {}.'.format(
+            relative_session_file_path, exit_code))
         return exit_code
 
-    def _write_datagram(self, file_path, datagram):
-        self.transcript.append(
-            'Writing {}.'.format(os.path.relpath(file_path)))
-        should_write = True
-        if os.path.exists(file_path):
-            with open(file_path, 'rb') as file_pointer:
-                if file_pointer.read() == datagram:
-                    should_write = False
-        if should_write:
-            with open(file_path, 'wb') as file_pointer:
-                file_pointer.write(datagram)
-            self.transcript.append(
-                '    Wrote {}.'.format(os.path.relpath(file_path)))
+    def _read(self, file_path, mode=''):
+        try:
+            with open(str(file_path), 'r' + mode) as file_pointer:
+                return file_pointer.read()
+        except FileNotFoundError:
+            return None
+
+    def _report(self, message):
+        if self.transcript_prefix:
+            message = '{}{}'.format(self.transcript_prefix, message)
+        if self.print_transcript:
+            print(message)
+        self.transcript.append(message)
+
+    def _reset(self):
+        self._compiled_sessions = {}
+        self._prerender_tuples = []
+        self._session._transcript = self._transcript = []
+        self._session_file_paths = {}
+        self._trellis = Trellis()
+
+    def _write_datagram(self, file_path, new_contents):
+        self._write(file_path, new_contents, mode='b')
+
+    def _write_render_yaml(self, file_path, render_yaml):
+        self._write(file_path, render_yaml)
+
+    def _write(self, file_path, new_contents, mode=''):
+        cwd = pathlib.Path.cwd()
+        relative_file_path = file_path
+        if file_path.is_absolute() and cwd in file_path.parents:
+            relative_file_path = file_path.relative_to(cwd)
+        self._report('Writing {}.'.format(relative_file_path))
+        old_contents = self._read(file_path, mode=mode)
+        if old_contents == new_contents:
+            self._report('    Skipped {}. File already exists.'.format(
+                relative_file_path))
         else:
-            self.transcript.append(
-                '    Skipped {}. OSC file already exists.'.format(
-                    os.path.relpath(file_path)))
+            with open(str(file_path), 'w' + mode) as file_pointer:
+                file_pointer.write(new_contents)
+            self._report('    Wrote {}.'.format(relative_file_path))
 
     ### PUBLIC METHODS ###
 
@@ -263,12 +334,14 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
         osc_bundles = self.to_osc_bundles(
             duration=duration,
             header_format=header_format,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -278,13 +351,19 @@ class SessionRenderer(SupriyaObject):
         self,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
-        prerender_tuples = self._collect_prerender_tuples(
+        from supriya import supriya_configuration
+        self._reset()
+        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
+        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
+        self._collect_prerender_tuples(
             self.session,
             duration=duration,
             header_format=header_format,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
@@ -294,8 +373,29 @@ class SessionRenderer(SupriyaObject):
             osc_bundles,
             session,
             session_file_path,
-            ) = prerender_tuples[-1]
+            ) = self.prerender_tuples[-1]
         return osc_bundles
+
+    @classmethod
+    def get_path_relative_to_render_path(cls, target_path, render_path):
+        target_path = pathlib.Path(target_path)
+        render_path = pathlib.Path(render_path)
+        try:
+            return target_path.relative_to(render_path)
+        except ValueError:
+            pass
+        target_path = pathlib.Path(target_path)
+        render_path = pathlib.Path(render_path)
+        target_path_parents = set(target_path.parents)
+        render_path_parents = set(render_path.parents)
+        common_parents = target_path_parents.intersection(render_path_parents)
+        if not common_parents:
+            return target_path
+        common_parent = sorted(common_parents)[-1]
+        target_path = target_path.relative_to(common_parent)
+        render_path = render_path.relative_to(common_parent)
+        parts = ['..' for _ in render_path.parts] + [target_path]
+        return pathlib.Path().joinpath(*parts)
 
     def render(
         self,
@@ -303,24 +403,32 @@ class SessionRenderer(SupriyaObject):
         debug=None,
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
-        render_path=None,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
+        build_render_yml=None,
         **kwargs
         ):
         from supriya import supriya_configuration
-        render_path = render_path or supriya_configuration.output_directory
+        extension = '.{}'.format(header_format.name.lower())
         self.transcript[:] = []
+        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
+        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
+        if output_file_path is not None:
+            output_file_path = pathlib.Path(output_file_path)
+            output_file_path = output_file_path.expanduser().absolute()
         original_output_file_path = output_file_path
-        prerender_tuples = self._collect_prerender_tuples(
+        self._collect_prerender_tuples(
             self.session,
             duration=duration,
             header_format=header_format,
+            render_directory_path=render_directory_path,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
-        assert prerender_tuples, prerender_tuples
-        for i, prerender_tuple in enumerate(prerender_tuples):
+        assert self.prerender_tuples, self.prerender_tuples
+        session_prefixes = []
+        for i, prerender_tuple in enumerate(self.prerender_tuples):
             (
                 datagram,
                 input_file_path,
@@ -328,16 +436,12 @@ class SessionRenderer(SupriyaObject):
                 session,
                 session_file_path,
                 ) = prerender_tuple
-            extension = header_format.name.lower()
-            if i < len(prerender_tuples) - 1 or not output_file_path:
-                output_file_path, _ = os.path.splitext(session_file_path)
-                output_file_path = '{}.{}'.format(output_file_path, extension)
-            else:
-                output_file_path = original_output_file_path
-            if input_file_path and input_file_path.endswith('.osc'):
-                input_file_path, _ = os.path.splitext(input_file_path)
-                input_file_path = '{}.{}'.format(input_file_path, extension)
-            with TemporaryDirectoryChange(directory=render_path):
+            prefix = session_file_path.with_suffix('').name
+            session_prefixes.append(prefix)
+            output_file_path = session_file_path.with_suffix(extension)
+            if input_file_path and input_file_path.suffix == '.osc':
+                input_file_path = input_file_path.with_suffix(extension)
+            with TemporaryDirectoryChange(directory=str(render_directory_path)):
                 self._write_datagram(session_file_path, datagram)
                 exit_code = self._render_datagram(
                     session,
@@ -350,20 +454,58 @@ class SessionRenderer(SupriyaObject):
                     **kwargs
                     )
             if exit_code:
-                raise Exception(exit_code)
-        if not os.path.isabs(output_file_path) and render_path:
-            output_file_path = os.path.join(
-                render_path,
-                output_file_path,
+                self._report('    SuperCollider errored!')
+                raise NonrealtimeRenderError(exit_code)
+        output_file_path = render_directory_path / output_file_path
+        if not output_file_path.exists():
+            self._report('    Output file is missing!')
+            raise NonrealtimeOutputMissing(output_file_path)
+        if original_output_file_path is not None:
+            shutil.copy(
+                str(output_file_path),
+                str(original_output_file_path),
+                )
+        if build_render_yml:
+            output_directory = (
+                original_output_file_path or output_file_path
+                ).parent
+            render_yaml = self._build_render_yaml(session_prefixes)
+            self._write_render_yaml(
+                output_directory / 'render.yml',
+                render_yaml,
                 )
         return exit_code, self.transcript, output_file_path
 
     ### PUBLIC PROPERTIES ###
 
     @property
+    def compiled_sessions(self):
+        return self._compiled_sessions
+
+    @property
+    def prerender_tuples(self):
+        return self._prerender_tuples
+
+    @property
+    def print_transcript(self):
+        return self._print_transcript
+
+    @property
     def session(self):
         return self._session
 
     @property
+    def session_file_paths(self):
+        return self._session_file_paths
+
+    @property
     def transcript(self):
         return self._transcript
+
+    @property
+    def transcript_prefix(self):
+        return self._transcript_prefix
+
+    @property
+    def trellis(self):
+        return self._trellis

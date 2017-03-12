@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 import collections
-from supriya.tools.datastructuretools.TreeNode import TreeNode
+from supriya.tools.systemtools.TreeNode import TreeNode
 
 
 class TreeContainer(TreeNode):

@@ -17,8 +17,6 @@ class Pattern(SupriyaValueObject):
 
     __slots__ = ()
 
-    _filename = __file__
-
     _rngs = {}
 
     class PatternState(Enumeration):
@@ -128,10 +126,10 @@ class Pattern(SupriyaValueObject):
                     should_stop = yield expr
                 except StopIteration:
                     break
-            if peripheral_stops:
-                null_event = self._setup_pre_peripheral_stops_null_event()
-                if null_event:
-                    peripheral_stops.insert(0, null_event)
+            #if peripheral_stops:
+            #    null_event = self._setup_pre_peripheral_stops_null_event()
+            #    if null_event:
+            #        peripheral_stops.insert(0, null_event)
         if peripheral_stops:
             peripheral_stops = patterntools.CompositeEvent(
                 delta=0.0,
@@ -191,26 +189,27 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _get_rng(cls):
-        from supriya.tools import patterntools
-        pseed_file_path = inspect.getfile(patterntools.Pseed)
+        from supriya.tools.patterntools import Pseed, RandomNumberGenerator
+        pseed_file_path = Pseed._file_path
         identifier = None
         try:
-            stack = inspect.stack()
-            for frame_info in stack:
+            frame = inspect.currentframe()
+            while frame is not None:
+                file_path = frame.f_code.co_filename
+                function_name = frame.f_code.co_name
                 if (
-                    frame_info.filename == pseed_file_path and
-                    frame_info.function == '_iterate'
+                    file_path == pseed_file_path and
+                    function_name == '_iterate'
                     ):
-                    identifier = id(frame_info.frame)
+                    identifier = id(frame)
                     break
+                frame = frame.f_back
         finally:
-            del(frame_info)
-            del(stack)
+            del(frame)
         if identifier in cls._rngs:
             rng = cls._rngs[identifier]
-        elif identifier is None:
-            rng = patterntools.RandomNumberGenerator.get_stdlib_rng()
-            cls._rngs[identifier] = rng
+        else:
+            rng = RandomNumberGenerator.get_stdlib_rng()
         return rng
 
     @classmethod
@@ -249,12 +248,12 @@ class Pattern(SupriyaValueObject):
     def _setup_peripherals(self, initial_expr, state):
         return None, None
 
-    def _setup_pre_peripheral_stops_null_event(self):
-        from supriya.tools import patterntools
-        delta = self._release_time or 0
-        if not delta:
-            return
-        return patterntools.NullEvent(delta=delta)
+#    def _setup_pre_peripheral_stops_null_event(self):
+#        from supriya.tools import patterntools
+#        delta = self._release_time or 0
+#        if not delta:
+#            return
+#        return patterntools.NullEvent(delta=delta)
 
     ### PUBLIC PROPERTIES ###
 

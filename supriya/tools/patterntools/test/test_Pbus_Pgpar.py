@@ -3,7 +3,6 @@ from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
-from supriya.tools import synthdeftools
 
 
 class TestCase(TestCase):
@@ -53,21 +52,27 @@ class TestCase(TestCase):
             [13.0, [
                 ['/n_set', 1008, 'gate', 0],
                 ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 990, 'out', 0]]],
-            [14.0, [['/n_set', 1004, 'gate', 0]]],
-            [14.25, [['/n_free', 1000, 1001, 1002, 1003]]]]
+            [14.0, [
+                ['/n_set', 1004, 'gate', 0],
+                ['/n_free', 1001]]],
+            [14.25, [
+                ['/n_free', 1000, 1002, 1003]]]]
         assert deltas == [0.75, 0.25, 0.5, 0.5, 0.25, 0.75, 1.0, 0.25, None]
 
     def test_nonrealtime(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            self.pattern.inscribe(session)
+            session.inscribe(self.pattern)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -97,8 +102,8 @@ class TestCase(TestCase):
                 ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 990, 'out', 16],
                 ['/n_set', 1008, 'gate', 0]]],
             [14.0, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1004, 'gate', 0]]],
             [14.25, [
                 ['/n_free', 1000, 1002, 1003],
-                ['/n_set', 1001, 'gate', 0],
                 [0]]]]

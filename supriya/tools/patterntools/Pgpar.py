@@ -42,6 +42,9 @@ class Pgpar(Ppar):
         from supriya.tools import patterntools
         group_uuids = state.get('group_uuids')
         peripheral_starts, peripheral_stops = [], []
+        delta = self._release_time or 0
+        if delta:
+            peripheral_stops.append(patterntools.NullEvent(delta=delta))
         for group_uuid in group_uuids:
             start_group_event = patterntools.GroupEvent(
                 uuid=group_uuid,
@@ -64,3 +67,7 @@ class Pgpar(Ppar):
             state['group_uuids'].append(group_uuid)
             state['iterators_to_group_uuids'][iterator] = group_uuid
         return state
+
+    @property
+    def release_time(self):
+        return self._release_time

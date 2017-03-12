@@ -34,7 +34,7 @@ class Pbindf(EventPattern):
     def _coerce_pattern_pairs(self, patterns):
         from supriya.tools import patterntools
         patterns = dict(patterns)
-        for name, pattern in patterns.items():
+        for name, pattern in sorted(patterns.items()):
             if not isinstance(pattern, patterntools.Pattern):
                 pattern = patterntools.Pseq([pattern], None)
             patterns[name] = iter(pattern)
@@ -66,7 +66,7 @@ class Pbindf(EventPattern):
             except StopIteration:
                 return
             expr = self._coerce_iterator_output(expr)
-            for name, key_iterator in key_iterators.items():
+            for name, key_iterator in sorted(key_iterators.items()):
                 try:
                     template_dict[name] = next(key_iterator)
                 except StopIteration:

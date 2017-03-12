@@ -8,9 +8,9 @@ class SupriyaConfiguration(Configuration):
 
     def __init__(self):
         Configuration.__init__(self)
-        if not os.path.exists(self.output_directory):
+        if not os.path.exists(self.output_directory_path):
             try:
-                os.makedirs(self.output_directory)
+                os.makedirs(self.output_directory_path)
             except (IOError, OSError):
                 traceback.print_exc()
 
@@ -40,7 +40,7 @@ class SupriyaConfiguration(Configuration):
         return 'supriya.cfg'
 
     @property
-    def output_directory(self):
+    def output_directory_path(self):
         return os.path.join(
             self.configuration_directory_path,
             'output'

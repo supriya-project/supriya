@@ -4,7 +4,6 @@ import pytest
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
-from supriya.tools import synthdeftools
 
 from patterntools_testbase import TestCase
 
@@ -284,13 +283,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.25,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -308,13 +307,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -473,13 +472,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -540,13 +539,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -631,13 +630,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.25,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -655,13 +654,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -754,13 +753,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.5,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -778,13 +777,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('G'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
@@ -806,7 +805,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_01.inscribe(session)
+            final_offset = session.inscribe(self.ppar_01)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -831,7 +830,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_01.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_01, duration=1.75)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -851,14 +850,17 @@ class TestCase(TestCase):
     def test_nonrealtime_04a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_04.inscribe(session)
+            final_offset = session.inscribe(self.ppar_04)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -878,27 +880,31 @@ class TestCase(TestCase):
             [1.5, [
                 ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 444, 'out', 18]]],
             [2.0, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1006, 'gate', 0]]],
             [2.25, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
+                ['/n_set', 1004, 'gate', 0],
                 ['/n_set', 1005, 'gate', 0]]],
             [2.5, [
                 ['/n_free', 1003],
-                ['/n_set', 1004, 'gate', 0], [0]]]]
+                [0]]]]
         assert final_offset == 2.5
 
     def test_nonrealtime_04b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_04.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_04, duration=1.75)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -912,15 +918,15 @@ class TestCase(TestCase):
             [0.75, [
                 ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
             [1.0, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1002, 'gate', 0]]],
             [1.25, [
-                ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0]]],
+                ['/n_free', 1000]]],
             [1.5, [
+                ['/n_set', 1004, 'gate', 0],
                 ['/n_set', 1005, 'gate', 0]]],
             [1.75, [
                 ['/n_free', 1003],
-                ['/n_set', 1004, 'gate', 0],
                 [0]]]]
 
         assert final_offset == 1.75
@@ -928,14 +934,17 @@ class TestCase(TestCase):
     def test_nonrealtime_05a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_05.inscribe(session)
+            final_offset = session.inscribe(self.ppar_05)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -950,24 +959,27 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 880, 'out', 16],
                 ['/n_set', 1003, 'gate', 0]]],
             [2.25, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1004, 'gate', 0]]],
             [2.5, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
                 [0]]]]
         assert final_offset == 2.5
 
     def test_nonrealtime_05b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.ppar_05.inscribe(session, duration=1.75)
+            final_offset = session.inscribe(self.ppar_05, duration=1.75)
+        d_recv_commands = []
+        for synthdef in sorted(
+            [synthdefs.system_link_audio_2, synthdefs.default],
+            key=lambda x: x.anonymous_name,
+            ):
+            compiled_synthdef = bytearray(synthdef.compile())
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(
-                    synthdeftools.SynthDefCompiler.compile_synthdefs([
-                        synthdefs.system_link_audio_2,
-                        synthdefs.default,
-                        ]))],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
                     'in_', 16],
@@ -978,9 +990,9 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 660, 'out', 16],
                 ['/n_set', 1002, 'gate', 0]]],
             [1.5, [
+                ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1003, 'gate', 0]]],
             [1.75, [
                 ['/n_free', 1000],
-                ['/n_set', 1001, 'gate', 0],
                 [0]]]]
         assert final_offset == 1.75

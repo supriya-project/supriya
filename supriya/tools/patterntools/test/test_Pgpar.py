@@ -152,6 +152,9 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
+                        ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,
                         is_stop=True,
@@ -313,7 +316,7 @@ class TestCase(TestCase):
     def test_nonrealtime(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            self.pattern.inscribe(session)
+            session.inscribe(self.pattern)
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],

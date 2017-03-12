@@ -88,7 +88,9 @@ class ServerOptions(SupriyaObject):
         self._control_bus_channel_count = int(control_bus_channel_count)
         self._hardware_buffer_size = hardware_buffer_size
         self._initial_node_id = int(initial_node_id)
-        input_bus_channel_count = int(input_bus_channel_count or 8)
+        if input_bus_channel_count is None:
+            input_bus_channel_count = 8
+        input_bus_channel_count = int(input_bus_channel_count)
         assert 0 <= input_bus_channel_count
         self._input_bus_channel_count = input_bus_channel_count
         self._input_device = input_device
@@ -98,7 +100,9 @@ class ServerOptions(SupriyaObject):
         self._maximum_synthdef_count = int(maximum_synthdef_count)
         self._memory_locking = bool(memory_locking)
         self._memory_size = int(memory_size)
-        output_bus_channel_count = int(output_bus_channel_count or 8)
+        if output_bus_channel_count is None:
+            output_bus_channel_count = 8
+        output_bus_channel_count = int(output_bus_channel_count)
         assert 0 <= output_bus_channel_count
         self._output_bus_channel_count = output_bus_channel_count
         self._output_device = output_device
@@ -200,6 +204,14 @@ class ServerOptions(SupriyaObject):
 
         options_string = ' '.join(str(x) for x in result)
         return options_string
+
+    def as_dict(self):
+        options = {}
+        for name in self.__slots__:
+            value = getattr(self, name)
+            name = name.strip('_')
+            options[name] = value
+        return options
 
     ### PUBLIC PROPERTIES ###
 

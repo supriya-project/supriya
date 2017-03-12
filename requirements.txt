@@ -9,3 +9,4 @@ sphinx_rtd_theme
 tornado
 tox
 wavefile
+PyYAML

@@ -50,7 +50,7 @@ class TestCase(TestCase):
                         margin=0.05];
                 }
                 subgraph cluster_1 {
-                    graph [label="0"];
+                    graph [label="0.0"];
                     subgraph cluster_1_0 {
                         node_1_0_0 [label=<
                             <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
@@ -98,7 +98,7 @@ class TestCase(TestCase):
                     node_1_3 -> node_1_0_0;
                 }
                 subgraph cluster_2 {
-                    graph [label="5"];
+                    graph [label="5.0"];
                     subgraph cluster_2_0 {
                         node_2_0_0 [label=<
                             <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
@@ -158,7 +158,7 @@ class TestCase(TestCase):
                     node_2_3 -> node_2_0_1;
                 }
                 subgraph cluster_3 {
-                    graph [label="10"];
+                    graph [label="10.0"];
                     subgraph cluster_3_0 {
                         node_3_0_0 [label=<
                             <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">

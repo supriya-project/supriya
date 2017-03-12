@@ -177,13 +177,13 @@ class TestCase(TestCase):
             supriya.tools.patterntools.CompositeEvent(
                 delta=0.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
-                        delta=0.25,
-                        ),
                     supriya.tools.patterntools.SynthEvent(
                         delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
+                        ),
+                    supriya.tools.patterntools.NullEvent(
+                        delta=0.25,
                         ),
                     supriya.tools.patterntools.GroupEvent(
                         delta=0.0,

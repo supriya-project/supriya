@@ -1,0 +1,2 @@
+class NonrealtimeRenderError(Exception):
+    pass

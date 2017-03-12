@@ -339,7 +339,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.pbind_01.inscribe(session)
+            final_offset = session.inscribe(self.pbind_01)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -362,7 +362,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01b(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.pbind_01.inscribe(session, duration=3)
+            final_offset = session.inscribe(self.pbind_01, duration=3)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -378,7 +378,7 @@ class TestCase(TestCase):
     def test_nonrealtime_01c(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.pbind_01.inscribe(session, duration=2)
+            final_offset = session.inscribe(self.pbind_01, duration=2)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -392,7 +392,7 @@ class TestCase(TestCase):
     def test_nonrealtime_02a(self):
         session = nonrealtimetools.Session()
         with session.at(10):
-            final_offset = self.pbind_02.inscribe(session)
+            final_offset = session.inscribe(self.pbind_02)
         assert session.to_lists() == [
             [10.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],
@@ -423,7 +423,7 @@ class TestCase(TestCase):
     def test_nonrealtime_03a(self):
         session = nonrealtimetools.Session()
         with session.at(0):
-            final_offset = self.pbind_03.inscribe(session)
+            final_offset = session.inscribe(self.pbind_03)
         assert session.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdefs.default.compile())],

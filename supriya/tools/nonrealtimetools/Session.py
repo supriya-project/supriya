@@ -11,7 +11,6 @@ from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
-from supriya.tools.osctools.OscMixin import OscMixin
 try:
     from queue import PriorityQueue
 except ImportError:
@@ -19,7 +18,7 @@ except ImportError:
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class Session(OscMixin):
+class Session(object):
     """
     A non-realtime session.
 
@@ -73,6 +72,8 @@ class Session(OscMixin):
 
     __documentation_section__ = 'Non-realtime Session'
 
+    __is_terminal_ajv_list_item__ = True
+
     __slots__ = (
         '_active_moments',
         '_audio_input_bus_group',
@@ -84,6 +85,7 @@ class Session(OscMixin):
         '_nodes',
         '_offsets',
         '_options',
+        '_padding',
         '_root_node',
         '_session_ids',
         '_states',
@@ -115,6 +117,7 @@ class Session(OscMixin):
         output_bus_channel_count=None,
         input_=None,
         name=None,
+        padding=None,
         ):
         from supriya.tools import nonrealtimetools
         self._options = servertools.ServerOptions(
@@ -122,19 +125,22 @@ class Session(OscMixin):
             output_bus_channel_count=output_bus_channel_count,
             )
         self._active_moments = []
-        self._session_ids = {}
-        self._states = {}
-        self._buffers = timetools.TimespanCollection()
-        self._nodes = timetools.TimespanCollection()
+        self._buffers = timetools.TimespanCollection(accelerated=True)
+        self._name = name
+        self._nodes = timetools.TimespanCollection(accelerated=True)
         self._offsets = []
         self._root_node = nonrealtimetools.RootNode(self)
-        self._setup_initial_states()
-        self._setup_buses()
+        self._session_ids = {}
+        self._states = {}
+        self._transcript = None
         if input_ is not None and not isinstance(input_, type(self)):
             input_ = str(input_)
         self._input = input_
-        self._name = name
-        self._transcript = None
+        if padding is not None:
+            padding = float(padding)
+        self._padding = padding
+        self._setup_initial_states()
+        self._setup_buses()
 
     ### SPECIAL METHODS ###
 
@@ -152,11 +158,14 @@ class Session(OscMixin):
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
 
-    def __eq__(self, expr):
-        return self is expr
+#    def __eq__(self, expr):
+#        return self is expr
+#
+#    def __hash__(self):
+#        return id(self)
 
-    def __hash__(self):
-        return id(self)
+    def __render__(self, **kwargs):
+        return self
 
     ### PRIVATE METHODS ###
 
@@ -481,8 +490,8 @@ class Session(OscMixin):
         if is_last_offset:
             stop_buffers.update(state.overlap_buffers)
             stop_nodes.update(state.overlap_nodes)
-        all_buffers = set(self.buffers.find_timespans_overlapping_offset(offset))
-        all_nodes = set(self.nodes.find_timespans_overlapping_offset(offset))
+        all_buffers = set(self.buffers.find_intersection(offset))
+        all_nodes = set(self.nodes.find_intersection(offset))
         all_buffers.update(stop_buffers)
         all_nodes.update(stop_nodes)
         return (
@@ -702,8 +711,8 @@ class Session(OscMixin):
             synthdefs.add(node.synthdef)
             visited_synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
-        if synthdefs:
-            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdefs)
+        for synthdef in synthdefs:
+            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdef)
             requests.append(request)
         return requests
 
@@ -799,20 +808,6 @@ class Session(OscMixin):
                     with_node_tree=with_node_tree,
                     )
 
-    def _process_duration(self, duration=None):
-        if self.duration == float('inf'):
-            assert duration is not None and 0 < duration < float('inf')
-        offsets = self.offsets[1:]
-        states = [self.states[offset] for offset in offsets]
-        if duration:
-            offsets = [offset for offset in offsets if
-                offset <= duration]
-            states = [self.states[offset] for offset in offsets]
-            if states[-1].offset != duration:
-                terminal_state = states[-1]._clone(duration)
-                states.append(terminal_state)
-        return states
-
     def _setup_buses(self):
         from supriya.tools import nonrealtimetools
         self._buses = collections.OrderedDict()
@@ -831,7 +826,7 @@ class Session(OscMixin):
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
         self.offsets.append(offset)
-        offset = 0
+        offset = 0.0
         state = state._clone(offset)
         self.states[offset] = state
         self.offsets.append(offset)
@@ -896,6 +891,7 @@ class Session(OscMixin):
 
     def at(self, offset, propagate=True):
         from supriya.tools import nonrealtimetools
+        offset = float(offset)
         assert 0 <= offset
         state = self._find_state_at(offset)
         if state:
@@ -1000,8 +996,8 @@ class Session(OscMixin):
         return self.root_node.add_synth(
             add_action=add_action,
             duration=duration,
-            synthdef=synthdef,
             offset=offset,
+            synthdef=synthdef,
             **synth_kwargs
             )
 
@@ -1037,6 +1033,44 @@ class Session(OscMixin):
             )
         return buffer_
 
+    @classmethod
+    def from_project_settings(
+        cls,
+        project_settings,
+        input_=None,
+        name=None,
+        padding=None,
+        ):
+        from supriya.tools import commandlinetools
+        from supriya.tools import servertools
+        assert isinstance(project_settings, commandlinetools.ProjectSettings)
+        server_options = servertools.ServerOptions(
+            **project_settings.get('server_options', {})
+            )
+        input_bus_channel_count = server_options.input_bus_channel_count
+        output_bus_channel_count = server_options.output_bus_channel_count
+        return cls(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            input_=input_,
+            name=name,
+            padding=padding,
+            )
+
+    def inscribe(
+        self,
+        pattern,
+        duration=None,
+        offset=None,
+        seed=None,
+        ):
+        return self.root_node.inscribe(
+            pattern,
+            duration=duration,
+            offset=offset,
+            seed=seed,
+            )
+
     def move_node(
         self,
         node,
@@ -1062,20 +1096,28 @@ class Session(OscMixin):
         duration=None,
         header_format=soundfiletools.HeaderFormat.AIFF,
         input_file_path=None,
-        render_path=None,
+        render_directory_path=None,
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
+        print_transcript=None,
+        transcript_prefix=None,
         **kwargs
         ):
         from supriya.tools import nonrealtimetools
-        renderer = nonrealtimetools.SessionRenderer(self)
+        duration = (duration or self.duration) or 0.
+        assert 0. < duration < float('inf')
+        renderer = nonrealtimetools.SessionRenderer(
+            session=self,
+            print_transcript=print_transcript,
+            transcript_prefix=transcript_prefix,
+            )
         exit_code, transcript, output_file_path = renderer.render(
             output_file_path,
             duration=duration,
             sample_rate=sample_rate,
             header_format=header_format,
             sample_format=sample_format,
-            render_path=render_path,
+            render_directory_path=render_directory_path,
             debug=debug,
             **kwargs
             )
@@ -1178,13 +1220,23 @@ class Session(OscMixin):
 
     @property
     def duration(self):
-        if 1 < len(self.offsets):
-            return self.offsets[-1]
-        return 0
+        duration = 0.0
+        for duration in reversed(self.offsets):
+            if duration < float('inf'):
+                break
+        if duration < 0.0:
+            duration = 0.0
+        if duration > 0.0 and self.padding:
+            duration += self.padding
+        return duration
 
     @property
     def input_(self):
         return self._input
+
+    @property
+    def input_bus_channel_count(self):
+        return self.options.input_bus_channel_count
 
     @property
     def name(self):
@@ -1203,20 +1255,20 @@ class Session(OscMixin):
         return self._options
 
     @property
+    def output_bus_channel_count(self):
+        return self.options.output_bus_channel_count
+
+    @property
+    def padding(self):
+        return self._padding
+
+    @property
     def root_node(self):
         return self._root_node
 
     @property
-    def start_offset(self):
-        return self.root_node.start_offset
-
-    @property
     def states(self):
         return self._states
-
-    @property
-    def stop_offset(self):
-        return self.root_node.stop_offset
 
     @property
     def transcript(self):

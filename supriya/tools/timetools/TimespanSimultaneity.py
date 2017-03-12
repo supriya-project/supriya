@@ -27,14 +27,8 @@ class TimespanSimultaneity(SupriyaObject):
         start_offset=None,
         stop_timespans=None,
         ):
-        from supriya.tools import timetools
-        prototype = (timetools.TimespanCollection, type(None))
-        assert isinstance(timespan_collection, prototype)
         self._timespan_collection = timespan_collection
         self._start_offset = start_offset
-        assert isinstance(start_timespans, tuple)
-        assert isinstance(stop_timespans, (tuple, type(None)))
-        assert isinstance(overlap_timespans, (tuple, type(None)))
         self._start_timespans = start_timespans
         self._stop_timespans = stop_timespans
         self._overlap_timespans = overlap_timespans
