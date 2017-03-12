@@ -4,6 +4,7 @@ import pathlib
 import sys
 import yaml
 from abjad.tools import stringtools
+from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
 
 
@@ -25,6 +26,16 @@ class ManageProjectScript(ProjectPackageScript):
     short_description = 'manage project packages'
 
     ### PRIVATE METHODS ###
+
+    def _handle_clean(self):
+        here = pathlib.Path.cwd()
+        renders_path = (self.inner_project_path / 'renders').relative_to(here)
+        print('Cleaning {} ...'.format(renders_path))
+        for file_path in list(renders_path.iterdir()):
+            if file_path.name.startswith('.'):
+                continue
+            file_path.unlink()
+            print('    Cleaned {}'.format(file_path))
 
     def _handle_new(
         self,
@@ -97,6 +108,25 @@ class ManageProjectScript(ProjectPackageScript):
             path=package_name,
             sep=os.path.sep))
 
+    def _handle_prune(self):
+        here = pathlib.Path.cwd()
+        renders_path = (self.inner_project_path / 'renders').relative_to(here)
+        print('Pruning {} ...'.format(renders_path))
+        md5s = set()
+        for file_path in self.inner_project_path.glob('**/render.yml'):
+            with open(str(file_path), 'r') as file_pointer:
+                render_yml = yaml.load(file_pointer.read())
+                md5s.add(render_yml['render'])
+                if render_yml['source']:
+                    md5s.update(render_yml['source'])
+        for file_path in list(renders_path.iterdir()):
+            if file_path.name.startswith('.'):
+                continue
+            if file_path.with_suffix('').name in md5s:
+                continue
+            file_path.unlink()
+            print('    Pruned {}'.format(file_path))
+
     @classmethod
     def _make_project_settings_yaml(
         cls,
@@ -146,8 +176,11 @@ class ManageProjectScript(ProjectPackageScript):
                 )
             return
         self._setup_paths(args.project_path)
-        if args.clean:
-            self._handle_clean(args.project_path)
+        with TemporaryDirectoryChange(str(self.outer_project_path)):
+            if args.clean:
+                self._handle_clean()
+            if args.prune:
+                self._handle_prune()
 
     def _setup_argument_parser(self, parser):
         action_group = parser.add_argument_group('actions')
@@ -158,36 +191,43 @@ class ManageProjectScript(ProjectPackageScript):
             metavar='TITLE',
             )
         action_group.add_argument(
+            '--prune', '-P',
+            action='store_true',
+            help='prune out stale render artifacts',
+            )
+        action_group.add_argument(
             '--clean', '-C',
             action='store_true',
-            help='clean out stale render artifacts',
+            help='clean out all render artifacts',
             )
+
         new_group = parser.add_argument_group('--new options')
         new_group.add_argument(
-            '--composer-name', '-n',
+            '--composer-name',
             default='A Composer',
             metavar='NAME',
             )
         new_group.add_argument(
-            '--composer-email', '-e',
+            '--composer-email',
             default='composer@email.com',
             metavar='EMAIL',
             )
         new_group.add_argument(
-            '--composer-github', '-g',
+            '--composer-github',
             default='composer',
             metavar='GITHUB_USERNAME',
             )
         new_group.add_argument(
-            '--composer-library', '-l',
+            '--composer-library',
             default='library',
             metavar='LIBRARY_NAME',
             )
         new_group.add_argument(
-            '--composer-website', '-w',
+            '--composer-website',
             default='www.composer.com',
             metavar='WEBSITE',
             )
+
         common_group = parser.add_argument_group('common options')
         common_group.add_argument(
             '--force', '-f',

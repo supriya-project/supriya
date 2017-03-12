@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import jinja2
 import pathlib
 import shutil
 import sys
@@ -21,6 +22,70 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     renders_path = inner_project_path.joinpath('renders')
     synthdefs_path = inner_project_path.joinpath('synthdefs')
     tools_path = inner_project_path.joinpath('tools')
+
+    basic_session_template = jinja2.Template(stringtools.normalize('''
+    # -*- encoding: utf-8 -*-
+    import supriya
+    from test_project import project_settings
+
+
+    {{ material_name }} = supriya.Session.from_project_settings(project_settings)
+
+    with supriya.synthdeftools.SynthDefBuilder(
+        duration=1.,
+        out_bus=0,
+        ) as builder:
+        source = supriya.ugentools.Line.ar(
+            duration=builder['duration'],
+            ) * {{ multiplier|default(1.0) }}
+        supriya.ugentools.Out.ar(
+            bus=builder['out_bus'],
+            source=[source] * len({{ material_name }}.audio_output_bus_group),
+            )
+    ramp_synthdef = builder.build()
+
+    with {{ material_name }}.at(0):
+        {{ material_name }}.add_synth(
+            duration=1,
+            synthdef=ramp_synthdef,
+            )
+    '''))
+
+    chained_session_template = jinja2.Template(stringtools.normalize('''
+    # -*- encoding: utf-8 -*-
+    import supriya
+    from test_project import project_settings
+    from test_project.materials.{{ input_material_name }}.definition import {{ input_material_name }}
+
+
+    {{ output_material_name }} = supriya.Session.from_project_settings(
+        project_settings,
+        input_={{ input_material_name }},
+        )
+
+    with supriya.SynthDefBuilder(
+        in_bus=0,
+        out_bus=0,
+        multiplier=1,
+        ) as builder:
+        source = supriya.ugentools.In.ar(
+            bus=builder['in_bus'],
+            channel_count=len({{ output_material_name }}.audio_output_bus_group),
+            )
+        supriya.ugentools.ReplaceOut.ar(
+            bus=builder['out_bus'],
+            source=source * builder['multiplier'],
+            )
+    multiplier_synthdef = builder.build()
+
+    with {{ output_material_name }}.at(0):
+        {{ output_material_name }}.add_synth(
+            duration=1,
+            in_bus={{ output_material_name }}.audio_input_bus_group,
+            multiplier={{ multiplier }},
+            synthdef=multiplier_synthdef,
+            )
+    '''))
 
     ### TEST LIFECYCLE ###
 
@@ -83,11 +148,11 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         command = [
             '--new',
             'Test Project',
-            '-n', 'Josiah Wolf Oberholtzer',
-            '-e', 'josiah.oberholtzer@gmail.com',
-            '-g', 'josiah-wolf-oberholtzer',
-            '-w', 'www.josiahwolfoberholtzer.com',
-            '-l', 'amazing_library',
+            '--composer-name', 'Josiah Wolf Oberholtzer',
+            '--composer-email', 'josiah.oberholtzer@gmail.com',
+            '--composer-github', 'josiah-wolf-oberholtzer',
+            '--composer-website', 'www.josiahwolfoberholtzer.com',
+            '--composer-library', 'amazing_library',
             ]
         if force:
             command.insert(0, '-f')

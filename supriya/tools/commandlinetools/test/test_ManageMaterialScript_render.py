@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import jinja2
 import os
 import yaml
 from unittest import mock
@@ -11,42 +10,6 @@ from base import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
-
-    chain_template = jinja2.Template(stringtools.normalize('''
-    # -*- encoding: utf-8 -*-
-    import supriya
-    from test_project import project_settings
-    from test_project.materials.{{ input_material_name }}.definition import {{ input_material_name }}
-
-
-    {{ output_material_name }} = supriya.Session.from_project_settings(
-        project_settings,
-        input_={{ input_material_name }},
-        )
-
-    with supriya.SynthDefBuilder(
-        in_bus=0,
-        out_bus=0,
-        multiplier=1,
-        ) as builder:
-        source = supriya.ugentools.In.ar(
-            bus=builder['in_bus'],
-            channel_count=len({{ output_material_name }}.audio_output_bus_group),
-            )
-        supriya.ugentools.ReplaceOut.ar(
-            bus=builder['out_bus'],
-            source=source * builder['multiplier'],
-            )
-    multiplier_synthdef = builder.build()
-
-    with {{ output_material_name }}.at(0):
-        {{ output_material_name }}.add_synth(
-            duration=1,
-            in_bus={{ output_material_name }}.audio_input_bus_group,
-            multiplier={{ multiplier }},
-            synthdef=multiplier_synthdef,
-            )
-    '''))
 
     def test_missing_material(self):
         """
@@ -483,7 +446,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_one')
         self.create_material(
             'material_two',
-            definition_contents=self.chain_template.render(
+            definition_contents=self.chained_session_template.render(
                 input_material_name='material_one',
                 output_material_name='material_two',
                 multiplier=0.5,
@@ -491,7 +454,7 @@ class Test(ProjectPackageScriptTestCase):
             )
         material_three_path = self.create_material(
             'material_three',
-            definition_contents=self.chain_template.render(
+            definition_contents=self.chained_session_template.render(
                 input_material_name='material_two',
                 output_material_name='material_three',
                 multiplier=-1.0,
