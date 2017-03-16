@@ -158,15 +158,6 @@ class Session(object):
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
 
-#    def __eq__(self, expr):
-#        return self is expr
-#
-#    def __hash__(self):
-#        return id(self)
-
-    def __render__(self, **kwargs):
-        return self
-
     ### PRIVATE METHODS ###
 
     def _add_state_at(self, offset):
