@@ -1,4 +1,11 @@
-class Say(object):
+# -*- encoding: utf-8 -*-
+import hashlib
+import pathlib
+import subprocess
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+
+
+class Say(SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
@@ -17,33 +24,72 @@ class Say(object):
     def __init__(
         self,
         text,
-        bit_rate=None,
-        channels=None,
-        data_format=None,
-        file_format=None,
-        quality=None,
         voice=None,
         ):
         self._text = str(text)
-
-        if channels is not None:
-            channels = int(channels)
-        self._channels = channels
-
-        if data_format is not None:
-            pass
-        self._data_format = data_format
-
-        if file_format is not None:
-            pass
-        self._file_format = file_format
-
-        if quality is not None:
-            quality = int(quality)
-            assert 0 <= quality < 128
-        self._quality = quality
-
         if voice is not None:
             voice = str(voice)
             assert voice in self._voices
         self._voice = voice
+
+    ### SPECIAL METHODS ###
+
+    def __render__(self, output_file_path=None, render_directory_path=None):
+        output_file_path = self._build_output_file_path(
+            output_file_path=output_file_path,
+            render_directory_path=render_directory_path,
+            )
+        assert output_file_path.parent.exists()
+        command_parts = ['say']
+        command_parts.extend(['-o', str(output_file_path)])
+        if self.voice:
+            command_parts.extend(['-v', self.voice])
+        command_parts.append(repr(self.text))
+        command = ' '.join(command_parts)
+        print(command)
+        exit_code = subprocess.call(command, shell=True)
+        if exit_code:
+            raise RuntimeError
+        return output_file_path
+
+    ### PRIVATE METHODS ###
+
+    def _build_file_path(self):
+        md5 = hashlib.md5()
+        md5.update(self.text.encode())
+        if self.voice is not None:
+            md5.update(self.voice.encode())
+        md5 = md5.hexdigest()
+        file_path = '{}.aiff'.format(md5)
+        return pathlib.Path(file_path)
+
+    def _build_output_file_path(
+        self,
+        output_file_path=None,
+        render_directory_path=None,
+        ):
+        from supriya import supriya_configuration
+        if output_file_path:
+            output_file_path = pathlib.Path(
+                output_file_path).expanduser().absolute()
+        elif render_directory_path:
+            render_directory_path = pathlib.Path(
+                render_directory_path).expanduser().absolute()
+            output_file_path = render_directory_path / self._build_file_path()
+        else:
+            output_file_path = self._build_file_path()
+            render_directory_path = pathlib.Path(
+                supriya_configuration.output_directory_path,
+                ).expanduser().absolute()
+            output_file_path = render_directory_path / self._build_file_path()
+        return output_file_path
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def text(self):
+        return self._text
+
+    @property
+    def voice(self):
+        return self._voice
