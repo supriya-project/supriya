@@ -18,7 +18,7 @@ class SupriyaValueObject(SupriyaObject):
         from abjad.tools import systemtools
         return systemtools.TestManager.compare_objects(self, expr)
 
-    def __hash__(self, expr):
+    def __hash__(self):
         from abjad.tools import systemtools
         hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
         try:

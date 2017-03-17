@@ -78,7 +78,8 @@ class TestCase(TestCase):
                 file_path=say,
                 )
         assert session.to_lists(duration=2) == [
-            ]
+            [0.0, [['/b_allocRead', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff', 0, -1]]],
+            [2.0, [['/b_free', 0], [0]]]]
 
     def test_alloc_read_channel(self):
         session = nonrealtimetools.Session()

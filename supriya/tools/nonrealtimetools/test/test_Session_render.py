@@ -2,6 +2,7 @@
 import pathlib
 from supriya import supriya_configuration
 from supriya.tools import nonrealtimetools
+from supriya.tools import wrappertools
 from nonrealtimetools_testbase import TestCase
 
 
@@ -323,7 +324,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: cf7a6b66194f0292ed98dd4190e02718
+        render: d39ca34a7489cae8c62d4a3fe6cd0549
         source:
         - 7b3f85710f19667f73f745b8ac8080a0
         ''')
@@ -401,7 +402,6 @@ class TestCase(TestCase):
                 buffer_id=buffer_,
                 duration=10,
                 )
-        session_two.to_lists()
         assert session_two.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
@@ -714,4 +714,142 @@ class TestCase(TestCase):
         source:
         - 988ae28d3d84ae2b458d64ce15ffb989
         - c6d86f3d482a8bac1f7cc6650017da8e
+        ''')
+
+    def test_09(self):
+        """
+        Non-session renderable NRT input.
+        """
+        say = wrappertools.Say('Some text.')
+        session = nonrealtimetools.Session(1, 1, input_=say)
+        synthdef = self._build_multiplier_synthdef(1)
+        with session.at(0):
+            session.add_synth(
+                synthdef=synthdef,
+                duration=2,
+                in_bus=session.audio_input_bus_group,
+                out_bus=session.audio_output_bus_group,
+                multiplier=0.5,
+                )
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdef.compile())],
+                ['/s_new', '85c1d1b6f6c9b59c042b53d39019b8f5', 1000, 0, 0,
+                    'in_bus', 1, 'multiplier', 0.5, 'out_bus', 0]]],
+            [2.0, [['/n_free', 1000], [0]]]]
+        exit_code, _ = session.render(
+            self.output_file_path,
+            render_directory_path=self.render_directory_path,
+            build_render_yml=True,
+            )
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
+        render: 2ec4bd2aa928699d484ada5374aa53a2
+        source:
+        - 5f2b51ca2fdc5baa31ec02e002f69aec
+        ''')
+
+    def test_10(self):
+        """
+        Non-session renderable DiskIn input.
+        """
+        say = wrappertools.Say('Some text.')
+        session = nonrealtimetools.Session(0, 1)
+        synthdef = self._build_diskin_synthdef(channel_count=1)
+        with session.at(0):
+            buffer_ = session.cue_soundfile(
+                say,
+                duration=2,
+                )
+            session.add_synth(
+                synthdef=synthdef,
+                buffer_id=buffer_,
+                duration=2,
+                )
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdef.compile())],
+                ['/b_alloc', 0, 32768, 1],
+                ['/b_read', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
+                    0, -1, 0, 1],
+                ['/s_new', '9c69c44ff72c62dfa4c2f0a0e99f05ce', 1000, 0, 0,
+                    'buffer_id', 0]]],
+            [2.0, [
+                ['/n_free', 1000],
+                ['/b_close', 0],
+                ['/b_free', 0],
+                [0]]]]
+        exit_code, _ = session.render(
+            self.output_file_path,
+            render_directory_path=self.render_directory_path,
+            build_render_yml=True,
+            )
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
+        render: 37d436ec9e17198fd27aa4cebe2ba3a5
+        source:
+        - 5f2b51ca2fdc5baa31ec02e002f69aec
+        ''')
+
+    def test_11(self):
+        """
+        Chained session and non-session inputs.
+        """
+        multiplier_synthdef = self._build_multiplier_synthdef(1)
+        diskin_synthdef = self._build_diskin_synthdef(channel_count=1)
+        say = wrappertools.Say('Some text.')
+        session_one = nonrealtimetools.Session(1, 1, input_=say)
+        with session_one.at(0):
+            session_one.add_synth(
+                synthdef=multiplier_synthdef,
+                duration=2,
+                in_bus=session_one.audio_input_bus_group,
+                out_bus=session_one.audio_output_bus_group,
+                multiplier=0.5,
+                )
+        session_two = nonrealtimetools.Session(1, 1, input_=session_one)
+        with session_two.at(0):
+            session_two.add_synth(
+                synthdef=multiplier_synthdef,
+                duration=2,
+                in_bus=session_two.audio_input_bus_group,
+                out_bus=session_two.audio_output_bus_group,
+                multiplier=-0.5,
+                )
+            buffer_ = session_two.cue_soundfile(
+                say,
+                duration=2,
+                )
+            session_two.add_synth(
+                synthdef=diskin_synthdef,
+                buffer_id=buffer_,
+                duration=2,
+                )
+        assert session_two.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(multiplier_synthdef.compile())],
+                ['/d_recv', bytearray(diskin_synthdef.compile())],
+                ['/b_alloc', 0, 32768, 1],
+                ['/b_read', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
+                    0, -1, 0, 1],
+                ['/s_new', '85c1d1b6f6c9b59c042b53d39019b8f5', 1000, 0, 0,
+                    'in_bus', 1, 'multiplier', -0.5, 'out_bus', 0],
+                ['/s_new', '9c69c44ff72c62dfa4c2f0a0e99f05ce', 1001, 0, 0,
+                    'buffer_id', 0]]],
+            [2.0, [
+                ['/n_free', 1000, 1001],
+                ['/b_close', 0],
+                ['/b_free', 0],
+                [0]]]]
+        exit_code, _ = session_two.render(
+            self.output_file_path,
+            render_directory_path=self.render_directory_path,
+            build_render_yml=True,
+            )
+        assert self.render_yml_file_path.exists()
+        self.compare_file_contents(self.render_yml_file_path, '''
+        render: 5d6b65d1d171582f31e154bbf3e7f4a4
+        source:
+        - 2ec4bd2aa928699d484ada5374aa53a2
+        - 5f2b51ca2fdc5baa31ec02e002f69aec
         ''')
