@@ -7,19 +7,41 @@ from supriya.tools import *  # noqa
 from supriya.tools.bindingtools import bind  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
 from supriya.tools.servertools import (  # noqa
-    AddAction, Buffer, BufferGroup, Bus, BusGroup, Group, Server, Synth,
+    AddAction,
+    Buffer,
+    BufferGroup,
+    Bus,
+    BusGroup,
+    Group,
+    Server,
+    Synth,
     )
 from supriya.tools.soundfiletools import (  # noqa
-    HeaderFormat, SampleFormat, SoundFile,
+    HeaderFormat,
+    SampleFormat,
+    SoundFile,
+    play,
+    render,
     )
 from supriya.tools.synthdeftools import (  # noqa
-    CalculationRate, DoneAction, Range, SynthDef, SynthDefBuilder,
+    CalculationRate,
+    DoneAction,
+    Envelope,
+    Range,
+    SynthDef,
+    SynthDefBuilder,
     )
 from supriya.tools.systemtools import (  # noqa
-    Assets, SupriyaConfiguration,
+    Assets,
+    Profiler,
+    SupriyaConfiguration,
+    )
+from supriya.tools.wrappertools import (  # noqa
+    Say,
     )
 from abjad.tools.topleveltools import (  # noqa
-    graph, new,
+    graph,
+    new,
     )
 from supriya import synthdefs  # noqa
 

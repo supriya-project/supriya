@@ -133,7 +133,10 @@ class Session(object):
         self._session_ids = {}
         self._states = {}
         self._transcript = None
-        if input_ is not None and not isinstance(input_, type(self)):
+        if input_ and not (
+            isinstance(input_, type(self)) or
+            hasattr(input_, '__render__')
+            ):
             input_ = str(input_)
         self._input = input_
         if padding is not None:
@@ -157,15 +160,6 @@ class Session(object):
             graph.append(subgraph)
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
-
-#    def __eq__(self, expr):
-#        return self is expr
-#
-#    def __hash__(self):
-#        return id(self)
-
-    def __render__(self, **kwargs):
-        return self
 
     ### PRIVATE METHODS ###
 
@@ -1108,16 +1102,16 @@ class Session(object):
         assert 0. < duration < float('inf')
         renderer = nonrealtimetools.SessionRenderer(
             session=self,
+            header_format=header_format,
             print_transcript=print_transcript,
+            render_directory_path=render_directory_path,
+            sample_format=sample_format,
+            sample_rate=sample_rate,
             transcript_prefix=transcript_prefix,
             )
         exit_code, transcript, output_file_path = renderer.render(
             output_file_path,
             duration=duration,
-            sample_rate=sample_rate,
-            header_format=header_format,
-            sample_format=sample_format,
-            render_directory_path=render_directory_path,
             debug=debug,
             **kwargs
             )
@@ -1156,12 +1150,13 @@ class Session(object):
         sample_rate=44100,
         ):
         from supriya.tools import nonrealtimetools
-        return nonrealtimetools.SessionRenderer(self).to_lists(
-            duration=duration,
+        renderer = nonrealtimetools.SessionRenderer(
+            session=self,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
+        return renderer.to_lists(duration=duration)
 
     def to_osc_bundles(
         self,
@@ -1171,12 +1166,13 @@ class Session(object):
         sample_rate=44100,
         ):
         from supriya.tools import nonrealtimetools
-        return nonrealtimetools.SessionRenderer(self).to_osc_bundles(
-            duration=duration,
+        renderer = nonrealtimetools.SessionRenderer(
+            session=self,
             header_format=header_format,
             sample_format=sample_format,
             sample_rate=sample_rate,
             )
+        return renderer.to_osc_bundles(duration=duration)
 
     def to_strings(self, include_controls=False):
         from supriya.tools import responsetools

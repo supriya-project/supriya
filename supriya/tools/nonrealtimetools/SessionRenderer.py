@@ -26,14 +26,19 @@ class SessionRenderer(SupriyaObject):
     __documentation_section__ = 'Session Internals'
 
     __slots__ = (
-        '_session',
+        '_compiled_sessions',
+        '_header_format',
+        '_prerender_tuples',
         '_print_transcript',
-        '_trellis',
+        '_render_directory_path',
+        '_sample_format',
+        '_sample_rate',
+        '_session',
+        '_session_input_paths',
+        '_renderable_prefixes',
         '_transcript',
         '_transcript_prefix',
-        '_compiled_sessions',
-        '_session_file_paths',
-        '_prerender_tuples',
+        '_trellis',
         )
 
     ### INITIALIZER ###
@@ -41,17 +46,39 @@ class SessionRenderer(SupriyaObject):
     def __init__(
         self,
         session,
+        header_format=soundfiletools.HeaderFormat.AIFF,
         print_transcript=None,
+        render_directory_path=None,
+        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_rate=44100,
         transcript_prefix=None,
         ):
+        from supriya import supriya_configuration
+
         self._session = session
+
+        self._header_format = soundfiletools.HeaderFormat.from_expr(
+            header_format)
+
         if print_transcript:
             print_transcript = bool(print_transcript)
         self._print_transcript = print_transcript
+
+        self._render_directory_path = pathlib.Path(
+            render_directory_path or
+            supriya_configuration.output_directory_path
+            ).expanduser().absolute()
+
+        self._sample_format = soundfiletools.SampleFormat.from_expr(
+            sample_format)
+
+        self._sample_rate = int(sample_rate)
+
         transcript_prefix = transcript_prefix or None
         if transcript_prefix:
             transcript_prefix = str(transcript_prefix)
         self._transcript_prefix = transcript_prefix
+
         self._reset()
 
     ### PRIVATE METHODS ###
@@ -72,9 +99,6 @@ class SessionRenderer(SupriyaObject):
         datagram,
         input_file_path,
         session,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
         ):
         #print('BUILDING FILE PATH')
         md5 = hashlib.md5()
@@ -85,9 +109,9 @@ class SessionRenderer(SupriyaObject):
         for value in (
             session.options.input_bus_channel_count,
             session.options.output_bus_channel_count,
-            sample_rate,
-            header_format,
-            sample_format,
+            self.sample_rate,
+            self.header_format,
+            self.sample_format,
             ):
             hash_values.append(value)
         for value in hash_values:
@@ -104,40 +128,33 @@ class SessionRenderer(SupriyaObject):
         self,
         input_file_path,
         output_file_path,
-        session_file_path,
+        session_osc_file_path,
         server_options=None,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
         ):
         from supriya import supriya_configuration
         cwd = pathlib.Path.cwd()
         server_options = server_options or servertools.ServerOptions()
         scsynth_path = supriya_configuration.scsynth_path
-        if session_file_path.is_absolute():
-            session_file_path = session_file_path.relative_to(cwd)
-        parts = [scsynth_path, '-N', session_file_path]
+        if session_osc_file_path.is_absolute():
+            session_osc_file_path = session_osc_file_path.relative_to(cwd)
+        parts = [scsynth_path, '-N', session_osc_file_path]
         if input_file_path:
-            if input_file_path.is_absolute():
-                input_file_path = input_file_path.relative_to(cwd)
             parts.append(input_file_path)
         else:
             parts.append('_')
         if output_file_path.is_absolute() and cwd in output_file_path.parents:
             output_file_path = output_file_path.relative_to(cwd)
         parts.append(output_file_path)
-        parts.append(str(int(sample_rate)))
-        header_format = soundfiletools.HeaderFormat.from_expr(header_format)
-        parts.append(header_format.name.lower())  # Must be lowercase.
-        sample_format = soundfiletools.SampleFormat.from_expr(sample_format)
-        parts.append(sample_format.name.lower())  # Must be lowercase.
+        parts.append(self.sample_rate)
+        parts.append(self.header_format.name.lower())  # Must be lowercase.
+        parts.append(self.sample_format.name.lower())  # Must be lowercase.
         server_options = server_options.as_options_string(realtime=False)
         if server_options:
             parts.append(server_options)
         command = ' '.join(str(_) for _ in parts)
         return command
 
-    def _build_render_yaml(self, session_prefixes):
+    def _build_render_yml(self, session_prefixes):
         session_prefixes = session_prefixes[:]
         render_data = {'render': session_prefixes.pop(), 'source': None}
         if session_prefixes:
@@ -149,35 +166,33 @@ class SessionRenderer(SupriyaObject):
             )
         return render_yaml
 
-    def _build_xrefd_bundles(
-        self,
-        osc_bundles,
-        session_file_paths,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        ):
-        extension = '.{}'.format(header_format.name.lower())
+    def _build_xrefd_bundles(self, osc_bundles):
+        extension = '.{}'.format(self.header_format.name.lower())
         for osc_bundle in osc_bundles:
             for osc_message in osc_bundle.contents:
                 contents = list(osc_message.contents)
                 for i, x in enumerate(contents):
                     try:
-                        if x in session_file_paths:
-                            session_file_path = session_file_paths[x].with_suffix(extension)
-                            contents[i] = str(session_file_path)
+                        if x not in self.renderable_prefixes:
+                            continue
                     except TypeError:
-                        pass
+                        continue
+                    renderable_file_path = self.renderable_prefixes[x].with_suffix(extension)
+                    contents[i] = str(renderable_file_path)
                 osc_message._contents = tuple(contents)
         return osc_bundles
 
-    def _call_subprocess(self, command):
-        return subprocess.call(command, shell=True)
-
-    def _collect_prerender_data(
-        self,
-        session,
-        duration=None,
-        ):
+    def _build_trellis_and_nonxrefd_osc_bundles_conditionally(
+        self, expr, parent):
         from supriya.tools import nonrealtimetools
+        if isinstance(expr, nonrealtimetools.Session):
+            if expr not in self.trellis:
+                self._build_trellis_and_nonxrefd_osc_bundles(expr)
+            self.trellis.add(expr, parent=parent)
+        elif hasattr(expr, '__render__'):
+            self.trellis.add(expr, parent=parent)
+
+    def _build_trellis_and_nonxrefd_osc_bundles(self, session, duration=None):
         input_ = session.input_
         if isinstance(input_, str):
             input_ = pathlib.Path(input_)
@@ -185,105 +200,85 @@ class SessionRenderer(SupriyaObject):
         self.compiled_sessions[session] = input_, non_xrefd_bundles
         if session is self.session:
             self.trellis.add(session)
-        if isinstance(input_, nonrealtimetools.Session):
-            if input_ not in self.trellis:
-                self._collect_prerender_data(input_)
-            self.trellis.add(input_, parent=session)
+        self._build_trellis_and_nonxrefd_osc_bundles_conditionally(
+            input_, session)
         for non_xrefd_bundle in non_xrefd_bundles:
             for request in non_xrefd_bundle.contents:
                 for x in request.contents:
-                    if not isinstance(x, nonrealtimetools.Session):
-                        continue
-                    if x not in self.trellis:
-                        self._collect_prerender_data(x)
-                    self.trellis.add(x, parent=session)
+                    self._build_trellis_and_nonxrefd_osc_bundles_conditionally(
+                        x, session)
 
-    def _collect_prerender_tuples(
-        self,
-        session,
-        duration=None,
-        render_directory_path=None,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        ):
-        self._collect_prerender_data(session, duration=duration)
+    def _call_subprocess(self, command):
+        return subprocess.call(command, shell=True)
+
+    def _collect_prerender_tuples(self, session, duration=None):
+        from supriya.tools import nonrealtimetools
+        self._build_trellis_and_nonxrefd_osc_bundles(
+            session, duration=duration)
         assert self.trellis.is_acyclic()
-        for trellis_session in self.trellis:
-            if trellis_session is session:
-                constraint_duration = (duration or session.duration) or 0.
+        extension = '.{}'.format(self.header_format.name.lower())
+        for renderable in self.trellis:
+            if isinstance(renderable, nonrealtimetools.Session):
+                result = self._collect_session_prerender_tuple(
+                    renderable, extension)
+                prerender_tuple, renderable_prefix = result
             else:
-                constraint_duration = session.duration
-            assert 0. < constraint_duration < float('inf')
-        for session in self.trellis:
-            input_, non_xrefd_bundles = self.compiled_sessions[session]
-            osc_bundles = self._build_xrefd_bundles(
-                non_xrefd_bundles,
-                self.session_file_paths,
-                header_format=header_format,
-                )
-            input_file_path = self.session_file_paths.get(input_, input_)
-            if input_file_path:
-                input_file_path = self.get_path_relative_to_render_path(
-                    input_file_path, render_directory_path)
-            #if input_file_path and render_directory_path in input_file_path.parents:
-            #    input_file_path = input_file_path.relative_to(render_directory_path)
-            datagram = self._build_datagram(osc_bundles)
-            session_file_path = self._build_file_path(
-                datagram,
-                input_file_path,
-                session,
-                header_format=header_format,
-                sample_format=sample_format,
-                sample_rate=sample_rate,
-                )
-            self.session_file_paths[session] = session_file_path
-            prerender_tuple = (
-                datagram,
-                input_file_path,
-                osc_bundles,
-                session,
-                session_file_path,
-                )
+                result = self._collect_renderable_prerender_tuple(renderable)
+                prerender_tuple, renderable_prefix = result
             self.prerender_tuples.append(prerender_tuple)
+            self.renderable_prefixes[renderable] = renderable_prefix
         return self.prerender_tuples
+
+    def _collect_renderable_prerender_tuple(self, renderable):
+        renderable_prefix = renderable._build_file_path().with_suffix('')
+        return (renderable,), renderable_prefix
+
+    def _collect_session_prerender_tuple(self, session, extension):
+        input_, non_xrefd_bundles = self.compiled_sessions[session]
+        osc_bundles = self._build_xrefd_bundles(non_xrefd_bundles)
+        input_file_path = input_
+        if input_ and input_ in self.renderable_prefixes:
+            input_file_path = self.renderable_prefixes[input_]
+            input_file_path = input_file_path.with_suffix(extension)
+        if input_file_path:
+            input_file_path = self.get_path_relative_to_render_path(
+                input_file_path, self.render_directory_path)
+            self.session_input_paths[session] = input_file_path
+        datagram = self._build_datagram(osc_bundles)
+        renderable_prefix = self._build_file_path(
+            datagram, input_file_path, session).with_suffix('')
+        return (session, datagram, input_, osc_bundles), renderable_prefix
 
     def _render_datagram(
         self,
         session,
         input_file_path,
         output_file_path,
-        session_file_path,
-        sample_rate=44100,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        sample_format=soundfiletools.SampleFormat.INT24,
+        session_osc_file_path,
         **kwargs
         ):
         from supriya import new
-        relative_session_file_path = session_file_path
-        if relative_session_file_path.is_absolute():
-            relative_session_file_path = session_file_path.relative_to(
+        relative_session_osc_file_path = session_osc_file_path
+        if relative_session_osc_file_path.is_absolute():
+            relative_session_osc_file_path = session_osc_file_path.relative_to(
                 pathlib.Path.cwd())
-        self._report('Rendering {}.'.format(relative_session_file_path))
+        self._report('Rendering {}.'.format(relative_session_osc_file_path))
         if output_file_path.exists():
             self._report('    Skipped {}. Output already exists.'.format(
-                relative_session_file_path))
+                relative_session_osc_file_path))
             return 0
         old_server_options = session._options
         new_server_options = new(old_server_options, **kwargs)
         command = self._build_render_command(
             input_file_path,
             output_file_path,
-            session_file_path,
+            session_osc_file_path,
             server_options=new_server_options,
-            sample_rate=sample_rate,
-            header_format=header_format,
-            sample_format=sample_format,
             )
         self._report('    Command: {}'.format(command))
         exit_code = self._call_subprocess(command)
         self._report('    Rendered {} with exit code {}.'.format(
-            relative_session_file_path, exit_code))
+            relative_session_osc_file_path, exit_code))
         return exit_code
 
     def _read(self, file_path, mode=''):
@@ -304,13 +299,14 @@ class SessionRenderer(SupriyaObject):
         self._compiled_sessions = {}
         self._prerender_tuples = []
         self._session._transcript = self._transcript = []
-        self._session_file_paths = {}
+        self._renderable_prefixes = {}
         self._trellis = Trellis()
+        self._session_input_paths = {}
 
     def _write_datagram(self, file_path, new_contents):
         self._write(file_path, new_contents, mode='b')
 
-    def _write_render_yaml(self, file_path, render_yaml):
+    def _write_render_yml(self, file_path, render_yaml):
         self._write(file_path, render_yaml)
 
     def _write(self, file_path, new_contents, mode=''):
@@ -330,49 +326,17 @@ class SessionRenderer(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def to_lists(
-        self,
-        duration=None,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        render_directory_path=None,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        sample_rate=44100,
-        ):
-        osc_bundles = self.to_osc_bundles(
-            duration=duration,
-            header_format=header_format,
-            render_directory_path=render_directory_path,
-            sample_format=sample_format,
-            sample_rate=sample_rate,
-            )
+    def to_lists(self, duration=None):
+        osc_bundles = self.to_osc_bundles(duration=duration)
         return [osc_bundle.to_list() for osc_bundle in osc_bundles]
 
-    def to_osc_bundles(
-        self,
-        duration=None,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        render_directory_path=None,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        sample_rate=44100,
-        ):
-        from supriya import supriya_configuration
-        self._reset()
-        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
-        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
-        self._collect_prerender_tuples(
-            self.session,
-            duration=duration,
-            header_format=header_format,
-            render_directory_path=render_directory_path,
-            sample_format=sample_format,
-            sample_rate=sample_rate,
-            )
+    def to_osc_bundles(self, duration=None):
+        self._collect_prerender_tuples(self.session, duration=duration)
         (
+            session,
             datagram,
             input_file_path,
             osc_bundles,
-            session,
-            session_file_path,
             ) = self.prerender_tuples[-1]
         return osc_bundles
 
@@ -402,75 +366,54 @@ class SessionRenderer(SupriyaObject):
         output_file_path=None,
         debug=None,
         duration=None,
-        header_format=soundfiletools.HeaderFormat.AIFF,
-        render_directory_path=None,
-        sample_format=soundfiletools.SampleFormat.INT24,
-        sample_rate=44100,
         build_render_yml=None,
         **kwargs
         ):
-        from supriya import supriya_configuration
-        extension = '.{}'.format(header_format.name.lower())
-        self.transcript[:] = []
-        render_directory_path = render_directory_path or supriya_configuration.output_directory_path
-        render_directory_path = pathlib.Path(render_directory_path).expanduser().absolute()
+        from supriya.tools import nonrealtimetools
+        extension = '.{}'.format(self.header_format.name.lower())
         if output_file_path is not None:
             output_file_path = pathlib.Path(output_file_path)
             output_file_path = output_file_path.expanduser().absolute()
         original_output_file_path = output_file_path
-        self._collect_prerender_tuples(
-            self.session,
-            duration=duration,
-            header_format=header_format,
-            render_directory_path=render_directory_path,
-            sample_format=sample_format,
-            sample_rate=sample_rate,
-            )
+        self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
-        session_prefixes = []
-        for i, prerender_tuple in enumerate(self.prerender_tuples):
-            (
-                datagram,
-                input_file_path,
-                osc_bundles,
-                session,
-                session_file_path,
-                ) = prerender_tuple
-            prefix = session_file_path.with_suffix('').name
-            session_prefixes.append(prefix)
-            output_file_path = session_file_path.with_suffix(extension)
-            if input_file_path and input_file_path.suffix == '.osc':
-                input_file_path = input_file_path.with_suffix(extension)
-            with TemporaryDirectoryChange(directory=str(render_directory_path)):
-                self._write_datagram(session_file_path, datagram)
-                exit_code = self._render_datagram(
-                    session,
-                    input_file_path,
-                    output_file_path,
-                    session_file_path,
-                    header_format=header_format,
-                    sample_format=sample_format,
-                    sample_rate=sample_rate,
-                    **kwargs
-                    )
-            if exit_code:
-                self._report('    SuperCollider errored!')
-                raise NonrealtimeRenderError(exit_code)
-        output_file_path = render_directory_path / output_file_path
+        visited_renderable_prefixes = []
+        with TemporaryDirectoryChange(directory=str(self.render_directory_path)):
+            for prerender_tuple in self.prerender_tuples:
+                renderable = prerender_tuple[0]
+                renderable_prefix = self.renderable_prefixes[renderable]
+                visited_renderable_prefixes.append(
+                    renderable_prefix.with_suffix('').name)
+                output_file_path = renderable_prefix.with_suffix(extension)
+                if isinstance(renderable, nonrealtimetools.Session):
+                    (session, datagram, input_, _) = prerender_tuple
+                    osc_file_path = renderable_prefix.with_suffix('.osc')
+                    input_file_path = self.session_input_paths.get(session)
+                    self._write_datagram(osc_file_path, datagram)
+                    exit_code = self._render_datagram(
+                        session,
+                        input_file_path,
+                        output_file_path,
+                        osc_file_path,
+                        **kwargs
+                        )
+                    if exit_code:
+                        self._report('    SuperCollider errored!')
+                        raise NonrealtimeRenderError(exit_code)
+                else:
+                    renderable.__render__(output_file_path=output_file_path)
+        output_file_path = self.render_directory_path / output_file_path
         if not output_file_path.exists():
             self._report('    Output file is missing!')
             raise NonrealtimeOutputMissing(output_file_path)
         if original_output_file_path is not None:
-            shutil.copy(
-                str(output_file_path),
-                str(original_output_file_path),
-                )
+            shutil.copy(str(output_file_path), str(original_output_file_path))
         if build_render_yml:
             output_directory = (
                 original_output_file_path or output_file_path
                 ).parent
-            render_yaml = self._build_render_yaml(session_prefixes)
-            self._write_render_yaml(
+            render_yaml = self._build_render_yml(visited_renderable_prefixes)
+            self._write_render_yml(
                 output_directory / 'render.yml',
                 render_yaml,
                 )
@@ -483,6 +426,10 @@ class SessionRenderer(SupriyaObject):
         return self._compiled_sessions
 
     @property
+    def header_format(self):
+        return self._header_format
+
+    @property
     def prerender_tuples(self):
         return self._prerender_tuples
 
@@ -491,12 +438,28 @@ class SessionRenderer(SupriyaObject):
         return self._print_transcript
 
     @property
+    def render_directory_path(self):
+        return self._render_directory_path
+
+    @property
+    def renderable_prefixes(self):
+        return self._renderable_prefixes
+
+    @property
+    def sample_format(self):
+        return self._sample_format
+
+    @property
+    def sample_rate(self):
+        return self._sample_rate
+
+    @property
     def session(self):
         return self._session
 
     @property
-    def session_file_paths(self):
-        return self._session_file_paths
+    def session_input_paths(self):
+        return self._session_input_paths
 
     @property
     def transcript(self):

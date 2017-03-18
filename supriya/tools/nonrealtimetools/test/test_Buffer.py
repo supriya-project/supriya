@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from supriya.tools import nonrealtimetools
+from supriya.tools import wrappertools
 from nonrealtimetools_testbase import TestCase
 
 
@@ -57,6 +58,28 @@ class TestCase(TestCase):
             [1.0, [['/b_allocRead', 1, 'bar.aiff', 53, 512]]],
             [2.0, [['/b_free', 0], ['/b_free', 1], [0]]]
             ]
+
+    def test_alloc_read_session(self):
+        input_session = self._make_session()
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            session.add_buffer(
+                file_path=input_session,
+                )
+        assert session.to_lists(duration=2) == [
+            [0.0, [['/b_allocRead', 0, '7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1]]],
+            [2.0, [['/b_free', 0], [0]]]]
+
+    def test_alloc_read_say(self):
+        say = wrappertools.Say('Some text.')
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            session.add_buffer(
+                file_path=say,
+                )
+        assert session.to_lists(duration=2) == [
+            [0.0, [['/b_allocRead', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff', 0, -1]]],
+            [2.0, [['/b_free', 0], [0]]]]
 
     def test_alloc_read_channel(self):
         session = nonrealtimetools.Session()
