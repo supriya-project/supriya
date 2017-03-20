@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import hashlib
 import pathlib
+import shlex
 import subprocess
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -34,17 +35,24 @@ class Say(SupriyaValueObject):
 
     ### SPECIAL METHODS ###
 
-    def __render__(self, output_file_path=None, render_directory_path=None):
+    def __render__(
+        self,
+        output_file_path=None,
+        render_directory_path=None,
+        ):
         output_file_path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             )
         assert output_file_path.parent.exists()
+        if output_file_path.exists():
+            print('Skipping {}'.format(output_file_path))
+            return
         command_parts = ['say']
         command_parts.extend(['-o', str(output_file_path)])
         if self.voice:
             command_parts.extend(['-v', self.voice])
-        command_parts.append(repr(self.text))
+        command_parts.append(shlex.quote(self.text))
         command = ' '.join(command_parts)
         print(command)
         exit_code = subprocess.call(command, shell=True)

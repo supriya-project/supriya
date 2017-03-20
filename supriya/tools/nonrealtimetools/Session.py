@@ -161,6 +161,19 @@ class Session(object):
         nonrealtimetools.StateGrapher._style_graph(graph)
         return graph
 
+    def __render__(
+        self,
+        output_file_path=None,
+        render_directory_path=None,
+        **kwargs
+        ):
+        exit_code, output_file_path = self.render(
+            output_file_path=output_file_path,
+            render_directory_path=render_directory_path,
+            **kwargs
+            )
+        return output_file_path
+
     ### PRIVATE METHODS ###
 
     def _add_state_at(self, offset):
