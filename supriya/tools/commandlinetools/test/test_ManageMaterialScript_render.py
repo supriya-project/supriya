@@ -98,7 +98,12 @@ class Test(ProjectPackageScriptTestCase):
             # -*- coding: utf-8 -*-
 
             class Foo(object):
-                def __render__(self):
+                def __render__(
+                    self,
+                    output_file_path=None,
+                    render_directory_path=None,
+                    **kwargs
+                    ):
                     raise TypeError('This is fake.')
 
             test_material = Foo()
@@ -115,10 +120,15 @@ class Test(ProjectPackageScriptTestCase):
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
                 Importing test_project.materials.test_material.definition
+
             Traceback (most recent call last):
               File ".../ManageMaterialScript.py", line ..., in _render_one_material
-                session = material.__render__()
-              File ".../test_material/definition.py", line ..., in __render__
+                **kwargs
+              File
+              ".../render.py", line ..., in render
+                **kwargs
+              File
+              ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
                 raise TypeError('This is fake.')
             TypeError: This is fake.
         '''.replace('/', os.path.sep))
@@ -512,6 +522,31 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
+        self.compare_captured_output(r'''
+        Render candidates: 'material_three' ...
+        Rendering test_project/materials/material_three/
+            Importing test_project.materials.material_three.definition
+            Writing aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Wrote aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+            Rendering aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Command: scsynth -N aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
+            Writing dc8e67ade1ba15e509f31884c3d3ea14.osc.
+                Wrote dc8e67ade1ba15e509f31884c3d3ea14.osc.
+            Rendering dc8e67ade1ba15e509f31884c3d3ea14.osc.
+                Command: scsynth -N dc8e67ade1ba15e509f31884c3d3ea14.osc aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff dc8e67ade1ba15e509f31884c3d3ea14.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered dc8e67ade1ba15e509f31884c3d3ea14.osc with exit code 0.
+            Writing baf9c55aa98bb2f92d16ffac69e3e19a.osc.
+                Wrote baf9c55aa98bb2f92d16ffac69e3e19a.osc.
+            Rendering baf9c55aa98bb2f92d16ffac69e3e19a.osc.
+                Command: scsynth -N baf9c55aa98bb2f92d16ffac69e3e19a.osc dc8e67ade1ba15e509f31884c3d3ea14.aiff baf9c55aa98bb2f92d16ffac69e3e19a.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered baf9c55aa98bb2f92d16ffac69e3e19a.osc with exit code 0.
+            Writing test_project/materials/material_three/render.yml.
+                Wrote test_project/materials/material_three/render.yml.
+            Python/SC runtime: 0 seconds
+            Rendered test_project/materials/material_three/
+        ''')
+
         self.compare_path_contents(
             self.inner_project_path,
             [
@@ -534,12 +569,12 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/73e0e852b98949e898e652c3804f7349.aiff',
-                'test_project/test_project/renders/73e0e852b98949e898e652c3804f7349.osc',
                 'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff',
                 'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.osc',
-                'test_project/test_project/renders/f231b83f67da97b079f2cc59ed9e6916.aiff',
-                'test_project/test_project/renders/f231b83f67da97b079f2cc59ed9e6916.osc',
+                'test_project/test_project/renders/baf9c55aa98bb2f92d16ffac69e3e19a.aiff',
+                'test_project/test_project/renders/baf9c55aa98bb2f92d16ffac69e3e19a.osc',
+                'test_project/test_project/renders/dc8e67ade1ba15e509f31884c3d3ea14.aiff',
+                'test_project/test_project/renders/dc8e67ade1ba15e509f31884c3d3ea14.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -547,38 +582,13 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py']
             )
 
-        self.compare_captured_output(r'''
-        Render candidates: 'material_three' ...
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
-            Writing aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Wrote aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-            Rendering aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Command: scsynth -N aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
-            Writing 73e0e852b98949e898e652c3804f7349.osc.
-                Wrote 73e0e852b98949e898e652c3804f7349.osc.
-            Rendering 73e0e852b98949e898e652c3804f7349.osc.
-                Command: scsynth -N 73e0e852b98949e898e652c3804f7349.osc aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 73e0e852b98949e898e652c3804f7349.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered 73e0e852b98949e898e652c3804f7349.osc with exit code 0.
-            Writing f231b83f67da97b079f2cc59ed9e6916.osc.
-                Wrote f231b83f67da97b079f2cc59ed9e6916.osc.
-            Rendering f231b83f67da97b079f2cc59ed9e6916.osc.
-                Command: scsynth -N f231b83f67da97b079f2cc59ed9e6916.osc 73e0e852b98949e898e652c3804f7349.aiff f231b83f67da97b079f2cc59ed9e6916.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered f231b83f67da97b079f2cc59ed9e6916.osc with exit code 0.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
-            Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        ''')
-
         render_yml_file_path = material_three_path / 'render.yml'
         with open(str(render_yml_file_path), 'r') as file_pointer:
             render_yml = yaml.load(file_pointer.read())
         assert render_yml == {
-            'render': 'f231b83f67da97b079f2cc59ed9e6916',
+            'render': 'baf9c55aa98bb2f92d16ffac69e3e19a',
             'source': [
-                '73e0e852b98949e898e652c3804f7349',
+                'dc8e67ade1ba15e509f31884c3d3ea14',
                 'aa1ca9fda49a2dd38a1a2b8a91a76cca',
                 ],
             }

@@ -189,6 +189,8 @@ class ManageMaterialScript(ProjectPackageScript):
                 )
 
     def _render_one_material(self, material_directory_path):
+        from supriya import render
+        from supriya.tools import nonrealtimetools
         print('Rendering {path!s}{sep}'.format(
             path=material_directory_path.relative_to(
                 self.inner_project_path.parent),
@@ -201,27 +203,32 @@ class ManageMaterialScript(ProjectPackageScript):
                 message = template.format(type(material).__name__)
                 print(message)
                 sys.exit(1)
+
+            kwargs = {}
+            if isinstance(material, nonrealtimetools.Session):
+                kwargs.update(self._build_nrt_server_options(material))
+                kwargs.update({
+                    'print_transcript': True,
+                    'transcript_prefix': '    ',
+                    'build_render_yml': True,
+                    })
+
             try:
-                session = material.__render__()
-            except Exception:
-                print(traceback.format_exc())
-                sys.exit(1)
-            server_options = self._build_nrt_server_options(session)
-            try:
-                exit_code, output_file_path = session.render(
+                render(
+                    material,
                     output_file_path=output_file_path,
                     render_directory_path=self._renders_path,
-                    print_transcript=True,
-                    transcript_prefix='    ',
-                    build_render_yml=True,
-                    **server_options
+                    **kwargs
                     )
             except (NonrealtimeRenderError, NonrealtimeOutputMissing):
-                exit_code = 1
-            self._report_time(timer, prefix='Python/SC runtime')
-            if exit_code:
+                self._report_time(timer, prefix='Python/SC runtime')
                 print('    Render failed. Exiting.')
                 sys.exit(1)
+            except:
+                print(traceback.format_exc())
+                sys.exit(1)
+
+            self._report_time(timer, prefix='Python/SC runtime')
 
     def _build_nrt_server_options(self, session):
         from supriya.tools import commandlinetools
