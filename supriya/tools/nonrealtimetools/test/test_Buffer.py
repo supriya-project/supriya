@@ -67,7 +67,7 @@ class TestCase(TestCase):
                 file_path=input_session,
                 )
         assert session.to_lists(duration=2) == [
-            [0.0, [['/b_allocRead', 0, '7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1]]],
+            [0.0, [['/b_allocRead', 0, 'session-7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1]]],
             [2.0, [['/b_free', 0], [0]]]]
 
     def test_alloc_read_say(self):
@@ -78,7 +78,7 @@ class TestCase(TestCase):
                 file_path=say,
                 )
         assert session.to_lists(duration=2) == [
-            [0.0, [['/b_allocRead', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff', 0, -1]]],
+            [0.0, [['/b_allocRead', 0, 'say-5f2b51ca2fdc5baa31ec02e002f69aec.aiff', 0, -1]]],
             [2.0, [['/b_free', 0], [0]]]]
 
     def test_alloc_read_channel(self):

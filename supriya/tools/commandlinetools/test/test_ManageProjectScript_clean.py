@@ -64,12 +64,12 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/5ec1eb97cfc0e98291f27464546df568.aiff',
-                'test_project/test_project/renders/5ec1eb97cfc0e98291f27464546df568.osc',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
-                'test_project/test_project/renders/e628a25fe369270f786d60fbbc047365.aiff',
-                'test_project/test_project/renders/e628a25fe369270f786d60fbbc047365.osc',
+                'test_project/test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff',
+                'test_project/test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.osc',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff',
+                'test_project/test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -124,10 +124,10 @@ class Test(ProjectPackageScriptTestCase):
 
         self.compare_captured_output(r'''
         Cleaning test_project/renders ...
-            Cleaned test_project/renders/5ec1eb97cfc0e98291f27464546df568.aiff
-            Cleaned test_project/renders/5ec1eb97cfc0e98291f27464546df568.osc
-            Cleaned test_project/renders/95cecb2c724619fe502164459560ba5d.aiff
-            Cleaned test_project/renders/95cecb2c724619fe502164459560ba5d.osc
-            Cleaned test_project/renders/e628a25fe369270f786d60fbbc047365.aiff
-            Cleaned test_project/renders/e628a25fe369270f786d60fbbc047365.osc
+            Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff
+            Cleaned test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.osc
+            Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff
+            Cleaned test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc
+            Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff
+            Cleaned test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc
         ''')

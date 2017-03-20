@@ -54,11 +54,11 @@ class TestCase(TestCase):
         session = self._make_session()
         osc_path = pathlib.Path().joinpath(
             supriya_configuration.output_directory_path,
-            '7b3f85710f19667f73f745b8ac8080a0.osc',
+            'session-7b3f85710f19667f73f745b8ac8080a0.osc',
             )
         aiff_path = pathlib.Path().joinpath(
             supriya_configuration.output_directory_path,
-            '7b3f85710f19667f73f745b8ac8080a0.aiff',
+            'session-7b3f85710f19667f73f745b8ac8080a0.aiff',
             )
         if osc_path.exists():
             osc_path.unlink()
@@ -76,11 +76,11 @@ class TestCase(TestCase):
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
         assert session.transcript == [
-            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
-            '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            'Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            'Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Command: scsynth -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
+            '    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
             ]
         assert output_file_path == aiff_path
         assert osc_path.exists()
@@ -97,10 +97,10 @@ class TestCase(TestCase):
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
         assert session.transcript == [
-            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.',
-            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            'Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.',
+            'Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
             ]
         assert output_file_path == aiff_path
         assert osc_path.exists()
@@ -119,10 +119,10 @@ class TestCase(TestCase):
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
         assert session.transcript == [
-            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Wrote 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
+            'Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Wrote session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            'Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. Output already exists.',
             ]
         assert output_file_path == aiff_path
         assert osc_path.exists()
@@ -141,11 +141,11 @@ class TestCase(TestCase):
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
         assert session.transcript == [
-            'Writing 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Skipped 7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.',
-            'Rendering 7b3f85710f19667f73f745b8ac8080a0.osc.',
-            '    Command: scsynth -N 7b3f85710f19667f73f745b8ac8080a0.osc _ 7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
-            '    Rendered 7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
+            'Writing session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Skipped session-7b3f85710f19667f73f745b8ac8080a0.osc. File already exists.',
+            'Rendering session-7b3f85710f19667f73f745b8ac8080a0.osc.',
+            '    Command: scsynth -N session-7b3f85710f19667f73f745b8ac8080a0.osc _ session-7b3f85710f19667f73f745b8ac8080a0.aiff 44100 aiff int24',
+            '    Rendered session-7b3f85710f19667f73f745b8ac8080a0.osc with exit code 0.',
             ]
         assert output_file_path == aiff_path
         assert osc_path.exists()
@@ -184,7 +184,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 7b3f85710f19667f73f745b8ac8080a0
+        render: session-7b3f85710f19667f73f745b8ac8080a0
         source: null
         ''')
 
@@ -227,7 +227,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 34a8138953258b32d05ed6e09ebdf5b7
+        render: session-34a8138953258b32d05ed6e09ebdf5b7
         source: null
         ''')
 
@@ -280,7 +280,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: f90a25f63698e1c8c4f6fe63d7d87bc4
+        render: session-f90a25f63698e1c8c4f6fe63d7d87bc4
         source: null
         ''')
 
@@ -324,9 +324,9 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: d39ca34a7489cae8c62d4a3fe6cd0549
+        render: session-0038ce94f2ab7825919c1b5e1d5f2e82
         source:
-        - 7b3f85710f19667f73f745b8ac8080a0
+        - session-7b3f85710f19667f73f745b8ac8080a0
         ''')
 
     def test_05(self):
@@ -381,7 +381,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 7c7ca76f353e0a7bebdab29bc3f81f85
+        render: session-7c7ca76f353e0a7bebdab29bc3f81f85
         source: null
         ''')
 
@@ -406,7 +406,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
-                ['/b_read', 0, '7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1, 0, 1],
+                ['/b_read', 0, 'session-7b3f85710f19667f73f745b8ac8080a0.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0]]],
             [10.0, [
@@ -429,9 +429,9 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 99b3d6bd682960a74e8e78a0ad413600
+        render: session-fbd50fbec743e7758481debe0450f38c
         source:
-        - 7b3f85710f19667f73f745b8ac8080a0
+        - session-7b3f85710f19667f73f745b8ac8080a0
         ''')
 
     def test_07(self):
@@ -484,7 +484,7 @@ class TestCase(TestCase):
             compiled_synthdef = bytearray(synthdef.compile())
             d_recv_commands.append(['/d_recv', compiled_synthdef])
 
-        buffer_one_name = '7b3f85710f19667f73f745b8ac8080a0.aiff'
+        buffer_one_name = 'session-7b3f85710f19667f73f745b8ac8080a0.aiff'
         assert session_two.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -499,7 +499,7 @@ class TestCase(TestCase):
                 ['/b_close', 0],
                 ['/b_free', 0], [0]]]]
 
-        buffer_two_name = 'd7a731a2149b910848fc46f08a586378.aiff'
+        buffer_two_name = 'session-a9bccd241b0e5b56d123924992fbdc05.aiff'
         assert session_three.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -553,10 +553,10 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: f163f0fd844c070089704321bee40bcd
+        render: session-5657353b9c5dcd1e807fb6bf9919e1f4
         source:
-        - d7a731a2149b910848fc46f08a586378
-        - 7b3f85710f19667f73f745b8ac8080a0
+        - session-a9bccd241b0e5b56d123924992fbdc05
+        - session-7b3f85710f19667f73f745b8ac8080a0
         ''')
 
     def test_08(self):
@@ -620,8 +620,8 @@ class TestCase(TestCase):
                 ['/d_recv', bytearray(diskin_synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_alloc', 1, 32768, 8],
-                ['/b_read', 0, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
-                ['/b_read', 1, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
+                ['/b_read', 0, 'session-c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
+                ['/b_read', 1, 'session-c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1001, 0, 0,
@@ -638,8 +638,8 @@ class TestCase(TestCase):
                 ['/d_recv', bytearray(diskin_synthdef.compile())],
                 ['/b_alloc', 0, 32768, 8],
                 ['/b_alloc', 1, 32768, 8],
-                ['/b_read', 0, 'c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
-                ['/b_read', 1, '988ae28d3d84ae2b458d64ce15ffb989.aiff', 0, -1, 0, 1],
+                ['/b_read', 0, 'session-c6d86f3d482a8bac1f7cc6650017da8e.aiff', 0, -1, 0, 1],
+                ['/b_read', 1, 'session-81d02f16aff7797ca3ac041facb61b95.aiff', 0, -1, 0, 1],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1000, 0, 0,
                     'buffer_id', 0],
                 ['/s_new', '42367b5102dfa250b301ec698b3bd6c4', 1001, 0, 0,
@@ -652,10 +652,10 @@ class TestCase(TestCase):
                 ['/b_free', 1],
                 [0]]]]
         session_one_path = self.render_directory_path.joinpath(
-            'c6d86f3d482a8bac1f7cc6650017da8e.aiff',
+            'session-c6d86f3d482a8bac1f7cc6650017da8e.aiff',
             )
         session_two_path = self.render_directory_path.joinpath(
-            '988ae28d3d84ae2b458d64ce15ffb989.aiff',
+            'session-81d02f16aff7797ca3ac041facb61b95.aiff',
             )
         exit_code, _ = session_three.render(
             self.output_file_path,
@@ -690,30 +690,30 @@ class TestCase(TestCase):
             0.99: [0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75, 0.75],
             }
         assert session_three.transcript == [
-            'Writing c6d86f3d482a8bac1f7cc6650017da8e.osc.',
-            '    Wrote c6d86f3d482a8bac1f7cc6650017da8e.osc.',
-            'Rendering c6d86f3d482a8bac1f7cc6650017da8e.osc.',
-            '    Command: scsynth -N c6d86f3d482a8bac1f7cc6650017da8e.osc _ c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24',
-            '    Rendered c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code 0.',
-            'Writing 988ae28d3d84ae2b458d64ce15ffb989.osc.',
-            '    Wrote 988ae28d3d84ae2b458d64ce15ffb989.osc.',
-            'Rendering 988ae28d3d84ae2b458d64ce15ffb989.osc.',
-            '    Command: scsynth -N 988ae28d3d84ae2b458d64ce15ffb989.osc _ 988ae28d3d84ae2b458d64ce15ffb989.aiff 44100 aiff int24',
-            '    Rendered 988ae28d3d84ae2b458d64ce15ffb989.osc with exit code 0.',
-            'Writing 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
-            '    Wrote 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
-            'Rendering 73b90e1467ddd06f4afa06dff1f5cb41.osc.',
-            '    Command: scsynth -N 73b90e1467ddd06f4afa06dff1f5cb41.osc _ 73b90e1467ddd06f4afa06dff1f5cb41.aiff 44100 aiff int24',
-            '    Rendered 73b90e1467ddd06f4afa06dff1f5cb41.osc with exit code 0.',
+            'Writing session-c6d86f3d482a8bac1f7cc6650017da8e.osc.',
+            '    Wrote session-c6d86f3d482a8bac1f7cc6650017da8e.osc.',
+            'Rendering session-c6d86f3d482a8bac1f7cc6650017da8e.osc.',
+            '    Command: scsynth -N session-c6d86f3d482a8bac1f7cc6650017da8e.osc _ session-c6d86f3d482a8bac1f7cc6650017da8e.aiff 44100 aiff int24',
+            '    Rendered session-c6d86f3d482a8bac1f7cc6650017da8e.osc with exit code 0.',
+            'Writing session-81d02f16aff7797ca3ac041facb61b95.osc.',
+            '    Wrote session-81d02f16aff7797ca3ac041facb61b95.osc.',
+            'Rendering session-81d02f16aff7797ca3ac041facb61b95.osc.',
+            '    Command: scsynth -N session-81d02f16aff7797ca3ac041facb61b95.osc _ session-81d02f16aff7797ca3ac041facb61b95.aiff 44100 aiff int24',
+            '    Rendered session-81d02f16aff7797ca3ac041facb61b95.osc with exit code 0.',
+            'Writing session-1d80bd5d7da1eb8c25d322aa85384513.osc.',
+            '    Wrote session-1d80bd5d7da1eb8c25d322aa85384513.osc.',
+            'Rendering session-1d80bd5d7da1eb8c25d322aa85384513.osc.',
+            '    Command: scsynth -N session-1d80bd5d7da1eb8c25d322aa85384513.osc _ session-1d80bd5d7da1eb8c25d322aa85384513.aiff 44100 aiff int24',
+            '    Rendered session-1d80bd5d7da1eb8c25d322aa85384513.osc with exit code 0.',
             'Writing output/render.yml.',
             '    Wrote output/render.yml.',
             ]
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 73b90e1467ddd06f4afa06dff1f5cb41
+        render: session-1d80bd5d7da1eb8c25d322aa85384513
         source:
-        - 988ae28d3d84ae2b458d64ce15ffb989
-        - c6d86f3d482a8bac1f7cc6650017da8e
+        - session-81d02f16aff7797ca3ac041facb61b95
+        - session-c6d86f3d482a8bac1f7cc6650017da8e
         ''')
 
     def test_09(self):
@@ -744,9 +744,9 @@ class TestCase(TestCase):
             )
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 2ec4bd2aa928699d484ada5374aa53a2
+        render: session-ea2ca28c15208db4fce5eb184d0b9257
         source:
-        - 5f2b51ca2fdc5baa31ec02e002f69aec
+        - say-5f2b51ca2fdc5baa31ec02e002f69aec
         ''')
 
     def test_10(self):
@@ -770,7 +770,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
                 ['/b_alloc', 0, 32768, 1],
-                ['/b_read', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
+                ['/b_read', 0, 'say-5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
                     0, -1, 0, 1],
                 ['/s_new', '9c69c44ff72c62dfa4c2f0a0e99f05ce', 1000, 0, 0,
                     'buffer_id', 0]]],
@@ -786,9 +786,9 @@ class TestCase(TestCase):
             )
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 37d436ec9e17198fd27aa4cebe2ba3a5
+        render: session-96c65c92f6d0d0bbb08d85720d16a383
         source:
-        - 5f2b51ca2fdc5baa31ec02e002f69aec
+        - say-5f2b51ca2fdc5baa31ec02e002f69aec
         ''')
 
     def test_11(self):
@@ -830,7 +830,7 @@ class TestCase(TestCase):
                 ['/d_recv', bytearray(multiplier_synthdef.compile())],
                 ['/d_recv', bytearray(diskin_synthdef.compile())],
                 ['/b_alloc', 0, 32768, 1],
-                ['/b_read', 0, '5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
+                ['/b_read', 0, 'say-5f2b51ca2fdc5baa31ec02e002f69aec.aiff',
                     0, -1, 0, 1],
                 ['/s_new', '85c1d1b6f6c9b59c042b53d39019b8f5', 1000, 0, 0,
                     'in_bus', 1, 'multiplier', -0.5, 'out_bus', 0],
@@ -848,8 +848,8 @@ class TestCase(TestCase):
             )
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: 5d6b65d1d171582f31e154bbf3e7f4a4
+        render: session-9d80db1d391da3ab4f1cab54a0963d44
         source:
-        - 2ec4bd2aa928699d484ada5374aa53a2
-        - 5f2b51ca2fdc5baa31ec02e002f69aec
+        - session-ea2ca28c15208db4fce5eb184d0b9257
+        - say-5f2b51ca2fdc5baa31ec02e002f69aec
         ''')

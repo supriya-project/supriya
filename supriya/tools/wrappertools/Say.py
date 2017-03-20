@@ -3,6 +3,7 @@ import hashlib
 import pathlib
 import shlex
 import subprocess
+from abjad.tools.stringtools import to_dash_case
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -68,7 +69,9 @@ class Say(SupriyaValueObject):
         if self.voice is not None:
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
-        file_path = '{}.aiff'.format(md5)
+        file_path = '{}-{}.aiff'.format(
+            to_dash_case(type(self).__name__), md5,
+            )
         return pathlib.Path(file_path)
 
     def _build_output_file_path(

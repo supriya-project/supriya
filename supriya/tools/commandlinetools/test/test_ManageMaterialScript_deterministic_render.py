@@ -59,11 +59,11 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Wrote 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-            Rendering 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Command: scsynth -N 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc _ 16a8ecc3d1ee2b96b0dfca852b2a18ae.aiff 44100 aiff int24 -i 0 -o 2
-                Rendered 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc with exit code 0.
+            Writing session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Wrote session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+            Rendering session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Command: scsynth -N session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc _ session-16a8ecc3d1ee2b96b0dfca852b2a18ae.aiff 44100 aiff int24 -i 0 -o 2
+                Rendered session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc with exit code 0.
             Writing test_project/materials/test_material/render.yml.
                 Wrote test_project/materials/test_material/render.yml.
             Python/SC runtime: 0 seconds
@@ -83,10 +83,10 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Skipped 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. File already exists.
-            Rendering 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Skipped 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. Output already exists.
+            Writing session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Skipped session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. File already exists.
+            Rendering session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Skipped session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. Output already exists.
             Writing test_project/materials/test_material/render.yml.
                 Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds
@@ -106,10 +106,10 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Skipped 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. File already exists.
-            Rendering 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
-                Skipped 16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. Output already exists.
+            Writing session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Skipped session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. File already exists.
+            Rendering session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc.
+                Skipped session-16a8ecc3d1ee2b96b0dfca852b2a18ae.osc. Output already exists.
             Writing test_project/materials/test_material/render.yml.
                 Skipped test_project/materials/test_material/render.yml. File already exists.
             Python/SC runtime: 0 seconds

@@ -121,7 +121,7 @@ class SessionRenderer(SupriyaObject):
             value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
-        file_path = '{}.osc'.format(md5)
+        file_path = 'session-{}.osc'.format(md5)
         return pathlib.Path(file_path)
 
     def _build_render_command(

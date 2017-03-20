@@ -74,14 +74,14 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/39c4bade1294b4712f1c742a1ce6a0d0.aiff',
-                'test_project/test_project/renders/39c4bade1294b4712f1c742a1ce6a0d0.osc',
-                'test_project/test_project/renders/598a66b84c0aafacf6110a39b11f578e.aiff',
-                'test_project/test_project/renders/598a66b84c0aafacf6110a39b11f578e.osc',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
-                'test_project/test_project/renders/f4a652f7e5337b4b5c2e98f58f1ab9c0.aiff',
-                'test_project/test_project/renders/f4a652f7e5337b4b5c2e98f58f1ab9c0.osc',
+                'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.aiff',
+                'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.osc',
+                'test_project/test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.aiff',
+                'test_project/test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.osc',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.aiff',
+                'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -101,6 +101,12 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
+
+        self.compare_captured_output(r'''
+        Pruning test_project/renders ...
+            Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.aiff
+            Pruned test_project/renders/session-1fa53239afd7268cce27ff05fad76c18.osc
+        ''')
 
         self.compare_path_contents(
             self.inner_project_path,
@@ -128,12 +134,12 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/39c4bade1294b4712f1c742a1ce6a0d0.aiff',
-                'test_project/test_project/renders/39c4bade1294b4712f1c742a1ce6a0d0.osc',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
-                'test_project/test_project/renders/f4a652f7e5337b4b5c2e98f58f1ab9c0.aiff',
-                'test_project/test_project/renders/f4a652f7e5337b4b5c2e98f58f1ab9c0.osc',
+                'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.aiff',
+                'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.osc',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.aiff',
+                'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -141,9 +147,3 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py'
                 ],
             )
-
-        self.compare_captured_output(r'''
-        Pruning test_project/renders ...
-            Pruned test_project/renders/598a66b84c0aafacf6110a39b11f578e.aiff
-            Pruned test_project/renders/598a66b84c0aafacf6110a39b11f578e.osc
-        ''')

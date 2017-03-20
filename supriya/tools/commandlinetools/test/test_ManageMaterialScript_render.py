@@ -186,11 +186,11 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Wrote 95cecb2c724619fe502164459560ba5d.osc.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 1.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 1.
                 SuperCollider errored!
             Python/SC runtime: 0 seconds
             Render failed. Exiting.
@@ -215,11 +215,11 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Wrote 95cecb2c724619fe502164459560ba5d.osc.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
                 Output file is missing!
             Python/SC runtime: 0 seconds
             Render failed. Exiting.
@@ -243,31 +243,31 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: '*' ...
         Rendering test_project/materials/material_one/
             Importing test_project.materials.material_one.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Wrote 95cecb2c724619fe502164459560ba5d.osc.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/material_one/render.yml.
                 Wrote test_project/materials/material_one/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_one/
         Rendering test_project/materials/material_three/
             Importing test_project.materials.material_three.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing test_project/materials/material_three/render.yml.
                 Wrote test_project/materials/material_three/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
             Importing test_project.materials.material_two.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing test_project/materials/material_two/render.yml.
                 Wrote test_project/materials/material_two/render.yml.
             Python/SC runtime: 0 seconds
@@ -334,21 +334,21 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'material_t*' ...
         Rendering test_project/materials/material_three/
             Importing test_project.materials.material_three.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Wrote 95cecb2c724619fe502164459560ba5d.osc.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/material_three/render.yml.
                 Wrote test_project/materials/material_three/render.yml.
             Python/SC runtime: 0 seconds
             Rendered test_project/materials/material_three/
         Rendering test_project/materials/material_two/
             Importing test_project.materials.material_two.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. File already exists.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Skipped 95cecb2c724619fe502164459560ba5d.osc. Output already exists.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
             Writing test_project/materials/material_two/render.yml.
                 Wrote test_project/materials/material_two/render.yml.
             Python/SC runtime: 0 seconds
@@ -403,11 +403,11 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
             Importing test_project.materials.test_material.definition
-            Writing 95cecb2c724619fe502164459560ba5d.osc.
-                Wrote 95cecb2c724619fe502164459560ba5d.osc.
-            Rendering 95cecb2c724619fe502164459560ba5d.osc.
-                Command: scsynth -N 95cecb2c724619fe502164459560ba5d.osc _ 95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
-                Rendered 95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
             Writing test_project/materials/test_material/render.yml.
                 Wrote test_project/materials/test_material/render.yml.
             Python/SC runtime: 0 seconds
@@ -431,8 +431,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.aiff',
-                'test_project/test_project/renders/95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -526,21 +526,21 @@ class Test(ProjectPackageScriptTestCase):
         Render candidates: 'material_three' ...
         Rendering test_project/materials/material_three/
             Importing test_project.materials.material_three.definition
-            Writing aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Wrote aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-            Rendering aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
-                Command: scsynth -N aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
-            Writing dc8e67ade1ba15e509f31884c3d3ea14.osc.
-                Wrote dc8e67ade1ba15e509f31884c3d3ea14.osc.
-            Rendering dc8e67ade1ba15e509f31884c3d3ea14.osc.
-                Command: scsynth -N dc8e67ade1ba15e509f31884c3d3ea14.osc aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff dc8e67ade1ba15e509f31884c3d3ea14.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered dc8e67ade1ba15e509f31884c3d3ea14.osc with exit code 0.
-            Writing baf9c55aa98bb2f92d16ffac69e3e19a.osc.
-                Wrote baf9c55aa98bb2f92d16ffac69e3e19a.osc.
-            Rendering baf9c55aa98bb2f92d16ffac69e3e19a.osc.
-                Command: scsynth -N baf9c55aa98bb2f92d16ffac69e3e19a.osc dc8e67ade1ba15e509f31884c3d3ea14.aiff baf9c55aa98bb2f92d16ffac69e3e19a.aiff 44100 aiff int24 -i 2 -o 2
-                Rendered baf9c55aa98bb2f92d16ffac69e3e19a.osc with exit code 0.
+            Writing session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Wrote session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+            Rendering session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
+                Command: scsynth -N session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc _ session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc with exit code 0.
+            Writing session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+                Wrote session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+            Rendering session-46f9bdbbd13bcf641e2a79917dcc041f.osc.
+                Command: scsynth -N session-46f9bdbbd13bcf641e2a79917dcc041f.osc session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff session-46f9bdbbd13bcf641e2a79917dcc041f.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered session-46f9bdbbd13bcf641e2a79917dcc041f.osc with exit code 0.
+            Writing session-352b87b6c1d447a5be11020a33ceadec.osc.
+                Wrote session-352b87b6c1d447a5be11020a33ceadec.osc.
+            Rendering session-352b87b6c1d447a5be11020a33ceadec.osc.
+                Command: scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
+                Rendered session-352b87b6c1d447a5be11020a33ceadec.osc with exit code 0.
             Writing test_project/materials/material_three/render.yml.
                 Wrote test_project/materials/material_three/render.yml.
             Python/SC runtime: 0 seconds
@@ -569,12 +569,12 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
-                'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff',
-                'test_project/test_project/renders/aa1ca9fda49a2dd38a1a2b8a91a76cca.osc',
-                'test_project/test_project/renders/baf9c55aa98bb2f92d16ffac69e3e19a.aiff',
-                'test_project/test_project/renders/baf9c55aa98bb2f92d16ffac69e3e19a.osc',
-                'test_project/test_project/renders/dc8e67ade1ba15e509f31884c3d3ea14.aiff',
-                'test_project/test_project/renders/dc8e67ade1ba15e509f31884c3d3ea14.osc',
+                'test_project/test_project/renders/session-352b87b6c1d447a5be11020a33ceadec.aiff',
+                'test_project/test_project/renders/session-352b87b6c1d447a5be11020a33ceadec.osc',
+                'test_project/test_project/renders/session-46f9bdbbd13bcf641e2a79917dcc041f.aiff',
+                'test_project/test_project/renders/session-46f9bdbbd13bcf641e2a79917dcc041f.osc',
+                'test_project/test_project/renders/session-aa1ca9fda49a2dd38a1a2b8a91a76cca.aiff',
+                'test_project/test_project/renders/session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -586,10 +586,10 @@ class Test(ProjectPackageScriptTestCase):
         with open(str(render_yml_file_path), 'r') as file_pointer:
             render_yml = yaml.load(file_pointer.read())
         assert render_yml == {
-            'render': 'baf9c55aa98bb2f92d16ffac69e3e19a',
+            'render': 'session-352b87b6c1d447a5be11020a33ceadec',
             'source': [
-                'dc8e67ade1ba15e509f31884c3d3ea14',
-                'aa1ca9fda49a2dd38a1a2b8a91a76cca',
+                'session-46f9bdbbd13bcf641e2a79917dcc041f',
+                'session-aa1ca9fda49a2dd38a1a2b8a91a76cca',
                 ],
             }
 
