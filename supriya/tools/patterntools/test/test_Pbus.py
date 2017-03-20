@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 import time
 from patterntools_testbase import TestCase
-from supriya import synthdefs
+from supriya import SynthDefBuilder, synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
+from supriya.tools import ugentools
 
 
 class TestCase(TestCase):
@@ -47,6 +48,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -131,6 +133,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -213,6 +216,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -270,6 +274,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -336,6 +341,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -393,6 +399,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
@@ -442,7 +449,7 @@ class TestCase(TestCase):
             [10, [
                 ['/g_new', 1000, 0, 1],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 0],
+                    'fade_time', 0.25, 'in_', 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 0]
                 ]],
@@ -487,7 +494,7 @@ class TestCase(TestCase):
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
                     1001 454b69a7c505ddecc5b39762d291a5ec
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 2
         player(0, 0)
@@ -502,7 +509,7 @@ class TestCase(TestCase):
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
                     1001 454b69a7c505ddecc5b39762d291a5ec
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
         time.sleep(0.5)
@@ -514,7 +521,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                     1001 454b69a7c505ddecc5b39762d291a5ec
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 3
         player(0, 0)
@@ -529,7 +536,7 @@ class TestCase(TestCase):
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
                     1001 454b69a7c505ddecc5b39762d291a5ec
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
         time.sleep(0.5)
@@ -541,7 +548,7 @@ class TestCase(TestCase):
                         1004 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
                     1001 454b69a7c505ddecc5b39762d291a5ec
-                        done_action: 2.0, fade_time: 0.02, gate: 1.0, in_: 16.0, out: 0.0
+                        done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 4
         player(0, 0)
@@ -587,7 +594,7 @@ class TestCase(TestCase):
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 16],
+                    'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
             [1.0, [
@@ -622,7 +629,7 @@ class TestCase(TestCase):
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 16],
+                    'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
             [1.0, [
@@ -653,7 +660,7 @@ class TestCase(TestCase):
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 16],
+                    'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
             [1.0, [
@@ -663,3 +670,34 @@ class TestCase(TestCase):
                 ['/n_free', 1000],
                 [0]]]]
         assert final_offset == 1.25
+
+    def test_nonrealtime_releasetime(self):
+        with SynthDefBuilder(out=0) as builder:
+            ugentools.Line.kr(duration=2),
+            ugentools.Out.ar(bus=builder['out'], source=ugentools.DC.ar(1))
+        dc_synthdef = builder.build()
+        pattern = patterntools.Pbus(
+            patterntools.Pbind(
+                delta=1,
+                duration=1,
+                synthdef=dc_synthdef,
+                ),
+            release_time=1,
+            )
+        session = nonrealtimetools.Session(0, 1)
+        with session.at(0):
+            session.inscribe(pattern, duration=1)
+        assert session.to_lists() == [
+            [0.0, [
+                ['/d_recv', bytearray(synthdefs.system_link_audio_1.compile())],
+                ['/d_recv', bytearray(dc_synthdef.compile())],
+                ['/g_new', 1000, 0, 0],
+                ['/s_new', '15c18006fb03219d09482712484f9652', 1001, 3, 1000,
+                    'fade_time', 1.0, 'in_', 1],
+                ['/s_new', '400138646b6fb0b9424814af5aebb0c8', 1002, 0, 1000,
+                    'out', 1]]],
+            [1.0, [
+                ['/n_free', 1002],
+                ['/n_set', 1001, 'gate', 0],
+                ]],
+            [2.0, [['/n_free', 1000], [0]]]]

@@ -93,7 +93,7 @@ class Pbus(EventPattern):
         start_link_event = patterntools.SynthEvent(
             add_action='ADD_AFTER',
             amplitude=1.0,
-            #fade_time=self.release_time,
+            fade_time=self.release_time,
             in_=state['bus_uuid'],
             synthdef=link_synthdef,
             target_node=state['group_uuid'],

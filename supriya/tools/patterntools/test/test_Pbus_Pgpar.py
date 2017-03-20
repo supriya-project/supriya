@@ -28,7 +28,7 @@ class TestCase(TestCase):
             [10, [
                 ['/g_new', 1000, 0, 1],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 0],
+                    'fade_time', 0.25, 'in_', 0],
                 ['/g_new', 1002, 1, 1000],
                 ['/g_new', 1003, 1, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1002,
@@ -75,7 +75,7 @@ class TestCase(TestCase):
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
-                    'in_', 16],
+                    'fade_time', 0.25, 'in_', 16],
                 ['/g_new', 1002, 1, 1000],
                 ['/g_new', 1003, 1, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1002,

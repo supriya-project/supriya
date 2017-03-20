@@ -57,6 +57,7 @@ class TestCase(TestCase):
                         add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
+                        fade_time=0.25,
                         in_=UUID('A'),
                         synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
                         target_node=UUID('B'),
