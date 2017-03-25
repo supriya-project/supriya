@@ -1977,6 +1977,13 @@ class UGenMethodMixin(SupriyaObject):
             synthdeftools.UnaryOperator.AMPLITUDE_TO_DB,
             )
 
+    def as_int(self):
+        from supriya import synthdeftools
+        return synthdeftools.UGenMethodMixin._compute_unary_op(
+            self,
+            synthdeftools.UnaryOperator.AS_INT,
+            )
+
     def ceiling(self):
         """
         Calculates the ceiling of ugen graph.
