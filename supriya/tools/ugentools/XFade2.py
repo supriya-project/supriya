@@ -8,13 +8,13 @@ class XFade2(UGen):
 
     ::
 
-        >>> xfade_2 = ugentools.XFade2.ar(
+        >>> xfade_3 = ugentools.XFade2.ar(
         ...     in_a=ugentools.Saw.ar(),
         ...     in_b=ugentools.SinOsc.ar(),
         ...     level=1,
         ...     pan=ugentools.LFTri.kr(frequency=0.1),
         ...     )
-        >>> xfade_2
+        >>> xfade_3
         XFade2.ar()
 
     """

@@ -13,7 +13,7 @@ class Warp1(MultiOutUGen):
         ...     channel_count=1,
         ...     envelope_buffer_id=-1,
         ...     frequency_scaling=1,
-        ...     interpolate=1,
+        ...     interpolation=1,
         ...     overlaps=8,
         ...     pointer=0,
         ...     window_rand_ratio=0,
@@ -38,7 +38,7 @@ class Warp1(MultiOutUGen):
         'envelope_buffer_id',
         'overlaps',
         'window_rand_ratio',
-        'interpolate',
+        'interpolation',
         )
 
     _valid_calculation_rates = (
@@ -54,7 +54,7 @@ class Warp1(MultiOutUGen):
         channel_count=1,
         envelope_buffer_id=-1,
         frequency_scaling=1,
-        interpolate=1,
+        interpolation=1,
         overlaps=8,
         pointer=0,
         window_rand_ratio=0,
@@ -67,7 +67,7 @@ class Warp1(MultiOutUGen):
             channel_count=channel_count,
             envelope_buffer_id=envelope_buffer_id,
             frequency_scaling=frequency_scaling,
-            interpolate=interpolate,
+            interpolation=interpolation,
             overlaps=overlaps,
             pointer=pointer,
             window_rand_ratio=window_rand_ratio,
@@ -83,7 +83,7 @@ class Warp1(MultiOutUGen):
         channel_count=1,
         envelope_buffer_id=-1,
         frequency_scaling=1,
-        interpolate=1,
+        interpolation=1,
         overlaps=8,
         pointer=0,
         window_rand_ratio=0,
@@ -99,7 +99,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -118,7 +118,7 @@ class Warp1(MultiOutUGen):
             channel_count=channel_count,
             envelope_buffer_id=envelope_buffer_id,
             frequency_scaling=frequency_scaling,
-            interpolate=interpolate,
+            interpolation=interpolation,
             overlaps=overlaps,
             pointer=pointer,
             window_rand_ratio=window_rand_ratio,
@@ -140,7 +140,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -166,7 +166,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -192,7 +192,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -207,9 +207,9 @@ class Warp1(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def interpolate(self):
+    def interpolation(self):
         """
-        Gets `interpolate` input of Warp1.
+        Gets `interpolation` input of Warp1.
 
         ::
 
@@ -218,18 +218,18 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.interpolate
+            >>> warp_1.interpolation
             1.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('interpolate')
+        index = self._ordered_input_names.index('interpolation')
         return self._inputs[index]
 
     @property
@@ -244,7 +244,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -270,7 +270,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -296,7 +296,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
@@ -322,7 +322,7 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
