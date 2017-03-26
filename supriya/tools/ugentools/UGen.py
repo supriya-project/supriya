@@ -269,7 +269,7 @@ class UGen(UGenMethodMixin):
                         x._get_output_number(),
                         )
                 else:
-                    raise Exception(repr(value, x))
+                    raise Exception('{!r} {!r}'.format(value, x))
         else:
             raise Exception(repr(value))
 
