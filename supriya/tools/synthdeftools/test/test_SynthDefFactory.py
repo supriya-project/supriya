@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from abjad.tools import systemtools
-from supriya import DoneAction, SynthDefBuilder
+from supriya import DoneAction, Parameter, SynthDefBuilder, SynthDefFactory
 from supriya import synthdeftools
 from supriya import ugentools
 
@@ -10,7 +10,11 @@ class TestCase(systemtools.TestCase):
     def test_01(self):
         def build_synthdef_manually():
             channel_count = 2
-            with SynthDefBuilder(duration=1.0, level=1.0, out=0) as builder:
+            with SynthDefBuilder(
+                duration=Parameter(parameter_rate='SCALAR', value=1),
+                level=1.0,
+                out=Parameter(parameter_rate='SCALAR', value=0),
+                ) as builder:
                 window = ugentools.Line.kr(
                     done_action=2,
                     duration=builder['duration'],
@@ -60,10 +64,10 @@ class TestCase(systemtools.TestCase):
                 allpasses.append(output)
             return synthdeftools.UGenArray(allpasses)
 
-        factory = synthdeftools.SynthDefFactory(channel_count=2)
-        factory.with_input()
-        factory.with_output(crossfaded=True, leveled=True, windowed=True)
-        factory.with_signal_block(signal_block)
+        factory = SynthDefFactory(channel_count=2)
+        factory = factory.with_input()
+        factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
+        factory = factory.with_signal_block(signal_block)
         factory_synthdef = factory.build()
         manual_synthdef = build_synthdef_manually()
         self.compare_strings(str(manual_synthdef), str(factory_synthdef))
@@ -71,7 +75,11 @@ class TestCase(systemtools.TestCase):
     def test_02(self):
         def build_synthdef_manually():
             channel_count = 2
-            with SynthDefBuilder(duration=1.0, level=1.0, out=0) as builder:
+            with SynthDefBuilder(
+                duration=Parameter(parameter_rate='SCALAR', value=1),
+                level=1.0,
+                out=Parameter(parameter_rate='SCALAR', value=0),
+                ) as builder:
                 window = ugentools.Line.kr(
                     done_action=2,
                     duration=builder['duration'],
@@ -141,13 +149,13 @@ class TestCase(systemtools.TestCase):
             source = ugentools.Limiter.ar(source=source)
             return source
 
-        factory = synthdeftools.SynthDefFactory(channel_count=2)
-        factory.with_feedback_loop(feedback_loop)
-        factory.with_input()
-        factory.with_output(crossfaded=True, leveled=True, windowed=True)
-        factory.with_signal_block(signal_block_one)
-        factory.with_signal_block(signal_block_two)
-        factory.with_silence_detection()
+        factory = SynthDefFactory(channel_count=2)
+        factory = factory.with_feedback_loop(feedback_loop)
+        factory = factory.with_input()
+        factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
+        factory = factory.with_signal_block(signal_block_one)
+        factory = factory.with_signal_block(signal_block_two)
+        factory = factory.with_silence_detection()
         factory_synthdef = factory.build()
         manual_synthdef = build_synthdef_manually()
         self.compare_strings(str(manual_synthdef), str(factory_synthdef))
@@ -156,23 +164,23 @@ class TestCase(systemtools.TestCase):
         def signal_block(builder, source, state):
             return ugentools.SinOsc.ar()
 
-        factory = synthdeftools.SynthDefFactory(channel_count=1)
-        factory.with_signal_block(signal_block)
-        factory.with_gate()
-        factory.with_output()
+        factory = SynthDefFactory(channel_count=1)
+        factory = factory.with_signal_block(signal_block)
+        factory = factory.with_gate()
+        factory = factory.with_output()
         self.compare_strings('''
-        SynthDef 6e93b495036d8170d2f849155816514c {
-            0_Control[0] -> 1_Linen[0:gate]
-            const_0:0.02 -> 1_Linen[1:attack_time]
-            const_1:1.0 -> 1_Linen[2:sustain_level]
-            const_0:0.02 -> 1_Linen[3:release_time]
-            const_2:2.0 -> 1_Linen[4:done_action]
-            const_3:440.0 -> 2_SinOsc[0:frequency]
-            const_4:0.0 -> 2_SinOsc[1:phase]
-            2_SinOsc[0] -> 3_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Linen[0] -> 3_BinaryOpUGen:MULTIPLICATION[1:right]
-            0_Control[1] -> 4_Out[0:bus]
-            3_BinaryOpUGen:MULTIPLICATION[0] -> 4_Out[1:source]
+        SynthDef 937f9dd172e0c2ec52916ce2ae4cb9c1 {
+            1_TrigControl[0] -> 2_Linen[0:gate]
+            const_0:0.02 -> 2_Linen[1:attack_time]
+            const_1:1.0 -> 2_Linen[2:sustain_level]
+            const_0:0.02 -> 2_Linen[3:release_time]
+            const_2:2.0 -> 2_Linen[4:done_action]
+            const_3:440.0 -> 3_SinOsc[0:frequency]
+            const_4:0.0 -> 3_SinOsc[1:phase]
+            3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
+            2_Linen[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
+            0_Control[0] -> 5_Out[0:bus]
+            4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
         }
         ''', str(factory.build()))
 
@@ -180,24 +188,24 @@ class TestCase(systemtools.TestCase):
         def signal_block(builder, source, state):
             return ugentools.SinOsc.ar()
 
-        factory = synthdeftools.SynthDefFactory(channel_count=1)
-        factory.with_signal_block(signal_block)
-        factory.with_gate()
-        factory.with_output(crossfaded=True)
+        factory = SynthDefFactory(channel_count=1)
+        factory = factory.with_signal_block(signal_block)
+        factory = factory.with_gate()
+        factory = factory.with_output(crossfaded=True)
         self.compare_strings('''
-        SynthDef cb1639f20065ae9c58cc712d84dc68f4 {
-            0_Control[1] -> 1_Linen[0:gate]
-            const_0:0.02 -> 1_Linen[1:attack_time]
-            const_1:1.0 -> 1_Linen[2:sustain_level]
-            const_0:0.02 -> 1_Linen[3:release_time]
-            const_2:2.0 -> 1_Linen[4:done_action]
-            0_Control[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Linen[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
-            const_3:440.0 -> 3_SinOsc[0:frequency]
-            const_4:0.0 -> 3_SinOsc[1:phase]
-            0_Control[2] -> 4_XOut[0:bus]
-            2_BinaryOpUGen:MULTIPLICATION[0] -> 4_XOut[1:crossfade]
-            3_SinOsc[0] -> 4_XOut[2:source]
+        SynthDef b2b4641122aa7170a652c245e97f995e {
+            1_TrigControl[0] -> 2_Linen[0:gate]
+            const_0:0.02 -> 2_Linen[1:attack_time]
+            const_1:1.0 -> 2_Linen[2:sustain_level]
+            const_0:0.02 -> 2_Linen[3:release_time]
+            const_2:2.0 -> 2_Linen[4:done_action]
+            3_Control[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
+            2_Linen[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
+            const_3:440.0 -> 5_SinOsc[0:frequency]
+            const_4:0.0 -> 5_SinOsc[1:phase]
+            0_Control[0] -> 6_XOut[0:bus]
+            4_BinaryOpUGen:MULTIPLICATION[0] -> 6_XOut[1:crossfade]
+            5_SinOsc[0] -> 6_XOut[2:source]
         }
         ''', str(factory.build()))
 
@@ -205,29 +213,29 @@ class TestCase(systemtools.TestCase):
         def signal_block(builder, source, state):
             return ugentools.SinOsc.ar()
 
-        factory = synthdeftools.SynthDefFactory(channel_count=1)
-        factory.with_signal_block(signal_block)
-        factory.with_gate()
-        factory.with_output(crossfaded=True, windowed=True)
+        factory = SynthDefFactory(channel_count=1)
+        factory = factory.with_signal_block(signal_block)
+        factory = factory.with_gate()
+        factory = factory.with_output(crossfaded=True, windowed=True)
         self.compare_strings('''
-        SynthDef 23408f76776475102e54776932465d59 {
-            0_Control[1] -> 1_Linen[0:gate]
-            const_0:0.02 -> 1_Linen[1:attack_time]
-            const_1:1.0 -> 1_Linen[2:sustain_level]
-            const_0:0.02 -> 1_Linen[3:release_time]
-            const_2:2.0 -> 1_Linen[4:done_action]
-            const_3:0.0 -> 2_Line[0:start]
-            const_1:1.0 -> 2_Line[1:stop]
-            0_Control[0] -> 2_Line[2:duration]
-            const_2:2.0 -> 2_Line[3:done_action]
-            2_Line[0] -> 3_UnaryOpUGen:HANNING_WINDOW[0:source]
-            3_UnaryOpUGen:HANNING_WINDOW[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Linen[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-            const_4:440.0 -> 5_SinOsc[0:frequency]
-            const_3:0.0 -> 5_SinOsc[1:phase]
-            0_Control[2] -> 6_XOut[0:bus]
-            4_BinaryOpUGen:MULTIPLICATION[0] -> 6_XOut[1:crossfade]
-            5_SinOsc[0] -> 6_XOut[2:source]
+        SynthDef 7758ec85f0a5e78d07ac88e6e9ac17db {
+            const_0:0.0 -> 1_Line[0:start]
+            const_1:1.0 -> 1_Line[1:stop]
+            0_Control[0] -> 1_Line[2:duration]
+            const_2:2.0 -> 1_Line[3:done_action]
+            1_Line[0] -> 2_UnaryOpUGen:HANNING_WINDOW[0:source]
+            3_TrigControl[0] -> 4_Linen[0:gate]
+            const_3:0.02 -> 4_Linen[1:attack_time]
+            const_1:1.0 -> 4_Linen[2:sustain_level]
+            const_3:0.02 -> 4_Linen[3:release_time]
+            const_2:2.0 -> 4_Linen[4:done_action]
+            2_UnaryOpUGen:HANNING_WINDOW[0] -> 5_BinaryOpUGen:MULTIPLICATION[0:left]
+            4_Linen[0] -> 5_BinaryOpUGen:MULTIPLICATION[1:right]
+            const_4:440.0 -> 6_SinOsc[0:frequency]
+            const_0:0.0 -> 6_SinOsc[1:phase]
+            0_Control[1] -> 7_XOut[0:bus]
+            5_BinaryOpUGen:MULTIPLICATION[0] -> 7_XOut[1:crossfade]
+            6_SinOsc[0] -> 7_XOut[2:source]
         }
         ''', str(factory.build()))
 
@@ -235,30 +243,30 @@ class TestCase(systemtools.TestCase):
         def signal_block(builder, source, state):
             return ugentools.SinOsc.ar()
 
-        factory = synthdeftools.SynthDefFactory(channel_count=1)
-        factory.with_signal_block(signal_block)
-        factory.with_gate()
-        factory.with_output(crossfaded=True, leveled=True, windowed=True)
+        factory = SynthDefFactory(channel_count=1)
+        factory = factory.with_signal_block(signal_block)
+        factory = factory.with_gate()
+        factory = factory.with_output(crossfaded=True, leveled=True, windowed=True)
         self.compare_strings('''
-        SynthDef 978267ac37f4bc6993bb7efd71fe8333 {
-            0_Control[1] -> 1_Linen[0:gate]
-            const_0:0.02 -> 1_Linen[1:attack_time]
-            const_1:1.0 -> 1_Linen[2:sustain_level]
-            const_0:0.02 -> 1_Linen[3:release_time]
-            const_2:2.0 -> 1_Linen[4:done_action]
-            const_3:0.0 -> 2_Line[0:start]
-            const_1:1.0 -> 2_Line[1:stop]
-            0_Control[0] -> 2_Line[2:duration]
-            const_2:2.0 -> 2_Line[3:done_action]
-            2_Line[0] -> 3_UnaryOpUGen:HANNING_WINDOW[0:source]
-            3_UnaryOpUGen:HANNING_WINDOW[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Linen[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-            const_4:440.0 -> 5_SinOsc[0:frequency]
-            const_3:0.0 -> 5_SinOsc[1:phase]
-            5_SinOsc[0] -> 6_BinaryOpUGen:MULTIPLICATION[0:left]
-            0_Control[2] -> 6_BinaryOpUGen:MULTIPLICATION[1:right]
-            0_Control[3] -> 7_XOut[0:bus]
-            4_BinaryOpUGen:MULTIPLICATION[0] -> 7_XOut[1:crossfade]
-            6_BinaryOpUGen:MULTIPLICATION[0] -> 7_XOut[2:source]
+        SynthDef 077c1d5506728cf41d5c1c250059894d {
+            const_0:0.0 -> 1_Line[0:start]
+            const_1:1.0 -> 1_Line[1:stop]
+            0_Control[0] -> 1_Line[2:duration]
+            const_2:2.0 -> 1_Line[3:done_action]
+            1_Line[0] -> 2_UnaryOpUGen:HANNING_WINDOW[0:source]
+            3_TrigControl[0] -> 4_Linen[0:gate]
+            const_3:0.02 -> 4_Linen[1:attack_time]
+            const_1:1.0 -> 4_Linen[2:sustain_level]
+            const_3:0.02 -> 4_Linen[3:release_time]
+            const_2:2.0 -> 4_Linen[4:done_action]
+            2_UnaryOpUGen:HANNING_WINDOW[0] -> 5_BinaryOpUGen:MULTIPLICATION[0:left]
+            4_Linen[0] -> 5_BinaryOpUGen:MULTIPLICATION[1:right]
+            const_4:440.0 -> 7_SinOsc[0:frequency]
+            const_0:0.0 -> 7_SinOsc[1:phase]
+            7_SinOsc[0] -> 8_BinaryOpUGen:MULTIPLICATION[0:left]
+            6_Control[0] -> 8_BinaryOpUGen:MULTIPLICATION[1:right]
+            0_Control[1] -> 9_XOut[0:bus]
+            5_BinaryOpUGen:MULTIPLICATION[0] -> 9_XOut[1:crossfade]
+            8_BinaryOpUGen:MULTIPLICATION[0] -> 9_XOut[2:source]
         }
         ''', str(factory.build()))

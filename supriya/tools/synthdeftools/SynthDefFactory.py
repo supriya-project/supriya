@@ -68,11 +68,7 @@ class SynthDefFactory(SupriyaObject):
         for key, value in self._parameters:
             builder._add_parameter(key, value)
 
-    def _build_input(
-        self,
-        builder,
-        state,
-        ):
+    def _build_input(self, builder, state):
         from supriya.tools import ugentools
         if not self._input:
             return
@@ -84,13 +80,32 @@ class SynthDefFactory(SupriyaObject):
             source *= state['window']
         return source
 
-    def _build_output(
-        self,
-        builder,
-        source,
-        state,
-        ):
+    def _build_feedback_loop_input(self, builder, source, state):
         from supriya.tools import ugentools
+        if self._feedback_loop:
+            local_in = ugentools.LocalIn.ar(
+                channel_count=self._channel_count,
+                )
+            if source is None:
+                source = local_in
+            else:
+                source += local_in
+        return source
+
+    def _build_feedback_loop_output(self, builder, source, state):
+        from supriya.tools import ugentools
+        if not self._feedback_loop:
+            return
+        if isinstance(self._feedback_loop, types.FunctionType):
+            source = self._feedback_loop(builder, source, state)
+        ugentools.LocalOut.ar(
+            source=source,
+            )
+
+    def _build_output(self, builder, source, state):
+        from supriya.tools import ugentools
+        if not self._output:
+            return
         crossfaded = self._output.get('crossfaded')
         windowed = self._output.get('windowed')
         gate = state.get('gate')
@@ -119,44 +134,7 @@ class SynthDefFactory(SupriyaObject):
             kwargs['source'] *= gate
         out_class.ar(**kwargs)
 
-    def _build_feedback_loop_input(
-        self,
-        builder,
-        source,
-        state,
-        ):
-        from supriya.tools import ugentools
-        if self._feedback_loop:
-            local_in = ugentools.LocalIn.ar(
-                channel_count=self._channel_count,
-                )
-            if source is None:
-                source = local_in
-            else:
-                source += local_in
-        return source
-
-    def _build_feedback_loop_output(
-        self,
-        builder,
-        source,
-        state,
-        ):
-        from supriya.tools import ugentools
-        if not self._feedback_loop:
-            return
-        if isinstance(self._feedback_loop, types.FunctionType):
-            source = self._feedback_loop(builder, source, state)
-        ugentools.LocalOut.ar(
-            source=source,
-            )
-
-    def _build_silence_detection(
-        self,
-        builder,
-        source,
-        state,
-        ):
+    def _build_silence_detection(self, builder, source, state):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         if not self._silence_detection:
