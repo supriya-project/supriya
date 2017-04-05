@@ -61,7 +61,9 @@ packages. They also allow you to install Python packages without ``sudo``. The
 and the `virtualenvwrapper`_ package provides additional tools which make
 working with virtual environments incredibly easy.
 
-To install and setup `virtualenv`_ and `virtualenvwrapper`_::
+To install and setup `virtualenv`_ and `virtualenvwrapper`_:
+
+::
 
     ~$ pip install virtualenvwrapper
     ...
@@ -70,13 +72,17 @@ To install and setup `virtualenv`_ and `virtualenvwrapper`_::
     ~$ source /usr/local/bin/virtualenvwrapper.sh
 
 Make the last two lines teaching your shell about the virtual environment
-tools "sticky" by adding them to your profile::
+tools "sticky" by adding them to your profile:
+
+::
 
     ~$ echo "export WORKON_HOME=~/.virtualenvs" >> ~/.profile
     ~$ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.profile
  
- With the virtual environment tools installed, create and activate a virtual
- environment. You can now install supriya into that environment::
+With the virtual environment tools installed, create and activate a virtual
+environment. You can now install supriya into that environment:
+
+::
 
     ~$ mkvirtualenv my-supriya-env
     ...
@@ -86,7 +92,7 @@ tools "sticky" by adding them to your profile::
 
 See the `virtualenvwrapper`_ documentation for instructions on how to use the
 provided tools for working creating, deleting, activating and deactivating
-virtual environments:`mkvirtualenv`, `rmvirtualenv`, `workon` and
-`deactivate`.
+virtual environments: ``mkvirtualenv``, ``rmvirtualenv``, ``workon`` and
+``deactivate``.
 
 ..  include:: references.txt

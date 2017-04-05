@@ -29,7 +29,6 @@ def _build_default_synthdef():
         frequency=440,
         gate=1,
         out=synthdeftools.Parameter(
-            name='out',
             parameter_rate=synthdeftools.ParameterRate.SCALAR,
             value=0,
             ),
