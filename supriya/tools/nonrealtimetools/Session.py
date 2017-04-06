@@ -596,6 +596,7 @@ class Session(object):
 
     def _collect_node_set_requests(self, id_mapping, node_settings):
         from supriya.tools import nonrealtimetools
+        scalar_rate = synthdeftools.ParameterRate.SCALAR
         requests = []
         bus_prototype = (
             nonrealtimetools.Bus,
@@ -607,11 +608,19 @@ class Session(object):
             nonrealtimetools.BufferGroup,
             )
         for node, settings in node_settings.items():
+            parameters = {}
+            if isinstance(node, nonrealtimetools.Synth):
+                parameters = node.synthdef.parameters
             node_id = id_mapping[node]
             a_settings = {}
             c_settings = {}
             n_settings = {}
             for key, value in settings.items():
+                if (
+                    key in parameters and
+                    parameters[key].parameter_rate == scalar_rate
+                    ):
+                    continue
                 if isinstance(value, bus_prototype):
                     if value is None:
                         c_settings[key] = -1
@@ -641,7 +650,6 @@ class Session(object):
                     **c_settings
                     )
                 requests.append(request)
-            # separate out floats, control buses and audio buses
         return requests
 
     def _collect_requests_at_offset(

@@ -27,9 +27,12 @@ from supriya.tools.synthdeftools import (  # noqa
     CalculationRate,
     DoneAction,
     Envelope,
+    Parameter,
+    ParameterRate,
     Range,
     SynthDef,
     SynthDefBuilder,
+    SynthDefFactory,
     )
 from supriya.tools.systemtools import (  # noqa
     Assets,

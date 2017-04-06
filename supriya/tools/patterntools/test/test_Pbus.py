@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 import time
 from patterntools_testbase import TestCase
-from supriya import SynthDefBuilder, synthdefs
+from supriya import SynthDefBuilder, Parameter, synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
 from supriya.tools import ugentools
@@ -672,7 +672,9 @@ class TestCase(TestCase):
         assert final_offset == 1.25
 
     def test_nonrealtime_releasetime(self):
-        with SynthDefBuilder(out=0) as builder:
+        with SynthDefBuilder(
+            out=Parameter(parameter_rate='SCALAR', value=0),
+            ) as builder:
             ugentools.Line.kr(duration=2),
             ugentools.Out.ar(bus=builder['out'], source=ugentools.DC.ar(1))
         dc_synthdef = builder.build()
@@ -692,9 +694,9 @@ class TestCase(TestCase):
                 ['/d_recv', bytearray(synthdefs.system_link_audio_1.compile())],
                 ['/d_recv', bytearray(dc_synthdef.compile())],
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', '15c18006fb03219d09482712484f9652', 1001, 3, 1000,
+                ['/s_new', synthdefs.system_link_audio_1.anonymous_name, 1001, 3, 1000,
                     'fade_time', 1.0, 'in_', 1],
-                ['/s_new', '400138646b6fb0b9424814af5aebb0c8', 1002, 0, 1000,
+                ['/s_new', dc_synthdef.anonymous_name, 1002, 0, 1000,
                     'out', 1]]],
             [1.0, [
                 ['/n_free', 1002],

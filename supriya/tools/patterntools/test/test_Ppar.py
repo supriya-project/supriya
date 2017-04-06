@@ -880,13 +880,13 @@ class TestCase(TestCase):
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1003,
                     'amplitude', 1.0, 'frequency', 222, 'out', 18]]],
             [0.75, [
-                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333]]],
             [1.0, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 1000,
                     'amplitude', 1.0, 'frequency', 660, 'out', 16],
                 ['/n_set', 1002, 'gate', 0]]],
             [1.5, [
-                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 444, 'out', 18]]],
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 444]]],
             [2.0, [
                 ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1006, 'gate', 0]]],
@@ -924,7 +924,7 @@ class TestCase(TestCase):
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1003,
                     'amplitude', 1.0, 'frequency', 222, 'out', 18]]],
             [0.75, [
-                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333, 'out', 18]]],
+                ['/n_set', 1005, 'amplitude', 1.0, 'frequency', 333]]],
             [1.0, [
                 ['/n_set', 1001, 'gate', 0],
                 ['/n_set', 1002, 'gate', 0]]],

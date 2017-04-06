@@ -13,14 +13,28 @@ class Warp1(MultiOutUGen):
         ...     channel_count=1,
         ...     envelope_buffer_id=-1,
         ...     frequency_scaling=1,
-        ...     interpolate=1,
+        ...     interpolation=1,
         ...     overlaps=8,
         ...     pointer=0,
         ...     window_rand_ratio=0,
         ...     window_size=0.2,
         ...     )
         >>> warp_1
-        Warp1.ar()
+        OutputProxy(
+            source=Warp1(
+                calculation_rate=CalculationRate.AUDIO,
+                buffer_id=0.0,
+                channel_count=1,
+                envelope_buffer_id=-1.0,
+                frequency_scaling=1.0,
+                interpolation=1.0,
+                overlaps=8.0,
+                pointer=0.0,
+                window_rand_ratio=0.0,
+                window_size=0.2
+                ),
+            output_index=0
+            )
 
     """
 
@@ -38,7 +52,7 @@ class Warp1(MultiOutUGen):
         'envelope_buffer_id',
         'overlaps',
         'window_rand_ratio',
-        'interpolate',
+        'interpolation',
         )
 
     _valid_calculation_rates = (
@@ -54,7 +68,7 @@ class Warp1(MultiOutUGen):
         channel_count=1,
         envelope_buffer_id=-1,
         frequency_scaling=1,
-        interpolate=1,
+        interpolation=1,
         overlaps=8,
         pointer=0,
         window_rand_ratio=0,
@@ -67,7 +81,7 @@ class Warp1(MultiOutUGen):
             channel_count=channel_count,
             envelope_buffer_id=envelope_buffer_id,
             frequency_scaling=frequency_scaling,
-            interpolate=interpolate,
+            interpolation=interpolation,
             overlaps=overlaps,
             pointer=pointer,
             window_rand_ratio=window_rand_ratio,
@@ -83,7 +97,7 @@ class Warp1(MultiOutUGen):
         channel_count=1,
         envelope_buffer_id=-1,
         frequency_scaling=1,
-        interpolate=1,
+        interpolation=1,
         overlaps=8,
         pointer=0,
         window_rand_ratio=0,
@@ -99,14 +113,28 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
             >>> warp_1
-            Warp1.ar()
+            OutputProxy(
+                source=Warp1(
+                    calculation_rate=CalculationRate.AUDIO,
+                    buffer_id=0.0,
+                    channel_count=1,
+                    envelope_buffer_id=-1.0,
+                    frequency_scaling=1.0,
+                    interpolation=1.0,
+                    overlaps=8.0,
+                    pointer=0.0,
+                    window_rand_ratio=0.0,
+                    window_size=0.2
+                    ),
+                output_index=0
+                )
 
         Returns ugen graph.
         """
@@ -118,7 +146,7 @@ class Warp1(MultiOutUGen):
             channel_count=channel_count,
             envelope_buffer_id=envelope_buffer_id,
             frequency_scaling=frequency_scaling,
-            interpolate=interpolate,
+            interpolation=interpolation,
             overlaps=overlaps,
             pointer=pointer,
             window_rand_ratio=window_rand_ratio,
@@ -140,13 +168,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.buffer_id
+            >>> warp_1.source.buffer_id
             0.0
 
         Returns ugen input.
@@ -166,13 +194,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.envelope_buffer_id
+            >>> warp_1.source.envelope_buffer_id
             -1.0
 
         Returns ugen input.
@@ -192,13 +220,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.frequency_scaling
+            >>> warp_1.source.frequency_scaling
             1.0
 
         Returns ugen input.
@@ -207,9 +235,9 @@ class Warp1(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def interpolate(self):
+    def interpolation(self):
         """
-        Gets `interpolate` input of Warp1.
+        Gets `interpolation` input of Warp1.
 
         ::
 
@@ -218,18 +246,18 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.interpolate
+            >>> warp_1.source.interpolation
             1.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('interpolate')
+        index = self._ordered_input_names.index('interpolation')
         return self._inputs[index]
 
     @property
@@ -244,13 +272,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.overlaps
+            >>> warp_1.source.overlaps
             8.0
 
         Returns ugen input.
@@ -270,13 +298,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.pointer
+            >>> warp_1.source.pointer
             0.0
 
         Returns ugen input.
@@ -296,13 +324,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.window_rand_ratio
+            >>> warp_1.source.window_rand_ratio
             0.0
 
         Returns ugen input.
@@ -322,13 +350,13 @@ class Warp1(MultiOutUGen):
             ...     channel_count=1,
             ...     envelope_buffer_id=-1,
             ...     frequency_scaling=1,
-            ...     interpolate=1,
+            ...     interpolation=1,
             ...     overlaps=8,
             ...     pointer=0,
             ...     window_rand_ratio=0,
             ...     window_size=0.2,
             ...     )
-            >>> warp_1.window_size
+            >>> warp_1.source.window_size
             0.2
 
         Returns ugen input.

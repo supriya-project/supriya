@@ -87,19 +87,19 @@ class TestCase(TestCase):
                     'amplitude', 1.0, 'frequency', 333, 'out', 16],
                 ['/n_set', 1005, 'gate', 0]]],
             [11.0, [
-                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 660, 'out', 16]]],
+                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 660]]],
             [11.5, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1007, 0, 1003,
                     'amplitude', 1.0, 'frequency', 444, 'out', 16],
                 ['/n_set', 1006, 'gate', 0]]],
             [12.0, [
-                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 880, 'out', 16]]],
+                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 880]]],
             [12.25, [
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1008, 0, 1003,
                     'amplitude', 1.0, 'frequency', 555, 'out', 16],
                 ['/n_set', 1007, 'gate', 0]]],
             [13.0, [
-                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 990, 'out', 16],
+                ['/n_set', 1004, 'amplitude', 1.0, 'frequency', 990],
                 ['/n_set', 1008, 'gate', 0]]],
             [14.0, [
                 ['/n_set', 1001, 'gate', 0],
