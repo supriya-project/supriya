@@ -102,13 +102,6 @@ class SynthDef(ServerObjectProxy):
             parameter_names=parameter_names,
             )
         self._compiled_ugen_graph = compiler.compile_ugen_graph(self)
-#        if 'decompiled' not in kwargs:
-#            try:
-#                decompiler = synthdeftools.SynthDefDecompiler
-#                assert decompiler.decompile_synthdef(self.compile()) == self
-#            except:
-#                print('Decompiled SynthDef does not match compiled SynthDef.')
-#                raise
 
     ### SPECIAL METHODS ###
 
@@ -238,6 +231,27 @@ class SynthDef(ServerObjectProxy):
             else:
                 ugen_name = '{}_{}'.format(ugen_index, ugen_class)
             return ugen_name
+
+        def get_parameter_name(input_, output_index=0):
+            if isinstance(input_, synthdeftools.Parameter):
+                return ':{}'.format(input_.name)
+            elif isinstance(input_, ugentools.Control):
+                # Handle array-like parameters
+                value_index = 0
+                for parameter in input_.parameters:
+                    values = parameter.value
+                    if isinstance(values, float):
+                        values = [values]
+                    for i in range(len(values)):
+                        if value_index != output_index:
+                            value_index += 1
+                            continue
+                        elif len(values) == 1:
+                            return ':{}'.format(parameter.name)
+                        else:
+                            return ':{}[{}]'.format(parameter.name, i)
+            return ''
+
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         result = []
@@ -260,8 +274,11 @@ class SynthDef(ServerObjectProxy):
                     if isinstance(input_, synthdeftools.OutputProxy):
                         output_index = input_.output_index
                         input_ = input_.source
-                    input_name = get_ugen_name(input_)
-                    input_name += '[{}]'.format(output_index)
+                    input_name = '{}[{}{}]'.format(
+                        get_ugen_name(input_),
+                        output_index,
+                        get_parameter_name(input_, output_index),
+                        )
                 wire = '    {} -> {}'.format(input_name, ugen_name)
                 if argument_name:
                     wire += '[{}:{}]'.format(i, argument_name)

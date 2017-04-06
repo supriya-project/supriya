@@ -34,7 +34,6 @@ class Control(MultiOutUGen):
             if not isinstance(parameter, synthdeftools.Parameter):
                 parameter = synthdeftools.Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
-        #coerced_parameters.sort(key=lambda parameter: parameter.name)
         self._parameters = tuple(coerced_parameters)
         MultiOutUGen.__init__(
             self,

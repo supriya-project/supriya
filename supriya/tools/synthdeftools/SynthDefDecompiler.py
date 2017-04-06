@@ -32,9 +32,9 @@ class SynthDefDecompiler(SupriyaObject):
         >>> synthdef = builder.build()
         >>> print(synthdef)
         SynthDef 001520731aee5371fefab6b505cf64dd {
-            0_TrigControl[0] -> 1_Decay[0:source]
+            0_TrigControl[0:trigger] -> 1_Decay[0:source]
             const_0:0.5 -> 1_Decay[1:decay_time]
-            2_Control[0] -> 3_SinOsc[0:frequency]
+            2_Control[0:frequency] -> 3_SinOsc[0:frequency]
             const_1:0.0 -> 3_SinOsc[1:phase]
             3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
             1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
@@ -49,9 +49,9 @@ class SynthDefDecompiler(SupriyaObject):
         >>> decompiled_synthdef = sdd.decompile_synthdefs(compiled_synthdef)[0]
         >>> print(decompiled_synthdef)
         SynthDef 001520731aee5371fefab6b505cf64dd {
-            0_TrigControl[0] -> 1_Decay[0:source]
+            0_TrigControl[0:trigger] -> 1_Decay[0:source]
             const_0:0.5 -> 1_Decay[1:decay_time]
-            2_Control[0] -> 3_SinOsc[0:frequency]
+            2_Control[0:frequency] -> 3_SinOsc[0:frequency]
             const_1:0.0 -> 3_SinOsc[1:phase]
             3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
             1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
