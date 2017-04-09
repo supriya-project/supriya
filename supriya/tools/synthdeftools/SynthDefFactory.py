@@ -38,6 +38,7 @@ class SynthDefFactory(SupriyaObject):
     def _setup_parameters_and_state(self, builder, state):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
+        state['channel_count'] = self._channel_count
         if self._gate:
             builder._add_parameter('gate', 1, 'TRIGGER')
             state['gate'] = ugentools.Linen.kr(
