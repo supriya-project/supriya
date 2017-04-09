@@ -84,8 +84,8 @@ class Mix(PseudoUGen):
 
     ### PUBLIC METHODS ###
 
-    @staticmethod
-    def new(sources):
+    @classmethod
+    def new(cls, sources):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         flattened_sources = []
@@ -113,4 +113,13 @@ class Mix(PseudoUGen):
                 summed_sources.append(part[0])
         if len(summed_sources) == 1:
             return summed_sources[0]
-        return Mix.new(summed_sources) 
+        return Mix.new(summed_sources)
+
+    @classmethod
+    def multichannel(cls, sources, channel_count):
+        mixes, parts = [], []
+        for i in range(0, len(sources), channel_count):
+            parts.append(sources[i:i + channel_count])
+        for columns in zip(*parts):
+            mixes.append(cls.new(columns))
+        return mixes
