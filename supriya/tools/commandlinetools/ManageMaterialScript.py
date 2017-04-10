@@ -2,6 +2,7 @@
 import collections
 import inspect
 import os
+import subprocess
 import sys
 import traceback
 from abjad.tools import systemtools
@@ -118,13 +119,19 @@ class ManageMaterialScript(ProjectPackageScript):
             print('    No matching materials.')
             self._handle_list()
             sys.exit(1)
+        output_file_paths = []
         for path in matching_paths:
-            self._render_one_material(
+            output_file_path = self._render_one_material(
                 material_directory_path=path
                 )
             print('    Rendered {path!s}{sep}'.format(
                 path=path.relative_to(self.inner_project_path.parent),
                 sep=os.path.sep))
+            output_file_paths.append(output_file_path)
+        command = 'open -a "QuickTime Player" {}'.format(
+            ' '.join(str(_) for _ in output_file_paths))
+        print(command)
+        subprocess.call(command, shell=True)
 
     def _import_all_materials(self, verbose=True):
         materials = collections.OrderedDict()
@@ -229,6 +236,8 @@ class ManageMaterialScript(ProjectPackageScript):
                 sys.exit(1)
 
             self._report_time(timer, prefix='Python/SC runtime')
+
+        return output_file_path
 
     def _build_nrt_server_options(self, session):
         from supriya.tools import commandlinetools
