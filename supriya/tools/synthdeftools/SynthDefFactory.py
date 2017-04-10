@@ -154,11 +154,11 @@ class SynthDefFactory(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def build(self):
+    def build(self, **kwargs):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         builder = synthdeftools.SynthDefBuilder()
-        state = {}
+        state = kwargs
         with builder:
             self._setup_parameters_and_state(builder, state)
             source = self._build_input(builder, state)
