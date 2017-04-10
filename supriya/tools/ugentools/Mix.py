@@ -117,9 +117,10 @@ class Mix(PseudoUGen):
 
     @classmethod
     def multichannel(cls, sources, channel_count):
+        from supriya.tools import synthdeftools
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i:i + channel_count])
         for columns in zip(*parts):
             mixes.append(cls.new(columns))
-        return mixes
+        return synthdeftools.UGenArray(mixes)
