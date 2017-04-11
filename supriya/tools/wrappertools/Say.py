@@ -47,7 +47,7 @@ class Say(SupriyaValueObject):
             )
         assert output_file_path.parent.exists()
         if output_file_path.exists():
-            print('Skipping {}'.format(output_file_path))
+            #print('Skipping {}'.format(output_file_path))
             return
         command_parts = ['say']
         command_parts.extend(['-o', str(output_file_path)])
