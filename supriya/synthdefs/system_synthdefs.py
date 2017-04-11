@@ -28,7 +28,10 @@ def _build_link_audio_synthdef(channel_count):
         envelope = synthdeftools.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
-            curves=synthdeftools.EnvelopeShape.SINE,
+            curves=[
+                synthdeftools.EnvelopeShape.SINE,
+                -synthdeftools.EnvelopeShape.SINE,
+                ],
             release_node=1.0,
             )
         envelope = ugentools.EnvGen.kr(
@@ -37,13 +40,13 @@ def _build_link_audio_synthdef(channel_count):
             gate=builder['gate'],
             time_scale=builder['fade_time'],
             )
-        input_ = ugentools.InFeedback.ar(
+        source = ugentools.InFeedback.ar(
             bus=builder['in_'],
             channel_count=channel_count,
             )
         ugentools.Out.ar(
             bus=builder['out'],
-            source=input_ * envelope,
+            source=source * envelope,
             )
     globals()[name] = builder.build()
     __all__.append(name)
