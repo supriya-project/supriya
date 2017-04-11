@@ -88,7 +88,7 @@ class Pbindf(EventPattern):
     @property
     def is_infinite(self):
         from supriya.tools import patterntools
-        if not self._event_pattern.is_infinite():
+        if not self._event_pattern.is_infinite:
             return False
         for _, value in self._patterns:
             if (
