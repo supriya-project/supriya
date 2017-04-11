@@ -102,10 +102,13 @@ def _make_synthdef(channel_count=2):
             input_three=band_3,
             input_four=band_4,
             )
+        source = ugentools.Limiter.ar(source=source)
         ugentools.ReplaceOut.ar(bus=builder['out'], source=source)
     return builder.build()
 
+
 multiband_compressor = _make_synthdef(channel_count=2)
+
 
 __all__ = (
     'multiband_compressor',

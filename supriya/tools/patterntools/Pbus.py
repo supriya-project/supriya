@@ -53,9 +53,11 @@ class Pbus(EventPattern):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
-            if (isinstance(expr, patterntools.NoteEvent) and
-                expr.get('out') is None):
+            prototype = (patterntools.NoteEvent, patterntools.SynthEvent)
+            if (isinstance(expr, prototype) and expr.get('out') is None):
                 kwargs['out'] = state['bus_uuid']
+            if (isinstance(expr, prototype) and expr.get('in_') is None):
+                kwargs['in_'] = state['bus_uuid']
             expr = new(expr, **kwargs)
         return expr
 
