@@ -51,7 +51,8 @@ class FFT(PV_ChainUGen):
         ):
         from supriya.tools import ugentools
         if buffer_id is None:
-            buffer_id = ugentools.LocalBuf(2048)
+            buffer_size = window_size or 2048
+            buffer_id = ugentools.LocalBuf(buffer_size)
         PV_ChainUGen.__init__(
             self,
             active=active,
@@ -94,7 +95,6 @@ class FFT(PV_ChainUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
         ugen = cls._new_expanded(
             active=active,
             buffer_id=buffer_id,
