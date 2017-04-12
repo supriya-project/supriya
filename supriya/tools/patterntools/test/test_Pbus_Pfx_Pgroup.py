@@ -22,12 +22,8 @@ class TestCase(TestCase):
         synthdef=synthdefs.default,
         )
     pattern = pattern.with_group()
-    pattern = pattern.with_effect(
-        synthdef=limiter_synthdef,
-        frequency_1=250,
-        frequency_2=3000,
-        frequency_3=6000,
-        )
+    pattern = pattern.with_effect(synthdef=limiter_synthdef)
+    pattern = pattern.with_bus()
 
     def setUp(self):
         pass
