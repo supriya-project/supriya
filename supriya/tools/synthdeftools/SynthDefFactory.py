@@ -110,7 +110,7 @@ class SynthDefFactory(SupriyaObject):
         crossfaded = self._output.get('crossfaded')
         windowed = self._output.get('windowed')
         gate = state.get('gate')
-        if self._output.get('leveled'):
+        if self._output.get('leveled') and not crossfaded:
             source *= builder['level']
         out_class = ugentools.Out
         kwargs = dict(
@@ -121,6 +121,8 @@ class SynthDefFactory(SupriyaObject):
             out_class = ugentools.XOut
             if windowed:
                 window = state['window']
+                if self._output.get('leveled'):
+                    window *= builder['level']
                 kwargs['crossfade'] = window
             else:
                 kwargs['crossfade'] = builder['crossfade']
