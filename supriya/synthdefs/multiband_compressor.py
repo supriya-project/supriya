@@ -14,32 +14,33 @@ def _make_synthdef(channel_count=2):
         band_1_relax_time=0.1,
         band_1_slope_above=0.5,
         band_1_slope_below=1.0,
-        band_1_threshold=0.9,
+        band_1_threshold=-12,
         band_2_clamp_time=0.01,
         band_2_postgain=0,
         band_2_pregain=0,
         band_2_relax_time=0.1,
         band_2_slope_above=0.5,
         band_2_slope_below=1.0,
-        band_2_threshold=0.9,
+        band_2_threshold=-12,
         band_3_clamp_time=0.01,
         band_3_postgain=0,
         band_3_pregain=0,
         band_3_relax_time=0.1,
         band_3_slope_above=0.5,
         band_3_slope_below=1.0,
-        band_3_threshold=0.9,
+        band_3_threshold=-12,
         band_4_clamp_time=0.01,
         band_4_postgain=0,
         band_4_pregain=0,
         band_4_relax_time=0.1,
         band_4_slope_above=0.5,
         band_4_slope_below=1.0,
-        band_4_threshold=0.9,
+        band_4_threshold=-12,
         pregain=0,
         postgain=0,
         in_=0,
         out=0,
+        limiter_lookahead=0.01,
         ) as builder:
         source = ugentools.In.ar(
             bus=builder['in_'],
@@ -106,7 +107,10 @@ def _make_synthdef(channel_count=2):
             input_four=band_4,
             )
         source *= builder['postgain'].db_to_amplitude()
-        source = ugentools.Limiter.ar(source=source)
+        source = ugentools.Limiter.ar(
+            source=source,
+            duration=builder['limiter_lookahead'],
+            )
         ugentools.ReplaceOut.ar(bus=builder['out'], source=source)
     return builder.build()
 
