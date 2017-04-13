@@ -36,6 +36,8 @@ def _make_synthdef(channel_count=2):
         band_4_slope_above=0.5,
         band_4_slope_below=1.0,
         band_4_threshold=0.9,
+        pregain=0,
+        postgain=0,
         in_=0,
         out=0,
         ) as builder:
@@ -43,6 +45,7 @@ def _make_synthdef(channel_count=2):
             bus=builder['in_'],
             channel_count=channel_count,
             )
+        source *= builder['pregain'].db_to_amplitude()
         band_1 = ugentools.LPF.ar(
             frequency=builder['frequency_1'],
             source=source,
@@ -102,6 +105,7 @@ def _make_synthdef(channel_count=2):
             input_three=band_3,
             input_four=band_4,
             )
+        source *= builder['postgain'].db_to_amplitude()
         source = ugentools.Limiter.ar(source=source)
         ugentools.ReplaceOut.ar(bus=builder['out'], source=source)
     return builder.build()
