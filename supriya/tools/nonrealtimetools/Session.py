@@ -973,16 +973,23 @@ class Session(object):
 
     def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
-        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
+        session_id = self._get_next_session_id('bus')
+        bus = nonrealtimetools.Bus(
+            self,
+            calculation_rate=calculation_rate,
+            session_id=session_id,
+            )
         self._buses[bus] = None  # ordered dictionary
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
+        session_id = self._get_next_session_id('bus')
         bus_group = nonrealtimetools.BusGroup(
             self,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
+            session_id=session_id,
             )
         for bus in bus_group:
             self._buses[bus] = None  # ordered dictionary

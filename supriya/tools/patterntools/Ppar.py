@@ -78,6 +78,18 @@ class Ppar(EventPattern):
 
     ### PRIVATE METHODS ###
 
+    def _apply_iterator_recursively(self, expr, iterator):
+        from supriya.tools import patterntools
+        if isinstance(expr, patterntools.CompositeEvent):
+            coerced_events = [
+                self._apply_iterator_recursively(child_event, iterator)
+                for child_event in expr.get('events') or ()
+                ]
+            expr = new(expr, events=coerced_events)
+        else:
+            expr = new(expr, _iterator=iterator)
+        return expr
+
     def _coerce_iterator_output(self, expr, state):
         expr = super(Ppar, self)._coerce_iterator_output(expr, state)
         return new(expr, _iterator=None)
@@ -143,7 +155,8 @@ class Ppar(EventPattern):
                     self._debug('\t\tSTOP')
                 if event is not None:
                     count = event_counter[iterator]
-                    event = new(event, _iterator=iterator)
+                    #event = new(event, _iterator=iterator)
+                    event = self._apply_iterator_recursively(event, iterator)
                     self._debug('\t\tFETCHED:', type(event).__name__, event.get('is_stop') or False)
                     event_queue.put((offset, index, count, event))
                     offset += event.delta

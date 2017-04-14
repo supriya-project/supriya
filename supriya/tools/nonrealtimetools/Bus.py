@@ -50,6 +50,7 @@ class Bus(SessionObject):
         '_calculation_rate',
         '_events',
         '_session',
+        '_session_id',
         )
 
     ### INITIALIZER ###
@@ -59,9 +60,11 @@ class Bus(SessionObject):
         session,
         bus_group=None,
         calculation_rate=None,
+        session_id=None,
         ):
         from supriya.tools import nonrealtimetools
         SessionObject.__init__(self, session)
+        self._session_id = session_id
         if bus_group is not None:
             assert isinstance(bus_group, nonrealtimetools.BusGroup)
         self._bus_group = bus_group
@@ -70,6 +73,22 @@ class Bus(SessionObject):
             calculation_rate)
         self._calculation_rate = calculation_rate
         self._events = []
+
+    ### SPECIAL METHODS ###
+
+    def __str__(self):
+        map_symbol = 'c'
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            map_symbol = 'a'
+        session_id = self._session_id
+        if session_id is None:
+            session_id = '?'
+        elif isinstance(session_id, tuple):
+            session_id = '{}:{}'.format(session_id[0], session_id[1])
+        return '{map_symbol}{session_id}'.format(
+            map_symbol=map_symbol,
+            session_id=session_id,
+            )
 
     ### PRIVATE METHODS ###
 
