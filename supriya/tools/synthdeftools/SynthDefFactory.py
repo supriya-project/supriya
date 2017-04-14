@@ -12,8 +12,10 @@ class SynthDefFactory(SupriyaObject):
         '_channel_count',
         '_feedback_loop',
         '_gate',
+        '_initial_state',
         '_input',
         '_output',
+        '_parameter_blocks',
         '_parameters',
         '_signal_blocks',
         '_silence_detection',
@@ -25,13 +27,15 @@ class SynthDefFactory(SupriyaObject):
         channel_count = int(channel_count)
         assert channel_count > 0
         self._channel_count = channel_count
-        self._silence_detection = None
         self._feedback_loop = None
         self._gate = {}
+        self._initial_state = {}
         self._input = {}
         self._output = {}
-        self._signal_blocks = []
+        self._parameter_blocks = []
         self._parameters = sorted(tuple(kwargs.items()))
+        self._signal_blocks = []
+        self._silence_detection = None
 
     ### PRIVATE METHODS ###
 
@@ -39,6 +43,8 @@ class SynthDefFactory(SupriyaObject):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         state['channel_count'] = self._channel_count
+        for parameter_block in self._parameter_blocks:
+            parameter_block(builder, state)
         if self._gate:
             builder._add_parameter('gate', 1, 'TRIGGER')
             state['gate'] = ugentools.Linen.kr(
@@ -160,13 +166,14 @@ class SynthDefFactory(SupriyaObject):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         builder = synthdeftools.SynthDefBuilder()
-        state = kwargs
+        state = self._initial_state.copy()
+        state.update(**kwargs)
         with builder:
             self._setup_parameters_and_state(builder, state)
             source = self._build_input(builder, state)
             source = self._build_feedback_loop_input(builder, source, state)
-            for block in self._signal_blocks:
-                source = block(builder, source, state)
+            for signal_block in self._signal_blocks:
+                source = signal_block(builder, source, state)
                 assert isinstance(source, synthdeftools.UGenMethodMixin)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
@@ -200,6 +207,11 @@ class SynthDefFactory(SupriyaObject):
             )
         return clone
 
+    def with_initial_state(self, **state):
+        clone = self._clone()
+        clone._initial_state.update(**state)
+        return clone
+
     def with_input(
         self,
         windowed=False,
@@ -224,12 +236,17 @@ class SynthDefFactory(SupriyaObject):
             )
         return clone
 
-    def with_silence_detection(self):
+    def with_parameter_block(self, block_function):
         clone = self._clone()
-        clone._silence_detection = True
+        clone._parameter_blocks.append(block_function)
         return clone
 
     def with_signal_block(self, block_function):
         clone = self._clone()
         clone._signal_blocks.append(block_function)
+        return clone
+
+    def with_silence_detection(self):
+        clone = self._clone()
+        clone._silence_detection = True
         return clone
