@@ -78,8 +78,9 @@ class Ppar(EventPattern):
 
     ### PRIVATE METHODS ###
 
-    def _coerce_iterator_output(self, event, state):
-        return new(event, _iterator=None)
+    def _coerce_iterator_output(self, expr, state):
+        expr = super(Ppar, self)._coerce_iterator_output(expr, state)
+        return new(expr, _iterator=None)
 
     def _setup_state(self):
         iterators = tuple(iter(pattern) for pattern in self._patterns)

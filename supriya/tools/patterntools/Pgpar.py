@@ -28,6 +28,7 @@ class Pgpar(Ppar):
 
     def _coerce_iterator_output(self, expr, state):
         from supriya.tools import patterntools
+        expr = super(Pgpar, self)._coerce_iterator_output(expr, state)
         iterator = expr.get('_iterator')
         iterators_to_group_uuids = state['iterators_to_group_uuids']
         kwargs = {'_iterator': None}
