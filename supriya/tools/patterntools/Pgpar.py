@@ -35,8 +35,10 @@ class Pgpar(Ppar):
             isinstance(expr, patterntools.NoteEvent) or
             not expr.get('is_stop')
             ):
-            kwargs['target_node'] = iterators_to_group_uuids[iterator]
-        return new(expr, **kwargs)
+            if expr.get('target_node') is None:
+                kwargs['target_node'] = iterators_to_group_uuids[iterator]
+            expr = new(expr, **kwargs)
+        return expr
 
     def _setup_peripherals(self, initial_expr, state):
         from supriya.tools import patterntools

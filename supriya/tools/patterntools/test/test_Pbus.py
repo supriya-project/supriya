@@ -50,7 +50,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -135,7 +135,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -218,7 +218,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -276,7 +276,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -343,7 +343,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -401,7 +401,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('454b69a7c505ddecc5b39762d291a5ec')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -448,7 +448,7 @@ class TestCase(TestCase):
         assert lists == [
             [10, [
                 ['/g_new', 1000, 0, 1],
-                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                ['/s_new', '38a2c79fc9d58d06e361337163a4e80f', 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 0]
@@ -493,7 +493,7 @@ class TestCase(TestCase):
                     1000 group
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-                    1001 454b69a7c505ddecc5b39762d291a5ec
+                    1001 38a2c79fc9d58d06e361337163a4e80f
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 2
@@ -508,7 +508,7 @@ class TestCase(TestCase):
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
                         1002 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
-                    1001 454b69a7c505ddecc5b39762d291a5ec
+                    1001 38a2c79fc9d58d06e361337163a4e80f
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
@@ -520,7 +520,7 @@ class TestCase(TestCase):
                     1000 group
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1001 454b69a7c505ddecc5b39762d291a5ec
+                    1001 38a2c79fc9d58d06e361337163a4e80f
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 3
@@ -535,7 +535,7 @@ class TestCase(TestCase):
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
                         1003 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-                    1001 454b69a7c505ddecc5b39762d291a5ec
+                    1001 38a2c79fc9d58d06e361337163a4e80f
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
@@ -547,7 +547,7 @@ class TestCase(TestCase):
                     1000 group
                         1004 da0982184cc8fa54cf9d288a0fe1f6ca
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-                    1001 454b69a7c505ddecc5b39762d291a5ec
+                    1001 38a2c79fc9d58d06e361337163a4e80f
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 4
@@ -593,7 +593,7 @@ class TestCase(TestCase):
             [0.0, [
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                ['/s_new', '38a2c79fc9d58d06e361337163a4e80f', 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
@@ -628,7 +628,7 @@ class TestCase(TestCase):
             [0.0, [
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                ['/s_new', '38a2c79fc9d58d06e361337163a4e80f', 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
@@ -659,7 +659,7 @@ class TestCase(TestCase):
             [0.0, [
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', '454b69a7c505ddecc5b39762d291a5ec', 1001, 3, 1000,
+                ['/s_new', '38a2c79fc9d58d06e361337163a4e80f', 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 16],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
