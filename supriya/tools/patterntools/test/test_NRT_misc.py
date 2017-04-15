@@ -45,10 +45,12 @@ class TestCase(TestCase):
     pattern = pattern.with_group(release_time=release_time)
     pattern = pattern.with_effect(limiter_synthdef, release_time=release_time)
     pattern = patterntools.Pgpar([pattern], release_time=release_time)
-    pattern = pattern.with_bus(release_time=release_time)
+    pattern = pattern.with_bus(release_time=release_time, channel_count=1)
 
     def test_01(self):
         session = nonrealtimetools.Session(0, 1)
         with session.at(0):
             session.inscribe(self.pattern, duration=60)
+        assert session.to_strings() == self.normalize('''
+        ''')
         assert session.to_lists() == []
