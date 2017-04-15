@@ -41,7 +41,13 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _from_nrt_synth(cls, state, node, include_controls=False):
+    def _from_nrt_synth(
+        cls,
+        state,
+        node,
+        include_controls=False,
+        id_mapping=None,
+        ):
         from supriya.tools import nonrealtimetools
         from supriya.tools import responsetools
         from supriya.tools import synthdeftools
@@ -52,7 +58,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
-            settings = node._collect_settings(state.offset, persistent=True)
+            settings = node._collect_settings(
+                state.offset,
+                persistent=True,
+                id_mapping=id_mapping,
+                )
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value

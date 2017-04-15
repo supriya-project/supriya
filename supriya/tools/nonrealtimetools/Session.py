@@ -1211,7 +1211,9 @@ class Session(object):
                 continue
             self._apply_transitions(state.offset)
             query_tree_group = responsetools.QueryTreeGroup.from_state(
-                state, include_controls=include_controls)
+                state,
+                include_controls=include_controls,
+                )
             string = str(query_tree_group)
             if string == previous_string:
                 continue
