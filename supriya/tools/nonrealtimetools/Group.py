@@ -105,11 +105,19 @@ class Group(Node):
                 break
             if (
                 maximum_offset is not None and
-                isinstance(event, patterntools.NoteEvent) and
-                self._get_stop_offset(offset, event) > maximum_offset
+                isinstance(event, patterntools.NoteEvent)
                 ):
-                should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
-                continue
+                if (
+                    event.get('duration', 0) == 0 and
+                    offset == maximum_offset
+                    ):
+                    # Current event is 0-duration and we're at our stop.
+                    should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    continue
+                elif self._get_stop_offset(offset, event) > maximum_offset:
+                    # We would legitimately overshoot.
+                    should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    continue
             performed_stop_offset = event._perform_nonrealtime(
                 session=self.session,
                 uuids=uuids,
