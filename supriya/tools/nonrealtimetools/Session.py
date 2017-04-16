@@ -727,7 +727,10 @@ class Session(object):
             visited_synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
         for synthdef in synthdefs:
-            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdef)
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=synthdef,
+                use_anonymous_names=True,
+                )
             requests.append(request)
         return requests
 
