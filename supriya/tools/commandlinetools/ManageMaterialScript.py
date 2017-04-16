@@ -2,7 +2,7 @@
 import collections
 import inspect
 import os
-import subprocess
+#import subprocess
 import sys
 import traceback
 from abjad.tools import systemtools
@@ -128,10 +128,10 @@ class ManageMaterialScript(ProjectPackageScript):
                 path=path.relative_to(self.inner_project_path.parent),
                 sep=os.path.sep))
             output_file_paths.append(output_file_path)
-        command = 'open -a "QuickTime Player" {}'.format(
-            ' '.join(str(_) for _ in output_file_paths))
-        print(command)
-        subprocess.call(command, shell=True)
+        #command = 'open -a "QuickTime Player" {}'.format(
+        #    ' '.join(str(_) for _ in output_file_paths))
+        #print(command)
+        #subprocess.call(command, shell=True)
 
     def _import_all_materials(self, verbose=True):
         materials = collections.OrderedDict()
