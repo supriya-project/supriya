@@ -103,18 +103,6 @@ class TestCase(TestCase):
                             1003 limiter
             39.0:
                 NODE TREE 0 group
-                    1005 sine
-                    1007 sine
-                    1008 pink
-            40.0:
-                NODE TREE 0 group
-                    1007 sine
-                    1008 pink
-            48.0:
-                NODE TREE 0 group
-                    1007 sine
-            55.0:
-                NODE TREE 0 group
             ''')
         d_recv_commands = []
         for synthdef in sorted(
@@ -126,7 +114,8 @@ class TestCase(TestCase):
                 ],
             key=lambda x: x.anonymous_name,
             ):
-            compiled_synthdef = bytearray(synthdef.compile())
+            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
+            compiled_synthdef = bytearray(compiled_synthdef)
             d_recv_commands.append(['/d_recv', compiled_synthdef])
         assert session.to_lists() == [
             [0.0, [
@@ -139,22 +128,16 @@ class TestCase(TestCase):
                     'in_', 1, 'out', 1],
                 ['/g_new', 1004, 0, 1002],
                 ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1005, 0, 1004,
-                    'duration', 40.0, 'out', 1],
+                    'duration', 39.0, 'out', 1],
                 ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1006, 0, 1004,
                     'duration', 32.0, 'out', 1]]],
             [15.0, [
                 ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1007, 0, 1004,
-                    'duration', 40.0, 'out', 1]]],
+                    'duration', 24.0, 'out', 1]]],
             [16.0, [
                 ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1008, 0, 1004,
-                    'duration', 32.0, 'out', 1]]],
+                    'duration', 23.0, 'out', 1]]],
             [30.0, [['/n_set', 1001, 'gate', 0]]],
             [32.0, [['/n_free', 1006]]],
-            [39.0, [
-                ['/g_head', 0, 1005],
-                ['/n_after', 1007, 1005],
-                ['/n_after', 1008, 1007],
-                ['/n_free', 1000, 1002, 1003, 1004]]],
-            [40.0, [['/n_free', 1005]]],
-            [48.0, [['/n_free', 1008]]],
-            [55.0, [['/n_free', 1007], [0]]]]
+            [39.0, [['/n_free', 1000, 1002, 1003, 1004, 1005, 1007, 1008]]],
+            [55.0, [[0]]]]
