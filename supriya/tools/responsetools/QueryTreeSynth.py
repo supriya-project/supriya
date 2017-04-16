@@ -49,6 +49,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         state,
         node,
         include_controls=False,
+        include_timespans=False,
         id_mapping=None,
         ):
         from supriya.tools import nonrealtimetools
@@ -83,7 +84,9 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                     control_value=value,
                     )
                 controls.append(control)
-        extra = dict(timespan=[node.start_offset, node.stop_offset])
+        extra = {}
+        if include_timespans:
+            extra.update(timespan=[node.start_offset, node.stop_offset])
         query_tree_synth = QueryTreeSynth(
             node_id=node_id,
             synthdef_name=synthdef_name,

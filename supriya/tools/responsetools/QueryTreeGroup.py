@@ -47,6 +47,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         state,
         node,
         include_controls=False,
+        include_timespans=False,
         id_mapping=None,
         ):
         from supriya.tools import nonrealtimetools
@@ -60,6 +61,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                     state,
                     child,
                     include_controls=include_controls,
+                    include_timespans=include_timespans,
                     id_mapping=id_mapping,
                     )
             elif isinstance(child, nonrealtimetools.Synth):
@@ -67,13 +69,16 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                     state,
                     child,
                     include_controls=include_controls,
+                    include_timespans=include_timespans,
                     id_mapping=id_mapping,
                     )
             else:
                 raise ValueError(child)
             children.append(child)
         children = tuple(children)
-        extra = dict(timespan=[node.start_offset, node.stop_offset])
+        extra = {}
+        if include_timespans:
+            extra.update(timespan=[node.start_offset, node.stop_offset])
         query_tree_group = QueryTreeGroup(
             node_id=node_id,
             children=children,
@@ -129,13 +134,19 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         return query_tree_group
 
     @classmethod
-    def from_state(cls, state, include_controls=False):
+    def from_state(
+        cls,
+        state,
+        include_controls=False,
+        include_timespans=False,
+        ):
         id_mapping = state.session._build_id_mapping()
         root_node = state.session.root_node
         query_tree_group = cls._from_nrt_group(
             state,
             root_node,
             include_controls=include_controls,
+            include_timespans=include_timespans,
             id_mapping=id_mapping,
             )
         return query_tree_group
