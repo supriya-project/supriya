@@ -237,3 +237,38 @@ class TestCase(TestCase):
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000]]],
             [10.0, [['/n_set', 1002, 'gate', 0]]],
             [15.0, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_clip_children(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            outer_group = session.add_group(duration=20)
+            inner_group = outer_group.add_group(duration=20)
+            inner_group.add_synth(duration=20)
+            outer_group.add_group(duration=20)
+            session.add_group(duration=20)
+        assert session.to_strings(include_timespans=True) == self.normalize('''
+            0.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+                    1000 group (timespan: [0.0, 20.0])
+                        1003 group (timespan: [0.0, 20.0])
+                        1001 group (timespan: [0.0, 20.0])
+                            1002 default (timespan: [0.0, 20.0])
+            20.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+            ''')
+        outer_group.set_duration(10, clip_children=True)
+        assert session.to_strings(include_timespans=True) == self.normalize('''
+            0.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+                    1000 group (timespan: [0.0, 10.0])
+                        1003 group (timespan: [0.0, 10.0])
+                        1001 group (timespan: [0.0, 10.0])
+                            1002 default (timespan: [0.0, 10.0])
+            10.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+            20.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+            ''')

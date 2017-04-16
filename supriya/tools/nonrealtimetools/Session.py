@@ -1202,7 +1202,7 @@ class Session(object):
             )
         return renderer.to_osc_bundles(duration=duration)
 
-    def to_strings(self, include_controls=False):
+    def to_strings(self, include_controls=False, include_timespans=False):
         from supriya.tools import responsetools
         result = []
         previous_string = None
@@ -1213,6 +1213,7 @@ class Session(object):
             query_tree_group = responsetools.QueryTreeGroup.from_state(
                 state,
                 include_controls=include_controls,
+                include_timespans=include_timespans,
                 )
             string = str(query_tree_group)
             if string == previous_string:

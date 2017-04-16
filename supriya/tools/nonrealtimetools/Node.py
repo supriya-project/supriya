@@ -374,18 +374,31 @@ class Node(SessionObject):
         self.session.nodes.remove(self)
         self.session._apply_transitions([self.start_offset, self.stop_offset])
 
-    def set_duration(self, new_duration):
+    def set_duration(self, new_duration, clip_children=False):
         from supriya.tools import nonrealtimetools
+        assert new_duration > 0
         if self.duration == new_duration:
             return
         if new_duration < self.duration:
             split_offset = self.start_offset + new_duration
-            with self.session.at(split_offset):
-                old_node, new_node = self.split(
-                    split_occupiers=False,
-                    split_traversers=False,
-                    )
-                new_node.delete()
+            if clip_children:
+                with self.session.at(split_offset) as moment:
+                    old_node, new_node = self.split(
+                        split_occupiers=True,
+                        split_traversers=True,
+                        )
+                    state = moment.state
+                    children = reversed(list(state._iterate_nodes(
+                        new_node, state.nodes_to_children)))
+                    for child in children:
+                        child.delete()
+            else:
+                with self.session.at(split_offset):
+                    old_node, new_node = self.split(
+                        split_occupiers=False,
+                        split_traversers=False,
+                        )
+                    new_node.delete()
             self.session._find_state_at(new_node.stop_offset)._sparsify()
         else:
             old_stop_offset = self.stop_offset
