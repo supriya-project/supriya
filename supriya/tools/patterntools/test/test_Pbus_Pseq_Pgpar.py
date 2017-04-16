@@ -59,7 +59,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),

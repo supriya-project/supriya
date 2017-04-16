@@ -1,4 +1,5 @@
 # -*- encoding: utf-8 -*-
+import unittest
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools
@@ -80,6 +81,7 @@ class TestCase(TestCase):
             [4.25, [['/n_free', 1000]]],
             [10.0, [[0]]]]
 
+    @unittest.skip('Awaiting implementation.')
     def test_pattern_without_gate_with_bus(self):
         with synthdeftools.SynthDefBuilder() as builder:
             source = ugentools.DC.ar(1)

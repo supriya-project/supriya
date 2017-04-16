@@ -68,15 +68,15 @@ class TestCase(TestCase):
         lists, deltas = self.manual_incommunicado(self.pbind_01)
         assert lists == [
             [10, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 1,
+                ['/s_new', 'default', 1000, 0, 1,
                     'amplitude', 1.0, 'frequency', 440]]],
             [11.0, [
                 ['/n_set', 1000, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1,
+                ['/s_new', 'default', 1001, 0, 1,
                     'amplitude', 1.0, 'frequency', 660]]],
             [13.0, [
                 ['/n_set', 1001, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1,
+                ['/s_new', 'default', 1002, 0, 1,
                     'amplitude', 1.0, 'frequency', 880]]],
             [16.0, [
                 ['/n_set', 1002, 'gate', 0]]]]
@@ -100,7 +100,7 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
         ''')
         # Step 2
@@ -110,9 +110,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -121,7 +121,7 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
         ''')
         # Step 3
@@ -131,9 +131,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -142,7 +142,7 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
         ''')
         # Step 4
@@ -152,7 +152,7 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 880.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -171,23 +171,23 @@ class TestCase(TestCase):
         lists, deltas = self.manual_incommunicado(self.pbind_02)
         assert lists == [
             [10, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 1,
+                ['/s_new', 'default', 1000, 0, 1,
                     'amplitude', 1.0, 'frequency', 440],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1,
+                ['/s_new', 'default', 1001, 0, 1,
                     'amplitude', 1.0, 'frequency', 550]]],
             [11.0, [
                 ['/n_set', 1000, 'gate', 0],
                 ['/n_set', 1001, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1,
+                ['/s_new', 'default', 1002, 0, 1,
                     'amplitude', 1.0, 'frequency', 550],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1,
+                ['/s_new', 'default', 1003, 0, 1,
                     'amplitude', 1.0, 'frequency', 660]]],
             [13.0, [
                 ['/n_set', 1002, 'gate', 0],
                 ['/n_set', 1003, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1,
+                ['/s_new', 'default', 1004, 0, 1,
                     'amplitude', 1.0, 'frequency', 660],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1,
+                ['/s_new', 'default', 1005, 0, 1,
                     'amplitude', 1.0, 'frequency', 770]]],
             [16.0, [
                 ['/n_set', 1004, 'gate', 0],
@@ -212,9 +212,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
         ''')
         # Step 2
@@ -224,13 +224,13 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         out: 0.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -239,9 +239,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
         ''')
         # Step 3
@@ -251,13 +251,13 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1005 default
                         out: 0.0, amplitude: 1.0, frequency: 770.0, gate: 1.0, pan: 0.5
-                    1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1004 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -266,9 +266,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1005 default
                         out: 0.0, amplitude: 1.0, frequency: 770.0, gate: 1.0, pan: 0.5
-                    1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1004 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
         ''')
         # Step 4
@@ -278,9 +278,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1005 default
                         out: 0.0, amplitude: 1.0, frequency: 770.0, gate: 0.0, pan: 0.5
-                    1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1004 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination
@@ -304,32 +304,32 @@ class TestCase(TestCase):
             ]
         assert lists == [
             [10, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 1,
+                ['/s_new', 'default', 1000, 0, 1,
                     'frequency', 220]]],
             [10.25, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1,
+                ['/s_new', 'default', 1001, 0, 1,
                     'frequency', 440]]],
             [10.5, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1,
+                ['/s_new', 'default', 1002, 0, 1,
                     'frequency', 330]]],
             [10.75, [
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1,
+                ['/s_new', 'default', 1003, 0, 1,
                     'frequency', 660]]],
             [11.0, [
                 ['/n_set', 1000, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1,
+                ['/s_new', 'default', 1004, 0, 1,
                     'frequency', 220]]],
             [11.25, [
                 ['/n_set', 1001, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1,
+                ['/s_new', 'default', 1005, 0, 1,
                     'frequency', 440]]],
             [11.5, [
                 ['/n_set', 1002, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 1,
+                ['/s_new', 'default', 1006, 0, 1,
                     'frequency', 330]]],
             [11.75, [
                 ['/n_set', 1003, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1007, 0, 1,
+                ['/s_new', 'default', 1007, 0, 1,
                     'frequency', 660]]],
             [12.0, [['/n_set', 1004, 'gate', 0]]],
             [12.25, [['/n_set', 1005, 'gate', 0]]],
@@ -473,7 +473,7 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
         ''')
         player.stop()
@@ -485,7 +485,7 @@ class TestCase(TestCase):
 #        assert server_state == self.normalize(r'''
 #            NODE TREE 0 group
 #                1 group
-#                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+#                    1001 default
 #                        out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
 #        ''')
         # Wait for termination
@@ -510,9 +510,9 @@ class TestCase(TestCase):
         assert server_state == self.normalize(r'''
             NODE TREE 0 group
                 1 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                         out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 1.0, pan: 0.5
         ''')
         player.stop()
@@ -525,9 +525,9 @@ class TestCase(TestCase):
 #        assert server_state == self.normalize(r'''
 #            NODE TREE 0 group
 #                1 group
-#                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+#                    1003 default
 #                        out: 0.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-#                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+#                    1002 default
 #                        out: 0.0, amplitude: 1.0, frequency: 550.0, gate: 0.0, pan: 0.5
 #        ''')
         # Wait for termination

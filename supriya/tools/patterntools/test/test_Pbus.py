@@ -50,7 +50,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -135,7 +135,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -218,7 +218,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -276,7 +276,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -343,7 +343,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -401,7 +401,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -448,19 +448,19 @@ class TestCase(TestCase):
         assert lists == [
             [10, [
                 ['/g_new', 1000, 0, 1],
-                ['/s_new', '38a2c79fc9d58d06e361337163a4e80f', 1001, 3, 1000,
+                ['/s_new', 'system_link_audio_2', 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                ['/s_new', 'default', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440, 'out', 0]
                 ]],
             [11.0, [
                 ['/n_set', 1002, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1000,
+                ['/s_new', 'default', 1003, 0, 1000,
                     'amplitude', 1.0, 'frequency', 660, 'out', 0]
                 ]],
             [13.0, [
                 ['/n_set', 1003, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1000,
+                ['/s_new', 'default', 1004, 0, 1000,
                     'amplitude', 1.0, 'frequency', 880, 'out', 0]
                 ]],
             [16.0, [
@@ -491,9 +491,9 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 1.0, pan: 0.5
-                    1001 38a2c79fc9d58d06e361337163a4e80f
+                    1001 system_link_audio_2
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 2
@@ -504,11 +504,11 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                             out: 16.0, amplitude: 1.0, frequency: 440.0, gate: 0.0, pan: 0.5
-                    1001 38a2c79fc9d58d06e361337163a4e80f
+                    1001 system_link_audio_2
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
@@ -518,9 +518,9 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 1.0, pan: 0.5
-                    1001 38a2c79fc9d58d06e361337163a4e80f
+                    1001 system_link_audio_2
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 3
@@ -531,11 +531,11 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1004 default
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             out: 16.0, amplitude: 1.0, frequency: 660.0, gate: 0.0, pan: 0.5
-                    1001 38a2c79fc9d58d06e361337163a4e80f
+                    1001 system_link_audio_2
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Wait for termination
@@ -545,9 +545,9 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1004 default
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 1.0, pan: 0.5
-                    1001 38a2c79fc9d58d06e361337163a4e80f
+                    1001 system_link_audio_2
                         done_action: 2.0, fade_time: 0.25, gate: 1.0, in_: 16.0, out: 0.0
         ''')
         # Step 4
@@ -558,7 +558,7 @@ class TestCase(TestCase):
             NODE TREE 0 group
                 1 group
                     1000 group
-                        1004 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1004 default
                             out: 16.0, amplitude: 1.0, frequency: 880.0, gate: 0.0, pan: 0.5
         ''')
         # Wait for termination

@@ -55,7 +55,7 @@ class TestCase(TestCase):
                         delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38a2c79fc9d58d06e361337163a4e80f')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
@@ -92,7 +92,7 @@ class TestCase(TestCase):
                 frequency=440,
                 is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                 target_node=UUID('E'),
                 uuid=UUID('F'),
                 )
@@ -102,7 +102,7 @@ class TestCase(TestCase):
                 frequency=660,
                 is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                 target_node=UUID('E'),
                 uuid=UUID('G'),
                 )
@@ -112,7 +112,7 @@ class TestCase(TestCase):
                 frequency=880,
                 is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                 target_node=UUID('E'),
                 uuid=UUID('H'),
                 )

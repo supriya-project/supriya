@@ -189,12 +189,12 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             inf:
                 NODE TREE 0 group
             ''')
@@ -203,12 +203,12 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             15.0:
                 NODE TREE 0 group
                     1000 group
@@ -220,12 +220,12 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             15.0:
                 NODE TREE 0 group
             ''')
