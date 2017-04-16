@@ -18,7 +18,7 @@ class TestCase(TestCase):
                 NODE TREE 0 group
                     1003 group
                     1001 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                     1000 group
             20.0:
                 NODE TREE 0 group
@@ -39,7 +39,7 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1003 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
             20.0:
                 NODE TREE 0 group
@@ -68,19 +68,19 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             5.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
+                        1002 default
             15.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             20.0:
                 NODE TREE 0 group
             ''')
@@ -101,16 +101,16 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
+                    1001 default
             5.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
+                    1002 default
             15.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
+                    1001 default
             20.0:
                 NODE TREE 0 group
             ''')
@@ -140,27 +140,27 @@ class TestCase(TestCase):
         assert session.to_strings(True) == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
                     1000 group
                         1002 group
             5.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
                     1000 group
                         1002 group
-                            1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1003 default
                                 amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             15.0:
                 NODE TREE 0 group
                     1000 group
                         1002 group
-                            1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1003 default
                                 amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
@@ -187,24 +187,24 @@ class TestCase(TestCase):
         assert session.to_strings(True) == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                         amplitude: 0.1, frequency: 555.0, gate: 1.0, out: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.1, frequency: 444.0, gate: 1.0, out: 0.0, pan: 0.5
                     1002 group
             5.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             15.0:
                 NODE TREE 0 group
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.1, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
