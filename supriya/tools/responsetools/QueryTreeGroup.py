@@ -9,6 +9,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     __slots__ = (
         '_children',
+        '_extra',
         '_node_id',
         )
 
@@ -18,8 +19,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         self,
         node_id=None,
         children=None,
+        **extra
         ):
         self._children = children
+        self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
 
     ### SPECIAL METHODS ###
@@ -70,15 +73,25 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                 raise ValueError(child)
             children.append(child)
         children = tuple(children)
+        extra = dict(timespan=[node.start_offset, node.stop_offset])
         query_tree_group = QueryTreeGroup(
             node_id=node_id,
             children=children,
+            **extra
             )
         return query_tree_group
 
     def _get_str_format_pieces(self):
         result = []
         string = '{} group'.format(self.node_id)
+        if self.extra:
+            string = '{} ({})'.format(
+                string,
+                ', '.join(
+                    '{}: {}'.format(key, value)
+                    for key, value in self.extra
+                    ),
+                )
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces():
@@ -252,6 +265,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
     @property
     def children(self):
         return self._children
+
+    @property
+    def extra(self):
+        return self._extra
 
     @property
     def node_id(self):
