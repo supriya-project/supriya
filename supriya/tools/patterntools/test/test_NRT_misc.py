@@ -104,19 +104,12 @@ class TestCase(TestCase):
             39.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = []
-        for synthdef in sorted(
-            [
-                synthdefs.system_link_audio_1,
-                self.sine_synthdef,
-                self.pink_synthdef,
-                self.limiter_synthdef,
-                ],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
-            compiled_synthdef = bytearray(compiled_synthdef)
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_1,
+            self.sine_synthdef,
+            self.pink_synthdef,
+            self.limiter_synthdef,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

@@ -51,17 +51,11 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pattern)
-        d_recv_commands = []
-        for synthdef in sorted(
-            [
-                synthdefs.system_link_audio_2,
-                synthdefs.default,
-                self.limiter_synthdef,
-                ],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_2,
+            synthdefs.default,
+            self.limiter_synthdef,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

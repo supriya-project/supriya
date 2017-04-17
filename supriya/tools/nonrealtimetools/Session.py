@@ -56,7 +56,7 @@ class Session(object):
         >>> result = session.to_lists(duration=20)
         >>> result == [
         ...     [0.0, [
-        ...         ['/d_recv', bytearray(synthdef.compile())],
+        ...         ['/d_recv', bytearray(synthdef.compile(use_anonymous_name=True))],
         ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
         ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
         ...     [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],

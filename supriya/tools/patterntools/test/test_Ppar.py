@@ -814,9 +814,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_01)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
@@ -839,9 +840,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_01, duration=1.75)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
@@ -859,13 +861,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_04)
-        d_recv_commands = []
-        for synthdef in sorted(
-            [synthdefs.system_link_audio_2, synthdefs.default],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_2,
+            synthdefs.default,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -903,13 +902,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_04, duration=1.75)
-        d_recv_commands = []
-        for synthdef in sorted(
-            [synthdefs.system_link_audio_2, synthdefs.default],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_2,
+            synthdefs.default,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -943,13 +939,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_05)
-        d_recv_commands = []
-        for synthdef in sorted(
-            [synthdefs.system_link_audio_2, synthdefs.default],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_2,
+            synthdefs.default,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -978,13 +971,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.ppar_05, duration=1.75)
-        d_recv_commands = []
-        for synthdef in sorted(
-            [synthdefs.system_link_audio_2, synthdefs.default],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        d_recv_commands = self.build_d_recv_commands([
+            synthdefs.system_link_audio_2,
+            synthdefs.default,
+            ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

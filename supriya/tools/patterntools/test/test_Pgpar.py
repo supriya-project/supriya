@@ -317,9 +317,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(10):
             session.inscribe(self.pattern)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 1, 0],
                 ['/g_new', 1001, 1, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,

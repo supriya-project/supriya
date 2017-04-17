@@ -475,15 +475,10 @@ class TestCase(TestCase):
                 synthdef=multiplier_synthdef,
                 multiplier=-0.5,
                 )
-
-        d_recv_commands = []
-        for synthdef in sorted(
-            [diskin_synthdef, multiplier_synthdef],
-            key=lambda x: x.anonymous_name,
-            ):
-            compiled_synthdef = bytearray(synthdef.compile())
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
-
+        d_recv_commands = self.build_d_recv_commands([
+            diskin_synthdef,
+            multiplier_synthdef,
+            ])
         buffer_one_name = 'session-7b3f85710f19667f73f745b8ac8080a0.aiff'
         assert session_two.to_lists() == [
             [0.0, [

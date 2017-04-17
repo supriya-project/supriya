@@ -17,9 +17,10 @@ class TestCase(TestCase):
         for i in range(4):
             with session.at(i):
                 group.add_synth(duration=0)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists(duration=5) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000],
                 ['/n_set', 1001, 'gate', 0]]],

@@ -340,9 +340,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440]]],
             [1.0, [
@@ -363,9 +364,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01, duration=3)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440]]],
             [1.0, [
@@ -379,9 +381,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01, duration=2)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440]]],
             [1.0, [
@@ -393,9 +396,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(10):
             final_offset = session.inscribe(self.pbind_02)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
@@ -424,9 +428,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_03)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'frequency', 220]]],
             [0.25, [

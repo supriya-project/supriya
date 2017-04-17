@@ -22,9 +22,10 @@ class TestCase(TestCase):
                 pan=0.75,
                 out=8,
                 )
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0]]],
             [2.0, [['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
                 'amplitude', 0.5,
@@ -46,9 +47,10 @@ class TestCase(TestCase):
             synth['frequency'] = 442
         with session.at(13):
             synth['frequency'] = 443
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0, 'frequency', 440]]],
             [11.0, [['/n_set', 1000, 'frequency', 442]]],
             [13.0, [['/n_set', 1000, 'frequency', 443]]],
@@ -104,9 +106,10 @@ class TestCase(TestCase):
             session.add_synth(synthdef=synthdef)
         with session.at(1):
             session.add_synth(duration=4, synthdef=synthdef)
+        d_recv_commands = self.build_d_recv_commands([synthdef])
         assert session.to_lists(duration=3) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdef.compile())],
+                *d_recv_commands,
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0, 'duration', 2.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1001, 0, 0, 'duration', 3.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1002, 0, 0, 'duration', 3.0],
@@ -118,7 +121,7 @@ class TestCase(TestCase):
             ]
         assert session.to_lists(duration=4) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdef.compile())],
+                *d_recv_commands,
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0, 'duration', 2.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1001, 0, 0, 'duration', 4.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1002, 0, 0, 'duration', 4.0],
@@ -130,7 +133,7 @@ class TestCase(TestCase):
             ]
         assert session.to_lists(duration=5) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdef.compile())],
+                *d_recv_commands,
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0, 'duration', 2.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1001, 0, 0, 'duration', 4.0],
                 ['/s_new', '448a8d487adfc99ec697033edc2a1227', 1002, 0, 0, 'duration', 5.0],
@@ -160,9 +163,10 @@ class TestCase(TestCase):
             group_b['frequency'] = 445
             synth_a['frequency'] = 446
             synth_b['frequency'] = 447
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists(duration=6) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000],
@@ -193,9 +197,10 @@ class TestCase(TestCase):
                 duration=0,
                 synthdef=synthdef,
                 )
+        d_recv_commands = self.build_d_recv_commands([synthdef])
         assert session.to_lists(duration=1) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdef.compile())],
+                *d_recv_commands,
                 ['/s_new', 'd719856d7deff2696a3f807f5dc79809', 1000, 0, 0]]],
             [1.0, [[0]]]
             ]

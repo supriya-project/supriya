@@ -229,9 +229,10 @@ class TestCase(TestCase):
             15.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000]]],

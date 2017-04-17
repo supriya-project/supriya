@@ -188,9 +188,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(10):
             session.inscribe(self.pmono_01)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440]]],
             [11.0, [
@@ -206,9 +207,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(0):
             session.inscribe(self.pmono_02)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 1.0, 'frequency', 440],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0,
