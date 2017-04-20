@@ -162,7 +162,7 @@ class SynthDefFactory(SupriyaObject):
 
     ### PUBLIC METHODS ###
 
-    def build(self, **kwargs):
+    def build(self, name=None, **kwargs):
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         builder = synthdeftools.SynthDefBuilder()
@@ -178,7 +178,7 @@ class SynthDefFactory(SupriyaObject):
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
             self._build_silence_detection(builder, source, state)
-        return builder.build()
+        return builder.build(name=name)
 
     def with_channel_count(self, channel_count):
         channel_count = int(channel_count)
