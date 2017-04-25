@@ -72,7 +72,15 @@ class Ppar(EventPattern):
 
     def __init__(self, patterns):
         from supriya.tools import patterntools
-        assert all(isinstance(_, patterntools.EventPattern) for _ in patterns)
+        patterns = list(patterns)
+        for i, pattern_group in enumerate(patterns):
+            if isinstance(pattern_group, patterntools.EventPattern):
+                pattern_group = [pattern_group]
+            assert isinstance(pattern_group, collections.Sequence)
+            pattern_group = tuple(pattern_group)
+            assert all(isinstance(_, patterntools.EventPattern)
+                for _ in pattern_group)
+            patterns[i] = pattern_group
         assert patterns
         self._patterns = tuple(patterns)
 
@@ -95,7 +103,15 @@ class Ppar(EventPattern):
         return new(expr, _iterator=None)
 
     def _setup_state(self):
-        iterators = tuple(iter(pattern) for pattern in self._patterns)
+        iterators, iterator_groups = [], []
+        for pattern_group in self.patterns:
+            iterator_group = []
+            for pattern in pattern_group:
+                iterator = iter(pattern)
+                iterators.append(iterator)
+                iterator_group.append(iterator)
+            iterator_groups.append(tuple(iterator_group))
+        iterator_groups = tuple(iterator_groups)
         iterator_queue = PriorityQueue()
         event_counter = collections.Counter()
         event_queue = PriorityQueue()
@@ -107,6 +123,7 @@ class Ppar(EventPattern):
             'event_queue': event_queue,
             'iterator_queue': iterator_queue,
             'iterators': iterators,
+            'iterator_groups': iterator_groups,
             'visited_iterators': visited_iterators,
             }
         return state
@@ -286,11 +303,17 @@ class Ppar(EventPattern):
 
     @property
     def arity(self):
-        return max(self._get_arity(_) for _ in self._patterns)
+        patterns = []
+        for _ in self._patterns:
+            patterns.extend(_)
+        return max(self._get_arity(_) for _ in patterns)
 
     @property
     def is_infinite(self):
-        return all(_.is_infinite for _ in self._patterns)
+        patterns = []
+        for _ in self._patterns:
+            patterns.extend(_)
+        return all(_.is_infinite for _ in patterns)
 
     @property
     def patterns(self):

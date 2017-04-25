@@ -28,7 +28,6 @@ class Pgpar(Ppar):
 
     def _coerce_iterator_output(self, expr, state):
         from supriya.tools import patterntools
-        #expr = super(Pgpar, self)._coerce_iterator_output(expr, state)
         iterator = expr.get('_iterator')
         iterators_to_group_uuids = state['iterators_to_group_uuids']
         kwargs = {'_iterator': None}
@@ -65,11 +64,14 @@ class Pgpar(Ppar):
         state = super(Pgpar, self)._setup_state()
         state['group_uuids'] = []
         state['iterators_to_group_uuids'] = {}
-        for iterator in state['iterators']:
+        for iterator_group in state['iterator_groups']:
             group_uuid = uuid.uuid4()
             state['group_uuids'].append(group_uuid)
-            state['iterators_to_group_uuids'][iterator] = group_uuid
+            for iterator in iterator_group:
+                state['iterators_to_group_uuids'][iterator] = group_uuid
         return state
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def release_time(self):
