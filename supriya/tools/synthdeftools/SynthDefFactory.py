@@ -81,7 +81,7 @@ class SynthDefFactory(SupriyaObject):
             return
         source = ugentools.In.ar(
             bus=builder['out'],
-            channel_count=self._channel_count,
+            channel_count=state['channel_count'],
             )
         if self._input.get('windowed'):
             source *= state['window']
@@ -91,7 +91,7 @@ class SynthDefFactory(SupriyaObject):
         from supriya.tools import ugentools
         if self._feedback_loop:
             local_in = ugentools.LocalIn.ar(
-                channel_count=self._channel_count,
+                channel_count=state['channel_count'],
                 )
             if source is None:
                 source = local_in
@@ -164,12 +164,11 @@ class SynthDefFactory(SupriyaObject):
 
     def build(self, name=None, **kwargs):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
         builder = synthdeftools.SynthDefBuilder()
         state = self._initial_state.copy()
-        state.update(**kwargs)
         with builder:
             self._setup_parameters_and_state(builder, state)
+            state.update(**kwargs)
             source = self._build_input(builder, state)
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
