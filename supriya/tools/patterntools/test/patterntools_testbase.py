@@ -75,8 +75,7 @@ class TestCase(systemtools.TestCase):
         try:
             event = iterator.send(True)
             events.append(event)
-            for j, event in enumerate(iterator):
-                events.append(event)
+            events.extend(iterator)
         except StopIteration:
             pass
         return events

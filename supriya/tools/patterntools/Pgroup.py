@@ -15,10 +15,7 @@ class Pgroup(EventPattern):
 
     ### INITIALIZER ###
 
-    def __init__(
-        self, pattern,
-        release_time=0.25,
-        ):
+    def __init__(self, pattern, release_time=0.25):
         self._pattern = pattern
         release_time = float(release_time)
         assert 0 <= release_time

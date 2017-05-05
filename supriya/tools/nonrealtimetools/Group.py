@@ -78,9 +78,12 @@ class Group(Node):
         iterator = iter(pattern)
         uuids = {}
 
+        #print('[INSCRIBE]', 'START')
         try:
             event = next(iterator)
+            #print('[INSCRIBE]', type(event).__name__, event.get('frequency') or '')
         except StopIteration:
+            #print('[INSCRIBE]', 'DONE')
             return offset
 
         if (
@@ -95,14 +98,26 @@ class Group(Node):
             maximum_offset=maximum_offset,
             offset=offset,
             )
+        #print('[INSCRIBE]    START:', offset)
         offset += event.delta
         actual_stop_offset = max(actual_stop_offset, performed_stop_offset)
+        #print('[INSCRIBE]    STOP:', actual_stop_offset)
+        #print('[INSCRIBE]    NEXT START:', offset)
 
         while True:
             try:
                 event = iterator.send(should_stop)
+                #print(
+                #    '[INSCRIBE]',
+                #    type(event).__name__,
+                #    'DELTA', event.delta,
+                #    'DUR', event.get('duration'),
+                #    'FREQ', event.get('frequency'),
+                #    )
             except StopIteration:
+                #print('[INSCRIBE]', 'DONE')
                 break
+            #print('[INSCRIBE]    START:', offset)
             if (
                 maximum_offset is not None and
                 isinstance(event, patterntools.NoteEvent)
@@ -113,10 +128,18 @@ class Group(Node):
                     ):
                     # Current event is 0-duration and we're at our stop.
                     should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    offset = actual_stop_offset
+                    #print('[INSCRIBE]', 'STOPPING EXACT')
+                    #print('[INSCRIBE]    STOP:', actual_stop_offset)
+                    #print('[INSCRIBE]    NEXT START:', offset)
                     continue
                 elif self._get_stop_offset(offset, event) > maximum_offset:
                     # We would legitimately overshoot.
                     should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    offset = actual_stop_offset
+                    #print('[INSCRIBE]', 'STOPPING OVERHANG')
+                    #print('[INSCRIBE]    STOP:', actual_stop_offset)
+                    #print('[INSCRIBE]    NEXT START:', offset)
                     continue
             performed_stop_offset = event._perform_nonrealtime(
                 session=self.session,
@@ -129,5 +152,7 @@ class Group(Node):
                 actual_stop_offset,
                 performed_stop_offset,
                 )
+            #print('[INSCRIBE]    STOP:', actual_stop_offset)
+            #print('[INSCRIBE]    NEXT START:', offset)
 
         return actual_stop_offset

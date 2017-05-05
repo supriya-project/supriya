@@ -137,8 +137,6 @@ class Ppar(EventPattern):
         event_queue = state.get('event_queue')
         visited_iterators = state.get('visited_iterators')
 
-        iterator_offset_n1 = {iterator: 0.0 for iterator in iterators}
-
         while True:
             self._debug()
             self._debug(
@@ -151,7 +149,6 @@ class Ppar(EventPattern):
             if not iterator_queue.empty():
                 self._debug('\tFETCH NEW EVENT')
                 offset, index, iterator = iterator_queue.get()
-                iterator_offset_n1[iterator] = offset
                 self._debug('\t\tI-GET: {} {} {}'.format(chr(65 + index) * 3,
                     offset, id(iterator)))
                 if should_stop and iterator not in visited_iterators:
