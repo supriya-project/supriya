@@ -17,6 +17,7 @@ class SynthDefFactory(SupriyaObject):
         '_output',
         '_parameter_blocks',
         '_parameters',
+        '_rand_id',
         '_signal_blocks',
         '_silence_detection',
         )
@@ -34,6 +35,7 @@ class SynthDefFactory(SupriyaObject):
         self._output = {}
         self._parameter_blocks = []
         self._parameters = sorted(tuple(kwargs.items()))
+        self._rand_id = None
         self._signal_blocks = []
         self._silence_detection = None
 
@@ -45,6 +47,9 @@ class SynthDefFactory(SupriyaObject):
         state['channel_count'] = self._channel_count
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
+        if self._rand_id:
+            builder._add_parameter('rand_id', 0, 'SCALAR')
+            ugentools.RandID.ir(rand_id=builder['rand_id'])
         if self._gate:
             builder._add_parameter('gate', 1, 'TRIGGER')
             state['gate'] = ugentools.Linen.kr(
@@ -238,6 +243,14 @@ class SynthDefFactory(SupriyaObject):
     def with_parameter_block(self, block_function):
         clone = self._clone()
         clone._parameter_blocks.append(block_function)
+        return clone
+
+    def with_rand_id(self, rand_id=0):
+        clone = self._clone()
+        if rand_id is not None:
+            clone._rand_id = int(rand_id)
+        else:
+            clone._rand_id = None
         return clone
 
     def with_signal_block(self, block_function):
