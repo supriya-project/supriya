@@ -82,16 +82,6 @@ class TestCase(TestCase):
                                 1005 sine
                             1003 limiter
                     1001 system_link_audio_1
-            30.0:
-                NODE TREE 0 group
-                    1000 group
-                        1002 group
-                            1004 group
-                                1008 pink
-                                1007 sine
-                                1006 pink
-                                1005 sine
-                            1003 limiter
             32.0:
                 NODE TREE 0 group
                     1000 group
@@ -101,7 +91,31 @@ class TestCase(TestCase):
                                 1007 sine
                                 1005 sine
                             1003 limiter
-            39.0:
+                    1001 system_link_audio_1
+            40.0:
+                NODE TREE 0 group
+                    1000 group
+                        1002 group
+                            1004 group
+                                1008 pink
+                                1007 sine
+                            1003 limiter
+                    1001 system_link_audio_1
+            48.0:
+                NODE TREE 0 group
+                    1000 group
+                        1002 group
+                            1004 group
+                                1007 sine
+                            1003 limiter
+                    1001 system_link_audio_1
+            55.0:
+                NODE TREE 0 group
+                    1000 group
+                        1002 group
+                            1004 group
+                            1003 limiter
+            64.0:
                 NODE TREE 0 group
             ''')
         d_recv_commands = self.build_d_recv_commands([
@@ -121,16 +135,21 @@ class TestCase(TestCase):
                     'in_', 1, 'out', 1],
                 ['/g_new', 1004, 0, 1002],
                 ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1005, 0, 1004,
-                    'duration', 39.0, 'out', 1],
+                    'duration', 40.0, 'out', 1],
                 ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1006, 0, 1004,
                     'duration', 32.0, 'out', 1]]],
             [15.0, [
                 ['/s_new', '00a1f31c719b7e5a30788b0d2e78a2cd', 1007, 0, 1004,
-                    'duration', 24.0, 'out', 1]]],
+                    'duration', 40.0, 'out', 1]]],
             [16.0, [
                 ['/s_new', '48dcd0cdb5ded3e947186fa74f097516', 1008, 0, 1004,
-                    'duration', 23.0, 'out', 1]]],
-            [30.0, [['/n_set', 1001, 'gate', 0]]],
+                    'duration', 32.0, 'out', 1]]],
             [32.0, [['/n_free', 1006]]],
-            [39.0, [['/n_free', 1000, 1002, 1003, 1004, 1005, 1007, 1008]]],
-            [55.0, [[0]]]]
+            [40.0, [['/n_free', 1005]]],
+            [48.0, [['/n_free', 1008]]],
+            [55.0, [
+                ['/n_free', 1007],
+                ['/n_set', 1001, 'gate', 0]]],
+            [64.0, [
+                ['/n_free', 1000, 1002, 1003, 1004],
+                [0]]]]
