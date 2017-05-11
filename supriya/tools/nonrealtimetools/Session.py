@@ -1156,6 +1156,22 @@ class Session(object):
             states.append(state.report())
         return states
 
+    @SessionObject.require_offset
+    def set_rand_seed(self, rand_id=0, rand_seed=0, offset=None):
+        from supriya import SynthDefBuilder, ugentools
+        with SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
+            ugentools.RandID.ir(rand_id=builder['rand_id'])
+            ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+            ugentools.FreeSelf.kr(trigger=1)
+        synthdef = builder.build()
+        return self.add_synth(
+            add_action='ADD_TO_HEAD',
+            duration=0,
+            rand_id=rand_id,
+            rand_seed=rand_seed,
+            synthdef=synthdef,
+            )
+
     def to_datagram(
         self,
         duration=None,
