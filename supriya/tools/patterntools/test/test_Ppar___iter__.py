@@ -5,7 +5,7 @@ from patterntools_testbase import TestCase
 
 class TestCase(TestCase):
 
-    pattern_01 = patterntools.PparNew([
+    pattern_01 = patterntools.Ppar([
         patterntools.Pbind(
             amplitude=1.0,
             duration=1.0,
@@ -13,7 +13,7 @@ class TestCase(TestCase):
             ),
         ])
 
-    pattern_02 = patterntools.PparNew([
+    pattern_02 = patterntools.Ppar([
         patterntools.Pbind(
             amplitude=1.0,
             duration=1.0,
@@ -26,7 +26,7 @@ class TestCase(TestCase):
             ),
         ])
 
-    pattern_03 = patterntools.PparNew([
+    pattern_03 = patterntools.Ppar([
         patterntools.Pbind(
             amplitude=1.0,
             duration=1.0,
@@ -39,7 +39,7 @@ class TestCase(TestCase):
             ),
         ])
 
-    pattern_04 = patterntools.PparNew([
+    pattern_04 = patterntools.Ppar([
         patterntools.Pbus(
             patterntools.Pbind(
                 amplitude=1.0,
@@ -49,7 +49,7 @@ class TestCase(TestCase):
             ),
         ])
 
-    pattern_05 = patterntools.PparNew([
+    pattern_05 = patterntools.Ppar([
         patterntools.Pbus(
             patterntools.Pbind(
                 amplitude=1.0,
@@ -66,8 +66,8 @@ class TestCase(TestCase):
             ),
         ])
 
-    pattern_06 = patterntools.PparNew([
-        patterntools.PgparNew([
+    pattern_06 = patterntools.Ppar([
+        patterntools.Pgpar([
             [
                 patterntools.Pbind(
                     delta=10,
@@ -81,7 +81,7 @@ class TestCase(TestCase):
                     ),
                 ],
             ]),
-        patterntools.PgparNew([
+        patterntools.Pgpar([
             [
                 patterntools.Pbind(
                     delta=10,

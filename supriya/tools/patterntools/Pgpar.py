@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 import uuid
 from abjad import new
-from supriya.tools.patterntools.PparNew import PparNew
+from supriya.tools.patterntools.Ppar import Ppar
 
 
-class PgparNew(PparNew):
+class Pgpar(Ppar):
 
     ### CLASS VARIABLES ###
 
@@ -19,7 +19,7 @@ class PgparNew(PparNew):
         patterns,
         release_time=0.25,
         ):
-        PparNew.__init__(self, patterns=patterns)
+        Ppar.__init__(self, patterns=patterns)
         release_time = float(release_time)
         assert 0 <= release_time
         self._release_time = release_time
@@ -61,7 +61,7 @@ class PgparNew(PparNew):
         return peripheral_starts, peripheral_stops
 
     def _setup_state(self):
-        state = super(PgparNew, self)._setup_state()
+        state = super(Pgpar, self)._setup_state()
         state['group_uuids'] = []
         state['iterators_to_group_uuids'] = {}
         for iterator_group in state['iterator_groups']:

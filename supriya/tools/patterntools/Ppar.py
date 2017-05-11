@@ -8,7 +8,7 @@ except ImportError:
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
-class PparNew(EventPattern):
+class Ppar(EventPattern):
 
     ### CLASS VARIABLES ###
 
@@ -57,7 +57,7 @@ class PparNew(EventPattern):
         return expr
 
     def _coerce_iterator_output(self, expr, state):
-        expr = super(PparNew, self)._coerce_iterator_output(expr, state)
+        expr = super(Ppar, self)._coerce_iterator_output(expr, state)
         return new(expr, _iterator=None)
 
     def _iterate(self, state=None):

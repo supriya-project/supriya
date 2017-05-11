@@ -7,7 +7,7 @@ from patterntools_testbase import TestCase
 
 class TestCase(TestCase):
 
-    pattern_01 = patterntools.PparNew([
+    pattern_01 = patterntools.Ppar([
         patterntools.Pbind(
             delta=8,
             duration=patterntools.Pseq([10], 4),
@@ -27,7 +27,7 @@ class TestCase(TestCase):
 
     pattern_02 = pattern_01.with_bus()
 
-    pattern_03 = patterntools.PparNew([
+    pattern_03 = patterntools.Ppar([
         patterntools.Pbind(
             delta=10,
             duration=patterntools.Pseq([10], 3),
@@ -40,7 +40,7 @@ class TestCase(TestCase):
             ).with_group(),
         ])
 
-    pattern_04 = patterntools.PparNew([
+    pattern_04 = patterntools.Ppar([
         patterntools.Pbind(
             delta=10,
             duration=patterntools.Pseq([10], None),
@@ -48,8 +48,8 @@ class TestCase(TestCase):
             ).with_group(),
         ])
 
-    pattern_05 = patterntools.PparNew([
-        patterntools.PgparNew([
+    pattern_05 = patterntools.Ppar([
+        patterntools.Pgpar([
             [
                 patterntools.Pbind(
                     delta=10,
@@ -63,7 +63,7 @@ class TestCase(TestCase):
                     ),
                 ],
             ]),
-        patterntools.PgparNew([
+        patterntools.Pgpar([
             [
                 patterntools.Pbind(
                     delta=10,
