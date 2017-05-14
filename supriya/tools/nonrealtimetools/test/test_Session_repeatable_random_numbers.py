@@ -24,7 +24,7 @@ class TestCase(TestCase):
         ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
     seed_synthdef = builder.build()
 
-    with synthdeftools.SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
+    with synthdeftools.SynthDefBuilder(rand_id=0) as builder:
         ugentools.RandID.ir(rand_id=builder['rand_id'])
         source = ugentools.WhiteNoise.ar()
         ugentools.Out.ar(bus=0, source=source)
@@ -130,3 +130,35 @@ class TestCase(TestCase):
             sampled_session = sorted(self._sample(output_file_path).items())
             assert first_sampled_session[0] != sampled_session[0]
             assert first_sampled_session[1:] == sampled_session[1:]
+
+    def test_repeatable_via_session_method(self):
+        session = nonrealtimetools.Session(0, 1)
+        with session.at(0):
+            session.add_synth(
+                duration=1,
+                synthdef=self.maybe_repeatable_noise_synthdef,
+                rand_seed=0,
+                )
+            session.set_rand_seed(rand_id=0, rand_seed=23)
+        d_recv_commands = self.build_d_recv_commands([
+            session._build_rand_seed_synthdef(),
+            self.maybe_repeatable_noise_synthdef,
+            ])
+        assert session.to_lists() == [
+            [0.0, [
+                *d_recv_commands,
+                ['/s_new', self.maybe_repeatable_noise_synthdef.anonymous_name,
+                    1000, 0, 0,
+                    'rand_seed', 0],
+                ['/s_new', session._build_rand_seed_synthdef().anonymous_name,
+                    1001, 0, 0,
+                    'rand_id', 0, 'rand_seed', 23]]],
+             [1.0, [['/n_free', 1000], [0]]]]
+        exit_code, output_file_path = session.render()
+        self.assert_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
+        sampled_session = self._sample(output_file_path)
+        for _ in range(10):
+            output_file_path.unlink()
+            exit_code, output_file_path = session.render()
+            self.assert_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
+            assert self._sample(output_file_path) == sampled_session
