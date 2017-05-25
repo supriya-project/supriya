@@ -11,10 +11,11 @@ class BusGroup(SessionObject):
 
         >>> session = nonrealtimetools.Session()
         >>> bus_group = session.add_bus_group(3)
-        >>> print(bus_group)
+        >>> print(repr(bus_group))
         <BusGroup(
             bus_count=3,
-            calculation_rate=CalculationRate.CONTROL
+            calculation_rate=CalculationRate.CONTROL,
+            session_id=0
             )>
 
     ::

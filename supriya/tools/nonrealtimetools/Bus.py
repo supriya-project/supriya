@@ -12,9 +12,10 @@ class Bus(SessionObject):
 
         >>> session = nonrealtimetools.Session()
         >>> bus = session.add_bus('control')
-        >>> print(bus)
+        >>> print(repr(bus))
         <Bus(
-            calculation_rate=CalculationRate.CONTROL
+            calculation_rate=CalculationRate.CONTROL,
+            session_id=0
             )>
 
     ::
