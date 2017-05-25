@@ -77,6 +77,10 @@ class Pattern(SupriyaValueObject):
         from supriya.tools import patterntools
         return patterntools.Pbinop(self, '*', expr)
 
+    def __pow__(self, expr):
+        from supriya.tools import patterntools
+        return patterntools.Pbinop(self, '**', expr)
+
     def __radd__(self, expr):
         from supriya.tools import patterntools
         return patterntools.Pbinop(expr, '+', self)
@@ -88,6 +92,10 @@ class Pattern(SupriyaValueObject):
     def __rmul__(self, expr):
         from supriya.tools import patterntools
         return patterntools.Pbinop(expr, '*', self)
+
+    def __rpow__(self, expr):
+        from supriya.tools import patterntools
+        return patterntools.Pbinop(expr, '**', self)
 
     def __rsub__(self, expr):
         from supriya.tools import patterntools
