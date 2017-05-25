@@ -265,6 +265,7 @@ class SynthDefFactory(SupriyaObject):
         if not self._output:
             return
         crossfaded = self._output.get('crossfaded')
+        replacing = self._output.get('replacing')
         windowed = self._output.get('windowed')
         gate = state.get('gate')
         if self._output.get('leveled') and not crossfaded:
@@ -274,6 +275,8 @@ class SynthDefFactory(SupriyaObject):
             bus=builder['out'],
             source=source,
             )
+        if replacing:
+            out_class = ugentools.ReplaceOut
         if crossfaded:
             out_class = ugentools.XOut
             if windowed:
@@ -948,6 +951,7 @@ class SynthDefFactory(SupriyaObject):
         self,
         crossfaded=False,
         leveled=False,
+        replacing=False,
         windowed=False,
         ):
         """
@@ -1268,11 +1272,12 @@ class SynthDefFactory(SupriyaObject):
                 }
 
         """
-
+        assert not (replacing and crossfaded)
         clone = self._clone()
         clone._output.update(
             crossfaded=bool(crossfaded),
             leveled=bool(leveled),
+            replacing=bool(replacing),
             windowed=bool(windowed),
             )
         return clone
