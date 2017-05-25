@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):

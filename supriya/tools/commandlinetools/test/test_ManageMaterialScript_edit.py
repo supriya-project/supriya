@@ -3,7 +3,7 @@ from unittest import mock
 from abjad import abjad_configuration
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):

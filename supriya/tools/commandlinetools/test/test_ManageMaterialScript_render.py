@@ -6,7 +6,7 @@ from abjad.tools import stringtools
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
 from supriya.tools import nonrealtimetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
