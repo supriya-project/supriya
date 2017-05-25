@@ -64,8 +64,9 @@ def _build_default_synthdef():
             position=builder['pan'],
             )
         ugentools.OffsetOut.ar(bus=builder['out'], source=pan)
-    synthdef = builder.build()
+    synthdef = builder.build(name='default')
     return synthdef
+
 
 default = _build_default_synthdef()
 

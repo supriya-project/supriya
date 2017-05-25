@@ -77,6 +77,10 @@ class Pattern(SupriyaValueObject):
         from supriya.tools import patterntools
         return patterntools.Pbinop(self, '*', expr)
 
+    def __pow__(self, expr):
+        from supriya.tools import patterntools
+        return patterntools.Pbinop(self, '**', expr)
+
     def __radd__(self, expr):
         from supriya.tools import patterntools
         return patterntools.Pbinop(expr, '+', self)
@@ -88,6 +92,10 @@ class Pattern(SupriyaValueObject):
     def __rmul__(self, expr):
         from supriya.tools import patterntools
         return patterntools.Pbinop(expr, '*', self)
+
+    def __rpow__(self, expr):
+        from supriya.tools import patterntools
+        return patterntools.Pbinop(expr, '**', self)
 
     def __rsub__(self, expr):
         from supriya.tools import patterntools
@@ -115,6 +123,7 @@ class Pattern(SupriyaValueObject):
                 delta=0.0,
                 events=peripheral_starts,
                 )
+            self._debug('PERIPHERAL_STARTS', peripheral_starts)
             should_stop = yield peripheral_starts
         if not should_stop:
             should_stop = yield initial_expr
@@ -126,16 +135,13 @@ class Pattern(SupriyaValueObject):
                     should_stop = yield expr
                 except StopIteration:
                     break
-            #if peripheral_stops:
-            #    null_event = self._setup_pre_peripheral_stops_null_event()
-            #    if null_event:
-            #        peripheral_stops.insert(0, null_event)
         if peripheral_stops:
             peripheral_stops = patterntools.CompositeEvent(
                 delta=0.0,
                 events=peripheral_stops,
                 is_stop=True,
                 )
+            self._debug('PERIPHERAL_STOPS', peripheral_stops)
             yield peripheral_stops
 
     ### PRIVATE METHODS ###
@@ -164,9 +170,15 @@ class Pattern(SupriyaValueObject):
             value = float(value)
         return value
 
-    def _debug(self, *args, **kwargs):
-        if getattr(self, 'DEBUG', False):
-            print(*args, **kwargs)
+    def _debug(self, *args):
+        return
+        if not self._name:
+            return
+        print('{}[{}] {}'.format(
+            (self._indent_level or 0) * '    ',
+            self._name,
+            ' '.join(str(arg) for arg in args),
+            ))
 
     @classmethod
     def _freeze_recursive(cls, value):
@@ -247,13 +259,6 @@ class Pattern(SupriyaValueObject):
 
     def _setup_peripherals(self, initial_expr, state):
         return None, None
-
-#    def _setup_pre_peripheral_stops_null_event(self):
-#        from supriya.tools import patterntools
-#        delta = self._release_time or 0
-#        if not delta:
-#            return
-#        return patterntools.NullEvent(delta=delta)
 
     ### PUBLIC PROPERTIES ###
 

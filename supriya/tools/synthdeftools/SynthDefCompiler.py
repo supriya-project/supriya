@@ -39,7 +39,7 @@ class SynthDefCompiler(SupriyaObject):
         return bytes().join(result)
 
     @staticmethod
-    def compile_synthdefs(synthdefs):
+    def compile_synthdefs(synthdefs, use_anonymous_names=False):
         def flatten(value):
             if isinstance(value, collections.Sequence) and \
                 not isinstance(value, (bytes, bytearray)):
@@ -55,7 +55,7 @@ class SynthDefCompiler(SupriyaObject):
         result.append(encoded_synthdef_count)
         for synthdef in synthdefs:
             name = synthdef.name
-            if not name:
+            if not name or use_anonymous_names:
                 name = synthdef.anonymous_name
             result.append(SynthDefCompiler.compile_synthdef(
                 synthdef, name))

@@ -44,6 +44,7 @@ class Pbus(EventPattern):
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state):
+        from supriya import synthdefs
         from supriya.tools import patterntools
         expr = super(Pbus, self)._coerce_iterator_output(expr)
         if (
@@ -53,9 +54,14 @@ class Pbus(EventPattern):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
-            if (isinstance(expr, patterntools.NoteEvent) and
-                expr.get('out') is None):
-                kwargs['out'] = state['bus_uuid']
+            prototype = (patterntools.NoteEvent, patterntools.SynthEvent)
+            if isinstance(expr, prototype):
+                synthdef = expr.get('synthdef') or synthdefs.default
+                parameter_names = synthdef.parameter_names
+                if expr.get('out') is None and 'out' in parameter_names:
+                    kwargs['out'] = state['bus_uuid']
+                if expr.get('in_') is None and 'in_' in parameter_names:
+                    kwargs['in_'] = state['bus_uuid']
             expr = new(expr, **kwargs)
         return expr
 

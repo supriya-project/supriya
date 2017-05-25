@@ -34,7 +34,7 @@ class TestCase(TestCase):
                     delta=0.0,
                     out=4,
                     pan=0.25,
-                    synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                    synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                     uuid=UUID('A'),
                     ),
                 index=0,
@@ -42,7 +42,7 @@ class TestCase(TestCase):
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
                         node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         out=4,
                         pan=0.25,

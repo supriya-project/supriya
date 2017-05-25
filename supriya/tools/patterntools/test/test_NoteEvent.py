@@ -38,7 +38,7 @@ class TestCase(TestCase):
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
                         node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=443,
                         ),
@@ -98,21 +98,21 @@ class TestCase(TestCase):
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
                         node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=443,
                         ),
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
                         node_id=1001,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=445,
                         ),
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
                         node_id=1002,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('da0982184cc8fa54cf9d288a0fe1f6ca')>,
+                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=447,
                         ),

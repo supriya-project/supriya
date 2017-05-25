@@ -50,6 +50,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=222,
                 is_stop=True,
@@ -92,6 +93,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=555,
                 is_stop=True,
@@ -253,6 +255,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=222,
                 is_stop=True,
@@ -288,23 +291,23 @@ class TestCase(TestCase):
             [10, [
                 ['/g_new', 1000, 1, 1],
                 ['/g_new', 1001, 1, 1],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,
+                ['/s_new', 'default', 1002, 0, 1000,
                     'amplitude', 1.0, 'frequency', 440],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1003, 0, 1001,
+                ['/s_new', 'default', 1003, 0, 1001,
                     'amplitude', 1.0, 'frequency', 222]]],
             [10.75, [
                 ['/n_set', 1003, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1004, 0, 1001,
+                ['/s_new', 'default', 1004, 0, 1001,
                     'amplitude', 1.0, 'frequency', 333]]],
             [11.0, [['/n_set', 1002, 'amplitude', 1.0, 'frequency', 660]]],
             [11.5, [
                 ['/n_set', 1004, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1005, 0, 1001,
+                ['/s_new', 'default', 1005, 0, 1001,
                     'amplitude', 1.0, 'frequency', 444]]],
             [12.0, [['/n_set', 1002, 'amplitude', 1.0, 'frequency', 880]]],
             [12.25, [
                 ['/n_set', 1005, 'gate', 0],
-                ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1006, 0, 1001,
+                ['/s_new', 'default', 1006, 0, 1001,
                     'amplitude', 1.0, 'frequency', 555]]],
             [13.0, [
                 ['/n_set', 1006, 'gate', 0],
@@ -317,9 +320,10 @@ class TestCase(TestCase):
         session = nonrealtimetools.Session()
         with session.at(10):
             session.inscribe(self.pattern)
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 1, 0],
                 ['/g_new', 1001, 1, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000,

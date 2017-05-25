@@ -35,8 +35,10 @@ class Pgpar(Ppar):
             isinstance(expr, patterntools.NoteEvent) or
             not expr.get('is_stop')
             ):
-            kwargs['target_node'] = iterators_to_group_uuids[iterator]
-        return new(expr, **kwargs)
+            if expr.get('target_node') is None:
+                kwargs['target_node'] = iterators_to_group_uuids[iterator]
+            expr = new(expr, **kwargs)
+        return expr
 
     def _setup_peripherals(self, initial_expr, state):
         from supriya.tools import patterntools
@@ -62,11 +64,14 @@ class Pgpar(Ppar):
         state = super(Pgpar, self)._setup_state()
         state['group_uuids'] = []
         state['iterators_to_group_uuids'] = {}
-        for iterator in state['iterators']:
+        for iterator_group in state['iterator_groups']:
             group_uuid = uuid.uuid4()
             state['group_uuids'].append(group_uuid)
-            state['iterators_to_group_uuids'][iterator] = group_uuid
+            for iterator in iterator_group:
+                state['iterators_to_group_uuids'][iterator] = group_uuid
         return state
+
+    ### PUBLIC PROPERTIES ###
 
     @property
     def release_time(self):

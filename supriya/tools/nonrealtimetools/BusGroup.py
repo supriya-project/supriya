@@ -11,10 +11,11 @@ class BusGroup(SessionObject):
 
         >>> session = nonrealtimetools.Session()
         >>> bus_group = session.add_bus_group(3)
-        >>> print(bus_group)
+        >>> print(repr(bus_group))
         <BusGroup(
             bus_count=3,
-            calculation_rate=CalculationRate.CONTROL
+            calculation_rate=CalculationRate.CONTROL,
+            session_id=0
             )>
 
     ::
@@ -55,6 +56,7 @@ class BusGroup(SessionObject):
         '_buses',
         '_calculation_rate',
         '_session',
+        '_session_id',
         )
 
     ### INITIALIZER ###
@@ -64,9 +66,11 @@ class BusGroup(SessionObject):
         session,
         bus_count=1,
         calculation_rate=None,
+        session_id=None,
         ):
         from supriya.tools import nonrealtimetools
         SessionObject.__init__(self, session)
+        self._session_id = session_id
         assert calculation_rate is not None
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
@@ -78,8 +82,9 @@ class BusGroup(SessionObject):
                 session,
                 bus_group=self,
                 calculation_rate=self.calculation_rate,
+                session_id=(session_id, i),
                 )
-            for _ in range(bus_count)
+            for i in range(bus_count)
             )
 
     ### SPECIAL METHODS ###
@@ -98,6 +103,18 @@ class BusGroup(SessionObject):
 
     def __len__(self):
         return len(self._buses)
+
+    def __str__(self):
+        map_symbol = 'c'
+        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+            map_symbol = 'a'
+        session_id = self._session_id
+        if session_id is None:
+            session_id = '?'
+        return '{map_symbol}{session_id}'.format(
+            map_symbol=map_symbol,
+            session_id=session_id,
+            )
 
     ### PRIVATE METHODS ###
 

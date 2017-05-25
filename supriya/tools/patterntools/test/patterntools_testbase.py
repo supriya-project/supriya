@@ -21,6 +21,15 @@ class TestCase(systemtools.TestCase):
         self.server.debug_osc = True
         self.server.latency = 0.0
 
+    def build_d_recv_commands(self, synthdefs):
+        d_recv_commands = []
+        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
+        for synthdef in synthdefs:
+            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
+            compiled_synthdef = bytearray(compiled_synthdef)
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        return d_recv_commands
+
     def compare_objects_as_strings(self, objects, string, replace_uuids=False):
         pattern = re.compile(r"\bUUID\('(.*)'\)")
         objects_string = '\n'.join(format(x) for x in objects)
@@ -66,8 +75,7 @@ class TestCase(systemtools.TestCase):
         try:
             event = iterator.send(True)
             events.append(event)
-            for j, event in enumerate(iterator):
-                events.append(event)
+            events.extend(iterator)
         except StopIteration:
             pass
         return events

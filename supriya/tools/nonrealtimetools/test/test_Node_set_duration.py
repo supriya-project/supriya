@@ -189,12 +189,12 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             inf:
                 NODE TREE 0 group
             ''')
@@ -203,12 +203,12 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             15.0:
                 NODE TREE 0 group
                     1000 group
@@ -220,20 +220,56 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
+                    1001 default
             10.0:
                 NODE TREE 0 group
                     1000 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
             15.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 3, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1000]]],
             [10.0, [['/n_set', 1002, 'gate', 0]]],
             [15.0, [['/n_free', 1000], ['/n_set', 1001, 'gate', 0], [0]]]]
+
+    def test_clip_children(self):
+        session = nonrealtimetools.Session()
+        with session.at(0):
+            outer_group = session.add_group(duration=20)
+            inner_group = outer_group.add_group(duration=20)
+            inner_group.add_synth(duration=20)
+            outer_group.add_group(duration=20)
+            session.add_group(duration=20)
+        assert session.to_strings(include_timespans=True) == self.normalize('''
+            0.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+                    1000 group (timespan: [0.0, 20.0])
+                        1003 group (timespan: [0.0, 20.0])
+                        1001 group (timespan: [0.0, 20.0])
+                            1002 default (timespan: [0.0, 20.0])
+            20.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+            ''')
+        outer_group.set_duration(10, clip_children=True)
+        assert session.to_strings(include_timespans=True) == self.normalize('''
+            0.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+                    1000 group (timespan: [0.0, 10.0])
+                        1003 group (timespan: [0.0, 10.0])
+                        1001 group (timespan: [0.0, 10.0])
+                            1002 default (timespan: [0.0, 10.0])
+            10.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+                    1004 group (timespan: [0.0, 20.0])
+            20.0:
+                NODE TREE 0 group (timespan: [-inf, inf])
+            ''')

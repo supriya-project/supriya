@@ -66,7 +66,7 @@ class GroupEvent(Event):
         else:
             group = uuids[group_uuid]
             duration = offset - group.start_offset
-            group.set_duration(duration)
+            group.set_duration(duration, clip_children=True)
         return offset + self.delta
 
     def _perform_realtime(
