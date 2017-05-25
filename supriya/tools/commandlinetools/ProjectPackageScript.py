@@ -25,7 +25,7 @@ class ProjectPackageScript(CommandlineScript):
 
     _project_subdirectory_names = (
         'assets',
-        'composites',
+        'sessions',
         'distribution',
         'materials',
         'renders',

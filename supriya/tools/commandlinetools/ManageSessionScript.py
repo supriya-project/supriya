@@ -2,13 +2,13 @@
 from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
 
 
-class ManageCompositeScript(ProjectPackageScript):
+class ManageSessionScript(ProjectPackageScript):
     '''
-    Manages project package composites.
+    Manages project package sessions.
 
     ..  shell::
 
-        spv composite --help
+        sjv session --help
 
     '''
 
@@ -16,8 +16,8 @@ class ManageCompositeScript(ProjectPackageScript):
 
     __slots__ = ()
 
-    alias = 'composite'
-    short_description = 'manage project package composites'
+    alias = 'session'
+    short_description = 'manage project package sessions'
 
     ### PRIVATE METHODS ###
 

@@ -16,7 +16,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     outer_project_path = test_path.joinpath(package_name)
     inner_project_path = outer_project_path.joinpath(package_name)
     assets_path = inner_project_path.joinpath('assets')
-    composites_path = inner_project_path.joinpath('composites')
+    sessions_path = inner_project_path.joinpath('sessions')
     distribution_path = inner_project_path.joinpath('distribution')
     materials_path = inner_project_path.joinpath('materials')
     renders_path = inner_project_path.joinpath('renders')
