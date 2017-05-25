@@ -79,7 +79,7 @@ class Test(ProjectPackageScriptTestCase):
         from test_project import project_settings
 
 
-        test_material = supriya.Session.from_project_settings(project_settings)
+        material = supriya.Session.from_project_settings(project_settings)
 
         with supriya.synthdeftools.SynthDefBuilder(
             duration=1.,
@@ -90,12 +90,12 @@ class Test(ProjectPackageScriptTestCase):
                 )
             supriya.ugentools.Out.ar(
                 bus=builder['out_bus'],
-                source=[source] * len(test_material.audio_output_bus_group),
+                source=[source] * len(material.audio_output_bus_group),
                 )
         ramp_synthdef = builder.build()
 
-        with test_material.at(0):
-            test_material.add_synth(
+        with material.at(0):
+            material.add_synth(
                 duration=1,
                 synthdef=ramp_synthdef,
                 )

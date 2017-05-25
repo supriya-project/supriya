@@ -29,7 +29,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     from test_project import project_settings
 
 
-    {{ material_name }} = supriya.Session.from_project_settings(project_settings)
+    material = supriya.Session.from_project_settings(project_settings)
 
     with supriya.synthdeftools.SynthDefBuilder(
         duration=1.,
@@ -40,12 +40,12 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             ) * {{ multiplier|default(1.0) }}
         supriya.ugentools.Out.ar(
             bus=builder['out_bus'],
-            source=[source] * len({{ material_name }}.audio_output_bus_group),
+            source=[source] * len(material.audio_output_bus_group),
             )
     ramp_synthdef = builder.build()
 
-    with {{ material_name }}.at(0):
-        {{ material_name }}.add_synth(
+    with material.at(0):
+        material.add_synth(
             duration=1,
             synthdef=ramp_synthdef,
             )
@@ -55,10 +55,11 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     # -*- encoding: utf-8 -*-
     import supriya
     from test_project import project_settings
-    from test_project.materials.{{ input_material_name }}.definition import {{ input_material_name }}
+    from test_project.materials.{{ input_material_name }}.definition \
+        import material as {{ input_material_name }}
 
 
-    {{ output_material_name }} = supriya.Session.from_project_settings(
+    material = supriya.Session.from_project_settings(
         project_settings,
         input_={{ input_material_name }},
         )
@@ -70,7 +71,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         ) as builder:
         source = supriya.ugentools.In.ar(
             bus=builder['in_bus'],
-            channel_count=len({{ output_material_name }}.audio_output_bus_group),
+            channel_count=len(material.audio_output_bus_group),
             )
         supriya.ugentools.ReplaceOut.ar(
             bus=builder['out_bus'],
@@ -78,10 +79,10 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             )
     multiplier_synthdef = builder.build()
 
-    with {{ output_material_name }}.at(0):
-        {{ output_material_name }}.add_synth(
+    with material.at(0):
+        material.add_synth(
             duration=1,
-            in_bus={{ output_material_name }}.audio_input_bus_group,
+            in_bus=material.audio_input_bus_group,
             multiplier={{ multiplier }},
             synthdef=multiplier_synthdef,
             )

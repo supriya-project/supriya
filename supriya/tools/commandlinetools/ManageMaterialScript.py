@@ -128,10 +128,6 @@ class ManageMaterialScript(ProjectPackageScript):
                 path=path.relative_to(self.inner_project_path.parent),
                 sep=os.path.sep))
             output_file_paths.append(output_file_path)
-        #command = 'open -a "QuickTime Player" {}'.format(
-        #    ' '.join(str(_) for _ in output_file_paths))
-        #print(command)
-        #subprocess.call(command, shell=True)
 
     def _import_all_materials(self, verbose=True):
         materials = collections.OrderedDict()
@@ -144,7 +140,6 @@ class ManageMaterialScript(ProjectPackageScript):
     def _import_material(self, material_directory_path, verbose=True):
         material_import_path = self._path_to_packagesystem_path(
             material_directory_path)
-        material_name = material_directory_path.name
         definition_import_path = material_import_path + '.definition'
         try:
             module = self._import_path(
@@ -152,7 +147,7 @@ class ManageMaterialScript(ProjectPackageScript):
                 self.outer_project_path,
                 verbose=verbose,
                 )
-            material = getattr(module, material_name)
+            material = getattr(module, 'material')
         except (ImportError, AttributeError):
             print(traceback.format_exc())
             sys.exit(1)

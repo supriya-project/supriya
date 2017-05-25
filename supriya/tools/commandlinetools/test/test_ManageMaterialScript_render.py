@@ -69,7 +69,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write(stringtools.normalize(r'''
             # -*- coding: utf-8 -*-
 
-            test_material = None
+            material = None
             '''))
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
@@ -106,7 +106,7 @@ class Test(ProjectPackageScriptTestCase):
                     ):
                     raise TypeError('This is fake.')
 
-            test_material = Foo()
+            material = Foo()
             '''))
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
