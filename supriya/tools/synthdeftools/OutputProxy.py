@@ -46,6 +46,9 @@ class OutputProxy(UGenMethodMixin):
             )
         return hash(hash_values)
 
+    def __iter__(self):
+        yield self
+
     def __len__(self):
         return 1
 

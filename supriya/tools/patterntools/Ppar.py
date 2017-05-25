@@ -5,60 +5,10 @@ try:
     from queue import PriorityQueue
 except ImportError:
     from Queue import PriorityQueue
-from supriya.tools.patterntools.CompositeEvent import CompositeEvent
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
 class Ppar(EventPattern):
-    """
-    Interleave patterns.
-
-    ::
-
-        >>> one = patterntools.Pbind(
-        ...     duration=1.0,
-        ...     x=patterntools.Pseq([1, 2, 3, 4]),
-        ...     )
-        >>> two = patterntools.Pbind(
-        ...     duration=0.4,
-        ...     x=patterntools.Pseq([10, 20, 30, 40]),
-        ...     )
-        >>> ppar = patterntools.Ppar([one, two])
-        >>> print(format(ppar))
-        supriya.tools.patterntools.Ppar(
-            (
-                supriya.tools.patterntools.Pbind(
-                    duration=1.0,
-                    x=supriya.tools.patterntools.Pseq(
-                        (1, 2, 3, 4),
-                        repetitions=1,
-                        ),
-                    ),
-                supriya.tools.patterntools.Pbind(
-                    duration=0.4,
-                    x=supriya.tools.patterntools.Pseq(
-                        (10, 20, 30, 40),
-                        repetitions=1,
-                        ),
-                    ),
-                )
-            )
-
-    ::
-
-        >>> for x in ppar:
-        ...     x
-        ...
-        NoteEvent(delta=0.0, duration=1.0, is_stop=True, uuid=UUID('...'), x=1)
-        NoteEvent(duration=0.4, is_stop=True, uuid=UUID('...'), x=10)
-        NoteEvent(duration=0.4, is_stop=True, uuid=UUID('...'), x=20)
-        NoteEvent(delta=0.2, duration=0.4, is_stop=True, uuid=UUID('...'), x=30)
-        NoteEvent(delta=0.2, duration=1.0, is_stop=True, uuid=UUID('...'), x=2)
-        NoteEvent(delta=0.8, duration=0.4, is_stop=True, uuid=UUID('...'), x=40)
-        NoteEvent(duration=1.0, is_stop=True, uuid=UUID('...'), x=3)
-        NoteEvent(duration=1.0, is_stop=True, uuid=UUID('...'), x=4)
-
-    """
 
     ### CLASS VARIABLES ###
 
@@ -66,217 +16,250 @@ class Ppar(EventPattern):
         '_patterns',
         )
 
-    DEBUG = False
+    _IteratorTuple = collections.namedtuple(
+        '_IteratorTuple',
+        ['offset', 'index', 'iterator'],
+        )
+
+    _EventTuple = collections.namedtuple(
+        '_EventTuple',
+        ['offset', 'iterator_index', 'event_index', 'event'],
+        )
 
     ### INITIALIZER ###
 
     def __init__(self, patterns):
         from supriya.tools import patterntools
-        assert all(isinstance(_, patterntools.EventPattern) for _ in patterns)
+        patterns = list(patterns)
+        for i, pattern_group in enumerate(patterns):
+            if isinstance(pattern_group, patterntools.EventPattern):
+                pattern_group = [pattern_group]
+            assert isinstance(pattern_group, collections.Sequence)
+            pattern_group = tuple(pattern_group)
+            assert all(isinstance(_, patterntools.EventPattern)
+                for _ in pattern_group)
+            patterns[i] = pattern_group
         assert patterns
         self._patterns = tuple(patterns)
 
     ### PRIVATE METHODS ###
 
-    def _coerce_iterator_output(self, event, state):
-        return new(event, _iterator=None)
+    def _apply_iterator_recursively(self, expr, iterator):
+        from supriya.tools import patterntools
+        if isinstance(expr, patterntools.CompositeEvent):
+            coerced_events = [
+                self._apply_iterator_recursively(child_event, iterator)
+                for child_event in expr.get('events') or ()
+                ]
+            expr = new(expr, events=coerced_events)
+        else:
+            expr = new(expr, _iterator=iterator)
+        return expr
 
-    def _setup_state(self):
-        iterators = tuple(iter(pattern) for pattern in self._patterns)
-        iterator_queue = PriorityQueue()
-        event_counter = collections.Counter()
-        event_queue = PriorityQueue()
-        visited_iterators = set()
-        for i, iterator in enumerate(iterators):
-            iterator_queue.put((0., i, iterator))
-        state = {
-            'event_counter': event_counter,
-            'event_queue': event_queue,
-            'iterator_queue': iterator_queue,
-            'iterators': iterators,
-            'visited_iterators': visited_iterators,
-            }
-        return state
+    def _coerce_iterator_output(self, expr, state):
+        expr = super(Ppar, self)._coerce_iterator_output(expr, state)
+        return new(expr, _iterator=None)
 
     def _iterate(self, state=None):
-        has_stopped = False
-        should_stop = self.PatternState.CONTINUE
-        iterators = state.get('iterators')
-        iterator_queue = state.get('iterator_queue')
-        event_counter = state.get('event_counter')
-        event_queue = state.get('event_queue')
-        visited_iterators = state.get('visited_iterators')
-
-        iterator_offset_n1 = {iterator: 0.0 for iterator in iterators}
-
         while True:
-            self._debug()
-            self._debug(
-                'LOOP',
-                'ST:', should_stop,
-                'V:', len(visited_iterators),
-                'IQ:', iterator_queue.qsize(),
-                'EQ:', event_queue.qsize(),
-                )
-            if not iterator_queue.empty():
-                self._debug('\tFETCH NEW EVENT')
-                offset, index, iterator = iterator_queue.get()
-                iterator_offset_n1[iterator] = offset
-                self._debug('\t\tI-GET: {} {} {}'.format(chr(65 + index) * 3,
-                    offset, id(iterator)))
-                if should_stop and iterator not in visited_iterators:
-                    self._debug('\t\tNON-VISITED')
+            self._debug('LOOP START')
+            self._debug('    STOPPED?:', state['has_stopped'])
+            self._debug('    VISITED?:', state['visited_iterators'])
+            if not state['iterator_queue'].empty():
+                self._debug('PRIME QUEUES')
+                self._prime_queues(state)
+            elif state['event_queue'].empty():
+                self._debug('ALL DONE')
+                return
+            if state['event_queue'].qsize() > 1:
+                self._debug('YIELDING INNER')
+                event_tuple_a = self._fetch_event_tuple_a(state)
+                if not event_tuple_a:
                     continue
-                try:
-                    event = iterator.send(should_stop)
-                    self._debug('\t\tSEND')
-                except TypeError:
-                    try:
-                        event = next(iterator)
-                        self._debug('\t\tNEXT')
-                    except StopIteration:
-                        event = None
-                        self._debug('\t\tSTOP (NEXT)')
-                except StopIteration:
-                    event = None
-                    self._debug('\t\tSTOP')
-                if event is not None:
-                    count = event_counter[iterator]
-                    event = new(event, _iterator=iterator)
-                    self._debug('\t\tFETCHED:', type(event).__name__, event.get('is_stop') or False)
-                    event_queue.put((offset, index, count, event))
-                    offset += event.delta
-                    iterator_queue.put((offset, index, iterator))
-                    event_counter[iterator] += 1
-                    self._debug('\t\tI-PUT: {} {} {}'.format(
-                        chr(65 + index) * 3, offset, id(iterator)))
-
-            if self.DEBUG:
-                self._debug('\tITERATORS')
-                debug_iterators = []
-                while not iterator_queue.empty():
-                    offset, index, iterator = iterator_queue.get()
-                    self._debug('\t\t', chr(65 + index) * 3, offset,
-                        id(iterator))
-                    debug_iterators.append((offset, index, iterator))
-                for iterator in debug_iterators:
-                    iterator_queue.put(iterator)
-
-            if event_queue.qsize() > 1:
-                self._debug('\tYIELD EVENT (DIFFED)')
-                a_offset, a_index, a_count, a_event = event_queue.get()
-                if should_stop and iterators[a_index] not in visited_iterators:
-                    continue
-
-                b_offset, b_index, b_count, b_event = event_queue.get()
-                delta = b_offset - a_offset
-                duration = a_event.get('duration')
-                event = a_event
-                if duration is None or duration != delta:
-                    event = new(a_event, delta=b_offset - a_offset)
-
-                should_stop = yield event
-                if (
-                    not should_stop or (
-                        should_stop == self.PatternState.REALTIME_STOP and
-                        not has_stopped
-                        )
-                    ):
-                    visited_iterators.add(iterators[a_index])
-
-                self._debug('\t\tYIELDED', chr(65 + a_index) * 3,
-                    a_offset, type(event).__name__,
-                    event.get('is_stop') or False)
-
-                if not should_stop:
-                    self._debug('\t\tREPLACING',
-                        type(b_event).__name__, b_event.get('is_stop'))
-                    b_event = (b_offset, b_index, b_count, b_event)
-                    event_queue.put(b_event)
-                elif should_stop == self.PatternState.NONREALTIME_STOP:
-                    self._debug('\t\tSHOULD STOP: NONREALTIME')
-                    self._debug('\t\tREPLACING',
-                        type(b_event).__name__, b_event.get('is_stop'))
-                    b_event = (b_offset, b_index, b_count, b_event)
-                    event_queue.put(b_event)
-                    if not has_stopped:
-                        has_stopped = True
-                        self._unwind(
-                            current_offset=offset,
-                            event_queue=event_queue,
-                            iterator_queue=iterator_queue,
-                            iterators=iterators,
-                            stopped_event=a_event,
-                            stopped_iterator=iterators[a_index],
-                            )
-                elif should_stop == self.PatternState.REALTIME_STOP:
-                    self._debug('\t\tSHOULD STOP: REALTIME')
-                    if (
-                        isinstance(b_event, CompositeEvent) and
-                        b_event.get('is_stop')
-                        ):
-                        self._debug('\t\tREPLACING',
-                            type(b_event).__name__, b_event.get('is_stop'))
-                        b_event = (b_offset, b_index, b_count, b_event)
-                        event_queue.put(b_event)
-                    else:
-                        self._debug('\t\t*NOT* REPLACING',
-                            type(b_event).__name__, b_event.get('is_stop'))
-
-            elif event_queue.qsize() == 1 and iterator_queue.empty():
-                self._debug('\tYIELD EVENT (FINAL)')
-                _, index, _, event = event_queue.get()
-                yield event
-                visited_iterators.add(iterators[index])
-                self._debug('\t\tYIELDED', chr(65 + index) * 3,
-                    type(event).__name__, event.get('is_stop'))
-            if event_queue.empty() and iterator_queue.empty():
-                self._debug('\tEXIT')
-                break
-
-    def _unwind(
-        self,
-        current_offset,
-        event_queue,
-        iterator_queue,
-        iterators,
-        stopped_event,
-        stopped_iterator,
-        ):
-        from supriya.tools import patterntools
-        self._debug('\t\tUNWINDING')
-        iterator_map = {}
-        while not iterator_queue.empty():
-            offset, index, iterator = iterator_queue.get()
-            if iterator is stopped_iterator:
-                offset -= stopped_event.delta
-            iterator_map[iterator] = (offset, index)
-        events = []
-        while not event_queue.empty():
-            offset, index, count, event = event_queue.get()
-            if (
-                isinstance(event, patterntools.CompositeEvent)
+                event_tuple_b = self._fetch_event_tuple_b(state)
+                event = self._pre_process_event(
+                    event_tuple_a,
+                    event_tuple_b,
+                    )
+                self._debug(
+                    '    EVENT', type(event).__name__,
+                    'STOP?', event.get('is_stop'),
+                    event.get('frequency') or '',
+                    )
+                state['should_stop'] = yield event
+                self._debug('    STOP?', state['should_stop'])
+                self._post_process_event(
+                    event,
+                    event_tuple_a,
+                    event_tuple_b,
+                    state,
+                    )
+            elif (
+                state['event_queue'].qsize() == 1 and
+                state['iterator_queue'].empty()
                 ):
-                events.append((offset, index, count, event))
-            else:
-                iterator = iterators[index]
-                offset, index = iterator_map[iterator]
-                offset -= event.delta
-                iterator_map[iterator] = (offset, index)
-        for iterator, (offset, index) in iterator_map.items():
-            iterator_queue.put((offset, index, iterator))
-        for event_tuple in events:
-            event_queue.put(event_tuple)
+                self._debug('YIELDING FINAL')
+                event = self._process_final_event(state)
+                self._debug(
+                    '    EVENT', type(event).__name__,
+                    'STOP?', event.get('is_stop'),
+                    event.get('frequency') or '',
+                    )
+                yield event
+
+    def _fetch_event_tuple_a(self, state):
+        event_tuple_a = state['event_queue'].get()
+        if (
+            state['has_stopped'] and
+            event_tuple_a.iterator_index not in state['visited_iterators']
+            ):
+            return
+        return event_tuple_a
+
+    def _fetch_event_tuple_b(self, state):
+        return state['event_queue'].get()
+
+    def _pre_process_event(self, event_tuple_a, event_tuple_b):
+        delta = float(event_tuple_b.offset - event_tuple_a.offset)
+        return new(event_tuple_a.event, delta=delta)
+
+    def _post_process_event(self, event, event_tuple_a, event_tuple_b, state):
+        state['event_queue'].put(event_tuple_b)
+        if not state['should_stop']:
+            state['visited_iterators'].add(event_tuple_a.iterator_index)
+            return
+        if state['should_stop'] == self.PatternState.NONREALTIME_STOP:
+            self._process_nonrealtime_stop(state)
+        elif state['should_stop'] == self.PatternState.REALTIME_STOP:
+            self._process_nonrealtime_stop(state)
+            #self._process_realtime_stop(
+            #    event, event_tuple_a, event_tuple_b, state,
+            #    )
+
+    def _process_nonrealtime_stop(self, state):
+        from supriya.tools import patterntools
+        if not state['has_stopped']:
+            state['has_stopped'] = True
+        self._debug('UNWINDING')
+        assert state['event_queue'].qsize() == 1
+
+        event_tuple = state['event_queue'].get()
+        if event_tuple.iterator_index not in state['visited_iterators']:
+            self._debug('    DISCARDING, UNVISITED', event_tuple)
+        elif not isinstance(event_tuple.event, patterntools.CompositeEvent):
+            self._debug('    DISCARDING, NON-COMPOSITE', event_tuple)
+        elif not event_tuple.event.get('is_stop'):
+            self._debug('    DISCARDING, NON-STOP', event_tuple)
+        else:
+            self._debug('    PRESERVING', event_tuple)
+            state['event_queue'].put(event_tuple._replace(offset=0.0))
+
+        iterator_queue = PriorityQueue()
+        while not state['iterator_queue'].empty():
+            iterator_tuple = state['iterator_queue'].get()
+            iterator_tuple = iterator_tuple._replace(offset=0.0)
+            iterator_queue.put(iterator_tuple)
+        state['iterator_queue'] = iterator_queue
+
+    def _process_realtime_stop(
+        self,
+        event,
+        event_tuple_a,
+        event_tuple_b,
+        state,
+        ):
+        if not state['has_stopped']:
+            state['visited_iterators'].add(event_tuple_a.iterator_index)
+            state['has_stopped'] = True
+
+    def _process_final_event(self, state):
+        event_tuple = state['event_queue'].get()
+        state['visited_iterators'].add(event_tuple.iterator_index)
+        return event_tuple.event
+
+    def _prime_queues(self, state):
+        iterator_tuple = state['iterator_queue'].get()
+        iterator = iterator_tuple.iterator
+        self._debug('    ITER:', iterator_tuple)
+        if (
+            state['has_stopped'] and
+            iterator_tuple.index not in state['visited_iterators']
+            ):
+            self._debug('    SKIP: STOPPED AND NON-VISITED')
+            return
+        try:
+            event = iterator.send(state['should_stop'])
+        except TypeError:
+            self._debug('    SEND: NOT YET STARTED')
+            try:
+                event = next(iterator)
+            except StopIteration:
+                self._debug('    NEXT: EMPTY')
+                return
+        except StopIteration:
+            self._debug('    SEND: EMPTY')
+            return
+        self._debug('    EVENT:', event)
+        event_index = state['event_counter'][iterator]
+        event = self._apply_iterator_recursively(event, iterator)
+        event_tuple = self._EventTuple(
+            offset=iterator_tuple.offset,
+            iterator_index=iterator_tuple.index,
+            event_index=event_index,
+            event=event,
+            )
+        state['event_queue'].put(event_tuple)
+        state['event_counter'][iterator] += 1
+        state['iterator_queue'].put(
+            iterator_tuple._replace(
+                offset=float(iterator_tuple.offset + event.delta),
+                )
+            )
+
+    def _setup_state(self):
+        iterators, iterator_groups = [], []
+        for pattern_group in self.patterns:
+            iterator_group = []
+            for pattern in pattern_group:
+                iterator = iter(pattern)
+                iterators.append(iterator)
+                iterator_group.append(iterator)
+            iterator_groups.append(tuple(iterator_group))
+        iterator_queue = PriorityQueue()
+        for i, iterator in enumerate(iterators):
+            iterator_tuple = self._IteratorTuple(
+                offset=0,
+                index=i,
+                iterator=iterator,
+                )
+            iterator_queue.put(iterator_tuple)
+        state = {
+            'event_counter': collections.Counter(),
+            'event_queue': PriorityQueue(),
+            'has_stopped': False,
+            'iterator_queue': iterator_queue,
+            'iterators': iterators,
+            'iterator_groups': tuple(iterator_groups),
+            'should_stop': self.PatternState.CONTINUE,
+            'visited_iterators': set(),
+            }
+        return state
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def arity(self):
-        return max(self._get_arity(_) for _ in self._patterns)
+        patterns = []
+        for _ in self._patterns:
+            patterns.extend(_)
+        return max(self._get_arity(_) for _ in patterns)
 
     @property
     def is_infinite(self):
-        return all(_.is_infinite for _ in self._patterns)
+        patterns = []
+        for _ in self._patterns:
+            patterns.extend(_)
+        return all(_.is_infinite for _ in patterns)
 
     @property
     def patterns(self):

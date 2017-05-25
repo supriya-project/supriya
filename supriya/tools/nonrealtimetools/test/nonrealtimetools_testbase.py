@@ -26,6 +26,15 @@ class TestCase(systemtools.TestCase):
     def tearDownClass(cls):
         os.chdir(cls.original_curdir)
 
+    def build_d_recv_commands(self, synthdefs):
+        d_recv_commands = []
+        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
+        for synthdef in synthdefs:
+            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
+            compiled_synthdef = bytearray(compiled_synthdef)
+            d_recv_commands.append(['/d_recv', compiled_synthdef])
+        return d_recv_commands
+
     def setUp(self):
         for path in [
             self.output_directory_path,
@@ -127,9 +136,10 @@ class TestCase(systemtools.TestCase):
         with session.at(8):
             synth['source'] = 1.0 * multiplier
         assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
+        d_recv_commands = self.build_d_recv_commands([synthdef])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdef.compile())],
+                *d_recv_commands,
                 ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
                     'source', 0]]],
             [2.0, [['/n_set', 1000, 'source', 0.25 * multiplier]]],

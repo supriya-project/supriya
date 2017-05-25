@@ -53,6 +53,7 @@ class SynthDefBuilder(SupriyaObject):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
+        '_name',
         '_parameters',
         '_ugens',
         '_uuid',
@@ -65,6 +66,7 @@ class SynthDefBuilder(SupriyaObject):
         name=None,
         **kwargs
         ):
+        self._name = name
         self._uuid = uuid.uuid4()
         self._parameters = collections.OrderedDict()
         self._ugens = []
@@ -153,6 +155,7 @@ class SynthDefBuilder(SupriyaObject):
 
     def build(self, name=None, optimize=True):
         from supriya.tools import synthdeftools
+        name = self.name or name
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)
             ugens = copy.deepcopy(ugens)
@@ -189,3 +192,9 @@ class SynthDefBuilder(SupriyaObject):
             trigger_id=trigger_id,
             )
         self._add_ugens(poll)
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def name(self):
+        return self._name

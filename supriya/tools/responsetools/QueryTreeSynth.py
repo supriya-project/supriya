@@ -9,6 +9,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     __slots__ = (
         '_controls',
+        '_extra',
         '_node_id',
         '_synthdef_name',
         )
@@ -20,8 +21,10 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         node_id=None,
         synthdef_name=None,
         controls=None,
+        **extra
         ):
         self._controls = controls
+        self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
         self._synthdef_name = synthdef_name
 
@@ -41,7 +44,14 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _from_nrt_synth(cls, state, node, include_controls=False):
+    def _from_nrt_synth(
+        cls,
+        state,
+        node,
+        include_controls=False,
+        include_timespans=False,
+        id_mapping=None,
+        ):
         from supriya.tools import nonrealtimetools
         from supriya.tools import responsetools
         from supriya.tools import synthdeftools
@@ -52,7 +62,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
-            settings = node._collect_settings(state.offset, persistent=True)
+            settings = node._collect_settings(
+                state.offset,
+                persistent=True,
+                id_mapping=id_mapping,
+                )
             synthdef, synth_kwargs = node.synthdef, node.synth_kwargs
             for name, parameter in sorted(synthdef.parameters.items()):
                 value = parameter.value
@@ -70,20 +84,32 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                     control_value=value,
                     )
                 controls.append(control)
+        extra = {}
+        if include_timespans:
+            extra.update(timespan=[node.start_offset, node.stop_offset])
         query_tree_synth = QueryTreeSynth(
             node_id=node_id,
             synthdef_name=synthdef_name,
             controls=controls,
+            **extra
             )
         return query_tree_synth
 
     def _get_str_format_pieces(self):
         result = []
-        synth_string = '{} {}'.format(
+        string = '{} {}'.format(
             self.node_id,
             self.synthdef_name,
             )
-        result.append(synth_string)
+        if self.extra:
+            string = '{} ({})'.format(
+                string,
+                ', '.join(
+                    '{}: {}'.format(key, value)
+                    for key, value in self.extra
+                    ),
+                )
+        result.append(string)
         if self.controls:
             control_string = ', '.join(
                 str(control) for control in self.controls
@@ -174,6 +200,10 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     @property
     def controls(self):
         return self._controls
+
+    @property
+    def extra(self):
+        return self._extra
 
     @property
     def node_id(self):

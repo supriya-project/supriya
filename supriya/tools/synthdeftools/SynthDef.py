@@ -652,10 +652,13 @@ class SynthDef(ServerObjectProxy):
         self._allocate_synthdefs((self,), server)
         return self
 
-    def compile(self):
+    def compile(self, use_anonymous_name=False):
         from supriya.tools.synthdeftools import SynthDefCompiler
         synthdefs = [self]
-        result = SynthDefCompiler.compile_synthdefs(synthdefs)
+        result = SynthDefCompiler.compile_synthdefs(
+            synthdefs,
+            use_anonymous_names=use_anonymous_name,
+            )
         return result
 
     def free(self):
@@ -719,7 +722,7 @@ class SynthDef(ServerObjectProxy):
             {
                 "synthdef": {
                     "hash": "da0982184cc8fa54cf9d288a0fe1f6ca",
-                    "name": "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    "name": "default",
                     "parameters": {
                         "amplitude": {
                             "range": [

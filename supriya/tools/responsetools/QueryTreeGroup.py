@@ -9,6 +9,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     __slots__ = (
         '_children',
+        '_extra',
         '_node_id',
         )
 
@@ -18,8 +19,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         self,
         node_id=None,
         children=None,
+        **extra
         ):
         self._children = children
+        self._extra = tuple(sorted(extra.items()))
         self._node_id = node_id
 
     ### SPECIAL METHODS ###
@@ -39,7 +42,14 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
     ### PRIVATE METHODS ###
 
     @classmethod
-    def _from_nrt_group(cls, state, node, include_controls=False):
+    def _from_nrt_group(
+        cls,
+        state,
+        node,
+        include_controls=False,
+        include_timespans=False,
+        id_mapping=None,
+        ):
         from supriya.tools import nonrealtimetools
         from supriya.tools import responsetools
         assert isinstance(node, nonrealtimetools.Group)
@@ -48,23 +58,45 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         for child in (state.nodes_to_children.get(node) or ()):
             if isinstance(child, nonrealtimetools.Group):
                 child = QueryTreeGroup._from_nrt_group(
-                    state, child, include_controls=include_controls)
+                    state,
+                    child,
+                    include_controls=include_controls,
+                    include_timespans=include_timespans,
+                    id_mapping=id_mapping,
+                    )
             elif isinstance(child, nonrealtimetools.Synth):
                 child = responsetools.QueryTreeSynth._from_nrt_synth(
-                    state, child, include_controls=include_controls)
+                    state,
+                    child,
+                    include_controls=include_controls,
+                    include_timespans=include_timespans,
+                    id_mapping=id_mapping,
+                    )
             else:
                 raise ValueError(child)
             children.append(child)
         children = tuple(children)
+        extra = {}
+        if include_timespans:
+            extra.update(timespan=[node.start_offset, node.stop_offset])
         query_tree_group = QueryTreeGroup(
             node_id=node_id,
             children=children,
+            **extra
             )
         return query_tree_group
 
     def _get_str_format_pieces(self):
         result = []
         string = '{} group'.format(self.node_id)
+        if self.extra:
+            string = '{} ({})'.format(
+                string,
+                ', '.join(
+                    '{}: {}'.format(key, value)
+                    for key, value in self.extra
+                    ),
+                )
         result.append(string)
         for child in self.children:
             for line in child._get_str_format_pieces():
@@ -102,10 +134,21 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         return query_tree_group
 
     @classmethod
-    def from_state(cls, state, include_controls=False):
+    def from_state(
+        cls,
+        state,
+        include_controls=False,
+        include_timespans=False,
+        ):
+        id_mapping = state.session._build_id_mapping()
         root_node = state.session.root_node
         query_tree_group = cls._from_nrt_group(
-            state, root_node, include_controls=include_controls)
+            state,
+            root_node,
+            include_controls=include_controls,
+            include_timespans=include_timespans,
+            id_mapping=id_mapping,
+            )
         return query_tree_group
 
     def to_dict(self):
@@ -233,6 +276,10 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
     @property
     def children(self):
         return self._children
+
+    @property
+    def extra(self):
+        return self._extra
 
     @property
     def node_id(self):

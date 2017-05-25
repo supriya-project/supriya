@@ -30,7 +30,7 @@ class QueryTreeControl(SupriyaValueObject):
             value = round(value, 6)
         except:
             pass
-        string = '{}: {}'.format(key, value)
+        string = '{}: {!s}'.format(key, value)
         return string
 
     ### PUBLIC METHODS ###

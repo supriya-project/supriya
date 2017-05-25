@@ -14,14 +14,15 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [20.0, [
@@ -34,18 +35,18 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -61,18 +62,18 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -163,26 +164,27 @@ class TestCase(TestCase):
                 NODE TREE 0 group
             10.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.5, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             15.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.25, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.25, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             25.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.75, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             30.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 0.5]]],
             [15.0, [['/n_set', 1000, 'amplitude', 0.25]]],
@@ -206,26 +208,26 @@ class TestCase(TestCase):
                 NODE TREE 0 group
             10.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.5, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             15.0:
                 NODE TREE 0 group
-                    1000 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1000 default
                         amplitude: 0.25, frequency: 440.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.25, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             25.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                         amplitude: 0.75, frequency: 666.0, gate: 1.0, out: 0.0, pan: 0.5
             30.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1000, 0, 0,
                     'amplitude', 0.5]]],
             [15.0, [['/n_set', 1000, 'amplitude', 0.25]]],
@@ -263,18 +265,19 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
                             amplitude: 0.1, frequency: 1111.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                             amplitude: 0.1, frequency: 2222.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1000,
                     'frequency', 1111],
@@ -296,27 +299,27 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
                             amplitude: 0.1, frequency: 1111.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                             amplitude: 0.1, frequency: 2222.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
                             amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 0.0, pan: 0.5
             10.0:
                 NODE TREE 0 group
                     1004 group
-                        1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1005 default
                             amplitude: 0.1, frequency: 1111.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1006 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1006 default
                             amplitude: 0.1, frequency: 2222.0, gate: 1.0, out: 0.0, pan: 0.5
-                        1007 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1007 default
                             amplitude: 0.1, frequency: 3333.0, gate: 1.0, out: 0.0, pan: 0.5
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1000,
                     'frequency', 1111],
@@ -355,18 +358,19 @@ class TestCase(TestCase):
             assert session.to_strings() == self.normalize('''
                 0.0:
                     NODE TREE 0 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
                         1000 group
                 10.0:
                     NODE TREE 0 group
                         1000 group
-                            1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1001 default
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
                 [10.0, [
@@ -383,18 +387,19 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -414,18 +419,18 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -445,18 +450,18 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -474,18 +479,18 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1000 group
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 0]]],
             [10.0, [
@@ -509,17 +514,18 @@ class TestCase(TestCase):
                 0.0:
                     NODE TREE 0 group
                         1000 group
-                            1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1001 default
                 10.0:
                     NODE TREE 0 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
                         1000 group
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
                 [10.0, [
@@ -537,17 +543,18 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -567,17 +574,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
-                    1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1003 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -597,17 +604,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -626,17 +633,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
-                    1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1001 default
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -658,13 +665,14 @@ class TestCase(TestCase):
                 0.0:
                     NODE TREE 0 group
                         1000 group
-                            1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1001 default
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
                 [20.0, [
@@ -680,17 +688,18 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -710,17 +719,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -739,17 +748,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1003 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1003 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -769,17 +778,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -805,15 +814,16 @@ class TestCase(TestCase):
                 10.0:
                     NODE TREE 0 group
                         1000 group
-                            1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1001 default
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     ['/g_new', 1000, 0, 0]]],
                 [10.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
                 [20.0, [
                     ['/n_free', 1000],
@@ -831,15 +841,16 @@ class TestCase(TestCase):
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1002, 2, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1002],
                 ['/n_free', 1000]]],
@@ -858,7 +869,7 @@ class TestCase(TestCase):
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
@@ -866,7 +877,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1002, 2, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1002],
                 ['/n_free', 1000]]],
@@ -885,7 +896,7 @@ class TestCase(TestCase):
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
@@ -893,7 +904,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1002, 2, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1002],
                 ['/n_free', 1000]]],
@@ -912,7 +923,7 @@ class TestCase(TestCase):
             10.0:
                 NODE TREE 0 group
                     1002 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             20.0:
                 NODE TREE 0 group
             ''')
@@ -920,7 +931,7 @@ class TestCase(TestCase):
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
             [10.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1002, 2, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 1, 1002],
                 ['/n_free', 1000]]],
@@ -939,16 +950,17 @@ class TestCase(TestCase):
                 0.0:
                     NODE TREE 0 group
                         1000 group
-                            1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1001 default
                 10.0:
                     NODE TREE 0 group
                         1000 group
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
                 [10.0, [['/n_set', 1001, 'gate', 0]]],
@@ -962,16 +974,17 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -987,7 +1000,7 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
@@ -996,7 +1009,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -1012,7 +1025,7 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
@@ -1021,7 +1034,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -1037,7 +1050,7 @@ class TestCase(TestCase):
             0.0:
                 NODE TREE 0 group
                     1000 group
-                        1001 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1001 default
             10.0:
                 NODE TREE 0 group
                     1002 group
@@ -1046,7 +1059,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1001, 0, 1000]]],
             [10.0, [
@@ -1067,20 +1080,21 @@ class TestCase(TestCase):
             assert session.to_strings() == self.normalize('''
                 0.0:
                     NODE TREE 0 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                         1000 group
                             1001 group
                 10.0:
                     NODE TREE 0 group
                         1000 group
                             1001 group
-                                1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                                1002 default
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/g_new', 1001, 0, 1000],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
@@ -1098,20 +1112,21 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
                         1001 group
             10.0:
                 NODE TREE 0 group
                     1003 group
                         1004 group
-                            1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1005 default
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
@@ -1132,20 +1147,20 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
                         1001 group
             10.0:
                 NODE TREE 0 group
                     1003 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
@@ -1165,20 +1180,20 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
                         1001 group
             10.0:
                 NODE TREE 0 group
                     1003 group
                         1004 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
@@ -1198,20 +1213,20 @@ class TestCase(TestCase):
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1000 group
                         1001 group
             10.0:
                 NODE TREE 0 group
                     1003 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             20.0:
                 NODE TREE 0 group
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 0]]],
@@ -1239,18 +1254,19 @@ class TestCase(TestCase):
                     NODE TREE 0 group
                         1000 group
                             1001 group
-                                1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                                1002 default
                 10.0:
                     NODE TREE 0 group
-                        1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                        1002 default
                         1000 group
                             1001 group
                 20.0:
                     NODE TREE 0 group
                 ''')
+            d_recv_commands = self.build_d_recv_commands([synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
-                    ['/d_recv', bytearray(synthdefs.default.compile())],
+                    *d_recv_commands,
                     ['/g_new', 1000, 0, 0],
                     ['/g_new', 1001, 0, 1000],
                     ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001]]],
@@ -1270,18 +1286,19 @@ class TestCase(TestCase):
                 NODE TREE 0 group
                     1000 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             10.0:
                 NODE TREE 0 group
-                    1005 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1005 default
                     1003 group
                         1004 group
             20.0:
                 NODE TREE 0 group
             ''')
+        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001]]],
@@ -1304,10 +1321,10 @@ class TestCase(TestCase):
                 NODE TREE 0 group
                     1000 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             10.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1003 group
                         1001 group
             20.0:
@@ -1315,7 +1332,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001]]],
@@ -1337,10 +1354,10 @@ class TestCase(TestCase):
                 NODE TREE 0 group
                     1000 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             10.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1003 group
                         1004 group
             20.0:
@@ -1348,7 +1365,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001]]],
@@ -1370,10 +1387,10 @@ class TestCase(TestCase):
                 NODE TREE 0 group
                     1000 group
                         1001 group
-                            1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                            1002 default
             10.0:
                 NODE TREE 0 group
-                    1002 da0982184cc8fa54cf9d288a0fe1f6ca
+                    1002 default
                     1003 group
                         1001 group
             20.0:
@@ -1381,7 +1398,7 @@ class TestCase(TestCase):
             ''')
         assert session.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.default.compile())],
+                *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
                 ['/g_new', 1001, 0, 1000],
                 ['/s_new', 'da0982184cc8fa54cf9d288a0fe1f6ca', 1002, 0, 1001]]],

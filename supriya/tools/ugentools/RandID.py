@@ -33,18 +33,13 @@ class RandID(WidthFirstUGen):
     def __init__(
         self,
         calculation_rate=None,
-        rand_id=0,
+        rand_id=1,
         ):
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             rand_id=rand_id,
             )
-
-    ### PRIVATE METHODS ###
-
-    def _get_outputs(self):
-        return []
 
     ### PUBLIC METHODS ###
 

@@ -56,7 +56,7 @@ class Session(object):
         >>> result = session.to_lists(duration=20)
         >>> result == [
         ...     [0.0, [
-        ...         ['/d_recv', bytearray(synthdef.compile())],
+        ...         ['/d_recv', bytearray(synthdef.compile(use_anonymous_name=True))],
         ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1000, 0, 0],
         ...         ['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1001, 0, 0]]],
         ...     [5.0, [['/s_new', '9c4eb4778dc0faf39459fa8a5cd45c19', 1002, 0, 0]]],
@@ -293,6 +293,15 @@ class Session(object):
                 mapping[node] = allocator.allocate_node_id()
                 mapping[node] = node.session_id
         return mapping
+
+    @staticmethod
+    def _build_rand_seed_synthdef():
+        from supriya import SynthDefBuilder, ugentools
+        with SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
+            ugentools.RandID.ir(rand_id=builder['rand_id'])
+            ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+            ugentools.FreeSelf.kr(trigger=1)
+        return builder.build()
 
     def _build_render_command(
         self,
@@ -727,7 +736,10 @@ class Session(object):
             visited_synthdefs.add(node.synthdef)
         synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
         for synthdef in synthdefs:
-            request = requesttools.SynthDefReceiveRequest(synthdefs=synthdef)
+            request = requesttools.SynthDefReceiveRequest(
+                synthdefs=synthdef,
+                use_anonymous_names=True,
+                )
             requests.append(request)
         return requests
 
@@ -973,16 +985,23 @@ class Session(object):
 
     def add_bus(self, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
-        bus = nonrealtimetools.Bus(self, calculation_rate=calculation_rate)
+        session_id = self._get_next_session_id('bus')
+        bus = nonrealtimetools.Bus(
+            self,
+            calculation_rate=calculation_rate,
+            session_id=session_id,
+            )
         self._buses[bus] = None  # ordered dictionary
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate='control'):
         from supriya.tools import nonrealtimetools
+        session_id = self._get_next_session_id('bus')
         bus_group = nonrealtimetools.BusGroup(
             self,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
+            session_id=session_id,
             )
         for bus in bus_group:
             self._buses[bus] = None  # ordered dictionary
@@ -1146,6 +1165,16 @@ class Session(object):
             states.append(state.report())
         return states
 
+    @SessionObject.require_offset
+    def set_rand_seed(self, rand_id=0, rand_seed=0, offset=None):
+        return self.add_synth(
+            add_action='ADD_TO_HEAD',
+            duration=0,
+            rand_id=rand_id,
+            rand_seed=rand_seed,
+            synthdef=self._build_rand_seed_synthdef(),
+            )
+
     def to_datagram(
         self,
         duration=None,
@@ -1195,7 +1224,7 @@ class Session(object):
             )
         return renderer.to_osc_bundles(duration=duration)
 
-    def to_strings(self, include_controls=False):
+    def to_strings(self, include_controls=False, include_timespans=False):
         from supriya.tools import responsetools
         result = []
         previous_string = None
@@ -1204,7 +1233,10 @@ class Session(object):
                 continue
             self._apply_transitions(state.offset)
             query_tree_group = responsetools.QueryTreeGroup.from_state(
-                state, include_controls=include_controls)
+                state,
+                include_controls=include_controls,
+                include_timespans=include_timespans,
+                )
             string = str(query_tree_group)
             if string == previous_string:
                 continue

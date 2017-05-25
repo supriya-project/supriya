@@ -41,6 +41,7 @@ class Pbinop(Pattern):
             '+': operator.__add__,
             '-': operator.__sub__,
             '*': operator.__mul__,
+            '**': operator.__pow__,
             '/': operator.__truediv__,
             '//': operator.__floordiv__,
         }
