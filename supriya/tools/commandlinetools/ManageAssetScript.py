@@ -8,7 +8,7 @@ class ManageAssetScript(ProjectPackageScript):
 
     ..  shell::
 
-        spv asset --help
+        sjv asset --help
 
     '''
 

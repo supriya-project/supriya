@@ -21,7 +21,7 @@ class ManageMaterialScript(ProjectPackageScript):
 
     ..  shell::
 
-        spv material --help
+        sjv material --help
 
     '''
 

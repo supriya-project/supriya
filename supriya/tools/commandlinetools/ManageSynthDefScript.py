@@ -8,7 +8,7 @@ class ManageSynthDefScript(ProjectPackageScript):
 
     ..  shell::
 
-        spv synthdef --help
+        sjv synthdef --help
 
     '''
 

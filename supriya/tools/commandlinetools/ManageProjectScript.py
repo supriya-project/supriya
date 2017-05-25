@@ -14,7 +14,7 @@ class ManageProjectScript(ProjectPackageScript):
 
     ..  shell::
 
-        spv project --help
+        sjv project --help
 
     '''
 
