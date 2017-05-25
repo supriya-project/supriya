@@ -722,7 +722,7 @@ class SynthDef(ServerObjectProxy):
             {
                 "synthdef": {
                     "hash": "da0982184cc8fa54cf9d288a0fe1f6ca",
-                    "name": "da0982184cc8fa54cf9d288a0fe1f6ca",
+                    "name": "default",
                     "parameters": {
                         "amplitude": {
                             "range": [
