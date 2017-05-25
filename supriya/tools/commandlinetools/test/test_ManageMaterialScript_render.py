@@ -457,16 +457,18 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material(
             'material_two',
             definition_contents=self.chained_session_template.render(
-                input_material_name='material_one',
-                output_material_name='material_two',
+                input_name='material_one',
+                input_section_singular='material',
+                output_section_singular='material',
                 multiplier=0.5,
                 ),
             )
         material_three_path = self.create_material(
             'material_three',
             definition_contents=self.chained_session_template.render(
-                input_material_name='material_two',
-                output_material_name='material_three',
+                input_name='material_two',
+                input_section_singular='material',
+                output_section_singular='material',
                 multiplier=-1.0,
                 ),
             )

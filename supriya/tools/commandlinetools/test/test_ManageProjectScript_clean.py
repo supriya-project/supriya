@@ -11,21 +11,21 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material(
             'material_one',
             definition_contents=self.basic_session_template.render(
-                material_name='material_one',
+                output_section_singular='material',
                 ),
             )
         self.create_material(
             'material_two',
             definition_contents=self.basic_session_template.render(
-                material_name='material_two',
                 multiplier=0.5,
+                output_section_singular='material',
                 ),
             )
         self.create_material(
             'material_three',
             definition_contents=self.basic_session_template.render(
-                material_name='material_three',
                 multiplier=0.25,
+                output_section_singular='material',
                 ),
             )
 
