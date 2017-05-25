@@ -4,9 +4,16 @@ from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 class DecodeB2(MultiOutUGen):
     """
+    A 2D Ambisonic B-format decoder.
 
     ::
 
+        >>> source = ugentools.PinkNoise.ar()
+        >>> w, x, y = ugentools.PanB2.ar(
+        ...     source=source,
+        ...     azimuth=ugentools.SinOsc.kr(),
+        ...     )
+        >>> channel_count = 4
         >>> decode_b_2 = ugentools.DecodeB2.ar(
         ...     channel_count=channel_count,
         ...     orientation=0.5,
@@ -15,7 +22,7 @@ class DecodeB2(MultiOutUGen):
         ...     y=y,
         ...     )
         >>> decode_b_2
-        DecodeB2.ar()
+        UGenArray({4})
 
     """
 
@@ -26,7 +33,7 @@ class DecodeB2(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
+        #'channel_count',
         'w',
         'x',
         'y',
@@ -72,6 +79,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.ar(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -80,7 +93,7 @@ class DecodeB2(MultiOutUGen):
             ...     y=y,
             ...     )
             >>> decode_b_2
-            DecodeB2.ar()
+            UGenArray({4})
 
         Returns ugen graph.
         """
@@ -110,6 +123,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.kr(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -118,7 +137,7 @@ class DecodeB2(MultiOutUGen):
             ...     y=y,
             ...     )
             >>> decode_b_2
-            DecodeB2.kr()
+            UGenArray({4})
 
         Returns ugen graph.
         """
@@ -134,30 +153,7 @@ class DecodeB2(MultiOutUGen):
             )
         return ugen
 
-    # def newFromDesc(): ...
-
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def channel_count(self):
-        """
-        Gets `channel_count` input of DecodeB2.
-
-        ::
-
-            >>> decode_b_2 = ugentools.DecodeB2.ar(
-            ...     channel_count=channel_count,
-            ...     orientation=0.5,
-            ...     w=w,
-            ...     x=x,
-            ...     y=y,
-            ...     )
-            >>> decode_b_2.channel_count
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
 
     @property
     def orientation(self):
@@ -166,6 +162,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.ar(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -173,7 +175,7 @@ class DecodeB2(MultiOutUGen):
             ...     x=x,
             ...     y=y,
             ...     )
-            >>> decode_b_2.orientation
+            >>> decode_b_2[0].source.orientation
             0.5
 
         Returns ugen input.
@@ -188,6 +190,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.ar(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -195,7 +203,28 @@ class DecodeB2(MultiOutUGen):
             ...     x=x,
             ...     y=y,
             ...     )
-            >>> decode_b_2.w
+            >>> decode_b_2[0].source.w
+            OutputProxy(
+                source=PanB2(
+                    calculation_rate=CalculationRate.AUDIO,
+                    azimuth=OutputProxy(
+                        source=SinOsc(
+                            calculation_rate=CalculationRate.CONTROL,
+                            frequency=440.0,
+                            phase=0.0
+                            ),
+                        output_index=0
+                        ),
+                    gain=1.0,
+                    source=OutputProxy(
+                        source=PinkNoise(
+                            calculation_rate=CalculationRate.AUDIO
+                            ),
+                        output_index=0
+                        )
+                    ),
+                output_index=0
+                )
 
         Returns ugen input.
         """
@@ -209,6 +238,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.ar(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -216,7 +251,28 @@ class DecodeB2(MultiOutUGen):
             ...     x=x,
             ...     y=y,
             ...     )
-            >>> decode_b_2.x
+            >>> decode_b_2[0].source.x
+            OutputProxy(
+                source=PanB2(
+                    calculation_rate=CalculationRate.AUDIO,
+                    azimuth=OutputProxy(
+                        source=SinOsc(
+                            calculation_rate=CalculationRate.CONTROL,
+                            frequency=440.0,
+                            phase=0.0
+                            ),
+                        output_index=0
+                        ),
+                    gain=1.0,
+                    source=OutputProxy(
+                        source=PinkNoise(
+                            calculation_rate=CalculationRate.AUDIO
+                            ),
+                        output_index=0
+                        )
+                    ),
+                output_index=1
+                )
 
         Returns ugen input.
         """
@@ -230,6 +286,12 @@ class DecodeB2(MultiOutUGen):
 
         ::
 
+            >>> source = ugentools.PinkNoise.ar()
+            >>> w, x, y = ugentools.PanB2.ar(
+            ...     source=source,
+            ...     azimuth=ugentools.SinOsc.kr(),
+            ...     )
+            >>> channel_count = 4
             >>> decode_b_2 = ugentools.DecodeB2.ar(
             ...     channel_count=channel_count,
             ...     orientation=0.5,
@@ -237,7 +299,28 @@ class DecodeB2(MultiOutUGen):
             ...     x=x,
             ...     y=y,
             ...     )
-            >>> decode_b_2.y
+            >>> decode_b_2[0].source.y
+            OutputProxy(
+                source=PanB2(
+                    calculation_rate=CalculationRate.AUDIO,
+                    azimuth=OutputProxy(
+                        source=SinOsc(
+                            calculation_rate=CalculationRate.CONTROL,
+                            frequency=440.0,
+                            phase=0.0
+                            ),
+                        output_index=0
+                        ),
+                    gain=1.0,
+                    source=OutputProxy(
+                        source=PinkNoise(
+                            calculation_rate=CalculationRate.AUDIO
+                            ),
+                        output_index=0
+                        )
+                    ),
+                output_index=2
+                )
 
         Returns ugen input.
         """
