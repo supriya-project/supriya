@@ -1,8 +1,10 @@
 # -*- encoding: utf-8 -*-
-from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
+from supriya.tools.commandlinetools.ProjectSectionScript import (
+    ProjectSectionScript
+)
 
 
-class ManageSessionScript(ProjectPackageScript):
+class ManageSessionScript(ProjectSectionScript):
     '''
     Manages project package sessions.
 
@@ -14,15 +16,15 @@ class ManageSessionScript(ProjectPackageScript):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
     alias = 'session'
     short_description = 'manage project package sessions'
 
-    ### PRIVATE METHODS ###
+    ### PRIVATE PROPERTIES ###
 
-    def _process_args(self, args):
-        pass
+    @property
+    def _section_plural(self):
+        return 'sessions'
 
-    def _setup_argument_parser(self, parser):
-        pass
+    @property
+    def _section_singular(self):
+        return 'session'

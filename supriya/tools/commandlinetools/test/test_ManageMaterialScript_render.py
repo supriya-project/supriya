@@ -117,20 +117,18 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-            Render candidates: 'test_material' ...
-            Rendering test_project/materials/test_material/
-                Importing test_project.materials.test_material.definition
-
-            Traceback (most recent call last):
-              File ".../ManageMaterialScript.py", line ..., in _render_one_material
-                **kwargs
-              File
-              ".../render.py", line ..., in render
-                **kwargs
-              File
-              ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
-                raise TypeError('This is fake.')
-            TypeError: This is fake.
+        Render candidates: 'test_material' ...
+        Rendering test_project/materials/test_material/
+            Importing test_project.materials.test_material.definition
+        Traceback (most recent call last):
+          File ".../commandlinetools/ProjectSectionScript.py", line ..., in _render_object
+            **kwargs
+          File ".../soundfiletools/render.py", line ..., in render
+            **kwargs
+          File
+          ".../commandlinetools/test/test_project/test_project/materials/test_material/definition.py", line ..., in __render__
+            raise TypeError('This is fake.')
+        TypeError: This is fake.
         '''.replace('/', os.path.sep))
 
     def test_python_error_on_import(self):
