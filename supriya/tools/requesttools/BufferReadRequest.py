@@ -62,10 +62,7 @@ class BufferReadRequest(Request):
         self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
             completion_message)
-        if not (
-            isinstance(file_path, nonrealtimetools.Session) or
-            hasattr(file_path, '__render__')
-            ):
+        if not nonrealtimetools.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
         if frame_count is not None:

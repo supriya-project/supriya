@@ -39,6 +39,7 @@ class SessionRenderer(SupriyaObject):
         '_transcript',
         '_transcript_prefix',
         '_trellis',
+        '_sessionables_to_sessions',
         )
 
     ### INITIALIZER ###
@@ -117,7 +118,6 @@ class SessionRenderer(SupriyaObject):
         for value in hash_values:
             if not isinstance(value, str):
                 value = str(value)
-            #print('    ' + value)
             value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
@@ -172,6 +172,7 @@ class SessionRenderer(SupriyaObject):
             for osc_message in osc_bundle.contents:
                 contents = list(osc_message.contents)
                 for i, x in enumerate(contents):
+                    x = self._sessionable_to_session(x)
                     try:
                         if x not in self.renderable_prefixes:
                             continue
@@ -185,6 +186,7 @@ class SessionRenderer(SupriyaObject):
     def _build_trellis_and_nonxrefd_osc_bundles_conditionally(
         self, expr, parent):
         from supriya.tools import nonrealtimetools
+        expr = self._sessionable_to_session(expr)
         if isinstance(expr, nonrealtimetools.Session):
             if expr not in self.trellis:
                 self._build_trellis_and_nonxrefd_osc_bundles(expr)
@@ -196,6 +198,7 @@ class SessionRenderer(SupriyaObject):
         input_ = session.input_
         if isinstance(input_, str):
             input_ = pathlib.Path(input_)
+        input_ = self._sessionable_to_session(input_)
         non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
         self.compiled_sessions[session] = input_, non_xrefd_bundles
         if session is self.session:
@@ -302,6 +305,14 @@ class SessionRenderer(SupriyaObject):
         self._renderable_prefixes = {}
         self._trellis = Trellis()
         self._session_input_paths = {}
+        self._sessionables_to_sessions = {}
+
+    def _sessionable_to_session(self, expr):
+        if hasattr(expr, '__session__'):
+            if expr not in self._sessionables_to_sessions:
+                self._sessionables_to_sessions[expr] = expr.__session__()
+            return self._sessionables_to_sessions[expr]
+        return expr
 
     def _write_datagram(self, file_path, new_contents):
         self._write(file_path, new_contents, mode='b')

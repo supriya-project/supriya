@@ -205,6 +205,8 @@ class ProjectSectionScript(ProjectPackageScript):
         output_file_path = directory_path / 'render.aiff'
         with systemtools.Timer() as timer:
             object_ = self._import_object(directory_path, section_singular)
+            if hasattr(object_, '__session__'):
+                object_ = object_.__session__()
             if not hasattr(object_, '__render__'):
                 template = '    Cannot render {} of type {}.'
                 message = template.format(
