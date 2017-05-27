@@ -168,6 +168,35 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                 except SystemExit:
                     raise RuntimeError('SystemExit')
 
+    def create_session(
+        self,
+        session_name='test_session',
+        force=False,
+        expect_error=False,
+        definition_contents=None,
+        ):
+        script = commandlinetools.ManageSessionScript()
+        command = ['--new', session_name]
+        if force:
+            command.insert(0, '-f')
+        with systemtools.TemporaryDirectoryChange(str(self.inner_project_path)):
+            if expect_error:
+                with self.assertRaises(SystemExit) as context_manager:
+                    script(command)
+                assert context_manager.exception.code == 1
+            else:
+                try:
+                    script(command)
+                except SystemExit:
+                    raise RuntimeError('SystemExit')
+        session_path = self.inner_project_path / 'sessions' / session_name
+        if definition_contents:
+            definition_contents = stringtools.normalize(definition_contents)
+            definition_file_path = session_path / 'definition.py'
+            with open(str(definition_file_path), 'w') as file_pointer:
+                file_pointer.write(definition_contents)
+        return session_path
+
     def sample(self, file_path, rounding=6):
         soundfile = soundfiletools.SoundFile(file_path)
         return {
