@@ -167,7 +167,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = nonrealtimetools.SessionRenderer.__module__
-        mock_path += '._call_subprocess'
+        mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -196,7 +196,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = nonrealtimetools.SessionRenderer.__module__
-        mock_path += '._call_subprocess'
+        mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):

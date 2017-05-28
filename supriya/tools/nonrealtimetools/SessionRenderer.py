@@ -4,6 +4,8 @@ import pathlib
 import shutil
 import struct
 import subprocess
+import sys
+import tqdm
 import yaml
 from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools import servertools
@@ -214,6 +216,35 @@ class SessionRenderer(SupriyaObject):
     def _call_subprocess(self, command):
         return subprocess.call(command, shell=True)
 
+    def _stream_subprocess(self, command, session_duration):
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            )
+        previous_value = 0
+        progress_bar = tqdm.tqdm(
+            total=int(session_duration * 1000),
+            unit='ms',
+            )
+        with progress_bar:
+            while True:
+                output = process.stdout.readline()
+                if not output:
+                    if process.poll() is not None:
+                        break
+                    continue
+                output = output.decode().strip()
+                if output.startswith('nextOSCPacket'):
+                    current_value = int(float(output.split()[-1]) * 1000)
+                    difference = current_value - previous_value
+                    progress_bar.update(difference)
+                    previous_value = current_value
+                elif output.startswith('FAILURE'):
+                    progress_bar.write(output)
+        return process.poll()
+
     def _collect_prerender_tuples(self, session, duration=None):
         from supriya.tools import nonrealtimetools
         self._build_trellis_and_nonxrefd_osc_bundles(
@@ -279,7 +310,8 @@ class SessionRenderer(SupriyaObject):
             server_options=new_server_options,
             )
         self._report('    Command: {}'.format(command))
-        exit_code = self._call_subprocess(command)
+        #exit_code = self._call_subprocess(command)
+        exit_code = self._stream_subprocess(command, session.duration)
         self._report('    Rendered {} with exit code {}.'.format(
             relative_session_osc_file_path, exit_code))
         return exit_code
@@ -401,13 +433,17 @@ class SessionRenderer(SupriyaObject):
                     osc_file_path = renderable_prefix.with_suffix('.osc')
                     input_file_path = self.session_input_paths.get(session)
                     self._write_datagram(osc_file_path, datagram)
-                    exit_code = self._render_datagram(
-                        session,
-                        input_file_path,
-                        output_file_path,
-                        osc_file_path,
-                        **kwargs
-                        )
+                    try:
+                        exit_code = self._render_datagram(
+                            session,
+                            input_file_path,
+                            output_file_path,
+                            osc_file_path,
+                            **kwargs
+                            )
+                    except:
+                        output_file_path.unlink()
+                        sys.exit(1)
                     if exit_code:
                         self._report('    SuperCollider errored!')
                         raise NonrealtimeRenderError(exit_code)

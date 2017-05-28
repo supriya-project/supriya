@@ -18,6 +18,7 @@ install_requires = [
     'sphinx_rtd_theme',
     'tornado',
     'tox',
+    'tqdm',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
