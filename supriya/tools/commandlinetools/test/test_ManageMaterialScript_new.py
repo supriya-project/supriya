@@ -31,7 +31,6 @@ class Test(ProjectPackageScriptTestCase):
             self.create_material('test_material', force=True)
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/materials/test_material/
         '''.replace('/', os.path.sep))
 
@@ -49,7 +48,6 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit')
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/materials/test_material/
         '''.replace('/', os.path.sep))
 
@@ -66,7 +64,6 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit')
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/materials/test_material/
         '''.replace('/', os.path.sep))
         assert self.materials_path.joinpath('test_material').exists()

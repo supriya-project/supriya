@@ -31,7 +31,6 @@ class Test(ProjectPackageScriptTestCase):
             self.create_session('test_session', force=True)
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
 
@@ -49,7 +48,6 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit')
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
 
@@ -66,7 +64,6 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit')
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
-                Reading test_project/metadata.json ... OK!
                 Created test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
         assert self.sessions_path.joinpath('test_session').exists()

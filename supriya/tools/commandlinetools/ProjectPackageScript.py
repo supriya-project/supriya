@@ -2,7 +2,6 @@
 import contextlib
 import importlib
 import jinja2
-import json
 import os
 import pathlib
 import re
@@ -137,13 +136,12 @@ class ProjectPackageScript(CommandlineScript):
             print('    Path exists: {}'.format(
                 target_path.relative_to(self.inner_project_path.parent)))
             sys.exit(1)
-        metadata = self._read_project_metadata_json(
-            self.inner_project_path)
-        metadata['project_package_name'] = self.inner_project_path.name
-        metadata['package_name'] = target_path.name
         for path in self._copy_tree(source_path, target_path):
             if path.is_file() and path.suffix == '.jinja':
-                self._template_file(path, **metadata)
+                self._template_file(
+                    path,
+                    project_package_name=self.inner_project_path.name,
+                    )
                 path.rename(path.with_suffix(''))
         print('    Created {path!s}{sep}'.format(
             path=target_path.relative_to(self.outer_project_path),
@@ -299,40 +297,6 @@ class ProjectPackageScript(CommandlineScript):
                 exit_stack.enter_context(profiler)
             self._process_args_inner(args)
 
-    def _read_json(self, path, strict=False, verbose=True):
-        if verbose:
-            message = '    Reading {!s} ... '
-            path_to_print = path.relative_to(self.inner_project_path.parent)
-            print(message.format(path_to_print), end='')
-        if not path.exists():
-            if verbose:
-                print('JSON does not exist.')
-            if strict:
-                sys.exit(1)
-            return {}
-        try:
-            with open(str(path), 'r') as file_pointer:
-                expr = json.loads(file_pointer.read())
-        except:
-            if verbose:
-                print('JSON is corrupted.')
-            if strict:
-                sys.exit(1)
-            return {}
-        if verbose:
-            print('OK!')
-        return expr
-
-    def _read_project_metadata_json(self, project_path=None, verbose=True):
-        if project_path:
-            project_path = self._path_to_project_package_path(project_path)
-        else:
-            project_path = self.inner_project_path
-        metadata_path = project_path.joinpath('metadata.json')
-        metadata = self._read_json(metadata_path, verbose=verbose)
-        assert isinstance(metadata, dict)
-        return metadata
-
     def _remove_tree(self, target_path):
         if target_path.is_dir():
             shutil.rmtree(str(target_path))
@@ -423,23 +387,3 @@ class ProjectPackageScript(CommandlineScript):
         result = template.render(**kwargs)
         with open(file_path, 'w') as file_pointer:
             file_pointer.write(result)
-
-    def _write_json(self, expr, path, verbose=True):
-        if verbose:
-            message = '    Writing {!s}'
-            path_to_print = path.relative_to(self.outer_project_path)
-            print(message.format(path_to_print))
-        contents = json.dumps(
-            expr,
-            sort_keys=True,
-            indent=4,
-            separators=(',', ': '),
-            )
-        should_write = True
-        if path.exists():
-            with open(str(path), 'r') as file_pointer:
-                if file_pointer.read() == contents:
-                    should_write = False
-        if should_write:
-            with open(str(path), 'w') as file_pointer:
-                file_pointer.write(contents)

@@ -84,17 +84,6 @@ class ManageProjectScript(ProjectPackageScript):
                 self._template_file(path, **metadata)
                 path.rename(path.with_suffix(''))
         self._setup_paths(inner_target_path)
-        self._write_json(
-            dict(
-                composer_email=composer_email,
-                composer_github=composer_github,
-                composer_library=composer_library,
-                composer_name=composer_name,
-                composer_website=composer_website,
-                title=title,
-                ),
-            inner_target_path.joinpath('metadata.json'),
-            )
         self._make_project_settings_yaml(
             inner_target_path,
             composer_email=composer_email,

@@ -14,7 +14,6 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/etc/.gitignore',
         'test_project/test_project/materials/.gitignore',
         'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/metadata.json',
         'test_project/test_project/project-settings.yml',
         'test_project/test_project/renders/.gitignore',
         'test_project/test_project/sessions/.gitignore',
