@@ -608,3 +608,75 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [-0.41, -0.41],
             0.99: [-0.5, -0.5],
             }
+
+    def test_session_factory(self):
+        """
+        Handle session factories implemented with __session__().
+        """
+        self.create_project()
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
+        with open(str(definition_path), 'w') as file_pointer:
+            file_pointer.write(self.session_factory_template.render(
+                output_section_singular='session',
+                ))
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
+        with systemtools.RedirectedStreams(stdout=self.string_io):
+            with systemtools.TemporaryDirectoryChange(
+                str(self.inner_project_path)):
+                try:
+                    script(command)
+                except SystemExit as e:
+                    raise RuntimeError('SystemExit: {}'.format(e.code))
+        self.compare_captured_output(r'''
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing test_project/sessions/test_session/render.yml.
+                Wrote test_project/sessions/test_session/render.yml.
+            Python/SC runtime: 0 seconds
+            Rendered test_project/sessions/test_session/
+        '''.replace('/', os.path.sep))
+        self.compare_path_contents(
+            self.inner_project_path,
+            [
+                'test_project/test_project/__init__.py',
+                'test_project/test_project/assets/.gitignore',
+                'test_project/test_project/distribution/.gitignore',
+                'test_project/test_project/etc/.gitignore',
+                'test_project/test_project/materials/.gitignore',
+                'test_project/test_project/materials/__init__.py',
+                'test_project/test_project/metadata.json',
+                'test_project/test_project/project-settings.yml',
+                'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
+                'test_project/test_project/sessions/test_session/__init__.py',
+                'test_project/test_project/sessions/test_session/definition.py',
+                'test_project/test_project/sessions/test_session/render.aiff',
+                'test_project/test_project/sessions/test_session/render.yml',
+                'test_project/test_project/synthdefs/.gitignore',
+                'test_project/test_project/synthdefs/__init__.py',
+                'test_project/test_project/test/.gitignore',
+                'test_project/test_project/tools/.gitignore',
+                'test_project/test_project/tools/__init__.py',
+                ]
+            )
+        assert self.sample(
+            str(self.sessions_path.joinpath('test_session', 'render.aiff'))
+            ) == {
+            0.0:  [2.3e-05] * 8,
+            0.21: [0.210295] * 8,
+            0.41: [0.410567] * 8,
+            0.61: [0.610839] * 8,
+            0.81: [0.811111] * 8,
+            0.99: [0.991361] * 8,
+            }

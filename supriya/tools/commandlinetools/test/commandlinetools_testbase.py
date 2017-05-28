@@ -63,6 +63,8 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             self.project_settings = project_settings
 
         def _build_ramp_synthdef(self):
+            server_options = self.project_settings['server_options']
+            channel_count = server_options['output_bus_channel_count']
             with supriya.synthdeftools.SynthDefBuilder(
                 duration=1.,
                 out_bus=0,
@@ -72,14 +74,14 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                     ) * {{ multiplier | default(1.0) }}
                 supriya.ugentools.Out.ar(
                     bus=builder['out_bus'],
-                    source=[source] * len({{ output_section_singular }}.audio_output_bus_group),
+                    source=[source] * channel_count,
                     )
             ramp_synthdef = builder.build()
             return ramp_synthdef
 
         def __session__(self):
             session = supriya.Session.from_project_settings(self.project_settings)
-            ramp_synthdef = self.build_ramp_synthdef()
+            ramp_synthdef = self._build_ramp_synthdef()
             with session.at(0):
                 session.add_synth(
                     duration=1,
