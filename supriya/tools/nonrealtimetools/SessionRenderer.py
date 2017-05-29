@@ -225,6 +225,8 @@ class SessionRenderer(SupriyaObject):
             )
         previous_value = 0
         progress_bar = tqdm.tqdm(
+            bar_format=(
+                ),
             total=int(session_duration * 1000),
             unit='ms',
             )
@@ -301,19 +303,29 @@ class SessionRenderer(SupriyaObject):
             self._report('    Skipped {}. Output already exists.'.format(
                 relative_session_osc_file_path))
             return 0
-        old_server_options = session._options
-        new_server_options = new(old_server_options, **kwargs)
-        command = self._build_render_command(
-            input_file_path,
-            output_file_path,
-            session_osc_file_path,
-            server_options=new_server_options,
-            )
-        self._report('    Command: {}'.format(command))
-        #exit_code = self._call_subprocess(command)
-        exit_code = self._stream_subprocess(command, session.duration)
-        self._report('    Rendered {} with exit code {}.'.format(
-            relative_session_osc_file_path, exit_code))
+        server_options = session._options
+        server_options = new(server_options, **kwargs)
+        memory_size = server_options.memory_size
+        for factor in range(1, 4):
+            command = self._build_render_command(
+                input_file_path,
+                output_file_path,
+                session_osc_file_path,
+                server_options=server_options,
+                )
+            self._report('    Command: {}'.format(command))
+            exit_code = self._stream_subprocess(command, session.duration)
+            server_options = new(
+                server_options,
+                memory_size=memory_size * (2**factor),
+                )
+            if exit_code == -6:
+                self._report('    Out of memory. Increasing to {}.'.format(
+                    server_options.memory_size))
+            else:
+                self._report('    Rendered {} with exit code {}.'.format(
+                    relative_session_osc_file_path, exit_code))
+                break
         return exit_code
 
     def _read(self, file_path, mode=''):
