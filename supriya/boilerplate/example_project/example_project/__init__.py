@@ -1,12 +1,7 @@
 # -*- encoding: utf-8 -*-
-import os
-from supriya.tools.commandlinetools import ProjectSettings
+from supriya.tools.commandlinetools import ProjectSettings, ProjectManager
 
+project_manager = ProjectManager()
+project_settings = ProjectSettings.from_python_module(__file__)
 
-project_settings = ProjectSettings(os.path.join(
-    os.path.dirname(__file__),
-    'project-settings.yml',
-    ))
-
-del os
-del ProjectSettings
+del ProjectManager, ProjectSettings

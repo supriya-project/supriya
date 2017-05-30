@@ -16,7 +16,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     outer_project_path = test_path.joinpath(package_name)
     inner_project_path = outer_project_path.joinpath(package_name)
     assets_path = inner_project_path.joinpath('assets')
-    composites_path = inner_project_path.joinpath('composites')
+    sessions_path = inner_project_path.joinpath('sessions')
     distribution_path = inner_project_path.joinpath('distribution')
     materials_path = inner_project_path.joinpath('materials')
     renders_path = inner_project_path.joinpath('renders')
@@ -29,7 +29,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     from test_project import project_settings
 
 
-    {{ material_name }} = supriya.Session.from_project_settings(project_settings)
+    {{ output_section_singular }} = supriya.Session.from_project_settings(project_settings)
 
     with supriya.synthdeftools.SynthDefBuilder(
         duration=1.,
@@ -37,30 +37,73 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         ) as builder:
         source = supriya.ugentools.Line.ar(
             duration=builder['duration'],
-            ) * {{ multiplier|default(1.0) }}
+            ) * {{ multiplier | default(1.0) }}
         supriya.ugentools.Out.ar(
             bus=builder['out_bus'],
-            source=[source] * len({{ material_name }}.audio_output_bus_group),
+            source=[source] * len({{ output_section_singular }}.audio_output_bus_group),
             )
     ramp_synthdef = builder.build()
 
-    with {{ material_name }}.at(0):
-        {{ material_name }}.add_synth(
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
             duration=1,
             synthdef=ramp_synthdef,
             )
+    '''))
+
+    session_factory_template = jinja2.Template(stringtools.normalize('''
+    # -*- encoding: utf-8 -*-
+    import supriya
+    from test_project import project_settings
+
+
+    class SessionFactory(object):
+
+        def __init__(self, project_settings):
+            self.project_settings = project_settings
+
+        def _build_ramp_synthdef(self):
+            server_options = self.project_settings['server_options']
+            channel_count = server_options['output_bus_channel_count']
+            with supriya.synthdeftools.SynthDefBuilder(
+                duration=1.,
+                out_bus=0,
+                ) as builder:
+                source = supriya.ugentools.Line.ar(
+                    duration=builder['duration'],
+                    ) * {{ multiplier | default(1.0) }}
+                supriya.ugentools.Out.ar(
+                    bus=builder['out_bus'],
+                    source=[source] * channel_count,
+                    )
+            ramp_synthdef = builder.build()
+            return ramp_synthdef
+
+        def __session__(self):
+            session = supriya.Session.from_project_settings(self.project_settings)
+            ramp_synthdef = self._build_ramp_synthdef()
+            with session.at(0):
+                session.add_synth(
+                    duration=1,
+                    synthdef=ramp_synthdef,
+                    )
+            return session
+
+
+    {{ output_section_singular }} = SessionFactory(project_settings)
     '''))
 
     chained_session_template = jinja2.Template(stringtools.normalize('''
     # -*- encoding: utf-8 -*-
     import supriya
     from test_project import project_settings
-    from test_project.materials.{{ input_material_name }}.definition import {{ input_material_name }}
+    from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
+        import {{ input_section_singular }} as {{ input_name }}
 
 
-    {{ output_material_name }} = supriya.Session.from_project_settings(
+    {{ output_section_singular }} = supriya.Session.from_project_settings(
         project_settings,
-        input_={{ input_material_name }},
+        input_={{ input_name }},
         )
 
     with supriya.SynthDefBuilder(
@@ -70,7 +113,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         ) as builder:
         source = supriya.ugentools.In.ar(
             bus=builder['in_bus'],
-            channel_count=len({{ output_material_name }}.audio_output_bus_group),
+            channel_count=len({{ output_section_singular }}.audio_output_bus_group),
             )
         supriya.ugentools.ReplaceOut.ar(
             bus=builder['out_bus'],
@@ -78,10 +121,10 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             )
     multiplier_synthdef = builder.build()
 
-    with {{ output_material_name }}.at(0):
-        {{ output_material_name }}.add_synth(
+    with {{ output_section_singular }}.at(0):
+        {{ output_section_singular }}.add_synth(
             duration=1,
-            in_bus={{ output_material_name }}.audio_input_bus_group,
+            in_bus={{ output_section_singular }}.audio_input_bus_group,
             multiplier={{ multiplier }},
             synthdef=multiplier_synthdef,
             )
@@ -166,6 +209,35 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                     script(command)
                 except SystemExit:
                     raise RuntimeError('SystemExit')
+
+    def create_session(
+        self,
+        session_name='test_session',
+        force=False,
+        expect_error=False,
+        definition_contents=None,
+        ):
+        script = commandlinetools.ManageSessionScript()
+        command = ['--new', session_name]
+        if force:
+            command.insert(0, '-f')
+        with systemtools.TemporaryDirectoryChange(str(self.inner_project_path)):
+            if expect_error:
+                with self.assertRaises(SystemExit) as context_manager:
+                    script(command)
+                assert context_manager.exception.code == 1
+            else:
+                try:
+                    script(command)
+                except SystemExit:
+                    raise RuntimeError('SystemExit')
+        session_path = self.inner_project_path / 'sessions' / session_name
+        if definition_contents:
+            definition_contents = stringtools.normalize(definition_contents)
+            definition_file_path = session_path / 'definition.py'
+            with open(str(definition_file_path), 'w') as file_pointer:
+                file_pointer.write(definition_contents)
+        return session_path
 
     def sample(self, file_path, rounding=6):
         soundfile = soundfiletools.SoundFile(file_path)

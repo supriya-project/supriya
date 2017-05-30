@@ -6,13 +6,13 @@ from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 class Test(ProjectPackageScriptTestCase):
 
-    def test_list_materials(self):
+    def test_list_sessions(self):
         self.create_project()
-        self.create_material('foo')
-        self.create_material('bar')
-        self.create_material('baz')
-        self.create_material('quux')
-        script = commandlinetools.ManageMaterialScript()
+        self.create_session('foo')
+        self.create_session('bar')
+        self.create_session('baz')
+        self.create_session('quux')
+        script = commandlinetools.ManageSessionScript()
         command = ['--list']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
@@ -21,7 +21,7 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Available materials:
+        Available sessions:
             Session:
                 bar [Session]
                 baz [Session]
@@ -29,9 +29,9 @@ class Test(ProjectPackageScriptTestCase):
                 quux [Session]
         ''')
 
-    def test_list_materials_no_materials(self):
+    def test_list_sessions_no_sessions(self):
         self.create_project()
-        script = commandlinetools.ManageMaterialScript()
+        script = commandlinetools.ManageSessionScript()
         command = ['--list']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
@@ -40,6 +40,6 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Available materials:
-            No materials available.
+        Available sessions:
+            No sessions available.
         ''')

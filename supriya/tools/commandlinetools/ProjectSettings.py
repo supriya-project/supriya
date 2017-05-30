@@ -1,5 +1,6 @@
 import collections
 import copy
+import pathlib
 import yaml
 from abjad.tools import stringtools
 
@@ -75,3 +76,8 @@ class ProjectSettings(collections.Mapping):
         project_settings = cls()
         project_settings._settings = dummy_data
         return project_settings
+
+    @classmethod
+    def from_python_module(cls, path):
+        path = pathlib.Path(path).parent / 'project-settings.yml'
+        return cls(path)

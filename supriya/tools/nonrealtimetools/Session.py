@@ -133,10 +133,7 @@ class Session(object):
         self._session_ids = {}
         self._states = {}
         self._transcript = None
-        if input_ and not (
-            isinstance(input_, type(self)) or
-            hasattr(input_, '__render__')
-            ):
+        if input_ and not self.is_session_like(input_):
             input_ = str(input_)
         self._input = input_
         if padding is not None:
@@ -173,6 +170,9 @@ class Session(object):
             **kwargs
             )
         return output_file_path
+
+    def __session__(self):
+        return self
 
     ### PRIVATE METHODS ###
 
@@ -1053,6 +1053,8 @@ class Session(object):
             channel_count = channel_count or soundfile.channel_count
         elif isinstance(file_path, type(self)):
             channel_count = channel_count or len(file_path.audio_output_bus_group)
+        elif hasattr(file_path, '__session__'):
+            channel_count = channel_count or file_path.output_bus_channel_count
         buffer_ = self.add_buffer(
             channel_count=channel_count,
             duration=duration,
@@ -1104,6 +1106,14 @@ class Session(object):
             offset=offset,
             seed=seed,
             )
+
+    @staticmethod
+    def is_session_like(expr):
+        if hasattr(expr, '__render__'):
+            return True
+        elif hasattr(expr, '__session__'):
+            return True
+        return False
 
     def move_node(
         self,

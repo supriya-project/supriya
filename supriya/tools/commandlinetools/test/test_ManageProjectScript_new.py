@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
-import json
 import os
 from abjad.tools import stringtools
 from abjad.tools import systemtools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -16,15 +15,14 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/setup.py',
         'test_project/test_project/__init__.py',
         'test_project/test_project/assets/.gitignore',
-        'test_project/test_project/composites/.gitignore',
-        'test_project/test_project/composites/__init__.py',
         'test_project/test_project/distribution/.gitignore',
         'test_project/test_project/etc/.gitignore',
         'test_project/test_project/materials/.gitignore',
         'test_project/test_project/materials/__init__.py',
-        'test_project/test_project/metadata.json',
         'test_project/test_project/project-settings.yml',
         'test_project/test_project/renders/.gitignore',
+        'test_project/test_project/sessions/.gitignore',
+        'test_project/test_project/sessions/__init__.py',
         'test_project/test_project/synthdefs/.gitignore',
         'test_project/test_project/synthdefs/__init__.py',
         'test_project/test_project/test/.gitignore',
@@ -82,7 +80,6 @@ class Test(ProjectPackageScriptTestCase):
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
             Creating project package 'Test Project'...
-                Writing test_project/metadata.json
                 Created test_project/
             Creating project package 'Test Project'...
                 Directory test_project already exists.
@@ -97,10 +94,8 @@ class Test(ProjectPackageScriptTestCase):
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
             Creating project package 'Test Project'...
-                Writing test_project/metadata.json
                 Created test_project/
             Creating project package 'Test Project'...
-                Writing test_project/metadata.json
                 Created test_project/
         '''.replace('/', os.path.sep))
 
@@ -112,21 +107,8 @@ class Test(ProjectPackageScriptTestCase):
             self.outer_project_path,
             self.expected_files,
             )
-        project_metadata_path = self.inner_project_path.joinpath('metadata.json')
-        assert project_metadata_path.exists()
-        with open(str(project_metadata_path), 'r') as file_pointer:
-            metadata = json.loads(file_pointer.read())
-        assert metadata == {
-            'composer_email': 'josiah.oberholtzer@gmail.com',
-            'composer_github': 'josiah-wolf-oberholtzer',
-            'composer_library': 'amazing_library',
-            'composer_name': 'Josiah Wolf Oberholtzer',
-            'composer_website': 'www.josiahwolfoberholtzer.com',
-            'title': 'Test Project',
-            }
         self.compare_captured_output(r'''
             Creating project package 'Test Project'...
-                Writing test_project/metadata.json
                 Created test_project/
         '''.replace('/', os.path.sep))
         self.compare_file_contents(

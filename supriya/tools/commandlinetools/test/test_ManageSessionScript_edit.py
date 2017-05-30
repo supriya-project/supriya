@@ -12,9 +12,9 @@ class Test(ProjectPackageScriptTestCase):
     def test_success(self, call_subprocess_mock):
         call_subprocess_mock.return_value = 0
         self.create_project()
-        material_path = self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--edit', 'test_material']
+        session_path = self.create_session('test_session')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--edit', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -23,9 +23,9 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         self.compare_captured_output(r'''
-        Edit candidates: 'test_material' ...
+        Edit candidates: 'test_session' ...
         ''')
-        definition_path = material_path.joinpath('definition.py')
+        definition_path = session_path.joinpath('definition.py')
         command = '{} {!s}'.format(
             abjad_configuration.get_text_editor(),
             definition_path,

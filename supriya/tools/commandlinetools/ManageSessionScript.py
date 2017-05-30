@@ -4,27 +4,27 @@ from supriya.tools.commandlinetools.ProjectSectionScript import (
 )
 
 
-class ManageMaterialScript(ProjectSectionScript):
+class ManageSessionScript(ProjectSectionScript):
     '''
-    Manages project package materials.
+    Manages project package sessions.
 
     ..  shell::
 
-        sjv material --help
+        sjv session --help
 
     '''
 
     ### CLASS VARIABLES ###
 
-    alias = 'material'
-    short_description = 'manage project package materials'
+    alias = 'session'
+    short_description = 'manage project package sessions'
 
     ### PRIVATE PROPERTIES ###
 
     @property
     def _section_plural(self):
-        return 'materials'
+        return 'sessions'
 
     @property
     def _section_singular(self):
-        return 'material'
+        return 'session'

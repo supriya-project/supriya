@@ -2,7 +2,7 @@
 import os
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -10,17 +10,16 @@ class Test(ProjectPackageScriptTestCase):
     expected_files = [
         'test_project/test_project/__init__.py',
         'test_project/test_project/assets/.gitignore',
-        'test_project/test_project/composites/.gitignore',
-        'test_project/test_project/composites/__init__.py',
         'test_project/test_project/distribution/.gitignore',
         'test_project/test_project/etc/.gitignore',
         'test_project/test_project/materials/.gitignore',
         'test_project/test_project/materials/__init__.py',
         'test_project/test_project/materials/material_two/__init__.py',
         'test_project/test_project/materials/material_two/definition.py',
-        'test_project/test_project/metadata.json',
         'test_project/test_project/project-settings.yml',
         'test_project/test_project/renders/.gitignore',
+        'test_project/test_project/sessions/.gitignore',
+        'test_project/test_project/sessions/__init__.py',
         'test_project/test_project/synthdefs/.gitignore',
         'test_project/test_project/synthdefs/__init__.py',
         'test_project/test_project/test/.gitignore',

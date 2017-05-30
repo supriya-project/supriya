@@ -3,7 +3,7 @@ import os
 from abjad.tools import stringtools
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -17,7 +17,7 @@ class Test(ProjectPackageScriptTestCase):
     )
 
 
-    test_material = Session(0, 2)
+    material = Session(0, 2)
 
     pattern = patterntools.Pbus(
         patterntools.Pbind(
@@ -30,8 +30,8 @@ class Test(ProjectPackageScriptTestCase):
             )
         )
 
-    with test_material.at(0):
-        test_material.inscribe(pattern, duration=10, seed={seed!s})
+    with material.at(0):
+        material.inscribe(pattern, duration=10, seed={seed!s})
     ''')
 
     def test_01(self):

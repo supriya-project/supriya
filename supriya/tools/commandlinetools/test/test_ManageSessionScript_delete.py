@@ -27,8 +27,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_missing(self):
         self.create_project()
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--delete', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--delete', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -36,15 +36,15 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Deleting material subpackage 'test_material' ...
-            Subpackage test_project/materials/test_material/ does not exist!
+        Deleting session subpackage 'test_session' ...
+            Subpackage test_project/sessions/test_session/ does not exist!
         '''.replace('/', os.path.sep))
 
     def test_success(self):
         self.create_project()
-        self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--delete', 'test_material']
+        self.create_session('test_session')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--delete', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -53,8 +53,8 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit:
                     raise RuntimeError('SystemExit')
         self.compare_captured_output(r'''
-        Deleting material subpackage 'test_material' ...
-            Deleted test_project/materials/test_material/
+        Deleting session subpackage 'test_session' ...
+            Deleted test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
         self.compare_path_contents(
             self.inner_project_path,

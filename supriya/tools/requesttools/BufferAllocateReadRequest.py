@@ -58,10 +58,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
             frame_count=frame_count,
             completion_message=completion_message,
             )
-        if not (
-            isinstance(file_path, nonrealtimetools.Session) or
-            hasattr(file_path, '__render__')
-            ):
+        if not nonrealtimetools.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
         if starting_frame is not None:

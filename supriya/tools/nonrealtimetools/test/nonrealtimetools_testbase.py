@@ -4,9 +4,66 @@ import pathlib
 import shutil
 from abjad.tools import systemtools
 from supriya.tools import nonrealtimetools
+from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
+
+
+class TestSessionFactory(object):
+
+    def __init__(
+        self,
+        input_bus_channel_count=None,
+        output_bus_channel_count=None,
+        multiplier=1.0,
+        ):
+        options = servertools.ServerOptions(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            )
+        self.input_bus_channel_count = options.input_bus_channel_count
+        self.output_bus_channel_count = options.output_bus_channel_count
+        self.multiplier = multiplier
+
+    def _build_dc_synthdef(self, channel_count=1):
+        with synthdeftools.SynthDefBuilder(
+            out_bus=0,
+            source=0,
+            ) as builder:
+            source = ugentools.K2A.ar(source=builder['source'])
+            ugentools.Out.ar(
+                bus=builder['out_bus'],
+                source=[source] * channel_count,
+                )
+        return builder.build()
+
+    def __session__(self):
+        session = nonrealtimetools.Session(
+            input_bus_channel_count=self.input_bus_channel_count,
+            output_bus_channel_count=self.output_bus_channel_count,
+            name='inner-session',
+            )
+        output_bus_channel_count = session.options.output_bus_channel_count
+        synthdef = self._build_dc_synthdef(
+            channel_count=output_bus_channel_count,
+            )
+        with session.at(0):
+            synth = session.add_synth(
+                synthdef=synthdef,
+                duration=10,
+                source=0,
+                )
+        with session.at(2):
+            synth['source'] = 0.25 * self.multiplier
+        with session.at(4):
+            synth['source'] = 0.5 * self.multiplier
+        with session.at(6):
+            synth['source'] = 0.75 * self.multiplier
+        with session.at(8):
+            synth['source'] = 1.0 * self.multiplier
+        assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
+        return session
 
 
 class TestCase(systemtools.TestCase):
@@ -149,6 +206,19 @@ class TestCase(systemtools.TestCase):
             [10.0, [['/n_free', 1000], [0]]]
             ]
         return session
+
+    def _make_session_factory(
+        self,
+        input_bus_channel_count=None,
+        output_bus_channel_count=None,
+        multiplier=1.0,
+        ):
+        session_factory = TestSessionFactory(
+            input_bus_channel_count=input_bus_channel_count,
+            output_bus_channel_count=output_bus_channel_count,
+            multiplier=multiplier,
+            )
+        return session_factory
 
     def _build_dc_synthdef(self, channel_count=1):
         with synthdeftools.SynthDefBuilder(

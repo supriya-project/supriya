@@ -2,7 +2,7 @@
 import shutil
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -13,24 +13,27 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material(
             'material_two',
             definition_contents=self.chained_session_template.render(
-                input_material_name='material_one',
-                output_material_name='material_two',
+                input_name='material_one',
+                input_section_singular='material',
+                output_section_singular='material',
                 multiplier=0.5,
                 ),
             )
         self.create_material(
             'material_three',
             definition_contents=self.chained_session_template.render(
-                input_material_name='material_two',
-                output_material_name='material_three',
+                input_name='material_two',
+                input_section_singular='material',
+                output_section_singular='material',
                 multiplier=-1.0,
                 ),
             )
         material_four_path = self.create_material(
             'material_four',
             definition_contents=self.chained_session_template.render(
-                input_material_name='material_two',
-                output_material_name='material_four',
+                input_name='material_two',
+                input_section_singular='material',
+                output_section_singular='material',
                 multiplier=0.125,
                 ),
             )
@@ -49,8 +52,6 @@ class Test(ProjectPackageScriptTestCase):
             [
                 'test_project/test_project/__init__.py',
                 'test_project/test_project/assets/.gitignore',
-                'test_project/test_project/composites/.gitignore',
-                'test_project/test_project/composites/__init__.py',
                 'test_project/test_project/distribution/.gitignore',
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
@@ -71,7 +72,6 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/materials/material_two/render.aiff',
                 'test_project/test_project/materials/material_two/render.yml',
-                'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.aiff',
@@ -82,6 +82,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
                 'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.aiff',
                 'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.osc',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -113,8 +115,6 @@ class Test(ProjectPackageScriptTestCase):
             [
                 'test_project/test_project/__init__.py',
                 'test_project/test_project/assets/.gitignore',
-                'test_project/test_project/composites/.gitignore',
-                'test_project/test_project/composites/__init__.py',
                 'test_project/test_project/distribution/.gitignore',
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
@@ -131,7 +131,6 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/materials/material_two/render.aiff',
                 'test_project/test_project/materials/material_two/render.yml',
-                'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/renders/session-1e762e78499929b13e1e74bba37431bc.aiff',
@@ -140,6 +139,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
                 'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.aiff',
                 'test_project/test_project/renders/session-ba9c6a9479347975eec14a68dd2f4288.osc',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',

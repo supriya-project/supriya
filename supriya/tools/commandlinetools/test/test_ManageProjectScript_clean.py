@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
-from base import ProjectPackageScriptTestCase
+from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -11,21 +11,21 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material(
             'material_one',
             definition_contents=self.basic_session_template.render(
-                material_name='material_one',
+                output_section_singular='material',
                 ),
             )
         self.create_material(
             'material_two',
             definition_contents=self.basic_session_template.render(
-                material_name='material_two',
                 multiplier=0.5,
+                output_section_singular='material',
                 ),
             )
         self.create_material(
             'material_three',
             definition_contents=self.basic_session_template.render(
-                material_name='material_three',
                 multiplier=0.25,
+                output_section_singular='material',
                 ),
             )
 
@@ -43,8 +43,6 @@ class Test(ProjectPackageScriptTestCase):
             [
                 'test_project/test_project/__init__.py',
                 'test_project/test_project/assets/.gitignore',
-                'test_project/test_project/composites/.gitignore',
-                'test_project/test_project/composites/__init__.py',
                 'test_project/test_project/distribution/.gitignore',
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
@@ -61,7 +59,6 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/materials/material_two/render.aiff',
                 'test_project/test_project/materials/material_two/render.yml',
-                'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/renders/session-5ec1eb97cfc0e98291f27464546df568.aiff',
@@ -70,6 +67,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
                 'test_project/test_project/renders/session-e628a25fe369270f786d60fbbc047365.aiff',
                 'test_project/test_project/renders/session-e628a25fe369270f786d60fbbc047365.osc',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -93,8 +92,6 @@ class Test(ProjectPackageScriptTestCase):
             [
                 'test_project/test_project/__init__.py',
                 'test_project/test_project/assets/.gitignore',
-                'test_project/test_project/composites/.gitignore',
-                'test_project/test_project/composites/__init__.py',
                 'test_project/test_project/distribution/.gitignore',
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
@@ -111,9 +108,10 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/materials/material_two/render.aiff',
                 'test_project/test_project/materials/material_two/render.yml',
-                'test_project/test_project/metadata.json',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',

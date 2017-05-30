@@ -11,13 +11,13 @@ from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 class Test(ProjectPackageScriptTestCase):
 
-    def test_missing_material(self):
+    def test_missing_session(self):
         """
-        Handle missing material.
+        Handle missing session.
         """
         self.create_project()
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -25,10 +25,10 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-            No matching materials.
-        Available materials:
-            No materials available.
+        Render candidates: 'test_session' ...
+            No matching sessions.
+        Available sessions:
+            No sessions available.
         '''.replace('/', os.path.sep))
 
     def test_missing_definition(self):
@@ -36,11 +36,11 @@ class Test(ProjectPackageScriptTestCase):
         Handle missing definition.
         """
         self.create_project()
-        material_path = self.create_material('test_material')
-        definition_path = material_path.joinpath('definition.py')
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -48,14 +48,14 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-            Render candidates: 'test_material' ...
-            Rendering test_project/materials/test_material/
-                Importing test_project.materials.test_material.definition
+            Render candidates: 'test_session' ...
+            Rendering test_project/sessions/test_session/
+                Importing test_project.sessions.test_session.definition
             Traceback (most recent call last):
               File ".../ProjectPackageScript.py", line ..., in _import_path
                 return importlib.import_module(path)
               ...
-            ImportError: No module named 'test_project.materials.test_material.definition'
+            ImportError: No module named 'test_project.sessions.test_session.definition'
         '''.replace('/', os.path.sep))
 
     def test_python_cannot_render(self):
@@ -63,16 +63,16 @@ class Test(ProjectPackageScriptTestCase):
         Handle un-renderables.
         """
         self.create_project()
-        material_path = self.create_material('test_material')
-        definition_path = material_path.joinpath('definition.py')
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(stringtools.normalize(r'''
             # -*- coding: utf-8 -*-
 
-            material = None
+            session = None
             '''))
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -80,10 +80,10 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-            Render candidates: 'test_material' ...
-            Rendering test_project/materials/test_material/
-                Importing test_project.materials.test_material.definition
-                Cannot render material of type NoneType.
+            Render candidates: 'test_session' ...
+            Rendering test_project/sessions/test_session/
+                Importing test_project.sessions.test_session.definition
+                Cannot render session of type NoneType.
         '''.replace('/', os.path.sep))
 
     def test_python_error_on_render(self):
@@ -91,8 +91,8 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on __call__().
         """
         self.create_project()
-        material_path = self.create_material('test_material')
-        definition_path = material_path.joinpath('definition.py')
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(stringtools.normalize(r'''
             # -*- coding: utf-8 -*-
@@ -106,10 +106,10 @@ class Test(ProjectPackageScriptTestCase):
                     ):
                     raise TypeError('This is fake.')
 
-            material = Foo()
+            session = Foo()
             '''))
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -117,16 +117,16 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
         Traceback (most recent call last):
           File ".../commandlinetools/ProjectSectionScript.py", line ..., in _render_object
             **kwargs
           File ".../soundfiletools/render.py", line ..., in render
             **kwargs
           File
-          ".../commandlinetools/test/test_project/test_project/materials/test_material/definition.py", line ..., in __render__
+          ".../commandlinetools/test/test_project/test_project/sessions/test_session/definition.py", line ..., in __render__
             raise TypeError('This is fake.')
         TypeError: This is fake.
         '''.replace('/', os.path.sep))
@@ -136,12 +136,12 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on import.
         """
         self.create_project()
-        material_path = self.create_material('test_material')
-        definition_path = material_path.joinpath('definition.py')
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
             file_pointer.write('\n\nfailure = 1 / 0\n')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -149,23 +149,23 @@ class Test(ProjectPackageScriptTestCase):
                     script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
         Traceback (most recent call last):
           File ".../commandlinetools/ProjectPackageScript.py", line ..., in _import_path
             return importlib.import_module(path)
           ...
-          File ".../test_project/materials/test_material/definition.py", line ..., in <module>
+          File ".../test_project/sessions/test_session/definition.py", line ..., in <module>
             failure = 1 / 0
         ZeroDivisionError: division by zero
         '''.replace('/', os.path.sep))
 
     def test_supercollider_error(self):
         self.create_project()
-        self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        self.create_session('test_session')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
@@ -177,9 +177,9 @@ class Test(ProjectPackageScriptTestCase):
                         script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
@@ -192,9 +192,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_supercollider_no_output(self):
         self.create_project()
-        self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        self.create_session('test_session')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
@@ -206,9 +206,9 @@ class Test(ProjectPackageScriptTestCase):
                         script(command)
                 assert context_manager.exception.code == 1
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
@@ -219,12 +219,12 @@ class Test(ProjectPackageScriptTestCase):
             Render failed. Exiting.
         '''.replace('/', os.path.sep))
 
-    def test_success_all_materials(self):
+    def test_success_all_sessions(self):
         self.create_project()
-        self.create_material('material_one')
-        self.create_material('material_two')
-        self.create_material('material_three')
-        script = commandlinetools.ManageMaterialScript()
+        self.create_session('session_one')
+        self.create_session('session_two')
+        self.create_session('session_three')
+        script = commandlinetools.ManageSessionScript()
         command = ['--render', '*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
@@ -235,52 +235,52 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         self.compare_captured_output(r'''
         Render candidates: '*' ...
-        Rendering test_project/materials/material_one/
-            Importing test_project.materials.material_one.definition
+        Rendering test_project/sessions/session_one/
+            Importing test_project.sessions.session_one.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/material_one/render.yml.
-                Wrote test_project/materials/material_one/render.yml.
+            Writing test_project/sessions/session_one/render.yml.
+                Wrote test_project/sessions/session_one/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_one/
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
+            Rendered test_project/sessions/session_one/
+        Rendering test_project/sessions/session_three/
+            Importing test_project.sessions.session_three.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
+            Writing test_project/sessions/session_three/render.yml.
+                Wrote test_project/sessions/session_three/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        Rendering test_project/materials/material_two/
-            Importing test_project.materials.material_two.definition
+            Rendered test_project/sessions/session_three/
+        Rendering test_project/sessions/session_two/
+            Importing test_project.sessions.session_two.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_two/render.yml.
-                Wrote test_project/materials/material_two/render.yml.
+            Writing test_project/sessions/session_two/render.yml.
+                Wrote test_project/sessions/session_two/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_two/
+            Rendered test_project/sessions/session_two/
         '''.replace('/', os.path.sep))
-        assert self.materials_path.joinpath(
-            'material_one',
+        assert self.sessions_path.joinpath(
+            'session_one',
             'render.aiff',
             ).exists()
-        assert self.materials_path.joinpath(
-            'material_two',
+        assert self.sessions_path.joinpath(
+            'session_two',
             'render.aiff',
             ).exists()
-        assert self.materials_path.joinpath(
-            'material_three',
+        assert self.sessions_path.joinpath(
+            'session_three',
             'render.aiff',
             ).exists()
         assert self.sample(
-            str(self.materials_path.joinpath('material_one', 'render.aiff'))
+            str(self.sessions_path.joinpath('session_one', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -290,7 +290,7 @@ class Test(ProjectPackageScriptTestCase):
             0.99: [0.991361] * 8,
             }
         assert self.sample(
-            str(self.materials_path.joinpath('material_two', 'render.aiff'))
+            str(self.sessions_path.joinpath('session_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -300,7 +300,7 @@ class Test(ProjectPackageScriptTestCase):
             0.99: [0.991361] * 8,
             }
         assert self.sample(
-            str(self.materials_path.joinpath('material_three', 'render.aiff'))
+            str(self.sessions_path.joinpath('session_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -310,13 +310,13 @@ class Test(ProjectPackageScriptTestCase):
             0.99: [0.991361] * 8,
             }
 
-    def test_success_filtered_materials(self):
+    def test_success_filtered_sessions(self):
         self.create_project()
-        self.create_material('material_one')
-        self.create_material('material_two')
-        self.create_material('material_three')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'material_t*']
+        self.create_session('session_one')
+        self.create_session('session_two')
+        self.create_session('session_three')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'session_t*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -325,43 +325,43 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         self.compare_captured_output(r'''
-        Render candidates: 'material_t*' ...
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
+        Render candidates: 'session_t*' ...
+        Rendering test_project/sessions/session_three/
+            Importing test_project.sessions.session_three.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
+            Writing test_project/sessions/session_three/render.yml.
+                Wrote test_project/sessions/session_three/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
-        Rendering test_project/materials/material_two/
-            Importing test_project.materials.material_two.definition
+            Rendered test_project/sessions/session_three/
+        Rendering test_project/sessions/session_two/
+            Importing test_project.sessions.session_two.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. File already exists.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Skipped session-95cecb2c724619fe502164459560ba5d.osc. Output already exists.
-            Writing test_project/materials/material_two/render.yml.
-                Wrote test_project/materials/material_two/render.yml.
+            Writing test_project/sessions/session_two/render.yml.
+                Wrote test_project/sessions/session_two/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_two/
+            Rendered test_project/sessions/session_two/
         '''.replace('/', os.path.sep))
-        assert not self.materials_path.joinpath(
-            'material_one',
+        assert not self.sessions_path.joinpath(
+            'session_one',
             'render.aiff',
             ).exists()
-        assert self.materials_path.joinpath(
-            'material_two',
+        assert self.sessions_path.joinpath(
+            'session_two',
             'render.aiff',
             ).exists()
-        assert self.materials_path.joinpath(
-            'material_three',
+        assert self.sessions_path.joinpath(
+            'session_three',
             'render.aiff',
             ).exists()
         assert self.sample(
-            str(self.materials_path.joinpath('material_two', 'render.aiff'))
+            str(self.sessions_path.joinpath('session_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -371,7 +371,7 @@ class Test(ProjectPackageScriptTestCase):
             0.99: [0.991361] * 8,
             }
         assert self.sample(
-            str(self.materials_path.joinpath('material_three', 'render.aiff'))
+            str(self.sessions_path.joinpath('session_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -381,11 +381,11 @@ class Test(ProjectPackageScriptTestCase):
             0.99: [0.991361] * 8,
             }
 
-    def test_success_one_material(self):
+    def test_success_one_session(self):
         self.create_project()
-        self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'test_material']
+        self.create_session('test_session')
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -394,18 +394,18 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
         self.compare_captured_output(r'''
-        Render candidates: 'test_material' ...
-        Rendering test_project/materials/test_material/
-            Importing test_project.materials.test_material.definition
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
             Writing session-95cecb2c724619fe502164459560ba5d.osc.
                 Wrote session-95cecb2c724619fe502164459560ba5d.osc.
             Rendering session-95cecb2c724619fe502164459560ba5d.osc.
                 Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
                 Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
-            Writing test_project/materials/test_material/render.yml.
-                Wrote test_project/materials/test_material/render.yml.
+            Writing test_project/sessions/test_session/render.yml.
+                Wrote test_project/sessions/test_session/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/test_material/
+            Rendered test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
         self.compare_path_contents(
             self.inner_project_path,
@@ -416,16 +416,16 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
                 'test_project/test_project/materials/__init__.py',
-                'test_project/test_project/materials/test_material/__init__.py',
-                'test_project/test_project/materials/test_material/definition.py',
-                'test_project/test_project/materials/test_material/render.aiff',
-                'test_project/test_project/materials/test_material/render.yml',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
                 'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
                 'test_project/test_project/sessions/.gitignore',
                 'test_project/test_project/sessions/__init__.py',
+                'test_project/test_project/sessions/test_session/__init__.py',
+                'test_project/test_project/sessions/test_session/definition.py',
+                'test_project/test_project/sessions/test_session/render.aiff',
+                'test_project/test_project/sessions/test_session/render.yml',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -434,7 +434,7 @@ class Test(ProjectPackageScriptTestCase):
                 ]
             )
         assert self.sample(
-            str(self.materials_path.joinpath('test_material', 'render.aiff'))
+            str(self.sessions_path.joinpath('test_session', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
             0.21: [0.210295] * 8,
@@ -446,22 +446,22 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_chained(self):
         self.create_project()
-        self.create_material('material_one')
-        self.create_material(
-            'material_two',
+        self.create_session('session_one')
+        self.create_session(
+            'session_two',
             definition_contents=self.chained_session_template.render(
-                input_name='material_one',
-                input_section_singular='material',
-                output_section_singular='material',
+                input_name='session_one',
+                input_section_singular='session',
+                output_section_singular='session',
                 multiplier=0.5,
                 ),
             )
-        material_three_path = self.create_material(
-            'material_three',
+        session_three_path = self.create_session(
+            'session_three',
             definition_contents=self.chained_session_template.render(
-                input_name='material_two',
-                input_section_singular='material',
-                output_section_singular='material',
+                input_name='session_two',
+                input_section_singular='session',
+                output_section_singular='session',
                 multiplier=-1.0,
                 ),
             )
@@ -489,16 +489,16 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
                 'test_project/test_project/materials/__init__.py',
-                'test_project/test_project/materials/material_one/__init__.py',
-                'test_project/test_project/materials/material_one/definition.py',
-                'test_project/test_project/materials/material_three/__init__.py',
-                'test_project/test_project/materials/material_three/definition.py',
-                'test_project/test_project/materials/material_two/__init__.py',
-                'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/sessions/.gitignore',
                 'test_project/test_project/sessions/__init__.py',
+                'test_project/test_project/sessions/session_one/__init__.py',
+                'test_project/test_project/sessions/session_one/definition.py',
+                'test_project/test_project/sessions/session_three/__init__.py',
+                'test_project/test_project/sessions/session_three/definition.py',
+                'test_project/test_project/sessions/session_two/__init__.py',
+                'test_project/test_project/sessions/session_two/definition.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -506,8 +506,8 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py']
             )
 
-        script = commandlinetools.ManageMaterialScript()
-        command = ['--render', 'material_three']
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'session_three']
         with systemtools.RedirectedStreams(stdout=self.string_io):
             with systemtools.TemporaryDirectoryChange(
                 str(self.inner_project_path)):
@@ -517,9 +517,9 @@ class Test(ProjectPackageScriptTestCase):
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
         self.compare_captured_output(r'''
-        Render candidates: 'material_three' ...
-        Rendering test_project/materials/material_three/
-            Importing test_project.materials.material_three.definition
+        Render candidates: 'session_three' ...
+        Rendering test_project/sessions/session_three/
+            Importing test_project.sessions.session_three.definition
             Writing session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
                 Wrote session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
             Rendering session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc.
@@ -535,10 +535,10 @@ class Test(ProjectPackageScriptTestCase):
             Rendering session-352b87b6c1d447a5be11020a33ceadec.osc.
                 Command: scsynth -N session-352b87b6c1d447a5be11020a33ceadec.osc session-46f9bdbbd13bcf641e2a79917dcc041f.aiff session-352b87b6c1d447a5be11020a33ceadec.aiff 44100 aiff int24 -i 2 -o 2
                 Rendered session-352b87b6c1d447a5be11020a33ceadec.osc with exit code 0.
-            Writing test_project/materials/material_three/render.yml.
-                Wrote test_project/materials/material_three/render.yml.
+            Writing test_project/sessions/session_three/render.yml.
+                Wrote test_project/sessions/session_three/render.yml.
             Python/SC runtime: 0 seconds
-            Rendered test_project/materials/material_three/
+            Rendered test_project/sessions/session_three/
         ''')
 
         self.compare_path_contents(
@@ -550,14 +550,6 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/etc/.gitignore',
                 'test_project/test_project/materials/.gitignore',
                 'test_project/test_project/materials/__init__.py',
-                'test_project/test_project/materials/material_one/__init__.py',
-                'test_project/test_project/materials/material_one/definition.py',
-                'test_project/test_project/materials/material_three/__init__.py',
-                'test_project/test_project/materials/material_three/definition.py',
-                'test_project/test_project/materials/material_three/render.aiff',
-                'test_project/test_project/materials/material_three/render.yml',
-                'test_project/test_project/materials/material_two/__init__.py',
-                'test_project/test_project/materials/material_two/definition.py',
                 'test_project/test_project/project-settings.yml',
                 'test_project/test_project/renders/.gitignore',
                 'test_project/test_project/renders/session-352b87b6c1d447a5be11020a33ceadec.aiff',
@@ -568,6 +560,14 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/renders/session-aa1ca9fda49a2dd38a1a2b8a91a76cca.osc',
                 'test_project/test_project/sessions/.gitignore',
                 'test_project/test_project/sessions/__init__.py',
+                'test_project/test_project/sessions/session_one/__init__.py',
+                'test_project/test_project/sessions/session_one/definition.py',
+                'test_project/test_project/sessions/session_three/__init__.py',
+                'test_project/test_project/sessions/session_three/definition.py',
+                'test_project/test_project/sessions/session_three/render.aiff',
+                'test_project/test_project/sessions/session_three/render.yml',
+                'test_project/test_project/sessions/session_two/__init__.py',
+                'test_project/test_project/sessions/session_two/definition.py',
                 'test_project/test_project/synthdefs/.gitignore',
                 'test_project/test_project/synthdefs/__init__.py',
                 'test_project/test_project/test/.gitignore',
@@ -575,7 +575,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py']
             )
 
-        render_yml_file_path = material_three_path / 'render.yml'
+        render_yml_file_path = session_three_path / 'render.yml'
         with open(str(render_yml_file_path), 'r') as file_pointer:
             render_yml = yaml.load(file_pointer.read())
         assert render_yml == {
@@ -586,22 +586,93 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             }
 
-        material_three_render_sample = self.sample(
-            str(material_three_path / 'render.aiff'),
+        session_three_render_sample = self.sample(
+            str(session_three_path / 'render.aiff'),
             rounding=2,
             )
 
-        material_three_source_sample = self.sample(
+        session_three_source_sample = self.sample(
             str(self.renders_path / '{}.aiff'.format(render_yml['render'])),
             rounding=2,
             )
 
-        assert material_three_render_sample == material_three_source_sample
-        assert material_three_render_sample == {
+        assert session_three_render_sample == session_three_source_sample
+        assert session_three_render_sample == {
             0.0: [-0.0, -0.0],
             0.21: [-0.11, -0.11],
             0.41: [-0.21, -0.21],
             0.61: [-0.31, -0.31],
             0.81: [-0.41, -0.41],
             0.99: [-0.5, -0.5],
+            }
+
+    def test_session_factory(self):
+        """
+        Handle session factories implemented with __session__().
+        """
+        self.create_project()
+        session_path = self.create_session('test_session')
+        definition_path = session_path.joinpath('definition.py')
+        with open(str(definition_path), 'w') as file_pointer:
+            file_pointer.write(self.session_factory_template.render(
+                output_section_singular='session',
+                ))
+        script = commandlinetools.ManageSessionScript()
+        command = ['--render', 'test_session']
+        with systemtools.RedirectedStreams(stdout=self.string_io):
+            with systemtools.TemporaryDirectoryChange(
+                str(self.inner_project_path)):
+                try:
+                    script(command)
+                except SystemExit as e:
+                    raise RuntimeError('SystemExit: {}'.format(e.code))
+        self.compare_captured_output(r'''
+        Render candidates: 'test_session' ...
+        Rendering test_project/sessions/test_session/
+            Importing test_project.sessions.test_session.definition
+            Writing session-95cecb2c724619fe502164459560ba5d.osc.
+                Wrote session-95cecb2c724619fe502164459560ba5d.osc.
+            Rendering session-95cecb2c724619fe502164459560ba5d.osc.
+                Command: scsynth -N session-95cecb2c724619fe502164459560ba5d.osc _ session-95cecb2c724619fe502164459560ba5d.aiff 44100 aiff int24
+                Rendered session-95cecb2c724619fe502164459560ba5d.osc with exit code 0.
+            Writing test_project/sessions/test_session/render.yml.
+                Wrote test_project/sessions/test_session/render.yml.
+            Python/SC runtime: 0 seconds
+            Rendered test_project/sessions/test_session/
+        '''.replace('/', os.path.sep))
+        self.compare_path_contents(
+            self.inner_project_path,
+            [
+                'test_project/test_project/__init__.py',
+                'test_project/test_project/assets/.gitignore',
+                'test_project/test_project/distribution/.gitignore',
+                'test_project/test_project/etc/.gitignore',
+                'test_project/test_project/materials/.gitignore',
+                'test_project/test_project/materials/__init__.py',
+                'test_project/test_project/project-settings.yml',
+                'test_project/test_project/renders/.gitignore',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.aiff',
+                'test_project/test_project/renders/session-95cecb2c724619fe502164459560ba5d.osc',
+                'test_project/test_project/sessions/.gitignore',
+                'test_project/test_project/sessions/__init__.py',
+                'test_project/test_project/sessions/test_session/__init__.py',
+                'test_project/test_project/sessions/test_session/definition.py',
+                'test_project/test_project/sessions/test_session/render.aiff',
+                'test_project/test_project/sessions/test_session/render.yml',
+                'test_project/test_project/synthdefs/.gitignore',
+                'test_project/test_project/synthdefs/__init__.py',
+                'test_project/test_project/test/.gitignore',
+                'test_project/test_project/tools/.gitignore',
+                'test_project/test_project/tools/__init__.py',
+                ]
+            )
+        assert self.sample(
+            str(self.sessions_path.joinpath('test_session', 'render.aiff'))
+            ) == {
+            0.0:  [2.3e-05] * 8,
+            0.21: [0.210295] * 8,
+            0.41: [0.410567] * 8,
+            0.61: [0.610839] * 8,
+            0.81: [0.811111] * 8,
+            0.99: [0.991361] * 8,
             }

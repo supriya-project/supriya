@@ -4,6 +4,8 @@ import pathlib
 import shutil
 import struct
 import subprocess
+import sys
+import tqdm
 import yaml
 from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya.tools import servertools
@@ -39,6 +41,7 @@ class SessionRenderer(SupriyaObject):
         '_transcript',
         '_transcript_prefix',
         '_trellis',
+        '_sessionables_to_sessions',
         )
 
     ### INITIALIZER ###
@@ -117,7 +120,6 @@ class SessionRenderer(SupriyaObject):
         for value in hash_values:
             if not isinstance(value, str):
                 value = str(value)
-            #print('    ' + value)
             value = value.encode()
             md5.update(value)
         md5 = md5.hexdigest()
@@ -172,6 +174,7 @@ class SessionRenderer(SupriyaObject):
             for osc_message in osc_bundle.contents:
                 contents = list(osc_message.contents)
                 for i, x in enumerate(contents):
+                    x = self._sessionable_to_session(x)
                     try:
                         if x not in self.renderable_prefixes:
                             continue
@@ -185,6 +188,7 @@ class SessionRenderer(SupriyaObject):
     def _build_trellis_and_nonxrefd_osc_bundles_conditionally(
         self, expr, parent):
         from supriya.tools import nonrealtimetools
+        expr = self._sessionable_to_session(expr)
         if isinstance(expr, nonrealtimetools.Session):
             if expr not in self.trellis:
                 self._build_trellis_and_nonxrefd_osc_bundles(expr)
@@ -196,6 +200,7 @@ class SessionRenderer(SupriyaObject):
         input_ = session.input_
         if isinstance(input_, str):
             input_ = pathlib.Path(input_)
+        input_ = self._sessionable_to_session(input_)
         non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
         self.compiled_sessions[session] = input_, non_xrefd_bundles
         if session is self.session:
@@ -210,6 +215,37 @@ class SessionRenderer(SupriyaObject):
 
     def _call_subprocess(self, command):
         return subprocess.call(command, shell=True)
+
+    def _stream_subprocess(self, command, session_duration):
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            )
+        previous_value = 0
+        progress_bar = tqdm.tqdm(
+            bar_format=(
+                ),
+            total=int(session_duration * 1000),
+            unit='ms',
+            )
+        with progress_bar:
+            while True:
+                output = process.stdout.readline()
+                if not output:
+                    if process.poll() is not None:
+                        break
+                    continue
+                output = output.decode().strip()
+                if output.startswith('nextOSCPacket'):
+                    current_value = int(float(output.split()[-1]) * 1000)
+                    difference = current_value - previous_value
+                    progress_bar.update(difference)
+                    previous_value = current_value
+                elif output.startswith('FAILURE'):
+                    progress_bar.write(output)
+        return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
         from supriya.tools import nonrealtimetools
@@ -267,18 +303,29 @@ class SessionRenderer(SupriyaObject):
             self._report('    Skipped {}. Output already exists.'.format(
                 relative_session_osc_file_path))
             return 0
-        old_server_options = session._options
-        new_server_options = new(old_server_options, **kwargs)
-        command = self._build_render_command(
-            input_file_path,
-            output_file_path,
-            session_osc_file_path,
-            server_options=new_server_options,
-            )
-        self._report('    Command: {}'.format(command))
-        exit_code = self._call_subprocess(command)
-        self._report('    Rendered {} with exit code {}.'.format(
-            relative_session_osc_file_path, exit_code))
+        server_options = session._options
+        server_options = new(server_options, **kwargs)
+        memory_size = server_options.memory_size
+        for factor in range(1, 4):
+            command = self._build_render_command(
+                input_file_path,
+                output_file_path,
+                session_osc_file_path,
+                server_options=server_options,
+                )
+            self._report('    Command: {}'.format(command))
+            exit_code = self._stream_subprocess(command, session.duration)
+            server_options = new(
+                server_options,
+                memory_size=memory_size * (2**factor),
+                )
+            if exit_code == -6:
+                self._report('    Out of memory. Increasing to {}.'.format(
+                    server_options.memory_size))
+            else:
+                self._report('    Rendered {} with exit code {}.'.format(
+                    relative_session_osc_file_path, exit_code))
+                break
         return exit_code
 
     def _read(self, file_path, mode=''):
@@ -302,6 +349,14 @@ class SessionRenderer(SupriyaObject):
         self._renderable_prefixes = {}
         self._trellis = Trellis()
         self._session_input_paths = {}
+        self._sessionables_to_sessions = {}
+
+    def _sessionable_to_session(self, expr):
+        if hasattr(expr, '__session__'):
+            if expr not in self._sessionables_to_sessions:
+                self._sessionables_to_sessions[expr] = expr.__session__()
+            return self._sessionables_to_sessions[expr]
+        return expr
 
     def _write_datagram(self, file_path, new_contents):
         self._write(file_path, new_contents, mode='b')
@@ -390,18 +445,25 @@ class SessionRenderer(SupriyaObject):
                     osc_file_path = renderable_prefix.with_suffix('.osc')
                     input_file_path = self.session_input_paths.get(session)
                     self._write_datagram(osc_file_path, datagram)
-                    exit_code = self._render_datagram(
-                        session,
-                        input_file_path,
-                        output_file_path,
-                        osc_file_path,
-                        **kwargs
-                        )
+                    try:
+                        exit_code = self._render_datagram(
+                            session,
+                            input_file_path,
+                            output_file_path,
+                            osc_file_path,
+                            **kwargs
+                            )
+                    except:
+                        output_file_path.unlink()
+                        sys.exit(1)
                     if exit_code:
                         self._report('    SuperCollider errored!')
                         raise NonrealtimeRenderError(exit_code)
                 else:
-                    renderable.__render__(output_file_path=output_file_path)
+                    renderable.__render__(
+                        output_file_path=output_file_path,
+                        print_transcript=self.print_transcript,
+                        )
         output_file_path = self.render_directory_path / output_file_path
         if not output_file_path.exists():
             self._report('    Output file is missing!')
