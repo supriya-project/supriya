@@ -460,7 +460,10 @@ class SessionRenderer(SupriyaObject):
                         self._report('    SuperCollider errored!')
                         raise NonrealtimeRenderError(exit_code)
                 else:
-                    renderable.__render__(output_file_path=output_file_path)
+                    renderable.__render__(
+                        output_file_path=output_file_path,
+                        print_transcript=self.print_transcript,
+                        )
         output_file_path = self.render_directory_path / output_file_path
         if not output_file_path.exists():
             self._report('    Output file is missing!')

@@ -40,23 +40,38 @@ class Say(SupriyaValueObject):
         self,
         output_file_path=None,
         render_directory_path=None,
+        print_transcript=None,
         ):
         output_file_path = self._build_output_file_path(
             output_file_path=output_file_path,
             render_directory_path=render_directory_path,
             )
         assert output_file_path.parent.exists()
+        if output_file_path.is_absolute():
+            cwd = pathlib.Path.cwd()
+            try:
+                relative_file_path = output_file_path.relative_to(cwd)
+            except ValueError:
+                relative_file_path = output_file_path
+        if print_transcript:
+            print('    Rendering {}'.format(relative_file_path))
         if output_file_path.exists():
-            #print('Skipping {}'.format(output_file_path))
-            return
+            if print_transcript:
+                print('        Skipping {}. File already exists.'.format(
+                    relative_file_path))
+            return output_file_path
         command_parts = ['say']
-        command_parts.extend(['-o', str(output_file_path)])
+        command_parts.extend(['-o', str(relative_file_path)])
         if self.voice:
             command_parts.extend(['-v', self.voice])
         command_parts.append(shlex.quote(self.text))
         command = ' '.join(command_parts)
-        print(command)
+        if print_transcript:
+            print('        Command: {}'.format(command))
         exit_code = subprocess.call(command, shell=True)
+        if print_transcript:
+            print('        Rendered {} with exit code {}.'.format(
+                relative_file_path, exit_code))
         if exit_code:
             raise RuntimeError
         return output_file_path
