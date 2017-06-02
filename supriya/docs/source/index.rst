@@ -22,6 +22,17 @@ Quickstart
 
 ..  include:: quick-example.txt
 
+Topics
+------
+
+..  toctree::
+
+    core-concepts
+    realtime
+    nonrealtime
+    synthdefs
+    patterns
+
 Supriya API
 -----------
 
