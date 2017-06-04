@@ -132,6 +132,8 @@ class MidiDispatcher(SupriyaObject):
         callback_pairs = []
         with self.lock:
             callbacks = self.collect_callbacks(message)
+            if self.debug:
+                print('CALLBACKS', callbacks)
             for callback in callbacks:
                 callback_pairs.append((callback, message))
                 if callback.is_one_shot:

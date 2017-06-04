@@ -20,7 +20,7 @@ class MidiDevice(SupriyaObject):
         ):
         from supriya.tools import miditools
         self._midi_controllers = midi_controllers
-        self._midi_dispatcher = miditools.MidiDispatcher(debug=True)
+        self._midi_dispatcher = miditools.MidiDispatcher(debug=False)
         for midi_controller in self._midi_controllers.values():
             self._midi_dispatcher.register_callback(midi_controller)
 

@@ -64,6 +64,13 @@ class MidiController(MidiCallback, BindingSource):
             self._on_change._send_bound_event(value)
         self._previous_value = value
 
+    ### PRIVATE PROPERTIES ###
+
+    @property
+    def _range(self):
+        from supriya.tools import synthdeftools
+        return synthdeftools.Range(0, 127)
+
     ### PUBLIC PROPERTIES ###
 
     @property
