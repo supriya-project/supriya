@@ -11,9 +11,9 @@ class GrainIn(MultiOutUGen):
         >>> grain_in = ugentools.GrainIn.ar(
         ...     channel_count=1,
         ...     duration=1,
-        ...     envbufnum=-1,
-        ...     max_grains=512,
-        ...     pan=0,
+        ...     envelope_buffer_id=-1,
+        ...     maximum_overlap=512,
+        ...     position=0,
         ...     source=source,
         ...     trigger=0,
         ...     )
@@ -29,13 +29,12 @@ class GrainIn(MultiOutUGen):
     __slots__ = ()
 
     _ordered_input_names = (
-        'channel_count',
         'trigger',
         'duration',
         'source',
-        'pan',
-        'envbufnum',
-        'max_grains',
+        'position',
+        'envelope_buffer_id',
+        'maximum_overlap',
         )
 
     _valid_calculation_rates = None
@@ -47,9 +46,9 @@ class GrainIn(MultiOutUGen):
         calculation_rate=None,
         channel_count=1,
         duration=1,
-        envbufnum=-1,
-        max_grains=512,
-        pan=0,
+        envelope_buffer_id=-1,
+        maximum_overlap=512,
+        position=0,
         source=None,
         trigger=0,
         ):
@@ -58,9 +57,9 @@ class GrainIn(MultiOutUGen):
             calculation_rate=calculation_rate,
             channel_count=channel_count,
             duration=duration,
-            envbufnum=envbufnum,
-            max_grains=max_grains,
-            pan=pan,
+            envelope_buffer_id=envelope_buffer_id,
+            maximum_overlap=maximum_overlap,
+            position=position,
             source=source,
             trigger=trigger,
             )
@@ -72,9 +71,9 @@ class GrainIn(MultiOutUGen):
         cls,
         channel_count=1,
         duration=1,
-        envbufnum=-1,
-        max_grains=512,
-        pan=0,
+        envelope_buffer_id=-1,
+        maximum_overlap=512,
+        position=0,
         source=None,
         trigger=0,
         ):
@@ -87,9 +86,9 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
@@ -104,9 +103,9 @@ class GrainIn(MultiOutUGen):
             calculation_rate=calculation_rate,
             channel_count=channel_count,
             duration=duration,
-            envbufnum=envbufnum,
-            max_grains=max_grains,
-            pan=pan,
+            envelope_buffer_id=envelope_buffer_id,
+            maximum_overlap=maximum_overlap,
+            position=position,
             source=source,
             trigger=trigger,
             )
@@ -115,31 +114,6 @@ class GrainIn(MultiOutUGen):
     # def newFromDesc(): ...
 
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def channel_count(self):
-        """
-        Gets `channel_count` input of GrainIn.
-
-        ::
-
-            >>> source = ugentools.In.ar(bus=0)
-            >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
-            ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
-            ...     source=source,
-            ...     trigger=0,
-            ...     )
-            >>> grain_in.channel_count
-            1.0
-
-        Returns ugen input.
-        """
-        index = self._ordered_input_names.index('channel_count')
-        return self._inputs[index]
 
     @property
     def duration(self):
@@ -152,9 +126,9 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
@@ -167,9 +141,9 @@ class GrainIn(MultiOutUGen):
         return self._inputs[index]
 
     @property
-    def envbufnum(self):
+    def envelope_buffer_id(self):
         """
-        Gets `envbufnum` input of GrainIn.
+        Gets `envelope_buffer_id` input of GrainIn.
 
         ::
 
@@ -177,24 +151,24 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.envbufnum
+            >>> grain_in.envelope_buffer_id
             -1.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('envbufnum')
+        index = self._ordered_input_names.index('envelope_buffer_id')
         return self._inputs[index]
 
     @property
-    def max_grains(self):
+    def maximum_overlap(self):
         """
-        Gets `max_grains` input of GrainIn.
+        Gets `maximum_overlap` input of GrainIn.
 
         ::
 
@@ -202,24 +176,24 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.max_grains
+            >>> grain_in.maximum_overlap
             512.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('max_grains')
+        index = self._ordered_input_names.index('maximum_overlap')
         return self._inputs[index]
 
     @property
-    def pan(self):
+    def position(self):
         """
-        Gets `pan` input of GrainIn.
+        Gets `position` input of GrainIn.
 
         ::
 
@@ -227,18 +201,18 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.pan
+            >>> grain_in.position
             0.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('pan')
+        index = self._ordered_input_names.index('position')
         return self._inputs[index]
 
     @property
@@ -252,9 +226,9 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
@@ -284,9 +258,9 @@ class GrainIn(MultiOutUGen):
             >>> grain_in = ugentools.GrainIn.ar(
             ...     channel_count=1,
             ...     duration=1,
-            ...     envbufnum=-1,
-            ...     max_grains=512,
-            ...     pan=0,
+            ...     envelope_buffer_id=-1,
+            ...     maximum_overlap=512,
+            ...     position=0,
             ...     source=source,
             ...     trigger=0,
             ...     )
