@@ -197,6 +197,12 @@ class Server(SupriyaObject):
         self.sync()
         self.quit()
 
+    def __getitem__(self, item):
+        result = self.root_node[item]
+        if isinstance(result, set) and len(result) == 1:
+            return tuple(result)[0]
+        return result
+
     def __graph__(self):
         def recurse(graph, parent_graphviz_node, parent_server_node):
             if not isinstance(parent_server_node, servertools.Group):
