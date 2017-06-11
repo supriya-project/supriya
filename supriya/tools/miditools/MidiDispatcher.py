@@ -13,6 +13,7 @@ class MidiDispatcher(SupriyaObject):
         '_debug',
         '_lock',
         '_midi_in',
+        '_midi_out',
         )
 
     ### CLASS VARIABLES ###
@@ -23,6 +24,7 @@ class MidiDispatcher(SupriyaObject):
         self._debug = bool(debug)
         self._lock = threading.RLock()
         self._midi_in = rtmidi.MidiIn()
+        self._midi_out = rtmidi.MidiOut()
         self._midi_in.ignore_types(
             active_sense=True,
             sysex=True,
@@ -141,14 +143,22 @@ class MidiDispatcher(SupriyaObject):
         for callback, x in callback_pairs:
             callback(x)
 
-    def list_ports(self):
-        return self._midi_in.ports
+    def get_ports(self):
+        return self._midi_in.get_ports()
+
+    def get_port_count(self):
+        return self._midi_in.get_port_count()
+
+    def get_port_name(self, port_number):
+        return self._midi_in.get_port_name()
 
     def open_port(self, port=None, virtual=False):
         if virtual:
             self._midi_in.open_virtual_port()
+            self._midi_out.open_virtual_port()
         else:
             self._midi_in.open_port(port)
+            self._midi_out.open_port(port)
 
     def register_callback(self, callback):
         assert isinstance(callback, self.callback_class)

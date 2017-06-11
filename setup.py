@@ -5,31 +5,26 @@ import sys
 import setuptools
 from distutils.version import StrictVersion
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
-
 install_requires = [
     'PyYAML',
+    'abjad==2.19',
     'cython',
-    'abjad>=2.19',
-    'pytest>=3.0.0',
+    'numpy',
     'pytest-timeout>=1.2.0',
+    'pytest>=3.0.0',
+    'python-rtmidi',
     'six',
     'sphinx>=1.5.0',
     'sphinx_rtd_theme',
     'tornado',
     'tox',
     'tqdm',
+    'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
 if StrictVersion(version) < StrictVersion('3.4.0'):
     install_requires.append('enum34')
     install_requires.append('pathlib2')
-if not on_rtd:
-    install_requires.extend([
-        'numpy',
-        'python-rtmidi',
-        'wavefile',
-        ])
 
 with open('README.rst', 'r') as file_pointer:
     long_description = file_pointer.read()

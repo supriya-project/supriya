@@ -80,8 +80,14 @@ class MidiDevice(SupriyaObject):
     def close_port(self):
         self._midi_dispatcher.close_port()
 
-    def list_ports(self):
-        return self._midi_dispatcher.list_ports()
+    def get_ports(self):
+        return self._midi_dispatcher.get_ports()
+
+    def get_port_count(self):
+        return self._midi_dispatcher.get_port_count()
+
+    def get_port_name(self, port_number):
+        return self._midi_dispatcher.get_port_name()
 
     def open_port(self, port=None):
         port = port or 0
