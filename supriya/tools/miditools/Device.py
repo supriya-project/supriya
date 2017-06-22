@@ -140,7 +140,7 @@ class Device:
             timing=True,
             )
         self._midi_in.set_callback(self.__call__)
-        self._choose_mode(1)
+        self._choose_mode(2)
         # TODO: mount logical controls in order to set LEDs
         #self._logical_manifest = LogicalManifest(self)
         mapping = self.logical_manifest.rebuild_visibility_mapping()
