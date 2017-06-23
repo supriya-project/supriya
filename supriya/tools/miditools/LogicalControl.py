@@ -27,7 +27,7 @@ class LogicalControl(object):
             'name={}'.format(self.name),
             'mode={}'.format(self.mode.name.lower()),
             'pc={}'.format(self.physical_control.name),
-            'value={}'.format(self.value),
+            'value={}'.format(round(self.value, 6)),
             ]
         return '<{}>'.format(' '.join(parts))
 
