@@ -21,14 +21,15 @@ class LogicalControl(object):
         self.value = 0.
         self.previous_value = 0.
 
-    def __str__(self):
-        parts = [type(self).__name__]
-        for key in ('name', 'mode'):
-            value = str(getattr(self, key)).lower()
-            parts.append('{}={}'.format(key, value))
-        parts.append('physical_control={}'.format(self.physical_control.name))
-        result = '<{}>'.format(' '.join(parts))
-        return result
+    def debug(self, only_visible=None):
+        parts = [
+            'LC',
+            'name={}'.format(self.name),
+            'mode={}'.format(self.mode.name.lower()),
+            'pc={}'.format(self.physical_control.name),
+            'value={}'.format(self.value),
+            ]
+        return '<{}>'.format(' '.join(parts))
 
     def mount(self):
         if self.mode in (self.Mode.CONTINUOUS, self.Mode.TOGGLE):
@@ -39,7 +40,7 @@ class LogicalControl(object):
     def unmount(self):
         if (
             self.mode == self.Mode.CONTINUOUS and
-            self.physical_control.mode == self.physical_control.Mode.BOOOLEAN
+            self.physical_control.mode == self.physical_control.Mode.BOOLEAN
             ):
             self.previous_value = self.value
             self.value = 0.

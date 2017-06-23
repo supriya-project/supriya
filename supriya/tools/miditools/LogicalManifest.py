@@ -13,8 +13,6 @@ class LogicalManifest:
         device_manifest = self._device._device_manifest['device']
         manifest = device_manifest['logical_controls']
         self._node_templates = self._linearize_manifest(manifest)
-        for key, value in self._node_templates.items():
-            print(key, value)
         self._node_instances = {}
         self._node_instances['root'] = [View(name='root')]
         self._dependents = {}

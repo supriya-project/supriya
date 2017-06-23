@@ -1,7 +1,7 @@
 device:
   port_name: Akai APC40
   on_startup:
-    - [0xF0, 0x47, 0x1, 0x73, 0x60, 0x0, 0x4, 0x41, 0x1, 0x1, 0x1, 0xF7]
+    - [0xF0, 0x47, 0x1, 0x73, 0x60, 0x0, 0x4, 0x42, 0x1, 0x1, 0x1, 0xF7]
   defaults:
     boolean_polarity: [0, 127]
     boolean_led_polarity: [127, 0]
@@ -25,20 +25,19 @@ device:
       mode: boolean
       note: 0x5E
     - name: clip_launch
-      has_led: true
       channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      has_led: true
       mode: boolean
       note: [0x35, 0x36, 0x37, 0x38, 0x39]
     - name: clip_stop
-      has_led: true
       channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      has_led: true
       mode: boolean
       note: 0x34
     - name: crossfader
       controller: 0x0F
       mode: continuous
     - name: device_control
-      automatable: true
       controller: [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17]
       has_led: true
       mode: continuous
@@ -129,7 +128,6 @@ device:
       mode: boolean
       note: 0x63
     - name: track_control
-      automatable: true
       controller: [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37]
       has_led: true
       mode: continuous

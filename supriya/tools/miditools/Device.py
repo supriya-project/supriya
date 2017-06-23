@@ -1,3 +1,4 @@
+import logging
 import pathlib
 import rtmidi
 import threading
@@ -8,12 +9,19 @@ from supriya.tools.miditools.LogicalManifest import LogicalManifest
 from supriya.tools.miditools.PhysicalManifest import PhysicalManifest
 
 
+logging.basicConfig(
+    format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s',
+    level='DEBUG',
+    )
+
+
 class Device:
 
     # TODO: integrate logging
 
-    def __init__(self, manifest_path):
+    def __init__(self, manifest_path, logger=None):
         import supriya
+        self._logger = logger or logging.getLogger(type(self).__name__)
         manifest_path = pathlib.Path(manifest_path)
         if not manifest_path.suffix:
             manifest_path = manifest_path.with_suffix('.yml')
@@ -34,17 +42,17 @@ class Device:
 
     ### SPECIAL METHODS ###
 
-    def __call__(self, message, timestamp):
+    def __call__(self, message, timestamp=None):
+        if timestamp is None:
+            message, timestamp = message
+        self.logger.debug('MIDI I: 0x{}'.format(bytearray(message).hex()))
         with self._lock:
             physical_control, value = self.physical_manifest(message, timestamp)
-            print('P', physical_control.name, value)
-            # Is there a logical control?
             logical_control = self.logical_manifest.visibility_mapping.get(
                 physical_control)
             if not logical_control:
                 return
             if logical_control.parent.mode == View.Mode.MUTEX and value:
-                print('L', 'MUTEX', logical_control.name)
                 new_logical_control = logical_control
                 mutex_controls = tuple(
                     logical_control.parent.children.values()
@@ -56,41 +64,41 @@ class Device:
                         control.physical_control.set_led(0)
                 old_logical_control = [
                     control for control in mutex_controls
-                    if control.value == 1
+                    if control.value == 1.0
                     ][0]
                 if old_logical_control is new_logical_control:
                     return
 
-                #old_mapping = self.logical_manifest.rebuild_visibility_mapping()
-                #for dependent in self.logical_manifest.dependents.get(
-                #    old_logical_control, []):
-                #    dependent.visible = False
-                old_logical_control.value = 0
+                lm = self.logical_manifest
 
-                new_logical_control.value = 1
-                #for dependent in self.logical_manifest.dependents.get(
-                #    logical_control, []):
-                #    dependent.visible = True
-                #new_mapping = self.logical_manifest.rebuild_visibility_mapping()
+                old_mapping = set(lm.rebuild_visibility_mapping().values())
+                for dependent in self.logical_manifest.dependents.get(
+                    old_logical_control, []):
+                    dependent.visible = False
+                old_logical_control.value = 0.0
 
-                #for logical_control in old_mapping - new_mapping:
-                #    logical_control.unmount()
+                new_logical_control.value = 1.0
+                for dependent in self.logical_manifest.dependents.get(
+                    logical_control, []):
+                    dependent.visible = True
+                new_mapping = set(lm.rebuild_visibility_mapping().values())
 
-                #for logical_control in new_mapping - old_mapping:
-                #    logical_control.mount()
+                for logical_control in old_mapping - new_mapping:
+                    logical_control.unmount()
 
-                # - transmit value
+                for logical_control in new_mapping - old_mapping:
+                    logical_control.mount()
+
             elif logical_control.mode == LogicalControl.Mode.TOGGLE and value:
-                print('L', 'TOGGLE', logical_control.name)
                 value = 1 - logical_control.value
                 logical_control.value = value
                 logical_control.physical_control.set_led(value * 127)
+
             elif logical_control.mode == LogicalControl.Mode.TRIGGER and value:
-                print('L', 'TRIGGER', logical_control.name)
                 logical_control.physical_control.set_led(value * 127)
                 value = None
+
             elif logical_control.mode == LogicalControl.Mode.CONTINUOUS:
-                print('L', 'CONTINUOUS', logical_control.name)
                 logical_control.physical_control.set_led(value * 127)
                 logical_control.value = value
 
@@ -104,13 +112,14 @@ class Device:
             0xF0, 0x47, 0x1, 0x73, 0x60, 0x0,
             0x4, modes[mode], 0x1, 0x1, 0x1, 0xF7,
             ]
-        self._midi_out.send_message(message)
+        self.send_message(message)
 
     ### PUBLIC METHODS ###
 
     def close_port(self):
         self._midi_in.close_port()
         self._midi_out.close_port()
+        self.logger.info('Closed port.')
         return self
 
     def get_ports(self):
@@ -123,15 +132,16 @@ class Device:
         return self._midi_in.get_port_name()
 
     def open_port(self, port=None, virtual=False):
-        if port is None:
-            port_names = self.get_ports()
-            akai_name = 'Akai APC40'
-            assert akai_name in port_names
-            port = port_names.index(akai_name)
+        self.logger.info('Opening port {}'.format(port))
         if virtual:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
+            if port is None:
+                port_names = self.get_ports()
+                akai_name = 'Akai APC40'
+                assert akai_name in port_names
+                port = port_names.index(akai_name)
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(
@@ -140,9 +150,9 @@ class Device:
             timing=True,
             )
         self._midi_in.set_callback(self.__call__)
-        self._choose_mode(2)
-        # TODO: mount logical controls in order to set LEDs
-        #self._logical_manifest = LogicalManifest(self)
+        #self._choose_mode(2)
+        for message in self._device_manifest['device'].get('on_startup', []):
+            self.send_message(message)
         mapping = self.logical_manifest.rebuild_visibility_mapping()
         for logical_control in mapping.values():
             logical_control.mount()
@@ -150,8 +160,13 @@ class Device:
 
     def send_message(self, message):
         self._midi_out.send_message(message)
+        self.logger.debug('MIDI O: 0x{}'.format(bytearray(message).hex()))
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def logger(self):
+        return self._logger
 
     @property
     def logical_manifest(self):

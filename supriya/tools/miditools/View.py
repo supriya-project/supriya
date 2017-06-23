@@ -24,20 +24,29 @@ class View(object):
     def __getitem__(self, item):
         return self.children[item]
 
-    def __str__(self):
-        parts = [type(self).__name__]
-        for key in ('name', 'mode', 'visible'):
-            value = str(getattr(self, key)).lower()
-            parts.append('{}={}'.format(key, value))
-        result = '<{}>'.format(' '.join(parts))
-        result = [result]
-        for child in self.children.values():
-            result.extend('    ' + _ for _ in str(child).split('\n'))
-        return '\n'.join(result)
-
     def add_child(self, child):
         self.children[child.name] = child
         child.parent = self
+
+    def debug(self, only_visible=None):
+        parts = [
+            'V',
+            'name={}'.format(self.name),
+            'mode={}'.format(self.mode.name.lower()),
+            'visible={}'.format(str(self.visible).lower()),
+            ]
+        result = '<{}>'.format(' '.join(parts))
+        result = [result]
+        for child in self.children.values():
+            if (
+                only_visible and
+                hasattr(child, 'visible') and
+                not child.visible
+                ):
+                continue
+            child_debug = child.debug(only_visible=only_visible)
+            result.extend('    ' + _ for _ in child_debug.split('\n'))
+        return '\n'.join(result)
 
     def yield_visible_controls(self):
         if not self.visible:

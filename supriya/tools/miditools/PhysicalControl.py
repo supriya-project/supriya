@@ -46,11 +46,12 @@ class PhysicalControl:
         self.device.send_message(message)
 
     def handle_incoming_value(self, value):
-        if self.mode == self.Mode.BOOLEAN and self.boolean_polarity:
-            if value == 127:
-                value = self.boolean_polarity[0]
-            else:
-                value = self.boolean_polarity[1]
+        if self.mode == self.Mode.BOOLEAN:
+            if self.boolean_polarity:
+                if value == 127:
+                    value = self.boolean_polarity[0]
+                else:
+                    value = self.boolean_polarity[1]
             value = float(value == 127)
         elif self.mode == self.Mode.CONTINUOUS:
             value /= 127
