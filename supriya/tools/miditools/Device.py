@@ -35,6 +35,9 @@ class Device:
         self._midi_out = rtmidi.MidiOut()
         with open(str(manifest_path)) as file_pointer:
             self._device_manifest = yaml.load(file_pointer)
+        self._physical_controls = {}
+        self._physical_controls_by_group = {}
+        self._physical_controls_by_command = {}
         self._initialize_physical_controls()
         self._logical_manifest = LogicalManifest(self)
 
@@ -51,17 +54,13 @@ class Device:
     ### PRIVATE METHODS ###
 
     def _get_controls_by_name(self, name):
-        if name in self.controls_by_group:
-            return self.controls_by_group[name]
-        elif name in self.controls:
-            return [self.controls[name]]
+        if name in self.physical_controls_by_group:
+            return self.physical_controls_by_group[name]
+        elif name in self.physical_controls:
+            return [self.physical_controls[name]]
         raise KeyError
 
     def _initialize_physical_controls(self):
-        from supriya.tools import miditools
-        self._controls = {}
-        self._controls_by_group = {}
-        self._controls_by_command = {}
         device_manifest = self._device_manifest['device']
         manifest = device_manifest['physical_controls']
         defaults = device_manifest.get('defaults', {})
@@ -97,12 +96,10 @@ class Device:
                         value_index=value_index,
                         channel_index=channel_index,
                         )
-                    control = PhysicalControl(
-                        self,
+                    self._add_physical_control(
                         control_name,
                         message_type,
                         message_value,
-                        automatable=spec.get('automatable', False),
                         boolean_led_polarity=spec.get('boolean_led_polarity'),
                         boolean_polarity=spec.get('boolean_polarity'),
                         channel=channel,
@@ -110,17 +107,45 @@ class Device:
                         has_led=spec.get('has_led', False),
                         mode=spec['mode'],
                         )
-                    self._controls[control_name] = control
-                    self._controls_by_group.setdefault(
-                        spec['name'], []).append(control)
-                    if message_type == 'note':
-                        message_class = miditools.NoteOnMessage
-                    elif message_type == 'controller':
-                        message_class = miditools.ControllerChangeMessage
-                    else:
-                        raise Exception
-                    key = (message_class, channel, message_value)
-                    self._controls_by_command[key] = control
+
+    def _add_physical_control(
+        self,
+        control_name,
+        message_type,
+        message_value,
+        boolean_led_polarity=None,
+        boolean_polarity=None,
+        channel=None,
+        group_name=None,
+        has_led=None,
+        mode=None,
+        ):
+        from supriya.tools import miditools
+        assert control_name not in self._physical_controls
+        physical_control = PhysicalControl(
+            self,
+            control_name,
+            message_type,
+            message_value,
+            boolean_led_polarity=boolean_led_polarity,
+            boolean_polarity=boolean_polarity,
+            channel=channel,
+            group_name=group_name,
+            has_led=has_led,
+            mode=mode,
+            )
+        self._physical_controls[control_name] = physical_control
+        self._physical_controls_by_group.setdefault(
+            group_name, []).append(physical_control)
+        if message_type == 'note':
+            message_class = miditools.NoteOnMessage
+        elif message_type == 'controller':
+            message_class = miditools.ControllerChangeMessage
+        else:
+            raise Exception
+        key = (message_class, channel, message_value)
+        self._physical_controls_by_command[key] = physical_control
+        return physical_control
 
     def _process_one(self, message, timestamp):
         from supriya.tools import miditools
@@ -141,7 +166,7 @@ class Device:
         else:
             raise Exception(message)
         key = (message_class, channel, message_number)
-        control = self._controls_by_command[key]
+        control = self._physical_controls_by_command[key]
         value = control.handle_incoming_value(value)
         return control, value
 
@@ -242,12 +267,16 @@ class Device:
     ### PUBLIC PROPERTIES ###
 
     @property
-    def controls(self):
-        return self._controls
+    def physical_controls(self):
+        return self._physical_controls
 
     @property
-    def controls_by_group(self):
-        return self._controls_by_group
+    def physical_controls_by_group(self):
+        return self._physical_controls_by_group
+
+    @property
+    def physical_controls_by_command(self):
+        return self._physical_controls_by_command
 
     @property
     def logger(self):
