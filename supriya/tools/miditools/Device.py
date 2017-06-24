@@ -6,7 +6,7 @@ import yaml
 from supriya.tools.miditools.View import View
 from supriya.tools.miditools.LogicalControl import LogicalControl
 from supriya.tools.miditools.LogicalManifest import LogicalManifest
-from supriya.tools.miditools.PhysicalManifest import PhysicalManifest
+from supriya.tools.miditools.PhysicalControl import PhysicalControl
 
 
 logging.basicConfig(
@@ -35,7 +35,7 @@ class Device:
         self._midi_out = rtmidi.MidiOut()
         with open(str(manifest_path)) as file_pointer:
             self._device_manifest = yaml.load(file_pointer)
-        self._physical_manifest = PhysicalManifest(self)
+        self._initialize_physical_controls()
         self._logical_manifest = LogicalManifest(self)
 
     ### SPECIAL METHODS ###
@@ -49,6 +49,78 @@ class Device:
             self._process_two(physical_control, value)
 
     ### PRIVATE METHODS ###
+
+    def _get_controls_by_name(self, name):
+        if name in self.controls_by_group:
+            return self.controls_by_group[name]
+        elif name in self.controls:
+            return [self.controls[name]]
+        raise KeyError
+
+    def _initialize_physical_controls(self):
+        from supriya.tools import miditools
+        self._controls = {}
+        self._controls_by_group = {}
+        self._controls_by_command = {}
+        device_manifest = self._device_manifest['device']
+        manifest = device_manifest['physical_controls']
+        defaults = device_manifest.get('defaults', {})
+        for spec in manifest:
+            default_spec = defaults.copy()
+            default_spec.update(spec)
+            spec = default_spec
+            if 'note' in spec:
+                message_type = 'note'
+                message_values = spec.get('note')
+            elif 'controller' in spec:
+                message_type = 'controller'
+                message_values = spec.get('controller')
+            else:
+                raise ValueError('Missing message type in {}'.format(spec))
+            channels = spec.get('channel', 0)
+            if not isinstance(message_values, list):
+                message_values = [message_values]
+            if not isinstance(channels, list):
+                channels = [channels]
+            if len(channels) > 1 and len(message_values) > 1:
+                template = '{control_group}_{value_index}x{channel_index}'
+            elif len(channels) > 1:
+                template = '{control_group}_{channel_index}'
+            elif len(message_values) > 1:
+                template = '{control_group}_{value_index}'
+            else:
+                template = '{control_group}'
+            for value_index, message_value in enumerate(message_values, 1):
+                for channel_index, channel in enumerate(channels, 1):
+                    control_name = template.format(
+                        control_group=spec['name'],
+                        value_index=value_index,
+                        channel_index=channel_index,
+                        )
+                    control = PhysicalControl(
+                        self,
+                        control_name,
+                        message_type,
+                        message_value,
+                        automatable=spec.get('automatable', False),
+                        boolean_led_polarity=spec.get('boolean_led_polarity'),
+                        boolean_polarity=spec.get('boolean_polarity'),
+                        channel=channel,
+                        group_name=spec['name'],
+                        has_led=spec.get('has_led', False),
+                        mode=spec['mode'],
+                        )
+                    self._controls[control_name] = control
+                    self._controls_by_group.setdefault(
+                        spec['name'], []).append(control)
+                    if message_type == 'note':
+                        message_class = miditools.NoteOnMessage
+                    elif message_type == 'controller':
+                        message_class = miditools.ControllerChangeMessage
+                    else:
+                        raise Exception
+                    key = (message_class, channel, message_value)
+                    self._controls_by_command[key] = control
 
     def _process_one(self, message, timestamp):
         from supriya.tools import miditools
@@ -69,7 +141,7 @@ class Device:
         else:
             raise Exception(message)
         key = (message_class, channel, message_number)
-        control = self._physical_manifest._controls_by_command[key]
+        control = self._controls_by_command[key]
         value = control.handle_incoming_value(value)
         return control, value
 
@@ -94,36 +166,28 @@ class Device:
                 ][0]
             if old_logical_control is new_logical_control:
                 return
-
             lm = self.logical_manifest
-
             old_mapping = set(lm.rebuild_visibility_mapping().values())
             for dependent in self.logical_manifest.dependents.get(
                 old_logical_control, []):
                 dependent.visible = False
             old_logical_control.value = 0.0
-
             new_logical_control.value = 1.0
             for dependent in self.logical_manifest.dependents.get(
                 logical_control, []):
                 dependent.visible = True
             new_mapping = set(lm.rebuild_visibility_mapping().values())
-
             for logical_control in old_mapping - new_mapping:
                 logical_control.unmount()
-
             for logical_control in new_mapping - old_mapping:
                 logical_control.mount()
-
         elif logical_control.mode == LogicalControl.Mode.TOGGLE and value:
             value = 1 - logical_control.value
             logical_control.value = value
             logical_control.physical_control.set_led(value * 127)
-
         elif logical_control.mode == LogicalControl.Mode.TRIGGER and value:
             logical_control.physical_control.set_led(value * 127)
             value = None
-
         elif logical_control.mode == LogicalControl.Mode.CONTINUOUS:
             logical_control.physical_control.set_led(value * 127)
             logical_control.value = value
@@ -178,16 +242,20 @@ class Device:
     ### PUBLIC PROPERTIES ###
 
     @property
+    def controls(self):
+        return self._controls
+
+    @property
+    def controls_by_group(self):
+        return self._controls_by_group
+
+    @property
     def logger(self):
         return self._logger
 
     @property
     def logical_manifest(self):
         return self._logical_manifest
-
-    @property
-    def physical_manifest(self):
-        return self._physical_manifest
 
     @property
     def root_view(self):

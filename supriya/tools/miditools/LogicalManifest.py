@@ -57,7 +57,7 @@ class LogicalManifest:
         physical_control_ids = node_template['children']
         for physical_control_id in physical_control_ids:
             physical_controls.extend(
-                self.device.physical_manifest.get_controls_by_name(
+                self.device._get_controls_by_name(
                     physical_control_id))
         for parent in parents:
             view = View(name=node_template['name'], mode='mutex')
@@ -85,7 +85,7 @@ class LogicalManifest:
             physical_control_ids = [physical_control_ids]
         for physical_control_id in physical_control_ids:
             physical_controls.extend(
-                self.device.physical_manifest.get_controls_by_name(
+                self.device._get_controls_by_name(
                     physical_control_id))
         for parent in parents:
             for i, physical_control in enumerate(physical_controls, 1):
