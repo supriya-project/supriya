@@ -17,8 +17,6 @@ logging.basicConfig(
 
 class Device:
 
-    # TODO: integrate logging
-
     def __init__(self, manifest_path, logger=None):
         import supriya
         self._logger = logger or logging.getLogger(type(self).__name__)
@@ -47,72 +45,88 @@ class Device:
             message, timestamp = message
         self.logger.debug('MIDI I: 0x{}'.format(bytearray(message).hex()))
         with self._lock:
-            physical_control, value = self.physical_manifest(message, timestamp)
-            logical_control = self.logical_manifest.visibility_mapping.get(
-                physical_control)
-            if not logical_control:
-                return
-            if logical_control.parent.mode == View.Mode.MUTEX and value:
-                new_logical_control = logical_control
-                mutex_controls = tuple(
-                    logical_control.parent.children.values()
-                    )
-                for control in mutex_controls:
-                    if control is new_logical_control:
-                        control.physical_control.set_led(127)
-                    else:
-                        control.physical_control.set_led(0)
-                old_logical_control = [
-                    control for control in mutex_controls
-                    if control.value == 1.0
-                    ][0]
-                if old_logical_control is new_logical_control:
-                    return
-
-                lm = self.logical_manifest
-
-                old_mapping = set(lm.rebuild_visibility_mapping().values())
-                for dependent in self.logical_manifest.dependents.get(
-                    old_logical_control, []):
-                    dependent.visible = False
-                old_logical_control.value = 0.0
-
-                new_logical_control.value = 1.0
-                for dependent in self.logical_manifest.dependents.get(
-                    logical_control, []):
-                    dependent.visible = True
-                new_mapping = set(lm.rebuild_visibility_mapping().values())
-
-                for logical_control in old_mapping - new_mapping:
-                    logical_control.unmount()
-
-                for logical_control in new_mapping - old_mapping:
-                    logical_control.mount()
-
-            elif logical_control.mode == LogicalControl.Mode.TOGGLE and value:
-                value = 1 - logical_control.value
-                logical_control.value = value
-                logical_control.physical_control.set_led(value * 127)
-
-            elif logical_control.mode == LogicalControl.Mode.TRIGGER and value:
-                logical_control.physical_control.set_led(value * 127)
-                value = None
-
-            elif logical_control.mode == LogicalControl.Mode.CONTINUOUS:
-                logical_control.physical_control.set_led(value * 127)
-                logical_control.value = value
+            physical_control, value = self._process_one(message, timestamp)
+            self._process_two(physical_control, value)
 
     ### PRIVATE METHODS ###
 
-    def _choose_mode(self, mode):
-        # TODO: use manifest['on_startup'] instead
-        assert mode in (0, 1, 2)
-        modes = [0x40, 0x41, 0x42]
-        message = [
-            0xF0, 0x47, 0x1, 0x73, 0x60, 0x0,
-            0x4, modes[mode], 0x1, 0x1, 0x1, 0xF7,
-            ]
-        self.send_message(message)
+    def _process_one(self, message, timestamp):
+        from supriya.tools import miditools
+        if timestamp is None:
+            message, timestamp = message
+        status_byte, data = message[0], message[1:]
+        message_type = status_byte >> 4
+        channel = status_byte & 0x0f
+        if message_type == 8:
+            message_class = miditools.NoteOnMessage
+            message_number, value = data
+        elif message_type == 9:
+            message_class = miditools.NoteOnMessage
+            message_number, value = data[0], 0
+        elif message_type == 11:
+            message_class = miditools.ControllerChangeMessage
+            message_number, value = data
+        else:
+            raise Exception(message)
+        key = (message_class, channel, message_number)
+        control = self._physical_manifest._controls_by_command[key]
+        value = control.handle_incoming_value(value)
+        return control, value
+
+    def _process_two(self, physical_control, value):
+        logical_control = self.logical_manifest.visibility_mapping.get(
+            physical_control)
+        if not logical_control:
+            return
+        if logical_control.parent.mode == View.Mode.MUTEX and value:
+            new_logical_control = logical_control
+            mutex_controls = tuple(
+                logical_control.parent.children.values()
+                )
+            for control in mutex_controls:
+                if control is new_logical_control:
+                    control.physical_control.set_led(127)
+                else:
+                    control.physical_control.set_led(0)
+            old_logical_control = [
+                control for control in mutex_controls
+                if control.value == 1.0
+                ][0]
+            if old_logical_control is new_logical_control:
+                return
+
+            lm = self.logical_manifest
+
+            old_mapping = set(lm.rebuild_visibility_mapping().values())
+            for dependent in self.logical_manifest.dependents.get(
+                old_logical_control, []):
+                dependent.visible = False
+            old_logical_control.value = 0.0
+
+            new_logical_control.value = 1.0
+            for dependent in self.logical_manifest.dependents.get(
+                logical_control, []):
+                dependent.visible = True
+            new_mapping = set(lm.rebuild_visibility_mapping().values())
+
+            for logical_control in old_mapping - new_mapping:
+                logical_control.unmount()
+
+            for logical_control in new_mapping - old_mapping:
+                logical_control.mount()
+
+        elif logical_control.mode == LogicalControl.Mode.TOGGLE and value:
+            value = 1 - logical_control.value
+            logical_control.value = value
+            logical_control.physical_control.set_led(value * 127)
+
+        elif logical_control.mode == LogicalControl.Mode.TRIGGER and value:
+            logical_control.physical_control.set_led(value * 127)
+            value = None
+
+        elif logical_control.mode == LogicalControl.Mode.CONTINUOUS:
+            logical_control.physical_control.set_led(value * 127)
+            logical_control.value = value
 
     ### PUBLIC METHODS ###
 
@@ -150,7 +164,6 @@ class Device:
             timing=True,
             )
         self._midi_in.set_callback(self.__call__)
-        #self._choose_mode(2)
         for message in self._device_manifest['device'].get('on_startup', []):
             self.send_message(message)
         mapping = self.logical_manifest.rebuild_visibility_mapping()
@@ -175,3 +188,7 @@ class Device:
     @property
     def physical_manifest(self):
         return self._physical_manifest
+
+    @property
+    def root_view(self):
+        return self._logical_manifest.root_view

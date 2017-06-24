@@ -6,14 +6,11 @@ class PhysicalManifest:
     ### INITIALIZER ###
 
     def __init__(self, device):
+        from supriya.tools import miditools
         self._device = device
-        self._message_handlers = {
-            8: self._handle_note_on_message,
-            9: self._handle_note_off_message,
-            11: self._handle_controller_change_message,
-            }
         self._controls = {}
         self._controls_by_group = {}
+        self._controls_by_command = {}
         self._controls_by_note_number = {}
         self._controls_by_controller_number = {}
         device_manifest = self._device._device_manifest['device']
@@ -67,72 +64,14 @@ class PhysicalManifest:
                     self._controls[control_name] = control
                     self._controls_by_group.setdefault(
                         spec['name'], []).append(control)
-                    key = (channel, message_value)
                     if message_type == 'note':
-                        self._controls_by_note_number[key] = control
+                        message_class = miditools.NoteOnMessage
                     elif message_type == 'controller':
-                        self._controls_by_controller_number[key] = control
-
-    ### SPECIAL METHODS ###
-
-    def __call__(self, message, timestamp):
-        from supriya.tools import miditools
-        if timestamp is None:
-            message, timestamp = message
-        status_byte, data = message[0], message[1:]
-        message_type = status_byte >> 4
-        channel_number = status_byte & 0x0f
-        handler = self._message_handlers.get(message_type)
-        if not handler:
-            raise ValueError(message)
-        message = handler(channel_number, data, timestamp)
-        if isinstance(message, miditools.ControllerChangeMessage):
-            value = message.controller_value
-            control = self._controls_by_controller_number[
-                (message.channel_number, message.controller_number)]
-        elif isinstance(message, miditools.NoteOnMessage):
-            value = message.velocity
-            control = self._controls_by_note_number[
-                (message.channel_number, message.note_number)]
-        else:
-            raise Exception(message)
-        value = control.handle_incoming_value(value)
-        return control, value
-
-    ### PRIVATE METHODS ###
-
-    def _handle_controller_change_message(self, channel_number, data, timestamp):
-        from supriya.tools import miditools
-        controller_number, controller_value = data
-        message = miditools.ControllerChangeMessage(
-            channel_number=channel_number,
-            controller_number=controller_number,
-            controller_value=controller_value,
-            timestamp=timestamp,
-            )
-        return message
-
-    def _handle_note_off_message(self, channel_number, data, timestamp):
-        from supriya.tools import miditools
-        note_number, velocity = data
-        message = miditools.NoteOnMessage(
-            channel_number=channel_number,
-            note_number=note_number,
-            timestamp=timestamp,
-            velocity=0,
-            )
-        return message
-
-    def _handle_note_on_message(self, channel_number, data, timestamp):
-        from supriya.tools import miditools
-        note_number, velocity = data
-        message = miditools.NoteOnMessage(
-            channel_number=channel_number,
-            note_number=note_number,
-            timestamp=timestamp,
-            velocity=velocity,
-            )
-        return message
+                        message_class = miditools.ControllerChangeMessage
+                    else:
+                        raise Exception
+                    key = (message_class, channel, message_value)
+                    self._controls_by_command[key] = control
 
     ### PUBLIC METHODS ###
 

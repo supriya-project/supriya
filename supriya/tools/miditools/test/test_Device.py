@@ -8,7 +8,7 @@ class TestCase(systemtools.TestCase):
     def test_init(self):
         device = miditools.Device('Test')
         self.compare_strings(
-            device.logical_manifest.root_view.debug(),
+            device.root_view.debug(),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -50,7 +50,7 @@ class TestCase(systemtools.TestCase):
                                 <LC name=knob_3 mode=continuous pc=device_control_3 value=0.0>
             """)
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -78,8 +78,7 @@ class TestCase(systemtools.TestCase):
     def test_physical_manifest_01(self):
         device = miditools.Device('Test')
         message = [0x80, 0x01, 0x7F]
-        physical_manifest = device.physical_manifest
-        physical_control, value = physical_manifest(message, 0.0)
+        physical_control, value = device._process_one(message, 0.0)
         assert physical_control.boolean_polarity is None
         assert physical_control.name == 'clip_launch_1x1'
         assert value == 1.0
@@ -87,8 +86,7 @@ class TestCase(systemtools.TestCase):
     def test_physical_manifest_02(self):
         device = miditools.Device('Test')
         message = [0x81, 0x03, 0x00]
-        physical_manifest = device.physical_manifest
-        physical_control, value = physical_manifest(message, 0.0)
+        physical_control, value = device._process_one(message, 0.0)
         assert physical_control.boolean_polarity == [0, 127]
         assert physical_control.name == 'clip_stop_b'
         assert value == 1.0
@@ -96,7 +94,7 @@ class TestCase(systemtools.TestCase):
     def test_mutex_01(self):
         device = miditools.Device('Test')
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -130,7 +128,7 @@ class TestCase(systemtools.TestCase):
             [0xB0, 0x12, 0x66],
             ]
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -166,7 +164,7 @@ class TestCase(systemtools.TestCase):
             [0xB0, 0x12, 0x00],
             ]
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -200,7 +198,7 @@ class TestCase(systemtools.TestCase):
             [0xB0, 0x12, 0x11],
             ]
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -234,7 +232,7 @@ class TestCase(systemtools.TestCase):
             [0xB0, 0x12, 0x00]
             ]
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
@@ -270,7 +268,7 @@ class TestCase(systemtools.TestCase):
             [0xB0, 0x12, 0x66],
             ]
         self.compare_strings(
-            device.logical_manifest.root_view.debug(only_visible=True),
+            device.root_view.debug(only_visible=True),
             """
             <V name=root mode=non_mutex visible=true>
                 <LC name=fader_1 mode=continuous pc=track_level_1 value=0.0>
