@@ -1,0 +1,2 @@
+class MixerSend:
+    pass

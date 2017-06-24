@@ -1,0 +1,2 @@
+class MixerChannel:
+    pass
