@@ -3,7 +3,7 @@ from supriya.tools.systemtools import Enumeration
 from supriya.tools.miditools.LogicalControl import LogicalControl
 
 
-class View(object):
+class LogicalView(object):
 
     class Mode(Enumeration):
         NON_MUTEX = 0

@@ -5,10 +5,7 @@ pyximport.install()
 
 from supriya.tools import *  # noqa
 from supriya.tools.bindingtools import bind  # noqa
-from supriya.tools.miditools import (  # noqa
-    Device,
-    NanoKontrol2,
-    )
+from supriya.tools.miditools import Device  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
 from supriya.tools.servertools import (  # noqa
     AddAction,

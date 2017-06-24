@@ -5,7 +5,7 @@ import rtmidi
 import threading
 import yaml
 from supriya.tools import systemtools
-from supriya.tools.miditools.View import View
+from supriya.tools.miditools.LogicalView import LogicalView
 from supriya.tools.miditools.LogicalControl import LogicalControl
 from supriya.tools.miditools.PhysicalControl import PhysicalControl
 
@@ -59,10 +59,10 @@ class Device:
         toggle_id = 'root:{}'.format(node_template['modal'])
         all_toggles = self._node_instances[toggle_id]
         for parent, toggles in zip(parents, all_toggles):
-            modal_view = View(name=node_template['name'], visible=True)
+            modal_view = LogicalView(name=node_template['name'], visible=True)
             parent.add_child(modal_view)
             for i, toggle in enumerate(toggles.children.values()):
-                view = View(
+                view = LogicalView(
                     name=i,
                     visible=i == 0,
                     )
@@ -80,7 +80,7 @@ class Device:
                 self._get_controls_by_name(
                     physical_control_id))
         for parent in parents:
-            view = View(name=node_template['name'], mode='mutex')
+            view = LogicalView(name=node_template['name'], mode='mutex')
             nodes.append(view)
             parent.add_child(view)
             for i, physical_control in enumerate(physical_controls):
@@ -140,7 +140,7 @@ class Device:
         manifest = device_manifest['logical_controls']
         self._node_templates = self._linearize_manifest(manifest)
         self._node_instances = {}
-        self._node_instances['root'] = [View(name='root')]
+        self._node_instances['root'] = [LogicalView(name='root')]
         self._dependents = {}
         for parentage_string, node_template in self._node_templates.items():
             parents = self._node_instances[parentage_string.rpartition(':')[0]]
@@ -289,7 +289,7 @@ class Device:
             physical_control)
         if not logical_control:
             return
-        if logical_control.parent.mode == View.Mode.MUTEX and value:
+        if logical_control.parent.mode == LogicalView.Mode.MUTEX and value:
             new_logical_control = logical_control
             mutex_controls = tuple(
                 logical_control.parent.children.values()
