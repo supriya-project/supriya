@@ -184,7 +184,7 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
-            >>> file_paths = Assets['*mono_1s*']
+            >>> file_paths = Assets['audio/*mono_1s*']
             >>> len(file_paths)
             4
 
