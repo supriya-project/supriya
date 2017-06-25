@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.PV_MagSquared import PV_MagSquared
 
 

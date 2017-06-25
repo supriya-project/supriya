@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.Control import Control
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 

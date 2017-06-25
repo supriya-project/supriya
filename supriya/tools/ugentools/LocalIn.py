@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from abjad.tools import sequencetools
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen

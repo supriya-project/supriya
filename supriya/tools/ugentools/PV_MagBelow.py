@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.PV_MagAbove import PV_MagAbove
 
 

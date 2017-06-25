@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import threading
 import tornado.web
 from supriya.tools import systemtools

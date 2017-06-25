@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import abc
 import collections
 from supriya.tools.synthdeftools.SignalRange import SignalRange
