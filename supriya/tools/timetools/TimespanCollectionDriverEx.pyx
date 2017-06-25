@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from abjad.tools import mathtools
 from abjad.tools import timespantools
 from supriya.tools.timetools.TimespanSimultaneity import TimespanSimultaneity

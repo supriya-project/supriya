@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.systemtools.TreeNode import TreeNode
 
@@ -80,7 +79,6 @@ class TreeContainer(TreeNode):
     ### PRIVATE METHODS ###
 
     def _validate_setitem_expr(self, expr):
-        from supriya.tools import servertools
         assert all(isinstance(_, TreeNode) for _ in expr)
         parentage = self.parentage
         for x in expr:

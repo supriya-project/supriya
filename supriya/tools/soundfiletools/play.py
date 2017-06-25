@@ -1,4 +1,3 @@
-# -*- encoding: utf -*-
 import subprocess
 
 

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 

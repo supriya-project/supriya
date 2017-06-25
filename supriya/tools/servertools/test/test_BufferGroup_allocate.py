@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 import unittest
 from supriya.tools import servertools

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import abc
 from supriya.tools.ugentools.InfoUGenBase import InfoUGenBase
 

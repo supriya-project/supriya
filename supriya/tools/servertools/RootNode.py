@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*0
 from supriya.tools.servertools.Group import Group
 
 

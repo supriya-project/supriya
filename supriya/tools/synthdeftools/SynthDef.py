@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 import copy
 import hashlib

@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
-
 """
 Low-level system tools and various base classes.
 """
+
 
 from supriya.tools.systemtools.Assets import Assets  # noqa
 from supriya.tools.systemtools.Dispatcher import Dispatcher  # noqa

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 import struct
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject

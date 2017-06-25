@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from abjad.tools import systemtools
 from supriya import SynthDefFactory
 from supriya import ugentools

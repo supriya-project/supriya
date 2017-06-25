@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 from supriya.tools.timetools.TimespanCollectionDriver import (
     TimespanCollectionDriver,

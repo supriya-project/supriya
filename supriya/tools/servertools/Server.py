@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import atexit
 import subprocess
 import time

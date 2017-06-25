@@ -1,7 +1,4 @@
-# -*- encoding: utf-8 -*-
 import abc
-import collections
-import copy
 from supriya.tools.systemtools.TreeNode import TreeNode
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import copy
 from supriya.tools.servertools.ControlInterface import ControlInterface
 

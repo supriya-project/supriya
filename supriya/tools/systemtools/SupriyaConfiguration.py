@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 import traceback
 from abjad.tools.systemtools.Configuration import Configuration
@@ -51,12 +50,10 @@ class SupriyaConfiguration(Configuration):
         from abjad.tools import systemtools
         scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):
-            found_scsynth = False
             for path in (
                 '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
                 '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
                 ):
                 if os.path.exists(path):
                     scsynth_path = path
-                    found_scsynth = True
         return scsynth_path

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import abc
 import threading
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
