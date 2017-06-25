@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -31,6 +30,7 @@ def _build_synthdef():
             )
     synthdef = builder.build()
     return synthdef
+
 
 sweep_filter = _build_synthdef()
 

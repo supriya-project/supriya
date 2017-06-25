@@ -1,5 +1,3 @@
-# -*- encoding: utf -*-
-
 import pyximport
 pyximport.install()
 

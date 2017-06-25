@@ -1,4 +1,3 @@
-# =*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -67,6 +66,7 @@ def _build_kick_synthdef():
 
     synthdef = builder.build()
     return synthdef
+
 
 kick = _build_kick_synthdef()
 

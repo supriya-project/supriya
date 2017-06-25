@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -16,6 +15,7 @@ def _build_test_synthdef():
         ugentools.Out.ar(bus=0, source=enveloped_sin)
     synthdef = builder.build(name='test')
     return synthdef
+
 
 test = _build_test_synthdef()
 

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -38,6 +37,7 @@ SynthDef("clap", {
     Out.ar(outBus, out.dup);
 })
 """
+
 
 def _build_clap_synthdef():
 
@@ -100,6 +100,7 @@ def _build_clap_synthdef():
 
     synthdef = builder.build()
     return synthdef
+
 
 clap = _build_clap_synthdef()
 

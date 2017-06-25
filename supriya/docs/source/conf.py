@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
 import abjad
 import supriya
 import os
-#import sys
+import sphinx_rtd_theme
 from docutils import nodes
 from sphinx.highlighting import PygmentsBridge
 from pygments.formatters.latex import LatexFormatter
@@ -15,6 +14,7 @@ class SupriyaDocumentationManager(abjad.documentationtools.DocumentationManager)
     source_directory_path_parts = ('docs', 'source')
     tools_packages_package_path = 'supriya.tools'
 
+
 SupriyaDocumentationManager().execute()
 
 
@@ -23,9 +23,8 @@ class CustomLatexFormatter(LatexFormatter):
         super(CustomLatexFormatter, self).__init__(**options)
         self.verboptions = r'''formatcom=\footnotesize'''
 
-PygmentsBridge.latex_formatter = CustomLatexFormatter
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+PygmentsBridge.latex_formatter = CustomLatexFormatter
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -90,12 +89,8 @@ exclude_patterns = []
 
 pygments_style = 'sphinx'
 
-html_theme = 'default'
-
-if not on_rtd:  # only import and set the theme if we're building docs locally
-    import sphinx_rtd_theme
-    html_theme = 'sphinx_rtd_theme'
-    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme = 'sphinx_rtd_theme'
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 html_static_path = ['_static']
 

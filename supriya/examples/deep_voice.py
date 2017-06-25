@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-# -*- encoding: utf-8 -*-
-from abjad import *
 from supriya import servertools
 from supriya import synthdeftools
 from supriya import ugentools
@@ -43,7 +41,7 @@ def run_demo():
             room_size=0.5,
             source=pitch_shift,
             )
-        speaker_output = ugentools.Out.ar(
+        ugentools.Out.ar(
             bus=stereo_output_buses,
             source=reverb,
             )

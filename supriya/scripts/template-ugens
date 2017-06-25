@@ -304,7 +304,6 @@ def make_ugen_module(ugen_name, ugen_definition):
         method_signature = process_method_signature(method_signature)
         method_signature_dict = dict(method_signature)
     result = []
-    result.append('# -*- encoding: utf-8 -*-')
     result.extend(make_import(ugen_definition['parent']))
     result.append('class {}({}):'.format(ugen_name, ugen_definition['parent']))
     result.append("    r'''")
