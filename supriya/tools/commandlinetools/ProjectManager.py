@@ -2,7 +2,7 @@ import importlib
 import pathlib
 
 
-class ProjectManager(object):
+class ProjectManager:
 
     @staticmethod
     def import_section_objects(section, file_path, namespace):

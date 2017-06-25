@@ -1,7 +1,4 @@
-# -*- encoding: utf-8 -*-
-
-
-class DoNotPropagate(object):
+class DoNotPropagate:
     """
     Context manager which prevents propagation of node hierarchy changes across
     states.

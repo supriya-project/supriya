@@ -95,9 +95,7 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(stringtools.normalize(r'''
-            # -*- coding: utf-8 -*-
-
-            class Foo(object):
+            class Foo:
                 def __render__(
                     self,
                     output_file_path=None,

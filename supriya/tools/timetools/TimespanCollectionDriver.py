@@ -1,8 +1,7 @@
-# -*- encoding: utf-8 -*-
 from abjad.tools import timespantools
 
 
-class _CTimespan(object):
+class _CTimespan:
 
     __slots__ = (
         'start_offset',
@@ -79,7 +78,7 @@ class _CTimespan(object):
             )
 
 
-class _CNode(object):
+class _CNode:
 
     __slots__ = (
         'balance',
@@ -111,7 +110,7 @@ class _CNode(object):
         self.subtree_stop_index = -1
 
 
-class TimespanCollectionDriver(object):
+class TimespanCollectionDriver:
 
     ### CLASS VARIABLES ###
 

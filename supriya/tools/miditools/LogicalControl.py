@@ -1,7 +1,7 @@
 from supriya.tools.systemtools import Enumeration
 
 
-class LogicalControl(object):
+class LogicalControl:
 
     class Mode(Enumeration):
         CONTINUOUS = 0

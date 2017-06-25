@@ -57,7 +57,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     from test_project import project_settings
 
 
-    class SessionFactory(object):
+    class SessionFactory:
 
         def __init__(self, project_settings):
             self.project_settings = project_settings
