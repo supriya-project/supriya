@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import osctools
 from supriya.tools.requesttools.BufferAllocateRequest import BufferAllocateRequest
 

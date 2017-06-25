@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools import osctools
 from supriya.tools.requesttools.BufferReadRequest import BufferReadRequest

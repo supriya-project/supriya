@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from nonrealtimetools_testbase import TestCase
 from supriya.tools import nonrealtimetools
 

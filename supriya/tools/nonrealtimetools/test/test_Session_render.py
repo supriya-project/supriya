@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import pathlib
 from unittest import mock
 from supriya import supriya_configuration

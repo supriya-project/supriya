@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from abjad import new
 from supriya.tools.patterntools.EventPattern import EventPattern
 

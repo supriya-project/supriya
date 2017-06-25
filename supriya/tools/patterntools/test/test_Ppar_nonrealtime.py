@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
 from supriya.tools import patterntools

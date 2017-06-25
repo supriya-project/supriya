@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import types
 import uuid
 from patterntools_testbase import TestCase

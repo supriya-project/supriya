@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import bisect
 import collections
 from abjad import new

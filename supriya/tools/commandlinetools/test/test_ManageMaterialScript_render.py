@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 import yaml
 from unittest import mock
@@ -67,8 +66,6 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(stringtools.normalize(r'''
-            # -*- coding: utf-8 -*-
-
             material = None
             '''))
         script = commandlinetools.ManageMaterialScript()

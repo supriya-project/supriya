@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import uuid
 from supriya.tools.patterntools.EventPattern import EventPattern
 

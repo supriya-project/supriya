@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import uuid
 from supriya.tools import requesttools
 from supriya.tools import servertools

@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from __future__ import print_function
 import abjad
 import supriya
 import os
@@ -43,7 +42,6 @@ doctest_path = [
     ]
 
 abjadbook_global_setup = r'''
-from __future__ import print_function
 from abjad import *
 from supriya import *
 '''
@@ -55,7 +53,6 @@ for server in servertools.Server._servers.values():
 '''
 
 doctest_global_setup = r'''
-from __future__ import print_function
 from abjad import *
 from supriya import *
 '''

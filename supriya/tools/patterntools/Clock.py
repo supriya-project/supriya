@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 try:
     from queue import PriorityQueue
 except ImportError:

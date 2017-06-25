@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -34,13 +33,6 @@ class MidiMessage(SupriyaValueObject):
     @property
     def channel_number(self):
         return self._channel_number
-
-    @property
-    def dispatcher_key(self):
-        return (
-            type(self),
-            self._channel_number,
-            )
 
     @property
     def timestamp(self):

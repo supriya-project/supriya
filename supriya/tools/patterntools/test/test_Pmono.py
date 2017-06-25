@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import time
 from patterntools_testbase import TestCase
 from supriya import synthdefs

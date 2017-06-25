@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 from abjad.tools import stringtools
 from abjad.tools import systemtools
@@ -9,7 +8,6 @@ from commandlinetools_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     module_contents = stringtools.normalize('''
-    # -*- coding: utf-8 -*-
     from supriya import (
         Session,
         patterntools,

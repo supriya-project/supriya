@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import hashlib
 import pathlib
 import shutil

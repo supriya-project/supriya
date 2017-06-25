@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-from __future__ import print_function
 import collections
 from supriya.tools.ugentools.UGen import UGen
 
@@ -34,7 +33,6 @@ class Poll(UGen):
 
         ::
 
-            >>> from __future__ import print_function
             >>> from supriya import *
 
         ::

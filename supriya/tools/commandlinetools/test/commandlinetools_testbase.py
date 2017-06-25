@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import jinja2
 import pathlib
 import shutil
@@ -24,7 +23,6 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     tools_path = inner_project_path.joinpath('tools')
 
     basic_session_template = jinja2.Template(stringtools.normalize('''
-    # -*- encoding: utf-8 -*-
     import supriya
     from test_project import project_settings
 
@@ -52,7 +50,6 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     '''))
 
     session_factory_template = jinja2.Template(stringtools.normalize('''
-    # -*- encoding: utf-8 -*-
     import supriya
     from test_project import project_settings
 
@@ -94,7 +91,6 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     '''))
 
     chained_session_template = jinja2.Template(stringtools.normalize('''
-    # -*- encoding: utf-8 -*-
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \

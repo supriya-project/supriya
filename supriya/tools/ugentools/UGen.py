@@ -1,8 +1,6 @@
 # -*- encoding: utf-8 -*-
-from __future__ import print_function
 import abc
 import collections
-import six
 from supriya.tools.synthdeftools.SignalRange import SignalRange
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
@@ -323,13 +321,13 @@ class UGen(UGenMethodMixin):
             )
         for name, value in dictionary.items():
             if isinstance(value, prototype) and \
-                not isinstance(value, six.string_types):
+                not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
                 if isinstance(value, prototype) and \
-                    not isinstance(value, six.string_types):
+                    not isinstance(value, str):
                     value = value[i % len(value)]
                     result[i][name] = value
                 else:

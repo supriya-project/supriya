@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.A2K import A2K
 
 

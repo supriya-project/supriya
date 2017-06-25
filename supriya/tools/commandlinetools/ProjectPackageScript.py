@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import contextlib
 import importlib
 import jinja2

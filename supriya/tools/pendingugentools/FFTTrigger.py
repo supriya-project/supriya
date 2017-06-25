@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
 
 
@@ -72,7 +71,6 @@ class FFTTrigger(PV_ChainUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
