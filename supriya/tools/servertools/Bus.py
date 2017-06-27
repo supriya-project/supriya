@@ -1,8 +1,7 @@
-from supriya.tools.bindingtools.BindingTarget import BindingTarget
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Bus(ServerObjectProxy, BindingTarget):
+class Bus(ServerObjectProxy):
     """
     A bus.
     """
@@ -12,7 +11,6 @@ class Bus(ServerObjectProxy, BindingTarget):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
-        '_binding_sources',
         '_bus_group',
         '_bus_id',
         '_bus_id_was_set_manually',
@@ -28,7 +26,6 @@ class Bus(ServerObjectProxy, BindingTarget):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        BindingTarget.__init__(self)
         ServerObjectProxy.__init__(self)
         bus_group = None
         bus_id = None

@@ -1,8 +1,7 @@
-from supriya.tools.bindingtools.BindingTarget import BindingTarget
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class BusGroup(ServerObjectProxy, BindingTarget):
+class BusGroup(ServerObjectProxy):
     """
     A bus group.
     """
@@ -12,7 +11,6 @@ class BusGroup(ServerObjectProxy, BindingTarget):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
-        '_binding_sources',
         '_bus_id',
         '_buses',
         '_calculation_rate',
@@ -28,7 +26,6 @@ class BusGroup(ServerObjectProxy, BindingTarget):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        BindingTarget.__init__(self)
         ServerObjectProxy.__init__(self)
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)

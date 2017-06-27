@@ -1,14 +1,10 @@
-from supriya.tools.bindingtools.BindingTarget import BindingTarget
-
-
-class SynthControl(BindingTarget):
+class SynthControl:
 
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Server Internals'
 
     __slots__ = (
-        '_binding_sources',
         '_calculation_rate',
         '_client',
         '_index',
@@ -34,7 +30,6 @@ class SynthControl(BindingTarget):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        BindingTarget.__init__(self)
         self._client = client
         self._name = str(name)
         if isinstance(range_, synthdeftools.Range):
@@ -54,6 +49,9 @@ class SynthControl(BindingTarget):
         self._index = index
 
     ### SPECIAL METHODS ###
+
+    def __call__(self, expr):
+        return self.set(expr)
 
     def __str__(self):
         return self.name
@@ -156,6 +154,7 @@ class SynthControl(BindingTarget):
                 )
         if self.node.is_allocated:
             request.communicate(server=self.node.server)
+        return self.get()
 
     ### PUBLIC PROPERTIES ###
 

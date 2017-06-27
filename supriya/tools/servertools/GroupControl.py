@@ -1,14 +1,10 @@
-from supriya.tools.bindingtools.BindingTarget import BindingTarget
-
-
-class GroupControl(BindingTarget):
+class GroupControl:
 
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Server Internals'
 
     __slots__ = (
-        '_binding_sources',
         '_client',
         '_name',
         )
@@ -20,7 +16,6 @@ class GroupControl(BindingTarget):
         client=None,
         name=None,
         ):
-        BindingTarget.__init__(self)
         self._client = client
         self._name = str(name)
 

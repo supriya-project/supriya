@@ -7,6 +7,7 @@ import yaml
 from supriya.tools import systemtools
 from supriya.tools.miditools.LogicalView import LogicalView
 from supriya.tools.miditools.LogicalControl import LogicalControl
+from supriya.tools.miditools.LogicalControlMode import LogicalControlMode
 from supriya.tools.miditools.PhysicalControl import PhysicalControl
 
 
@@ -18,29 +19,32 @@ logging.basicConfig(
 
 class Device:
 
-    def __init__(self, manifest_path, logger=None):
+    def __init__(self, manifest, logger=None):
         import supriya
         self._logger = logger or logging.getLogger(type(self).__name__)
-        manifest_path = pathlib.Path(manifest_path)
-        if not manifest_path.suffix:
-            manifest_path = manifest_path.with_suffix('.yml')
-        if not manifest_path.is_absolute():
-            manifest_path = (
-                pathlib.Path(supriya.__path__[0]) /
-                'assets' /
-                'devices' /
-                manifest_path
-                )
+        if isinstance(manifest, dict):
+            self._device_manifest = manifest
+        else:
+            manifest = pathlib.Path(manifest)
+            if not manifest.suffix:
+                manifest = manifest.with_suffix('.yml')
+            if not manifest.is_absolute():
+                manifest = (
+                    pathlib.Path(supriya.__path__[0]) /
+                    'assets' /
+                    'devices' /
+                    manifest
+                    )
+            with open(str(manifest)) as file_pointer:
+                self._device_manifest = yaml.load(file_pointer)
         self._lock = threading.RLock()
         self._midi_in = rtmidi.MidiIn()
         self._midi_out = rtmidi.MidiOut()
-        with open(str(manifest_path)) as file_pointer:
-            self._device_manifest = yaml.load(file_pointer)
-        self._physical_controls = {}
-        self._physical_controls_by_group = {}
-        self._physical_controls_by_command = {}
         self._initialize_physical_controls()
-        self._initialize_logical_controls()
+        if 'logical_controls' in self._device_manifest['device']:
+            self._initialize_logical_controls()
+        else:
+            self._initialize_default_logical_controls()
 
     ### SPECIAL METHODS ###
 
@@ -49,25 +53,75 @@ class Device:
             message, timestamp = message
         self.logger.debug('MIDI I: 0x{}'.format(bytearray(message).hex()))
         with self._lock:
-            physical_control, value = self._process_one(message, timestamp)
-            self._process_two(physical_control, value)
+            physical_control, value = self._process_physical_control(
+                message, timestamp)
+            self.logger.debug('Physical Control: {}'.format(
+                physical_control.name))
+            self._process_logical_control(physical_control, value)
+
+    def __getitem__(self, name):
+        return self.root_view[name]
 
     ### PRIVATE METHODS ###
+
+    def _add_physical_control(
+        self,
+        control_name,
+        message_type,
+        message_value,
+        boolean_led_polarity=None,
+        boolean_polarity=None,
+        channel=None,
+        group_name=None,
+        has_led=None,
+        mode=None,
+        ):
+        from supriya.tools import miditools
+        assert control_name not in self._physical_controls
+        physical_control = PhysicalControl(
+            self,
+            control_name,
+            message_type,
+            message_value,
+            boolean_led_polarity=boolean_led_polarity,
+            boolean_polarity=boolean_polarity,
+            channel=channel,
+            group_name=group_name,
+            has_led=has_led,
+            mode=mode,
+            )
+        self._physical_controls[control_name] = physical_control
+        self._physical_controls_by_group.setdefault(
+            group_name, []).append(physical_control)
+        if message_type == 'note':
+            message_class = miditools.NoteOnMessage
+        elif message_type == 'controller':
+            message_class = miditools.ControllerChangeMessage
+        else:
+            raise Exception
+        key = (message_class, channel, message_value)
+        self._physical_controls_by_command[key] = physical_control
+        return physical_control
 
     def _build_modal_view(self, node_template, parents):
         nodes = []
         toggle_id = 'root:{}'.format(node_template['modal'])
         all_toggles = self._node_instances[toggle_id]
         for parent, toggles in zip(parents, all_toggles):
-            modal_view = LogicalView(name=node_template['name'], visible=True)
-            parent.add_child(modal_view)
+            modal_view = LogicalView(
+                device=self,
+                name=node_template['name'],
+                visible=True,
+                )
+            parent._add_child(modal_view)
             for i, toggle in enumerate(toggles.children.values()):
                 view = LogicalView(
+                    device=self,
                     name=i,
                     visible=i == 0,
                     )
                 nodes.append(view)
-                modal_view.add_child(view)
+                modal_view._add_child(view)
                 self._dependents.setdefault(toggle, []).append(view)
         return nodes
 
@@ -80,18 +134,23 @@ class Device:
                 self._get_controls_by_name(
                     physical_control_id))
         for parent in parents:
-            view = LogicalView(name=node_template['name'], mode='mutex')
+            view = LogicalView(
+                device=self,
+                is_mutex=True,
+                name=node_template['name'],
+                )
             nodes.append(view)
-            parent.add_child(view)
+            parent._add_child(view)
             for i, physical_control in enumerate(physical_controls):
                 control = LogicalControl(
+                    device=self,
                     name=i,
                     mode='toggle',
                     physical_control=physical_control,
                     )
                 if i == 0:
                     control.value = 1.0
-                view.add_child(control)
+                view._add_child(control)
         return nodes
 
     def _build_view(self, node_template, parents):
@@ -120,12 +179,13 @@ class Device:
                     name = physical_control.name
                 mode = node_template.get('mode')
                 logical_control = LogicalControl(
+                    device=self,
                     mode=mode,
                     name=name,
                     physical_control=physical_control,
                     )
                 nodes.append(logical_control)
-                parent.add_child(logical_control)
+                parent._add_child(logical_control)
         return nodes
 
     def _get_controls_by_name(self, name):
@@ -135,12 +195,26 @@ class Device:
             return [self.physical_controls[name]]
         raise KeyError
 
+    def _initialize_default_logical_controls(self):
+        self._node_instances = {}
+        root_view = LogicalView(device=self, name='root')
+        self._node_instances['root'] = [root_view]
+        self._dependents = {}
+        for physical_control in self.physical_controls.values():
+            logical_control = LogicalControl(
+                device=self,
+                name=physical_control.name,
+                physical_control=physical_control,
+                )
+            root_view._add_child(logical_control)
+
     def _initialize_logical_controls(self):
         device_manifest = self._device_manifest['device']
         manifest = device_manifest['logical_controls']
         self._node_templates = self._linearize_manifest(manifest)
         self._node_instances = {}
-        self._node_instances['root'] = [LogicalView(name='root')]
+        root_view = LogicalView(device=self, name='root')
+        self._node_instances['root'] = [root_view]
         self._dependents = {}
         for parentage_string, node_template in self._node_templates.items():
             parents = self._node_instances[parentage_string.rpartition(':')[0]]
@@ -161,6 +235,9 @@ class Device:
     def _initialize_physical_controls(self):
         device_manifest = self._device_manifest['device']
         manifest = device_manifest['physical_controls']
+        self._physical_controls = collections.OrderedDict()
+        self._physical_controls_by_group = collections.OrderedDict()
+        self._physical_controls_by_command = {}
         defaults = device_manifest.get('defaults', {})
         for spec in manifest:
             default_spec = defaults.copy()
@@ -206,45 +283,6 @@ class Device:
                         mode=spec['mode'],
                         )
 
-    def _add_physical_control(
-        self,
-        control_name,
-        message_type,
-        message_value,
-        boolean_led_polarity=None,
-        boolean_polarity=None,
-        channel=None,
-        group_name=None,
-        has_led=None,
-        mode=None,
-        ):
-        from supriya.tools import miditools
-        assert control_name not in self._physical_controls
-        physical_control = PhysicalControl(
-            self,
-            control_name,
-            message_type,
-            message_value,
-            boolean_led_polarity=boolean_led_polarity,
-            boolean_polarity=boolean_polarity,
-            channel=channel,
-            group_name=group_name,
-            has_led=has_led,
-            mode=mode,
-            )
-        self._physical_controls[control_name] = physical_control
-        self._physical_controls_by_group.setdefault(
-            group_name, []).append(physical_control)
-        if message_type == 'note':
-            message_class = miditools.NoteOnMessage
-        elif message_type == 'controller':
-            message_class = miditools.ControllerChangeMessage
-        else:
-            raise Exception
-        key = (message_class, channel, message_value)
-        self._physical_controls_by_command[key] = physical_control
-        return physical_control
-
     def _linearize_manifest(self, manifest):
         trellis = systemtools.Trellis()
         entries_by_parentage = {}
@@ -261,7 +299,7 @@ class Device:
             templates[parentage_string] = entries_by_parentage[parentage_string]
         return templates
 
-    def _process_one(self, message, timestamp):
+    def _process_physical_control(self, message, timestamp):
         from supriya.tools import miditools
         if timestamp is None:
             message, timestamp = message
@@ -280,55 +318,23 @@ class Device:
         else:
             raise Exception(message)
         key = (message_class, channel, message_number)
-        control = self._physical_controls_by_command[key]
-        value = control.handle_incoming_value(value)
-        return control, value
+        physical_control = self._physical_controls_by_command[key]
+        value = physical_control.handle_incoming_value(value)
+        return physical_control, value
 
-    def _process_two(self, physical_control, value):
+    def _process_logical_control(self, physical_control, value):
         logical_control = self.visibility_mapping.get(
             physical_control)
         if not logical_control:
             return
-        if logical_control.parent.mode == LogicalView.Mode.MUTEX and value:
-            new_logical_control = logical_control
-            mutex_controls = tuple(
-                logical_control.parent.children.values()
-                )
-            for control in mutex_controls:
-                if control is new_logical_control:
-                    control.physical_control.set_led(127)
-                else:
-                    control.physical_control.set_led(0)
-            old_logical_control = [
-                control for control in mutex_controls
-                if control.value == 1.0
-                ][0]
-            if old_logical_control is new_logical_control:
-                return
-            old_mapping = set(self.rebuild_visibility_mapping().values())
-            for dependent in self.dependents.get(
-                old_logical_control, []):
-                dependent.visible = False
-            old_logical_control.value = 0.0
-            new_logical_control.value = 1.0
-            for dependent in self.dependents.get(
-                logical_control, []):
-                dependent.visible = True
-            new_mapping = set(self.rebuild_visibility_mapping().values())
-            for logical_control in old_mapping - new_mapping:
-                logical_control.unmount()
-            for logical_control in new_mapping - old_mapping:
-                logical_control.mount()
-        elif logical_control.mode == LogicalControl.Mode.TOGGLE and value:
-            value = 1 - logical_control.value
-            logical_control.value = value
-            logical_control.physical_control.set_led(value * 127)
-        elif logical_control.mode == LogicalControl.Mode.TRIGGER and value:
-            logical_control.physical_control.set_led(value * 127)
-            value = None
-        elif logical_control.mode == LogicalControl.Mode.CONTINUOUS:
-            logical_control.physical_control.set_led(value * 127)
-            logical_control.value = value
+        if logical_control.mode == LogicalControlMode.TOGGLE and value:
+            value = 1.0 - logical_control.value
+            logical_control(value)
+        elif logical_control.mode == LogicalControlMode.TRIGGER and value:
+            value = 1.0
+            logical_control(value)
+        elif logical_control.mode == LogicalControlMode.CONTINUOUS:
+            logical_control(value)
 
     def _recurse_manifest(
         self,
@@ -406,12 +412,12 @@ class Device:
             self.send_message(message)
         mapping = self.rebuild_visibility_mapping()
         for logical_control in mapping.values():
-            logical_control.mount()
+            logical_control._mount()
         return self
 
     def rebuild_visibility_mapping(self):
         mapping = collections.OrderedDict()
-        for logical_control in self.root_view.yield_visible_controls():
+        for logical_control in self.root_view._yield_visible_controls():
             physical_control = logical_control.physical_control
             assert physical_control not in mapping
             mapping[physical_control] = logical_control

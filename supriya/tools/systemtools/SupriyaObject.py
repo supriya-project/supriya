@@ -19,7 +19,9 @@ class SupriyaObject(AbstractBase):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
+    __slots__ = (
+        '__weakref__',
+        )
 
     ### SPECIAL METHODS ###
 
@@ -90,6 +92,8 @@ class SupriyaObject(AbstractBase):
         Returns none.
         """
         for key, value in state.items():
+            if key == '__weakref__':
+                continue
             setattr(self, key, value)
 
     ### PRIVATE PROPERTIES ###

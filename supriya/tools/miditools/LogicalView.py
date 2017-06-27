@@ -1,38 +1,41 @@
 import collections
-from supriya.tools.systemtools import Enumeration
 from supriya.tools.miditools.LogicalControl import LogicalControl
 
 
 class LogicalView:
 
-    class Mode(Enumeration):
-        NON_MUTEX = 0
-        MUTEX = 1
+    ### INITIALIZER ###
 
     def __init__(
         self,
         name,
-        mode='non_mutex',
+        device,
+        is_mutex=False,
         visible=True,
         ):
         self.children = collections.OrderedDict()
-        self.mode = self.Mode.from_expr(mode)
+        self.device = device
+        self.is_mutex = bool(is_mutex)
         self.name = name
         self.parent = None
         self.visible = visible
 
+    ### SPECIAL METHODS ###
+
     def __getitem__(self, item):
         return self.children[item]
 
-    def add_child(self, child):
+    ### PRIVATE METHODS ###
+
+    def _add_child(self, child):
         self.children[child.name] = child
         child.parent = self
 
-    def debug(self, only_visible=None):
+    def _debug(self, only_visible=None):
         parts = [
             'V',
             'name={}'.format(self.name),
-            'mode={}'.format(self.mode.name.lower()),
+            'is_mutex={}'.format(str(self.is_mutex).lower()),
             'visible={}'.format(str(self.visible).lower()),
             ]
         result = '<{}>'.format(' '.join(parts))
@@ -44,15 +47,22 @@ class LogicalView:
                 not child.visible
                 ):
                 continue
-            child_debug = child.debug(only_visible=only_visible)
+            child_debug = child._debug(only_visible=only_visible)
             result.extend('    ' + _ for _ in child_debug.split('\n'))
         return '\n'.join(result)
 
-    def yield_visible_controls(self):
+    def _get_active_child(self):
+        if not self.is_mutex:
+            return
+        for child in self.children.values():
+            if child.value:
+                return child
+
+    def _yield_visible_controls(self):
         if not self.visible:
             return
         for child in self.children.values():
             if isinstance(child, type(self)) and child.visible:
-                yield from child.yield_visible_controls()
+                yield from child._yield_visible_controls()
             elif isinstance(child, LogicalControl):
                 yield child
