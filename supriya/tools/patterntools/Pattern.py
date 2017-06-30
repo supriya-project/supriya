@@ -2,7 +2,9 @@ import abc
 import collections
 import inspect
 import itertools
+import re
 from abjad import new
+from supriya.tools.systemtools import BindableNamespace
 from supriya.tools.systemtools import Enumeration
 from supriya.tools.systemtools import SupriyaValueObject
 
@@ -258,6 +260,30 @@ class Pattern(SupriyaValueObject):
 
     def _setup_peripherals(self, initial_expr, state):
         return None, None
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def from_dict(cls, dict_, namespaces=None):
+        from supriya.tools import patterntools
+        namespaces = namespaces or {}
+        class_name = dict_['type']
+        class_ = getattr(patterntools, class_name)
+        kwargs = {}
+        for key, value in dict_.items():
+            if key == 'type':
+                continue
+            if isinstance(value, str) and re.match('\$\w+\.\w+', value):
+                namespace, name = value.split('.')
+                namespace = namespaces[namespace[1:]]
+                if isinstance(namespace, BindableNamespace):
+                    value = namespace.proxies[name]
+                else:
+                    value = namespace[name]
+            elif isinstance(value, dict) and 'type' in value:
+                value = cls.from_dict(value, namespaces=namespaces)
+            kwargs[key] = value
+        return class_(**kwargs)
 
     ### PUBLIC PROPERTIES ###
 

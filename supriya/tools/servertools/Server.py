@@ -249,6 +249,9 @@ class Server(SupriyaObject):
 
     ### PRIVATE METHODS ###
 
+    def _as_node_target(self):
+        return self.default_group
+
     def _get_buffer_proxy(self, buffer_id):
         from supriya.tools import servertools
         buffer_proxy = self._buffer_proxies.get(buffer_id)

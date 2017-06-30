@@ -53,6 +53,9 @@ class Node(ServerObjectProxy, TreeNode):
 
     ### PRIVATE METHODS ###
 
+    def _as_node_target(self):
+        return self
+
     def _cache_control_interface(self):
         return self._control_interface.as_dict()
 
@@ -219,12 +222,11 @@ class Node(ServerObjectProxy, TreeNode):
         from supriya.tools import servertools
         if expr is None:
             return Node.expr_as_target(servertools.Server())
-        elif isinstance(expr, servertools.Server):
-            return expr.default_group
-        elif isinstance(expr, Node):
-            return expr
-        elif isinstance(expr, int):
-            raise NotImplementedError
+        elif hasattr(expr, '_as_node_target'):
+            return expr._as_node_target()
+        elif isinstance(expr, (float, int)):
+            server = servertools.Server.get_default_server()
+            return server._nodes[int(expr)]
         raise TypeError(expr)
 
     def free(self):

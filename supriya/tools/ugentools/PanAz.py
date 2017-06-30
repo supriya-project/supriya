@@ -10,7 +10,7 @@ class PanAz(MultiOutUGen):
         >>> source = ugentools.In.ar(bus=0)
         >>> pan_az = ugentools.PanAz.ar(
         ...     channel_count=8,
-        ...     gain=1,
+        ...     amplitude=1,
         ...     orientation=0.5,
         ...     position=0,
         ...     source=source,
@@ -31,7 +31,7 @@ class PanAz(MultiOutUGen):
         'channel_count',
         'source',
         'position',
-        'gain',
+        'amplitude',
         'width',
         'orientation',
         )
@@ -44,7 +44,7 @@ class PanAz(MultiOutUGen):
         self,
         calculation_rate=None,
         channel_count=8,
-        gain=1,
+        amplitude=1,
         orientation=0.5,
         position=0,
         source=None,
@@ -54,7 +54,7 @@ class PanAz(MultiOutUGen):
             self,
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            gain=gain,
+            amplitude=amplitude,
             orientation=orientation,
             position=position,
             source=source,
@@ -67,7 +67,7 @@ class PanAz(MultiOutUGen):
     def ar(
         cls,
         channel_count=None,
-        gain=1,
+        amplitude=1,
         orientation=0.5,
         position=0,
         source=None,
@@ -81,7 +81,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -97,7 +97,7 @@ class PanAz(MultiOutUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            gain=gain,
+            amplitude=amplitude,
             orientation=orientation,
             position=position,
             source=source,
@@ -109,7 +109,7 @@ class PanAz(MultiOutUGen):
     def kr(
         cls,
         channel_count=None,
-        gain=1,
+        amplitude=1,
         orientation=0.5,
         position=0,
         source=None,
@@ -123,7 +123,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.kr(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -139,7 +139,7 @@ class PanAz(MultiOutUGen):
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,
-            gain=gain,
+            amplitude=amplitude,
             orientation=orientation,
             position=position,
             source=source,
@@ -159,7 +159,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -174,27 +174,27 @@ class PanAz(MultiOutUGen):
         return int(self._inputs[index])
 
     @property
-    def gain(self):
+    def amplitude(self):
         """
-        Gets `gain` input of PanAz.
+        Gets `amplitude` input of PanAz.
 
         ::
 
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
             ...     width=2,
             ...     )
-            >>> pan_az[0].source.gain
+            >>> pan_az[0].source.amplitude
             1.0
 
         Returns ugen input.
         """
-        index = self._ordered_input_names.index('gain')
+        index = self._ordered_input_names.index('amplitude')
         return self._inputs[index]
 
     @property
@@ -207,7 +207,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -231,7 +231,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -255,7 +255,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,
@@ -286,7 +286,7 @@ class PanAz(MultiOutUGen):
             >>> source = ugentools.In.ar(bus=0)
             >>> pan_az = ugentools.PanAz.ar(
             ...     channel_count=8,
-            ...     gain=1,
+            ...     amplitude=1,
             ...     orientation=0.5,
             ...     position=0,
             ...     source=source,

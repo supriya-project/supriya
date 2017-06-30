@@ -14,6 +14,7 @@ class SynthControl:
         '_range',
         '_unit',
         '_value',
+        '__weakref__',
         )
 
     ### INITIALIZER ###

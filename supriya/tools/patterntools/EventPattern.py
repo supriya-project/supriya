@@ -21,7 +21,7 @@ class EventPattern(Pattern):
 
     ### PUBLIC METHODS ###
 
-    def play(self, clock=None, event_template=None, server=None):
+    def play(self, clock=None, server=None):
         from supriya.tools import patterntools
         from supriya.tools import servertools
         event_player = patterntools.RealtimeEventPlayer(

@@ -4,6 +4,7 @@ import hashlib
 import os
 import shutil
 import tempfile
+import yaml
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
@@ -582,6 +583,13 @@ class SynthDef(ServerObjectProxy):
             storage_format_kwargs_names=[]
             )
 
+    def _handle_response(self, response):
+        from supriya.tools import responsetools
+        if isinstance(response, responsetools.SynthDefRemovedResponse):
+            if self.actual_name in self._server._synthdefs:
+                self._server._synthdefs.pop(self.actual_name)
+            self._server = None
+
     @staticmethod
     def _initialize_topological_sort(ugens):
         from supriya.tools import synthdeftools
@@ -793,6 +801,100 @@ class SynthDef(ServerObjectProxy):
                 }
         result = {'synthdef': result}
         return result
+
+    def to_string(self):
+        # TODO: Replace __str__
+        def get_ugen_names():
+            grouped_ugens = {}
+            named_ugens = {}
+            for ugen in self._ugens:
+                key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+                grouped_ugens.setdefault(key, []).append(ugen)
+            for ugen in self._ugens:
+                parts = [type(ugen).__name__]
+                if isinstance(ugen, ugentools.BinaryOpUGen):
+                    ugen_op = synthdeftools.BinaryOperator.from_expr(
+                        ugen.special_index)
+                    parts.append('(' + ugen_op.name + ')')
+                elif isinstance(ugen, ugentools.UnaryOpUGen):
+                    ugen_op = synthdeftools.UnaryOperator.from_expr(
+                        ugen.special_index)
+                    parts.append('(' + ugen_op.name + ')')
+                parts.append('.' + ugen.calculation_rate.token)
+                key = (type(ugen), ugen.calculation_rate, ugen.special_index)
+                related_ugens = grouped_ugens[key]
+                if len(related_ugens) > 1:
+                    parts.append('/{}'.format(related_ugens.index(ugen)))
+                named_ugens[ugen] = ''.join(parts)
+            return named_ugens
+
+        def get_parameter_name(input_, output_index=0):
+            if isinstance(input_, synthdeftools.Parameter):
+                return ':{}'.format(input_.name)
+            elif isinstance(input_, ugentools.Control):
+                # Handle array-like parameters
+                value_index = 0
+                for parameter in input_.parameters:
+                    values = parameter.value
+                    if isinstance(values, float):
+                        values = [values]
+                    for i in range(len(values)):
+                        if value_index != output_index:
+                            value_index += 1
+                            continue
+                        elif len(values) == 1:
+                            return ':{}'.format(parameter.name)
+                        else:
+                            return ':{}[{}]'.format(parameter.name, i)
+            return ''
+
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
+        ugens = []
+        named_ugens = get_ugen_names()
+        for ugen in self._ugens:
+            ugen_dict = {}
+            ugen_name = named_ugens[ugen]
+            for i, input_ in enumerate(ugen.inputs):
+                if i < len(ugen._ordered_input_names):
+                    argument_name = ugen._ordered_input_names[i]
+                else:
+                    argument_name = ugen._ordered_input_names[-1]
+                if (
+                    ugen._unexpanded_input_names and
+                    argument_name in ugen._unexpanded_input_names
+                    ):
+                    unexpanded_index = i - ugen._ordered_input_names.index(
+                        argument_name)
+                    argument_name += '[{}]'.format(unexpanded_index)
+                if isinstance(input_, float):
+                    value = input_
+                else:
+                    output_index = 0
+                    if isinstance(input_, synthdeftools.OutputProxy):
+                        output_index = input_.output_index
+                        input_ = input_.source
+                    input_name = named_ugens[input_]
+                    value = '{}[{}{}]'.format(
+                        input_name,
+                        output_index,
+                        get_parameter_name(input_, output_index)
+                        )
+                ugen_dict[argument_name] = value
+            if not ugen_dict:
+                ugen_dict = None
+            ugens.append({ugen_name: ugen_dict})
+
+        result = {'synthdef': {
+            'name': self.actual_name,
+            #'hash': self.anonymous_name,
+            'ugens': ugens,
+            }}
+        return yaml.dump(
+            result,
+            default_flow_style=False,
+            indent=4,
+            )
 
     ### PUBLIC PROPERTIES ###
 

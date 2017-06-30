@@ -38,9 +38,14 @@ class Bus(ServerObjectProxy):
                 bus_id = int(bus_group_or_index)
         self._bus_group = bus_group
         self._bus_id = bus_id
-        assert calculation_rate is not None
+        if calculation_rate is None:
+            calculation_rate = 'control'
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
+        assert calculation_rate in (
+            synthdeftools.CalculationRate.AUDIO,
+            synthdeftools.CalculationRate.CONTROL,
+            )
         self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
