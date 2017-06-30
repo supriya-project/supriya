@@ -25,8 +25,9 @@ class Bindable:
             with self:
                 for binding in self.outgoing_bindings:
                     binding.perform_outgoing(return_value)
-                for binding in self.incoming_bindings:
-                    binding.perform_incoming(return_value)
+                if self.rebroadcast:
+                    for binding in self.incoming_bindings:
+                        binding.perform_incoming(return_value)
         return return_value
 
     def __get__(self, instance, class_=None):
@@ -35,7 +36,10 @@ class Bindable:
         elif instance in self.instances:
             return self.instances[instance]
         instance_method = self.func.__get__(instance, class_)
-        instance_decorator = self.__class__(instance_method)
+        instance_decorator = self.__class__(
+            instance_method,
+            rebroadcast=self.rebroadcast,
+            )
         self.instances[instance] = instance_decorator
         return instance_decorator
 

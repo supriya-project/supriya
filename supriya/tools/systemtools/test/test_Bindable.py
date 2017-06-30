@@ -1,6 +1,5 @@
 from supriya.tools import systemtools
 from abjad.tools.systemtools import TestCase
-from supriya.tools import systemtools
 
 
 class TestCase(TestCase):

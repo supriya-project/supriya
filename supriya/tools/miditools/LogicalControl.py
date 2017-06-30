@@ -23,6 +23,7 @@ class LogicalControl:
     ### SPECIAL METHODS ###
 
     def __call__(self, value):
+        value = float(value)
         if self.parent.is_mutex:
             if value:
                 current_control = self.parent._get_active_child()
