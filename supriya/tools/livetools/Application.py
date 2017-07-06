@@ -4,6 +4,7 @@ import re
 import yaml
 from supriya.tools import patterntools
 from supriya.tools import servertools
+from supriya.tools import systemtools
 
 
 class Application:
@@ -72,7 +73,10 @@ class Application:
         if not match:
             raise KeyError
         group = match.groups()[0]
-        current_object = current_object[group]
+        try:
+            current_object = current_object[group]
+        except (KeyError, TypeError):
+            current_object = getattr(current_object, group)
         name = name[len(group):]
         for substring in re.findall('([:.][\\w]+)', name):
             operator, name = substring[0], substring[1:]
@@ -108,8 +112,43 @@ class Application:
             device = miditools.Device(manifest_path)
         self._device = device
 
+    def _setup_binding(self, context, target_name, bind_spec):
+        try:
+            target = context[target_name]
+        except KeyError:
+            target = getattr(context, target_name)
+        target_range = None
+        if isinstance(bind_spec, dict):
+            source_name = bind_spec['source']
+            target_range = bind_spec.get('range')
+        else:
+            source_name = bind_spec
+        assert source_name.startswith('$')
+        try:
+            source = self._lookup_nested_object(self, source_name[1:])
+        except:
+            print([
+                _.qualified_name for _ in
+                self._device.visibility_mapping.values()
+                ])
+            raise
+        binding = systemtools.bind(source, target, target_range=target_range)
+        self._bindings.add(binding)
+
     def _setup_bindings(self):
         self._bindings = set()
+        mixer_spec = self.manifest.get('mixer')
+        for target_name, bind_spec in mixer_spec.get('bind', {}).items():
+            self._setup_binding(self.mixer, target_name, bind_spec)
+        for track_spec in mixer_spec.get('tracks', []):
+            track = self._mixer[track_spec['name']]
+            for target_name, bind_spec in track_spec.get('bind', {}).items():
+                self._setup_binding(track, target_name, bind_spec)
+            for slot_spec in track_spec.get('slots', []):
+                slot = track[slot_spec['name']]
+                for target_name, bind_spec in slot_spec.get(
+                    'bind', {}).items():
+                    self._setup_binding(slot, target_name, bind_spec)
 
     def _setup_mixer(self):
         from supriya.tools import livetools
