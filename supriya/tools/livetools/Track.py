@@ -88,6 +88,13 @@ class Track:
             return self._slots[key]
         return self._slots_by_name[key]
 
+    def __len__(self):
+        return len(self._slots)
+
+    def __iter__(self):
+        for slot in self._slots:
+            yield slot.name
+
     ### PRIVATE METHODS ###
 
     def _add_slot(self, slot):
@@ -145,7 +152,7 @@ class Track:
 
     ### PUBLIC METHODS ###
 
-    def add_auto_pattern_slot(self, name, pattern, synthdef=None, **kwargs):
+    def add_auto_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
         slot = AutoPatternSlot(
             name=name,
             track=self,
@@ -164,7 +171,7 @@ class Track:
             )
         return self._add_slot(slot)
 
-    def add_trigger_pattern_slot(self, name, pattern, synthdef=None, **kwargs):
+    def add_trigger_pattern_slot(self, name, pattern=None, synthdef=None, **kwargs):
         slot = TriggerPatternSlot(
             name=name,
             track=self,

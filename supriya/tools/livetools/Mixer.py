@@ -35,6 +35,15 @@ class Mixer:
             return self._tracks_by_name[item]
         return self._tracks[item]
 
+    def __iter__(self):
+        for track in self._tracks:
+            yield track.name
+        yield 'master'
+        yield 'cue'
+
+    def __len__(self):
+        return len(self._tracks_by_name)
+
     ### PRIVATE METHODS ###
 
     def _handle_input_levels(self, message):

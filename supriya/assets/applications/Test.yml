@@ -9,13 +9,13 @@ application:
         tracks:
           - name: track-a
             slots:
-              - name: slot-two
+              - name: slot-one
                 type: synth
                 synthdef: supriya.synthdefs:default
                 args:
-                  - amplitude: 1.0
-                  - frequency: 440
-                  - pan: 0.5
+                  amplitude: 1.0
+                  frequency: 440
+                  pan: 0.5
                 bind:
                     play: $device:clip_launch_1x1
                     amplitude: $device:outer_modal:knobs_1:knob_1
@@ -29,10 +29,10 @@ application:
                 type: trigger
                 synthdef: supriya.synthdefs:default
                 args:
-                  - amplitude: 1.0
-                  - frequency_min: 20
-                  - frequency_max: 800
-                  - pan: 0.0
+                  amplitude: 1.0
+                  frequency_min: 20
+                  frequency_max: 800
+                  pan: 0.0
                 pattern:
                     type: Pbind
                     amplitude: $args.amplitude

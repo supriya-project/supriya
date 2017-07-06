@@ -2,6 +2,8 @@ import importlib
 import pathlib
 import re
 import yaml
+from supriya.tools import patterntools
+from supriya.tools import servertools
 
 
 class Application:
@@ -31,7 +33,14 @@ class Application:
 
     ### PRIVATE METHODS ###
 
-    def _lookup_files(self, path):
+    def _allocate_buffers(self):
+        for name in self._buffer_names_to_buffer_groups:
+            buffer_group = self._buffer_names_to_buffer_groups[name]
+            file_paths = self._buffer_names_to_file_paths[name]
+            for buffer_, file_path in zip(buffer_group, file_paths):
+                buffer_.allocate_from_file(str(file_path))
+
+    def _lookup_file_paths(self, path):
         match = re.match('([\w]+):.+', path)
         if not match:
             raise ValueError
@@ -41,7 +50,7 @@ class Application:
         return root_path.glob(path)
 
     def _lookup_importable_object(self, name):
-        match = re.match('\w+(\.[\w+])+:\w+')
+        match = re.match('\w+(\.\w+)+:\w+', name)
         if not match:
             raise ValueError
         module_path, _, name = name.partition(':')
@@ -76,29 +85,94 @@ class Application:
         return current_object
 
     def _setup_buffers(self):
-        pass
+        self._buffer_names_to_buffer_groups = {}
+        self._buffer_names_to_file_paths = {}
+        for buffer_spec in self.manifest.get('buffers'):
+            name = buffer_spec['name']
+            if name in self._buffer_names_to_buffer_groups:
+                raise ValueError(buffer_spec)
+            path = buffer_spec['path']
+            file_paths = tuple(self._lookup_file_paths(path))
+            if not file_paths:
+                continue
+            buffer_group = servertools.BufferGroup(len(file_paths))
+            self._buffer_names_to_buffer_groups[name] = buffer_group
+            self._buffer_names_to_file_paths[name] = file_paths
 
     def _setup_device(self):
         from supriya.tools import miditools
         device = None
         device_name = self.manifest.get('device')
         if device_name:
-            manifest_path = next(self._lookup_files(device_name))
+            manifest_path = next(self._lookup_file_paths(device_name))
             device = miditools.Device(manifest_path)
         self._device = device
 
     def _setup_bindings(self):
-        pass
+        self._bindings = set()
 
     def _setup_mixer(self):
-        pass
+        from supriya.tools import livetools
+        manifest = self.manifest.get('mixer')
+        channel_count = int(manifest.get('channel_count', 2))
+        cue_channel_count = int(manifest.get('cue_channel_count', 2))
+        self._mixer = livetools.Mixer(channel_count, cue_channel_count)
+        for track_spec in manifest.get('tracks', []):
+            if track_spec['name'] not in ('master', 'cue'):
+                channel_count = track_spec.get('channel_count')
+                self._mixer.add_track(track_spec['name'], channel_count)
+            track = self._mixer[track_spec['name']]
+            for slot_spec in track_spec.get('slots', []):
+                self._setup_slot(track, slot_spec)
+
+    def _setup_slot(self, track, slot_spec):
+        buffers = {
+            name: buffer_group[:]
+            for name, buffer_group in
+            self._buffer_names_to_buffer_groups.items()
+            }
+        slot_name = slot_spec['name']
+        slot_type = slot_spec['type']
+        assert slot_type in ('synth', 'auto', 'trigger')
+        slot_synthdef = slot_spec.get('synthdef')
+        if slot_synthdef:
+            slot_synthdef = self._lookup_importable_object(slot_synthdef)
+        slot_args = slot_spec.get('args', {})
+        if slot_type == 'trigger':
+            maximum_replicas = slot_spec.get('maximum_replicas')
+            if maximum_replicas:
+                slot_args['maximum_replicas'] = int(maximum_replicas)
+        if slot_type == 'synth':
+            method = track.add_synth_slot
+        elif slot_type == 'auto':
+            method = track.add_auto_pattern_slot
+        elif slot_type == 'trigger':
+            method = track.add_trigger_pattern_slot
+        slot = method(
+            name=slot_name,
+            synthdef=slot_synthdef,
+            **slot_args,
+            )
+        if slot_type in ('auto', 'trigger'):
+            pattern = slot_spec.get('pattern')
+            assert pattern is not None
+            pattern = patterntools.Pattern.from_dict(
+                pattern, namespaces={
+                    'args': slot.bindable_namespace,
+                    'buffers': buffers,
+                    },
+                )
 
     ### PUBLIC METHODS ###
 
     def boot(self):
         self.server.boot()
+        self._allocate_buffers()
         self.mixer.allocate()
-        self.device.open_port()
+        try:
+            self.device.open_port()
+        except:
+            self.device.open_port(virtual=True)
 
     ### PUBLIC PROPERTIES ###
 
@@ -108,7 +182,7 @@ class Application:
 
     @property
     def buffers(self):
-        return self._buffers
+        return self._buffer_names_to_buffer_groups
 
     @property
     def device(self):

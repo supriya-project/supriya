@@ -35,7 +35,7 @@ class Slot:
 
     def _allocate(self):
         self._track.instrument_group.append(self.group)
-        if self._synthdef is not None:
+        if self._synthdef is not None and not self._synthdef.is_allocated:
             self._synthdef.allocate()
 
     def _as_node_target(self):
