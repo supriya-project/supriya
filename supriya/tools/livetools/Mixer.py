@@ -50,7 +50,7 @@ class Mixer:
         node_id = message.contents[0]
         levels = message.contents[2:]
         track = self._levels_mapping.get(node_id)
-        if not track:
+        if track is None:
             return
         peak, rms, = [], []
         for index in range(0, len(levels), 2):
@@ -63,7 +63,7 @@ class Mixer:
         node_id = message.contents[0]
         levels = message.contents[2:]
         track = self._levels_mapping.get(node_id)
-        if not track:
+        if track is None:
             return
         peak, rms, = [], []
         for index in range(0, len(levels), 2):
@@ -76,7 +76,7 @@ class Mixer:
         node_id = message.contents[0]
         levels = message.contents[2:]
         track = self._levels_mapping.get(node_id)
-        if not track:
+        if track is None:
             return
         peak, rms, = [], []
         for index in range(0, len(levels), 2):

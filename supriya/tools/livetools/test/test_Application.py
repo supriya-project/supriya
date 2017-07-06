@@ -40,5 +40,8 @@ class TestCase(abjad_systemtools.TestCase):
         assert 'slot-two' in application.mixer['track-b']
 
     def test_02(self):
-        application = livetools.Application(self.manifest_path)
-        application.boot()
+        try:
+            application = livetools.Application(self.manifest_path)
+            application.boot()
+        finally:
+            application.quit()

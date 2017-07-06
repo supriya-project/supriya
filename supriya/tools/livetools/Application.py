@@ -174,6 +174,10 @@ class Application:
         except:
             self.device.open_port(virtual=True)
 
+    def quit(self):
+        self.server.quit()
+        self.device.close_port()
+
     ### PUBLIC PROPERTIES ###
 
     @property
