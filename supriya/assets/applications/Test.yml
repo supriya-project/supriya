@@ -1,0 +1,54 @@
+application:
+  buffers:
+  - name: birds
+    path: supriya:audio/birds/*.wav
+  device: supriya:devices/Test
+  mixer:
+    channel_count: 1
+    cue_channel_count: 1
+    tracks:
+    - name: track-A
+      slots:
+      - name: slot-A-A
+        type: synth
+        synthdef: supriya.synthdefs.default
+        args:
+        - amplitude: 1.0
+        - frequency: 440
+        - pan: 0.5
+        bind:
+          play: $device:clip_launch_1x1
+          amplitude: $device:outer_modal:knobs_1:knob_1
+          frequency: $device:outer_modal:knobs_1:knob_2
+          pan: $device:outer_modal:knobs_1:knob_3
+      bind:
+        gain: $device:fader_1
+    - name: track-B
+      slots: 
+      - name: synth
+        type: trigger
+        synthdef: supriya.synthdefs.default
+        args:
+        - amplitude: 1.0
+        - frequency_min: 20
+        - frequency_max: 800
+        - pan: 0.0
+        pattern:
+          type: Pbind
+          args:
+            amplitude: $args.amplitude
+            frequency:
+              type: Pwhite
+              minimum: $args.frequency_min
+              maximum: $args.frequency_max
+            pan: $args.pan
+        bind:
+          trigger: $device:clip_launch_2x1
+          amplitude: $device:outer_modal:knobs_1:knob_1
+          frequency_min: $device:outer_modal:knobs_1:knob_2
+          frequency_max: $device:outer_modal:knobs_1:knob_2
+      bind:
+        gain: $device:fader_2
+    - name: master
+      bind:
+        gain: $device:fader_3
