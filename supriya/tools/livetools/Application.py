@@ -41,6 +41,25 @@ class Application:
             for buffer_, file_path in zip(buffer_group, file_paths):
                 buffer_.allocate_from_file(str(file_path))
 
+    def _build_context_namespaces(self, spec):
+        namespaces = {}
+        namespaces_spec = spec.get('namespaces', {})
+        for namespace_name, namespace_path in namespaces_spec.items():
+            namespaces[namespace_name] = self._lookup_nested_object(
+                object_=self, name=namespace_path)
+        return namespaces
+
+    def _build_pattern_namespaces(self, slot):
+        buffers = {
+            name: buffer_group[:]
+            for name, buffer_group in
+            self._buffer_names_to_buffer_groups.items()
+            }
+        return {
+            'args': slot.bindable_namespace,
+            'buffers': buffers,
+            }
+
     def _lookup_file_paths(self, path):
         match = re.match('([\w]+):.+', path)
         if not match:
@@ -58,7 +77,7 @@ class Application:
         module = importlib.import_module(module_path)
         return getattr(module, name)
 
-    def _lookup_nested_object(self, object_, name):
+    def _lookup_nested_object(self, object_, name, namespaces=None):
         current_object = object_
         match = re.match(r'^(\w+)$', name)
         if match:
@@ -69,14 +88,19 @@ class Application:
                 return current_object[name]
             except (IndexError, KeyError):
                 return getattr(current_object, name)
+        if name.startswith('$'):
+            name = name[1:]
         match = re.match(r'^(\w+)([:.][\w]+)*', name)
         if not match:
             raise KeyError
         group = match.groups()[0]
-        try:
-            current_object = current_object[group]
-        except (KeyError, TypeError):
-            current_object = getattr(current_object, group)
+        if namespaces and group in namespaces:
+            current_object = namespaces[group]
+        else:
+            try:
+                current_object = current_object[group]
+            except (KeyError, TypeError):
+                current_object = getattr(current_object, group)
         name = name[len(group):]
         for substring in re.findall('([:.][\\w]+)', name):
             operator, name = substring[0], substring[1:]
@@ -103,16 +127,7 @@ class Application:
             self._buffer_names_to_buffer_groups[name] = buffer_group
             self._buffer_names_to_file_paths[name] = file_paths
 
-    def _setup_device(self):
-        from supriya.tools import miditools
-        device = None
-        device_name = self.manifest.get('device')
-        if device_name:
-            manifest_path = next(self._lookup_file_paths(device_name))
-            device = miditools.Device(manifest_path)
-        self._device = device
-
-    def _setup_binding(self, context, target_name, bind_spec):
+    def _setup_binding(self, context, context_spec, target_name, bind_spec):
         try:
             target = context[target_name]
         except KeyError:
@@ -124,8 +139,10 @@ class Application:
         else:
             source_name = bind_spec
         assert source_name.startswith('$')
+        namespaces = self._build_context_namespaces(context_spec)
         try:
-            source = self._lookup_nested_object(self, source_name[1:])
+            source = self._lookup_nested_object(
+                self, source_name[1:], namespaces=namespaces)
         except:
             print([
                 _.qualified_name for _ in
@@ -139,16 +156,25 @@ class Application:
         self._bindings = set()
         mixer_spec = self.manifest.get('mixer')
         for target_name, bind_spec in mixer_spec.get('bind', {}).items():
-            self._setup_binding(self.mixer, target_name, bind_spec)
+            self._setup_binding(self.mixer, mixer_spec, target_name, bind_spec)
         for track_spec in mixer_spec.get('tracks', []):
             track = self._mixer[track_spec['name']]
             for target_name, bind_spec in track_spec.get('bind', {}).items():
-                self._setup_binding(track, target_name, bind_spec)
+                self._setup_binding(track, track_spec, target_name, bind_spec)
             for slot_spec in track_spec.get('slots', []):
                 slot = track[slot_spec['name']]
                 for target_name, bind_spec in slot_spec.get(
                     'bind', {}).items():
-                    self._setup_binding(slot, target_name, bind_spec)
+                    self._setup_binding(slot, slot_spec, target_name, bind_spec)
+
+    def _setup_device(self):
+        from supriya.tools import miditools
+        device = None
+        device_name = self.manifest.get('device')
+        if device_name:
+            manifest_path = next(self._lookup_file_paths(device_name))
+            device = miditools.Device(manifest_path)
+        self._device = device
 
     def _setup_mixer(self):
         from supriya.tools import livetools
@@ -165,11 +191,6 @@ class Application:
                 self._setup_slot(track, slot_spec)
 
     def _setup_slot(self, track, slot_spec):
-        buffers = {
-            name: buffer_group[:]
-            for name, buffer_group in
-            self._buffer_names_to_buffer_groups.items()
-            }
         slot_name = slot_spec['name']
         slot_type = slot_spec['type']
         assert slot_type in ('synth', 'auto', 'trigger')
@@ -196,10 +217,8 @@ class Application:
             pattern = slot_spec.get('pattern')
             assert pattern is not None
             pattern = patterntools.Pattern.from_dict(
-                pattern, namespaces={
-                    'args': slot.bindable_namespace,
-                    'buffers': buffers,
-                    },
+                pattern,
+                namespaces=self._build_pattern_namespaces(slot),
                 )
 
     ### PUBLIC METHODS ###

@@ -1,0 +1,30 @@
+application:
+  device: supriya:devices/APC40.yml
+  mixer:
+    tracks:
+    - name: track-a
+      channel_count: 1
+      bind:
+    - name: track-b
+      channel_count: 1
+      bind:
+    - name: track-c
+      channel_count: 1
+      bind:
+    - name: track-d
+      channel_count: 1
+      bind:
+    - name: track-e
+      channel_count: 1
+      bind:
+    - name: track-f
+      channel_count: 1
+      bind:
+    - name: track-g
+      channel_count: 1
+      bind:
+    - name: track-h
+      channel_count: 1
+      bind:
+    - name: master
+      bind:

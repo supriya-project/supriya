@@ -13,14 +13,16 @@ application:
                 type: synth
                 synthdef: supriya.synthdefs:default
                 args:
-                  amplitude: 1.0
-                  frequency: 440
-                  pan: 0.5
+                    amplitude: 1.0
+                    frequency: 440
+                    pan: 0.0
+                namespaces:
+                    knobs:     $device:outer_modal:0:knobs:0
                 bind:
-                    play: $device:clip_launch_1x1
-                    amplitude: $device:outer_modal:knobs_1:knob_1
-                    frequency: $device:outer_modal:knobs_1:knob_2
-                    pan: $device:outer_modal:knobs_1:knob_3
+                    play:      $device:clip_launch_1x1
+                    amplitude: $knobs:knob_1
+                    frequency: $knobs:knob_2
+                    pan:       $knobs:knob_3
             bind:
                 gain: $device:fader_1
           - name: track-b
@@ -28,24 +30,28 @@ application:
               - name: slot-two
                 type: trigger
                 synthdef: supriya.synthdefs:default
-                args:
-                  amplitude: 1.0
-                  frequency_min: 20
-                  frequency_max: 800
-                  pan: 0.0
                 pattern:
                     type: Pbind
                     amplitude: $args.amplitude
+                    buffer_id:
+                      type: Prand
+                      sequence: $buffers.birds
+                      repetitions: null
+                    pan: $args.pan
                     frequency:
                         type: Pwhite
                         minimum: $args.frequency_min
                         maximum: $args.frequency_max
-                    pan: $args.pan
+                args:
+                    amplitude: 1.0
+                    pan: 0.0
+                    frequency_max: 2.0
+                    frequency_min: 0.5
                 bind:
-                    trigger: $device:clip_launch_2x1
-                    amplitude: $device:outer_modal:knobs_1:knob_1
-                    frequency_min: $device:outer_modal:knobs_1:knob_2
-                    frequency_max: $device:outer_modal:knobs_1:knob_3
+                    trigger:       $device:clip_launch_2x1
+                    amplitude:     $device:outer_modal:1:knobs:0:knob_1
+                    frequency_min: $device:outer_modal:1:knobs:0:knob_2
+                    frequency_max: $device:outer_modal:1:knobs:0:knob_3
             bind:
                 gain: $device:fader_2
           - name: master
