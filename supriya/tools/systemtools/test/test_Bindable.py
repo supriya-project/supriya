@@ -1,9 +1,11 @@
+import unittest
 from supriya.tools import systemtools
 from abjad.tools.systemtools import TestCase
 
 
 class TestCase(TestCase):
 
+    @unittest.skip("Can't bind to non-bindables.")
     def test_01(self):
 
         class TestClass:
@@ -141,6 +143,7 @@ class TestCase(TestCase):
         assert node_a.value == 1
         assert node_b.value == 1
 
+    @unittest.skip("Can't bind to non-bindables.")
     def test_07(self):
 
         class TestClass:
@@ -165,6 +168,7 @@ class TestCase(TestCase):
         assert parent.value == 1
         assert child.value == 1
 
+    @unittest.skip("Can't bind to non-bindables.")
     def test_08(self):
 
         class TestClass(systemtools.SupriyaObject):

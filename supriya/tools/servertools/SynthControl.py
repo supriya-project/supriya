@@ -1,3 +1,6 @@
+from supriya.tools import systemtools
+
+
 class SynthControl:
 
     ### CLASS VARIABLES ###
@@ -51,6 +54,7 @@ class SynthControl:
 
     ### SPECIAL METHODS ###
 
+    @systemtools.Bindable(rebroadcast=False)
     def __call__(self, expr):
         return self.set(expr)
 

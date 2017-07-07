@@ -1,3 +1,4 @@
+from supriya.tools import systemtools
 from supriya.tools.miditools.LogicalControlMode import LogicalControlMode
 
 
@@ -22,6 +23,7 @@ class LogicalControl:
 
     ### SPECIAL METHODS ###
 
+    @systemtools.Bindable(rebroadcast=True)
     def __call__(self, value):
         value = float(value)
         if self.parent.is_mutex:
@@ -45,6 +47,13 @@ class LogicalControl:
         if self.is_visible and self.mode != LogicalControlMode.TRIGGER:
             self.physical_control.set_led(value * 127)
         return value
+
+    def __repr__(self):
+        return '<{} {} {}>'.format(
+            type(self).__name__,
+            self.qualified_name,
+            self.value,
+            )
 
     ### PRIVATE METHODS ###
 

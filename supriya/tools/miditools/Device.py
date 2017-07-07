@@ -13,7 +13,7 @@ from supriya.tools.miditools.PhysicalControl import PhysicalControl
 
 logging.basicConfig(
     format='%(asctime)s [%(name)s] [%(levelname)s] %(message)s',
-    level='DEBUG',
+    level='INFO',
     )
 
 
@@ -55,9 +55,9 @@ class Device:
         with self._lock:
             physical_control, value = self._process_physical_control(
                 message, timestamp)
-            self.logger.debug('Physical Control: {}'.format(
-                physical_control.name))
-            self._process_logical_control(physical_control, value)
+            logical_control = self._process_logical_control(physical_control, value)
+            self.logger.info('PC: {}, LC: {}'.format(
+                physical_control.name, logical_control))
 
     def __getitem__(self, name):
         return self.root_view[name]
@@ -335,6 +335,7 @@ class Device:
             logical_control(value)
         elif logical_control.mode == LogicalControlMode.CONTINUOUS:
             logical_control(value)
+        return logical_control
 
     def _recurse_manifest(
         self,

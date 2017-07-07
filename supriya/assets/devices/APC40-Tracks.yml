@@ -1,0 +1,53 @@
+extends: APC40-Physical.yml
+
+templates:
+  track: &templates-track
+    name: track_{{ index }}
+    children:
+      - name: fader
+        physical_control: fader_{{ index }}
+      - name: mute
+        physical_control: activator_{{ index }}
+      - name: solo
+        physical_control: solo_{{ index }}
+      - name: cue
+        physical_control: record_arm_{{ index }}
+      - name: slot
+        children:
+          - name: ~
+            physical_control: clip_launch_1x{{ index }}
+          - name: ~
+            physical_control: clip_launch_2x{{ index }}
+          - name: ~
+            physical_control: clip_launch_3x{{ index }}
+          - name: ~
+            physical_control: clip_launch_4x{{ index }}
+          - name: ~
+            physical_control: clip_launch_5x{{ index }}
+
+device:
+  logical_controls:
+    - <<: *templates-track
+      $templating:
+        index: 1
+    - <<: *templates-track
+      $templating:
+        index: 2
+    - <<: *templates-track
+      $templating:
+        index: 3
+    - <<: *templates-track
+      $templating:
+        index: 4
+    - <<: *templates-track
+      $templating:
+        index: 5
+    - <<: *templates-track
+      $templating:
+        index: 6
+    - <<: *templates-track
+      $templating:
+        index: 7
+    - <<: *templates-track
+      $templating:
+        index: 8

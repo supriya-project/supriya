@@ -115,7 +115,7 @@ class Application:
     def _setup_buffers(self):
         self._buffer_names_to_buffer_groups = {}
         self._buffer_names_to_file_paths = {}
-        for buffer_spec in self.manifest.get('buffers'):
+        for buffer_spec in self.manifest.get('buffers', []):
             name = buffer_spec['name']
             if name in self._buffer_names_to_buffer_groups:
                 raise ValueError(buffer_spec)
@@ -231,10 +231,12 @@ class Application:
             self.device.open_port()
         except:
             self.device.open_port(virtual=True)
+        return self
 
     def quit(self):
         self.server.quit()
         self.device.close_port()
+        return self
 
     ### PUBLIC PROPERTIES ###
 

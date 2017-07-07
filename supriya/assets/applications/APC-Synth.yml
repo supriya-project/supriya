@@ -1,30 +1,51 @@
+slots:
+  default-synth-slot: &slot-default
+    type: synth
+    args: &slot-default-args
+      amplitude: 1.0
+      frequency: 440
+    bind: &slot-default-bind
+      frequency:
+        source: $knobs:knob_1
+        range: [220, 880]
+
 application:
   device: supriya:devices/APC40.yml
   mixer:
     tracks:
+
     - name: track-a
       channel_count: 1
       bind:
+        gain:
+          source: $device:fader_1
+          range: [-96.0, 0.0]
+      slots:
+        - <<: *slot-default
+          name: synth-a
+          namespaces:
+            knobs: $device:modal_one:0:knobs:0
+          bind:
+            <<: *slot-default-bind
+            play: $device:clip_launch_1x1 
+
     - name: track-b
       channel_count: 1
       bind:
-    - name: track-c
-      channel_count: 1
-      bind:
-    - name: track-d
-      channel_count: 1
-      bind:
-    - name: track-e
-      channel_count: 1
-      bind:
-    - name: track-f
-      channel_count: 1
-      bind:
-    - name: track-g
-      channel_count: 1
-      bind:
-    - name: track-h
-      channel_count: 1
-      bind:
+        gain:
+          source: $device:fader_2
+          range: [-96.0, 0.0]
+      slots:
+        - <<: *slot-default
+          name: synth-a
+          namespaces:
+            knobs: $device:modal_one:1:knobs:0
+          bind: 
+            <<: *slot-default-bind
+            play: $device:clip_launch_1x2
+
     - name: master
       bind:
+        gain:
+          source: $device:fader_9
+          range: [-96.0, 0.0]

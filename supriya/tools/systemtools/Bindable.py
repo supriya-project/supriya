@@ -31,9 +31,12 @@ class Bindable:
         return return_value
 
     def __get__(self, instance, class_=None):
+        #print('GET', type(self).__name__, instance, class_.__name__, self.func)
         if instance is None:
+            #print('    CLS')
             return self
         elif instance in self.instances:
+            #print('    OLD', instance, instance.func)
             return self.instances[instance]
         instance_method = self.func.__get__(instance, class_)
         instance_decorator = self.__class__(
@@ -41,6 +44,7 @@ class Bindable:
             rebroadcast=self.rebroadcast,
             )
         self.instances[instance] = instance_decorator
+        #print('    NEW', instance, instance.func)
         return instance_decorator
 
     def __enter__(self):

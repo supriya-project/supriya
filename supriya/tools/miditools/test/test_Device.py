@@ -1,3 +1,4 @@
+import unittest
 from abjad.tools import systemtools as abjad_systemtools
 from supriya import Bindable, bind
 from supriya.tools import miditools
@@ -338,6 +339,7 @@ class TestCase(abjad_systemtools.TestCase):
                                 <LC name=knob_3 mode=continuous pc=device_control_3 value=0.80315>
             """)
 
+    @unittest.skip("Can't bind to non-bindables.")
     def test_bind_01(self):
 
         class TestClass:

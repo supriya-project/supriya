@@ -35,6 +35,11 @@ class Binding:
         ):
         from supriya import new
         from supriya.tools import synthdeftools
+        #from supriya.tools import systemtools
+        #assert isinstance(source, systemtools.Bindable), source
+        #assert isinstance(target, systemtools.Bindable), target
+        #self.source = source
+        #self.target = target
         self.source = self.patch(source)
         self.target = self.patch(target)
         if source_range is None:
@@ -81,6 +86,13 @@ class Binding:
 
     def patch(self, object_):
         from supriya.tools import systemtools
+        if isinstance(object_, systemtools.Bindable):
+            pass
+        elif callable(object_):
+            object_ = object_.__call__
+        assert isinstance(object_, systemtools.Bindable), object_
+        return object_
+
         if self.is_class_instance(object_) and hasattr(object_, '__call__'):
             instance = object_
             class_ = type(object_)

@@ -1,0 +1,146 @@
+device:
+  port_name: Akai APC40
+  on_startup:
+    - [0xF0, 0x47, 0x1, 0x73, 0x60, 0x0, 0x4, 0x42, 0x1, 0x1, 0x1, 0xF7]
+  defaults:
+    boolean_polarity: [0, 127]
+    boolean_led_polarity: [127, 0]
+    channel: 0
+  physical_controls:
+    - name: activator
+      has_led: true
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      mode: boolean
+      note: 0x32
+    - name: bank_select_down
+      mode: boolean
+      note: 0x5F
+    - name: bank_select_left
+      mode: boolean
+      note: 0x61
+    - name: bank_select_right
+      mode: boolean
+      note: 0x60
+    - name: bank_select_up
+      mode: boolean
+      note: 0x5E
+    - name: clip_launch
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      has_led: true
+      mode: boolean
+      note: [0x35, 0x36, 0x37, 0x38, 0x39]
+    - name: clip_stop
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      has_led: true
+      mode: boolean
+      note: 0x34
+    - name: crossfader
+      controller: 0x0F
+      mode: continuous
+    - name: device_control
+      controller: [0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17]
+      has_led: true
+      mode: continuous
+    - name: detail_view
+      mode: boolean
+      note: 0x3E
+    - name: device_clip_track
+      mode: boolean
+      note: 0x3A
+    - name: device_on_off
+      mode: boolean
+      note: 0x3B
+    - name: device_left
+      mode: boolean
+      note: 0x3C
+    - name: device_right
+      mode: boolean
+      note: 0x3D
+    - name: footswitch
+      controller: [0x40, 0x43]
+      mode: boolean
+      polarity: [127, 0]
+    - name: master_cue_level
+      controller: 0x2F
+      mode: continuous
+    - name: master_level
+      controller: 0x0E
+      mode: continuous
+    - name: master
+      has_led: true
+      mode: boolean
+      note: 0x50
+    - name: metronome
+      mode: boolean
+      note: 0x41
+    - name: midi_overdub
+      mode: boolean
+      note: 0x40
+    - name: nudge_down
+      mode: boolean
+      note: 0x65
+    - name: nudge_up
+      mode: boolean
+      note: 0x64
+    - name: play
+      mode: boolean
+      note: 0x5B
+    - name: record
+      mode: boolean
+      note: 0x5D
+    - name: record_arm
+      has_led: true
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      mode: boolean
+      note: 0x30
+    - name: record_quantization
+      mode: boolean
+      note: 0x3F
+    - name: scene_launch
+      has_led: true
+      mode: boolean
+      note: [0x52, 0x53, 0x54, 0x55, 0x56]
+    - name: send_a
+      mode: boolean
+      note: 0x58
+    - name: send_b
+      mode: boolean
+      note: 0x59
+    - name: send_c
+      mode: boolean
+      note: 0x5A
+    - name: shift
+      mode: boolean
+      note: 0x62
+    - name: solo
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      has_led: true
+      mode: boolean
+      note: 0x31
+    - name: stop
+      mode: boolean
+      note: 0x5C
+    - name: stop_all_clips
+      has_led: true
+      mode: boolean
+      note: 0x51
+    - name: tap_tempo
+      mode: boolean
+      note: 0x63
+    - name: track_control
+      controller: [0x30, 0x31, 0x32, 0x33, 0x34, 0x35, 0x36, 0x37]
+      has_led: true
+      mode: continuous
+    - name: track_control_pan
+      note: 0x57
+      mode: boolean
+    - name: track_level
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      controller: 0x07
+      mode: continuous
+    - name: track_selection
+      has_led: true
+      channel: [0, 1, 2, 3, 4, 5, 6, 7]
+      mode: boolean
+      note: 0x33
+
