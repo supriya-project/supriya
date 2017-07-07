@@ -1,0 +1,43 @@
+extends: Test-Physical.yml
+
+templates:
+  track: &templates-track
+    name: track_{{ index }}
+    children:
+      - name: fader
+        physical_control: track_level_{{ index }}
+      - name: slot
+        children:
+          - name: ~
+            physical_control: clip_launch_1x{{ index }}
+          - name: ~
+            physical_control: clip_launch_2x{{ index }}
+
+device:
+  logical_controls:
+    - <<: *templates-track
+      $templating:
+        index: 1
+    - <<: *templates-track
+      $templating:
+        index: 2
+    - name: master_fader
+      physical_control: master_level
+    - name: outer_modal 
+      modal: outer_mutex
+      children:
+        - name: knobs 
+          modal: outer_modal:inner_mutex
+          children:
+            - name: knob
+              physical_control: device_control 
+        - name: inner_mutex
+          mode: mutex
+          children:
+            - device_left
+            - device_right
+    - name: outer_mutex
+      mode: mutex
+      children:
+        - clip_stop_a
+        - clip_stop_b
