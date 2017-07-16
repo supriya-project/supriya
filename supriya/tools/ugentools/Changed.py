@@ -12,14 +12,23 @@ class Changed(PseudoUGen):
         ...     source=source,
         ...     threshold=0,
         ...     )
-        >>> print(str(changed))
-        SynthDef 39e1f9d61589c4acaaf297cc961d65e4 {
-            const_0:0.0 -> 0_In[0:bus]
-            0_In[0] -> 1_HPZ1[0:source]
-            1_HPZ1[0] -> 2_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-            2_UnaryOpUGen:ABSOLUTE_VALUE[0] -> 3_BinaryOpUGen:GREATER_THAN[0:left]
-            const_0:0.0 -> 3_BinaryOpUGen:GREATER_THAN[1:right]
-        }
+        >>> graph(changed)  # doctest: +SKIP
+
+    ::
+
+        >>> print(changed)
+        synthdef:
+            name: 39e1f9d61589c4acaaf297cc961d65e4
+            ugens:
+            -   In.ar:
+                    bus: 0.0
+            -   HPZ1.ar:
+                    source: In.ar[0]
+            -   UnaryOpUGen(ABSOLUTE_VALUE).ar:
+                    source: HPZ1.ar[0]
+            -   BinaryOpUGen(GREATER_THAN).ar:
+                    left: UnaryOpUGen(ABSOLUTE_VALUE).ar[0]
+                    right: 0.0
 
     """
 
@@ -47,22 +56,29 @@ class Changed(PseudoUGen):
             ...     source=source,
             ...     threshold=0,
             ...     )
-            >>> print(str(changed))
-            SynthDef 39e1f9d61589c4acaaf297cc961d65e4 {
-                const_0:0.0 -> 0_In[0:bus]
-                0_In[0] -> 1_HPZ1[0:source]
-                1_HPZ1[0] -> 2_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                2_UnaryOpUGen:ABSOLUTE_VALUE[0] -> 3_BinaryOpUGen:GREATER_THAN[0:left]
-                const_0:0.0 -> 3_BinaryOpUGen:GREATER_THAN[1:right]
-            }
+            >>> graph(changed)  # doctest: +SKIP
+
+        ::
+
+            >>> print(changed)
+            synthdef:
+                name: 39e1f9d61589c4acaaf297cc961d65e4
+                ugens:
+                -   In.ar:
+                        bus: 0.0
+                -   HPZ1.ar:
+                        source: In.ar[0]
+                -   UnaryOpUGen(ABSOLUTE_VALUE).ar:
+                        source: HPZ1.ar[0]
+                -   BinaryOpUGen(GREATER_THAN).ar:
+                        left: UnaryOpUGen(ABSOLUTE_VALUE).ar[0]
+                        right: 0.0
 
         Returns ugen graph.
         """
         from supriya.tools import ugentools
         ugen = abs(ugentools.HPZ1.ar(source=source)) > threshold
         return ugen
-
-    # def coeffs(): ...
 
     @classmethod
     def kr(
@@ -80,14 +96,23 @@ class Changed(PseudoUGen):
             ...     source=source,
             ...     threshold=0,
             ...     )
-            >>> print(str(changed))
-            SynthDef e2436271176995c6a0a5cac6d1553f8b {
-                const_0:0.0 -> 0_In[0:bus]
-                0_In[0] -> 1_HPZ1[0:source]
-                1_HPZ1[0] -> 2_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                2_UnaryOpUGen:ABSOLUTE_VALUE[0] -> 3_BinaryOpUGen:GREATER_THAN[0:left]
-                const_0:0.0 -> 3_BinaryOpUGen:GREATER_THAN[1:right]
-            }
+            >>> graph(changed)  # doctest: +SKIP
+
+        ::
+
+            >>> print(changed)
+            synthdef:
+                name: e2436271176995c6a0a5cac6d1553f8b
+                ugens:
+                -   In.ar:
+                        bus: 0.0
+                -   HPZ1.kr:
+                        source: In.ar[0]
+                -   UnaryOpUGen(ABSOLUTE_VALUE).kr:
+                        source: HPZ1.kr[0]
+                -   BinaryOpUGen(GREATER_THAN).kr:
+                        left: UnaryOpUGen(ABSOLUTE_VALUE).kr[0]
+                        right: 0.0
 
         Returns ugen graph.
         """

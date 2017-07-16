@@ -7,7 +7,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_1_1(self):
         synthdef = livetools.Send.build_synthdef(1, 1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/1x1
@@ -56,7 +56,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_1_2(self):
         synthdef = livetools.Send.build_synthdef(1, 2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/1x2
@@ -109,7 +109,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_1_4(self):
         synthdef = livetools.Send.build_synthdef(1, 4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/1x4
@@ -170,7 +170,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_1_8(self):
         synthdef = livetools.Send.build_synthdef(1, 8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/1x8
@@ -247,7 +247,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_2_1(self):
         synthdef = livetools.Send.build_synthdef(2, 1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/2x1
@@ -302,7 +302,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_2_2(self):
         synthdef = livetools.Send.build_synthdef(2, 2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/2x2
@@ -355,7 +355,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_2_4(self):
         synthdef = livetools.Send.build_synthdef(2, 4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/2x4
@@ -442,7 +442,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_2_8(self):
         synthdef = livetools.Send.build_synthdef(2, 8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/2x8
@@ -557,7 +557,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_4_1(self):
         synthdef = livetools.Send.build_synthdef(4, 1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/4x1
@@ -614,7 +614,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_4_2(self):
         synthdef = livetools.Send.build_synthdef(4, 2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/4x2
@@ -705,7 +705,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_4_4(self):
         synthdef = livetools.Send.build_synthdef(4, 4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/4x4
@@ -766,7 +766,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_4_8(self):
         synthdef = livetools.Send.build_synthdef(4, 8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/4x8
@@ -911,7 +911,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_8_1(self):
         synthdef = livetools.Send.build_synthdef(8, 1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/8x1
@@ -976,7 +976,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_8_2(self):
         synthdef = livetools.Send.build_synthdef(8, 2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/8x2
@@ -1111,7 +1111,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_8_4(self):
         synthdef = livetools.Send.build_synthdef(8, 4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/8x4
@@ -1280,7 +1280,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_synthdef_8_8(self):
         synthdef = livetools.Send.build_synthdef(8, 8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/send/8x8

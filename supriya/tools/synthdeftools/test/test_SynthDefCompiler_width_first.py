@@ -168,72 +168,50 @@ class Test(unittest.TestCase):
             'Out.ar()',
             )
 
-        assert str(py_synthdef) == stringtools.normalize(r'''
-            SynthDef PVCopyTest {
-                const_0:2.0 -> 1_MaxLocalBufs[0:maximum]
-                const_1:1.0 -> 2_LocalBuf[0:channel_count]
-                const_2:2048.0 -> 2_LocalBuf[1:frame_count]
-                1_MaxLocalBufs[0] -> 2_LocalBuf[2]
-                2_LocalBuf[0] -> 3_FFT[0:buffer_id]
-                0_PinkNoise[0] -> 3_FFT[1:source]
-                const_3:0.5 -> 3_FFT[2:hop]
-                const_4:0.0 -> 3_FFT[3:window_type]
-                const_1:1.0 -> 3_FFT[4:active]
-                const_4:0.0 -> 3_FFT[5:window_size]
-                2_LocalBuf[0] -> 4_BufFrames[0:buffer_id]
-                const_1:1.0 -> 5_LocalBuf[0:channel_count]
-                4_BufFrames[0] -> 5_LocalBuf[1:frame_count]
-                1_MaxLocalBufs[0] -> 5_LocalBuf[2]
-                3_FFT[0] -> 6_PV_Copy[0:pv_chain_a]
-                5_LocalBuf[0] -> 6_PV_Copy[1:pv_chain_b]
-                6_PV_Copy[0] -> 7_PV_BinScramble[0:pv_chain]
-                const_4:0.0 -> 7_PV_BinScramble[1:wipe]
-                const_5:0.2 -> 7_PV_BinScramble[2:width]
-                const_4:0.0 -> 7_PV_BinScramble[3:trigger]
-                3_FFT[0] -> 8_PV_MagFreeze[0:pv_chain]
-                const_4:0.0 -> 8_PV_MagFreeze[1:freeze]
-                7_PV_BinScramble[0] -> 9_PV_MagMul[0:pv_chain_a]
-                8_PV_MagFreeze[0] -> 9_PV_MagMul[1:pv_chain_b]
-                9_PV_MagMul[0] -> 10_IFFT[0:pv_chain]
-                const_4:0.0 -> 10_IFFT[1:window_type]
-                const_4:0.0 -> 10_IFFT[2:window_size]
-                const_4:0.0 -> 11_Out[0:bus]
-                10_IFFT[0] -> 11_Out[1:source]
-            }
-            ''')
-        assert str(sc_synthdef) == stringtools.normalize(r'''
-            SynthDef PVCopyTest {
-                const_0:2.0 -> 1_MaxLocalBufs[0:maximum]
-                const_1:1.0 -> 2_LocalBuf[0:channel_count]
-                const_2:2048.0 -> 2_LocalBuf[1:frame_count]
-                1_MaxLocalBufs[0] -> 2_LocalBuf[2]
-                2_LocalBuf[0] -> 3_FFT[0:buffer_id]
-                0_PinkNoise[0] -> 3_FFT[1:source]
-                const_3:0.5 -> 3_FFT[2:hop]
-                const_4:0.0 -> 3_FFT[3:window_type]
-                const_1:1.0 -> 3_FFT[4:active]
-                const_4:0.0 -> 3_FFT[5:window_size]
-                2_LocalBuf[0] -> 4_BufFrames[0:buffer_id]
-                const_1:1.0 -> 5_LocalBuf[0:channel_count]
-                4_BufFrames[0] -> 5_LocalBuf[1:frame_count]
-                1_MaxLocalBufs[0] -> 5_LocalBuf[2]
-                3_FFT[0] -> 6_PV_Copy[0:pv_chain_a]
-                5_LocalBuf[0] -> 6_PV_Copy[1:pv_chain_b]
-                6_PV_Copy[0] -> 7_PV_BinScramble[0:pv_chain]
-                const_4:0.0 -> 7_PV_BinScramble[1:wipe]
-                const_5:0.20000000298 -> 7_PV_BinScramble[2:width]
-                const_4:0.0 -> 7_PV_BinScramble[3:trigger]
-                3_FFT[0] -> 8_PV_MagFreeze[0:pv_chain]
-                const_4:0.0 -> 8_PV_MagFreeze[1:freeze]
-                7_PV_BinScramble[0] -> 9_PV_MagMul[0:pv_chain_a]
-                8_PV_MagFreeze[0] -> 9_PV_MagMul[1:pv_chain_b]
-                9_PV_MagMul[0] -> 10_IFFT[0:pv_chain]
-                const_4:0.0 -> 10_IFFT[1:window_type]
-                const_4:0.0 -> 10_IFFT[2:window_size]
-                const_4:0.0 -> 11_Out[0:bus]
-                10_IFFT[0] -> 11_Out[1:source]
-            }
-            ''')
+        assert str(py_synthdef) == stringtools.normalize('''
+            synthdef:
+                name: PVCopyTest
+                ugens:
+                -   PinkNoise.ar: null
+                -   MaxLocalBufs.ir:
+                        maximum: 2.0
+                -   LocalBuf.ir/0:
+                        channel_count: 1.0
+                        frame_count: MaxLocalBufs.ir[0]
+                -   FFT.kr:
+                        active: 1.0
+                        buffer_id: LocalBuf.ir/0[0]
+                        hop: 0.5
+                        source: PinkNoise.ar[0]
+                        window_size: 0.0
+                        window_type: 0.0
+                -   BufFrames.ir:
+                        buffer_id: LocalBuf.ir/0[0]
+                -   LocalBuf.ir/1:
+                        channel_count: 1.0
+                        frame_count: MaxLocalBufs.ir[0]
+                -   PV_Copy.kr:
+                        pv_chain_a: FFT.kr[0]
+                        pv_chain_b: LocalBuf.ir/1[0]
+                -   PV_BinScramble.kr:
+                        pv_chain: PV_Copy.kr[0]
+                        trigger: 0.0
+                        width: 0.2
+                        wipe: 0.0
+                -   PV_MagFreeze.kr:
+                        freeze: 0.0
+                        pv_chain: FFT.kr[0]
+                -   PV_MagMul.kr:
+                        pv_chain_a: PV_BinScramble.kr[0]
+                        pv_chain_b: PV_MagFreeze.kr[0]
+                -   IFFT.ar:
+                        pv_chain: PV_MagMul.kr[0]
+                        window_size: 0.0
+                        window_type: 0.0
+                -   Out.ar:
+                        bus: 0.0
+                        source[0]: IFFT.ar[0]
+            ''') + '\n'
         assert tuple(repr(_) for _ in sc_synthdef.ugens) == \
             tuple(repr(_) for _ in py_synthdef.ugens)
 

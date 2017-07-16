@@ -123,36 +123,56 @@ class BusGroup(ServerObjectProxy):
         """
         Creates an audio-rate input ugen subgraph.
 
-        ::
+        ..  container:: example
 
-            >>> from supriya.tools import servertools
-            >>> audio_bus_group = servertools.BusGroup(
-            ...     bus_id=8,
-            ...     bus_count=4,
-            ...     calculation_rate='audio',
-            ...     )
-            >>> ugen = audio_bus_group.ar()
-            >>> print(str(ugen))
-            SynthDef 0af6b551a643cad01e9994845ff4ae40 {
-                const_0:8.0 -> 0_In[0:bus]
-            }
+            ::
 
-        ::
+                >>> from supriya.tools import servertools
+                >>> audio_bus_group = servertools.BusGroup(
+                ...     bus_id=8,
+                ...     bus_count=4,
+                ...     calculation_rate='audio',
+                ...     )
+                >>> ugen = audio_bus_group.ar()
+                >>> graph(ugen)  # doctest: +SKIP
 
-            >>> control_bus_group = servertools.BusGroup(
-            ...     bus_id=8,
-            ...     bus_count=4,
-            ...     calculation_rate='control',
-            ...     )
-            >>> ugen = control_bus_group.ar()
-            >>> print(str(ugen))
-            SynthDef ecaa7fe9417cb0742cdcda87657fe9de {
-                const_0:8.0 -> 0_In[0:bus]
-                0_In[0] -> 1_K2A[0:source]
-                0_In[1] -> 2_K2A[0:source]
-                0_In[2] -> 3_K2A[0:source]
-                0_In[3] -> 4_K2A[0:source]
-            }
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: 0af6b551a643cad01e9994845ff4ae40
+                    ugens:
+                    -   In.ar:
+                            bus: 8.0
+
+        ..  container:: example
+
+            ::
+
+                >>> control_bus_group = servertools.BusGroup(
+                ...     bus_id=8,
+                ...     bus_count=4,
+                ...     calculation_rate='control',
+                ...     )
+                >>> ugen = control_bus_group.ar()
+                >>> graph(ugen)  # doctest: +SKIP
+
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: ecaa7fe9417cb0742cdcda87657fe9de
+                    ugens:
+                    -   In.kr:
+                            bus: 8.0
+                    -   K2A.ar/0:
+                            source: In.kr[0]
+                    -   K2A.ar/1:
+                            source: In.kr[1]
+                    -   K2A.ar/2:
+                            source: In.kr[2]
+                    -   K2A.ar/3:
+                            source: In.kr[3]
 
         Returns ugen.
         """
@@ -225,36 +245,56 @@ class BusGroup(ServerObjectProxy):
         """
         Creates a control-rate input ugen subgraph.
 
-        ::
+        ..  container:: example
 
-            >>> from supriya.tools import servertools
-            >>> audio_bus_group = servertools.BusGroup(
-            ...     bus_id=8,
-            ...     bus_count=4,
-            ...     calculation_rate='audio',
-            ...     )
-            >>> ugen = audio_bus_group.kr()
-            >>> print(str(ugen))
-            SynthDef ffeda833c370bc644251437469e243ef {
-                const_0:8.0 -> 0_In[0:bus]
-                0_In[0] -> 1_A2K[0:source]
-                0_In[1] -> 2_A2K[0:source]
-                0_In[2] -> 3_A2K[0:source]
-                0_In[3] -> 4_A2K[0:source]
-            }
+            ::
 
-        ::
+                >>> from supriya.tools import servertools
+                >>> audio_bus_group = servertools.BusGroup(
+                ...     bus_id=8,
+                ...     bus_count=4,
+                ...     calculation_rate='audio',
+                ...     )
+                >>> ugen = audio_bus_group.kr()
+                >>> graph(ugen)  # doctest: +SKIP
 
-            >>> control_bus_group = servertools.BusGroup(
-            ...     bus_id=8,
-            ...     bus_count=4,
-            ...     calculation_rate='control',
-            ...     )
-            >>> ugen = control_bus_group.kr()
-            >>> print(str(ugen))
-            SynthDef b64857a04b384841694ba85f74f0fd0b {
-                const_0:8.0 -> 0_In[0:bus]
-            }
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: ffeda833c370bc644251437469e243ef
+                    ugens:
+                    -   In.ar:
+                            bus: 8.0
+                    -   A2K.kr/0:
+                            source: In.ar[0]
+                    -   A2K.kr/1:
+                            source: In.ar[1]
+                    -   A2K.kr/2:
+                            source: In.ar[2]
+                    -   A2K.kr/3:
+                            source: In.ar[3]
+
+        ..  container:: example
+
+            ::
+
+                >>> control_bus_group = servertools.BusGroup(
+                ...     bus_id=8,
+                ...     bus_count=4,
+                ...     calculation_rate='control',
+                ...     )
+                >>> ugen = control_bus_group.kr()
+                >>> graph(ugen)  # doctest: +SKIP
+
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: b64857a04b384841694ba85f74f0fd0b
+                    ugens:
+                    -   In.kr:
+                            bus: 8.0
 
         Returns ugen.
         """

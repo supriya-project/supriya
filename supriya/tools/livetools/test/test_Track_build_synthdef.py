@@ -7,7 +7,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_input_synthdef_1(self):
         synthdef = livetools.Track.build_input_synthdef(1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/input/1
@@ -60,7 +60,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_input_synthdef_2(self):
         synthdef = livetools.Track.build_input_synthdef(2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/input/2
@@ -117,7 +117,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_input_synthdef_4(self):
         synthdef = livetools.Track.build_input_synthdef(4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/input/4
@@ -182,7 +182,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_input_synthdef_8(self):
         synthdef = livetools.Track.build_input_synthdef(8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/input/8
@@ -263,7 +263,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_output_synthdef_1(self):
         synthdef = livetools.Track.build_output_synthdef(1)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/output/1
@@ -320,7 +320,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_output_synthdef_2(self):
         synthdef = livetools.Track.build_output_synthdef(2)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/output/2
@@ -381,7 +381,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_output_synthdef_4(self):
         synthdef = livetools.Track.build_output_synthdef(4)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/output/4
@@ -450,7 +450,7 @@ class TestCase(abjad.systemtools.TestCase):
     def test_build_output_synthdef_8(self):
         synthdef = livetools.Track.build_output_synthdef(8)
         self.compare_strings(
-            synthdef.to_string(),
+            str(synthdef),
             """
             synthdef:
                 name: mixer/output/8

@@ -7,6 +7,7 @@ from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 class SynthDefDecompiler(SupriyaObject):
     """
+    SynthDef decompiler.
 
     ::
 
@@ -28,34 +29,56 @@ class SynthDefDecompiler(SupriyaObject):
         ...     out = ugentools.Out.ar(bus=0, source=enveloped_sin)
         ...
         >>> synthdef = builder.build()
+        >>> graph(synthdef)  # doctest: +SKIP
+
+    ::
+
         >>> print(synthdef)
-        SynthDef 001520731aee5371fefab6b505cf64dd {
-            0_TrigControl[0:trigger] -> 1_Decay[0:source]
-            const_0:0.5 -> 1_Decay[1:decay_time]
-            2_Control[0:frequency] -> 3_SinOsc[0:frequency]
-            const_1:0.0 -> 3_SinOsc[1:phase]
-            3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-            const_1:0.0 -> 5_Out[0:bus]
-            4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
-        }
+        synthdef:
+            name: 001520731aee5371fefab6b505cf64dd
+            ugens:
+            -   TrigControl.kr: null
+            -   Decay.kr:
+                    decay_time: 0.5
+                    source: TrigControl.kr[0:trigger]
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[0:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Decay.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
     ::
 
         >>> compiled_synthdef = synthdef.compile()
         >>> sdd = synthdeftools.SynthDefDecompiler
         >>> decompiled_synthdef = sdd.decompile_synthdefs(compiled_synthdef)[0]
+        >>> graph(decompiled_synthdef)  # doctest: +SKIP
+
+    ::
+
         >>> print(decompiled_synthdef)
-        SynthDef 001520731aee5371fefab6b505cf64dd {
-            0_TrigControl[0:trigger] -> 1_Decay[0:source]
-            const_0:0.5 -> 1_Decay[1:decay_time]
-            2_Control[0:frequency] -> 3_SinOsc[0:frequency]
-            const_1:0.0 -> 3_SinOsc[1:phase]
-            3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-            1_Decay[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-            const_1:0.0 -> 5_Out[0:bus]
-            4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
-        }
+        synthdef:
+            name: 001520731aee5371fefab6b505cf64dd
+            ugens:
+            -   TrigControl.kr: null
+            -   Decay.kr:
+                    decay_time: 0.5
+                    source: TrigControl.kr[0:trigger]
+            -   Control.kr: null
+            -   SinOsc.ar:
+                    frequency: Control.kr[0:frequency]
+                    phase: 0.0
+            -   BinaryOpUGen(MULTIPLICATION).ar:
+                    left: SinOsc.ar[0]
+                    right: Decay.kr[0]
+            -   Out.ar:
+                    bus: 0.0
+                    source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
 
     ::
 

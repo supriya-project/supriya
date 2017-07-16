@@ -32,12 +32,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                }
+                synthdef:
+                    name: f21696d155a2686700992f0e9a04a79c
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(ABSOLUTE_VALUE).ar:
+                            source: WhiteNoise.ar[0]
 
         ..  container:: example
 
@@ -56,20 +59,27 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 1_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                    const_2:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    2_SinOsc[0] -> 3_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                    const_3:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    4_SinOsc[0] -> 5_UnaryOpUGen:ABSOLUTE_VALUE[0:source]
-                }
+                synthdef:
+                    name: 1d45df2f3d33d1b0641d2c464498f6c4
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   UnaryOpUGen(ABSOLUTE_VALUE).ar/0:
+                            source: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   UnaryOpUGen(ABSOLUTE_VALUE).ar/1:
+                            source: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   UnaryOpUGen(ABSOLUTE_VALUE).ar/2:
+                            source: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -99,15 +109,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:ADDITION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
-                }
+                synthdef:
+                    name: 6bf4339326d015532b7604cd7af9ad3b
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -127,23 +141,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:ADDITION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:ADDITION[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:ADDITION[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:ADDITION[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:ADDITION[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:ADDITION[1:right]
-                }
+                synthdef:
+                    name: f4a3c1ed35cc5f6fe66b70a3bc520b10
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -163,14 +185,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:ADDITION[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:ADDITION[1:right]
-                }
+                synthdef:
+                    name: f79088cc154ef2b65c72a0f8de8336ce
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(ADDITION).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -201,15 +226,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: 6da024a346859242c441fe03326d2adc
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -229,23 +258,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: be20d589dfccb721f56da8b002d86763
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -265,14 +302,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: 672765c596fcaa083186b2f2b996ba1d
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -313,15 +353,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: 9db96233abf1f610d027ff285691482d
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -341,23 +385,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: 6d43342b3787aa11a46cea54412407e1
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -377,14 +429,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:GREATER_THAN_OR_EQUAL[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:GREATER_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: b06931195bab8e6f6ca2e3a857e71a95
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(GREATER_THAN_OR_EQUAL).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -415,15 +470,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN[1:right]
-                }
+                synthdef:
+                    name: 01bebf935112af62ffdd282a99581904
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -443,23 +502,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:GREATER_THAN[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:GREATER_THAN[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:GREATER_THAN[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:GREATER_THAN[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:GREATER_THAN[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:GREATER_THAN[1:right]
-                }
+                synthdef:
+                    name: 55642179864ad927e9d5cf6358367677
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(GREATER_THAN).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -479,14 +546,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:GREATER_THAN[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:GREATER_THAN[1:right]
-                }
+                synthdef:
+                    name: 5177e03443ad31ee2664aae2201fb979
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(GREATER_THAN).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -517,15 +587,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: fefc06cbbc3babb35046306c6d41e3c5
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -545,23 +619,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: 53f29d793fd676fbca1d541e938b66ca
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -581,14 +663,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:LESS_THAN_OR_EQUAL[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:LESS_THAN_OR_EQUAL[1:right]
-                }
+                synthdef:
+                    name: 3cf0414af96d130edf2e1b839f73036c
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(LESS_THAN_OR_EQUAL).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -619,15 +704,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN[1:right]
-                }
+                synthdef:
+                    name: 844f34c0ffb28ecc24bd5cf0bae20b43
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -647,23 +736,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:LESS_THAN[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:LESS_THAN[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:LESS_THAN[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:LESS_THAN[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:LESS_THAN[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:LESS_THAN[1:right]
-                }
+                synthdef:
+                    name: 14c1494fe4e153e690a8ef0a42e5834f
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(LESS_THAN).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -683,14 +780,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:LESS_THAN[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:LESS_THAN[1:right]
-                }
+                synthdef:
+                    name: e87d41791847aa80d8a3e56318e506e4
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(LESS_THAN).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -721,15 +821,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MODULO[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:MODULO[1:right]
-                }
+                synthdef:
+                    name: e4a06e157474f8d1ae213916f3cf585a
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MODULO).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -749,23 +853,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MODULO[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:MODULO[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:MODULO[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:MODULO[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:MODULO[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:MODULO[1:right]
-                }
+                synthdef:
+                    name: 90badce1cf8fc1752b5eb99b29122a14
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MODULO).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MODULO).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MODULO).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -785,14 +897,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:MODULO[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:MODULO[1:right]
-                }
+                synthdef:
+                    name: bfa60877061daf112516cc3ec8c7ff69
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(MODULO).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -823,15 +938,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
-                }
+                synthdef:
+                    name: ea2b5e5cec4e2d5a1bef0a8dda522bd3
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -851,23 +970,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:MULTIPLICATION[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:MULTIPLICATION[1:right]
-                }
+                synthdef:
+                    name: 9d353c198344b6be3635244197bc2a4b
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -887,14 +1014,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
-                }
+                synthdef:
+                    name: 1735acd4add428d8ab317d00236b0fe7
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(MULTIPLICATION).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -924,12 +1054,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:NEGATIVE[0:source]
-                }
+                synthdef:
+                    name: a987a13f0593e4e4e070acffb11d5c3e
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(NEGATIVE).ar:
+                            source: WhiteNoise.ar[0]
 
         ..  container:: example
 
@@ -948,20 +1081,27 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 1_UnaryOpUGen:NEGATIVE[0:source]
-                    const_2:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    2_SinOsc[0] -> 3_UnaryOpUGen:NEGATIVE[0:source]
-                    const_3:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    4_SinOsc[0] -> 5_UnaryOpUGen:NEGATIVE[0:source]
-                }
+                synthdef:
+                    name: e5dfc1d4ecb11ed8170aaf11469a6443
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   UnaryOpUGen(NEGATIVE).ar/0:
+                            source: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   UnaryOpUGen(NEGATIVE).ar/1:
+                            source: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   UnaryOpUGen(NEGATIVE).ar/2:
+                            source: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -991,15 +1131,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:POWER[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:POWER[1:right]
-                }
+                synthdef:
+                    name: 3498b370c0575fb2c2ed45143ba2da4f
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1019,23 +1163,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:POWER[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:POWER[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:POWER[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:POWER[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:POWER[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:POWER[1:right]
-                }
+                synthdef:
+                    name: 04e78034682f9ffd6628fbfd09a28c13
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -1055,14 +1207,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:POWER[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:POWER[1:right]
-                }
+                synthdef:
+                    name: 50b8e3b154bc85c98d76ced493a32731
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(POWER).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -1093,15 +1248,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:POWER[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:POWER[1:right]
-                }
+                synthdef:
+                    name: c450618c9e0fe5213629275da4e5e354
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1121,23 +1279,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:POWER[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:POWER[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:POWER[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:POWER[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:POWER[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:POWER[1:right]
-                }
+                synthdef:
+                    name: a614dc68313ee7ca2677e63fd499de0d
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(POWER).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1168,15 +1333,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:ADDITION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:ADDITION[1:right]
-                }
+                synthdef:
+                    name: bb0592fad58b0bfa1a403c7ff6a400f3
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1196,23 +1364,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:ADDITION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:ADDITION[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:ADDITION[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:ADDITION[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:ADDITION[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:ADDITION[1:right]
-                }
+                synthdef:
+                    name: 0ad0a3d4b7ddf8bb56807813efc62202
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(ADDITION).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1243,15 +1418,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: d79490206a430281b186b188d617f679
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1271,23 +1449,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: d71b3081490f800d5136c87f5fef46d1
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1318,15 +1503,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: d79490206a430281b186b188d617f679
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1346,23 +1534,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:FLOAT_DIVISION[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:FLOAT_DIVISION[1:right]
-                }
+                synthdef:
+                    name: d71b3081490f800d5136c87f5fef46d1
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(FLOAT_DIVISION).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1393,15 +1588,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
-                }
+                synthdef:
+                    name: f60bbe0480298a7ae8b54de5a4c0260f
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1421,23 +1619,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:MULTIPLICATION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:MULTIPLICATION[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:MULTIPLICATION[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:MULTIPLICATION[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:MULTIPLICATION[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:MULTIPLICATION[1:right]
-                }
+                synthdef:
+                    name: 0295153106bff55a2bf6db3b7184d301
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(MULTIPLICATION).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1468,15 +1673,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:1.5 -> 1_BinaryOpUGen:SUBTRACTION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:SUBTRACTION[1:right]
-                }
+                synthdef:
+                    name: 74e331121aa41f4d49a6d38a38ca4a9a
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar:
+                            left: 1.5
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1496,23 +1704,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:220.0 -> 1_BinaryOpUGen:SUBTRACTION[0:left]
-                    0_SinOsc[0] -> 1_BinaryOpUGen:SUBTRACTION[1:right]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    const_4:330.0 -> 3_BinaryOpUGen:SUBTRACTION[0:left]
-                    2_SinOsc[0] -> 3_BinaryOpUGen:SUBTRACTION[1:right]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    const_2:220.0 -> 5_BinaryOpUGen:SUBTRACTION[0:left]
-                    4_SinOsc[0] -> 5_BinaryOpUGen:SUBTRACTION[1:right]
-                }
+                synthdef:
+                    name: 1ca2e8f3f541b9365413a0dbf9028e95
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/0:
+                            left: 220.0
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/1:
+                            left: 330.0
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/2:
+                            left: 220.0
+                            right: SinOsc.ar/2[0]
 
         Returns ugen graph.
         """
@@ -1533,10 +1748,12 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> ugen_graph = ugentools.SinOsc.ar()
                 >>> print(str(ugen_graph))
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                }
+                synthdef:
+                    name: c9b0ed62d4e0666b74166ff5ec09abe4
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
 
         ..  container:: example
 
@@ -1544,14 +1761,18 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> ugen_graph = ugentools.SinOsc.ar(frequency=[1, 2, 3])
                 >>> print(str(ugen_graph))
-                SynthDef 4015dac116b25c54b4a6f02bcb5859cb {
-                    const_0:1.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:2.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    const_3:3.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                }
+                synthdef:
+                    name: 4015dac116b25c54b4a6f02bcb5859cb
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 1.0
+                            phase: 0.0
+                    -   SinOsc.ar/1:
+                            frequency: 2.0
+                            phase: 0.0
+                    -   SinOsc.ar/2:
+                            frequency: 3.0
+                            phase: 0.0
 
         Returns string.
         """
@@ -1579,15 +1800,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:SUBTRACTION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:SUBTRACTION[1:right]
-                }
+                synthdef:
+                    name: cd62fff8ff3ad7758d0f7ad82f39c7ce
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar[0]
 
         ..  container:: example
 
@@ -1607,23 +1832,31 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 2_BinaryOpUGen:SUBTRACTION[0:left]
-                    1_SinOsc[0] -> 2_BinaryOpUGen:SUBTRACTION[1:right]
-                    const_2:442.0 -> 3_SinOsc[0:frequency]
-                    const_1:0.0 -> 3_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 4_BinaryOpUGen:SUBTRACTION[0:left]
-                    3_SinOsc[0] -> 4_BinaryOpUGen:SUBTRACTION[1:right]
-                    const_3:443.0 -> 5_SinOsc[0:frequency]
-                    const_1:0.0 -> 5_SinOsc[1:phase]
-                    0_WhiteNoise[0] -> 6_BinaryOpUGen:SUBTRACTION[0:left]
-                    5_SinOsc[0] -> 6_BinaryOpUGen:SUBTRACTION[1:right]
-                }
+                synthdef:
+                    name: 9a8355f84507908cadf3cc63187ddab4
+                    ugens:
+                    -   WhiteNoise.kr: null
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/0:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/1:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   BinaryOpUGen(SUBTRACTION).ar/2:
+                            left: WhiteNoise.kr[0]
+                            right: SinOsc.ar/2[0]
 
         ..  container:: example
 
@@ -1643,14 +1876,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:11.5 -> 0_Dust[0:density]
-                    0_Dust[0] -> 1_BinaryOpUGen:SUBTRACTION[0:left]
-                    const_1:4.0 -> 1_BinaryOpUGen:SUBTRACTION[1:right]
-                }
+                synthdef:
+                    name: 48ca704043ed00a2b6a55fd4b6b72cf1
+                    ugens:
+                    -   Dust.ar:
+                            density: 11.5
+                    -   BinaryOpUGen(SUBTRACTION).ar:
+                            left: Dust.ar[0]
+                            right: 4.0
 
         Returns ugen graph.
         """
@@ -1927,15 +2163,19 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 2_BinaryOpUGen:ABSOLUTE_DIFFERENCE[0:left]
-                    1_WhiteNoise[0] -> 2_BinaryOpUGen:ABSOLUTE_DIFFERENCE[1:right]
-                }
+                synthdef:
+                    name: a6b274b5f30e1dfa86ac1d00ef1c169b
+                    ugens:
+                    -   SinOsc.ar:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   WhiteNoise.kr: null
+                    -   BinaryOpUGen(ABSOLUTE_DIFFERENCE).ar:
+                            left: SinOsc.ar[0]
+                            right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -1961,12 +2201,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:AMPLITUDE_TO_DB[0:source]
-                }
+                synthdef:
+                    name: 73daa5fd8db0d28c03c3872c845fd3ed
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(AMPLITUDE_TO_DB).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -1992,10 +2235,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.ceiling()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:CEILING[0:source]
-            }
+            synthdef:
+                name: c7b1855219f3364f731bdd2e4599b1d1
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(CEILING).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2022,14 +2268,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_Clip[0:source]
-                    const_0:-0.25 -> 1_Clip[1:minimum]
-                    const_1:0.25 -> 1_Clip[2:maximum]
-                }
+                synthdef:
+                    name: e710843b0e0fbc5e6185afc6cdf90149
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   Clip.ar:
+                            maximum: 0.25
+                            minimum: -0.25
+                            source: WhiteNoise.ar[0]
 
         ..  container:: example
 
@@ -2046,26 +2295,33 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 1_Clip[0:source]
-                    const_2:-0.25 -> 1_Clip[1:minimum]
-                    const_3:0.25 -> 1_Clip[2:maximum]
-                    const_4:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    2_SinOsc[0] -> 3_Clip[0:source]
-                    const_2:-0.25 -> 3_Clip[1:minimum]
-                    const_3:0.25 -> 3_Clip[2:maximum]
-                    const_5:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    4_SinOsc[0] -> 5_Clip[0:source]
-                    const_2:-0.25 -> 5_Clip[1:minimum]
-                    const_3:0.25 -> 5_Clip[2:maximum]
-                }
+                synthdef:
+                    name: 000e997ea0d7e8637c9f9040547baa50
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   Clip.ar/0:
+                            maximum: 0.25
+                            minimum: -0.25
+                            source: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   Clip.ar/1:
+                            maximum: 0.25
+                            minimum: -0.25
+                            source: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   Clip.ar/2:
+                            maximum: 0.25
+                            minimum: -0.25
+                            source: SinOsc.ar/2[0]
 
         """
         from supriya.tools import ugentools
@@ -2084,10 +2340,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.cubed()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:CUBED[0:source]
-            }
+            synthdef:
+                name: ad344666e7f3f60edac95b1ea40c412d
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(CUBED).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2112,12 +2371,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:DB_TO_AMPLITUDE[0:source]
-                }
+                synthdef:
+                    name: fe82aae42b01b2b43d427cafd77c1c22
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(DB_TO_AMPLITUDE).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2136,10 +2398,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.distort()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:DISTORT[0:source]
-            }
+            synthdef:
+                name: bb632e15f448820d93b3880ad943617b
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(DISTORT).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2158,10 +2423,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.exponential()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:EXPONENTIAL[0:source]
-            }
+            synthdef:
+                name: f3b8b1036b3cceddf116c3f6a3c5a9a0
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(EXPONENTIAL).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2180,10 +2448,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.floor()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:FLOOR[0:source]
-            }
+            synthdef:
+                name: 407228cfdb74bdd79b51c425fb8a7f77
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(FLOOR).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2202,10 +2473,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.fractional_part()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:FRACTIONAL_PART[0:source]
-            }
+            synthdef:
+                name: c663d5ee6c7c5347c043727c628af658
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(FRACTIONAL_PART).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2230,13 +2504,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:HANNING_WINDOW[0:source]
-                }
+                synthdef:
+                    name: 18cb43db42ae3499f2c233e83df877fd
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(HANNING_WINDOW).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -2261,12 +2538,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:HZ_TO_MIDI[0:source]
-                }
+                synthdef:
+                    name: 227a6ae85bc89b3af939cff32f54e36a
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(HZ_TO_MIDI).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2291,12 +2571,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:HZ_TO_OCTAVE[0:source]
-                }
+                synthdef:
+                    name: e4fd4ca786d453fc5dfb955c63b6fbf6
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(HZ_TO_OCTAVE).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2316,12 +2599,16 @@ class UGenMethodMixin(SupriyaObject):
             >>> right = ugentools.WhiteNoise.kr()
             >>> operation = left.is_equal_to(right)
             >>> print(operation)
-            SynthDef ... {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:EQUAL[0:left]
-                1_WhiteNoise[0] -> 2_BinaryOpUGen:EQUAL[1:right]
-            }
+            synthdef:
+                name: 8287d890708ce26adff4968d63d494a0
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(EQUAL).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -2342,12 +2629,16 @@ class UGenMethodMixin(SupriyaObject):
             >>> right = ugentools.WhiteNoise.kr()
             >>> operation = left.is_not_equal_to(right)
             >>> print(operation)
-            SynthDef ... {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:NOT_EQUAL[0:left]
-                1_WhiteNoise[0] -> 2_BinaryOpUGen:NOT_EQUAL[1:right]
-            }
+            synthdef:
+                name: b9f77aa86bc08a3b023d8f664afef05d
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(NOT_EQUAL).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -2376,13 +2667,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_Lag[0:source]
-                    const_0:0.5 -> 1_Lag[1:lag_time]
-                }
+                synthdef:
+                    name: 6c3e2cc1a3d54ecfaa49d567a84eae77
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   Lag.ar:
+                            lag_time: 0.5
+                            source: WhiteNoise.ar[0]
 
         ..  container:: example
 
@@ -2397,23 +2691,30 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 1_Lag[0:source]
-                    const_2:0.5 -> 1_Lag[1:lag_time]
-                    const_3:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    2_SinOsc[0] -> 3_Lag[0:source]
-                    const_2:0.5 -> 3_Lag[1:lag_time]
-                    const_4:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    4_SinOsc[0] -> 5_Lag[0:source]
-                    const_2:0.5 -> 5_Lag[1:lag_time]
-                }
+                synthdef:
+                    name: 67098a4ddab35f6e1333a80a226bf559
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   Lag.ar/0:
+                            lag_time: 0.5
+                            source: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   Lag.ar/1:
+                            lag_time: 0.5
+                            source: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   Lag.ar/2:
+                            lag_time: 0.5
+                            source: SinOsc.ar/2[0]
 
         """
         from supriya.tools import ugentools
@@ -2431,10 +2732,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.log()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:LOG[0:source]
-            }
+            synthdef:
+                name: 4da44dab9d935efd1cf098b4d7cec420
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(LOG).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2453,10 +2757,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.log2()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:LOG2[0:source]
-            }
+            synthdef:
+                name: f956f79a387ffbeb409326046397b4dd
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(LOG2).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2475,10 +2782,13 @@ class UGenMethodMixin(SupriyaObject):
             >>> source = ugentools.DC.ar(source=0.5)
             >>> operation = source.log10()
             >>> print(operation)
-            SynthDef ... {
-                const_0:0.5 -> 0_DC[0:source]
-                0_DC[0] -> 1_UnaryOpUGen:LOG10[0:source]
-            }
+            synthdef:
+                name: 122d9333b8ac76164782d00707d3386a
+                ugens:
+                -   DC.ar:
+                        source: 0.5
+                -   UnaryOpUGen(LOG10).ar:
+                        source: DC.ar[0]
 
         Returns ugen graph.
         """
@@ -2498,12 +2808,16 @@ class UGenMethodMixin(SupriyaObject):
             >>> right = ugentools.WhiteNoise.kr()
             >>> operation = left.maximum(right)
             >>> print(operation)
-            SynthDef ... {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:MAXIMUM[0:left]
-                1_WhiteNoise[0] -> 2_BinaryOpUGen:MAXIMUM[1:right]
-            }
+            synthdef:
+                name: dcdca07fb0439c8b4321f42803d18c32
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MAXIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -2529,12 +2843,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:MIDI_TO_HZ[0:source]
-                }
+                synthdef:
+                    name: 5faaa2c74715175625d774b20952f263
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(MIDI_TO_HZ).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2554,12 +2871,16 @@ class UGenMethodMixin(SupriyaObject):
             >>> right = ugentools.WhiteNoise.kr()
             >>> operation = left.minimum(right)
             >>> print(operation)
-            SynthDef f80c0a7b300911e9eff0e8760f5fab18 {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:MINIMUM[0:left]
-                1_WhiteNoise[0] -> 2_BinaryOpUGen:MINIMUM[1:right]
-            }
+            synthdef:
+                name: f80c0a7b300911e9eff0e8760f5fab18
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(MINIMUM).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -2585,12 +2906,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:OCTAVE_TO_HZ[0:source]
-                }
+                synthdef:
+                    name: 04c00b0f32088eb5e4cef0549aed6d96
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(OCTAVE_TO_HZ).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2610,12 +2934,16 @@ class UGenMethodMixin(SupriyaObject):
             >>> right = ugentools.WhiteNoise.kr()
             >>> operation = left.power(right)
             >>> print(operation)
-            SynthDef ... {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:POWER[0:left]
-                1_WhiteNoise[0] -> 2_BinaryOpUGen:POWER[1:right]
-            }
+            synthdef:
+                name: 06d6d3fe992bff8fce9ef55db6863c2a
+                ugens:
+                -   SinOsc.ar:
+                        frequency: 440.0
+                        phase: 0.0
+                -   WhiteNoise.kr: null
+                -   BinaryOpUGen(POWER).ar:
+                        left: SinOsc.ar[0]
+                        right: WhiteNoise.kr[0]
 
         Returns ugen graph.
         """
@@ -2641,12 +2969,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:RATIO_TO_SEMITONES[0:source]
-                }
+                synthdef:
+                    name: 2e23630ade4fab35fc821c190b7f33db
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(RATIO_TO_SEMITONES).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2671,13 +3002,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:RECTANGLE_WINDOW[0:source]
-                }
+                synthdef:
+                    name: 0d296187bbdb205f3a283f301a5fad61
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(RECTANGLE_WINDOW).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -2702,13 +3036,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:RECIPROCAL[0:source]
-                }
+                synthdef:
+                    name: 2e1c714d0def9d5c310197861d725559
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(RECIPROCAL).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -2733,13 +3070,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:S_CURVE[0:source]
-                }
+                synthdef:
+                    name: 21bcaf49922e2c4124d4cadba85c00ac
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(S_CURVE).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -2772,14 +3112,17 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_MulAdd[0:source]
-                    const_0:0.125 -> 1_MulAdd[1:multiplier]
-                    const_1:0.625 -> 1_MulAdd[2:addend]
-                }
+                synthdef:
+                    name: e2295e64ed7b9c949ec22ccdc82520e3
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   MulAdd.ar:
+                            addend: 0.625
+                            multiplier: 0.125
+                            source: WhiteNoise.ar[0]
 
         ..  container:: example
 
@@ -2794,32 +3137,39 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    0_SinOsc[0] -> 1_LinExp[0:source]
-                    const_2:-1.0 -> 1_LinExp[1:input_minimum]
-                    const_3:1.0 -> 1_LinExp[2:input_maximum]
-                    const_4:0.5 -> 1_LinExp[3:output_minimum]
-                    const_5:0.75 -> 1_LinExp[4:output_maximum]
-                    const_6:442.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    2_SinOsc[0] -> 3_LinExp[0:source]
-                    const_2:-1.0 -> 3_LinExp[1:input_minimum]
-                    const_3:1.0 -> 3_LinExp[2:input_maximum]
-                    const_4:0.5 -> 3_LinExp[3:output_minimum]
-                    const_5:0.75 -> 3_LinExp[4:output_maximum]
-                    const_7:443.0 -> 4_SinOsc[0:frequency]
-                    const_1:0.0 -> 4_SinOsc[1:phase]
-                    4_SinOsc[0] -> 5_LinExp[0:source]
-                    const_2:-1.0 -> 5_LinExp[1:input_minimum]
-                    const_3:1.0 -> 5_LinExp[2:input_maximum]
-                    const_4:0.5 -> 5_LinExp[3:output_minimum]
-                    const_5:0.75 -> 5_LinExp[4:output_maximum]
-                }
+                synthdef:
+                    name: 88dca305143542bd40a82d8a6a337306
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   LinExp.ar/0:
+                            input_maximum: 1.0
+                            input_minimum: -1.0
+                            output_maximum: 0.75
+                            output_minimum: 0.5
+                            source: SinOsc.ar/0[0]
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   LinExp.ar/1:
+                            input_maximum: 1.0
+                            input_minimum: -1.0
+                            output_maximum: 0.75
+                            output_minimum: 0.5
+                            source: SinOsc.ar/1[0]
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   LinExp.ar/2:
+                            input_maximum: 1.0
+                            input_minimum: -1.0
+                            output_maximum: 0.75
+                            output_minimum: 0.5
+                            source: SinOsc.ar/2[0]
 
         """
         from supriya.tools import ugentools
@@ -2849,12 +3199,15 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    0_WhiteNoise[0] -> 1_UnaryOpUGen:SEMITONES_TO_RATIO[0:source]
-                }
+                synthdef:
+                    name: f77ac2c24b06f8e620817f14285c2877
+                    ugens:
+                    -   WhiteNoise.ar: null
+                    -   UnaryOpUGen(SEMITONES_TO_RATIO).ar:
+                            source: WhiteNoise.ar[0]
 
         Returns ugen graph.
         """
@@ -2879,13 +3232,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:SIGN[0:source]
-                }
+                synthdef:
+                    name: 6f62abd8306dbf1aae66c09dd98203b5
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(SIGN).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -2942,12 +3298,14 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                }
+                synthdef:
+                    name: 350f2065d4edc69244399dcaff5a1ceb
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
 
         ..  container:: example
 
@@ -2962,20 +3320,25 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:440.0 -> 0_SinOsc[0:frequency]
-                    const_1:0.0 -> 0_SinOsc[1:phase]
-                    const_2:442.0 -> 1_SinOsc[0:frequency]
-                    const_1:0.0 -> 1_SinOsc[1:phase]
-                    const_3:443.0 -> 2_SinOsc[0:frequency]
-                    const_1:0.0 -> 2_SinOsc[1:phase]
-                    0_SinOsc[0] -> 3_Sum3[0:input_one]
-                    1_SinOsc[0] -> 3_Sum3[1:input_two]
-                    2_SinOsc[0] -> 3_Sum3[2:input_three]
-                }
+                synthdef:
+                    name: a1d26283f87b8b445db982ff0e831fb7
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   SinOsc.ar/1:
+                            frequency: 442.0
+                            phase: 0.0
+                    -   SinOsc.ar/2:
+                            frequency: 443.0
+                            phase: 0.0
+                    -   Sum3.ar:
+                            input_one: SinOsc.ar/0[0]
+                            input_three: SinOsc.ar/2[0]
+                            input_two: SinOsc.ar/1[0]
 
         Returns ugen graph.
         """
@@ -2997,13 +3360,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:TANH[0:source]
-                }
+                synthdef:
+                    name: e74aa9abf6e389d8ca39d2c9828d81be
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(TANH).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -3028,20 +3394,28 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:HZ_TO_MIDI[0:source]
-                    1_UnaryOpUGen:HZ_TO_MIDI[0] -> 2_UnaryOpUGen:MIDI_TO_HZ[0:source]
-                    1_UnaryOpUGen:HZ_TO_MIDI[0] -> 3_BinaryOpUGen:ADDITION[0:left]
-                    const_1:3.0 -> 3_BinaryOpUGen:ADDITION[1:right]
-                    3_BinaryOpUGen:ADDITION[0] -> 4_UnaryOpUGen:MIDI_TO_HZ[0:source]
-                    1_UnaryOpUGen:HZ_TO_MIDI[0] -> 5_BinaryOpUGen:ADDITION[0:left]
-                    const_2:7.0 -> 5_BinaryOpUGen:ADDITION[1:right]
-                    5_BinaryOpUGen:ADDITION[0] -> 6_UnaryOpUGen:MIDI_TO_HZ[0:source]
-                }
+                synthdef:
+                    name: c481c3d42e3cfcee0267250247dab51f
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(HZ_TO_MIDI).ar:
+                            source: LFNoise2.ar[0]
+                    -   UnaryOpUGen(MIDI_TO_HZ).ar/0:
+                            source: UnaryOpUGen(HZ_TO_MIDI).ar[0]
+                    -   BinaryOpUGen(ADDITION).ar/0:
+                            left: UnaryOpUGen(HZ_TO_MIDI).ar[0]
+                            right: 3.0
+                    -   UnaryOpUGen(MIDI_TO_HZ).ar/1:
+                            source: BinaryOpUGen(ADDITION).ar/0[0]
+                    -   BinaryOpUGen(ADDITION).ar/1:
+                            left: UnaryOpUGen(HZ_TO_MIDI).ar[0]
+                            right: 7.0
+                    -   UnaryOpUGen(MIDI_TO_HZ).ar/2:
+                            source: BinaryOpUGen(ADDITION).ar/1[0]
 
         Returns ugen graph.
         """
@@ -3062,13 +3436,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:TRIANGLE_WINDOW[0:source]
-                }
+                synthdef:
+                    name: ebb1820b9d08a639565b5090b53681db
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(TRIANGLE_WINDOW).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """
@@ -3093,13 +3470,16 @@ class UGenMethodMixin(SupriyaObject):
 
                 >>> graph(result)  # doctest: +SKIP
 
-            ..  doctest::
+            ::
 
                 >>> print(result)
-                SynthDef ... {
-                    const_0:500.0 -> 0_LFNoise2[0:frequency]
-                    0_LFNoise2[0] -> 1_UnaryOpUGen:WELCH_WINDOW[0:source]
-                }
+                synthdef:
+                    name: ...
+                    ugens:
+                    -   LFNoise2.ar:
+                            frequency: 500.0
+                    -   UnaryOpUGen(WELCH_WINDOW).ar:
+                            source: LFNoise2.ar[0]
 
         Returns ugen graph.
         """

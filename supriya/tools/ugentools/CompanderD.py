@@ -27,26 +27,36 @@ class CompanderD(PseudoUGen):
         """
         Constructs an audio-rate dynamics processor.
 
-        ::
+        ..  container:: example
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> compander_d = ugentools.CompanderD.ar(
-            ...     source=source,
-            ...     )
-            >>> print(str(compander_d))
-            SynthDef ... {
-                const_0:0.0 -> 0_In[0:bus]
-                0_In[0] -> 1_DelayN[0:source]
-                const_1:0.01 -> 1_DelayN[1:maximum_delay_time]
-                const_1:0.01 -> 1_DelayN[2:delay_time]
-                0_In[0] -> 2_Compander[0:source]
-                1_DelayN[0] -> 2_Compander[1:control]
-                const_2:0.5 -> 2_Compander[2:threshold]
-                const_3:1.0 -> 2_Compander[3:slope_below]
-                const_3:1.0 -> 2_Compander[4:slope_above]
-                const_1:0.01 -> 2_Compander[5:clamp_time]
-                const_4:0.1 -> 2_Compander[6:relax_time]
-            }
+            ::
+
+                >>> source = ugentools.In.ar(bus=0)
+                >>> compander_d = ugentools.CompanderD.ar(
+                ...     source=source,
+                ...     )
+                >>> graph(compander_d)  # doctest: +SKIP
+
+            ::
+
+                >>> print(compander_d)
+                synthdef:
+                    name: d4e7b88df56af5070a88f09b0f8c633e
+                    ugens:
+                    -   In.ar:
+                            bus: 0.0
+                    -   DelayN.ar:
+                            delay_time: 0.01
+                            maximum_delay_time: 0.01
+                            source: In.ar[0]
+                    -   Compander.ar:
+                            clamp_time: 0.01
+                            control: DelayN.ar[0]
+                            relax_time: 0.1
+                            slope_above: 1.0
+                            slope_below: 1.0
+                            source: In.ar[0]
+                            threshold: 0.5
 
         Returns ugen graph.
         """

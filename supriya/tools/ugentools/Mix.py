@@ -6,72 +6,113 @@ class Mix(PseudoUGen):
     """
     A down-to-mono signal mixer.
 
-    ::
+    ..  container:: example
 
-        >>> with synthdeftools.SynthDefBuilder() as builder:
-        ...     oscillators = [ugentools.DC.ar(1) for _ in range(5)]
-        ...     mix = ugentools.Mix.new(oscillators)
-        ...
-        >>> synthdef = builder.build(name='mix1')
-        >>> print(synthdef)
-        SynthDef mix1 {
-            const_0:1.0 -> 0_DC[0:source]
-            const_0:1.0 -> 1_DC[0:source]
-            const_0:1.0 -> 2_DC[0:source]
-            const_0:1.0 -> 3_DC[0:source]
-            0_DC[0] -> 4_Sum4[0:input_one]
-            1_DC[0] -> 4_Sum4[1:input_two]
-            2_DC[0] -> 4_Sum4[2:input_three]
-            3_DC[0] -> 4_Sum4[3:input_four]
-            const_0:1.0 -> 5_DC[0:source]
-            4_Sum4[0] -> 6_BinaryOpUGen:ADDITION[0:left]
-            5_DC[0] -> 6_BinaryOpUGen:ADDITION[1:right]
-        }
+        ::
 
-    ::
+            >>> with synthdeftools.SynthDefBuilder() as builder:
+            ...     oscillators = [ugentools.DC.ar(1) for _ in range(5)]
+            ...     mix = ugentools.Mix.new(oscillators)
+            ...
+            >>> synthdef = builder.build(name='mix1')
+            >>> graph(synthdef)  # doctest: +SKIP
 
-        >>> with synthdeftools.SynthDefBuilder() as builder:
-        ...     oscillators = [ugentools.DC.ar(1) for _ in range(15)]
-        ...     mix = ugentools.Mix.new(oscillators)
-        ...
-        >>> synthdef = builder.build('mix2')
-        >>> print(synthdef)
-        SynthDef mix2 {
-            const_0:1.0 -> 0_DC[0:source]
-            const_0:1.0 -> 1_DC[0:source]
-            const_0:1.0 -> 2_DC[0:source]
-            const_0:1.0 -> 3_DC[0:source]
-            0_DC[0] -> 4_Sum4[0:input_one]
-            1_DC[0] -> 4_Sum4[1:input_two]
-            2_DC[0] -> 4_Sum4[2:input_three]
-            3_DC[0] -> 4_Sum4[3:input_four]
-            const_0:1.0 -> 5_DC[0:source]
-            const_0:1.0 -> 6_DC[0:source]
-            const_0:1.0 -> 7_DC[0:source]
-            const_0:1.0 -> 8_DC[0:source]
-            5_DC[0] -> 9_Sum4[0:input_one]
-            6_DC[0] -> 9_Sum4[1:input_two]
-            7_DC[0] -> 9_Sum4[2:input_three]
-            8_DC[0] -> 9_Sum4[3:input_four]
-            const_0:1.0 -> 10_DC[0:source]
-            const_0:1.0 -> 11_DC[0:source]
-            const_0:1.0 -> 12_DC[0:source]
-            const_0:1.0 -> 13_DC[0:source]
-            10_DC[0] -> 14_Sum4[0:input_one]
-            11_DC[0] -> 14_Sum4[1:input_two]
-            12_DC[0] -> 14_Sum4[2:input_three]
-            13_DC[0] -> 14_Sum4[3:input_four]
-            const_0:1.0 -> 15_DC[0:source]
-            const_0:1.0 -> 16_DC[0:source]
-            const_0:1.0 -> 17_DC[0:source]
-            15_DC[0] -> 18_Sum3[0:input_one]
-            16_DC[0] -> 18_Sum3[1:input_two]
-            17_DC[0] -> 18_Sum3[2:input_three]
-            4_Sum4[0] -> 19_Sum4[0:input_one]
-            9_Sum4[0] -> 19_Sum4[1:input_two]
-            14_Sum4[0] -> 19_Sum4[2:input_three]
-            18_Sum3[0] -> 19_Sum4[3:input_four]
-        }
+        ::
+
+            >>> print(synthdef)
+            synthdef:
+                name: mix1
+                ugens:
+                -   DC.ar/0:
+                        source: 1.0
+                -   DC.ar/1:
+                        source: 1.0
+                -   DC.ar/2:
+                        source: 1.0
+                -   DC.ar/3:
+                        source: 1.0
+                -   Sum4.ar:
+                        input_four: DC.ar/3[0]
+                        input_one: DC.ar/0[0]
+                        input_three: DC.ar/2[0]
+                        input_two: DC.ar/1[0]
+                -   DC.ar/4:
+                        source: 1.0
+                -   BinaryOpUGen(ADDITION).ar:
+                        left: Sum4.ar[0]
+                        right: DC.ar/4[0]
+
+    ..  container:: example
+
+        ::
+
+            >>> with synthdeftools.SynthDefBuilder() as builder:
+            ...     oscillators = [ugentools.DC.ar(1) for _ in range(15)]
+            ...     mix = ugentools.Mix.new(oscillators)
+            ...
+            >>> synthdef = builder.build('mix2')
+            >>> graph(synthdef)  # doctest: +SKIP
+
+        ::
+
+            >>> print(synthdef)
+            synthdef:
+                name: mix2
+                ugens:
+                -   DC.ar/0:
+                        source: 1.0
+                -   DC.ar/1:
+                        source: 1.0
+                -   DC.ar/2:
+                        source: 1.0
+                -   DC.ar/3:
+                        source: 1.0
+                -   Sum4.ar/0:
+                        input_four: DC.ar/3[0]
+                        input_one: DC.ar/0[0]
+                        input_three: DC.ar/2[0]
+                        input_two: DC.ar/1[0]
+                -   DC.ar/4:
+                        source: 1.0
+                -   DC.ar/5:
+                        source: 1.0
+                -   DC.ar/6:
+                        source: 1.0
+                -   DC.ar/7:
+                        source: 1.0
+                -   Sum4.ar/1:
+                        input_four: DC.ar/7[0]
+                        input_one: DC.ar/4[0]
+                        input_three: DC.ar/6[0]
+                        input_two: DC.ar/5[0]
+                -   DC.ar/8:
+                        source: 1.0
+                -   DC.ar/9:
+                        source: 1.0
+                -   DC.ar/10:
+                        source: 1.0
+                -   DC.ar/11:
+                        source: 1.0
+                -   Sum4.ar/2:
+                        input_four: DC.ar/11[0]
+                        input_one: DC.ar/8[0]
+                        input_three: DC.ar/10[0]
+                        input_two: DC.ar/9[0]
+                -   DC.ar/12:
+                        source: 1.0
+                -   DC.ar/13:
+                        source: 1.0
+                -   DC.ar/14:
+                        source: 1.0
+                -   Sum3.ar:
+                        input_one: DC.ar/12[0]
+                        input_three: DC.ar/14[0]
+                        input_two: DC.ar/13[0]
+                -   Sum4.ar/3:
+                        input_four: Sum3.ar[0]
+                        input_one: Sum4.ar/0[0]
+                        input_three: Sum4.ar/2[0]
+                        input_two: Sum4.ar/1[0]
 
     """
 
@@ -116,6 +157,154 @@ class Mix(PseudoUGen):
 
     @classmethod
     def multichannel(cls, sources, channel_count):
+        """
+        Segment by channel count and mix down in parallel.
+
+        ..  container:: example
+
+            Combine panner outputs, first with first, second with second, etc.
+
+            ::
+
+                >>> source = ugentools.SinOsc.ar(frequency=[440, 660, 880])
+                >>> panner = ugentools.PanAz.ar(
+                ...     channel_count=4,
+                ...     source=source,
+                ...     position=ugentools.LFNoise2.kr(),
+                ...     )
+                >>> mix = ugentools.Mix.multichannel(panner, channel_count=4)
+                >>> out = ugentools.Out.ar(bus=0, source=mix)
+                >>> graph(out)  # doctest: +SKIP
+
+            ::
+
+                >>> print(out)
+                synthdef:
+                    name: fd9cb7fa733e52136a3108b9c3fe23ea
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   LFNoise2.kr:
+                            frequency: 500.0
+                    -   PanAz.ar/0:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/0[0]
+                            width: 2.0
+                    -   SinOsc.ar/1:
+                            frequency: 660.0
+                            phase: 0.0
+                    -   PanAz.ar/1:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/1[0]
+                            width: 2.0
+                    -   SinOsc.ar/2:
+                            frequency: 880.0
+                            phase: 0.0
+                    -   PanAz.ar/2:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/2[0]
+                            width: 2.0
+                    -   Sum3.ar/0:
+                            input_one: PanAz.ar/0[0]
+                            input_three: PanAz.ar/2[0]
+                            input_two: PanAz.ar/1[0]
+                    -   Sum3.ar/1:
+                            input_one: PanAz.ar/0[1]
+                            input_three: PanAz.ar/2[1]
+                            input_two: PanAz.ar/1[1]
+                    -   Sum3.ar/2:
+                            input_one: PanAz.ar/0[2]
+                            input_three: PanAz.ar/2[2]
+                            input_two: PanAz.ar/1[2]
+                    -   Sum3.ar/3:
+                            input_one: PanAz.ar/0[3]
+                            input_three: PanAz.ar/2[3]
+                            input_two: PanAz.ar/1[3]
+                    -   Out.ar:
+                            bus: 0.0
+                            source[0]: Sum3.ar/0[0]
+                            source[1]: Sum3.ar/1[0]
+                            source[2]: Sum3.ar/2[0]
+                            source[3]: Sum3.ar/3[0]
+
+            Compare with a non-multichannel mixdown:
+
+                >>> mix = ugentools.Mix.new(panner)
+                >>> out = ugentools.Out.ar(bus=0, source=mix)
+                >>> graph(out)  # doctest: +SKIP
+
+            ::
+
+                >>> print(out)
+                synthdef:
+                    name: ac5c82bf384ab89565e859c4f948dce5
+                    ugens:
+                    -   SinOsc.ar/0:
+                            frequency: 440.0
+                            phase: 0.0
+                    -   LFNoise2.kr:
+                            frequency: 500.0
+                    -   PanAz.ar/0:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/0[0]
+                            width: 2.0
+                    -   Sum4.ar/0:
+                            input_four: PanAz.ar/0[3]
+                            input_one: PanAz.ar/0[0]
+                            input_three: PanAz.ar/0[2]
+                            input_two: PanAz.ar/0[1]
+                    -   SinOsc.ar/1:
+                            frequency: 660.0
+                            phase: 0.0
+                    -   PanAz.ar/1:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/1[0]
+                            width: 2.0
+                    -   Sum4.ar/1:
+                            input_four: PanAz.ar/1[3]
+                            input_one: PanAz.ar/1[0]
+                            input_three: PanAz.ar/1[2]
+                            input_two: PanAz.ar/1[1]
+                    -   SinOsc.ar/2:
+                            frequency: 880.0
+                            phase: 0.0
+                    -   PanAz.ar/2:
+                            amplitude: 1.0
+                            channel_count: 4.0
+                            orientation: 0.5
+                            position: LFNoise2.kr[0]
+                            source: SinOsc.ar/2[0]
+                            width: 2.0
+                    -   Sum4.ar/2:
+                            input_four: PanAz.ar/2[3]
+                            input_one: PanAz.ar/2[0]
+                            input_three: PanAz.ar/2[2]
+                            input_two: PanAz.ar/2[1]
+                    -   Sum3.ar:
+                            input_one: Sum4.ar/0[0]
+                            input_three: Sum4.ar/2[0]
+                            input_two: Sum4.ar/1[0]
+                    -   Out.ar:
+                            bus: 0.0
+                            source[0]: Sum3.ar[0]
+
+        """
         from supriya.tools import synthdeftools
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
