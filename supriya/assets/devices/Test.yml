@@ -1,0 +1,66 @@
+device:
+  port_name: Test Device
+  on_startup:
+    - [0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08]
+  defaults:
+    channel: 0
+  physical_controls:
+    - name: clip_launch
+      channel: [0, 1]
+      has_led: true
+      mode: boolean
+      note: [0x01, 0x02]
+    - name: clip_stop_a
+      channel: 0
+      has_led: true
+      mode: boolean
+      note: 0x03
+      boolean_polarity: [0, 127]
+    - name: clip_stop_b
+      channel: 1
+      has_led: true
+      mode: boolean
+      note: 0x03
+      boolean_polarity: [0, 127]
+    - name: device_control
+      controller: [0x10, 0x11, 0x12]
+      has_led: true
+      mode: continuous
+    - name: device_left
+      mode: boolean
+      note: 0x05
+    - name: device_right
+      mode: boolean
+      note: 0x06
+    - name: track_level
+      channel: [0, 1]
+      controller: 0x20
+      mode: continuous
+    - name: master_level
+      controller: 0x30
+      mode: continuous
+  logical_controls:
+    - name: fader
+      physical_control:  
+        - track_level
+        - master_level
+    - mode: toggle
+      physical_control: clip_launch
+    - name: outer_modal 
+      modal: outer_mutex
+      children:
+        - name: knobs 
+          modal: outer_modal:inner_mutex
+          children:
+            - name: knob
+              physical_control: device_control 
+        - name: inner_mutex
+          mode: mutex
+          children:
+            - device_left
+            - device_right
+    - name: outer_mutex
+      mode: mutex
+      children:
+        - clip_stop_a
+        - clip_stop_b

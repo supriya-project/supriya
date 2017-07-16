@@ -1,6 +1,3 @@
-# -*- encoding: utf-8 -*-
-
-
 def run_sjv():
     r'''Entry point for setuptools.
 

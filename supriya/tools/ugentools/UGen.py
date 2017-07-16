@@ -1,8 +1,5 @@
-# -*- encoding: utf-8 -*-
-from __future__ import print_function
 import abc
 import collections
-import six
 from supriya.tools.synthdeftools.SignalRange import SignalRange
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
 
@@ -151,34 +148,6 @@ class UGen(UGenMethodMixin):
             )
         return string
 
-    def __str__(self):
-        """
-        Gets string format of ugen.
-
-        ::
-
-            >>> sin_osc_a = ugentools.SinOsc.ar()
-            >>> sin_osc_b = ugentools.SinOsc.ar(frequency=443)
-            >>> multiplied = sin_osc_a * sin_osc_b
-            >>> output = ugentools.Out.ar(source=multiplied)
-
-        ::
-
-            >>> print(str(output))
-            SynthDef 221d0a5d0c162c5b9d3d1fd74ffb83ff {
-                const_0:440.0 -> 0_SinOsc[0:frequency]
-                const_1:0.0 -> 0_SinOsc[1:phase]
-                const_2:443.0 -> 1_SinOsc[0:frequency]
-                const_1:0.0 -> 1_SinOsc[1:phase]
-                0_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[0:left]
-                1_SinOsc[0] -> 2_BinaryOpUGen:MULTIPLICATION[1:right]
-                const_1:0.0 -> 3_Out[0:bus]
-                2_BinaryOpUGen:MULTIPLICATION[0] -> 3_Out[1:source]
-            }
-
-        """
-        return UGenMethodMixin.__str__(self)
-
     ### PRIVATE METHODS ###
 
     @staticmethod
@@ -323,13 +292,13 @@ class UGen(UGenMethodMixin):
             )
         for name, value in dictionary.items():
             if isinstance(value, prototype) and \
-                not isinstance(value, six.string_types):
+                not isinstance(value, str):
                 maximum_length = max(maximum_length, len(value))
         for i in range(maximum_length):
             result.append({})
             for name, value in dictionary.items():
                 if isinstance(value, prototype) and \
-                    not isinstance(value, six.string_types):
+                    not isinstance(value, str):
                     value = value[i % len(value)]
                     result[i][name] = value
                 else:

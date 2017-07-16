@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import abc
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -30,7 +29,7 @@ class ServerObjectProxy(SupriyaObject):
         server=None,
         ):
         from supriya import servertools
-        assert self.server is None
+        assert self.server is None, (self, self.server)
         server = server or servertools.Server.get_default_server()
         assert isinstance(server, servertools.Server)
         assert server.is_running

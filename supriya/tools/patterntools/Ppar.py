@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from abjad import new
 try:

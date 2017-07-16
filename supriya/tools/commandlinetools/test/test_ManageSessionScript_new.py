@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools
@@ -71,7 +70,6 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = self.sessions_path.joinpath(
             'test_session', 'definition.py')
         self.compare_file_contents(definition_path, '''
-        # -*- encoding: utf-8 -*-
         import supriya
         from test_project import project_settings
 

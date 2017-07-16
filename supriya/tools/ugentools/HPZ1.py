@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.LPZ1 import LPZ1
 
 

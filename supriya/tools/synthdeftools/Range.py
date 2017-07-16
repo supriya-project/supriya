@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -121,7 +120,7 @@ class Range(SupriyaObject):
 
         Returns float.
         """
-        value = (value - input_range.minimum) / input_range.width        
+        value = (value - input_range.minimum) / input_range.width
         if exponent != 1:
             value = pow(value, exponent)
         value = (value * output_range.width) + output_range.minimum

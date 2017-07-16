@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
@@ -185,7 +184,7 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
-            >>> file_paths = Assets['*mono_1s*']
+            >>> file_paths = Assets['audio/*mono_1s*']
             >>> len(file_paths)
             4
 

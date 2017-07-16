@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
@@ -383,7 +382,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_one = servertools.Buffer().allocate_from_file(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
             >>> buffer_one.query()
             BufferInfoResponse(
@@ -396,7 +395,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_two = servertools.Buffer().allocate_from_file(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(3, 4),
             ...     frame_count=4,
             ...     starting_frame=1,
@@ -467,7 +466,7 @@ class Buffer(ServerObjectProxy):
             ...     frame_count=8,
             ...     )
             >>> buffer_.read(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     leave_open=True,
             ...     )
             >>> buffer_.close()
@@ -942,7 +941,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_ = servertools.Buffer().allocate_from_file(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
             >>> for frame_id in range(buffer_.frame_count):
             ...     buffer_.get_frame(frame_id).as_dict()
@@ -1077,7 +1076,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_.read(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(0, 1),
             ...     )
 
@@ -1235,7 +1234,7 @@ class Buffer(ServerObjectProxy):
         ::
 
             >>> buffer_one = servertools.Buffer().allocate_from_file(
-            ...     systemtools.Assets['pulse_44100sr_16bit_octo.wav'],
+            ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(0,),
             ...     )
             >>> buffer_one.get_contiguous([(0, 8)]).as_dict()[0]

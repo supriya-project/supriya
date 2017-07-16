@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from abjad.tools import systemtools
 from supriya import synthdeftools
 from supriya import ugentools
@@ -22,20 +21,24 @@ class TestCase(systemtools.TestCase):
                 source=sines,
                 )
         synthdef = builder.build()
-        self.compare_strings(
-            '''
-            SynthDef ... {
-                0_Control[1:freqs[0]] -> 1_SinOsc[0:frequency]
-                const_0:0.0 -> 1_SinOsc[1:phase]
-                0_Control[2:freqs[1]] -> 2_SinOsc[0:frequency]
-                const_0:0.0 -> 2_SinOsc[1:phase]
-                1_SinOsc[0] -> 3_BinaryOpUGen:ADDITION[0:left]
-                2_SinOsc[0] -> 3_BinaryOpUGen:ADDITION[1:right]
-                3_BinaryOpUGen:ADDITION[0] -> 4_BinaryOpUGen:MULTIPLICATION[0:left]
-                0_Control[0:amp] -> 4_BinaryOpUGen:MULTIPLICATION[1:right]
-                0_Control[3:out] -> 5_Out[0:bus]
-                4_BinaryOpUGen:MULTIPLICATION[0] -> 5_Out[1:source]
-            }
-            ''',
-            str(synthdef),
-            )
+        self.compare_strings(str(synthdef), '''
+            synthdef:
+                name: 58528261cb129f5bee634d41a34e082c
+                ugens:
+                -   Control.kr: null
+                -   SinOsc.ar/0:
+                        frequency: Control.kr[1:freqs[0]]
+                        phase: 0.0
+                -   SinOsc.ar/1:
+                        frequency: Control.kr[2:freqs[1]]
+                        phase: 0.0
+                -   BinaryOpUGen(ADDITION).ar:
+                        left: SinOsc.ar/0[0]
+                        right: SinOsc.ar/1[0]
+                -   BinaryOpUGen(MULTIPLICATION).ar:
+                        left: BinaryOpUGen(ADDITION).ar[0]
+                        right: Control.kr[0:amp]
+                -   Out.ar:
+                        bus: Control.kr[3:out]
+                        source[0]: BinaryOpUGen(MULTIPLICATION).ar[0]
+            ''')

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 

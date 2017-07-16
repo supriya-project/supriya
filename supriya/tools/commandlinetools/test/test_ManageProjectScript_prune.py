@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import shutil
 from abjad.tools import systemtools
 from supriya.tools import commandlinetools

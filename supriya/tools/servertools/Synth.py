@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.servertools.Node import Node
 
 
@@ -183,6 +182,8 @@ class Synth(Node):
     def release(self):
         if 'gate' in self.controls:
             self['gate'] = 0
+        else:
+            self.free()
 
     def unrelease(self):
         if 'gate' in self.controls:

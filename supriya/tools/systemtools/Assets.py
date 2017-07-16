@@ -1,9 +1,8 @@
-# -*- encoding: utf-8 -*-
 import fnmatch
 import os
 
 
-class Assets(object):
+class Assets:
 
     ### SPECIAL METHODS ###
 

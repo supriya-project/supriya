@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import re
 import types
 from abjad.tools import systemtools

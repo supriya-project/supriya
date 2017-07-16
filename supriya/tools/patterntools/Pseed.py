@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import inspect
 from supriya.tools.patterntools.Pattern import Pattern
 from supriya.tools.patterntools.RandomNumberGenerator \

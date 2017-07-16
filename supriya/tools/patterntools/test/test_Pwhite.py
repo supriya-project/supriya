@@ -1,6 +1,6 @@
-# -*- encoding: utf-8 -*-
 from patterntools_testbase import TestCase
 from supriya.tools import patterntools
+from supriya.tools import systemtools
 
 
 class TestCase(TestCase):
@@ -39,3 +39,11 @@ class TestCase(TestCase):
             next(iterator)
         with self.assertRaises(StopIteration):
             iterator.send(True)
+
+    def test_lazy_01(self):
+        pattern = patterntools.Pwhite(
+            minimum=systemtools.BindableFloat(0.25),
+            maximum=systemtools.BindableFloat(0.75),
+            )
+        iterator = iter(pattern)
+        next(iterator)

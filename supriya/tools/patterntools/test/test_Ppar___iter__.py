@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools import patterntools
 from patterntools_testbase import TestCase
 

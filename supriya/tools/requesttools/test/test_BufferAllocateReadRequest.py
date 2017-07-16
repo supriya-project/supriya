@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import unittest
 from supriya.tools import nonrealtimetools
 from supriya.tools import requesttools

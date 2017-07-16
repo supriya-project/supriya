@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from unittest import mock
 from abjad import abjad_configuration
 from abjad.tools import systemtools

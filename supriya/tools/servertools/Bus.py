@@ -1,9 +1,7 @@
-# -*- encoding: utf-8 -*-
-from supriya.tools.bindingtools.BindingTarget import BindingTarget
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Bus(ServerObjectProxy, BindingTarget):
+class Bus(ServerObjectProxy):
     """
     A bus.
     """
@@ -13,7 +11,6 @@ class Bus(ServerObjectProxy, BindingTarget):
     __documentation_section__ = 'Main Classes'
 
     __slots__ = (
-        '_binding_sources',
         '_bus_group',
         '_bus_id',
         '_bus_id_was_set_manually',
@@ -29,7 +26,6 @@ class Bus(ServerObjectProxy, BindingTarget):
         ):
         from supriya.tools import servertools
         from supriya.tools import synthdeftools
-        BindingTarget.__init__(self)
         ServerObjectProxy.__init__(self)
         bus_group = None
         bus_id = None
@@ -42,9 +38,14 @@ class Bus(ServerObjectProxy, BindingTarget):
                 bus_id = int(bus_group_or_index)
         self._bus_group = bus_group
         self._bus_id = bus_id
-        assert calculation_rate is not None
+        if calculation_rate is None:
+            calculation_rate = 'control'
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
+        assert calculation_rate in (
+            synthdeftools.CalculationRate.AUDIO,
+            synthdeftools.CalculationRate.CONTROL,
+            )
         self._calculation_rate = calculation_rate
 
     ### SPECIAL METHODS ###
@@ -115,25 +116,42 @@ class Bus(ServerObjectProxy, BindingTarget):
         """
         Creates an audio-rate input ugen subgraph.
 
-        ::
+        ..  container:: example
 
-            >>> from supriya.tools import servertools
-            >>> audio_bus = servertools.Bus(8, 'audio')
-            >>> ugen = audio_bus.ar()
-            >>> print(str(ugen))
-            SynthDef fb63450852ac2df2fad1242e27a913d6 {
-                const_0:8.0 -> 0_In[0:bus]
-            }
+            ::
 
-        ::
+                >>> from supriya.tools import servertools
+                >>> audio_bus = servertools.Bus(8, 'audio')
+                >>> ugen = audio_bus.ar()
+                >>> graph(ugen)  # doctest: +SKIP
 
-            >>> control_bus = servertools.Bus(8, 'control')
-            >>> ugen = control_bus.ar()
-            >>> print(str(ugen))
-            SynthDef d48f76506e364201100db95a248cc8e2 {
-                const_0:8.0 -> 0_In[0:bus]
-                0_In[0] -> 1_K2A[0:source]
-            }
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: fb63450852ac2df2fad1242e27a913d6
+                    ugens:
+                    -   In.ar:
+                            bus: 8.0
+
+        ..  container:: example
+
+            ::
+
+                >>> control_bus = servertools.Bus(8, 'control')
+                >>> ugen = control_bus.ar()
+                >>> graph(ugen)  # doctest: +SKIP
+
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: d48f76506e364201100db95a248cc8e2
+                    ugens:
+                    -   In.kr:
+                            bus: 8.0
+                    -   K2A.ar:
+                            source: In.kr[0]
 
         Returns ugen.
         """
@@ -206,25 +224,42 @@ class Bus(ServerObjectProxy, BindingTarget):
         """
         Creates a control-rate input ugen subgraph.
 
-        ::
+        ..  container:: example
 
-            >>> from supriya.tools import servertools
-            >>> audio_bus = servertools.Bus(8, 'audio')
-            >>> ugen = audio_bus.kr()
-            >>> print(str(ugen))
-            SynthDef 65ceebd3294ae43fa3dd12035e1895fd {
-                const_0:8.0 -> 0_In[0:bus]
-                0_In[0] -> 1_A2K[0:source]
-            }
+            ::
 
-        ::
+                >>> from supriya.tools import servertools
+                >>> audio_bus = servertools.Bus(8, 'audio')
+                >>> ugen = audio_bus.kr()
+                >>> graph(ugen)  # doctest: +SKIP
 
-            >>> control_bus = servertools.Bus(8, 'control')
-            >>> ugen = control_bus.kr()
-            >>> print(str(ugen))
-            SynthDef ef2c11e55da5af28e2ae77c5c8934f3d {
-                const_0:8.0 -> 0_In[0:bus]
-            }
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: 65ceebd3294ae43fa3dd12035e1895fd
+                    ugens:
+                    -   In.ar:
+                            bus: 8.0
+                    -   A2K.kr:
+                            source: In.ar[0]
+
+        ..  container:: example
+
+            ::
+
+                >>> control_bus = servertools.Bus(8, 'control')
+                >>> ugen = control_bus.kr()
+                >>> graph(ugen)  # doctest: +SKIP
+
+            ::
+
+                >>> print(ugen)
+                synthdef:
+                    name: ef2c11e55da5af28e2ae77c5c8934f3d
+                    ugens:
+                    -   In.kr:
+                            bus: 8.0
 
         Returns ugen.
         """

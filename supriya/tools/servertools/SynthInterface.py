@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.servertools.ControlInterface import ControlInterface
 
@@ -87,7 +86,7 @@ class SynthInterface(ControlInterface):
         for synth_control in self:
             maximum_length = max(maximum_length, len(synth_control.name))
         maximum_length += 1
-        for synth_control in sorted(self):
+        for synth_control in sorted(self, key=lambda x: x.name):
             name = synth_control.name
             value = str(synth_control.value)
             spacing = ' ' * (maximum_length - len(name))
@@ -97,8 +96,6 @@ class SynthInterface(ControlInterface):
                 spacing,
                 value,
                 )
-            if synth_control.is_bound:
-                string += ' (bound)'
             result.append(string)
         result = '\n'.join(result)
         return result

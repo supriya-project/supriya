@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import abc
 from abjad.tools import sequencetools
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject

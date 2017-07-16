@@ -2,7 +2,7 @@ import abc
 from supriya.tools import servertools
 
 
-class SessionFactory(object):
+class SessionFactory:
 
     ### INITIALIZER ###
 

@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 from abjad.tools import stringtools
 from abjad.tools import systemtools

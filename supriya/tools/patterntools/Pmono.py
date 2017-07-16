@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import uuid
 from abjad import new
 from supriya.tools.patterntools.Pbind import Pbind

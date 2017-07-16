@@ -1,6 +1,3 @@
-# -*- encoding: utf -*-
-
-
 def render(
     expr,
     output_file_path=None,

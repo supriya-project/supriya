@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 from supriya.tools.synthdeftools.ParameterRate import ParameterRate
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin

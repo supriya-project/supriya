@@ -4,7 +4,7 @@ import pstats
 import subprocess
 
 
-class Profiler(object):
+class Profiler:
 
     def __enter__(self):
         self._profiler = cProfile.Profile()

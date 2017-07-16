@@ -1,5 +1,3 @@
-# -*- encoding: utf-8 -*-
-from __future__ import print_function
 from abjad.tools import sequencetools
 from supriya.tools import systemtools
 

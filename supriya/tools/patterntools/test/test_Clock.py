@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import time
 import uuid
 from abjad.tools import systemtools
@@ -7,7 +6,7 @@ from supriya.tools import patterntools
 
 class TestCase(systemtools.TestCase):
 
-    class Event(object):
+    class Event:
 
         def __init__(self, manifest, delta=None, save_execution_time=False):
             self.count = 0

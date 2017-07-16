@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.ugentools.UGen import UGen
 
 
@@ -8,7 +7,7 @@ class BinaryOpUGen(UGen):
     ugens.
 
     ::
-        
+
         >>> left_operand = ugentools.SinOsc.ar()
         >>> right_operand = ugentools.WhiteNoise.kr()
         >>> binary_op_ugen = left_operand * right_operand

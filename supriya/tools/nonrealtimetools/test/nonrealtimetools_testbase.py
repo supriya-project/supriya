@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import os
 import pathlib
 import shutil
@@ -10,7 +9,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
 
-class TestSessionFactory(object):
+class TestSessionFactory:
 
     def __init__(
         self,

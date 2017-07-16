@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
 
 

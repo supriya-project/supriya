@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from supriya.tools.commandlinetools import ProjectSettings, ProjectManager
 
 project_manager = ProjectManager()

@@ -1,0 +1,104 @@
+extends: APC40-Physical.yml
+
+templates:
+  track: &templates-track
+    name: track_{{ index }}
+    children:
+      - name: fader
+        physical_control: track_level_{{ index }}
+      - name: mute
+        physical_control: activator_{{ index }}
+      - name: solo
+        physical_control: solo_{{ index }}
+      - name: cue
+        physical_control: record_arm_{{ index }}
+      - name: slot
+        children:
+          - name: ~
+            physical_control: clip_launch_1x{{ index }}
+          - name: ~
+            physical_control: clip_launch_2x{{ index }}
+          - name: ~
+            physical_control: clip_launch_3x{{ index }}
+          - name: ~
+            physical_control: clip_launch_4x{{ index }}
+          - name: ~
+            physical_control: clip_launch_5x{{ index }}
+
+device:
+  logical_controls:
+    - <<: *templates-track
+      $templating:
+        index: 1
+    - <<: *templates-track
+      $templating:
+        index: 2
+    - <<: *templates-track
+      $templating:
+        index: 3
+    - <<: *templates-track
+      $templating:
+        index: 4
+    - <<: *templates-track
+      $templating:
+        index: 5
+    - <<: *templates-track
+      $templating:
+        index: 6
+    - <<: *templates-track
+      $templating:
+        index: 7
+    - <<: *templates-track
+      $templating:
+        index: 8
+
+    - name: master_fader
+      physical_control: master_level
+    - mode: trigger
+      physical_control: play
+    - mode: trigger
+      physical_control: stop
+    - mode: trigger
+      physical_control: record
+    - physical_control: crossfader
+
+    - name: modal_one 
+      modal: mutex_one
+      children:
+        - name: knobs 
+          modal: modal_one:mutex
+          children:
+            - name: knob
+              physical_control: track_control 
+        - name: mutex
+          mode: mutex
+          children:
+            - track_control_pan
+            - send_a
+            - send_b
+            - send_c
+    - name: modal_two
+      modal: mutex_two
+      children:
+        - name: knobs
+          modal: modal_two:mutex
+          children:
+            - name: knob
+              physical_control: device_control
+        - name: mutex
+          mode: mutex
+          children:
+            - device_clip_track
+            - device_on_off
+            - device_left
+            - device_right
+    - name: mutex_one
+      mode: mutex
+      children:
+        - clip_stop
+        - stop_all_clips
+    - name: mutex_two
+      mode: mutex
+      children:
+        - track_selection
+        - master

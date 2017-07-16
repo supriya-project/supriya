@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import hashlib
 import pathlib
 import shutil
@@ -244,6 +243,8 @@ class SessionRenderer(SupriyaObject):
                     progress_bar.update(difference)
                     previous_value = current_value
                 elif output.startswith('FAILURE'):
+                    if output.startswith('FAILURE IN SERVER /n_free Node'):
+                        continue
                     progress_bar.write(output)
         return process.poll()
 

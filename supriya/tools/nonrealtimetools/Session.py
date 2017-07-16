@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import bisect
 import collections
 import os
@@ -18,7 +17,7 @@ except ImportError:
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
-class Session(object):
+class Session:
     """
     A non-realtime session.
 

@@ -75,9 +75,9 @@ Query the server's node tree::
 
 Bind a MIDI controller to the synth's controls::
 
-    >>> korg = miditools.NanoKontrol2()
+    >>> korg = miditools.Device('NanoKontrol2')
     >>> korg.open_port(0)
-    >>> source = korg.fader_1
+    >>> source = korg['fader_1']
     >>> target = synth.controls['frequency']
     >>> bind(source, target, range_=Range(110, 880), exponent=2.0)
     Binding()

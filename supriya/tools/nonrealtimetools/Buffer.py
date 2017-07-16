@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import bisect
 from supriya.tools import requesttools
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
