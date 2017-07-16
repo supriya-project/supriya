@@ -7,7 +7,7 @@ class GrainBuf(MultiOutUGen):
     ::
 
         >>> grain_buf = ugentools.GrainBuf.ar(
-        ...     channel_count=1,
+        ...     channel_count=2,
         ...     duration=1,
         ...     envelope_buffer_id=-1,
         ...     interpolate=2,
@@ -15,11 +15,11 @@ class GrainBuf(MultiOutUGen):
         ...     pan=0,
         ...     position=0,
         ...     rate=1,
-        ...     buffer_id=buffer_id,
+        ...     buffer_id=0,
         ...     trigger=0,
         ...     )
         >>> grain_buf
-        GrainBuf.ar()
+        UGenArray({2})
 
     """
 
@@ -96,7 +96,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -104,11 +104,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
             >>> grain_buf
-            GrainBuf.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         """
@@ -129,8 +129,6 @@ class GrainBuf(MultiOutUGen):
             )
         return ugen
 
-    # def newFromDesc(): ...
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -141,7 +139,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -149,10 +147,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.duration
+            >>> grain_buf[0].source.duration
             1.0
 
         Returns ugen input.
@@ -168,7 +166,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -176,10 +174,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.envelope_buffer_id
+            >>> grain_buf[0].source.envelope_buffer_id
             -1.0
 
         Returns ugen input.
@@ -195,7 +193,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -203,10 +201,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.interpolate
+            >>> grain_buf[0].source.interpolate
             2.0
 
         Returns ugen input.
@@ -222,7 +220,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -230,10 +228,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.maximum_overlap
+            >>> grain_buf[0].source.maximum_overlap
             512.0
 
         Returns ugen input.
@@ -249,7 +247,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -257,10 +255,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.pan
+            >>> grain_buf[0].source.pan
             0.0
 
         Returns ugen input.
@@ -276,7 +274,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -284,10 +282,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.position
+            >>> grain_buf[0].source.position
             0.0
 
         Returns ugen input.
@@ -303,7 +301,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -311,10 +309,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.rate
+            >>> grain_buf[0].source.rate
             1.0
 
         Returns ugen input.
@@ -330,7 +328,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -338,10 +336,11 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.buffer_id
+            >>> grain_buf[0].source.buffer_id
+            0.0
 
         Returns ugen input.
         """
@@ -356,7 +355,7 @@ class GrainBuf(MultiOutUGen):
         ::
 
             >>> grain_buf = ugentools.GrainBuf.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     interpolate=2,
@@ -364,10 +363,10 @@ class GrainBuf(MultiOutUGen):
             ...     pan=0,
             ...     position=0,
             ...     rate=1,
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=0,
             ...     trigger=0,
             ...     )
-            >>> grain_buf.trigger
+            >>> grain_buf[0].source.trigger
             0.0
 
         Returns ugen input.

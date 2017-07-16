@@ -8,7 +8,7 @@ class GrainIn(MultiOutUGen):
 
         >>> source = ugentools.In.ar(bus=0)
         >>> grain_in = ugentools.GrainIn.ar(
-        ...     channel_count=1,
+        ...     channel_count=2,
         ...     duration=1,
         ...     envelope_buffer_id=-1,
         ...     maximum_overlap=512,
@@ -17,7 +17,7 @@ class GrainIn(MultiOutUGen):
         ...     trigger=0,
         ...     )
         >>> grain_in
-        GrainIn.ar()
+        UGenArray({2})
 
     """
 
@@ -68,7 +68,7 @@ class GrainIn(MultiOutUGen):
     @classmethod
     def ar(
         cls,
-        channel_count=1,
+        channel_count=2,
         duration=1,
         envelope_buffer_id=-1,
         maximum_overlap=512,
@@ -83,7 +83,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -92,7 +92,7 @@ class GrainIn(MultiOutUGen):
             ...     trigger=0,
             ...     )
             >>> grain_in
-            GrainIn.ar()
+            UGenArray({2})
 
         Returns ugen graph.
         """
@@ -123,7 +123,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -131,7 +131,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.duration
+            >>> grain_in[0].source.duration
             1.0
 
         Returns ugen input.
@@ -148,7 +148,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -156,7 +156,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.envelope_buffer_id
+            >>> grain_in[0].source.envelope_buffer_id
             -1.0
 
         Returns ugen input.
@@ -173,7 +173,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -181,7 +181,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.maximum_overlap
+            >>> grain_in[0].source.maximum_overlap
             512.0
 
         Returns ugen input.
@@ -198,7 +198,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -206,7 +206,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.position
+            >>> grain_in[0].source.position
             0.0
 
         Returns ugen input.
@@ -223,7 +223,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -231,7 +231,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.source
+            >>> grain_in[0].source.source
             OutputProxy(
                 source=In(
                     bus=0.0,
@@ -255,7 +255,7 @@ class GrainIn(MultiOutUGen):
 
             >>> source = ugentools.In.ar(bus=0)
             >>> grain_in = ugentools.GrainIn.ar(
-            ...     channel_count=1,
+            ...     channel_count=2,
             ...     duration=1,
             ...     envelope_buffer_id=-1,
             ...     maximum_overlap=512,
@@ -263,7 +263,7 @@ class GrainIn(MultiOutUGen):
             ...     source=source,
             ...     trigger=0,
             ...     )
-            >>> grain_in.trigger
+            >>> grain_in[0].source.trigger
             0.0
 
         Returns ugen input.
