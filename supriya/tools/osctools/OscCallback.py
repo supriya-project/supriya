@@ -54,6 +54,10 @@ class OscCallback(SupriyaObject):
 
         ::
 
+            >>> callback = osctools.OscCallback(
+            ...     address_pattern='/*',
+            ...     procedure=lambda x: print('GOT:', x),
+            ...     )
             >>> callback.address_pattern
             '/*'
 
@@ -73,6 +77,10 @@ class OscCallback(SupriyaObject):
 
         ::
 
+            >>> callback = osctools.OscCallback(
+            ...     address_pattern='/*',
+            ...     procedure=lambda x: print('GOT:', x),
+            ...     )
             >>> callback.is_one_shot
             False
 

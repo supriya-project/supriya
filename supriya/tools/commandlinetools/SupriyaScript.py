@@ -2,21 +2,21 @@ import inspect
 from abjad.tools.commandlinetools import AbjDevScript
 
 
-class SupriyaDevScript(AbjDevScript):
-    '''`SupriyaDevScript` is the commandline entry-point to the Supriya
+class SupriyaScript(AbjDevScript):
+    '''`SupriyaScript` is the commandline entry-point to the Supriya
     developer scripts catalog.
 
     Can be accessed on the commandline via `ajv`:
 
     ..  shell::
 
-        ajv --help
+        surpiya --help
 
-    `ajv` supports subcommands similar to `svn`:
+    `supriya` supports subcommands similar to `svn`:
 
     ..  shell::
 
-        ajv project --help
+        supriya project --help
 
     '''
 
@@ -44,6 +44,5 @@ class SupriyaDevScript(AbjDevScript):
             elif inspect.isabstract(obj):
                 continue
             classes.append(obj)
-        classes.append(abjad_commandlinetools.DoctestScript)
         classes.sort(key=lambda x: x.__name__)
         return classes
