@@ -1,4 +1,5 @@
 clean:
+	rm -Rif __pycache__
 	rm -Rif supriya.egg-info/
 	rm -Rif dist/
 	rm -Rif build/
