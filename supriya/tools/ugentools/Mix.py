@@ -1,4 +1,4 @@
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.ugentools.PseudoUGen import PseudoUGen
 
 
@@ -136,13 +136,7 @@ class Mix(PseudoUGen):
                 flattened_sources.append(source)
         sources = synthdeftools.UGenArray(flattened_sources)
         summed_sources = []
-        parts = sequencetools.partition_sequence_by_counts(
-            sources,
-            [4],
-            cyclic=True,
-            overhang=True,
-            )
-        for part in parts:
+        for part in utils.group_iterable_by_count(sources, 4):
             if len(part) == 4:
                 summed_sources.append(ugentools.Sum4(*part))
             elif len(part) == 3:

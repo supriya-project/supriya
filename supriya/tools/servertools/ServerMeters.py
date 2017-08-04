@@ -1,4 +1,4 @@
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools import systemtools
 
 
@@ -63,8 +63,7 @@ class ServerMeters(systemtools.SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for peak, rms in sequencetools.partition_sequence_by_counts(
-            contents, counts=[2], cyclic=True):
+        for peak, rms in utils.group_iterable_by_count(contents, 2):
             peak_levels.append(peak)
             rms_levels.append(rms)
         self._input_meter_peak_levels = tuple(peak_levels)
@@ -74,8 +73,7 @@ class ServerMeters(systemtools.SupriyaObject):
         contents = message.contents[2:]
         peak_levels = []
         rms_levels = []
-        for peak, rms in sequencetools.partition_sequence_by_counts(
-            contents, counts=[2], cyclic=True):
+        for peak, rms in utils.group_iterable_by_count(contents, 2):
             peak_levels.append(peak)
             rms_levels.append(rms)
         self._output_meter_peak_levels = tuple(peak_levels)

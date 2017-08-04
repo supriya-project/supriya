@@ -1,5 +1,5 @@
 import abc
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -50,8 +50,7 @@ class OscMixin(SupriyaValueObject):
             line = '{: >4}   '.format(index)
             hex_blocks = []
             ascii_block = ''
-            for chunk in sequencetools.partition_sequence_by_counts(
-                chunk, [4], cyclic=True):
+            for chunk in utils.group_iterable_by_count(chunk, 4):
                 hex_block = []
                 for byte in chunk:
                     char = int(byte)
