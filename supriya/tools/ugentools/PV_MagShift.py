@@ -135,6 +135,9 @@ class PV_MagShift(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_mag_shift = ugentools.PV_MagShift(
             ...     pv_chain=pv_chain,
             ...     shift=0,

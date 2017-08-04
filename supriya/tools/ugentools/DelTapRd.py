@@ -92,7 +92,7 @@ class DelTapRd(UGen):
             ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
             ...     buffer_id=buffer_id,
-            ...     phase=tapin,
+            ...     phase=phase,
             ...     delay_time=0.1,
             ...     interpolation=True,
             ...     )
@@ -125,15 +125,14 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> buffer_id = 0
             >>> source = ugentools.In.kr(0)
             >>> phase = ugentools.DelTapWr.kr(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     source=source,
             ...     )
             >>> del_tap_rd = ugentools.DelTapRd.kr(
-            ...     buffer_id=buffer_id,
-            ...     phase=tapin,
+            ...     buffer_id=23,
+            ...     phase=phase,
             ...     delay_time=0.1,
             ...     interpolation=True,
             ...     )
@@ -162,13 +161,12 @@ class DelTapRd(UGen):
 
         ::
 
-            >>> buffer_id = 23.0
             >>> phase = ugentools.DelTapWr.ar(
             ...     buffer_id=23,
             ...     source=ugentools.In.ar(bus=0),
             ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     delay_time=0.1,
             ...     phase=phase,
             ...     )
@@ -218,7 +216,7 @@ class DelTapRd(UGen):
             ...     source=ugentools.In.ar(bus=0),
             ...     )
             >>> del_tap_rd = ugentools.DelTapRd.ar(
-            ...     buffer_id=buffer_id,
+            ...     buffer_id=23,
             ...     delay_time=0.1,
             ...     interpolation=interpolation,
             ...     phase=phase,

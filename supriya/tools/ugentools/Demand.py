@@ -76,6 +76,10 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> source = [
+            ...     ugentools.Dseries(),
+            ...     ugentools.Dwhite(),
+            ...     ]
             >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
             ...     reset=0,
@@ -109,6 +113,10 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> source = [
+            ...     ugentools.Dseries(),
+            ...     ugentools.Dwhite(),
+            ...     ]
             >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.kr(
             ...     reset=0,
@@ -150,6 +158,10 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> source = [
+            ...     ugentools.Dseries(),
+            ...     ugentools.Dwhite(),
+            ...     ]
             >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
             ...     reset=0,
@@ -171,6 +183,10 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> source = [
+            ...     ugentools.Dseries(),
+            ...     ugentools.Dwhite(),
+            ...     ]
             >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
             ...     reset=0,
@@ -206,6 +222,10 @@ class Demand(MultiOutUGen):
 
         ::
 
+            >>> source = [
+            ...     ugentools.Dseries(),
+            ...     ugentools.Dwhite(),
+            ...     ]
             >>> trigger = ugentools.Impulse.kr(1)
             >>> demand = ugentools.Demand.ar(
             ...     reset=0,

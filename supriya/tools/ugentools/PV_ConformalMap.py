@@ -113,6 +113,9 @@ class PV_ConformalMap(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_conformal_map = ugentools.PV_ConformalMap(
             ...     aimag=0,
             ...     areal=0,

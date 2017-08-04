@@ -56,6 +56,9 @@ class PV_MagBelow(PV_MagAbove):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_mag_below = ugentools.PV_MagBelow.new(
             ...     pv_chain=pv_chain,
             ...     threshold=0,

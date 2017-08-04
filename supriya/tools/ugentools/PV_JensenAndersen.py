@@ -21,7 +21,7 @@ class PV_JensenAndersen(PV_ChainUGen):
         ...     )
         >>> pv_jensen_andersen
         PV_JensenAndersen.kr()
-        
+
     """
 
     ### CLASS VARIABLES ###
@@ -194,6 +194,9 @@ class PV_JensenAndersen(PV_ChainUGen):
 
         ::
 
+            >>> pv_chain = ugentools.FFT(
+            ...     source=ugentools.WhiteNoise.ar(),
+            ...     )
             >>> pv_jensen_andersen = ugentools.PV_JensenAndersen(
             ...     pv_chain=pv_chain,
             ...     prophfc=0.25,

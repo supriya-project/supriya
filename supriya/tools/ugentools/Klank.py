@@ -101,6 +101,11 @@ class Klank(UGen):
 
         ::
 
+            >>> source = ugentools.BrownNoise.ar() * 0.001
+            >>> frequencies = [200, 671, 1153, 1723]
+            >>> amplitudes = None
+            >>> decay_times = [1, 1, 1, 1]
+            >>> specifications = [frequencies, amplitudes, decay_times]
             >>> klank = ugentools.Klank.ar(
             ...     decay_scale=1,
             ...     frequency_offset=0,

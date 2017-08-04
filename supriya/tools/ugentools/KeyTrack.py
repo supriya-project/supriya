@@ -66,6 +66,8 @@ class KeyTrack(UGen):
 
         ::
 
+            >>> source = ugentools.SoundIn.ar(bus=0)
+            >>> pv_chain = ugentools.FFT(source=source)
             >>> key_track = ugentools.KeyTrack.kr(
             ...     pv_chain=pv_chain,
             ...     chroma_leak=0.5,
