@@ -40,12 +40,12 @@ class LocalIn(MultiOutUGen):
         ):
         if not isinstance(default, collections.Sequence):
             default = (default,)
-        default = [float(_) for _ in default]
+        default = (float(_) for _ in default)
         default = utils.repeat_sequence_to_length(
             default,
             channel_count,
             )
-        default = default[:channel_count]
+        default = list(default)[:channel_count]
         MultiOutUGen.__init__(
             self,
             calculation_rate=calculation_rate,
