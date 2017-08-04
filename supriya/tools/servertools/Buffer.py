@@ -73,6 +73,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=8)
 
@@ -121,6 +122,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=8)
 
@@ -169,6 +171,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> repr(buffer_)
             '<Buffer: None>'
@@ -295,6 +298,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate()
             >>> buffer_one.query()
             BufferInfoResponse(
@@ -381,6 +385,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate_from_file(
             ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
@@ -461,6 +466,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     channel_count=8,
             ...     frame_count=8,
@@ -498,6 +504,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_one.fill([(0, 4, 0.5)])
@@ -540,6 +547,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_two = servertools.Buffer().allocate(frame_count=4)
             >>> buffer_one.fill([(0, 4, 0.5)])
@@ -582,6 +590,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -640,6 +649,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -694,6 +704,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -749,6 +760,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -807,6 +819,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     server=server,
@@ -861,6 +874,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=4,
             ...     server=server,
@@ -900,6 +914,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=4,
             ...     server=server,
@@ -940,6 +955,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate_from_file(
             ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     )
@@ -1011,6 +1027,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     channel_count=2,
             ...     frame_count=16,
@@ -1057,6 +1074,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     channel_count=2,
             ...     frame_count=8,
@@ -1143,6 +1161,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1186,6 +1205,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1233,6 +1253,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate_from_file(
             ...     systemtools.Assets['audio/pulse_44100sr_16bit_octo.wav'],
             ...     channel_indices=(0,),
@@ -1297,6 +1318,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     sync=True,
@@ -1350,6 +1372,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=8)
             >>> buffer_one.buffer_group is None
             True
@@ -1391,6 +1414,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer()
             >>> buffer_one.buffer_id is None
             True
@@ -1461,6 +1485,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(
             ...     frame_count=8,
             ...     )
@@ -1501,6 +1526,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> buffer_.duration_in_seconds
             0.0
@@ -1531,6 +1557,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> buffer_.frame_count
             0
@@ -1561,6 +1588,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_one = servertools.Buffer().allocate(frame_count=16)
             >>> buffer_two = servertools.Buffer().allocate(
             ...     channel_count=2,
@@ -1621,6 +1649,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> buffer_.sample_rate
             0
@@ -1651,6 +1680,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> buffer_.is_allocated
             False
@@ -1680,6 +1710,7 @@ class Buffer(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_ = servertools.Buffer()
             >>> buffer_.server is None
             True

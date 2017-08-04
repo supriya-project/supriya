@@ -190,6 +190,7 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
+            >>> server = servertools.Server().boot()
             >>> buffer_group = BufferGroup.from_file_paths(file_paths)
 
         ::

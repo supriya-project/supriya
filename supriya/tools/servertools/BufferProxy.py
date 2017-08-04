@@ -76,6 +76,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> float(buffer_proxy)
             0.0
 
@@ -89,6 +97,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> int(buffer_proxy)
             0
 
@@ -104,6 +120,7 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
             >>> a_buffer = servertools.BufferProxy(
             ...     buffer_id=23,
             ...     channel_count=1,
@@ -165,6 +182,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.buffer_id
             0
 
@@ -179,6 +204,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.channel_count
             2
 
@@ -193,6 +226,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.duration_in_seconds
             0.01
 
@@ -207,6 +248,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.frame_count
             441
 
@@ -221,6 +270,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.sample_count
             882
 
@@ -235,6 +292,14 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.sample_rate
             44100
 
@@ -249,8 +314,16 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
+            >>> server = servertools.Server()
+            >>> buffer_proxy = servertools.BufferProxy(
+            ...     buffer_id=0,
+            ...     server=server,
+            ...     channel_count=2,
+            ...     frame_count=441,
+            ...     sample_rate=44100,
+            ...     )
             >>> buffer_proxy.server
-            <Server: udp://127.0.0.1:57751, 8i8o>
+            <Server: offline>
 
         Returns server.
         """

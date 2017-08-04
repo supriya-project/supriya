@@ -119,6 +119,11 @@ class SynthDef(ServerObjectProxy):
 
         ::
 
+            >>> with synthdeftools.SynthDefBuilder(frequency=440) as builder:
+            ...     sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
+            ...     out = ugentools.Out.ar(bus=0, source=sin_osc)
+            ...
+            >>> synthdef = builder.build()
             >>> print(synthdef.__graph__())
             digraph synthdef_... {
                 graph [bgcolor=transparent,
