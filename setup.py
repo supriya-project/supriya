@@ -45,7 +45,6 @@ classifiers = [
 entry_points = {
     'console_scripts': [
         'sjv = supriya.tools.commandlinetools.run_sjv:run_sjv',
-        'supriya = supriya.tools.systemtools.run_supriya:run_supriya',
         ],
     }
 
