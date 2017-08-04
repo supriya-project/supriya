@@ -1,6 +1,6 @@
 import os
 import unittest
-from abjad.tools import stringtools
+from supriya import utils
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -168,7 +168,7 @@ class Test(unittest.TestCase):
             'Out.ar()',
             )
 
-        assert str(py_synthdef) == stringtools.normalize('''
+        assert str(py_synthdef) == utils.normalize_string('''
             synthdef:
                 name: PVCopyTest
                 ugens:

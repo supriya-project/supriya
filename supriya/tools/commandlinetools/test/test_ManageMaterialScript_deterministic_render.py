@@ -1,13 +1,13 @@
 import os
-from abjad.tools import stringtools
 from abjad.tools import systemtools
+from supriya import utils
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
 
-    module_contents = stringtools.normalize('''
+    module_contents = utils.normalize_string('''
     from supriya import (
         Session,
         patterntools,

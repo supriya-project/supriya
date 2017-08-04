@@ -1,6 +1,6 @@
 import os
-from abjad.tools import stringtools
 from abjad.tools import systemtools
+from supriya import utils
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -29,12 +29,12 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/tools/__init__.py',
         ]
 
-    expected_readme_contents = stringtools.normalize('''
+    expected_readme_contents = utils.normalize_string('''
     TEST PROJECT
     ############
     ''')
 
-    expected_project_settings_contents = stringtools.normalize('''
+    expected_project_settings_contents = utils.normalize_string('''
     composer:
         email: josiah.oberholtzer@gmail.com
         github: josiah-wolf-oberholtzer

@@ -1,14 +1,14 @@
 import yaml
-from abjad import stringtools
 from abjad import systemtools as abjad_systemtools
 from supriya import patterntools
 from supriya import systemtools
+from supriya import utils
 
 
 class TestCase(abjad_systemtools.TestCase):
 
     def test_01(self):
-        string = stringtools.normalize("""
+        string = utils.normalize_string("""
         pattern:
             type: Pwhite
         """)
@@ -24,7 +24,7 @@ class TestCase(abjad_systemtools.TestCase):
             """)
 
     def test_02(self):
-        string = stringtools.normalize("""
+        string = utils.normalize_string("""
         pattern:
             type: Pbind
             frequency: $args.frequency
@@ -65,7 +65,7 @@ class TestCase(abjad_systemtools.TestCase):
             """)
 
     def test_03(self):
-        string = stringtools.normalize("""
+        string = utils.normalize_string("""
         pattern:
             type: Pbind
             frequency: $args.frequency
@@ -111,7 +111,7 @@ class TestCase(abjad_systemtools.TestCase):
             """)
 
     def test_04(self):
-        string = stringtools.normalize("""
+        string = utils.normalize_string("""
         pattern:
             type: Pbind
             frequency: $args.frequency

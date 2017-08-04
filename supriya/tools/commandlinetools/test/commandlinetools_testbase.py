@@ -2,8 +2,8 @@ import jinja2
 import pathlib
 import shutil
 import sys
-from abjad.tools import stringtools
 from abjad.tools import systemtools
+from supriya import utils
 from supriya.tools import commandlinetools
 from supriya.tools import soundfiletools
 
@@ -22,7 +22,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     synthdefs_path = inner_project_path.joinpath('synthdefs')
     tools_path = inner_project_path.joinpath('tools')
 
-    basic_session_template = jinja2.Template(stringtools.normalize('''
+    basic_session_template = jinja2.Template(utils.normalize_string('''
     import supriya
     from test_project import project_settings
 
@@ -49,7 +49,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             )
     '''))
 
-    session_factory_template = jinja2.Template(stringtools.normalize('''
+    session_factory_template = jinja2.Template(utils.normalize_string('''
     import supriya
     from test_project import project_settings
 
@@ -90,7 +90,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
     {{ output_section_singular }} = SessionFactory(project_settings)
     '''))
 
-    chained_session_template = jinja2.Template(stringtools.normalize('''
+    chained_session_template = jinja2.Template(utils.normalize_string('''
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
@@ -176,7 +176,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                     raise RuntimeError('SystemExit')
         material_path = self.inner_project_path / 'materials' / material_name
         if definition_contents:
-            definition_contents = stringtools.normalize(definition_contents)
+            definition_contents = utils.normalize_string(definition_contents)
             definition_file_path = material_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
@@ -229,7 +229,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                     raise RuntimeError('SystemExit')
         session_path = self.inner_project_path / 'sessions' / session_name
         if definition_contents:
-            definition_contents = stringtools.normalize(definition_contents)
+            definition_contents = utils.normalize_string(definition_contents)
             definition_file_path = session_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)

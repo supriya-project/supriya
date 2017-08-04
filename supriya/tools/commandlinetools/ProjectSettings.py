@@ -2,7 +2,7 @@ import collections
 import copy
 import pathlib
 import yaml
-from abjad.tools import stringtools
+from supriya import utils
 
 
 class ProjectSettings(collections.Mapping):
@@ -39,7 +39,7 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_dummy_data(cls):
-        dummy_data = yaml.load(stringtools.normalize("""
+        dummy_data = yaml.load(utils.normalize_string("""
         composer:
             email: josiah.oberholtzer@gmail.com
             github: josiah-wolf-oberholtzer

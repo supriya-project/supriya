@@ -1,8 +1,8 @@
 import os
 import yaml
 from unittest import mock
-from abjad.tools import stringtools
 from abjad.tools import systemtools
+from supriya import utils
 from supriya.tools import commandlinetools
 from supriya.tools import nonrealtimetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
@@ -65,7 +65,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(stringtools.normalize(r'''
+            file_pointer.write(utils.normalize_string(r'''
             session = None
             '''))
         script = commandlinetools.ManageSessionScript()
@@ -91,7 +91,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(stringtools.normalize(r'''
+            file_pointer.write(utils.normalize_string(r'''
             class Foo:
                 def __render__(
                     self,
