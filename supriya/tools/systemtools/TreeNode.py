@@ -1,5 +1,6 @@
 import collections
 import copy
+from supriya import utils
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -123,10 +124,9 @@ class TreeNode(SupriyaObject):
 
     @property
     def graph_order(self):
-        from abjad.tools import sequencetools
         order = []
-        components = sequencetools.Sequence(reversed(self.improper_parentage))
-        for parent, child in components.nwise():
+        components = reversed(self.improper_parentage)
+        for parent, child in utils.iterate_nwise(components):
             order.append(parent.index(child))
         return tuple(order)
 

@@ -1,7 +1,7 @@
 import collections
 import struct
 import sys
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -124,7 +124,7 @@ class SynthDefDecompiler(SupriyaObject):
         if parameter_count:
             pairs = tuple(zip(parameter_indices, parameter_names))
             pairs = sorted(pairs, key=lambda x: x[0])
-            iterator = sequencetools.iterate_sequence_nwise(pairs)
+            iterator = utils.iterate_nwise(pairs)
             for (index_one, name_one), (index_two, name_two) in iterator:
                 value = parameter_values[index_one:index_two]
                 if len(value) == 1:
