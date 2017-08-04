@@ -12,6 +12,8 @@ class TreeNode(SupriyaObject):
         # '_parent',
         )
 
+    _state_flag_names = ()
+
     ### INITIALIZER ###
 
     def __init__(self, name=None):
@@ -31,6 +33,16 @@ class TreeNode(SupriyaObject):
             name_dictionary[self.name].add(self)
         return name_dictionary
 
+    def _get_node_state_flags(self):
+        state_flags = {}
+        for name in self._state_flag_names:
+            state_flags[name] = True
+            for node in self.improper_parentage:
+                if not getattr(node, name):
+                    state_flags[name] = False
+                    break
+        return state_flags
+
     @classmethod
     def _iterate_nodes(cls, nodes):
         for x in nodes:
@@ -38,6 +50,11 @@ class TreeNode(SupriyaObject):
             if hasattr(x, '_children'):
                 for y in cls._iterate_nodes(x):
                     yield y
+
+    def _mark_entire_tree_for_later_update(self):
+        for node in self.improper_parentage:
+            for name in self._state_flag_names:
+                setattr(node, name, False)
 
     def _remove_from_parent(self):
         if self._parent is not None:
@@ -71,6 +88,7 @@ class TreeNode(SupriyaObject):
         self._remove_from_parent()
         self._parent = new_parent
         self._restore_named_children_to_parentage(named_children)
+        self._mark_entire_tree_for_later_update()
 
     ### PUBLIC METHODS ###
 
@@ -93,6 +111,24 @@ class TreeNode(SupriyaObject):
         self.parent[index + 1:index + 1] = expr
 
     ### PUBLIC PROPERTIES ###
+
+    @property
+    def depth(self):
+        node = self
+        depth = 0
+        while node.parent is not None:
+            depth += 1
+            node = node.parent
+        return depth
+
+    @property
+    def graph_order(self):
+        from abjad.tools import sequencetools
+        order = []
+        components = sequencetools.Sequence(reversed(self.improper_parentage))
+        for parent, child in components.nwise():
+            order.append(parent.index(child))
+        return tuple(order)
 
     @property
     def name(self):
@@ -127,3 +163,10 @@ class TreeNode(SupriyaObject):
             parentage.append(node)
             node = node.parent
         return tuple(parentage)
+
+    @property
+    def root(self):
+        node = self
+        while node.parent is not None:
+            node = node.parent
+        return node

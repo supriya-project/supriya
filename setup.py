@@ -1,6 +1,4 @@
 #!/usr/bin/env python
-
-import os
 import sys
 import setuptools
 from distutils.version import StrictVersion

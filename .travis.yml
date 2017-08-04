@@ -20,7 +20,6 @@ before_install:
     - sudo -E su $USER -c "scsynth -h || true"
 
 install:
-    - pip install -r requirements.txt
     - pip install -e .
 
 before_script:
@@ -31,10 +30,8 @@ before_script:
     - sleep 3 # give jackd time to start
 
 script:
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; ./server-test.py"
     - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya'"
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; sjv doctest supriya"
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test -vv supriya/tools/nonrealtimetools"
+    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test"
 
 notifications:
     email: false

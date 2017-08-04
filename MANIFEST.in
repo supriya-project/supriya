@@ -12,7 +12,4 @@ include setup.py
 include tox.ini
 
 recursive-include supriya/assets *
-recursive-include supriya/docs *
 recursive-include supriya/scripts *
-
-recursive-exclude supriya/docs/build *
