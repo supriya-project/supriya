@@ -1,4 +1,4 @@
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -78,11 +78,11 @@ class Envelope(SupriyaValueObject):
             offset = float(offset)
         self._offset = offset
         self._initial_amplitude = amplitudes[0]
-        self._envelope_segments = tuple(sequencetools.zip_sequences([
+        self._envelope_segments = tuple(utils.zip_sequences(
             amplitudes[1:],
             durations,
             curves,
-            ], cyclic=True))
+            ))
 
     ### PUBLIC METHODS ###
 

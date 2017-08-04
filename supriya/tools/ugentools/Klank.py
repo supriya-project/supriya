@@ -1,5 +1,5 @@
 import collections
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.synthdeftools.CalculationRate import CalculationRate
 from supriya.tools.ugentools.UGen import UGen
 
@@ -70,7 +70,7 @@ class Klank(UGen):
             decay_times = [1.0] * len(frequencies)
         elif not isinstance(decay_times, collections.Sequence):
             decay_times = [decay_times] * len(frequencies)
-        specifications = sequencetools.zip_sequences(
+        specifications = utils.zip_sequences(
             [frequencies, amplitudes, decay_times])
         specifications = sequencetools.flatten_sequence(specifications)
         specifications = tuple(specifications)

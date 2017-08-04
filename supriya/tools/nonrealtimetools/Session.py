@@ -316,6 +316,7 @@ class Session:
 
         ::
 
+            >>> session = nonrealtimetools.Session()
             >>> session._build_render_command('output.aiff')
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 

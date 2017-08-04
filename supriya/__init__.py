@@ -1,6 +1,7 @@
 import pyximport
 pyximport.install()
 
+from supriya import utils  # noqa
 from supriya.tools import *  # noqa
 from supriya.tools.miditools import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
