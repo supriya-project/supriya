@@ -39,8 +39,7 @@ class BufferSetContiguousRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.BUFFER_SET_CONTIGUOUS
+        >>> message.address == requesttools.RequestId.BUFFER_SET_CONTIGUOUS
         True
 
     """

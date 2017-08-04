@@ -35,8 +35,7 @@ class ControlBusSetRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.CONTROL_BUS_SET
+        >>> message.address == requesttools.RequestId.CONTROL_BUS_SET
         True
 
     """

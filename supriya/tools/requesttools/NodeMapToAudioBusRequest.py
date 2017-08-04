@@ -32,8 +32,7 @@ class NodeMapToAudioBusRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
+        >>> message.address == requesttools.RequestId.NODE_MAP_TO_AUDIO_BUS
         True
 
     """

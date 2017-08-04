@@ -25,8 +25,7 @@ class ControlBusGetRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.CONTROL_BUS_GET
+        >>> message.address == requesttools.RequestId.CONTROL_BUS_GET
         True
 
     """

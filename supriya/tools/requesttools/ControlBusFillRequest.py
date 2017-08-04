@@ -31,8 +31,7 @@ class ControlBusFillRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.CONTROL_BUS_FILL
+        >>> message.address == requesttools.RequestId.CONTROL_BUS_FILL
         True
 
     """

@@ -37,8 +37,7 @@ class ControlBusSetContiguousRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
+        >>> message.address == requesttools.RequestId.CONTROL_BUS_SET_CONTIGUOUS
         True
 
     """

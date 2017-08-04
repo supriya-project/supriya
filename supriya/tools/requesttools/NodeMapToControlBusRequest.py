@@ -32,8 +32,7 @@ class NodeMapToControlBusRequest(Request):
 
     ::
 
-        >>> message.address == \
-        ...     requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
+        >>> message.address == requesttools.RequestId.NODE_MAP_TO_CONTROL_BUS
         True
 
     """
