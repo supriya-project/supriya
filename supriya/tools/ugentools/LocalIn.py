@@ -1,5 +1,5 @@
 import collections
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
 
 
@@ -41,7 +41,7 @@ class LocalIn(MultiOutUGen):
         if not isinstance(default, collections.Sequence):
             default = (default,)
         default = [float(_) for _ in default]
-        default = sequencetools.repeat_sequence_to_length(
+        default = utils.repeat_sequence_to_length(
             default,
             channel_count,
             )

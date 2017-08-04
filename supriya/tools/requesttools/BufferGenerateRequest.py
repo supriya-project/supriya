@@ -1,5 +1,5 @@
 import collections
-from abjad.tools import sequencetools
+from supriya import utils
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -153,7 +153,7 @@ class BufferGenerateRequest(Request):
                 self.phases,
                 )
             coefficients = tuple(coefficients)
-        coefficients = sequencetools.flatten_sequence(coefficients)
+        coefficients = utils.flatten_iterable(coefficients)
         contents.extend(coefficients)
         message = osctools.OscMessage(*contents)
         return message
