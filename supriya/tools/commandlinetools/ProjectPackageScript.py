@@ -8,10 +8,10 @@ import shutil
 import subprocess
 import sys
 import traceback
-from abjad.tools import stringtools
 from abjad.tools import systemtools
 from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
 from abjad.tools.systemtools import TemporaryDirectoryChange
+from supriya import utils
 from supriya.tools.systemtools import Profiler
 
 
@@ -216,7 +216,7 @@ class ProjectPackageScript(CommandlineScript):
 
     def _name_to_project_subdirectory_path(self, name, section, project_path):
         project_path = self._path_to_project_package_path(project_path)
-        name = stringtools.to_accent_free_snake_case(name)
+        name = utils.to_snake_case(name)
         path = project_path.joinpath(section, name)
         return path
 
@@ -361,10 +361,9 @@ class ProjectPackageScript(CommandlineScript):
         pass
 
     def _report_time(self, timer, prefix='Runtime'):
-        message = '    {}: {} {}'
+        message = '    {}: {} seconds'
         total_time = int(timer.elapsed_time)
-        identifier = stringtools.pluralize('second', total_time)
-        message = message.format(prefix, total_time, identifier)
+        message = message.format(prefix, total_time)
         print(message)
 
     def _setup_paths(self, project_path):

@@ -2,8 +2,8 @@ import os
 import pathlib
 import sys
 import yaml
-from abjad.tools import stringtools
 from abjad.tools.systemtools import TemporaryDirectoryChange
+from supriya import utils
 from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
 
 
@@ -47,7 +47,7 @@ class ManageProjectScript(ProjectPackageScript):
         force=False,
         ):
         print('Creating project package {!r}...'.format(title))
-        package_name = stringtools.to_accent_free_snake_case(title)
+        package_name = utils.to_snake_case(title)
         outer_target_path = pathlib.Path(package_name).absolute()
         if outer_target_path.exists() and not force:
             message = '    Directory {!s} already exists.'

@@ -2,7 +2,7 @@ import hashlib
 import pathlib
 import shlex
 import subprocess
-from abjad.tools.stringtools import to_dash_case
+from supriya import utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -84,7 +84,7 @@ class Say(SupriyaValueObject):
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
         file_path = '{}-{}.aiff'.format(
-            to_dash_case(type(self).__name__), md5,
+            utils.to_dash_case(type(self).__name__), md5,
             )
         return pathlib.Path(file_path)
 
