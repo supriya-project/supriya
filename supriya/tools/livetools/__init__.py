@@ -1,10 +1,8 @@
 """
-Tools for sending, receiving and responding to MIDI messages.
+Tools for performing live, including models of virtual mixers, instruments and
+performance applications.
 """
-from abjad.tools import systemtools
+from supriya import import_structured_package
 
 
-systemtools.ImportManager.import_structured_package(
-    __path__[0],
-    globals(),
-    )
+import_structured_package(__path__[0], globals())

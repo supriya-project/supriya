@@ -25,8 +25,8 @@ class UGenSortBundle(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _initialize_topological_sort(self, sort_bundles):
-        from supriya import synthdeftools
-        from supriya import ugentools
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         for input_ in self.ugen.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
                 input_ = input_.source

@@ -1,11 +1,7 @@
 """
 Tools for modeling overlapping time structures with timespans.
 """
-from abjad.tools import systemtools
-from supriya.tools.timetools.TimespanCollectionDriverEx import TimespanCollectionDriverEx
+from supriya import import_structured_package
 
 
-systemtools.ImportManager.import_structured_package(
-    __path__[0],
-    globals(),
-    )
+import_structured_package(__path__[0], globals())

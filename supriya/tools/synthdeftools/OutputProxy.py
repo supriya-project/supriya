@@ -15,8 +15,8 @@ class OutputProxy(UGenMethodMixin):
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):
-        from supriya import synthdeftools
-        from supriya import ugentools
+        from supriya.tools import synthdeftools
+        from supriya.tools import ugentools
         prototype = (
             ugentools.UGen,
             synthdeftools.Parameter,

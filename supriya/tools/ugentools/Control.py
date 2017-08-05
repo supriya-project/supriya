@@ -49,7 +49,7 @@ class Control(MultiOutUGen):
 
         Returns output proxy.
         """
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         if type(i) == int:
             if len(self) == 1:
                 return synthdeftools.OutputProxy(self, 0)
@@ -93,7 +93,7 @@ class Control(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         if len(self.parameters) == 1:
             result = self
         else:

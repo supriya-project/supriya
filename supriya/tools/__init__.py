@@ -1,9 +1,4 @@
-from abjad.tools import systemtools as abjad_systemtools
+from supriya import import_structured_package
 
 
-abjad_systemtools.ImportManager.import_structured_package(
-    __path__[0],
-    globals(),
-    delete_systemtools=False,
-    )
-del(abjad_systemtools)
+import_structured_package(__path__[0], globals())

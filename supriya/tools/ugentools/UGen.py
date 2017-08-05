@@ -37,7 +37,7 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         assert isinstance(calculation_rate, synthdeftools.CalculationRate), \
             calculation_rate
         if self._valid_rates is not None:
@@ -173,7 +173,7 @@ class UGen(UGenMethodMixin):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index=None):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         #if isinstance(ugen, synthdeftools.Parameter):
         #    output_proxy = ugen
         if isinstance(ugen, synthdeftools.OutputProxy):
@@ -196,14 +196,14 @@ class UGen(UGenMethodMixin):
                 raise ValueError(message)
 
     def _check_rate_same_as_first_input_rate(self):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         first_input_rate = synthdeftools.CalculationRate.from_input(
             self.inputs[0],
             )
         return self.calculation_rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         if self.calculation_rate != synthdeftools.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
@@ -213,7 +213,7 @@ class UGen(UGenMethodMixin):
         return True
 
     def _configure_input(self, name, value):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         ugen_prototype = (
             synthdeftools.OutputProxy,
             synthdeftools.Parameter,
@@ -344,7 +344,7 @@ class UGen(UGenMethodMixin):
         return False
 
     def _is_valid_input(self, input_value):
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         if isinstance(input_value, synthdeftools.OutputProxy):
             return True
         elif hasattr(input_value, '__float__'):
@@ -358,7 +358,7 @@ class UGen(UGenMethodMixin):
         **kwargs
         ):
         import sys
-        from supriya import synthdeftools
+        from supriya.tools import synthdeftools
         if sys.version_info[0] == 2:
             import funcsigs
             get_signature = funcsigs.signature

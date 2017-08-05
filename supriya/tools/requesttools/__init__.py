@@ -1,10 +1,7 @@
 """
-Tools for object-modeling OSC requests made to **scsynth**.
+Tools for object-modeling OSC requests made to ``scsynth``.
 """
-from abjad.tools import systemtools
+from supriya import import_structured_package
 
 
-systemtools.ImportManager.import_structured_package(
-    __path__[0],
-    globals(),
-    )
+import_structured_package(__path__[0], globals())
