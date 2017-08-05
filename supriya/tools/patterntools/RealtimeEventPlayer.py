@@ -1,10 +1,10 @@
-from abjad import new
 import itertools
 import time
 try:
     from queue import PriorityQueue
 except ImportError:
     from Queue import PriorityQueue
+from supriya import utils
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import systemtools
@@ -88,7 +88,7 @@ class RealtimeEventPlayer(EventPlayer):
             )
         if communicate:
             osc_bundle = consolidated_bundle.to_osc_bundle()
-            osc_bundle = new(
+            osc_bundle = utils.new(
                 osc_bundle,
                 timestamp=osc_bundle.timestamp + self._server.latency,
                 )

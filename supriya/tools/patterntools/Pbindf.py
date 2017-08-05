@@ -1,5 +1,5 @@
 import collections
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
@@ -70,7 +70,7 @@ class Pbindf(EventPattern):
                     template_dict[name] = next(key_iterator)
                 except StopIteration:
                     continue
-            expr = new(expr, **template_dict)
+            expr = utils.new(expr, **template_dict)
             should_stop = yield expr
 
     ### PUBLIC PROPERTIES ###

@@ -1,4 +1,4 @@
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.Pattern import Pattern
 
 
@@ -31,7 +31,7 @@ class Pn(Pattern):
             for _ in self._loop(self._repetitions):
                 for i, x in enumerate(self._pattern):
                     if i == 0:
-                        x = new(x, **{self.key: True})
+                        x = utils.new(x, **{self.key: True})
                     yield x
         else:
             for _ in self._loop(self._repetitions):

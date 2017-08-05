@@ -1,9 +1,9 @@
 import collections
-from abjad import new
 try:
     from queue import PriorityQueue
 except ImportError:
     from Queue import PriorityQueue
+from supriya import utils
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
@@ -50,14 +50,14 @@ class Ppar(EventPattern):
                 self._apply_iterator_recursively(child_event, iterator)
                 for child_event in expr.get('events') or ()
                 ]
-            expr = new(expr, events=coerced_events)
+            expr = utils.new(expr, events=coerced_events)
         else:
-            expr = new(expr, _iterator=iterator)
+            expr = utils.new(expr, _iterator=iterator)
         return expr
 
     def _coerce_iterator_output(self, expr, state):
         expr = super(Ppar, self)._coerce_iterator_output(expr, state)
-        return new(expr, _iterator=None)
+        return utils.new(expr, _iterator=None)
 
     def _iterate(self, state=None):
         while True:
@@ -120,7 +120,7 @@ class Ppar(EventPattern):
 
     def _pre_process_event(self, event_tuple_a, event_tuple_b):
         delta = float(event_tuple_b.offset - event_tuple_a.offset)
-        return new(event_tuple_a.event, delta=delta)
+        return utils.new(event_tuple_a.event, delta=delta)
 
     def _post_process_event(self, event, event_tuple_a, event_tuple_b, state):
         state['event_queue'].put(event_tuple_b)

@@ -3,7 +3,7 @@ import collections
 import inspect
 import itertools
 import re
-from abjad import new
+from supriya import utils
 from supriya.tools.systemtools import BindableNamespace
 from supriya.tools.systemtools import Enumeration
 from supriya.tools.systemtools import SupriyaValueObject
@@ -157,7 +157,7 @@ class Pattern(SupriyaValueObject):
                 self._coerce_iterator_output(child_event, state=state)
                 for child_event in expr.get('events') or ()
                 ]
-            expr = new(expr, events=coerced_events)
+            expr = utils.new(expr, events=coerced_events)
         else:
             expr = self._coerce_iterator_output(expr, state=state)
         return expr

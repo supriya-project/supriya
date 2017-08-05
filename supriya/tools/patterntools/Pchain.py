@@ -1,4 +1,4 @@
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
@@ -39,7 +39,7 @@ class Pchain(EventPattern):
                 for key, value in tuple(template_dict.items()):
                     if value is None:
                         template_dict.pop(key)
-                event = new(event, **template_dict)
+                event = utils.new(event, **template_dict)
             yield event
 
     ### PUBLIC PROPERTIES ###

@@ -1,5 +1,5 @@
 import uuid
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.EventPattern import EventPattern
 
 
@@ -32,7 +32,7 @@ class Pgroup(EventPattern):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
-            expr = new(expr, **kwargs)
+            expr = utils.new(expr, **kwargs)
         return expr
 
     def _iterate(self, state=None):

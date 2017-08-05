@@ -1,5 +1,5 @@
 import uuid
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.Pbind import Pbind
 
 
@@ -64,12 +64,12 @@ class Pmono(Pbind):
             return
         for event in iterator:
             events.append(event)
-            event = new(events.pop(0), uuid=synth_uuid, is_stop=None)
+            event = utils.new(events.pop(0), uuid=synth_uuid, is_stop=None)
             should_stop = yield event
             if should_stop:
                 return
         assert len(events) == 1
         if events:
             event = events.pop()
-            event = new(event, uuid=synth_uuid, is_stop=True)
+            event = utils.new(event, uuid=synth_uuid, is_stop=True)
             yield event

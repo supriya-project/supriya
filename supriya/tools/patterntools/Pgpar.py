@@ -1,5 +1,5 @@
 import uuid
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.Ppar import Ppar
 
 
@@ -36,7 +36,7 @@ class Pgpar(Ppar):
             ):
             if expr.get('target_node') is None:
                 kwargs['target_node'] = iterators_to_group_uuids[iterator]
-            expr = new(expr, **kwargs)
+            expr = utils.new(expr, **kwargs)
         return expr
 
     def _setup_peripherals(self, initial_expr, state):
