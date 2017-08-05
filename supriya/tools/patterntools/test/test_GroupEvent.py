@@ -32,7 +32,7 @@ class TestCase(TestCase):
                 index=0,
                 requests=[
                     supriya.tools.requesttools.GroupNewRequest(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
+                        add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
                         target_node_id=1,
                         ),

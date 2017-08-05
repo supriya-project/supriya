@@ -77,6 +77,7 @@ from supriya.tools.systemtools import (  # noqa
     Assets,
     Bindable,
     Binding,
+    Enumeration,
     Profiler,
     SupriyaConfiguration,
     bind,

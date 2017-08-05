@@ -40,12 +40,12 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.GroupEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_TAIL,
+                        add_action=AddAction.ADD_TO_TAIL,
                         delta=0.0,
                         uuid=UUID('A'),
                         ),
                     supriya.tools.patterntools.GroupEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_TAIL,
+                        add_action=AddAction.ADD_TO_TAIL,
                         delta=0.0,
                         uuid=UUID('B'),
                         ),
@@ -91,12 +91,12 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.GroupEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_TAIL,
+                        add_action=AddAction.ADD_TO_TAIL,
                         delta=0.0,
                         uuid=UUID('E'),
                         ),
                     supriya.tools.patterntools.GroupEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_TAIL,
+                        add_action=AddAction.ADD_TO_TAIL,
                         delta=0.0,
                         uuid=UUID('F'),
                         ),

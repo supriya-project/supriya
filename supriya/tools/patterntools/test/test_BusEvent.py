@@ -29,7 +29,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.EventProduct(
                 event=supriya.tools.patterntools.BusEvent(
-                    calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                    calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
                     delta=0.0,
                     uuid=UUID('A'),

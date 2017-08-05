@@ -35,7 +35,7 @@ class TestCase(TestCase):
                 is_stop=False,
                 requests=[
                     supriya.tools.requesttools.SynthNewRequest(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
+                        add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
                         synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
@@ -95,21 +95,21 @@ class TestCase(TestCase):
                 is_stop=False,
                 requests=[
                     supriya.tools.requesttools.SynthNewRequest(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
+                        add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
                         synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=443,
                         ),
                     supriya.tools.requesttools.SynthNewRequest(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
+                        add_action=AddAction.ADD_TO_HEAD,
                         node_id=1001,
                         synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,
                         frequency=445,
                         ),
                     supriya.tools.requesttools.SynthNewRequest(
-                        add_action=supriya.tools.servertools.AddAction.ADD_TO_HEAD,
+                        add_action=AddAction.ADD_TO_HEAD,
                         node_id=1002,
                         synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
                         target_node_id=1,

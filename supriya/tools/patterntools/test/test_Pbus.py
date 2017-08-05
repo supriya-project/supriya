@@ -34,7 +34,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -44,7 +44,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
@@ -119,7 +119,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -129,7 +129,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
@@ -202,7 +202,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -212,7 +212,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
@@ -260,7 +260,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -270,7 +270,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
@@ -327,7 +327,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -337,7 +337,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
@@ -385,7 +385,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 events=(
                     supriya.tools.patterntools.BusEvent(
-                        calculation_rate=supriya.tools.synthdeftools.CalculationRate.AUDIO,
+                        calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
                         delta=0.0,
                         uuid=UUID('A'),
@@ -395,7 +395,7 @@ class TestCase(TestCase):
                         uuid=UUID('B'),
                         ),
                     supriya.tools.patterntools.SynthEvent(
-                        add_action=supriya.tools.servertools.AddAction.ADD_AFTER,
+                        add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
                         delta=0.0,
                         fade_time=0.25,
