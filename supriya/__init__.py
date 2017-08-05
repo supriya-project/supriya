@@ -18,14 +18,13 @@ def import_structured_package(path, namespace, remove=True):
     package_import_path = '.'.join((root_path.name,) + relative_path.parts)
     # Find importable modules and import their nominative object
     for module_path in package_path.iterdir():
-        if (
-            module_path.is_dir() and
-            not (module_path / '__init__.py').exists()
-            ):
-            continue
-        elif module_path.suffix not in ('.py', '.pyx'):
-            continue
+        if module_path.is_dir():
+            if not (module_path / '__init__.py').exists():
+                continue
+            module_name = module_path.name
         else:
+            if module_path.suffix not in ('.py', '.pyx'):
+                continue
             module_name = module_path.with_suffix('').name
             if module_name == '__init__':
                 continue
