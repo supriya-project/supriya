@@ -33,9 +33,9 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(duration=0.5, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
-        NoteEvent(duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
-        NoteEvent(duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
+        NoteEvent(delta=0.5, duration=0.5, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
+        NoteEvent(delta=0.25, duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
+        NoteEvent(delta=0.25, duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
 
     ::
 

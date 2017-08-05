@@ -54,6 +54,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -61,6 +62,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -68,6 +70,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -75,6 +78,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=550,
                 is_stop=True,
@@ -82,6 +86,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=770,
                 is_stop=True,
@@ -89,6 +94,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=990,
                 is_stop=True,
@@ -105,6 +111,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -112,6 +119,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -119,6 +127,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -151,6 +160,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=550,
                 is_stop=True,
@@ -160,6 +170,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=770,
                 is_stop=True,
@@ -169,6 +180,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=990,
                 is_stop=True,
@@ -227,6 +239,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -234,6 +247,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -250,6 +264,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -257,6 +272,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -264,6 +280,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -280,6 +297,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -287,6 +305,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -294,6 +313,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -301,6 +321,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=550,
                 is_stop=True,
@@ -317,6 +338,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -324,6 +346,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -331,6 +354,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -396,6 +420,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -403,6 +428,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -410,6 +436,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -442,6 +469,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=550,
                 is_stop=True,

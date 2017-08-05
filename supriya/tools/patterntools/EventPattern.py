@@ -1,5 +1,5 @@
 import uuid
-from abjad import new
+from supriya import utils
 from supriya.tools.patterntools.Pattern import Pattern
 
 
@@ -16,7 +16,7 @@ class EventPattern(Pattern):
         if not isinstance(expr, patterntools.Event):
             expr = patterntools.NoteEvent(**expr)
         if expr.get('uuid') is None:
-            expr = new(expr, uuid=uuid.uuid4())
+            expr = utils.new(expr, uuid=uuid.uuid4())
         return expr
 
     ### PUBLIC METHODS ###

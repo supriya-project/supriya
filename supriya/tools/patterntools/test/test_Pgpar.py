@@ -101,6 +101,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=990,
                 is_stop=True,

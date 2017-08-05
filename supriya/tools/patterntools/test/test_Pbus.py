@@ -57,6 +57,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -66,6 +67,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=2.0,
                 duration=2.0,
                 frequency=660,
                 is_stop=True,
@@ -75,6 +77,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=3.0,
                 duration=3.0,
                 frequency=880,
                 is_stop=True,
@@ -142,6 +145,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=222,
                 out=UUID('A'),
@@ -150,6 +154,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=333,
                 out=UUID('A'),
@@ -158,6 +163,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=444,
                 is_stop=True,
@@ -283,6 +289,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=1.0,
                 duration=1.0,
                 frequency=440,
                 is_stop=True,
@@ -408,6 +415,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=1.0,
+                delta=0.75,
                 duration=0.75,
                 frequency=222,
                 out=UUID('A'),

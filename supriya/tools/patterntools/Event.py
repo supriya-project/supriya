@@ -143,7 +143,7 @@ class Event(SupriyaValueObject):
     @property
     def delta(self):
         if self._delta is None:
-            return self.get('duration') or 0
+            return self.get('duration')
         return self._delta
 
     @property

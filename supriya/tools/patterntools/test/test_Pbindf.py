@@ -19,6 +19,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.111,
+                delta=1.0,
                 duration=1.0,
                 is_stop=True,
                 pan=0.0,
@@ -26,6 +27,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.333,
+                delta=2.0,
                 duration=2.0,
                 is_stop=True,
                 pan=0.5,
@@ -33,6 +35,7 @@ class TestCase(TestCase):
                 )
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.666,
+                delta=3.0,
                 duration=3.0,
                 is_stop=True,
                 pan=1.0,
@@ -56,6 +59,7 @@ class TestCase(TestCase):
             '''
             supriya.tools.patterntools.NoteEvent(
                 amplitude=0.111,
+                delta=1.0,
                 duration=1.0,
                 is_stop=True,
                 pan=0.0,
