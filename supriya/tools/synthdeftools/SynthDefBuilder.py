@@ -1,7 +1,7 @@
 import collections
 import copy
 import uuid
-from abjad.tools.topleveltools import new
+from supriya import utils
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -140,7 +140,7 @@ class SynthDefBuilder(SupriyaObject):
                 value=value,
                 )
         else:
-            parameter = new(
+            parameter = utils.new(
                 value,
                 parameter_rate=parameter_rate,
                 name=name,

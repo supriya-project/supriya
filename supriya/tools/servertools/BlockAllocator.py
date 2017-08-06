@@ -1,5 +1,5 @@
 import threading
-from abjad.tools.topleveltools import new
+from supriya import utils
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -93,19 +93,19 @@ class BlockAllocator(SupriyaObject):
                 split_offset = free_block.start_offset + desired_block_size
                 self._free_heap.remove(free_block)
                 if desired_block_size < free_block.duration:
-                    new_free_block = new(
+                    new_free_block = utils.new(
                         free_block,
                         start_offset=split_offset,
                         used=False,
                         )
                     self._free_heap.insert(new_free_block)
-                    used_block = new(
+                    used_block = utils.new(
                         free_block,
                         stop_offset=split_offset,
                         used=True,
                         )
                 else:
-                    used_block = new(
+                    used_block = utils.new(
                         free_block,
                         used=True,
                         )

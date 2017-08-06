@@ -1,3 +1,4 @@
+from supriya import utils
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -10,8 +11,7 @@ class SupriyaValueObject(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __copy__(self, *args):
-        from abjad.tools.topleveltools import new
-        return new(self)
+        return utils.new(self)
 
     def __eq__(self, expr):
         from abjad.tools import systemtools
