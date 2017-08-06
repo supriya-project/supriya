@@ -1,6 +1,7 @@
 import atexit
 import subprocess
 import time
+from supriya import utils
 from supriya.tools.systemtools import PubSub
 from supriya.tools.systemtools import SupriyaObject
 
@@ -385,7 +386,6 @@ class Server(SupriyaObject):
         server_options=None,
         **kwargs
         ):
-        from supriya import new
         from supriya import supriya_configuration
         from supriya.tools import servertools
         if self.is_running:
@@ -395,7 +395,7 @@ class Server(SupriyaObject):
         server_options = server_options or servertools.ServerOptions()
         assert isinstance(server_options, servertools.ServerOptions)
         if kwargs:
-            server_options = new(server_options, **kwargs)
+            server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
         command = '{} {} -V -1'.format(scsynth_path, options_string)
         #command = '{} {}'.format(scsynth_path, options_string)

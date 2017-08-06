@@ -7,6 +7,7 @@ import sys
 import tqdm
 import yaml
 from abjad.tools.systemtools import TemporaryDirectoryChange
+from supriya import utils
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools.nonrealtimetools import (
@@ -294,7 +295,6 @@ class SessionRenderer(SupriyaObject):
         session_osc_file_path,
         **kwargs
         ):
-        from supriya import new
         relative_session_osc_file_path = session_osc_file_path
         if relative_session_osc_file_path.is_absolute():
             relative_session_osc_file_path = session_osc_file_path.relative_to(
@@ -305,7 +305,7 @@ class SessionRenderer(SupriyaObject):
                 relative_session_osc_file_path))
             return 0
         server_options = session._options
-        server_options = new(server_options, **kwargs)
+        server_options = utils.new(server_options, **kwargs)
         memory_size = server_options.memory_size
         for factor in range(1, 4):
             command = self._build_render_command(
@@ -316,7 +316,7 @@ class SessionRenderer(SupriyaObject):
                 )
             self._report('    Command: {}'.format(command))
             exit_code = self._stream_subprocess(command, session.duration)
-            server_options = new(
+            server_options = utils.new(
                 server_options,
                 memory_size=memory_size * (2**factor),
                 )
