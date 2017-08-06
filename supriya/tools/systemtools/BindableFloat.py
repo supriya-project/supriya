@@ -1,21 +1,22 @@
 from supriya.tools.systemtools import Bindable
-from supriya.tools.systemtools import SupriyaObject
 
 
-class BindableFloat(SupriyaObject):
+class BindableFloat:
+
+    ### INITIALIZER ###
 
     def __init__(self, value):
         self.value = float(value)
 
     ### SPECIAL METHODS ###
 
+    def __add__(self, expr):
+        return float(self) + expr
+
     @Bindable(rebroadcast=True)
     def __call__(self, value):
         self.value = float(value)
         return value
-
-    def __add__(self, expr):
-        return float(self) + expr
 
     def __div__(self, expr):
         return float(self) / expr
@@ -41,6 +42,12 @@ class BindableFloat(SupriyaObject):
     def __radd__(self, expr):
         return expr + float(self)
 
+    def __repr__(self):
+        return '{}({})'.format(
+            type(self).__module__,
+            self.value,
+            )
+
     def __rdiv__(self, expr):
         return expr / float(self)
 
@@ -55,14 +62,3 @@ class BindableFloat(SupriyaObject):
 
     def __sub__(self, expr):
         return float(self) - expr
-
-    ### PRIVATE METHODS ###
-
-    def _get_format_specification(self):
-        from supriya import new
-        spec = super(BindableFloat, self)._get_format_specification()
-        return new(
-            spec,
-            repr_is_indented=False,
-            storage_format_is_indented=False,
-            )

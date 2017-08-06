@@ -87,7 +87,6 @@ from supriya.tools.wrappertools import (  # noqa
     )
 from abjad.tools.topleveltools import (  # noqa
     graph,
-    new,
     )
 from supriya import synthdefs  # noqa
 
