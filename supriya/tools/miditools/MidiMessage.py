@@ -1,3 +1,4 @@
+from supriya import utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -23,10 +24,9 @@ class MidiMessage(SupriyaValueObject):
     ### PRIVATE METHODS ###
 
     def _get_format_specification(self):
-        from abjad import new
         super_class = super(SupriyaValueObject, self)
         format_specification = super_class._get_format_specification()
-        return new(format_specification, repr_is_indented=False)
+        return utils.new(format_specification, repr_is_indented=False)
 
     ### PUBLIC PROPERTIES ###
 

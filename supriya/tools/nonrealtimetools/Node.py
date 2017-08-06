@@ -1,6 +1,6 @@
 import bisect
 import collections
-from abjad import new
+from supriya import utils
 from supriya.tools import servertools
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
@@ -112,7 +112,6 @@ class Node(SessionObject):
         if old_duration == new_duration:
             return
         with self.session.at(self.stop_offset, propagate=False) as moment:
-            parent = self.get_parent()
             if self in moment.state.stop_nodes:
                 moment.state.stop_nodes.remove(self)
             moment.state._sparsify()
@@ -235,7 +234,7 @@ class Node(SessionObject):
                 if node is new_node and self in old_actions:
                     old_actions.pop(node)
                     action = old_actions.pop(self)
-                    new_actions[node] = new(
+                    new_actions[node] = utils.new(
                         action,
                         source=new_node,
                         )
