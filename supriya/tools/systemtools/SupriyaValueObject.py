@@ -14,15 +14,14 @@ class SupriyaValueObject(SupriyaObject):
         return utils.new(self)
 
     def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.TestManager.compare_objects(self, expr)
+        self_values = type(self), utils.get_signature_data(self)
+        expr_values = type(expr), utils.get_signature_data(expr)
+        return self_values == expr_values
 
     def __hash__(self):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
-        try:
-            result = hash(hash_values)
-        except TypeError:
-            message = 'unhashable type: {}'.format(self)
-            raise TypeError(message)
-        return result
+        args, var_args, kwargs = utils.get_signature_data(self)
+        hash_values = [type(self)]
+        hash_values.append(tuple(args.items()))
+        hash_values.append(tuple(var_args))
+        hash_values.append(tuple(sorted(kwargs.items())))
+        return hash(tuple(hash_values))
