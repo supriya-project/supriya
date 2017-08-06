@@ -1,5 +1,6 @@
 import inspect
 import math
+from supriya import utils
 
 
 class Binding:
@@ -33,7 +34,6 @@ class Binding:
         exponent=None,
         symmetric=None,
         ):
-        from supriya import new
         from supriya.tools import synthdeftools
         #from supriya.tools import systemtools
         #assert isinstance(source, systemtools.Bindable), source
@@ -49,9 +49,9 @@ class Binding:
                 source_range = (0., 1.)
         source_range = synthdeftools.Range(source_range)
         if source_range.minimum == float('-inf'):
-            source_range = new(source_range, minimum=0.0)
+            source_range = utils.new(source_range, minimum=0.0)
         if source_range.maximum == float('inf'):
-            source_range = new(source_range, maximum=1.0)
+            source_range = utils.new(source_range, maximum=1.0)
         self.source_range = synthdeftools.Range(source_range)
         if target_range is None:
             if (
@@ -63,9 +63,9 @@ class Binding:
                 target_range = (0., 1.)
         target_range = synthdeftools.Range(target_range)
         if target_range.minimum == float('-inf'):
-            target_range = new(target_range, minimum=0.0)
+            target_range = utils.new(target_range, minimum=0.0)
         if target_range.maximum == float('inf'):
-            target_range = new(target_range, maximum=1.0)
+            target_range = utils.new(target_range, maximum=1.0)
         self.target_range = synthdeftools.Range(target_range)
         self.clip_maximum = bool(clip_maximum)
         self.clip_minimum = bool(clip_minimum)
