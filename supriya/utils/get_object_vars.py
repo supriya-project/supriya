@@ -2,7 +2,7 @@ import collections
 import inspect
 
 
-def get_signature_data(expr):
+def get_object_vars(expr):
     try:
         signature = inspect.signature(expr)
     except TypeError:
@@ -10,7 +10,9 @@ def get_signature_data(expr):
     args = collections.OrderedDict()
     var_args = []
     kwargs = {}
-    for name, parameter in signature.parameters.items():
+    for i, (name, parameter) in enumerate(signature.parameters.items()):
+        if i == 0 and name == 'self':
+            continue
         if parameter.kind is inspect._POSITIONAL_ONLY:
             try:
                 args[name] = getattr(expr, name)

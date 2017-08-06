@@ -3,7 +3,7 @@ def new(expr, *args, **kwargs):
     Template an object.
     """
     from supriya import utils
-    new_args, new_var_args, new_kwargs = utils.get_signature_data(expr)
+    new_args, new_var_args, new_kwargs = utils.get_object_vars(expr)
     if args:
         new_var_args = args
     for key, value in kwargs.items():
