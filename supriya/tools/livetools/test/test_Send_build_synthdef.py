@@ -1,8 +1,8 @@
-import abjad
 from supriya.tools import livetools
+from supriya.tools import systemtools
 
 
-class TestCase(abjad.systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     def test_build_synthdef_1_1(self):
         synthdef = livetools.Send.build_synthdef(1, 1)

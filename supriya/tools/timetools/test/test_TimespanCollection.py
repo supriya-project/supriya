@@ -1,8 +1,9 @@
 import pytest
 import random
 from abjad import Offset, Timespan
-from abjad import sequencetools, systemtools, timespantools
+from abjad import sequencetools, timespantools
 from supriya import timetools
+from supriya import systemtools
 from supriya.tools.timetools import (
     TimespanCollectionDriver,
     TimespanCollectionDriverEx,

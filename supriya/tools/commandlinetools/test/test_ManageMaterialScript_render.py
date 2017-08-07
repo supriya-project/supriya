@@ -1,7 +1,7 @@
 import os
 import yaml
 from unittest import mock
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya import utils
 from supriya.tools import commandlinetools
 from supriya.tools import nonrealtimetools
@@ -18,7 +18,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -41,7 +41,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -71,7 +71,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -106,7 +106,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -138,7 +138,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -164,7 +164,7 @@ class Test(ProjectPackageScriptTestCase):
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     with mock.patch(mock_path) as call_mock:
@@ -193,7 +193,7 @@ class Test(ProjectPackageScriptTestCase):
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     with mock.patch(mock_path) as call_mock:
@@ -222,7 +222,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', '*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -313,7 +313,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'material_t*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -382,7 +382,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -504,7 +504,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'material_three']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

@@ -8,11 +8,9 @@ import shutil
 import subprocess
 import sys
 import traceback
-from abjad.tools import systemtools
 from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
-from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya import utils
-from supriya.tools.systemtools import Profiler
+from supriya.tools import systemtools
 
 
 class ProjectPackageScript(CommandlineScript):
@@ -172,7 +170,7 @@ class ProjectPackageScript(CommandlineScript):
     def _import_path(self, path, project_root_path, verbose=True):
         if verbose:
             print('    Importing {!s}'.format(path))
-        with systemtools.TemporaryDirectoryChange(str(project_root_path)):
+        with systemtools.DirectoryChange(str(project_root_path)):
             try:
                 importlib.invalidate_caches()
             except:
@@ -288,11 +286,11 @@ class ProjectPackageScript(CommandlineScript):
     def _process_args(self, args):
         self._setup_paths(args.project_path)
         exit_stack = contextlib.ExitStack()
-        tdc = TemporaryDirectoryChange(str(self.outer_project_path))
+        tdc = systemtools.DirectoryChange(str(self.outer_project_path))
         with exit_stack:
             exit_stack.enter_context(tdc)
             if args.profile:
-                profiler = Profiler()
+                profiler = systemtools.Profiler()
                 exit_stack.enter_context(profiler)
             self._process_args_inner(args)
 

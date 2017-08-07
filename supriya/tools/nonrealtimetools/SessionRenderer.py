@@ -6,19 +6,17 @@ import subprocess
 import sys
 import tqdm
 import yaml
-from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya import utils
-from supriya.tools import servertools
-from supriya.tools import soundfiletools
 from supriya.tools.nonrealtimetools import (
     NonrealtimeRenderError,
     NonrealtimeOutputMissing,
 )
-from supriya.tools.systemtools import SupriyaObject
-from supriya.tools.systemtools import Trellis
+from supriya.tools import servertools
+from supriya.tools import soundfiletools
+from supriya.tools import systemtools
 
 
-class SessionRenderer(SupriyaObject):
+class SessionRenderer(systemtools.SupriyaObject):
     """
     Renders non-realtime sessions as audio files.
     """
@@ -348,7 +346,7 @@ class SessionRenderer(SupriyaObject):
         self._prerender_tuples = []
         self._session._transcript = self._transcript = []
         self._renderable_prefixes = {}
-        self._trellis = Trellis()
+        self._trellis = systemtools.Trellis()
         self._session_input_paths = {}
         self._sessionables_to_sessions = {}
 
@@ -434,7 +432,9 @@ class SessionRenderer(SupriyaObject):
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
         visited_renderable_prefixes = []
-        with TemporaryDirectoryChange(directory=str(self.render_directory_path)):
+        with systemtools.DirectoryChange(
+            directory=str(self.render_directory_path),
+            ):
             for prerender_tuple in self.prerender_tuples:
                 renderable = prerender_tuple[0]
                 renderable_prefix = self.renderable_prefixes[renderable]

@@ -1,15 +1,12 @@
 import pathlib
-from supriya.tools import livetools
-from supriya.tools import servertools
-from abjad.tools import systemtools as abjad_systemtools
+import supriya
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(supriya.systemtools.TestCase):
 
     def setUp(self):
-        import supriya
-        super(abjad_systemtools.TestCase, self).setUp()
-        self.server = servertools.Server.get_default_server()
+        super(supriya.systemtools.TestCase, self).setUp()
+        self.server = supriya.Server.get_default_server()
         self.manifest_path = (
             pathlib.Path(supriya.__path__[0]) /
             'assets' /
@@ -19,10 +16,10 @@ class TestCase(abjad_systemtools.TestCase):
 
     def tearDown(self):
         self.server.quit()
-        super(abjad_systemtools.TestCase, self).tearDown()
+        super(supriya.systemtools.TestCase, self).tearDown()
 
     def test_01(self):
-        application = livetools.Application(self.manifest_path)
+        application = supriya.livetools.Application(self.manifest_path)
         # Buffers
         assert len(application.buffers) == 1
         assert 'birds' in application.buffers
@@ -41,7 +38,7 @@ class TestCase(abjad_systemtools.TestCase):
 
     def test_02(self):
         try:
-            application = livetools.Application(self.manifest_path)
+            application = supriya.livetools.Application(self.manifest_path)
             application.boot()
         finally:
             application.quit()

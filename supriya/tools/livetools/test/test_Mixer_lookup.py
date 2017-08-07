@@ -1,8 +1,8 @@
-from abjad.tools import systemtools as abjad_systemtools
 from supriya.tools import livetools
+from supriya.tools import systemtools
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     def test_01(self):
         mixer = livetools.Mixer(1, 1)

@@ -1,6 +1,6 @@
-from abjad.tools import systemtools
 from supriya import SynthDefBuilder
-from supriya.tools import ugentools
+from supriya import systemtools
+from supriya import ugentools
 
 
 class TestCase(systemtools.TestCase):

@@ -1,5 +1,5 @@
 import shutil
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -39,7 +39,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', '*']
-        with systemtools.TemporaryDirectoryChange(
+        with systemtools.DirectoryChange(
             str(self.inner_project_path)):
             try:
                 script(command)
@@ -96,7 +96,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageProjectScript()
         command = ['--prune']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

@@ -4,7 +4,7 @@ import os
 import inspect
 import sys
 import traceback
-from abjad.tools import systemtools
+from supriya.tools import systemtools
 from supriya.tools.commandlinetools.ProjectPackageScript import (
     ProjectPackageScript
 )

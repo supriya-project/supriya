@@ -1,9 +1,9 @@
 import re
 import types
-from abjad.tools import systemtools
 from supriya import synthdefs
 from supriya.tools import patterntools
 from supriya.tools import servertools
+from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):

@@ -1,11 +1,11 @@
 import unittest
-from abjad.tools import systemtools as abjad_systemtools
 from supriya import Bindable, bind
 from supriya.tools import miditools
+from supriya.tools import systemtools
 from unittest import mock
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     def test___init___01(self):
         device = miditools.Device('Test')

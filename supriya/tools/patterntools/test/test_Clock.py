@@ -1,7 +1,7 @@
 import time
 import uuid
-from abjad.tools import systemtools
 from supriya.tools import patterntools
+from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):

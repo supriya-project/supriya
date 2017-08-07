@@ -1,5 +1,5 @@
 import os
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -33,7 +33,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -50,7 +50,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -67,7 +67,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two', '-f']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -89,7 +89,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

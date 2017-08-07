@@ -1,12 +1,12 @@
-from abjad.tools import systemtools as abjad_systemtools
 from supriya.tools import livetools
 from supriya.tools import patterntools
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
+from supriya.tools import systemtools
 from supriya.tools import ugentools
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     with synthdeftools.SynthDefBuilder(out=0, value=1) as builder:
         source = ugentools.DC.ar(source=builder['value'])
@@ -14,14 +14,14 @@ class TestCase(abjad_systemtools.TestCase):
     dc_synthdef = builder.build('dc')
 
     def setUp(self):
-        super(abjad_systemtools.TestCase, self).setUp()
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
         self.mixer = livetools.Mixer(channel_count=1, cue_channel_count=1)
         self.mixer.add_track('track')
 
     def tearDown(self):
         self.server.quit()
-        super(abjad_systemtools.TestCase, self).tearDown()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_post_mixer_allocate(self):
         self.mixer.allocate()

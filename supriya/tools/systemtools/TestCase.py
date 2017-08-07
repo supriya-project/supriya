@@ -55,6 +55,9 @@ class TestCase(unittest.TestCase):
             diff = output_checker.output_difference(example, actual, flags)
             raise Exception(diff)
 
+    def normalize(self, string):
+        return utils.normalize_string(string)
+
     def reset_string_io(self):
         self.string_io.close()
         self.string_io = StringIO()

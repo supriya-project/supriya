@@ -1,4 +1,4 @@
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -14,7 +14,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--list']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -33,7 +33,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--list']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)

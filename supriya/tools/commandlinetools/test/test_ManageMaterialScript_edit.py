@@ -1,6 +1,6 @@
 from unittest import mock
 from abjad import abjad_configuration
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -15,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--edit', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.TemporaryDirectoryChange(
+            with systemtools.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

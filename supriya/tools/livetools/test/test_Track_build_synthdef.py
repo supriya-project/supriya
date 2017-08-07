@@ -1,8 +1,8 @@
-import abjad
 from supriya.tools import livetools
+from supriya.tools import systemtools
 
 
-class TestCase(abjad.systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     def test_build_input_synthdef_1(self):
         synthdef = livetools.Track.build_input_synthdef(1)

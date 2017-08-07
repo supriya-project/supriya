@@ -1,11 +1,10 @@
 import yaml
 import pathlib
 import supriya
-from abjad.tools import systemtools as abjad_systemtools
 from supriya import systemtools
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     base_path = pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices'
 

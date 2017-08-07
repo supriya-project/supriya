@@ -2,8 +2,8 @@ import os
 import pathlib
 import sys
 import yaml
-from abjad.tools.systemtools import TemporaryDirectoryChange
 from supriya import utils
+from supriya.tools import systemtools
 from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
 
 
@@ -164,7 +164,7 @@ class ManageProjectScript(ProjectPackageScript):
                 )
             return
         self._setup_paths(args.project_path)
-        with TemporaryDirectoryChange(str(self.outer_project_path)):
+        with systemtools.DirectoryChange(str(self.outer_project_path)):
             if args.clean:
                 self._handle_clean()
             if args.prune:

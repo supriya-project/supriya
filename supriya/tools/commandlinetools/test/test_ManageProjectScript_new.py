@@ -1,5 +1,5 @@
 import os
-from abjad.tools import systemtools
+from supriya import systemtools
 from supriya import utils
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 

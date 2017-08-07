@@ -1,11 +1,10 @@
 import yaml
-from abjad import systemtools as abjad_systemtools
 from supriya import patterntools
 from supriya import systemtools
 from supriya import utils
 
 
-class TestCase(abjad_systemtools.TestCase):
+class TestCase(systemtools.TestCase):
 
     def test_01(self):
         string = utils.normalize_string("""
