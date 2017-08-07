@@ -14,19 +14,6 @@ class Pbind(EventPattern):
         ...     foo=[1, 2],
         ...     bar=3,
         ...     )
-        >>> print(format(pattern))
-        supriya.tools.patterntools.Pbind(
-            bar=3,
-            duration=supriya.tools.patterntools.Pseq(
-                (0.5, 0.25, 0.25, 0.125),
-                repetitions=1,
-                ),
-            foo=[1, 2],
-            pitch=supriya.tools.patterntools.Pseq(
-                (0, 3, 7),
-                repetitions=1,
-                ),
-            )
 
     ::
 

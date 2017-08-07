@@ -10,20 +10,13 @@ class Event(SupriyaValueObject):
 
     ::
 
-        >>> event = patterntools.NoteEvent(
+        >>> patterntools.NoteEvent(
         ...     amplitude=0.9,
         ...     duration=10.5,
         ...     frequency=443,
         ...     panning=0.75,
         ...     )
-        >>> print(format(event))
-        supriya.tools.patterntools.NoteEvent(
-            amplitude=0.9,
-            duration=10.5,
-            frequency=443,
-            is_stop=True,
-            panning=0.75,
-            )
+        NoteEvent(duration=10.5, is_stop=True, amplitude=0.9, frequency=443, panning=0.75)
 
     """
 

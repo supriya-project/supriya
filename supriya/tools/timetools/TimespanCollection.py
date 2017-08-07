@@ -220,27 +220,13 @@ class TimespanCollection(SupriyaObject):
 
         ::
 
-            >>> print(format(timespan_collection))
-            supriya.tools.timetools.TimespanCollection(
-                [
-                    timespantools.Timespan(
-                        start_offset=durationtools.Offset(-2, 1),
-                        stop_offset=durationtools.Offset(5, 1),
-                        ),
-                    timespantools.Timespan(
-                        start_offset=durationtools.Offset(0, 1),
-                        stop_offset=durationtools.Offset(5, 1),
-                        ),
-                    timespantools.Timespan(
-                        start_offset=durationtools.Offset(10, 1),
-                        stop_offset=durationtools.Offset(12, 1),
-                        ),
-                    timespantools.Timespan(
-                        start_offset=durationtools.Offset(10, 1),
-                        stop_offset=durationtools.Offset(16, 1),
-                        ),
-                    ]
-                )
+            >>> for timespan in timespan_collection:
+            ...     timespan
+            ...
+            Timespan(start_offset=Offset(-2, 1), stop_offset=Offset(5, 1))
+            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(5, 1))
+            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(12, 1))
+            Timespan(start_offset=Offset(10, 1), stop_offset=Offset(16, 1))
 
         Operates in place and returns timespan collection.
         """

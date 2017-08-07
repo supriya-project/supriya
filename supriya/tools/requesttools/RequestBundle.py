@@ -22,42 +22,16 @@ class RequestBundle(SupriyaValueObject):
         ...     timestamp=10.5,
         ...     contents=[request_one, request_two],
         ...     )
-        >>> print(format(request_bundle))
-        supriya.tools.requesttools.RequestBundle(
-            timestamp=10.5,
-            contents=(
-                supriya.tools.requesttools.BufferAllocateRequest(
-                    buffer_id=23,
-                    frame_count=512,
-                    channel_count=1,
-                    ),
-                supriya.tools.requesttools.BufferAllocateRequest(
-                    buffer_id=24,
-                    frame_count=512,
-                    channel_count=1,
-                    ),
-                ),
-            )
 
     ::
 
-        >>> print(format(request_bundle.to_osc_bundle(True)))
-        supriya.tools.osctools.OscBundle(
+        >>> request_bundle.to_osc_bundle(True)
+        OscBundle(
             timestamp=10.5,
             contents=(
-                supriya.tools.osctools.OscMessage(
-                    '/b_alloc',
-                    23,
-                    512,
-                    1
-                    ),
-                supriya.tools.osctools.OscMessage(
-                    '/b_alloc',
-                    24,
-                    512,
-                    1
-                    ),
-                ),
+                OscMessage('/b_alloc', 23, 512, 1),
+                OscMessage('/b_alloc', 24, 512, 1),
+                )
             )
 
     ::
