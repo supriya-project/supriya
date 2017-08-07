@@ -3,13 +3,9 @@ import inspect
 
 
 def get_object_vars(expr):
+    from supriya import utils
     #print('VARS?', type(expr))
-    if hasattr(expr, '__init__'):
-        signature = inspect.signature(expr.__init__)
-    elif hasattr(expr, '__new__'):
-        signature = inspect.signature(expr.__new__)
-    else:
-        raise TypeError(type(expr))
+    signature = utils.get_object_signature(expr)
     args = collections.OrderedDict()
     var_args = []
     kwargs = {}

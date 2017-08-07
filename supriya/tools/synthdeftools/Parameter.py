@@ -71,6 +71,17 @@ class Parameter(UGenMethodMixin):
             return 1
         return len(self.value)
 
+    def __repr__(self):
+        """
+        Gets interpreter representation of Supriya object.
+
+        Returns string.
+        """
+        from supriya import utils
+        return utils.get_object_repr(self)
+        #from abjad.tools import systemtools
+        #return systemtools.StorageFormatAgent(self).get_repr_format()
+
     ### PRIVATE METHODS ###
 
     def _get_source(self):

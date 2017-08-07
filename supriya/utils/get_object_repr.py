@@ -4,12 +4,7 @@ import inspect
 
 def get_object_repr(expr):
     from supriya import utils
-    if hasattr(expr, '__init__'):
-        signature = inspect.signature(expr.__init__)
-    elif hasattr(expr, '__new__'):
-        signature = inspect.signature(expr.__new__)
-    else:
-        raise TypeError(type(expr))
+    signature = utils.get_object_signature(expr)
     defaults = {}
     for name, parameter in signature.parameters.items():
         if parameter.default is not inspect._empty:
