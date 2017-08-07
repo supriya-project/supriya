@@ -1,18 +1,17 @@
-import os
-import unittest
-from abjad.tools import systemtools
+from supriya import servertools
 from supriya import synthdefs
-from supriya.tools import servertools
+from supriya import systemtools
 
 
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
-class Test(unittest.TestCase):
+class Test(systemtools.TestCase):
 
     def setUp(self):
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
 
     def tearDown(self):
         self.server.quit()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
 
@@ -51,7 +50,7 @@ class Test(unittest.TestCase):
         assert len(group_b) == 2
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -63,7 +62,7 @@ class Test(unittest.TestCase):
                             1004 test
                         1005 test
             ''',
-            ), server_state
+            )
 
         assert len(group_a) == 3
         assert len(group_b) == 2
@@ -87,11 +86,11 @@ class Test(unittest.TestCase):
         assert len(group_a) == 0
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
                 1 group
                     1000 group
             ''',
-            ), server_state
+            )

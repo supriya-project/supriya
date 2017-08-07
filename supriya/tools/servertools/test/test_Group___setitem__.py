@@ -1,32 +1,31 @@
-import os
-import unittest
-from abjad.tools import systemtools
 from supriya import synthdefs
-from supriya.tools import servertools
+from supriya import servertools
+from supriya import systemtools
 
 
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
-class Test(unittest.TestCase):
+class Test(systemtools.TestCase):
 
     def setUp(self):
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
 
     def tearDown(self):
         self.server.quit()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
 
         group = servertools.Group().allocate()
         assert len(group) == 0
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
                 1 group
                     1000 group
             ''',
-            ), remote_state
+            )
 
         synth = servertools.Synth(synthdefs.test)
         assert synth.parent is None
@@ -38,7 +37,7 @@ class Test(unittest.TestCase):
         assert synth in group
         assert synth.is_allocated
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -46,7 +45,7 @@ class Test(unittest.TestCase):
                     1000 group
                         1001 test
             ''',
-            ), remote_state
+            )
 
         group[:] = []
         assert len(group) == 0
@@ -54,14 +53,14 @@ class Test(unittest.TestCase):
         assert synth not in group
         assert not synth.is_allocated
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
                 1 group
                     1000 group
             ''',
-            ), remote_state
+            )
 
     def test_02(self):
 
@@ -80,7 +79,7 @@ class Test(unittest.TestCase):
         assert synth_a is group[0]
         assert synth_b is group[1]
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -89,7 +88,7 @@ class Test(unittest.TestCase):
                         1001 test
                         1002 test
             ''',
-            ), remote_state
+            )
 
         group[:] = [synth_b, synth_a]
         assert len(group) == 2
@@ -102,7 +101,7 @@ class Test(unittest.TestCase):
         assert synth_a is group[1]
         assert synth_b is group[0]
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -111,7 +110,7 @@ class Test(unittest.TestCase):
                         1002 test
                         1001 test
             ''',
-            ), remote_state
+            )
 
         group[:] = []
         assert len(group) == 0
@@ -122,14 +121,14 @@ class Test(unittest.TestCase):
         assert not synth_a.is_allocated
         assert not synth_b.is_allocated
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
                 1 group
                     1000 group
             ''',
-            ), remote_state
+            )
 
     def test_03(self):
 
@@ -155,7 +154,7 @@ class Test(unittest.TestCase):
         group_a.append(synth_d)
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -168,7 +167,7 @@ class Test(unittest.TestCase):
                             1005 group
                         1006 test
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 3
         assert len(group_b) == 3
@@ -191,7 +190,7 @@ class Test(unittest.TestCase):
         del(group_a[-1])
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -203,7 +202,7 @@ class Test(unittest.TestCase):
                             1004 test
                             1005 group
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 2
         assert len(group_b) == 3
@@ -226,7 +225,7 @@ class Test(unittest.TestCase):
         del(group_b[1])
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -237,7 +236,7 @@ class Test(unittest.TestCase):
                             1003 test
                             1005 group
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 2
         assert len(group_b) == 2
@@ -260,7 +259,7 @@ class Test(unittest.TestCase):
         del(group_a[0])
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -270,7 +269,7 @@ class Test(unittest.TestCase):
                             1003 test
                             1005 group
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 1
         assert len(group_b) == 2
@@ -293,7 +292,7 @@ class Test(unittest.TestCase):
         del(group_b[1])
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -302,7 +301,7 @@ class Test(unittest.TestCase):
                         1002 group
                             1003 test
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 1
         assert len(group_b) == 1
@@ -325,14 +324,14 @@ class Test(unittest.TestCase):
         del(group_a[0])
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
                 1 group
                     1000 group
             ''',
-            ), remote_state
+            )
 
         assert len(group_a) == 0
         assert len(group_b) == 1
@@ -368,7 +367,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -376,7 +375,7 @@ class Test(unittest.TestCase):
                     1001 group
                     1000 group
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 0
         assert len(group_b) == 0
@@ -385,7 +384,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -395,7 +394,7 @@ class Test(unittest.TestCase):
                         1002 test
                         1003 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 2
         assert len(group_b) == 0
@@ -404,7 +403,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -414,7 +413,7 @@ class Test(unittest.TestCase):
                         1003 test
                         1002 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 2
         assert len(group_b) == 0
@@ -423,7 +422,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -435,7 +434,7 @@ class Test(unittest.TestCase):
                         1003 test
                         1002 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 4
         assert len(group_b) == 0
@@ -444,7 +443,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -456,7 +455,7 @@ class Test(unittest.TestCase):
                         1005 test
                         1002 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 2
         assert len(group_b) == 2
@@ -465,7 +464,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -478,7 +477,7 @@ class Test(unittest.TestCase):
                         1005 test
                         1002 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 2
         assert len(group_b) == 3
@@ -487,7 +486,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -499,7 +498,7 @@ class Test(unittest.TestCase):
                         1004 test
                         1007 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 2
         assert len(group_b) == 2
@@ -508,7 +507,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -519,7 +518,7 @@ class Test(unittest.TestCase):
                     1000 group
                         1007 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 1
         assert len(group_b) == 2
@@ -528,7 +527,7 @@ class Test(unittest.TestCase):
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -539,7 +538,7 @@ class Test(unittest.TestCase):
                         1000 group
                             1007 test
             ''',
-            ), remote_state
+            )
         assert local_state == remote_state
         assert len(group_a) == 1
         assert len(group_b) == 3
@@ -591,7 +590,7 @@ class Test(unittest.TestCase):
         group_a.allocate()
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -604,10 +603,10 @@ class Test(unittest.TestCase):
                             1005 group
                         1006 test
             ''',
-            ), remote_state
+            )
 
         group_a_state = str(group_a)
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             group_a_state,
             '''
             1000 group (Group A)
@@ -639,14 +638,14 @@ class Test(unittest.TestCase):
             )
 
         remote_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
                 1 group
                     1007 test
             ''',
-            ), remote_state
+            )
 
         assert group_a.node_id is None
         assert synth_a.node_id is None
@@ -658,7 +657,7 @@ class Test(unittest.TestCase):
         assert synth_e.node_id == 1007
 
         group_a_state = str(group_a)
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             group_a_state,
             '''
             ??? group (Group A)
@@ -704,7 +703,7 @@ class Test(unittest.TestCase):
         group[:] = [synth_a, synth_b, synth_c]
 
         group_state = str(group)
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             group_state,
             '''
             ??? group
@@ -720,7 +719,7 @@ class Test(unittest.TestCase):
         group.allocate()
 
         group_state = str(group)
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             group_state,
             '''
             1000 group
@@ -734,7 +733,7 @@ class Test(unittest.TestCase):
             ), group_state
 
         remote_state = str(self.server.query_remote_nodes(True))
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -747,13 +746,13 @@ class Test(unittest.TestCase):
                         1003 test
                             amplitude: a0, frequency: c1
             ''',
-            ), remote_state
+            )
 
         synth_b['amplitude', 'frequency'] = 0.75, 880
         synth_c['amplitude', 'frequency'] = control_bus, audio_bus
 
         remote_state = str(self.server.query_remote_nodes(True))
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -766,12 +765,12 @@ class Test(unittest.TestCase):
                         1003 test
                             amplitude: c1, frequency: a0
             ''',
-            ), remote_state
+            )
 
         group[:] = [synth_c, synth_b, synth_a]
 
         remote_state = str(self.server.query_remote_nodes(True))
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             remote_state,
             '''
             NODE TREE 0 group
@@ -784,12 +783,12 @@ class Test(unittest.TestCase):
                         1001 test
                             amplitude: 1.0, frequency: 440.0
             ''',
-            ), remote_state
+            )
 
         group.free()
 
         group_state = str(group)
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             group_state,
             '''
             ??? group

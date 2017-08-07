@@ -1,18 +1,17 @@
-import os
-import unittest
-from abjad.tools import systemtools
+from supriya import servertools
 from supriya import synthdefs
-from supriya.tools import servertools
+from supriya import systemtools
 
 
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
-class Test(unittest.TestCase):
+class Test(systemtools.TestCase):
 
     def setUp(self):
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
 
     def tearDown(self):
         self.server.quit()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
 
@@ -37,7 +36,7 @@ class Test(unittest.TestCase):
         assert synth_a not in group_b
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -46,7 +45,7 @@ class Test(unittest.TestCase):
                     1000 group
                         1002 test
             ''',
-            ), server_state
+            )
 
         group_b.append(synth_a)
         assert synthdef.is_allocated
@@ -56,7 +55,7 @@ class Test(unittest.TestCase):
         assert synth_a not in group_a
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -65,7 +64,7 @@ class Test(unittest.TestCase):
                         1002 test
                     1000 group
             ''',
-            ), server_state
+            )
 
         synth_b = servertools.Synth(synthdef)
         assert not synth_b.is_allocated
@@ -76,7 +75,7 @@ class Test(unittest.TestCase):
         assert synth_b.parent is group_b
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -86,4 +85,4 @@ class Test(unittest.TestCase):
                         1003 test
                     1000 group
             ''',
-            ), server_state
+            )

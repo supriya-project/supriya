@@ -1,18 +1,17 @@
-import os
-import unittest
-from abjad.tools import systemtools
+from supriya import servertools
 from supriya import synthdefs
-from supriya.tools import servertools
+from supriya import systemtools
 
 
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
-class Test(unittest.TestCase):
+class Test(systemtools.TestCase):
 
     def setUp(self):
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
 
     def tearDown(self):
         self.server.quit()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
 
@@ -26,7 +25,7 @@ class Test(unittest.TestCase):
         synth_b.allocate()
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -34,12 +33,12 @@ class Test(unittest.TestCase):
                     1001 test
                     1000 test
             ''',
-            ), server_state
+            )
 
         synth_a.replace_with(synth_c)
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -47,12 +46,12 @@ class Test(unittest.TestCase):
                     1001 test
                     1002 test
             ''',
-            ), server_state
+            )
 
         synth_b.replace_with([synth_d, synth_e])
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -61,12 +60,12 @@ class Test(unittest.TestCase):
                     1004 test
                     1002 test
             ''',
-            ), server_state
+            )
 
         synth_c.replace_with([synth_a, synth_e])
 
         server_state = str(self.server.query_remote_nodes())
-        assert systemtools.TestManager.compare(
+        self.compare_strings(
             server_state,
             '''
             NODE TREE 0 group
@@ -75,4 +74,4 @@ class Test(unittest.TestCase):
                     1005 test
                     1004 test
             ''',
-            ), server_state
+            )

@@ -1,18 +1,17 @@
-import os
-import unittest
 from supriya import synthdefs
-from supriya import utils
-from supriya.tools import servertools
+from supriya import servertools
+from supriya import systemtools
 
 
-@unittest.skipIf(os.environ.get('TRAVIS') == 'true', 'No Scsynth on Travis-CI')
-class Test(unittest.TestCase):
+class Test(systemtools.TestCase):
 
     def setUp(self):
+        super(systemtools.TestCase, self).setUp()
         self.server = servertools.Server().boot()
 
     def tearDown(self):
         self.server.quit()
+        super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
 
@@ -28,7 +27,9 @@ class Test(unittest.TestCase):
             )
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -46,7 +47,9 @@ class Test(unittest.TestCase):
         synth_a.controls['amplitude'].set(0.5)
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -63,7 +66,9 @@ class Test(unittest.TestCase):
         synth_b.controls['frequency', 'amplitude'] = 441, 0.25
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -85,7 +90,9 @@ class Test(unittest.TestCase):
         synth_b['amplitude'].set(bus_b)
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -111,7 +118,9 @@ class Test(unittest.TestCase):
         synth.allocate()
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1000 test
@@ -135,7 +144,9 @@ class Test(unittest.TestCase):
         synth.allocate()
 
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == utils.normalize_string(r'''
+        self.compare_strings(
+            server_state,
+            '''
             NODE TREE 0 group
                 1 group
                     1001 test
