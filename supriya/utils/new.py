@@ -2,8 +2,11 @@ def new(expr, *args, **kwargs):
     """
     Template an object.
     """
+    # TODO: Clarify old vs. new variable naming here.
     from supriya import utils
     new_args, new_var_args, new_kwargs = utils.get_object_vars(expr)
+    #print('OLD', new_args, new_var_args, new_kwargs)
+    #print('NEW', type(expr), args, kwargs)
     if args:
         new_var_args = args
     for key, value in kwargs.items():

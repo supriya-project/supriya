@@ -3,16 +3,18 @@ import inspect
 
 
 def get_object_vars(expr):
-    try:
-        signature = inspect.signature(expr)
-    except TypeError:
+    #print('VARS?', type(expr))
+    if hasattr(expr, '__init__'):
         signature = inspect.signature(expr.__init__)
+    elif hasattr(expr, '__new__'):
+        signature = inspect.signature(expr.__new__)
+    else:
+        raise TypeError(type(expr))
     args = collections.OrderedDict()
     var_args = []
     kwargs = {}
     for i, (name, parameter) in enumerate(signature.parameters.items()):
-        if i == 0 and name == 'self':
-            continue
+        #print('   ', parameter)
         if parameter.kind is inspect._POSITIONAL_ONLY:
             try:
                 args[name] = getattr(expr, name)
