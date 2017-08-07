@@ -77,9 +77,13 @@ from supriya.tools.systemtools import (  # noqa
     Assets,
     Bindable,
     Binding,
+    DirectoryChange,
     Enumeration,
     Profiler,
+    RedirectedStreams,
     SupriyaConfiguration,
+    TestCase,
+    Timer,
     bind,
     )
 from supriya.tools.wrappertools import (  # noqa
