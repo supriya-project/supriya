@@ -1,7 +1,7 @@
+import copy
 import importlib
 import pathlib
 import re
-import yaml
 from supriya.tools import patterntools
 from supriya.tools import servertools
 from supriya.tools import systemtools
@@ -9,9 +9,12 @@ from supriya.tools import systemtools
 
 class Application:
 
-    def __init__(self, manifest, logger=None):
+    def __init__(self, manifest, logger=None, overrides=None):
         import supriya
         if isinstance(manifest, dict):
+            manifest = copy.deepcopy(manifest)
+            if overrides:
+                manifest = systemtools.YAMLLoader.merge(manifest, overrides)
             self._manifest = manifest
         else:
             manifest = pathlib.Path(manifest)
@@ -24,8 +27,11 @@ class Application:
                     'applications' /
                     manifest
                     )
-            with open(str(manifest)) as file_pointer:
-                self._manifest = yaml.load(file_pointer)['application']
+            manifest = systemtools.YAMLLoader.load(
+                str(manifest),
+                overrides=overrides,
+                )
+            self._manifest = manifest['application']
         self._setup_buffers()
         self._setup_device()
         self._setup_mixer()

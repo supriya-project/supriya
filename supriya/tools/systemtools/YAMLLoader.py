@@ -7,7 +7,7 @@ import yaml
 class YAMLLoader:
 
     @classmethod
-    def load(cls, path):
+    def load(cls, path, overrides=None):
         path = pathlib.Path(path)
         with path.open() as file_pointer:
             string = file_pointer.read()
@@ -19,6 +19,8 @@ class YAMLLoader:
             extends_manifest = cls.load(extends_path)
             manifest = cls.merge(extends_manifest, manifest)
         manifest = cls.resolve_templating(manifest)
+        if overrides:
+            return cls.merge(manifest, overrides)
         return manifest
 
     @classmethod
