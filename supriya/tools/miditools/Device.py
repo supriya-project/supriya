@@ -286,7 +286,7 @@ class Device:
                         channel=channel,
                         group_name=spec['name'],
                         has_led=spec.get('has_led', False),
-                        mode=spec['mode'],
+                        mode=spec.get('mode', 'continuous'),
                         )
 
     def _linearize_manifest(self, manifest):

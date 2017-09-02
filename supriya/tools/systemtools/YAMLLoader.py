@@ -25,12 +25,14 @@ class YAMLLoader:
 
     @classmethod
     def merge(cls, old, new):
-        for key in new:
-            if key not in old:
-                old[key] = new[key]
-            else:
-                old[key] = cls.merge(old[key], new[key])
-        return old
+        if isinstance(old, dict) and isinstance(new, dict):
+            for key in new:
+                if key not in old:
+                    old[key] = new[key]
+                else:
+                    old[key] = cls.merge(old[key], new[key])
+            return old
+        return new
 
     @classmethod
     def resolve_templating(cls, manifest, template_variables=None):

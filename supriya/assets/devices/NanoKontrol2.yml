@@ -29,24 +29,24 @@ device:
     - name: next_track
       controller: 59
       mode: boolean
-    - name: play:
+    - name: play
       controller: 41
       mode: boolean
-    - name: previous_marker:
+    - name: previous_marker
       controller: 61
       mode: boolean
-    - name: previous_track:
+    - name: previous_track
       controller: 58
       mode: boolean
-    - name: record:
+    - name: record
       controller: 45
       mode: boolean
-    - name: rewind:
+    - name: rewind
       controller: 43
       mode: boolean
-    - name: set_marker:
+    - name: set_marker
       controller: 60
       mode: boolean
-    - name: stop:
+    - name: stop
       controller: 42
       mode: boolean
