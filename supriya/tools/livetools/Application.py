@@ -33,7 +33,7 @@ class Application:
                 )
             self._manifest = manifest['application']
         self._setup_buffers()
-        self._setup_device()
+        self._setup_devices()
         self._setup_mixer()
         self._setup_bindings()
         self._server = supriya.Server.get_default_server()
@@ -118,21 +118,6 @@ class Application:
                 current_object = getattr(current_object, name)
         return current_object
 
-    def _setup_buffers(self):
-        self._buffer_names_to_buffer_groups = {}
-        self._buffer_names_to_file_paths = {}
-        for buffer_spec in self.manifest.get('buffers', []):
-            name = buffer_spec['name']
-            if name in self._buffer_names_to_buffer_groups:
-                raise ValueError(buffer_spec)
-            path = buffer_spec['path']
-            file_paths = tuple(self._lookup_file_paths(path))
-            if not file_paths:
-                continue
-            buffer_group = servertools.BufferGroup(len(file_paths))
-            self._buffer_names_to_buffer_groups[name] = buffer_group
-            self._buffer_names_to_file_paths[name] = file_paths
-
     def _setup_binding(self, context, context_spec, target_name, bind_spec):
         try:
             target = context[target_name]
@@ -150,10 +135,11 @@ class Application:
             source = self._lookup_nested_object(
                 self, source_name[1:], namespaces=namespaces)
         except:
-            print([
-                _.qualified_name for _ in
-                self._device.visibility_mapping.values()
-                ])
+            print(source_name)
+#            print([
+#                _.qualified_name for _ in
+#                self._devices.visibility_mapping.values()
+#                ])
             raise
         binding = systemtools.bind(source, target, target_range=target_range)
         self._bindings.add(binding)
@@ -173,14 +159,31 @@ class Application:
                     'bind', {}).items():
                     self._setup_binding(slot, slot_spec, target_name, bind_spec)
 
-    def _setup_device(self):
+    def _setup_buffers(self):
+        self._buffer_names_to_buffer_groups = {}
+        self._buffer_names_to_file_paths = {}
+        for buffer_spec in self.manifest.get('buffers', []):
+            name = buffer_spec['name']
+            if name in self._buffer_names_to_buffer_groups:
+                raise ValueError(buffer_spec)
+            path = buffer_spec['path']
+            file_paths = tuple(self._lookup_file_paths(path))
+            if not file_paths:
+                continue
+            buffer_group = servertools.BufferGroup(len(file_paths))
+            self._buffer_names_to_buffer_groups[name] = buffer_group
+            self._buffer_names_to_file_paths[name] = file_paths
+
+    def _setup_devices(self):
         from supriya.tools import miditools
-        device = None
-        device_name = self.manifest.get('device')
-        if device_name:
-            manifest_path = next(self._lookup_file_paths(device_name))
-            device = miditools.Device(manifest_path)
-        self._device = device
+        self._devices = {}
+        device_specs = self.manifest.get('devices') or []
+        for device_spec in device_specs:
+            name, path = device_spec['name'], device_spec['path']
+            if name in self._devices:
+                raise ValueError(device_spec)
+            manifest_path = next(self._lookup_file_paths(path))
+            self._devices[name] = miditools.Device(manifest_path)
 
     def _setup_mixer(self):
         from supriya.tools import livetools
@@ -234,14 +237,17 @@ class Application:
         self._allocate_buffers()
         self.mixer.allocate()
         try:
-            self.device.open_port()
+            for device in self.devices.values():
+                device.open_port()
         except:
-            self.device.open_port(virtual=True)
+            for device in self.devices.values():
+                device.open_port(virtual=True)
         return self
 
     def quit(self):
         self.server.quit()
-        self.device.close_port()
+        for device in self.devices.values():
+            device.close_port()
         return self
 
     ### PUBLIC PROPERTIES ###
@@ -255,8 +261,8 @@ class Application:
         return self._buffer_names_to_buffer_groups
 
     @property
-    def device(self):
-        return self._device
+    def devices(self):
+        return self._devices
 
     @property
     def mixer(self):

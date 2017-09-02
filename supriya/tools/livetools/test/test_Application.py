@@ -25,7 +25,8 @@ class TestCase(supriya.systemtools.TestCase):
         assert 'birds' in application.buffers
         assert len(application.buffers['birds']) == 9
         # MIDI device
-        assert application.device is not None
+        assert application.devices is not None
+        assert application.devices['device'] is not None
         # Mixer
         assert application.mixer is not None
         assert application.mixer.channel_count == 1
