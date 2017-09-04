@@ -402,11 +402,7 @@ class Device:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
-            if port is None:
-                port_names = self.get_ports()
-                akai_name = 'Akai APC40'
-                assert akai_name in port_names
-                port = port_names.index(akai_name)
+            port = port or self._device_manifest.get('port')
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(

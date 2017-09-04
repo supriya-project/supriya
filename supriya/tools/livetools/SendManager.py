@@ -31,6 +31,12 @@ class SendManager:
     def __getitem__(self, target_track_name):
         return self.track._outgoing_sends[target_track_name]
 
+    def __iter__(self):
+        return iter(self.track._outgoing_sends)
+
+    def __len__(self):
+        return len(self.track._outgoing_sends)
+
     def __setitem__(self, target_track_name, gain):
         self(target_track_name, gain)
 

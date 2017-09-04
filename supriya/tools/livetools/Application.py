@@ -2,6 +2,7 @@ import copy
 import importlib
 import pathlib
 import re
+import traceback
 from supriya.tools import patterntools
 from supriya.tools import servertools
 from supriya.tools import systemtools
@@ -17,18 +18,9 @@ class Application:
                 manifest = systemtools.YAMLLoader.merge(manifest, overrides)
             self._manifest = manifest
         else:
-            manifest = pathlib.Path(manifest)
-            if not manifest.suffix:
-                manifest = manifest.with_suffix('.yml')
-            if not manifest.is_absolute():
-                manifest = (
-                    pathlib.Path(supriya.__path__[0]) /
-                    'assets' /
-                    'applications' /
-                    manifest
-                    )
+            path = self._lookup_file_paths(str(manifest))[0]
             manifest = systemtools.YAMLLoader.load(
-                str(manifest),
+                str(path),
                 overrides=overrides,
                 )
             self._manifest = manifest['application']
@@ -66,16 +58,24 @@ class Application:
             'buffers': buffers,
             }
 
-    def _lookup_file_paths(self, path):
-        match = re.match('([\w]+):.+', path)
+    @classmethod
+    def _lookup_file_paths(cls, path):
+        match = re.match('([\w]+:)?(.+)', path)
         if not match:
             raise ValueError
-        module_name, _, path = path.partition(':')
-        module = importlib.import_module(module_name)
-        root_path = pathlib.Path(module.__path__[0]) / 'assets'
-        return root_path.glob(path)
+        module_name, path = match.groups()
+        if module_name:
+            module_name = module_name[:-1]
+            module = importlib.import_module(module_name)
+            root_path = pathlib.Path(module.__path__[0]) / 'assets'
+        else:
+            root_path = pathlib.Path('.')
+        if (root_path / path).exists():
+            return [root_path / path]
+        return list(root_path.glob(path))
 
-    def _lookup_importable_object(self, name):
+    @classmethod
+    def _lookup_importable_object(cls, name):
         match = re.match('\w+(\.\w+)+:\w+', name)
         if not match:
             raise ValueError
@@ -83,7 +83,8 @@ class Application:
         module = importlib.import_module(module_path)
         return getattr(module, name)
 
-    def _lookup_nested_object(self, object_, name, namespaces=None):
+    @classmethod
+    def _lookup_nested_object(cls, object_, name, namespaces=None):
         current_object = object_
         match = re.match(r'^(\w+)$', name)
         if match:
@@ -136,10 +137,6 @@ class Application:
                 self, source_name[1:], namespaces=namespaces)
         except:
             print(source_name)
-#            print([
-#                _.qualified_name for _ in
-#                self._devices.visibility_mapping.values()
-#                ])
             raise
         binding = systemtools.bind(source, target, target_range=target_range)
         self._bindings.add(binding)
@@ -147,22 +144,31 @@ class Application:
     def _setup_bindings(self):
         self._bindings = set()
         mixer_spec = self.manifest.get('mixer')
-        for target_name, bind_spec in mixer_spec.get('bind', {}).items():
+        bind_specs = mixer_spec.get('bind') or {}
+        for target_name, bind_spec in bind_specs.items():
             self._setup_binding(self.mixer, mixer_spec, target_name, bind_spec)
         for track_spec in mixer_spec.get('tracks', []):
             track = self._mixer[track_spec['name']]
-            for target_name, bind_spec in track_spec.get('bind', {}).items():
+            bind_specs = track_spec.get('bind') or {}
+            for target_name, bind_spec in bind_specs.items():
                 self._setup_binding(track, track_spec, target_name, bind_spec)
-            for slot_spec in track_spec.get('slots', []):
+            slot_specs = track_spec.get('slots') or []
+            for slot_spec in slot_specs:
                 slot = track[slot_spec['name']]
                 for target_name, bind_spec in slot_spec.get(
                     'bind', {}).items():
                     self._setup_binding(slot, slot_spec, target_name, bind_spec)
+            send_specs = track_spec.get('sends') or []
+            for send_spec in send_specs:
+                target_name = send_spec.get('name')
+                bind_spec = send_spec.get('bind')
+                self._setup_binding(track.send, send_spec, target_name, bind_spec)
 
     def _setup_buffers(self):
         self._buffer_names_to_buffer_groups = {}
         self._buffer_names_to_file_paths = {}
-        for buffer_spec in self.manifest.get('buffers', []):
+        buffer_specs = self.manifest.get('buffers') or []
+        for buffer_spec in buffer_specs:
             name = buffer_spec['name']
             if name in self._buffer_names_to_buffer_groups:
                 raise ValueError(buffer_spec)
@@ -182,8 +188,11 @@ class Application:
             name, path = device_spec['name'], device_spec['path']
             if name in self._devices:
                 raise ValueError(device_spec)
-            manifest_path = next(self._lookup_file_paths(path))
-            self._devices[name] = miditools.Device(manifest_path)
+            manifest_path = self._lookup_file_paths(path)[0]
+            self._devices[name] = miditools.Device(
+                manifest_path,
+                overrides=device_spec.get('overrides'),
+                )
 
     def _setup_mixer(self):
         from supriya.tools import livetools
@@ -191,13 +200,23 @@ class Application:
         channel_count = int(manifest.get('channel_count', 2))
         cue_channel_count = int(manifest.get('cue_channel_count', 2))
         self._mixer = livetools.Mixer(channel_count, cue_channel_count)
-        for track_spec in manifest.get('tracks', []):
+        track_specs = manifest.get('tracks') or []
+        for track_spec in track_specs:
             if track_spec['name'] not in ('master', 'cue'):
                 channel_count = track_spec.get('channel_count')
                 self._mixer.add_track(track_spec['name'], channel_count)
+        for track_spec in manifest.get('tracks', []):
             track = self._mixer[track_spec['name']]
-            for slot_spec in track_spec.get('slots', []):
+            slot_specs = track_spec.get('slots') or []
+            for slot_spec in slot_specs:
                 self._setup_slot(track, slot_spec)
+            send_specs = track_spec.get('sends') or []
+            for send_spec in send_specs:
+                self._setup_send(track, send_spec)
+
+    def _setup_send(self, track, send_spec):
+        send_name = send_spec['name']
+        track.send(send_name)
 
     def _setup_slot(self, track, slot_spec):
         slot_name = slot_spec['name']
@@ -206,7 +225,7 @@ class Application:
         slot_synthdef = slot_spec.get('synthdef')
         if slot_synthdef:
             slot_synthdef = self._lookup_importable_object(slot_synthdef)
-        slot_args = slot_spec.get('args', {})
+        slot_args = slot_spec.get('args') or {}
         if slot_type == 'trigger':
             maximum_replicas = slot_spec.get('maximum_replicas')
             if maximum_replicas:
@@ -240,6 +259,7 @@ class Application:
             for device in self.devices.values():
                 device.open_port()
         except:
+            traceback.print_exc()
             for device in self.devices.values():
                 device.open_port(virtual=True)
         return self

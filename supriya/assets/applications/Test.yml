@@ -3,8 +3,11 @@ application:
       - name: birds
         path: supriya:audio/birds/*.wav
     devices:
-      - name: device 
+      - name: test 
         path: supriya:devices/Test.yml
+        overrides:
+            device:
+                port: 1
     mixer:
         channel_count: 1
         cue_channel_count: 1
@@ -19,14 +22,14 @@ application:
                     frequency: 440
                     pan: 0.0
                 namespaces:
-                    knobs:     $devices:device:outer_modal:0:knobs:0
+                    knobs:     $devices:test:outer_modal:0:knobs:0
                 bind:
-                    play:      $devices:device:clip_launch_1x1
+                    play:      $devices:test:clip_launch_1x1
                     amplitude: $knobs:knob_1
                     frequency: $knobs:knob_2
                     pan:       $knobs:knob_3
             bind:
-                gain: $devices:device:fader_1
+                gain: $devices:test:fader_1
           - name: track-b
             slots: 
               - name: slot-two
@@ -50,12 +53,12 @@ application:
                     frequency_max: 2.0
                     frequency_min: 0.5
                 bind:
-                  trigger:       $devices:device:clip_launch_2x1
-                  amplitude:     $devices:device:outer_modal:1:knobs:0:knob_1
-                  frequency_min: $devices:device:outer_modal:1:knobs:0:knob_2
-                  frequency_max: $devices:device:outer_modal:1:knobs:0:knob_3
+                  trigger:       $devices:test:clip_launch_2x1
+                  amplitude:     $devices:test:outer_modal:1:knobs:0:knob_1
+                  frequency_min: $devices:test:outer_modal:1:knobs:0:knob_2
+                  frequency_max: $devices:test:outer_modal:1:knobs:0:knob_3
             bind:
-                gain: $devices:device:fader_2
+                gain: $devices:test:fader_2
           - name: master
             bind:
-                gain: $devices:device:fader_3
+                gain: $devices:test:fader_3
