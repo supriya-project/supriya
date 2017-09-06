@@ -402,7 +402,14 @@ class Device:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
-            port = port or self._device_manifest.get('port')
+            if port is None:
+                port = self._device_manifest.get('port')
+                if isinstance(port, str):
+                    port_names = self.get_ports()
+                    if port in port_names:
+                        port = port_names.index(port)
+                    else:
+                        port = None
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(
