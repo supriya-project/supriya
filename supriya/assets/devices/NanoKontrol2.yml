@@ -1,5 +1,5 @@
 device:
-  port_name: NanoKontrol2
+  port: NanoKontrol2
   defaults:
     boolean_polarity: [127, 0]
     channel: 0
