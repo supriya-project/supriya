@@ -71,7 +71,9 @@ class Track:
         if self.has_direct_out:
             self._direct_out_synth = servertools.Synth(
                 synthdef=livetools.Send.build_synthdef(
-                    self.channel_count, self.channel_count))
+                    self.channel_count,
+                    self.channel_count,
+                    ))
         nodes = [_ for _ in [
             self._input_synth,
             self._instrument_group,
