@@ -9,7 +9,7 @@ class Direct:
 
     def __init__(self, track, mapping=None, is_input=False):
         self._is_input = bool(is_input)
-        self._mapping = tuple(sorted((mapping or {}).items()))
+        self._mapping = tuple(sorted(mapping))
         if self.is_input:
             source_track_count = len(self.mixer.server.audio_input_bus_group)
             target_track_count = self.track.channel_count
@@ -51,13 +51,12 @@ class Direct:
         target_track_count,
         mapping,
         ):
-        if isinstance(mapping, dict):
-            mapping = sorted(mapping.items())
         for in_, out in mapping:
             assert 0 <= in_ < source_track_count
             assert 0 <= out < target_track_count
         synthdef_builder = synthdeftools.SynthDefBuilder(
             gate=1,
+            lag=0.1,
             in_=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             )
@@ -66,12 +65,19 @@ class Direct:
                 bus=synthdef_builder['in_'],
                 channel_count=source_track_count,
                 )
-            zero = ugentools.DC.ar()
-            mapped = [[]] * target_track_count
+            gate = ugentools.Linen.kr(
+                attack_time=synthdef_builder['lag'],
+                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                gate=synthdef_builder['gate'],
+                release_time=synthdef_builder['lag'],
+                )
+            source *= gate
+            zero = ugentools.DC.ar(0)
+            mapped = []
+            for _ in range(target_track_count):
+                mapped.append([])
             for in_, out in mapping:
-                in_ = source[in_]
-                out = mapped[out]
-                out.append(in_)
+                mapped[out].append(source[in_])
             for i, out in enumerate(mapped):
                 if not out:
                     out.append(zero)
@@ -80,10 +86,10 @@ class Direct:
                 bus=synthdef_builder['out'],
                 source=mapped,
                 )
-        name = 'mixer/send/{}'.format(
+        name = 'mixer/direct/{}'.format(
             '/'.join(
                 '{}x{}'.format(in_, out)
-                for in_, out in sorted(mapping.items()),
+                for in_, out in mapping
             ))
         return synthdef_builder.build(name=name)
 

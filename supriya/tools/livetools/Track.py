@@ -19,7 +19,6 @@ class Track:
         name,
         channel_count=None,
         has_cue=True,
-        has_direct_out=False,
         ):
         from supriya.tools import livetools
         assert isinstance(mixer, livetools.Mixer)
@@ -38,7 +37,6 @@ class Track:
             )
 
         self._has_cue = bool(has_cue)
-        self._has_direct_out = bool(has_direct_out)
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
@@ -67,20 +65,12 @@ class Track:
             synthdef=self.build_output_synthdef(self.channel_count),
             gain=-96,
             )
-        self._direct_out_synth = None
-        if self.has_direct_out:
-            self._direct_out_synth = servertools.Synth(
-                synthdef=livetools.Send.build_synthdef(
-                    self.channel_count,
-                    self.channel_count,
-                    ))
         nodes = [_ for _ in [
             self._input_synth,
             self._instrument_group,
             self._cue_synth,
             self._output_synth,
             self._send_group,
-            self._direct_out_synth,
             ] if _ is not None]
         self._group.extend(nodes)
 
@@ -120,8 +110,6 @@ class Track:
         if self.cue_synth:
             self.cue_synth['in_'] = self.output_bus_group
             self.cue_synth['out'] = self.mixer.cue_track.input_bus_group
-        if self.direct_out_synth:
-            self.direct_out_synth['in_'] = self.output_bus_group
         if index is None:
             target_group.append(self._group)
         else:
@@ -142,8 +130,6 @@ class Track:
             slot._free()
         if self.cue_synth:
             self.cue_synth.release()
-        if self.direct_out_synth:
-            self.direct_out_synth.release()
         for send in tuple(self._incoming_sends.values()):
             send._free()
         for send in tuple(self._outgoing_sends.values()):
@@ -361,20 +347,12 @@ class Track:
         return self._cue_synth
 
     @property
-    def direct_out_synth(self):
-        return self._direct_out_synth
-
-    @property
     def group(self):
         return self._group
 
     @property
     def has_cue(self):
         return self._has_cue
-
-    @property
-    def has_direct_out(self):
-        return self._has_direct_out
 
     @property
     def input_bus_group(self):

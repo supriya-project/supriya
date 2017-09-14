@@ -97,7 +97,6 @@ class Mixer:
             self,
             name='master',
             channel_count=self._channel_count,
-            has_direct_out=True,
             )
         self._tracks_by_name['master'] = self._master_track
 
@@ -107,7 +106,6 @@ class Mixer:
             name='cue',
             channel_count=self.cue_channel_count,
             has_cue=False,
-            has_direct_out=True,
             )
         self._tracks_by_name['cue'] = self._cue_track
 
@@ -172,9 +170,6 @@ class Mixer:
         self.group.append(self._track_group)
         self.master_track._allocate_buses()
         self.cue_track._allocate_buses()
-        self.master_track.direct_out_synth['out'] = 0
-        self.cue_track.direct_out_synth['out'] = \
-            self.master_track.channel_count
         self._master_track._allocate_nodes(self._group)
         self._cue_track._allocate_nodes(self._group)
         for track in self._tracks:
