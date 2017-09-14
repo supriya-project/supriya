@@ -270,6 +270,10 @@ class Application:
             device.close_port()
         return self
 
+    def tui(self):
+        import supriya
+        return supriya.livetools.ApplicationTUI(self)
+
     ### PUBLIC PROPERTIES ###
 
     @property

@@ -1,6 +1,3 @@
-from supriya.tools.livetools.Send import Send
-
-
 class SendManager:
 
     ### INITIALIZER ###
@@ -15,18 +12,7 @@ class SendManager:
             send = self.track._outgoing_sends[track_name]
             send(initial_gain)
             return send
-        source_track = self._track
-        target_track = self._track.mixer[track_name]
-        send = Send(
-            source_track,
-            target_track,
-            initial_gain=initial_gain,
-            )
-        source_track._outgoing_sends[track_name] = send
-        target_track._incoming_sends[source_track.name] = send
-        if self.mixer.is_allocated:
-            send._allocate()
-        return send
+        return self.track.add_send(track_name, initial_gain=initial_gain)
 
     def __getitem__(self, target_track_name):
         return self.track._outgoing_sends[target_track_name]

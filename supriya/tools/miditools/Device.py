@@ -398,18 +398,20 @@ class Device:
 
     def open_port(self, port=None, virtual=False):
         self.logger.info('Opening port {}'.format(port))
+        if port is None:
+            port = self._device_manifest.get('port')
+            if isinstance(port, str):
+                port_names = self.get_ports()
+                if port in port_names:
+                    port = port_names.index(port)
+                else:
+                    port = None
+        if port is None:
+            virtual = True
         if virtual:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
-            if port is None:
-                port = self._device_manifest.get('port')
-                if isinstance(port, str):
-                    port_names = self.get_ports()
-                    if port in port_names:
-                        port = port_names.index(port)
-                    else:
-                        port = None
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(

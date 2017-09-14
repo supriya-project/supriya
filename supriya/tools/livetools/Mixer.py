@@ -226,6 +226,18 @@ class Mixer:
                 current_object = getattr(current_object, name)
         return current_object
 
+    def remove_track(self, name):
+        assert name in self._tracks_by_name
+        track = self._tracks_by_name.pop(name)
+        self._tracks.remove(track)
+        if self.is_allocated:
+            for target_name in tuple(track._outgoing_sends.keys()):
+                track.remove_send(target_name)
+            for source_name in tuple(track._incoming_sends.keys()):
+                self._tracks_by_name[source_name].remove_send(name)
+            track._free()
+        track._mixer = None
+
     ### PUBLIC PROPERTIES ###
 
     @property

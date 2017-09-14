@@ -3,6 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
 from supriya.tools.livetools.AutoPatternSlot import AutoPatternSlot
+from supriya.tools.livetools.Send import Send
 from supriya.tools.livetools.SendManager import SendManager
 from supriya.tools.livetools.SynthSlot import SynthSlot
 from supriya.tools.livetools.TriggerPatternSlot import TriggerPatternSlot
@@ -141,7 +142,9 @@ class Track:
             self.cue_synth.release()
         if self.direct_out_synth:
             self.direct_out_synth.release()
-        for send in self._outgoing_sends.values():
+        for send in tuple(self._incoming_sends.values()):
+            send._free()
+        for send in tuple(self._outgoing_sends.values()):
             send._free()
         self.group.free()
         self.output_bus_group.free()
@@ -161,6 +164,21 @@ class Track:
             **kwargs
             )
         return self._add_slot(slot)
+
+    def add_send(self, target_name, initial_gain=0.0):
+        assert target_name not in self._outgoing_sends
+        source_track = self
+        target_track = self.mixer[target_name]
+        send = Send(
+            source_track,
+            target_track,
+            initial_gain=initial_gain,
+            )
+        source_track._outgoing_sends[target_name] = send
+        target_track._incoming_sends[source_track.name] = send
+        if self.mixer.is_allocated:
+            send._allocate()
+        return send
 
     def add_synth_slot(self, name, synthdef=None, **kwargs):
         slot = SynthSlot(
@@ -321,6 +339,14 @@ class Track:
         if handle:
             self.mixer._update_track_audibility()
         return bool(state)
+
+    def remove_send(self, target_name):
+        assert target_name in self._outgoing_sends
+        send = self._outgoing_sends.pop(target_name)
+        target_track = self.mixer[target_name]
+        target_track._incoming_sends.pop(self.name)
+        send._free()
+        self._track = None
 
     ### PUBLIC PROPERTIES ###
 
