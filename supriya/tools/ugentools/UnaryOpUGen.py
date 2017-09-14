@@ -1,7 +1,7 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.tools.ugentools.PureUGen import PureUGen
 
 
-class UnaryOpUGen(UGen):
+class UnaryOpUGen(PureUGen):
     """
     A unary operator ugen, created by applying a unary operator to a ugen.
 
@@ -37,7 +37,7 @@ class UnaryOpUGen(UGen):
         source=None,
         special_index=None,
         ):
-        UGen.__init__(
+        PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             source=source,

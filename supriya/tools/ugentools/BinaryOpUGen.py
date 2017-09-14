@@ -1,7 +1,7 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.tools.ugentools.PureUGen import PureUGen
 
 
-class BinaryOpUGen(UGen):
+class BinaryOpUGen(PureUGen):
     """
     A binary operator ugen, created by applying a binary operator to two
     ugens.
@@ -41,7 +41,7 @@ class BinaryOpUGen(UGen):
         calculation_rate=None,
         special_index=None,
         ):
-        UGen.__init__(
+        PureUGen.__init__(
             self,
             calculation_rate=calculation_rate,
             left=left,
