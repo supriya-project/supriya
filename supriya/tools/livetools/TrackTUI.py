@@ -1,3 +1,4 @@
+import math
 import random
 import urwid
 
@@ -80,6 +81,19 @@ class TrackTUI:
 
     ### PRIVATE METHODS ###
 
+    def _get_levels(self, levels):
+        if levels:
+            levels = levels['rms']
+        else:
+            levels = [0.0]
+        decibels = []
+        for level in levels:
+            if level > 0:
+                decibels.append(20 * math.log10(level))
+            else:
+                decibels.append(float('-inf'))
+        return decibels
+
     def _make_graph(self):
         import supriya
         graph = supriya.livetools.BarGraph()
@@ -91,26 +105,14 @@ class TrackTUI:
 
     def refresh(self):
         # input levels
-        input_levels = self.track.input_levels
-        if input_levels:
-            input_levels = input_levels['rms']
-        else:
-            input_levels = [0]
-        self._input_graph.set_data(input_levels, 0.0, 1.0)
+        input_levels = self._get_levels(self.track.input_levels)
+        self._input_graph.set_data(input_levels, -64.0, 0.0)
         # prefader levels
-        prefader_levels = self.track.prefader_levels
-        if prefader_levels:
-            prefader_levels = prefader_levels['rms']
-        else:
-            prefader_levels = [0]
-        self._prefader_graph.set_data(prefader_levels, 0.0, 1.0)
+        prefader_levels = self._get_levels(self.track.prefader_levels)
+        self._prefader_graph.set_data(prefader_levels, -64.0, 0.0)
         # postfader levels
-        postfader_levels = self.track.postfader_levels
-        if postfader_levels:
-            postfader_levels = postfader_levels['rms']
-        else:
-            postfader_levels = [0]
-        self._postfader_graph.set_data(postfader_levels, 0.0, 1.0)
+        postfader_levels = self._get_levels(self.track.postfader_levels)
+        self._postfader_graph.set_data(postfader_levels, -64.0, 0.0)
         # checkboxes
         self._cue_checkbox.set_state(self.track.is_cued, do_callback=False)
         self._mute_checkbox.set_state(self.track.is_muted, do_callback=False)
