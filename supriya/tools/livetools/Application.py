@@ -10,8 +10,9 @@ from supriya.tools import systemtools
 
 class Application:
 
-    def __init__(self, manifest, logger=None, overrides=None):
+    def __init__(self, manifest=None, logger=None, overrides=None):
         import supriya
+        manifest = manifest or {}
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
             if overrides:
@@ -143,7 +144,7 @@ class Application:
 
     def _setup_bindings(self):
         self._bindings = set()
-        mixer_spec = self.manifest.get('mixer')
+        mixer_spec = self.manifest.get('mixer', {})
         bind_specs = mixer_spec.get('bind') or {}
         for target_name, bind_spec in bind_specs.items():
             self._setup_binding(self.mixer, mixer_spec, target_name, bind_spec)
@@ -196,7 +197,7 @@ class Application:
 
     def _setup_mixer(self):
         from supriya.tools import livetools
-        manifest = self.manifest.get('mixer')
+        manifest = self.manifest.get('mixer', {})
         channel_count = int(manifest.get('channel_count', 2))
         cue_channel_count = int(manifest.get('cue_channel_count', 2))
         self._mixer = livetools.Mixer(channel_count, cue_channel_count)
