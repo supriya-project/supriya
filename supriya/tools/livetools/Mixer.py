@@ -93,21 +93,28 @@ class Mixer:
         return False
 
     def _setup_master_track(self):
-        self._master_track = Track(
+        track = Track(
             self,
             name='master',
             channel_count=self._channel_count,
             )
-        self._tracks_by_name['master'] = self._master_track
+        mapping = [(i, i) for i in range(self._channel_count)]
+        track.add_direct_out(mapping)
+        self._tracks_by_name['master'] = track
+        self._master_track = track
 
     def _setup_cue_track(self):
-        self._cue_track = Track(
+        track = Track(
             self,
             name='cue',
             channel_count=self.cue_channel_count,
             has_cue=False,
             )
-        self._tracks_by_name['cue'] = self._cue_track
+        offset = self._channel_count
+        mapping = [(i, i + offset) for i in range(self.cue_channel_count)]
+        track.add_direct_out(mapping)
+        self._tracks_by_name['cue'] = track
+        self._cue_track = track
 
     def _setup_osc_callbacks(self):
         self._input_levels_callback = osctools.OscCallback(

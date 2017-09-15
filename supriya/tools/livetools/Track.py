@@ -3,6 +3,7 @@ from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
 from supriya.tools.livetools.AutoPatternSlot import AutoPatternSlot
+from supriya.tools.livetools.Direct import Direct
 from supriya.tools.livetools.Send import Send
 from supriya.tools.livetools.SendManager import SendManager
 from supriya.tools.livetools.SynthSlot import SynthSlot
@@ -55,6 +56,8 @@ class Track:
         self._instrument_group = servertools.Group()
         self._send_group = servertools.Group()
         self._cue_synth = None
+        self._direct_in = None
+        self._direct_out = None
         if self.has_cue:
             self._cue_synth = servertools.Synth(
                 synthdef=livetools.Send.build_synthdef(
@@ -121,6 +124,10 @@ class Track:
         self.mixer._levels_mapping[self.output_synth.node_id] = self
         for slot in self._slots:
             slot._allocate()
+        if self.direct_in is not None:
+            self.direct_in._allocate()
+        if self.direct_out is not None:
+            self.direct_out._allocate()
 
     def _as_node_target(self):
         return self.instrument_group
@@ -152,6 +159,40 @@ class Track:
             **kwargs
             )
         return self._add_slot(slot)
+
+    def add_direct_in(self, mapping):
+        if not mapping:
+            self.remove_direct_in()
+            return
+        direct_in = Direct(self, mapping, is_input=True)
+        if self.direct_in is not None:
+            self.direct_in._free()
+        self._direct_in = direct_in
+        if self.is_allocated:
+            self._direct_in._allocate()
+
+    def add_direct_out(self, mapping):
+        if not mapping:
+            self.remove_direct_out()
+            return
+        direct_out = Direct(self, mapping, is_input=False)
+        if self.direct_out is not None:
+            self.direct_out._free()
+        self._direct_out = direct_out
+        if self.is_allocated:
+            self._direct_out._allocate()
+
+    def remove_direct_in(self):
+        if self.direct_in is None:
+            return
+        self.direct_in._free()
+        self._direct_in = None
+
+    def remove_direct_out(self):
+        if self.direct_out is None:
+            return
+        self.direct_out._free()
+        self._direct_out = None
 
     def add_send(self, target_name, initial_gain=0.0):
         assert target_name not in self._outgoing_sends
@@ -345,6 +386,14 @@ class Track:
     @property
     def cue_synth(self):
         return self._cue_synth
+
+    @property
+    def direct_in(self):
+        return self._direct_in
+
+    @property
+    def direct_out(self):
+        return self._direct_out
 
     @property
     def group(self):

@@ -8,8 +8,14 @@ class Direct:
     ### INITIALIZER ###
 
     def __init__(self, track, mapping=None, is_input=False):
+        self._track = track
         self._is_input = bool(is_input)
         self._mapping = tuple(sorted(mapping))
+        self._synth = None
+
+    ### PRIVATE METHODS ###
+
+    def _allocate(self):
         if self.is_input:
             source_track_count = len(self.mixer.server.audio_input_bus_group)
             target_track_count = self.track.channel_count
@@ -22,11 +28,6 @@ class Direct:
             self.mapping,
             )
         self._synth = servertools.Synth(synthdef=synthdef)
-        self._track = track
-
-    ### PRIVATE METHODS ###
-
-    def _allocate(self):
         if self.is_input:
             in_ = int(self.mixer.server.audio_input_bus_group)
             out = int(self.track.input_bus_group)
@@ -36,12 +37,14 @@ class Direct:
         self.synth['in_'] = in_
         self.synth['out'] = out
         if self.is_input:
-            self.track.group.append(self.synth)
-        else:
             self.track.group.insert(0, self.synth)
+        else:
+            self.track.group.append(self.synth)
 
     def _free(self):
-        self.synth.release()
+        if self.synth is not None:
+            self.synth.release()
+        self._synth = None
 
     ### PUBLIC METHODS ###
 
@@ -87,8 +90,8 @@ class Direct:
                 source=mapped,
                 )
         name = 'mixer/direct/{}'.format(
-            '/'.join(
-                '{}x{}'.format(in_, out)
+            ','.join(
+                '{}:{}'.format(in_, out)
                 for in_, out in mapping
             ))
         return synthdef_builder.build(name=name)

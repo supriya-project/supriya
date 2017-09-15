@@ -11,7 +11,7 @@ class TestCase(systemtools.TestCase):
             str(synthdef),
             """
             synthdef:
-                name: mixer/direct/0x0/1x1
+                name: mixer/direct/0:0,1:1
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
@@ -42,7 +42,7 @@ class TestCase(systemtools.TestCase):
             str(synthdef),
             """
             synthdef:
-                name: mixer/direct/0x1/1x0
+                name: mixer/direct/0:1,1:0
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
@@ -73,7 +73,7 @@ class TestCase(systemtools.TestCase):
             str(synthdef),
             """
             synthdef:
-                name: mixer/direct/0x1
+                name: mixer/direct/0:1
                 ugens:
                 -   Control.ir: null
                 -   In.ar:
