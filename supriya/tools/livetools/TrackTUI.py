@@ -1,7 +1,8 @@
 import math
 import random
 import urwid
-from supriya.tools.livetools.GainButton import GainButton
+from supriya.tools.livetools.BoundCheckBox import BoundCheckBox
+from supriya.tools.livetools.BoundGainButton import BoundGainButton
 
 
 class TrackTUI:
@@ -16,11 +17,39 @@ class TrackTUI:
         self._sends_button = urwid.Button('Sends')
         self._slots_button = urwid.Button('Slots')
         # CheckBoxes
-        self._cue_checkbox = urwid.CheckBox('Cue')
-        self._mute_checkbox = urwid.CheckBox('Mute')
-        self._solo_checkbox = urwid.CheckBox('Solo')
+        if self.track.name != 'cue':
+            cue_checkbox = None
+        else:
+            cue_checkbox = BoundCheckBox(
+                'Cue',
+                self.track.get_cue,
+                self.track.set_cue,
+                )
+        if self.track.name in ('cue', 'master'):
+            mute_checkbox = None
+            solo_checkbox = None
+        else:
+            mute_checkbox = BoundCheckBox(
+                'Mute',
+                self.track.get_mute,
+                self.track.set_mute,
+                )
+            solo_checkbox = BoundCheckBox(
+                'Solo',
+                self.track.get_solo,
+                self.track.set_solo,
+                )
+        self._checkboxes = [
+            self._attr_mapped(checkbox)
+            for checkbox in [cue_checkbox, mute_checkbox, solo_checkbox]
+            if checkbox is not None
+            ]
         # Sliders
-        self._gain_slider = GainButton('Gain')
+        self._gain_slider = BoundGainButton(
+            'Gain',
+            read_source=self.track.get_gain,
+            write_source=self.track.set_gain,
+            )
         # Graphs
         self._input_graph = self._make_graph()
         self._postfader_graph = self._make_graph()
@@ -55,9 +84,7 @@ class TrackTUI:
                             ),
                         title='Prefader',
                         ),
-                    self._attr_mapped(self._mute_checkbox),
-                    self._attr_mapped(self._solo_checkbox),
-                    self._attr_mapped(self._cue_checkbox),
+                    *self._checkboxes,
                     self._attr_mapped(self._gain_slider),
                     urwid.LineBox(
                         urwid.BoxAdapter(
@@ -125,9 +152,10 @@ class TrackTUI:
         postfader_levels = self._get_levels(self.track.postfader_levels)
         self._postfader_graph.set_data(postfader_levels, -64.0, 0.0)
         # checkboxes
-        self._cue_checkbox.set_state(self.track.is_cued, do_callback=False)
-        self._mute_checkbox.set_state(self.track.is_muted, do_callback=False)
-        self._solo_checkbox.set_state(self.track.is_soloed, do_callback=False)
+        for checkbox in self._checkboxes:
+            checkbox.original_widget.refresh()
+        # Sliders
+        self._gain_slider.refresh()
 
     ### PUBLIC PROPERTIES ###
 

@@ -7,6 +7,7 @@ class ApplicationTUI:
 
     def __init__(self, application):
         import supriya
+        self._refresh_rate = 0.1
         self._application = application
         self._server_tui = supriya.livetools.ServerTUI(
             self.application.server,
@@ -38,7 +39,7 @@ class ApplicationTUI:
 
     def _refresh_loop(self, loop, *args):
         self.refresh()
-        loop.set_alarm_in(0.1, self._refresh_loop)
+        loop.set_alarm_in(self._refresh_rate, self._refresh_loop)
 
     ### PUBLIC METHODS ###
 
@@ -51,7 +52,7 @@ class ApplicationTUI:
         self.server_tui.refresh()
 
     def run(self):
-        self.loop.set_alarm_in(0.1, self._refresh_loop)
+        self.loop.set_alarm_in(self._refresh_rate, self._refresh_loop)
         self.loop.run()
 
     ### PUBLIC PROPERTIES ###

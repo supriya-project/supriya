@@ -23,8 +23,15 @@ class MixerTUI:
             for track_tui in self._track_tuis
             ] + [
             urwid.Filler(urwid.Text('')),
-            (20, self._cue_track_tui.widget),
-            (20, self._master_track_tui.widget),
+            (
+                42,
+                urwid.LineBox(
+                    urwid.Columns([
+                        (20, self._cue_track_tui.widget),
+                        (20, self._master_track_tui.widget),
+                        ]),
+                    ),
+            ),
             ],
             dividechars=1,
             )

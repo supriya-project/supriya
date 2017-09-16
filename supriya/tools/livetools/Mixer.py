@@ -108,7 +108,6 @@ class Mixer:
             self,
             name='cue',
             channel_count=self.cue_channel_count,
-            has_cue=False,
             )
         offset = self._channel_count
         mapping = [(i, i + offset) for i in range(self.cue_channel_count)]

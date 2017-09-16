@@ -19,7 +19,6 @@ class Track:
         mixer,
         name,
         channel_count=None,
-        has_cue=True,
         ):
         from supriya.tools import livetools
         assert isinstance(mixer, livetools.Mixer)
@@ -38,7 +37,6 @@ class Track:
             )
 
         self._gain = float('-inf')
-        self._has_cue = bool(has_cue)
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
@@ -59,7 +57,7 @@ class Track:
         self._cue_synth = None
         self._direct_in = None
         self._direct_out = None
-        if self.has_cue:
+        if self.name != 'cue':
             self._cue_synth = servertools.Synth(
                 synthdef=livetools.Send.build_synthdef(
                     self.channel_count, self.mixer.cue_track.channel_count),
@@ -330,11 +328,22 @@ class Track:
 
     ### BINDABLES ###
 
+    def get_cue(self):
+        return self.is_cued
+
+    def get_gain(self):
+        return self.gain
+
+    def get_mute(self):
+        return self.is_muted
+
+    def get_solo(self):
+        return self.is_soloed
+
     @systemtools.Bindable(rebroadcast=True)
     def set_cue(self, state):
-        if not self.has_cue:
-            self._is_cued = False
-            state = False
+        if self.name in ('cue', 'master'):
+            return False
         elif not state:
             self._is_cued = False
             self.cue_synth['active'] = False
@@ -357,6 +366,8 @@ class Track:
 
     @systemtools.Bindable(rebroadcast=True)
     def set_mute(self, state):
+        if self.name in ('master',):
+            return False
         if state:
             self._is_muted = True
             self._is_soloed = False
@@ -367,6 +378,8 @@ class Track:
 
     @systemtools.Bindable(rebroadcast=True)
     def set_solo(self, state, handle=True):
+        if self.name in ('cue', 'master'):
+            return False
         if state:
             self._is_muted = False
             self._is_soloed = True
@@ -406,10 +419,6 @@ class Track:
     @property
     def group(self):
         return self._group
-
-    @property
-    def has_cue(self):
-        return self._has_cue
 
     @property
     def input_bus_group(self):
