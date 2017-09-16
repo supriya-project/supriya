@@ -29,7 +29,7 @@ application:
                     frequency: $knobs:knob_2
                     pan:       $knobs:knob_3
             bind:
-                gain: $devices:test:fader_1
+                set_gain: $devices:test:fader_1
           - name: track-b
             slots: 
               - name: slot-two
@@ -58,7 +58,7 @@ application:
                   frequency_min: $devices:test:outer_modal:1:knobs:0:knob_2
                   frequency_max: $devices:test:outer_modal:1:knobs:0:knob_3
             bind:
-                gain: $devices:test:fader_2
+                set_gain: $devices:test:fader_2
           - name: master
             bind:
-                gain: $devices:test:fader_3
+                set_gain: $devices:test:fader_3

@@ -148,10 +148,6 @@ class Mixer:
 
     ### PUBLIC METHODS ###
 
-    @systemtools.Bindable(rebroadcast=True)
-    def allow_multiple(self, state):
-        self._is_allowing_multiple = bool(state)
-
     def add_track(self, name, channel_count=None, index=None):
         assert name not in self._tracks_by_name
         track = Track(self, name=name, channel_count=channel_count)
@@ -239,6 +235,13 @@ class Mixer:
                 self._tracks_by_name[source_name].remove_send(name)
             track._free()
         track._mixer = None
+
+    ### BINDABLES ###
+
+    @systemtools.Bindable(rebroadcast=True)
+    def allow_multiple(self, state):
+        self._is_allowing_multiple = bool(state)
+        return self._is_allowing_multiple
 
     ### PUBLIC PROPERTIES ###
 

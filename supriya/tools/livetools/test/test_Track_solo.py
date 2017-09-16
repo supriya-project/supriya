@@ -36,9 +36,9 @@ class TestCase(systemtools.TestCase):
             target_node=self.mixer['baz'],
             out=int(self.mixer['baz'].output_bus_group),
             )
-        self.mixer['foo'].gain(0)
-        self.mixer['bar'].gain(0)
-        self.mixer['baz'].gain(0)
+        self.mixer['foo'].set_gain(0)
+        self.mixer['bar'].set_gain(0)
+        self.mixer['baz'].set_gain(0)
         time.sleep(0.25)
 
     def tearDown(self):
@@ -62,7 +62,7 @@ class TestCase(systemtools.TestCase):
         """
         Tracks can be soloed.
         """
-        self.mixer['bar'].solo(True)
+        self.mixer['bar'].set_solo(True)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_soloed
         assert self.mixer['bar'].is_soloed
@@ -77,8 +77,8 @@ class TestCase(systemtools.TestCase):
         """
         Soloed tracks can be unsoloed.
         """
-        self.mixer['bar'].solo(True)
-        self.mixer['bar'].solo(False)
+        self.mixer['bar'].set_solo(True)
+        self.mixer['bar'].set_solo(False)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_soloed
         assert not self.mixer['bar'].is_soloed
@@ -93,8 +93,8 @@ class TestCase(systemtools.TestCase):
         """
         Mutually-exclusive, by default.
         """
-        self.mixer['bar'].solo(True)
-        self.mixer['baz'].solo(True)
+        self.mixer['bar'].set_solo(True)
+        self.mixer['baz'].set_solo(True)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_soloed
         assert not self.mixer['bar'].is_soloed
@@ -109,9 +109,9 @@ class TestCase(systemtools.TestCase):
         """
         Not mutually-exclusive, when Mixer.is_allowing_multiple.
         """
-        self.mixer['bar'].solo(True)
+        self.mixer['bar'].set_solo(True)
         self.mixer.allow_multiple(True)
-        self.mixer['baz'].solo(True)
+        self.mixer['baz'].set_solo(True)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_soloed
         assert self.mixer['bar'].is_soloed
@@ -126,11 +126,11 @@ class TestCase(systemtools.TestCase):
         """
         Mutually-exclusive again, when not Mixer.is_allowing_multiple.
         """
-        self.mixer['bar'].solo(True)
+        self.mixer['bar'].set_solo(True)
         self.mixer.allow_multiple(True)
-        self.mixer['baz'].solo(True)
+        self.mixer['baz'].set_solo(True)
         self.mixer.allow_multiple(False)
-        self.mixer['foo'].solo(True)
+        self.mixer['foo'].set_solo(True)
         time.sleep(0.25)
         assert self.mixer['foo'].is_soloed
         assert not self.mixer['bar'].is_soloed

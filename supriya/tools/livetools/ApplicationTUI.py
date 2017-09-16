@@ -71,13 +71,15 @@ class ApplicationTUI:
     @property
     def palette(self):
         return [
+            ('default', '', ''),
             ('bargraph-background', 'bold', ''),
             ('bargraph-1', 'dark cyan', '', ''),
             ('bargraph-1-smooth', 'dark cyan', ''),
             ('bargraph-2', '', 'brown', ''),
             ('bargraph-2-smooth', 'brown', ''),
             ('blur', 'dark gray', ''),
-            ('focus', 'white,bold', ''),
+            ('focus', 'white', ''),
+            ('local-focus', 'white,bold', 'dark cyan'),
             ]
 
     @property

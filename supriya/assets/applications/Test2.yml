@@ -48,6 +48,6 @@ application:
         bind: ~
       - name: master
         bind:
-          gain:
+          set_gain:
             source: $devices:nano_b:fader_8
             range: [-96.0, 0.0]

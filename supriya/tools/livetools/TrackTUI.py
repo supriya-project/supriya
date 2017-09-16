@@ -1,6 +1,7 @@
 import math
 import random
 import urwid
+from supriya.tools.livetools.GainButton import GainButton
 
 
 class TrackTUI:
@@ -18,6 +19,8 @@ class TrackTUI:
         self._cue_checkbox = urwid.CheckBox('Cue')
         self._mute_checkbox = urwid.CheckBox('Mute')
         self._solo_checkbox = urwid.CheckBox('Solo')
+        # Sliders
+        self._gain_slider = GainButton('Gain')
         # Graphs
         self._input_graph = self._make_graph()
         self._postfader_graph = self._make_graph()
@@ -26,7 +29,7 @@ class TrackTUI:
         header = urwid.BoxAdapter(
             urwid.ListBox(
                 urwid.SimpleListWalker([
-                    self._direct_ins_button,
+                    self._attr_mapped(self._direct_ins_button),
                     urwid.LineBox(
                         urwid.BoxAdapter(
                             self._input_graph,
@@ -52,9 +55,10 @@ class TrackTUI:
                             ),
                         title='Prefader',
                         ),
-                    self._mute_checkbox,
-                    self._solo_checkbox,
-                    self._cue_checkbox,
+                    self._attr_mapped(self._mute_checkbox),
+                    self._attr_mapped(self._solo_checkbox),
+                    self._attr_mapped(self._cue_checkbox),
+                    self._attr_mapped(self._gain_slider),
                     urwid.LineBox(
                         urwid.BoxAdapter(
                             self._postfader_graph,
@@ -62,10 +66,10 @@ class TrackTUI:
                             ),
                         title='Postfader',
                         ),
-                    self._direct_outs_button,
+                    self._attr_mapped(self._direct_outs_button),
                     ]),
                 ),
-            height=16,
+            height=17,
             )
         body = urwid.ListBox(
             urwid.SimpleListWalker([
@@ -80,6 +84,13 @@ class TrackTUI:
         self._widget = urwid.AttrMap(self._widget, 'blur', focus_map={None: 'focus'})
 
     ### PRIVATE METHODS ###
+
+    def _attr_mapped(self, widget):
+        return urwid.AttrMap(
+            widget,
+            None,
+            focus_map={None: 'local-focus'},
+            )
 
     def _get_levels(self, levels):
         if levels:

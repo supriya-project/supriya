@@ -59,7 +59,7 @@ class TestCase(systemtools.TestCase):
         """
         Tracks can be cued.
         """
-        self.mixer['bar'].cue(True)
+        self.mixer['bar'].set_cue(True)
         time.sleep(0.2)
         assert not self.mixer['foo'].is_cued
         assert self.mixer['bar'].is_cued
@@ -74,8 +74,8 @@ class TestCase(systemtools.TestCase):
         """
         Cued tracks can be uncued.
         """
-        self.mixer['bar'].cue(True)
-        self.mixer['bar'].cue(False)
+        self.mixer['bar'].set_cue(True)
+        self.mixer['bar'].set_cue(False)
         time.sleep(0.2)
         assert not self.mixer['foo'].is_cued
         assert not self.mixer['bar'].is_cued
@@ -90,8 +90,8 @@ class TestCase(systemtools.TestCase):
         """
         Mutually-exclusive, by default.
         """
-        self.mixer['bar'].cue(True)
-        self.mixer['baz'].cue(True)
+        self.mixer['bar'].set_cue(True)
+        self.mixer['baz'].set_cue(True)
         time.sleep(0.2)
         assert not self.mixer['foo'].is_cued
         assert not self.mixer['bar'].is_cued
@@ -106,9 +106,9 @@ class TestCase(systemtools.TestCase):
         """
         Not mutually-exclusive, when Mixer.is_allowing_multiple.
         """
-        self.mixer['bar'].cue(True)
+        self.mixer['bar'].set_cue(True)
         self.mixer.allow_multiple(True)
-        self.mixer['baz'].cue(True)
+        self.mixer['baz'].set_cue(True)
         time.sleep(0.2)
         assert not self.mixer['foo'].is_cued
         assert self.mixer['bar'].is_cued
@@ -123,11 +123,11 @@ class TestCase(systemtools.TestCase):
         """
         Mutually-exclusive again, when not Mixer.is_allowing_multiple.
         """
-        self.mixer['bar'].cue(True)
+        self.mixer['bar'].set_cue(True)
         self.mixer.allow_multiple(True)
-        self.mixer['baz'].cue(True)
+        self.mixer['baz'].set_cue(True)
         self.mixer.allow_multiple(False)
-        self.mixer['foo'].cue(True)
+        self.mixer['foo'].set_cue(True)
         time.sleep(0.2)
         assert self.mixer['foo'].is_cued
         assert not self.mixer['bar'].is_cued

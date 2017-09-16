@@ -37,6 +37,7 @@ class Track:
             calculation_rate='audio',
             )
 
+        self._gain = float('-inf')
         self._has_cue = bool(has_cue)
         self._is_cued = False
         self._is_muted = False
@@ -319,8 +320,18 @@ class Track:
         name = 'mixer/output/{}'.format(channel_count)
         return synthdef_builder.build(name=name)
 
+    def remove_send(self, target_name):
+        assert target_name in self._outgoing_sends
+        send = self._outgoing_sends.pop(target_name)
+        target_track = self.mixer[target_name]
+        target_track._incoming_sends.pop(self.name)
+        send._free()
+        self._track = None
+
+    ### BINDABLES ###
+
     @systemtools.Bindable(rebroadcast=True)
-    def cue(self, state):
+    def set_cue(self, state):
         if not self.has_cue:
             self._is_cued = False
             state = False
@@ -335,16 +346,17 @@ class Track:
                     if track is self:
                         continue
                     elif track.is_cued:
-                        track.cue(False)
+                        track.set_cue(False)
         return state
 
     @systemtools.Bindable(rebroadcast=True)
-    def gain(self, gain):
+    def set_gain(self, gain):
+        self._gain = gain
         self.output_synth['gain'] = gain
         return gain
 
     @systemtools.Bindable(rebroadcast=True)
-    def mute(self, state):
+    def set_mute(self, state):
         if state:
             self._is_muted = True
             self._is_soloed = False
@@ -354,7 +366,7 @@ class Track:
         return bool(state)
 
     @systemtools.Bindable(rebroadcast=True)
-    def solo(self, state, handle=True):
+    def set_solo(self, state, handle=True):
         if state:
             self._is_muted = False
             self._is_soloed = True
@@ -362,20 +374,12 @@ class Track:
                 for track in self.mixer.tracks:
                     if track is self:
                         continue
-                    track.solo(False, handle=False)
+                    track.set_solo(False, handle=False)
         else:
             self._is_soloed = False
         if handle:
             self.mixer._update_track_audibility()
         return bool(state)
-
-    def remove_send(self, target_name):
-        assert target_name in self._outgoing_sends
-        send = self._outgoing_sends.pop(target_name)
-        target_track = self.mixer[target_name]
-        target_track._incoming_sends.pop(self.name)
-        send._free()
-        self._track = None
 
     ### PUBLIC PROPERTIES ###
 
@@ -394,6 +398,10 @@ class Track:
     @property
     def direct_out(self):
         return self._direct_out
+
+    @property
+    def gain(self):
+        return self._gain
 
     @property
     def group(self):
