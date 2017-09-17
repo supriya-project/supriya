@@ -5,17 +5,23 @@ class MixerTUI:
 
     ### INITIALIZER ###
 
-    def __init__(self, mixer):
+    def __init__(self, mixer, application_tui=None):
         import supriya
         self._mixer = mixer
+        self._application_tui = application_tui
         self._cue_track_tui = supriya.livetools.TrackTUI(
             self._mixer.cue_track,
+            application_tui=application_tui,
             )
         self._master_track_tui = supriya.livetools.TrackTUI(
             self._mixer.master_track,
+            application_tui=application_tui,
             )
         self._track_tuis = [
-            supriya.livetools.TrackTUI(track)
+            supriya.livetools.TrackTUI(
+                track,
+                application_tui=application_tui,
+                )
             for track in self._mixer.tracks
             ]
         self._widget = urwid.Columns([

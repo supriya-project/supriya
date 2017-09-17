@@ -5,8 +5,9 @@ class ServerTUI:
 
     ### INITIALIZER ###
 
-    def __init__(self, server):
+    def __init__(self, server, application_tui=None):
         self._server = server
+        self._application_tui = application_tui
         self._text_elements = {
             'actual_sample_rate': urwid.Text(''),
             'average_cpu_usage': urwid.Text(''),

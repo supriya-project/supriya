@@ -9,52 +9,42 @@ class TrackTUI:
 
     ### INITIALIZER ###
 
-    def __init__(self, track):
+    def __init__(self, track, application_tui=None):
         self._track = track
-        # Buttons
-        self._direct_ins_button = urwid.Button('Direct Ins')
-        self._direct_outs_button = urwid.Button('Direct Outs')
-        self._sends_button = urwid.Button('Sends')
-        self._slots_button = urwid.Button('Slots')
-        # CheckBoxes
-        if self.track.name != 'cue':
-            cue_checkbox = None
-        else:
-            cue_checkbox = BoundCheckBox(
-                'Cue',
-                self.track.get_cue,
-                self.track.set_cue,
-                )
-        if self.track.name in ('cue', 'master'):
-            mute_checkbox = None
-            solo_checkbox = None
-        else:
-            mute_checkbox = BoundCheckBox(
-                'Mute',
-                self.track.get_mute,
-                self.track.set_mute,
-                )
-            solo_checkbox = BoundCheckBox(
-                'Solo',
-                self.track.get_solo,
-                self.track.set_solo,
-                )
-        self._checkboxes = [
-            self._attr_mapped(checkbox)
-            for checkbox in [cue_checkbox, mute_checkbox, solo_checkbox]
-            if checkbox is not None
-            ]
-        # Sliders
-        self._gain_slider = BoundGainButton(
-            'Gain',
-            read_source=self.track.get_gain,
-            write_source=self.track.set_gain,
+        self._application_tui = application_tui
+        self._setup_interactive_widgets()
+        self._setup_aggregate_widgets()
+
+    ### PRIVATE METHODS ###
+
+    def _attr_mapped(self, widget):
+        return urwid.AttrMap(
+            widget,
+            None,
+            focus_map={None: 'local-focus'},
             )
-        # Graphs
-        self._input_graph = self._make_graph()
-        self._postfader_graph = self._make_graph()
-        self._prefader_graph = self._make_graph()
-        # Widgets
+
+    def _get_levels(self, levels):
+        if levels:
+            levels = levels['rms']
+        else:
+            levels = [0.0]
+        decibels = []
+        for level in levels:
+            if level > 0:
+                decibels.append(20 * math.log10(level))
+            else:
+                decibels.append(float('-inf'))
+        return decibels
+
+    def _make_graph(self):
+        import supriya
+        graph = supriya.livetools.BarGraph()
+        data = [random.randint(0, 100) for _ in range(8)]
+        graph.set_data(data, 0, 100)
+        return graph
+
+    def _setup_aggregate_widgets(self):
         header = urwid.BoxAdapter(
             urwid.ListBox(
                 urwid.SimpleListWalker([
@@ -110,34 +100,50 @@ class TrackTUI:
             )
         self._widget = urwid.AttrMap(self._widget, 'blur', focus_map={None: 'focus'})
 
-    ### PRIVATE METHODS ###
-
-    def _attr_mapped(self, widget):
-        return urwid.AttrMap(
-            widget,
-            None,
-            focus_map={None: 'local-focus'},
-            )
-
-    def _get_levels(self, levels):
-        if levels:
-            levels = levels['rms']
+    def _setup_interactive_widgets(self):
+        # Buttons
+        self._direct_ins_button = urwid.Button('Direct Ins')
+        self._direct_outs_button = urwid.Button('Direct Outs')
+        self._sends_button = urwid.Button('Sends')
+        self._slots_button = urwid.Button('Slots')
+        # CheckBoxes
+        if self.track.name != 'cue':
+            cue_checkbox = None
         else:
-            levels = [0.0]
-        decibels = []
-        for level in levels:
-            if level > 0:
-                decibels.append(20 * math.log10(level))
-            else:
-                decibels.append(float('-inf'))
-        return decibels
-
-    def _make_graph(self):
-        import supriya
-        graph = supriya.livetools.BarGraph()
-        data = [random.randint(0, 100) for _ in range(8)]
-        graph.set_data(data, 0, 100)
-        return graph
+            cue_checkbox = BoundCheckBox(
+                'Cue',
+                self.track.get_cue,
+                self.track.set_cue,
+                )
+        if self.track.name in ('cue', 'master'):
+            mute_checkbox = None
+            solo_checkbox = None
+        else:
+            mute_checkbox = BoundCheckBox(
+                'Mute',
+                self.track.get_mute,
+                self.track.set_mute,
+                )
+            solo_checkbox = BoundCheckBox(
+                'Solo',
+                self.track.get_solo,
+                self.track.set_solo,
+                )
+        self._checkboxes = [
+            self._attr_mapped(checkbox)
+            for checkbox in [cue_checkbox, mute_checkbox, solo_checkbox]
+            if checkbox is not None
+            ]
+        # Sliders
+        self._gain_slider = BoundGainButton(
+            'Gain',
+            read_source=self.track.get_gain,
+            write_source=self.track.set_gain,
+            )
+        # Graphs
+        self._input_graph = self._make_graph()
+        self._postfader_graph = self._make_graph()
+        self._prefader_graph = self._make_graph()
 
     ### PUBLIC METHODS ###
 

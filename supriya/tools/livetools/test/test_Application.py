@@ -11,7 +11,8 @@ class TestCase(supriya.systemtools.TestCase):
             pathlib.Path(supriya.__path__[0]) /
             'assets' /
             'applications' /
-            'Test.yml')
+            'Test.yml'
+            )
 
     def tearDown(self):
         self.server.quit()

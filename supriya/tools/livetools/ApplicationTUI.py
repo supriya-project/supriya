@@ -11,9 +11,11 @@ class ApplicationTUI:
         self._application = application
         self._server_tui = supriya.livetools.ServerTUI(
             self.application.server,
+            application_tui=self,
             )
         self._mixer_tui = supriya.livetools.MixerTUI(
             self.application.mixer,
+            application_tui=self,
             )
         self._top_widget = urwid.Padding(
             urwid.Frame(
