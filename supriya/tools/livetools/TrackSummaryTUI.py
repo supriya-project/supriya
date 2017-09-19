@@ -5,7 +5,7 @@ from supriya.tools.livetools.BoundCheckBox import BoundCheckBox
 from supriya.tools.livetools.BoundGainButton import BoundGainButton
 
 
-class TrackTUI:
+class TrackSummaryTUI:
 
     ### INITIALIZER ###
 
@@ -45,70 +45,54 @@ class TrackTUI:
         return graph
 
     def _setup_aggregate_widgets(self):
-        header = urwid.BoxAdapter(
-            urwid.ListBox(
-                urwid.SimpleListWalker([
-                    self._attr_mapped(self._direct_ins_button),
-                    urwid.LineBox(
-                        urwid.BoxAdapter(
-                            self._input_graph,
-                            height=4,
+        self._widget = urwid.AttrMap(
+            urwid.LineBox(
+                urwid.ListBox(
+                    urwid.SimpleListWalker([
+                        urwid.Text('{} Channels'.format(
+                            self.track.channel_count),
+                            align='center',
                             ),
-                        title='Inputs',
-                        ),
-                    ]),
-                ),
-            height=7,
-            )
-        footer = urwid.BoxAdapter(
-            urwid.ListBox(
-                urwid.SimpleListWalker([
-                    urwid.LineBox(
-                        urwid.BoxAdapter(
-                            urwid.AttrMap(
-                                self._prefader_graph,
-                                'bargraph-1',
-                                focus_map={None: 'focus'},
+                        urwid.LineBox(
+                            urwid.BoxAdapter(
+                                self._input_graph,
+                                height=6,
                                 ),
-                            height=4,
+                            title='Inputs',
                             ),
-                        title='Prefader',
-                        ),
-                    *self._checkboxes,
-                    self._attr_mapped(self._gain_slider),
-                    urwid.LineBox(
-                        urwid.BoxAdapter(
-                            self._postfader_graph,
-                            height=4,
+                        self._slots_button,
+                        urwid.LineBox(
+                            urwid.BoxAdapter(
+                                self._prefader_graph,
+                                height=6,
+                                ),
+                            title='Prefader',
                             ),
-                        title='Postfader',
-                        ),
-                    self._attr_mapped(self._direct_outs_button),
-                    ]),
+                        *self._checkboxes,
+                        self._attr_mapped(self._gain_slider),
+                        urwid.LineBox(
+                            urwid.BoxAdapter(
+                                self._postfader_graph,
+                                height=6,
+                                ),
+                            title='Postfader',
+                            ),
+                        self._sends_button,
+                        ]),
+                    ),
+                title=self.track.name,
                 ),
-            height=17,
+            'blur',
+            focus_map={None: 'focus'},
             )
-        body = urwid.ListBox(
-            urwid.SimpleListWalker([
-                self._slots_button,
-                self._sends_button,
-                ]),
-            )
-        self._widget = urwid.LineBox(
-            urwid.Pile([('pack', header), body, ('pack', footer)]),
-            title=self.track.name,
-            )
-        self._widget = urwid.AttrMap(self._widget, 'blur', focus_map={None: 'focus'})
 
     def _setup_interactive_widgets(self):
         # Buttons
-        self._direct_ins_button = urwid.Button('Direct Ins')
-        self._direct_outs_button = urwid.Button('Direct Outs')
         self._sends_button = urwid.Button('Sends')
         self._slots_button = urwid.Button('Slots')
         # CheckBoxes
-        if self.track.name != 'cue':
-            cue_checkbox = None
+        if self.track.name == 'cue':
+            cue_checkbox = urwid.Divider()
         else:
             cue_checkbox = BoundCheckBox(
                 'Cue',
@@ -116,8 +100,8 @@ class TrackTUI:
                 self.track.set_cue,
                 )
         if self.track.name in ('cue', 'master'):
-            mute_checkbox = None
-            solo_checkbox = None
+            mute_checkbox = urwid.Divider()
+            solo_checkbox = urwid.Divider()
         else:
             mute_checkbox = BoundCheckBox(
                 'Mute',
@@ -132,7 +116,6 @@ class TrackTUI:
         self._checkboxes = [
             self._attr_mapped(checkbox)
             for checkbox in [cue_checkbox, mute_checkbox, solo_checkbox]
-            if checkbox is not None
             ]
         # Sliders
         self._gain_slider = BoundGainButton(
@@ -159,7 +142,9 @@ class TrackTUI:
         self._postfader_graph.set_data(postfader_levels, -64.0, 0.0)
         # checkboxes
         for checkbox in self._checkboxes:
-            checkbox.original_widget.refresh()
+            checkbox = checkbox.original_widget
+            if 'refresh' in dir(checkbox):
+                checkbox.refresh()
         # Sliders
         self._gain_slider.refresh()
 

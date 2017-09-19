@@ -342,7 +342,7 @@ class Track:
 
     @systemtools.Bindable(rebroadcast=True)
     def set_cue(self, state):
-        if self.name in ('cue', 'master'):
+        if self.name == 'cue':
             return False
         elif not state:
             self._is_cued = False
