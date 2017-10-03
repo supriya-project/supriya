@@ -1,18 +1,23 @@
 application:
+
     buffers:
       - name: birds
         path: supriya:audio/birds/*.wav
+
     devices:
       - name: test 
         path: supriya:devices/Test.yml
         overrides:
             device:
                 port: 1
+
     mixer:
-        channel_count: 1
-        cue_channel_count: 1
+        channel_count: 2
+        cue_channel_count: 2
         tracks:
+
           - name: track-a
+
             slots:
               - name: slot-one
                 type: synth
@@ -28,37 +33,49 @@ application:
                     amplitude: $knobs:knob_1
                     frequency: $knobs:knob_2
                     pan:       $knobs:knob_3
+
             bind:
-                set_gain: $devices:test:fader_1
+                set_gain:
+                    source: $devices:test:fader_1
+                    range: [-96.0, 0.0]
+
           - name: track-b
+
             slots: 
               - name: slot-two
                 type: trigger
                 synthdef: supriya.synthdefs:default
-                pattern:
-                    type: Pbind
-                    amplitude: $args.amplitude
-                    buffer_id:
-                      type: Prand
-                      sequence: $buffers.birds
-                      repetitions: null
-                    pan: $args.pan
-                    frequency:
-                        type: Pwhite
-                        minimum: $args.frequency_min
-                        maximum: $args.frequency_max
                 args:
                     amplitude: 1.0
                     pan: 0.0
                     frequency_max: 2.0
                     frequency_min: 0.5
+                pattern:
+                    type: Pbind
+                    amplitude: $args.amplitude
+                    buffer_id:
+                        type: Prand
+                        sequence: $buffers.birds
+                        repetitions: null
+                    pan: $args.pan
+                    frequency:
+                        type: Pwhite
+                        minimum: $args.frequency_min
+                        maximum: $args.frequency_max
                 bind:
-                  trigger:       $devices:test:clip_launch_2x1
-                  amplitude:     $devices:test:outer_modal:1:knobs:0:knob_1
-                  frequency_min: $devices:test:outer_modal:1:knobs:0:knob_2
-                  frequency_max: $devices:test:outer_modal:1:knobs:0:knob_3
+                    trigger:       $devices:test:clip_launch_2x1
+                    amplitude:     $devices:test:outer_modal:1:knobs:0:knob_1
+                    frequency_min: $devices:test:outer_modal:1:knobs:0:knob_2
+                    frequency_max: $devices:test:outer_modal:1:knobs:0:knob_3
+
             bind:
-                set_gain: $devices:test:fader_2
+                set_gain:
+                    source: $devices:test:fader_2
+                    range: [-96.0, 0.0]
+
           - name: master
+
             bind:
-                set_gain: $devices:test:fader_3
+                set_gain:
+                    source: $devices:test:fader_3
+                    range: [-96.0, 0.0]
