@@ -97,7 +97,7 @@ class ApplicationTUI:
             self._mixer_tui._widget.set_focus_path([contents_length - 1])
 
     def update_track_details(self, track):
-        track_detail_tui = TrackDetailTUI(track)
+        track_detail_tui = TrackDetailTUI(track, application_tui=self)
         widget = track_detail_tui.widget
         self._track_details_widget.original_widget = widget
 
@@ -106,6 +106,10 @@ class ApplicationTUI:
         self.server_tui.refresh()
 
     def run(self):
+        track = self.application.mixer.master_track
+        if self.application.mixer.tracks:
+            track = self.application.mixer.tracks[0]
+        self.update_track_details(track)
         self.loop.set_alarm_in(self._refresh_rate, self._refresh_loop)
         self.loop.run()
 
