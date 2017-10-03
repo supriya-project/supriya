@@ -1,4 +1,5 @@
 global-include *.py
+global-include *.pyx
 global-exclude *.pyc
 
 include .travis.yml
