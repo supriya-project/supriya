@@ -7,7 +7,7 @@ import yaml
 class YAMLLoader:
 
     @classmethod
-    def load(cls, path):
+    def load(cls, path, overrides=None):
         path = pathlib.Path(path)
         with path.open() as file_pointer:
             string = file_pointer.read()
@@ -19,16 +19,20 @@ class YAMLLoader:
             extends_manifest = cls.load(extends_path)
             manifest = cls.merge(extends_manifest, manifest)
         manifest = cls.resolve_templating(manifest)
+        if overrides:
+            return cls.merge(manifest, overrides)
         return manifest
 
     @classmethod
     def merge(cls, old, new):
-        for key in new:
-            if key not in old:
-                old[key] = new[key]
-            else:
-                old[key] = cls.merge(old[key], new[key])
-        return old
+        if isinstance(old, dict) and isinstance(new, dict):
+            for key in new:
+                if key not in old:
+                    old[key] = new[key]
+                else:
+                    old[key] = cls.merge(old[key], new[key])
+            return old
+        return new
 
     @classmethod
     def resolve_templating(cls, manifest, template_variables=None):

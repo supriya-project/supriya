@@ -12,7 +12,16 @@ class Send:
         self._source_track = source_track
         self._target_track = target_track
         self._gain = float(initial_gain)
-        self._synth = None
+        synthdef = self.build_synthdef(
+            self.source_track_count,
+            self.target_track_count,
+            )
+        self._synth = servertools.Synth(
+            synthdef=synthdef,
+            gain=self.gain,
+            in_=0,
+            out=0,
+            )
 
     ### SPECIAL METHODS ###
 
@@ -26,21 +35,13 @@ class Send:
     ### PRIVATE METHODS ###
 
     def _allocate(self):
-        synthdef = self.build_synthdef(
-            self.source_track_count,
-            self.target_track_count,
-            )
-        self._synth = servertools.Synth(
-            synthdef=synthdef,
-            gain=self.gain,
-            in_=self.source_track.output_bus_group,
-            out=self.target_track.input_bus_group,
-            )
-        self.source_track.send_group.append(self._synth)
+        self.synth['in_'] = self.source_track.output_bus_group
+        self.synth['out'] = self.target_track.input_bus_group
+        self.synth['gain'] = self.gain
+        self.source_track.send_group.append(self.synth)
 
     def _free(self):
         self._synth.release()
-        self._synth = None
 
     ### PUBLIC METHODS ###
 
@@ -119,6 +120,10 @@ class Send:
     @property
     def gain(self):
         return self._gain
+
+    @property
+    def is_allocated(self):
+        return self.synth.is_allocated
 
     @property
     def mixer(self):

@@ -14,7 +14,7 @@ class Mix(PseudoUGen):
             ...     oscillators = [ugentools.DC.ar(1) for _ in range(5)]
             ...     mix = ugentools.Mix.new(oscillators)
             ...
-            >>> synthdef = builder.build(name='mix1')
+            >>> synthdef = builder.build(name='mix1', optimize=False)
             >>> graph(synthdef)  # doctest: +SKIP
 
         ::

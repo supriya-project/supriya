@@ -99,7 +99,7 @@ class TestCase(systemtools.TestCase):
                 -   controller: 48
                     mode: continuous
                     name: master_level
-                port_name: Test Device
+                port: Test Device
             """)
 
     def test_02(self):
@@ -168,7 +168,7 @@ class TestCase(systemtools.TestCase):
                 -   controller: 48
                     mode: continuous
                     name: master_level
-                port_name: Test Device
+                port: Test Device
             """)
 
     def test_03(self):
@@ -278,7 +278,7 @@ class TestCase(systemtools.TestCase):
                 -   controller: 48
                     mode: continuous
                     name: master_level
-                port_name: Test Device
+                port: Test Device
             extends: Test-Physical.yml
             templates:
                 track:

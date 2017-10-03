@@ -70,8 +70,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/4
                                 out: 20.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/4x4
-                                in_: 20.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0,1:1,2:2,3:3
+                                in_: 20.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/2
                                 in_: 24.0, out: 26.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -79,8 +79,8 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/2
                                 out: 26.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/2x2
-                                in_: 26.0, out: 4.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:4,1:5
+                                in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
             """)
         for track_name in ('master', 'cue', 'foo', 'bar'):
             track = mixer[track_name]
@@ -149,8 +149,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/4
                                 out: 20.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/4x4
-                                in_: 20.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0,1:1,2:2,3:3
+                                in_: 20.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/2
                                 in_: 24.0, out: 26.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -158,8 +158,8 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/2
                                 out: 26.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/2x2
-                                in_: 26.0, out: 4.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:4,1:5
+                                in_: 26.0, out: 0.0, gate: 1.0, lag: 0.1
             """)
         for track_name in ('master', 'cue', 'foo', 'bar'):
             track = mixer[track_name]
@@ -258,8 +258,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/1
                                 out: 17.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/1x1
-                                in_: 17.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0
+                                in_: 17.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/1
                                 in_: 18.0, out: 19.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -267,6 +267,6 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/1
                                 out: 19.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/1x1
-                                in_: 19.0, out: 1.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:1
+                                in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
             """)

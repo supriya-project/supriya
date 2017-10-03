@@ -36,9 +36,9 @@ class TestCase(systemtools.TestCase):
             target_node=self.mixer['baz'],
             out=int(self.mixer['baz'].output_bus_group),
             )
-        self.mixer['foo'].gain(0)
-        self.mixer['bar'].gain(0)
-        self.mixer['baz'].gain(0)
+        self.mixer['foo'].set_gain(0)
+        self.mixer['bar'].set_gain(0)
+        self.mixer['baz'].set_gain(0)
         self.mixer['foo'].send['master'] = -96
         self.mixer['bar'].send['master'] = -96
         self.mixer['baz'].send['master'] = 0
@@ -61,7 +61,7 @@ class TestCase(systemtools.TestCase):
         levels = self.mixer['master'].input_levels
         assert round(levels['rms'][0], 2) == 1.75
         # mute bar
-        self.mixer['bar'].mute(True)
+        self.mixer['bar'].set_mute(True)
         time.sleep(0.25)
         levels = self.mixer['master'].input_levels
         assert round(levels['rms'][0], 2) == 0.25

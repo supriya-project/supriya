@@ -62,8 +62,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/1
                                 out: 17.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/1x1
-                                in_: 17.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0
+                                in_: 17.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/1
                                 in_: 18.0, out: 19.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -71,8 +71,8 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/1
                                 out: 19.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/1x1
-                                in_: 19.0, out: 1.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:1
+                                in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
             """)
 
     def test_trigger(self):
@@ -125,8 +125,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/1
                                 out: 17.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/1x1
-                                in_: 17.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0
+                                in_: 17.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/1
                                 in_: 18.0, out: 19.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -134,8 +134,8 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/1
                                 out: 19.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/1x1
-                                in_: 19.0, out: 1.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:1
+                                in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
             """)
 
     def test_maximum_replicas(self):
@@ -189,8 +189,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/1
                                 out: 17.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/1x1
-                                in_: 17.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0
+                                in_: 17.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/1
                                 in_: 18.0, out: 19.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -198,8 +198,8 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/1
                                 out: 19.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/1x1
-                                in_: 19.0, out: 1.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:1
+                                in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
             """)
         slot.trigger(True)
         self.compare_strings(
@@ -238,8 +238,8 @@ class TestCase(systemtools.TestCase):
                             1006 mixer/output/1
                                 out: 17.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1007 group
-                            1008 mixer/send/1x1
-                                in_: 17.0, out: 0.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1008 mixer/direct/0:0
+                                in_: 17.0, out: 0.0, gate: 1.0, lag: 0.1
                         1009 group
                             1010 mixer/input/1
                                 in_: 18.0, out: 19.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
@@ -247,6 +247,6 @@ class TestCase(systemtools.TestCase):
                             1012 mixer/output/1
                                 out: 19.0, active: 1.0, gain: -96.0, gate: 1.0, lag: 0.1
                             1013 group
-                            1014 mixer/send/1x1
-                                in_: 19.0, out: 1.0, active: 1.0, gain: 0.0, gate: 1.0, lag: 0.1
+                            1014 mixer/direct/0:1
+                                in_: 19.0, out: 0.0, gate: 1.0, lag: 0.1
             """)

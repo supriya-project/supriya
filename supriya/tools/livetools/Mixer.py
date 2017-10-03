@@ -93,23 +93,27 @@ class Mixer:
         return False
 
     def _setup_master_track(self):
-        self._master_track = Track(
+        track = Track(
             self,
             name='master',
             channel_count=self._channel_count,
-            has_direct_out=True,
             )
-        self._tracks_by_name['master'] = self._master_track
+        mapping = [(i, i) for i in range(self._channel_count)]
+        track.add_direct_out(mapping)
+        self._tracks_by_name['master'] = track
+        self._master_track = track
 
     def _setup_cue_track(self):
-        self._cue_track = Track(
+        track = Track(
             self,
             name='cue',
             channel_count=self.cue_channel_count,
-            has_cue=False,
-            has_direct_out=True,
             )
-        self._tracks_by_name['cue'] = self._cue_track
+        offset = self._channel_count
+        mapping = [(i, i + offset) for i in range(self.cue_channel_count)]
+        track.add_direct_out(mapping)
+        self._tracks_by_name['cue'] = track
+        self._cue_track = track
 
     def _setup_osc_callbacks(self):
         self._input_levels_callback = osctools.OscCallback(
@@ -143,10 +147,6 @@ class Mixer:
 
     ### PUBLIC METHODS ###
 
-    @systemtools.Bindable(rebroadcast=True)
-    def allow_multiple(self, state):
-        self._is_allowing_multiple = bool(state)
-
     def add_track(self, name, channel_count=None, index=None):
         assert name not in self._tracks_by_name
         track = Track(self, name=name, channel_count=channel_count)
@@ -172,9 +172,6 @@ class Mixer:
         self.group.append(self._track_group)
         self.master_track._allocate_buses()
         self.cue_track._allocate_buses()
-        self.master_track.direct_out_synth['out'] = 0
-        self.cue_track.direct_out_synth['out'] = \
-            self.master_track.channel_count
         self._master_track._allocate_nodes(self._group)
         self._cue_track._allocate_nodes(self._group)
         for track in self._tracks:
@@ -225,6 +222,25 @@ class Mixer:
             elif operator == '.':
                 current_object = getattr(current_object, name)
         return current_object
+
+    def remove_track(self, name):
+        assert name in self._tracks_by_name
+        track = self._tracks_by_name.pop(name)
+        self._tracks.remove(track)
+        if self.is_allocated:
+            for target_name in tuple(track._outgoing_sends.keys()):
+                track.remove_send(target_name)
+            for source_name in tuple(track._incoming_sends.keys()):
+                self._tracks_by_name[source_name].remove_send(name)
+            track._free()
+        track._mixer = None
+
+    ### BINDABLES ###
+
+    @systemtools.Bindable(rebroadcast=True)
+    def allow_multiple(self, state):
+        self._is_allowing_multiple = bool(state)
+        return self._is_allowing_multiple
 
     ### PUBLIC PROPERTIES ###
 

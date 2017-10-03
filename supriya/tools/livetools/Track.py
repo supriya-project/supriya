@@ -3,6 +3,8 @@ from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
 from supriya.tools.livetools.AutoPatternSlot import AutoPatternSlot
+from supriya.tools.livetools.Direct import Direct
+from supriya.tools.livetools.Send import Send
 from supriya.tools.livetools.SendManager import SendManager
 from supriya.tools.livetools.SynthSlot import SynthSlot
 from supriya.tools.livetools.TriggerPatternSlot import TriggerPatternSlot
@@ -17,8 +19,6 @@ class Track:
         mixer,
         name,
         channel_count=None,
-        has_cue=True,
-        has_direct_out=False,
         ):
         from supriya.tools import livetools
         assert isinstance(mixer, livetools.Mixer)
@@ -36,8 +36,7 @@ class Track:
             calculation_rate='audio',
             )
 
-        self._has_cue = bool(has_cue)
-        self._has_direct_out = bool(has_direct_out)
+        self._gain = float('-inf')
         self._is_cued = False
         self._is_muted = False
         self._is_soloed = False
@@ -56,7 +55,9 @@ class Track:
         self._instrument_group = servertools.Group()
         self._send_group = servertools.Group()
         self._cue_synth = None
-        if self.has_cue:
+        self._direct_in = None
+        self._direct_out = None
+        if self.name != 'cue':
             self._cue_synth = servertools.Synth(
                 synthdef=livetools.Send.build_synthdef(
                     self.channel_count, self.mixer.cue_track.channel_count),
@@ -66,18 +67,12 @@ class Track:
             synthdef=self.build_output_synthdef(self.channel_count),
             gain=-96,
             )
-        self._direct_out_synth = None
-        if self.has_direct_out:
-            self._direct_out_synth = servertools.Synth(
-                synthdef=livetools.Send.build_synthdef(
-                    self.channel_count, self.channel_count))
         nodes = [_ for _ in [
             self._input_synth,
             self._instrument_group,
             self._cue_synth,
             self._output_synth,
             self._send_group,
-            self._direct_out_synth,
             ] if _ is not None]
         self._group.extend(nodes)
 
@@ -117,8 +112,6 @@ class Track:
         if self.cue_synth:
             self.cue_synth['in_'] = self.output_bus_group
             self.cue_synth['out'] = self.mixer.cue_track.input_bus_group
-        if self.direct_out_synth:
-            self.direct_out_synth['in_'] = self.output_bus_group
         if index is None:
             target_group.append(self._group)
         else:
@@ -130,6 +123,10 @@ class Track:
         self.mixer._levels_mapping[self.output_synth.node_id] = self
         for slot in self._slots:
             slot._allocate()
+        if self.direct_in is not None:
+            self.direct_in._allocate()
+        if self.direct_out is not None:
+            self.direct_out._allocate()
 
     def _as_node_target(self):
         return self.instrument_group
@@ -139,9 +136,9 @@ class Track:
             slot._free()
         if self.cue_synth:
             self.cue_synth.release()
-        if self.direct_out_synth:
-            self.direct_out_synth.release()
-        for send in self._outgoing_sends.values():
+        for send in tuple(self._incoming_sends.values()):
+            send._free()
+        for send in tuple(self._outgoing_sends.values()):
             send._free()
         self.group.free()
         self.output_bus_group.free()
@@ -161,6 +158,55 @@ class Track:
             **kwargs
             )
         return self._add_slot(slot)
+
+    def add_direct_in(self, mapping):
+        if not mapping:
+            self.remove_direct_in()
+            return
+        direct_in = Direct(self, mapping, is_input=True)
+        if self.direct_in is not None:
+            self.direct_in._free()
+        self._direct_in = direct_in
+        if self.is_allocated:
+            self._direct_in._allocate()
+
+    def add_direct_out(self, mapping):
+        if not mapping:
+            self.remove_direct_out()
+            return
+        direct_out = Direct(self, mapping, is_input=False)
+        if self.direct_out is not None:
+            self.direct_out._free()
+        self._direct_out = direct_out
+        if self.is_allocated:
+            self._direct_out._allocate()
+
+    def remove_direct_in(self):
+        if self.direct_in is None:
+            return
+        self.direct_in._free()
+        self._direct_in = None
+
+    def remove_direct_out(self):
+        if self.direct_out is None:
+            return
+        self.direct_out._free()
+        self._direct_out = None
+
+    def add_send(self, target_name, initial_gain=0.0):
+        assert target_name not in self._outgoing_sends
+        source_track = self
+        target_track = self.mixer[target_name]
+        send = Send(
+            source_track,
+            target_track,
+            initial_gain=initial_gain,
+            )
+        source_track._outgoing_sends[target_name] = send
+        target_track._incoming_sends[source_track.name] = send
+        if self.mixer.is_allocated:
+            send._allocate()
+        return send
 
     def add_synth_slot(self, name, synthdef=None, **kwargs):
         slot = SynthSlot(
@@ -272,11 +318,32 @@ class Track:
         name = 'mixer/output/{}'.format(channel_count)
         return synthdef_builder.build(name=name)
 
+    def remove_send(self, target_name):
+        assert target_name in self._outgoing_sends
+        send = self._outgoing_sends.pop(target_name)
+        target_track = self.mixer[target_name]
+        target_track._incoming_sends.pop(self.name)
+        send._free()
+        self._track = None
+
+    ### BINDABLES ###
+
+    def get_cue(self):
+        return self.is_cued
+
+    def get_gain(self):
+        return self.gain
+
+    def get_mute(self):
+        return self.is_muted
+
+    def get_solo(self):
+        return self.is_soloed
+
     @systemtools.Bindable(rebroadcast=True)
-    def cue(self, state):
-        if not self.has_cue:
-            self._is_cued = False
-            state = False
+    def set_cue(self, state):
+        if self.name == 'cue':
+            return False
         elif not state:
             self._is_cued = False
             self.cue_synth['active'] = False
@@ -288,16 +355,19 @@ class Track:
                     if track is self:
                         continue
                     elif track.is_cued:
-                        track.cue(False)
+                        track.set_cue(False)
         return state
 
     @systemtools.Bindable(rebroadcast=True)
-    def gain(self, gain):
+    def set_gain(self, gain):
+        self._gain = gain
         self.output_synth['gain'] = gain
         return gain
 
     @systemtools.Bindable(rebroadcast=True)
-    def mute(self, state):
+    def set_mute(self, state):
+        if self.name in ('master',):
+            return False
         if state:
             self._is_muted = True
             self._is_soloed = False
@@ -307,7 +377,9 @@ class Track:
         return bool(state)
 
     @systemtools.Bindable(rebroadcast=True)
-    def solo(self, state, handle=True):
+    def set_solo(self, state, handle=True):
+        if self.name in ('cue', 'master'):
+            return False
         if state:
             self._is_muted = False
             self._is_soloed = True
@@ -315,7 +387,7 @@ class Track:
                 for track in self.mixer.tracks:
                     if track is self:
                         continue
-                    track.solo(False, handle=False)
+                    track.set_solo(False, handle=False)
         else:
             self._is_soloed = False
         if handle:
@@ -333,20 +405,20 @@ class Track:
         return self._cue_synth
 
     @property
-    def direct_out_synth(self):
-        return self._direct_out_synth
+    def direct_in(self):
+        return self._direct_in
+
+    @property
+    def direct_out(self):
+        return self._direct_out
+
+    @property
+    def gain(self):
+        return self._gain
 
     @property
     def group(self):
         return self._group
-
-    @property
-    def has_cue(self):
-        return self._has_cue
-
-    @property
-    def has_direct_out(self):
-        return self._has_direct_out
 
     @property
     def input_bus_group(self):

@@ -1,9 +1,9 @@
 import collections
+import copy
 import logging
 import pathlib
 import rtmidi
 import threading
-import yaml
 from supriya.tools import systemtools
 from supriya.tools.miditools.LogicalView import LogicalView
 from supriya.tools.miditools.LogicalControl import LogicalControl
@@ -19,10 +19,13 @@ logging.basicConfig(
 
 class Device:
 
-    def __init__(self, manifest, logger=None):
+    def __init__(self, manifest, logger=None, overrides=None):
         import supriya
         self._logger = logger or logging.getLogger(type(self).__name__)
         if isinstance(manifest, dict):
+            manifest = copy.deepcopy(manifest)
+            if overrides:
+                manifest = systemtools.YAMLLoader.merge(manifest, overrides)
             self._device_manifest = manifest
         else:
             manifest = pathlib.Path(manifest)
@@ -35,8 +38,11 @@ class Device:
                     'devices' /
                     manifest
                     )
-            with open(str(manifest)) as file_pointer:
-                self._device_manifest = yaml.load(file_pointer)
+            manifest = systemtools.YAMLLoader.load(
+                str(manifest),
+                overrides=overrides,
+                )
+            self._device_manifest = manifest
         self._lock = threading.RLock()
         self._midi_in = rtmidi.MidiIn()
         self._midi_out = rtmidi.MidiOut()
@@ -280,7 +286,7 @@ class Device:
                         channel=channel,
                         group_name=spec['name'],
                         has_led=spec.get('has_led', False),
-                        mode=spec['mode'],
+                        mode=spec.get('mode', 'continuous'),
                         )
 
     def _linearize_manifest(self, manifest):
@@ -392,15 +398,20 @@ class Device:
 
     def open_port(self, port=None, virtual=False):
         self.logger.info('Opening port {}'.format(port))
+        if port is None:
+            port = self._device_manifest.get('port')
+            if isinstance(port, str):
+                port_names = self.get_ports()
+                if port in port_names:
+                    port = port_names.index(port)
+                else:
+                    port = None
+        if port is None:
+            virtual = True
         if virtual:
             self._midi_in.open_virtual_port()
             self._midi_out.open_virtual_port()
         else:
-            if port is None:
-                port_names = self.get_ports()
-                akai_name = 'Akai APC40'
-                assert akai_name in port_names
-                port = port_names.index(akai_name)
             self._midi_in.open_port(port)
             self._midi_out.open_port(port)
         self._midi_in.ignore_types(

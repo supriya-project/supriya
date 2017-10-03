@@ -1,7 +1,8 @@
+import copy
 import importlib
 import pathlib
 import re
-import yaml
+import traceback
 from supriya.tools import patterntools
 from supriya.tools import servertools
 from supriya.tools import systemtools
@@ -9,25 +10,23 @@ from supriya.tools import systemtools
 
 class Application:
 
-    def __init__(self, manifest, logger=None):
+    def __init__(self, manifest=None, logger=None, overrides=None):
         import supriya
+        manifest = manifest or {}
         if isinstance(manifest, dict):
+            manifest = copy.deepcopy(manifest)
+            if overrides:
+                manifest = systemtools.YAMLLoader.merge(manifest, overrides)
             self._manifest = manifest
         else:
-            manifest = pathlib.Path(manifest)
-            if not manifest.suffix:
-                manifest = manifest.with_suffix('.yml')
-            if not manifest.is_absolute():
-                manifest = (
-                    pathlib.Path(supriya.__path__[0]) /
-                    'assets' /
-                    'applications' /
-                    manifest
-                    )
-            with open(str(manifest)) as file_pointer:
-                self._manifest = yaml.load(file_pointer)['application']
+            path = self._lookup_file_paths(str(manifest))[0]
+            manifest = systemtools.YAMLLoader.load(
+                str(path),
+                overrides=overrides,
+                )
+            self._manifest = manifest['application']
         self._setup_buffers()
-        self._setup_device()
+        self._setup_devices()
         self._setup_mixer()
         self._setup_bindings()
         self._server = supriya.Server.get_default_server()
@@ -60,16 +59,24 @@ class Application:
             'buffers': buffers,
             }
 
-    def _lookup_file_paths(self, path):
-        match = re.match('([\w]+):.+', path)
+    @classmethod
+    def _lookup_file_paths(cls, path):
+        match = re.match('([\w]+:)?(.+)', path)
         if not match:
             raise ValueError
-        module_name, _, path = path.partition(':')
-        module = importlib.import_module(module_name)
-        root_path = pathlib.Path(module.__path__[0]) / 'assets'
-        return root_path.glob(path)
+        module_name, path = match.groups()
+        if module_name:
+            module_name = module_name[:-1]
+            module = importlib.import_module(module_name)
+            root_path = pathlib.Path(module.__path__[0]) / 'assets'
+        else:
+            root_path = pathlib.Path('.')
+        if (root_path / path).exists():
+            return [root_path / path]
+        return list(root_path.glob(path))
 
-    def _lookup_importable_object(self, name):
+    @classmethod
+    def _lookup_importable_object(cls, name):
         match = re.match('\w+(\.\w+)+:\w+', name)
         if not match:
             raise ValueError
@@ -77,7 +84,8 @@ class Application:
         module = importlib.import_module(module_path)
         return getattr(module, name)
 
-    def _lookup_nested_object(self, object_, name, namespaces=None):
+    @classmethod
+    def _lookup_nested_object(cls, object_, name, namespaces=None):
         current_object = object_
         match = re.match(r'^(\w+)$', name)
         if match:
@@ -112,21 +120,6 @@ class Application:
                 current_object = getattr(current_object, name)
         return current_object
 
-    def _setup_buffers(self):
-        self._buffer_names_to_buffer_groups = {}
-        self._buffer_names_to_file_paths = {}
-        for buffer_spec in self.manifest.get('buffers', []):
-            name = buffer_spec['name']
-            if name in self._buffer_names_to_buffer_groups:
-                raise ValueError(buffer_spec)
-            path = buffer_spec['path']
-            file_paths = tuple(self._lookup_file_paths(path))
-            if not file_paths:
-                continue
-            buffer_group = servertools.BufferGroup(len(file_paths))
-            self._buffer_names_to_buffer_groups[name] = buffer_group
-            self._buffer_names_to_file_paths[name] = file_paths
-
     def _setup_binding(self, context, context_spec, target_name, bind_spec):
         try:
             target = context[target_name]
@@ -144,51 +137,87 @@ class Application:
             source = self._lookup_nested_object(
                 self, source_name[1:], namespaces=namespaces)
         except:
-            print([
-                _.qualified_name for _ in
-                self._device.visibility_mapping.values()
-                ])
+            print(source_name)
             raise
         binding = systemtools.bind(source, target, target_range=target_range)
         self._bindings.add(binding)
 
     def _setup_bindings(self):
         self._bindings = set()
-        mixer_spec = self.manifest.get('mixer')
-        for target_name, bind_spec in mixer_spec.get('bind', {}).items():
+        mixer_spec = self.manifest.get('mixer', {})
+        bind_specs = mixer_spec.get('bind') or {}
+        for target_name, bind_spec in bind_specs.items():
             self._setup_binding(self.mixer, mixer_spec, target_name, bind_spec)
         for track_spec in mixer_spec.get('tracks', []):
             track = self._mixer[track_spec['name']]
-            for target_name, bind_spec in track_spec.get('bind', {}).items():
+            bind_specs = track_spec.get('bind') or {}
+            for target_name, bind_spec in bind_specs.items():
                 self._setup_binding(track, track_spec, target_name, bind_spec)
-            for slot_spec in track_spec.get('slots', []):
+            slot_specs = track_spec.get('slots') or []
+            for slot_spec in slot_specs:
                 slot = track[slot_spec['name']]
                 for target_name, bind_spec in slot_spec.get(
                     'bind', {}).items():
                     self._setup_binding(slot, slot_spec, target_name, bind_spec)
+            send_specs = track_spec.get('sends') or []
+            for send_spec in send_specs:
+                target_name = send_spec.get('name')
+                bind_spec = send_spec.get('bind')
+                self._setup_binding(track.send, send_spec, target_name, bind_spec)
 
-    def _setup_device(self):
+    def _setup_buffers(self):
+        self._buffer_names_to_buffer_groups = {}
+        self._buffer_names_to_file_paths = {}
+        buffer_specs = self.manifest.get('buffers') or []
+        for buffer_spec in buffer_specs:
+            name = buffer_spec['name']
+            if name in self._buffer_names_to_buffer_groups:
+                raise ValueError(buffer_spec)
+            path = buffer_spec['path']
+            file_paths = tuple(self._lookup_file_paths(path))
+            if not file_paths:
+                continue
+            buffer_group = servertools.BufferGroup(len(file_paths))
+            self._buffer_names_to_buffer_groups[name] = buffer_group
+            self._buffer_names_to_file_paths[name] = file_paths
+
+    def _setup_devices(self):
         from supriya.tools import miditools
-        device = None
-        device_name = self.manifest.get('device')
-        if device_name:
-            manifest_path = next(self._lookup_file_paths(device_name))
-            device = miditools.Device(manifest_path)
-        self._device = device
+        self._devices = {}
+        device_specs = self.manifest.get('devices') or []
+        for device_spec in device_specs:
+            name, path = device_spec['name'], device_spec['path']
+            if name in self._devices:
+                raise ValueError(device_spec)
+            manifest_path = self._lookup_file_paths(path)[0]
+            self._devices[name] = miditools.Device(
+                manifest_path,
+                overrides=device_spec.get('overrides'),
+                )
 
     def _setup_mixer(self):
         from supriya.tools import livetools
-        manifest = self.manifest.get('mixer')
+        manifest = self.manifest.get('mixer', {})
         channel_count = int(manifest.get('channel_count', 2))
         cue_channel_count = int(manifest.get('cue_channel_count', 2))
         self._mixer = livetools.Mixer(channel_count, cue_channel_count)
-        for track_spec in manifest.get('tracks', []):
+        track_specs = manifest.get('tracks') or []
+        for track_spec in track_specs:
             if track_spec['name'] not in ('master', 'cue'):
                 channel_count = track_spec.get('channel_count')
                 self._mixer.add_track(track_spec['name'], channel_count)
+        for track_spec in manifest.get('tracks', []):
             track = self._mixer[track_spec['name']]
-            for slot_spec in track_spec.get('slots', []):
+            slot_specs = track_spec.get('slots') or []
+            for slot_spec in slot_specs:
                 self._setup_slot(track, slot_spec)
+            send_specs = track_spec.get('sends') or []
+            for send_spec in send_specs:
+                self._setup_send(track, send_spec)
+
+    def _setup_send(self, track, send_spec):
+        send_name = send_spec['name']
+        track.send(send_name)
 
     def _setup_slot(self, track, slot_spec):
         slot_name = slot_spec['name']
@@ -197,7 +226,7 @@ class Application:
         slot_synthdef = slot_spec.get('synthdef')
         if slot_synthdef:
             slot_synthdef = self._lookup_importable_object(slot_synthdef)
-        slot_args = slot_spec.get('args', {})
+        slot_args = slot_spec.get('args') or {}
         if slot_type == 'trigger':
             maximum_replicas = slot_spec.get('maximum_replicas')
             if maximum_replicas:
@@ -228,15 +257,23 @@ class Application:
         self._allocate_buffers()
         self.mixer.allocate()
         try:
-            self.device.open_port()
+            for device in self.devices.values():
+                device.open_port()
         except:
-            self.device.open_port(virtual=True)
+            traceback.print_exc()
+            for device in self.devices.values():
+                device.open_port(virtual=True)
         return self
 
     def quit(self):
         self.server.quit()
-        self.device.close_port()
+        for device in self.devices.values():
+            device.close_port()
         return self
+
+    def tui(self):
+        import supriya
+        return supriya.livetools.ApplicationTUI(self)
 
     ### PUBLIC PROPERTIES ###
 
@@ -249,8 +286,8 @@ class Application:
         return self._buffer_names_to_buffer_groups
 
     @property
-    def device(self):
-        return self._device
+    def devices(self):
+        return self._devices
 
     @property
     def mixer(self):

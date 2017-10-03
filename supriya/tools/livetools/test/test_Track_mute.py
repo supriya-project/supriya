@@ -36,9 +36,9 @@ class TestCase(systemtools.TestCase):
             target_node=self.mixer['baz'],
             out=int(self.mixer['baz'].output_bus_group),
             )
-        self.mixer['foo'].gain(0)
-        self.mixer['bar'].gain(0)
-        self.mixer['baz'].gain(0)
+        self.mixer['foo'].set_gain(0)
+        self.mixer['bar'].set_gain(0)
+        self.mixer['baz'].set_gain(0)
         time.sleep(0.25)
 
     def tearDown(self):
@@ -62,7 +62,7 @@ class TestCase(systemtools.TestCase):
         """
         Tracks can be muted.
         """
-        self.mixer['bar'].mute(True)
+        self.mixer['bar'].set_mute(True)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_muted
         assert self.mixer['bar'].is_muted
@@ -77,8 +77,8 @@ class TestCase(systemtools.TestCase):
         """
         Tracks can be unmuted.
         """
-        self.mixer['bar'].mute(True)
-        self.mixer['bar'].mute(False)
+        self.mixer['bar'].set_mute(True)
+        self.mixer['bar'].set_mute(False)
         time.sleep(0.25)
         assert not self.mixer['foo'].is_muted
         assert not self.mixer['bar'].is_muted
@@ -93,8 +93,8 @@ class TestCase(systemtools.TestCase):
         """
         Muting is not mutally exclusive.
         """
-        self.mixer['bar'].mute(True)
-        self.mixer['foo'].mute(True)
+        self.mixer['bar'].set_mute(True)
+        self.mixer['foo'].set_mute(True)
         time.sleep(0.25)
         assert self.mixer['foo'].is_muted
         assert self.mixer['bar'].is_muted

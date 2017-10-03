@@ -24,8 +24,9 @@ class TestCase(supriya.systemtools.TestCase):
         assert len(application.buffers) == 1
         assert 'birds' in application.buffers
         assert len(application.buffers['birds']) == 9
-        # MIDI device
-        assert application.device is not None
+        # MIDI devices
+        assert application.devices is not None
+        assert application.devices['test'] is not None
         # Mixer
         assert application.mixer is not None
         assert application.mixer.channel_count == 1
@@ -42,3 +43,28 @@ class TestCase(supriya.systemtools.TestCase):
             application.boot()
         finally:
             application.quit()
+
+    def test_03(self):
+        application = supriya.Application('supriya:applications/Test2.yml')
+        # MIDI devices
+        assert application.devices is not None
+        assert isinstance(application.devices['nano_a'], supriya.Device)
+        assert isinstance(application.devices['nano_b'], supriya.Device)
+        # Mixer
+        mixer = application.mixer
+        assert mixer is not None
+        assert mixer.channel_count == 2
+        assert mixer.cue_channel_count == 2
+        # Tracks
+        assert len(mixer) == 6
+        assert 'track-a' in mixer
+        assert 'track-b' in mixer
+        assert 'track-c' in mixer
+        assert 'track-d' in mixer
+        # Sends
+        assert sorted(mixer['track-a'].send) == ['master', 'track-c', 'track-d']
+        assert sorted(mixer['track-b'].send) == ['master', 'track-c', 'track-d']
+        assert sorted(mixer['track-c'].send) == ['master']
+        assert sorted(mixer['track-d'].send) == ['master']
+        # Binding
+        assert len(application.bindings) == 5
