@@ -3,10 +3,16 @@ pyximport.install()
 del(pyximport)
 
 
-def import_structured_package(path, namespace, remove=True):
+def import_structured_package(
+    path,
+    namespace,
+    remove=True,
+    verbose=False,
+    ):
     import importlib
     import inspect
     import pathlib
+    import traceback
     package_path = pathlib.Path(path).resolve().absolute()
     if not package_path.is_dir():
         package_path = package_path.parent()
@@ -16,24 +22,36 @@ def import_structured_package(path, namespace, remove=True):
         root_path = root_path.parent
     relative_path = package_path.relative_to(root_path)
     package_import_path = '.'.join((root_path.name,) + relative_path.parts)
+    if verbose:
+        print(package_import_path)
     # Find importable modules and import their nominative object
-    for module_path in package_path.iterdir():
+    for module_path in sorted(package_path.iterdir()):
+        if verbose:
+            print(' ' * 3, module_path)
         if module_path.is_dir():
-            if not (module_path / '__init__.py').exists():
-                continue
-            module_name = module_path.name
+            if verbose:
+                print(' ' * 7, 'Skipping...')
+            continue
         else:
             if module_path.suffix not in ('.py', '.pyx'):
+                if verbose:
+                    print(' ' * 7, 'Skipping...')
                 continue
             module_name = module_path.with_suffix('').name
             if module_name == '__init__':
+                if verbose:
+                    print(' ' * 7, 'Skipping...')
                 continue
         module_import_path = package_import_path + '.' + module_name
+        if verbose:
+            print(' ' * 7, '{}:{}'.format(module_import_path, module_name))
         module = importlib.import_module(module_import_path)
         try:
             namespace[module_name] = getattr(module, module_name)
         except AttributeError:
-            continue
+            if verbose:
+                print('Failed:', module_path)
+                traceback.print_exc()
     # Delete this function from the namespace
     this_name = inspect.currentframe().f_code.co_name
     if remove and this_name in namespace:
@@ -41,7 +59,6 @@ def import_structured_package(path, namespace, remove=True):
 
 
 from supriya import utils  # noqa
-from supriya.tools import *  # noqa
 from supriya.tools.miditools import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
@@ -93,6 +110,7 @@ from abjad.tools.topleveltools import (  # noqa
     graph,
     )
 from supriya import synthdefs  # noqa
+from supriya.tools import *  # noqa
 
 __version__ = 0.1
 
