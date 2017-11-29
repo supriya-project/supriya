@@ -30,7 +30,7 @@ class ManageProjectScript(ProjectPackageScript):
         here = pathlib.Path.cwd()
         renders_path = (self.inner_project_path / 'renders').relative_to(here)
         print('Cleaning {} ...'.format(renders_path))
-        for file_path in list(renders_path.iterdir()):
+        for file_path in sorted(renders_path.iterdir()):
             if file_path.name.startswith('.'):
                 continue
             file_path.unlink()

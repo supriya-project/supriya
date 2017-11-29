@@ -59,6 +59,7 @@ def import_structured_package(
 
 
 from supriya import utils  # noqa
+from supriya import tools  # noqa
 from supriya.tools.miditools import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
@@ -111,7 +112,6 @@ from abjad.tools.topleveltools import (  # noqa
     )
 from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
-del tools  # noqa
 
 __version__ = 0.1
 
