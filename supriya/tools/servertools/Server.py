@@ -400,7 +400,6 @@ class Server(SupriyaObject):
         options_string = server_options.as_options_string(self.port)
         if os.environ.get('TRAVIS', None):
             command = '{} {}'.format(scsynth_path, options_string)
-            print('COMMAND:', command)
         else:
             command = '{} {} -V -1'.format(scsynth_path, options_string)
         if self.debug_subprocess:
