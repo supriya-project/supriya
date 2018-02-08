@@ -15,6 +15,7 @@ before_install:
 - sudo apt-get install -y alsa-oss alsa-utils graphviz jackd libasound2-dev libjack-dev libjack0 portaudio19-dev supercollider
 - sudo bash tests/prep-dummy-soundcard.sh
 - sudo -E su $USER -c "scsynth -h || true"
+- mkdir -p /home/travis/.local/share/SuperCollider/synthdefs
 
 install:
 - pip install -e .
