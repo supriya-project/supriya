@@ -398,9 +398,11 @@ class Server(SupriyaObject):
         if kwargs:
             server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {} -V -1'.format(scsynth_path, options_string)
         if os.environ.get('TRAVIS', None):
+            command = '{} {}'.format(scsynth_path, options_string)
             print('COMMAND:', command)
+        else:
+            command = '{} {} -V -1'.format(scsynth_path, options_string)
         if self.debug_subprocess:
             print(command)
         self._server_process = subprocess.Popen(command, shell=True)
