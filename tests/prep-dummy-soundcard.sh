@@ -21,3 +21,4 @@ alias sound-service-0-12 snd-pcm-oss
 EOF
 modprobe snd-dummy 
 # ; modprobe snd-pcm-oss ; modprobe snd-mixer-oss ; modprobe snd-seq-oss
+mkdir -p tmp && chmod 777 tmp

@@ -3,35 +3,35 @@ language: python
 sudo: required
 
 python:
-    - 3.5
+  - 3.6
 
 env:
-    global:
-        AUDIODEV=null
+  global:
+    AUDIODEV=null
 
 before_install:
-    - sudo apt-get update -qq
-    - sudo usermod -a -G audio travis
-    - sudo apt-get install -y build-essential
-    - sudo apt-get install -y portaudio19-dev libasound2-dev alsa-utils alsa-oss
-    - sudo apt-get install -y jackd libjack-dev libjack0
-    - sudo apt-get install -y supercollider graphviz
-    - sudo bash ./prep-dummy-soundcard.sh
-    - sudo -E su $USER -c "scsynth -h || true"
+- sudo usermod -a -G audio travis
+- sudo apt-get update -qq
+- sudo apt-get install -y alsa-oss alsa-utils graphviz jackd libasound2-dev libjack-dev libjack0 portaudio19-dev supercollider
+- sudo bash tests/prep-dummy-soundcard.sh
+- sudo -E su $USER -c "scsynth -h || true"
 
 install:
-    - pip install -e .
+- pip install -e .
 
 before_script:
-    - "export DISPLAY=:99.0"
-    - "sh -e /etc/init.d/xvfb start"
-    - sleep 3 # give xvfb time to start
-    - sudo jackd -r -ddummy -r44100 -p1024 &
-    - sleep 3 # give jackd time to start
+- "export DISPLAY=:99.0"
+- "sh -e /etc/init.d/xvfb start"
+- sleep 5 # give xvfb time to start
+- sudo -E su $USER -c "jackd -r -ddummy -r44100 -p1024" &
+- sleep 5 # give jackd time to start
+- sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
+- sleep 5
+- killall scsynth
 
 script:
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya'"
-    - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya'"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test -vv -x"
 
 notifications:
     email: false
