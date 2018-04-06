@@ -409,7 +409,7 @@ class Server(SupriyaObject):
             print(command)
         self._server_process = subprocess.Popen(command, shell=True)
         if os.environ.get('TRAVIS', None):
-            time.sleep(1.0)
+            time.sleep(2.0)
         else:
             time.sleep(0.25)
         self._is_running = True
