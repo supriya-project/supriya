@@ -101,13 +101,13 @@ class ManageProjectScript(ProjectPackageScript):
         renders_path = (self.inner_project_path / 'renders').relative_to(here)
         print('Pruning {} ...'.format(renders_path))
         md5s = set()
-        for file_path in self.inner_project_path.glob('**/render.yml'):
+        for file_path in sorted(self.inner_project_path.glob('**/render.yml')):
             with open(str(file_path), 'r') as file_pointer:
                 render_yml = yaml.load(file_pointer.read())
                 md5s.add(render_yml['render'])
                 if render_yml['source']:
                     md5s.update(render_yml['source'])
-        for file_path in list(renders_path.iterdir()):
+        for file_path in sorted(renders_path.iterdir()):
             if file_path.name.startswith('.'):
                 continue
             if file_path.with_suffix('').name in md5s:

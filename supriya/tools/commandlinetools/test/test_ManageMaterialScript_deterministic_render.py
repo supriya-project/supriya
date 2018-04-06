@@ -41,8 +41,8 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
 
-        aiff_artifacts = list(self.renders_path.glob('*.aiff'))
-        osc_artifacts = list(self.renders_path.glob('*.osc'))
+        aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))
+        osc_artifacts = sorted(self.renders_path.glob('*.osc'))
         assert len(aiff_artifacts) == 0
         assert len(osc_artifacts) == 0
 
@@ -114,8 +114,8 @@ class Test(ProjectPackageScriptTestCase):
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
 
-        aiff_artifacts = list(self.renders_path.glob('*.aiff'))
-        osc_artifacts = list(self.renders_path.glob('*.osc'))
+        aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))
+        osc_artifacts = sorted(self.renders_path.glob('*.osc'))
         assert len(aiff_artifacts) == 1
         assert len(osc_artifacts) == 1
 
@@ -128,8 +128,8 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
 
-        aiff_artifacts = list(self.renders_path.glob('*.aiff'))
-        osc_artifacts = list(self.renders_path.glob('*.osc'))
+        aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))
+        osc_artifacts = sorted(self.renders_path.glob('*.osc'))
         assert len(aiff_artifacts) == 0
         assert len(osc_artifacts) == 0
 
@@ -142,7 +142,7 @@ class Test(ProjectPackageScriptTestCase):
                 except SystemExit as e:
                     raise RuntimeError('SystemExit: {}'.format(e.code))
 
-        aiff_artifacts = list(self.renders_path.glob('*.aiff'))
-        osc_artifacts = list(self.renders_path.glob('*.osc'))
+        aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))
+        osc_artifacts = sorted(self.renders_path.glob('*.osc'))
         assert len(aiff_artifacts) == count
         assert len(osc_artifacts) == count
