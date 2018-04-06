@@ -305,7 +305,10 @@ class Server(SupriyaObject):
     def _setup_notifications(self):
         from supriya.tools import requesttools
         request = requesttools.NotifyRequest(True)
-        request.communicate(server=self)
+        request.communicate(
+            server=self,
+            sync=os.environ.get('TRAVIS', None) is None,
+            )
 
     def _setup_proxies(self):
         from supriya.tools import servertools
