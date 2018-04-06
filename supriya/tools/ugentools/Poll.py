@@ -32,10 +32,6 @@ class Poll(UGen):
 
         ::
 
-            >>> from supriya import *
-
-        ::
-
             >>> with SynthDefBuilder() as builder:
             ...     sine = ugentools.SinOsc.ar()
             ...     trigger = ugentools.Impulse.kr(1)

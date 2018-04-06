@@ -7,7 +7,7 @@ from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 class Test(ProjectPackageScriptTestCase):
 
-    @mock.patch('supriya.commandlinetools.ProjectPackageScript._call_subprocess')
+    @mock.patch('supriya.tools.commandlinetools.ProjectPackageScript._call_subprocess')
     def test_success(self, call_subprocess_mock):
         call_subprocess_mock.return_value = 0
         self.create_project()

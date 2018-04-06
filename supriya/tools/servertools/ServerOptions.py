@@ -78,7 +78,6 @@ class ServerOptions(SupriyaObject):
         if os.environ.get('TRAVIS', None):
             input_device = 'dummy'
             output_device = 'dummy'
-            load_synthdefs = False
             sample_rate = 44100
         self._audio_bus_channel_count = int(audio_bus_channel_count)
         self._block_size = int(block_size)

@@ -30,7 +30,7 @@ class TestCase(unittest.TestCase):
     def compare_path_contents(self, path_to_search, expected_files):
         actual_files = sorted(
             str(path.relative_to(self.test_path))
-            for path in path_to_search.glob('**/*.*')
+            for path in sorted(path_to_search.glob('**/*.*'))
             if '__pycache__' not in path.parts and
             path.suffix != '.pyc'
             )

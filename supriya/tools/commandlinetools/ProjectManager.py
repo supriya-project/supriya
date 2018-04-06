@@ -8,7 +8,7 @@ class ProjectManager:
     def import_section_objects(section, file_path, namespace):
         section_path = pathlib.Path(file_path).parent
         root_path = section_path.parent
-        for path in section_path.iterdir():
+        for path in sorted(section_path.iterdir()):
             if not path.is_dir():
                 continue
             elif not (path / '__init__.py').exists():

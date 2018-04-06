@@ -92,7 +92,7 @@ class ProjectPackageScript(CommandlineScript):
     @classmethod
     def _copy_tree(cls, source_directory, target_directory, recurse=True):
         copied_paths = []
-        source_paths = [_ for _ in source_directory.glob('*')]
+        source_paths = [_ for _ in sorted(source_directory.glob('*'))]
         if not target_directory.exists():
             target_directory.mkdir(parents=True)
         for source_path in source_paths:
@@ -173,13 +173,13 @@ class ProjectPackageScript(CommandlineScript):
         with systemtools.DirectoryChange(str(project_root_path)):
             try:
                 importlib.invalidate_caches()
-            except:
+            except Exception:
                 pass
             if path in sys.modules:
                 importlib.reload(sys.modules[path])
             try:
                 return importlib.import_module(path)
-            except ImportError:
+            except (ImportError, ModuleNotFoundError):
                 print(traceback.format_exc())
                 raise SystemExit(1)
             except Exception:
@@ -194,7 +194,7 @@ class ProjectPackageScript(CommandlineScript):
             project_path = self._project_project_path
         section_path = project_path.joinpath(section)
         paths = [
-            path for path in section_path.glob('*')
+            path for path in sorted(section_path.glob('*'))
             if path.is_dir() and path.joinpath('__init__.py').exists()
             ]
         return sorted(paths)
@@ -238,7 +238,7 @@ class ProjectPackageScript(CommandlineScript):
                         path = path._path
                     if not isinstance(path, str):  # If it's a package...
                         path = path[0]  # Get the first path in the list.
-                except:
+                except Exception:
                     print(traceback.format_exc())
             # Make sure to expand any home variables.
             path = pathlib.Path(os.path.expanduser(path))

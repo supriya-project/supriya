@@ -143,7 +143,11 @@ class ProjectSectionScript(ProjectPackageScript):
                 verbose=verbose,
                 )
             object_ = getattr(module, section_singular)
-        except (ImportError, AttributeError):
+        except (
+            AttributeError,
+            ImportError,
+            ModuleNotFoundError,
+            ):
             print(traceback.format_exc())
             sys.exit(1)
         return object_

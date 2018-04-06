@@ -1,4 +1,5 @@
 import atexit
+import os
 import subprocess
 import time
 from supriya import utils
@@ -304,7 +305,10 @@ class Server(SupriyaObject):
     def _setup_notifications(self):
         from supriya.tools import requesttools
         request = requesttools.NotifyRequest(True)
-        request.communicate(server=self)
+        request.communicate(
+            server=self,
+            sync=os.environ.get('TRAVIS', None) is None,
+            )
 
     def _setup_proxies(self):
         from supriya.tools import servertools
@@ -397,12 +401,17 @@ class Server(SupriyaObject):
         if kwargs:
             server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
-        command = '{} {} -V -1'.format(scsynth_path, options_string)
-        #command = '{} {}'.format(scsynth_path, options_string)
+        if os.environ.get('TRAVIS', None):
+            command = '{} {}'.format(scsynth_path, options_string)
+        else:
+            command = '{} {} -V -1'.format(scsynth_path, options_string)
         if self.debug_subprocess:
             print(command)
         self._server_process = subprocess.Popen(command, shell=True)
-        time.sleep(0.25)
+        if os.environ.get('TRAVIS', None):
+            time.sleep(2.0)
+        else:
+            time.sleep(0.25)
         self._is_running = True
         self._server_options = server_options
         self._setup()

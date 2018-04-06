@@ -1,4 +1,5 @@
 import hashlib
+import os
 import pathlib
 import shutil
 import struct
@@ -134,6 +135,8 @@ class SessionRenderer(systemtools.SupriyaObject):
         from supriya import supriya_configuration
         cwd = pathlib.Path.cwd()
         server_options = server_options or servertools.ServerOptions()
+        if os.environ.get('TRAVIS', None):
+            server_options = utils.new(server_options, load_synthdefs=True)
         scsynth_path = supriya_configuration.scsynth_path
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
@@ -454,7 +457,7 @@ class SessionRenderer(systemtools.SupriyaObject):
                             osc_file_path,
                             **kwargs
                             )
-                    except:
+                    except Exception:
                         output_file_path.unlink()
                         sys.exit(1)
                     if exit_code:
