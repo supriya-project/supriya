@@ -112,6 +112,7 @@ from abjad.tools.topleveltools import (  # noqa
     )
 from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
+from supriya.tools import responsetools  # noqa
 
 __version__ = 0.1
 
