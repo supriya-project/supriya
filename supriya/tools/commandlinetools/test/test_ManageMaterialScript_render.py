@@ -54,7 +54,7 @@ class Test(ProjectPackageScriptTestCase):
               File ".../ProjectPackageScript.py", line ..., in _import_path
                 return importlib.import_module(path)
               ...
-            ImportError: No module named 'test_project.materials.test_material.definition'
+            ModuleNotFoundError: No module named 'test_project.materials.test_material.definition'
         '''.replace('/', os.path.sep))
 
     def test_python_cannot_render(self):

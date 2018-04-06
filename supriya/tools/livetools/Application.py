@@ -73,7 +73,7 @@ class Application:
             root_path = pathlib.Path('.')
         if (root_path / path).exists():
             return [root_path / path]
-        return list(root_path.glob(path))
+        return sorted(root_path.glob(path))
 
     @classmethod
     def _lookup_importable_object(cls, name):

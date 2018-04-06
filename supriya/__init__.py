@@ -27,24 +27,24 @@ def import_structured_package(
     # Find importable modules and import their nominative object
     for module_path in sorted(package_path.iterdir()):
         if verbose:
-            print(' ' * 3, module_path)
+            print('    {}'.format(module_path))
         if module_path.is_dir():
             if verbose:
-                print(' ' * 7, 'Skipping...')
+                print('        Skipping...')
             continue
         else:
             if module_path.suffix not in ('.py', '.pyx'):
                 if verbose:
-                    print(' ' * 7, 'Skipping...')
+                    print('        Skipping...')
                 continue
             module_name = module_path.with_suffix('').name
             if module_name == '__init__':
                 if verbose:
-                    print(' ' * 7, 'Skipping...')
+                    print('        Skipping...')
                 continue
         module_import_path = package_import_path + '.' + module_name
         if verbose:
-            print(' ' * 7, '{}:{}'.format(module_import_path, module_name))
+            print('        Importing {}:{}'.format(module_import_path, module_name))
         module = importlib.import_module(module_import_path)
         try:
             namespace[module_name] = getattr(module, module_name)
@@ -59,6 +59,7 @@ def import_structured_package(
 
 
 from supriya import utils  # noqa
+from supriya import tools  # noqa
 from supriya.tools.miditools import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
@@ -111,6 +112,7 @@ from abjad.tools.topleveltools import (  # noqa
     )
 from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
+from supriya.tools import responsetools  # noqa
 
 __version__ = 0.1
 

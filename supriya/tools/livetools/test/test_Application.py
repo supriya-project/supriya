@@ -29,8 +29,8 @@ class TestCase(supriya.systemtools.TestCase):
         assert application.devices['test'] is not None
         # Mixer
         assert application.mixer is not None
-        assert application.mixer.channel_count == 1
-        assert application.mixer.cue_channel_count == 1
+        assert application.mixer.channel_count == 2
+        assert application.mixer.cue_channel_count == 2
         assert len(application.mixer) == 4
         assert 'track-a' in application.mixer
         assert 'slot-one' in application.mixer['track-a']
