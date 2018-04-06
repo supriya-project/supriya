@@ -173,13 +173,13 @@ class ProjectPackageScript(CommandlineScript):
         with systemtools.DirectoryChange(str(project_root_path)):
             try:
                 importlib.invalidate_caches()
-            except:
+            except Exception:
                 pass
             if path in sys.modules:
                 importlib.reload(sys.modules[path])
             try:
                 return importlib.import_module(path)
-            except ImportError:
+            except (ImportError, ModuleNotFoundError):
                 print(traceback.format_exc())
                 raise SystemExit(1)
             except Exception:
@@ -238,7 +238,7 @@ class ProjectPackageScript(CommandlineScript):
                         path = path._path
                     if not isinstance(path, str):  # If it's a package...
                         path = path[0]  # Get the first path in the list.
-                except:
+                except Exception:
                     print(traceback.format_exc())
             # Make sure to expand any home variables.
             path = pathlib.Path(os.path.expanduser(path))
