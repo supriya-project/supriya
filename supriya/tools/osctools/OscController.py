@@ -103,7 +103,7 @@ class OscController(SupriyaObject):
         if self.debug_osc:
             as_list = message.to_list()
             if as_list != [2]:
-                print('SEND', time.time(), message.to_list())
+                print('SEND', '{:0.6f}'.format(time.time()), message.to_list())
                 if self.debug_udp:
                     for line in str(message).splitlines():
                         print('    ' + line)

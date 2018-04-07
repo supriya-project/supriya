@@ -27,7 +27,7 @@ class Dispatcher(SupriyaObject):
         callback_pairs = []
         input_ = self._coerce_input(expr)
         if self.debug:
-            print('RECV', time.time(), type(self))
+            print('RECV', '{:0.6f}'.format(time.time()), type(self))
             for line in repr(input_).splitlines():
                 print('    ' + line)
         with self.lock:
