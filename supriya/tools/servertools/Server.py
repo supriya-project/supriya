@@ -306,7 +306,10 @@ class Server(SupriyaObject):
     def _setup_notifications(self):
         from supriya.tools import requesttools
         request = requesttools.NotifyRequest(True)
-        request.communicate(server=self)
+        timeout = 1.0
+        if os.environ.get('TRAVIS'):
+            timeout = 5.0
+        request.communicate(server=self, timeout=timeout)
 
     def _setup_proxies(self):
         from supriya.tools import servertools
