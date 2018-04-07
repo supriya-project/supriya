@@ -121,7 +121,7 @@ class Test(ProjectPackageScriptTestCase):
           File ".../soundfiletools/render.py", line ..., in render
             **kwargs
           File
-          ".../commandlinetools/test/test_project/test_project/materials/test_material/definition.py", line ..., in __render__
+          ".../test_project/test_project/materials/test_material/definition.py", line ..., in __render__
             raise TypeError('This is fake.')
         TypeError: This is fake.
         '''.replace('/', os.path.sep))
@@ -151,7 +151,7 @@ class Test(ProjectPackageScriptTestCase):
           File ".../commandlinetools/ProjectPackageScript.py", line ..., in _import_path
             return importlib.import_module(path)
           ...
-          File ".../test_project/materials/test_material/definition.py", line ..., in <module>
+          File ".../test_project/test_project/materials/test_material/definition.py", line ..., in <module>
             failure = 1 / 0
         ZeroDivisionError: division by zero
         '''.replace('/', os.path.sep))
