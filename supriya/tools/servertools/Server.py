@@ -401,17 +401,24 @@ class Server(SupriyaObject):
         if kwargs:
             server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
-        if os.environ.get('TRAVIS', None):
-            command = '{} {}'.format(scsynth_path, options_string)
-        else:
-            command = '{} {} -V -1'.format(scsynth_path, options_string)
+        command = '{} {}'.format(scsynth_path, options_string)
         if self.debug_subprocess:
             print(command)
-        self._server_process = subprocess.Popen(command, shell=True)
-        if os.environ.get('TRAVIS', None):
-            time.sleep(2.0)
-        else:
-            time.sleep(0.25)
+        self._server_process = subprocess.Popen(
+            command,
+            shell=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            )
+        start_time = time.time()
+        while True:
+            line = self._server_process.stdout.readline().decode()
+            if line.startswith('SuperCollider 3 server ready'):
+                break
+            elif line.startswith('Exception in World_OpenUDP: bind: Address already in use'):
+                raise Exception
+            elif (time.time() - start_time) > 1:
+                raise Exception
         self._is_running = True
         self._server_options = server_options
         self._setup()
