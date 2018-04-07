@@ -1,3 +1,4 @@
+import os
 from supriya.tools import osctools
 from supriya.tools.requesttools.Request import Request
 
@@ -69,9 +70,12 @@ class NotifyRequest(Request):
     @property
     def response_specification(self):
         from supriya.tools import responsetools
+        pattern = ('/notify', 0)
+        if os.environ.get('TRAVIS'):
+            pattern = ('/notify',)
         return {
             responsetools.DoneResponse: {
-                'action': ('/notify', 0),
+                'action': pattern,
                 },
             }
 
