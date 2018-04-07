@@ -132,6 +132,7 @@ class Server(SupriyaObject):
         self._buffer_allocator = None
         self._control_bus_allocator = None
         self._node_id_allocator = None
+        self._sync_id = 0
 
         ### SERVER PROCESS ###
 
