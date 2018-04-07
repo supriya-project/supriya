@@ -1,6 +1,7 @@
 import socket
 import sys
 import threading
+import time
 import traceback
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
@@ -62,12 +63,12 @@ class OscListener(SupriyaObject, threading.Thread):
                     continue
                 if self.debug_osc:
                     if message.address != '/status.reply':
-                        print('RECV', message.to_list())
+                        print('RECV', time.time(), message.to_list())
                         if self.debug_udp:
                             for line in str(message).splitlines():
                                 print('    ' + line)
                 osc_dispatcher(message)
                 response_dispatcher(message)
-        except:
+        except Exception:
             sys.stderr.write('Exception in listener thread:\n')
             traceback.print_exc()

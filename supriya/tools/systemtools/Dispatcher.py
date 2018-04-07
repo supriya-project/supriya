@@ -1,5 +1,6 @@
 import abc
 import threading
+import time
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -26,7 +27,7 @@ class Dispatcher(SupriyaObject):
         callback_pairs = []
         input_ = self._coerce_input(expr)
         if self.debug:
-            print('RECV', type(self))
+            print('RECV', time.time(), type(self))
             for line in repr(input_).splitlines():
                 print('    ' + line)
         with self.lock:
