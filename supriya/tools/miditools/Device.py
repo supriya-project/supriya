@@ -291,16 +291,16 @@ class Device:
                         )
 
     def _linearize_manifest(self, manifest):
-        trellis = uqbar.containers.Trellis()
+        dependency_graph = uqbar.containers.DependencyGraph()
         entries_by_parentage = {}
         self._recurse_manifest(
             entries_by_parentage=entries_by_parentage,
             manifest=manifest,
             parentage=('root',),
-            trellis=trellis,
+            dependency_graph=dependency_graph,
             )
         templates = collections.OrderedDict()
-        for parentage_string in trellis:
+        for parentage_string in dependency_graph:
             if parentage_string == 'root':
                 continue
             templates[parentage_string] = entries_by_parentage[parentage_string]
@@ -349,7 +349,7 @@ class Device:
         entries_by_parentage,
         manifest,
         parentage,
-        trellis,
+        dependency_graph,
         ):
         for entry in manifest:
             entry_name = entry.get('name') or entry.get('physical_control')
@@ -360,14 +360,14 @@ class Device:
             entries_by_parentage[entry_parentage_string] = entry
             if parentage:
                 parentage_string = ':'.join(parentage)
-                trellis.add(
+                dependency_graph.add(
                     parentage_string,
                     entry_parentage_string,
                     )
             else:
-                trellis.add(entry_parentage_string)
+                dependency_graph.add(entry_parentage_string)
             if 'modal' in entry:
-                trellis.add(
+                dependency_graph.add(
                     'root:{}'.format(entry.get('modal')),
                     entry_parentage_string,
                     )
@@ -377,7 +377,7 @@ class Device:
                     entries_by_parentage=entries_by_parentage,
                     manifest=children,
                     parentage=entry_parentage,
-                    trellis=trellis,
+                    dependency_graph=dependency_graph,
                     )
 
     ### PUBLIC METHODS ###

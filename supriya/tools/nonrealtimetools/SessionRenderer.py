@@ -40,7 +40,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         '_renderable_prefixes',
         '_transcript',
         '_transcript_prefix',
-        '_trellis',
+        '_dependency_graph',
         '_sessionables_to_sessions',
         )
 
@@ -187,18 +187,18 @@ class SessionRenderer(systemtools.SupriyaObject):
                 osc_message._contents = tuple(contents)
         return osc_bundles
 
-    def _build_trellis_and_nonxrefd_osc_bundles_conditionally(
+    def _build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
         self, expr, parent):
         from supriya.tools import nonrealtimetools
         expr = self._sessionable_to_session(expr)
         if isinstance(expr, nonrealtimetools.Session):
-            if expr not in self.trellis:
-                self._build_trellis_and_nonxrefd_osc_bundles(expr)
-            self.trellis.add(expr, parent=parent)
+            if expr not in self.dependency_graph:
+                self._build_dependency_graph_and_nonxrefd_osc_bundles(expr)
+            self.dependency_graph.add(expr, parent=parent)
         elif hasattr(expr, '__render__'):
-            self.trellis.add(expr, parent=parent)
+            self.dependency_graph.add(expr, parent=parent)
 
-    def _build_trellis_and_nonxrefd_osc_bundles(self, session, duration=None):
+    def _build_dependency_graph_and_nonxrefd_osc_bundles(self, session, duration=None):
         input_ = session.input_
         if isinstance(input_, str):
             input_ = pathlib.Path(input_)
@@ -206,13 +206,13 @@ class SessionRenderer(systemtools.SupriyaObject):
         non_xrefd_bundles = session._to_non_xrefd_osc_bundles(duration)
         self.compiled_sessions[session] = input_, non_xrefd_bundles
         if session is self.session:
-            self.trellis.add(session)
-        self._build_trellis_and_nonxrefd_osc_bundles_conditionally(
+            self.dependency_graph.add(session)
+        self._build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
             input_, session)
         for non_xrefd_bundle in non_xrefd_bundles:
             for request in non_xrefd_bundle.contents:
                 for x in request.contents:
-                    self._build_trellis_and_nonxrefd_osc_bundles_conditionally(
+                    self._build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
                         x, session)
 
     def _call_subprocess(self, command):
@@ -253,11 +253,11 @@ class SessionRenderer(systemtools.SupriyaObject):
 
     def _collect_prerender_tuples(self, session, duration=None):
         from supriya.tools import nonrealtimetools
-        self._build_trellis_and_nonxrefd_osc_bundles(
+        self._build_dependency_graph_and_nonxrefd_osc_bundles(
             session, duration=duration)
-        assert self.trellis.is_acyclic()
+        assert self.dependency_graph.is_acyclic()
         extension = '.{}'.format(self.header_format.name.lower())
-        for renderable in self.trellis:
+        for renderable in self.dependency_graph:
             if isinstance(renderable, nonrealtimetools.Session):
                 result = self._collect_session_prerender_tuple(
                     renderable, extension)
@@ -350,7 +350,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         self._prerender_tuples = []
         self._session._transcript = self._transcript = []
         self._renderable_prefixes = {}
-        self._trellis = uqbar.containers.Trellis()
+        self._dependency_graph = uqbar.containers.DependencyGraph()
         self._session_input_paths = {}
         self._sessionables_to_sessions = {}
 
@@ -493,6 +493,10 @@ class SessionRenderer(systemtools.SupriyaObject):
         return self._compiled_sessions
 
     @property
+    def dependency_graph(self):
+        return self._dependency_graph
+
+    @property
     def header_format(self):
         return self._header_format
 
@@ -535,7 +539,3 @@ class SessionRenderer(systemtools.SupriyaObject):
     @property
     def transcript_prefix(self):
         return self._transcript_prefix
-
-    @property
-    def trellis(self):
-        return self._trellis
