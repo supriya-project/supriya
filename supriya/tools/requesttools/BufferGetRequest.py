@@ -16,7 +16,7 @@ class BufferGetRequest(Request):
         >>> request
         BufferGetRequest(
             buffer_id=23,
-            indices=(0, 4, 8, 16)
+            indices=(0, 4, 8, 16),
             )
 
     ::

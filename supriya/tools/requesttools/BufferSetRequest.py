@@ -20,11 +20,7 @@ class BufferSetRequest(Request):
         >>> request
         BufferSetRequest(
             buffer_id=23,
-            index_value_pairs=(
-                (0, 1.0),
-                (10, 13.2),
-                (17, 19.3),
-                )
+            index_value_pairs=((0, 1.0), (10, 13.2), (17, 19.3)),
             )
 
     ::

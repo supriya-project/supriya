@@ -18,10 +18,10 @@ class NodeMapToAudioBusRequest(Request):
         ...     )
         >>> request
         NodeMapToAudioBusRequest(
-            node_id=1000,
             amplitude=11,
             frequency=9,
-            phase=10
+            node_id=1000,
+            phase=10,
             )
 
     ::

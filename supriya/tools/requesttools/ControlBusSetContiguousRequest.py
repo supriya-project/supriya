@@ -17,16 +17,7 @@ class ControlBusSetContiguousRequest(Request):
         ...     )
         >>> request
         ControlBusSetContiguousRequest(
-            index_values_pairs=(
-                (
-                    0,
-                    (0.1, 0.2, 0.3),
-                    ),
-                (
-                    4,
-                    (0.4, 0.5, 0.6),
-                    ),
-                )
+            index_values_pairs=((0, (0.1, 0.2, 0.3)), (4, (0.4, 0.5, 0.6))),
             )
 
     ::

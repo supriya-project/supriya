@@ -14,7 +14,7 @@ class NodeQueryRequest(Request):
         ...     )
         >>> request
         NodeQueryRequest(
-            node_id=1000
+            node_id=1000,
             )
 
     ::

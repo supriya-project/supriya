@@ -14,7 +14,7 @@ class BufferZeroRequest(Request):
         ...     )
         >>> request
         BufferZeroRequest(
-            buffer_id=23
+            buffer_id=23,
             )
 
     ::

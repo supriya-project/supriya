@@ -16,7 +16,7 @@ class BufferCopyRequest(Request):
         >>> print(request)
         BufferCopyRequest(
             source_buffer_id=23,
-            target_buffer_id=666
+            target_buffer_id=666,
             )
 
     ::

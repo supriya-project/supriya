@@ -22,9 +22,8 @@ class BufferWriteRequest(Request):
             file_path='test.aiff',
             frame_count=-1,
             header_format=HeaderFormat.AIFF,
-            leave_open=False,
             sample_format=SampleFormat.INT24,
-            starting_frame=0
+            starting_frame=0,
             )
 
     ::

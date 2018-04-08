@@ -14,7 +14,7 @@ class ControlBusGetRequest(Request):
         ...     )
         >>> request
         ControlBusGetRequest(
-            indices=(0, 4, 8, 12)
+            indices=(0, 4, 8, 12),
             )
 
     ::

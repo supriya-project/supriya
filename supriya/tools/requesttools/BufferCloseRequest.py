@@ -14,7 +14,7 @@ class BufferCloseRequest(Request):
         ...     )
         >>> request
         BufferCloseRequest(
-            buffer_id=23
+            buffer_id=23,
             )
 
     ::

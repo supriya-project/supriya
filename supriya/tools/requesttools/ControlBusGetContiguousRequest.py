@@ -19,12 +19,7 @@ class ControlBusGetContiguousRequest(Request):
         ...     )
         >>> request
         ControlBusGetContiguousRequest(
-            index_count_pairs=(
-                (0, 2),
-                (4, 2),
-                (8, 2),
-                (12, 2),
-                )
+            index_count_pairs=((0, 2), (4, 2), (8, 2), (12, 2)),
             )
 
     ::

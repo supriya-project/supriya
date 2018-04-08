@@ -17,10 +17,10 @@ class NodeSetRequest(Request):
         ...     )
         >>> request
         NodeSetRequest(
-            node_id=1000,
             amplitude=0.1,
             frequency=443.1,
-            phase=0.5
+            node_id=1000,
+            phase=0.5,
             )
 
     ::

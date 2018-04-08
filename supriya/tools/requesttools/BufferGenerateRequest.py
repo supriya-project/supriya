@@ -36,7 +36,7 @@ class BufferGenerateRequest(Request):
             frequencies=(1.0, 2.0, 3.0),
             phases=(0.0, 0.5, 0.0),
             should_clear_first=True,
-            should_normalize=True
+            should_normalize=True,
             )
 
     ::

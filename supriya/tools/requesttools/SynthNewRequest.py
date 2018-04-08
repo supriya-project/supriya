@@ -21,11 +21,11 @@ class SynthNewRequest(Request):
         >>> request
         SynthNewRequest(
             add_action=AddAction.ADD_TO_TAIL,
+            frequency=443,
             node_id=1001,
+            phase=0.2,
             synthdef='test',
             target_node_id=1000,
-            frequency=443,
-            phase=0.2
             )
 
     ::

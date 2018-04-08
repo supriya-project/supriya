@@ -19,7 +19,7 @@ class BufferAllocateReadChannelRequest(BufferAllocateReadRequest):
         BufferAllocateReadChannelRequest(
             buffer_id=23,
             channel_indices=(3, 4),
-            file_path='pulse_44100sr_16bit_octo.wav'
+            file_path='pulse_44100sr_16bit_octo.wav',
             )
 
     ::

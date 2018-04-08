@@ -15,7 +15,6 @@ class BufferNormalizeRequest(Request):
         >>> print(request)
         BufferNormalizeRequest(
             buffer_id=23,
-            new_maximum=1.0
             )
 
     ::

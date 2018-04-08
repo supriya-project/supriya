@@ -26,25 +26,12 @@ class SupriyaObject(AbstractBase):
     ### SPECIAL METHODS ###
 
     def __format__(self, format_specification=''):
-        """
-        Formats Supriya object.
-
-        Set `format_specification` to `''` or `'storage'`.
-        Interprets `''` equal to `'storage'`.
-
-        Returns string.
-        """
         from abjad.tools import systemtools
         if format_specification in ('', 'storage'):
             return systemtools.StorageFormatAgent(self).get_storage_format()
         return str(self)
 
     def __repr__(self):
-        """
-        Gets interpreter representation of Supriya object.
-
-        Returns string.
-        """
         from abjad.tools import systemtools
         return systemtools.StorageFormatAgent(self).get_repr_format()
 

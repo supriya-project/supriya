@@ -16,7 +16,7 @@ class GroupQueryTreeRequest(Request):
         >>> request
         GroupQueryTreeRequest(
             include_controls=True,
-            node_id=0
+            node_id=0,
             )
 
     ::

@@ -25,6 +25,12 @@ class Request(SupriyaValueObject):
         self._condition = threading.Condition()
         self._response = None
 
+    ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        import supriya.utils
+        return supriya.utils.get_object_repr(self, multiline=True)
+
     ### PRIVATE METHODS ###
 
     def _coerce_completion_message_input(self, message):

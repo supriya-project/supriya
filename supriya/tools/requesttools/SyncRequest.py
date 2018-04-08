@@ -14,7 +14,7 @@ class SyncRequest(Request):
         ...     )
         >>> request
         SyncRequest(
-            sync_id=1999
+            sync_id=1999,
             )
 
     ::

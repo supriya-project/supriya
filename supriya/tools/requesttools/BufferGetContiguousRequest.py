@@ -16,10 +16,7 @@ class BufferGetContiguousRequest(Request):
         >>> request
         BufferGetContiguousRequest(
             buffer_id=23,
-            index_count_pairs=(
-                (0, 3),
-                (8, 11),
-                )
+            index_count_pairs=((0, 3), (8, 11)),
             )
 
     ::

@@ -19,7 +19,7 @@ class GroupNewRequest(Request):
         GroupNewRequest(
             add_action=AddAction.ADD_TO_TAIL,
             node_id=1001,
-            target_node_id=1000
+            target_node_id=1000,
             )
 
     ::

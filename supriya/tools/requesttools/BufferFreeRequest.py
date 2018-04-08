@@ -14,7 +14,7 @@ class BufferFreeRequest(Request):
         ...     )
         >>> request
         BufferFreeRequest(
-            buffer_id=23
+            buffer_id=23,
             )
 
     ::

@@ -12,7 +12,7 @@ class DumpOscRequest(Request):
         >>> request = requesttools.DumpOscRequest(1)
         >>> request
         DumpOscRequest(
-            osc_status=1
+            osc_status=1,
             )
 
     ::

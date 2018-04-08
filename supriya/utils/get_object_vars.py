@@ -34,8 +34,10 @@ def get_object_vars(expr):
         elif parameter.kind is inspect._VAR_KEYWORD:
             if hasattr(expr, 'items'):
                 items = expr.items()
-            else:
+            elif hasattr(expr, name):
                 items = getattr(expr, name).items()
+            else:
+                items = getattr(expr, '_' + name).items()
             for key, value in items:
                 if key not in args:
                     kwargs[key] = value

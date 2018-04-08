@@ -14,7 +14,7 @@ class BufferQueryRequest(Request):
         ...     )
         >>> request
         BufferQueryRequest(
-            buffer_ids=(1, 23, 41)
+            buffer_ids=(1, 23, 41),
             )
 
     ::

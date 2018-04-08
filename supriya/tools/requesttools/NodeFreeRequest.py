@@ -15,7 +15,7 @@ class NodeFreeRequest(Request):
         ...     )
         >>> request
         NodeFreeRequest(
-            node_ids=(1000,)
+            node_ids=(1000,),
             )
 
     ::

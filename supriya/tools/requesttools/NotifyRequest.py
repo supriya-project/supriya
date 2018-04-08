@@ -16,7 +16,7 @@ class NotifyRequest(Request):
         ...     )
         >>> request
         NotifyRequest(
-            notify_status=True
+            notify_status=True,
             )
 
     ::

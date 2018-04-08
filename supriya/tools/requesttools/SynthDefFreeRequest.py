@@ -14,7 +14,7 @@ class SynthDefFreeRequest(Request):
         ...     )
         >>> request
         SynthDefFreeRequest(
-            synthdef='test'
+            synthdef='test',
             )
 
     ::

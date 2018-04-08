@@ -5,7 +5,7 @@ from supriya.tools.requesttools.Request import Request
 class BufferFillRequest(Request):
     """
     A /b_fill request.
-    
+
     ::
 
         >>> from supriya.tools import requesttools
@@ -19,10 +19,7 @@ class BufferFillRequest(Request):
         >>> request
         BufferFillRequest(
             buffer_id=23,
-            index_count_value_triples=(
-                (0, 8, 0.1),
-                (11, 4, 0.2),
-                )
+            index_count_value_triples=((0, 8, 0.1), (11, 4, 0.2)),
             )
 
     ::

@@ -16,7 +16,7 @@ class BufferAllocateReadRequest(BufferAllocateRequest):
         >>> print(request)
         BufferAllocateReadRequest(
             buffer_id=23,
-            file_path='pulse_44100sr_16bit_octo.wav'
+            file_path='pulse_44100sr_16bit_octo.wav',
             )
 
     ::

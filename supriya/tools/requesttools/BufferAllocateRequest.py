@@ -17,8 +17,8 @@ class BufferAllocateRequest(Request):
         >>> request
         BufferAllocateRequest(
             buffer_id=23,
+            channel_count=2,
             frame_count=512,
-            channel_count=2
             )
 
     ::
