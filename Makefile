@@ -5,3 +5,4 @@ clean:
 	rm -Rif build/
 	rm -Rif .tox/
 	rm -Rif .cache/
+	find . -name '*.pyc' | xargs rm

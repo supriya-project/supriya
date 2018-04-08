@@ -6,6 +6,7 @@ import struct
 import subprocess
 import sys
 import tqdm
+import uqbar.containers
 import yaml
 from supriya import utils
 from supriya.tools.nonrealtimetools import (
@@ -349,7 +350,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         self._prerender_tuples = []
         self._session._transcript = self._transcript = []
         self._renderable_prefixes = {}
-        self._trellis = systemtools.Trellis()
+        self._trellis = uqbar.containers.Trellis()
         self._session_input_paths = {}
         self._sessionables_to_sessions = {}
 

@@ -4,6 +4,7 @@ import logging
 import pathlib
 import rtmidi
 import threading
+import uqbar.containers
 from supriya.tools import systemtools
 from supriya.tools.miditools.LogicalView import LogicalView
 from supriya.tools.miditools.LogicalControl import LogicalControl
@@ -290,7 +291,7 @@ class Device:
                         )
 
     def _linearize_manifest(self, manifest):
-        trellis = systemtools.Trellis()
+        trellis = uqbar.containers.Trellis()
         entries_by_parentage = {}
         self._recurse_manifest(
             entries_by_parentage=entries_by_parentage,

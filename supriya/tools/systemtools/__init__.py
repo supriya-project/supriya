@@ -20,6 +20,5 @@ import_structured_package(__path__[0], globals())
 #from supriya.tools.systemtools.SupriyaConfiguration import SupriyaConfiguration  # noqa
 #from supriya.tools.systemtools.TreeContainer import TreeContainer  # noqa
 #from supriya.tools.systemtools.TreeNode import TreeNode  # noqa
-#from supriya.tools.systemtools.Trellis import Trellis  # noqa
 #from supriya.tools.systemtools.YAMLLoader import YAMLLoader  # noqa
 #from supriya.tools.systemtools.bind import bind  # noqa

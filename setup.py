@@ -18,6 +18,7 @@ install_requires = [
     'tox',
     'tqdm',
     'urwid',
+    'uqbar',
     'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])
