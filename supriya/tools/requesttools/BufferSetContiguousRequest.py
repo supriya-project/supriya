@@ -19,7 +19,10 @@ class BufferSetContiguousRequest(Request):
         >>> request
         BufferSetContiguousRequest(
             buffer_id=23,
-            index_values_pairs=((0, (1.0, 2.0, 3.0)), (10, (17.1, 18.2))),
+            index_values_pairs=(
+                (0, (1.0, 2.0, 3.0)),
+                (10, (17.1, 18.2)),
+                ),
             )
 
     ::

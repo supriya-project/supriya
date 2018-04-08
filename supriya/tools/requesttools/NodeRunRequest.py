@@ -17,7 +17,10 @@ class NodeRunRequest(Request):
         ...     )
         >>> request
         NodeRunRequest(
-            node_id_run_flag_pairs=((1000, True), (1001, False)),
+            node_id_run_flag_pairs=(
+                (1000, True),
+                (1001, False),
+                ),
             )
 
     ::

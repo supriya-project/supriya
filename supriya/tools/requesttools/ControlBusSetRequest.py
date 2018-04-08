@@ -19,7 +19,12 @@ class ControlBusSetRequest(Request):
         ...     )
         >>> request
         ControlBusSetRequest(
-            index_value_pairs=((0, 0.1), (1, 0.2), (1, 0.3), (1, 0.4)),
+            index_value_pairs=(
+                (0, 0.1),
+                (1, 0.2),
+                (1, 0.3),
+                (1, 0.4),
+                ),
             )
 
     ::

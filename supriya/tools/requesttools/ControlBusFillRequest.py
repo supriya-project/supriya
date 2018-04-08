@@ -17,7 +17,10 @@ class ControlBusFillRequest(Request):
         ...     )
         >>> request
         ControlBusFillRequest(
-            index_count_value_triples=((0, 8, 0.5), (8, 8, 0.25)),
+            index_count_value_triples=(
+                (0, 8, 0.5),
+                (8, 8, 0.25),
+                ),
             )
 
     ::

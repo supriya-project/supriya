@@ -23,13 +23,13 @@ class ResponseManager(SupriyaObject):
         >>> manager.handle_message(message)
         StatusResponse(
             actual_sample_rate=44100.00077873274,
-            average_cpu_usage=0.040679048746824,
+            average_cpu_usage=0.040679048746824265,
             group_count=2,
-            peak_cpu_usage=0.151180312037468,
+            peak_cpu_usage=0.15118031203746796,
             synth_count=0,
             synthdef_count=4,
             target_sample_rate=44100.0,
-            ugen_count=0
+            ugen_count=0,
             )
 
     ::
@@ -38,9 +38,9 @@ class ResponseManager(SupriyaObject):
         >>> manager.handle_message(message)[0]
         BufferInfoResponse(
             buffer_id=1100,
-            frame_count=512,
             channel_count=1,
-            sample_rate=44100.0
+            frame_count=512,
+            sample_rate=44100.0,
             )
 
     ::
@@ -48,7 +48,6 @@ class ResponseManager(SupriyaObject):
         >>> message = osctools.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> manager.handle_message(message)
         NodeSetResponse(
-            node_id=1023,
             items=(
                 NodeSetItem(
                     control_index_or_name='/one',
@@ -58,7 +57,8 @@ class ResponseManager(SupriyaObject):
                     control_index_or_name='/two',
                     control_value=0
                     ),
-                )
+                ),
+            node_id=1023,
             )
 
     ::
@@ -66,13 +66,13 @@ class ResponseManager(SupriyaObject):
         >>> message = osctools.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         >>> manager.handle_message(message)
         BufferSetContiguousResponse(
+            buffer_id=1,
             items=(
                 BufferSetContiguousItem(
                     starting_sample_index=0,
                     sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                     ),
                 ),
-            buffer_id=1
             )
 
     ::
@@ -82,28 +82,28 @@ class ResponseManager(SupriyaObject):
         QueryTreeResponse(
             node_id=0,
             query_tree_group=QueryTreeGroup(
-                node_id=0,
                 children=(
                     QueryTreeGroup(
                         node_id=1,
                         children=(
                             QueryTreeGroup(
+                                children=(),
                                 node_id=1001,
-                                children=()
                                 ),
                             QueryTreeGroup(
-                                node_id=1000,
                                 children=(
                                     QueryTreeGroup(
+                                        children=(),
                                         node_id=1002,
-                                        children=()
                                         ),
-                                    )
+                                    ),
+                                node_id=1000,
                                 ),
-                            )
+                            ),
                         ),
-                    )
-                )
+                    ),
+                ),
+                node_id=0,
             )
 
     ::

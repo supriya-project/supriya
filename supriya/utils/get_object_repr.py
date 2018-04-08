@@ -2,6 +2,31 @@ import collections
 import inspect
 
 
+def dispatch_formatting(expr):
+    if isinstance(expr, (list, tuple)):
+        return get_sequence_repr(expr)
+    return repr(expr)
+
+
+def get_sequence_repr(expr):
+    prototype = (bool, int, float, str, type(None))
+    if all(isinstance(x, prototype) for x in expr):
+        result = repr(expr)
+        if len(result) < 50:
+            return result
+    if isinstance(expr, list):
+        braces = '[', ']'
+    else:
+        braces = '(', ')'
+    result = [braces[0]]
+    for x in expr:
+        for line in repr(x).splitlines():
+            result.append('    ' + line)
+        result[-1] += ','
+    result.append('    ' + braces[-1])
+    return '\n'.join(result)
+
+
 def get_object_repr(expr, multiline=False):
     from supriya import utils
 
@@ -20,7 +45,7 @@ def get_object_repr(expr, multiline=False):
 
     # Format keyword-optional arguments.
     for key, value in new_args.items():
-        arg_repr = repr(value)
+        arg_repr = dispatch_formatting(value)
         if '\n' in arg_repr:
             has_new_lines = True
         # If we don't have *args, we can use key=value formatting.
@@ -33,7 +58,7 @@ def get_object_repr(expr, multiline=False):
 
     # Format *args
     for arg in new_var_args:
-        arg_repr = repr(arg)
+        arg_repr = dispatch_formatting(arg)
         if '\n' in arg_repr:
             has_new_lines = True
         var_args_parts.append(arg_repr)
@@ -42,7 +67,7 @@ def get_object_repr(expr, multiline=False):
     for key, value in sorted(new_kwargs.items()):
         if key in defaults and value == defaults[key]:
             continue
-        value = repr(value)
+        value = dispatch_formatting(value)
         arg_repr = '{}={}'.format(key, value)
         has_new_lines = True
         kwargs_parts[key] = arg_repr
