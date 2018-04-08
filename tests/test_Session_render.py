@@ -1,4 +1,5 @@
 import pathlib
+import pprint
 from unittest import mock
 from supriya import supriya_configuration
 from supriya.tools import nonrealtimetools
@@ -354,6 +355,10 @@ class TestCase(TestCase):
                 buffer_id=buffer_,
                 duration=10,
                 )
+        print(path_one)
+        pprint.pprint(session_one.to_lists())
+        print(path_two)
+        pprint.pprint(session_two.to_lists())
         assert session_two.to_lists() == [
             [0.0, [
                 ['/d_recv', bytearray(synthdef.compile())],
@@ -381,7 +386,7 @@ class TestCase(TestCase):
             }
         assert self.render_yml_file_path.exists()
         self.compare_file_contents(self.render_yml_file_path, '''
-        render: session-7c7ca76f353e0a7bebdab29bc3f81f85
+        render: session-6df7796fda830e747034c592358617b6
         source: null
         ''')
 
