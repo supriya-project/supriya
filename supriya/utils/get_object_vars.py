@@ -9,6 +9,8 @@ def get_object_vars(expr):
     args = collections.OrderedDict()
     var_args = []
     kwargs = {}
+    if expr is None:
+        return args, var_args, kwargs
     for i, (name, parameter) in enumerate(signature.parameters.items()):
         #print('   ', parameter)
         if parameter.kind is inspect._POSITIONAL_ONLY:
@@ -32,12 +34,19 @@ def get_object_vars(expr):
             except AttributeError:
                 kwargs[name] = expr[name]
         elif parameter.kind is inspect._VAR_KEYWORD:
+            items = {}
             if hasattr(expr, 'items'):
                 items = expr.items()
             elif hasattr(expr, name):
-                items = getattr(expr, name).items()
-            else:
-                items = getattr(expr, '_' + name).items()
+                mapping = getattr(expr, name)
+                if not isinstance(mapping, dict):
+                    mapping = dict(mapping)
+                items = mapping.items()
+            elif hasattr(expr, '_' + name):
+                mapping = getattr(expr, '_' + name)
+                if not isinstance(mapping, dict):
+                    mapping = dict(mapping)
+                items = mapping.items()
             for key, value in items:
                 if key not in args:
                     kwargs[key] = value
