@@ -24,7 +24,7 @@ before_script:
 - "export DISPLAY=:99.0"
 - "sh -e /etc/init.d/xvfb start"
 - sleep 5 # give xvfb time to start
-- sudo -E su $USER -c "jackd -r -ddummy -r44100 -p8192" &
+- sudo -E su $USER -c "jackd -r -ddummy -r44100 -p16384" &
 - sleep 5 # give jackd time to start
 - sudo -E su $USER -c "scsynth -D 0 -H dummy -R 0 -u 57110" &
 - sleep 5
