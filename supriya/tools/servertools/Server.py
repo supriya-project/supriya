@@ -1,5 +1,4 @@
 import atexit
-import os
 import subprocess
 import time
 from supriya import utils
@@ -306,10 +305,7 @@ class Server(SupriyaObject):
     def _setup_notifications(self):
         from supriya.tools import requesttools
         request = requesttools.NotifyRequest(True)
-        timeout = 1.0
-        if os.environ.get('TRAVIS'):
-            timeout = 5.0
-        request.communicate(server=self, timeout=timeout)
+        request.communicate(server=self)
 
     def _setup_proxies(self):
         from supriya.tools import servertools
@@ -422,10 +418,7 @@ class Server(SupriyaObject):
                 raise Exception
         self._is_running = True
         self._server_options = server_options
-        if os.environ.get('TRAVIS'):
-            self.sync()
         self._setup()
-        self.sync()
         PubSub.notify('server-booted')
         return self
 
