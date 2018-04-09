@@ -32,21 +32,19 @@ class TestCase(TestCase):
         ) == uqbar.strings.normalize('''
             EventProduct(
                 event=SynthEvent(
-                    delta=0.0,
                     out=4,
                     pan=0.25,
                     synthdef=<SynthDef: default>,
                     uuid=UUID('A'),
                     ),
-                index=0,
                 requests=[
-                    supriya.tools.requesttools.SynthNewRequest(
+                    SynthNewRequest(
                         add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
-                        synthdef=<SynthDef: default>,
-                        target_node_id=1,
                         out=4,
                         pan=0.25,
+                        synthdef=<SynthDef: default>,
+                        target_node_id=1,
                         ),
                     ],
                 timestamp=100.0,
@@ -82,11 +80,9 @@ class TestCase(TestCase):
         ) == uqbar.strings.normalize('''
             EventProduct(
                 event=SynthEvent(
-                    delta=0.0,
                     is_stop=True,
                     uuid=UUID('A'),
                     ),
-                index=0,
                 is_stop=True,
                 requests=[
                     NodeFreeRequest(

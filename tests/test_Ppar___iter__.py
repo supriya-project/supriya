@@ -1,3 +1,4 @@
+import uqbar.strings
 from supriya.tools import patterntools
 from patterntools_testbase import TestCase
 
@@ -98,51 +99,47 @@ class TestCase(TestCase):
 
     def test___iter___01(self):
         events = list(self.pattern_01)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1001,
-                is_stop=True,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1002,
-                is_stop=True,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1003,
-                is_stop=True,
                 uuid=UUID('C'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___02(self):
         events = list(self.pattern_02)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
                 frequency=1001,
-                is_stop=True,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -150,7 +147,7 @@ class TestCase(TestCase):
                 is_stop=False,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.25,
                 duration=0.75,
@@ -158,213 +155,187 @@ class TestCase(TestCase):
                 is_stop=False,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.5,
                 duration=1.0,
                 frequency=1002,
-                is_stop=True,
                 uuid=UUID('C'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
                 frequency=2003,
-                is_stop=True,
                 uuid=UUID('B'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___03(self):
         events = list(self.pattern_03)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1001,
-                is_stop=True,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1002,
-                is_stop=True,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=1003,
-                is_stop=True,
                 uuid=UUID('C'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___04(self):
         events = list(self.pattern_04)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
                 frequency=1001,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
                 frequency=1002,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('E'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
                 frequency=1003,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('F'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___05(self):
         events = list(self.pattern_05)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
                 frequency=1001,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('E'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('F'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('E'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('F'),
                         uuid=UUID('G'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -374,7 +345,7 @@ class TestCase(TestCase):
                 target_node=UUID('F'),
                 uuid=UUID('H'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.25,
                 duration=0.75,
@@ -384,211 +355,186 @@ class TestCase(TestCase):
                 target_node=UUID('F'),
                 uuid=UUID('H'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.5,
                 duration=1.0,
                 frequency=1002,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('I'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.5,
                 duration=0.75,
                 frequency=2003,
-                is_stop=True,
                 out=UUID('E'),
                 target_node=UUID('F'),
                 uuid=UUID('H'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
+            CompositeEvent(
                 delta=0.25,
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('G'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('F'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('E'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___06(self):
         events = list(self.pattern_06)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.GroupEvent(
+                    GroupEvent(
                         add_action=AddAction.ADD_TO_TAIL,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=1001,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=2001,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.GroupEvent(
+                    GroupEvent(
                         add_action=AddAction.ADD_TO_TAIL,
-                        delta=0.0,
                         uuid=UUID('D'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=3001,
-                is_stop=True,
                 target_node=UUID('D'),
                 uuid=UUID('E'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=10.0,
                 duration=10,
                 frequency=4001,
-                is_stop=True,
                 target_node=UUID('D'),
                 uuid=UUID('F'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=1002,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('G'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=2.0,
                 duration=10,
                 frequency=3002,
-                is_stop=True,
                 target_node=UUID('D'),
                 uuid=UUID('H'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=2002,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('I'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=8.0,
                 duration=10,
                 frequency=4002,
-                is_stop=True,
                 target_node=UUID('D'),
                 uuid=UUID('J'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=4.0,
                 duration=10,
                 frequency=1003,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('K'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 delta=0.0,
                 duration=10,
                 frequency=2003,
-                is_stop=True,
                 target_node=UUID('A'),
                 uuid=UUID('L'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
+            CompositeEvent(
                 delta=12.0,
                 events=(
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('D'),
                         ),
                     ),
                 is_stop=True,
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')

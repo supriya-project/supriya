@@ -64,7 +64,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -78,7 +77,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -86,7 +84,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -100,7 +97,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -108,7 +104,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -116,7 +111,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
@@ -132,7 +126,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -146,7 +139,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -154,7 +146,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -169,7 +160,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -177,7 +167,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -186,7 +175,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.25,
                 duration=0.75,
@@ -201,7 +189,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -209,7 +196,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -218,7 +204,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.25,
                 duration=0.75,
@@ -227,7 +212,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.5,
                 duration=1.0,
@@ -241,7 +225,6 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -249,7 +232,6 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -258,7 +240,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.25,
                 duration=0.75,
@@ -267,7 +248,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.5,
                 duration=1.0,
@@ -275,7 +255,6 @@ class TestCase(TestCase):
                 uuid=UUID('C'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -294,7 +273,6 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     GroupEvent(
-                        _iterator=None,
                         add_action=AddAction.ADD_TO_TAIL,
                         uuid=UUID('A'),
                         ),
@@ -309,14 +287,12 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     GroupEvent(
-                        _iterator=None,
                         add_action=AddAction.ADD_TO_TAIL,
                         uuid=UUID('A'),
                         ),
                     ),
                 )
             NoteEvent(
-                _iterator=None,
                 delta=0.0,
                 duration=10,
                 frequency=1001,
@@ -326,11 +302,9 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     NullEvent(
-                        _iterator=None,
                         delta=0.25,
                         ),
                     GroupEvent(
-                        _iterator=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
@@ -346,14 +320,12 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     GroupEvent(
-                        _iterator=None,
                         add_action=AddAction.ADD_TO_TAIL,
                         uuid=UUID('A'),
                         ),
                     ),
                 )
             NoteEvent(
-                _iterator=None,
                 delta=0.0,
                 duration=10,
                 frequency=1001,
@@ -361,7 +333,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 delta=0.0,
                 duration=10,
                 frequency=2001,
@@ -371,11 +342,9 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     NullEvent(
-                        _iterator=None,
                         delta=0.25,
                         ),
                     GroupEvent(
-                        _iterator=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
@@ -392,14 +361,12 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     GroupEvent(
-                        _iterator=None,
                         add_action=AddAction.ADD_TO_TAIL,
                         uuid=UUID('A'),
                         ),
                     ),
                 )
             NoteEvent(
-                _iterator=None,
                 delta=0.0,
                 duration=10,
                 frequency=1001,
@@ -407,7 +374,6 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             NoteEvent(
-                _iterator=None,
                 delta=0.0,
                 duration=10,
                 frequency=2001,
@@ -417,7 +383,6 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     GroupEvent(
-                        _iterator=None,
                         add_action=AddAction.ADD_TO_TAIL,
                         uuid=UUID('D'),
                         ),
@@ -426,11 +391,9 @@ class TestCase(TestCase):
             CompositeEvent(
                 events=(
                     NullEvent(
-                        _iterator=None,
                         delta=0.25,
                         ),
                     GroupEvent(
-                        _iterator=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),

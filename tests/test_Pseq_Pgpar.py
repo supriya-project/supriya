@@ -51,7 +51,6 @@ class TestCase(TestCase):
                     ),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=1.0,
                 delta=0.0,
                 duration=1.0,
@@ -60,7 +59,6 @@ class TestCase(TestCase):
                 uuid=UUID('C'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=0.75,
                 delta=1.0,
                 duration=1.0,
@@ -97,7 +95,6 @@ class TestCase(TestCase):
                     ),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=0.5,
                 delta=0.0,
                 duration=2.0,
@@ -106,7 +103,6 @@ class TestCase(TestCase):
                 uuid=UUID('G'),
                 )
             NoteEvent(
-                _iterator=None,
                 amplitude=0.25,
                 delta=2.0,
                 duration=2.0,

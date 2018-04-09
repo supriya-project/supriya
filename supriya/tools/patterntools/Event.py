@@ -1,6 +1,7 @@
 import abc
 import collections
 import uuid
+import supriya.utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -41,7 +42,10 @@ class Event(SupriyaValueObject):
         **settings
         ):
         self._delta = delta
-        self._settings = settings.copy()
+        self._settings = {
+            key: value for key, value in settings.items()
+            if not (key.startswith('_') and value is None)
+        }
 
     ### SPECIAL METHODS ###
 
@@ -111,9 +115,8 @@ class Event(SupriyaValueObject):
     ### PUBLIC METHODS ###
 
     def as_dict(self):
-        from abjad.tools import systemtools
-        agent = systemtools.StorageFormatAgent(self)
-        return agent.get_template_dict()
+        _, _, kwargs = supriya.utils.get_object_vars(self)
+        return kwargs
 
     def get(self, item, default=None):
         return self._settings.get(item, default)

@@ -27,13 +27,6 @@ class TestCase(unittest.TestCase):
             actual_contents = utils.normalize_string(file_pointer.read())
         self.compare_strings(expected_contents, actual_contents)
 
-    def compare_objects_as_strings(self, objects, string, replace_uuids=False):
-        objects_string = self.get_objects_as_string(
-            objects,
-            replace_uuids=replace_uuids,
-            )
-        return self.compare_strings(objects_string, string)
-
     def compare_path_contents(self, path_to_search, expected_files):
         actual_files = sorted(
             str(path.relative_to(self.test_path))

@@ -16,7 +16,7 @@ class SynthEvent(Event):
         self,
         add_action=None,
         delta=0.0,
-        is_stop=None,
+        is_stop=False,
         synthdef=None,
         target_node=None,
         uuid=None,
@@ -24,9 +24,8 @@ class SynthEvent(Event):
         ):
         if add_action is not None:
             add_action = servertools.AddAction.from_expr(add_action)
-        is_stop = is_stop or None
+        is_stop = bool(is_stop)
         if is_stop:
-            is_stop = bool(is_stop)
             add_action = None
             synthdef = None
             target_node = None

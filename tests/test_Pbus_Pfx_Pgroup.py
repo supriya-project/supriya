@@ -38,50 +38,42 @@ class TestCase(TestCase):
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
             CompositeEvent(
-                delta=0.0,
                 events=(
                     BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
                     GroupEvent(
-                        delta=0.0,
                         uuid=UUID('B'),
                         ),
                     SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
             CompositeEvent(
-                delta=0.0,
                 events=(
                     SynthEvent(
                         add_action=AddAction.ADD_TO_TAIL,
-                        delta=0.0,
                         in_=UUID('A'),
                         out=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('38bda0aee6d0e2d4af72be83c09d9b77')>,
+                        synthdef=<SynthDef: 38bda0aee6d0e2d4af72be83c09d9b77>,
                         target_node=UUID('B'),
                         uuid=UUID('D'),
                         ),
                     ),
                 )
             CompositeEvent(
-                delta=0.0,
                 events=(
                     GroupEvent(
                         add_action=AddAction.ADD_TO_HEAD,
-                        delta=0.0,
                         target_node=UUID('B'),
                         uuid=UUID('E'),
                         ),
@@ -92,9 +84,8 @@ class TestCase(TestCase):
                 delta=1.0,
                 duration=1.0,
                 frequency=440,
-                is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                synthdef=<SynthDef: default>,
                 target_node=UUID('E'),
                 uuid=UUID('F'),
                 )
@@ -103,9 +94,8 @@ class TestCase(TestCase):
                 delta=1.0,
                 duration=1.0,
                 frequency=660,
-                is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                synthdef=<SynthDef: default>,
                 target_node=UUID('E'),
                 uuid=UUID('G'),
                 )
@@ -114,20 +104,17 @@ class TestCase(TestCase):
                 delta=1.0,
                 duration=1.0,
                 frequency=880,
-                is_stop=True,
                 out=UUID('A'),
-                synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                synthdef=<SynthDef: default>,
                 target_node=UUID('E'),
                 uuid=UUID('H'),
                 )
             CompositeEvent(
-                delta=0.0,
                 events=(
                     NullEvent(
                         delta=0.25,
                         ),
                     GroupEvent(
-                        delta=0.0,
                         is_stop=True,
                         uuid=UUID('E'),
                         ),
@@ -135,13 +122,11 @@ class TestCase(TestCase):
                 is_stop=True,
                 )
             CompositeEvent(
-                delta=0.0,
                 events=(
                     NullEvent(
                         delta=0.25,
                         ),
                     SynthEvent(
-                        delta=0.0,
                         is_stop=True,
                         uuid=UUID('D'),
                         ),
@@ -149,10 +134,8 @@ class TestCase(TestCase):
                 is_stop=True,
                 )
             CompositeEvent(
-                delta=0.0,
                 events=(
                     SynthEvent(
-                        delta=0.0,
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
@@ -160,12 +143,12 @@ class TestCase(TestCase):
                         delta=0.25,
                         ),
                     GroupEvent(
-                        delta=0.0,
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
                     BusEvent(
-                        delta=0.0,
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),

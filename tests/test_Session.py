@@ -43,7 +43,7 @@ class TestCase(TestCase):
                 timestamp=0.0,
                 contents=(
                     osctools.OscMessage('/d_recv', bytearray(synthdef.compile())),
-                    osctools.OscMessage('/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0),
+                    osctools.OscMessage('/s_new', '448a8d487adfc99ec697033edc2a1227', 1000, 0, 0, 'duration', 1.0),
                     )
                 ),
             osctools.OscBundle(
