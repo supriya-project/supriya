@@ -22,12 +22,16 @@ class QueryTreeControl(SupriyaValueObject):
 
     ### SPECIAL METHODS ###
 
+    def __repr__(self):
+        import supriya.utils
+        return supriya.utils.get_object_repr(self, multiline=True)
+
     def __str__(self):
         key = self._control_name_or_index
         value = self._control_value
         try:
             value = round(value, 6)
-        except:
+        except Exception:
             pass
         string = '{}: {!s}'.format(key, value)
         return string

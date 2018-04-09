@@ -35,6 +35,10 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     def __len__(self):
         return len(self._controls)
 
+    def __repr__(self):
+        import supriya.utils
+        return supriya.utils.get_object_repr(self, multiline=True)
+
     def __str__(self):
         result = self._get_str_format_pieces()
         result = '\n'.join(result)

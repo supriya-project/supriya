@@ -82,27 +82,27 @@ class ResponseManager(SupriyaObject):
         QueryTreeResponse(
             node_id=0,
             query_tree_group=QueryTreeGroup(
-                node_id=0,
                 children=(
                     QueryTreeGroup(
-                        node_id=1,
                         children=(
                             QueryTreeGroup(
+                                children=(),
                                 node_id=1001,
-                                children=()
                                 ),
                             QueryTreeGroup(
-                                node_id=1000,
                                 children=(
                                     QueryTreeGroup(
+                                        children=(),
                                         node_id=1002,
-                                        children=()
                                         ),
-                                    )
+                                    ),
+                                node_id=1000,
                                 ),
-                            )
+                            ),
+                        node_id=1,
                         ),
-                    )
+                    ),
+                node_id=0,
                 ),
             )
 
