@@ -1,5 +1,6 @@
 import os
 import yaml
+import uqbar.io
 from unittest import mock
 from supriya import systemtools
 from supriya import utils
@@ -18,7 +19,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -41,7 +42,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -71,7 +72,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -106,7 +107,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -138,7 +139,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -164,7 +165,7 @@ class Test(ProjectPackageScriptTestCase):
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     with mock.patch(mock_path) as call_mock:
@@ -193,7 +194,7 @@ class Test(ProjectPackageScriptTestCase):
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     with mock.patch(mock_path) as call_mock:
@@ -222,7 +223,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', '*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -313,7 +314,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'session_t*']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -382,7 +383,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -504,7 +505,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'session_three']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)
@@ -615,7 +616,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--render', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

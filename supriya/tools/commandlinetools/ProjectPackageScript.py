@@ -8,6 +8,7 @@ import shutil
 import subprocess
 import sys
 import traceback
+import uqbar.io
 from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
 from supriya import utils
 from supriya.tools import systemtools
@@ -170,7 +171,7 @@ class ProjectPackageScript(CommandlineScript):
     def _import_path(self, path, project_root_path, verbose=True):
         if verbose:
             print('    Importing {!s}'.format(path))
-        with systemtools.DirectoryChange(str(project_root_path)):
+        with uqbar.io.DirectoryChange(str(project_root_path)):
             try:
                 importlib.invalidate_caches()
             except Exception:
@@ -286,7 +287,7 @@ class ProjectPackageScript(CommandlineScript):
     def _process_args(self, args):
         self._setup_paths(args.project_path)
         exit_stack = contextlib.ExitStack()
-        tdc = systemtools.DirectoryChange(str(self.outer_project_path))
+        tdc = uqbar.io.DirectoryChange(str(self.outer_project_path))
         with exit_stack:
             exit_stack.enter_context(tdc)
             if args.profile:

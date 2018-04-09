@@ -7,6 +7,7 @@ import subprocess
 import sys
 import tqdm
 import uqbar.containers
+import uqbar.io
 import yaml
 from supriya import utils
 from supriya.tools.nonrealtimetools import (
@@ -436,7 +437,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         self._collect_prerender_tuples(self.session, duration=duration)
         assert self.prerender_tuples, self.prerender_tuples
         visited_renderable_prefixes = []
-        with systemtools.DirectoryChange(
+        with uqbar.io.DirectoryChange(
             directory=str(self.render_directory_path),
             ):
             for prerender_tuple in self.prerender_tuples:

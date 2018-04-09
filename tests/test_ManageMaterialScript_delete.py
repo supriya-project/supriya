@@ -1,4 +1,5 @@
 import os
+import uqbar.io
 from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
@@ -29,7 +30,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--delete', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -45,7 +46,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--delete', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

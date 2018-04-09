@@ -95,7 +95,6 @@ from supriya.tools.systemtools import (  # noqa
     Assets,
     Bindable,
     Binding,
-    DirectoryChange,
     Enumeration,
     Profiler,
     RedirectedStreams,

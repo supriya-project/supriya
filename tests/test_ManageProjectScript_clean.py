@@ -1,3 +1,4 @@
+import uqbar.io
 from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
@@ -30,7 +31,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', '*']
-        with systemtools.DirectoryChange(
+        with uqbar.io.DirectoryChange(
             str(self.inner_project_path)):
             try:
                 script(command)
@@ -79,7 +80,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageProjectScript()
         command = ['--clean']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

@@ -1,4 +1,5 @@
 import os
+import uqbar.io
 from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
@@ -40,7 +41,7 @@ class Test(ProjectPackageScriptTestCase):
         internal_path = self.assets_path
         assert internal_path.exists()
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(str(internal_path)):
+            with uqbar.io.DirectoryChange(str(internal_path)):
                 try:
                     script(command)
                 except SystemExit:
@@ -55,7 +56,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageMaterialScript()
         command = ['--new', 'test_material']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

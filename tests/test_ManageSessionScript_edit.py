@@ -1,3 +1,4 @@
+import uqbar.io
 from unittest import mock
 from abjad import abjad_configuration
 from supriya import systemtools
@@ -15,7 +16,7 @@ class Test(ProjectPackageScriptTestCase):
         script = commandlinetools.ManageSessionScript()
         command = ['--edit', 'test_session']
         with systemtools.RedirectedStreams(stdout=self.string_io):
-            with systemtools.DirectoryChange(
+            with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
                     script(command)

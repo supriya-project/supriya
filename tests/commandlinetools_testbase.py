@@ -2,6 +2,7 @@ import jinja2
 import pathlib
 import shutil
 import sys
+import uqbar.io
 from supriya import utils
 from supriya.tools import commandlinetools
 from supriya.tools import soundfiletools
@@ -164,7 +165,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         command = ['--new', material_name]
         if force:
             command.insert(0, '-f')
-        with systemtools.DirectoryChange(str(self.inner_project_path)):
+        with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -195,7 +196,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
             ]
         if force:
             command.insert(0, '-f')
-        with systemtools.DirectoryChange(str(self.test_path)):
+        with uqbar.io.DirectoryChange(str(self.test_path)):
             if expect_error:
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
@@ -217,7 +218,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         command = ['--new', session_name]
         if force:
             command.insert(0, '-f')
-        with systemtools.DirectoryChange(str(self.inner_project_path)):
+        with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
                 with self.assertRaises(SystemExit) as context_manager:
                     script(command)
