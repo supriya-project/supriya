@@ -63,15 +63,6 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
             return 1
         return len(self.value)
 
-    def __repr__(self):
-        """
-        Gets interpreter representation of Supriya object.
-
-        Returns string.
-        """
-        from supriya import utils
-        return utils.get_object_repr(self)
-
     ### PRIVATE METHODS ###
 
     def _get_source(self):

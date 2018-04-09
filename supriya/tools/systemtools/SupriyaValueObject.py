@@ -15,7 +15,10 @@ class SupriyaValueObject(SupriyaObject):
 
     def __eq__(self, expr):
         self_values = type(self), utils.get_object_vars(self)
-        expr_values = type(expr), utils.get_object_vars(expr)
+        try:
+            expr_values = type(expr), utils.get_object_vars(expr)
+        except AttributeError:
+            expr_values = type(expr), expr
         return self_values == expr_values
 
     def __hash__(self):
