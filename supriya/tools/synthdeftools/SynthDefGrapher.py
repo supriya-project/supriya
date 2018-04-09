@@ -1,4 +1,4 @@
-from abjad.tools import documentationtools
+from abjad.tools import graphtools
 from supriya.tools.systemtools.Grapher import Grapher
 
 
@@ -76,7 +76,7 @@ class SynthDefGrapher(Grapher):
                 source = input_.source
                 head_node = ugen_node_mapping[source]
                 head_field = head_node['outputs'][input_.output_index]
-                edge = documentationtools.GraphvizEdge()
+                edge = graphtools.GraphvizEdge()
                 edge.attach(head_field, tail_field)
                 edge.head_port_position = 'w'
                 edge.tail_port_position = 'e'
@@ -91,7 +91,7 @@ class SynthDefGrapher(Grapher):
     def _create_ugen_input_group(ugen, ugen_index):
         if not ugen.inputs:
             return None
-        input_group = documentationtools.GraphvizGroup(
+        input_group = graphtools.GraphvizGroup(
             name='inputs'.format(ugen_index),
             )
         for i, input_ in enumerate(ugen.inputs):
@@ -108,7 +108,7 @@ class SynthDefGrapher(Grapher):
             elif isinstance(input_, float):
                 label = str(input_)
             label = label or None
-            field = documentationtools.GraphvizField(
+            field = graphtools.GraphvizField(
                 label=label,
                 name='ugen_{}_input_{}'.format(ugen_index, i),
                 )
@@ -121,7 +121,7 @@ class SynthDefGrapher(Grapher):
         ugen_node_mapping = {}
         for ugen in synthdef.ugens:
             ugen_index = synthdef.ugens.index(ugen)
-            node = documentationtools.GraphvizNode(
+            node = graphtools.GraphvizNode(
                 name='ugen_{}'.format(ugen_index),
                 )
             if ugen.calculation_rate == synthdeftools.CalculationRate.CONTROL:
@@ -132,7 +132,7 @@ class SynthDefGrapher(Grapher):
                 node.attributes['fillcolor'] = 'lightsalmon2'
             title_field = SynthDefGrapher._create_ugen_title_field(ugen)
             node.append(title_field)
-            group = documentationtools.GraphvizGroup()
+            group = graphtools.GraphvizGroup()
             input_group = SynthDefGrapher._create_ugen_input_group(
                 ugen, ugen_index)
             if input_group is not None:
@@ -150,7 +150,7 @@ class SynthDefGrapher(Grapher):
         from supriya.tools import ugentools
         if not ugen.outputs:
             return None
-        output_group = documentationtools.GraphvizGroup(
+        output_group = graphtools.GraphvizGroup(
             name='outputs'.format(ugen_index),
             )
         for i, output in enumerate(ugen.outputs):
@@ -164,7 +164,7 @@ class SynthDefGrapher(Grapher):
                     parameter_name,
                     parameter.value,
                     )
-            field = documentationtools.GraphvizField(
+            field = graphtools.GraphvizField(
                 label=label,
                 name='ugen_{}_output_{}'.format(ugen_index, i),
                 )
@@ -185,7 +185,7 @@ class SynthDefGrapher(Grapher):
         elif isinstance(ugen, ugentools.UnaryOpUGen):
             operator = synthdeftools.UnaryOperator(ugen.special_index).name
             label_template = r'{name}\n[{operator}]\n({calculation_rate})'
-        title_field = documentationtools.GraphvizField(
+        title_field = graphtools.GraphvizField(
             label=label_template.format(
                 name=name,
                 operator=operator,
@@ -226,7 +226,7 @@ class SynthDefGrapher(Grapher):
     def graph(synthdef):
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, synthdeftools.SynthDef)
-        graph = documentationtools.GraphvizGraph(
+        graph = graphtools.GraphvizGraph(
             name='synthdef_{}'.format(synthdef.actual_name),
             )
         ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)

@@ -1,7 +1,8 @@
+import itertools
 import pytest
 import random
 from abjad import Offset, Timespan
-from abjad import sequencetools, timespantools
+from abjad import timespantools
 from supriya import timetools
 from supriya import systemtools
 from supriya.tools.timetools import (
@@ -101,8 +102,7 @@ class TestCase(systemtools.TestCase):
     def make_target_timespans(self, range_=10):
         indices = list(range(range_))
         timespans = []
-        for pair in \
-            sequencetools.yield_all_unordered_pairs_of_sequence(indices):
+        for pair in itertools.permutations(indices, 2):
             start_offset, stop_offset = sorted(pair)
             target_timespan = timespantools.Timespan(
                 start_offset=start_offset,

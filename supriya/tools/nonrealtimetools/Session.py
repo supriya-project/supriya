@@ -4,7 +4,7 @@ import os
 import pathlib
 import struct
 import uqbar.io
-from abjad.tools import documentationtools
+from abjad.tools import graphtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -146,12 +146,12 @@ class Session:
 
     def __graph__(self, include_controls=False):
         from supriya.tools import nonrealtimetools
-        graph = documentationtools.GraphvizGraph()
+        graph = graphtools.GraphvizGraph()
         for offset, state in sorted(self.states.items()):
             if float('-inf') < offset:
                 self._apply_transitions(state.offset)
             state_graph = state.__graph__(include_controls=include_controls)
-            subgraph = documentationtools.GraphvizSubgraph()
+            subgraph = graphtools.GraphvizSubgraph()
             subgraph.extend(state_graph.children)
             subgraph.attributes['label'] = str(offset)
             graph.append(subgraph)

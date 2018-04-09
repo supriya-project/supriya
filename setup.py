@@ -5,7 +5,7 @@ from distutils.version import StrictVersion
 
 install_requires = [
     'PyYAML',
-    'abjad==2.19',
+    'abjad==2.21',
     'cython',
     'numpy',
     'pytest-timeout>=1.2.0',

@@ -1,7 +1,7 @@
 import atexit
 import subprocess
 import time
-from abjad.tools import documentationtools
+from abjad.tools import graphtools
 from supriya import utils
 from supriya.tools.systemtools import PubSub
 from supriya.tools.systemtools import SupriyaObject
@@ -213,20 +213,20 @@ class Server(SupriyaObject):
                     name = 'Group {}'.format(child_server_node.node_id)
                 else:
                     name = 'Synth {}'.format(child_server_node.node_id)
-                child_graphviz_node = documentationtools.GraphvizNode(
+                child_graphviz_node = graphtools.GraphvizNode(
                     name=name,
                     )
                 graph.append(child_graphviz_node)
-                documentationtools.GraphvizEdge()(
+                graphtools.GraphvizEdge()(
                     parent_graphviz_node,
                     child_graphviz_node,
                     )
                 recurse(graph, child_graphviz_node, child_server_node)
         from supriya.tools import servertools
-        graph = documentationtools.GraphvizGraph(
+        graph = graphtools.GraphvizGraph(
             name='server',
             )
-        root_graphviz_node = documentationtools.GraphvizNode(name='Root Node')
+        root_graphviz_node = graphtools.GraphvizNode(name='Root Node')
         graph.append(root_graphviz_node)
         recurse(graph, root_graphviz_node, self.root_node)
         return graph
