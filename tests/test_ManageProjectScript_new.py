@@ -1,5 +1,5 @@
 import os
-from supriya import systemtools
+import uqbar.io
 from supriya import utils
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -71,10 +71,10 @@ class Test(ProjectPackageScriptTestCase):
     ''')
 
     def test_exists(self):
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_project()
         assert self.outer_project_path.exists()
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_project(expect_error=True)
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
@@ -85,10 +85,10 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_force_replace(self):
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_project()
         assert self.outer_project_path.exists()
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_project(force=True)
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
@@ -99,7 +99,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success(self):
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_project()
         assert self.outer_project_path.exists()
         self.compare_path_contents(

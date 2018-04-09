@@ -2,7 +2,6 @@ import os
 import yaml
 import uqbar.io
 from unittest import mock
-from supriya import systemtools
 from supriya import utils
 from supriya.tools import commandlinetools
 from supriya.tools import nonrealtimetools
@@ -18,7 +17,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -41,7 +40,7 @@ class Test(ProjectPackageScriptTestCase):
         definition_path.unlink()
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -71,7 +70,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -106,7 +105,7 @@ class Test(ProjectPackageScriptTestCase):
             '''))
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -138,7 +137,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write('\n\nfailure = 1 / 0\n')
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -164,7 +163,7 @@ class Test(ProjectPackageScriptTestCase):
         command = ['--render', 'test_material']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -193,7 +192,7 @@ class Test(ProjectPackageScriptTestCase):
         command = ['--render', 'test_material']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -222,7 +221,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_three')
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', '*']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -313,7 +312,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_three')
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'material_t*']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -382,7 +381,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('test_material')
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -504,7 +503,7 @@ class Test(ProjectPackageScriptTestCase):
 
         script = commandlinetools.ManageMaterialScript()
         command = ['--render', 'material_three']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

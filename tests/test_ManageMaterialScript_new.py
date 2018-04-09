@@ -1,6 +1,5 @@
 import os
 import uqbar.io
-from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -17,7 +16,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_exists(self):
         self.create_project()
         self.create_material('test_material')
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_material('test_material', expect_error=True)
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
@@ -27,7 +26,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_force_replace(self):
         self.create_project()
         self.create_material('test_material')
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_material('test_material', force=True)
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
@@ -40,7 +39,7 @@ class Test(ProjectPackageScriptTestCase):
         command = ['--new', 'test_material']
         internal_path = self.assets_path
         assert internal_path.exists()
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(str(internal_path)):
                 try:
                     script(command)
@@ -55,7 +54,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         script = commandlinetools.ManageMaterialScript()
         command = ['--new', 'test_material']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

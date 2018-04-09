@@ -1,6 +1,5 @@
 import os
 import uqbar.io
-from supriya import systemtools
 from supriya import utils
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
@@ -47,7 +46,7 @@ class Test(ProjectPackageScriptTestCase):
         assert len(aiff_artifacts) == 0
         assert len(osc_artifacts) == 0
 
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -71,7 +70,7 @@ class Test(ProjectPackageScriptTestCase):
 
         self.reset_string_io()
 
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -94,7 +93,7 @@ class Test(ProjectPackageScriptTestCase):
 
         self.reset_string_io()
 
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

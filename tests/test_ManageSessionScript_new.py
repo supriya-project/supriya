@@ -1,6 +1,5 @@
 import os
 import uqbar.io
-from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -17,7 +16,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_exists(self):
         self.create_project()
         self.create_session('test_session')
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_session('test_session', expect_error=True)
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
@@ -27,7 +26,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_force_replace(self):
         self.create_project()
         self.create_session('test_session')
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_session('test_session', force=True)
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
@@ -40,7 +39,7 @@ class Test(ProjectPackageScriptTestCase):
         command = ['--new', 'test_session']
         internal_path = self.assets_path
         assert internal_path.exists()
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(str(internal_path)):
                 try:
                     script(command)
@@ -55,7 +54,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         script = commandlinetools.ManageSessionScript()
         command = ['--new', 'test_session']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

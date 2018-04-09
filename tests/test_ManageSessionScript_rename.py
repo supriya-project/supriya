@@ -1,6 +1,5 @@
 import os
 import uqbar.io
-from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -31,7 +30,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         script = commandlinetools.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -48,7 +47,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('session_two')
         script = commandlinetools.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -65,7 +64,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('session_two')
         script = commandlinetools.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two', '-f']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -87,7 +86,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('session_one')
         script = commandlinetools.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

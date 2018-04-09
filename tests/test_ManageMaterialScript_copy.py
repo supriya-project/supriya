@@ -1,6 +1,5 @@
 import os
 import uqbar.io
-from supriya import systemtools
 from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -33,7 +32,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -50,7 +49,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_two')
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 with self.assertRaises(SystemExit) as context_manager:
@@ -67,7 +66,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_two')
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two', '-f']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:
@@ -89,7 +88,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('material_one')
         script = commandlinetools.ManageMaterialScript()
         command = ['--copy', 'material_one', 'material_two']
-        with systemtools.RedirectedStreams(stdout=self.string_io):
+        with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
                 try:

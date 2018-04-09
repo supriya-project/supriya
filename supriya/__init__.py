@@ -97,7 +97,6 @@ from supriya.tools.systemtools import (  # noqa
     Binding,
     Enumeration,
     Profiler,
-    RedirectedStreams,
     SupriyaConfiguration,
     TestCase,
     Timer,
