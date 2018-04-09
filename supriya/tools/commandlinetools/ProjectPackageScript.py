@@ -11,7 +11,6 @@ import traceback
 import uqbar.io
 from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
 from supriya import utils
-from supriya.tools import systemtools
 
 
 class ProjectPackageScript(CommandlineScript):
@@ -291,7 +290,7 @@ class ProjectPackageScript(CommandlineScript):
         with exit_stack:
             exit_stack.enter_context(tdc)
             if args.profile:
-                profiler = systemtools.Profiler()
+                profiler = uqbar.io.Profiler()
                 exit_stack.enter_context(profiler)
             self._process_args_inner(args)
 
