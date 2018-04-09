@@ -28,10 +28,7 @@ class BufferProxy(SupriyaValueObject):
             channel_count=2,
             frame_count=441,
             sample_rate=44100,
-            server=Server(
-                ip_address='127.0.0.1',
-                port=57751
-                )
+            server=<Server: offline>,
             )
 
     """
@@ -134,10 +131,7 @@ class BufferProxy(SupriyaValueObject):
                 channel_count=1,
                 frame_count=256,
                 sample_rate=44100,
-                server=Server(
-                    ip_address='127.0.0.1',
-                    port=57751
-                    )
+                server=<Server: offline>,
                 )
 
         ::
@@ -158,10 +152,7 @@ class BufferProxy(SupriyaValueObject):
                 channel_count=2,
                 frame_count=512,
                 sample_rate=44100,
-                server=Server(
-                    ip_address='127.0.0.1',
-                    port=57751
-                    )
+                server=<Server: offline>,
                 )
 
         Returns none.

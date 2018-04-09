@@ -23,11 +23,11 @@ class OscBundle(OscMixin):
         ...     )
         >>> inner_bundle
         OscBundle(
-            timestamp=1401557034.5,
             contents=(
                 OscMessage('/one', 1),
                 OscMessage('/two', 2),
-                )
+                ),
+            timestamp=1401557034.5,
             )
 
     ::
@@ -39,14 +39,14 @@ class OscBundle(OscMixin):
         OscBundle(
             contents=(
                 OscBundle(
-                    timestamp=1401557034.5,
                     contents=(
                         OscMessage('/one', 1),
                         OscMessage('/two', 2),
-                        )
+                        ),
+                    timestamp=1401557034.5,
                     ),
                 OscMessage('/three', 3),
-                )
+                ),
             )
 
     ::
@@ -60,14 +60,14 @@ class OscBundle(OscMixin):
         OscBundle(
             contents=(
                 OscBundle(
-                    timestamp=1401557034.5,
                     contents=(
                         OscMessage('/one', 1),
                         OscMessage('/two', 2),
-                        )
+                        ),
+                    timestamp=1401557034.5,
                     ),
                 OscMessage('/three', 3),
-                )
+                ),
             )
 
     ::

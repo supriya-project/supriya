@@ -11,11 +11,7 @@ class Envelope(SupriyaValueObject):
         >>> from supriya.tools import *
         >>> envelope = synthdeftools.Envelope()
         >>> envelope
-        Envelope(
-            amplitudes=(0.0, 1.0, 0.0),
-            durations=(1.0, 1.0),
-            curves=('linear', 'linear')
-            )
+        Envelope()
 
     ::
 
@@ -42,7 +38,7 @@ class Envelope(SupriyaValueObject):
         self,
         amplitudes=(0, 1, 0),
         durations=(1, 1),
-        curves='linear',
+        curves=('linear', 'linear'),
         release_node=None,
         loop_node=None,
         offset=None,
@@ -145,9 +141,8 @@ class Envelope(SupriyaValueObject):
             >>> envelope = synthdeftools.Envelope.percussive()
             >>> envelope
             Envelope(
-                amplitudes=(0.0, 1.0, 0.0),
+                curves=(-4.0, -4.0),
                 durations=(0.01, 1.0),
-                curves=(-4.0, -4.0)
                 )
 
         ::
@@ -222,9 +217,7 @@ class Envelope(SupriyaValueObject):
             >>> envelope = synthdeftools.Envelope.triangle()
             >>> envelope
             Envelope(
-                amplitudes=(0.0, 1.0, 0.0),
                 durations=(0.5, 0.5),
-                curves=('linear', 'linear')
                 )
 
         ::

@@ -16,7 +16,13 @@ class Event(SupriyaValueObject):
         ...     frequency=443,
         ...     panning=0.75,
         ...     )
-        NoteEvent(duration=10.5, is_stop=True, amplitude=0.9, frequency=443, panning=0.75)
+        NoteEvent(
+            amplitude=0.9,
+            delta=10.5,
+            duration=10.5,
+            frequency=443,
+            panning=0.75,
+            )
 
     """
 

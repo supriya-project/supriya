@@ -20,9 +20,30 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(delta=0.5, duration=0.5, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=0)
-        NoteEvent(delta=0.25, duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=3)
-        NoteEvent(delta=0.25, duration=0.25, is_stop=True, uuid=UUID('...'), bar=3, foo=(1, 2), pitch=7)
+        NoteEvent(
+            bar=3,
+            delta=0.5,
+            duration=0.5,
+            foo=(1, 2),
+            pitch=0,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            bar=3,
+            delta=0.25,
+            duration=0.25,
+            foo=(1, 2),
+            pitch=3,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            bar=3,
+            delta=0.25,
+            duration=0.25,
+            foo=(1, 2),
+            pitch=7,
+            uuid=UUID('...'),
+            )
 
     ::
 
@@ -40,12 +61,30 @@ class Pbind(EventPattern):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=1)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=2)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=3)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=4)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=5)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=6)
+        NoteEvent(
+            pitch=1,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=2,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=3,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=4,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=5,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=6,
+            uuid=UUID('...'),
+            )
 
     """
 

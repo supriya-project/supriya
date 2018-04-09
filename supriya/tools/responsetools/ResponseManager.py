@@ -51,11 +51,11 @@ class ResponseManager(SupriyaObject):
             items=(
                 NodeSetItem(
                     control_index_or_name='/one',
-                    control_value=-1
+                    control_value=-1,
                     ),
                 NodeSetItem(
                     control_index_or_name='/two',
-                    control_value=0
+                    control_value=0,
                     ),
                 ),
             node_id=1023,
@@ -69,8 +69,8 @@ class ResponseManager(SupriyaObject):
             buffer_id=1,
             items=(
                 BufferSetContiguousItem(
+                    sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0),
                     starting_sample_index=0,
-                    sample_values=(0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
                     ),
                 ),
             )

@@ -15,7 +15,7 @@ class NodeIdPair(SupriyaValueObject):
         >>> node_id_pair
         NodeIdPair(
             node_id=1001,
-            target_node_id=1000
+            target_node_id=1000,
             )
 
     """

@@ -19,9 +19,26 @@ class Pmono(Pbind):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(delta=0.5, duration=0.5, uuid=UUID('...'), pitch=0)
-        NoteEvent(delta=0.25, duration=0.25, uuid=UUID('...'), pitch=3)
-        NoteEvent(delta=0.25, duration=0.25, is_stop=True, uuid=UUID('...'), pitch=7)
+        NoteEvent(
+            delta=0.5,
+            duration=0.5,
+            is_stop=False,
+            pitch=0,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            delta=0.25,
+            duration=0.25,
+            is_stop=False,
+            pitch=3,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            delta=0.25,
+            duration=0.25,
+            pitch=7,
+            uuid=UUID('...'),
+            )
 
     ::
 
@@ -39,12 +56,34 @@ class Pmono(Pbind):
         >>> for event in pattern:
         ...     event
         ...
-        NoteEvent(uuid=UUID('...'), pitch=1)
-        NoteEvent(uuid=UUID('...'), pitch=2)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=3)
-        NoteEvent(uuid=UUID('...'), pitch=4)
-        NoteEvent(uuid=UUID('...'), pitch=5)
-        NoteEvent(is_stop=True, uuid=UUID('...'), pitch=6)
+        NoteEvent(
+            is_stop=False,
+            pitch=1,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            is_stop=False,
+            pitch=2,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=3,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            is_stop=False,
+            pitch=4,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            is_stop=False,
+            pitch=5,
+            uuid=UUID('...'),
+            )
+        NoteEvent(
+            pitch=6,
+            uuid=UUID('...'),
+            )
 
     """
 
@@ -64,7 +103,7 @@ class Pmono(Pbind):
             return
         for event in iterator:
             events.append(event)
-            event = utils.new(events.pop(0), uuid=synth_uuid, is_stop=None)
+            event = utils.new(events.pop(0), uuid=synth_uuid, is_stop=False)
             should_stop = yield event
             if should_stop:
                 return
