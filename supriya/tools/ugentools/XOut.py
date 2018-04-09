@@ -205,14 +205,10 @@ class XOut(UGen):
             ...     source=source,
             ...     )
             >>> xout.source
-            (OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                ),)
+            (WhiteNoise.ar()[0],)
 
         Returns ugen input.
         """
+        # TODO: This seems odd.
         index = self._ordered_input_names.index('source')
         return tuple(self._inputs[index:])

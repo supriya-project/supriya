@@ -67,7 +67,7 @@ class LocalOut(UGen):
             ...     )
             >>> local_out
             LocalOut.ar()
-        
+
         Returns ugen graph.
         """
         from supriya.tools import synthdeftools
@@ -96,7 +96,7 @@ class LocalOut(UGen):
             ...     )
             >>> local_out
             LocalOut.kr()
-        
+
         Returns ugen graph.
         """
         from supriya.tools import synthdeftools
@@ -121,12 +121,7 @@ class LocalOut(UGen):
             ...     source=source,
             ...     )
             >>> local_out.source
-            (OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                ),)
+            (WhiteNoise.ar()[0],)
 
         Returns input.
         """

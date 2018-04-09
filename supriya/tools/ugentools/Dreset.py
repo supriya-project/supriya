@@ -103,14 +103,7 @@ class Dreset(DUGen):
             ...     source=source,
             ...     )
             >>> dreset.source
-            OutputProxy(
-                source=Dseries(
-                    length=inf,
-                    start=0.0,
-                    step=2.0
-                    ),
-                output_index=0
-                )
+            Dseries()[0]
 
         Returns ugen input.
         """

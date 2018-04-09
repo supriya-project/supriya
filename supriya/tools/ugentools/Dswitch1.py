@@ -90,13 +90,7 @@ class Dswitch1(DUGen):
             ...     sequence=sequence,
             ...     )
             >>> dswitch_1.index
-            OutputProxy(
-                source=Dseq(
-                    repeats=1.0,
-                    sequence=(0.0, 1.0, 2.0, 1.0, 0.0)
-                    ),
-                output_index=0
-                )
+            Dseq()[0]
 
         Returns ugen input.
         """

@@ -4,7 +4,7 @@ from supriya.tools.ugentools.UGen import UGen
 class PauseSelf(UGen):
     """
     Pauses the enclosing synth when triggered by `trigger`.
-    
+
     ::
 
         >>> trigger = ugentools.Impulse.kr(frequency=1.0)
@@ -82,14 +82,7 @@ class PauseSelf(UGen):
             ...     trigger=trigger,
             ...     )
             >>> pause_self.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=1.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns input.
         """

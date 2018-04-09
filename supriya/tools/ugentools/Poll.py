@@ -214,14 +214,7 @@ class Poll(UGen):
             ...     trigger_id=1234,
             ...     )
             >>> poll.source
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns ugen input.
         """
@@ -244,14 +237,7 @@ class Poll(UGen):
             ...     trigger_id=1234,
             ...     )
             >>> poll.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=1.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns ugen input.
         """

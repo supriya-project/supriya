@@ -142,13 +142,7 @@ class Trig(UGen):
             ...     source=source,
             ...     )
             >>> trig.source
-            OutputProxy(
-                source=Dust(
-                    calculation_rate=CalculationRate.CONTROL,
-                    density=1.0
-                    ),
-                output_index=0
-                )
+            Dust.kr()[0]
 
         Returns ugen input.
         """

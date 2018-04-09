@@ -129,16 +129,7 @@ class VOsc(PureUGen):
             ...     phase=0,
             ...     )
             >>> vosc.buffer_id
-            OutputProxy(
-                source=MouseX(
-                    calculation_rate=CalculationRate.CONTROL,
-                    lag=0.0,
-                    maximum=7.0,
-                    minimum=0.0,
-                    warp=0.0
-                    ),
-                output_index=0
-                )
+            MouseX.kr()[0]
 
         Returns ugen input.
         """

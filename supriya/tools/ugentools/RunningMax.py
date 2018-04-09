@@ -126,14 +126,7 @@ class RunningMax(Peak):
             ...     trigger=trigger,
             ...     )
             >>> running_max.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns ugen input.
         """
@@ -154,14 +147,7 @@ class RunningMax(Peak):
             ...     trigger=trigger,
             ...     )
             >>> running_max.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=1.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns ugen input.
         """

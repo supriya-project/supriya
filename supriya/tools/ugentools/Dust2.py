@@ -15,7 +15,6 @@ class Dust2(UGen):
 
     """
 
-
     ### CLASS VARIABLES ###
 
     __documentation_section__ = 'Noise UGens'

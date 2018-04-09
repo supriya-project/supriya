@@ -269,29 +269,7 @@ class BufRd(MultiOutUGen):
             ...     phase=phase,
             ...     )
             >>> buf_rd[0].source.phase
-            OutputProxy(
-                source=Phasor(
-                    calculation_rate=CalculationRate.AUDIO,
-                    rate=OutputProxy(
-                        source=BufRateScale(
-                            buffer_id=23.0,
-                            calculation_rate=CalculationRate.CONTROL
-                            ),
-                        output_index=0
-                        ),
-                    reset_pos=0.0,
-                    start=0.0,
-                    stop=OutputProxy(
-                        source=BufFrames(
-                            buffer_id=23.0,
-                            calculation_rate=CalculationRate.CONTROL
-                            ),
-                        output_index=0
-                        ),
-                    trigger=0.0
-                    ),
-                output_index=0
-                )
+            Phasor.ar()[0]
 
         Returns ugen input.
         """

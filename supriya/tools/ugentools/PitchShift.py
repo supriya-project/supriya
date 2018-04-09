@@ -145,19 +145,7 @@ class PitchShift(UGen):
             ...     source=source,
             ...     )
             >>> pitch_shift.source
-            OutputProxy(
-                source=In(
-                    bus=OutputProxy(
-                        source=NumOutputBuses(
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns input.
         """

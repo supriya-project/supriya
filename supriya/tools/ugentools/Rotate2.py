@@ -109,14 +109,7 @@ class Rotate2(MultiOutUGen):
             ...     position=position,
             ...     )
             >>> rotate_2[0].source.position
-            OutputProxy(
-                source=LFSaw(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=0.1,
-                    initial_phase=0.0
-                    ),
-                output_index=0
-                )
+            LFSaw.kr()[0]
 
         Returns ugen input.
         """
@@ -140,20 +133,7 @@ class Rotate2(MultiOutUGen):
             ...     position=position,
             ...     )
             >>> rotate_2[0].source.x
-            OutputProxy(
-                source=BinaryOpUGen(
-                    left=OutputProxy(
-                        source=PinkNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        ),
-                    right=0.4,
-                    calculation_rate=CalculationRate.AUDIO,
-                    special_index=2
-                    ),
-                output_index=0
-                )
+            BinaryOpUGen.ar()[0]
 
         Returns input.
         """
@@ -177,30 +157,7 @@ class Rotate2(MultiOutUGen):
             ...     position=position,
             ...     )
             >>> rotate_2[0].source.y
-            OutputProxy(
-                source=BinaryOpUGen(
-                    left=OutputProxy(
-                        source=LFTri(
-                            calculation_rate=CalculationRate.AUDIO,
-                            frequency=880.0,
-                            initial_phase=0.0
-                            ),
-                        output_index=0
-                        ),
-                    right=OutputProxy(
-                        source=LFPulse(
-                            calculation_rate=CalculationRate.CONTROL,
-                            frequency=3.0,
-                            initial_phase=0.0,
-                            width=0.1
-                            ),
-                        output_index=0
-                        ),
-                    calculation_rate=CalculationRate.AUDIO,
-                    special_index=2
-                    ),
-                output_index=0
-                )
+            BinaryOpUGen.ar()[0]
 
         Returns input.
         """

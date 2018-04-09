@@ -84,16 +84,7 @@ class Done(UGen):
             ...     source=source,
             ...     )
             >>> done.source
-            OutputProxy(
-                source=Line(
-                    calculation_rate=CalculationRate.CONTROL,
-                    done_action=0.0,
-                    duration=1.0,
-                    start=0.0,
-                    stop=1.0
-                    ),
-                output_index=0
-                )
+            Line.kr()[0]
 
         Returns input.
         """

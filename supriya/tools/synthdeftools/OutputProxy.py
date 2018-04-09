@@ -51,6 +51,9 @@ class OutputProxy(UGenMethodMixin):
     def __len__(self):
         return 1
 
+    def __repr__(self):
+        return '{!r}[{}]'.format(self.source, self.output_index)
+
     ### PRIVATE METHODS ###
 
     def _get_output_number(self):

@@ -149,14 +149,7 @@ class FFT(PV_ChainUGen):
             ...     window_type=0,
             ...     )
             >>> fft.buffer_id
-            OutputProxy(
-                source=LocalBuf(
-                    frame_count=2048.0,
-                    channel_count=1.0,
-                    calculation_rate=CalculationRate.SCALAR
-                    ),
-                output_index=0
-                )
+            LocalBuf.ir()[0]
 
         Returns ugen input.
         """
@@ -216,19 +209,7 @@ class FFT(PV_ChainUGen):
             ...     window_type=0,
             ...     )
             >>> fft.source
-            OutputProxy(
-                source=In(
-                    bus=OutputProxy(
-                        source=NumOutputBuses(
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns ugen input.
         """

@@ -19,21 +19,7 @@ class Warp1(MultiOutUGen):
         ...     window_size=0.2,
         ...     )
         >>> warp_1
-        OutputProxy(
-            source=Warp1(
-                calculation_rate=CalculationRate.AUDIO,
-                buffer_id=0.0,
-                channel_count=1,
-                envelope_buffer_id=-1.0,
-                frequency_scaling=1.0,
-                interpolation=1.0,
-                overlaps=8.0,
-                pointer=0.0,
-                window_rand_ratio=0.0,
-                window_size=0.2
-                ),
-            output_index=0
-            )
+        Warp1.ar()[0]
 
     """
 
@@ -119,21 +105,7 @@ class Warp1(MultiOutUGen):
             ...     window_size=0.2,
             ...     )
             >>> warp_1
-            OutputProxy(
-                source=Warp1(
-                    calculation_rate=CalculationRate.AUDIO,
-                    buffer_id=0.0,
-                    channel_count=1,
-                    envelope_buffer_id=-1.0,
-                    frequency_scaling=1.0,
-                    interpolation=1.0,
-                    overlaps=8.0,
-                    pointer=0.0,
-                    window_rand_ratio=0.0,
-                    window_size=0.2
-                    ),
-                output_index=0
-                )
+            Warp1.ar()[0]
 
         Returns ugen graph.
         """

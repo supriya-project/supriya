@@ -126,12 +126,7 @@ class Gate(UGen):
             ...     trigger=trigger,
             ...     )
             >>> gate.source
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                )
+            WhiteNoise.ar()[0]
 
         Returns ugen input.
         """
@@ -152,13 +147,7 @@ class Gate(UGen):
             ...     trigger=trigger,
             ...     )
             >>> gate.trigger
-            OutputProxy(
-                source=Dust(
-                    calculation_rate=CalculationRate.CONTROL,
-                    density=1.0
-                    ),
-                output_index=0
-                )
+            Dust.kr()[0]
 
         Returns ugen input.
         """

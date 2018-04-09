@@ -110,14 +110,7 @@ class BinaryOpUGen(PureUGen):
             >>> right = ugentools.WhiteNoise.kr()
             >>> binary_op_ugen = left * right
             >>> binary_op_ugen.left
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns input.
         """
@@ -153,12 +146,7 @@ class BinaryOpUGen(PureUGen):
             >>> right = ugentools.WhiteNoise.kr()
             >>> binary_op_ugen = left * right
             >>> binary_op_ugen.right
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.CONTROL
-                    ),
-                output_index=0
-                )
+            WhiteNoise.kr()[0]
 
         Returns input.
         """

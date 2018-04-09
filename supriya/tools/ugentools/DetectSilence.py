@@ -176,29 +176,7 @@ class DetectSilence(Filter):
             ...     time=1.0,
             ...     )
             >>> detect_silence.source
-            OutputProxy(
-                source=BinaryOpUGen(
-                    left=OutputProxy(
-                        source=WhiteNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        ),
-                    right=OutputProxy(
-                        source=Line(
-                            calculation_rate=CalculationRate.CONTROL,
-                            done_action=0.0,
-                            duration=1.0,
-                            start=1.0,
-                            stop=0.0
-                            ),
-                        output_index=0
-                        ),
-                    calculation_rate=CalculationRate.AUDIO,
-                    special_index=2
-                    ),
-                output_index=0
-                )
+            BinaryOpUGen.ar()[0]
 
         Returns ugen input.
         """

@@ -138,12 +138,7 @@ class Pan2(MultiOutUGen):
             ...     )
             >>> pan_2 = pan_2_outputs[0].source
             >>> pan_2.source
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                )
+            WhiteNoise.ar()[0]
 
         Returns input.
         """

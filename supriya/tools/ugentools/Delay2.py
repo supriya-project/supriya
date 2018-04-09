@@ -81,14 +81,7 @@ class Delay2(Delay1):
             ...     source=source,
             ...     )
             >>> delay_2.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns input.
         """

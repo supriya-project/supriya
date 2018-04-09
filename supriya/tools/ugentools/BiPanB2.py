@@ -201,14 +201,7 @@ class BiPanB2(MultiOutUGen):
             ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2[0].source.in_a
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns ugen input.
         """
@@ -231,12 +224,7 @@ class BiPanB2(MultiOutUGen):
             ...     in_b=in_b,
             ...     )
             >>> bi_pan_b_2[0].source.in_b
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                )
+            WhiteNoise.ar()[0]
 
         Returns ugen input.
         """

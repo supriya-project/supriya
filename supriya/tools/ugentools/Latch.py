@@ -126,13 +126,7 @@ class Latch(UGen):
             ...     trigger=trigger,
             ...     )
             >>> latch.source
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.AUDIO
-                    ),
-                output_index=0
-                )
-
+            WhiteNoise.ar()[0]
 
         Returns ugen input.
         """
@@ -153,13 +147,7 @@ class Latch(UGen):
             ...     trigger=trigger,
             ...     )
             >>> latch.trigger
-            OutputProxy(
-                source=Dust(
-                    calculation_rate=CalculationRate.CONTROL,
-                    density=1.0
-                    ),
-                output_index=0
-                )
+            Dust.kr()[0]
 
         Returns ugen input.
         """

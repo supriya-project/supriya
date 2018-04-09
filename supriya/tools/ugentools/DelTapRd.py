@@ -246,21 +246,7 @@ class DelTapRd(UGen):
             ...     phase=phase,
             ...     )
             >>> del_tap_rd.phase
-            OutputProxy(
-                source=DelTapWr(
-                    buffer_id=23.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    source=OutputProxy(
-                        source=In(
-                            bus=0.0,
-                            calculation_rate=CalculationRate.AUDIO,
-                            channel_count=1
-                            ),
-                        output_index=0
-                        )
-                    ),
-                output_index=0
-                )
+            DelTapWr.ar()[0]
 
         Returns input.
         """

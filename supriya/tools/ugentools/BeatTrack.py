@@ -97,36 +97,7 @@ class BeatTrack(MultiOutUGen):
             ...     lock=0,
             ...     )
             >>> beat_track[0].source.pv_chain
-            OutputProxy(
-                source=FFT(
-                    buffer_id=OutputProxy(
-                        source=LocalBuf(
-                            frame_count=2048.0,
-                            channel_count=1.0,
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    source=OutputProxy(
-                        source=In(
-                            bus=OutputProxy(
-                                source=NumOutputBuses(
-                                    calculation_rate=CalculationRate.SCALAR
-                                    ),
-                                output_index=0
-                                ),
-                            calculation_rate=CalculationRate.AUDIO,
-                            channel_count=1
-                            ),
-                        output_index=0
-                        ),
-                    active=1.0,
-                    hop=0.5,
-                    window_size=0.0,
-                    window_type=0.0
-                    ),
-                output_index=0
-                )
+            FFT.kr()[0]
 
         Returns ugen input.
         """

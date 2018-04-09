@@ -114,14 +114,7 @@ class Pause(UGen):
             ...     trigger=trigger,
             ...     )
             >>> pause.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=1.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns input.
         """

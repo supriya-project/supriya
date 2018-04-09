@@ -133,14 +133,7 @@ class IFFT(WidthFirstUGen):
             ...     window_type=0,
             ...     )
             >>> ifft.pv_chain
-            OutputProxy(
-                source=LocalBuf(
-                    frame_count=2048.0,
-                    channel_count=1.0,
-                    calculation_rate=CalculationRate.SCALAR
-                    ),
-                output_index=0
-                )
+            LocalBuf.ir()[0]
 
         Returns ugen input.
         """

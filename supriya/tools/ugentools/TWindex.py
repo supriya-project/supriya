@@ -179,14 +179,7 @@ class TWindex(UGen):
             ...     array=[1, 2, 3],
             ...     )
             >>> t_windex.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.ar()[0]
 
         Returns ugen input.
         """

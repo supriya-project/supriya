@@ -203,27 +203,7 @@ class DecodeB2(MultiOutUGen):
             ...     y=y,
             ...     )
             >>> decode_b_2[0].source.w
-            OutputProxy(
-                source=PanB2(
-                    calculation_rate=CalculationRate.AUDIO,
-                    azimuth=OutputProxy(
-                        source=SinOsc(
-                            calculation_rate=CalculationRate.CONTROL,
-                            frequency=440.0,
-                            phase=0.0
-                            ),
-                        output_index=0
-                        ),
-                    gain=1.0,
-                    source=OutputProxy(
-                        source=PinkNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        )
-                    ),
-                output_index=0
-                )
+            PanB2.ar()[0]
 
         Returns ugen input.
         """
@@ -251,27 +231,7 @@ class DecodeB2(MultiOutUGen):
             ...     y=y,
             ...     )
             >>> decode_b_2[0].source.x
-            OutputProxy(
-                source=PanB2(
-                    calculation_rate=CalculationRate.AUDIO,
-                    azimuth=OutputProxy(
-                        source=SinOsc(
-                            calculation_rate=CalculationRate.CONTROL,
-                            frequency=440.0,
-                            phase=0.0
-                            ),
-                        output_index=0
-                        ),
-                    gain=1.0,
-                    source=OutputProxy(
-                        source=PinkNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        )
-                    ),
-                output_index=1
-                )
+            PanB2.ar()[1]
 
         Returns ugen input.
         """
@@ -299,27 +259,7 @@ class DecodeB2(MultiOutUGen):
             ...     y=y,
             ...     )
             >>> decode_b_2[0].source.y
-            OutputProxy(
-                source=PanB2(
-                    calculation_rate=CalculationRate.AUDIO,
-                    azimuth=OutputProxy(
-                        source=SinOsc(
-                            calculation_rate=CalculationRate.CONTROL,
-                            frequency=440.0,
-                            phase=0.0
-                            ),
-                        output_index=0
-                        ),
-                    gain=1.0,
-                    source=OutputProxy(
-                        source=PinkNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        )
-                    ),
-                output_index=2
-                )
+            PanB2.ar()[2]
 
         Returns ugen input.
         """

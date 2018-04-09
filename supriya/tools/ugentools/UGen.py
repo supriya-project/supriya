@@ -89,14 +89,7 @@ class UGen(UGenMethodMixin):
 
             >>> ugen = ugentools.SinOsc.ar()
             >>> ugen[0]
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns output proxy.
         """
@@ -457,12 +450,7 @@ class UGen(UGenMethodMixin):
             >>> for input_ in ugen.inputs:
             ...     input_
             ...
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.CONTROL
-                    ),
-                output_index=0
-                )
+            WhiteNoise.kr()[0]
             0.5
 
         Returns tuple.

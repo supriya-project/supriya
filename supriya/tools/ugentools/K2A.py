@@ -81,12 +81,7 @@ class K2A(PureUGen):
             ...     source=source,
             ...     )
             >>> k_2_a.source
-            OutputProxy(
-                source=WhiteNoise(
-                    calculation_rate=CalculationRate.CONTROL
-                    ),
-                output_index=0
-                )
+            WhiteNoise.kr()[0]
 
         Returns input.
         """

@@ -140,13 +140,7 @@ class XFade2(UGen):
             ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.in_a
-            OutputProxy(
-                source=Saw(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0
-                    ),
-                output_index=0
-                )
+            Saw.ar()[0]
 
         Returns ugen input.
         """
@@ -167,14 +161,7 @@ class XFade2(UGen):
             ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.in_b
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns ugen input.
         """
@@ -216,14 +203,7 @@ class XFade2(UGen):
             ...     pan=ugentools.LFTri.kr(frequency=0.1),
             ...     )
             >>> xfade_2.pan
-            OutputProxy(
-                source=LFTri(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=0.1,
-                    initial_phase=0.0
-                    ),
-                output_index=0
-                )
+            LFTri.kr()[0]
 
         Returns ugen input.
         """

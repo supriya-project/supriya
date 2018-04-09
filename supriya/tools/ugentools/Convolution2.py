@@ -3,9 +3,7 @@ from supriya.tools.ugentools.UGen import UGen
 
 class Convolution2(UGen):
     """
-    Strict convolution with fixed kernel which can be updated using a trigger signal.
-
-    ::
+    Strict convolution with fixed kernel which can be updated using a trigger signal. ::
 
         >>> source = ugentools.In.ar(bus=0)
         >>> kernel = ugentools.Mix.new(
@@ -146,111 +144,7 @@ class Convolution2(UGen):
             ...     trigger=0,
             ...     )
             >>> convolution_2.kernel
-            OutputProxy(
-                source=Sum4(
-                    input_one=OutputProxy(
-                        source=BinaryOpUGen(
-                            left=OutputProxy(
-                                source=LFSaw(
-                                    calculation_rate=CalculationRate.AUDIO,
-                                    frequency=300.0,
-                                    initial_phase=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            right=OutputProxy(
-                                source=MouseX(
-                                    calculation_rate=CalculationRate.CONTROL,
-                                    lag=0.2,
-                                    maximum=2.0,
-                                    minimum=1.0,
-                                    warp=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            calculation_rate=CalculationRate.AUDIO,
-                            special_index=2
-                            ),
-                        output_index=0
-                        ),
-                    input_two=OutputProxy(
-                        source=BinaryOpUGen(
-                            left=OutputProxy(
-                                source=LFSaw(
-                                    calculation_rate=CalculationRate.AUDIO,
-                                    frequency=500.0,
-                                    initial_phase=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            right=OutputProxy(
-                                source=MouseX(
-                                    calculation_rate=CalculationRate.CONTROL,
-                                    lag=0.2,
-                                    maximum=2.0,
-                                    minimum=1.0,
-                                    warp=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            calculation_rate=CalculationRate.AUDIO,
-                            special_index=2
-                            ),
-                        output_index=0
-                        ),
-                    input_three=OutputProxy(
-                        source=BinaryOpUGen(
-                            left=OutputProxy(
-                                source=LFSaw(
-                                    calculation_rate=CalculationRate.AUDIO,
-                                    frequency=800.0,
-                                    initial_phase=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            right=OutputProxy(
-                                source=MouseX(
-                                    calculation_rate=CalculationRate.CONTROL,
-                                    lag=0.2,
-                                    maximum=2.0,
-                                    minimum=1.0,
-                                    warp=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            calculation_rate=CalculationRate.AUDIO,
-                            special_index=2
-                            ),
-                        output_index=0
-                        ),
-                    input_four=OutputProxy(
-                        source=BinaryOpUGen(
-                            left=OutputProxy(
-                                source=LFSaw(
-                                    calculation_rate=CalculationRate.AUDIO,
-                                    frequency=1000.0,
-                                    initial_phase=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            right=OutputProxy(
-                                source=MouseX(
-                                    calculation_rate=CalculationRate.CONTROL,
-                                    lag=0.2,
-                                    maximum=2.0,
-                                    minimum=1.0,
-                                    warp=0.0
-                                    ),
-                                output_index=0
-                                ),
-                            calculation_rate=CalculationRate.AUDIO,
-                            special_index=2
-                            ),
-                        output_index=0
-                        )
-                    ),
-                output_index=0
-                )
+            Sum4.ar()[0]
 
         Returns ugen input.
         """
@@ -276,14 +170,7 @@ class Convolution2(UGen):
             ...     trigger=0,
             ...     )
             >>> convolution_2.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns ugen input.
         """

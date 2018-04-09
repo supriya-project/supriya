@@ -81,14 +81,7 @@ class A2K(PureUGen):
             ...     source=source,
             ...     )
             >>> a_2_k.source
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns input.
         """

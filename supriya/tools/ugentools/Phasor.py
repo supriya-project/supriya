@@ -247,14 +247,7 @@ class Phasor(UGen):
             ...     trigger=trigger,
             ...     )
             >>> phasor.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=0.5,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns ugen input.
         """

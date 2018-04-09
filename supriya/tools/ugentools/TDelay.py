@@ -142,13 +142,7 @@ class TDelay(UGen):
             ...     source=source,
             ...     )
             >>> tdelay.source
-            OutputProxy(
-                source=Dust(
-                    calculation_rate=CalculationRate.CONTROL,
-                    density=0.0
-                    ),
-                output_index=0
-                )
+            Dust.kr()[0]
 
         Returns ugen input.
         """

@@ -140,14 +140,7 @@ class MantissaMask(UGen):
             ...     bits=3,
             ...     )
             >>> mantissa_mask.source
-            OutputProxy(
-                source=SinOsc(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            SinOsc.ar()[0]
 
         Returns ugen input.
         """

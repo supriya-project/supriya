@@ -269,35 +269,7 @@ class SendPeakRMS(UGen):
             ...     source=source,
             ...     )
             >>> send_peak_rms.source
-            (OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=4
-                    ),
-                output_index=0
-                ), OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=4
-                    ),
-                output_index=1
-                ), OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=4
-                    ),
-                output_index=2
-                ), OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=4
-                    ),
-                output_index=3
-                ))
+            (In.ar()[0], In.ar()[1], In.ar()[2], In.ar()[3])
 
         Returns ugen input.
         """

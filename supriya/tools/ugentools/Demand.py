@@ -194,21 +194,7 @@ class Demand(MultiOutUGen):
             ...     trigger=trigger,
             ...     )
             >>> demand[0].source.source
-            (OutputProxy(
-                source=Dseries(
-                    length=inf,
-                    start=1.0,
-                    step=1.0
-                    ),
-                output_index=0
-                ), OutputProxy(
-                source=Dwhite(
-                    length=inf,
-                    maximum=1.0,
-                    minimum=0.0
-                    ),
-                output_index=0
-                ))
+            (Dseries()[0], Dwhite()[0])
 
         Returns ugen input.
         """
@@ -233,14 +219,7 @@ class Demand(MultiOutUGen):
             ...     trigger=trigger,
             ...     )
             >>> demand[0].source.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.CONTROL,
-                    frequency=1.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
+            Impulse.kr()[0]
 
         Returns ugen input.
         """

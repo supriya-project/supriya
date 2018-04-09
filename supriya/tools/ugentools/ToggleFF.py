@@ -111,13 +111,7 @@ class ToggleFF(UGen):
             ...     trigger=trigger,
             ...     )
             >>> toggle_ff.trigger
-            OutputProxy(
-                source=Dust(
-                    calculation_rate=CalculationRate.CONTROL,
-                    density=1.0
-                    ),
-                output_index=0
-                )
+            Dust.kr()[0]
 
         Returns ugen input.
         """

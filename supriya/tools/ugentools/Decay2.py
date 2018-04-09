@@ -118,7 +118,7 @@ class Decay2(Filter):
 
             >>> attack_time = 0.5
             >>> decay_time = 0.25
-            >>> source = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> decay_2 = ugentools.Decay2.ar(
             ...     attack_time=attack_time,
             ...     decay_time=decay_time,
@@ -141,7 +141,7 @@ class Decay2(Filter):
 
             >>> attack_time = 0.5
             >>> decay_time = 0.25
-            >>> source = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> decay_2 = ugentools.Decay2.ar(
             ...     attack_time=attack_time,
             ...     decay_time=decay_time,
@@ -164,21 +164,14 @@ class Decay2(Filter):
 
             >>> attack_time = 0.5
             >>> decay_time = 0.25
-            >>> source = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> decay_2 = ugentools.Decay2.ar(
             ...     attack_time=attack_time,
             ...     decay_time=decay_time,
             ...     source=source,
             ...     )
             >>> decay_2.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns input.
         """

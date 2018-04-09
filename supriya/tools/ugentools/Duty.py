@@ -191,13 +191,7 @@ class Duty(UGen):
             ...         ),
             ...     )
             >>> duty.duration
-            OutputProxy(
-                source=Drand(
-                    repeats=2.0,
-                    sequence=(0.01, 0.2, 0.4)
-                    ),
-                output_index=0
-                )
+            Drand()[0]
 
         Returns ugen input.
         """
@@ -224,13 +218,7 @@ class Duty(UGen):
             ...         ),
             ...     )
             >>> duty.level
-            OutputProxy(
-                source=Dseq(
-                    repeats=2.0,
-                    sequence=(204.0, 400.0, 201.0, 502.0, 300.0, 200.0)
-                    ),
-                output_index=0
-                )
+            Dseq()[0]
 
         Returns ugen input.
         """

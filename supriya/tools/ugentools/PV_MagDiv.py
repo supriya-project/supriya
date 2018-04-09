@@ -108,30 +108,7 @@ class PV_MagDiv(PV_ChainUGen):
             ...     zeroed=0.0001,
             ...     )
             >>> pv_mag_div.pv_chain_a
-            OutputProxy(
-                source=FFT(
-                    buffer_id=OutputProxy(
-                        source=LocalBuf(
-                            frame_count=2048.0,
-                            channel_count=1.0,
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    source=OutputProxy(
-                        source=WhiteNoise(
-                            calculation_rate=CalculationRate.AUDIO
-                            ),
-                        output_index=0
-                        ),
-                    active=1.0,
-                    hop=0.5,
-                    window_size=0.0,
-                    window_type=0.0
-                    ),
-                output_index=0
-                )
-
+            FFT.kr()[0]
 
         Returns ugen input.
         """
@@ -157,31 +134,7 @@ class PV_MagDiv(PV_ChainUGen):
             ...     zeroed=0.0001,
             ...     )
             >>> pv_mag_div.pv_chain_b
-            OutputProxy(
-                source=FFT(
-                    buffer_id=OutputProxy(
-                        source=LocalBuf(
-                            frame_count=2048.0,
-                            channel_count=1.0,
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    source=OutputProxy(
-                        source=LFSaw(
-                            calculation_rate=CalculationRate.AUDIO,
-                            frequency=440.0,
-                            initial_phase=0.0
-                            ),
-                        output_index=0
-                        ),
-                    active=1.0,
-                    hop=0.5,
-                    window_size=0.0,
-                    window_type=0.0
-                    ),
-                output_index=0
-                )
+            FFT.kr()[0]
 
         Returns ugen input.
         """

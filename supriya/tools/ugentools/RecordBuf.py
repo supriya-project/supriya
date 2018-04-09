@@ -272,19 +272,7 @@ class RecordBuf(UGen):
             ...     trigger=1,
             ...     )
             >>> record_buf.source
-            OutputProxy(
-                source=In(
-                    bus=OutputProxy(
-                        source=NumOutputBuses(
-                            calculation_rate=CalculationRate.SCALAR
-                            ),
-                        output_index=0
-                        ),
-                    calculation_rate=CalculationRate.AUDIO,
-                    channel_count=2
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns ugen input.
         """

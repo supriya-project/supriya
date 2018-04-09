@@ -175,15 +175,7 @@ class TRand(UGen):
             ...     trigger=trigger,
             ...     )
             >>> t_rand.trigger
-            OutputProxy(
-                source=Impulse(
-                    calculation_rate=CalculationRate.AUDIO,
-                    frequency=440.0,
-                    phase=0.0
-                    ),
-                output_index=0
-                )
-
+            Impulse.ar()[0]
 
         Returns ugen input.
         """

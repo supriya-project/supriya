@@ -110,7 +110,7 @@ class Decay(Filter):
         ::
 
             >>> decay_time = 1.0
-            >>> source = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> decay = ugentools.Decay.ar(
             ...     decay_time=decay_time,
             ...     source=source,
@@ -131,20 +131,13 @@ class Decay(Filter):
         ::
 
             >>> decay_time = 1.0
-            >>> source = ugentools.In.kr(bus=0)
+            >>> source = ugentools.In.ar(bus=0)
             >>> decay = ugentools.Decay.ar(
             ...     decay_time=decay_time,
             ...     source=source,
             ...     )
             >>> decay.source
-            OutputProxy(
-                source=In(
-                    bus=0.0,
-                    calculation_rate=CalculationRate.CONTROL,
-                    channel_count=1
-                    ),
-                output_index=0
-                )
+            In.ar()[0]
 
         Returns input.
         """
