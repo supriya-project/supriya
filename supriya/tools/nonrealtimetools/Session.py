@@ -3,8 +3,8 @@ import collections
 import os
 import pathlib
 import struct
+import uqbar.io
 from abjad.tools import documentationtools
-from abjad.tools import systemtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -327,7 +327,7 @@ class Session:
         """
         server_options = server_options or servertools.ServerOptions()
         scsynth_path = 'scsynth'
-        if not systemtools.IOManager.find_executable('scsynth'):
+        if not uqbar.io.find_executable('scsynth'):
             found_scsynth = False
             for path in (
                 '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7

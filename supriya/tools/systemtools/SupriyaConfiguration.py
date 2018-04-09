@@ -1,5 +1,6 @@
 import os
 import traceback
+import uqbar.io
 from abjad.tools.systemtools.Configuration import Configuration
 
 
@@ -47,9 +48,8 @@ class SupriyaConfiguration(Configuration):
 
     @property
     def scsynth_path(self):
-        from abjad.tools import systemtools
         scsynth_path = 'scsynth'
-        if not systemtools.IOManager.find_executable('scsynth'):
+        if not uqbar.io.find_executable('scsynth'):
             for path in (
                 '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
                 '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
