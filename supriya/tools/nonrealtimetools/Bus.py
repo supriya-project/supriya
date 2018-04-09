@@ -15,7 +15,8 @@ class Bus(SessionObject):
         >>> print(repr(bus))
         <Bus(
             calculation_rate=CalculationRate.CONTROL,
-            session_id=0
+            session=<Session>,
+            session_id=0,
             )>
 
     ::
@@ -76,6 +77,9 @@ class Bus(SessionObject):
         self._events = []
 
     ### SPECIAL METHODS ###
+
+    def __repr__(self):
+        return '<{}>'.format(super(Bus, self).__repr__())
 
     def __str__(self):
         map_symbol = 'c'
@@ -173,6 +177,10 @@ class Bus(SessionObject):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def session_id(self):
+        return self._session_id
 
     @property
     def start_offset(self):

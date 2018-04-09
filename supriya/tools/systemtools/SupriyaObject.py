@@ -32,8 +32,10 @@ class SupriyaObject(AbstractBase):
         return str(self)
 
     def __repr__(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatAgent(self).get_repr_format()
+        #from abjad.tools import systemtools
+        #return systemtools.StorageFormatAgent(self).get_repr_format()
+        import supriya.utils
+        return supriya.utils.get_object_repr(self, multiline=True)
 
     ### PRIVATE PROPERTIES ###
 

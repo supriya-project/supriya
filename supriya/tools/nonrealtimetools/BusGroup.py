@@ -14,7 +14,8 @@ class BusGroup(SessionObject):
         <BusGroup(
             bus_count=3,
             calculation_rate=CalculationRate.CONTROL,
-            session_id=0
+            session=<Session>,
+            session_id=0,
             )>
 
     ::
@@ -103,6 +104,9 @@ class BusGroup(SessionObject):
     def __len__(self):
         return len(self._buses)
 
+    def __repr__(self):
+        return '<{}>'.format(super(BusGroup, self).__repr__())
+
     def __str__(self):
         map_symbol = 'c'
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
@@ -174,3 +178,7 @@ class BusGroup(SessionObject):
     @property
     def calculation_rate(self):
         return self._calculation_rate
+
+    @property
+    def session_id(self):
+        return self._session_id

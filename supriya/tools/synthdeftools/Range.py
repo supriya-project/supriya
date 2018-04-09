@@ -10,40 +10,40 @@ class Range(SupriyaObject):
 
         >>> synthdeftools.Range(-1., 1.)
         Range(
+            maximum=1.0,
             minimum=-1.0,
-            maximum=1.0
             )
 
     ::
 
         >>> synthdeftools.Range(minimum=0.)
         Range(
+            maximum=inf,
             minimum=0.0,
-            maximum=inf
             )
 
     ::
 
         >>> synthdeftools.Range()
         Range(
+            maximum=inf,
             minimum=-inf,
-            maximum=inf
             )
 
     ::
 
         >>> synthdeftools.Range((0.1, 0.9))
         Range(
+            maximum=0.9,
             minimum=0.1,
-            maximum=0.9
             )
 
     ::
 
         >>> synthdeftools.Range(synthdeftools.Range(-3, 3))
         Range(
+            maximum=3.0,
             minimum=-3.0,
-            maximum=3.0
             )
 
     """

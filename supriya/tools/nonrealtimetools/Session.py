@@ -170,6 +170,9 @@ class Session:
             )
         return output_file_path
 
+    def __repr__(self):
+        return '<{}>'.format(type(self).__name__)
+
     def __session__(self):
         return self
 
