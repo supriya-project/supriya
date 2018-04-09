@@ -1,5 +1,6 @@
 import types
 import uuid
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import patterntools
@@ -25,15 +26,16 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.SynthEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=SynthEvent(
                     delta=0.0,
                     out=4,
                     pan=0.25,
-                    synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                    synthdef=<SynthDef: default>,
                     uuid=UUID('A'),
                     ),
                 index=0,
@@ -41,7 +43,7 @@ class TestCase(TestCase):
                     supriya.tools.requesttools.SynthNewRequest(
                         add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                        synthdef=<SynthDef: default>,
                         target_node_id=1,
                         out=4,
                         pan=0.25,
@@ -50,9 +52,7 @@ class TestCase(TestCase):
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
         assert node_uuid in uuids
         assert isinstance(uuids[node_uuid], dict)
         assert list(uuids[node_uuid].keys()) == [1000]
@@ -76,11 +76,12 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.SynthEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=SynthEvent(
                     delta=0.0,
                     is_stop=True,
                     uuid=UUID('A'),
@@ -88,13 +89,11 @@ class TestCase(TestCase):
                 index=0,
                 is_stop=True,
                 requests=[
-                    supriya.tools.requesttools.NodeFreeRequest(
+                    NodeFreeRequest(
                         node_ids=(1000,),
                         ),
                     ],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
