@@ -1,9 +1,9 @@
 import collections
-from supriya.tools.systemtools.TreeContainer import TreeContainer
+from uqbar.containers import UniqueTreeContainer
 from supriya.tools.servertools.Node import Node
 
 
-class Group(Node, TreeContainer):
+class Group(Node, UniqueTreeContainer):
     """
     A group.
 
@@ -47,11 +47,8 @@ class Group(Node, TreeContainer):
     def __init__(self, children=None, name=None):
         from supriya.tools import servertools
         Node.__init__(self, name=name)
-        self._children = []
+        UniqueTreeContainer.__init__(self, children=children, name=name)
         self._control_interface = servertools.GroupInterface(client=self)
-        self._named_children = {}
-        if children is not None:
-            self[:] = children
 
     ### SPECIAL METHODS ###
 
@@ -66,6 +63,7 @@ class Group(Node, TreeContainer):
             >>> group_one.append(group_two)
 
         """
+        # TODO: lean on uqbar's __setitem__ more.
         self._validate_setitem_expr(expr)
         if isinstance(i, slice):
             assert isinstance(expr, collections.Sequence)
@@ -273,14 +271,14 @@ class Group(Node, TreeContainer):
             child._unregister_with_local_server()
         return Node._unregister_with_local_server(self)
 
-#    def _validate_setitem_expr(self, expr):
-#        from supriya.tools import servertools
-#        assert all(isinstance(_, servertools.Node) for _ in expr)
-#        parentage = self.parentage
-#        for x in expr:
-#            assert isinstance(x, servertools.Node)
-#            if isinstance(x, servertools.Group):
-#                assert x not in parentage
+    def _validate_setitem_expr(self, expr):
+        from supriya.tools import servertools
+        assert all(isinstance(_, servertools.Node) for _ in expr)
+        parentage = self.parentage
+        for x in expr:
+            assert isinstance(x, servertools.Node)
+            if isinstance(x, servertools.Group):
+                assert x not in parentage
 
     ### PUBLIC METHODS ###
 
@@ -335,57 +333,15 @@ class Group(Node, TreeContainer):
                 )
         return self
 
-#    def append(self, expr):
-#        self.__setitem__(
-#            slice(len(self), len(self)),
-#            [expr]
-#            )
-
-#    def extend(self, expr):
-#        self.__setitem__(
-#            slice(len(self), len(self)),
-#            expr
-#            )
-
     def free(self):
         for node in self:
             node._unregister_with_local_server()
         Node.free(self)
         return self
 
-#    def index(self, expr):
-#        for i, child in enumerate(self._children):
-#            if child is expr:
-#                return i
-#        else:
-#            message = '{!r} not in {!r}.'
-#            message = message.format(expr, self)
-#            raise ValueError(message)
-
-#    def insert(self, i, expr):
-#        self.__setitem__(
-#            slice(i, i),
-#            [expr]
-#            )
-
-#    def pop(self, i=-1):
-#        node = self[i]
-#        del(self[i])
-#        return node
-
     def release(self):
         if 'gate' in self.controls:
             self.controls['gate'] = 0
-
-#    def remove(self, node):
-#        i = self.index(node)
-#        del(self[i])
-
-    ### PUBLIC PROPERTIES ###
-
-#    @property
-#    def children(self):
-#        return tuple(self._children)
 
     @property
     def controls(self):

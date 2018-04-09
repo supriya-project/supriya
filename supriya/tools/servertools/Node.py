@@ -1,9 +1,9 @@
 import abc
-from supriya.tools.systemtools.TreeNode import TreeNode
+from uqbar.containers import UniqueTreeNode
 from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
 
 
-class Node(ServerObjectProxy, TreeNode):
+class Node(ServerObjectProxy, UniqueTreeNode):
 
     ### CLASS VARIABLES ###
 
@@ -20,7 +20,7 @@ class Node(ServerObjectProxy, TreeNode):
     @abc.abstractmethod
     def __init__(self, name=None):
         ServerObjectProxy.__init__(self)
-        TreeNode.__init__(self, name=name)
+        UniqueTreeNode.__init__(self, name=name)
         self._is_paused = False
         self._node_id = None
         self._node_id_is_permanent = None
@@ -276,24 +276,6 @@ class Node(ServerObjectProxy, TreeNode):
                 sync=False,
                 )
 
-#    def precede_by(self, expr):
-#        if not isinstance(expr, collections.Sequence):
-#            expr = [expr]
-#        index = self.parent.index(self)
-#        self.parent[index:index] = expr
-
-#    def replace_with(self, expr):
-#        if not isinstance(expr, collections.Sequence):
-#            expr = [expr]
-#        index = self.parent.index(self)
-#        self.parent[index:index + 1] = expr
-
-#    def succeed_by(self, expr):
-#        if not isinstance(expr, collections.Sequence):
-#            expr = [expr]
-#        index = self.parent.index(self)
-#        self.parent[index + 1:index + 1] = expr
-
     ### PUBLIC PROPERTIES ###
 
     @property
@@ -310,27 +292,6 @@ class Node(ServerObjectProxy, TreeNode):
     def is_running(self):
         return self.server is not None
 
-#    @property
-#    def name(self):
-#        return self._name
-
-#    @name.setter
-#    def name(self, expr):
-#        assert isinstance(expr, (str, type(None)))
-#        old_name = self._name
-#        for parent in self.parentage[1:]:
-#            named_children = parent._named_children
-#            if old_name is not None:
-#                named_children[old_name].remove(self)
-#                if not named_children[old_name]:
-#                    del named_children[old_name]
-#            if expr is not None:
-#                if expr not in named_children:
-#                    named_children[expr] = set([self])
-#                else:
-#                    named_children[expr].add(self)
-#        self._name = expr
-
     @property
     def node_id(self):
         return self._node_id
@@ -338,16 +299,3 @@ class Node(ServerObjectProxy, TreeNode):
     @property
     def node_id_is_permanent(self):
         return self._node_id_is_permanent
-
-#    @property
-#    def parent(self):
-#        return self._parent
-
-#    @property
-#    def parentage(self):
-#        parentage = []
-#        node = self
-#        while node is not None:
-#            parentage.append(node)
-#            node = node.parent
-#        return tuple(parentage)
