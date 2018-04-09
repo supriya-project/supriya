@@ -1,4 +1,5 @@
 import time
+import uqbar.strings
 
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
@@ -29,36 +30,32 @@ class TestCase(TestCase):
 
     def test___iter___(self):
         events = list(self.pbind_01)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=440,
-                is_stop=True,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=2.0,
                 duration=2.0,
                 frequency=660,
-                is_stop=True,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=3.0,
                 duration=3.0,
                 frequency=880,
-                is_stop=True,
                 uuid=UUID('C'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send(self):
         iterator = iter(self.pbind_01)

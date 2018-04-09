@@ -12,6 +12,7 @@ class NullEvent(Event):
     def __init__(
         self,
         delta=0,
+        uuid=None,
         **settings
         ):
         settings = {

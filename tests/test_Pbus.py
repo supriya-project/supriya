@@ -1,4 +1,5 @@
 import time
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import SynthDefBuilder, Parameter, synthdefs
 from supriya.tools import nonrealtimetools
@@ -27,123 +28,110 @@ class TestCase(TestCase):
 
     def test___iter___01(self):
         events = list(self.pbus_01)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=440,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=2.0,
                 duration=2.0,
                 frequency=660,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('E'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=3.0,
                 duration=3.0,
                 frequency=880,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('F'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test___iter___02(self):
         events = list(self.pbus_02)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -153,7 +141,7 @@ class TestCase(TestCase):
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -163,259 +151,229 @@ class TestCase(TestCase):
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
                 frequency=444,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send_01a(self):
         events = self.setup_send(self.pbus_01, iterations=1)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send_01b(self):
         events = self.setup_send(self.pbus_01, iterations=2)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=1.0,
                 duration=1.0,
                 frequency=440,
-                is_stop=True,
                 out=UUID('A'),
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send_02a(self):
         events = self.setup_send(self.pbus_02, iterations=1)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send_02b(self):
         events = self.setup_send(self.pbus_02, iterations=2)
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.BusEvent(
+                    BusEvent(
                         calculation_rate=CalculationRate.AUDIO,
                         channel_count=2,
-                        delta=0.0,
                         uuid=UUID('A'),
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.SynthEvent(
+                    SynthEvent(
                         add_action=AddAction.ADD_AFTER,
                         amplitude=1.0,
-                        delta=0.0,
                         fade_time=0.25,
                         in_=UUID('A'),
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('system_link_audio_2')>,
+                        synthdef=<SynthDef: system_link_audio_2>,
                         target_node=UUID('B'),
                         uuid=UUID('C'),
                         ),
                     ),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=1.0,
                 delta=0.75,
                 duration=0.75,
@@ -425,33 +383,29 @@ class TestCase(TestCase):
                 target_node=UUID('B'),
                 uuid=UUID('D'),
                 )
-            supriya.tools.patterntools.CompositeEvent(
-                delta=0.0,
+            CompositeEvent(
                 events=(
-                    supriya.tools.patterntools.SynthEvent(
-                        delta=0.0,
+                    SynthEvent(
                         is_stop=True,
                         uuid=UUID('C'),
                         ),
-                    supriya.tools.patterntools.NullEvent(
+                    NullEvent(
                         delta=0.25,
                         ),
-                    supriya.tools.patterntools.GroupEvent(
-                        delta=0.0,
+                    GroupEvent(
                         is_stop=True,
                         uuid=UUID('B'),
                         ),
-                    supriya.tools.patterntools.BusEvent(
-                        delta=0.0,
+                    BusEvent(
+                        calculation_rate=None,
+                        channel_count=None,
                         is_stop=True,
                         uuid=UUID('A'),
                         ),
                     ),
                 is_stop=True,
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_manual_incommunicado(self):
         lists, deltas = self.manual_incommunicado(self.pbus_01)

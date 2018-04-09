@@ -44,7 +44,7 @@ class BindableFloat:
 
     def __repr__(self):
         return '{}({})'.format(
-            type(self).__module__,
+            type(self).__name__,
             self.value,
             )
 

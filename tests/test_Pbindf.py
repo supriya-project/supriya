@@ -1,3 +1,4 @@
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 
@@ -14,36 +15,32 @@ class TestCase(TestCase):
 
     def test___iter__(self):
         events = [event for event in self.pattern]
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=0.111,
                 delta=1.0,
                 duration=1.0,
-                is_stop=True,
                 pan=0.0,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=0.333,
                 delta=2.0,
                 duration=2.0,
-                is_stop=True,
                 pan=0.5,
                 uuid=UUID('B'),
                 )
-            supriya.tools.patterntools.NoteEvent(
+            NoteEvent(
                 amplitude=0.666,
                 delta=3.0,
                 duration=3.0,
-                is_stop=True,
                 pan=1.0,
                 uuid=UUID('C'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test_send(self):
         events, iterator = [], iter(self.pattern)
@@ -54,17 +51,15 @@ class TestCase(TestCase):
             events.extend(iterator)
         except StopIteration:
             pass
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             events,
-            '''
-            supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            NoteEvent(
                 amplitude=0.111,
                 delta=1.0,
                 duration=1.0,
-                is_stop=True,
                 pan=0.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
