@@ -49,15 +49,6 @@ class OscMessage(OscMixin):
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.TestManager.compare_objects(self, expr)
-
-    def __hash__(self):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
-        return hash(hash_values)
-
     def __repr__(self):
         items = (self.address,) + self.contents
         items = ', '.join(repr(x) for x in items)
@@ -262,14 +253,6 @@ class OscMessage(OscMixin):
             message = 'Cannot encode {!r}'.format(value)
             raise TypeError(message)
         return type_tags, encoded_value
-
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_indented=False,
-            storage_format_args_values=[self.address] + list(self.contents),
-            )
 
     @staticmethod
     def _read_double(payload, payload_offset):

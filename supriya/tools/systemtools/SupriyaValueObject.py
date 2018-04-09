@@ -25,7 +25,3 @@ class SupriyaValueObject(SupriyaObject):
         hash_values.append(tuple(var_args))
         hash_values.append(tuple(sorted(kwargs.items())))
         return hash(tuple(hash_values))
-
-    def __repr__(self):
-        import supriya.utils
-        return supriya.utils.get_object_repr(self, multiline=True)

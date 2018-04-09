@@ -593,16 +593,6 @@ class SynthDef(ServerObjectProxy):
             recurse(ugen)
         return flattened_ugens
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            repr_is_bracketed=True,
-            storage_format_is_bracketed=True,
-            storage_format_is_indented=False,
-            storage_format_args_values=[self.actual_name],
-            storage_format_kwargs_names=[]
-            )
-
     def _handle_response(self, response):
         from supriya.tools import responsetools
         if isinstance(response, responsetools.SynthDefRemovedResponse):

@@ -65,19 +65,6 @@ class NodeMapToAudioBusRequest(Request):
             return self._kwargs[name]
         return object.__getattr__(self, name)
 
-    ### PRIVATE METHODS ###
-
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        agent = systemtools.StorageFormatAgent(self)
-        names = agent.signature_keyword_names
-        names.extend(sorted(self._kwargs))
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_indented=True,
-            storage_format_kwargs_names=names,
-            )
-
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):

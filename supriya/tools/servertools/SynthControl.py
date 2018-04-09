@@ -82,20 +82,6 @@ class SynthControl:
     def _unmap(self):
         self._value = self._last_unmapped_value
 
-    ### PRIVATE PROPERTIES ###
-
-    def _format_specification(self):
-        from abjad.tools import systemtools
-        agent = systemtools.StorageFormatAgent(self)
-        names = agent.signature_names
-        for name in ('client', 'index'):
-            if name in names:
-                names.remove(name)
-        return systemtools.FormatSpecification(
-            client=self,
-            storage_format_kwargs_names=names,
-            )
-
     ### PUBLIC METHODS ###
 
     @classmethod

@@ -89,25 +89,6 @@ class Event(SupriyaValueObject):
                     }
         return expanded_settings
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        agent = systemtools.StorageFormatAgent(self)
-        names = agent.signature_keyword_names
-        for name in sorted(self._settings):
-            if name not in names:
-                names.append(name)
-        if self._delta is None and 'delta' in names:
-            names.remove('delta')
-        elif hasattr(self, '_duration') and self._duration == self._delta:
-            names.remove('delta')
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_indented=False,
-            repr_kwargs_names=names,
-            storage_format_kwargs_names=sorted(names),
-            template_names=names,
-            )
-
     @abc.abstractmethod
     def _perform_nonrealtime(
         self,

@@ -1,4 +1,5 @@
 import types
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 from supriya.tools import servertools
@@ -21,51 +22,45 @@ class TestCase(TestCase):
             uuids={},
             )
         assert event_products[0].uuid == event_products[1].uuid
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=NoteEvent(
                     delta=10.0,
                     duration=1.0,
                     frequency=443,
-                    is_stop=True,
                     ),
-                index=0,
-                is_stop=False,
                 requests=[
-                    supriya.tools.requesttools.SynthNewRequest(
+                    SynthNewRequest(
                         add_action=AddAction.ADD_TO_HEAD,
-                        node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
-                        target_node_id=1,
                         frequency=443,
+                        node_id=1000,
+                        synthdef=<SynthDef: default>,
+                        target_node_id=1,
                         ),
                     ],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.NoteEvent(
+            EventProduct(
+                event=NoteEvent(
                     delta=10.0,
                     duration=1.0,
                     frequency=443,
-                    is_stop=True,
                     ),
-                index=0,
                 is_stop=True,
                 requests=[
-                    supriya.tools.requesttools.NodeSetRequest(
-                        node_id=1000,
+                    NodeSetRequest(
                         gate=0,
+                        node_id=1000,
                         ),
                     ],
                 timestamp=101.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
 
     def test__perform_realtime_02(self):
         event = patterntools.NoteEvent(
@@ -81,70 +76,64 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids={},
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.NoteEvent(
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=NoteEvent(
                     delta=10.0,
                     duration=1.0,
                     frequency=[443, 445, 447],
-                    is_stop=True,
                     ),
-                index=0,
-                is_stop=False,
                 requests=[
-                    supriya.tools.requesttools.SynthNewRequest(
+                    SynthNewRequest(
                         add_action=AddAction.ADD_TO_HEAD,
-                        node_id=1000,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
-                        target_node_id=1,
                         frequency=443,
-                        ),
-                    supriya.tools.requesttools.SynthNewRequest(
-                        add_action=AddAction.ADD_TO_HEAD,
-                        node_id=1001,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                        node_id=1000,
+                        synthdef=<SynthDef: default>,
                         target_node_id=1,
+                        ),
+                    SynthNewRequest(
+                        add_action=AddAction.ADD_TO_HEAD,
                         frequency=445,
-                        ),
-                    supriya.tools.requesttools.SynthNewRequest(
-                        add_action=AddAction.ADD_TO_HEAD,
-                        node_id=1002,
-                        synthdef=<supriya.tools.synthdeftools.SynthDef('default')>,
+                        node_id=1001,
+                        synthdef=<SynthDef: default>,
                         target_node_id=1,
+                        ),
+                    SynthNewRequest(
+                        add_action=AddAction.ADD_TO_HEAD,
                         frequency=447,
+                        node_id=1002,
+                        synthdef=<SynthDef: default>,
+                        target_node_id=1,
                         ),
                     ],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.NoteEvent(
+            EventProduct(
+                event=NoteEvent(
                     delta=10.0,
                     duration=1.0,
                     frequency=[443, 445, 447],
-                    is_stop=True,
                     ),
-                index=0,
                 is_stop=True,
                 requests=[
-                    supriya.tools.requesttools.NodeSetRequest(
+                    NodeSetRequest(
+                        gate=0,
                         node_id=1000,
-                        gate=0,
                         ),
-                    supriya.tools.requesttools.NodeSetRequest(
+                    NodeSetRequest(
+                        gate=0,
                         node_id=1001,
-                        gate=0,
                         ),
-                    supriya.tools.requesttools.NodeSetRequest(
-                        node_id=1002,
+                    NodeSetRequest(
                         gate=0,
+                        node_id=1002,
                         ),
                     ],
                 timestamp=101.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')

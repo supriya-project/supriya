@@ -19,12 +19,6 @@ class Response(SupriyaValueObject):
         ):
         self._osc_message = osc_message
 
-    ### SPECIAL METHODS ###
-
-    def __repr__(self):
-        import supriya.utils
-        return supriya.utils.get_object_repr(self, multiline=True)
-
     ### PRIVATE METHODS ###
 
     def _get_format_specification(self):

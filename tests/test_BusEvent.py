@@ -1,5 +1,6 @@
 import types
 import uuid
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 from supriya.tools import servertools
@@ -24,24 +25,22 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize(
             '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.BusEvent(
+            EventProduct(
+                event=BusEvent(
                     calculation_rate=CalculationRate.AUDIO,
                     channel_count=2,
-                    delta=0.0,
                     uuid=UUID('A'),
                     ),
-                index=0,
                 requests=[],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
         assert bus_uuid in uuids
         assert isinstance(uuids[bus_uuid], dict)
         assert list(uuids[bus_uuid].keys()) == [0]
@@ -49,8 +48,6 @@ class TestCase(TestCase):
     def test__perform_realtime_02(self):
         bus_uuid = uuid.uuid4()
         event = patterntools.BusEvent(
-            calculation_rate='audio',
-            channel_count=2,
             is_stop=True,
             uuid=bus_uuid,
             )
@@ -71,21 +68,20 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.BusEvent(
-                    delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=BusEvent(
+                    calculation_rate=None,
+                    channel_count=None,
                     is_stop=True,
                     uuid=UUID('A'),
                     ),
-                index=0,
                 is_stop=True,
                 requests=[],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')

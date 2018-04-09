@@ -1,7 +1,7 @@
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class BusProxy(SupriyaObject):
+class BusProxy(SupriyaValueObject):
     """
     A buffer proxy.
     """
@@ -40,17 +40,8 @@ class BusProxy(SupriyaObject):
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.TestManager.compare_objects(self, expr)
-
     def __float__(self):
         return float(self.bus_id)
-
-    def __hash__(self):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
-        return hash(hash_values)
 
     def __int__(self):
         return int(self.bus_id)

@@ -4,6 +4,7 @@ import os
 import inspect
 import sys
 import traceback
+from abjad.tools.abctools import AbjadObject, AbjadValueObject
 from supriya.tools import systemtools
 from supriya.tools.commandlinetools.ProjectPackageScript import (
     ProjectPackageScript
@@ -54,9 +55,6 @@ class ProjectSectionScript(ProjectPackageScript):
         self._edit_packages(names, self._section_plural)
 
     def _handle_list(self):
-        from abjad.tools.abctools import (
-            AbjadObject, AbjadValueObject,
-        )
         from supriya.tools.systemtools import (
             SupriyaObject, SupriyaValueObject,
         )
@@ -237,7 +235,7 @@ class ProjectSectionScript(ProjectPackageScript):
                 self._report_time(timer, prefix='Python/SC runtime')
                 print('    Render failed. Exiting.')
                 sys.exit(1)
-            except:
+            except Exception:
                 print(traceback.format_exc())
                 sys.exit(1)
             self._report_time(timer, prefix='Python/SC runtime')

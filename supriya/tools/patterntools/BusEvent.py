@@ -26,9 +26,8 @@ class BusEvent(Event):
         if calculation_rate is not None:
             calculation_rate = synthdeftools.CalculationRate.from_expr(
                 calculation_rate)
-        is_stop = is_stop or None
+        is_stop = bool(is_stop)
         if is_stop:
-            is_stop = bool(is_stop)
             calculation_rate = None
             channel_count = None
         settings = {

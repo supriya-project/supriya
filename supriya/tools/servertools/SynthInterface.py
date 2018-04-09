@@ -133,18 +133,6 @@ class SynthInterface(ControlInterface):
             requests.append(request)
         return settings, requests
 
-    ### PRIVATE PROPERTIES ###
-
-    @property
-    def _storage_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.StorageFormatSpecification(
-            self,
-            is_bracketed=True,
-            positional_argument_values=self._synth_controls,
-            keyword_argument_names=(),
-            )
-
     ### PUBLIC METHODS ###
 
     def as_dict(self):

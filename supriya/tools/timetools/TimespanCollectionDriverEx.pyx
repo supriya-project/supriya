@@ -185,14 +185,6 @@ cdef class TimespanCollectionDriverEx:
 
     ### PRIVATE METHODS ###
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            client=self,
-            storage_format_args_values=[[x for x in self]],
-            storage_format_kwargs_names=[],
-            )
-
     cdef _CNode _insert_node(
         self,
         _CNode node,

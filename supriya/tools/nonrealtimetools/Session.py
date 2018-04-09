@@ -4,6 +4,7 @@ import os
 import pathlib
 import struct
 from abjad.tools import documentationtools
+from abjad.tools import systemtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
@@ -324,7 +325,6 @@ class Session:
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         """
-        from abjad.tools import systemtools
         server_options = server_options or servertools.ServerOptions()
         scsynth_path = 'scsynth'
         if not systemtools.IOManager.find_executable('scsynth'):

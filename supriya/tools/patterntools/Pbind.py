@@ -128,18 +128,6 @@ class Pbind(EventPattern):
         patterns['synthdef'] = iter(synthdef)
         return patterns
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        agent = systemtools.StorageFormatAgent(self)
-        names = agent.signature_keyword_names
-        names.extend(self.patterns)
-        names.sort()
-        return systemtools.FormatSpecification(
-            client=self,
-            storage_format_kwargs_names=names,
-            template_names=names,
-            )
-
     def _iterate(self, state=None):
         patterns = self._coerce_pattern_pairs(self._patterns)
         while True:

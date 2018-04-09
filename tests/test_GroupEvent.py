@@ -1,5 +1,6 @@
 import types
 import uuid
+import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya.tools import patterntools
 from supriya.tools import servertools
@@ -21,17 +22,16 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.GroupEvent(
-                    delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=GroupEvent(
                     uuid=UUID('A'),
                     ),
-                index=0,
                 requests=[
-                    supriya.tools.requesttools.GroupNewRequest(
+                    GroupNewRequest(
                         add_action=AddAction.ADD_TO_HEAD,
                         node_id=1000,
                         target_node_id=1,
@@ -40,9 +40,7 @@ class TestCase(TestCase):
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')
         assert node_uuid in uuids
         assert isinstance(uuids[node_uuid], dict)
         assert list(uuids[node_uuid].keys()) == [1000]
@@ -66,25 +64,22 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids=uuids,
             )
-        self.compare_objects_as_strings(
+        assert self.get_objects_as_string(
             event_products,
-            '''
-            supriya.tools.patterntools.EventProduct(
-                event=supriya.tools.patterntools.GroupEvent(
-                    delta=0.0,
+            replace_uuids=True,
+        ) == uqbar.strings.normalize('''
+            EventProduct(
+                event=GroupEvent(
                     is_stop=True,
                     uuid=UUID('A'),
                     ),
-                index=0,
                 is_stop=True,
                 requests=[
-                    supriya.tools.requesttools.NodeFreeRequest(
+                    NodeFreeRequest(
                         node_ids=(1000,),
                         ),
                     ],
                 timestamp=100.0,
                 uuid=UUID('A'),
                 )
-            ''',
-            replace_uuids=True,
-            )
+            ''')

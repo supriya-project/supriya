@@ -114,24 +114,6 @@ class Bus(SessionObject):
         _, value = events[index]
         return value
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        from supriya.tools import nonrealtimetools
-        agent = systemtools.StorageFormatAgent(self)
-        names = agent.signature_positional_names
-        values = (agent._get(_) for _ in names)
-        values = [
-            _ for _ in values
-            if not isinstance(_, nonrealtimetools.Session)
-            ]
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_indented=True,
-            repr_is_bracketed=True,
-            storage_format_is_bracketed=True,
-            storage_format_args_values=values,
-            )
-
     def _set_at_offset(self, offset, value):
         assert self.calculation_rate == synthdeftools.CalculationRate.CONTROL
         events = self._events

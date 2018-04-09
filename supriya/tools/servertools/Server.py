@@ -1,6 +1,7 @@
 import atexit
 import subprocess
 import time
+from abjad.tools import documentationtools
 from supriya import utils
 from supriya.tools.systemtools import PubSub
 from supriya.tools.systemtools import SupriyaObject
@@ -221,7 +222,6 @@ class Server(SupriyaObject):
                     child_graphviz_node,
                     )
                 recurse(graph, child_graphviz_node, child_server_node)
-        from abjad.tools import documentationtools
         from supriya.tools import servertools
         graph = documentationtools.GraphvizGraph(
             name='server',

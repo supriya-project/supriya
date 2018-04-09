@@ -26,13 +26,6 @@ class GroupControl:
 
     ### PRIVATE METHODS ###
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            client=self,
-            storage_format_kwargs_names=['name'],
-            )
-
     def _map_to_bus(self, bus):
         pass
 

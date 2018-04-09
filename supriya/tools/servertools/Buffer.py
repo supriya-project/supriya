@@ -206,15 +206,6 @@ class Buffer(ServerObjectProxy):
                 raise ValueError
             self._buffer_id = buffer_id
 
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_bracketed=True,
-            storage_format_is_bracketed=True,
-            storage_format_kwargs_names=['buffer_id'],
-            )
-
     def _register_with_local_server(self):
         if self.buffer_id not in self.server._buffers:
             self.server._buffers[self.buffer_id] = set()
