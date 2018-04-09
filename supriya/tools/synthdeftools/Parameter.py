@@ -1,9 +1,10 @@
 import collections
 from supriya.tools.synthdeftools.ParameterRate import ParameterRate
 from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
+from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
-class Parameter(UGenMethodMixin):
+class Parameter(UGenMethodMixin, SupriyaValueObject):
 
     ### CLASS VARIABLES ###
 
@@ -54,17 +55,8 @@ class Parameter(UGenMethodMixin):
 
     ### SPECIAL METHODS ###
 
-    def __eq__(self, expr):
-        from abjad.tools import systemtools
-        return systemtools.TestManager.compare_objects(self, expr)
-
     def __getitem__(self, i):
         return self._get_output_proxy(i)
-
-    def __hash__(self):
-        from abjad.tools import systemtools
-        hash_values = systemtools.StorageFormatAgent(self).get_hash_values()
-        return hash(hash_values)
 
     def __len__(self):
         if isinstance(self.value, float):
@@ -79,8 +71,6 @@ class Parameter(UGenMethodMixin):
         """
         from supriya import utils
         return utils.get_object_repr(self)
-        #from abjad.tools import systemtools
-        #return systemtools.StorageFormatAgent(self).get_repr_format()
 
     ### PRIVATE METHODS ###
 

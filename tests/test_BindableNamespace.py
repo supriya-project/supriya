@@ -1,8 +1,7 @@
 from supriya.tools import systemtools
-from abjad.tools.systemtools import TestCase
 
 
-class TestCase(TestCase):
+class TestCase(systemtools.TestCase):
 
     def test_01(self):
 

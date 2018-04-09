@@ -19,15 +19,6 @@ class Response(SupriyaValueObject):
         ):
         self._osc_message = osc_message
 
-    ### PRIVATE METHODS ###
-
-    def _get_format_specification(self):
-        from abjad.tools import systemtools
-        return systemtools.FormatSpecification(
-            client=self,
-            repr_is_indented=True,
-            )
-
     ### PUBLIC METHODS ###
 
     def to_dict(self):

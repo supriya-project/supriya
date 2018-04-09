@@ -1,3 +1,4 @@
+from abjad.tools import documentationtools
 from supriya.tools.systemtools.Grapher import Grapher
 
 
@@ -65,7 +66,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _connect_nodes(synthdef, ugen_node_mapping):
-        from abjad.tools import documentationtools
         from supriya.tools import synthdeftools
         for ugen in synthdef.ugens:
             tail_node = ugen_node_mapping[ugen]
@@ -89,7 +89,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _create_ugen_input_group(ugen, ugen_index):
-        from abjad.tools import documentationtools
         if not ugen.inputs:
             return None
         input_group = documentationtools.GraphvizGroup(
@@ -118,7 +117,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _create_ugen_node_mapping(synthdef):
-        from abjad.tools import documentationtools
         from supriya.tools import synthdeftools
         ugen_node_mapping = {}
         for ugen in synthdef.ugens:
@@ -149,7 +147,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _create_ugen_output_group(synthdef, ugen, ugen_index):
-        from abjad.tools import documentationtools
         from supriya.tools import ugentools
         if not ugen.outputs:
             return None
@@ -176,7 +173,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _create_ugen_title_field(ugen):
-        from abjad.tools import documentationtools
         from supriya.tools import synthdeftools
         from supriya.tools import ugentools
         name = type(ugen).__name__
@@ -228,7 +224,6 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def graph(synthdef):
-        from abjad.tools import documentationtools
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, synthdeftools.SynthDef)
         graph = documentationtools.GraphvizGraph(
