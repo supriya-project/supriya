@@ -44,6 +44,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 duration=1.0,
                 frequency=440,
+                is_stop=False,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )
@@ -70,6 +71,7 @@ class TestCase(TestCase):
                 delta=0.5,
                 duration=1.0,
                 frequency=660,
+                is_stop=False,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )
@@ -87,6 +89,7 @@ class TestCase(TestCase):
                 delta=0.25,
                 duration=1.0,
                 frequency=880,
+                is_stop=False,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )
@@ -199,6 +202,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 duration=1.0,
                 frequency=440,
+                is_stop=False,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )
@@ -250,6 +254,7 @@ class TestCase(TestCase):
                 delta=0.0,
                 duration=1.0,
                 frequency=440,
+                is_stop=False,
                 target_node=UUID('A'),
                 uuid=UUID('C'),
                 )

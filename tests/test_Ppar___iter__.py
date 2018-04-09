@@ -147,6 +147,7 @@ class TestCase(TestCase):
                 delta=0.75,
                 duration=0.75,
                 frequency=2001,
+                is_stop=False,
                 uuid=UUID('B'),
                 )
             supriya.tools.patterntools.NoteEvent(
@@ -154,6 +155,7 @@ class TestCase(TestCase):
                 delta=0.25,
                 duration=0.75,
                 frequency=2002,
+                is_stop=False,
                 uuid=UUID('B'),
                 )
             supriya.tools.patterntools.NoteEvent(
@@ -367,6 +369,7 @@ class TestCase(TestCase):
                 delta=0.75,
                 duration=0.75,
                 frequency=2001,
+                is_stop=False,
                 out=UUID('E'),
                 target_node=UUID('F'),
                 uuid=UUID('H'),
@@ -376,6 +379,7 @@ class TestCase(TestCase):
                 delta=0.25,
                 duration=0.75,
                 frequency=2002,
+                is_stop=False,
                 out=UUID('E'),
                 target_node=UUID('F'),
                 uuid=UUID('H'),
