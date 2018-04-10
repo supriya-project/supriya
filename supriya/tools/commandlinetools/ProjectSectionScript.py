@@ -5,7 +5,6 @@ import inspect
 import sys
 import traceback
 import uqbar.io
-from abjad.tools.abctools import AbjadObject, AbjadValueObject
 from supriya.tools.commandlinetools.ProjectPackageScript import (
     ProjectPackageScript
 )
@@ -59,8 +58,6 @@ class ProjectSectionScript(ProjectPackageScript):
             SupriyaObject, SupriyaValueObject,
         )
         basic_bases = (
-            AbjadObject,
-            AbjadValueObject,
             SupriyaObject,
             SupriyaValueObject,
             object,

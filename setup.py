@@ -15,7 +15,6 @@ install_requires = [
     'sphinx>=1.5.0',
     'sphinx_rtd_theme',
     'tornado',
-    'tox',
     'tqdm',
     'urwid',
     'uqbar',

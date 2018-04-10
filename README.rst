@@ -48,7 +48,7 @@ Get `SuperCollider`_ from http://supercollider.github.io/.
 
 Run the tests to make sure everything's OK::
 
-    supriya$ tox 
+    supriya$ pytest
 
 Consult our installation instructions for detailed help on getting Abjad,
 setting it up, and installing any additional dependencies like `Graphviz`_.
