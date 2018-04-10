@@ -8,12 +8,12 @@ import shutil
 import subprocess
 import sys
 import traceback
+import uqbar.cli
 import uqbar.io
-from abjad.tools.commandlinetools.CommandlineScript import CommandlineScript
 from supriya import utils
 
 
-class ProjectPackageScript(CommandlineScript):
+class ProjectPackageScript(uqbar.cli.CLI):
 
     ### CLASS VARIABLES ###
 

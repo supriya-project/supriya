@@ -1,8 +1,8 @@
 import inspect
-from abjad.tools.commandlinetools import AbjDevScript
+import uqbar.cli
 
 
-class SupriyaScript(AbjDevScript):
+class SupriyaScript(uqbar.cli.CLIAggregator):
     '''`SupriyaScript` is the commandline entry-point to the Supriya
     developer scripts catalog.
 
@@ -22,22 +22,20 @@ class SupriyaScript(AbjDevScript):
 
     ### CLASS VARIABLES ###
 
-    __slots__ = ()
-
+    config_name = '.supriyarc'
     short_description = 'Entry-point to Supriya developer scripts catalog.'
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def commandline_script_classes(self):
-        from abjad.tools import commandlinetools as abjad_commandlinetools
+    def cli_classes(self):
         from supriya.tools import commandlinetools
         classes = []
         for name in sorted(dir(commandlinetools)):
             obj = getattr(commandlinetools, name)
             if not isinstance(obj, type):
                 continue
-            elif not issubclass(obj, abjad_commandlinetools.CommandlineScript):
+            elif not issubclass(obj, uqbar.cli.CLI):
                 continue
             elif issubclass(obj, type(self)):
                 continue
