@@ -9,6 +9,8 @@ import tqdm
 import uqbar.containers
 import uqbar.io
 import yaml
+
+import supriya
 from supriya import utils
 from supriya.tools.nonrealtimetools import (
     NonrealtimeRenderError,
@@ -57,8 +59,6 @@ class SessionRenderer(systemtools.SupriyaObject):
         sample_rate=44100,
         transcript_prefix=None,
         ):
-        from supriya import supriya_configuration
-
         self._session = session
 
         self._header_format = soundfiletools.HeaderFormat.from_expr(
@@ -70,7 +70,7 @@ class SessionRenderer(systemtools.SupriyaObject):
 
         self._render_directory_path = pathlib.Path(
             render_directory_path or
-            supriya_configuration.output_directory_path
+            supriya.output_path
             ).expanduser().absolute()
 
         self._sample_format = soundfiletools.SampleFormat.from_expr(
@@ -134,12 +134,13 @@ class SessionRenderer(systemtools.SupriyaObject):
         session_osc_file_path,
         server_options=None,
         ):
-        from supriya import supriya_configuration
         cwd = pathlib.Path.cwd()
         server_options = server_options or servertools.ServerOptions()
         if os.environ.get('TRAVIS', None):
             server_options = utils.new(server_options, load_synthdefs=True)
-        scsynth_path = supriya_configuration.scsynth_path
+        scsynth_path = 'scsynth'
+        if not uqbar.io.find_executable(scsynth_path):
+            raise RuntimeError('Cannot find scsynth')
         if session_osc_file_path.is_absolute():
             session_osc_file_path = session_osc_file_path.relative_to(cwd)
         parts = [scsynth_path, '-N', session_osc_file_path]

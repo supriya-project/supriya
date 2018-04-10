@@ -2,6 +2,7 @@ import hashlib
 import pathlib
 import shlex
 import subprocess
+import supriya
 from supriya import utils
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -93,7 +94,6 @@ class Say(SupriyaValueObject):
         output_file_path=None,
         render_directory_path=None,
         ):
-        from supriya import supriya_configuration
         if output_file_path:
             output_file_path = pathlib.Path(
                 output_file_path).expanduser().absolute()
@@ -104,7 +104,7 @@ class Say(SupriyaValueObject):
         else:
             output_file_path = self._build_file_path()
             render_directory_path = pathlib.Path(
-                supriya_configuration.output_directory_path,
+                supriya.output_path,
                 ).expanduser().absolute()
             output_file_path = render_directory_path / self._build_file_path()
         return output_file_path

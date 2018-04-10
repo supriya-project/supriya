@@ -2,6 +2,7 @@ import atexit
 import subprocess
 import time
 import uqbar.graphs
+import uqbar.io
 from supriya import utils
 from supriya.tools.systemtools import PubSub
 from supriya.tools.systemtools import SupriyaObject
@@ -387,11 +388,12 @@ class Server(SupriyaObject):
         server_options=None,
         **kwargs
         ):
-        from supriya import supriya_configuration
         from supriya.tools import servertools
         if self.is_running:
             return self
-        scsynth_path = supriya_configuration.scsynth_path
+        scsynth_path = 'scsynth'
+        if not uqbar.io.find_executable(scsynth_path):
+            raise RuntimeError('Cannot find scsynth')
         self._osc_controller.boot()
         server_options = server_options or servertools.ServerOptions()
         assert isinstance(server_options, servertools.ServerOptions)

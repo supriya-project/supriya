@@ -3,6 +3,31 @@ pyximport.install()
 del(pyximport)
 
 
+import appdirs  # noqa
+import pathlib  # noqa
+import uqbar.strings  # noqa
+output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
+config_path = pathlib.Path(appdirs.user_config_dir('supriya', 'supriya')) / 'supriya.cfg'
+if not output_path.exists():
+    try:
+        output_path.mkdir(parents=True, exist_ok=True)
+    except IOError:
+        pass
+if not config_path.exists():
+    try:
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        with config_path.open('w') as file_pointer:
+            file_pointer.write(uqbar.strings.normalize('''
+            [core]
+                editor = vim
+            ''') + '\n')
+    except IOError:
+        pass
+del uqbar
+del pathlib
+del appdirs
+
+
 def import_structured_package(
     path,
     namespace,
@@ -96,7 +121,6 @@ from supriya.tools.systemtools import (  # noqa
     Bindable,
     Binding,
     Enumeration,
-    SupriyaConfiguration,
     TestCase,
     bind,
     )
@@ -109,8 +133,4 @@ from abjad.tools.topleveltools import (  # noqa
 from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
 from supriya.tools import responsetools  # noqa
-
-__version__ = 0.1
-
-supriya_configuration = SupriyaConfiguration()
-del SupriyaConfiguration
+from supriya._version import __version__, __version_info__  # noqa

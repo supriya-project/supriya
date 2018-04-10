@@ -323,17 +323,8 @@ class Session:
         """
         server_options = server_options or servertools.ServerOptions()
         scsynth_path = 'scsynth'
-        if not uqbar.io.find_executable('scsynth'):
-            found_scsynth = False
-            for path in (
-                '/Applications/SuperCollider/SuperCollider.app/Contents/MacOS/scsynth',  # pre-7
-                '/Applications/SuperCollider/SuperCollider.app/Contents/Resources/scsynth',  # post-7
-                ):
-                if os.path.exists(path):
-                    scsynth_path = path
-                    found_scsynth = True
-            if not found_scsynth:
-                raise Exception('Cannot find scsynth. Is it on your $PATH?')
+        if not uqbar.io.find_executable(scsynth_path):
+            raise RuntimeError('Cannot find scsynth')
         parts = [scsynth_path, '-N', '{}']
         if input_file_path:
             parts.append(os.path.expanduser(input_file_path))

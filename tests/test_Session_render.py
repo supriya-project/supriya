@@ -1,7 +1,8 @@
 import pathlib
 import pprint
 from unittest import mock
-from supriya import supriya_configuration
+
+import supriya
 from supriya.tools import nonrealtimetools
 from supriya.tools import wrappertools
 from nonrealtimetools_testbase import TestCase
@@ -16,7 +17,7 @@ class TestCase(TestCase):
         session = self._make_session()
         exit_code, output_file_path = session.render()
         self.assert_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pathlib.Path(supriya_configuration.output_directory_path) in \
+        assert pathlib.Path(supriya.output_path) in \
             output_file_path.parents
         assert self._sample(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
@@ -54,11 +55,11 @@ class TestCase(TestCase):
         """
         session = self._make_session()
         osc_path = pathlib.Path().joinpath(
-            supriya_configuration.output_directory_path,
+            supriya.output_path,
             'session-7b3f85710f19667f73f745b8ac8080a0.osc',
             )
         aiff_path = pathlib.Path().joinpath(
-            supriya_configuration.output_directory_path,
+            supriya.output_path,
             'session-7b3f85710f19667f73f745b8ac8080a0.aiff',
             )
         if osc_path.exists():
