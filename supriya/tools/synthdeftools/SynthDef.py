@@ -124,7 +124,7 @@ class SynthDef(ServerObjectProxy):
             ...     out = ugentools.Out.ar(bus=0, source=sin_osc)
             ...
             >>> synthdef = builder.build()
-            >>> print(synthdef.__graph__())
+            >>> print(format(synthdef.__graph__(), 'graphviz'))
             digraph synthdef_... {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

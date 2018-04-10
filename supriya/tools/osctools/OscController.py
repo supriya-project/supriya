@@ -1,7 +1,4 @@
-try:
-    import queue
-except ImportError:
-    import Queue as queue
+import queue
 import socket
 import time
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject

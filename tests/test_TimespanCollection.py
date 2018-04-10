@@ -10,27 +10,27 @@ from supriya.tools.timetools import (
     TimespanSimultaneity,
     )
 
+from abjad import Timespan
 
-from supriya.tools.systemtools import SupriyaValueObject
 
-
-class Timespan(SupriyaValueObject):
-
-    def __init__(self, start_offset=float('-inf'), stop_offset=float('inf')):
-        self.start_offset = float(start_offset)
-        self.stop_offset = float(stop_offset)
-
-    def __eq__(self, expr):
-        if not isinstance(expr, type(self)):
-            return False
-        if not expr.start_offset == self.start_offset:
-            return False
-        if not expr.stop_offset == self.stop_offset:
-            return False
-        return True
-
-    def __hash__(self):
-        return hash((type(self), self.start_offset, self.stop_offset))
+#from supriya.tools.systemtools import SupriyaValueObject
+#class Timespan(SupriyaValueObject):
+#
+#    def __init__(self, start_offset=float('-inf'), stop_offset=float('inf')):
+#        self.start_offset = float(start_offset)
+#        self.stop_offset = float(stop_offset)
+#
+#    def __eq__(self, expr):
+#        if not isinstance(expr, type(self)):
+#            return False
+#        if not expr.start_offset == self.start_offset:
+#            return False
+#        if not expr.stop_offset == self.stop_offset:
+#            return False
+#        return True
+#
+#    def __hash__(self):
+#        return hash((type(self), self.start_offset, self.stop_offset))
 
 
 class TestCase(systemtools.TestCase):

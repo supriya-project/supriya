@@ -1,8 +1,5 @@
 import collections
-try:
-    from queue import PriorityQueue
-except ImportError:
-    from Queue import PriorityQueue
+from queue import PriorityQueue
 from supriya import utils
 from supriya.tools.patterntools.EventPattern import EventPattern
 

@@ -1,9 +1,6 @@
-try:
-    from queue import PriorityQueue
-except ImportError:
-    from Queue import PriorityQueue
 import time
 import threading
+from queue import PriorityQueue
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 

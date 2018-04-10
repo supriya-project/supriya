@@ -4,17 +4,13 @@ import os
 import pathlib
 import struct
 import uqbar.io
-from abjad.tools import graphtools
 from supriya.tools import osctools
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
-try:
-    from queue import PriorityQueue
-except ImportError:
-    from Queue import PriorityQueue
+from queue import PriorityQueue
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
@@ -146,12 +142,12 @@ class Session:
 
     def __graph__(self, include_controls=False):
         from supriya.tools import nonrealtimetools
-        graph = graphtools.GraphvizGraph()
+        graph = uqbar.graphs.Graph()
         for offset, state in sorted(self.states.items()):
             if float('-inf') < offset:
                 self._apply_transitions(state.offset)
             state_graph = state.__graph__(include_controls=include_controls)
-            subgraph = graphtools.GraphvizSubgraph()
+            subgraph = uqbar.graphs.Graph(is_cluster=True)
             subgraph.extend(state_graph.children)
             subgraph.attributes['label'] = str(offset)
             graph.append(subgraph)

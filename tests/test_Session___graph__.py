@@ -17,7 +17,7 @@ class TestCase(TestCase):
         with session.at(15):
             group_a.move_node(group_c)
         graphviz_graph = session.__graph__()
-        assert str(graphviz_graph) == self.normalize('''
+        assert format(graphviz_graph, 'graphviz') == self.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -41,7 +41,7 @@ class TestCase(TestCase):
                     subgraph cluster_0_0 {
                     }
                     node_0_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>
@@ -52,7 +52,7 @@ class TestCase(TestCase):
                     graph [label="0.0"];
                     subgraph cluster_1_0 {
                         node_1_0_0 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1001<BR/>(da09821)</TD>
                                 </TR>
@@ -64,14 +64,14 @@ class TestCase(TestCase):
                             margin=0.05];
                     }
                     node_1_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>
                         </TABLE>>,
                         margin=0.05];
                     node_1_2 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1002</TD>
                             </TR>
@@ -82,7 +82,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_1_3 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1000</TD>
                             </TR>
@@ -100,7 +100,7 @@ class TestCase(TestCase):
                     graph [label="5.0"];
                     subgraph cluster_2_0 {
                         node_2_0_0 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1003<BR/>(da09821)</TD>
                                 </TR>
@@ -111,7 +111,7 @@ class TestCase(TestCase):
                             </TABLE>>,
                             margin=0.05];
                         node_2_0_1 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1001<BR/>(da09821)</TD>
                                 </TR>
@@ -123,14 +123,14 @@ class TestCase(TestCase):
                             margin=0.05];
                     }
                     node_2_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>
                         </TABLE>>,
                         margin=0.05];
                     node_2_2 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1002</TD>
                             </TR>
@@ -141,7 +141,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_2_3 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1000</TD>
                             </TR>
@@ -160,7 +160,7 @@ class TestCase(TestCase):
                     graph [label="10.0"];
                     subgraph cluster_3_0 {
                         node_3_0_0 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1003<BR/>(da09821)</TD>
                                 </TR>
@@ -171,7 +171,7 @@ class TestCase(TestCase):
                             </TABLE>>,
                             margin=0.05];
                         node_3_0_1 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1001<BR/>(da09821)</TD>
                                 </TR>
@@ -183,14 +183,14 @@ class TestCase(TestCase):
                             margin=0.05];
                     }
                     node_3_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>
                         </TABLE>>,
                         margin=0.05];
                     node_3_2 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1004</TD>
                             </TR>
@@ -201,7 +201,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_3_3 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1002</TD>
                             </TR>
@@ -212,7 +212,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_3_4 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1000</TD>
                             </TR>
@@ -232,7 +232,7 @@ class TestCase(TestCase):
                     graph [label="15.0"];
                     subgraph cluster_4_0 {
                         node_4_0_0 [label=<
-                            <TABLE BGCOLOR="LIGHTSTEELBLUE2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                            <TABLE BGCOLOR="lightsteelblue2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                                 <TR>
                                     <TD BORDER="0">S:1001<BR/>(da09821)</TD>
                                 </TR>
@@ -244,14 +244,14 @@ class TestCase(TestCase):
                             margin=0.05];
                     }
                     node_4_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>
                         </TABLE>>,
                         margin=0.05];
                     node_4_2 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1002</TD>
                             </TR>
@@ -262,7 +262,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_4_3 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1000</TD>
                             </TR>
@@ -273,7 +273,7 @@ class TestCase(TestCase):
                         </TABLE>>,
                         margin=0.05];
                     node_4_4 [label=<
-                        <TABLE BGCOLOR="LIGHTGOLDENROD2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightgoldenrod2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">G:1004</TD>
                             </TR>
@@ -293,7 +293,7 @@ class TestCase(TestCase):
                     subgraph cluster_5_0 {
                     }
                     node_5_1 [label=<
-                        <TABLE BGCOLOR="LIGHTSALMON2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0" STYLE="ROUNDED">
+                        <TABLE BGCOLOR="lightsalmon2" BORDER="2" CELLBORDER="0" CELLPADDING="5" CELLSPACING="0">
                             <TR>
                                 <TD BORDER="0">Root:0</TD>
                             </TR>

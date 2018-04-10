@@ -1,9 +1,6 @@
 import itertools
 import time
-try:
-    from queue import PriorityQueue
-except ImportError:
-    from Queue import PriorityQueue
+from queue import PriorityQueue
 from supriya import utils
 from supriya.tools import requesttools
 from supriya.tools import servertools
