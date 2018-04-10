@@ -1,5 +1,3 @@
-from abjad.tools import mathtools
-from abjad.tools import timespantools
 from supriya.tools.timetools.TimespanSimultaneity import TimespanSimultaneity
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
