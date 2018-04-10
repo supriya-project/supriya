@@ -1,4 +1,4 @@
-from abjad.tools import graphtools
+import uqbar.graphs
 from supriya.tools.systemtools.Grapher import Grapher
 
 
@@ -19,7 +19,7 @@ class SynthDefGrapher(Grapher):
 
         ::
 
-            >>> print(result.__graph__())
+            >>> print(format(result.__graph__(), 'graphviz'))
             digraph synthdef_c481c3d42e3cfcee0267250247dab51f {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -76,10 +76,11 @@ class SynthDefGrapher(Grapher):
                 source = input_.source
                 head_node = ugen_node_mapping[source]
                 head_field = head_node['outputs'][input_.output_index]
-                edge = graphtools.GraphvizEdge()
+                edge = uqbar.graphs.Edge(
+                    head_port_position='w',
+                    tail_port_position='e',
+                    )
                 edge.attach(head_field, tail_field)
-                edge.head_port_position = 'w'
-                edge.tail_port_position = 'e'
                 if source.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                     edge.attributes['color'] = 'goldenrod'
                 elif source.calculation_rate == synthdeftools.CalculationRate.AUDIO:
@@ -91,7 +92,7 @@ class SynthDefGrapher(Grapher):
     def _create_ugen_input_group(ugen, ugen_index):
         if not ugen.inputs:
             return None
-        input_group = graphtools.GraphvizGroup(
+        input_group = uqbar.graphs.RecordGroup(
             name='inputs'.format(ugen_index),
             )
         for i, input_ in enumerate(ugen.inputs):
@@ -108,7 +109,7 @@ class SynthDefGrapher(Grapher):
             elif isinstance(input_, float):
                 label = str(input_)
             label = label or None
-            field = graphtools.GraphvizField(
+            field = uqbar.graphs.RecordField(
                 label=label,
                 name='ugen_{}_input_{}'.format(ugen_index, i),
                 )
@@ -121,7 +122,7 @@ class SynthDefGrapher(Grapher):
         ugen_node_mapping = {}
         for ugen in synthdef.ugens:
             ugen_index = synthdef.ugens.index(ugen)
-            node = graphtools.GraphvizNode(
+            node = uqbar.graphs.Node(
                 name='ugen_{}'.format(ugen_index),
                 )
             if ugen.calculation_rate == synthdeftools.CalculationRate.CONTROL:
@@ -132,7 +133,7 @@ class SynthDefGrapher(Grapher):
                 node.attributes['fillcolor'] = 'lightsalmon2'
             title_field = SynthDefGrapher._create_ugen_title_field(ugen)
             node.append(title_field)
-            group = graphtools.GraphvizGroup()
+            group = uqbar.graphs.RecordGroup()
             input_group = SynthDefGrapher._create_ugen_input_group(
                 ugen, ugen_index)
             if input_group is not None:
@@ -150,7 +151,7 @@ class SynthDefGrapher(Grapher):
         from supriya.tools import ugentools
         if not ugen.outputs:
             return None
-        output_group = graphtools.GraphvizGroup(
+        output_group = uqbar.graphs.RecordGroup(
             name='outputs'.format(ugen_index),
             )
         for i, output in enumerate(ugen.outputs):
@@ -164,7 +165,7 @@ class SynthDefGrapher(Grapher):
                     parameter_name,
                     parameter.value,
                     )
-            field = graphtools.GraphvizField(
+            field = uqbar.graphs.RecordField(
                 label=label,
                 name='ugen_{}_output_{}'.format(ugen_index, i),
                 )
@@ -185,7 +186,7 @@ class SynthDefGrapher(Grapher):
         elif isinstance(ugen, ugentools.UnaryOpUGen):
             operator = synthdeftools.UnaryOperator(ugen.special_index).name
             label_template = r'{name}\n[{operator}]\n({calculation_rate})'
-        title_field = graphtools.GraphvizField(
+        title_field = uqbar.graphs.RecordField(
             label=label_template.format(
                 name=name,
                 operator=operator,
@@ -226,7 +227,7 @@ class SynthDefGrapher(Grapher):
     def graph(synthdef):
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, synthdeftools.SynthDef)
-        graph = graphtools.GraphvizGraph(
+        graph = uqbar.graphs.Graph(
             name='synthdef_{}'.format(synthdef.actual_name),
             )
         ugen_node_mapping = SynthDefGrapher._create_ugen_node_mapping(synthdef)
