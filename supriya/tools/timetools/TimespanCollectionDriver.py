@@ -46,20 +46,8 @@ class _CTimespan:
 
     @classmethod
     def from_timespan(cls, timespan):
-        start_offset = timespan.start_offset
-        if start_offset == Infinity:
-            start_offset = float('inf')
-        elif start_offset == NegativeInfinity:
-            start_offset = float('-inf')
-        else:
-            start_offset = float(start_offset)
-        stop_offset = timespan.stop_offset
-        if stop_offset == Infinity:
-            stop_offset = float('inf')
-        elif stop_offset == NegativeInfinity:
-            stop_offset = float('-inf')
-        else:
-            stop_offset = float(stop_offset)
+        start_offset = float(timespan.start_offset)
+        stop_offset = float(timespan.stop_offset)
         return cls(
             start_offset,
             stop_offset,

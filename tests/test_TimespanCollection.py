@@ -1,8 +1,7 @@
 import itertools
 import pytest
 import random
-from abjad import Offset, Timespan
-from abjad import timespantools
+import uqbar.io
 from supriya import timetools
 from supriya import systemtools
 from supriya.tools.timetools import (
@@ -10,6 +9,28 @@ from supriya.tools.timetools import (
     TimespanCollectionDriverEx,
     TimespanSimultaneity,
     )
+
+
+from supriya.tools.systemtools import SupriyaValueObject
+
+
+class Timespan(SupriyaValueObject):
+
+    def __init__(self, start_offset=float('-inf'), stop_offset=float('inf')):
+        self.start_offset = float(start_offset)
+        self.stop_offset = float(stop_offset)
+
+    def __eq__(self, expr):
+        if not isinstance(expr, type(self)):
+            return False
+        if not expr.start_offset == self.start_offset:
+            return False
+        if not expr.stop_offset == self.stop_offset:
+            return False
+        return True
+
+    def __hash__(self):
+        return hash((type(self), self.start_offset, self.stop_offset))
 
 
 class TestCase(systemtools.TestCase):
@@ -60,11 +81,11 @@ class TestCase(systemtools.TestCase):
 
     def make_timespans(self):
         return [
-            timespantools.Timespan(0, 3),
-            timespantools.Timespan(1, 3),
-            timespantools.Timespan(1, 2),
-            timespantools.Timespan(2, 5),
-            timespantools.Timespan(6, 9),
+            Timespan(0, 3),
+            Timespan(1, 3),
+            Timespan(1, 2),
+            Timespan(2, 5),
+            Timespan(6, 9),
             ]
 
     def make_timespan_collection(self, populated=True, timespans=None):
@@ -92,7 +113,7 @@ class TestCase(systemtools.TestCase):
         for _ in range(count):
             random.shuffle(indices)
             start_offset, stop_offset = sorted(indices[:2])
-            timespan = timespantools.Timespan(
+            timespan = Timespan(
                 start_offset=start_offset,
                 stop_offset=stop_offset,
                 )
@@ -104,7 +125,7 @@ class TestCase(systemtools.TestCase):
         timespans = []
         for pair in itertools.permutations(indices, 2):
             start_offset, stop_offset = sorted(pair)
-            target_timespan = timespantools.Timespan(
+            target_timespan = Timespan(
                 start_offset=start_offset,
                 stop_offset=stop_offset,
                 )
@@ -115,17 +136,17 @@ class TestCase(systemtools.TestCase):
         timespans = self.make_timespans()
         timespan_collection = self.make_timespan_collection(populated=True)
         assert timespans[0] in timespan_collection
-        assert timespantools.Timespan(-1, 100) not in timespan_collection
+        assert Timespan(-1, 100) not in timespan_collection
         timespan_collection.remove(timespans[-1])
         assert timespans[-1] not in timespan_collection
 
     def test___getitem__(self):
         timespan_collection = self.make_timespan_collection(populated=True)
-        assert timespan_collection[-1] == timespantools.Timespan(6, 9)
+        assert timespan_collection[-1] == Timespan(6, 9)
         assert [timespan for timespan in timespan_collection[:3]] == [
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1)),
+            Timespan(start_offset=0, stop_offset=3),
+            Timespan(start_offset=1, stop_offset=2),
+            Timespan(start_offset=1, stop_offset=3),
             ]
 
     def test___init__(self):
@@ -135,15 +156,14 @@ class TestCase(systemtools.TestCase):
     def test___iter__(self):
         timespan_collection = self.make_timespan_collection(populated=True)
         assert [timespan for timespan in timespan_collection] == [
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1)),
-            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1)),
+            Timespan(start_offset=0, stop_offset=3),
+            Timespan(start_offset=1, stop_offset=2),
+            Timespan(start_offset=1, stop_offset=3),
+            Timespan(start_offset=2, stop_offset=5),
+            Timespan(start_offset=6, stop_offset=9),
             ]
         iterator = iter(timespan_collection)
-        assert next(iterator) == \
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1))
+        assert next(iterator) == Timespan(start_offset=0, stop_offset=3)
 
     def test___len__(self):
         timespan_collection = self.make_timespan_collection(populated=False)
@@ -155,80 +175,109 @@ class TestCase(systemtools.TestCase):
         timespan_collection = self.make_timespan_collection(populated=True)
         timespan_collection[-1] = Timespan(-1, 4)
         assert [timespan for timespan in timespan_collection] == [
-            Timespan(start_offset=Offset(-1, 1), stop_offset=Offset(4, 1)),
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(2, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1)),
+            Timespan(start_offset=-1, stop_offset=4),
+            Timespan(start_offset=0, stop_offset=3),
+            Timespan(start_offset=1, stop_offset=2),
+            Timespan(start_offset=1, stop_offset=3),
+            Timespan(start_offset=2, stop_offset=5),
             ]
         timespan_collection[:3] = Timespan(100, 200)
         assert [timespan for timespan in timespan_collection] == [
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(5, 1)),
-            Timespan(start_offset=Offset(100, 1), stop_offset=Offset(200, 1)),
+            Timespan(start_offset=1, stop_offset=3),
+            Timespan(start_offset=2, stop_offset=5),
+            Timespan(start_offset=100, stop_offset=200),
             ]
 
     def test___sub__(self):
         timespan_collection = self.make_timespan_collection(
             timespans=[
-                timespantools.Timespan(0, 16),
-                timespantools.Timespan(5, 12),
-                timespantools.Timespan(-2, 8),
+                Timespan(0, 16),
+                Timespan(5, 12),
+                Timespan(-2, 8),
                 ],
             )
-        timespan = timespantools.Timespan(5, 10)
+        timespan = Timespan(5, 10)
         result = timespan_collection - timespan
         assert result[:] == [
-            timespantools.Timespan(-2, 5),
-            timespantools.Timespan(0, 5),
-            timespantools.Timespan(10, 12),
-            timespantools.Timespan(10, 16),
+            Timespan(-2, 5),
+            Timespan(0, 5),
+            Timespan(10, 12),
+            Timespan(10, 16),
             ]
 
     @pytest.mark.timeout(60)
     def test_find_intersection_with_offset(self):
-        iterations = 100
+        iterations = 10
         count, range_ = 10, 15
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 timespans = self.make_random_timespans(
                     count=count, range_=range_)
                 timespan_collection = self.make_timespan_collection(
                     timespans=timespans)
+                optimized = 0.0
+                brute_force = 0.0
                 for offset in range(range_):
-                    found_by_search = set(
-                        timespan_collection.find_intersection(offset))
-                    found_by_brute_force = set()
-                    for _ in timespan_collection:
-                        if _.start_offset <= offset < _.stop_offset:
-                            found_by_brute_force.add(_)
+                    with uqbar.io.Timer() as timer:
+                        found_by_search = set(
+                            timespan_collection.find_intersection(offset))
+                        optimized += timer.elapsed_time
+                    with uqbar.io.Timer() as timer:
+                        found_by_brute_force = set()
+                        for _ in timespan_collection:
+                            if _.start_offset <= offset < _.stop_offset:
+                                found_by_brute_force.add(_)
+                        brute_force += timer.elapsed_time
                     assert found_by_search == found_by_brute_force
+                print(
+                    'D: {:0.6f}'.format(optimized / brute_force),
+                    'O: {:0.6f}'.format(optimized),
+                    'B: {:0.6f}'.format(brute_force),
+                    )
 
     @pytest.mark.timeout(120)
     def test_find_intersection_with_timespan(self):
-        iterations = 100
+        iterations = 10
         count, range_ = 10, 15
         target_timespans = self.make_target_timespans(range_=range_)
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 timespans = self.make_random_timespans(
                     count=count, range_=range_)
                 timespan_collection = self.make_timespan_collection(
                     timespans=timespans)
+                optimized = 0.0
+                brute_force = 0.0
                 for target_timespan in target_timespans:
-                    found_by_search = set(
-                        timespan_collection.find_intersection(target_timespan))
-                    found_by_brute_force = set()
-                    for _ in timespan_collection:
-                        if _.intersects_timespan(target_timespan):
-                            found_by_brute_force.add(_)
+                    with uqbar.io.Timer() as timer:
+                        found_by_search = set(
+                            timespan_collection.find_intersection(target_timespan))
+                        optimized += timer.elapsed_time
+                    with uqbar.io.Timer() as timer:
+                        found_by_brute_force = set()
+                        for _ in timespan_collection:
+                            if _.start_offset <= target_timespan.start_offset and \
+                                target_timespan.start_offset < _.stop_offset:
+                                found_by_brute_force.add(_)
+                            elif target_timespan.start_offset <= _.start_offset and \
+                                _.start_offset < target_timespan.stop_offset:
+                                found_by_brute_force.add(_)
+                        brute_force += timer.elapsed_time
                     assert found_by_search == found_by_brute_force
+                print(
+                    'D: {:0.6f}'.format(optimized / brute_force),
+                    'O: {:0.6f}'.format(optimized),
+                    'B: {:0.6f}'.format(brute_force),
+                    )
 
     @pytest.mark.timeout(60)
     def test_find_timespans_starting_at(self):
         iterations = 100
         count, range_ = 10, 15
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 timespans = self.make_random_timespans(
                     count=count, range_=range_)
@@ -248,6 +297,7 @@ class TestCase(systemtools.TestCase):
         iterations = 100
         count, range_ = 10, 15
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 timespans = self.make_random_timespans(
                     count=count, range_=range_)
@@ -267,6 +317,7 @@ class TestCase(systemtools.TestCase):
         iterations = 100
         count, range_ = 10, 15
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 timespans = self.make_random_timespans(
                     count=count, range_=range_)
@@ -295,6 +346,7 @@ class TestCase(systemtools.TestCase):
         iterations = 100
         count, range_ = 10, 15
         for i in range(iterations):
+            print('Iteration:', i)
             with self.subTest(i=i):
                 print('Iteration:', i)
                 timespans = self.make_random_timespans(
@@ -330,15 +382,15 @@ class TestCase(systemtools.TestCase):
 
     def test_insert(self):
         timespan_collection = self.make_timespan_collection(populated=False)
-        timespan_collection.insert(timespantools.Timespan(1, 3))
+        timespan_collection.insert(Timespan(1, 3))
         timespan_collection.insert((
-            timespantools.Timespan(0, 4),
-            timespantools.Timespan(2, 6),
+            Timespan(0, 4),
+            Timespan(2, 6),
             ))
         assert timespan_collection[:] == [
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(4, 1)),
-            Timespan(start_offset=Offset(1, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(2, 1), stop_offset=Offset(6, 1)),
+            Timespan(start_offset=0, stop_offset=4),
+            Timespan(start_offset=1, stop_offset=3),
+            Timespan(start_offset=2, stop_offset=6),
             ]
 
     def test_iterate_simultaneities(self):
@@ -354,6 +406,6 @@ class TestCase(systemtools.TestCase):
         timespan_collection = self.make_timespan_collection(populated=True)
         timespan_collection.remove(timespans[1:-1])
         assert timespan_collection[:] == [
-            Timespan(start_offset=Offset(0, 1), stop_offset=Offset(3, 1)),
-            Timespan(start_offset=Offset(6, 1), stop_offset=Offset(9, 1)),
+            Timespan(start_offset=0, stop_offset=3),
+            Timespan(start_offset=6, stop_offset=9),
             ]
