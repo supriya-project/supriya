@@ -4,28 +4,42 @@ del(pyximport)
 
 
 import appdirs  # noqa
+import configparser  # noqa
 import pathlib  # noqa
 import uqbar.strings  # noqa
+
 output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
-config_path = pathlib.Path(appdirs.user_config_dir('supriya', 'supriya')) / 'supriya.cfg'
 if not output_path.exists():
     try:
         output_path.mkdir(parents=True, exist_ok=True)
     except IOError:
         pass
+
+config = configparser.ConfigParser()
+config.read_dict({
+    'core': {
+        'editor': 'vim',
+        'scsynth': 'scsynth',
+        },
+    })
+
+config_path = pathlib.Path(appdirs.user_config_dir('supriya', 'supriya'))
+config_path = config_path / 'supriya.cfg'
 if not config_path.exists():
     try:
         config_path.parent.mkdir(parents=True, exist_ok=True)
         with config_path.open('w') as file_pointer:
-            file_pointer.write(uqbar.strings.normalize('''
-            [core]
-                editor = vim
-            ''') + '\n')
+            config.write(file_pointer, True)
     except IOError:
         pass
-del uqbar
-del pathlib
+
+with config_path.open() as file_pointer:
+    config.read_file(file_pointer)
+
 del appdirs
+del configparser
+del pathlib
+del uqbar
 
 
 def import_structured_package(
