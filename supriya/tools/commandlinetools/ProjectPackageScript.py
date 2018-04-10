@@ -10,6 +10,7 @@ import sys
 import traceback
 import uqbar.cli
 import uqbar.io
+import supriya
 from supriya import utils
 
 
@@ -145,7 +146,6 @@ class ProjectPackageScript(uqbar.cli.CLI):
             sep=os.path.sep))
 
     def _edit_packages(self, names, section):
-        from abjad import abjad_configuration
         globbable_names = self._collect_globbable_names(names)
         print('Edit candidates: {!r} ...'.format(
             ' '.join(globbable_names)))
@@ -154,7 +154,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
         if not matching_paths:
             print('    No matching {}.'.format(section))
             self._handle_list()
-        command = [abjad_configuration.get_text_editor()]
+        command = [supriya.config.get('core', 'editor', fallback='vim')]
         for path in matching_paths:
             command.append(str(path.joinpath('definition.py')))
         command = ' '.join(command)

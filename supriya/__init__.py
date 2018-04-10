@@ -6,7 +6,6 @@ del(pyximport)
 import appdirs  # noqa
 import configparser  # noqa
 import pathlib  # noqa
-import uqbar.strings  # noqa
 
 output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
 if not output_path.exists():
@@ -39,7 +38,6 @@ with config_path.open() as file_pointer:
 del appdirs
 del configparser
 del pathlib
-del uqbar
 
 
 def import_structured_package(

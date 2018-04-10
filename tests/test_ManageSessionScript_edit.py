@@ -1,8 +1,8 @@
+import supriya
 import uqbar.io
-from unittest import mock
-from abjad import abjad_configuration
-from supriya.tools import commandlinetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
+from supriya.tools import commandlinetools
+from unittest import mock
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -26,7 +26,7 @@ class Test(ProjectPackageScriptTestCase):
         ''')
         definition_path = session_path.joinpath('definition.py')
         command = '{} {!s}'.format(
-            abjad_configuration.get_text_editor(),
+            supriya.config.get('core', 'editor', fallback='vim'),
             definition_path,
             )
         call_subprocess_mock.assert_called_with(command)
