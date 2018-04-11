@@ -3,7 +3,7 @@ import yaml
 import uqbar.io
 from unittest import mock
 from supriya import utils
-from supriya.tools import commandlinetools
+import supriya.cli
 from supriya.tools import nonrealtimetools
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
@@ -15,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle missing session.
         """
         self.create_project()
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -38,7 +38,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -68,7 +68,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write(utils.normalize_string(r'''
             session = None
             '''))
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -103,7 +103,7 @@ class Test(ProjectPackageScriptTestCase):
 
             session = Foo()
             '''))
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -116,7 +116,7 @@ class Test(ProjectPackageScriptTestCase):
         Rendering test_project/sessions/test_session/
             Importing test_project.sessions.test_session.definition
         Traceback (most recent call last):
-          File ".../commandlinetools/ProjectSectionScript.py", line ..., in _render_object
+          File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
             **kwargs
           File ".../soundfiletools/render.py", line ..., in render
             **kwargs
@@ -135,7 +135,7 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
             file_pointer.write('\n\nfailure = 1 / 0\n')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -148,7 +148,7 @@ class Test(ProjectPackageScriptTestCase):
         Rendering test_project/sessions/test_session/
             Importing test_project.sessions.test_session.definition
         Traceback (most recent call last):
-          File ".../commandlinetools/ProjectPackageScript.py", line ..., in _import_path
+          File ".../supriya/cli/ProjectPackageScript.py", line ..., in _import_path
             return importlib.import_module(path)
           ...
           File ".../test_project/test_project/sessions/test_session/definition.py", line ..., in <module>
@@ -159,7 +159,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_supercollider_error(self):
         self.create_project()
         self.create_session('test_session')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
@@ -188,7 +188,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_supercollider_no_output(self):
         self.create_project()
         self.create_session('test_session')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = nonrealtimetools.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
@@ -219,7 +219,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('session_one')
         self.create_session('session_two')
         self.create_session('session_three')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', '*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -310,7 +310,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('session_one')
         self.create_session('session_two')
         self.create_session('session_three')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_t*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -379,7 +379,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_success_one_session(self):
         self.create_project()
         self.create_session('test_session')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -501,7 +501,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py']
             )
 
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_three']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -612,7 +612,7 @@ class Test(ProjectPackageScriptTestCase):
             file_pointer.write(self.session_factory_template.render(
                 output_section_singular='session',
                 ))
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(

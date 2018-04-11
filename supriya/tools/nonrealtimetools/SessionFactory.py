@@ -26,9 +26,9 @@ class SessionFactory:
 
     @classmethod
     def from_project_settings(cls, project_settings):
-        from supriya.tools import commandlinetools
+        import supriya.cli
         from supriya.tools import servertools
-        assert isinstance(project_settings, commandlinetools.ProjectSettings)
+        assert isinstance(project_settings, supriya.cli.ProjectSettings)
         server_options = servertools.ServerOptions(
             **project_settings.get('server_options', {})
             )

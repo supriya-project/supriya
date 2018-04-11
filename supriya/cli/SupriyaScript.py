@@ -29,10 +29,10 @@ class SupriyaScript(uqbar.cli.CLIAggregator):
 
     @property
     def cli_classes(self):
-        from supriya.tools import commandlinetools
+        import supriya.cli
         classes = []
-        for name in sorted(dir(commandlinetools)):
-            obj = getattr(commandlinetools, name)
+        for name in sorted(dir(supriya.cli)):
+            obj = getattr(supriya.cli, name)
             if not isinstance(obj, type):
                 continue
             elif not issubclass(obj, uqbar.cli.CLI):

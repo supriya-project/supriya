@@ -1,6 +1,6 @@
 import os
 import uqbar.io
-from supriya.tools import commandlinetools
+import supriya.cli
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -26,7 +26,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_missing(self):
         self.create_project()
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--delete', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -42,7 +42,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_success(self):
         self.create_project()
         self.create_material('test_material')
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--delete', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(

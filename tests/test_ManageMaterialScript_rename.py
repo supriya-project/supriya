@@ -1,6 +1,6 @@
 import os
 import uqbar.io
-from supriya.tools import commandlinetools
+import supriya.cli
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -28,7 +28,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_missing_source(self):
         self.create_project()
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -45,7 +45,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         self.create_material('material_one')
         self.create_material('material_two')
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -62,7 +62,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_project()
         self.create_material('material_one')
         self.create_material('material_two')
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two', '-f']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -84,7 +84,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_success(self):
         self.create_project()
         self.create_material('material_one')
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(

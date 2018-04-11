@@ -3,5 +3,5 @@ def run_supriya():
 
     One-line wrapper around SupriyaDevScript.
     '''
-    from supriya.tools import commandlinetools
-    commandlinetools.SupriyaScript()()
+    import supriya.cli
+    supriya.cli.SupriyaScript()()

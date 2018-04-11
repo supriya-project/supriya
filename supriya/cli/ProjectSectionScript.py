@@ -5,9 +5,8 @@ import inspect
 import sys
 import traceback
 import uqbar.io
-from supriya.tools.commandlinetools.ProjectPackageScript import (
-    ProjectPackageScript
-)
+from supriya.cli.ProjectSettings import ProjectSettings
+from supriya.cli.ProjectPackageScript import ProjectPackageScript
 from supriya.tools.nonrealtimetools import (
     NonrealtimeRenderError,
     NonrealtimeOutputMissing,
@@ -19,8 +18,7 @@ class ProjectSectionScript(ProjectPackageScript):
     ### PRIVATE METHODS ###
 
     def _build_nrt_server_options(self, session):
-        from supriya.tools import commandlinetools
-        project_settings = commandlinetools.ProjectSettings(
+        project_settings = ProjectSettings(
             yaml_path=self.inner_project_path.joinpath(
                 'project-settings.yml'),
             )

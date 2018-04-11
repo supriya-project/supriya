@@ -4,7 +4,7 @@ import sys
 import yaml
 import uqbar.io
 from supriya import utils
-from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
+from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 
 class ManageProjectScript(ProjectPackageScript):

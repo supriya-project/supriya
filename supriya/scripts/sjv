@@ -2,5 +2,5 @@
 
 
 if __name__ == '__main__':
-    from supriya.tools import commandlinetools
-    commandlinetools.SupriyaScript()()
+    import supriya.cli
+    supriya.cli.SupriyaScript()()

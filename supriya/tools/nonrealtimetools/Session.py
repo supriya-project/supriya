@@ -1067,9 +1067,8 @@ class Session:
         name=None,
         padding=None,
         ):
-        from supriya.tools import commandlinetools
-        from supriya.tools import servertools
-        assert isinstance(project_settings, commandlinetools.ProjectSettings)
+        import supriya.cli
+        assert isinstance(project_settings, supriya.cli.ProjectSettings)
         server_options = servertools.ServerOptions(
             **project_settings.get('server_options', {})
             )

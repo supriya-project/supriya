@@ -1,5 +1,5 @@
 import uqbar.io
-from supriya.tools import commandlinetools
+import supriya.cli
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -28,7 +28,7 @@ class Test(ProjectPackageScriptTestCase):
                 ),
             )
 
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--render', '*']
         with uqbar.io.DirectoryChange(
             str(self.inner_project_path)):
@@ -76,7 +76,7 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             )
 
-        script = commandlinetools.ManageProjectScript()
+        script = supriya.cli.ManageProjectScript()
         command = ['--clean']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(

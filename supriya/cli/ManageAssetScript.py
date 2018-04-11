@@ -1,4 +1,4 @@
-from supriya.tools.commandlinetools.ProjectPackageScript import ProjectPackageScript
+from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 
 class ManageAssetScript(ProjectPackageScript):

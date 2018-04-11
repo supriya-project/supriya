@@ -1,6 +1,4 @@
-from supriya.tools.commandlinetools.ProjectSectionScript import (
-    ProjectSectionScript
-)
+from supriya.cli.ProjectSectionScript import ProjectSectionScript
 
 
 class ManageMaterialScript(ProjectSectionScript):

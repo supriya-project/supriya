@@ -1,7 +1,7 @@
 import os
 import uqbar.io
 from supriya import utils
-from supriya.tools import commandlinetools
+import supriya.cli
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -38,7 +38,7 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=0))
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
 
         aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))
@@ -125,7 +125,7 @@ class Test(ProjectPackageScriptTestCase):
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=None))
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
 
         aiff_artifacts = sorted(self.renders_path.glob('*.aiff'))

@@ -4,7 +4,7 @@ import shutil
 import sys
 import uqbar.io
 from supriya import utils
-from supriya.tools import commandlinetools
+import supriya.cli
 from supriya.tools import soundfiletools
 from supriya.tools import systemtools
 
@@ -161,7 +161,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         expect_error=False,
         definition_contents=None,
         ):
-        script = commandlinetools.ManageMaterialScript()
+        script = supriya.cli.ManageMaterialScript()
         command = ['--new', material_name]
         if force:
             command.insert(0, '-f')
@@ -184,7 +184,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         return material_path
 
     def create_project(self, force=False, expect_error=False):
-        script = commandlinetools.ManageProjectScript()
+        script = supriya.cli.ManageProjectScript()
         command = [
             '--new',
             'Test Project',
@@ -214,7 +214,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         expect_error=False,
         definition_contents=None,
         ):
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--new', session_name]
         if force:
             command.insert(0, '-f')

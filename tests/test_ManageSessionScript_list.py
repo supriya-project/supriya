@@ -1,5 +1,5 @@
 import uqbar.io
-from supriya.tools import commandlinetools
+import supriya.cli
 from commandlinetools_testbase import ProjectPackageScriptTestCase
 
 
@@ -11,7 +11,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_session('bar')
         self.create_session('baz')
         self.create_session('quux')
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -30,7 +30,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_list_sessions_no_sessions(self):
         self.create_project()
-        script = commandlinetools.ManageSessionScript()
+        script = supriya.cli.ManageSessionScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
