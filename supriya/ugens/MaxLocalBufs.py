@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -36,9 +36,9 @@ class MaxLocalBufs(UGen):
         self,
         maximum=0,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         maximum = float(maximum)
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,

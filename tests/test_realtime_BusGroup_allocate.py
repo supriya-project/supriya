@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya import systemtools
 
 
@@ -17,7 +17,7 @@ class Test(systemtools.TestCase):
 
         bus_group_one = supriya.realtime.BusGroup(
             bus_count=4,
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+            calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
             )
 
         assert not bus_group_one.is_allocated
@@ -45,7 +45,7 @@ class Test(systemtools.TestCase):
 
         bus_group_two = supriya.realtime.BusGroup(
             bus_count=4,
-            calculation_rate=synthdeftools.CalculationRate.CONTROL,
+            calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
             )
         self.server.sync()
 

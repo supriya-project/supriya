@@ -1,6 +1,6 @@
 # -*- enoding: utf-8 -*-
 import bisect
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.nonrealtime.SessionObject import SessionObject
 
 
@@ -72,7 +72,7 @@ class Bus(SessionObject):
             assert isinstance(bus_group, supriya.nonrealtime.BusGroup)
         self._bus_group = bus_group
         assert calculation_rate is not None
-        calculation_rate = synthdeftools.CalculationRate.from_expr(
+        calculation_rate = supriya.synthdefs.CalculationRate.from_expr(
             calculation_rate)
         self._calculation_rate = calculation_rate
         self._events = []
@@ -84,7 +84,7 @@ class Bus(SessionObject):
 
     def __str__(self):
         map_symbol = 'c'
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
             map_symbol = 'a'
         session_id = self._session_id
         if session_id is None:
@@ -116,7 +116,7 @@ class Bus(SessionObject):
         return value
 
     def _set_at_offset(self, offset, value):
-        assert self.calculation_rate == synthdeftools.CalculationRate.CONTROL
+        assert self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL
         events = self._events
         event = (offset, value)
         if not events:
@@ -139,8 +139,8 @@ class Bus(SessionObject):
         return value
 
     def get_map_symbol(self, bus_id):
-        from supriya.tools import synthdeftools
-        if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        import supriya.synthdefs
+        if self.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
             map_symbol = 'a'
         else:
             map_symbol = 'c'

@@ -85,8 +85,8 @@ class XOut(UGen):
         Returns ugen graph.
         """
         import supriya.realtime
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,
@@ -126,8 +126,8 @@ class XOut(UGen):
         Returns ugen graph.
         """
         import supriya.realtime
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,

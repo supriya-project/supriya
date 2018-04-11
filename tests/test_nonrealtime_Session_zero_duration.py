@@ -2,7 +2,7 @@ import unittest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 from nonrealtime_testbase import TestCase
 
@@ -36,7 +36,7 @@ class TestCase(TestCase):
             [5.0, [[0]]]]
 
     def test_manual_without_gate(self):
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.DC.ar(1)
             supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
@@ -58,7 +58,7 @@ class TestCase(TestCase):
             [10.0, [[0]]]]
 
     def test_pattern_without_gate(self):
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.DC.ar(1)
             supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
@@ -83,7 +83,7 @@ class TestCase(TestCase):
 
     @unittest.skip('Awaiting implementation.')
     def test_pattern_without_gate_with_bus(self):
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.DC.ar(1)
             supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()

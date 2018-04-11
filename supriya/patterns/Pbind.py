@@ -99,9 +99,9 @@ class Pbind(EventPattern):
 
     def __init__(self, synthdef=None, **patterns):
         import supriya.patterns
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         assert isinstance(synthdef, (
-            synthdeftools.SynthDef,
+            supriya.synthdefs.SynthDef,
             supriya.patterns.Pattern,
             type(None),
             ))

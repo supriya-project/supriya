@@ -1,4 +1,4 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
@@ -23,12 +23,12 @@ def _build_default_synthdef():
     }, [\ir]).add;
     """
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         amplitude=0.1,
         frequency=440,
         gate=1,
-        out=synthdeftools.Parameter(
-            parameter_rate=synthdeftools.ParameterRate.SCALAR,
+        out=supriya.synthdefs.Parameter(
+            parameter_rate=supriya.synthdefs.ParameterRate.SCALAR,
             value=0,
             ),
         pan=0.5,
@@ -53,7 +53,7 @@ def _build_default_synthdef():
             )
         linen = supriya.ugens.Linen.kr(
             attack_time=0.01,
-            done_action=synthdeftools.DoneAction.FREE_SYNTH,
+            done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             gate=builder['gate'],
             release_time=0.3,
             sustain_level=0.7,

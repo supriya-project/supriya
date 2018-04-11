@@ -117,7 +117,7 @@ from supriya.tools.soundfiletools import (  # noqa
     play,
     render,
     )
-from supriya.tools.synthdeftools import (  # noqa
+from supriya.synthdefs import (  # noqa
     CalculationRate,
     DoneAction,
     Envelope,

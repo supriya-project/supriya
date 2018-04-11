@@ -16,13 +16,13 @@ class AudioOutputBusGroup(BusGroup):
         server,
         ):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         self._server = server
         bus_id = 0
         bus_count = server.server_options.input_bus_channel_count
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         BusGroup.__init__(
             self,
             bus_count=bus_count,

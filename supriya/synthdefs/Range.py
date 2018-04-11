@@ -8,7 +8,7 @@ class Range(SupriyaObject):
 
     ::
 
-        >>> synthdeftools.Range(-1., 1.)
+        >>> supriya.synthdefs.Range(-1., 1.)
         Range(
             maximum=1.0,
             minimum=-1.0,
@@ -16,7 +16,7 @@ class Range(SupriyaObject):
 
     ::
 
-        >>> synthdeftools.Range(minimum=0.)
+        >>> supriya.synthdefs.Range(minimum=0.)
         Range(
             maximum=inf,
             minimum=0.0,
@@ -24,7 +24,7 @@ class Range(SupriyaObject):
 
     ::
 
-        >>> synthdeftools.Range()
+        >>> supriya.synthdefs.Range()
         Range(
             maximum=inf,
             minimum=-inf,
@@ -32,7 +32,7 @@ class Range(SupriyaObject):
 
     ::
 
-        >>> synthdeftools.Range((0.1, 0.9))
+        >>> supriya.synthdefs.Range((0.1, 0.9))
         Range(
             maximum=0.9,
             minimum=0.1,
@@ -40,7 +40,7 @@ class Range(SupriyaObject):
 
     ::
 
-        >>> synthdeftools.Range(synthdeftools.Range(-3, 3))
+        >>> supriya.synthdefs.Range(supriya.synthdefs.Range(-3, 3))
         Range(
             maximum=3.0,
             minimum=-3.0,
@@ -95,27 +95,27 @@ class Range(SupriyaObject):
 
         ::
 
-            >>> input_range = synthdeftools.Range(0., 10.)
-            >>> output_range = synthdeftools.Range(-2.5, 2.5)
+            >>> input_range = supriya.synthdefs.Range(0., 10.)
+            >>> output_range = supriya.synthdefs.Range(-2.5, 2.5)
 
         ::
 
-            >>> synthdeftools.Range.scale(0., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(0., input_range, output_range)
             -2.5
 
         ::
 
-            >>> synthdeftools.Range.scale(5., input_range, output_range)
+            >>> supriya.synthdefs.Range.scale(5., input_range, output_range)
             0.0
 
         ::
 
-            >>> synthdeftools.Range.scale(5., input_range, output_range, 2.)
+            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 2.)
             -1.25
 
         ::
 
-            >>> synthdeftools.Range.scale(5., input_range, output_range, 0.5)
+            >>> supriya.synthdefs.Range.scale(5., input_range, output_range, 0.5)
             1.0355...
 
         Returns float.

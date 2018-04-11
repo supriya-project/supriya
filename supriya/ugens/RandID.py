@@ -60,8 +60,8 @@ class RandID(WidthFirstUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rand_id=rand_id,
@@ -86,8 +86,8 @@ class RandID(WidthFirstUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rand_id=rand_id,

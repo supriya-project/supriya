@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def test_SynthDefCompiler_parameters_01():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         r'''
         | freq = 440 |
@@ -13,7 +13,7 @@ def test_SynthDefCompiler_parameters_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    with synthdeftools.SynthDefBuilder(freq=440) as builder:
+    with supriya.synthdefs.SynthDefBuilder(freq=440) as builder:
         sine = supriya.ugens.SinOsc.ar(frequency=builder['freq'])
         supriya.ugens.Out.ar(bus=0, source=sine)
     py_synthdef = builder.build('test')
@@ -22,9 +22,9 @@ def test_SynthDefCompiler_parameters_01():
     assert py_synthdef.indexed_parameters == (
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='freq',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=440.0,
                 ),
             ),
@@ -77,7 +77,7 @@ def test_SynthDefCompiler_parameters_01():
 
 def test_SynthDefCompiler_parameters_02():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         r'''
         arg freq=1200, out=23;
@@ -86,7 +86,7 @@ def test_SynthDefCompiler_parameters_02():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    with synthdeftools.SynthDefBuilder(
+    with supriya.synthdefs.SynthDefBuilder(
         freq=1200,
         out=23,
         ) as builder:
@@ -98,17 +98,17 @@ def test_SynthDefCompiler_parameters_02():
     assert py_synthdef.indexed_parameters == (
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='freq',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=1200.0,
                 ),
             ),
         (
             1,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='out',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=23.0,
                 ),
             ),
@@ -167,7 +167,7 @@ def test_SynthDefCompiler_parameters_03():
     r'''Multiple parameters, including unused parameters.
     '''
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         r'''
         | damping=0.1, delay_time=1.0, room_size=0.9 |
@@ -176,7 +176,7 @@ def test_SynthDefCompiler_parameters_03():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         damping=0.1,
         delay_time=1.0,
         room_size=0.9,
@@ -195,25 +195,25 @@ def test_SynthDefCompiler_parameters_03():
     assert py_synthdef.indexed_parameters == (
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='damping',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=0.1,
                 ),
             ),
         (
             1,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='delay_time',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=1.0,
                 ),
             ),
         (
             2,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='room_size',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=0.9,
                 ),
             ),
@@ -286,7 +286,7 @@ def test_SynthDefCompiler_parameters_03():
 def test_SynthDefCompiler_parameters_04():
     r'''Different calculation rates.'''
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'trigTest',
         r'''
         |
@@ -302,7 +302,7 @@ def test_SynthDefCompiler_parameters_04():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         a_phase=0.0,
         freq=440,
         i_decay_time=1.0,
@@ -330,41 +330,41 @@ def test_SynthDefCompiler_parameters_04():
     assert py_synthdef.indexed_parameters == (
         (
             3,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='a_phase',
-                parameter_rate=synthdeftools.ParameterRate.AUDIO,
+                parameter_rate=supriya.synthdefs.ParameterRate.AUDIO,
                 value=0.0,
                 ),
             ),
         (
             4,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='freq',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=440.0,
                 ),
             ),
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='i_decay_time',
-                parameter_rate=synthdeftools.ParameterRate.SCALAR,
+                parameter_rate=supriya.synthdefs.ParameterRate.SCALAR,
                 value=1.0,
                 ),
             ),
         (
             1,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='t_trig_a',
-                parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+                parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
                 value=0.0,
                 ),
             ),
         (
             2,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='t_trig_b',
-                parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+                parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
                 value=0.0,
                 ),
             ),
@@ -496,7 +496,7 @@ def test_SynthDefCompiler_parameters_04():
 def test_SynthDefCompiler_parameters_05():
     r'''Literal array arguments.'''
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         amp=0.1,
         freqs=[300, 400],
         )
@@ -516,23 +516,23 @@ def test_SynthDefCompiler_parameters_05():
     assert py_synthdef.indexed_parameters == (
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='amp',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=0.1,
                 ),
             ),
         (
             1,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='freqs',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=(300.0, 400.0)
                 ),
             ),
         )
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'arrayarg',
         r'''
         |
@@ -630,9 +630,9 @@ def test_SynthDefCompiler_parameters_05():
 def test_SynthDefCompiler_parameters_06():
     r'''Literal array arguments.'''
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         amp=0.1,
-        freqs=synthdeftools.Parameter(
+        freqs=supriya.synthdefs.Parameter(
             lag=0.5,
             value=[300, 400],
             ),
@@ -653,24 +653,24 @@ def test_SynthDefCompiler_parameters_06():
     assert py_synthdef.indexed_parameters == (
         (
             0,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 name='amp',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=0.1,
                 ),
             ),
         (
             1,
-            synthdeftools.Parameter(
+            supriya.synthdefs.Parameter(
                 lag=0.5,
                 name='freqs',
-                parameter_rate=synthdeftools.ParameterRate.CONTROL,
+                parameter_rate=supriya.synthdefs.ParameterRate.CONTROL,
                 value=(300.0, 400.0)
                 ),
             ),
         )
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'arrayarg',
         r'''
         |

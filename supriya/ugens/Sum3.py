@@ -39,8 +39,8 @@ class Sum3(UGen):
         input_two=None,
         input_three=None,
         ):
-        from supriya.tools import synthdeftools
-        CalculationRate = synthdeftools.CalculationRate
+        import supriya.synthdefs
+        CalculationRate = supriya.synthdefs.CalculationRate
         inputs = [input_one, input_two, input_three]
         calculation_rate = CalculationRate.from_collection(inputs)
         inputs.sort(

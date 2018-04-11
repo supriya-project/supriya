@@ -76,7 +76,7 @@ class Test(ProjectPackageScriptTestCase):
 
         session = supriya.Session.from_project_settings(project_settings)
 
-        with supriya.synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             duration=1.,
             out_bus=0,
             ) as builder:

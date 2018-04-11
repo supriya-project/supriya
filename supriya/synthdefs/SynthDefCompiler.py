@@ -94,14 +94,14 @@ class SynthDefCompiler(SupriyaObject):
 
     @staticmethod
     def compile_ugen_input_spec(input_, synthdef):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         result = []
         if isinstance(input_, float):
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(0xffffffff))
             constant_index = synthdef._constants.index(input_)
             result.append(SynthDefCompiler.encode_unsigned_int_32bit(
                 constant_index))
-        elif isinstance(input_, synthdeftools.OutputProxy):
+        elif isinstance(input_, supriya.synthdefs.OutputProxy):
             ugen = input_.source
             output_index = input_.output_index
             ugen_index = synthdef._ugens.index(ugen)

@@ -108,9 +108,9 @@ class ServerRecorder(SupriyaObject):
         self._record_node = synth
 
     def _setup_synthdef(self):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.In.ar(
                 bus=0,
                 channel_count=self.current_channel_count,

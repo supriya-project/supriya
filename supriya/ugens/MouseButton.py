@@ -1,5 +1,5 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
-from supriya.tools.synthdeftools.SignalRange import SignalRange
+from supriya.synthdefs.CalculationRate import CalculationRate
+from supriya.synthdefs.SignalRange import SignalRange
 from supriya.ugens.UGen import UGen
 
 
@@ -72,8 +72,8 @@ class MouseButton(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             lag=lag,

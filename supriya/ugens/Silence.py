@@ -25,7 +25,7 @@ class Silence(PseudoUGen):
         cls,
         channel_count=1,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         channel_count = int(channel_count)
         assert 0 <= channel_count
@@ -33,4 +33,4 @@ class Silence(PseudoUGen):
         if channel_count == 1:
             return silence
         output_proxies = [silence[0]] * channel_count
-        return synthdeftools.UGenArray(output_proxies)
+        return supriya.synthdefs.UGenArray(output_proxies)

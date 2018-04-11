@@ -1,6 +1,6 @@
 import collections
 from supriya import utils
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -118,8 +118,8 @@ class Klank(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             decay_scale=decay_scale,

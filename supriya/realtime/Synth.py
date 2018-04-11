@@ -14,9 +14,9 @@ class Synth(Node):
 
     ::
 
-        >>> from supriya import synthdeftools
+        >>> import supriya.synthdefs
         >>> import supriya.ugens
-        >>> with synthdeftools.SynthDefBuilder(
+        >>> with supriya.synthdefs.SynthDefBuilder(
         ...     amplitude=0.0,
         ...     frequency=440.0,
         ...     ) as builder:
@@ -65,10 +65,10 @@ class Synth(Node):
         ):
         import supriya.assets.synthdefs
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         Node.__init__(self, name=name)
         synthdef = synthdef or supriya.assets.synthdefs.default
-        assert isinstance(synthdef, synthdeftools.SynthDef)
+        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
         self._control_interface = supriya.realtime.SynthInterface(
             client=self,

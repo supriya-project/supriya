@@ -1,4 +1,4 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.nonrealtime.BusGroup import BusGroup
 
 
@@ -19,7 +19,7 @@ class AudioInputBusGroup(BusGroup):
         self,
         session,
         ):
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
             self,

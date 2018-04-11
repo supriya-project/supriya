@@ -1,7 +1,7 @@
 import abc
 import collections
-from supriya.tools.synthdeftools.SignalRange import SignalRange
-from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
+from supriya.synthdefs.SignalRange import SignalRange
+from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 
 
 class UGen(UGenMethodMixin):
@@ -37,8 +37,8 @@ class UGen(UGenMethodMixin):
         special_index=0,
         **kwargs
         ):
-        from supriya.tools import synthdeftools
-        assert isinstance(calculation_rate, synthdeftools.CalculationRate), \
+        import supriya.synthdefs
+        assert isinstance(calculation_rate, supriya.synthdefs.CalculationRate), \
             calculation_rate
         if self._valid_rates is not None:
             assert calculation_rate in self._valid_rates
@@ -47,7 +47,7 @@ class UGen(UGenMethodMixin):
         self._special_index = special_index
         ugenlike_prototype = (
             UGen,
-            synthdeftools.Parameter,
+            supriya.synthdefs.Parameter,
             )
         for i in range(len(self._ordered_input_names)):
             input_name = self._ordered_input_names[i]
@@ -68,12 +68,12 @@ class UGen(UGenMethodMixin):
             self._configure_input(input_name, input_value)
         if kwargs:
             raise ValueError(kwargs)
-        assert all(isinstance(_, (synthdeftools.OutputProxy, float))
+        assert all(isinstance(_, (supriya.synthdefs.OutputProxy, float))
             for _ in self.inputs)
         self._validate_inputs()
         self._uuid = None
-        if synthdeftools.SynthDefBuilder._active_builders:
-            builder = synthdeftools.SynthDefBuilder._active_builders[-1]
+        if supriya.synthdefs.SynthDefBuilder._active_builders:
+            builder = supriya.synthdefs.SynthDefBuilder._active_builders[-1]
             self._uuid = builder._uuid
         self._check_inputs_share_same_uuid()
         if self._uuid is not None:
@@ -127,13 +127,13 @@ class UGen(UGenMethodMixin):
 
         Returns string.
         """
-        from supriya.tools import synthdeftools
-        if self.calculation_rate == synthdeftools.CalculationRate.DEMAND:
+        import supriya.synthdefs
+        if self.calculation_rate == supriya.synthdefs.CalculationRate.DEMAND:
             return '{}()'.format(type(self).__name__)
         calculation_abbreviations = {
-            synthdeftools.CalculationRate.AUDIO: 'ar',
-            synthdeftools.CalculationRate.CONTROL: 'kr',
-            synthdeftools.CalculationRate.SCALAR: 'ir',
+            supriya.synthdefs.CalculationRate.AUDIO: 'ar',
+            supriya.synthdefs.CalculationRate.CONTROL: 'kr',
+            supriya.synthdefs.CalculationRate.SCALAR: 'ir',
             }
         string = '{}.{}()'.format(
             type(self).__name__,
@@ -145,18 +145,18 @@ class UGen(UGenMethodMixin):
 
     @staticmethod
     def _as_audio_rate_input(expr):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         if isinstance(expr, (int, float)):
             if expr == 0:
                 return supriya.ugens.Silence.ar()
             return supriya.ugens.DC.ar(expr)
-        elif isinstance(expr, (UGen, synthdeftools.OutputProxy)):
-            if expr.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        elif isinstance(expr, (UGen, supriya.synthdefs.OutputProxy)):
+            if expr.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
                 return expr
             return supriya.ugens.K2A.ar(source=expr)
         elif isinstance(expr, collections.Iterable):
-            return synthdeftools.UGenArray(
+            return supriya.synthdefs.UGenArray(
                 UGen._as_audio_rate_input(x)
                 for x in expr
                 )
@@ -166,22 +166,22 @@ class UGen(UGenMethodMixin):
         self._inputs.append(float(value))
 
     def _add_ugen_input(self, ugen, output_index=None):
-        from supriya.tools import synthdeftools
-        #if isinstance(ugen, synthdeftools.Parameter):
+        import supriya.synthdefs
+        #if isinstance(ugen, supriya.synthdefs.Parameter):
         #    output_proxy = ugen
-        if isinstance(ugen, synthdeftools.OutputProxy):
+        if isinstance(ugen, supriya.synthdefs.OutputProxy):
             output_proxy = ugen
         else:
-            output_proxy = synthdeftools.OutputProxy(
+            output_proxy = supriya.synthdefs.OutputProxy(
                 output_index=output_index,
                 source=ugen,
                 )
         self._inputs.append(output_proxy)
 
     def _check_inputs_share_same_uuid(self):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         for input_ in self.inputs:
-            if not isinstance(input_, synthdeftools.OutputProxy):
+            if not isinstance(input_, supriya.synthdefs.OutputProxy):
                 continue
             if input_.source._uuid != self._uuid:
                 message = 'UGen input in different scope: {!r}'
@@ -189,27 +189,27 @@ class UGen(UGenMethodMixin):
                 raise ValueError(message)
 
     def _check_rate_same_as_first_input_rate(self):
-        from supriya.tools import synthdeftools
-        first_input_rate = synthdeftools.CalculationRate.from_input(
+        import supriya.synthdefs
+        first_input_rate = supriya.synthdefs.CalculationRate.from_input(
             self.inputs[0],
             )
         return self.calculation_rate == first_input_rate
 
     def _check_range_of_inputs_at_audio_rate(self, start=None, stop=None):
-        from supriya.tools import synthdeftools
-        if self.calculation_rate != synthdeftools.CalculationRate.AUDIO:
+        import supriya.synthdefs
+        if self.calculation_rate != supriya.synthdefs.CalculationRate.AUDIO:
             return True
         for input_ in self.inputs[start:stop]:
-            calculation_rate = synthdeftools.CalculationRate.from_input(input_)
-            if calculation_rate != synthdeftools.CalculationRate.AUDIO:
+            calculation_rate = supriya.synthdefs.CalculationRate.from_input(input_)
+            if calculation_rate != supriya.synthdefs.CalculationRate.AUDIO:
                 return False
         return True
 
     def _configure_input(self, name, value):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         ugen_prototype = (
-            synthdeftools.OutputProxy,
-            synthdeftools.Parameter,
+            supriya.synthdefs.OutputProxy,
+            supriya.synthdefs.Parameter,
             UGen,
             )
         if hasattr(value, '__float__'):
@@ -266,7 +266,7 @@ class UGen(UGenMethodMixin):
             [('bus', 9), ('source', (1, 2, 3))]
 
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         dictionary = dictionary.copy()
         cached_unexpanded_inputs = {}
         if unexpanded_input_names is not None:
@@ -281,7 +281,7 @@ class UGen(UGenMethodMixin):
         prototype = (
             collections.Sequence,
             UGen,
-            synthdeftools.Parameter,
+            supriya.synthdefs.Parameter,
             )
         for name, value in dictionary.items():
             if isinstance(value, prototype) and \
@@ -301,21 +301,21 @@ class UGen(UGenMethodMixin):
         return result
 
     def _get_done_action(self):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if 'done_action' not in self._ordered_input_names:
             return None
-        return synthdeftools.DoneAction.from_expr(int(self.done_action))
+        return supriya.synthdefs.DoneAction.from_expr(int(self.done_action))
 
     @staticmethod
     def _get_method_for_rate(cls, calculation_rate):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.from_input(
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.from_input(
             calculation_rate)
-        if calculation_rate == synthdeftools.CalculationRate.AUDIO:
+        if calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
             return cls.ar
-        elif calculation_rate == synthdeftools.CalculationRate.CONTROL:
+        elif calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
             return cls.kr
-        elif calculation_rate == synthdeftools.CalculationRate.SCALAR:
+        elif calculation_rate == supriya.synthdefs.CalculationRate.SCALAR:
             if hasattr(cls, 'ir'):
                 return cls.ir
             return cls.kr
@@ -337,8 +337,8 @@ class UGen(UGenMethodMixin):
         return False
 
     def _is_valid_input(self, input_value):
-        from supriya.tools import synthdeftools
-        if isinstance(input_value, synthdeftools.OutputProxy):
+        import supriya.synthdefs
+        if isinstance(input_value, supriya.synthdefs.OutputProxy):
             return True
         elif hasattr(input_value, '__float__'):
             return True
@@ -351,7 +351,7 @@ class UGen(UGenMethodMixin):
         **kwargs
         ):
         import sys
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if sys.version_info[0] == 2:
             import funcsigs
             get_signature = funcsigs.signature
@@ -376,7 +376,7 @@ class UGen(UGenMethodMixin):
             ugens.append(ugen)
         if len(ugens) == 1:
             return ugens[0]
-        return synthdeftools.UGenArray(ugens)
+        return supriya.synthdefs.UGenArray(ugens)
 
     @classmethod
     def _new_single(

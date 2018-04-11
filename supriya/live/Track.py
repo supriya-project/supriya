@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.tools import systemtools
 import supriya.ugens
 from supriya.live.AutoPatternSlot import AutoPatternSlot
@@ -229,13 +229,13 @@ class Track:
 
     @staticmethod
     def build_input_synthdef(channel_count):
-        synthdef_builder = synthdeftools.SynthDefBuilder(
+        synthdef_builder = supriya.synthdefs.SynthDefBuilder(
             active=1,
             gain=0,
             gate=1,
-            in_=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             lag=0.1,
-            out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
             source = supriya.ugens.InFeedback.ar(
@@ -248,13 +248,13 @@ class Track:
                 )
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.NOTHING,
+                done_action=supriya.synthdefs.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
                 release_time=synthdef_builder['lag'],
                 )
@@ -273,12 +273,12 @@ class Track:
 
     @staticmethod
     def build_output_synthdef(channel_count):
-        synthdef_builder = synthdeftools.SynthDefBuilder(
+        synthdef_builder = supriya.synthdefs.SynthDefBuilder(
             active=1,
             gain=0,
             gate=1,
             lag=0.1,
-            out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
@@ -291,13 +291,13 @@ class Track:
                 )
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.NOTHING,
+                done_action=supriya.synthdefs.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
                 release_time=synthdef_builder['lag'],
                 )

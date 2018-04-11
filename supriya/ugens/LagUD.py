@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.Filter import Filter
 
 
@@ -96,8 +96,8 @@ class LagUD(Filter):
             LagUD.ar()
 
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,
@@ -127,8 +127,8 @@ class LagUD(Filter):
             LagUD.kr()
 
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             lag_time_down=lag_time_down,
             lag_time_up=lag_time_up,

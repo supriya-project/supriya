@@ -72,8 +72,8 @@ class LinRand(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             maximum=maximum,

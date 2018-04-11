@@ -87,12 +87,12 @@ class Poll(UGen):
         trigger=None,
         trigger_id=-1,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         if label is None:
             if isinstance(source, supriya.ugens.UGen):
                 label = type(source).__name__
-            elif isinstance(source, synthdeftools.OutputProxy):
+            elif isinstance(source, supriya.synthdefs.OutputProxy):
                 label = type(source.source).__name__
         UGen.__init__(
             self,
@@ -116,8 +116,8 @@ class Poll(UGen):
         trigger=None,
         trigger_id=-1,
         ):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             label=label,
@@ -135,8 +135,8 @@ class Poll(UGen):
         trigger=None,
         trigger_id=-1,
         ):
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             label=label,
@@ -154,12 +154,12 @@ class Poll(UGen):
         trigger=None,
         trigger_id=-1,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if isinstance(source, collections.Sequence):
             source = (source,)
         calculation_rates = []
         for single_source in source:
-            rate = synthdeftools.CalculationRate.from_input(single_source)
+            rate = supriya.synthdefs.CalculationRate.from_input(single_source)
             calculation_rates.append(rate)
         ugen = cls._new_expanded(
             calculation_rate=calculation_rates,

@@ -11,13 +11,13 @@ class SynthDefDecompiler(SupriyaObject):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
+        >>> import supriya.synthdefs
         >>> import supriya.ugens
-        >>> with synthdeftools.SynthDefBuilder(
+        >>> with supriya.synthdefs.SynthDefBuilder(
         ...     frequency=440,
-        ...     trigger=synthdeftools.Parameter(
+        ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0.,
-        ...         parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
         ...         ),
         ...     ) as builder:
         ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
@@ -55,7 +55,7 @@ class SynthDefDecompiler(SupriyaObject):
     ::
 
         >>> compiled_synthdef = synthdef.compile()
-        >>> sdd = synthdeftools.SynthDefDecompiler
+        >>> sdd = supriya.synthdefs.SynthDefDecompiler
         >>> decompiled_synthdef = sdd.decompile_synthdefs(compiled_synthdef)[0]
         >>> graph(decompiled_synthdef)  # doctest: +SKIP
 
@@ -105,7 +105,7 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decode_parameters(value, index):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         sdd = SynthDefDecompiler
         parameter_values = []
         parameter_count, index = sdd._decode_int_32bit(value, index)
@@ -129,7 +129,7 @@ class SynthDefDecompiler(SupriyaObject):
                 value = parameter_values[index_one:index_two]
                 if len(value) == 1:
                     value = value[0]
-                parameter = synthdeftools.Parameter(
+                parameter = supriya.synthdefs.Parameter(
                     name=name_one,
                     value=value,
                     )
@@ -138,7 +138,7 @@ class SynthDefDecompiler(SupriyaObject):
             value = parameter_values[index_one:]
             if len(value) == 1:
                 value = value[0]
-            parameter = synthdeftools.Parameter(
+            parameter = supriya.synthdefs.Parameter(
                 name=name_one,
                 value=value,
                 )
@@ -151,7 +151,7 @@ class SynthDefDecompiler(SupriyaObject):
 
     @staticmethod
     def _decompile_synthdef(value, index):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         sdd = SynthDefDecompiler
         synthdef = None
@@ -163,7 +163,7 @@ class SynthDefDecompiler(SupriyaObject):
         for i in range(ugen_count):
             ugen_name, index = sdd._decode_string(value, index)
             calculation_rate, index = sdd._decode_int_8bit(value, index)
-            calculation_rate = synthdeftools.CalculationRate(calculation_rate)
+            calculation_rate = supriya.synthdefs.CalculationRate(calculation_rate)
             input_count, index = sdd._decode_int_32bit(value, index)
             output_count, index = sdd._decode_int_32bit(value, index)
             special_index, index = sdd._decode_int_16bit(value, index)
@@ -227,7 +227,7 @@ class SynthDefDecompiler(SupriyaObject):
                         )
             ugens.append(ugen)
         variants_count, index = sdd._decode_int_16bit(value, index)
-        synthdef = synthdeftools.SynthDef(
+        synthdef = supriya.synthdefs.SynthDef(
             ugens=ugens,
             name=name,
             decompiled=True,
@@ -281,15 +281,15 @@ class SynthDefDecompiler(SupriyaObject):
         starting_control_index,
         ugen_class,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
-        parameter_rate = synthdeftools.ParameterRate.CONTROL
+        parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
         if issubclass(ugen_class, supriya.ugens.TrigControl):
-            parameter_rate = synthdeftools.ParameterRate.TRIGGER
-        elif calculation_rate == synthdeftools.CalculationRate.SCALAR:
-            parameter_rate = synthdeftools.ParameterRate.SCALAR
-        elif calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            parameter_rate = synthdeftools.ParameterRate.AUDIO
+            parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
+        elif calculation_rate == supriya.synthdefs.CalculationRate.SCALAR:
+            parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
+        elif calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
+            parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
         parameters = []
         collected_output_count = 0
         lag = 0.0

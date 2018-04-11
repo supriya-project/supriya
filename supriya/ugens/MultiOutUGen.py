@@ -53,7 +53,7 @@ class MultiOutUGen(UGen):
         special_index=0,
         **kwargs
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         ugen = super(MultiOutUGen, cls)._new_expanded(
             special_index=special_index,
@@ -67,7 +67,7 @@ class MultiOutUGen(UGen):
                 output_proxies.extend(x[:])
         if len(output_proxies) == 1:
             return output_proxies[0]
-        result = synthdeftools.UGenArray(output_proxies)
+        result = supriya.synthdefs.UGenArray(output_proxies)
         return result
 
     ### PUBLIC PROPERTIES ###

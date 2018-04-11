@@ -27,11 +27,11 @@ class Control(MultiOutUGen):
         calculation_rate=None,
         starting_control_index=0,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         coerced_parameters = []
         for parameter in parameters:
-            if not isinstance(parameter, synthdeftools.Parameter):
-                parameter = synthdeftools.Parameter(name=parameter, value=0)
+            if not isinstance(parameter, supriya.synthdefs.Parameter):
+                parameter = supriya.synthdefs.Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
         MultiOutUGen.__init__(
@@ -49,11 +49,11 @@ class Control(MultiOutUGen):
 
         Returns output proxy.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if type(i) == int:
             if len(self) == 1:
-                return synthdeftools.OutputProxy(self, 0)
-            return synthdeftools.OutputProxy(self, i)
+                return supriya.synthdefs.OutputProxy(self, 0)
+            return supriya.synthdefs.OutputProxy(self, i)
         else:
             return self[self._get_control_index(i)]
 
@@ -93,12 +93,12 @@ class Control(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if len(self.parameters) == 1:
             result = self
         else:
             result = [
-                synthdeftools.OutputProxy(self, i)
+                supriya.synthdefs.OutputProxy(self, i)
                 for i in range(len(self.parameters))
                 ]
         return result

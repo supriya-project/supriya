@@ -7,13 +7,13 @@ class SignalRange(Enumeration):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> synthdeftools.SignalRange.UNIPOLAR
+        >>> import supriya.synthdefs
+        >>> supriya.synthdefs.SignalRange.UNIPOLAR
         SignalRange.UNIPOLAR
 
     ::
 
-        >>> synthdeftools.SignalRange.from_expr('bipolar')
+        >>> supriya.synthdefs.SignalRange.from_expr('bipolar')
         SignalRange.BIPOLAR
 
     """

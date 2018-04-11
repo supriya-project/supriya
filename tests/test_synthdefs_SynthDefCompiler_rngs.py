@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def test_SynthDefCompiler_rngs_01():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'seedednoise',
         r"""
         arg rand_id=0, seed=0;
@@ -15,7 +15,7 @@ def test_SynthDefCompiler_rngs_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    with synthdeftools.SynthDefBuilder(rand_id=0, seed=0) as builder:
+    with supriya.synthdefs.SynthDefBuilder(rand_id=0, seed=0) as builder:
         supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
         supriya.ugens.RandSeed.ir(seed=builder['seed'], trigger=1)
         source = supriya.ugens.WhiteNoise.ar()

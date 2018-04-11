@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.WidthFirstUGen import WidthFirstUGen
 
 
@@ -62,7 +62,7 @@ class ClearBuf(WidthFirstUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         calculation_rate = CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,

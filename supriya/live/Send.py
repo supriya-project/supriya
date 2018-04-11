@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.tools import systemtools
 import supriya.ugens
 
@@ -47,13 +47,13 @@ class Send:
 
     @staticmethod
     def build_synthdef(source_track_count, target_track_count):
-        synthdef_builder = synthdeftools.SynthDefBuilder(
+        synthdef_builder = supriya.synthdefs.SynthDefBuilder(
             active=1,
             gain=0,
             gate=1,
-            in_=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             lag=0.1,
-            out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
@@ -66,7 +66,7 @@ class Send:
             elif target_track_count == 1:
                 source = supriya.ugens.Mix.new(source) / mix_factor
             elif source_track_count == 1:
-                source = synthdeftools.UGenArray([source] * target_track_count)
+                source = supriya.synthdefs.UGenArray([source] * target_track_count)
             else:
                 panners = []
                 for i, channel in enumerate(source):
@@ -89,13 +89,13 @@ class Send:
                     )
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
             active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.NOTHING,
+                done_action=supriya.synthdefs.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
                 release_time=synthdef_builder['lag'],
                 )

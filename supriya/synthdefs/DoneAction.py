@@ -7,13 +7,13 @@ class DoneAction(Enumeration):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> synthdeftools.DoneAction(2)
+        >>> import supriya.synthdefs
+        >>> supriya.synthdefs.DoneAction(2)
         DoneAction.FREE_SYNTH
 
     ::
 
-        >>> synthdeftools.DoneAction.from_expr('pause synth')
+        >>> supriya.synthdefs.DoneAction.from_expr('pause synth')
         DoneAction.PAUSE_SYNTH
 
     """

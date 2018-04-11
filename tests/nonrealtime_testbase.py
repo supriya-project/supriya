@@ -4,7 +4,7 @@ import shutil
 import supriya.nonrealtime
 import supriya.realtime
 from supriya.tools import soundfiletools
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.tools import systemtools
 import supriya.ugens
 
@@ -26,7 +26,7 @@ class TestSessionFactory:
         self.multiplier = multiplier
 
     def _build_dc_synthdef(self, channel_count=1):
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             out_bus=0,
             source=0,
             ) as builder:
@@ -108,7 +108,7 @@ class TestCase(systemtools.TestCase):
                 shutil.rmtree(str(path))
 
     def build_basic_synthdef(self, bus=0):
-        builder = synthdeftools.SynthDefBuilder()
+        builder = supriya.synthdefs.SynthDefBuilder()
         with builder:
             supriya.ugens.Out.ar(
                 bus=bus,
@@ -117,7 +117,7 @@ class TestCase(systemtools.TestCase):
         return builder.build()
 
     def build_duration_synthdef(self, bus=0):
-        builder = synthdeftools.SynthDefBuilder(duration=0)
+        builder = supriya.synthdefs.SynthDefBuilder(duration=0)
         with builder:
             supriya.ugens.Out.ar(
                 bus=bus,
@@ -128,9 +128,9 @@ class TestCase(systemtools.TestCase):
         return builder.build()
 
     def build_gate_synthdef(self, bus=0):
-        builder = synthdeftools.SynthDefBuilder(gate=1)
+        builder = supriya.synthdefs.SynthDefBuilder(gate=1)
         with builder:
-            envelope = synthdeftools.Envelope.asr()
+            envelope = supriya.synthdefs.Envelope.asr()
             envgen = supriya.ugens.EnvGen.ar(
                 envelope=envelope,
                 gate=builder['gate'],
@@ -220,7 +220,7 @@ class TestCase(systemtools.TestCase):
         return session_factory
 
     def _build_dc_synthdef(self, channel_count=1):
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             out_bus=0,
             source=0,
             ) as builder:
@@ -232,7 +232,7 @@ class TestCase(systemtools.TestCase):
         return builder.build()
 
     def _build_diskin_synthdef(self, channel_count=1):
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             out_bus=0,
             buffer_id=0,
             ) as builder:
@@ -247,7 +247,7 @@ class TestCase(systemtools.TestCase):
         return builder.build()
 
     def _build_multiplier_synthdef(self, channel_count=1):
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             in_bus=0,
             out_bus=0,
             multiplier=1,

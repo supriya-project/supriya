@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def _build_synthdef():
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         bus=0,
         cutoff=0.5,
         )

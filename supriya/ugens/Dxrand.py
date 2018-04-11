@@ -66,7 +66,7 @@ class Dxrand(DUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         ugen = cls._new_expanded(
             repeats=repeats,
             sequence=sequence,

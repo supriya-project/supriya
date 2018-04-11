@@ -1,7 +1,7 @@
 import os
 import unittest
 from supriya import utils
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
@@ -9,7 +9,7 @@ class Test(unittest.TestCase):
 
     def test_01(self):
 
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             local_buf = supriya.ugens.LocalBuf(2048)
             source = supriya.ugens.PinkNoise.ar()
             pv_chain = supriya.ugens.FFT(
@@ -109,7 +109,7 @@ class Test(unittest.TestCase):
         'Needs SC 3.7 for automatic PV copying. Only 3.6.6 available.')
     def test_02(self):
 
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.PinkNoise.ar()
             local_buf = supriya.ugens.LocalBuf(2048)
             pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
@@ -136,7 +136,7 @@ class Test(unittest.TestCase):
             'Out.ar()',
             )
 
-        sc_synthdef = synthdeftools.SuperColliderSynthDef(
+        sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
             'PVCopyTest',
             r'''
             var source, pv_chain, pv_chain_a, pv_chain_b, ifft, out;
@@ -150,7 +150,7 @@ class Test(unittest.TestCase):
             '''
             )
         sc_compiled_synthdef = bytes(sc_synthdef.compile())
-        sc_synthdef = synthdeftools.SynthDefDecompiler.decompile_synthdef(
+        sc_synthdef = supriya.synthdefs.SynthDefDecompiler.decompile_synthdef(
             sc_compiled_synthdef)
 
         assert tuple(repr(_) for _ in sc_synthdef.ugens) == (

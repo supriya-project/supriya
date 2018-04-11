@@ -39,8 +39,8 @@ class LFGauss(UGen):
         loop=1,
         width=0.1,
         ):
-        from supriya.tools import synthdeftools
-        done_action = synthdeftools.DoneAction.from_expr(done_action)
+        import supriya.synthdefs
+        done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
         UGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -79,8 +79,8 @@ class LFGauss(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -117,8 +117,8 @@ class LFGauss(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,

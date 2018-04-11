@@ -9,7 +9,7 @@ class Envelope(SupriyaValueObject):
     ::
 
         >>> from supriya.tools import *
-        >>> envelope = synthdeftools.Envelope()
+        >>> envelope = supriya.synthdefs.Envelope()
         >>> envelope
         Envelope()
 
@@ -43,7 +43,7 @@ class Envelope(SupriyaValueObject):
         loop_node=None,
         offset=None,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         assert len(amplitudes)
         assert len(durations) and len(durations) == (len(amplitudes) - 1)
         amplitudes = list(amplitudes)
@@ -55,7 +55,7 @@ class Envelope(SupriyaValueObject):
             if isinstance(duration, int):
                 durations[i] = float(duration)
         if isinstance(curves, (
-            int, float, str, synthdeftools.EnvelopeShape,
+            int, float, str, supriya.synthdefs.EnvelopeShape,
             )):
             curves = (curves,)
         elif curves is None:
@@ -137,8 +137,8 @@ class Envelope(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> import supriya.synthdefs
+            >>> envelope = supriya.synthdefs.Envelope.percussive()
             >>> envelope
             Envelope(
                 curves=(-4.0, -4.0),
@@ -161,7 +161,7 @@ class Envelope(SupriyaValueObject):
             )
 
     def serialize(self, for_interpolation=False):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         result = []
         if for_interpolation:
             result.append(self.offset or 0)
@@ -170,8 +170,8 @@ class Envelope(SupriyaValueObject):
             result.append(self.duration)
             for amplitude, duration, curve in self._envelope_segments:
                 result.append(duration)
-                if isinstance(curve, (synthdeftools.EnvelopeShape, str)):
-                    shape = synthdeftools.EnvelopeShape.from_expr(curve)
+                if isinstance(curve, (supriya.synthdefs.EnvelopeShape, str)):
+                    shape = supriya.synthdefs.EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.
                 else:
@@ -194,7 +194,7 @@ class Envelope(SupriyaValueObject):
                 result.append(amplitude)
                 result.append(duration)
                 if isinstance(curve, str):
-                    shape = synthdeftools.EnvelopeShape.from_expr(curve)
+                    shape = supriya.synthdefs.EnvelopeShape.from_expr(curve)
                     shape = int(shape)
                     curve = 0.
                 else:
@@ -213,8 +213,8 @@ class Envelope(SupriyaValueObject):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
-            >>> envelope = synthdeftools.Envelope.triangle()
+            >>> import supriya.synthdefs
+            >>> envelope = supriya.synthdefs.Envelope.triangle()
             >>> envelope
             Envelope(
                 durations=(0.5, 0.5),

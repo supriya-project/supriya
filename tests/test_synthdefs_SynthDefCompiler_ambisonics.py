@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def test_SynthDefCompiler_ambisonics_01():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'ambisonics',
         r"""
         var source, azimuth, w, x, y;
@@ -17,7 +17,7 @@ def test_SynthDefCompiler_ambisonics_01():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.PinkNoise.ar()
         azimuth = supriya.ugens.LFNoise2.kr(frequency=0.25)
         w, x, y = supriya.ugens.PanB2.ar(source=source, azimuth=azimuth)

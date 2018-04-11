@@ -113,8 +113,8 @@ class Group(Node, UniqueTreeContainer):
     ### PRIVATE METHODS ###
 
     def _allocate_synthdefs(self, synthdefs):
-        from supriya.tools import synthdeftools
-        synthdeftools.SynthDef._allocate_synthdefs(synthdefs, self.server)
+        import supriya.synthdefs
+        supriya.synthdefs.SynthDef._allocate_synthdefs(synthdefs, self.server)
 
     @staticmethod
     def _iterate_children(group):

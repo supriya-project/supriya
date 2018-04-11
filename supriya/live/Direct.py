@@ -1,6 +1,6 @@
 import supriya.realtime
 import supriya.ugens
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 
 
 class Direct:
@@ -57,11 +57,11 @@ class Direct:
         for in_, out in mapping:
             assert 0 <= in_ < source_track_count
             assert 0 <= out < target_track_count
-        synthdef_builder = synthdeftools.SynthDefBuilder(
+        synthdef_builder = supriya.synthdefs.SynthDefBuilder(
             gate=1,
             lag=0.1,
-            in_=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
-            out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
+            in_=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
+            out=supriya.synthdefs.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
             source = supriya.ugens.In.ar(
@@ -70,7 +70,7 @@ class Direct:
                 )
             gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )

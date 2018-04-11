@@ -23,11 +23,11 @@ class SynthDefReceiveRequest(Request):
         synthdefs=None,
         use_anonymous_names=None,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         Request.__init__(self)
         self._completion_message = completion_message
         if synthdefs:
-            prototype = synthdeftools.SynthDef
+            prototype = supriya.synthdefs.SynthDef
             if isinstance(synthdefs, prototype):
                 synthdefs = (synthdefs,)
             assert all(isinstance(x, prototype) for x in synthdefs)
@@ -40,12 +40,12 @@ class SynthDefReceiveRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if with_textual_osc_command:
             request_id = self.request_command
         else:
             request_id = int(self.request_id)
-        compiled_synthdefs = synthdeftools.SynthDefCompiler.compile_synthdefs(
+        compiled_synthdefs = supriya.synthdefs.SynthDefCompiler.compile_synthdefs(
             self.synthdefs,
             use_anonymous_names=self.use_anonymous_names,
             )

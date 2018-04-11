@@ -1,4 +1,4 @@
-from supriya import synthdeftools
+import supriya.synthdefs
 from supriya import systemtools
 import supriya.ugens
 
@@ -6,7 +6,7 @@ import supriya.ugens
 class TestCase(systemtools.TestCase):
 
     def test_multi_value_parameters(self):
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             amp=0.1,
             freqs=[300, 400],
             out=0,

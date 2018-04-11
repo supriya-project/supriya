@@ -19,12 +19,12 @@ class SynthInterface(ControlInterface):
         synthdef=None,
         ):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         self._client = client
         synth_controls = []
         synth_control_map = collections.OrderedDict()
         if synthdef is not None:
-            assert isinstance(synthdef, synthdeftools.SynthDef)
+            assert isinstance(synthdef, supriya.synthdefs.SynthDef)
             for index, parameter in synthdef.indexed_parameters:
                 synth_control = supriya.realtime.SynthControl.from_parameter(
                     parameter,
@@ -105,7 +105,7 @@ class SynthInterface(ControlInterface):
     def _make_synth_new_settings(self):
         from supriya.tools import requesttools
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         audio_map = {}
         control_map = {}
         node_id = self.client.node_id
@@ -113,7 +113,7 @@ class SynthInterface(ControlInterface):
         settings = {}
         for synth_control in self.synth_controls:
             if isinstance(synth_control.value, supriya.realtime.Bus):
-                if synth_control.value.calculation_rate == synthdeftools.CalculationRate.AUDIO:
+                if synth_control.value.calculation_rate == supriya.synthdefs.CalculationRate.AUDIO:
                     audio_map[synth_control.name] = synth_control.value
                 else:
                     control_map[synth_control.name] = synth_control.value

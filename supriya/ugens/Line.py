@@ -55,8 +55,8 @@ class Line(UGen):
         stop=None,
         start=None,
         ):
-        from supriya.tools import synthdeftools
-        done_action = synthdeftools.DoneAction.from_expr(done_action)
+        import supriya.synthdefs
+        done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
         return super(Line, cls)._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -81,7 +81,7 @@ class Line(UGen):
         ::
 
             >>> supriya.ugens.Line.ar(
-            ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
+            ...     done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             ...     duration=5.5,
             ...     stop=12.1,
             ...     start=0.1,
@@ -90,8 +90,8 @@ class Line(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -114,7 +114,7 @@ class Line(UGen):
         ::
 
             >>> supriya.ugens.Line.kr(
-            ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
+            ...     done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             ...     duration=5.5,
             ...     stop=12.1,
             ...     start=0.1,
@@ -123,8 +123,8 @@ class Line(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         return cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,

@@ -10,7 +10,7 @@ class Mix(PseudoUGen):
 
         ::
 
-            >>> with synthdeftools.SynthDefBuilder() as builder:
+            >>> with supriya.synthdefs.SynthDefBuilder() as builder:
             ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(5)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
@@ -46,7 +46,7 @@ class Mix(PseudoUGen):
 
         ::
 
-            >>> with synthdeftools.SynthDefBuilder() as builder:
+            >>> with supriya.synthdefs.SynthDefBuilder() as builder:
             ...     oscillators = [supriya.ugens.DC.ar(1) for _ in range(15)]
             ...     mix = supriya.ugens.Mix.new(oscillators)
             ...
@@ -126,15 +126,15 @@ class Mix(PseudoUGen):
 
     @classmethod
     def new(cls, sources):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         flattened_sources = []
         for source in sources:
-            if isinstance(source, synthdeftools.UGenArray):
+            if isinstance(source, supriya.synthdefs.UGenArray):
                 flattened_sources.extend(source)
             else:
                 flattened_sources.append(source)
-        sources = synthdeftools.UGenArray(flattened_sources)
+        sources = supriya.synthdefs.UGenArray(flattened_sources)
         summed_sources = []
         for part in utils.group_iterable_by_count(sources, 4):
             if len(part) == 4:
@@ -299,10 +299,10 @@ class Mix(PseudoUGen):
                             source[0]: Sum3.ar[0]
 
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         mixes, parts = [], []
         for i in range(0, len(sources), channel_count):
             parts.append(sources[i:i + channel_count])
         for columns in zip(*parts):
             mixes.append(cls.new(columns))
-        return synthdeftools.UGenArray(mixes)
+        return supriya.synthdefs.UGenArray(mixes)

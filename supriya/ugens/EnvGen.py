@@ -7,7 +7,7 @@ class EnvGen(UGen):
 
     ::
 
-        >>> envelope = synthdeftools.Envelope.percussive()
+        >>> envelope = supriya.synthdefs.Envelope.percussive()
         >>> supriya.ugens.EnvGen.ar(envelope=envelope)
         EnvGen.ar()
 
@@ -68,12 +68,12 @@ class EnvGen(UGen):
         level_scale=1.0,
         time_scale=1.0,
         ):
-        from supriya.tools import synthdeftools
-        if not isinstance(done_action, synthdeftools.Parameter):
-            done_action = synthdeftools.DoneAction.from_expr(done_action)
+        import supriya.synthdefs
+        if not isinstance(done_action, supriya.synthdefs.Parameter):
+            done_action = supriya.synthdefs.DoneAction.from_expr(done_action)
         if envelope is None:
-            envelope = synthdeftools.Envelope()
-        assert isinstance(envelope, synthdeftools.Envelope)
+            envelope = supriya.synthdefs.Envelope()
+        assert isinstance(envelope, supriya.synthdefs.Envelope)
         envelope = envelope.serialize()
         return super(EnvGen, cls)._new_expanded(
             calculation_rate=calculation_rate,
@@ -102,7 +102,7 @@ class EnvGen(UGen):
 
         ::
 
-            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> envelope = supriya.synthdefs.Envelope.percussive()
             >>> supriya.ugens.EnvGen.ar(
             ...     envelope=envelope,
             ...     )
@@ -110,8 +110,8 @@ class EnvGen(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -138,7 +138,7 @@ class EnvGen(UGen):
 
         ::
 
-            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> envelope = supriya.synthdefs.Envelope.percussive()
             >>> supriya.ugens.EnvGen.kr(
             ...     envelope=envelope,
             ...     )
@@ -146,8 +146,8 @@ class EnvGen(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             done_action=done_action,
@@ -187,7 +187,7 @@ class EnvGen(UGen):
 
         ::
 
-            >>> envelope = synthdeftools.Envelope.percussive()
+            >>> envelope = supriya.synthdefs.Envelope.percussive()
             >>> env_gen = supriya.ugens.EnvGen.ar(
             ...     envelope=envelope,
             ...     )

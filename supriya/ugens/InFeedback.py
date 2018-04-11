@@ -62,8 +62,8 @@ class InFeedback(MultiOutUGen):
         Returns ugen graph.
         '''
         import supriya.realtime
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         prototype = (
             supriya.realtime.Bus,
             supriya.realtime.BusGroup,

@@ -31,11 +31,11 @@ class LagControl(Control):
         calculation_rate=None,
         starting_control_index=0,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         coerced_parameters = []
         for parameter in parameters:
-            if not isinstance(parameter, synthdeftools.Parameter):
-                parameter = synthdeftools.Parameter(name=parameter, value=0)
+            if not isinstance(parameter, supriya.synthdefs.Parameter):
+                parameter = supriya.synthdefs.Parameter(name=parameter, value=0)
             coerced_parameters.append(parameter)
         self._parameters = tuple(coerced_parameters)
         lags = []

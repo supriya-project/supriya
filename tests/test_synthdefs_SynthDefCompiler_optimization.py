@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def test_SynthDefCompiler_optimization_01():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'optimized',
         r'''
         var sine_a, sine_b, sine_c, sine_d;
@@ -17,7 +17,7 @@ def test_SynthDefCompiler_optimization_01():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         sine_a = supriya.ugens.SinOsc.ar(frequency=420)
         sine_b = supriya.ugens.SinOsc.ar(frequency=440)  # noqa
         sine_c = supriya.ugens.SinOsc.ar(frequency=460)

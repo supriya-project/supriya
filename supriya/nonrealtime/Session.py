@@ -8,7 +8,7 @@ import supriya.osc
 from supriya.tools import requesttools
 import supriya.realtime
 from supriya.tools import soundfiletools
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.time
 from queue import PriorityQueue
 from supriya.nonrealtime.SessionObject import SessionObject
@@ -25,9 +25,9 @@ class Session:
 
     ::
 
-        >>> from supriya.tools import synthdeftools
+        >>> import supriya.synthdefs
         >>> import supriya.ugens
-        >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
+        >>> builder = supriya.synthdefs.SynthDefBuilder(frequency=440)
         >>> with builder:
         ...     out = supriya.ugens.Out.ar(
         ...         source=supriya.ugens.SinOsc.ar(
@@ -253,10 +253,10 @@ class Session:
         output_count = self._options._output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
-            synthdeftools.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
+            supriya.synthdefs.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
                 heap_minimum=first_private_bus_id,
                 ),
-            synthdeftools.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
+            supriya.synthdefs.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
             }
         mapping = {}
         if output_count:
@@ -483,7 +483,7 @@ class Session:
     def _collect_bus_settings(self, id_mapping):
         bus_settings = {}
         for bus in self._buses:
-            if bus.calculation_rate != synthdeftools.CalculationRate.CONTROL:
+            if bus.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
                 continue
             bus_id = id_mapping[bus]
             for offset, value in bus._events:
@@ -597,7 +597,7 @@ class Session:
 
     def _collect_node_set_requests(self, id_mapping, node_settings):
         import supriya.nonrealtime
-        scalar_rate = synthdeftools.ParameterRate.SCALAR
+        scalar_rate = supriya.synthdefs.ParameterRate.SCALAR
         requests = []
         bus_prototype = (
             supriya.nonrealtime.Bus,

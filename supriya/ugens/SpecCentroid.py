@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.UGen import UGen
 
 

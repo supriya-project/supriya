@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def _build_kick_synthdef():
 
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         out=0,
         )
 
@@ -13,7 +13,7 @@ def _build_kick_synthdef():
         ### ENVELOPE ###
 
         gate = supriya.ugens.Impulse.ar(frequency=2)
-        envelope = synthdeftools.Envelope.percussive(
+        envelope = supriya.synthdefs.Envelope.percussive(
             attack_time=0.01,
             release_time=1.0,
             )

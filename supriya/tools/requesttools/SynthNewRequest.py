@@ -62,11 +62,11 @@ class SynthNewRequest(Request):
         **kwargs
         ):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         Request.__init__(self)
         self._add_action = supriya.realtime.AddAction.from_expr(add_action)
         self._node_id = node_id
-        prototype = (str, synthdeftools.SynthDef)
+        prototype = (str, supriya.synthdefs.SynthDef)
         assert isinstance(synthdef, prototype)
         self._synthdef = synthdef
         self._target_node_id = target_node_id
@@ -82,13 +82,13 @@ class SynthNewRequest(Request):
     ### PUBLIC METHODS ###
 
     def to_osc_message(self, with_textual_osc_command=False):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if with_textual_osc_command:
             request_id = self.request_command
         else:
             request_id = int(self.request_id)
         synthdef = self.synthdef
-        if isinstance(synthdef, synthdeftools.SynthDef):
+        if isinstance(synthdef, supriya.synthdefs.SynthDef):
             synthdef = synthdef.actual_name
         node_id = int(self.node_id)
         add_action = int(self.add_action)

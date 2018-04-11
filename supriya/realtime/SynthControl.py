@@ -33,14 +33,14 @@ class SynthControl:
         value=None,
         ):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         self._client = client
         self._name = str(name)
-        if isinstance(range_, synthdeftools.Range):
+        if isinstance(range_, supriya.synthdefs.Range):
             self._range = range_
         else:
             self._range = None
-        self._calculation_rate = synthdeftools.CalculationRate.from_expr(calculation_rate)
+        self._calculation_rate = supriya.synthdefs.CalculationRate.from_expr(calculation_rate)
         self._unit = unit
         self._value = value
         self._default_value = value
@@ -91,11 +91,11 @@ class SynthControl:
         index=0,
         client=None,
         ):
-        from supriya.tools import synthdeftools
-        assert isinstance(parameter, synthdeftools.Parameter)
+        import supriya.synthdefs
+        assert isinstance(parameter, supriya.synthdefs.Parameter)
         name = parameter.name
         range_ = parameter.range_
-        calculation_rate = synthdeftools.CalculationRate.from_input(parameter)
+        calculation_rate = supriya.synthdefs.CalculationRate.from_input(parameter)
         unit = parameter.unit
         value = parameter.value
         synth_control = SynthControl(
@@ -118,10 +118,10 @@ class SynthControl:
     def set(self, expr):
         from supriya.tools import requesttools
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if isinstance(expr, supriya.realtime.Bus):
             self._map_to_bus(expr)
-            if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
+            if expr.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
                     self.node,
                     **{self.name: self._value}

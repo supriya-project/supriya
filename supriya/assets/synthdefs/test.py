@@ -1,13 +1,13 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def _build_test_synthdef():
-    with synthdeftools.SynthDefBuilder(
+    with supriya.synthdefs.SynthDefBuilder(
         frequency=440,
-        amplitude=synthdeftools.Parameter(
+        amplitude=supriya.synthdefs.Parameter(
             value=1.0,
-            parameter_rate=synthdeftools.ParameterRate.AUDIO,
+            parameter_rate=supriya.synthdefs.ParameterRate.AUDIO,
             ),
         ) as builder:
         sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])

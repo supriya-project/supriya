@@ -1,4 +1,4 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
@@ -14,7 +14,7 @@ def _build_link_audio_synthdef(channel_count):
     }, [\kr, \kr, \kr, \kr, \kr, \ir]).add;
     """
     name = 'system_link_audio_{}'.format(channel_count)
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         name=name,
         out=0,
         in_=16,
@@ -24,12 +24,12 @@ def _build_link_audio_synthdef(channel_count):
         )
     with builder:
         start_value = builder['fade_time'] <= 0
-        envelope = synthdeftools.Envelope(
+        envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
             curves=[
-                synthdeftools.EnvelopeShape.SINE,
-                -synthdeftools.EnvelopeShape.SINE,
+                supriya.synthdefs.EnvelopeShape.SINE,
+                -supriya.synthdefs.EnvelopeShape.SINE,
                 ],
             release_node=1.0,
             )
@@ -60,7 +60,7 @@ def _build_link_control_synthdef(channel_count):
     }, [\kr, \kr, \ir]).add;
     """
     name = 'system_link_control_{}'.format(channel_count)
-    builder = synthdeftools.SynthDefBuilder(
+    builder = supriya.synthdefs.SynthDefBuilder(
         name=name,
         out=0,
         in_=16,
@@ -70,10 +70,10 @@ def _build_link_control_synthdef(channel_count):
         )
     with builder:
         start_value = builder['fade_time'] <= 0
-        envelope = synthdeftools.Envelope(
+        envelope = supriya.synthdefs.Envelope(
             amplitudes=[start_value, 1.0, 0.0],
             durations=[1.0, 1.0],
-            curves=synthdeftools.EnvelopeShape.LINEAR,
+            curves=supriya.synthdefs.EnvelopeShape.LINEAR,
             release_node=1.0,
             )
         envelope = supriya.ugens.EnvGen.kr(

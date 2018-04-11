@@ -1,10 +1,10 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 def test_SynthDefCompiler_basic_01():
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         sine_one = supriya.ugens.SinOsc.ar(frequency=420)
         sine_two = supriya.ugens.SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
@@ -12,7 +12,7 @@ def test_SynthDefCompiler_basic_01():
     py_synthdef = builder.build('foo')
     py_compiled_synthdef = py_synthdef.compile()
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'foo',
         'Out.ar(0, SinOsc.ar(freq: 420) * SinOsc.ar(freq: 440))',
         )
@@ -78,14 +78,14 @@ def test_SynthDefCompiler_basic_01():
 
 def test_SynthDefCompiler_basic_02():
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         sine = supriya.ugens.SinOsc.ar()
         sine = -sine
         supriya.ugens.Out.ar(bus=99, source=sine)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         'Out.ar(99, SinOsc.ar(freq: 440).neg)',
         )
@@ -139,7 +139,7 @@ def test_SynthDefCompiler_basic_02():
 
 def test_SynthDefCompiler_basic_03():
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         r'''
         Out.ar(0, In.ar(8, 2))
@@ -147,7 +147,7 @@ def test_SynthDefCompiler_basic_03():
         )
     sc_compiled_synthdef = sc_synthdef.compile()
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         inputs = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.Out.ar(bus=0, source=inputs)
     py_synthdef = builder.build('test')
@@ -194,7 +194,7 @@ def test_SynthDefCompiler_basic_03():
 def test_SynthDefCompiler_basic_04():
     r'''FreeSelf.
     '''
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'test',
         r'''
         Out.ar(0, FreeSelf.kr(SinOsc.ar()))
@@ -202,7 +202,7 @@ def test_SynthDefCompiler_basic_04():
         )
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         sin_osc = supriya.ugens.SinOsc.ar()
         supriya.ugens.FreeSelf.kr(sin_osc)
         supriya.ugens.Out.ar(bus=0, source=sin_osc)
@@ -256,14 +256,14 @@ def test_SynthDefCompiler_basic_04():
 
 def test_SynthDefCompiler_basic_05():
 
-    with synthdeftools.SynthDefBuilder() as builder:
+    with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.In.ar(bus=8, channel_count=2)
         supriya.ugens.DetectSilence.ar(source=source)
         supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build('DetectSilenceTest')
     py_compiled_synthdef = py_synthdef.compile()
 
-    sc_synthdef = synthdeftools.SuperColliderSynthDef(
+    sc_synthdef = supriya.synthdefs.SuperColliderSynthDef(
         'DetectSilenceTest',
         r'''
         var source, detect_silence, out;

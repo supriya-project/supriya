@@ -68,7 +68,7 @@ class Dgeom(DUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         ugen = cls._new_expanded(
             grow=grow,
             length=length,

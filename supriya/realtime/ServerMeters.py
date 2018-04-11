@@ -41,9 +41,9 @@ class ServerMeters(systemtools.SupriyaObject):
         command_name='/reply',
         initial_bus=0,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
-        with synthdeftools.SynthDefBuilder() as builder:
+        with supriya.synthdefs.SynthDefBuilder() as builder:
             source = supriya.ugens.In.ar(
                 bus=initial_bus,
                 channel_count=channel_count,

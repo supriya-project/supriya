@@ -60,8 +60,8 @@ class UnaryOpUGen(PureUGen):
 
         Returns unary operator.
         """
-        from supriya.tools import synthdeftools
-        return synthdeftools.UnaryOperator(self.special_index)
+        import supriya.synthdefs
+        return supriya.synthdefs.UnaryOperator(self.special_index)
 
     @property
     def source(self):

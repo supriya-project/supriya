@@ -1,4 +1,4 @@
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 from supriya.tools import systemtools
 from supriya.live.Slot import Slot
 
@@ -29,8 +29,8 @@ class SynthSlot(Slot):
     def _setup_bindable_namespace(self, **kwargs):
         for name, parameter in self._synthdef.parameters.items():
             if parameter.parameter_rate in (
-                synthdeftools.ParameterRate.AUDIO,
-                synthdeftools.ParameterRate.SCALAR,
+                supriya.synthdefs.ParameterRate.AUDIO,
+                supriya.synthdefs.ParameterRate.SCALAR,
                 ):
                 continue
             elif name in kwargs:

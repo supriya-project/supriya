@@ -58,10 +58,10 @@ class BinaryOpUGen(PureUGen):
         special_index=None,
         **kwargs
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         a = kwargs['left']
         b = kwargs['right']
-        if special_index == synthdeftools.BinaryOperator.MULTIPLICATION:
+        if special_index == supriya.synthdefs.BinaryOperator.MULTIPLICATION:
             if a == 0:
                 return 0
             if b == 0:
@@ -74,17 +74,17 @@ class BinaryOpUGen(PureUGen):
                 return a
             if b == -1:
                 return -a
-        if special_index == synthdeftools.BinaryOperator.ADDITION:
+        if special_index == supriya.synthdefs.BinaryOperator.ADDITION:
             if a == 0:
                 return b
             if b == 0:
                 return a
-        if special_index == synthdeftools.BinaryOperator.SUBTRACTION:
+        if special_index == supriya.synthdefs.BinaryOperator.SUBTRACTION:
             if a == 0:
                 return -b
             if b == 0:
                 return a
-        if special_index == synthdeftools.BinaryOperator.FLOAT_DIVISION:
+        if special_index == supriya.synthdefs.BinaryOperator.FLOAT_DIVISION:
             if b == 1:
                 return a
             if b == -1:
@@ -132,8 +132,8 @@ class BinaryOpUGen(PureUGen):
 
         Returns binary operator.
         """
-        from supriya.tools import synthdeftools
-        return synthdeftools.BinaryOperator(self.special_index)
+        import supriya.synthdefs
+        return supriya.synthdefs.BinaryOperator(self.special_index)
 
     @property
     def right(self):

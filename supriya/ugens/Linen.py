@@ -66,7 +66,7 @@ class Linen(UGen):
 
             >>> supriya.ugens.Linen.kr(
             ...     attack_time=5.5,
-            ...     done_action=synthdeftools.DoneAction.FREE_SYNTH,
+            ...     done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             ...     release_time=0.5,
             ...     sustain_level=0.1,
             ...     )
@@ -74,8 +74,8 @@ class Linen(UGen):
 
         Returns unit generator graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             attack_time=attack_time,
             done_action=done_action,

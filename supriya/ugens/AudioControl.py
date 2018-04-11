@@ -20,10 +20,10 @@ class AudioControl(Control):
         calculation_rate=None,
         starting_control_index=0,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         Control.__init__(
             self,
             parameters,
-            calculation_rate=synthdeftools.CalculationRate.AUDIO,
+            calculation_rate=supriya.synthdefs.CalculationRate.AUDIO,
             starting_control_index=starting_control_index,
             )

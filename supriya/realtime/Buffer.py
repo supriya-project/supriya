@@ -988,9 +988,9 @@ class Buffer(ServerObjectProxy):
         rate=1,
         target_node=None,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
-        with synthdeftools.SynthDefBuilder(
+        with supriya.synthdefs.SynthDefBuilder(
             level=1,
             rate=1,
             ) as builder:

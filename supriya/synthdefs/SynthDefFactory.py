@@ -11,7 +11,7 @@ class SynthDefFactory(SupriyaObject):
 
         ::
 
-            >>> factory = synthdeftools.SynthDefFactory()
+            >>> factory = supriya.synthdefs.SynthDefFactory()
 
         ::
 
@@ -224,7 +224,7 @@ class SynthDefFactory(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _setup_parameters_and_state(self, builder, state, kwargs):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         state['channel_count'] = self._channel_count
         state.update(kwargs)
@@ -237,7 +237,7 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter('gate', 1, 'TRIGGER')
             state['gate'] = supriya.ugens.Linen.kr(
                 attack_time=self._gate['attack_time'],
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 gate=builder['gate'],
                 release_time=self._gate['release_time'],
                 )
@@ -249,7 +249,7 @@ class SynthDefFactory(SupriyaObject):
             ):
             builder._add_parameter('duration', 1, 'SCALAR')
             state['line'] = supriya.ugens.Line.kr(
-                done_action=synthdeftools.DoneAction.FREE_SYNTH,
+                done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
                 duration=builder['duration'],
                 )
             state['window'] = state['line'].hanning_window()
@@ -335,12 +335,12 @@ class SynthDefFactory(SupriyaObject):
         out_class.ar(**kwargs)
 
     def _build_silence_detection(self, builder, source, state):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         if not self._silence_detection:
             return
         supriya.ugens.DetectSilence.kr(
-            done_action=synthdeftools.DoneAction.FREE_SYNTH,
+            done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
             source=supriya.ugens.Mix.new(source),
             )
 
@@ -357,8 +357,8 @@ class SynthDefFactory(SupriyaObject):
         """
         Build the SynthDef.
         """
-        from supriya.tools import synthdeftools
-        builder = synthdeftools.SynthDefBuilder()
+        import supriya.synthdefs
+        builder = supriya.synthdefs.SynthDefBuilder()
         state = self._initial_state.copy()
         with builder:
             state.update(**kwargs)
@@ -367,7 +367,7 @@ class SynthDefFactory(SupriyaObject):
             source = self._build_feedback_loop_input(builder, source, state)
             for signal_block in self._signal_blocks:
                 source = signal_block(builder, source, state)
-                assert isinstance(source, synthdeftools.UGenMethodMixin)
+                assert isinstance(source, supriya.synthdefs.UGenMethodMixin)
             self._build_output(builder, source, state)
             self._build_feedback_loop_output(builder, source, state)
             self._build_silence_detection(builder, source, state)
@@ -381,7 +381,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -564,7 +564,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -721,7 +721,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -815,7 +815,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -921,7 +921,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -1122,7 +1122,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -1601,7 +1601,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
                 >>> factory = factory.with_initial_state(frequencies=(300, 1200, 9600))
                 >>> factory = factory.with_parameter_block(parameter_block)
                 >>> factory = factory.with_input()
@@ -2030,7 +2030,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -2130,7 +2130,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 
@@ -2229,7 +2229,7 @@ class SynthDefFactory(SupriyaObject):
 
             ::
 
-                >>> factory = synthdeftools.SynthDefFactory()
+                >>> factory = supriya.synthdefs.SynthDefFactory()
 
             ::
 

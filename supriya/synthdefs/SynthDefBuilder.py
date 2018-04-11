@@ -11,16 +11,16 @@ class SynthDefBuilder(SupriyaObject):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
+        >>> import supriya.synthdefs
         >>> import supriya.ugens
 
     ::
 
-        >>> builder = synthdeftools.SynthDefBuilder(
+        >>> builder = supriya.synthdefs.SynthDefBuilder(
         ...     frequency=440,
-        ...     trigger=synthdeftools.Parameter(
+        ...     trigger=supriya.synthdefs.Parameter(
         ...         value=0,
-        ...         parameter_rate=synthdeftools.ParameterRate.TRIGGER,
+        ...         parameter_rate=supriya.synthdefs.ParameterRate.TRIGGER,
         ...         ),
         ...     )
 
@@ -87,54 +87,54 @@ class SynthDefBuilder(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _add_ugens(self, ugens):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
             supriya.ugens.UGen,
-            synthdeftools.OutputProxy,
-            synthdeftools.Parameter,
+            supriya.synthdefs.OutputProxy,
+            supriya.synthdefs.Parameter,
             )
         for ugen in ugens:
             assert isinstance(ugen, prototype), type(ugen)
-            if isinstance(ugen, synthdeftools.OutputProxy):
+            if isinstance(ugen, supriya.synthdefs.OutputProxy):
                 ugen = ugen.source
             assert ugen._uuid == self._uuid
             if ugen not in self._ugens:
                 self._ugens.append(ugen)
 
     def _add_parameter(self, *args):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if 3 < len(args):
             raise ValueError(args)
         if len(args) == 1:
-            assert isinstance(args[0], synthdeftools.Parameter)
+            assert isinstance(args[0], supriya.synthdefs.Parameter)
             name, value, parameter_rate = \
                 args[0].name, args[0], args[0].parameter_rate
         elif len(args) == 2:
             name, value = args
-            if not isinstance(value, synthdeftools.Parameter):
-                parameter_rate = synthdeftools.ParameterRate.SCALAR
+            if not isinstance(value, supriya.synthdefs.Parameter):
+                parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
                 if name.startswith('a_'):
-                    parameter_rate = synthdeftools.ParameterRate.AUDIO
+                    parameter_rate = supriya.synthdefs.ParameterRate.AUDIO
                 elif name.startswith('i_'):
-                    parameter_rate = synthdeftools.ParameterRate.SCALAR
+                    parameter_rate = supriya.synthdefs.ParameterRate.SCALAR
                 elif name.startswith('t_'):
-                    parameter_rate = synthdeftools.ParameterRate.TRIGGER
+                    parameter_rate = supriya.synthdefs.ParameterRate.TRIGGER
                 else:
-                    parameter_rate = synthdeftools.ParameterRate.CONTROL
+                    parameter_rate = supriya.synthdefs.ParameterRate.CONTROL
             else:
                 parameter_rate = value.parameter_rate
         elif len(args) == 3:
             name, value, parameter_rate = args
-            parameter_rate = synthdeftools.ParameterRate.from_expr(
+            parameter_rate = supriya.synthdefs.ParameterRate.from_expr(
                 parameter_rate,
                 )
         else:
             raise ValueError(args)
-        if not isinstance(value, synthdeftools.Parameter):
-            parameter = synthdeftools.Parameter(
+        if not isinstance(value, supriya.synthdefs.Parameter):
+            parameter = supriya.synthdefs.Parameter(
                 name=name,
                 parameter_rate=parameter_rate,
                 value=value,
@@ -153,21 +153,21 @@ class SynthDefBuilder(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def build(self, name=None, optimize=True):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         name = self.name or name
         with self:
             ugens = list(self._parameters.values()) + list(self._ugens)
             ugens = copy.deepcopy(ugens)
-            ugens = synthdeftools.SynthDef._flatten_ugens(ugens)
-            ugens, parameters = synthdeftools.SynthDef._extract_parameters(ugens)
+            ugens = supriya.synthdefs.SynthDef._flatten_ugens(ugens)
+            ugens, parameters = supriya.synthdefs.SynthDef._extract_parameters(ugens)
             (
                 control_ugens,
                 control_mapping,
                 indexed_parameters,
-                ) = synthdeftools.SynthDef._build_control_mapping(parameters)
-            synthdeftools.SynthDef._remap_controls(ugens, control_mapping)
+                ) = supriya.synthdefs.SynthDef._build_control_mapping(parameters)
+            supriya.synthdefs.SynthDef._remap_controls(ugens, control_mapping)
             ugens = control_ugens + ugens
-            synthdef = synthdeftools.SynthDef(
+            synthdef = supriya.synthdefs.SynthDef(
                 ugens,
                 name=name,
                 optimize=optimize,

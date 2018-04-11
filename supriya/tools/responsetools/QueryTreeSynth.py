@@ -53,11 +53,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         ):
         import supriya.nonrealtime
         from supriya.tools import responsetools
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         assert isinstance(node, supriya.nonrealtime.Synth)
         node_id = node.session_id
         synthdef_name = node.synthdef
-        if isinstance(synthdef_name, synthdeftools.SynthDef):
+        if isinstance(synthdef_name, supriya.synthdefs.SynthDef):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:
@@ -123,11 +123,11 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     def from_synth(cls, synth, include_controls=False):
         from supriya.tools import responsetools
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         assert isinstance(synth, supriya.realtime.Synth)
         node_id = synth.node_id
         synthdef_name = synth.synthdef
-        if isinstance(synthdef_name, synthdeftools.SynthDef):
+        if isinstance(synthdef_name, supriya.synthdefs.SynthDef):
             synthdef_name = synthdef_name.actual_name
         controls = []
         if include_controls:

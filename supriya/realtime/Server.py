@@ -176,7 +176,7 @@ class Server(SupriyaObject):
 
     def __contains__(self, expr):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if not isinstance(expr, supriya.realtime.ServerObjectProxy):
             return False
         elif expr.server is not self:
@@ -185,7 +185,7 @@ class Server(SupriyaObject):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
-        elif isinstance(expr, synthdeftools.SynthDef):
+        elif isinstance(expr, supriya.synthdefs.SynthDef):
             name = expr.actual_name
             if name in self._synthdefs and self._synthdefs[name] == expr:
                 return True
@@ -268,12 +268,12 @@ class Server(SupriyaObject):
 
     def _get_control_bus_proxy(self, bus_id):
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         control_bus_proxy = self._control_bus_proxies.get(bus_id)
         if not control_bus_proxy:
             control_bus_proxy = supriya.realtime.BusProxy(
                 bus_id=bus_id,
-                calculation_rate=synthdeftools.CalculationRate.CONTROL,
+                calculation_rate=supriya.synthdefs.CalculationRate.CONTROL,
                 server=self,
                 )
             self._control_bus_proxies[bus_id] = control_bus_proxy
@@ -330,16 +330,16 @@ class Server(SupriyaObject):
 
     def _setup_system_synthdefs(self):
         import supriya.assets.synthdefs
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         system_synthdefs = []
         for name in dir(supriya.assets.synthdefs):
             if not name.startswith('system_'):
                 continue
             system_synthdef = getattr(supriya.assets.synthdefs, name)
-            if not isinstance(system_synthdef, synthdeftools.SynthDef):
+            if not isinstance(system_synthdef, supriya.synthdefs.SynthDef):
                 continue
             system_synthdefs.append(system_synthdef)
-        synthdeftools.SynthDef._allocate_synthdefs(system_synthdefs, self)
+        supriya.synthdefs.SynthDef._allocate_synthdefs(system_synthdefs, self)
 
     def _teardown(self):
         self._teardown_proxies()
@@ -449,9 +449,9 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> from supriya import synthdeftools
+            >>> import supriya.synthdefs
             >>> import supriya.ugens
-            >>> with synthdeftools.SynthDefBuilder(
+            >>> with supriya.synthdefs.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     ) as builder:
@@ -519,9 +519,9 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> from supriya import synthdeftools
+            >>> import supriya.synthdefs
             >>> import supriya.ugens
-            >>> with synthdeftools.SynthDefBuilder(
+            >>> with supriya.synthdefs.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     ) as builder:

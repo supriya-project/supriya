@@ -216,7 +216,7 @@ class NoteEvent(Event):
         uuids,
         ):
         import supriya.patterns
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         duration = self['duration']
         if duration is None:
             duration = 1
@@ -231,7 +231,7 @@ class NoteEvent(Event):
                     )
                 requests.append(request)
         elif any(
-            x >= synthdeftools.DoneAction.FREE_SYNTH
+            x >= supriya.synthdefs.DoneAction.FREE_SYNTH
             for x in synthdef.done_actions
             ):
             pass

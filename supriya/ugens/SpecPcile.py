@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.UGen import UGen
 
 
@@ -78,7 +78,7 @@ class SpecPcile(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         ugen = cls._new_expanded(
             pv_chain=pv_chain,
             fraction=fraction,

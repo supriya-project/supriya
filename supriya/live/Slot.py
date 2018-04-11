@@ -1,6 +1,6 @@
 import abc
 import supriya.realtime
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 
 
 class Slot:
@@ -14,12 +14,12 @@ class Slot:
         assert isinstance(track, supriya.live.Track)
         self._track = track
         self._group = supriya.realtime.Group()
-        if isinstance(synthdef, synthdeftools.SynthDefFactory):
+        if isinstance(synthdef, supriya.synthdefs.SynthDefFactory):
             synthdef = synthdef.build(
                 channel_count=self._track.channel_count,
                 )
         if synthdef is not None:
-            assert isinstance(synthdef, synthdeftools.SynthDef)
+            assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
         self._bindable_namespace = self._setup_bindable_namespace(**kwargs)
 

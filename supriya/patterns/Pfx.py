@@ -22,9 +22,9 @@ class Pfx(EventPattern):
         release_time=0.25,
         **settings
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         self._pattern = pattern
-        assert isinstance(synthdef, synthdeftools.SynthDef)
+        assert isinstance(synthdef, supriya.synthdefs.SynthDef)
         self._synthdef = synthdef
         release_time = float(release_time)
         assert 0 <= release_time

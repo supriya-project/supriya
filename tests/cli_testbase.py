@@ -30,7 +30,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
 
     {{ output_section_singular }} = supriya.Session.from_project_settings(project_settings)
 
-    with supriya.synthdeftools.SynthDefBuilder(
+    with supriya.synthdefs.SynthDefBuilder(
         duration=1.,
         out_bus=0,
         ) as builder:
@@ -63,7 +63,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         def _build_ramp_synthdef(self):
             server_options = self.project_settings['server_options']
             channel_count = server_options['output_bus_channel_count']
-            with supriya.synthdeftools.SynthDefBuilder(
+            with supriya.synthdefs.SynthDefBuilder(
                 duration=1.,
                 out_bus=0,
                 ) as builder:

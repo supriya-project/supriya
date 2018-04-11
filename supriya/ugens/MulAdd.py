@@ -55,8 +55,8 @@ class MulAdd(UGen):
         multiplier,
         addend,
         ):
-        from supriya.tools import synthdeftools
-        CalculationRate = synthdeftools.CalculationRate
+        import supriya.synthdefs
+        CalculationRate = supriya.synthdefs.CalculationRate
         if CalculationRate.from_input(source) == CalculationRate.AUDIO:
             return True
         if CalculationRate.from_input(source) == CalculationRate.CONTROL:
@@ -133,9 +133,9 @@ class MulAdd(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         # TODO: handle case of array as source
-        calculation_rate = synthdeftools.CalculationRate.from_input((source, multiplier, addend))
+        calculation_rate = supriya.synthdefs.CalculationRate.from_input((source, multiplier, addend))
         ugen = cls._new_expanded(
             addend=addend,
             multiplier=multiplier,

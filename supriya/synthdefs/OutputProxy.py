@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
+from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 
 
 class OutputProxy(UGenMethodMixin):
@@ -15,11 +15,11 @@ class OutputProxy(UGenMethodMixin):
     ### INITIALIZER ###
 
     def __init__(self, source=None, output_index=None):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         prototype = (
             supriya.ugens.UGen,
-            synthdeftools.Parameter,
+            supriya.synthdefs.Parameter,
             )
         assert isinstance(source, prototype)
         assert isinstance(output_index, int)

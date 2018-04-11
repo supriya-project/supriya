@@ -1,4 +1,4 @@
-from supriya.tools.synthdeftools.CalculationRate import CalculationRate
+from supriya.synthdefs.CalculationRate import CalculationRate
 from supriya.ugens.WidthFirstUGen import WidthFirstUGen
 
 
@@ -19,7 +19,7 @@ class LocalBuf(WidthFirstUGen):
 
     ::
 
-        >>> with synthdeftools.SynthDefBuilder() as builder:
+        >>> with supriya.synthdefs.SynthDefBuilder() as builder:
         ...     local_buf = supriya.ugens.LocalBuf(2048)
         ...     source = supriya.ugens.PinkNoise.ar()
         ...     pv_chain = supriya.ugens.FFT(
@@ -65,9 +65,9 @@ class LocalBuf(WidthFirstUGen):
         channel_count=1,
         calculation_rate=None,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         if calculation_rate is None:
-            calculation_rate = synthdeftools.CalculationRate.SCALAR
+            calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
         WidthFirstUGen.__init__(
             self,
             calculation_rate=calculation_rate,
@@ -97,8 +97,8 @@ class LocalBuf(WidthFirstUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.SCALAR
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.SCALAR
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             channel_count=channel_count,

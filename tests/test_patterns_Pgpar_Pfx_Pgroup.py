@@ -2,13 +2,13 @@ from patterns_testbase import TestCase
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-from supriya.tools import synthdeftools
+import supriya.synthdefs
 import supriya.ugens
 
 
 class TestCase(TestCase):
 
-    with synthdeftools.SynthDefBuilder(in_=0, out=0) as builder:
+    with supriya.synthdefs.SynthDefBuilder(in_=0, out=0) as builder:
         source = supriya.ugens.In.ar(bus=builder['in_'])
         source = supriya.ugens.Limiter.ar(source=source)
         supriya.ugens.Out.ar(bus=builder['out'], source=source)

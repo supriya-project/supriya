@@ -30,7 +30,7 @@ class ControlInterface(SupriyaObject):
     def _set(self, **settings):
         from supriya.tools import requesttools
         import supriya.realtime
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         n_set_settings = {}
         n_map_settings = {}
         n_mapa_settings = {}
@@ -46,13 +46,13 @@ class ControlInterface(SupriyaObject):
                 if (
                     isinstance(self.client, supriya.realtime.Synth) and
                     not self.client.is_allocated and
-                    control.calculation_rate == synthdeftools.CalculationRate.SCALAR
+                    control.calculation_rate == supriya.synthdefs.CalculationRate.SCALAR
                     ):
                     control._set_to_number(int(value))
-                elif value_rate == synthdeftools.CalculationRate.CONTROL:
+                elif value_rate == supriya.synthdefs.CalculationRate.CONTROL:
                     n_map_settings[control_name] = value
                     control._map_to_bus(value)
-                elif value_rate == synthdeftools.CalculationRate.AUDIO:
+                elif value_rate == supriya.synthdefs.CalculationRate.AUDIO:
                     n_mapa_settings[control_name] = value
                     control._map_to_bus(value)
             elif value is None:

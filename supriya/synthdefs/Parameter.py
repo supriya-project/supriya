@@ -1,6 +1,6 @@
 import collections
-from supriya.tools.synthdeftools.ParameterRate import ParameterRate
-from supriya.tools.synthdeftools.UGenMethodMixin import UGenMethodMixin
+from supriya.synthdefs.ParameterRate import ParameterRate
+from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -31,7 +31,7 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         unit=None,
         value=None,
         ):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         #assert name
         if lag is not None:
             lag = float(lag)
@@ -39,10 +39,10 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
         if name is not None:
             name = str(name)
         self._name = name
-        self._parameter_rate = synthdeftools.ParameterRate.from_expr(
+        self._parameter_rate = supriya.synthdefs.ParameterRate.from_expr(
             parameter_rate)
         if range_ is not None:
-            assert isinstance(range_, synthdeftools.Range)
+            assert isinstance(range_, supriya.synthdefs.Range)
         self._range = range_
         self._unit = unit
         self._uuid = None
@@ -78,8 +78,8 @@ class Parameter(UGenMethodMixin, SupriyaValueObject):
 
     @property
     def calculation_rate(self):
-        from supriya.tools import synthdeftools
-        return synthdeftools.CalculationRate.from_input(self)
+        import supriya.synthdefs
+        return supriya.synthdefs.CalculationRate.from_input(self)
 
     @property
     def has_done_flag(self):

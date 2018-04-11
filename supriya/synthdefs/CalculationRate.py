@@ -8,13 +8,13 @@ class CalculationRate(Enumeration):
 
     ::
 
-        >>> from supriya.tools import synthdeftools
-        >>> synthdeftools.CalculationRate.AUDIO
+        >>> import supriya.synthdefs
+        >>> supriya.synthdefs.CalculationRate.AUDIO
         CalculationRate.AUDIO
 
     ::
 
-        >>> synthdeftools.CalculationRate.from_expr('demand')
+        >>> supriya.synthdefs.CalculationRate.from_expr('demand')
         CalculationRate.DEMAND
 
     """
@@ -35,7 +35,7 @@ class CalculationRate(Enumeration):
 
         ::
 
-            >>> from supriya.tools import synthdeftools
+            >>> import supriya.synthdefs
             >>> import supriya.ugens
 
         ::
@@ -44,14 +44,14 @@ class CalculationRate(Enumeration):
             >>> collection.append(supriya.ugens.DC.ar(0))
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> synthdeftools.CalculationRate.from_collection(collection)
+            >>> supriya.synthdefs.CalculationRate.from_collection(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
             >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
-            >>> synthdeftools.CalculationRate.from_collection(collection)
+            >>> supriya.synthdefs.CalculationRate.from_collection(collection)
             CalculationRate.CONTROL
 
         Return calculation-rate.
@@ -64,16 +64,16 @@ class CalculationRate(Enumeration):
 
     @staticmethod
     def from_input(input_):
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         import supriya.ugens
         if isinstance(input_, (int, float)):
             return CalculationRate.SCALAR
         elif isinstance(input_, (
-            synthdeftools.OutputProxy,
+            supriya.synthdefs.OutputProxy,
             supriya.ugens.UGen,
             )):
             return input_.calculation_rate
-        elif isinstance(input_, synthdeftools.Parameter):
+        elif isinstance(input_, supriya.synthdefs.Parameter):
             name = input_.parameter_rate.name
             if name == 'TRIGGER':
                 return CalculationRate.CONTROL
