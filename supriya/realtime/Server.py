@@ -304,8 +304,8 @@ class Server(SupriyaObject):
         self._sync_id = 0
 
     def _setup_notifications(self):
-        from supriya.tools import requesttools
-        request = requesttools.NotifyRequest(True)
+        import supriya.commands
+        request = supriya.commands.NotifyRequest(True)
         request.communicate(server=self)
 
     def _setup_proxies(self):
@@ -562,8 +562,8 @@ class Server(SupriyaObject):
 
         Returns server query-tree group response.
         """
-        from supriya.tools import requesttools
-        request = requesttools.GroupQueryTreeRequest(
+        import supriya.commands
+        request = supriya.commands.GroupQueryTreeRequest(
             node_id=0,
             include_controls=include_controls,
             )
@@ -571,13 +571,13 @@ class Server(SupriyaObject):
         return response.query_tree_group
 
     def quit(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         if not self.is_running:
             return
         PubSub.notify('server-quitting')
         if self.recorder.is_recording:
             self.recorder.stop()
-        request = requesttools.QuitRequest()
+        request = supriya.commands.QuitRequest()
         request.communicate(server=self)
         self._is_running = False
         if not self._server_process.terminate():
@@ -599,12 +599,12 @@ class Server(SupriyaObject):
         self._osc_controller.send(message)
 
     def sync(self, sync_id=None):
-        from supriya.tools import requesttools
+        import supriya.commands
         if not self.is_running:
             return
         if sync_id is None:
             sync_id = self.next_sync_id
-        request = requesttools.SyncRequest(sync_id=sync_id)
+        request = supriya.commands.SyncRequest(sync_id=sync_id)
         request.communicate(server=self)
         return self
 

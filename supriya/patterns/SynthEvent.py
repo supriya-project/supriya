@@ -1,5 +1,5 @@
 import uuid
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.patterns.Event import Event
 
@@ -118,7 +118,7 @@ class SynthEvent(Event):
                 node_id = server.node_id_allocator.allocate_node_id()
                 synth = supriya.realtime.Synth(synthdef, **dictionary)
                 synths[node_id] = synth
-                request = requesttools.SynthNewRequest(
+                request = supriya.commands.SynthNewRequest(
                     add_action=add_action,
                     node_id=node_id,
                     target_node_id=target_node_id,
@@ -127,7 +127,7 @@ class SynthEvent(Event):
                     )
             requests.append(request)
         else:
-            request = requesttools.NodeFreeRequest(
+            request = supriya.commands.NodeFreeRequest(
                 node_ids=sorted(uuids[node_uuid]),
                 )
             requests.append(request)

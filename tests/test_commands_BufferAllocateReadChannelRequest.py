@@ -1,14 +1,14 @@
 import unittest
 import supriya.nonrealtime
-from supriya.tools import requesttools
-from supriya.tools import soundfiletools
+import supriya.commands
+import supriya.soundfiles
 
 
 class TestCase(unittest.TestCase):
 
     def test_Session(self):
         session = supriya.nonrealtime.Session()
-        request = requesttools.BufferAllocateReadChannelRequest(
+        request = supriya.commands.BufferAllocateReadChannelRequest(
             buffer_id=1,
             channel_indices=[4, 5],
             file_path=session,
@@ -21,8 +21,8 @@ class TestCase(unittest.TestCase):
         assert osc_message.contents == (1, session, 128, 512, 4, 5)
 
     def test_Say(self):
-        say = soundfiletools.Say('Some text.')
-        request = requesttools.BufferAllocateReadChannelRequest(
+        say = supriya.soundfiles.Say('Some text.')
+        request = supriya.commands.BufferAllocateReadChannelRequest(
             buffer_id=1,
             channel_indices=[4, 5],
             file_path=say,

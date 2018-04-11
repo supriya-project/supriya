@@ -1,5 +1,5 @@
 import uuid
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.patterns.Event import Event
 
@@ -86,13 +86,13 @@ class GroupEvent(Event):
             elif isinstance(target_node_id, uuid.UUID):
                 target_node_id = list(uuids[target_node_id])[0]
             add_action = self.get('add_action')
-            request = requesttools.GroupNewRequest(
+            request = supriya.commands.GroupNewRequest(
                 add_action=add_action,
                 node_id=node_id,
                 target_node_id=target_node_id,
                 )
         else:
-            request = requesttools.NodeFreeRequest(
+            request = supriya.commands.NodeFreeRequest(
                 node_ids=sorted(uuids[node_uuid]),
                 )
         requests.append(request)

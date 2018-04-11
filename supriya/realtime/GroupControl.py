@@ -44,23 +44,23 @@ class GroupControl:
     ### PUBLIC METHODS ###
 
     def set(self, expr):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         if isinstance(expr, supriya.realtime.Bus):
             if expr.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
-                request = requesttools.NodeMapToControlBusRequest(
+                request = supriya.commands.NodeMapToControlBusRequest(
                     self.node,
                     **{self.name: expr}
                     )
             else:
-                request = requesttools.NodeMapToAudioBusRequest(
+                request = supriya.commands.NodeMapToAudioBusRequest(
                     self.node,
                     **{self.name: expr}
                     )
         else:
             expr = float(expr)
-            request = requesttools.NodeSetRequest(
+            request = supriya.commands.NodeSetRequest(
                 self.node,
                 **{self.name: expr}
                 )

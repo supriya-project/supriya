@@ -116,30 +116,30 @@ class SynthControl:
         self._value = self._default_value
 
     def set(self, expr):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         if isinstance(expr, supriya.realtime.Bus):
             self._map_to_bus(expr)
             if expr.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
-                request = requesttools.NodeMapToControlBusRequest(
+                request = supriya.commands.NodeMapToControlBusRequest(
                     self.node,
                     **{self.name: self._value}
                     )
             else:
-                request = requesttools.NodeMapToAudioBusRequest(
+                request = supriya.commands.NodeMapToAudioBusRequest(
                     self.node,
                     **{self.name: self._value}
                     )
         elif expr is None:
             self._unmap()
-            request = requesttools.NodeMapToControlBusRequest(
+            request = supriya.commands.NodeMapToControlBusRequest(
                 self.node,
                 **{self.name: -1}
                 )
         else:
             self._set_to_number(expr)
-            request = requesttools.NodeSetRequest(
+            request = supriya.commands.NodeSetRequest(
                 self.node,
                 **{self.name: self._value}
                 )

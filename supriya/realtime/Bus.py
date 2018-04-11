@@ -203,14 +203,14 @@ class Bus(ServerObjectProxy):
         self,
         completion_callback=None,
         ):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         if not self.is_allocated:
             raise supriya.realtime.NotAllocatedError(self)
         elif not self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
             raise supriya.synthdefs.RateError
-        request = requesttools.ControlBusGetRequest(
+        request = supriya.commands.ControlBusGetRequest(
             indices=(self,),
             )
         if callable(completion_callback):
@@ -282,14 +282,14 @@ class Bus(ServerObjectProxy):
         return ugen
 
     def set(self, value):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         if not self.is_allocated:
             raise supriya.realtime.NotAllocatedError(self)
         elif not self.calculation_rate == supriya.synthdefs.CalculationRate.CONTROL:
             raise supriya.synthdefs.RateError
-        request = requesttools.ControlBusSetRequest(
+        request = supriya.commands.ControlBusSetRequest(
             index_value_pairs=((self, value,),),
             )
         request.communicate(

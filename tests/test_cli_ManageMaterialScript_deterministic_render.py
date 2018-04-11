@@ -62,7 +62,7 @@ class Test(ProjectPackageScriptTestCase):
                 Rendered session-96b415a72acd2a1835a3270714011314.osc with exit code 0.
             Writing test_project/materials/test_material/render.yml.
                 Wrote test_project/materials/test_material/render.yml.
-            Python/SC runtime: 0 seconds
+            Python/SC runtime: ... seconds
             Rendered test_project/materials/test_material/
         '''.replace('/', os.path.sep))
 

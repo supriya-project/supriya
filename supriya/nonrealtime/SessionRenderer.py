@@ -17,7 +17,7 @@ from supriya.nonrealtime import (
     NonrealtimeOutputMissing,
 )
 import supriya.realtime
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 from supriya.tools import systemtools
 
 
@@ -52,16 +52,16 @@ class SessionRenderer(systemtools.SupriyaObject):
     def __init__(
         self,
         session,
-        header_format=soundfiletools.HeaderFormat.AIFF,
+        header_format=supriya.soundfiles.HeaderFormat.AIFF,
         print_transcript=None,
         render_directory_path=None,
-        sample_format=soundfiletools.SampleFormat.INT24,
+        sample_format=supriya.soundfiles.SampleFormat.INT24,
         sample_rate=44100,
         transcript_prefix=None,
         ):
         self._session = session
 
-        self._header_format = soundfiletools.HeaderFormat.from_expr(
+        self._header_format = supriya.soundfiles.HeaderFormat.from_expr(
             header_format)
 
         if print_transcript:
@@ -73,7 +73,7 @@ class SessionRenderer(systemtools.SupriyaObject):
             supriya.output_path
             ).expanduser().absolute()
 
-        self._sample_format = soundfiletools.SampleFormat.from_expr(
+        self._sample_format = supriya.soundfiles.SampleFormat.from_expr(
             sample_format)
 
         self._sample_rate = int(sample_rate)

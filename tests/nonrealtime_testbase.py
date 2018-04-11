@@ -3,7 +3,7 @@ import pathlib
 import shutil
 import supriya.nonrealtime
 import supriya.realtime
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 import supriya.synthdefs
 from supriya.tools import systemtools
 import supriya.ugens
@@ -156,7 +156,7 @@ class TestCase(systemtools.TestCase):
         file_path = pathlib.Path(file_path or self.output_file_path)
         assert file_path.exists(), file_path
         assert exit_code == 0, exit_code
-        soundfile = soundfiletools.SoundFile(file_path)
+        soundfile = supriya.soundfiles.SoundFile(file_path)
         assert self.round(soundfile.seconds) == expected_duration, self.round(soundfile.seconds)
         assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
         assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
@@ -263,7 +263,7 @@ class TestCase(systemtools.TestCase):
         return builder.build()
 
     def _sample(self, file_path):
-        soundfile = soundfiletools.SoundFile(file_path)
+        soundfile = supriya.soundfiles.SoundFile(file_path)
         return {
             0.0: [round(x, 6) for x in soundfile.at_percent(0)],
             0.21: [round(x, 6) for x in soundfile.at_percent(0.21)],

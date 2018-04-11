@@ -110,7 +110,7 @@ from supriya.realtime import (  # noqa
     Server,
     Synth,
     )
-from supriya.tools.soundfiletools import (  # noqa
+from supriya.soundfiles import (  # noqa
     HeaderFormat,
     SampleFormat,
     SoundFile,
@@ -136,7 +136,7 @@ from supriya.tools.systemtools import (  # noqa
     TestCase,
     bind,
     )
-from supriya.tools.soundfiletools import (  # noqa
+from supriya.soundfiles import (  # noqa
     Say,
     )
 from abjad.tools.topleveltools import (  # noqa

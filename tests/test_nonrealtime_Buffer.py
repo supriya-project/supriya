@@ -1,5 +1,5 @@
 import supriya.nonrealtime
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 from nonrealtime_testbase import TestCase
 
 
@@ -70,7 +70,7 @@ class TestCase(TestCase):
             [2.0, [['/b_free', 0], [0]]]]
 
     def test_alloc_read_say(self):
-        say = soundfiletools.Say('Some text.')
+        say = supriya.soundfiles.Say('Some text.')
         session = supriya.nonrealtime.Session()
         with session.at(0):
             session.add_buffer(

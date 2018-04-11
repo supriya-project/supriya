@@ -230,12 +230,12 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         raise TypeError(expr)
 
     def free(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         self._set_parent(None)
         server = self.server
         if self.node_id is not None and server.is_running:
             node_id = self._unregister_with_local_server()
-            node_free_request = requesttools.NodeFreeRequest(
+            node_free_request = supriya.commands.NodeFreeRequest(
                 node_ids=(node_id,),
                 )
             node_free_request.communicate(
@@ -245,12 +245,12 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         return self
 
     def pause(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         if self.is_paused:
             return
         self._is_paused = True
         if self.is_allocated:
-            request = requesttools.NodeRunRequest(
+            request = supriya.commands.NodeRunRequest(
                 node_id_run_flag_pairs=(
                     (self.node_id, False),
                     ),
@@ -261,12 +261,12 @@ class Node(ServerObjectProxy, UniqueTreeNode):
                 )
 
     def unpause(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         if not self.is_paused:
             return
         self._is_paused = False
         if self.is_allocated:
-            request = requesttools.NodeRunRequest(
+            request = supriya.commands.NodeRunRequest(
                 node_id_run_flag_pairs=(
                     (self.node_id, True),
                     ),

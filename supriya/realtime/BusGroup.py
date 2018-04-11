@@ -195,14 +195,14 @@ class BusGroup(ServerObjectProxy):
         return ugen
 
     def fill(self, value):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.synthdefs
         if self.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
             return
         if not self.is_allocated:
             return
         index_count_value_triples = [(self.bus_id, len(self), value)]
-        request = requesttools.ControlBusFillRequest(
+        request = supriya.commands.ControlBusFillRequest(
             index_count_value_triples=index_count_value_triples,
             )
         request.communicate(
@@ -223,14 +223,14 @@ class BusGroup(ServerObjectProxy):
         ServerObjectProxy.free(self)
 
     def get(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.synthdefs
         if self.calculation_rate != supriya.synthdefs.CalculationRate.CONTROL:
             return
         if not self.is_allocated:
             return
         index_count_pairs = [(self.bus_id, len(self))]
-        request = requesttools.ControlBusGetContiguousRequest(
+        request = supriya.commands.ControlBusGetContiguousRequest(
             index_count_pairs=index_count_pairs,
             )
         response = request.communicate(server=self.server)

@@ -5,7 +5,7 @@ import sys
 import uqbar.io
 from supriya import utils
 import supriya.cli
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 from supriya.tools import systemtools
 
 
@@ -237,7 +237,7 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         return session_path
 
     def sample(self, file_path, rounding=6):
-        soundfile = soundfiletools.SoundFile(file_path)
+        soundfile = supriya.soundfiles.SoundFile(file_path)
         return {
             0.0: [round(x, rounding) for x in soundfile.at_percent(0)],
             0.21: [round(x, rounding) for x in soundfile.at_percent(0.21)],

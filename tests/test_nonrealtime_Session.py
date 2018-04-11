@@ -1,6 +1,6 @@
 import supriya.nonrealtime
 import supriya.osc
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 from nonrealtime_testbase import TestCase
 
 
@@ -59,7 +59,7 @@ class TestCase(TestCase):
             output_bus_channel_count=1,
             )
         self.assert_ok(exit_code, 1., 44100, 1)
-        soundfile = soundfiletools.SoundFile(self.output_file_path)
+        soundfile = supriya.soundfiles.SoundFile(self.output_file_path)
         for i in range(1, 100):
             value = float(i) / 100
             assert self.round(soundfile.at_percent(value)[0]) == value

@@ -1,5 +1,5 @@
 import uuid
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.patterns.Event import Event
 
@@ -176,7 +176,7 @@ class NoteEvent(Event):
                     key: value for key, value in dictionary.items()
                     if key in synthdef.parameter_names
                     }
-                request = requesttools.SynthNewRequest(
+                request = supriya.commands.SynthNewRequest(
                     add_action=add_action,
                     node_id=node_id,
                     synthdef=synthdef,
@@ -192,7 +192,7 @@ class NoteEvent(Event):
                     key: value for key, value in dictionary.items()
                     if key in synthdef.parameter_names
                     }
-                request = requesttools.NodeSetRequest(
+                request = supriya.commands.NodeSetRequest(
                     node_id=node_id,
                     **synth_kwargs
                     )
@@ -225,7 +225,7 @@ class NoteEvent(Event):
         node_ids = sorted(uuids[synth_uuid])
         if synthdef.has_gate:
             for node_id in node_ids:
-                request = requesttools.NodeSetRequest(
+                request = supriya.commands.NodeSetRequest(
                     node_id=node_id,
                     gate=0,
                     )
@@ -236,7 +236,7 @@ class NoteEvent(Event):
             ):
             pass
         else:
-            request = requesttools.NodeFreeRequest(
+            request = supriya.commands.NodeFreeRequest(
                 node_ids=node_ids,
                 )
             requests.append(request)

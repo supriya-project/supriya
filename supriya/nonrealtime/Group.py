@@ -1,4 +1,4 @@
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.nonrealtime.Node import Node
 from supriya.nonrealtime.SessionObject import SessionObject
@@ -33,7 +33,7 @@ class Group(Node):
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action
-        request = requesttools.GroupNewRequest(
+        request = supriya.commands.GroupNewRequest(
             add_action=add_action,
             node_id=source_id,
             target_node_id=target_id,

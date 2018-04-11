@@ -1,4 +1,4 @@
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
@@ -92,18 +92,18 @@ class NodeAction(SupriyaValueObject):
         nodes_to_children[new_parent] = tuple(children)
 
     def _to_request(self, id_mapping):
-        node_id_pair = requesttools.NodeIdPair(
+        node_id_pair = supriya.commands.NodeIdPair(
             node_id=id_mapping[self.source],
             target_node_id=id_mapping[self.target],
             )
         if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
-            request_class = requesttools.GroupHeadRequest
+            request_class = supriya.commands.GroupHeadRequest
         elif self.action == supriya.realtime.AddAction.ADD_TO_TAIL:
-            request_class = requesttools.GroupTailRequest
+            request_class = supriya.commands.GroupTailRequest
         elif self.action == supriya.realtime.AddAction.ADD_BEFORE:
-            request_class = requesttools.NodeBeforeRequest
+            request_class = supriya.commands.NodeBeforeRequest
         elif self.action == supriya.realtime.AddAction.ADD_AFTER:
-            request_class = requesttools.NodeAfterRequest
+            request_class = supriya.commands.NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request
 

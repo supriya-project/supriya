@@ -1,5 +1,5 @@
 import collections
-from supriya.tools import requesttools
+import supriya.commands
 from supriya.nonrealtime.SessionObject import SessionObject
 
 
@@ -25,7 +25,7 @@ class State(SessionObject):
         )
 
     _ordered_buffer_request_types = (
-        requesttools.BufferZeroRequest,
+        supriya.commands.BufferZeroRequest,
         )
 
     ### INITIALIZER ###

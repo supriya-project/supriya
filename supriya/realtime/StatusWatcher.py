@@ -51,9 +51,9 @@ class StatusWatcher(threading.Thread):
     ### PUBLIC METHODS ###
 
     def run(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         self.server.register_response_callback(self.response_callback)
-        request = requesttools.StatusRequest()
+        request = supriya.commands.StatusRequest()
         message = request.to_osc_message()
         while self._active:
             if self.max_attempts == self.attempts:

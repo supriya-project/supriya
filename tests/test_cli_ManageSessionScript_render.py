@@ -118,7 +118,7 @@ class Test(ProjectPackageScriptTestCase):
         Traceback (most recent call last):
           File ".../supriya/cli/ProjectSectionScript.py", line ..., in _render_object
             **kwargs
-          File ".../soundfiletools/render.py", line ..., in render
+          File ".../supriya/soundfiles/render.py", line ..., in render
             **kwargs
           File
           ".../test_project/test_project/sessions/test_session/definition.py", line ..., in __render__

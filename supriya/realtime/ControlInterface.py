@@ -28,7 +28,7 @@ class ControlInterface(SupriyaObject):
     ### PRIVATE METHODS ###
 
     def _set(self, **settings):
-        from supriya.tools import requesttools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         n_set_settings = {}
@@ -63,21 +63,21 @@ class ControlInterface(SupriyaObject):
         messages = []
         if self.client.is_allocated:
             if n_set_settings:
-                request = requesttools.NodeSetRequest(
+                request = supriya.commands.NodeSetRequest(
                     self.node_id,
                     **n_set_settings
                     )
                 message = request.to_osc_message()
                 messages.append(message)
             if n_map_settings:
-                request = requesttools.NodeMapToControlBusRequest(
+                request = supriya.commands.NodeMapToControlBusRequest(
                     self.node_id,
                     **n_map_settings
                     )
                 message = request.to_osc_message()
                 messages.append(message)
             if n_mapa_settings:
-                request = requesttools.NodeMapToAudioBusRequest(
+                request = supriya.commands.NodeMapToAudioBusRequest(
                     self.node_id,
                     **n_mapa_settings
                     )

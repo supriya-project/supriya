@@ -2,7 +2,7 @@ import itertools
 import time
 from queue import PriorityQueue
 from supriya import utils
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.tools import systemtools
 from supriya.patterns.EventPlayer import EventPlayer
@@ -58,7 +58,7 @@ class RealtimeEventPlayer(EventPlayer):
             if not event_product.event:
                 continue
             for request in event_product.requests:
-                if isinstance(request, requesttools.NodeFreeRequest):
+                if isinstance(request, supriya.commands.NodeFreeRequest):
                     node_free_ids.update(request.node_ids)
                 else:
                     requests.append(request)
@@ -77,9 +77,9 @@ class RealtimeEventPlayer(EventPlayer):
                 self._uuids.pop(event_product.uuid)
         if node_free_ids:
             node_free_ids = sorted(node_free_ids)
-            request = requesttools.NodeFreeRequest(node_ids=node_free_ids)
+            request = supriya.commands.NodeFreeRequest(node_ids=node_free_ids)
             requests.append(request)
-        consolidated_bundle = requesttools.RequestBundle(
+        consolidated_bundle = supriya.commands.RequestBundle(
             timestamp=scheduled_time,
             contents=requests,
             )
@@ -112,19 +112,19 @@ class RealtimeEventPlayer(EventPlayer):
                 else:
                     freed_node_ids.append(proxy_id)
         if freed_node_ids:
-            request = requesttools.NodeFreeRequest(
+            request = supriya.commands.NodeFreeRequest(
                 node_ids=sorted(freed_node_ids),
                 )
             requests.append(request)
         for node_id in sorted(gated_node_ids):
-            request = requesttools.NodeSetRequest(
+            request = supriya.commands.NodeSetRequest(
                 node_id=node_id,
                 gate=0,
                 )
             requests.append(request)
         if not requests:
             return
-        return requesttools.RequestBundle(contents=requests)
+        return supriya.commands.RequestBundle(contents=requests)
 
     @staticmethod
     def _iterate_inner(pattern, server, timestamp, uuids):

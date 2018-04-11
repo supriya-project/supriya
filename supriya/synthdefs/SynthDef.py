@@ -312,7 +312,7 @@ class SynthDef(ServerObjectProxy):
 
     @staticmethod
     def _allocate_synthdefs(synthdefs, server):
-        from supriya.tools import requesttools
+        import supriya.commands
         d_recv_synthdef_groups = []
         d_recv_synth_group = []
         current_total = 0
@@ -335,7 +335,7 @@ class SynthDef(ServerObjectProxy):
         if d_recv_synth_group:
             d_recv_synthdef_groups.append(d_recv_synth_group)
         for d_recv_synth_group in d_recv_synthdef_groups:
-            d_recv_request = requesttools.SynthDefReceiveRequest(
+            d_recv_request = supriya.commands.SynthDefReceiveRequest(
                 synthdefs=tuple(d_recv_synth_group),
                 )
             d_recv_request.communicate(
@@ -349,7 +349,7 @@ class SynthDef(ServerObjectProxy):
                 file_path = os.path.join(temp_directory_path, file_name)
                 with open(file_path, 'wb') as file_pointer:
                     file_pointer.write(synthdef.compile())
-            d_load_dir_request = requesttools.SynthDefLoadDirectoryRequest(
+            d_load_dir_request = supriya.commands.SynthDefLoadDirectoryRequest(
                 directory_path=temp_directory_path,
                 )
             d_load_dir_request.communicate(
@@ -678,10 +678,10 @@ class SynthDef(ServerObjectProxy):
         return result
 
     def free(self):
-        from supriya.tools import requesttools
+        import supriya.commands
         synthdef_name = self.actual_name
         del(self.server._synthdefs[synthdef_name])
-        request = requesttools.SynthDefFreeRequest(
+        request = supriya.commands.SynthDefFreeRequest(
             synthdef=self,
             )
         if self.server.is_running:

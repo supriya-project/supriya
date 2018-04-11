@@ -4,7 +4,7 @@ from unittest import mock
 
 import supriya
 import supriya.nonrealtime
-from supriya.tools import soundfiletools
+import supriya.soundfiles
 from nonrealtime_testbase import TestCase
 
 
@@ -721,7 +721,7 @@ class TestCase(TestCase):
         """
         Non-session renderable NRT input.
         """
-        say = soundfiletools.Say('Some text.')
+        say = supriya.soundfiles.Say('Some text.')
         session = supriya.nonrealtime.Session(1, 1, input_=say)
         synthdef = self._build_multiplier_synthdef(1)
         with session.at(0):
@@ -754,7 +754,7 @@ class TestCase(TestCase):
         """
         Non-session renderable DiskIn input.
         """
-        say = soundfiletools.Say('Some text.')
+        say = supriya.soundfiles.Say('Some text.')
         session = supriya.nonrealtime.Session(0, 1)
         synthdef = self._build_diskin_synthdef(channel_count=1)
         with session.at(0):
@@ -798,7 +798,7 @@ class TestCase(TestCase):
         """
         multiplier_synthdef = self._build_multiplier_synthdef(1)
         diskin_synthdef = self._build_diskin_synthdef(channel_count=1)
-        say = soundfiletools.Say('Some text.')
+        say = supriya.soundfiles.Say('Some text.')
         session_one = supriya.nonrealtime.Session(1, 1, input_=say)
         with session_one.at(0):
             session_one.add_synth(

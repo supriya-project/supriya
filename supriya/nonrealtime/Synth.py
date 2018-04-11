@@ -1,4 +1,4 @@
-from supriya.tools import requesttools
+import supriya.commands
 import supriya.realtime
 from supriya.nonrealtime.Node import Node
 
@@ -75,7 +75,7 @@ class Synth(Node):
                 synth_kwargs[key] = value
             elif isinstance(value, buffer_prototype):
                 synth_kwargs[key] = id_mapping[value]
-        request = requesttools.SynthNewRequest(
+        request = supriya.commands.SynthNewRequest(
             add_action=add_action,
             node_id=source_id,
             synthdef=self.synthdef.anonymous_name,
