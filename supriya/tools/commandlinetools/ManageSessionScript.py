@@ -7,7 +7,7 @@ class ManageSessionScript(ProjectSectionScript):
     '''
     Manages project package sessions.
 
-    ..  shell::
+    ::
 
         sjv session --help
 

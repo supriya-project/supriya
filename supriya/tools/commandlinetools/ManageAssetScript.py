@@ -5,7 +5,7 @@ class ManageAssetScript(ProjectPackageScript):
     '''
     Manages project package assets.
 
-    ..  shell::
+    ::
 
         sjv asset --help
 

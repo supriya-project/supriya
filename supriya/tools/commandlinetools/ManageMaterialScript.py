@@ -7,7 +7,7 @@ class ManageMaterialScript(ProjectSectionScript):
     '''
     Manages project package materials.
 
-    ..  shell::
+    ::
 
         sjv material --help
 

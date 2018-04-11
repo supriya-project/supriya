@@ -5,7 +5,7 @@ class ManageSynthDefScript(ProjectPackageScript):
     '''
     Manages project package synthdefs.
 
-    ..  shell::
+    ::
 
         sjv synthdef --help
 

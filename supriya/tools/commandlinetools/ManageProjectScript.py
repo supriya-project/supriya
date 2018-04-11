@@ -11,7 +11,7 @@ class ManageProjectScript(ProjectPackageScript):
     '''
     Manages project packages.
 
-    ..  shell::
+    ::
 
         sjv project --help
 

@@ -8,13 +8,13 @@ class SupriyaScript(uqbar.cli.CLIAggregator):
 
     Can be accessed on the commandline via `ajv`:
 
-    ..  shell::
+    ::
 
         surpiya --help
 
     `supriya` supports subcommands similar to `svn`:
 
-    ..  shell::
+    ::
 
         supriya project --help
 
