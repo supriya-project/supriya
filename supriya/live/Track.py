@@ -2,12 +2,12 @@ import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
-from supriya.tools.livetools.AutoPatternSlot import AutoPatternSlot
-from supriya.tools.livetools.Direct import Direct
-from supriya.tools.livetools.Send import Send
-from supriya.tools.livetools.SendManager import SendManager
-from supriya.tools.livetools.SynthSlot import SynthSlot
-from supriya.tools.livetools.TriggerPatternSlot import TriggerPatternSlot
+from supriya.live.AutoPatternSlot import AutoPatternSlot
+from supriya.live.Direct import Direct
+from supriya.live.Send import Send
+from supriya.live.SendManager import SendManager
+from supriya.live.SynthSlot import SynthSlot
+from supriya.live.TriggerPatternSlot import TriggerPatternSlot
 
 
 class Track:
@@ -20,8 +20,8 @@ class Track:
         name,
         channel_count=None,
         ):
-        from supriya.tools import livetools
-        assert isinstance(mixer, livetools.Mixer)
+        import supriya.live
+        assert isinstance(mixer, supriya.live.Mixer)
         self._mixer = mixer
         channel_count = int(channel_count or self.mixer.channel_count)
         assert self._mixer._is_power_of_two(channel_count)
@@ -59,7 +59,7 @@ class Track:
         self._direct_out = None
         if self.name != 'cue':
             self._cue_synth = supriya.realtime.Synth(
-                synthdef=livetools.Send.build_synthdef(
+                synthdef=supriya.live.Send.build_synthdef(
                     self.channel_count, self.mixer.cue_track.channel_count),
                 active=False,
                 )

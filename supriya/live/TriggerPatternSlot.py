@@ -1,7 +1,7 @@
 import supriya.patterns
 import supriya.realtime
 from supriya.tools import systemtools
-from supriya.tools.livetools.PatternSlot import PatternSlot
+from supriya.live.PatternSlot import PatternSlot
 
 
 class TriggerPatternSlot(PatternSlot):

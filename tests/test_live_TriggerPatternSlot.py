@@ -1,4 +1,4 @@
-from supriya.tools import livetools
+import supriya.live
 import supriya.patterns
 import supriya.realtime
 from supriya.tools import synthdeftools
@@ -16,7 +16,7 @@ class TestCase(systemtools.TestCase):
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
         self.server = supriya.realtime.Server().boot()
-        self.mixer = livetools.Mixer(channel_count=1, cue_channel_count=1)
+        self.mixer = supriya.live.Mixer(channel_count=1, cue_channel_count=1)
         self.mixer.add_track('track')
 
     def tearDown(self):

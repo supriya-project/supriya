@@ -1,6 +1,6 @@
 import supriya.patterns
 from supriya.tools import systemtools
-from supriya.tools.livetools.PatternSlot import PatternSlot
+from supriya.live.PatternSlot import PatternSlot
 
 
 class AutoPatternSlot(PatternSlot):

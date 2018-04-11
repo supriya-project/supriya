@@ -1,11 +1,11 @@
-from supriya.tools import livetools
+import supriya.live
 from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):
 
     def test_build_input_synthdef_1(self):
-        synthdef = livetools.Track.build_input_synthdef(1)
+        synthdef = supriya.live.Track.build_input_synthdef(1)
         self.compare_strings(
             str(synthdef),
             """
@@ -58,7 +58,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_input_synthdef_2(self):
-        synthdef = livetools.Track.build_input_synthdef(2)
+        synthdef = supriya.live.Track.build_input_synthdef(2)
         self.compare_strings(
             str(synthdef),
             """
@@ -115,7 +115,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_input_synthdef_4(self):
-        synthdef = livetools.Track.build_input_synthdef(4)
+        synthdef = supriya.live.Track.build_input_synthdef(4)
         self.compare_strings(
             str(synthdef),
             """
@@ -180,7 +180,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_input_synthdef_8(self):
-        synthdef = livetools.Track.build_input_synthdef(8)
+        synthdef = supriya.live.Track.build_input_synthdef(8)
         self.compare_strings(
             str(synthdef),
             """
@@ -261,7 +261,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_output_synthdef_1(self):
-        synthdef = livetools.Track.build_output_synthdef(1)
+        synthdef = supriya.live.Track.build_output_synthdef(1)
         self.compare_strings(
             str(synthdef),
             """
@@ -318,7 +318,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_output_synthdef_2(self):
-        synthdef = livetools.Track.build_output_synthdef(2)
+        synthdef = supriya.live.Track.build_output_synthdef(2)
         self.compare_strings(
             str(synthdef),
             """
@@ -379,7 +379,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_output_synthdef_4(self):
-        synthdef = livetools.Track.build_output_synthdef(4)
+        synthdef = supriya.live.Track.build_output_synthdef(4)
         self.compare_strings(
             str(synthdef),
             """
@@ -448,7 +448,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_output_synthdef_8(self):
-        synthdef = livetools.Track.build_output_synthdef(8)
+        synthdef = supriya.live.Track.build_output_synthdef(8)
         self.compare_strings(
             str(synthdef),
             """

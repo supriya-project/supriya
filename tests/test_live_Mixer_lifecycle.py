@@ -1,4 +1,4 @@
-from supriya.tools import livetools
+import supriya.live
 import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
@@ -22,7 +22,7 @@ class TestCase(systemtools.TestCase):
         super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
-        mixer = livetools.Mixer(channel_count=4)
+        mixer = supriya.live.Mixer(channel_count=4)
         self.compare_strings(
             str(self.server),
             """
@@ -101,7 +101,7 @@ class TestCase(systemtools.TestCase):
             assert not track.output_bus_group.is_allocated
 
     def test_02(self):
-        mixer = livetools.Mixer(channel_count=4)
+        mixer = supriya.live.Mixer(channel_count=4)
         self.compare_strings(
             str(self.server),
             """
@@ -183,7 +183,7 @@ class TestCase(systemtools.TestCase):
         """
         Common setup for other tests.
         """
-        mixer = livetools.Mixer(channel_count=1, cue_channel_count=1)
+        mixer = supriya.live.Mixer(channel_count=1, cue_channel_count=1)
         mixer.add_track('foo')
         mixer.add_track('bar')
         mixer.add_track('baz')

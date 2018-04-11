@@ -9,9 +9,9 @@ class Slot:
 
     @abc.abstractmethod
     def __init__(self, name, track, synthdef, **kwargs):
-        from supriya.tools import livetools
+        import supriya.live
         self._name = str(name)
-        assert isinstance(track, livetools.Track)
+        assert isinstance(track, supriya.live.Track)
         self._track = track
         self._group = supriya.realtime.Group()
         if isinstance(synthdef, synthdeftools.SynthDefFactory):

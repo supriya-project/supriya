@@ -1,11 +1,11 @@
-from supriya.tools import livetools
+import supriya.live
 from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):
 
     def test_01(self):
-        mixer = livetools.Mixer(1, 1)
+        mixer = supriya.live.Mixer(1, 1)
         mixer.add_track('foo')
         mixer.add_track('bar')
         mixer['foo'].add_synth_slot(

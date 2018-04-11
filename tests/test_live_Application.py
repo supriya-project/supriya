@@ -19,7 +19,7 @@ class TestCase(supriya.systemtools.TestCase):
         super(supriya.systemtools.TestCase, self).tearDown()
 
     def test_01(self):
-        application = supriya.livetools.Application(self.manifest_path)
+        application = supriya.live.Application(self.manifest_path)
         # Buffers
         assert len(application.buffers) == 1
         assert 'birds' in application.buffers
@@ -39,7 +39,7 @@ class TestCase(supriya.systemtools.TestCase):
 
     def test_02(self):
         try:
-            application = supriya.livetools.Application(self.manifest_path)
+            application = supriya.live.Application(self.manifest_path)
             application.boot()
         finally:
             application.quit()

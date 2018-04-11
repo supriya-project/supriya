@@ -1,11 +1,11 @@
-from supriya.tools import livetools
+import supriya.live
 from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):
 
     def test_build_synthdef_01(self):
-        synthdef = livetools.Direct.build_synthdef(
+        synthdef = supriya.live.Direct.build_synthdef(
             2, 2, [(0, 0), (1, 1)])
         self.compare_strings(
             str(synthdef),
@@ -36,7 +36,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_synthdef_02(self):
-        synthdef = livetools.Direct.build_synthdef(
+        synthdef = supriya.live.Direct.build_synthdef(
             2, 2, [(0, 1), (1, 0)])
         self.compare_strings(
             str(synthdef),
@@ -67,7 +67,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_build_synthdef_03(self):
-        synthdef = livetools.Direct.build_synthdef(
+        synthdef = supriya.live.Direct.build_synthdef(
             2, 2, [(0, 1)])
         self.compare_strings(
             str(synthdef),

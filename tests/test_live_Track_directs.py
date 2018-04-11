@@ -1,5 +1,5 @@
 import time
-from supriya.tools import livetools
+import supriya.live
 import supriya.realtime
 from supriya.tools import systemtools
 
@@ -8,7 +8,7 @@ class TestCase(systemtools.TestCase):
 
     def test_01(self):
         self.server = supriya.realtime.Server().boot()
-        mixer = livetools.Mixer(channel_count=2, cue_channel_count=1)
+        mixer = supriya.live.Mixer(channel_count=2, cue_channel_count=1)
         track = mixer.add_track('foo')
         track.add_direct_in([(0, 0), (1, 1)])
         track.add_direct_out([(0, 1), (1, 0)])

@@ -1,6 +1,6 @@
 import abc
 from supriya.tools import systemtools
-from supriya.tools.livetools.Slot import Slot
+from supriya.live.Slot import Slot
 
 
 class PatternSlot(Slot):

@@ -196,11 +196,11 @@ class Application:
                 )
 
     def _setup_mixer(self):
-        from supriya.tools import livetools
+        import supriya.live
         manifest = self.manifest.get('mixer', {})
         channel_count = int(manifest.get('channel_count', 2))
         cue_channel_count = int(manifest.get('cue_channel_count', 2))
-        self._mixer = livetools.Mixer(channel_count, cue_channel_count)
+        self._mixer = supriya.live.Mixer(channel_count, cue_channel_count)
         track_specs = manifest.get('tracks') or []
         for track_spec in track_specs:
             if track_spec['name'] not in ('master', 'cue'):
