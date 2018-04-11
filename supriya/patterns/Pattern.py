@@ -4,9 +4,9 @@ import inspect
 import itertools
 import re
 from supriya import utils
-from supriya.tools.systemtools import BindableNamespace
-from supriya.tools.systemtools import Enumeration
-from supriya.tools.systemtools import SupriyaValueObject
+from supriya.system import BindableNamespace
+from supriya.system import Enumeration
+from supriya.system import SupriyaValueObject
 
 
 class Pattern(SupriyaValueObject):

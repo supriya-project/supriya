@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Tap(UGen):
@@ -6,7 +6,7 @@ class Tap(UGen):
 
     ::
 
-        >>> tap = ugentools.Tap.ar(
+        >>> tap = supriya.ugens.Tap.ar(
         ...     buffer_id=0,
         ...     channel_count=1,
         ...     delay_time=0.2,
@@ -61,7 +61,7 @@ class Tap(UGen):
 
         ::
 
-            >>> tap = ugentools.Tap.ar(
+            >>> tap = supriya.ugens.Tap.ar(
             ...     buffer_id=0,
             ...     channel_count=1,
             ...     delay_time=0.2,
@@ -90,7 +90,7 @@ class Tap(UGen):
 
         ::
 
-            >>> tap = ugentools.Tap.ar(
+            >>> tap = supriya.ugens.Tap.ar(
             ...     buffer_id=0,
             ...     channel_count=1,
             ...     delay_time=0.2,
@@ -110,7 +110,7 @@ class Tap(UGen):
 
         ::
 
-            >>> tap = ugentools.Tap.ar(
+            >>> tap = supriya.ugens.Tap.ar(
             ...     buffer_id=0,
             ...     channel_count=1,
             ...     delay_time=0.2,
@@ -130,7 +130,7 @@ class Tap(UGen):
 
         ::
 
-            >>> tap = ugentools.Tap.ar(
+            >>> tap = supriya.ugens.Tap.ar(
             ...     buffer_id=0,
             ...     channel_count=1,
             ...     delay_time=0.2,

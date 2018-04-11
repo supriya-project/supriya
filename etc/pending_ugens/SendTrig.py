@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class SendTrig(UGen):
@@ -6,8 +6,8 @@ class SendTrig(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> send_trig = ugentools.SendTrig.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> send_trig = supriya.ugens.SendTrig.ar(
         ...     id=0,
         ...     source=source,
         ...     value=0,
@@ -62,8 +62,8 @@ class SendTrig(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> send_trig = ugentools.SendTrig.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> send_trig = supriya.ugens.SendTrig.ar(
             ...     id=0,
             ...     source=source,
             ...     value=0,
@@ -95,8 +95,8 @@ class SendTrig(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> send_trig = ugentools.SendTrig.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> send_trig = supriya.ugens.SendTrig.kr(
             ...     id=0,
             ...     source=source,
             ...     value=0,
@@ -125,8 +125,8 @@ class SendTrig(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> send_trig = ugentools.SendTrig.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> send_trig = supriya.ugens.SendTrig.ar(
             ...     id=0,
             ...     source=source,
             ...     value=0,
@@ -146,8 +146,8 @@ class SendTrig(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> send_trig = ugentools.SendTrig.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> send_trig = supriya.ugens.SendTrig.ar(
             ...     id=0,
             ...     source=source,
             ...     value=0,
@@ -174,8 +174,8 @@ class SendTrig(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> send_trig = ugentools.SendTrig.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> send_trig = supriya.ugens.SendTrig.ar(
             ...     id=0,
             ...     source=source,
             ...     value=0,

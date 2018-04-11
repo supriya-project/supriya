@@ -5,7 +5,7 @@ import re
 import traceback
 import supriya.patterns
 import supriya.realtime
-from supriya.tools import systemtools
+import supriya.system
 
 
 class Application:
@@ -16,11 +16,11 @@ class Application:
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
             if overrides:
-                manifest = systemtools.YAMLLoader.merge(manifest, overrides)
+                manifest = supriya.system.YAMLLoader.merge(manifest, overrides)
             self._manifest = manifest
         else:
             path = self._lookup_file_paths(str(manifest))[0]
-            manifest = systemtools.YAMLLoader.load(
+            manifest = supriya.system.YAMLLoader.load(
                 str(path),
                 overrides=overrides,
                 )
@@ -139,7 +139,7 @@ class Application:
         except:
             print(source_name)
             raise
-        binding = systemtools.bind(source, target, target_range=target_range)
+        binding = supriya.system.bind(source, target, target_range=target_range)
         self._bindings.add(binding)
 
     def _setup_bindings(self):

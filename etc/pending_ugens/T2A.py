@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.K2A import K2A
+from supriya.ugens.K2A import K2A
 
 
 class T2A(K2A):
@@ -6,8 +6,8 @@ class T2A(K2A):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> t_2_a = ugentools.T2A.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> t_2_a = supriya.ugens.T2A.ar(
         ...     offset=0,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class T2A(K2A):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> t_2_a = ugentools.T2A.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> t_2_a = supriya.ugens.T2A.ar(
             ...     offset=0,
             ...     source=source,
             ...     )
@@ -85,8 +85,8 @@ class T2A(K2A):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> t_2_a = ugentools.T2A.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> t_2_a = supriya.ugens.T2A.ar(
             ...     offset=0,
             ...     source=source,
             ...     )
@@ -105,8 +105,8 @@ class T2A(K2A):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> t_2_a = ugentools.T2A.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> t_2_a = supriya.ugens.T2A.ar(
             ...     offset=0,
             ...     source=source,
             ...     )

@@ -1,8 +1,8 @@
 import supriya.live
-from supriya.tools import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_01(self):
         mixer = supriya.live.Mixer(1, 1)

@@ -1,11 +1,11 @@
 import yaml
 import uqbar.strings
 import supriya.patterns
-from supriya import systemtools
+import supriya.system
 from supriya import utils
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_01(self):
         string = utils.normalize_string("""
@@ -110,7 +110,7 @@ class TestCase(systemtools.TestCase):
         """)
         dict_ = yaml.load(string)
         namespaces = dict(
-            args=systemtools.BindableNamespace(
+            args=supriya.system.BindableNamespace(
                 duration_max=11,
                 duration_min=0.25,
                 frequency=443,

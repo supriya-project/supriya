@@ -1,5 +1,5 @@
 import random
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class RandomNumberGenerator(SupriyaObject):

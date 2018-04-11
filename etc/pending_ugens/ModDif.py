@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class ModDif(UGen):
@@ -6,7 +6,7 @@ class ModDif(UGen):
 
     ::
 
-        >>> mod_dif = ugentools.ModDif.ar(
+        >>> mod_dif = supriya.ugens.ModDif.ar(
         ...     mod=1,
         ...     x=0,
         ...     y=0,
@@ -61,7 +61,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.ar(
+            >>> mod_dif = supriya.ugens.ModDif.ar(
             ...     mod=1,
             ...     x=0,
             ...     y=0,
@@ -93,7 +93,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.ir(
+            >>> mod_dif = supriya.ugens.ModDif.ir(
             ...     mod=1,
             ...     x=0,
             ...     y=0,
@@ -125,7 +125,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.kr(
+            >>> mod_dif = supriya.ugens.ModDif.kr(
             ...     mod=1,
             ...     x=0,
             ...     y=0,
@@ -154,7 +154,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.ar(
+            >>> mod_dif = supriya.ugens.ModDif.ar(
             ...     mod=1,
             ...     x=0,
             ...     y=0,
@@ -174,7 +174,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.ar(
+            >>> mod_dif = supriya.ugens.ModDif.ar(
             ...     mod=1,
             ...     x=0,
             ...     y=0,
@@ -194,7 +194,7 @@ class ModDif(UGen):
 
         ::
 
-            >>> mod_dif = ugentools.ModDif.ar(
+            >>> mod_dif = supriya.ugens.ModDif.ar(
             ...     mod=1,
             ...     x=0,
             ...     y=0,

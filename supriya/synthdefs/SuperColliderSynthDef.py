@@ -2,7 +2,7 @@ import os
 import shutil
 import subprocess
 import tempfile
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class SuperColliderSynthDef(SupriyaObject):

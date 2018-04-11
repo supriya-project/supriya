@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class PartConv(UGen):
@@ -6,8 +6,8 @@ class PartConv(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> part_conv = ugentools.PartConv.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> part_conv = supriya.ugens.PartConv.ar(
         ...     fftsize=fftsize,
         ...     irbufnum=irbufnum,
         ...     source=source,
@@ -62,8 +62,8 @@ class PartConv(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> part_conv = ugentools.PartConv.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> part_conv = supriya.ugens.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
             ...     source=source,
@@ -96,8 +96,8 @@ class PartConv(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> part_conv = ugentools.PartConv.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> part_conv = supriya.ugens.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
             ...     source=source,
@@ -116,8 +116,8 @@ class PartConv(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> part_conv = ugentools.PartConv.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> part_conv = supriya.ugens.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
             ...     source=source,
@@ -136,8 +136,8 @@ class PartConv(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> part_conv = ugentools.PartConv.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> part_conv = supriya.ugens.PartConv.ar(
             ...     fftsize=fftsize,
             ...     irbufnum=irbufnum,
             ...     source=source,

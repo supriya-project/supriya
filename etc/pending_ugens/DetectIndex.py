@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Index import Index
+from supriya.ugens.Index import Index
 
 
 class DetectIndex(Index):
@@ -6,8 +6,8 @@ class DetectIndex(Index):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> detect_index = ugentools.DetectIndex.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> detect_index = supriya.ugens.DetectIndex.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class DetectIndex(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> detect_index = ugentools.DetectIndex.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> detect_index = supriya.ugens.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -87,8 +87,8 @@ class DetectIndex(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> detect_index = ugentools.DetectIndex.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> detect_index = supriya.ugens.DetectIndex.kr(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -115,8 +115,8 @@ class DetectIndex(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> detect_index = ugentools.DetectIndex.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> detect_index = supriya.ugens.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -134,8 +134,8 @@ class DetectIndex(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> detect_index = ugentools.DetectIndex.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> detect_index = supriya.ugens.DetectIndex.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

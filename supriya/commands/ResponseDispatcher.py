@@ -1,4 +1,4 @@
-from supriya.tools.systemtools.Dispatcher import Dispatcher
+from supriya.system.Dispatcher import Dispatcher
 
 
 class ResponseDispatcher(Dispatcher):

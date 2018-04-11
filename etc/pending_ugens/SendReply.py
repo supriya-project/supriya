@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.SendTrig import SendTrig
+from supriya.ugens.SendTrig import SendTrig
 
 
 class SendReply(SendTrig):
@@ -6,7 +6,7 @@ class SendReply(SendTrig):
 
     ::
 
-        >>> send_reply = ugentools.SendReply.ar(
+        >>> send_reply = supriya.ugens.SendReply.ar(
         ...     cmd_name='/reply',
         ...     reply_id=-1,
         ...     trigger=0,
@@ -66,7 +66,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -101,7 +101,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.kr(
+            >>> send_reply = supriya.ugens.SendReply.kr(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -134,7 +134,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -154,7 +154,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -175,7 +175,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -196,7 +196,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,

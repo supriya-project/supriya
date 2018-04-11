@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class InRect(UGen):
@@ -6,7 +6,7 @@ class InRect(UGen):
 
     ::
 
-        >>> in_rect = ugentools.InRect.ar(
+        >>> in_rect = supriya.ugens.InRect.ar(
         ...     rect=rect,
         ...     x=0,
         ...     y=0,
@@ -61,7 +61,7 @@ class InRect(UGen):
 
         ::
 
-            >>> in_rect = ugentools.InRect.ar(
+            >>> in_rect = supriya.ugens.InRect.ar(
             ...     rect=rect,
             ...     x=0,
             ...     y=0,
@@ -93,7 +93,7 @@ class InRect(UGen):
 
         ::
 
-            >>> in_rect = ugentools.InRect.kr(
+            >>> in_rect = supriya.ugens.InRect.kr(
             ...     rect=rect,
             ...     x=0,
             ...     y=0,
@@ -122,7 +122,7 @@ class InRect(UGen):
 
         ::
 
-            >>> in_rect = ugentools.InRect.ar(
+            >>> in_rect = supriya.ugens.InRect.ar(
             ...     rect=rect,
             ...     x=0,
             ...     y=0,
@@ -141,7 +141,7 @@ class InRect(UGen):
 
         ::
 
-            >>> in_rect = ugentools.InRect.ar(
+            >>> in_rect = supriya.ugens.InRect.ar(
             ...     rect=rect,
             ...     x=0,
             ...     y=0,
@@ -161,7 +161,7 @@ class InRect(UGen):
 
         ::
 
-            >>> in_rect = ugentools.InRect.ar(
+            >>> in_rect = supriya.ugens.InRect.ar(
             ...     rect=rect,
             ...     x=0,
             ...     y=0,

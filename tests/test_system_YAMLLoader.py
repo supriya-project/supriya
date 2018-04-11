@@ -1,16 +1,16 @@
 import yaml
 import pathlib
 import supriya
-from supriya import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     base_path = pathlib.Path(supriya.__path__[0]) / 'assets' / 'devices'
 
     def test_01(self):
         path = self.base_path / 'Test.yml'
-        manifest = systemtools.YAMLLoader.load(path)
+        manifest = supriya.system.YAMLLoader.load(path)
         self.compare_strings(
             yaml.dump(manifest, default_flow_style=False, indent=4),
             """
@@ -104,7 +104,7 @@ class TestCase(systemtools.TestCase):
 
     def test_02(self):
         path = self.base_path / 'Test-Physical.yml'
-        manifest = systemtools.YAMLLoader.load(path)
+        manifest = supriya.system.YAMLLoader.load(path)
         self.compare_strings(
             yaml.dump(manifest, default_flow_style=False, indent=4),
             """
@@ -173,7 +173,7 @@ class TestCase(systemtools.TestCase):
 
     def test_03(self):
         path = self.base_path / 'Test-Logical.yml'
-        manifest = systemtools.YAMLLoader.load(path)
+        manifest = supriya.system.YAMLLoader.load(path)
         self.compare_strings(
             yaml.dump(manifest, default_flow_style=False, indent=4),
             """

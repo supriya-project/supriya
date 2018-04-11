@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.systemtools import BindableFloat
+from supriya.system import BindableFloat
 
 
 class BindableNamespace(collections.Mapping):

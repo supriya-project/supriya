@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class IEnvGen(UGen):
@@ -6,7 +6,7 @@ class IEnvGen(UGen):
 
     ::
 
-        >>> ienv_gen = ugentools.IEnvGen.ar(
+        >>> ienv_gen = supriya.ugens.IEnvGen.ar(
         ...     envelope=envelope,
         ...     index=index,
         ...     )
@@ -56,7 +56,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -87,7 +87,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.kr(
+            >>> ienv_gen = supriya.ugens.IEnvGen.kr(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -116,7 +116,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -134,7 +134,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )

@@ -1,6 +1,6 @@
 from patterns_testbase import TestCase
 import supriya.patterns
-from supriya.tools import systemtools
+import supriya.system
 
 
 class TestCase(TestCase):
@@ -42,8 +42,8 @@ class TestCase(TestCase):
 
     def test_lazy_01(self):
         pattern = supriya.patterns.Pwhite(
-            minimum=systemtools.BindableFloat(0.25),
-            maximum=systemtools.BindableFloat(0.75),
+            minimum=supriya.system.BindableFloat(0.25),
+            maximum=supriya.system.BindableFloat(0.75),
             )
         iterator = iter(pattern)
         next(iterator)

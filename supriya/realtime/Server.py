@@ -4,8 +4,8 @@ import time
 import uqbar.graphs
 import uqbar.io
 from supriya import utils
-from supriya.tools.systemtools import PubSub
-from supriya.tools.systemtools import SupriyaObject
+from supriya.system import PubSub
+from supriya.system import SupriyaObject
 
 
 class Server(SupriyaObject):

@@ -1,9 +1,9 @@
 from supriya import SynthDefBuilder
-from supriya import systemtools
+import supriya.system
 import supriya.ugens
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_01(self):
         """

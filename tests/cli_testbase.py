@@ -6,10 +6,10 @@ import uqbar.io
 from supriya import utils
 import supriya.cli
 import supriya.soundfiles
-from supriya.tools import systemtools
+import supriya.system
 
 
-class ProjectPackageScriptTestCase(systemtools.TestCase):
+class ProjectPackageScriptTestCase(supriya.system.TestCase):
 
     package_name = 'test_project'
     test_path = pathlib.Path(__file__).parent

@@ -1,4 +1,4 @@
-from supriya.tools.systemtools import Bindable
+from supriya.system import Bindable
 
 
 class BindableFloat:

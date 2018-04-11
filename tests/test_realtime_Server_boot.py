@@ -1,16 +1,16 @@
 import supriya.realtime
-from supriya import systemtools
+import supriya.system
 
 
-class Test(systemtools.TestCase):
+class Test(supriya.system.TestCase):
 
     def setUp(self):
-        super(systemtools.TestCase, self).setUp()
+        super(supriya.system.TestCase, self).setUp()
         self.server = supriya.realtime.Server(port=57757)
 
     def tearDown(self):
         self.server.quit()
-        super(systemtools.TestCase, self).tearDown()
+        super(supriya.system.TestCase, self).tearDown()
 
     def test_boot(self):
         for i in range(4):

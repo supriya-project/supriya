@@ -1,8 +1,8 @@
-from supriya.tools import systemtools
+import supriya.system
 import supriya.patterns
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_indeterministic(self):
         """

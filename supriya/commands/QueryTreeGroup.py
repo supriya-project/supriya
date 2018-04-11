@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class QueryTreeGroup(SupriyaValueObject, collections.Sequence):

@@ -35,9 +35,9 @@ class Binding:
         symmetric=None,
         ):
         import supriya.synthdefs
-        #from supriya.tools import systemtools
-        #assert isinstance(source, systemtools.Bindable), source
-        #assert isinstance(target, systemtools.Bindable), target
+        #import supriya.system
+        #assert isinstance(source, supriya.system.Bindable), source
+        #assert isinstance(target, supriya.system.Bindable), target
         #self.source = source
         #self.target = target
         self.source = self.patch(source)
@@ -85,12 +85,12 @@ class Binding:
             )
 
     def patch(self, object_):
-        from supriya.tools import systemtools
-        if isinstance(object_, systemtools.Bindable):
+        import supriya.system
+        if isinstance(object_, supriya.system.Bindable):
             pass
         elif callable(object_):
             object_ = object_.__call__
-        assert isinstance(object_, systemtools.Bindable), object_
+        assert isinstance(object_, supriya.system.Bindable), object_
         return object_
 
         if self.is_class_instance(object_) and hasattr(object_, '__call__'):
@@ -104,10 +104,10 @@ class Binding:
         else:
             raise TypeError(object_)
         function = getattr(instance, method_name)
-        if isinstance(function, systemtools.Bindable):
+        if isinstance(function, supriya.system.Bindable):
             return function
         function = getattr(class_, method_name)
-        bindable = systemtools.Bindable(function)
+        bindable = supriya.system.Bindable(function)
         setattr(class_, method_name, bindable)
         bindable = getattr(instance, method_name)
         return bindable

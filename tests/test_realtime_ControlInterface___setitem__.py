@@ -1,17 +1,17 @@
 import supriya.assets.synthdefs
 import supriya.realtime
-from supriya import systemtools
+import supriya.system
 
 
-class Test(systemtools.TestCase):
+class Test(supriya.system.TestCase):
 
     def setUp(self):
-        super(systemtools.TestCase, self).setUp()
+        super(supriya.system.TestCase, self).setUp()
         self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
-        super(systemtools.TestCase, self).tearDown()
+        super(supriya.system.TestCase, self).tearDown()
 
     def test_01(self):
         group = supriya.realtime.Group()

@@ -52,7 +52,7 @@ class ProjectSectionScript(ProjectPackageScript):
         self._edit_packages(names, self._section_plural)
 
     def _handle_list(self):
-        from supriya.tools.systemtools import (
+        from supriya.system import (
             SupriyaObject, SupriyaValueObject,
         )
         basic_bases = (

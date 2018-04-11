@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class GVerb(MultiOutUGen):
@@ -6,8 +6,8 @@ class GVerb(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> gverb = ugentools.GVerb.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> gverb = supriya.ugens.GVerb.ar(
         ...     damping=0.5,
         ...     drylevel=1,
         ...     earlyreflevel=0.7,
@@ -97,8 +97,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -143,8 +143,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -171,8 +171,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -199,8 +199,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -227,8 +227,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -255,8 +255,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -283,8 +283,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -311,8 +311,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -339,8 +339,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -374,8 +374,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,
@@ -402,8 +402,8 @@ class GVerb(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> gverb = ugentools.GVerb.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> gverb = supriya.ugens.GVerb.ar(
             ...     damping=0.5,
             ...     drylevel=1,
             ...     earlyreflevel=0.7,

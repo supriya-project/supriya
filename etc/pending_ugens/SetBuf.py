@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.WidthFirstUGen import WidthFirstUGen
+from supriya.ugens.WidthFirstUGen import WidthFirstUGen
 
 
 class SetBuf(WidthFirstUGen):
@@ -6,7 +6,7 @@ class SetBuf(WidthFirstUGen):
 
     ::
 
-        >>> set_buf = ugentools.SetBuf.ar(
+        >>> set_buf = supriya.ugens.SetBuf.ar(
         ...     buffer_id=buffer_id,
         ...     offset=0,
         ...     values=values,
@@ -61,7 +61,7 @@ class SetBuf(WidthFirstUGen):
 
         ::
 
-            >>> set_buf = ugentools.SetBuf.new(
+            >>> set_buf = supriya.ugens.SetBuf.new(
             ...     buffer_id=buffer_id,
             ...     offset=0,
             ...     values=values,
@@ -90,7 +90,7 @@ class SetBuf(WidthFirstUGen):
 
         ::
 
-            >>> set_buf = ugentools.SetBuf.ar(
+            >>> set_buf = supriya.ugens.SetBuf.ar(
             ...     buffer_id=buffer_id,
             ...     offset=0,
             ...     values=values,
@@ -109,7 +109,7 @@ class SetBuf(WidthFirstUGen):
 
         ::
 
-            >>> set_buf = ugentools.SetBuf.ar(
+            >>> set_buf = supriya.ugens.SetBuf.ar(
             ...     buffer_id=buffer_id,
             ...     offset=0,
             ...     values=values,
@@ -129,7 +129,7 @@ class SetBuf(WidthFirstUGen):
 
         ::
 
-            >>> set_buf = ugentools.SetBuf.ar(
+            >>> set_buf = supriya.ugens.SetBuf.ar(
             ...     buffer_id=buffer_id,
             ...     offset=0,
             ...     values=values,

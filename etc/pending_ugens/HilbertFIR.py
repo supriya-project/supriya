@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class HilbertFIR(UGen):
@@ -6,8 +6,8 @@ class HilbertFIR(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> hilbert_fir = ugentools.HilbertFIR.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -85,8 +85,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -104,8 +104,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

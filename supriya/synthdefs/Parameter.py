@@ -1,7 +1,7 @@
 import collections
 from supriya.synthdefs.ParameterRate import ParameterRate
 from supriya.synthdefs.UGenMethodMixin import UGenMethodMixin
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class Parameter(UGenMethodMixin, SupriyaValueObject):

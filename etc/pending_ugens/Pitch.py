@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Pitch(MultiOutUGen):
@@ -6,8 +6,8 @@ class Pitch(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> pitch = ugentools.Pitch.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> pitch = supriya.ugens.Pitch.ar(
         ...     amp_threshold=0.01,
         ...     clar=0,
         ...     down_sample=1,
@@ -102,8 +102,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.kr(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -150,8 +150,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -179,8 +179,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -208,8 +208,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -237,8 +237,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -266,8 +266,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -295,8 +295,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -324,8 +324,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -353,8 +353,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -382,8 +382,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -411,8 +411,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,
@@ -440,8 +440,8 @@ class Pitch(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> pitch = ugentools.Pitch.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> pitch = supriya.ugens.Pitch.ar(
             ...     amp_threshold=0.01,
             ...     clar=0,
             ...     down_sample=1,

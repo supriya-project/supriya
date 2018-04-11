@@ -1,8 +1,8 @@
 import supriya.live
-from supriya.tools import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_build_synthdef_1_1(self):
         synthdef = supriya.live.Send.build_synthdef(1, 1)

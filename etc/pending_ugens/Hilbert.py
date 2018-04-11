@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Hilbert(MultiOutUGen):
@@ -6,8 +6,8 @@ class Hilbert(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> hilbert = ugentools.Hilbert.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> hilbert = supriya.ugens.Hilbert.ar(
         ...     source=source,
         ...     )
         >>> hilbert
@@ -52,8 +52,8 @@ class Hilbert(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert = ugentools.Hilbert.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert = supriya.ugens.Hilbert.ar(
             ...     source=source,
             ...     )
             >>> hilbert
@@ -80,8 +80,8 @@ class Hilbert(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert = ugentools.Hilbert.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert = supriya.ugens.Hilbert.ar(
             ...     source=source,
             ...     )
             >>> hilbert.source

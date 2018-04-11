@@ -1,10 +1,10 @@
 import types
-from supriya.tools import systemtools
+import supriya.system
 import supriya.patterns
 import supriya.realtime
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def setUp(self):
         super(TestCase, self).setUp()

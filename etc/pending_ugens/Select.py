@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class Select(PureUGen):
@@ -6,7 +6,7 @@ class Select(PureUGen):
 
     ::
 
-        >>> select = ugentools.Select.ar(
+        >>> select = supriya.ugens.Select.ar(
         ...     array=array,
         ...     which=which,
         ...     )
@@ -56,7 +56,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -85,7 +85,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.kr(
+            >>> select = supriya.ugens.Select.kr(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -112,7 +112,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -130,7 +130,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )

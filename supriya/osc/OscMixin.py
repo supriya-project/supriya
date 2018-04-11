@@ -1,6 +1,6 @@
 import abc
 from supriya import utils
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class OscMixin(SupriyaValueObject):

@@ -1,8 +1,8 @@
 import supriya.realtime
-from supriya import systemtools
+import supriya.system
 
 
-class Test(systemtools.TestCase):
+class Test(supriya.system.TestCase):
 
     def test_01(self):
 

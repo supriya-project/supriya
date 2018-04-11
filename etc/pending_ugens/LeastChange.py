@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MostChange import MostChange
+from supriya.ugens.MostChange import MostChange
 
 
 class LeastChange(MostChange):
@@ -6,7 +6,7 @@ class LeastChange(MostChange):
 
     ::
 
-        >>> least_change = ugentools.LeastChange.ar(
+        >>> least_change = supriya.ugens.LeastChange.ar(
         ...     a=0,
         ...     b=0,
         ...     )
@@ -56,7 +56,7 @@ class LeastChange(MostChange):
 
         ::
 
-            >>> least_change = ugentools.LeastChange.ar(
+            >>> least_change = supriya.ugens.LeastChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -85,7 +85,7 @@ class LeastChange(MostChange):
 
         ::
 
-            >>> least_change = ugentools.LeastChange.kr(
+            >>> least_change = supriya.ugens.LeastChange.kr(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -112,7 +112,7 @@ class LeastChange(MostChange):
 
         ::
 
-            >>> least_change = ugentools.LeastChange.ar(
+            >>> least_change = supriya.ugens.LeastChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -131,7 +131,7 @@ class LeastChange(MostChange):
 
         ::
 
-            >>> least_change = ugentools.LeastChange.ar(
+            >>> least_change = supriya.ugens.LeastChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )

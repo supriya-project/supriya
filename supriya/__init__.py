@@ -128,7 +128,7 @@ from supriya.synthdefs import (  # noqa
     SynthDefBuilder,
     SynthDefFactory,
     )
-from supriya.tools.systemtools import (  # noqa
+from supriya.system import (  # noqa
     Assets,
     Bindable,
     Binding,

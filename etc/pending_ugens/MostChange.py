@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class MostChange(UGen):
@@ -6,7 +6,7 @@ class MostChange(UGen):
 
     ::
 
-        >>> most_change = ugentools.MostChange.ar(
+        >>> most_change = supriya.ugens.MostChange.ar(
         ...     a=0,
         ...     b=0,
         ...     )
@@ -56,7 +56,7 @@ class MostChange(UGen):
 
         ::
 
-            >>> most_change = ugentools.MostChange.ar(
+            >>> most_change = supriya.ugens.MostChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -85,7 +85,7 @@ class MostChange(UGen):
 
         ::
 
-            >>> most_change = ugentools.MostChange.kr(
+            >>> most_change = supriya.ugens.MostChange.kr(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -112,7 +112,7 @@ class MostChange(UGen):
 
         ::
 
-            >>> most_change = ugentools.MostChange.ar(
+            >>> most_change = supriya.ugens.MostChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )
@@ -131,7 +131,7 @@ class MostChange(UGen):
 
         ::
 
-            >>> most_change = ugentools.MostChange.ar(
+            >>> most_change = supriya.ugens.MostChange.ar(
             ...     a=0,
             ...     b=0,
             ...     )

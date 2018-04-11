@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class PulseDivider(UGen):
@@ -6,7 +6,7 @@ class PulseDivider(UGen):
 
     ::
 
-        >>> pulse_divider = ugentools.PulseDivider.ar(
+        >>> pulse_divider = supriya.ugens.PulseDivider.ar(
         ...     div=2,
         ...     start=0,
         ...     trigger=0,
@@ -61,7 +61,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -93,7 +93,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.kr(
+            >>> pulse_divider = supriya.ugens.PulseDivider.kr(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -122,7 +122,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -142,7 +142,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -162,7 +162,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,

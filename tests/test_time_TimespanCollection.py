@@ -4,10 +4,10 @@ import random
 import uqbar.io
 import supriya.time
 from abjad import Timespan
-from supriya import systemtools
+import supriya.system
 
 
-#from supriya.tools.systemtools import SupriyaValueObject
+#from supriya.system import SupriyaValueObject
 #class Timespan(SupriyaValueObject):
 #
 #    def __init__(self, start_offset=float('-inf'), stop_offset=float('inf')):
@@ -27,7 +27,7 @@ from supriya import systemtools
 #        return hash((type(self), self.start_offset, self.stop_offset))
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     accelerated = False
 

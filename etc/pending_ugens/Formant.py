@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class Formant(PureUGen):
@@ -6,7 +6,7 @@ class Formant(PureUGen):
 
     ::
 
-        >>> formant = ugentools.Formant.ar(
+        >>> formant = supriya.ugens.Formant.ar(
         ...     bwfrequency=880,
         ...     formfrequency=1760,
         ...     fundfrequency=440,
@@ -61,7 +61,7 @@ class Formant(PureUGen):
 
         ::
 
-            >>> formant = ugentools.Formant.ar(
+            >>> formant = supriya.ugens.Formant.ar(
             ...     bwfrequency=880,
             ...     formfrequency=1760,
             ...     fundfrequency=440,
@@ -90,7 +90,7 @@ class Formant(PureUGen):
 
         ::
 
-            >>> formant = ugentools.Formant.ar(
+            >>> formant = supriya.ugens.Formant.ar(
             ...     bwfrequency=880,
             ...     formfrequency=1760,
             ...     fundfrequency=440,
@@ -110,7 +110,7 @@ class Formant(PureUGen):
 
         ::
 
-            >>> formant = ugentools.Formant.ar(
+            >>> formant = supriya.ugens.Formant.ar(
             ...     bwfrequency=880,
             ...     formfrequency=1760,
             ...     fundfrequency=440,
@@ -130,7 +130,7 @@ class Formant(PureUGen):
 
         ::
 
-            >>> formant = ugentools.Formant.ar(
+            >>> formant = supriya.ugens.Formant.ar(
             ...     bwfrequency=880,
             ...     formfrequency=1760,
             ...     fundfrequency=440,

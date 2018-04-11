@@ -1,9 +1,9 @@
 import supriya.synthdefs
-from supriya import systemtools
+import supriya.system
 import supriya.ugens
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_multi_value_parameters(self):
         with supriya.synthdefs.SynthDefBuilder(

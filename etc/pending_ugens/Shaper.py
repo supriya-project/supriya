@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Index import Index
+from supriya.ugens.Index import Index
 
 
 class Shaper(Index):
@@ -6,8 +6,8 @@ class Shaper(Index):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> shaper = ugentools.Shaper.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> shaper = supriya.ugens.Shaper.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class Shaper(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> shaper = ugentools.Shaper.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> shaper = supriya.ugens.Shaper.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -87,8 +87,8 @@ class Shaper(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> shaper = ugentools.Shaper.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> shaper = supriya.ugens.Shaper.kr(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -115,8 +115,8 @@ class Shaper(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> shaper = ugentools.Shaper.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> shaper = supriya.ugens.Shaper.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -134,8 +134,8 @@ class Shaper(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> shaper = ugentools.Shaper.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> shaper = supriya.ugens.Shaper.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

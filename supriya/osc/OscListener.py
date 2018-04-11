@@ -3,7 +3,7 @@ import sys
 import threading
 import time
 import traceback
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class OscListener(SupriyaObject, threading.Thread):

@@ -3,7 +3,7 @@ import collections
 import threading
 import time
 import supriya.osc
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class Request(SupriyaValueObject):

@@ -2,7 +2,7 @@ import abc
 import collections
 import uuid
 import supriya.utils
-from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
+from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
 class Event(SupriyaValueObject):

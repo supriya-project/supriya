@@ -5,7 +5,7 @@ import pathlib
 import rtmidi
 import threading
 import uqbar.containers
-from supriya.tools import systemtools
+import supriya.system
 from supriya.midi.LogicalView import LogicalView
 from supriya.midi.LogicalControl import LogicalControl
 from supriya.midi.LogicalControlMode import LogicalControlMode
@@ -26,7 +26,7 @@ class Device:
         if isinstance(manifest, dict):
             manifest = copy.deepcopy(manifest)
             if overrides:
-                manifest = systemtools.YAMLLoader.merge(manifest, overrides)
+                manifest = supriya.system.YAMLLoader.merge(manifest, overrides)
             self._device_manifest = manifest
         else:
             manifest = pathlib.Path(manifest)
@@ -39,7 +39,7 @@ class Device:
                     'devices' /
                     manifest
                     )
-            manifest = systemtools.YAMLLoader.load(
+            manifest = supriya.system.YAMLLoader.load(
                 str(manifest),
                 overrides=overrides,
                 )

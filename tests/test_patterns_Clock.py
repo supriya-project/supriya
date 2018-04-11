@@ -1,10 +1,10 @@
 import time
 import uuid
 import supriya.patterns
-from supriya.tools import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     class Event:
 

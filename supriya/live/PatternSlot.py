@@ -1,5 +1,5 @@
 import abc
-from supriya.tools import systemtools
+import supriya.system
 from supriya.live.Slot import Slot
 
 
@@ -27,4 +27,4 @@ class PatternSlot(Slot):
         for key in tuple(kwargs):
             if key in ('in_', 'out', 'gate'):
                 kwargs.pop(key)
-        return systemtools.BindableNamespace(**kwargs)
+        return supriya.system.BindableNamespace(**kwargs)

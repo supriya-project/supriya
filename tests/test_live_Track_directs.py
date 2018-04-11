@@ -1,10 +1,10 @@
 import time
 import supriya.live
 import supriya.realtime
-from supriya.tools import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_01(self):
         self.server = supriya.realtime.Server().boot()

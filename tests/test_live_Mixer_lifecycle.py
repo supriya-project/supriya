@@ -1,11 +1,11 @@
 import supriya.live
 import supriya.realtime
 import supriya.synthdefs
-from supriya.tools import systemtools
+import supriya.system
 import supriya.ugens
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
         source = supriya.ugens.DC.ar(source=builder['value'])
@@ -14,12 +14,12 @@ class TestCase(systemtools.TestCase):
     dc_synthdef = builder.build('dc')
 
     def setUp(self):
-        super(systemtools.TestCase, self).setUp()
+        super(supriya.system.TestCase, self).setUp()
         self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
-        super(systemtools.TestCase, self).tearDown()
+        super(supriya.system.TestCase, self).tearDown()
 
     def test_01(self):
         mixer = supriya.live.Mixer(channel_count=4)

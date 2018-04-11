@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Index import Index
+from supriya.ugens.Index import Index
 
 
 class IndexL(Index):
@@ -6,8 +6,8 @@ class IndexL(Index):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> index_l = ugentools.IndexL.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> index_l = supriya.ugens.IndexL.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class IndexL(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index_l = ugentools.IndexL.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index_l = supriya.ugens.IndexL.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -87,8 +87,8 @@ class IndexL(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index_l = ugentools.IndexL.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index_l = supriya.ugens.IndexL.kr(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -115,8 +115,8 @@ class IndexL(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index_l = ugentools.IndexL.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index_l = supriya.ugens.IndexL.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -134,8 +134,8 @@ class IndexL(Index):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index_l = ugentools.IndexL.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index_l = supriya.ugens.IndexL.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

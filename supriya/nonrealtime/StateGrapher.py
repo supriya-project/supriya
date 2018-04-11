@@ -1,5 +1,5 @@
 import uqbar.graphs
-from supriya.tools.systemtools.Grapher import Grapher
+from supriya.system.Grapher import Grapher
 
 
 class StateGrapher(Grapher):

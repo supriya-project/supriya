@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class PulseCount(UGen):
@@ -6,7 +6,7 @@ class PulseCount(UGen):
 
     ::
 
-        >>> pulse_count = ugentools.PulseCount.ar(
+        >>> pulse_count = supriya.ugens.PulseCount.ar(
         ...     reset=0,
         ...     trigger=0,
         ...     )
@@ -56,7 +56,7 @@ class PulseCount(UGen):
 
         ::
 
-            >>> pulse_count = ugentools.PulseCount.ar(
+            >>> pulse_count = supriya.ugens.PulseCount.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -85,7 +85,7 @@ class PulseCount(UGen):
 
         ::
 
-            >>> pulse_count = ugentools.PulseCount.kr(
+            >>> pulse_count = supriya.ugens.PulseCount.kr(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -112,7 +112,7 @@ class PulseCount(UGen):
 
         ::
 
-            >>> pulse_count = ugentools.PulseCount.ar(
+            >>> pulse_count = supriya.ugens.PulseCount.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -131,7 +131,7 @@ class PulseCount(UGen):
 
         ::
 
-            >>> pulse_count = ugentools.PulseCount.ar(
+            >>> pulse_count = supriya.ugens.PulseCount.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )

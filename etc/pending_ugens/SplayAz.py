@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class SplayAz(UGen):
@@ -6,7 +6,7 @@ class SplayAz(UGen):
 
     ::
 
-        >>> splay_az = ugentools.SplayAz.ar(
+        >>> splay_az = supriya.ugens.SplayAz.ar(
         ...     center=0,
         ...     channel_count=4,
         ...     in_array=in_array,
@@ -86,7 +86,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -135,7 +135,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.kr(
+            >>> splay_az = supriya.ugens.SplayAz.kr(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -174,7 +174,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -199,7 +199,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -224,7 +224,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -248,7 +248,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -273,7 +273,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -298,7 +298,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -323,7 +323,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,
@@ -348,7 +348,7 @@ class SplayAz(UGen):
 
         ::
 
-            >>> splay_az = ugentools.SplayAz.ar(
+            >>> splay_az = supriya.ugens.SplayAz.ar(
             ...     center=0,
             ...     channel_count=4,
             ...     in_array=in_array,

@@ -2,7 +2,7 @@ import collections
 import struct
 import sys
 from supriya import utils
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class SynthDefDecompiler(SupriyaObject):

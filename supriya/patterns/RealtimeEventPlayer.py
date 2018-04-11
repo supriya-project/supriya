@@ -4,7 +4,7 @@ from queue import PriorityQueue
 from supriya import utils
 import supriya.commands
 import supriya.realtime
-from supriya.tools import systemtools
+import supriya.system
 from supriya.patterns.EventPlayer import EventPlayer
 
 
@@ -175,7 +175,7 @@ class RealtimeEventPlayer(EventPlayer):
         if topic == 'server-quitting':
             self.stop()
 
-    @systemtools.PubSub.subscribe_before('server-quitting')
+    @supriya.system.PubSub.subscribe_before('server-quitting')
     def start(self):
         if not self._server.is_running:
             return
@@ -193,7 +193,7 @@ class RealtimeEventPlayer(EventPlayer):
             absolute=True,
             )
 
-    @systemtools.PubSub.unsubscribe_after('server-quitting')
+    @supriya.system.PubSub.unsubscribe_after('server-quitting')
     def stop(self):
         self._clock.cancel(self)
         self._iterator = None

@@ -1,4 +1,4 @@
-from supriya.tools.systemtools.Enumeration import Enumeration
+from supriya.system.Enumeration import Enumeration
 
 
 class EnvelopeShape(Enumeration):

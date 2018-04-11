@@ -1,7 +1,7 @@
 import abc
 import threading
 import time
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class Dispatcher(SupriyaObject):

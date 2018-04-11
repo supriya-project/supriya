@@ -18,10 +18,10 @@ from supriya.nonrealtime import (
 )
 import supriya.realtime
 import supriya.soundfiles
-from supriya.tools import systemtools
+import supriya.system
 
 
-class SessionRenderer(systemtools.SupriyaObject):
+class SessionRenderer(supriya.system.SupriyaObject):
     """
     Renders non-realtime sessions as audio files.
     """

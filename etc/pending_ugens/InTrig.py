@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.AbstractIn import AbstractIn
+from supriya.ugens.AbstractIn import AbstractIn
 
 
 class InTrig(AbstractIn):
@@ -6,7 +6,7 @@ class InTrig(AbstractIn):
 
     ::
 
-        >>> in_trig = ugentools.InTrig.ar(
+        >>> in_trig = supriya.ugens.InTrig.ar(
         ...     bus=0,
         ...     channel_count=1,
         ...     )
@@ -58,7 +58,7 @@ class InTrig(AbstractIn):
 
         ::
 
-            >>> in_trig = ugentools.InTrig.kr(
+            >>> in_trig = supriya.ugens.InTrig.kr(
             ...     bus=0,
             ...     channel_count=1,
             ...     )
@@ -87,7 +87,7 @@ class InTrig(AbstractIn):
 
         ::
 
-            >>> in_trig = ugentools.InTrig.ar(
+            >>> in_trig = supriya.ugens.InTrig.ar(
             ...     bus=0,
             ...     channel_count=1,
             ...     )
@@ -106,7 +106,7 @@ class InTrig(AbstractIn):
 
         ::
 
-            >>> in_trig = ugentools.InTrig.ar(
+            >>> in_trig = supriya.ugens.InTrig.ar(
             ...     bus=0,
             ...     channel_count=1,
             ...     )

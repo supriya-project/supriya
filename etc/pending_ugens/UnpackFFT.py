@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class UnpackFFT(MultiOutUGen):
@@ -6,7 +6,7 @@ class UnpackFFT(MultiOutUGen):
 
     ::
 
-        >>> unpack_fft = ugentools.UnpackFFT.ar(
+        >>> unpack_fft = supriya.ugens.UnpackFFT.ar(
         ...     bufsize=bufsize,
         ...     chain=chain,
         ...     frombin=0,
@@ -66,7 +66,7 @@ class UnpackFFT(MultiOutUGen):
 
         ::
 
-            >>> unpack_fft = ugentools.UnpackFFT.new(
+            >>> unpack_fft = supriya.ugens.UnpackFFT.new(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -99,7 +99,7 @@ class UnpackFFT(MultiOutUGen):
 
         ::
 
-            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            >>> unpack_fft = supriya.ugens.UnpackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -119,7 +119,7 @@ class UnpackFFT(MultiOutUGen):
 
         ::
 
-            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            >>> unpack_fft = supriya.ugens.UnpackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -139,7 +139,7 @@ class UnpackFFT(MultiOutUGen):
 
         ::
 
-            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            >>> unpack_fft = supriya.ugens.UnpackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -160,7 +160,7 @@ class UnpackFFT(MultiOutUGen):
 
         ::
 
-            >>> unpack_fft = ugentools.UnpackFFT.ar(
+            >>> unpack_fft = supriya.ugens.UnpackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,

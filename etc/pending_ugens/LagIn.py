@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.AbstractIn import AbstractIn
+from supriya.ugens.AbstractIn import AbstractIn
 
 
 class LagIn(AbstractIn):
@@ -6,7 +6,7 @@ class LagIn(AbstractIn):
 
     ::
 
-        >>> lag_in = ugentools.LagIn.ar(
+        >>> lag_in = supriya.ugens.LagIn.ar(
         ...     bus=0,
         ...     channel_count=1,
         ...     lag=0.1,
@@ -63,7 +63,7 @@ class LagIn(AbstractIn):
 
         ::
 
-            >>> lag_in = ugentools.LagIn.kr(
+            >>> lag_in = supriya.ugens.LagIn.kr(
             ...     bus=0,
             ...     channel_count=1,
             ...     lag=0.1,
@@ -94,7 +94,7 @@ class LagIn(AbstractIn):
 
         ::
 
-            >>> lag_in = ugentools.LagIn.ar(
+            >>> lag_in = supriya.ugens.LagIn.ar(
             ...     bus=0,
             ...     channel_count=1,
             ...     lag=0.1,
@@ -114,7 +114,7 @@ class LagIn(AbstractIn):
 
         ::
 
-            >>> lag_in = ugentools.LagIn.ar(
+            >>> lag_in = supriya.ugens.LagIn.ar(
             ...     bus=0,
             ...     channel_count=1,
             ...     lag=0.1,
@@ -134,7 +134,7 @@ class LagIn(AbstractIn):
 
         ::
 
-            >>> lag_in = ugentools.LagIn.ar(
+            >>> lag_in = supriya.ugens.LagIn.ar(
             ...     bus=0,
             ...     channel_count=1,
             ...     lag=0.1,

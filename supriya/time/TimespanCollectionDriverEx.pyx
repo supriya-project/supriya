@@ -1,5 +1,5 @@
 from supriya.time.TimespanSimultaneity import TimespanSimultaneity
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 cdef class _CTimespan:

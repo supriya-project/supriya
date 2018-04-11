@@ -2,10 +2,10 @@ import pathlib
 import supriya
 
 
-class TestCase(supriya.systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def setUp(self):
-        super(supriya.systemtools.TestCase, self).setUp()
+        super(supriya.system.TestCase, self).setUp()
         self.server = supriya.Server.get_default_server()
         self.manifest_path = (
             pathlib.Path(supriya.__path__[0]) /
@@ -16,7 +16,7 @@ class TestCase(supriya.systemtools.TestCase):
 
     def tearDown(self):
         self.server.quit()
-        super(supriya.systemtools.TestCase, self).tearDown()
+        super(supriya.system.TestCase, self).tearDown()
 
     def test_01(self):
         application = supriya.live.Application(self.manifest_path)

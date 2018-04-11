@@ -1,4 +1,4 @@
-from supriya.tools.systemtools.Binding import Binding
+from supriya.system.Binding import Binding
 
 
 def bind(

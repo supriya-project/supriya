@@ -1,4 +1,4 @@
-from supriya.tools import systemtools
+import supriya.system
 
 
 class SynthControl:
@@ -54,7 +54,7 @@ class SynthControl:
 
     ### SPECIAL METHODS ###
 
-    @systemtools.Bindable(rebroadcast=False)
+    @supriya.system.Bindable(rebroadcast=False)
     def __call__(self, expr):
         return self.set(expr)
 

@@ -1,11 +1,11 @@
 import unittest
 import supriya.midi
 from supriya import Bindable, bind
-from supriya.tools import systemtools
+import supriya.system
 from unittest import mock
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test___init___01(self):
         device = supriya.midi.Device('Test')

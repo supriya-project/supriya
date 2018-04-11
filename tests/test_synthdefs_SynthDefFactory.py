@@ -1,9 +1,9 @@
 from supriya import SynthDefFactory
-from supriya import systemtools
+import supriya.system
 import supriya.ugens
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_gate_01(self):
         def signal_block(builder, source, state):

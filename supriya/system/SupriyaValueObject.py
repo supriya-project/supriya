@@ -1,5 +1,5 @@
 from supriya import utils
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class SupriyaValueObject(SupriyaObject):

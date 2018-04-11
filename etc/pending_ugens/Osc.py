@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class Osc(PureUGen):
@@ -6,7 +6,7 @@ class Osc(PureUGen):
 
     ::
 
-        >>> osc = ugentools.Osc.ar(
+        >>> osc = supriya.ugens.Osc.ar(
         ...     buffer_id=buffer_id,
         ...     frequency=440,
         ...     phase=0,
@@ -61,7 +61,7 @@ class Osc(PureUGen):
 
         ::
 
-            >>> osc = ugentools.Osc.ar(
+            >>> osc = supriya.ugens.Osc.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -93,7 +93,7 @@ class Osc(PureUGen):
 
         ::
 
-            >>> osc = ugentools.Osc.kr(
+            >>> osc = supriya.ugens.Osc.kr(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -122,7 +122,7 @@ class Osc(PureUGen):
 
         ::
 
-            >>> osc = ugentools.Osc.ar(
+            >>> osc = supriya.ugens.Osc.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -141,7 +141,7 @@ class Osc(PureUGen):
 
         ::
 
-            >>> osc = ugentools.Osc.ar(
+            >>> osc = supriya.ugens.Osc.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -161,7 +161,7 @@ class Osc(PureUGen):
 
         ::
 
-            >>> osc = ugentools.Osc.ar(
+            >>> osc = supriya.ugens.Osc.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,

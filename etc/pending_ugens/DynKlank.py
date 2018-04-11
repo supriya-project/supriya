@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class DynKlank(UGen):
@@ -6,7 +6,7 @@ class DynKlank(UGen):
 
     ::
 
-        >>> dyn_klank = ugentools.DynKlank.ar(
+        >>> dyn_klank = supriya.ugens.DynKlank.ar(
         ...     decayscale=1,
         ...     freqoffset=0,
         ...     freqscale=1,
@@ -71,7 +71,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -109,7 +109,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.kr(
+            >>> dyn_klank = supriya.ugens.DynKlank.kr(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -144,7 +144,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -166,7 +166,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -188,7 +188,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -210,7 +210,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -231,7 +231,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,

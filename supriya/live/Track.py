@@ -1,6 +1,6 @@
 import supriya.realtime
 import supriya.synthdefs
-from supriya.tools import systemtools
+import supriya.system
 import supriya.ugens
 from supriya.live.AutoPatternSlot import AutoPatternSlot
 from supriya.live.Direct import Direct
@@ -340,7 +340,7 @@ class Track:
     def get_solo(self):
         return self.is_soloed
 
-    @systemtools.Bindable(rebroadcast=True)
+    @supriya.system.Bindable(rebroadcast=True)
     def set_cue(self, state):
         if self.name == 'cue':
             return False
@@ -358,13 +358,13 @@ class Track:
                         track.set_cue(False)
         return state
 
-    @systemtools.Bindable(rebroadcast=True)
+    @supriya.system.Bindable(rebroadcast=True)
     def set_gain(self, gain):
         self._gain = gain
         self.output_synth['gain'] = gain
         return gain
 
-    @systemtools.Bindable(rebroadcast=True)
+    @supriya.system.Bindable(rebroadcast=True)
     def set_mute(self, state):
         if self.name in ('master',):
             return False
@@ -376,7 +376,7 @@ class Track:
         self.mixer._update_track_audibility()
         return bool(state)
 
-    @systemtools.Bindable(rebroadcast=True)
+    @supriya.system.Bindable(rebroadcast=True)
     def set_solo(self, state, handle=True):
         if self.name in ('cue', 'master'):
             return False

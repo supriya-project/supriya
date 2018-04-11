@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PulseCount import PulseCount
+from supriya.ugens.PulseCount import PulseCount
 
 
 class SetResetFF(PulseCount):
@@ -6,7 +6,7 @@ class SetResetFF(PulseCount):
 
     ::
 
-        >>> set_reset_ff = ugentools.SetResetFF.ar(
+        >>> set_reset_ff = supriya.ugens.SetResetFF.ar(
         ...     reset=0,
         ...     trigger=0,
         ...     )
@@ -56,7 +56,7 @@ class SetResetFF(PulseCount):
 
         ::
 
-            >>> set_reset_ff = ugentools.SetResetFF.ar(
+            >>> set_reset_ff = supriya.ugens.SetResetFF.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -85,7 +85,7 @@ class SetResetFF(PulseCount):
 
         ::
 
-            >>> set_reset_ff = ugentools.SetResetFF.kr(
+            >>> set_reset_ff = supriya.ugens.SetResetFF.kr(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -112,7 +112,7 @@ class SetResetFF(PulseCount):
 
         ::
 
-            >>> set_reset_ff = ugentools.SetResetFF.ar(
+            >>> set_reset_ff = supriya.ugens.SetResetFF.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )
@@ -131,7 +131,7 @@ class SetResetFF(PulseCount):
 
         ::
 
-            >>> set_reset_ff = ugentools.SetResetFF.ar(
+            >>> set_reset_ff = supriya.ugens.SetResetFF.ar(
             ...     reset=0,
             ...     trigger=0,
             ...     )

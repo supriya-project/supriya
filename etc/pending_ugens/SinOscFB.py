@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class SinOscFB(PureUGen):
@@ -6,7 +6,7 @@ class SinOscFB(PureUGen):
 
     ::
 
-        >>> sin_osc_fb = ugentools.SinOscFB.ar(
+        >>> sin_osc_fb = supriya.ugens.SinOscFB.ar(
         ...     feedback=0,
         ...     frequency=440,
         ...     )
@@ -56,7 +56,7 @@ class SinOscFB(PureUGen):
 
         ::
 
-            >>> sin_osc_fb = ugentools.SinOscFB.ar(
+            >>> sin_osc_fb = supriya.ugens.SinOscFB.ar(
             ...     feedback=0,
             ...     frequency=440,
             ...     )
@@ -85,7 +85,7 @@ class SinOscFB(PureUGen):
 
         ::
 
-            >>> sin_osc_fb = ugentools.SinOscFB.kr(
+            >>> sin_osc_fb = supriya.ugens.SinOscFB.kr(
             ...     feedback=0,
             ...     frequency=440,
             ...     )
@@ -112,7 +112,7 @@ class SinOscFB(PureUGen):
 
         ::
 
-            >>> sin_osc_fb = ugentools.SinOscFB.ar(
+            >>> sin_osc_fb = supriya.ugens.SinOscFB.ar(
             ...     feedback=0,
             ...     frequency=440,
             ...     )
@@ -131,7 +131,7 @@ class SinOscFB(PureUGen):
 
         ::
 
-            >>> sin_osc_fb = ugentools.SinOscFB.ar(
+            >>> sin_osc_fb = supriya.ugens.SinOscFB.ar(
             ...     feedback=0,
             ...     frequency=440,
             ...     )

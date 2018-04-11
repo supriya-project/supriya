@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class ScopeOut(UGen):
@@ -6,7 +6,7 @@ class ScopeOut(UGen):
 
     ::
 
-        >>> scope_out = ugentools.ScopeOut.ar(
+        >>> scope_out = supriya.ugens.ScopeOut.ar(
         ...     buffer_id=0,
         ...     input_array=input_array,
         ...     )
@@ -56,7 +56,7 @@ class ScopeOut(UGen):
 
         ::
 
-            >>> scope_out = ugentools.ScopeOut.ar(
+            >>> scope_out = supriya.ugens.ScopeOut.ar(
             ...     buffer_id=0,
             ...     input_array=input_array,
             ...     )
@@ -85,7 +85,7 @@ class ScopeOut(UGen):
 
         ::
 
-            >>> scope_out = ugentools.ScopeOut.kr(
+            >>> scope_out = supriya.ugens.ScopeOut.kr(
             ...     buffer_id=0,
             ...     input_array=input_array,
             ...     )
@@ -112,7 +112,7 @@ class ScopeOut(UGen):
 
         ::
 
-            >>> scope_out = ugentools.ScopeOut.ar(
+            >>> scope_out = supriya.ugens.ScopeOut.ar(
             ...     buffer_id=0,
             ...     input_array=input_array,
             ...     )
@@ -131,7 +131,7 @@ class ScopeOut(UGen):
 
         ::
 
-            >>> scope_out = ugentools.ScopeOut.ar(
+            >>> scope_out = supriya.ugens.ScopeOut.ar(
             ...     buffer_id=0,
             ...     input_array=input_array,
             ...     )

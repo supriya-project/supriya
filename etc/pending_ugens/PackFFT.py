@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
+from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
 class PackFFT(PV_ChainUGen):
@@ -6,7 +6,7 @@ class PackFFT(PV_ChainUGen):
 
     ::
 
-        >>> pack_fft = ugentools.PackFFT.ar(
+        >>> pack_fft = supriya.ugens.PackFFT.ar(
         ...     bufsize=bufsize,
         ...     chain=chain,
         ...     frombin=0,
@@ -76,7 +76,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.new(
+            >>> pack_fft = supriya.ugens.PackFFT.new(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -111,7 +111,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -133,7 +133,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -155,7 +155,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -178,7 +178,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -200,7 +200,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,
@@ -222,7 +222,7 @@ class PackFFT(PV_ChainUGen):
 
         ::
 
-            >>> pack_fft = ugentools.PackFFT.ar(
+            >>> pack_fft = supriya.ugens.PackFFT.ar(
             ...     bufsize=bufsize,
             ...     chain=chain,
             ...     frombin=0,

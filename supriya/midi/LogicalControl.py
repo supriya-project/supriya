@@ -1,4 +1,4 @@
-from supriya.tools import systemtools
+import supriya.system
 from supriya.midi.LogicalControlMode import LogicalControlMode
 
 
@@ -23,7 +23,7 @@ class LogicalControl:
 
     ### SPECIAL METHODS ###
 
-    @systemtools.Bindable(rebroadcast=True)
+    @supriya.system.Bindable(rebroadcast=True)
     def __call__(self, value):
         value = float(value)
         if self.parent.is_mutex:

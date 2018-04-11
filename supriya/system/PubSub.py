@@ -1,6 +1,6 @@
 import functools
 import threading
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class PubSub(SupriyaObject):

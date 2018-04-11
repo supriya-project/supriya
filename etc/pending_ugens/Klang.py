@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Klang(UGen):
@@ -6,7 +6,7 @@ class Klang(UGen):
 
     ::
 
-        >>> klang = ugentools.Klang.ar(
+        >>> klang = supriya.ugens.Klang.ar(
         ...     freqoffset=0,
         ...     freqscale=1,
         ...     specifications_array_ref=specifications_array_ref,
@@ -61,7 +61,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -92,7 +92,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -112,7 +112,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -132,7 +132,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,

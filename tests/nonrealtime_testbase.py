@@ -5,7 +5,7 @@ import supriya.nonrealtime
 import supriya.realtime
 import supriya.soundfiles
 import supriya.synthdefs
-from supriya.tools import systemtools
+import supriya.system
 import supriya.ugens
 
 
@@ -65,7 +65,7 @@ class TestSessionFactory:
         return session
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     test_directory_path = pathlib.Path(__file__).parent
     output_directory_path = test_directory_path / 'output'

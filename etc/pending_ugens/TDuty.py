@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Duty import Duty
+from supriya.ugens.Duty import Duty
 
 
 class TDuty(Duty):
@@ -6,7 +6,7 @@ class TDuty(Duty):
 
     ::
 
-        >>> tduty = ugentools.TDuty.ar(
+        >>> tduty = supriya.ugens.TDuty.ar(
         ...     done_action=0,
         ...     duration=1,
         ...     gap_first=0,
@@ -71,7 +71,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -109,7 +109,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.kr(
+            >>> tduty = supriya.ugens.TDuty.kr(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -142,7 +142,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -164,7 +164,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -186,7 +186,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -208,7 +208,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,
@@ -230,7 +230,7 @@ class TDuty(Duty):
 
         ::
 
-            >>> tduty = ugentools.TDuty.ar(
+            >>> tduty = supriya.ugens.TDuty.ar(
             ...     done_action=0,
             ...     duration=1,
             ...     gap_first=0,

@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class GrainSin(MultiOutUGen):
@@ -6,7 +6,7 @@ class GrainSin(MultiOutUGen):
 
     ::
 
-        >>> grain_sin = ugentools.GrainSin.ar(
+        >>> grain_sin = supriya.ugens.GrainSin.ar(
         ...     channel_count=1,
         ...     duration=1,
         ...     envbufnum=-1,
@@ -81,7 +81,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -120,7 +120,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -144,7 +144,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -168,7 +168,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -192,7 +192,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -216,7 +216,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -240,7 +240,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,
@@ -264,7 +264,7 @@ class GrainSin(MultiOutUGen):
 
         ::
 
-            >>> grain_sin = ugentools.GrainSin.ar(
+            >>> grain_sin = supriya.ugens.GrainSin.ar(
             ...     channel_count=1,
             ...     duration=1,
             ...     envbufnum=-1,

@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class Frame(SupriyaObject, collections.Sequence):

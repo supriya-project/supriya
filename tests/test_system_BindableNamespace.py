@@ -1,7 +1,7 @@
-from supriya.tools import systemtools
+import supriya.system
 
 
-class TestCase(systemtools.TestCase):
+class TestCase(supriya.system.TestCase):
 
     def test_01(self):
 
@@ -9,16 +9,16 @@ class TestCase(systemtools.TestCase):
             def __init__(self):
                 self.value = 0
 
-            @systemtools.Bindable(rebroadcast=True)
+            @supriya.system.Bindable(rebroadcast=True)
             def __call__(self, value):  # noqa
                 self.value = value
                 return value
 
-        namespace = systemtools.BindableNamespace(foo=10, bar=20, baz=30)
+        namespace = supriya.system.BindableNamespace(foo=10, bar=20, baz=30)
         source = TestClass()
         target = TestClass()
-        systemtools.Binding(source, namespace.proxies['bar'])
-        systemtools.Binding(namespace.proxies['bar'], target)
+        supriya.system.Binding(source, namespace.proxies['bar'])
+        supriya.system.Binding(namespace.proxies['bar'], target)
 
         assert sorted(namespace.items()) == [('bar', 20), ('baz', 30), ('foo', 10)]
         assert namespace['bar'] == 20
@@ -48,6 +48,6 @@ class TestCase(systemtools.TestCase):
         assert target.value == 2046
 
     def test_02(self):
-        namespace = systemtools.BindableNamespace(foo=10, bar=20, baz=30)
+        namespace = supriya.system.BindableNamespace(foo=10, bar=20, baz=30)
         with self.assertRaises(KeyError):
             namespace['quux'] = 'wux'

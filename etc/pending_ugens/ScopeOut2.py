@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class ScopeOut2(UGen):
@@ -6,7 +6,7 @@ class ScopeOut2(UGen):
 
     ::
 
-        >>> scope_out_2 = ugentools.ScopeOut2.ar(
+        >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
         ...     input_array=input_array,
         ...     max_frames=4096,
         ...     scope_frames=scope_frames,
@@ -66,7 +66,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -101,7 +101,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.kr(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.kr(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -132,7 +132,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -152,7 +152,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -173,7 +173,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -193,7 +193,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,

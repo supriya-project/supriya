@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class DemandEnvGen(UGen):
@@ -6,7 +6,7 @@ class DemandEnvGen(UGen):
 
     ::
 
-        >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+        >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
         ...     curve=0,
         ...     done_action=0,
         ...     duration=duration,
@@ -96,7 +96,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -149,7 +149,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.kr(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.kr(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -192,7 +192,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -219,7 +219,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -246,7 +246,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -272,7 +272,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -299,7 +299,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -325,7 +325,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -352,7 +352,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -379,7 +379,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -406,7 +406,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,
@@ -433,7 +433,7 @@ class DemandEnvGen(UGen):
 
         ::
 
-            >>> demand_env_gen = ugentools.DemandEnvGen.ar(
+            >>> demand_env_gen = supriya.ugens.DemandEnvGen.ar(
             ...     curve=0,
             ...     done_action=0,
             ...     duration=duration,

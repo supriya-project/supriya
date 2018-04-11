@@ -1,6 +1,6 @@
 import itertools
 import sys
-from supriya.tools.systemtools.SupriyaObject import SupriyaObject
+from supriya.system.SupriyaObject import SupriyaObject
 
 
 class ResponseManager(SupriyaObject):

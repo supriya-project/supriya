@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class LastValue(UGen):
@@ -6,8 +6,8 @@ class LastValue(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> last_value = ugentools.LastValue.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> last_value = supriya.ugens.LastValue.ar(
         ...     diff=0.01,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class LastValue(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> last_value = ugentools.LastValue.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> last_value = supriya.ugens.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
             ...     )
@@ -87,8 +87,8 @@ class LastValue(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> last_value = ugentools.LastValue.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> last_value = supriya.ugens.LastValue.kr(
             ...     diff=0.01,
             ...     source=source,
             ...     )
@@ -115,8 +115,8 @@ class LastValue(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> last_value = ugentools.LastValue.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> last_value = supriya.ugens.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
             ...     )
@@ -135,8 +135,8 @@ class LastValue(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> last_value = ugentools.LastValue.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> last_value = supriya.ugens.LastValue.ar(
             ...     diff=0.01,
             ...     source=source,
             ...     )

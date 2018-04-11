@@ -1,4 +1,4 @@
-from supriya.tools.systemtools import Enumeration
+from supriya.system import Enumeration
 
 
 class PhysicalControl:

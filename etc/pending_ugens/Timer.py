@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Timer(UGen):
@@ -6,7 +6,7 @@ class Timer(UGen):
 
     ::
 
-        >>> timer = ugentools.Timer.ar(
+        >>> timer = supriya.ugens.Timer.ar(
         ...     trigger=0,
         ...     )
         >>> timer
@@ -51,7 +51,7 @@ class Timer(UGen):
 
         ::
 
-            >>> timer = ugentools.Timer.ar(
+            >>> timer = supriya.ugens.Timer.ar(
             ...     trigger=0,
             ...     )
             >>> timer
@@ -77,7 +77,7 @@ class Timer(UGen):
 
         ::
 
-            >>> timer = ugentools.Timer.kr(
+            >>> timer = supriya.ugens.Timer.kr(
             ...     trigger=0,
             ...     )
             >>> timer
@@ -102,7 +102,7 @@ class Timer(UGen):
 
         ::
 
-            >>> timer = ugentools.Timer.ar(
+            >>> timer = supriya.ugens.Timer.ar(
             ...     trigger=0,
             ...     )
             >>> timer.trigger
