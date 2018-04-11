@@ -49,13 +49,13 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         include_timespans=False,
         id_mapping=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         from supriya.tools import responsetools
-        assert isinstance(node, nonrealtimetools.Group)
+        assert isinstance(node, supriya.nonrealtime.Group)
         node_id = node.session_id
         children = []
         for child in (state.nodes_to_children.get(node) or ()):
-            if isinstance(child, nonrealtimetools.Group):
+            if isinstance(child, supriya.nonrealtime.Group):
                 child = QueryTreeGroup._from_nrt_group(
                     state,
                     child,
@@ -63,7 +63,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                     include_timespans=include_timespans,
                     id_mapping=id_mapping,
                     )
-            elif isinstance(child, nonrealtimetools.Synth):
+            elif isinstance(child, supriya.nonrealtime.Synth):
                 child = responsetools.QueryTreeSynth._from_nrt_synth(
                     state,
                     child,

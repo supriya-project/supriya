@@ -1,6 +1,6 @@
 import supriya.nonrealtime
 from supriya import synthdefs
-from nonrealtimetools_testbase import TestCase
+from nonrealtime_testbase import TestCase
 
 
 class TestCase(TestCase):

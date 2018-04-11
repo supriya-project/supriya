@@ -52,14 +52,13 @@ class SynthEvent(Event):
         ):
         import supriya.nonrealtime
         from supriya import synthdefs
-        from supriya.tools import nonrealtimetools
         synthdef = self.get('synthdef') or synthdefs.default
         synth_uuid = self.get('uuid', uuid.uuid4())
         if not self.get('is_stop'):
             target_node = self['target_node']
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
-            prototype = (supriya.nonrealtime.Session, nonrealtimetools.Node)
+            prototype = (supriya.nonrealtime.Session, supriya.nonrealtime.Node)
             if not isinstance(target_node, prototype):
                 target_node = session
             dictionaries = self._expand(

@@ -2,7 +2,7 @@ import bisect
 import collections
 from supriya import utils
 import supriya.realtime
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Node(SessionObject):
@@ -58,10 +58,10 @@ class Node(SessionObject):
         return self._get_at_offset(offset, item)
 
     def __setitem__(self, item, value):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         assert self.session._active_moments
         offset = self.session._active_moments[-1].offset
-        assert isinstance(value, (int, float, nonrealtimetools.Bus, nonrealtimetools.BusGroup))
+        assert isinstance(value, (int, float, supriya.nonrealtime.Bus, supriya.nonrealtime.BusGroup))
         self._set_at_offset(offset, item, value)
 
     ### PRIVATE METHODS ###
@@ -205,7 +205,7 @@ class Node(SessionObject):
         split_occupiers=True,
         split_traversers=True,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         new_nodes = new_nodes or []
         state = self.session.states[split_offset]
         entering, exiting, occupying, starting, _ = \
@@ -215,8 +215,8 @@ class Node(SessionObject):
         if start_offset < split_offset < stop_offset:
             old_actions = state.transitions
             new_duration = stop_offset - split_offset
-            with nonrealtimetools.DoNotPropagate():
-                if isinstance(self, nonrealtimetools.Synth):
+            with supriya.nonrealtime.DoNotPropagate():
+                if isinstance(self, supriya.nonrealtime.Synth):
                     new_node = self.add_synth(
                         add_action='ADD_BEFORE',
                         duration=new_duration,
@@ -243,7 +243,7 @@ class Node(SessionObject):
             for child in reversed(children):
                 if child in old_actions:
                     old_actions.pop(child)
-                action = nonrealtimetools.NodeAction(
+                action = supriya.nonrealtime.NodeAction(
                     source=child,
                     target=new_node,
                     action='ADD_TO_TAIL',
@@ -283,9 +283,9 @@ class Node(SessionObject):
         duration=None,
         offset=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         session_id = self.session._get_next_session_id('node')
-        node = nonrealtimetools.Group(
+        node = supriya.nonrealtime.Group(
             self.session,
             duration=duration,
             session_id=session_id,
@@ -304,10 +304,10 @@ class Node(SessionObject):
         **synth_kwargs
         ):
         from supriya import synthdefs
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         session_id = self.session._get_next_session_id('node')
         synthdef = synthdef or synthdefs.default
-        node = nonrealtimetools.Synth(
+        node = supriya.nonrealtime.Synth(
             self.session,
             session_id=session_id,
             duration=duration,
@@ -327,7 +327,7 @@ class Node(SessionObject):
         add_action=None,
         offset=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         state = self.session.active_moments[-1].state
         if state.nodes_to_parents is None:
             state._desparsify()
@@ -337,7 +337,7 @@ class Node(SessionObject):
             ):
             raise ValueError("Can't add parent as a child.")
         add_action = supriya.realtime.AddAction.from_expr(add_action)
-        node_action = nonrealtimetools.NodeAction(
+        node_action = supriya.nonrealtime.NodeAction(
             source=node,
             target=self,
             action=add_action,
@@ -373,7 +373,7 @@ class Node(SessionObject):
         self.session._apply_transitions([self.start_offset, self.stop_offset])
 
     def set_duration(self, new_duration, clip_children=False):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         assert new_duration > 0
         if self.duration == new_duration:
             return
@@ -410,7 +410,7 @@ class Node(SessionObject):
                 moment.state._sparsify()
             while parent is not None and parent.stop_offset < new_stop_offset:
                 with self.session.at(parent.stop_offset, propagate=False) as moment:
-                    action = nonrealtimetools.NodeAction(
+                    action = supriya.nonrealtime.NodeAction(
                         source=self,
                         target=parent,
                         action='ADD_BEFORE',

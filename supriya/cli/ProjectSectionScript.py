@@ -7,7 +7,7 @@ import traceback
 import uqbar.io
 from supriya.cli.ProjectSettings import ProjectSettings
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
-from supriya.tools.nonrealtimetools import (
+from supriya.nonrealtime import (
     NonrealtimeRenderError,
     NonrealtimeOutputMissing,
 )

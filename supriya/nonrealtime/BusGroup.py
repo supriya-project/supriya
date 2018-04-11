@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class BusGroup(SessionObject):
@@ -69,7 +69,7 @@ class BusGroup(SessionObject):
         calculation_rate=None,
         session_id=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         SessionObject.__init__(self, session)
         self._session_id = session_id
         assert calculation_rate is not None
@@ -79,7 +79,7 @@ class BusGroup(SessionObject):
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
-            nonrealtimetools.Bus(
+            supriya.nonrealtime.Bus(
                 session,
                 bus_group=self,
                 calculation_rate=self.calculation_rate,

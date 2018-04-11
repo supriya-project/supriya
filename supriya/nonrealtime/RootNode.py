@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya.tools.nonrealtimetools.Group import Group
+from supriya.nonrealtime.Group import Group
 
 
 class RootNode(Group):

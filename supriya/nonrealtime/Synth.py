@@ -1,6 +1,6 @@
 from supriya.tools import requesttools
 import supriya.realtime
-from supriya.tools.nonrealtimetools.Node import Node
+from supriya.nonrealtime.Node import Node
 
 
 class Synth(Node):
@@ -51,17 +51,17 @@ class Synth(Node):
     ### PRIVATE METHODS ###
 
     def _to_request(self, action, id_mapping, **synth_kwargs):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         source_id = id_mapping[action.source]
         target_id = id_mapping[action.target]
         add_action = action.action
         bus_prototype = (
-            nonrealtimetools.Bus,
-            nonrealtimetools.BusGroup,
+            supriya.nonrealtime.Bus,
+            supriya.nonrealtime.BusGroup,
             )
         buffer_prototype = (
-            nonrealtimetools.Buffer,
-            nonrealtimetools.BufferGroup,
+            supriya.nonrealtime.Buffer,
+            supriya.nonrealtime.BufferGroup,
             )
         #nonmapping_keys = ['out']
         for key, value in synth_kwargs.items():

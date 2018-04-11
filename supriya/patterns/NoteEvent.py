@@ -47,7 +47,6 @@ class NoteEvent(Event):
         maximum_offset=None,
         ):
         from supriya import synthdefs
-        from supriya.tools import nonrealtimetools
         settings = self.settings.copy()  # Do not mutate in place.
         synthdef = self.get('synthdef', synthdefs.default)
         synthdef = synthdef or synthdefs.default
@@ -70,7 +69,7 @@ class NoteEvent(Event):
             target_node = self['target_node']
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
-            prototype = (supriya.nonrealtime.Session, nonrealtimetools.Node)
+            prototype = (supriya.nonrealtime.Session, supriya.nonrealtime.Node)
             if not isinstance(target_node, prototype):
                 target_node = session
             synths = []

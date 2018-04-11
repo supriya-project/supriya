@@ -1,7 +1,7 @@
 # -*- enoding: utf-8 -*-
 import bisect
 from supriya.tools import synthdeftools
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Bus(SessionObject):
@@ -65,11 +65,11 @@ class Bus(SessionObject):
         calculation_rate=None,
         session_id=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         SessionObject.__init__(self, session)
         self._session_id = session_id
         if bus_group is not None:
-            assert isinstance(bus_group, nonrealtimetools.BusGroup)
+            assert isinstance(bus_group, supriya.nonrealtime.BusGroup)
         self._bus_group = bus_group
         assert calculation_rate is not None
         calculation_rate = synthdeftools.CalculationRate.from_expr(

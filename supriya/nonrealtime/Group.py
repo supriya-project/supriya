@@ -1,7 +1,7 @@
 from supriya.tools import requesttools
 import supriya.realtime
-from supriya.tools.nonrealtimetools.Node import Node
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.Node import Node
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Group(Node):

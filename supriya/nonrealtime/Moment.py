@@ -1,4 +1,4 @@
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Moment(SessionObject):

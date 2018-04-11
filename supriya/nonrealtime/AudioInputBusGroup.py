@@ -1,10 +1,10 @@
 from supriya.tools import synthdeftools
-from supriya.tools.nonrealtimetools.BusGroup import BusGroup
+from supriya.nonrealtime.BusGroup import BusGroup
 
 
-class AudioOutputBusGroup(BusGroup):
+class AudioInputBusGroup(BusGroup):
     """
-    A non-realtime audio output bus group.
+    A non-realtime audio input bus group.
     """
 
     ### CLASS VARIABLES ###
@@ -20,7 +20,7 @@ class AudioOutputBusGroup(BusGroup):
         session,
         ):
         calculation_rate = synthdeftools.CalculationRate.AUDIO
-        bus_count = session.options.output_bus_channel_count
+        bus_count = session.options.input_bus_channel_count
         BusGroup.__init__(
             self,
             session,

@@ -1,5 +1,5 @@
 import unittest
-from supriya.tools import nonrealtimetools
+import supriya.nonrealtime
 from supriya.tools import requesttools
 from supriya.tools import wrappertools
 

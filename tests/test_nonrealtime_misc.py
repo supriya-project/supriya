@@ -1,6 +1,6 @@
 import supriya.nonrealtime
 import supriya.patterns
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 from supriya import AddAction, synthdefs
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools

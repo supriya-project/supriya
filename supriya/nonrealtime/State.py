@@ -1,6 +1,6 @@
 import collections
 from supriya.tools import requesttools
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class State(SessionObject):
@@ -44,8 +44,8 @@ class State(SessionObject):
     ### SPECIAL METHODS ###
 
     def __graph__(self, include_controls=False):
-        from supriya.tools import nonrealtimetools
-        return nonrealtimetools.StateGrapher.graph(
+        import supriya.nonrealtime
+        return supriya.nonrealtime.StateGrapher.graph(
             self,
             include_controls=include_controls,
             )
@@ -66,7 +66,7 @@ class State(SessionObject):
         nodes_to_parents=None,
         stop_nodes=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         if nodes_to_children is not None:
             nodes_to_children = nodes_to_children.copy()
         else:
@@ -80,7 +80,7 @@ class State(SessionObject):
             action.apply_transform(nodes_to_children, nodes_to_parents)
         stop_nodes = stop_nodes or ()
         for stop_node in stop_nodes:
-            nonrealtimetools.NodeAction.free_node(
+            supriya.nonrealtime.NodeAction.free_node(
                 stop_node, nodes_to_children, nodes_to_parents)
         return nodes_to_children, nodes_to_parents
 
@@ -123,7 +123,7 @@ class State(SessionObject):
         nodes_to_children_two,
         stop_nodes,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         for parent in cls._iterate_nodes(root_node, nodes_to_children_one):
             if parent in stop_nodes:
                 continue
@@ -147,7 +147,7 @@ class State(SessionObject):
                     target = children_one[i]
                 else:
                     continue
-                transition = nonrealtimetools.NodeAction(
+                transition = supriya.nonrealtime.NodeAction(
                     source=child,
                     target=target,
                     action=action,

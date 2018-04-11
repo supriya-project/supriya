@@ -4,8 +4,8 @@ import uqbar.io
 from unittest import mock
 from supriya import utils
 import supriya.cli
-from supriya.tools import nonrealtimetools
-from commandlinetools_testbase import ProjectPackageScriptTestCase
+import supriya.nonrealtime
+from cli_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
@@ -161,7 +161,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        mock_path = nonrealtimetools.SessionRenderer.__module__
+        mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
@@ -190,7 +190,7 @@ class Test(ProjectPackageScriptTestCase):
         self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
-        mock_path = nonrealtimetools.SessionRenderer.__module__
+        mock_path = supriya.nonrealtime.SessionRenderer.__module__
         mock_path += '._stream_subprocess'
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(

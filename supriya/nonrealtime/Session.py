@@ -11,7 +11,7 @@ from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
 from queue import PriorityQueue
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Session:
@@ -115,7 +115,7 @@ class Session:
         name=None,
         padding=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         self._options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
@@ -125,7 +125,7 @@ class Session:
         self._name = name
         self._nodes = timetools.TimespanCollection(accelerated=True)
         self._offsets = []
-        self._root_node = nonrealtimetools.RootNode(self)
+        self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}
         self._states = {}
         self._transcript = None
@@ -141,7 +141,7 @@ class Session:
     ### SPECIAL METHODS ###
 
     def __graph__(self, include_controls=False):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         graph = uqbar.graphs.Graph()
         for offset, state in sorted(self.states.items()):
             if float('-inf') < offset:
@@ -151,7 +151,7 @@ class Session:
             subgraph.extend(state_graph.children)
             subgraph.attributes['label'] = str(offset)
             graph.append(subgraph)
-        nonrealtimetools.StateGrapher._style_graph(graph)
+        supriya.nonrealtime.StateGrapher._style_graph(graph)
         return graph
 
     def __render__(
@@ -186,8 +186,8 @@ class Session:
         return state
 
     def _apply_transitions(self, offsets, chain=True):
-        from supriya.tools import nonrealtimetools
-        if nonrealtimetools.DoNotPropagate._stack:
+        import supriya.nonrealtime
+        if supriya.nonrealtime.DoNotPropagate._stack:
             return
         queue = PriorityQueue()
         try:
@@ -207,7 +207,7 @@ class Session:
             previous_state = self._find_state_before(
                 offset, with_node_tree=True)
             assert previous_state is not None
-            result = nonrealtimetools.State._apply_transitions(
+            result = supriya.nonrealtime.State._apply_transitions(
                 state.transitions,
                 previous_state.nodes_to_children,
                 previous_state.nodes_to_parents,
@@ -518,11 +518,11 @@ class Session:
         node_settings,
         start_nodes,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         requests = []
         for source, action in node_actions.items():
             if source in start_nodes:
-                if isinstance(source, nonrealtimetools.Synth):
+                if isinstance(source, supriya.nonrealtime.Synth):
                     synth_kwargs = source.synth_kwargs
                     if source in node_settings:
                         synth_kwargs.update(node_settings.pop(source))
@@ -595,21 +595,21 @@ class Session:
         return result
 
     def _collect_node_set_requests(self, id_mapping, node_settings):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         scalar_rate = synthdeftools.ParameterRate.SCALAR
         requests = []
         bus_prototype = (
-            nonrealtimetools.Bus,
-            nonrealtimetools.BusGroup,
+            supriya.nonrealtime.Bus,
+            supriya.nonrealtime.BusGroup,
             type(None),
             )
         buffer_prototype = (
-            nonrealtimetools.Buffer,
-            nonrealtimetools.BufferGroup,
+            supriya.nonrealtime.Buffer,
+            supriya.nonrealtime.BufferGroup,
             )
         for node, settings in node_settings.items():
             parameters = {}
-            if isinstance(node, nonrealtimetools.Synth):
+            if isinstance(node, supriya.nonrealtime.Synth):
                 parameters = node.synthdef.parameters
             node_id = id_mapping[node]
             a_settings = {}
@@ -715,11 +715,11 @@ class Session:
         return requests
 
     def _collect_synthdef_requests(self, start_nodes, visited_synthdefs):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         requests = []
         synthdefs = set()
         for node in start_nodes:
-            if not isinstance(node, nonrealtimetools.Synth):
+            if not isinstance(node, supriya.nonrealtime.Synth):
                 continue
             elif node.synthdef in visited_synthdefs:
                 continue
@@ -827,19 +827,19 @@ class Session:
                     )
 
     def _setup_buses(self):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         self._buses = collections.OrderedDict()
         self._audio_input_bus_group = None
         if self._options._input_bus_channel_count:
-            self._audio_input_bus_group = nonrealtimetools.AudioInputBusGroup(self)
+            self._audio_input_bus_group = supriya.nonrealtime.AudioInputBusGroup(self)
         self._audio_output_bus_group = None
         if self._options._output_bus_channel_count:
-            self._audio_output_bus_group = nonrealtimetools.AudioOutputBusGroup(self)
+            self._audio_output_bus_group = supriya.nonrealtime.AudioOutputBusGroup(self)
 
     def _setup_initial_states(self):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         offset = float('-inf')
-        state = nonrealtimetools.State(self, offset)
+        state = supriya.nonrealtime.State(self, offset)
         state._nodes_to_children = {self.root_node: ()}
         state._nodes_to_parents = {self.root_node: None}
         self.states[offset] = state
@@ -908,7 +908,7 @@ class Session:
     ### PUBLIC METHODS ###
 
     def at(self, offset, propagate=True):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         offset = float(offset)
         assert 0 <= offset
         state = self._find_state_at(offset)
@@ -916,7 +916,7 @@ class Session:
             assert state.offset in self.states
         if not state:
             state = self._add_state_at(offset)
-        return nonrealtimetools.Moment(self, offset, state, propagate)
+        return supriya.nonrealtime.Moment(self, offset, state, propagate)
 
     @SessionObject.require_offset
     def add_buffer(
@@ -928,10 +928,10 @@ class Session:
         file_path=None,
         offset=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         start_moment = self.active_moments[-1]
         session_id = self._get_next_session_id('buffer')
-        buffer_ = nonrealtimetools.Buffer(
+        buffer_ = supriya.nonrealtime.Buffer(
             self,
             channel_count=channel_count,
             duration=duration,
@@ -956,9 +956,9 @@ class Session:
         frame_count=None,
         offset=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         start_moment = self.active_moments[-1]
-        buffer_group = nonrealtimetools.BufferGroup(
+        buffer_group = supriya.nonrealtime.BufferGroup(
             self,
             buffer_count=buffer_count,
             channel_count=channel_count,
@@ -975,9 +975,9 @@ class Session:
         return buffer_group
 
     def add_bus(self, calculation_rate='control'):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         session_id = self._get_next_session_id('bus')
-        bus = nonrealtimetools.Bus(
+        bus = supriya.nonrealtime.Bus(
             self,
             calculation_rate=calculation_rate,
             session_id=session_id,
@@ -986,9 +986,9 @@ class Session:
         return bus
 
     def add_bus_group(self, bus_count=1, calculation_rate='control'):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         session_id = self._get_next_session_id('bus')
-        bus_group = nonrealtimetools.BusGroup(
+        bus_group = supriya.nonrealtime.BusGroup(
             self,
             bus_count=bus_count,
             calculation_rate=calculation_rate,
@@ -1137,10 +1137,10 @@ class Session:
         transcript_prefix=None,
         **kwargs
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         duration = (duration or self.duration) or 0.
         assert 0. < duration < float('inf')
-        renderer = nonrealtimetools.SessionRenderer(
+        renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
             header_format=header_format,
             print_transcript=print_transcript,
@@ -1199,8 +1199,8 @@ class Session:
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
-        from supriya.tools import nonrealtimetools
-        renderer = nonrealtimetools.SessionRenderer(
+        import supriya.nonrealtime
+        renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
             header_format=header_format,
             sample_format=sample_format,
@@ -1215,8 +1215,8 @@ class Session:
         sample_format=soundfiletools.SampleFormat.INT24,
         sample_rate=44100,
         ):
-        from supriya.tools import nonrealtimetools
-        renderer = nonrealtimetools.SessionRenderer(
+        import supriya.nonrealtime
+        renderer = supriya.nonrealtime.SessionRenderer(
             session=self,
             header_format=header_format,
             sample_format=sample_format,

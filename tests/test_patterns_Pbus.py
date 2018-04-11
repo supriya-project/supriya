@@ -1,8 +1,8 @@
 import time
 import uqbar.strings
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 from supriya import SynthDefBuilder, Parameter, synthdefs
-from supriya.tools import nonrealtimetools
+import supriya.nonrealtime
 import supriya.patterns
 from supriya.tools import ugentools
 

@@ -1,4 +1,4 @@
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 import supriya.patterns
 from supriya.tools import systemtools
 

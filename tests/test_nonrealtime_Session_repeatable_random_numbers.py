@@ -1,7 +1,7 @@
 import supriya.nonrealtime
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
-from nonrealtimetools_testbase import TestCase
+from nonrealtime_testbase import TestCase
 
 
 class TestCase(TestCase):

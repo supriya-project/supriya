@@ -156,7 +156,7 @@ class StateGrapher(Grapher):
 
     @staticmethod
     def graph(state, include_controls=False):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         subgraph = uqbar.graphs.Graph(is_cluster=True)
         graph = uqbar.graphs.Graph(children=[subgraph])
         node_mapping = {}
@@ -167,7 +167,7 @@ class StateGrapher(Grapher):
         graph.append(graphviz_root_node)
         for parent, child in state._iterate_node_pairs(
             root_node, state.nodes_to_children):
-            if isinstance(child, nonrealtimetools.Group):
+            if isinstance(child, supriya.nonrealtime.Group):
                 graphviz_child = StateGrapher._create_group_node(
                     state,
                     child,

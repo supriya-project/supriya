@@ -1,7 +1,7 @@
 import os
 import uqbar.io
 import supriya.cli
-from commandlinetools_testbase import ProjectPackageScriptTestCase
+from cli_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):

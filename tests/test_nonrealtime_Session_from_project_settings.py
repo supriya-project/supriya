@@ -1,6 +1,6 @@
 import supriya.cli
 import supriya.nonrealtime
-from nonrealtimetools_testbase import TestCase
+from nonrealtime_testbase import TestCase
 
 
 class TestCase(TestCase):

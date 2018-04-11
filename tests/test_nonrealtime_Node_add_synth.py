@@ -1,7 +1,7 @@
 import supriya.nonrealtime
 from supriya import synthdefs
-from nonrealtimetools_testbase import TestCase
-from supriya.tools import nonrealtimetools
+from nonrealtime_testbase import TestCase
+import supriya.nonrealtime
 
 
 class TestCase(TestCase):
@@ -13,7 +13,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(5):
             node = session.add_synth(duration=10)
-        assert isinstance(node, nonrealtimetools.Synth)
+        assert isinstance(node, supriya.nonrealtime.Synth)
         assert node in session.nodes
         assert node.start_offset == 5
         assert node.stop_offset == 15
@@ -24,7 +24,7 @@ class TestCase(TestCase):
         """
         session = supriya.nonrealtime.Session()
         node = session.add_synth(duration=10, offset=5)
-        assert isinstance(node, nonrealtimetools.Synth)
+        assert isinstance(node, supriya.nonrealtime.Synth)
         assert node in session.nodes
         assert node.start_offset == 5
         assert node.stop_offset == 15
@@ -44,7 +44,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(5):
             node = session.add_synth(duration=10, offset=13)
-        assert isinstance(node, nonrealtimetools.Synth)
+        assert isinstance(node, supriya.nonrealtime.Synth)
         assert node in session.nodes
         assert node.start_offset == 13
         assert node.stop_offset == 23

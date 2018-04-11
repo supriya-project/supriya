@@ -1,6 +1,6 @@
 import uqbar.strings
 import supriya.patterns
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 
 
 class TestCase(TestCase):

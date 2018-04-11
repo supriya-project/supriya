@@ -1,7 +1,7 @@
 import os
 import pathlib
 import shutil
-from supriya.tools import nonrealtimetools
+import supriya.nonrealtime
 import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools

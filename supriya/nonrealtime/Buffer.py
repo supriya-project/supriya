@@ -1,6 +1,6 @@
 import bisect
 from supriya.tools import requesttools
-from supriya.tools.nonrealtimetools.SessionObject import SessionObject
+from supriya.nonrealtime.SessionObject import SessionObject
 
 
 class Buffer(SessionObject):
@@ -39,12 +39,12 @@ class Buffer(SessionObject):
         file_path=None,
         starting_frame=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         SessionObject.__init__(self, session)
         self._events = {}
         self._session_id = int(session_id)
         if buffer_group is not None:
-            assert isinstance(buffer_group, nonrealtimetools.BufferGroup)
+            assert isinstance(buffer_group, supriya.nonrealtime.BufferGroup)
         self._buffer_group = buffer_group
         start_offset = start_offset or 0
         self._start_offset = float(start_offset)

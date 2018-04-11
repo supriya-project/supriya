@@ -1,7 +1,7 @@
 import time
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 from supriya import synthdefs
-from supriya.tools import nonrealtimetools
+import supriya.nonrealtime
 import supriya.patterns
 
 

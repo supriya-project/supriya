@@ -51,10 +51,10 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         include_timespans=False,
         id_mapping=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         from supriya.tools import responsetools
         from supriya.tools import synthdeftools
-        assert isinstance(node, nonrealtimetools.Synth)
+        assert isinstance(node, supriya.nonrealtime.Synth)
         node_id = node.session_id
         synthdef_name = node.synthdef
         if isinstance(synthdef_name, synthdeftools.SynthDef):
@@ -76,7 +76,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                     value = settings[name]
                 try:
                     value = float(value)
-                except:
+                except Exception:
                     pass
                 control = responsetools.QueryTreeControl(
                     control_name_or_index=name,

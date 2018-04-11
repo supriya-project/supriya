@@ -96,7 +96,7 @@ class RealtimeEventPlayer(EventPlayer):
     ### PRIVATE METHODS ###
 
     def _collect_stop_requests(self):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         requests = []
         gated_node_ids = []
         freed_node_ids = []
@@ -105,7 +105,7 @@ class RealtimeEventPlayer(EventPlayer):
                 if not isinstance(proxy, supriya.realtime.Node):
                     continue
                 if (
-                    isinstance(proxy, nonrealtimetools.Synth) and
+                    isinstance(proxy, supriya.nonrealtime.Synth) and
                     proxy.synthdef.has_gate
                 ):
                     gated_node_ids.append(proxy_id)

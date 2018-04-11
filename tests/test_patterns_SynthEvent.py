@@ -1,7 +1,7 @@
 import types
 import uuid
 import uqbar.strings
-from patterntools_testbase import TestCase
+from patterns_testbase import TestCase
 from supriya import synthdefs
 import supriya.patterns
 import supriya.realtime
