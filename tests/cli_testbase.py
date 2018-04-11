@@ -34,10 +34,10 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         duration=1.,
         out_bus=0,
         ) as builder:
-        source = supriya.ugentools.Line.ar(
+        source = supriya.ugens.Line.ar(
             duration=builder['duration'],
             ) * {{ multiplier | default(1.0) }}
-        supriya.ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=builder['out_bus'],
             source=[source] * len({{ output_section_singular }}.audio_output_bus_group),
             )
@@ -67,10 +67,10 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
                 duration=1.,
                 out_bus=0,
                 ) as builder:
-                source = supriya.ugentools.Line.ar(
+                source = supriya.ugens.Line.ar(
                     duration=builder['duration'],
                     ) * {{ multiplier | default(1.0) }}
-                supriya.ugentools.Out.ar(
+                supriya.ugens.Out.ar(
                     bus=builder['out_bus'],
                     source=[source] * channel_count,
                     )
@@ -108,11 +108,11 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
         out_bus=0,
         multiplier=1,
         ) as builder:
-        source = supriya.ugentools.In.ar(
+        source = supriya.ugens.In.ar(
             bus=builder['in_bus'],
             channel_count=len({{ output_section_singular }}.audio_output_bus_group),
             )
-        supriya.ugentools.ReplaceOut.ar(
+        supriya.ugens.ReplaceOut.ar(
             bus=builder['out_bus'],
             source=source * builder['multiplier'],
             )

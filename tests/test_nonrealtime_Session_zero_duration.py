@@ -3,7 +3,7 @@ import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 from nonrealtime_testbase import TestCase
 
 
@@ -37,8 +37,8 @@ class TestCase(TestCase):
 
     def test_manual_without_gate(self):
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.DC.ar(1)
-            ugentools.Out.ar(bus=0, source=source)
+            source = supriya.ugens.DC.ar(1)
+            supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
         session = supriya.nonrealtime.Session(0, 1)
         with session.at(0):
@@ -59,8 +59,8 @@ class TestCase(TestCase):
 
     def test_pattern_without_gate(self):
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.DC.ar(1)
-            ugentools.Out.ar(bus=0, source=source)
+            source = supriya.ugens.DC.ar(1)
+            supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
         pattern = supriya.patterns.Pbind(
             delta=1,
@@ -84,8 +84,8 @@ class TestCase(TestCase):
     @unittest.skip('Awaiting implementation.')
     def test_pattern_without_gate_with_bus(self):
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.DC.ar(1)
-            ugentools.Out.ar(bus=0, source=source)
+            source = supriya.ugens.DC.ar(1)
+            supriya.ugens.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
         pattern = supriya.patterns.Pbind(
             delta=1,

@@ -12,7 +12,7 @@ class SynthDefBuilder(SupriyaObject):
     ::
 
         >>> from supriya.tools import synthdeftools
-        >>> from supriya.tools import ugentools
+        >>> import supriya.ugens
 
     ::
 
@@ -27,15 +27,15 @@ class SynthDefBuilder(SupriyaObject):
     ::
 
         >>> with builder:
-        ...     sin_osc = ugentools.SinOsc.ar(
+        ...     sin_osc = supriya.ugens.SinOsc.ar(
         ...         frequency=builder['frequency'],
         ...         )
-        ...     decay = ugentools.Decay.kr(
+        ...     decay = supriya.ugens.Decay.kr(
         ...         decay_time=0.5,
         ...         source=builder['trigger'],
         ...         )
         ...     enveloped_sin = sin_osc * decay
-        ...     out = ugentools.Out.ar(bus=0, source=enveloped_sin)
+        ...     out = supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
         ...
 
     ::
@@ -88,11 +88,11 @@ class SynthDefBuilder(SupriyaObject):
 
     def _add_ugens(self, ugens):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not isinstance(ugens, collections.Sequence):
             ugens = [ugens]
         prototype = (
-            ugentools.UGen,
+            supriya.ugens.UGen,
             synthdeftools.OutputProxy,
             synthdeftools.Parameter,
             )
@@ -181,10 +181,10 @@ class SynthDefBuilder(SupriyaObject):
         trigger=None,
         trigger_id=-1,
         ):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if trigger is None:
-            trigger = ugentools.Impulse.kr(1)
-        poll = ugentools.Poll.new(
+            trigger = supriya.ugens.Impulse.kr(1)
+        poll = supriya.ugens.Poll.new(
             source=ugen,
             label=label,
             trigger=trigger,

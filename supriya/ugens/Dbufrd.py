@@ -1,0 +1,145 @@
+from supriya.ugens.DUGen import DUGen
+
+
+class Dbufrd(DUGen):
+    """
+    A buffer-reading demand-rate UGen.
+
+    ::
+
+        >>> dbufrd = supriya.ugens.Dbufrd(
+        ...     buffer_id=0,
+        ...     loop=1,
+        ...     phase=0,
+        ...     )
+        >>> dbufrd
+        Dbufrd()
+
+    """
+
+    ### CLASS VARIABLES ###
+
+    __slots__ = ()
+
+    _ordered_input_names = (
+        'buffer_id',
+        'phase',
+        'loop',
+        )
+
+    ### INITIALIZER ###
+
+    def __init__(
+        self,
+        buffer_id=0,
+        loop=1,
+        phase=0,
+        ):
+        DUGen.__init__(
+            self,
+            buffer_id=buffer_id,
+            loop=loop,
+            phase=phase,
+            )
+
+    ### PUBLIC METHODS ###
+
+    @classmethod
+    def new(
+        cls,
+        buffer_id=0,
+        loop=1,
+        phase=0,
+        ):
+        """
+        Constructs a Dbufrd.
+
+        ::
+
+            >>> dbufrd = supriya.ugens.Dbufrd.new(
+            ...     buffer_id=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufrd
+            Dbufrd()
+
+        Returns ugen graph.
+        """
+        ugen = cls._new_expanded(
+            buffer_id=buffer_id,
+            loop=loop,
+            phase=phase,
+            )
+        return ugen
+
+    ### PUBLIC PROPERTIES ###
+
+    @property
+    def buffer_id(self):
+        """
+        Gets `buffer_id` input of Dbufrd.
+
+        ::
+
+            >>> dbufrd = supriya.ugens.Dbufrd(
+            ...     buffer_id=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufrd.buffer_id
+            0.0
+
+        Returns ugen input.
+        """
+        index = self._ordered_input_names.index('buffer_id')
+        return self._inputs[index]
+
+    @property
+    def has_done_flag(self):
+        """
+        Is true if UGen has a done flag.
+
+        Returns boolean.
+        """
+        return True
+
+    @property
+    def loop(self):
+        """
+        Gets `loop` input of Dbufrd.
+
+        ::
+
+            >>> dbufrd = supriya.ugens.Dbufrd(
+            ...     buffer_id=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufrd.loop
+            1.0
+
+        Returns ugen input.
+        """
+        index = self._ordered_input_names.index('loop')
+        return self._inputs[index]
+
+    @property
+    def phase(self):
+        """
+        Gets `phase` input of Dbufrd.
+
+        ::
+
+            >>> dbufrd = supriya.ugens.Dbufrd(
+            ...     buffer_id=0,
+            ...     loop=1,
+            ...     phase=0,
+            ...     )
+            >>> dbufrd.phase
+            0.0
+
+        Returns ugen input.
+        """
+        index = self._ordered_input_names.index('phase')
+        return self._inputs[index]

@@ -3,15 +3,15 @@ import supriya.nonrealtime
 import supriya.patterns
 from patterns_testbase import TestCase
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class TestCase(TestCase):
 
     with synthdeftools.SynthDefBuilder(in_=0, out=0) as builder:
-        source = ugentools.In.ar(bus=builder['in_'])
-        source = ugentools.Limiter.ar(source=source)
-        ugentools.Out.ar(bus=builder['out'], source=source)
+        source = supriya.ugens.In.ar(bus=builder['in_'])
+        source = supriya.ugens.Limiter.ar(source=source)
+        supriya.ugens.Out.ar(bus=builder['out'], source=source)
     limiter_synthdef = builder.build()
 
     pattern = supriya.patterns.Pbind(

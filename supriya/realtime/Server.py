@@ -450,16 +450,16 @@ class Server(SupriyaObject):
         ::
 
             >>> from supriya import synthdeftools
-            >>> from supriya import ugentools
+            >>> from supriya import supriya.ugens
             >>> with synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     ) as builder:
-            ...     sin_osc = ugentools.SinOsc.ar(
+            ...     sin_osc = supriya.ugens.SinOsc.ar(
             ...         frequency=builder['frequency'],
             ...         )
             ...     sin_osc *= builder['amplitude']
-            ...     out = ugentools.Out.ar(
+            ...     out = supriya.ugens.Out.ar(
             ...         bus=0,
             ...         source=[sin_osc, sin_osc],
             ...         )
@@ -520,16 +520,16 @@ class Server(SupriyaObject):
         ::
 
             >>> from supriya import synthdeftools
-            >>> from supriya import ugentools
+            >>> from supriya import supriya.ugens
             >>> with synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
             ...     ) as builder:
-            ...     sin_osc = ugentools.SinOsc.ar(
+            ...     sin_osc = supriya.ugens.SinOsc.ar(
             ...         frequency=builder['frequency'],
             ...         )
             ...     sin_osc *= builder['amplitude']
-            ...     out = ugentools.Out.ar(
+            ...     out = supriya.ugens.Out.ar(
             ...         bus=0,
             ...         source=[sin_osc, sin_osc],
             ...         )

@@ -26,11 +26,11 @@ class UGenSortBundle(SupriyaObject):
 
     def _initialize_topological_sort(self, sort_bundles):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         for input_ in self.ugen.inputs:
             if isinstance(input_, synthdeftools.OutputProxy):
                 input_ = input_.source
-            elif not isinstance(input_, ugentools.UGen):
+            elif not isinstance(input_, supriya.ugens.UGen):
                 continue
             input_sort_bundle = sort_bundles[input_]
             if input_ not in self.antecedents:

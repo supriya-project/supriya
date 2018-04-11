@@ -18,9 +18,9 @@ class SynthDefFactory(SupriyaObject):
             >>> def signal_block(builder, source, state):
             ...     iterations = state.get('iterations') or 2
             ...     for _ in range(iterations):
-            ...         source = ugentools.AllpassC.ar(
-            ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-            ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+            ...         source = supriya.ugens.AllpassC.ar(
+            ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+            ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
             ...             source=source,
             ...             maximum_delay_time=0.1,
             ...             )
@@ -225,17 +225,17 @@ class SynthDefFactory(SupriyaObject):
 
     def _setup_parameters_and_state(self, builder, state, kwargs):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         state['channel_count'] = self._channel_count
         state.update(kwargs)
         for parameter_block in self._parameter_blocks:
             parameter_block(builder, state)
         if self._rand_id:
             builder._add_parameter('rand_id', self._rand_id, 'SCALAR')
-            ugentools.RandID.ir(rand_id=builder['rand_id'])
+            supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
         if self._gate:
             builder._add_parameter('gate', 1, 'TRIGGER')
-            state['gate'] = ugentools.Linen.kr(
+            state['gate'] = supriya.ugens.Linen.kr(
                 attack_time=self._gate['attack_time'],
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 gate=builder['gate'],
@@ -248,7 +248,7 @@ class SynthDefFactory(SupriyaObject):
             self._input.get('windowed')
             ):
             builder._add_parameter('duration', 1, 'SCALAR')
-            state['line'] = ugentools.Line.kr(
+            state['line'] = supriya.ugens.Line.kr(
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 duration=builder['duration'],
                 )
@@ -264,10 +264,10 @@ class SynthDefFactory(SupriyaObject):
             builder._add_parameter(key, value)
 
     def _build_input(self, builder, state):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not self._input:
             return
-        source = ugentools.In.ar(
+        source = supriya.ugens.In.ar(
             bus=builder['out'],
             channel_count=state['channel_count'],
             )
@@ -276,9 +276,9 @@ class SynthDefFactory(SupriyaObject):
         return source
 
     def _build_feedback_loop_input(self, builder, source, state):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if self._feedback_loop:
-            local_in = ugentools.LocalIn.ar(
+            local_in = supriya.ugens.LocalIn.ar(
                 channel_count=state['channel_count'],
                 )
             if source is None:
@@ -288,17 +288,17 @@ class SynthDefFactory(SupriyaObject):
         return source
 
     def _build_feedback_loop_output(self, builder, source, state):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not self._feedback_loop:
             return
         if isinstance(self._feedback_loop, types.FunctionType):
             source = self._feedback_loop(builder, source, state)
-        ugentools.LocalOut.ar(
+        supriya.ugens.LocalOut.ar(
             source=source,
             )
 
     def _build_output(self, builder, source, state):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not self._output:
             return
         crossfaded = self._output.get('crossfaded')
@@ -307,15 +307,15 @@ class SynthDefFactory(SupriyaObject):
         gate = state.get('gate')
         if self._output.get('leveled') and not crossfaded:
             source *= builder['level']
-        out_class = ugentools.Out
+        out_class = supriya.ugens.Out
         kwargs = dict(
             bus=builder['out'],
             source=source,
             )
         if replacing:
-            out_class = ugentools.ReplaceOut
+            out_class = supriya.ugens.ReplaceOut
         if crossfaded:
-            out_class = ugentools.XOut
+            out_class = supriya.ugens.XOut
             if windowed:
                 window = state['window']
                 if self._output.get('leveled'):
@@ -336,12 +336,12 @@ class SynthDefFactory(SupriyaObject):
 
     def _build_silence_detection(self, builder, source, state):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not self._silence_detection:
             return
-        ugentools.DetectSilence.kr(
+        supriya.ugens.DetectSilence.kr(
             done_action=synthdeftools.DoneAction.FREE_SYNTH,
-            source=ugentools.Mix.new(source),
+            source=supriya.ugens.Mix.new(source),
             )
 
     def _clone(self):
@@ -388,9 +388,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -571,9 +571,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -645,7 +645,7 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def feedback_block(builder, source, state):
-                ...     return source * ugentools.SinOsc.kr(frequency=0.3)
+                ...     return source * supriya.ugens.SinOsc.kr(frequency=0.3)
 
             ::
 
@@ -728,9 +728,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -822,9 +822,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -928,9 +928,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -1129,9 +1129,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -1575,7 +1575,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     bands = []
                 ...     frequencies = state['frequencies']
                 ...     for frequency in frequencies:
-                ...         band = ugentools.LPF.ar(source=source, frequency=frequency)
+                ...         band = supriya.ugens.LPF.ar(source=source, frequency=frequency)
                 ...         bands.append(band)
                 ...         source -= band
                 ...     bands.append(source)
@@ -1583,7 +1583,7 @@ class SynthDefFactory(SupriyaObject):
                 ...     for i, band in enumerate(bands):
                 ...         band_name = 'band_{}_'.format(i + 1)
                 ...         band *= builder[band_name + 'pregain'].db_to_amplitude()
-                ...         band = ugentools.CompanderD.ar(
+                ...         band = supriya.ugens.CompanderD.ar(
                 ...             source=band,
                 ...             clamp_time=builder[band_name + 'clamp_time'],
                 ...             relax_time=builder[band_name + 'relax_time'],
@@ -1593,7 +1593,7 @@ class SynthDefFactory(SupriyaObject):
                 ...             )
                 ...         band *= builder[band_name + 'postgain'].db_to_amplitude()
                 ...         compressors.extend(band)
-                ...     source = ugentools.Mix.multichannel(
+                ...     source = supriya.ugens.Mix.multichannel(
                 ...         compressors,
                 ...         state['channel_count'],
                 ...         )
@@ -2037,9 +2037,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -2137,9 +2137,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )
@@ -2158,9 +2158,9 @@ class SynthDefFactory(SupriyaObject):
             ::
 
                 >>> def signal_block_post(builder, source, state):
-                ...     source = ugentools.LeakDC.ar(source=source)
-                ...     source = ugentools.Limiter.ar(
-                ...         duration=ugentools.Rand.ir(0.005, 0.015),
+                ...     source = supriya.ugens.LeakDC.ar(source=source)
+                ...     source = supriya.ugens.Limiter.ar(
+                ...         duration=supriya.ugens.Rand.ir(0.005, 0.015),
                 ...         source=source,
                 ...         )
                 ...     return source
@@ -2236,9 +2236,9 @@ class SynthDefFactory(SupriyaObject):
                 >>> def signal_block(builder, source, state):
                 ...     iterations = state.get('iterations') or 2
                 ...     for _ in range(iterations):
-                ...         source = ugentools.AllpassC.ar(
-                ...             decay_time=ugentools.ExpRand.ir(0.01, 0.1),
-                ...             delay_time=ugentools.ExpRand.ir(0.01, 0.1),
+                ...         source = supriya.ugens.AllpassC.ar(
+                ...             decay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
+                ...             delay_time=supriya.ugens.ExpRand.ir(0.01, 0.1),
                 ...             source=source,
                 ...             maximum_delay_time=0.1,
                 ...             )

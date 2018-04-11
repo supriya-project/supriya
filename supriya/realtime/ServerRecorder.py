@@ -109,14 +109,14 @@ class ServerRecorder(SupriyaObject):
 
     def _setup_synthdef(self):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=0,
                 channel_count=self.current_channel_count,
                 )
             buffer_id = int(self.record_buffer)
-            ugentools.DiskOut.ar(
+            supriya.ugens.DiskOut.ar(
                 buffer_id=buffer_id,
                 source=source,
                 )

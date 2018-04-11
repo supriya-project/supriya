@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 """
 SynthDef("clap", {
@@ -51,7 +51,7 @@ def _build_clap_synthdef():
             durations=(0.001, 0.013, 0, 0.01, 0, 0.01, 0, 0.03),
             curves=(0, -3, 0, -3, 0, -3, 0, -4),
             )
-        envelope_generator_one = ugentools.EnvGen.ar(
+        envelope_generator_one = supriya.ugens.EnvGen.ar(
             envelope=envelope_one,
             )
 
@@ -60,28 +60,28 @@ def _build_clap_synthdef():
             durations=(0.02, 0.3),
             curves=(0, -4),
             )
-        envelope_generator_two = ugentools.EnvGen.ar(
+        envelope_generator_two = supriya.ugens.EnvGen.ar(
             envelope=envelope_two,
             done_action=2,
             )
 
-        noise_one = ugentools.WhiteNoise.ar() * envelope_generator_one
-        noise_one = ugentools.HPF.ar(
+        noise_one = supriya.ugens.WhiteNoise.ar() * envelope_generator_one
+        noise_one = supriya.ugens.HPF.ar(
             source=noise_one,
             frequency=600,
             )
-        noise_one = ugentools.BPF.ar(
+        noise_one = supriya.ugens.BPF.ar(
             source=noise_one,
             frequency=2000,
             reciprocal_of_q=3,
             )
 
-        noise_two = ugentools.WhiteNoise.ar() * envelope_generator_two
-        noise_two = ugentools.HPF.ar(
+        noise_two = supriya.ugens.WhiteNoise.ar() * envelope_generator_two
+        noise_two = supriya.ugens.HPF.ar(
             source=noise_two,
             frequency=1000,
             )
-        noise_two = ugentools.BPF.ar(
+        noise_two = supriya.ugens.BPF.ar(
             source=noise_two,
             frequency=1200,
             reciprocal_of_q=0.7,
@@ -93,7 +93,7 @@ def _build_clap_synthdef():
         result = result.softclip()
         result = result * builder['amplitude']
 
-        ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=builder['out'],
             source=(result, result),
             )

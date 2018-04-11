@@ -36,20 +36,20 @@ class CalculationRate(Enumeration):
         ::
 
             >>> from supriya.tools import synthdeftools
-            >>> from supriya.tools import ugentools
+            >>> import supriya.ugens
 
         ::
 
             >>> collection = []
-            >>> collection.append(ugentools.DC.ar(0))
-            >>> collection.append(ugentools.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.ar(0))
+            >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.CalculationRate.from_collection(collection)
             CalculationRate.AUDIO
 
         ::
             >>> collection = []
-            >>> collection.append(ugentools.DC.kr(1))
+            >>> collection.append(supriya.ugens.DC.kr(1))
             >>> collection.append(2.0)
             >>> synthdeftools.CalculationRate.from_collection(collection)
             CalculationRate.CONTROL
@@ -65,12 +65,12 @@ class CalculationRate(Enumeration):
     @staticmethod
     def from_input(input_):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         if isinstance(input_, (int, float)):
             return CalculationRate.SCALAR
         elif isinstance(input_, (
             synthdeftools.OutputProxy,
-            ugentools.UGen,
+            supriya.ugens.UGen,
             )):
             return input_.calculation_rate
         elif isinstance(input_, synthdeftools.Parameter):

@@ -989,21 +989,21 @@ class Buffer(ServerObjectProxy):
         target_node=None,
         ):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         with synthdeftools.SynthDefBuilder(
             level=1,
             rate=1,
             ) as builder:
-            player = ugentools.PlayBuf.ar(
+            player = supriya.ugens.PlayBuf.ar(
                 buffer_id=self.buffer_id,
                 channel_count=self.channel_count,
                 loop=loop,
-                rate=ugentools.BufRateScale.kr(self.buffer_id) * builder['rate'],
+                rate=supriya.ugens.BufRateScale.kr(self.buffer_id) * builder['rate'],
                 )
             if not loop:
-                ugentools.FreeSelfWhenDone.kr(player)
+                supriya.ugens.FreeSelfWhenDone.kr(player)
             source = player * builder['level']
-            ugentools.Out.ar(bus=bus, source=source)
+            supriya.ugens.Out.ar(bus=bus, source=source)
         synthdef = builder.build()
         return synthdef.play(
             add_action=add_action,

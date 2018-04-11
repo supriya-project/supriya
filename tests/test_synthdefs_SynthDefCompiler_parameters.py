@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def test_SynthDefCompiler_parameters_01():
@@ -14,8 +14,8 @@ def test_SynthDefCompiler_parameters_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with synthdeftools.SynthDefBuilder(freq=440) as builder:
-        sine = ugentools.SinOsc.ar(frequency=builder['freq'])
-        ugentools.Out.ar(bus=0, source=sine)
+        sine = supriya.ugens.SinOsc.ar(frequency=builder['freq'])
+        supriya.ugens.Out.ar(bus=0, source=sine)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -90,8 +90,8 @@ def test_SynthDefCompiler_parameters_02():
         freq=1200,
         out=23,
         ) as builder:
-        sine = ugentools.SinOsc.ar(frequency=builder['freq'])
-        ugentools.Out.ar(bus=builder['out'], source=sine)
+        sine = supriya.ugens.SinOsc.ar(frequency=builder['freq'])
+        supriya.ugens.Out.ar(bus=builder['out'], source=sine)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -182,13 +182,13 @@ def test_SynthDefCompiler_parameters_03():
         room_size=0.9,
         )
     with builder:
-        microphone = ugentools.In.ar(bus=0)
-        delay = ugentools.DelayC.ar(
+        microphone = supriya.ugens.In.ar(bus=0)
+        delay = supriya.ugens.DelayC.ar(
             source=microphone,
             maximum_delay_time=5.0,
             delay_time=builder['delay_time'],
             )
-        ugentools.Out.ar(bus=0, source=delay)
+        supriya.ugens.Out.ar(bus=0, source=delay)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -310,17 +310,17 @@ def test_SynthDefCompiler_parameters_04():
         t_trig_b=0,
         )
     with builder:
-        decay = ugentools.Decay2.kr(
+        decay = supriya.ugens.Decay2.kr(
             source=(builder['t_trig_a'], builder['t_trig_b']),
             attack_time=0.005,
             decay_time=builder['i_decay_time'],
             )
-        sin_osc = ugentools.SinOsc.ar(
+        sin_osc = supriya.ugens.SinOsc.ar(
             frequency=builder['freq'],
             phase=builder['a_phase'],
             )
         enveloped_sin_osc = sin_osc * decay
-        ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=0,
             source=enveloped_sin_osc,
             )
@@ -501,12 +501,12 @@ def test_SynthDefCompiler_parameters_05():
         freqs=[300, 400],
         )
     with builder:
-        sines = ugentools.SinOsc.ar(
+        sines = supriya.ugens.SinOsc.ar(
             frequency=builder['freqs'],
             )
-        sines = ugentools.Mix.new(sines)
+        sines = supriya.ugens.Mix.new(sines)
         sines = sines * builder['amp']
-        ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=0,
             source=sines,
             )
@@ -638,12 +638,12 @@ def test_SynthDefCompiler_parameters_06():
             ),
         )
     with builder:
-        sines = ugentools.SinOsc.ar(
+        sines = supriya.ugens.SinOsc.ar(
             frequency=builder['freqs'],
             )
-        sines = ugentools.Mix.new(sines)
+        sines = supriya.ugens.Mix.new(sines)
         sines = sines * builder['amp']
-        ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=0,
             source=sines,
             )

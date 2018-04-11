@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya.tools import ugentools
+import supriya.ugens
 from supriya.tools import synthdeftools
 
 
@@ -64,18 +64,18 @@ class Direct:
             out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=synthdef_builder['in_'],
                 channel_count=source_track_count,
                 )
-            gate = ugentools.Linen.kr(
+            gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
             source *= gate
-            zero = ugentools.DC.ar(0)
+            zero = supriya.ugens.DC.ar(0)
             mapped = []
             for _ in range(target_track_count):
                 mapped.append([])
@@ -84,8 +84,8 @@ class Direct:
             for i, out in enumerate(mapped):
                 if not out:
                     out.append(zero)
-                mapped[i] = ugentools.Mix.new(out)
-            ugentools.Out.ar(
+                mapped[i] = supriya.ugens.Mix.new(out)
+            supriya.ugens.Out.ar(
                 bus=synthdef_builder['out'],
                 source=mapped,
                 )

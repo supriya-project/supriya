@@ -1,32 +1,32 @@
 import supriya.nonrealtime
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 from nonrealtime_testbase import TestCase
 
 
 class TestCase(TestCase):
 
     with synthdeftools.SynthDefBuilder() as builder:
-        source = ugentools.WhiteNoise.ar()
-        ugentools.Out.ar(bus=0, source=source)
+        source = supriya.ugens.WhiteNoise.ar()
+        supriya.ugens.Out.ar(bus=0, source=source)
     nonrepeatable_noise_synthdef = builder.build()
 
     with synthdeftools.SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
-        ugentools.RandID.ir(rand_id=builder['rand_id'])
-        ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
-        source = ugentools.WhiteNoise.ar()
-        ugentools.Out.ar(bus=0, source=source)
+        supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+        supriya.ugens.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+        source = supriya.ugens.WhiteNoise.ar()
+        supriya.ugens.Out.ar(bus=0, source=source)
     repeatable_noise_synthdef = builder.build()
 
     with synthdeftools.SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
-        ugentools.RandID.ir(rand_id=builder['rand_id'])
-        ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+        supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+        supriya.ugens.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
     seed_synthdef = builder.build()
 
     with synthdeftools.SynthDefBuilder(rand_id=0) as builder:
-        ugentools.RandID.ir(rand_id=builder['rand_id'])
-        source = ugentools.WhiteNoise.ar()
-        ugentools.Out.ar(bus=0, source=source)
+        supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+        source = supriya.ugens.WhiteNoise.ar()
+        supriya.ugens.Out.ar(bus=0, source=source)
     maybe_repeatable_noise_synthdef = builder.build()
 
     def test_nonrepeatable(self):

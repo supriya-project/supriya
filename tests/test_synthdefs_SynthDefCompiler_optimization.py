@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def test_SynthDefCompiler_optimization_01():
@@ -18,11 +18,11 @@ def test_SynthDefCompiler_optimization_01():
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     with synthdeftools.SynthDefBuilder() as builder:
-        sine_a = ugentools.SinOsc.ar(frequency=420)
-        sine_b = ugentools.SinOsc.ar(frequency=440)  # noqa
-        sine_c = ugentools.SinOsc.ar(frequency=460)
-        sine_d = ugentools.SinOsc.ar(frequency=sine_c)  # noqa
-        ugentools.Out.ar(bus=0, source=sine_a)
+        sine_a = supriya.ugens.SinOsc.ar(frequency=420)
+        sine_b = supriya.ugens.SinOsc.ar(frequency=440)  # noqa
+        sine_c = supriya.ugens.SinOsc.ar(frequency=460)
+        sine_d = supriya.ugens.SinOsc.ar(frequency=sine_c)  # noqa
+        supriya.ugens.Out.ar(bus=0, source=sine_a)
     py_synthdef = builder.build('optimized')
     py_compiled_synthdef = py_synthdef.compile()
 

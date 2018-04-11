@@ -80,10 +80,10 @@ class Test(ProjectPackageScriptTestCase):
             duration=1.,
             out_bus=0,
             ) as builder:
-            source = supriya.ugentools.Line.ar(
+            source = supriya.ugens.Line.ar(
                 duration=builder['duration'],
                 )
-            supriya.ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=builder['out_bus'],
                 source=[source] * len(session.audio_output_bus_group),
                 )

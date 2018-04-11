@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def test_SynthDefCompiler_rngs_01():
@@ -16,10 +16,10 @@ def test_SynthDefCompiler_rngs_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with synthdeftools.SynthDefBuilder(rand_id=0, seed=0) as builder:
-        ugentools.RandID.ir(rand_id=builder['rand_id'])
-        ugentools.RandSeed.ir(seed=builder['seed'], trigger=1)
-        source = ugentools.WhiteNoise.ar()
-        ugentools.Out.ar(bus=0, source=source)
+        supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+        supriya.ugens.RandSeed.ir(seed=builder['seed'], trigger=1)
+        source = supriya.ugens.WhiteNoise.ar()
+        supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build('seedednoise')
     py_compiled_synthdef = py_synthdef.compile()
 

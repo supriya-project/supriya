@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def test_SynthDefCompiler_ambisonics_01():
@@ -18,12 +18,12 @@ def test_SynthDefCompiler_ambisonics_01():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with synthdeftools.SynthDefBuilder() as builder:
-        source = ugentools.PinkNoise.ar()
-        azimuth = ugentools.LFNoise2.kr(frequency=0.25)
-        w, x, y = ugentools.PanB2.ar(source=source, azimuth=azimuth)
-        source = ugentools.DecodeB2.ar(
+        source = supriya.ugens.PinkNoise.ar()
+        azimuth = supriya.ugens.LFNoise2.kr(frequency=0.25)
+        w, x, y = supriya.ugens.PanB2.ar(source=source, azimuth=azimuth)
+        source = supriya.ugens.DecodeB2.ar(
             channel_count=4, w=w, x=x, y=y, orientation=0.5)
-        ugentools.Out.ar(0, source)
+        supriya.ugens.Out.ar(0, source)
     py_synthdef = builder.build('ambisonics')
     py_compiled_synthdef = py_synthdef.compile()
 

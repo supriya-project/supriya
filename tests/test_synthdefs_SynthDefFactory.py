@@ -1,13 +1,13 @@
 from supriya import SynthDefFactory
 from supriya import systemtools
-from supriya import ugentools
+import supriya.ugens
 
 
 class TestCase(systemtools.TestCase):
 
     def test_gate_01(self):
         def signal_block(builder, source, state):
-            return ugentools.SinOsc.ar()
+            return supriya.ugens.SinOsc.ar()
 
         factory = SynthDefFactory(channel_count=1)
         factory = factory.with_signal_block(signal_block)
@@ -38,7 +38,7 @@ class TestCase(systemtools.TestCase):
 
     def test_gate_02(self):
         def signal_block(builder, source, state):
-            return ugentools.SinOsc.ar()
+            return supriya.ugens.SinOsc.ar()
 
         factory = SynthDefFactory(channel_count=1)
         factory = factory.with_signal_block(signal_block)
@@ -73,7 +73,7 @@ class TestCase(systemtools.TestCase):
 
     def test_gate_03(self):
         def signal_block(builder, source, state):
-            return ugentools.SinOsc.ar()
+            return supriya.ugens.SinOsc.ar()
 
         factory = SynthDefFactory(channel_count=1)
         factory = factory.with_signal_block(signal_block)
@@ -115,7 +115,7 @@ class TestCase(systemtools.TestCase):
 
     def test_gate_04(self):
         def signal_block(builder, source, state):
-            return ugentools.SinOsc.ar()
+            return supriya.ugens.SinOsc.ar()
 
         factory = SynthDefFactory(channel_count=1)
         factory = factory.with_signal_block(signal_block)

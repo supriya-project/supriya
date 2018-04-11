@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def _build_default_synthdef():
@@ -35,34 +35,34 @@ def _build_default_synthdef():
         )
 
     with builder:
-        low_pass = ugentools.LPF.ar(
-            source=ugentools.Mix.new(
-                ugentools.VarSaw.ar(
+        low_pass = supriya.ugens.LPF.ar(
+            source=supriya.ugens.Mix.new(
+                supriya.ugens.VarSaw.ar(
                     frequency=builder['frequency'] + (
                         0,
-                        ugentools.Rand.ir(minimum=-0.4, maximum=0.),
-                        ugentools.Rand.ir(minimum=0., maximum=0.4),
+                        supriya.ugens.Rand.ir(minimum=-0.4, maximum=0.),
+                        supriya.ugens.Rand.ir(minimum=0., maximum=0.4),
                         ),
                     width=0.3,
                     ),
                 ) * 0.3,
-            frequency=ugentools.XLine.kr(
-                start=ugentools.Rand.ir(minimum=4000, maximum=5000),
-                stop=ugentools.Rand.ir(minimum=2500, maximum=3200),
+            frequency=supriya.ugens.XLine.kr(
+                start=supriya.ugens.Rand.ir(minimum=4000, maximum=5000),
+                stop=supriya.ugens.Rand.ir(minimum=2500, maximum=3200),
                 )
             )
-        linen = ugentools.Linen.kr(
+        linen = supriya.ugens.Linen.kr(
             attack_time=0.01,
             done_action=synthdeftools.DoneAction.FREE_SYNTH,
             gate=builder['gate'],
             release_time=0.3,
             sustain_level=0.7,
             )
-        pan = ugentools.Pan2.ar(
+        pan = supriya.ugens.Pan2.ar(
             source=low_pass * linen * builder['amplitude'],
             position=builder['pan'],
             )
-        ugentools.OffsetOut.ar(bus=builder['out'], source=pan)
+        supriya.ugens.OffsetOut.ar(bus=builder['out'], source=pan)
     synthdef = builder.build(name='default')
     return synthdef
 

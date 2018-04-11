@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def _build_kick_synthdef():
@@ -12,12 +12,12 @@ def _build_kick_synthdef():
 
         ### ENVELOPE ###
 
-        gate = ugentools.Impulse.ar(frequency=2)
+        gate = supriya.ugens.Impulse.ar(frequency=2)
         envelope = synthdeftools.Envelope.percussive(
             attack_time=0.01,
             release_time=1.0,
             )
-        envelope = ugentools.EnvGen.ar(
+        envelope = supriya.ugens.EnvGen.ar(
             done_action=0,
             envelope=envelope,
             gate=gate
@@ -26,10 +26,10 @@ def _build_kick_synthdef():
 
         ### NOISE COMPONENT ###
 
-        noise = ugentools.PinkNoise.ar()
-        noise = ugentools.BPF.ar(
+        noise = supriya.ugens.PinkNoise.ar()
+        noise = supriya.ugens.BPF.ar(
             source=noise,
-            frequency=ugentools.LinLin.ar(
+            frequency=supriya.ugens.LinLin.ar(
                 source=envelope.cubed(),
                 output_minimum=30,
                 output_maximum=120,
@@ -40,8 +40,8 @@ def _build_kick_synthdef():
 
         ### PITCHED COMPONENT ###
 
-        pitch = ugentools.SinOsc.ar(
-            frequency=ugentools.LinLin.ar(
+        pitch = supriya.ugens.SinOsc.ar(
+            frequency=supriya.ugens.LinLin.ar(
                 source=envelope,
                 output_minimum=10,
                 output_maximum=80,
@@ -49,9 +49,9 @@ def _build_kick_synthdef():
             )
         pitch = pitch * 2.0
         pitch = pitch.distort()
-        pitch = ugentools.RLPF.ar(
+        pitch = supriya.ugens.RLPF.ar(
             source=pitch,
-            frequency=ugentools.LinLin.ar(
+            frequency=supriya.ugens.LinLin.ar(
                 source=envelope,
                 output_minimum=30,
                 output_maximum=120,
@@ -62,7 +62,7 @@ def _build_kick_synthdef():
 
         mix = pitch + noise
 
-        ugentools.Out.ar(builder['out'], (mix, mix))
+        supriya.ugens.Out.ar(builder['out'], (mix, mix))
 
     synthdef = builder.build()
     return synthdef

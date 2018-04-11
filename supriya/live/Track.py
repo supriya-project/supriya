@@ -1,7 +1,7 @@
 import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
-from supriya.tools import ugentools
+import supriya.ugens
 from supriya.live.AutoPatternSlot import AutoPatternSlot
 from supriya.live.Direct import Direct
 from supriya.live.Send import Send
@@ -238,21 +238,21 @@ class Track:
             out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
-            source = ugentools.InFeedback.ar(
+            source = supriya.ugens.InFeedback.ar(
                 bus=synthdef_builder['in_'],
                 channel_count=channel_count,
                 )
-            ugentools.SendPeakRMS.ar(
+            supriya.ugens.SendPeakRMS.ar(
                 command_name='/levels/input',
                 source=source,
                 )
-            gate = ugentools.Linen.kr(
+            gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
-            active = ugentools.Linen.kr(
+            active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
@@ -264,7 +264,7 @@ class Track:
                 ).lag(synthdef_builder['lag'])
             total_gain = gate * active * amplitude
             source *= total_gain
-            ugentools.ReplaceOut.ar(
+            supriya.ugens.ReplaceOut.ar(
                 bus=synthdef_builder['out'],
                 source=source,
                 )
@@ -281,21 +281,21 @@ class Track:
             out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=synthdef_builder['out'],
                 channel_count=channel_count,
                 )
-            ugentools.SendPeakRMS.ar(
+            supriya.ugens.SendPeakRMS.ar(
                 command_name='/levels/prefader',
                 source=source,
                 )
-            gate = ugentools.Linen.kr(
+            gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
-            active = ugentools.Linen.kr(
+            active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
@@ -307,11 +307,11 @@ class Track:
                 ).lag(synthdef_builder['lag'])
             total_gain = gate * active * amplitude
             source *= total_gain
-            ugentools.SendPeakRMS.ar(
+            supriya.ugens.SendPeakRMS.ar(
                 command_name='/levels/postfader',
                 source=source,
                 )
-            ugentools.ReplaceOut.ar(
+            supriya.ugens.ReplaceOut.ar(
                 bus=synthdef_builder['out'],
                 source=source,
                 )

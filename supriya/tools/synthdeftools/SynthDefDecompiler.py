@@ -12,7 +12,7 @@ class SynthDefDecompiler(SupriyaObject):
     ::
 
         >>> from supriya.tools import synthdeftools
-        >>> from supriya.tools import ugentools
+        >>> import supriya.ugens
         >>> with synthdeftools.SynthDefBuilder(
         ...     frequency=440,
         ...     trigger=synthdeftools.Parameter(
@@ -20,13 +20,13 @@ class SynthDefDecompiler(SupriyaObject):
         ...         parameter_rate=synthdeftools.ParameterRate.TRIGGER,
         ...         ),
         ...     ) as builder:
-        ...     sin_osc = ugentools.SinOsc.ar(frequency=builder['frequency'])
-        ...     decay = ugentools.Decay.kr(
+        ...     sin_osc = supriya.ugens.SinOsc.ar(frequency=builder['frequency'])
+        ...     decay = supriya.ugens.Decay.kr(
         ...         decay_time=0.5,
         ...         source=builder['trigger'],
         ...         )
         ...     enveloped_sin = sin_osc * decay
-        ...     out = ugentools.Out.ar(bus=0, source=enveloped_sin)
+        ...     out = supriya.ugens.Out.ar(bus=0, source=enveloped_sin)
         ...
         >>> synthdef = builder.build()
         >>> graph(synthdef)  # doctest: +SKIP
@@ -152,7 +152,7 @@ class SynthDefDecompiler(SupriyaObject):
     @staticmethod
     def _decompile_synthdef(value, index):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         sdd = SynthDefDecompiler
         synthdef = None
         name, index = sdd._decode_string(value, index)
@@ -181,9 +181,9 @@ class SynthDefDecompiler(SupriyaObject):
                     inputs.append(output_proxy)
             for _ in range(output_count):
                 output_rate, index = sdd._decode_int_8bit(value, index)
-            ugen_class = getattr(ugentools, ugen_name)
-            ugen = ugentools.UGen.__new__(ugen_class)
-            if issubclass(ugen_class, ugentools.Control):
+            ugen_class = getattr(supriya.ugens, ugen_name)
+            ugen = supriya.ugens.UGen.__new__(ugen_class)
+            if issubclass(ugen_class, supriya.ugens.Control):
                 starting_control_index = special_index
                 parameters = sdd._collect_parameters_for_control(
                     calculation_rate,
@@ -210,8 +210,8 @@ class SynthDefDecompiler(SupriyaObject):
                             kwargs[input_name] = inputs[i]
                         else:
                             kwargs[input_name] = tuple(inputs[i:])
-                if issubclass(ugen_class, ugentools.MultiOutUGen):
-                    ugentools.MultiOutUGen.__init__(
+                if issubclass(ugen_class, supriya.ugens.MultiOutUGen):
+                    supriya.ugens.MultiOutUGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         channel_count=output_count,
@@ -219,7 +219,7 @@ class SynthDefDecompiler(SupriyaObject):
                         **kwargs
                         )
                 else:
-                    ugentools.UGen.__init__(
+                    supriya.ugens.UGen.__init__(
                         ugen,
                         calculation_rate=calculation_rate,
                         special_index=special_index,
@@ -282,9 +282,9 @@ class SynthDefDecompiler(SupriyaObject):
         ugen_class,
         ):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         parameter_rate = synthdeftools.ParameterRate.CONTROL
-        if issubclass(ugen_class, ugentools.TrigControl):
+        if issubclass(ugen_class, supriya.ugens.TrigControl):
             parameter_rate = synthdeftools.ParameterRate.TRIGGER
         elif calculation_rate == synthdeftools.CalculationRate.SCALAR:
             parameter_rate = synthdeftools.ParameterRate.SCALAR

@@ -1,7 +1,7 @@
 import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class Send:
@@ -56,7 +56,7 @@ class Send:
             out=synthdeftools.Parameter(value=0, parameter_rate='scalar'),
             )
         with synthdef_builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=synthdef_builder['in_'],
                 channel_count=source_track_count,
                 )
@@ -64,7 +64,7 @@ class Send:
             if source_track_count == target_track_count:
                 pass
             elif target_track_count == 1:
-                source = ugentools.Mix.new(source) / mix_factor
+                source = supriya.ugens.Mix.new(source) / mix_factor
             elif source_track_count == 1:
                 source = synthdeftools.UGenArray([source] * target_track_count)
             else:
@@ -75,7 +75,7 @@ class Send:
                     width = 2 * (1 / mix_factor)
                     if mix_factor > 1:
                         amplitude = 1 / mix_factor
-                    panner = ugentools.PanAz.ar(
+                    panner = supriya.ugens.PanAz.ar(
                         channel_count=target_track_count,
                         source=channel,
                         position=position,
@@ -83,17 +83,17 @@ class Send:
                         width=width,
                         )
                     panners.extend(panner)
-                source = ugentools.Mix.multichannel(
+                source = supriya.ugens.Mix.multichannel(
                     panners,
                     target_track_count,
                     )
-            gate = ugentools.Linen.kr(
+            gate = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.FREE_SYNTH,
                 gate=synthdef_builder['gate'],
                 release_time=synthdef_builder['lag'],
                 )
-            active = ugentools.Linen.kr(
+            active = supriya.ugens.Linen.kr(
                 attack_time=synthdef_builder['lag'],
                 done_action=synthdeftools.DoneAction.NOTHING,
                 gate=synthdef_builder['active'],
@@ -105,7 +105,7 @@ class Send:
                 ).lag(synthdef_builder['lag'])
             total_gain = gate * active * amplitude
             source *= total_gain
-            ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=synthdef_builder['out'],
                 source=source,
                 )

@@ -177,19 +177,19 @@ class BusGroup(ServerObjectProxy):
         Returns ugen.
         """
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         channel_count = len(self)
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            ugen = ugentools.In.ar(
+            ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
                 )
         else:
-            ugen = ugentools.In.kr(
+            ugen = supriya.ugens.In.kr(
                 bus=self.bus_id,
                 channel_count=channel_count,
                 )
-            ugen = ugentools.K2A.ar(
+            ugen = supriya.ugens.K2A.ar(
                 source=ugen,
                 )
         return ugen
@@ -299,18 +299,18 @@ class BusGroup(ServerObjectProxy):
         Returns ugen.
         """
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         channel_count = len(self)
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
-            ugen = ugentools.In.ar(
+            ugen = supriya.ugens.In.ar(
                 bus=self.bus_id,
                 channel_count=channel_count,
                 )
-            ugen = ugentools.A2K.kr(
+            ugen = supriya.ugens.A2K.kr(
                 source=ugen,
                 )
         else:
-            ugen = ugentools.In.kr(
+            ugen = supriya.ugens.In.kr(
                 bus=self.bus_id,
                 channel_count=channel_count,
                 )

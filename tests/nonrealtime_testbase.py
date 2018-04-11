@@ -6,7 +6,7 @@ import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class TestSessionFactory:
@@ -30,8 +30,8 @@ class TestSessionFactory:
             out_bus=0,
             source=0,
             ) as builder:
-            source = ugentools.K2A.ar(source=builder['source'])
-            ugentools.Out.ar(
+            source = supriya.ugens.K2A.ar(source=builder['source'])
+            supriya.ugens.Out.ar(
                 bus=builder['out_bus'],
                 source=[source] * channel_count,
                 )
@@ -110,18 +110,18 @@ class TestCase(systemtools.TestCase):
     def build_basic_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder()
         with builder:
-            ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=bus,
-                source=ugentools.SinOsc.ar(),
+                source=supriya.ugens.SinOsc.ar(),
                 )
         return builder.build()
 
     def build_duration_synthdef(self, bus=0):
         builder = synthdeftools.SynthDefBuilder(duration=0)
         with builder:
-            ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=bus,
-                source=ugentools.Line.ar(
+                source=supriya.ugens.Line.ar(
                     duration=builder['duration'],
                     ),
                 )
@@ -131,12 +131,12 @@ class TestCase(systemtools.TestCase):
         builder = synthdeftools.SynthDefBuilder(gate=1)
         with builder:
             envelope = synthdeftools.Envelope.asr()
-            envgen = ugentools.EnvGen.ar(
+            envgen = supriya.ugens.EnvGen.ar(
                 envelope=envelope,
                 gate=builder['gate'],
                 )
-            source = ugentools.Saw.ar() * envgen
-            ugentools.Out.ar(
+            source = supriya.ugens.Saw.ar() * envgen
+            supriya.ugens.Out.ar(
                 bus=bus,
                 source=source,
                 )
@@ -224,8 +224,8 @@ class TestCase(systemtools.TestCase):
             out_bus=0,
             source=0,
             ) as builder:
-            source = ugentools.K2A.ar(source=builder['source'])
-            ugentools.Out.ar(
+            source = supriya.ugens.K2A.ar(source=builder['source'])
+            supriya.ugens.Out.ar(
                 bus=builder['out_bus'],
                 source=[source] * channel_count,
                 )
@@ -236,11 +236,11 @@ class TestCase(systemtools.TestCase):
             out_bus=0,
             buffer_id=0,
             ) as builder:
-            source = ugentools.DiskIn.ar(
+            source = supriya.ugens.DiskIn.ar(
                 buffer_id=builder['buffer_id'],
                 channel_count=channel_count,
                 )
-            ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=builder['out_bus'],
                 source=source,
                 )
@@ -252,11 +252,11 @@ class TestCase(systemtools.TestCase):
             out_bus=0,
             multiplier=1,
             ) as builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=builder['in_bus'],
                 channel_count=channel_count,
                 )
-            ugentools.ReplaceOut.ar(
+            supriya.ugens.ReplaceOut.ar(
                 bus=builder['out_bus'],
                 source=source * builder['multiplier'],
                 )

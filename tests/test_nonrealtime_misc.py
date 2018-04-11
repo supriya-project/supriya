@@ -4,27 +4,27 @@ import supriya.patterns
 from patterns_testbase import TestCase
 from supriya.realtime import AddAction
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class TestCase(TestCase):
 
     with synthdeftools.SynthDefBuilder(in_=0, out=0) as builder:
-        source = ugentools.In.ar(bus=builder['in_'])
-        source = ugentools.Limiter.ar(source=source)
-        ugentools.Out.ar(bus=builder['out'], source=source)
+        source = supriya.ugens.In.ar(bus=builder['in_'])
+        source = supriya.ugens.Limiter.ar(source=source)
+        supriya.ugens.Out.ar(bus=builder['out'], source=source)
     limiter_synthdef = builder.build(name='limiter')
 
     with synthdeftools.SynthDefBuilder(out=0, duration=1) as builder:
-        line = ugentools.Line.kr(duration=builder['duration'], done_action=2)
-        source = ugentools.SinOsc.ar() * line.hanning_window()
-        ugentools.Out.ar(bus=builder['out'], source=source)
+        line = supriya.ugens.Line.kr(duration=builder['duration'], done_action=2)
+        source = supriya.ugens.SinOsc.ar() * line.hanning_window()
+        supriya.ugens.Out.ar(bus=builder['out'], source=source)
     sine_synthdef = builder.build(name='sine')
 
     with synthdeftools.SynthDefBuilder(out=0, duration=1) as builder:
-        line = ugentools.Line.kr(duration=builder['duration'], done_action=2)
-        source = ugentools.PinkNoise.ar() * line.hanning_window()
-        ugentools.Out.ar(bus=builder['out'], source=source)
+        line = supriya.ugens.Line.kr(duration=builder['duration'], done_action=2)
+        source = supriya.ugens.PinkNoise.ar() * line.hanning_window()
+        supriya.ugens.Out.ar(bus=builder['out'], source=source)
     pink_synthdef = builder.build(name='pink')
 
     release_time = 9

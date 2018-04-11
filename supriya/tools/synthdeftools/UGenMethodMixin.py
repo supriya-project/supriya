@@ -23,7 +23,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = abs(ugen_graph)
                 >>> result
                 UnaryOpUGen.ar()
@@ -48,7 +48,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=(440, 442, 443),
                 ...     )
                 >>> result = abs(ugen_graph)
@@ -99,8 +99,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph + expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -129,8 +129,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph + expr
@@ -173,7 +173,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -216,8 +216,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph / expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -246,8 +246,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph / expr
@@ -290,7 +290,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -343,8 +343,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph >= expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -373,8 +373,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph >= expr
@@ -417,7 +417,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -460,8 +460,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph > expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -490,8 +490,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph > expr
@@ -534,7 +534,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -577,8 +577,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph <= expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -607,8 +607,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph <= expr
@@ -651,7 +651,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -694,8 +694,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph < expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -724,8 +724,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph < expr
@@ -768,7 +768,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -811,8 +811,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph % expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -841,8 +841,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph % expr
@@ -885,7 +885,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -928,8 +928,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph * expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -958,8 +958,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph * expr
@@ -1002,7 +1002,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -1045,7 +1045,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = -ugen_graph
                 >>> result
                 UnaryOpUGen.ar()
@@ -1070,7 +1070,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=(440, 442, 443),
                 ...     )
                 >>> result = -ugen_graph
@@ -1121,8 +1121,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph ** expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -1151,8 +1151,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph ** expr
@@ -1195,7 +1195,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -1239,7 +1239,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr ** ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1268,7 +1268,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr ** ugen_graph
@@ -1324,7 +1324,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr + ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1353,7 +1353,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr + ugen_graph
@@ -1409,7 +1409,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr / ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1438,7 +1438,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr / ugen_graph
@@ -1494,7 +1494,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr % ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1523,7 +1523,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr % ugen_graph
@@ -1579,7 +1579,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr * ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1608,7 +1608,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr * ugen_graph
@@ -1664,7 +1664,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = 1.5
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> result = expr - ugen_graph
                 >>> result
                 BinaryOpUGen.ar()
@@ -1693,7 +1693,7 @@ class UGenMethodMixin(SupriyaObject):
             ::
 
                 >>> expr = [220, 330]
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = expr - ugen_graph
@@ -1746,7 +1746,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
                 >>> print(str(ugen_graph))
                 synthdef:
                     name: c9b0ed62d4e0666b74166ff5ec09abe4
@@ -1759,7 +1759,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(frequency=[1, 2, 3])
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(frequency=[1, 2, 3])
                 >>> print(str(ugen_graph))
                 synthdef:
                     name: 4015dac116b25c54b4a6f02bcb5859cb
@@ -1790,8 +1790,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar()
                 >>> result = ugen_graph - expr
                 >>> result
                 BinaryOpUGen.ar()
@@ -1820,8 +1820,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.kr()
-                >>> expr = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.WhiteNoise.kr()
+                >>> expr = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph - expr
@@ -1864,7 +1864,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.Dust.ar(
+                >>> ugen_graph = supriya.ugens.Dust.ar(
                 ...     density=11.5,
                 ...     )
                 >>> expr = 4
@@ -1916,7 +1916,7 @@ class UGenMethodMixin(SupriyaObject):
                 all_ugens.append(ugen)
 
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         builder = synthdeftools.SynthDefBuilder()
         ugens = copy.deepcopy(self)
         if not isinstance(ugens, synthdeftools.UGenArray):
@@ -1927,7 +1927,7 @@ class UGenMethodMixin(SupriyaObject):
                 ugen = ugen.source
             recurse(builder._uuid, ugen, all_ugens)
         for ugen in all_ugens:
-            if isinstance(ugen, ugentools.UGen):
+            if isinstance(ugen, supriya.ugens.UGen):
                 builder._add_ugens(ugen)
             else:
                 builder._add_parameter(ugen)
@@ -1936,7 +1936,7 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_binary_op(left, right, operator):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         result = []
         if not isinstance(left, collections.Sequence):
             left = (left,)
@@ -1945,12 +1945,12 @@ class UGenMethodMixin(SupriyaObject):
         dictionary = {'left': left, 'right': right}
         operator = synthdeftools.BinaryOperator.from_expr(operator)
         special_index = operator.value
-        for expanded_dict in ugentools.UGen._expand_dictionary(dictionary):
+        for expanded_dict in supriya.ugens.UGen._expand_dictionary(dictionary):
             left = expanded_dict['left']
             right = expanded_dict['right']
             calculation_rate = UGenMethodMixin._compute_binary_rate(
                 left, right)
-            ugen = ugentools.BinaryOpUGen._new_single(
+            ugen = supriya.ugens.BinaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 left=left,
                 right=right,
@@ -1979,7 +1979,7 @@ class UGenMethodMixin(SupriyaObject):
 
     def _compute_ugen_map(self, map_ugen, **kwargs):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         sources = []
         ugens = []
         if len(self) == 1:
@@ -1987,7 +1987,7 @@ class UGenMethodMixin(SupriyaObject):
         else:
             sources = self
         for source in sources:
-            method = ugentools.UGen._get_method_for_rate(map_ugen, source)
+            method = supriya.ugens.UGen._get_method_for_rate(map_ugen, source)
             ugen = method(
                 source=source,
                 **kwargs
@@ -2002,7 +2002,7 @@ class UGenMethodMixin(SupriyaObject):
     @staticmethod
     def _compute_unary_op(source, operator):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         result = []
         if not isinstance(source, collections.Sequence):
             source = (source,)
@@ -2011,7 +2011,7 @@ class UGenMethodMixin(SupriyaObject):
         for single_source in source:
             calculation_rate = synthdeftools.CalculationRate.from_input(
                 single_source)
-            ugen = ugentools.UnaryOpUGen._new_single(
+            ugen = supriya.ugens.UnaryOpUGen._new_single(
                 calculation_rate=calculation_rate,
                 source=single_source,
                 special_index=special_index,
@@ -2155,8 +2155,8 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar()
-                >>> expr = ugentools.WhiteNoise.kr()
+                >>> ugen_graph = supriya.ugens.SinOsc.ar()
+                >>> expr = supriya.ugens.WhiteNoise.kr()
                 >>> result = ugen_graph.absolute_difference(expr)
 
             ::
@@ -2194,7 +2194,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.amplitude_to_db()
 
             ::
@@ -2232,7 +2232,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.ceiling()
             >>> print(operation)
             synthdef:
@@ -2261,7 +2261,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.clip(-0.25, 0.25)
 
             ::
@@ -2286,7 +2286,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph.clip(-0.25, 0.25)
@@ -2324,9 +2324,9 @@ class UGenMethodMixin(SupriyaObject):
                             source: SinOsc.ar/2[0]
 
         """
-        from supriya.tools import ugentools
+        import supriya.ugens
         return self._compute_ugen_map(
-            ugentools.Clip,
+            supriya.ugens.Clip,
             minimum=minimum,
             maximum=maximum,
             )
@@ -2337,7 +2337,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.cubed()
             >>> print(operation)
             synthdef:
@@ -2364,7 +2364,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.db_to_amplitude()
 
             ::
@@ -2395,7 +2395,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.distort()
             >>> print(operation)
             synthdef:
@@ -2420,7 +2420,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.exponential()
             >>> print(operation)
             synthdef:
@@ -2445,7 +2445,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.floor()
             >>> print(operation)
             synthdef:
@@ -2470,7 +2470,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.fractional_part()
             >>> print(operation)
             synthdef:
@@ -2497,7 +2497,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.hanning_window()
 
             ::
@@ -2531,7 +2531,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.hz_to_midi()
 
             ::
@@ -2564,7 +2564,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.hz_to_octave()
 
             ::
@@ -2595,8 +2595,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> left = ugentools.SinOsc.ar()
-            >>> right = ugentools.WhiteNoise.kr()
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
             >>> operation = left.is_equal_to(right)
             >>> print(operation)
             synthdef:
@@ -2625,8 +2625,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> left = ugentools.SinOsc.ar()
-            >>> right = ugentools.WhiteNoise.kr()
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
             >>> operation = left.is_not_equal_to(right)
             >>> print(operation)
             synthdef:
@@ -2660,7 +2660,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.lag(0.5)
 
             ::
@@ -2682,7 +2682,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph.lag(0.5)
@@ -2717,9 +2717,9 @@ class UGenMethodMixin(SupriyaObject):
                             source: SinOsc.ar/2[0]
 
         """
-        from supriya.tools import ugentools
+        import supriya.ugens
         return self._compute_ugen_map(
-            ugentools.Lag,
+            supriya.ugens.Lag,
             lag_time=lag_time,
             )
 
@@ -2729,7 +2729,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.log()
             >>> print(operation)
             synthdef:
@@ -2754,7 +2754,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.log2()
             >>> print(operation)
             synthdef:
@@ -2779,7 +2779,7 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> source = ugentools.DC.ar(source=0.5)
+            >>> source = supriya.ugens.DC.ar(source=0.5)
             >>> operation = source.log10()
             >>> print(operation)
             synthdef:
@@ -2804,8 +2804,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> left = ugentools.SinOsc.ar()
-            >>> right = ugentools.WhiteNoise.kr()
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
             >>> operation = left.maximum(right)
             >>> print(operation)
             synthdef:
@@ -2836,7 +2836,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.midi_to_hz()
 
             ::
@@ -2867,8 +2867,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> left = ugentools.SinOsc.ar()
-            >>> right = ugentools.WhiteNoise.kr()
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
             >>> operation = left.minimum(right)
             >>> print(operation)
             synthdef:
@@ -2899,7 +2899,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.octave_to_hz()
 
             ::
@@ -2930,8 +2930,8 @@ class UGenMethodMixin(SupriyaObject):
 
         ::
 
-            >>> left = ugentools.SinOsc.ar()
-            >>> right = ugentools.WhiteNoise.kr()
+            >>> left = supriya.ugens.SinOsc.ar()
+            >>> right = supriya.ugens.WhiteNoise.kr()
             >>> operation = left.power(right)
             >>> print(operation)
             synthdef:
@@ -2962,7 +2962,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.ratio_to_semitones()
 
             ::
@@ -2995,7 +2995,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.rectangle_window()
 
             ::
@@ -3029,7 +3029,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.reciprocal()
 
             ::
@@ -3063,7 +3063,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.s_curve()
 
             ::
@@ -3105,7 +3105,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75)
 
             ::
@@ -3128,7 +3128,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar(
+                >>> ugen_graph = supriya.ugens.SinOsc.ar(
                 ...     frequency=[440, 442, 443],
                 ...     )
                 >>> result = ugen_graph.scale(-1, 1, 0.5, 0.75, exponential=True)
@@ -3172,10 +3172,10 @@ class UGenMethodMixin(SupriyaObject):
                             source: SinOsc.ar/2[0]
 
         """
-        from supriya.tools import ugentools
-        map_ugen = ugentools.LinLin
+        import supriya.ugens
+        map_ugen = supriya.ugens.LinLin
         if exponential:
-            map_ugen = ugentools.LinExp
+            map_ugen = supriya.ugens.LinExp
         return self._compute_ugen_map(
             map_ugen,
             input_minimum=input_minimum,
@@ -3192,7 +3192,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.WhiteNoise.ar()
+                >>> ugen_graph = supriya.ugens.WhiteNoise.ar()
                 >>> result = ugen_graph.semitones_to_ratio()
 
             ::
@@ -3225,7 +3225,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.sign()
 
             ::
@@ -3291,7 +3291,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.sum()
 
             ::
@@ -3313,7 +3313,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.SinOsc.ar([440, 442, 443])
+                >>> ugen_graph = supriya.ugens.SinOsc.ar([440, 442, 443])
                 >>> result = ugen_graph.sum()
 
             ::
@@ -3342,8 +3342,8 @@ class UGenMethodMixin(SupriyaObject):
 
         Returns ugen graph.
         """
-        from supriya.tools import ugentools
-        return ugentools.Mix.new(self)
+        import supriya.ugens
+        return supriya.ugens.Mix.new(self)
 
     def tanh(self):
         """
@@ -3353,7 +3353,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.tanh()
 
             ::
@@ -3387,7 +3387,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.transpose([0, 3, 7])
 
             ::
@@ -3429,7 +3429,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.triangle_window()
 
             ::
@@ -3463,7 +3463,7 @@ class UGenMethodMixin(SupriyaObject):
 
             ::
 
-                >>> ugen_graph = ugentools.LFNoise2.ar()
+                >>> ugen_graph = supriya.ugens.LFNoise2.ar()
                 >>> result = ugen_graph.welch_window()
 
             ::

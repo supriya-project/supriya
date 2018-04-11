@@ -1,6 +1,6 @@
 from supriya import SynthDefBuilder
 from supriya import systemtools
-from supriya import ugentools
+import supriya.ugens
 
 
 class TestCase(systemtools.TestCase):
@@ -11,11 +11,11 @@ class TestCase(systemtools.TestCase):
         """
 
         with SynthDefBuilder():
-            sine_one = ugentools.SinOsc.ar()
-            ugentools.Out.ar(bus=0, source=sine_one)
+            sine_one = supriya.ugens.SinOsc.ar()
+            supriya.ugens.Out.ar(bus=0, source=sine_one)
 
         with SynthDefBuilder():
-            sine_two = ugentools.SinOsc.ar()
+            sine_two = supriya.ugens.SinOsc.ar()
             with self.assertRaises(ValueError) as context_manager:
                 sine_two * sine_one
             exception_text = context_manager.exception.args[0]
@@ -27,14 +27,14 @@ class TestCase(systemtools.TestCase):
         """
 
         with SynthDefBuilder(bus=0) as builder:
-            sine_one = ugentools.SinOsc.ar()
+            sine_one = supriya.ugens.SinOsc.ar()
             synth_one_bus = builder['bus']
-            ugentools.Out.ar(bus=synth_one_bus, source=sine_one)
+            supriya.ugens.Out.ar(bus=synth_one_bus, source=sine_one)
 
         with SynthDefBuilder():
-            sine_two = ugentools.SinOsc.ar()
+            sine_two = supriya.ugens.SinOsc.ar()
             with self.assertRaises(ValueError) as context_manager:
-                ugentools.Out.ar(bus=synth_one_bus, source=sine_two)
+                supriya.ugens.Out.ar(bus=synth_one_bus, source=sine_two)
             exception_text = context_manager.exception.args[0]
             assert 'UGen input in different scope' in exception_text
 
@@ -43,8 +43,8 @@ class TestCase(systemtools.TestCase):
         Cannot share output proxies.
         """
         with SynthDefBuilder():
-            left, right = ugentools.SinOsc.ar(frequency=[440, 442])
-            ugentools.Out.ar(bus=0, source=[right, left])
+            left, right = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            supriya.ugens.Out.ar(bus=0, source=[right, left])
 
         with SynthDefBuilder():
             with self.assertRaises(ValueError) as context_manager:

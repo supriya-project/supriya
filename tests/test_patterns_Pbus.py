@@ -5,7 +5,7 @@ from supriya import SynthDefBuilder, Parameter
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class TestCase(TestCase):
@@ -631,8 +631,8 @@ class TestCase(TestCase):
         with SynthDefBuilder(
             out=Parameter(parameter_rate='SCALAR', value=0),
             ) as builder:
-            ugentools.Line.kr(duration=2),
-            ugentools.Out.ar(bus=builder['out'], source=ugentools.DC.ar(1))
+            supriya.ugens.Line.kr(duration=2),
+            supriya.ugens.Out.ar(bus=builder['out'], source=supriya.ugens.DC.ar(1))
         dc_synthdef = builder.build()
         pattern = supriya.patterns.Pbus(
             supriya.patterns.Pbind(

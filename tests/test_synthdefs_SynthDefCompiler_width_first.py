@@ -2,7 +2,7 @@ import os
 import unittest
 from supriya import utils
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class Test(unittest.TestCase):
@@ -10,14 +10,14 @@ class Test(unittest.TestCase):
     def test_01(self):
 
         with synthdeftools.SynthDefBuilder() as builder:
-            local_buf = ugentools.LocalBuf(2048)
-            source = ugentools.PinkNoise.ar()
-            pv_chain = ugentools.FFT(
+            local_buf = supriya.ugens.LocalBuf(2048)
+            source = supriya.ugens.PinkNoise.ar()
+            pv_chain = supriya.ugens.FFT(
                 buffer_id=local_buf,
                 source=source,
                 )
-            ifft = ugentools.IFFT.ar(pv_chain=pv_chain)
-            ugentools.Out.ar(bus=0, source=ifft)
+            ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
+            supriya.ugens.Out.ar(bus=0, source=ifft)
 
         synthdef = builder.build('LocalBufTest')
         py_compiled_synthdef = synthdef.compile()
@@ -110,14 +110,14 @@ class Test(unittest.TestCase):
     def test_02(self):
 
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.PinkNoise.ar()
-            local_buf = ugentools.LocalBuf(2048)
-            pv_chain = ugentools.FFT(buffer_id=local_buf, source=source)
-            pv_chain_a = ugentools.PV_BinScramble(pv_chain=pv_chain)
-            pv_chain_b = ugentools.PV_MagFreeze(pv_chain=pv_chain)
-            pv_chain = ugentools.PV_MagMul(pv_chain_a, pv_chain_b)
-            ifft = ugentools.IFFT.ar(pv_chain=pv_chain)
-            ugentools.Out.ar(bus=0, source=ifft)
+            source = supriya.ugens.PinkNoise.ar()
+            local_buf = supriya.ugens.LocalBuf(2048)
+            pv_chain = supriya.ugens.FFT(buffer_id=local_buf, source=source)
+            pv_chain_a = supriya.ugens.PV_BinScramble(pv_chain=pv_chain)
+            pv_chain_b = supriya.ugens.PV_MagFreeze(pv_chain=pv_chain)
+            pv_chain = supriya.ugens.PV_MagMul(pv_chain_a, pv_chain_b)
+            ifft = supriya.ugens.IFFT.ar(pv_chain=pv_chain)
+            supriya.ugens.Out.ar(bus=0, source=ifft)
         py_synthdef = builder.build('PVCopyTest')
         py_compiled_synthdef = py_synthdef.compile()
 

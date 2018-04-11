@@ -1,5 +1,5 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 __all__ = []
@@ -33,17 +33,17 @@ def _build_link_audio_synthdef(channel_count):
                 ],
             release_node=1.0,
             )
-        envelope = ugentools.EnvGen.kr(
+        envelope = supriya.ugens.EnvGen.kr(
             done_action=builder['done_action'],
             envelope=envelope,
             gate=builder['gate'],
             time_scale=builder['fade_time'],
             )
-        source = ugentools.InFeedback.ar(
+        source = supriya.ugens.InFeedback.ar(
             bus=builder['in_'],
             channel_count=channel_count,
             )
-        ugentools.Out.ar(
+        supriya.ugens.Out.ar(
             bus=builder['out'],
             source=source * envelope,
             )
@@ -76,17 +76,17 @@ def _build_link_control_synthdef(channel_count):
             curves=synthdeftools.EnvelopeShape.LINEAR,
             release_node=1.0,
             )
-        envelope = ugentools.EnvGen.kr(
+        envelope = supriya.ugens.EnvGen.kr(
             done_action=builder['done_action'],
             envelope=envelope,
             gate=builder['gate'],
             time_scale=builder['fade_time'],
             )
-        input_ = ugentools.In.kr(
+        input_ = supriya.ugens.In.kr(
             bus=builder['in_'],
             channel_count=channel_count,
             )
-        ugentools.Out.kr(
+        supriya.ugens.Out.kr(
             bus=builder['out'],
             source=input_ * envelope,
             )

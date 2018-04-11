@@ -10,7 +10,7 @@ class SynthDefGrapher(Grapher):
 
         ::
 
-            >>> ugen_graph = ugentools.LFNoise2.ar()
+            >>> ugen_graph = supriya.ugens.LFNoise2.ar()
             >>> result = ugen_graph.transpose([0, 3, 7])
 
         ::
@@ -148,7 +148,7 @@ class SynthDefGrapher(Grapher):
 
     @staticmethod
     def _create_ugen_output_group(synthdef, ugen, ugen_index):
-        from supriya.tools import ugentools
+        import supriya.ugens
         if not ugen.outputs:
             return None
         output_group = uqbar.graphs.RecordGroup(
@@ -156,7 +156,7 @@ class SynthDefGrapher(Grapher):
             )
         for i, output in enumerate(ugen.outputs):
             label = str(i)
-            if isinstance(ugen, ugentools.Control):
+            if isinstance(ugen, supriya.ugens.Control):
                 parameter_index = ugen.special_index + i
                 parameter = dict(synthdef.indexed_parameters)[parameter_index]
                 parameter_name = parameter.name
@@ -175,15 +175,15 @@ class SynthDefGrapher(Grapher):
     @staticmethod
     def _create_ugen_title_field(ugen):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         name = type(ugen).__name__
         calculation_rate = ugen.calculation_rate.name.lower()
         label_template = r'{name}\n({calculation_rate})'
         operator = None
-        if isinstance(ugen, ugentools.BinaryOpUGen):
+        if isinstance(ugen, supriya.ugens.BinaryOpUGen):
             operator = synthdeftools.BinaryOperator(ugen.special_index).name
             label_template = r'{name}\n[{operator}]\n({calculation_rate})'
-        elif isinstance(ugen, ugentools.UnaryOpUGen):
+        elif isinstance(ugen, supriya.ugens.UnaryOpUGen):
             operator = synthdeftools.UnaryOperator(ugen.special_index).name
             label_template = r'{name}\n[{operator}]\n({calculation_rate})'
         title_field = uqbar.graphs.RecordField(

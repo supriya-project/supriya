@@ -1,14 +1,14 @@
 from supriya.tools import synthdeftools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 def test_SynthDefCompiler_basic_01():
 
     with synthdeftools.SynthDefBuilder() as builder:
-        sine_one = ugentools.SinOsc.ar(frequency=420)
-        sine_two = ugentools.SinOsc.ar(frequency=440)
+        sine_one = supriya.ugens.SinOsc.ar(frequency=420)
+        sine_two = supriya.ugens.SinOsc.ar(frequency=440)
         sines = sine_one * sine_two
-        ugentools.Out.ar(bus=0, source=sines)
+        supriya.ugens.Out.ar(bus=0, source=sines)
     py_synthdef = builder.build('foo')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -79,9 +79,9 @@ def test_SynthDefCompiler_basic_01():
 def test_SynthDefCompiler_basic_02():
 
     with synthdeftools.SynthDefBuilder() as builder:
-        sine = ugentools.SinOsc.ar()
+        sine = supriya.ugens.SinOsc.ar()
         sine = -sine
-        ugentools.Out.ar(bus=99, source=sine)
+        supriya.ugens.Out.ar(bus=99, source=sine)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -148,8 +148,8 @@ def test_SynthDefCompiler_basic_03():
     sc_compiled_synthdef = sc_synthdef.compile()
 
     with synthdeftools.SynthDefBuilder() as builder:
-        inputs = ugentools.In.ar(bus=8, channel_count=2)
-        ugentools.Out.ar(bus=0, source=inputs)
+        inputs = supriya.ugens.In.ar(bus=8, channel_count=2)
+        supriya.ugens.Out.ar(bus=0, source=inputs)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -203,9 +203,9 @@ def test_SynthDefCompiler_basic_04():
     sc_compiled_synthdef = bytes(sc_synthdef.compile())
 
     with synthdeftools.SynthDefBuilder() as builder:
-        sin_osc = ugentools.SinOsc.ar()
-        ugentools.FreeSelf.kr(sin_osc)
-        ugentools.Out.ar(bus=0, source=sin_osc)
+        sin_osc = supriya.ugens.SinOsc.ar()
+        supriya.ugens.FreeSelf.kr(sin_osc)
+        supriya.ugens.Out.ar(bus=0, source=sin_osc)
     py_synthdef = builder.build('test')
     py_compiled_synthdef = py_synthdef.compile()
 
@@ -257,9 +257,9 @@ def test_SynthDefCompiler_basic_04():
 def test_SynthDefCompiler_basic_05():
 
     with synthdeftools.SynthDefBuilder() as builder:
-        source = ugentools.In.ar(bus=8, channel_count=2)
-        ugentools.DetectSilence.ar(source=source)
-        ugentools.Out.ar(bus=0, source=source)
+        source = supriya.ugens.In.ar(bus=8, channel_count=2)
+        supriya.ugens.DetectSilence.ar(source=source)
+        supriya.ugens.Out.ar(bus=0, source=source)
     py_synthdef = builder.build('DetectSilenceTest')
     py_compiled_synthdef = py_synthdef.compile()
 

@@ -1,6 +1,6 @@
 from supriya import synthdeftools
 from supriya import systemtools
-from supriya import ugentools
+import supriya.ugens
 
 
 class TestCase(systemtools.TestCase):
@@ -11,12 +11,12 @@ class TestCase(systemtools.TestCase):
             freqs=[300, 400],
             out=0,
             ) as builder:
-            sines = ugentools.SinOsc.ar(
+            sines = supriya.ugens.SinOsc.ar(
                 frequency=builder['freqs'],
                 )
-            sines = ugentools.Mix.new(sines)
+            sines = supriya.ugens.Mix.new(sines)
             sines = sines * builder['amp']
-            ugentools.Out.ar(
+            supriya.ugens.Out.ar(
                 bus=builder['out'],
                 source=sines,
                 )

@@ -26,11 +26,11 @@ class Session:
     ::
 
         >>> from supriya.tools import synthdeftools
-        >>> from supriya.tools import ugentools
+        >>> import supriya.ugens
         >>> builder = synthdeftools.SynthDefBuilder(frequency=440)
         >>> with builder:
-        ...     out = ugentools.Out.ar(
-        ...         source=ugentools.SinOsc.ar(
+        ...     out = supriya.ugens.Out.ar(
+        ...         source=supriya.ugens.SinOsc.ar(
         ...             frequency=builder['frequency'],
         ...             )
         ...         )
@@ -295,11 +295,12 @@ class Session:
 
     @staticmethod
     def _build_rand_seed_synthdef():
-        from supriya import SynthDefBuilder, ugentools
+        import supriya.ugens
+        from supriya import SynthDefBuilder
         with SynthDefBuilder(rand_id=0, rand_seed=0) as builder:
-            ugentools.RandID.ir(rand_id=builder['rand_id'])
-            ugentools.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
-            ugentools.FreeSelf.kr(trigger=1)
+            supriya.ugens.RandID.ir(rand_id=builder['rand_id'])
+            supriya.ugens.RandSeed.ir(seed=builder['rand_seed'], trigger=1)
+            supriya.ugens.FreeSelf.kr(trigger=1)
         return builder.build()
 
     def _build_render_command(

@@ -42,13 +42,13 @@ class ServerMeters(systemtools.SupriyaObject):
         initial_bus=0,
         ):
         from supriya.tools import synthdeftools
-        from supriya.tools import ugentools
+        import supriya.ugens
         with synthdeftools.SynthDefBuilder() as builder:
-            source = ugentools.In.ar(
+            source = supriya.ugens.In.ar(
                 bus=initial_bus,
                 channel_count=channel_count,
                 )
-            ugentools.SendPeakRMS.kr(
+            supriya.ugens.SendPeakRMS.kr(
                 command_name=command_name,
                 peak_lag=1,
                 reply_rate=20,

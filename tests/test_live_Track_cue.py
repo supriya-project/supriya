@@ -3,14 +3,14 @@ import supriya.live
 import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
-from supriya.tools import ugentools
+import supriya.ugens
 
 
 class TestCase(systemtools.TestCase):
 
     with synthdeftools.SynthDefBuilder(out=0, value=1) as builder:
-        source = ugentools.DC.ar(source=builder['value'])
-        ugentools.Out.ar(bus=builder['out'], source=source)
+        source = supriya.ugens.DC.ar(source=builder['value'])
+        supriya.ugens.Out.ar(bus=builder['out'], source=source)
 
     dc_synthdef = builder.build('dc')
 
