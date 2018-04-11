@@ -48,7 +48,7 @@ Get `SuperCollider`_ from http://supercollider.github.io/.
 
 Run the tests to make sure everything's OK::
 
-    supriya$ tox 
+    supriya$ pytest
 
 Consult our installation instructions for detailed help on getting Abjad,
 setting it up, and installing any additional dependencies like `Graphviz`_.
@@ -73,7 +73,7 @@ Create and allocate a group::
 
 Make a synthesizer definition and send it to the server::
 
-    >>> builder = synthdeftools.SynthDefBuilder(
+    >>> builder = supriya.synthdefs.SynthDefBuilder(
     ...     amplitude=1.0,
     ...     frequency=440.0,
     ...     gate=1.0,
@@ -86,8 +86,8 @@ Make a synthesizer definition and send it to the server::
     ...         frequency=builder['frequency'],
     ...         )
     ...     envelope = ugentools.EnvGen.kr(
-    ...         done_action=synthdeftools.DoneAction.FREE_SYNTH,
-    ...         envelope=synthdeftools.Envelope.asr(),
+    ...         done_action=supriya.synthdefs.DoneAction.FREE_SYNTH,
+    ...         envelope=supriya.synthdefs.Envelope.asr(),
     ...         gate=builder['gate'],
     ...         )
     ...     source = source * builder['amplitude']

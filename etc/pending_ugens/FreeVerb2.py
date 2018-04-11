@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class FreeVerb2(MultiOutUGen):
@@ -6,8 +6,8 @@ class FreeVerb2(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> free_verb_2 = ugentools.FreeVerb2.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
         ...     damping=0.5,
         ...     in_2=in_2,
         ...     mix=0.33,
@@ -72,8 +72,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,
@@ -85,8 +85,8 @@ class FreeVerb2(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             damping=damping,
@@ -108,8 +108,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,
@@ -131,8 +131,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,
@@ -153,8 +153,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,
@@ -176,8 +176,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,
@@ -199,8 +199,8 @@ class FreeVerb2(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> free_verb_2 = ugentools.FreeVerb2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> free_verb_2 = supriya.ugens.FreeVerb2.ar(
             ...     damping=0.5,
             ...     in_2=in_2,
             ...     mix=0.33,

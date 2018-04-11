@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Filter import Filter
+from supriya.ugens.Filter import Filter
 
 
 class VarLag(Filter):
@@ -6,8 +6,8 @@ class VarLag(Filter):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> var_lag = ugentools.VarLag.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> var_lag = supriya.ugens.VarLag.ar(
         ...     curvature=0,
         ...     source=source,
         ...     start=start,
@@ -72,8 +72,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -85,8 +85,8 @@ class VarLag(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             curvature=curvature,
@@ -113,8 +113,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.kr(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -126,8 +126,8 @@ class VarLag(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             curvature=curvature,
@@ -159,8 +159,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -182,8 +182,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -212,8 +212,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -234,8 +234,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,
@@ -257,8 +257,8 @@ class VarLag(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> var_lag = ugentools.VarLag.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> var_lag = supriya.ugens.VarLag.ar(
             ...     curvature=0,
             ...     source=source,
             ...     start=start,

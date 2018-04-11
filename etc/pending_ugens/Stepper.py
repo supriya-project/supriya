@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Stepper(UGen):
@@ -6,7 +6,7 @@ class Stepper(UGen):
 
     ::
 
-        >>> stepper = ugentools.Stepper.ar(
+        >>> stepper = supriya.ugens.Stepper.ar(
         ...     maximum=7,
         ...     minimum=0,
         ...     reset=0,
@@ -76,7 +76,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -89,8 +89,8 @@ class Stepper(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             maximum=maximum,
@@ -117,7 +117,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.kr(
+            >>> stepper = supriya.ugens.Stepper.kr(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -130,8 +130,8 @@ class Stepper(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             maximum=maximum,
@@ -152,7 +152,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -175,7 +175,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -198,7 +198,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -221,7 +221,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -243,7 +243,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,
@@ -266,7 +266,7 @@ class Stepper(UGen):
 
         ::
 
-            >>> stepper = ugentools.Stepper.ar(
+            >>> stepper = supriya.ugens.Stepper.ar(
             ...     maximum=7,
             ...     minimum=0,
             ...     reset=0,

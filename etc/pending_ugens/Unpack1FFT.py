@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Unpack1FFT(UGen):
@@ -6,7 +6,7 @@ class Unpack1FFT(UGen):
 
     ::
 
-        >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+        >>> unpack_1_fft = supriya.ugens.Unpack1FFT.ar(
         ...     binindex=binindex,
         ...     bufsize=bufsize,
         ...     chain=chain,
@@ -66,7 +66,7 @@ class Unpack1FFT(UGen):
 
         ::
 
-            >>> unpack_1_fft = ugentools.Unpack1FFT.new(
+            >>> unpack_1_fft = supriya.ugens.Unpack1FFT.new(
             ...     binindex=binindex,
             ...     bufsize=bufsize,
             ...     chain=chain,
@@ -77,7 +77,7 @@ class Unpack1FFT(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -97,7 +97,7 @@ class Unpack1FFT(UGen):
 
         ::
 
-            >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+            >>> unpack_1_fft = supriya.ugens.Unpack1FFT.ar(
             ...     binindex=binindex,
             ...     bufsize=bufsize,
             ...     chain=chain,
@@ -117,7 +117,7 @@ class Unpack1FFT(UGen):
 
         ::
 
-            >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+            >>> unpack_1_fft = supriya.ugens.Unpack1FFT.ar(
             ...     binindex=binindex,
             ...     bufsize=bufsize,
             ...     chain=chain,
@@ -137,7 +137,7 @@ class Unpack1FFT(UGen):
 
         ::
 
-            >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+            >>> unpack_1_fft = supriya.ugens.Unpack1FFT.ar(
             ...     binindex=binindex,
             ...     bufsize=bufsize,
             ...     chain=chain,
@@ -157,7 +157,7 @@ class Unpack1FFT(UGen):
 
         ::
 
-            >>> unpack_1_fft = ugentools.Unpack1FFT.ar(
+            >>> unpack_1_fft = supriya.ugens.Unpack1FFT.ar(
             ...     binindex=binindex,
             ...     bufsize=bufsize,
             ...     chain=chain,

@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Sweep(UGen):
@@ -6,7 +6,7 @@ class Sweep(UGen):
 
     ::
 
-        >>> sweep = ugentools.Sweep.ar(
+        >>> sweep = supriya.ugens.Sweep.ar(
         ...     rate=1,
         ...     trigger=0,
         ...     )
@@ -56,7 +56,7 @@ class Sweep(UGen):
 
         ::
 
-            >>> sweep = ugentools.Sweep.ar(
+            >>> sweep = supriya.ugens.Sweep.ar(
             ...     rate=1,
             ...     trigger=0,
             ...     )
@@ -65,8 +65,8 @@ class Sweep(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rate=rate,
@@ -85,7 +85,7 @@ class Sweep(UGen):
 
         ::
 
-            >>> sweep = ugentools.Sweep.kr(
+            >>> sweep = supriya.ugens.Sweep.kr(
             ...     rate=1,
             ...     trigger=0,
             ...     )
@@ -94,8 +94,8 @@ class Sweep(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             rate=rate,
@@ -112,7 +112,7 @@ class Sweep(UGen):
 
         ::
 
-            >>> sweep = ugentools.Sweep.ar(
+            >>> sweep = supriya.ugens.Sweep.ar(
             ...     rate=1,
             ...     trigger=0,
             ...     )
@@ -131,7 +131,7 @@ class Sweep(UGen):
 
         ::
 
-            >>> sweep = ugentools.Sweep.ar(
+            >>> sweep = supriya.ugens.Sweep.ar(
             ...     rate=1,
             ...     trigger=0,
             ...     )

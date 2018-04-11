@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Hilbert(MultiOutUGen):
@@ -6,8 +6,8 @@ class Hilbert(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> hilbert = ugentools.Hilbert.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> hilbert = supriya.ugens.Hilbert.ar(
         ...     source=source,
         ...     )
         >>> hilbert
@@ -52,8 +52,8 @@ class Hilbert(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert = ugentools.Hilbert.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert = supriya.ugens.Hilbert.ar(
             ...     source=source,
             ...     )
             >>> hilbert
@@ -61,8 +61,8 @@ class Hilbert(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
@@ -80,8 +80,8 @@ class Hilbert(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert = ugentools.Hilbert.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert = supriya.ugens.Hilbert.ar(
             ...     source=source,
             ...     )
             >>> hilbert.source

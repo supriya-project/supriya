@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class GrainFM(MultiOutUGen):
@@ -6,7 +6,7 @@ class GrainFM(MultiOutUGen):
 
     ::
 
-        >>> grain_fm = ugentools.GrainFM.ar(
+        >>> grain_fm = supriya.ugens.GrainFM.ar(
         ...     carfrequency=440,
         ...     channel_count=1,
         ...     duration=1,
@@ -91,7 +91,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -107,8 +107,8 @@ class GrainFM(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             carfrequency=carfrequency,
@@ -134,7 +134,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -160,7 +160,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -186,7 +186,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -212,7 +212,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -238,7 +238,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -264,7 +264,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -290,7 +290,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -316,7 +316,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,
@@ -342,7 +342,7 @@ class GrainFM(MultiOutUGen):
 
         ::
 
-            >>> grain_fm = ugentools.GrainFM.ar(
+            >>> grain_fm = supriya.ugens.GrainFM.ar(
             ...     carfrequency=440,
             ...     channel_count=1,
             ...     duration=1,

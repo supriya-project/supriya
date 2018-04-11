@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.OnePole import OnePole
+from supriya.ugens.OnePole import OnePole
 
 
 class OneZero(OnePole):
@@ -6,8 +6,8 @@ class OneZero(OnePole):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> one_zero = ugentools.OneZero.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> one_zero = supriya.ugens.OneZero.ar(
         ...     coefficient=0.5,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class OneZero(OnePole):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> one_zero = ugentools.OneZero.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> one_zero = supriya.ugens.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
             ...     )
@@ -67,8 +67,8 @@ class OneZero(OnePole):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             coefficient=coefficient,
@@ -89,8 +89,8 @@ class OneZero(OnePole):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> one_zero = ugentools.OneZero.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> one_zero = supriya.ugens.OneZero.kr(
             ...     coefficient=0.5,
             ...     source=source,
             ...     )
@@ -99,8 +99,8 @@ class OneZero(OnePole):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             coefficient=coefficient,
@@ -127,8 +127,8 @@ class OneZero(OnePole):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> one_zero = ugentools.OneZero.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> one_zero = supriya.ugens.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
             ...     )
@@ -147,8 +147,8 @@ class OneZero(OnePole):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> one_zero = ugentools.OneZero.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> one_zero = supriya.ugens.OneZero.ar(
             ...     coefficient=0.5,
             ...     source=source,
             ...     )

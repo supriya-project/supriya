@@ -10,7 +10,6 @@ include graph.png
 include requirements.txt
 include setup.cfg
 include setup.py
-include tox.ini
 
 recursive-include supriya/assets *
 recursive-include supriya/scripts *

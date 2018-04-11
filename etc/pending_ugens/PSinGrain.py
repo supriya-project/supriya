@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class PSinGrain(UGen):
@@ -6,7 +6,7 @@ class PSinGrain(UGen):
 
     ::
 
-        >>> psin_grain = ugentools.PSinGrain.ar(
+        >>> psin_grain = supriya.ugens.PSinGrain.ar(
         ...     amp=1,
         ...     duration=0.2,
         ...     frequency=440,
@@ -61,7 +61,7 @@ class PSinGrain(UGen):
 
         ::
 
-            >>> psin_grain = ugentools.PSinGrain.ar(
+            >>> psin_grain = supriya.ugens.PSinGrain.ar(
             ...     amp=1,
             ...     duration=0.2,
             ...     frequency=440,
@@ -71,8 +71,8 @@ class PSinGrain(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             amp=amp,
@@ -90,7 +90,7 @@ class PSinGrain(UGen):
 
         ::
 
-            >>> psin_grain = ugentools.PSinGrain.ar(
+            >>> psin_grain = supriya.ugens.PSinGrain.ar(
             ...     amp=1,
             ...     duration=0.2,
             ...     frequency=440,
@@ -110,7 +110,7 @@ class PSinGrain(UGen):
 
         ::
 
-            >>> psin_grain = ugentools.PSinGrain.ar(
+            >>> psin_grain = supriya.ugens.PSinGrain.ar(
             ...     amp=1,
             ...     duration=0.2,
             ...     frequency=440,
@@ -130,7 +130,7 @@ class PSinGrain(UGen):
 
         ::
 
-            >>> psin_grain = ugentools.PSinGrain.ar(
+            >>> psin_grain = supriya.ugens.PSinGrain.ar(
             ...     amp=1,
             ...     duration=0.2,
             ...     frequency=440,

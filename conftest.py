@@ -8,7 +8,6 @@ def add_libraries(doctest_namespace):
     doctest_namespace.update(supriya.__dict__)
     doctest_namespace['abjad'] = abjad
     doctest_namespace['supriya'] = supriya
-    doctest_namespace['timespantools'] = abjad.timespantools
 
 
 @pytest.fixture(autouse=True)

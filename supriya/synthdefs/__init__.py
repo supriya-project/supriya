@@ -1,9 +1,7 @@
-from abjad.tools import systemtools
+"""
+Tools for constructing and compiling synthesizer definitions (SynthDefs).
+"""
+from supriya import import_structured_package
 
 
-systemtools.ImportManager.import_nominative_modules(
-    __path__[0],
-    globals(),
-    )
-
-from supriya.synthdefs.system_synthdefs import *  # noqa
+import_structured_package(__path__[0], globals())

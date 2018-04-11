@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Pan2 import Pan2
+from supriya.ugens.Pan2 import Pan2
 
 
 class LinPan2(Pan2):
@@ -6,8 +6,8 @@ class LinPan2(Pan2):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> lin_pan_2 = ugentools.LinPan2.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> lin_pan_2 = supriya.ugens.LinPan2.ar(
         ...     level=1,
         ...     pos=0,
         ...     source=source,
@@ -62,8 +62,8 @@ class LinPan2(Pan2):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lin_pan_2 = ugentools.LinPan2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> lin_pan_2 = supriya.ugens.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
             ...     source=source,
@@ -73,8 +73,8 @@ class LinPan2(Pan2):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             level=level,
@@ -95,8 +95,8 @@ class LinPan2(Pan2):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lin_pan_2 = ugentools.LinPan2.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> lin_pan_2 = supriya.ugens.LinPan2.kr(
             ...     level=1,
             ...     pos=0,
             ...     source=source,
@@ -106,8 +106,8 @@ class LinPan2(Pan2):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             level=level,
@@ -127,8 +127,8 @@ class LinPan2(Pan2):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lin_pan_2 = ugentools.LinPan2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> lin_pan_2 = supriya.ugens.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
             ...     source=source,
@@ -148,8 +148,8 @@ class LinPan2(Pan2):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lin_pan_2 = ugentools.LinPan2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> lin_pan_2 = supriya.ugens.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
             ...     source=source,
@@ -169,8 +169,8 @@ class LinPan2(Pan2):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> lin_pan_2 = ugentools.LinPan2.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> lin_pan_2 = supriya.ugens.LinPan2.ar(
             ...     level=1,
             ...     pos=0,
             ...     source=source,

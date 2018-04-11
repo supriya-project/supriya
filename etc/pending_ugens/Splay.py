@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class Splay(MultiOutUGen):
@@ -8,8 +8,8 @@ class Splay(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-        >>> splay = ugentools.Splay.ar(
+        >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+        >>> splay = supriya.ugens.Splay.ar(
         ...     center=0,
         ...     source=source,
         ...     level=1,
@@ -96,8 +96,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -109,8 +109,8 @@ class Splay(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             center=center,
@@ -135,8 +135,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.kr(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.kr(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -148,8 +148,8 @@ class Splay(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             center=center,
@@ -169,8 +169,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -192,8 +192,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -214,8 +214,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -237,8 +237,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,
@@ -260,8 +260,8 @@ class Splay(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.SinOsc.ar(frequency=[440, 442])
-            >>> splay = ugentools.Splay.ar(
+            >>> source = supriya.ugens.SinOsc.ar(frequency=[440, 442])
+            >>> splay = supriya.ugens.Splay.ar(
             ...     center=0,
             ...     source=source,
             ...     level=1,

@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class Klang(UGen):
@@ -6,7 +6,7 @@ class Klang(UGen):
 
     ::
 
-        >>> klang = ugentools.Klang.ar(
+        >>> klang = supriya.ugens.Klang.ar(
         ...     freqoffset=0,
         ...     freqscale=1,
         ...     specifications_array_ref=specifications_array_ref,
@@ -61,7 +61,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -71,8 +71,8 @@ class Klang(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             freqoffset=freqoffset,
@@ -92,7 +92,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -112,7 +112,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -132,7 +132,7 @@ class Klang(UGen):
 
         ::
 
-            >>> klang = ugentools.Klang.ar(
+            >>> klang = supriya.ugens.Klang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,

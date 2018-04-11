@@ -5,19 +5,18 @@ from distutils.version import StrictVersion
 
 install_requires = [
     'PyYAML',
-    'abjad==2.19',
+    'appdirs',
+    'abjad == 2.21',
     'cython',
     'numpy',
-    'pytest-timeout>=1.2.0',
-    'pytest>=3.0.0',
+    'pytest-timeout >= 1.2.0',
+    'pytest >= 3.0.0',
     'python-rtmidi',
-    'six',
-    'sphinx>=1.5.0',
-    'sphinx_rtd_theme',
+    'sphinx >= 1.5.0',
+    'sphinx_rtd_theme >= 0.3.0',
     'tornado',
-    'tox',
     'tqdm',
-    'urwid',
+    'uqbar >= 0.2.7',
     'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])

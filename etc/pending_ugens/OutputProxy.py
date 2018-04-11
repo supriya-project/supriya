@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class OutputProxy(UGen):
@@ -6,7 +6,7 @@ class OutputProxy(UGen):
 
     ::
 
-        >>> output_proxy = ugentools.OutputProxy.ar(
+        >>> output_proxy = supriya.ugens.OutputProxy.ar(
         ...     index=index,
         ...     its_source_ugen=its_source_ugen,
         ...     rate=rate,
@@ -61,7 +61,7 @@ class OutputProxy(UGen):
 
         ::
 
-            >>> output_proxy = ugentools.OutputProxy.new(
+            >>> output_proxy = supriya.ugens.OutputProxy.new(
             ...     index=index,
             ...     its_source_ugen=its_source_ugen,
             ...     rate=rate,
@@ -71,7 +71,7 @@ class OutputProxy(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -90,7 +90,7 @@ class OutputProxy(UGen):
 
         ::
 
-            >>> output_proxy = ugentools.OutputProxy.ar(
+            >>> output_proxy = supriya.ugens.OutputProxy.ar(
             ...     index=index,
             ...     its_source_ugen=its_source_ugen,
             ...     rate=rate,
@@ -109,7 +109,7 @@ class OutputProxy(UGen):
 
         ::
 
-            >>> output_proxy = ugentools.OutputProxy.ar(
+            >>> output_proxy = supriya.ugens.OutputProxy.ar(
             ...     index=index,
             ...     its_source_ugen=its_source_ugen,
             ...     rate=rate,
@@ -128,7 +128,7 @@ class OutputProxy(UGen):
 
         ::
 
-            >>> output_proxy = ugentools.OutputProxy.ar(
+            >>> output_proxy = supriya.ugens.OutputProxy.ar(
             ...     index=index,
             ...     its_source_ugen=its_source_ugen,
             ...     rate=rate,

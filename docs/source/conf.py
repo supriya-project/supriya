@@ -2,29 +2,9 @@ import abjad
 import supriya
 import os
 import sphinx_rtd_theme
+import uqbar.apis
 from docutils import nodes
-from sphinx.highlighting import PygmentsBridge
-from pygments.formatters.latex import LatexFormatter
 
-
-class SupriyaDocumentationManager(abjad.documentationtools.DocumentationManager):
-    api_directory_name = 'api'
-    api_title = 'Supriya API'
-    root_package_name = 'supriya'
-    source_directory_path_parts = ('docs', 'source')
-    tools_packages_package_path = 'supriya.tools'
-
-
-SupriyaDocumentationManager().execute()
-
-
-class CustomLatexFormatter(LatexFormatter):
-    def __init__(self, **options):
-        super(CustomLatexFormatter, self).__init__(**options)
-        self.verboptions = r'''formatcom=\footnotesize'''
-
-
-PygmentsBridge.latex_formatter = CustomLatexFormatter
 
 extensions = [
     'sphinx.ext.autodoc',
@@ -32,7 +12,19 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-    'supriya.docs.ext.abjadbook',
+    #'supriya.docs.ext.abjadbook',
+    'uqbar.sphinx.api',
+    'uqbar.sphinx.inheritance',
+    'uqbar.sphinx.style',
+    ]
+
+uqbar_api_title = 'Supriya API'
+uqbar_api_source_paths = ['supriya']
+uqbar_api_root_documenter_class = uqbar.apis.SummarizingRootDocumenter
+uqbar_api_module_documenter_class = uqbar.apis.SummarizingModuleDocumenter
+uqbar_api_member_documenter_classes = [
+    uqbar.apis.FunctionDocumenter,
+    uqbar.apis.SummarizingClassDocumenter,
     ]
 
 doctest_path = [
@@ -91,6 +83,10 @@ pygments_style = 'sphinx'
 
 html_theme = 'sphinx_rtd_theme'
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_options = {
+    'sticky_navigation': True,
+    'navigation_depth': 10,
+}
 
 html_static_path = ['_static']
 

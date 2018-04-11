@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class XFadeRotate(MultiOutUGen):
@@ -6,8 +6,8 @@ class XFadeRotate(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> xfade_rotate = ugentools.XFadeRotate.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> xfade_rotate = supriya.ugens.XFadeRotate.ar(
         ...     n=0,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class XFadeRotate(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> xfade_rotate = ugentools.XFadeRotate.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> xfade_rotate = supriya.ugens.XFadeRotate.ar(
             ...     n=0,
             ...     source=source,
             ...     )
@@ -67,8 +67,8 @@ class XFadeRotate(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             n=n,
@@ -87,8 +87,8 @@ class XFadeRotate(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> xfade_rotate = ugentools.XFadeRotate.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> xfade_rotate = supriya.ugens.XFadeRotate.kr(
             ...     n=0,
             ...     source=source,
             ...     )
@@ -97,8 +97,8 @@ class XFadeRotate(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             n=n,
@@ -117,8 +117,8 @@ class XFadeRotate(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> xfade_rotate = ugentools.XFadeRotate.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> xfade_rotate = supriya.ugens.XFadeRotate.ar(
             ...     n=0,
             ...     source=source,
             ...     )
@@ -137,8 +137,8 @@ class XFadeRotate(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> xfade_rotate = ugentools.XFadeRotate.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> xfade_rotate = supriya.ugens.XFadeRotate.ar(
             ...     n=0,
             ...     source=source,
             ...     )

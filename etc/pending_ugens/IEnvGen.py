@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class IEnvGen(UGen):
@@ -6,7 +6,7 @@ class IEnvGen(UGen):
 
     ::
 
-        >>> ienv_gen = ugentools.IEnvGen.ar(
+        >>> ienv_gen = supriya.ugens.IEnvGen.ar(
         ...     envelope=envelope,
         ...     index=index,
         ...     )
@@ -56,7 +56,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -65,8 +65,8 @@ class IEnvGen(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             envelope=envelope,
@@ -87,7 +87,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.kr(
+            >>> ienv_gen = supriya.ugens.IEnvGen.kr(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -96,8 +96,8 @@ class IEnvGen(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             envelope=envelope,
@@ -116,7 +116,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
@@ -134,7 +134,7 @@ class IEnvGen(UGen):
 
         ::
 
-            >>> ienv_gen = ugentools.IEnvGen.ar(
+            >>> ienv_gen = supriya.ugens.IEnvGen.ar(
             ...     envelope=envelope,
             ...     index=index,
             ...     )
