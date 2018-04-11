@@ -8,11 +8,8 @@ from commandlinetools_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     module_contents = utils.normalize_string('''
-    from supriya import (
-        Session,
-        supriya.patterns,
-        synthdefs,
-    )
+    import supriya.patterns
+    from supriya import Session, synthdefs
 
 
     material = Session(0, 2)

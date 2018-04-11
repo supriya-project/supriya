@@ -138,14 +138,14 @@ class ProjectPackageScriptTestCase(systemtools.TestCase):
 
     def tearDown(self):
         super(ProjectPackageScriptTestCase, self).tearDown()
-        for path in sorted(self.test_path.iterdir()):
-            if path in self.directory_items:
-                continue
-            if path.is_file():
-                path.unlink()
-            else:
-                shutil.rmtree(str(path))
-        sys.path.remove(str(self.outer_project_path))
+#        for path in sorted(self.test_path.iterdir()):
+#            if path in self.directory_items:
+#                continue
+#            if path.is_file():
+#                path.unlink()
+#            else:
+#                shutil.rmtree(str(path))
+#        sys.path.remove(str(self.outer_project_path))
         for path, module in tuple(sys.modules.items()):
             if not path or not module:
                 continue
