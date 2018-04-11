@@ -13,7 +13,7 @@ class SynthDefResponseCallback(ResponseCallback):
 
     def __init__(self, server):
         from supriya.tools import responsetools
-        from supriya.tools import servertools
+        import supriya.realtime
         ResponseCallback.__init__(
             self,
             #address_pattern='/d_removed',
@@ -22,7 +22,7 @@ class SynthDefResponseCallback(ResponseCallback):
                 responsetools.SynthDefRemovedResponse,
                 ),
             )
-        assert isinstance(server, servertools.Server)
+        assert isinstance(server, supriya.realtime.Server)
         self._server = server
 
     ### SPECIAL METHODS ###

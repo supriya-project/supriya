@@ -1,5 +1,5 @@
 import abc
-from supriya.tools import servertools
+import supriya.realtime
 
 
 class SessionFactory:
@@ -11,7 +11,7 @@ class SessionFactory:
         input_bus_channel_count=None,
         output_bus_channel_count=None,
         ):
-        self._options = servertools.ServerOptions(
+        self._options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
             )
@@ -27,9 +27,9 @@ class SessionFactory:
     @classmethod
     def from_project_settings(cls, project_settings):
         import supriya.cli
-        from supriya.tools import servertools
+        import supriya.realtime
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = servertools.ServerOptions(
+        server_options = supriya.realtime.ServerOptions(
             **project_settings.get('server_options', {})
             )
         input_bus_channel_count = server_options.input_bus_channel_count

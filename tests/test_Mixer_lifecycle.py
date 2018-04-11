@@ -1,5 +1,5 @@
 from supriya.tools import livetools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
@@ -15,7 +15,7 @@ class TestCase(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -188,9 +188,9 @@ class TestCase(systemtools.TestCase):
         mixer.add_track('bar')
         mixer.add_track('baz')
         mixer.allocate()
-        synth_a = servertools.Synth(synthdef=self.dc_synthdef, value=1.0)
-        synth_b = servertools.Synth(synthdef=self.dc_synthdef, value=0.5)
-        synth_c = servertools.Synth(synthdef=self.dc_synthdef, value=0.25)
+        synth_a = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=1.0)
+        synth_b = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.5)
+        synth_c = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.25)
         synth_a.allocate(
             target_node=mixer['foo'],
             out=int(mixer['foo'].output_bus_group),

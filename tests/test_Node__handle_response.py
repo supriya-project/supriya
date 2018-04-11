@@ -1,5 +1,5 @@
 import supriya.osc
-from supriya import servertools
+import supriya.realtime
 from supriya import synthdefs
 from supriya import systemtools
 
@@ -8,7 +8,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -16,11 +16,11 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        group_a = servertools.Group().allocate()
-        group_b = servertools.Group().allocate()
+        group_a = supriya.realtime.Group().allocate()
+        group_b = supriya.realtime.Group().allocate()
 
-        synth_a = servertools.Synth(synthdefs.test)
-        synth_b = servertools.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
 
         group_a.append(synth_a)
         group_b.append(synth_b)

@@ -1,5 +1,5 @@
 from supriya import synthdefs
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,13 +15,13 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        group = servertools.Group().allocate()
+        group = supriya.realtime.Group().allocate()
 
-        synth_a = servertools.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(synthdefs.test)
         synth_a.allocate(
             target_node=group,
             )
-        synth_b = servertools.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
         synth_b.allocate(
             target_node=group,
             )
@@ -82,9 +82,9 @@ class Test(systemtools.TestCase):
         assert synth_b['frequency'].get() == 441.0
         assert synth_b['amplitude'].get() == 0.25
 
-        bus_a = servertools.Bus(calculation_rate='control')
+        bus_a = supriya.realtime.Bus(calculation_rate='control')
         bus_a.allocate()
-        bus_b = servertools.Bus(calculation_rate='audio')
+        bus_b = supriya.realtime.Bus(calculation_rate='audio')
         bus_b.allocate()
         synth_a['frequency'].set(bus_a)
         synth_b['amplitude'].set(bus_b)
@@ -108,7 +108,7 @@ class Test(systemtools.TestCase):
 
     def test_02(self):
 
-        synth = servertools.Synth(synthdefs.test)
+        synth = supriya.realtime.Synth(synthdefs.test)
         synth['frequency'].set(443)
         synth['amplitude'].set(0.5)
 
@@ -132,8 +132,8 @@ class Test(systemtools.TestCase):
         assert synth['frequency'].get() == 443
         assert synth['amplitude'].get() == 0.5
 
-        control_bus = servertools.Bus(0, calculation_rate='control')
-        audio_bus = servertools.Bus(0, calculation_rate='audio')
+        control_bus = supriya.realtime.Bus(0, calculation_rate='control')
+        audio_bus = supriya.realtime.Bus(0, calculation_rate='audio')
 
         synth['frequency'].set(control_bus)
         synth['amplitude'].set(audio_bus)

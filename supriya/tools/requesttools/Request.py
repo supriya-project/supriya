@@ -59,9 +59,9 @@ class Request(SupriyaValueObject):
         sync=True,
         timeout=1.0,
         ):
-        from supriya.tools import servertools
-        server = server or servertools.Server.get_default_server()
-        assert isinstance(server, servertools.Server)
+        import supriya.realtime
+        server = server or supriya.realtime.Server.get_default_server()
+        assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         message = message or self.to_osc_message()
         if not sync or self.response_specification is None:

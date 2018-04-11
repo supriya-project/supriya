@@ -1,4 +1,4 @@
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class Bus(ServerObjectProxy):
@@ -24,7 +24,7 @@ class Bus(ServerObjectProxy):
         bus_group_or_index=None,
         calculation_rate=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
         bus_group = None
@@ -32,7 +32,7 @@ class Bus(ServerObjectProxy):
         self._bus_id_was_set_manually = False
         if bus_group_or_index is not None:
             self._bus_id_was_set_manually = True
-            if isinstance(bus_group_or_index, servertools.BusGroup):
+            if isinstance(bus_group_or_index, supriya.realtime.BusGroup):
                 bus_group = bus_group_or_index
             elif isinstance(bus_group_or_index, int):
                 bus_id = int(bus_group_or_index)
@@ -120,8 +120,8 @@ class Bus(ServerObjectProxy):
 
             ::
 
-                >>> from supriya.tools import servertools
-                >>> audio_bus = servertools.Bus(8, 'audio')
+                >>> import supriya.realtime
+                >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.ar()
                 >>> graph(ugen)  # doctest: +SKIP
 
@@ -138,7 +138,7 @@ class Bus(ServerObjectProxy):
 
             ::
 
-                >>> control_bus = servertools.Bus(8, 'control')
+                >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.ar()
                 >>> graph(ugen)  # doctest: +SKIP
 
@@ -204,10 +204,10 @@ class Bus(ServerObjectProxy):
         completion_callback=None,
         ):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         if not self.is_allocated:
-            raise servertools.NotAllocatedError(self)
+            raise supriya.realtime.NotAllocatedError(self)
         elif not self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
             raise synthdeftools.RateError
         request = requesttools.ControlBusGetRequest(
@@ -228,8 +228,8 @@ class Bus(ServerObjectProxy):
 
             ::
 
-                >>> from supriya.tools import servertools
-                >>> audio_bus = servertools.Bus(8, 'audio')
+                >>> import supriya.realtime
+                >>> audio_bus = supriya.realtime.Bus(8, 'audio')
                 >>> ugen = audio_bus.kr()
                 >>> graph(ugen)  # doctest: +SKIP
 
@@ -248,7 +248,7 @@ class Bus(ServerObjectProxy):
 
             ::
 
-                >>> control_bus = servertools.Bus(8, 'control')
+                >>> control_bus = supriya.realtime.Bus(8, 'control')
                 >>> ugen = control_bus.kr()
                 >>> graph(ugen)  # doctest: +SKIP
 
@@ -283,10 +283,10 @@ class Bus(ServerObjectProxy):
 
     def set(self, value):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         if not self.is_allocated:
-            raise servertools.NotAllocatedError(self)
+            raise supriya.realtime.NotAllocatedError(self)
         elif not self.calculation_rate == synthdeftools.CalculationRate.CONTROL:
             raise synthdeftools.RateError
         request = requesttools.ControlBusSetRequest(

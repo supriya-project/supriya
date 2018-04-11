@@ -68,9 +68,9 @@ class RequestBundle(SupriyaValueObject):
     ### PUBLIC METHODS ###
 
     def communicate(self, server=None):
-        from supriya.tools import servertools
-        server = server or servertools.Server.get_default_server()
-        assert isinstance(server, servertools.Server)
+        import supriya.realtime
+        server = server or supriya.realtime.Server.get_default_server()
+        assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         message = self.to_osc_bundle()
         server.send_message(message)

@@ -1,5 +1,5 @@
 from supriya import synthdefs
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,7 +15,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        group = servertools.Group().allocate()
+        group = supriya.realtime.Group().allocate()
         assert len(group) == 0
         remote_state = str(self.server.query_remote_nodes())
         self.compare_strings(
@@ -27,7 +27,7 @@ class Test(systemtools.TestCase):
             ''',
             )
 
-        synth = servertools.Synth(synthdefs.test)
+        synth = supriya.realtime.Synth(synthdefs.test)
         assert synth.parent is None
         assert not synth.is_allocated
 
@@ -64,9 +64,9 @@ class Test(systemtools.TestCase):
 
     def test_02(self):
 
-        group = servertools.Group().allocate()
-        synth_a = servertools.Synth(synthdefs.test)
-        synth_b = servertools.Synth(synthdefs.test)
+        group = supriya.realtime.Group().allocate()
+        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
 
         group[:] = [synth_a, synth_b]
         assert len(group) == 2
@@ -132,25 +132,25 @@ class Test(systemtools.TestCase):
 
     def test_03(self):
 
-        group_a = servertools.Group()
+        group_a = supriya.realtime.Group()
         group_a.allocate()
 
-        synth_a = servertools.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(synthdefs.test)
         group_a.append(synth_a)
 
-        group_b = servertools.Group()
+        group_b = supriya.realtime.Group()
         group_a.append(group_b)
 
-        synth_b = servertools.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
         group_b.append(synth_b)
 
-        synth_c = servertools.Synth(synthdefs.test)
+        synth_c = supriya.realtime.Synth(synthdefs.test)
         group_b.append(synth_c)
 
-        group_c = servertools.Group()
+        group_c = supriya.realtime.Group()
         group_b.append(group_c)
 
-        synth_d = servertools.Synth(synthdefs.test)
+        synth_d = supriya.realtime.Synth(synthdefs.test)
         group_a.append(synth_d)
 
         remote_state = str(self.server.query_remote_nodes())
@@ -355,15 +355,15 @@ class Test(systemtools.TestCase):
 
     def test_04(self):
 
-        group_a = servertools.Group(name='Group A').allocate()
-        group_b = servertools.Group(name='Group B').allocate()
+        group_a = supriya.realtime.Group(name='Group A').allocate()
+        group_b = supriya.realtime.Group(name='Group B').allocate()
 
-        synth_a = servertools.Synth(synthdefs.test, name='Synth A')
-        synth_b = servertools.Synth(synthdefs.test, name='Synth B')
-        synth_c = servertools.Synth(synthdefs.test, name='Synth C')
-        synth_d = servertools.Synth(synthdefs.test, name='Synth D')
-        synth_e = servertools.Synth(synthdefs.test, name='Synth E')
-        synth_f = servertools.Synth(synthdefs.test, name='Synth F')
+        synth_a = supriya.realtime.Synth(synthdefs.test, name='Synth A')
+        synth_b = supriya.realtime.Synth(synthdefs.test, name='Synth B')
+        synth_c = supriya.realtime.Synth(synthdefs.test, name='Synth C')
+        synth_d = supriya.realtime.Synth(synthdefs.test, name='Synth D')
+        synth_e = supriya.realtime.Synth(synthdefs.test, name='Synth E')
+        synth_f = supriya.realtime.Synth(synthdefs.test, name='Synth F')
 
         local_state = str(self.server.query_local_nodes())
         remote_state = str(self.server.query_remote_nodes())
@@ -545,44 +545,44 @@ class Test(systemtools.TestCase):
 
     def test_05(self):
 
-        group_a = servertools.Group(
+        group_a = supriya.realtime.Group(
             name='Group A',
             )
-        synth_a = servertools.Synth(
+        synth_a = supriya.realtime.Synth(
             synthdefs.test,
             name='Synth A',
             )
         group_a.append(synth_a)
 
-        group_b = servertools.Group(
+        group_b = supriya.realtime.Group(
             name='Group B',
             )
         group_a.append(group_b)
 
-        synth_b = servertools.Synth(
+        synth_b = supriya.realtime.Synth(
             synthdefs.test,
             name='Synth B',
             )
         group_b.append(synth_b)
 
-        synth_c = servertools.Synth(
+        synth_c = supriya.realtime.Synth(
             synthdefs.test,
             name='Synth C',
             )
         group_b.append(synth_c)
 
-        group_c = servertools.Group(
+        group_c = supriya.realtime.Group(
             name='Group C',
             )
         group_b.append(group_c)
 
-        synth_d = servertools.Synth(
+        synth_d = supriya.realtime.Synth(
             synthdefs.test,
             name='Synth D',
             )
         group_a.append(synth_d)
 
-        synth_e = servertools.Synth(
+        synth_e = supriya.realtime.Synth(
             synthdefs.test,
             name='Synth E',
             )
@@ -633,7 +633,7 @@ class Test(systemtools.TestCase):
         assert synth_e.node_id is None
 
         synth_e.allocate(
-            add_action=servertools.AddAction.REPLACE,
+            add_action=supriya.realtime.AddAction.REPLACE,
             target_node=group_a,
             )
 
@@ -676,24 +676,24 @@ class Test(systemtools.TestCase):
 
     def test_06(self):
 
-        group = servertools.Group()
+        group = supriya.realtime.Group()
 
-        synth_a = servertools.Synth(
+        synth_a = supriya.realtime.Synth(
             name='Synth A',
             synthdef=synthdefs.test,
             )
 
-        synth_b = servertools.Synth(
+        synth_b = supriya.realtime.Synth(
             name='Synth B',
             synthdef=synthdefs.test,
             )
         synth_b['amplitude'] = 0.5
         synth_b['frequency'] = 443
 
-        audio_bus = servertools.Bus(0, 'audio')
-        control_bus = servertools.Bus(1, 'control')
+        audio_bus = supriya.realtime.Bus(0, 'audio')
+        control_bus = supriya.realtime.Bus(1, 'control')
 
-        synth_c = servertools.Synth(
+        synth_c = supriya.realtime.Synth(
             name='Synth C',
             synthdef=synthdefs.test,
             )

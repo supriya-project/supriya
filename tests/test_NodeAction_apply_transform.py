@@ -1,5 +1,5 @@
 from supriya.tools import nonrealtimetools
-from supriya.tools import servertools
+import supriya.realtime
 from nonrealtimetools_testbase import TestCase
 
 
@@ -16,7 +16,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_HEAD,
+            action=supriya.realtime.AddAction.ADD_TO_HEAD,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -45,7 +45,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
-            action=servertools.AddAction.ADD_TO_HEAD,
+            action=supriya.realtime.AddAction.ADD_TO_HEAD,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -76,7 +76,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[2],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_HEAD,
+            action=supriya.realtime.AddAction.ADD_TO_HEAD,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -105,7 +105,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_HEAD,
+            action=supriya.realtime.AddAction.ADD_TO_HEAD,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -130,7 +130,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_TAIL,
+            action=supriya.realtime.AddAction.ADD_TO_TAIL,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -159,7 +159,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
-            action=servertools.AddAction.ADD_TO_TAIL,
+            action=supriya.realtime.AddAction.ADD_TO_TAIL,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -190,7 +190,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[1],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_TAIL,
+            action=supriya.realtime.AddAction.ADD_TO_TAIL,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -219,7 +219,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[2],
             target=nodes[0],
-            action=servertools.AddAction.ADD_TO_TAIL,
+            action=supriya.realtime.AddAction.ADD_TO_TAIL,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -248,7 +248,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[2],
-            action=servertools.AddAction.ADD_BEFORE,
+            action=supriya.realtime.AddAction.ADD_BEFORE,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {
@@ -279,7 +279,7 @@ class TestCase(TestCase):
         action = nonrealtimetools.NodeAction(
             source=nodes[3],
             target=nodes[1],
-            action=servertools.AddAction.ADD_AFTER,
+            action=supriya.realtime.AddAction.ADD_AFTER,
             )
         action.apply_transform(nodes_to_children, nodes_to_parents)
         assert nodes_to_children == {

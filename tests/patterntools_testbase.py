@@ -1,7 +1,7 @@
 import types
 from supriya import synthdefs
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 
 
@@ -10,11 +10,11 @@ class TestCase(systemtools.TestCase):
     def setUp(self):
         super(TestCase, self).setUp()
         self.pseudo_server = types.SimpleNamespace(
-            audio_bus_allocator=servertools.BlockAllocator(),
-            control_bus_allocator=servertools.BlockAllocator(),
-            node_id_allocator=servertools.NodeIdAllocator(),
+            audio_bus_allocator=supriya.realtime.BlockAllocator(),
+            control_bus_allocator=supriya.realtime.BlockAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
-        self.server = servertools.Server.get_default_server().boot()
+        self.server = supriya.realtime.Server.get_default_server().boot()
         synthdefs.default.allocate(self.server)
         self.server.debug_osc = True
         self.server.latency = 0.0

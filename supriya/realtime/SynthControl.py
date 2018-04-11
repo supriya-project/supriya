@@ -32,7 +32,7 @@ class SynthControl:
         unit=None,
         value=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         self._client = client
         self._name = str(name)
@@ -44,7 +44,7 @@ class SynthControl:
         self._unit = unit
         self._value = value
         self._default_value = value
-        if not isinstance(value, servertools.Bus):
+        if not isinstance(value, supriya.realtime.Bus):
             self._last_unmapped_value = self._value
         else:
             self._last_unmapped_value = self._default_value
@@ -64,8 +64,8 @@ class SynthControl:
     ### PRIVATE METHODS ###
 
     def _map_to_bus(self, bus):
-        from supriya.tools import servertools
-        if not isinstance(self.value, servertools.Bus):
+        import supriya.realtime
+        if not isinstance(self.value, supriya.realtime.Bus):
             self._last_unmapped_value = self._value
         self._value = bus
 
@@ -117,9 +117,9 @@ class SynthControl:
 
     def set(self, expr):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
-        if isinstance(expr, servertools.Bus):
+        if isinstance(expr, supriya.realtime.Bus):
             self._map_to_bus(expr)
             if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(

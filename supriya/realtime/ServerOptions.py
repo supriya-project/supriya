@@ -8,8 +8,8 @@ class ServerOptions(SupriyaObject):
 
     ::
 
-        >>> from supriya import servertools
-        >>> options = servertools.ServerOptions()
+        >>> import supriya.realtime
+        >>> options = supriya.realtime.ServerOptions()
 
     """
 

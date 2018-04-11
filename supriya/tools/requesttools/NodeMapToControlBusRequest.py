@@ -9,12 +9,12 @@ class NodeMapToControlBusRequest(Request):
     ::
 
         >>> from supriya.tools import requesttools
-        >>> from supriya.tools import servertools
+        >>> import supriya.realtime
         >>> request = requesttools.NodeMapToControlBusRequest(
         ...     node_id=1000,
-        ...     frequency=servertools.Bus(9, 'control'),
-        ...     phase=servertools.Bus(10, 'control'),
-        ...     amplitude=servertools.Bus(11, 'control'),
+        ...     frequency=supriya.realtime.Bus(9, 'control'),
+        ...     phase=supriya.realtime.Bus(10, 'control'),
+        ...     amplitude=supriya.realtime.Bus(11, 'control'),
         ...     )
         >>> request
         NodeMapToControlBusRequest(

@@ -1,13 +1,13 @@
 import time
 from supriya.tools import livetools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 
 
 class TestCase(systemtools.TestCase):
 
     def test_01(self):
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
         mixer = livetools.Mixer(channel_count=2, cue_channel_count=1)
         track = mixer.add_track('foo')
         track.add_direct_in([(0, 0), (1, 1)])

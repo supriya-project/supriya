@@ -14,8 +14,8 @@ class Server(SupriyaObject):
 
     ::
 
-        >>> from supriya import servertools
-        >>> server = servertools.Server.get_default_server()
+        >>> import supriya.realtime
+        >>> server = supriya.realtime.Server.get_default_server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -97,7 +97,7 @@ class Server(SupriyaObject):
         ):
         import supriya.osc
         from supriya.tools import responsetools
-        from supriya.tools import servertools
+        import supriya.realtime
 
         if hasattr(self, 'is_running') and self.is_running:
             return
@@ -138,7 +138,7 @@ class Server(SupriyaObject):
         ### SERVER PROCESS ###
 
         self._is_running = False
-        self._server_options = servertools.ServerOptions()
+        self._server_options = supriya.realtime.ServerOptions()
         self._server_process = None
         self._status = None
         self._status_watcher = None
@@ -149,8 +149,8 @@ class Server(SupriyaObject):
         self._audio_output_bus_group = None
         self._default_group = None
         self._root_node = None
-        self._meters = servertools.ServerMeters(self)
-        self._recorder = servertools.ServerRecorder(self)
+        self._meters = supriya.realtime.ServerMeters(self)
+        self._recorder = supriya.realtime.ServerRecorder(self)
 
         ### PROXY MAPPINGS ###
 
@@ -175,13 +175,13 @@ class Server(SupriyaObject):
     ### SPECIAL METHODS ###
 
     def __contains__(self, expr):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
-        if not isinstance(expr, servertools.ServerObjectProxy):
+        if not isinstance(expr, supriya.realtime.ServerObjectProxy):
             return False
         elif expr.server is not self:
             return False
-        elif isinstance(expr, servertools.Node):
+        elif isinstance(expr, supriya.realtime.Node):
             node_id = expr.node_id
             if node_id in self._nodes and self._nodes[node_id] is expr:
                 return True
@@ -207,10 +207,10 @@ class Server(SupriyaObject):
 
     def __graph__(self):
         def recurse(graph, parent_graphviz_node, parent_server_node):
-            if not isinstance(parent_server_node, servertools.Group):
+            if not isinstance(parent_server_node, supriya.realtime.Group):
                 return
             for child_server_node in parent_server_node:
-                if isinstance(child_server_node, servertools.Group):
+                if isinstance(child_server_node, supriya.realtime.Group):
                     name = 'Group {}'.format(child_server_node.node_id)
                 else:
                     name = 'Synth {}'.format(child_server_node.node_id)
@@ -223,7 +223,7 @@ class Server(SupriyaObject):
                     child_graphviz_node,
                     )
                 recurse(graph, child_graphviz_node, child_server_node)
-        from supriya.tools import servertools
+        import supriya.realtime
         graph = uqbar.graphs.Graph(
             name='server',
             )
@@ -256,10 +256,10 @@ class Server(SupriyaObject):
         return self.default_group
 
     def _get_buffer_proxy(self, buffer_id):
-        from supriya.tools import servertools
+        import supriya.realtime
         buffer_proxy = self._buffer_proxies.get(buffer_id)
         if not buffer_proxy:
-            buffer_proxy = servertools.BufferProxy(
+            buffer_proxy = supriya.realtime.BufferProxy(
                 buffer_id=buffer_id,
                 server=self,
                 )
@@ -267,11 +267,11 @@ class Server(SupriyaObject):
         return buffer_proxy
 
     def _get_control_bus_proxy(self, bus_id):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         control_bus_proxy = self._control_bus_proxies.get(bus_id)
         if not control_bus_proxy:
-            control_bus_proxy = servertools.BusProxy(
+            control_bus_proxy = supriya.realtime.BusProxy(
                 bus_id=bus_id,
                 calculation_rate=synthdeftools.CalculationRate.CONTROL,
                 server=self,
@@ -287,18 +287,18 @@ class Server(SupriyaObject):
         self._setup_system_synthdefs()
 
     def _setup_allocators(self, server_options):
-        from supriya.tools import servertools
-        self._audio_bus_allocator = servertools.BlockAllocator(
+        import supriya.realtime
+        self._audio_bus_allocator = supriya.realtime.BlockAllocator(
             heap_maximum=server_options.audio_bus_channel_count,
             heap_minimum=server_options.first_private_bus_id,
             )
-        self._buffer_allocator = servertools.BlockAllocator(
+        self._buffer_allocator = supriya.realtime.BlockAllocator(
             heap_maximum=server_options.buffer_count,
             )
-        self._control_bus_allocator = servertools.BlockAllocator(
+        self._control_bus_allocator = supriya.realtime.BlockAllocator(
             heap_maximum=server_options.control_bus_channel_count,
             )
-        self._node_id_allocator = servertools.NodeIdAllocator(
+        self._node_id_allocator = supriya.realtime.NodeIdAllocator(
             initial_node_id=server_options.initial_node_id,
             )
         self._sync_id = 0
@@ -309,23 +309,23 @@ class Server(SupriyaObject):
         request.communicate(server=self)
 
     def _setup_proxies(self):
-        from supriya.tools import servertools
-        self._audio_input_bus_group = servertools.AudioInputBusGroup(self)
-        self._audio_output_bus_group = servertools.AudioOutputBusGroup(self)
-        self._root_node = servertools.RootNode(server=self)
+        import supriya.realtime
+        self._audio_input_bus_group = supriya.realtime.AudioInputBusGroup(self)
+        self._audio_output_bus_group = supriya.realtime.AudioOutputBusGroup(self)
+        self._root_node = supriya.realtime.RootNode(server=self)
         self._nodes[0] = self._root_node
-        default_group = servertools.Group()
+        default_group = supriya.realtime.Group()
         default_group.allocate(
-            add_action=servertools.AddAction.ADD_TO_HEAD,
+            add_action=supriya.realtime.AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
             target_node=self.root_node,
             )
         self._default_group = default_group
 
     def _setup_status_watcher(self):
-        from supriya.tools import servertools
+        import supriya.realtime
         self._status = None
-        self._status_watcher = servertools.StatusWatcher(self)
+        self._status_watcher = supriya.realtime.StatusWatcher(self)
         self._status_watcher.start()
 
     def _setup_system_synthdefs(self):
@@ -388,15 +388,15 @@ class Server(SupriyaObject):
         server_options=None,
         **kwargs
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         if self.is_running:
             return self
         scsynth_path = 'scsynth'
         if not uqbar.io.find_executable(scsynth_path):
             raise RuntimeError('Cannot find scsynth')
         self._osc_controller.boot()
-        server_options = server_options or servertools.ServerOptions()
-        assert isinstance(server_options, servertools.ServerOptions)
+        server_options = server_options or supriya.realtime.ServerOptions()
+        assert isinstance(server_options, supriya.realtime.ServerOptions)
         if kwargs:
             server_options = utils.new(server_options, **kwargs)
         options_string = server_options.as_options_string(self.port)
@@ -436,16 +436,16 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> from supriya import servertools
-            >>> server = servertools.Server()
+            >>> import supriya.realtime
+            >>> server = supriya.realtime.Server()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 
         ::
 
-            >>> group_a = servertools.Group().allocate()
-            >>> group_b = servertools.Group().allocate()
-            >>> group_c = servertools.Group().allocate(target_node=group_a)
+            >>> group_a = supriya.realtime.Group().allocate()
+            >>> group_b = supriya.realtime.Group().allocate()
+            >>> group_c = supriya.realtime.Group().allocate(target_node=group_a)
 
         ::
 
@@ -470,7 +470,7 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> synth = servertools.Synth(synthdef).allocate(
+            >>> synth = supriya.realtime.Synth(synthdef).allocate(
             ...     target_node=group_b,
             ...     )
 
@@ -506,16 +506,16 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> from supriya import servertools
-            >>> server = servertools.Server()
+            >>> import supriya.realtime
+            >>> server = supriya.realtime.Server()
             >>> server.boot()
             <Server: udp://127.0.0.1:57751, 8i8o>
 
         ::
 
-            >>> group_a = servertools.Group().allocate()
-            >>> group_b = servertools.Group().allocate()
-            >>> group_c = servertools.Group().allocate(target_node=group_a)
+            >>> group_a = supriya.realtime.Group().allocate()
+            >>> group_b = supriya.realtime.Group().allocate()
+            >>> group_c = supriya.realtime.Group().allocate(target_node=group_a)
 
         ::
 
@@ -540,7 +540,7 @@ class Server(SupriyaObject):
 
         ::
 
-            >>> synth = servertools.Synth(synthdef).allocate(
+            >>> synth = supriya.realtime.Synth(synthdef).allocate(
             ...     target_node=group_b,
             ...     )
 

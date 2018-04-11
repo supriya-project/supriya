@@ -4,7 +4,7 @@ import pathlib
 import re
 import traceback
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 
 
@@ -177,7 +177,7 @@ class Application:
             file_paths = tuple(self._lookup_file_paths(path))
             if not file_paths:
                 continue
-            buffer_group = servertools.BufferGroup(len(file_paths))
+            buffer_group = supriya.realtime.BufferGroup(len(file_paths))
             self._buffer_names_to_buffer_groups[name] = buffer_group
             self._buffer_names_to_file_paths[name] = file_paths
 

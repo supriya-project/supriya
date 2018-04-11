@@ -9,9 +9,9 @@ class GroupNewRequest(Request):
     ::
 
         >>> from supriya.tools import requesttools
-        >>> from supriya.tools import servertools
+        >>> import supriya.realtime
         >>> request = requesttools.GroupNewRequest(
-        ...     add_action=servertools.AddAction.ADD_TO_TAIL,
+        ...     add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
         ...     target_node_id=1000,
         ...     )
@@ -51,9 +51,9 @@ class GroupNewRequest(Request):
         node_id=None,
         target_node_id=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         Request.__init__(self)
-        self._add_action = servertools.AddAction.from_expr(add_action)
+        self._add_action = supriya.realtime.AddAction.from_expr(add_action)
         self._node_id = node_id
         self._target_node_id = target_node_id
 

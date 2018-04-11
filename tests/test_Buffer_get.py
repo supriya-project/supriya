@@ -1,5 +1,5 @@
 import collections
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -7,14 +7,14 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
         super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
-        buffer_ = servertools.Buffer()
+        buffer_ = supriya.realtime.Buffer()
         buffer_.allocate(frame_count=8, sync=True)
         response = buffer_.get((0,))
         result = response.as_dict()
@@ -41,7 +41,7 @@ class Test(systemtools.TestCase):
         buffer_.free()
 
     def test_02(self):
-        buffer_ = servertools.Buffer()
+        buffer_ = supriya.realtime.Buffer()
         buffer_.allocate(frame_count=8, sync=True)
         buffer_.set_contiguous(
             index_values_pairs=(

@@ -9,12 +9,12 @@ class NodeMapToAudioBusRequest(Request):
     ::
 
         >>> from supriya.tools import requesttools
-        >>> from supriya.tools import servertools
+        >>> import supriya.realtime
         >>> request = requesttools.NodeMapToAudioBusRequest(
         ...     node_id=1000,
-        ...     frequency=servertools.Bus(9, 'audio'),
-        ...     phase=servertools.Bus(10, 'audio'),
-        ...     amplitude=servertools.Bus(11, 'audio'),
+        ...     frequency=supriya.realtime.Bus(9, 'audio'),
+        ...     phase=supriya.realtime.Bus(10, 'audio'),
+        ...     amplitude=supriya.realtime.Bus(11, 'audio'),
         ...     )
         >>> request
         NodeMapToAudioBusRequest(

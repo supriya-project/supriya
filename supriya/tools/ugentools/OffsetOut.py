@@ -77,13 +77,13 @@ class OffsetOut(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.BusProxy,
+            supriya.realtime.Bus,
+            supriya.realtime.BusGroup,
+            supriya.realtime.BusProxy,
             )
         if isinstance(bus, prototype):
             bus = int(bus)

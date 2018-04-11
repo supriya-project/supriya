@@ -1,4 +1,4 @@
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools.livetools.Slot import Slot
@@ -18,7 +18,7 @@ class SynthSlot(Slot):
         from supriya import synthdefs
         self._synthdef = synthdef or synthdefs.default
         Slot.__init__(self, name, track, self._synthdef, **kwargs)
-        self._synth = servertools.Synth(
+        self._synth = supriya.realtime.Synth(
             synthdef=self._synthdef,
             **self.bindable_namespace
             )

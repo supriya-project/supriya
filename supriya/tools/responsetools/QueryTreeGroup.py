@@ -107,17 +107,17 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
     @classmethod
     def from_group(cls, group, include_controls=False):
         from supriya.tools import responsetools
-        from supriya.tools import servertools
-        assert isinstance(group, servertools.Group)
+        import supriya.realtime
+        assert isinstance(group, supriya.realtime.Group)
         node_id = group.node_id
         children = []
         for child in group.children:
-            if isinstance(child, servertools.Group):
+            if isinstance(child, supriya.realtime.Group):
                 child = QueryTreeGroup.from_group(
                     child,
                     include_controls=include_controls,
                     )
-            elif isinstance(child, servertools.Synth):
+            elif isinstance(child, supriya.realtime.Synth):
                 child = responsetools.QueryTreeSynth.from_synth(
                     child,
                     include_controls=include_controls,

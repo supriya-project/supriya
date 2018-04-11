@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import synthdefs
 from supriya import systemtools
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,16 +15,16 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        group_a = servertools.Group()
+        group_a = supriya.realtime.Group()
         group_a.allocate(target_node=self.server)
 
-        group_b = servertools.Group()
+        group_b = supriya.realtime.Group()
         group_b.allocate(target_node=self.server)
 
         synthdef = synthdefs.test
         assert not synthdef.is_allocated
 
-        synth_a = servertools.Synth(synthdef)
+        synth_a = supriya.realtime.Synth(synthdef)
         assert not synthdef.is_allocated
         assert not synth_a.is_allocated
 
@@ -66,7 +66,7 @@ class Test(systemtools.TestCase):
             ''',
             )
 
-        synth_b = servertools.Synth(synthdef)
+        synth_b = supriya.realtime.Synth(synthdef)
         assert not synth_b.is_allocated
         assert synth_b.parent is None
 

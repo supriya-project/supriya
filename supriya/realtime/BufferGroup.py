@@ -1,5 +1,5 @@
 import os
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class BufferGroup(ServerObjectProxy):
@@ -8,11 +8,11 @@ class BufferGroup(ServerObjectProxy):
 
     ::
 
-        >>> server = servertools.Server().boot()
+        >>> server = supriya.realtime.Server().boot()
 
     ::
 
-        >>> buffer_group = servertools.BufferGroup(buffer_count=4)
+        >>> buffer_group = supriya.realtime.BufferGroup(buffer_count=4)
         >>> buffer_group
         <BufferGroup: {4} @ None>
 
@@ -51,13 +51,13 @@ class BufferGroup(ServerObjectProxy):
         self,
         buffer_count=1,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         ServerObjectProxy.__init__(self)
         self._buffer_id = None
         buffer_count = int(buffer_count)
         assert 0 < buffer_count
         self._buffers = tuple(
-            servertools.Buffer(buffer_group_or_index=self)
+            supriya.realtime.Buffer(buffer_group_or_index=self)
             for _ in range(buffer_count)
             )
 
@@ -135,7 +135,7 @@ class BufferGroup(ServerObjectProxy):
 
         Returns buffer group.
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         if self.is_allocated:
             return
         self._register_with_local_server(server)
@@ -143,7 +143,7 @@ class BufferGroup(ServerObjectProxy):
         frame_count = int(frame_count)
         assert 0 < channel_count
         assert 0 < frame_count
-        message_bundler = servertools.MessageBundler(
+        message_bundler = supriya.realtime.MessageBundler(
             server=server,
             sync=sync,
             )
@@ -190,7 +190,7 @@ class BufferGroup(ServerObjectProxy):
 
         ::
 
-            >>> server = servertools.Server().boot()
+            >>> server = supriya.realtime.Server().boot()
             >>> buffer_group = BufferGroup.from_file_paths(file_paths)
 
         ::
@@ -205,12 +205,12 @@ class BufferGroup(ServerObjectProxy):
 
         Returns buffer group.
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         for file_path in file_paths:
             assert os.path.exists(file_path)
         buffer_group = BufferGroup(buffer_count=len(file_paths))
         buffer_group._register_with_local_server(server)
-        message_bundler = servertools.MessageBundler(
+        message_bundler = supriya.realtime.MessageBundler(
             server=server,
             sync=True,
             )

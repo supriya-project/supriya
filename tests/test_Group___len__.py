@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import synthdefs
 from supriya import systemtools
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,35 +15,35 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        group_a = servertools.Group()
+        group_a = supriya.realtime.Group()
         group_a.allocate()
 
         assert len(group_a) == 0
 
-        synth_a = servertools.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(synthdefs.test)
         group_a.append(synth_a)
 
         assert len(group_a) == 1
 
-        group_b = servertools.Group()
+        group_b = supriya.realtime.Group()
         group_a.append(group_b)
 
         assert len(group_a) == 2
         assert len(group_b) == 0
 
-        synth_b = servertools.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
         group_b.append(synth_b)
 
         assert len(group_a) == 2
         assert len(group_b) == 1
 
-        synth_c = servertools.Synth(synthdefs.test)
+        synth_c = supriya.realtime.Synth(synthdefs.test)
         group_b.append(synth_c)
 
         assert len(group_a) == 2
         assert len(group_b) == 2
 
-        synth_d = servertools.Synth(synthdefs.test)
+        synth_d = supriya.realtime.Synth(synthdefs.test)
         group_a.append(synth_d)
 
         assert len(group_a) == 3

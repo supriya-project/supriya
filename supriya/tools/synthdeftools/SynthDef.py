@@ -5,7 +5,7 @@ import os
 import shutil
 import tempfile
 import yaml
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class SynthDef(ServerObjectProxy):
@@ -28,8 +28,8 @@ class SynthDef(ServerObjectProxy):
 
     ::
 
-        >>> from supriya import servertools
-        >>> server = servertools.Server().boot()
+        >>> import supriya.realtime
+        >>> server = supriya.realtime.Server().boot()
 
     ::
 
@@ -700,19 +700,19 @@ class SynthDef(ServerObjectProxy):
             >>> server = server.quit()
 
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         if target_node is not None:
-            target_node = servertools.Node.expr_as_target(target_node)
+            target_node = supriya.realtime.Node.expr_as_target(target_node)
             server = target_node.server
         else:
-            server = servertools.Server.get_default_server()
-            target_node = servertools.Node.expr_as_target(server)
+            server = supriya.realtime.Server.get_default_server()
+            target_node = supriya.realtime.Node.expr_as_target(server)
         if not server.is_running:
             server.boot()
         if not self.is_allocated:
             self.allocate(server=server)
             self.server.sync()
-        synth = servertools.Synth(self, **kwargs)
+        synth = supriya.realtime.Synth(self, **kwargs)
         synth.allocate(
             add_action=add_action,
             sync=True,

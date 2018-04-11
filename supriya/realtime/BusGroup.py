@@ -1,4 +1,4 @@
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class BusGroup(ServerObjectProxy):
@@ -24,7 +24,7 @@ class BusGroup(ServerObjectProxy):
         calculation_rate=None,
         bus_id=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         ServerObjectProxy.__init__(self)
         calculation_rate = synthdeftools.CalculationRate.from_expr(
@@ -37,7 +37,7 @@ class BusGroup(ServerObjectProxy):
         bus_count = int(bus_count)
         assert 0 < bus_count
         self._buses = tuple(
-            servertools.Bus(
+            supriya.realtime.Bus(
                 bus_group_or_index=self,
                 calculation_rate=self.calculation_rate,
                 )
@@ -102,11 +102,11 @@ class BusGroup(ServerObjectProxy):
         server=None,
         sync=False,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         if self.is_allocated:
             return
         ServerObjectProxy.allocate(self, server=server)
-        allocator = servertools.Bus._get_allocator(
+        allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate,
             server=self.server,
             )
@@ -127,8 +127,8 @@ class BusGroup(ServerObjectProxy):
 
             ::
 
-                >>> from supriya.tools import servertools
-                >>> audio_bus_group = servertools.BusGroup(
+                >>> import supriya.realtime
+                >>> audio_bus_group = supriya.realtime.BusGroup(
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='audio',
@@ -149,7 +149,7 @@ class BusGroup(ServerObjectProxy):
 
             ::
 
-                >>> control_bus_group = servertools.BusGroup(
+                >>> control_bus_group = supriya.realtime.BusGroup(
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='control',
@@ -211,10 +211,10 @@ class BusGroup(ServerObjectProxy):
             )
 
     def free(self):
-        from supriya.tools import servertools
+        import supriya.realtime
         if not self.is_allocated:
             return
-        allocator = servertools.Bus._get_allocator(
+        allocator = supriya.realtime.Bus._get_allocator(
             calculation_rate=self.calculation_rate,
             server=self.server,
             )
@@ -249,8 +249,8 @@ class BusGroup(ServerObjectProxy):
 
             ::
 
-                >>> from supriya.tools import servertools
-                >>> audio_bus_group = servertools.BusGroup(
+                >>> import supriya.realtime
+                >>> audio_bus_group = supriya.realtime.BusGroup(
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='audio',
@@ -279,7 +279,7 @@ class BusGroup(ServerObjectProxy):
 
             ::
 
-                >>> control_bus_group = servertools.BusGroup(
+                >>> control_bus_group = supriya.realtime.BusGroup(
                 ...     bus_id=8,
                 ...     bus_count=4,
                 ...     calculation_rate='control',

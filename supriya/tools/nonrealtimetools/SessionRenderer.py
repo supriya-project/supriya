@@ -16,7 +16,7 @@ from supriya.tools.nonrealtimetools import (
     NonrealtimeRenderError,
     NonrealtimeOutputMissing,
 )
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import systemtools
 
@@ -135,7 +135,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         server_options=None,
         ):
         cwd = pathlib.Path.cwd()
-        server_options = server_options or servertools.ServerOptions()
+        server_options = server_options or supriya.realtime.ServerOptions()
         if os.environ.get('TRAVIS', None):
             server_options = utils.new(server_options, load_synthdefs=True)
         scsynth_path = 'scsynth'

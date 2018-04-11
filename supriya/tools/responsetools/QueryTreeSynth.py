@@ -122,9 +122,9 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
     @classmethod
     def from_synth(cls, synth, include_controls=False):
         from supriya.tools import responsetools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
-        assert isinstance(synth, servertools.Synth)
+        assert isinstance(synth, supriya.realtime.Synth)
         node_id = synth.node_id
         synthdef_name = synth.synthdef
         if isinstance(synthdef_name, synthdeftools.SynthDef):

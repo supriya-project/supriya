@@ -74,9 +74,9 @@ class ServerRecorder(SupriyaObject):
 
     def _setup_buffer(self):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         buffer_id = self._get_record_id()
-        buffer_ = servertools.Buffer(buffer_id)
+        buffer_ = supriya.realtime.Buffer(buffer_id)
         frame_count = 65536
         buffer_.allocate(
             frame_count=frame_count,
@@ -98,10 +98,10 @@ class ServerRecorder(SupriyaObject):
         self._record_buffer = buffer_
 
     def _setup_node(self):
-        from supriya.tools import servertools
-        synth = servertools.Synth(self.record_synthdef)
+        import supriya.realtime
+        synth = supriya.realtime.Synth(self.record_synthdef)
         synth.allocate(
-            add_action=servertools.AddAction.ADD_TO_TAIL,
+            add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
             target_node=self.server.root_node,
             node_id_is_permanent=True,
             )

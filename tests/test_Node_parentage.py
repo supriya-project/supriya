@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import synthdefs
 from supriya import systemtools
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -18,12 +18,12 @@ class Test(systemtools.TestCase):
         root_node = self.server.root_node
         default_group = self.server.default_group
 
-        group_a = servertools.Group().allocate()
-        group_b = servertools.Group().allocate(target_node=group_a)
-        group_c = servertools.Group().allocate(target_node=group_b)
-        group_d = servertools.Group().allocate(target_node=group_c)
-        synth_a = servertools.Synth(synthdefs.test)
-        synth_b = servertools.Synth(synthdefs.test)
+        group_a = supriya.realtime.Group().allocate()
+        group_b = supriya.realtime.Group().allocate(target_node=group_a)
+        group_c = supriya.realtime.Group().allocate(target_node=group_b)
+        group_d = supriya.realtime.Group().allocate(target_node=group_c)
+        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test)
         group_d.extend([synth_a, synth_b])
 
         server_state = str(self.server.query_remote_nodes())

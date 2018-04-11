@@ -1,5 +1,5 @@
 import uuid
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.patterns.Event import Event
 
@@ -76,11 +76,11 @@ class BusEvent(Event):
         calculation_rate = self.get('calculation_rate')
         channel_count = self.get('channel_count') or 1
         if not self.get('is_stop'):
-            bus_group = servertools.BusGroup(
+            bus_group = supriya.realtime.BusGroup(
                 bus_count=channel_count,
                 calculation_rate=calculation_rate,
                 )
-            allocator = servertools.Bus._get_allocator(
+            allocator = supriya.realtime.Bus._get_allocator(
                 calculation_rate=calculation_rate,
                 server=server,
                 )

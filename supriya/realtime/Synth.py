@@ -1,4 +1,4 @@
-from supriya.tools.servertools.Node import Node
+from supriya.realtime.Node import Node
 
 
 class Synth(Node):
@@ -7,8 +7,8 @@ class Synth(Node):
 
     ::
 
-        >>> from supriya import servertools
-        >>> server = servertools.Server()
+        >>> import supriya.realtime
+        >>> server = supriya.realtime.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
@@ -35,7 +35,7 @@ class Synth(Node):
 
     ::
 
-        >>> synth = servertools.Synth(synthdef=synthdef).allocate()
+        >>> synth = supriya.realtime.Synth(synthdef=synthdef).allocate()
 
     ::
 
@@ -64,13 +64,13 @@ class Synth(Node):
         **kwargs
         ):
         from supriya import synthdefs
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         Node.__init__(self, name=name)
         synthdef = synthdef or synthdefs.default
         assert isinstance(synthdef, synthdeftools.SynthDef)
         self._synthdef = synthdef
-        self._control_interface = servertools.SynthInterface(
+        self._control_interface = supriya.realtime.SynthInterface(
             client=self,
             synthdef=self._synthdef,
             )
@@ -134,7 +134,7 @@ class Synth(Node):
         **kwargs
         ):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         if self.is_allocated:
             return
         add_action, node_id, target_node_id = Node.allocate(
@@ -162,7 +162,7 @@ class Synth(Node):
                 [(self.node_id, False)])
             requests.append(pause_request)
         if 1 < len(requests):
-            message_bundler = servertools.MessageBundler(
+            message_bundler = supriya.realtime.MessageBundler(
                 server=self.server,
                 sync=True,
                 )

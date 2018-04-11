@@ -1,4 +1,4 @@
-from supriya.tools.servertools.Group import Group
+from supriya.realtime.Group import Group
 
 
 class RootNode(Group):
@@ -12,8 +12,8 @@ class RootNode(Group):
     ### INITIALIZER ###
 
     def __init__(self, server=None):
-        from supriya.tools import servertools
-        servertools.Group.__init__(self)
+        import supriya.realtime
+        supriya.realtime.Group.__init__(self)
         self._server = server
 
     ### PUBLIC METHODS ###

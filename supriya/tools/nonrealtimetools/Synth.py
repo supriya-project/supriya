@@ -1,5 +1,5 @@
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools.nonrealtimetools.Node import Node
 
 
@@ -18,8 +18,8 @@ class Synth(Node):
         )
 
     _valid_add_actions = (
-        servertools.AddAction.ADD_AFTER,
-        servertools.AddAction.ADD_BEFORE,
+        supriya.realtime.AddAction.ADD_AFTER,
+        supriya.realtime.AddAction.ADD_BEFORE,
         )
 
     ### INITIALIZER ###

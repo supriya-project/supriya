@@ -26,10 +26,10 @@ class MessageBundler(SupriyaObject):
         sync=False,
         timestamp=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         self._result = None
         self._send_to_server = bool(send_to_server)
-        server = server or servertools.Server()
+        server = server or supriya.realtime.Server()
         self._server = server
         self._messages = []
         self._sync = bool(sync)

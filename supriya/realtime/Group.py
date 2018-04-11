@@ -1,6 +1,6 @@
 import collections
 from uqbar.containers import UniqueTreeContainer
-from supriya.tools.servertools.Node import Node
+from supriya.realtime.Node import Node
 
 
 class Group(Node, UniqueTreeContainer):
@@ -9,14 +9,14 @@ class Group(Node, UniqueTreeContainer):
 
     ::
 
-        >>> from supriya import servertools
-        >>> server = servertools.Server()
+        >>> import supriya.realtime
+        >>> server = supriya.realtime.Server()
         >>> server.boot()
         <Server: udp://127.0.0.1:57751, 8i8o>
 
     ::
 
-        >>> group = servertools.Group()
+        >>> group = supriya.realtime.Group()
         >>> group.allocate()
         <Group: 1000>
 
@@ -45,10 +45,10 @@ class Group(Node, UniqueTreeContainer):
     ### INITIALIZER ###
 
     def __init__(self, children=None, name=None):
-        from supriya.tools import servertools
+        import supriya.realtime
         Node.__init__(self, name=name)
         UniqueTreeContainer.__init__(self, children=children, name=name)
-        self._control_interface = servertools.GroupInterface(client=self)
+        self._control_interface = supriya.realtime.GroupInterface(client=self)
 
     ### SPECIAL METHODS ###
 
@@ -118,29 +118,29 @@ class Group(Node, UniqueTreeContainer):
 
     @staticmethod
     def _iterate_children(group):
-        from supriya.tools import servertools
+        import supriya.realtime
         for child in group.children:
-            if isinstance(child, servertools.Group):
+            if isinstance(child, supriya.realtime.Group):
                 for subchild in Group._iterate_children(child):
                     yield subchild
             yield child
 
     @staticmethod
     def _iterate_setitem_expr(group, expr, start=0):
-        from supriya.tools import servertools
+        import supriya.realtime
         if not start or not group:
             outer_target_node = group
         else:
             outer_target_node = group[start - 1]
         for outer_node in expr:
             if outer_target_node is group:
-                outer_add_action = servertools.AddAction.ADD_TO_HEAD
+                outer_add_action = supriya.realtime.AddAction.ADD_TO_HEAD
             else:
-                outer_add_action = servertools.AddAction.ADD_AFTER
+                outer_add_action = supriya.realtime.AddAction.ADD_AFTER
             outer_node_was_allocated = outer_node.is_allocated
             yield outer_node, outer_target_node, outer_add_action
             outer_target_node = outer_node
-            if isinstance(outer_node, servertools.Group) and \
+            if isinstance(outer_node, supriya.realtime.Group) and \
                 not outer_node_was_allocated:
                 for inner_node, inner_target_node, inner_add_action in \
                     Group._iterate_setitem_expr(outer_node, outer_node):
@@ -148,8 +148,8 @@ class Group(Node, UniqueTreeContainer):
 
     @staticmethod
     def _iterate_synths(node):
-        from supriya.tools import servertools
-        if isinstance(node, servertools.Synth):
+        import supriya.realtime
+        if isinstance(node, supriya.realtime.Synth):
             yield node
         else:
             for child in node:
@@ -158,7 +158,7 @@ class Group(Node, UniqueTreeContainer):
 
     def _collect_requests_and_synthdefs(self, expr, start=0):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         nodes = set()
         paused_nodes = set()
         synthdefs = set()
@@ -167,7 +167,7 @@ class Group(Node, UniqueTreeContainer):
         for node, target_node, add_action in iterator:
             nodes.add(node)
             if node.is_allocated:
-                if add_action == servertools.AddAction.ADD_TO_HEAD:
+                if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
                     request = requesttools.GroupHeadRequest(
                         node_id_pairs=requesttools.NodeIdPair(
                             node_id=node,
@@ -184,7 +184,7 @@ class Group(Node, UniqueTreeContainer):
                 requests.append(request)
             else:
                 node._register_with_local_server(server=self.server)
-                if isinstance(node, servertools.Group):
+                if isinstance(node, supriya.realtime.Group):
                     request = requesttools.GroupNewRequest(
                         add_action=add_action,
                         node_id=node,
@@ -211,7 +211,7 @@ class Group(Node, UniqueTreeContainer):
 
     def _set_allocated(self, expr, start, stop):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
 
         old_nodes = self._children[start:stop]
         self._children.__delitem__(slice(start, stop))
@@ -234,7 +234,7 @@ class Group(Node, UniqueTreeContainer):
             old_node_id = old_node._unregister_with_local_server()
             old_node._set_parent(None)
             old_node_ids.append(old_node_id)
-            #if isinstance(old_node, servertools.Group):
+            #if isinstance(old_node, supriya.realtime.Group):
             #    for old_node_child in Group._iterate_children(old_node):
             #        old_node_child._unregister_with_local_server()
         if old_node_ids:
@@ -250,7 +250,7 @@ class Group(Node, UniqueTreeContainer):
                 )
             requests.append(request)
 
-        message_bundler = servertools.MessageBundler(
+        message_bundler = supriya.realtime.MessageBundler(
             server=self.server,
             sync=True,
             )
@@ -272,12 +272,12 @@ class Group(Node, UniqueTreeContainer):
         return Node._unregister_with_local_server(self)
 
     def _validate_setitem_expr(self, expr):
-        from supriya.tools import servertools
-        assert all(isinstance(_, servertools.Node) for _ in expr)
+        import supriya.realtime
+        assert all(isinstance(_, supriya.realtime.Node) for _ in expr)
         parentage = self.parentage
         for x in expr:
-            assert isinstance(x, servertools.Node)
-            if isinstance(x, servertools.Group):
+            assert isinstance(x, supriya.realtime.Node)
+            if isinstance(x, supriya.realtime.Group):
                 assert x not in parentage
 
     ### PUBLIC METHODS ###
@@ -291,7 +291,7 @@ class Group(Node, UniqueTreeContainer):
         ):
         # TODO: Handle AddAction.REPLACE un-allocation of target node
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         if self.is_allocated:
             return
         add_action, node_id, target_node_id = Node.allocate(
@@ -319,7 +319,7 @@ class Group(Node, UniqueTreeContainer):
                 )
             requests.append(request)
         if 1 < len(requests):
-            message_bundler = servertools.MessageBundler(
+            message_bundler = supriya.realtime.MessageBundler(
                 server=self.server,
                 sync=True,
                 )

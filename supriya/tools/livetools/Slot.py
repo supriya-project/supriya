@@ -1,5 +1,5 @@
 import abc
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 
 
@@ -13,7 +13,7 @@ class Slot:
         self._name = str(name)
         assert isinstance(track, livetools.Track)
         self._track = track
-        self._group = servertools.Group()
+        self._group = supriya.realtime.Group()
         if isinstance(synthdef, synthdeftools.SynthDefFactory):
             synthdef = synthdef.build(
                 channel_count=self._track.channel_count,

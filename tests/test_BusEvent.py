@@ -3,7 +3,7 @@ import uuid
 import uqbar.strings
 from patterntools_testbase import TestCase
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 
 
 class TestCase(TestCase):
@@ -16,8 +16,8 @@ class TestCase(TestCase):
             uuid=bus_uuid,
             )
         server = types.SimpleNamespace(
-            audio_bus_allocator=servertools.BlockAllocator(),
-            control_bus_allocator=servertools.BlockAllocator(),
+            audio_bus_allocator=supriya.realtime.BlockAllocator(),
+            control_bus_allocator=supriya.realtime.BlockAllocator(),
             )
         uuids = {}
         event_products = event._perform_realtime(
@@ -52,12 +52,12 @@ class TestCase(TestCase):
             uuid=bus_uuid,
             )
         server = types.SimpleNamespace(
-            audio_bus_allocator=servertools.BlockAllocator(),
-            control_bus_allocator=servertools.BlockAllocator(),
+            audio_bus_allocator=supriya.realtime.BlockAllocator(),
+            control_bus_allocator=supriya.realtime.BlockAllocator(),
             )
         uuids = {
             bus_uuid: {
-                0: servertools.BusGroup(
+                0: supriya.realtime.BusGroup(
                     calculation_rate='audio',
                     bus_count=2,
                     )

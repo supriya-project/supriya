@@ -1,4 +1,4 @@
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import ugentools
 from supriya.tools import synthdeftools
 
@@ -27,7 +27,7 @@ class Direct:
             target_track_count,
             self.mapping,
             )
-        self._synth = servertools.Synth(synthdef=synthdef)
+        self._synth = supriya.realtime.Synth(synthdef=synthdef)
         if self.is_input:
             in_ = int(self.mixer.server.audio_input_bus_group)
             out = int(self.track.input_bus_group)

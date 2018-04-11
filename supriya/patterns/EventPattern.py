@@ -23,11 +23,11 @@ class EventPattern(Pattern):
 
     def play(self, clock=None, server=None):
         import supriya.patterns
-        from supriya.tools import servertools
+        import supriya.realtime
         event_player = supriya.patterns.RealtimeEventPlayer(
             self,
             clock=clock,
-            server=server or servertools.Server.get_default_server(),
+            server=server or supriya.realtime.Server.get_default_server(),
             )
         event_player.start()
         return event_player

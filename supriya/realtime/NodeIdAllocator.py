@@ -8,8 +8,8 @@ class NodeIdAllocator(SupriyaObject):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> allocator = servertools.NodeIdAllocator()
+        >>> import supriya.realtime
+        >>> allocator = supriya.realtime.NodeIdAllocator()
         >>> for _ in range(3):
         ...     allocator.allocate_node_id()
         ...

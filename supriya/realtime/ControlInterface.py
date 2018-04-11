@@ -29,7 +29,7 @@ class ControlInterface(SupriyaObject):
 
     def _set(self, **settings):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         n_set_settings = {}
         n_map_settings = {}
@@ -41,10 +41,10 @@ class ControlInterface(SupriyaObject):
             if isinstance(value, (int, float)):
                 n_set_settings[control_name] = float(value)
                 control._set_to_number(value)
-            elif isinstance(value, (servertools.Bus, servertools.BusGroup)):
+            elif isinstance(value, (supriya.realtime.Bus, supriya.realtime.BusGroup)):
                 value_rate = value.calculation_rate
                 if (
-                    isinstance(self.client, servertools.Synth) and
+                    isinstance(self.client, supriya.realtime.Synth) and
                     not self.client.is_allocated and
                     control.calculation_rate == synthdeftools.CalculationRate.SCALAR
                     ):

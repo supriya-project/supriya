@@ -28,10 +28,10 @@ class ServerObjectProxy(SupriyaObject):
         self,
         server=None,
         ):
-        from supriya import servertools
+        import supriya.realtime
         assert self.server is None, (self, self.server)
-        server = server or servertools.Server.get_default_server()
-        assert isinstance(server, servertools.Server)
+        server = server or supriya.realtime.Server.get_default_server()
+        assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         self._server = server
 

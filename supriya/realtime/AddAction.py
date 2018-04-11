@@ -7,13 +7,13 @@ class AddAction(Enumeration):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> servertools.AddAction.ADD_TO_HEAD
+        >>> import supriya.realtime
+        >>> supriya.realtime.AddAction.ADD_TO_HEAD
         AddAction.ADD_TO_HEAD
 
     ::
 
-        >>> servertools.AddAction.from_expr('add before')
+        >>> supriya.realtime.AddAction.from_expr('add before')
         AddAction.ADD_BEFORE
 
     """

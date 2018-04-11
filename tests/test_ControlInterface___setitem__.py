@@ -1,5 +1,5 @@
 from supriya import synthdefs
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -7,16 +7,16 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
         super(systemtools.TestCase, self).tearDown()
 
     def test_01(self):
-        group = servertools.Group()
-        synth_a = servertools.Synth(synthdefs.test)
-        synth_b = servertools.Synth(synthdefs.test, amplitude=0.0)
+        group = supriya.realtime.Group()
+        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(synthdefs.test, amplitude=0.0)
         group.extend([synth_a, synth_b])
         group.allocate()
 
@@ -36,7 +36,7 @@ class Test(systemtools.TestCase):
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
 
-        bus_a = servertools.Bus(calculation_rate='control').allocate()
+        bus_a = supriya.realtime.Bus(calculation_rate='control').allocate()
         bus_a.set(0.25)
         group.controls['amplitude'] = bus_a
 
@@ -56,7 +56,7 @@ class Test(systemtools.TestCase):
         local_state = str(self.server.query_local_nodes(True))
         assert local_state == remote_state
 
-        bus_b = servertools.Bus(calculation_rate='control').allocate()
+        bus_b = supriya.realtime.Bus(calculation_rate='control').allocate()
         bus_b.set(0.75)
         group.controls['amplitude'] = bus_b
 

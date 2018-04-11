@@ -1,4 +1,4 @@
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools.nonrealtimetools.Group import Group
 
 
@@ -14,8 +14,8 @@ class RootNode(Group):
     __slots__ = ()
 
     _valid_add_actions = (
-        servertools.AddAction.ADD_TO_HEAD,
-        servertools.AddAction.ADD_TO_TAIL,
+        supriya.realtime.AddAction.ADD_TO_HEAD,
+        supriya.realtime.AddAction.ADD_TO_TAIL,
         )
 
     ### INITIALIZER ###

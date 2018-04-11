@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -6,7 +6,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        allocator = servertools.BlockAllocator(
+        allocator = supriya.realtime.BlockAllocator(
             heap_minimum=0,
             heap_maximum=16,
             )

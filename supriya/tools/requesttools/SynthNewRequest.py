@@ -9,9 +9,9 @@ class SynthNewRequest(Request):
     ::
 
         >>> from supriya.tools import requesttools
-        >>> from supriya.tools import servertools
+        >>> import supriya.realtime
         >>> request = requesttools.SynthNewRequest(
-        ...     add_action=servertools.AddAction.ADD_TO_TAIL,
+        ...     add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
         ...     node_id=1001,
         ...     synthdef='test',
         ...     target_node_id=1000,
@@ -61,10 +61,10 @@ class SynthNewRequest(Request):
         target_node_id=None,
         **kwargs
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         Request.__init__(self)
-        self._add_action = servertools.AddAction.from_expr(add_action)
+        self._add_action = supriya.realtime.AddAction.from_expr(add_action)
         self._node_id = node_id
         prototype = (str, synthdeftools.SynthDef)
         assert isinstance(synthdef, prototype)

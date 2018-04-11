@@ -13,7 +13,7 @@ class NodeResponseCallback(ResponseCallback):
 
     def __init__(self, server):
         from supriya.tools import responsetools
-        from supriya.tools import servertools
+        import supriya.realtime
         ResponseCallback.__init__(
             self,
             #address_pattern='/n_(end|go|info|move|off|on|set|setn)',
@@ -24,7 +24,7 @@ class NodeResponseCallback(ResponseCallback):
                 responsetools.NodeSetResponse,
                 ),
             )
-        assert isinstance(server, servertools.Server)
+        assert isinstance(server, supriya.realtime.Server)
         self._server = server
 
     ### SPECIAL METHODS ###

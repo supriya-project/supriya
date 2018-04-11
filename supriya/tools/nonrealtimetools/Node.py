@@ -1,7 +1,7 @@
 import bisect
 import collections
 from supriya import utils
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools.nonrealtimetools.SessionObject import SessionObject
 
 
@@ -336,7 +336,7 @@ class Node(SessionObject):
             node in self.get_parentage()
             ):
             raise ValueError("Can't add parent as a child.")
-        add_action = servertools.AddAction.from_expr(add_action)
+        add_action = supriya.realtime.AddAction.from_expr(add_action)
         node_action = nonrealtimetools.NodeAction(
             source=node,
             target=self,

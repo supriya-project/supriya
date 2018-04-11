@@ -1,6 +1,6 @@
 import time
 from supriya.tools import livetools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
@@ -15,15 +15,15 @@ class TestCase(systemtools.TestCase):
     dc_synthdef = builder.build('dc')
 
     def setUp(self):
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
         self.mixer = livetools.Mixer(channel_count=1, cue_channel_count=1)
         self.mixer.add_track('foo')
         self.mixer.add_track('bar')
         self.mixer.add_track('baz')
         self.mixer.allocate()
-        synth_a = servertools.Synth(synthdef=self.dc_synthdef, value=1.0)
-        synth_b = servertools.Synth(synthdef=self.dc_synthdef, value=0.5)
-        synth_c = servertools.Synth(synthdef=self.dc_synthdef, value=0.25)
+        synth_a = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=1.0)
+        synth_b = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.5)
+        synth_c = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.25)
         synth_a.allocate(
             target_node=self.mixer['foo'],
             out=int(self.mixer['foo'].output_bus_group),

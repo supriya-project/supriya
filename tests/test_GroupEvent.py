@@ -3,7 +3,7 @@ import uuid
 import uqbar.strings
 from patterntools_testbase import TestCase
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 
 
 class TestCase(TestCase):
@@ -14,7 +14,7 @@ class TestCase(TestCase):
             uuid=node_uuid,
             )
         server = types.SimpleNamespace(
-            node_id_allocator=servertools.NodeIdAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
         uuids = {}
         event_products = event._perform_realtime(
@@ -52,11 +52,11 @@ class TestCase(TestCase):
             uuid=node_uuid,
             )
         server = types.SimpleNamespace(
-            node_id_allocator=servertools.NodeIdAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
         uuids = {
             node_uuid: {
-                1000: servertools.Group(),
+                1000: supriya.realtime.Group(),
                 },
             }
         event_products = event._perform_realtime(

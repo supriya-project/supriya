@@ -2,7 +2,7 @@ import types
 import uqbar.strings
 from patterntools_testbase import TestCase
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 
 
 class TestCase(TestCase):
@@ -14,7 +14,7 @@ class TestCase(TestCase):
             frequency=443,
             )
         server = types.SimpleNamespace(
-            node_id_allocator=servertools.NodeIdAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
         event_products = event._perform_realtime(
             server=server,
@@ -69,7 +69,7 @@ class TestCase(TestCase):
             frequency=[443, 445, 447],
             )
         server = types.SimpleNamespace(
-            node_id_allocator=servertools.NodeIdAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
         event_products = event._perform_realtime(
             server=server,

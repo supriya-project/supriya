@@ -1,6 +1,6 @@
 import re
 import supriya.osc
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 from supriya.tools.livetools.Track import Track
 
@@ -21,8 +21,8 @@ class Mixer:
         self._levels_mapping = {}
         self._tracks = []
         self._tracks_by_name = {}
-        self._group = servertools.Group()
-        self._track_group = servertools.Group()
+        self._group = supriya.realtime.Group()
+        self._track_group = supriya.realtime.Group()
         self._server = None
         self._setup_cue_track()
         self._setup_master_track()
@@ -163,8 +163,8 @@ class Mixer:
         return track
 
     def allocate(self, server=None):
-        server = server or servertools.Server.get_default_server()
-        assert isinstance(server, servertools.Server)
+        server = server or supriya.realtime.Server.get_default_server()
+        assert isinstance(server, supriya.realtime.Server)
         assert server.is_running
         assert self.channel_count + 2 <= len(server.audio_output_bus_group)
         self._server = server

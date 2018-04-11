@@ -3,7 +3,7 @@ import time
 from queue import PriorityQueue
 from supriya import utils
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 from supriya.patterns.EventPlayer import EventPlayer
 
@@ -37,7 +37,7 @@ class RealtimeEventPlayer(EventPlayer):
             )
         clock = clock or supriya.patterns.Clock.get_default_clock()
         assert isinstance(clock, supriya.patterns.Clock)
-        self._server = server or servertools.Server.get_default_server()
+        self._server = server or supriya.realtime.Server.get_default_server()
         self._clock = clock
         self._iterator = None
         self._uuids = {}
@@ -66,10 +66,10 @@ class RealtimeEventPlayer(EventPlayer):
                 proxies = self._uuids[event_product.uuid]
                 for proxy_id, proxy in proxies.items():
                     if isinstance(proxy, (
-                        servertools.Bus,
-                        servertools.BusGroup,
+                        supriya.realtime.Bus,
+                        supriya.realtime.BusGroup,
                         )):
-                        allocator = servertools.Bus._get_allocator(
+                        allocator = supriya.realtime.Bus._get_allocator(
                             calculation_rate=proxy.calculation_rate,
                             server=self._server,
                             )
@@ -102,7 +102,7 @@ class RealtimeEventPlayer(EventPlayer):
         freed_node_ids = []
         for _, proxy_ids in self._uuids.items():
             for proxy_id, proxy in proxy_ids.items():
-                if not isinstance(proxy, servertools.Node):
+                if not isinstance(proxy, supriya.realtime.Node):
                     continue
                 if (
                     isinstance(proxy, nonrealtimetools.Synth) and

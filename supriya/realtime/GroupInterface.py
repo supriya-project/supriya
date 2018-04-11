@@ -1,5 +1,5 @@
 import copy
-from supriya.tools.servertools.ControlInterface import ControlInterface
+from supriya.realtime.ControlInterface import ControlInterface
 
 
 class GroupInterface(ControlInterface):
@@ -31,7 +31,7 @@ class GroupInterface(ControlInterface):
         return self._group_controls[item]
 
     def __setitem__(self, items, values):
-        from supriya.tools import servertools
+        import supriya.realtime
         if not isinstance(items, tuple):
             items = (items,)
         assert all(_ in self._synth_controls for _ in items)
@@ -42,14 +42,14 @@ class GroupInterface(ControlInterface):
         for key, value in settings.items():
             for synth in self._synth_controls.get(key, ()):
                 control = synth.controls[key]
-                if isinstance(value, servertools.Bus):
+                if isinstance(value, supriya.realtime.Bus):
                     control._map_to_bus(value)
                 elif value is None:
                     control._unmap()
                 else:
                     control._set_to_number(value)
         messages = self._set(**settings)
-        message_bundler = servertools.MessageBundler(
+        message_bundler = supriya.realtime.MessageBundler(
             server=self.client.server,
             sync=True,
             )
@@ -60,12 +60,12 @@ class GroupInterface(ControlInterface):
     ### PUBLIC METHODS ###
 
     def add_controls(self, control_interface_dict):
-        from supriya.tools import servertools
+        import supriya.realtime
         for control_name in control_interface_dict:
             if control_name not in self._synth_controls:
                 self._synth_controls[control_name] = copy.copy(
                     control_interface_dict[control_name])
-                proxy = servertools.GroupControl(
+                proxy = supriya.realtime.GroupControl(
                     client=self,
                     name=control_name,
                     )

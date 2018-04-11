@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -6,7 +6,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -14,7 +14,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        control_bus = servertools.Bus.control()
+        control_bus = supriya.realtime.Bus.control()
         control_bus.allocate()
 
         result = control_bus.get()

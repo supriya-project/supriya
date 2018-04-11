@@ -14,8 +14,8 @@ class BufferProxy(SupriyaValueObject):
 
     ::
 
-        >>> server = servertools.Server()
-        >>> buffer_proxy = servertools.BufferProxy(
+        >>> server = supriya.realtime.Server()
+        >>> buffer_proxy = supriya.realtime.BufferProxy(
         ...     buffer_id=0,
         ...     server=server,
         ...     channel_count=2,
@@ -55,10 +55,10 @@ class BufferProxy(SupriyaValueObject):
         sample_rate=0,
         server=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         buffer_id = int(buffer_id)
         assert 0 <= buffer_id
-        assert isinstance(server, servertools.Server)
+        assert isinstance(server, supriya.realtime.Server)
         self._buffer_id = int(buffer_id)
         self._channel_count = int(channel_count)
         self._frame_count = int(frame_count)
@@ -73,8 +73,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -94,8 +94,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -117,8 +117,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> a_buffer = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> a_buffer = supriya.realtime.BufferProxy(
             ...     buffer_id=23,
             ...     channel_count=1,
             ...     frame_count=256,
@@ -173,8 +173,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -195,8 +195,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -217,8 +217,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -239,8 +239,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -261,8 +261,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -283,8 +283,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,
@@ -305,8 +305,8 @@ class BufferProxy(SupriyaValueObject):
 
         ::
 
-            >>> server = servertools.Server()
-            >>> buffer_proxy = servertools.BufferProxy(
+            >>> server = supriya.realtime.Server()
+            >>> buffer_proxy = supriya.realtime.BufferProxy(
             ...     buffer_id=0,
             ...     server=server,
             ...     channel_count=2,

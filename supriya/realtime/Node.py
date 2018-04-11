@@ -1,6 +1,6 @@
 import abc
 from uqbar.containers import UniqueTreeNode
-from supriya.tools.servertools.ServerObjectProxy import ServerObjectProxy
+from supriya.realtime.ServerObjectProxy import ServerObjectProxy
 
 
 class Node(ServerObjectProxy, UniqueTreeNode):
@@ -168,7 +168,7 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         node_id_is_permanent=False,
         target_node=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         target_node = Node.expr_as_target(target_node)
         server = target_node.server
         node_id = self._register_with_local_server(
@@ -176,24 +176,24 @@ class Node(ServerObjectProxy, UniqueTreeNode):
             server=server,
             )
         target_node_id = target_node.node_id
-        add_action = servertools.AddAction.from_expr(add_action)
-        if add_action == servertools.AddAction.ADD_TO_HEAD:
-            assert isinstance(target_node, servertools.Group)
+        add_action = supriya.realtime.AddAction.from_expr(add_action)
+        if add_action == supriya.realtime.AddAction.ADD_TO_HEAD:
+            assert isinstance(target_node, supriya.realtime.Group)
             self._set_parent(target_node)
             target_node._children.insert(0, self)
-        elif add_action == servertools.AddAction.ADD_TO_TAIL:
-            assert isinstance(target_node, servertools.Group)
+        elif add_action == supriya.realtime.AddAction.ADD_TO_TAIL:
+            assert isinstance(target_node, supriya.realtime.Group)
             self._set_parent(target_node)
             target_node._children.append(self)
-        elif add_action == servertools.AddAction.ADD_BEFORE:
+        elif add_action == supriya.realtime.AddAction.ADD_BEFORE:
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
             self._parent._children.insert(index, self)
-        elif add_action == servertools.AddAction.ADD_AFTER:
+        elif add_action == supriya.realtime.AddAction.ADD_AFTER:
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
             self._parent._children.insert(index + 1, self)
-        elif add_action == servertools.AddAction.REPLACE:
+        elif add_action == supriya.realtime.AddAction.REPLACE:
             assert target_node.parent is not self.server.root_node
             self._set_parent(target_node.parent)
             index = self.parent._children.index(target_node)
@@ -206,8 +206,8 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     @staticmethod
     def expr_as_node_id(expr):
-        from supriya.tools import servertools
-        if isinstance(expr, servertools.Server):
+        import supriya.realtime
+        if isinstance(expr, supriya.realtime.Server):
             return 0
         elif isinstance(expr, Node):
             return expr.node_id
@@ -219,13 +219,13 @@ class Node(ServerObjectProxy, UniqueTreeNode):
 
     @staticmethod
     def expr_as_target(expr):
-        from supriya.tools import servertools
+        import supriya.realtime
         if expr is None:
-            return Node.expr_as_target(servertools.Server())
+            return Node.expr_as_target(supriya.realtime.Server())
         elif hasattr(expr, '_as_node_target'):
             return expr._as_node_target()
         elif isinstance(expr, (float, int)):
-            server = servertools.Server.get_default_server()
+            server = supriya.realtime.Server.get_default_server()
             return server._nodes[int(expr)]
         raise TypeError(expr)
 

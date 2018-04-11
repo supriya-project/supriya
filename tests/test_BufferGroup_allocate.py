@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -6,7 +6,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -14,7 +14,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        buffer_group_one = servertools.BufferGroup(buffer_count=4)
+        buffer_group_one = supriya.realtime.BufferGroup(buffer_count=4)
 
         assert not buffer_group_one.is_allocated
         assert buffer_group_one.buffer_id is None
@@ -41,7 +41,7 @@ class Test(systemtools.TestCase):
             assert buffer_.frame_count == 512
             assert buffer_.channel_count == 1
 
-        buffer_group_two = servertools.BufferGroup(buffer_count=4)
+        buffer_group_two = supriya.realtime.BufferGroup(buffer_count=4)
         self.server.sync()
 
         assert not buffer_group_two.is_allocated

@@ -1,6 +1,6 @@
 import uuid
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.patterns.Event import Event
 
 
@@ -22,7 +22,7 @@ class GroupEvent(Event):
         **settings
         ):
         if add_action is not None:
-            add_action = servertools.AddAction.from_expr(add_action)
+            add_action = supriya.realtime.AddAction.from_expr(add_action)
         is_stop = bool(is_stop)
         if is_stop:
             add_action = None
@@ -79,7 +79,7 @@ class GroupEvent(Event):
         requests = []
         if not self.get('is_stop'):
             node_id = server.node_id_allocator.allocate_node_id()
-            uuids[node_uuid] = {node_id: servertools.Group()}
+            uuids[node_uuid] = {node_id: supriya.realtime.Group()}
             target_node_id = self.get('target_node')
             if not target_node_id:
                 target_node_id = 1

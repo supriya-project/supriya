@@ -36,9 +36,9 @@ class QueryTreeControl(SupriyaValueObject):
 
     @classmethod
     def from_control(cls, control):
-        from supriya.tools import servertools
+        import supriya.realtime
         control_name = control.name
-        if isinstance(control.value, servertools.Bus):
+        if isinstance(control.value, supriya.realtime.Bus):
             control_value = str(control.value)
         else:
             control_value = float(control.value)

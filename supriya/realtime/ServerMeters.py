@@ -93,7 +93,7 @@ class ServerMeters(systemtools.SupriyaObject):
     @systemtools.PubSub.subscribe_before('server-quitting')
     def allocate(self):
         import supriya.osc
-        from supriya.tools import servertools
+        import supriya.realtime
         self._input_meter_callback = supriya.osc.OscCallback(
             address_pattern=self.input_meter_command,
             procedure=self._handle_input_levels,
@@ -106,19 +106,19 @@ class ServerMeters(systemtools.SupriyaObject):
         self.server.register_osc_callback(self._output_meter_callback)
         input_meter_synthdef = self.input_meter_synthdef
         output_meter_synthdef = self.output_meter_synthdef
-        self._input_meter_synth = servertools.Synth(
+        self._input_meter_synth = supriya.realtime.Synth(
             input_meter_synthdef,
             )
-        self._output_meter_synth = servertools.Synth(
+        self._output_meter_synth = supriya.realtime.Synth(
             output_meter_synthdef,
             )
         self._input_meter_synth.allocate(
-            add_action=servertools.AddAction.ADD_TO_HEAD,
+            add_action=supriya.realtime.AddAction.ADD_TO_HEAD,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
             )
         self._output_meter_synth.allocate(
-            add_action=servertools.AddAction.ADD_TO_TAIL,
+            add_action=supriya.realtime.AddAction.ADD_TO_TAIL,
             node_id_is_permanent=True,
             target_node=self.server.root_node,
             )

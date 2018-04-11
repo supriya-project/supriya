@@ -2,7 +2,7 @@ import os
 import pathlib
 import shutil
 from supriya.tools import nonrealtimetools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
@@ -17,7 +17,7 @@ class TestSessionFactory:
         output_bus_channel_count=None,
         multiplier=1.0,
         ):
-        options = servertools.ServerOptions(
+        options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
             )

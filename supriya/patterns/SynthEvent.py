@@ -1,6 +1,6 @@
 import uuid
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.patterns.Event import Event
 
 
@@ -23,7 +23,7 @@ class SynthEvent(Event):
         **settings
         ):
         if add_action is not None:
-            add_action = servertools.AddAction.from_expr(add_action)
+            add_action = supriya.realtime.AddAction.from_expr(add_action)
         is_stop = bool(is_stop)
         if is_stop:
             add_action = None
@@ -116,7 +116,7 @@ class SynthEvent(Event):
             synths = uuids[node_uuid] = {}
             for dictionary in dictionaries:
                 node_id = server.node_id_allocator.allocate_node_id()
-                synth = servertools.Synth(synthdef, **dictionary)
+                synth = supriya.realtime.Synth(synthdef, **dictionary)
                 synths[node_id] = synth
                 request = requesttools.SynthNewRequest(
                     add_action=add_action,

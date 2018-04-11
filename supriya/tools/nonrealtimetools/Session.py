@@ -6,7 +6,7 @@ import struct
 import uqbar.io
 import supriya.osc
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
 from supriya.tools import timetools
@@ -116,7 +116,7 @@ class Session:
         padding=None,
         ):
         from supriya.tools import nonrealtimetools
-        self._options = servertools.ServerOptions(
+        self._options = supriya.realtime.ServerOptions(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
             )
@@ -253,10 +253,10 @@ class Session:
         output_count = self._options._output_bus_channel_count
         first_private_bus_id = input_count + output_count
         allocators = {
-            synthdeftools.CalculationRate.AUDIO: servertools.BlockAllocator(
+            synthdeftools.CalculationRate.AUDIO: supriya.realtime.BlockAllocator(
                 heap_minimum=first_private_bus_id,
                 ),
-            synthdeftools.CalculationRate.CONTROL: servertools.BlockAllocator(),
+            synthdeftools.CalculationRate.CONTROL: supriya.realtime.BlockAllocator(),
             }
         mapping = {}
         if output_count:
@@ -283,7 +283,7 @@ class Session:
         return mapping
 
     def _build_id_mapping_for_nodes(self):
-        allocator = servertools.NodeIdAllocator()
+        allocator = supriya.realtime.NodeIdAllocator()
         mapping = {self.root_node: 0}
         for offset in self.offsets[1:]:
             state = self.states[offset]
@@ -321,7 +321,7 @@ class Session:
             'scsynth -N {} _ output.aiff 44100 aiff int24'
 
         """
-        server_options = server_options or servertools.ServerOptions()
+        server_options = server_options or supriya.realtime.ServerOptions()
         scsynth_path = 'scsynth'
         if not uqbar.io.find_executable(scsynth_path):
             raise RuntimeError('Cannot find scsynth')
@@ -623,7 +623,7 @@ class Session:
                 if isinstance(value, bus_prototype):
                     if value is None:
                         c_settings[key] = -1
-                    elif value.calculation_rate == servertools.CalculationRate.CONTROL:
+                    elif value.calculation_rate == supriya.realtime.CalculationRate.CONTROL:
                         c_settings[key] = id_mapping[value]
                     else:
                         a_settings[key] = id_mapping[value]
@@ -1069,7 +1069,7 @@ class Session:
         ):
         import supriya.cli
         assert isinstance(project_settings, supriya.cli.ProjectSettings)
-        server_options = servertools.ServerOptions(
+        server_options = supriya.realtime.ServerOptions(
             **project_settings.get('server_options', {})
             )
         input_bus_channel_count = server_options.input_bus_channel_count

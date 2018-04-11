@@ -1,4 +1,4 @@
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
@@ -16,7 +16,7 @@ class Send:
             self.source_track_count,
             self.target_track_count,
             )
-        self._synth = servertools.Synth(
+        self._synth = supriya.realtime.Synth(
             synthdef=synthdef,
             gain=self.gain,
             in_=0,

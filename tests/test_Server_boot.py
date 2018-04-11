@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -6,7 +6,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server(port=57757)
+        self.server = supriya.realtime.Server(port=57757)
 
     def tearDown(self):
         self.server.quit()
@@ -24,7 +24,7 @@ class Test(systemtools.TestCase):
         assert not self.server.is_running
 
     def test_server_options(self):
-        server_options = servertools.ServerOptions(
+        server_options = supriya.realtime.ServerOptions(
             memory_size=8192 * 32,
             load_synthdefs=False,
             )

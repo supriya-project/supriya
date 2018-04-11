@@ -55,16 +55,16 @@ class In(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.AUDIO
         prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.BusProxy,
+            supriya.realtime.Bus,
+            supriya.realtime.BusGroup,
+            supriya.realtime.BusProxy,
             )
         if isinstance(bus, prototype):
-            if isinstance(bus, servertools.BusGroup):
+            if isinstance(bus, supriya.realtime.BusGroup):
                 channel_count = len(bus)
             else:
                 channel_count = 1
@@ -92,16 +92,16 @@ class In(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         calculation_rate = synthdeftools.CalculationRate.CONTROL
         prototype = (
-            servertools.Bus,
-            servertools.BusGroup,
-            servertools.BusProxy,
+            supriya.realtime.Bus,
+            supriya.realtime.BusGroup,
+            supriya.realtime.BusProxy,
             )
         if isinstance(bus, prototype):
-            if isinstance(bus, servertools.BusGroup):
+            if isinstance(bus, supriya.realtime.BusGroup):
                 channel_count = len(bus)
             else:
                 channel_count = 1

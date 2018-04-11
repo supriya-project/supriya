@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import synthdeftools
 from supriya import systemtools
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,7 +15,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        control_bus = servertools.Bus.control()
+        control_bus = supriya.realtime.Bus.control()
 
         assert control_bus.bus_group is None
         assert control_bus.bus_id is None
@@ -42,7 +42,7 @@ class Test(systemtools.TestCase):
 
     def test_02(self):
 
-        audio_bus = servertools.Bus.audio()
+        audio_bus = supriya.realtime.Bus.audio()
 
         assert audio_bus.bus_group is None
         assert audio_bus.bus_id is None
@@ -69,7 +69,7 @@ class Test(systemtools.TestCase):
 
     def test_03(self):
 
-        bus = servertools.Bus(
+        bus = supriya.realtime.Bus(
             bus_group_or_index=23,
             calculation_rate=synthdeftools.CalculationRate.CONTROL,
             )
@@ -97,10 +97,10 @@ class Test(systemtools.TestCase):
 
     def test_04(self):
 
-        bus_a = servertools.Bus.control()
-        bus_b = servertools.Bus.control()
-        bus_c = servertools.Bus.control()
-        bus_d = servertools.Bus.control()
+        bus_a = supriya.realtime.Bus.control()
+        bus_b = supriya.realtime.Bus.control()
+        bus_c = supriya.realtime.Bus.control()
+        bus_d = supriya.realtime.Bus.control()
 
         assert bus_a.bus_id is None
         assert bus_b.bus_id is None

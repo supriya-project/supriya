@@ -126,8 +126,8 @@ class ManageProjectScript(ProjectPackageScript):
         composer_website=None,
         title=None,
         ):
-        from supriya.tools import servertools
-        server_options = servertools.ServerOptions()
+        import supriya.realtime
+        server_options = supriya.realtime.ServerOptions()
         server_options = server_options.as_dict()
         project_settings = dict(
             server_options=server_options,

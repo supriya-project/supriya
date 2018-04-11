@@ -1,5 +1,5 @@
 from supriya.tools import requesttools
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -27,8 +27,8 @@ class NodeAction(SupriyaValueObject):
         target=None,
         ):
         if action is not None:
-            action = servertools.AddAction.from_expr(action)
-            assert isinstance(action, servertools.AddAction)
+            action = supriya.realtime.AddAction.from_expr(action)
+            assert isinstance(action, supriya.realtime.AddAction)
             assert source is not target
         if action is None:
             assert source is not None
@@ -71,22 +71,22 @@ class NodeAction(SupriyaValueObject):
             else:
                 nodes_to_children[old_parent] = None
         if self.action in (
-            servertools.AddAction.ADD_AFTER,
-            servertools.AddAction.ADD_BEFORE,
+            supriya.realtime.AddAction.ADD_AFTER,
+            supriya.realtime.AddAction.ADD_BEFORE,
             ):
             new_parent = nodes_to_parents[self.target]
         else:
             new_parent = self.target
         nodes_to_parents[self.source] = new_parent
         children = list(nodes_to_children.get(new_parent, None) or ())
-        if self.action == servertools.AddAction.ADD_TO_HEAD:
+        if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
             children.insert(0, self.source)
-        elif self.action == servertools.AddAction.ADD_TO_TAIL:
+        elif self.action == supriya.realtime.AddAction.ADD_TO_TAIL:
             children.append(self.source)
-        elif self.action == servertools.AddAction.ADD_BEFORE:
+        elif self.action == supriya.realtime.AddAction.ADD_BEFORE:
             index = children.index(self.target)
             children.insert(index, self.source)
-        elif self.action == servertools.AddAction.ADD_AFTER:
+        elif self.action == supriya.realtime.AddAction.ADD_AFTER:
             index = children.index(self.target) + 1
             children.insert(index, self.source)
         nodes_to_children[new_parent] = tuple(children)
@@ -96,13 +96,13 @@ class NodeAction(SupriyaValueObject):
             node_id=id_mapping[self.source],
             target_node_id=id_mapping[self.target],
             )
-        if self.action == servertools.AddAction.ADD_TO_HEAD:
+        if self.action == supriya.realtime.AddAction.ADD_TO_HEAD:
             request_class = requesttools.GroupHeadRequest
-        elif self.action == servertools.AddAction.ADD_TO_TAIL:
+        elif self.action == supriya.realtime.AddAction.ADD_TO_TAIL:
             request_class = requesttools.GroupTailRequest
-        elif self.action == servertools.AddAction.ADD_BEFORE:
+        elif self.action == supriya.realtime.AddAction.ADD_BEFORE:
             request_class = requesttools.NodeBeforeRequest
-        elif self.action == servertools.AddAction.ADD_AFTER:
+        elif self.action == supriya.realtime.AddAction.ADD_AFTER:
             request_class = requesttools.NodeAfterRequest
         request = request_class(node_id_pairs=[node_id_pair])
         return request

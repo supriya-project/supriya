@@ -1,5 +1,5 @@
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import systemtools
 from supriya.tools.livetools.PatternSlot import PatternSlot
 
@@ -71,7 +71,7 @@ class TriggerPatternSlot(PatternSlot):
                 synth_parameters_only=True,
                 ):
                 synth_kwargs.update(self.synth_kwargs)
-                synth = servertools.Synth(synthdef=synthdef)
+                synth = supriya.realtime.Synth(synthdef=synthdef)
                 synth.allocate(**synth_kwargs)
                 self._synths.append(synth)
             # release old surplus synths

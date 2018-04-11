@@ -1,4 +1,4 @@
-from supriya import servertools
+import supriya.realtime
 from supriya import systemtools
 
 
@@ -6,7 +6,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -14,7 +14,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        buffer_ = servertools.Buffer()
+        buffer_ = supriya.realtime.Buffer()
 
         assert buffer_.buffer_id is None
         assert buffer_.buffer_group is None
@@ -48,7 +48,7 @@ class Test(systemtools.TestCase):
 
     def test_02(self):
 
-        buffer_ = servertools.Buffer(buffer_group_or_index=23)
+        buffer_ = supriya.realtime.Buffer(buffer_group_or_index=23)
 
         assert buffer_.buffer_id == 23
         assert buffer_.buffer_group is None
@@ -82,10 +82,10 @@ class Test(systemtools.TestCase):
 
     def test_03(self):
 
-        buffer_a = servertools.Buffer()
-        buffer_b = servertools.Buffer()
-        buffer_c = servertools.Buffer()
-        buffer_d = servertools.Buffer()
+        buffer_a = supriya.realtime.Buffer()
+        buffer_b = supriya.realtime.Buffer()
+        buffer_c = supriya.realtime.Buffer()
+        buffer_d = supriya.realtime.Buffer()
 
         assert buffer_a.buffer_id is None
         assert buffer_b.buffer_id is None

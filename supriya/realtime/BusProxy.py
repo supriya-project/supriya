@@ -26,13 +26,13 @@ class BusProxy(SupriyaValueObject):
         server=None,
         value=None,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
         bus_id = int(bus_id)
         assert 0 <= bus_id
         calculation_rate = synthdeftools.CalculationRate.from_expr(
             calculation_rate)
-        assert isinstance(server, servertools.Server)
+        assert isinstance(server, supriya.realtime.Server)
         self._bus_id = int(bus_id)
         self._calculation_rate = calculation_rate
         self._server = server

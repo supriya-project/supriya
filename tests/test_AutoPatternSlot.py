@@ -1,7 +1,7 @@
 import time
 from supriya.tools import livetools
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.tools import ugentools
@@ -16,7 +16,7 @@ class TestCase(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
         self.mixer = livetools.Mixer(channel_count=1, cue_channel_count=1)
         self.mixer.add_track('track')
 

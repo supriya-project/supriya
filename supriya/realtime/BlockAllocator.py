@@ -9,8 +9,8 @@ class BlockAllocator(SupriyaObject):
 
     ::
 
-        >>> from supriya.tools import servertools
-        >>> allocator = servertools.BlockAllocator(
+        >>> import supriya.realtime
+        >>> allocator = supriya.realtime.BlockAllocator(
         ...     heap_maximum=16,
         ...     )
 
@@ -61,7 +61,7 @@ class BlockAllocator(SupriyaObject):
         heap_maximum=None,
         heap_minimum=0,
         ):
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import timetools
         self._free_heap = timetools.TimespanCollection(
             accelerated=True)
@@ -70,7 +70,7 @@ class BlockAllocator(SupriyaObject):
         self._lock = threading.Lock()
         self._used_heap = timetools.TimespanCollection(
             accelerated=True)
-        free_block = servertools.Block(
+        free_block = supriya.realtime.Block(
             start_offset=heap_minimum,
             stop_offset=heap_maximum,
             used=False,
@@ -114,7 +114,7 @@ class BlockAllocator(SupriyaObject):
         return block_id
 
     def allocate_at(self, index=None, desired_block_size=1):
-        from supriya.tools import servertools
+        import supriya.realtime
         index = int(index)
         desired_block_size = int(desired_block_size)
         block_id = None
@@ -134,7 +134,7 @@ class BlockAllocator(SupriyaObject):
             if starting_blocks == stop_blocks:
                 assert len(starting_blocks) == 1
                 free_block = starting_blocks[0]
-                used_block = servertools.Block(
+                used_block = supriya.realtime.Block(
                     start_offset=start_offset,
                     stop_offset=stop_offset,
                     used=True,
@@ -148,7 +148,7 @@ class BlockAllocator(SupriyaObject):
         return block_id
 
     def free(self, block_id):
-        from supriya.tools import servertools
+        import supriya.realtime
         block_id = int(block_id)
         with self._lock:
             cursor = self._used_heap.get_simultaneity_at(block_id)
@@ -175,7 +175,7 @@ class BlockAllocator(SupriyaObject):
                 starting_block = starting_blocks[0]
                 self._free_heap.remove(starting_block)
                 stop_offset = starting_block.stop_offset
-            free_block = servertools.Block(
+            free_block = supriya.realtime.Block(
                 start_offset=start_offset,
                 stop_offset=stop_offset,
                 used=False,

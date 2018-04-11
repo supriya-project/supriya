@@ -1,4 +1,4 @@
-from supriya.tools import servertools
+import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya import systemtools
 
@@ -7,7 +7,7 @@ class Test(systemtools.TestCase):
 
     def setUp(self):
         super(systemtools.TestCase, self).setUp()
-        self.server = servertools.Server().boot()
+        self.server = supriya.realtime.Server().boot()
 
     def tearDown(self):
         self.server.quit()
@@ -15,7 +15,7 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        bus_group_one = servertools.BusGroup(
+        bus_group_one = supriya.realtime.BusGroup(
             bus_count=4,
             calculation_rate=synthdeftools.CalculationRate.CONTROL,
             )
@@ -43,7 +43,7 @@ class Test(systemtools.TestCase):
             assert bus.bus_id == bus_group_one.bus_id + i
             assert bus.calculation_rate == bus_group_one.calculation_rate
 
-        bus_group_two = servertools.BusGroup(
+        bus_group_two = supriya.realtime.BusGroup(
             bus_count=4,
             calculation_rate=synthdeftools.CalculationRate.CONTROL,
             )

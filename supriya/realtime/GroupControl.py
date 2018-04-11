@@ -45,9 +45,9 @@ class GroupControl:
 
     def set(self, expr):
         from supriya.tools import requesttools
-        from supriya.tools import servertools
+        import supriya.realtime
         from supriya.tools import synthdeftools
-        if isinstance(expr, servertools.Bus):
+        if isinstance(expr, supriya.realtime.Bus):
             if expr.calculation_rate == synthdeftools.CalculationRate.CONTROL:
                 request = requesttools.NodeMapToControlBusRequest(
                     self.node,

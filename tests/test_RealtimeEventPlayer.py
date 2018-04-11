@@ -1,7 +1,7 @@
 import types
 from supriya.tools import systemtools
 import supriya.patterns
-from supriya.tools import servertools
+import supriya.realtime
 
 
 class TestCase(systemtools.TestCase):
@@ -9,9 +9,9 @@ class TestCase(systemtools.TestCase):
     def setUp(self):
         super(TestCase, self).setUp()
         self.pseudo_server = types.SimpleNamespace(
-            audio_bus_allocator=servertools.BlockAllocator(),
-            control_bus_allocator=servertools.BlockAllocator(),
-            node_id_allocator=servertools.NodeIdAllocator(),
+            audio_bus_allocator=supriya.realtime.BlockAllocator(),
+            control_bus_allocator=supriya.realtime.BlockAllocator(),
+            node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
 
     def test_iterate_inner_1(self):
