@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -58,7 +58,7 @@ class SynthDefReceiveRequest(Request):
             completion_message = self.completion_message.to_datagram()
             completion_message = bytearray(completion_message)
             contents.append(completion_message)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

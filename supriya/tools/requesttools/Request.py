@@ -2,7 +2,7 @@ import abc
 import collections
 import threading
 import time
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -36,12 +36,12 @@ class Request(SupriyaValueObject):
     def _coerce_completion_message_input(self, message):
         if message is None:
             return message
-        elif isinstance(message, (osctools.OscMessage, osctools.OscBundle)):
+        elif isinstance(message, (supriya.osc.OscMessage, supriya.osc.OscBundle)):
             return message
         elif isinstance(message, Request):
             return message.to_osc_message()
         elif isinstance(message, collections.Sequence):
-            return osctools.OscMessage(*message)
+            return supriya.osc.OscMessage(*message)
         raise ValueError(message)
 
     def _coerce_completion_message_output(self, contents):

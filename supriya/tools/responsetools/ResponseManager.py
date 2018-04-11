@@ -9,13 +9,13 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> from supriya import osctools
+        >>> import supriya.osc
         >>> from supriya import responsetools
         >>> manager = responsetools.ResponseManager
 
     ::
 
-        >>> message = osctools.OscMessage(
+        >>> message = supriya.osc.OscMessage(
         ...     '/status.reply', 1, 0, 0, 2, 4,
         ...     0.040679048746824265, 0.15118031203746796,
         ...     44100.0, 44100.00077873274,
@@ -34,7 +34,7 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> message = osctools.OscMessage('/b_info', 1100, 512, 1, 44100.0)
+        >>> message = supriya.osc.OscMessage('/b_info', 1100, 512, 1, 44100.0)
         >>> manager.handle_message(message)[0]
         BufferInfoResponse(
             buffer_id=1100,
@@ -45,7 +45,7 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> message = osctools.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
+        >>> message = supriya.osc.OscMessage('/n_set', 1023, '/one', -1, '/two', 0)
         >>> manager.handle_message(message)
         NodeSetResponse(
             items=(
@@ -63,7 +63,7 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> message = osctools.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        >>> message = supriya.osc.OscMessage('/b_setn', 1, 0, 8, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         >>> manager.handle_message(message)
         BufferSetContiguousResponse(
             buffer_id=1,
@@ -77,7 +77,7 @@ class ResponseManager(SupriyaObject):
 
     ::
 
-        >>> message = osctools.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
+        >>> message = supriya.osc.OscMessage('/g_queryTree.reply', 0, 0, 1, 1, 2, 1001, 0, 1000, 1, 1002, 0)
         >>> manager.handle_message(message)
         QueryTreeResponse(
             node_id=0,

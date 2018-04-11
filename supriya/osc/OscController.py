@@ -60,13 +60,13 @@ class OscController(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def boot(self):
-        from supriya.tools import osctools
+        import supriya.osc
         self._socket_instance = socket.socket(
             socket.AF_INET,
             socket.SOCK_DGRAM,
             )
         self._socket_instance.settimeout(self.timeout)
-        self._listener = osctools.OscListener(
+        self._listener = supriya.osc.OscListener(
             client=self,
             debug_osc=self.debug_osc,
             debug_udp=self.debug_udp,
@@ -81,19 +81,19 @@ class OscController(SupriyaObject):
             self._socket_instance.close()
 
     def send(self, message):
-        from supriya.tools import osctools
+        import supriya.osc
         prototype = (
             str,
             tuple,
-            osctools.OscMessage,
-            osctools.OscBundle,
+            supriya.osc.OscMessage,
+            supriya.osc.OscBundle,
             )
         assert isinstance(message, prototype)
         if isinstance(message, str):
-            message = osctools.OscMessage(message)
+            message = supriya.osc.OscMessage(message)
         elif isinstance(message, tuple):
             assert len(message)
-            message = osctools.OscMessage(
+            message = supriya.osc.OscMessage(
                 message[0],
                 *message[1:]
                 )

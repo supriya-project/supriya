@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -70,7 +70,7 @@ class NodeRunRequest(Request):
             for node_id, run_flag in self.node_id_run_flag_pairs:
                 contents.append(node_id)
                 contents.append(int(run_flag))
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

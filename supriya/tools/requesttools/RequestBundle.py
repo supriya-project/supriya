@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.systemtools.SupriyaValueObject import SupriyaValueObject
 
 
@@ -85,7 +85,7 @@ class RequestBundle(SupriyaValueObject):
                 contents.append(x.to_osc_bundle(with_textual_osc_command))
             else:
                 contents.append(x.to_osc_message(with_textual_osc_command))
-        bundle = osctools.OscBundle(
+        bundle = supriya.osc.OscBundle(
             timestamp=self.timestamp,
             contents=contents,
             )

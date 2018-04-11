@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -93,7 +93,7 @@ class BufferCopyRequest(Request):
             source_starting_frame,
             frame_count,
             ]
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

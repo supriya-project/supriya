@@ -1,4 +1,4 @@
-from supriya import osctools
+import supriya.osc
 from supriya import servertools
 from supriya import synthdefs
 from supriya import systemtools
@@ -40,7 +40,7 @@ class Test(systemtools.TestCase):
         local_state = str(self.server.query_local_nodes())
         assert local_state == remote_state
 
-        osc_message = osctools.OscMessage(
+        osc_message = supriya.osc.OscMessage(
             '/n_after',
             synth_b.node_id,
             synth_a.node_id,
@@ -62,7 +62,7 @@ class Test(systemtools.TestCase):
         local_state = str(self.server.query_local_nodes())
         assert local_state == remote_state
 
-        osc_message = osctools.OscMessage(
+        osc_message = supriya.osc.OscMessage(
             '/n_order',
             0,
             group_b.node_id,

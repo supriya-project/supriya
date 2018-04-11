@@ -1,5 +1,5 @@
 import re
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools import servertools
 from supriya.tools import systemtools
 from supriya.tools.livetools.Track import Track
@@ -116,15 +116,15 @@ class Mixer:
         self._cue_track = track
 
     def _setup_osc_callbacks(self):
-        self._input_levels_callback = osctools.OscCallback(
+        self._input_levels_callback = supriya.osc.OscCallback(
             address_pattern='/levels/input',
             procedure=self._handle_input_levels,
             )
-        self._prefader_levels_callback = osctools.OscCallback(
+        self._prefader_levels_callback = supriya.osc.OscCallback(
             address_pattern='/levels/prefader',
             procedure=self._handle_prefader_levels,
             )
-        self._postfader_levels_callback = osctools.OscCallback(
+        self._postfader_levels_callback = supriya.osc.OscCallback(
             address_pattern='/levels/postfader',
             procedure=self._handle_postfader_levels,
             )

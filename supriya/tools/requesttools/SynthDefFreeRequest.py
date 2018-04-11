@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -59,7 +59,7 @@ class SynthDefFreeRequest(Request):
         synthdef = self.synthdef
         if isinstance(synthdef, synthdeftools.SynthDef):
             synthdef = synthdef.actual_name
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             synthdef,
             )

@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -42,7 +42,7 @@ class StatusRequest(Request):
             request_id = self.request_command
         else:
             request_id = int(self.request_id)
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             )
         return message

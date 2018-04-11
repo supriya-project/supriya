@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -65,7 +65,7 @@ class BufferGetRequest(Request):
         if self.indices:
             for index in self.indices:
                 contents.append(index)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

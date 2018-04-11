@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -53,7 +53,7 @@ class NodeQueryRequest(Request):
         else:
             request_id = int(self.request_id)
         node_id = int(self.node_id)
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             node_id,
             )

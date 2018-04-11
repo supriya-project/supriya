@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -77,7 +77,7 @@ class BufferFillRequest(Request):
             contents.append(int(index))
             contents.append(int(count))
             contents.append(float(value))
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

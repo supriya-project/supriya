@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -76,7 +76,7 @@ class ControlBusSetContiguousRequest(Request):
                 contents.append(index)
                 contents.append(len(values))
                 contents.extend(values)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

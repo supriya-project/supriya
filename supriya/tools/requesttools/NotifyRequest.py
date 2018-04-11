@@ -1,5 +1,5 @@
 import os
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -55,7 +55,7 @@ class NotifyRequest(Request):
         else:
             request_id = int(self.request_id)
         notify_status = int(self.notify_status)
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             notify_status,
             )

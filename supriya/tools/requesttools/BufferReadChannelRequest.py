@@ -1,5 +1,5 @@
 import collections
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.BufferReadRequest import BufferReadRequest
 
 
@@ -76,7 +76,7 @@ class BufferReadChannelRequest(BufferReadRequest):
         contents = self._get_osc_message_contents(with_textual_osc_command)
         contents.extend(self.channel_indices)
         self._coerce_completion_message_output(contents)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

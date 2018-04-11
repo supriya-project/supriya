@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -103,7 +103,7 @@ class SynthNewRequest(Request):
         for key, value in sorted(self._kwargs.items()):
             contents.append(key)
             contents.append(value)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

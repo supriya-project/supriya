@@ -95,7 +95,7 @@ class Server(SupriyaObject):
         ip_address='127.0.0.1',
         port=57751,
         ):
-        from supriya.tools import osctools
+        import supriya.osc
         from supriya.tools import responsetools
         from supriya.tools import servertools
 
@@ -111,8 +111,8 @@ class Server(SupriyaObject):
 
         self._latency = 0.1
         self._response_dispatcher = responsetools.ResponseDispatcher()
-        self._osc_dispatcher = osctools.OscDispatcher()
-        self._osc_controller = osctools.OscController(server=self)
+        self._osc_dispatcher = supriya.osc.OscDispatcher()
+        self._osc_controller = supriya.osc.OscController(server=self)
         for callback in (
             responsetools.BufferResponseCallback(self),
             responsetools.ControlBusResponseCallback(self),
@@ -121,7 +121,7 @@ class Server(SupriyaObject):
             ):
             self.register_response_callback(callback)
 
-        fail_callback = osctools.OscCallback(
+        fail_callback = supriya.osc.OscCallback(
             address_pattern='/fail',
             procedure=lambda message: print('FAILED:', message),
             )

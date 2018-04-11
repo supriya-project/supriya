@@ -92,13 +92,13 @@ class ServerMeters(systemtools.SupriyaObject):
 
     @systemtools.PubSub.subscribe_before('server-quitting')
     def allocate(self):
-        from supriya.tools import osctools
+        import supriya.osc
         from supriya.tools import servertools
-        self._input_meter_callback = osctools.OscCallback(
+        self._input_meter_callback = supriya.osc.OscCallback(
             address_pattern=self.input_meter_command,
             procedure=self._handle_input_levels,
             )
-        self._output_meter_callback = osctools.OscCallback(
+        self._output_meter_callback = supriya.osc.OscCallback(
             address_pattern=self.output_meter_command,
             procedure=self._handle_output_levels,
             )

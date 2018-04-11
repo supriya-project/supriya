@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -75,7 +75,7 @@ class ControlBusSetRequest(Request):
         if self.index_value_pairs:
             for pair in self.index_value_pairs:
                 contents.extend(pair)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

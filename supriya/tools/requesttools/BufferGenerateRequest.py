@@ -1,6 +1,6 @@
 import collections
 from supriya import utils
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -155,7 +155,7 @@ class BufferGenerateRequest(Request):
             coefficients = tuple(coefficients)
         coefficients = utils.flatten_iterable(coefficients)
         contents.extend(coefficients)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC METHODS ###

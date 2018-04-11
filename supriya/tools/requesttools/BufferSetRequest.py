@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -82,7 +82,7 @@ class BufferSetRequest(Request):
             for index, value in self.index_value_pairs:
                 contents.append(index)
                 contents.append(value)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

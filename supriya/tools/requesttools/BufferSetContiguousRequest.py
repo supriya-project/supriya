@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -84,7 +84,7 @@ class BufferSetContiguousRequest(Request):
                 contents.append(len(values))
                 for value in values:
                     contents.append(value)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

@@ -4,7 +4,7 @@ import os
 import pathlib
 import struct
 import uqbar.io
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import soundfiletools
@@ -893,9 +893,9 @@ class Session:
                 )
             osc_messages.extend(_.to_osc_message(True) for _ in requests)
             if is_last_offset:
-                osc_messages.append(osctools.OscMessage(0))
+                osc_messages.append(supriya.osc.OscMessage(0))
             if osc_messages:
-                osc_bundle = osctools.OscBundle(
+                osc_bundle = supriya.osc.OscBundle(
                     timestamp=float(offset),
                     contents=osc_messages,
                     )

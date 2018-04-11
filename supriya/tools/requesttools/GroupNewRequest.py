@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -67,7 +67,7 @@ class GroupNewRequest(Request):
         add_action = int(self.add_action)
         node_id = int(self.node_id)
         target_node_id = int(self.target_node_id)
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             node_id,
             add_action,

@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -59,7 +59,7 @@ class BufferQueryRequest(Request):
             ]
         for buffer_id in self.buffer_ids:
             contents.append(buffer_id)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

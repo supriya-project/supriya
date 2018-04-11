@@ -1,5 +1,5 @@
 import collections
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -39,7 +39,7 @@ class GroupHeadRequest(Request):
             for node_id_pair in self.node_id_pairs:
                 contents.append(node_id_pair.target_node_id)
                 contents.append(node_id_pair.node_id)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

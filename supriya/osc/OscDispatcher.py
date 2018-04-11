@@ -8,12 +8,12 @@ class OscDispatcher(SupriyaObject):
 
     ::
 
-        >>> from supriya import osctools
-        >>> dispatcher = osctools.OscDispatcher()
+        >>> import supriya.osc
+        >>> dispatcher = supriya.osc.OscDispatcher()
 
     ::
 
-        >>> osc_callback = osctools.OscCallback(
+        >>> osc_callback = supriya.osc.OscCallback(
         ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
@@ -21,7 +21,7 @@ class OscDispatcher(SupriyaObject):
 
     ::
 
-        >>> message = osctools.OscMessage('/okay', 1, 2, 3)
+        >>> message = supriya.osc.OscMessage('/okay', 1, 2, 3)
         >>> dispatcher(message)
         GOT: size 28
            0   2f 6f 6b 61  79 00 00 00  2c 69 69 69  00 00 00 00   |/okay...,iii....|
@@ -57,8 +57,8 @@ class OscDispatcher(SupriyaObject):
 
         Returns none.
         """
-        from supriya.tools import osctools
-        assert isinstance(message, osctools.OscMessage)
+        import supriya.osc
+        assert isinstance(message, supriya.osc.OscMessage)
         callbacks = []
         for regex in self._regex_map:
             if regex.match(message.address):
@@ -93,8 +93,8 @@ class OscDispatcher(SupriyaObject):
 
         Returns none.
         """
-        from supriya.tools import osctools
-        assert isinstance(osc_callback, osctools.OscCallback)
+        import supriya.osc
+        assert isinstance(osc_callback, supriya.osc.OscCallback)
         if osc_callback.address_pattern in self._address_map:
             regex = self._address_map[osc_callback.address_pattern]
         else:
@@ -112,8 +112,8 @@ class OscDispatcher(SupriyaObject):
 
         Returns none.
         """
-        from supriya.tools import osctools
-        assert isinstance(osc_callback, osctools.OscCallback)
+        import supriya.osc
+        assert isinstance(osc_callback, supriya.osc.OscCallback)
         if osc_callback.address_pattern not in self._address_map:
             return
         regex = self._address_map[osc_callback.address_pattern]

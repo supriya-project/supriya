@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -77,7 +77,7 @@ class NodeMapToControlBusRequest(Request):
         for name, bus in sorted(self._kwargs.items()):
             contents.append(name)
             contents.append(int(bus))
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             node_id,
             *contents

@@ -1,5 +1,5 @@
 import collections
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -58,7 +58,7 @@ class NodeFreeRequest(Request):
             request_id = int(self.request_id)
         contents = [request_id]
         contents.extend(self.node_ids)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

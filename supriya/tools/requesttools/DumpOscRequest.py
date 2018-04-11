@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -52,7 +52,7 @@ class DumpOscRequest(Request):
             request_id = int(self.request_id)
         osc_status = int(self.osc_status)
         assert 0 <= osc_status <= 4
-        message = osctools.OscMessage(
+        message = supriya.osc.OscMessage(
             request_id,
             osc_status,
             )

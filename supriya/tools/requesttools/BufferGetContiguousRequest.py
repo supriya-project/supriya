@@ -1,4 +1,4 @@
-from supriya.tools import osctools
+import supriya.osc
 from supriya.tools.requesttools.Request import Request
 
 
@@ -72,7 +72,7 @@ class BufferGetContiguousRequest(Request):
             for index, count in self.index_count_pairs:
                 contents.append(index)
                 contents.append(count)
-        message = osctools.OscMessage(*contents)
+        message = supriya.osc.OscMessage(*contents)
         return message
 
     ### PUBLIC PROPERTIES ###

@@ -1,7 +1,7 @@
 import collections
 import struct
 import sys
-from supriya.tools.osctools.OscMixin import OscMixin
+from supriya.osc.OscMixin import OscMixin
 
 
 class OscMessage(OscMixin):
@@ -10,15 +10,15 @@ class OscMessage(OscMixin):
 
     ::
 
-        >>> from supriya.tools import osctools
-        >>> osc_message = osctools.OscMessage('/g_new', 0, 0)
+        >>> import supriya.osc
+        >>> osc_message = supriya.osc.OscMessage('/g_new', 0, 0)
         >>> osc_message
         OscMessage('/g_new', 0, 0)
 
     ::
 
         >>> datagram = osc_message.to_datagram()
-        >>> osctools.OscMessage.from_datagram(datagram)
+        >>> supriya.osc.OscMessage.from_datagram(datagram)
         OscMessage('/g_new', 0, 0)
 
     """

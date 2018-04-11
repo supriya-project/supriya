@@ -49,11 +49,11 @@ class MessageBundler(SupriyaObject):
     ### PUBLIC METHODS ###
 
     def add_message(self, message):
-        from supriya.tools import osctools
+        import supriya.osc
         from supriya.tools import requesttools
         prototype = (
-            osctools.OscMessage,
-            osctools.OscBundle,
+            supriya.osc.OscMessage,
+            supriya.osc.OscBundle,
             requesttools.Request,
             )
         assert isinstance(message, prototype)
@@ -69,10 +69,10 @@ class MessageBundler(SupriyaObject):
         self._synchronizing_request = request
 
     def send_messages(self):
-        from supriya.tools import osctools
+        import supriya.osc
         from supriya.tools import requesttools
         messages = []
-        prototype = (osctools.OscMessage, osctools.OscBundle)
+        prototype = (supriya.osc.OscMessage, supriya.osc.OscBundle)
         for message in self._messages:
             if not isinstance(message, prototype):
                 message = message.to_osc_message()
@@ -85,7 +85,7 @@ class MessageBundler(SupriyaObject):
             message = sync_request.to_osc_message()
             messages.append(message)
         if 1 < len(messages) or self._timestamp is not None:
-            self._result = osctools.OscBundle(
+            self._result = supriya.osc.OscBundle(
                 timestamp=self._timestamp,
                 contents=messages,
                 )

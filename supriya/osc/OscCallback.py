@@ -7,8 +7,8 @@ class OscCallback(SupriyaObject):
 
     ::
 
-        >>> from supriya import osctools
-        >>> callback = osctools.OscCallback(
+        >>> import supriya.osc
+        >>> callback = supriya.osc.OscCallback(
         ...     address_pattern='/*',
         ...     procedure=lambda x: print('GOT:', x),
         ...     )
@@ -54,7 +54,7 @@ class OscCallback(SupriyaObject):
 
         ::
 
-            >>> callback = osctools.OscCallback(
+            >>> callback = supriya.osc.OscCallback(
             ...     address_pattern='/*',
             ...     procedure=lambda x: print('GOT:', x),
             ...     )
@@ -77,7 +77,7 @@ class OscCallback(SupriyaObject):
 
         ::
 
-            >>> callback = osctools.OscCallback(
+            >>> callback = supriya.osc.OscCallback(
             ...     address_pattern='/*',
             ...     procedure=lambda x: print('GOT:', x),
             ...     )
