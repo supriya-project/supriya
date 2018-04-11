@@ -1,7 +1,6 @@
 import bisect
 import collections
 from supriya import utils
-import supriya.realtime
 from supriya.nonrealtime.SessionObject import SessionObject
 
 
@@ -303,10 +302,10 @@ class Node(SessionObject):
         offset=None,
         **synth_kwargs
         ):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.nonrealtime
         session_id = self.session._get_next_session_id('node')
-        synthdef = synthdef or synthdefs.default
+        synthdef = synthdef or supriya.assets.synthdefs.default
         node = supriya.nonrealtime.Synth(
             self.session,
             session_id=session_id,

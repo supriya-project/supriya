@@ -1,4 +1,4 @@
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 from patterns_testbase import TestCase
@@ -83,7 +83,7 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern_01)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -130,7 +130,7 @@ class TestCase(TestCase):
 
     def test_nonrealtime_01b(self):
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         for duration in (10.0, 11.0, 12.0):
             session = supriya.nonrealtime.Session(0, 2)
@@ -160,8 +160,8 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern_02)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -212,8 +212,8 @@ class TestCase(TestCase):
 
     def test_nonrealtime_02b(self):
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
-            synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
             ])
         for duration in (10.0, 11.0, 12.0):
             session = supriya.nonrealtime.Session(0, 2)
@@ -249,7 +249,7 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern_03)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -290,7 +290,7 @@ class TestCase(TestCase):
                 duration=29.0,
                 )
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -311,7 +311,7 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern_05)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -374,7 +374,7 @@ class TestCase(TestCase):
                 duration=25.0,
                 )
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.default,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [

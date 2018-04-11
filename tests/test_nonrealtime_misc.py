@@ -1,7 +1,8 @@
+import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 from patterns_testbase import TestCase
-from supriya import AddAction, synthdefs
+from supriya.realtime import AddAction
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -118,7 +119,7 @@ class TestCase(TestCase):
                 NODE TREE 0 group
             ''')
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_1,
+            supriya.assets.synthdefs.system_link_audio_1,
             self.sine_synthdef,
             self.pink_synthdef,
             self.limiter_synthdef,

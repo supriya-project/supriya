@@ -1,6 +1,6 @@
 import unittest
+import supriya.assets.synthdefs
 import supriya.nonrealtime
-from supriya import synthdefs
 import supriya.patterns
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
@@ -16,7 +16,7 @@ class TestCase(TestCase):
         for i in range(4):
             with session.at(i):
                 group.add_synth(duration=0)
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists(duration=5) == [
             [0.0, [
                 *d_recv_commands,
@@ -97,7 +97,7 @@ class TestCase(TestCase):
             session.inscribe(pattern, duration=4)
         assert session.to_lists(duration=10) == [
             [0.0, [
-                ['/d_recv', bytearray(synthdefs.system_link_audio_1.compile())],
+                ['/d_recv', bytearray(supriya.assets.synthdefs.system_link_audio_1.compile())],
                 ['/d_recv', bytearray(source_synthdef.compile())],
                 ['/g_new', 1000, 0, 0],
                 ['/s_new', '2aa2f6c46d902276bad2e942125ef247', 1001, 3, 1000,

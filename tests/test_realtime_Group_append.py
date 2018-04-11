@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -21,7 +21,7 @@ class Test(systemtools.TestCase):
         group_b = supriya.realtime.Group()
         group_b.allocate(target_node=self.server)
 
-        synthdef = synthdefs.test
+        synthdef = supriya.assets.synthdefs.test
         assert not synthdef.is_allocated
 
         synth_a = supriya.realtime.Synth(synthdef)

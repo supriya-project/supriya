@@ -46,10 +46,10 @@ class NoteEvent(Event):
         offset,
         maximum_offset=None,
         ):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         settings = self.settings.copy()  # Do not mutate in place.
-        synthdef = self.get('synthdef', synthdefs.default)
-        synthdef = synthdef or synthdefs.default
+        synthdef = self.get('synthdef', supriya.assets.synthdefs.default)
+        synthdef = synthdef or supriya.assets.synthdefs.default
         synth_uuid = self.get('uuid', uuid.uuid4())
         is_stop = self.get('is_stop')
         duration = self.get('duration')
@@ -103,11 +103,11 @@ class NoteEvent(Event):
         timestamp=0,
         uuids=None,
         ):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.patterns
         synth_uuid = self.get('uuid') or uuid.uuid4()
-        synthdef = self.get('synthdef', synthdefs.default)
-        synthdef = synthdef or synthdefs.default
+        synthdef = self.get('synthdef', supriya.assets.synthdefs.default)
+        synthdef = synthdef or supriya.assets.synthdefs.default
         is_stop = self.get('is_stop')
         duration = self['duration']
         if duration is None:

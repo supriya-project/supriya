@@ -11,7 +11,7 @@ application:
     tracks:
       - name: track-a
         type: synth
-        synthdef: supriya.synthdefs:default
+        synthdef: supriya.assets.synthdefs:default
         args:
           amplitude: 1.0
           frequency: 440

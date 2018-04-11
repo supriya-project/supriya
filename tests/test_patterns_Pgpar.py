@@ -1,6 +1,6 @@
 import uqbar.strings
 from patterns_testbase import TestCase
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 
@@ -292,7 +292,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(10):
             session.inscribe(self.pattern)
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
                 *d_recv_commands,

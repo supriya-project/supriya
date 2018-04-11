@@ -42,7 +42,7 @@ class TriggerPatternSlot(PatternSlot):
 
     @systemtools.Bindable(rebroadcast=True)
     def trigger(self, state):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         if not self.is_allocated or not self._iterator:
             return state
         else:
@@ -58,7 +58,7 @@ class TriggerPatternSlot(PatternSlot):
             synthdef = (
                 self.synthdef or
                 event.get('synthdef') or
-                synthdefs.default
+                supriya.assets.synthdefs.default
                 )
             settings = {
                 key: value for key, value in event._settings.items()

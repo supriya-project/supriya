@@ -63,11 +63,11 @@ class Synth(Node):
         register_controls=None,
         **kwargs
         ):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.realtime
         from supriya.tools import synthdeftools
         Node.__init__(self, name=name)
-        synthdef = synthdef or synthdefs.default
+        synthdef = synthdef or supriya.assets.synthdefs.default
         assert isinstance(synthdef, synthdeftools.SynthDef)
         self._synthdef = synthdef
         self._control_interface = supriya.realtime.SynthInterface(

@@ -695,7 +695,7 @@ class SynthDef(ServerObjectProxy):
         ::
 
             >>> server = Server().boot()
-            >>> synthdef = synthdefs.default
+            >>> synthdef = supriya.assets.synthdefs.default
             >>> synth = synthdef.play()
             >>> server = server.quit()
 
@@ -727,7 +727,7 @@ class SynthDef(ServerObjectProxy):
         ::
 
             >>> import json
-            >>> result = synthdefs.default.to_dict()
+            >>> result = supriya.assets.synthdefs.default.to_dict()
             >>> result = json.dumps(
             ...     result,
             ...     indent=4,

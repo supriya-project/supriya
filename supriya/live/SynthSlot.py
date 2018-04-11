@@ -1,4 +1,3 @@
-import supriya.realtime
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
 from supriya.live.Slot import Slot
@@ -15,8 +14,8 @@ class SynthSlot(Slot):
         synthdef,
         **kwargs
         ):
-        from supriya import synthdefs
-        self._synthdef = synthdef or synthdefs.default
+        import supriya.assets.synthdefs
+        self._synthdef = synthdef or supriya.assets.synthdefs.default
         Slot.__init__(self, name, track, self._synthdef, **kwargs)
         self._synth = supriya.realtime.Synth(
             synthdef=self._synthdef,

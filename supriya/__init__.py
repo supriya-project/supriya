@@ -142,7 +142,6 @@ from supriya.tools.wrappertools import (  # noqa
 from abjad.tools.topleveltools import (  # noqa
     graph,
     )
-from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
 from supriya.tools import responsetools  # noqa
 from supriya._version import __version__, __version_info__  # noqa

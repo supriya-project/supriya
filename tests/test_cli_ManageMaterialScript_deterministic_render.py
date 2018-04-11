@@ -8,15 +8,16 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     module_contents = utils.normalize_string('''
+    import supriya.assets.synthdefs
     import supriya.patterns
-    from supriya import Session, synthdefs
+    import supriya.nonrealtime
 
 
-    material = Session(0, 2)
+    material = supriya.nonrealtime.Session(0, 2)
 
     pattern = supriya.patterns.Pbus(
         supriya.patterns.Pbind(
-            synthdef=synthdefs.default,
+            synthdef=supriya.assets.synthdefs.default,
             amplitude=supriya.patterns.Pwhite(),
             delta=supriya.patterns.Pwhite(0., 2.),
             duration=supriya.patterns.Pwhite(0.1, 0.5),

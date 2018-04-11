@@ -329,13 +329,13 @@ class Server(SupriyaObject):
         self._status_watcher.start()
 
     def _setup_system_synthdefs(self):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         from supriya.tools import synthdeftools
         system_synthdefs = []
-        for name in dir(synthdefs):
+        for name in dir(supriya.assets.synthdefs):
             if not name.startswith('system_'):
                 continue
-            system_synthdef = getattr(synthdefs, name)
+            system_synthdef = getattr(supriya.assets.synthdefs, name)
             if not isinstance(system_synthdef, synthdeftools.SynthDef):
                 continue
             system_synthdefs.append(system_synthdef)

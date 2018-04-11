@@ -1,4 +1,4 @@
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.realtime
 from supriya import systemtools
 
@@ -17,11 +17,11 @@ class Test(systemtools.TestCase):
 
         group = supriya.realtime.Group().allocate()
 
-        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         synth_a.allocate(
             target_node=group,
             )
-        synth_b = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         synth_b.allocate(
             target_node=group,
             )
@@ -108,7 +108,7 @@ class Test(systemtools.TestCase):
 
     def test_02(self):
 
-        synth = supriya.realtime.Synth(synthdefs.test)
+        synth = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         synth['frequency'].set(443)
         synth['amplitude'].set(0.5)
 

@@ -2,7 +2,7 @@ import types
 import uuid
 import uqbar.strings
 from patterns_testbase import TestCase
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.patterns
 import supriya.realtime
 
@@ -14,7 +14,7 @@ class TestCase(TestCase):
         event = supriya.patterns.SynthEvent(
             out=4,
             pan=0.25,
-            synthdef=synthdefs.default,
+            synthdef=supriya.assets.synthdefs.default,
             uuid=node_uuid,
             )
         server = types.SimpleNamespace(
@@ -66,7 +66,7 @@ class TestCase(TestCase):
             )
         uuids = {
             node_uuid: {
-                1000: supriya.realtime.Synth(synthdefs.default),
+                1000: supriya.realtime.Synth(supriya.assets.synthdefs.default),
                 },
             }
         event_products = event._perform_realtime(

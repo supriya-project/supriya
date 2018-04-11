@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -17,17 +17,17 @@ class Test(systemtools.TestCase):
 
         group_a = supriya.realtime.Group()
         group_a.allocate()
-        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_a.append(synth_a)
         group_b = supriya.realtime.Group()
         group_a.append(group_b)
-        synth_b = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_b.append(synth_b)
-        synth_c = supriya.realtime.Synth(synthdefs.test)
+        synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_b.append(synth_c)
         group_c = supriya.realtime.Group()
         group_b.append(group_c)
-        synth_d = supriya.realtime.Synth(synthdefs.test)
+        synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_a.append(synth_d)
 
         server_state = str(self.server.query_remote_nodes())

@@ -1,5 +1,5 @@
 import supriya.nonrealtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
 
 
@@ -12,7 +12,7 @@ class TestCase(TestCase):
             group = session.add_group(duration=20)
             group.add_synth(duration=20)
             session.add_group(duration=20)
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_strings() == self.normalize('''
             0.0:
                 NODE TREE 0 group
@@ -84,7 +84,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -166,7 +166,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

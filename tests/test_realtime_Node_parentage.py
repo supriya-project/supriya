@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -22,8 +22,8 @@ class Test(systemtools.TestCase):
         group_b = supriya.realtime.Group().allocate(target_node=group_a)
         group_c = supriya.realtime.Group().allocate(target_node=group_b)
         group_d = supriya.realtime.Group().allocate(target_node=group_c)
-        synth_a = supriya.realtime.Synth(synthdefs.test)
-        synth_b = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_d.extend([synth_a, synth_b])
 
         server_state = str(self.server.query_remote_nodes())

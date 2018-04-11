@@ -1,5 +1,5 @@
 import supriya.nonrealtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
 import supriya.nonrealtime
 
@@ -66,6 +66,6 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             synth = session.add_synth()
-        assert synth.synthdef == synthdefs.default
+        assert synth.synthdef == supriya.assets.synthdefs.default
         assert synth.duration == float('inf')
         assert synth.start_offset == 0.

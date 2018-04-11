@@ -1,5 +1,5 @@
 import types
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.patterns
 import supriya.realtime
 from supriya.tools import systemtools
@@ -15,7 +15,7 @@ class TestCase(systemtools.TestCase):
             node_id_allocator=supriya.realtime.NodeIdAllocator(),
             )
         self.server = supriya.realtime.Server.get_default_server().boot()
-        synthdefs.default.allocate(self.server)
+        supriya.assets.synthdefs.default.allocate(self.server)
         self.server.debug_osc = True
         self.server.latency = 0.0
 

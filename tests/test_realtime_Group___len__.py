@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -20,7 +20,7 @@ class Test(systemtools.TestCase):
 
         assert len(group_a) == 0
 
-        synth_a = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_a.append(synth_a)
 
         assert len(group_a) == 1
@@ -31,19 +31,19 @@ class Test(systemtools.TestCase):
         assert len(group_a) == 2
         assert len(group_b) == 0
 
-        synth_b = supriya.realtime.Synth(synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_b.append(synth_b)
 
         assert len(group_a) == 2
         assert len(group_b) == 1
 
-        synth_c = supriya.realtime.Synth(synthdefs.test)
+        synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_b.append(synth_c)
 
         assert len(group_a) == 2
         assert len(group_b) == 2
 
-        synth_d = supriya.realtime.Synth(synthdefs.test)
+        synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
         group_a.append(synth_d)
 
         assert len(group_a) == 3

@@ -1,8 +1,7 @@
 import uqbar.strings
-from patterns_testbase import TestCase
-from supriya import synthdefs
 import supriya.nonrealtime
 import supriya.patterns
+from patterns_testbase import TestCase
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -19,7 +18,7 @@ class TestCase(TestCase):
         amplitude=1.0,
         duration=1.0,
         frequency=supriya.patterns.Pseq([440, 660, 880], 1),
-        synthdef=synthdefs.default,
+        synthdef=supriya.assets.synthdefs.default,
         )
     pattern = pattern.with_group()
     pattern = pattern.with_effect(synthdef=limiter_synthdef)
@@ -162,27 +161,27 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             self.limiter_synthdef,
             ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', synthdefs.system_link_audio_2.anonymous_name, 1001, 3, 1000,
+                ['/s_new', supriya.assets.synthdefs.system_link_audio_2.anonymous_name, 1001, 3, 1000,
                     'fade_time', 0.25, 'in_', 16],
                 ['/s_new', self.limiter_synthdef.anonymous_name, 1002, 1, 1000,
                     'in_', 16.0, 'out', 16.0],
                 ['/g_new', 1003, 0, 1000],
-                ['/s_new', synthdefs.default.anonymous_name, 1004, 0, 1003,
+                ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1004, 0, 1003,
                     'amplitude', 1.0, 'frequency', 440, 'out', 16]]],
             [1.0, [
-                ['/s_new', synthdefs.default.anonymous_name, 1005, 0, 1003,
+                ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1005, 0, 1003,
                     'amplitude', 1.0, 'frequency', 660, 'out', 16],
                 ['/n_set', 1004, 'gate', 0]]],
             [2.0, [
-                ['/s_new', synthdefs.default.anonymous_name, 1006, 0, 1003,
+                ['/s_new', supriya.assets.synthdefs.default.anonymous_name, 1006, 0, 1003,
                     'amplitude', 1.0, 'frequency', 880, 'out', 16],
                 ['/n_set', 1005, 'gate', 0]]],
             [3.0, [

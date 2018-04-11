@@ -1,5 +1,5 @@
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -15,11 +15,11 @@ class Test(systemtools.TestCase):
 
     def test_01(self):
 
-        synth_a = supriya.realtime.Synth(synthdefs.test)
-        synth_b = supriya.realtime.Synth(synthdefs.test)
-        synth_c = supriya.realtime.Synth(synthdefs.test)
-        synth_d = supriya.realtime.Synth(synthdefs.test)
-        synth_e = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test)
 
         synth_a.allocate()
         synth_b.allocate()

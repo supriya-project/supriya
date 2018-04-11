@@ -43,7 +43,7 @@ class Pbus(EventPattern):
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.patterns
         expr = super(Pbus, self)._coerce_iterator_output(expr)
         if (
@@ -55,7 +55,7 @@ class Pbus(EventPattern):
                 kwargs['target_node'] = state['group_uuid']
             prototype = (supriya.patterns.NoteEvent, supriya.patterns.SynthEvent)
             if isinstance(expr, prototype):
-                synthdef = expr.get('synthdef') or synthdefs.default
+                synthdef = expr.get('synthdef') or supriya.assets.synthdefs.default
                 parameter_names = synthdef.parameter_names
                 if expr.get('out') is None and 'out' in parameter_names:
                     kwargs['out'] = state['bus_uuid']
@@ -75,18 +75,18 @@ class Pbus(EventPattern):
             }
 
     def _setup_peripherals(self, initial_expr, state):
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.patterns
         from supriya.tools import synthdeftools
         channel_count = self.channel_count
         if channel_count is None:
-            synthdef = initial_expr.get('synthdef') or synthdefs.default
+            synthdef = initial_expr.get('synthdef') or supriya.assets.synthdefs.default
             channel_count = synthdef.audio_output_channel_count
         if self.calculation_rate == synthdeftools.CalculationRate.AUDIO:
             link_synthdef_name = 'system_link_audio_{}'.format(channel_count)
         else:
             link_synthdef_name = 'system_link_control_{}'.format(channel_count)
-        link_synthdef = getattr(synthdefs, link_synthdef_name)
+        link_synthdef = getattr(supriya.assets.synthdefs, link_synthdef_name)
         start_bus_event = supriya.patterns.BusEvent(
             calculation_rate=self.calculation_rate,
             channel_count=channel_count,

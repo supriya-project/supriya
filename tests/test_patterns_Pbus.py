@@ -1,7 +1,8 @@
 import time
 import uqbar.strings
 from patterns_testbase import TestCase
-from supriya import SynthDefBuilder, Parameter, synthdefs
+from supriya import SynthDefBuilder, Parameter
+import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 from supriya.tools import ugentools
@@ -547,8 +548,8 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -579,8 +580,8 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01, duration=3)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -607,8 +608,8 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01, duration=2)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
             [0.0, [
@@ -645,14 +646,14 @@ class TestCase(TestCase):
         with session.at(0):
             session.inscribe(pattern, duration=1)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_1,
+            supriya.assets.synthdefs.system_link_audio_1,
             dc_synthdef,
             ])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
                 ['/g_new', 1000, 0, 0],
-                ['/s_new', synthdefs.system_link_audio_1.anonymous_name, 1001, 3, 1000,
+                ['/s_new', supriya.assets.synthdefs.system_link_audio_1.anonymous_name, 1001, 3, 1000,
                     'fade_time', 1.0, 'in_', 1],
                 ['/s_new', dc_synthdef.anonymous_name, 1002, 0, 1000,
                     'out', 1]]],

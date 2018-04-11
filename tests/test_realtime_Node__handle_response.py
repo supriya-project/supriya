@@ -1,6 +1,6 @@
 import supriya.osc
 import supriya.realtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from supriya import systemtools
 
 
@@ -19,8 +19,8 @@ class Test(systemtools.TestCase):
         group_a = supriya.realtime.Group().allocate()
         group_b = supriya.realtime.Group().allocate()
 
-        synth_a = supriya.realtime.Synth(synthdefs.test)
-        synth_b = supriya.realtime.Synth(synthdefs.test)
+        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
 
         group_a.append(synth_a)
         group_b.append(synth_b)

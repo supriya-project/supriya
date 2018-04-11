@@ -1,5 +1,5 @@
 from patterns_testbase import TestCase
-from supriya import synthdefs
+import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 from supriya.tools import synthdeftools
@@ -51,8 +51,8 @@ class TestCase(TestCase):
         with session.at(0):
             final_offset = session.inscribe(self.pattern)
         d_recv_commands = self.build_d_recv_commands([
-            synthdefs.system_link_audio_2,
-            synthdefs.default,
+            supriya.assets.synthdefs.system_link_audio_2,
+            supriya.assets.synthdefs.default,
             self.limiter_synthdef,
             ])
         assert session.to_lists() == [

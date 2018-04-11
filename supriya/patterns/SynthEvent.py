@@ -50,9 +50,9 @@ class SynthEvent(Event):
         offset,
         maximum_offset=None,
         ):
+        import supriya.assets.synthdefs
         import supriya.nonrealtime
-        from supriya import synthdefs
-        synthdef = self.get('synthdef') or synthdefs.default
+        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
         synth_uuid = self.get('uuid', uuid.uuid4())
         if not self.get('is_stop'):
             target_node = self['target_node']
@@ -94,11 +94,11 @@ class SynthEvent(Event):
         uuids=None,
         ):
         # TODO: Should this handle multichannel expansion?
-        from supriya import synthdefs
+        import supriya.assets.synthdefs
         import supriya.patterns
         node_uuid = self.get('uuid') or uuid.uuid4()
         requests = []
-        synthdef = self.get('synthdef') or synthdefs.default
+        synthdef = self.get('synthdef') or supriya.assets.synthdefs.default
         if not self.get('is_stop'):
             target_node_id = self.get('target_node')
             if not target_node_id:

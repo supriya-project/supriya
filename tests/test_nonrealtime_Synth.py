@@ -1,5 +1,5 @@
 import supriya.nonrealtime
-from supriya import synthdefs
+import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
 
 
@@ -10,18 +10,18 @@ class TestCase(TestCase):
         with session.at(0):
             session.add_synth(
                 duration=4,
-                synthdef=synthdefs.default,
+                synthdef=supriya.assets.synthdefs.default,
                 )
         with session.at(2):
             session.add_synth(
                 duration=4,
-                synthdef=synthdefs.default,
+                synthdef=supriya.assets.synthdefs.default,
                 amplitude=0.5,
                 frequency=443,
                 pan=0.75,
                 out=8,
                 )
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -39,14 +39,14 @@ class TestCase(TestCase):
         with session.at(10):
             synth = session.add_synth(
                 duration=6,
-                synthdef=synthdefs.default,
+                synthdef=supriya.assets.synthdefs.default,
                 frequency=440,
                 )
         with session.at(11):
             synth['frequency'] = 442
         with session.at(13):
             synth['frequency'] = 443
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
                 *d_recv_commands,
@@ -61,12 +61,12 @@ class TestCase(TestCase):
         with session.at(0):
             synth_one = session.add_synth(
                 duration=4,
-                synthdef=synthdefs.default,
+                synthdef=supriya.assets.synthdefs.default,
                 )
         with session.at(2):
             synth_two = session.add_synth(
                 duration=6,
-                synthdef=synthdefs.default,
+                synthdef=supriya.assets.synthdefs.default,
                 frequency=330,
                 )
         # make settings
@@ -149,8 +149,8 @@ class TestCase(TestCase):
         with session.at(0):
             group_a = session.add_group()
             group_b = group_a.add_group()
-            synth_a = group_a.add_synth(synthdef=synthdefs.default)
-            synth_b = group_b.add_synth(synthdef=synthdefs.default)
+            synth_a = group_a.add_synth(synthdef=supriya.assets.synthdefs.default)
+            synth_b = group_b.add_synth(synthdef=supriya.assets.synthdefs.default)
         with session.at(2):
             group_a['frequency'] = 440
             group_b['frequency'] = 441
@@ -162,7 +162,7 @@ class TestCase(TestCase):
             group_b['frequency'] = 445
             synth_a['frequency'] = 446
             synth_b['frequency'] = 447
-        d_recv_commands = self.build_d_recv_commands([synthdefs.default])
+        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists(duration=6) == [
             [0.0, [
                 *d_recv_commands,
