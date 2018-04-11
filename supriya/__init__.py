@@ -99,7 +99,7 @@ from supriya import utils  # noqa
 from supriya import tools  # noqa
 from supriya.midi import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
-from supriya.tools.nonrealtimetools import Session  # noqa
+from supriya.nonrealtime import Session  # noqa
 from supriya.realtime import (  # noqa
     AddAction,
     Buffer,

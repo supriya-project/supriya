@@ -21,9 +21,9 @@ class SessionObject(SupriyaObject):
         self,
         session,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         prototype = (
-            nonrealtimetools.Session,
+            supriya.nonrealtime.Session,
             type(None),
             )
         assert isinstance(session, prototype)
@@ -35,8 +35,8 @@ class SessionObject(SupriyaObject):
     def require_offset(function):
         @functools.wraps(function)
         def wrapper(self, *args, **kwargs):
-            from supriya.tools import nonrealtimetools
-            if isinstance(self, nonrealtimetools.Session):
+            import supriya.nonrealtime
+            if isinstance(self, supriya.nonrealtime.Session):
                 session = self
             else:
                 session = self.session

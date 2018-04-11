@@ -10,7 +10,8 @@ class Bus(SessionObject):
 
     ::
 
-        >>> session = nonrealtimetools.Session()
+        >>> import supriya.nonrealtime
+        >>> session = supriya.nonrealtime.Session()
         >>> bus = session.add_bus('control')
         >>> print(repr(bus))
         <Bus(

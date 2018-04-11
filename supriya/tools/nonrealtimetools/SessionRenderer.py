@@ -191,9 +191,9 @@ class SessionRenderer(systemtools.SupriyaObject):
 
     def _build_dependency_graph_and_nonxrefd_osc_bundles_conditionally(
         self, expr, parent):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         expr = self._sessionable_to_session(expr)
-        if isinstance(expr, nonrealtimetools.Session):
+        if isinstance(expr, supriya.nonrealtime.Session):
             if expr not in self.dependency_graph:
                 self._build_dependency_graph_and_nonxrefd_osc_bundles(expr)
             self.dependency_graph.add(expr, parent=parent)
@@ -254,13 +254,13 @@ class SessionRenderer(systemtools.SupriyaObject):
         return process.poll()
 
     def _collect_prerender_tuples(self, session, duration=None):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         self._build_dependency_graph_and_nonxrefd_osc_bundles(
             session, duration=duration)
         assert self.dependency_graph.is_acyclic()
         extension = '.{}'.format(self.header_format.name.lower())
         for renderable in self.dependency_graph:
-            if isinstance(renderable, nonrealtimetools.Session):
+            if isinstance(renderable, supriya.nonrealtime.Session):
                 result = self._collect_session_prerender_tuple(
                     renderable, extension)
                 prerender_tuple, renderable_prefix = result
@@ -429,7 +429,7 @@ class SessionRenderer(systemtools.SupriyaObject):
         build_render_yml=None,
         **kwargs
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         extension = '.{}'.format(self.header_format.name.lower())
         if output_file_path is not None:
             output_file_path = pathlib.Path(output_file_path)
@@ -447,7 +447,7 @@ class SessionRenderer(systemtools.SupriyaObject):
                 visited_renderable_prefixes.append(
                     renderable_prefix.with_suffix('').name)
                 output_file_path = renderable_prefix.with_suffix(extension)
-                if isinstance(renderable, nonrealtimetools.Session):
+                if isinstance(renderable, supriya.nonrealtime.Session):
                     (session, datagram, input_, _) = prerender_tuple
                     osc_file_path = renderable_prefix.with_suffix('.osc')
                     input_file_path = self.session_input_paths.get(session)

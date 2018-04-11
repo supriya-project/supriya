@@ -50,13 +50,14 @@ class GroupEvent(Event):
         offset,
         maximum_offset=None,
         ):
+        import supriya.nonrealtime
         from supriya.tools import nonrealtimetools
         group_uuid = self.get('uuid', uuid.uuid4())
         if not self.get('is_stop'):
             target_node = self['target_node']
             if isinstance(target_node, uuid.UUID) and target_node in uuids:
                 target_node = uuids[target_node]
-            prototype = (nonrealtimetools.Session, nonrealtimetools.Node)
+            prototype = (supriya.nonrealtime.Session, nonrealtimetools.Node)
             if not isinstance(target_node, prototype):
                 target_node = session
             group = target_node.add_group(add_action=self['add_action'])

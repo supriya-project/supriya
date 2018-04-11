@@ -56,12 +56,12 @@ class BufferReadRequest(Request):
         starting_frame_in_buffer=None,
         starting_frame_in_file=None,
         ):
-        from supriya.tools import nonrealtimetools
+        import supriya.nonrealtime
         Request.__init__(self)
         self._buffer_id = int(buffer_id)
         self._completion_message = self._coerce_completion_message_input(
             completion_message)
-        if not nonrealtimetools.Session.is_session_like(file_path):
+        if not supriya.nonrealtime.Session.is_session_like(file_path):
             file_path = str(file_path)
         self._file_path = file_path
         if frame_count is not None:

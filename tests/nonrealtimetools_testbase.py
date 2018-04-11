@@ -38,7 +38,7 @@ class TestSessionFactory:
         return builder.build()
 
     def __session__(self):
-        session = nonrealtimetools.Session(
+        session = supriya.nonrealtime.Session(
             input_bus_channel_count=self.input_bus_channel_count,
             output_bus_channel_count=self.output_bus_channel_count,
             name='inner-session',
@@ -168,7 +168,7 @@ class TestCase(systemtools.TestCase):
         output_bus_channel_count=None,
         multiplier=1.0,
         ):
-        session = nonrealtimetools.Session(
+        session = supriya.nonrealtime.Session(
             input_bus_channel_count=input_bus_channel_count,
             output_bus_channel_count=output_bus_channel_count,
             name='inner-session',

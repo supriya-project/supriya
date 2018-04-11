@@ -7,7 +7,8 @@ class Moment(SessionObject):
 
     ::
 
-        >>> session = nonrealtimetools.Session()
+        >>> import supriya.nonrealtime
+        >>> session = supriya.nonrealtime.Session()
         >>> moment = session.at(10.5)
 
     """

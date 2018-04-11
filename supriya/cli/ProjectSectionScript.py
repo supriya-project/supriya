@@ -192,8 +192,8 @@ class ProjectSectionScript(ProjectPackageScript):
                 )
 
     def _render_object(self, directory_path, section_singular):
+        import supriya.nonrealtime
         from supriya import render
-        from supriya.tools import nonrealtimetools
         print('Rendering {path!s}{sep}'.format(
             path=directory_path.relative_to(self.inner_project_path.parent),
             sep=os.path.sep,
@@ -212,7 +212,7 @@ class ProjectSectionScript(ProjectPackageScript):
                 print(message)
                 sys.exit(1)
             kwargs = {}
-            if isinstance(object_, nonrealtimetools.Session):
+            if isinstance(object_, supriya.nonrealtime.Session):
                 kwargs.update(self._build_nrt_server_options(object_))
                 kwargs.update({
                     'print_transcript': True,

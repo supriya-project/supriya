@@ -8,7 +8,8 @@ class BusGroup(SessionObject):
 
     ::
 
-        >>> session = nonrealtimetools.Session()
+        >>> import supriya.nonrealtime
+        >>> session = supriya.nonrealtime.Session()
         >>> bus_group = session.add_bus_group(3)
         >>> print(repr(bus_group))
         <BusGroup(
