@@ -202,7 +202,7 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _get_rng(cls):
-        from supriya.tools.supriya.patterns import Pseed, RandomNumberGenerator
+        from supriya.patterns import Pseed, RandomNumberGenerator
         pseed_file_path = Pseed._file_path
         identifier = None
         try:
