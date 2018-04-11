@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class PulseDivider(UGen):
@@ -6,7 +6,7 @@ class PulseDivider(UGen):
 
     ::
 
-        >>> pulse_divider = ugentools.PulseDivider.ar(
+        >>> pulse_divider = supriya.ugens.PulseDivider.ar(
         ...     div=2,
         ...     start=0,
         ...     trigger=0,
@@ -61,7 +61,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -71,8 +71,8 @@ class PulseDivider(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             div=div,
@@ -93,7 +93,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.kr(
+            >>> pulse_divider = supriya.ugens.PulseDivider.kr(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -103,8 +103,8 @@ class PulseDivider(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             div=div,
@@ -122,7 +122,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -142,7 +142,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,
@@ -162,7 +162,7 @@ class PulseDivider(UGen):
 
         ::
 
-            >>> pulse_divider = ugentools.PulseDivider.ar(
+            >>> pulse_divider = supriya.ugens.PulseDivider.ar(
             ...     div=2,
             ...     start=0,
             ...     trigger=0,

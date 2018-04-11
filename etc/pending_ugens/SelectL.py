@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class SelectL(UGen):
@@ -6,7 +6,7 @@ class SelectL(UGen):
 
     ::
 
-        >>> select_l = ugentools.SelectL.ar(
+        >>> select_l = supriya.ugens.SelectL.ar(
         ...     array=array,
         ...     which=which,
         ...     )
@@ -56,7 +56,7 @@ class SelectL(UGen):
 
         ::
 
-            >>> select_l = ugentools.SelectL.ar(
+            >>> select_l = supriya.ugens.SelectL.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -65,8 +65,8 @@ class SelectL(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             array=array,
@@ -87,7 +87,7 @@ class SelectL(UGen):
 
         ::
 
-            >>> select_l = ugentools.SelectL.kr(
+            >>> select_l = supriya.ugens.SelectL.kr(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -96,8 +96,8 @@ class SelectL(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             array=array,
@@ -114,7 +114,7 @@ class SelectL(UGen):
 
         ::
 
-            >>> select_l = ugentools.SelectL.ar(
+            >>> select_l = supriya.ugens.SelectL.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -132,7 +132,7 @@ class SelectL(UGen):
 
         ::
 
-            >>> select_l = ugentools.SelectL.ar(
+            >>> select_l = supriya.ugens.SelectL.ar(
             ...     array=array,
             ...     which=which,
             ...     )

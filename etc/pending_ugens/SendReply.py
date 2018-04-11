@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.SendTrig import SendTrig
+from supriya.ugens.SendTrig import SendTrig
 
 
 class SendReply(SendTrig):
@@ -6,7 +6,7 @@ class SendReply(SendTrig):
 
     ::
 
-        >>> send_reply = ugentools.SendReply.ar(
+        >>> send_reply = supriya.ugens.SendReply.ar(
         ...     cmd_name='/reply',
         ...     reply_id=-1,
         ...     trigger=0,
@@ -66,7 +66,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -77,8 +77,8 @@ class SendReply(SendTrig):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             cmd_name=cmd_name,
@@ -101,7 +101,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.kr(
+            >>> send_reply = supriya.ugens.SendReply.kr(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -112,8 +112,8 @@ class SendReply(SendTrig):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             cmd_name=cmd_name,
@@ -134,7 +134,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -154,7 +154,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -175,7 +175,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,
@@ -196,7 +196,7 @@ class SendReply(SendTrig):
 
         ::
 
-            >>> send_reply = ugentools.SendReply.ar(
+            >>> send_reply = supriya.ugens.SendReply.ar(
             ...     cmd_name='/reply',
             ...     reply_id=-1,
             ...     trigger=0,

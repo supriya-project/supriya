@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class RunningSum(UGen):
@@ -6,8 +6,8 @@ class RunningSum(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> running_sum = ugentools.RunningSum.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> running_sum = supriya.ugens.RunningSum.ar(
         ...     numsamp=40,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class RunningSum(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> running_sum = ugentools.RunningSum.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> running_sum = supriya.ugens.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
             ...     )
@@ -67,8 +67,8 @@ class RunningSum(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             numsamp=numsamp,
@@ -87,8 +87,8 @@ class RunningSum(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> running_sum = ugentools.RunningSum.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> running_sum = supriya.ugens.RunningSum.kr(
             ...     numsamp=40,
             ...     source=source,
             ...     )
@@ -97,8 +97,8 @@ class RunningSum(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             numsamp=numsamp,
@@ -117,8 +117,8 @@ class RunningSum(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> running_sum = ugentools.RunningSum.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> running_sum = supriya.ugens.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
             ...     )
@@ -137,8 +137,8 @@ class RunningSum(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> running_sum = ugentools.RunningSum.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> running_sum = supriya.ugens.RunningSum.ar(
             ...     numsamp=40,
             ...     source=source,
             ...     )

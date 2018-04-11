@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class DynKlank(UGen):
@@ -6,7 +6,7 @@ class DynKlank(UGen):
 
     ::
 
-        >>> dyn_klank = ugentools.DynKlank.ar(
+        >>> dyn_klank = supriya.ugens.DynKlank.ar(
         ...     decayscale=1,
         ...     freqoffset=0,
         ...     freqscale=1,
@@ -71,7 +71,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -83,8 +83,8 @@ class DynKlank(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             decayscale=decayscale,
@@ -109,7 +109,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.kr(
+            >>> dyn_klank = supriya.ugens.DynKlank.kr(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -121,8 +121,8 @@ class DynKlank(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             decayscale=decayscale,
@@ -144,7 +144,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -166,7 +166,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -188,7 +188,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -210,7 +210,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,
@@ -231,7 +231,7 @@ class DynKlank(UGen):
 
         ::
 
-            >>> dyn_klank = ugentools.DynKlank.ar(
+            >>> dyn_klank = supriya.ugens.DynKlank.ar(
             ...     decayscale=1,
             ...     freqoffset=0,
             ...     freqscale=1,

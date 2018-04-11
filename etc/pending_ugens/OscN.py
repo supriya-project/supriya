@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class OscN(PureUGen):
@@ -6,7 +6,7 @@ class OscN(PureUGen):
 
     ::
 
-        >>> osc_n = ugentools.OscN.ar(
+        >>> osc_n = supriya.ugens.OscN.ar(
         ...     buffer_id=buffer_id,
         ...     frequency=440,
         ...     phase=0,
@@ -61,7 +61,7 @@ class OscN(PureUGen):
 
         ::
 
-            >>> osc_n = ugentools.OscN.ar(
+            >>> osc_n = supriya.ugens.OscN.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -71,8 +71,8 @@ class OscN(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -93,7 +93,7 @@ class OscN(PureUGen):
 
         ::
 
-            >>> osc_n = ugentools.OscN.kr(
+            >>> osc_n = supriya.ugens.OscN.kr(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -103,8 +103,8 @@ class OscN(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -122,7 +122,7 @@ class OscN(PureUGen):
 
         ::
 
-            >>> osc_n = ugentools.OscN.ar(
+            >>> osc_n = supriya.ugens.OscN.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -141,7 +141,7 @@ class OscN(PureUGen):
 
         ::
 
-            >>> osc_n = ugentools.OscN.ar(
+            >>> osc_n = supriya.ugens.OscN.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,
@@ -161,7 +161,7 @@ class OscN(PureUGen):
 
         ::
 
-            >>> osc_n = ugentools.OscN.ar(
+            >>> osc_n = supriya.ugens.OscN.ar(
             ...     buffer_id=buffer_id,
             ...     frequency=440,
             ...     phase=0,

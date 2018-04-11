@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class KeyState(UGen):
@@ -6,7 +6,7 @@ class KeyState(UGen):
 
     ::
 
-        >>> key_state = ugentools.KeyState.ar(
+        >>> key_state = supriya.ugens.KeyState.ar(
         ...     keycode=0,
         ...     lag=0.2,
         ...     maxval=1,
@@ -66,7 +66,7 @@ class KeyState(UGen):
 
         ::
 
-            >>> key_state = ugentools.KeyState.kr(
+            >>> key_state = supriya.ugens.KeyState.kr(
             ...     keycode=0,
             ...     lag=0.2,
             ...     maxval=1,
@@ -77,8 +77,8 @@ class KeyState(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             keycode=keycode,
@@ -97,7 +97,7 @@ class KeyState(UGen):
 
         ::
 
-            >>> key_state = ugentools.KeyState.ar(
+            >>> key_state = supriya.ugens.KeyState.ar(
             ...     keycode=0,
             ...     lag=0.2,
             ...     maxval=1,
@@ -118,7 +118,7 @@ class KeyState(UGen):
 
         ::
 
-            >>> key_state = ugentools.KeyState.ar(
+            >>> key_state = supriya.ugens.KeyState.ar(
             ...     keycode=0,
             ...     lag=0.2,
             ...     maxval=1,
@@ -139,7 +139,7 @@ class KeyState(UGen):
 
         ::
 
-            >>> key_state = ugentools.KeyState.ar(
+            >>> key_state = supriya.ugens.KeyState.ar(
             ...     keycode=0,
             ...     lag=0.2,
             ...     maxval=1,
@@ -160,7 +160,7 @@ class KeyState(UGen):
 
         ::
 
-            >>> key_state = ugentools.KeyState.ar(
+            >>> key_state = supriya.ugens.KeyState.ar(
             ...     keycode=0,
             ...     lag=0.2,
             ...     maxval=1,

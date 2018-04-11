@@ -21,7 +21,7 @@ application:
             slots:
               - name: slot-one
                 type: synth
-                synthdef: supriya.synthdefs:default
+                synthdef: supriya.assets.synthdefs:default
                 args:
                     amplitude: 1.0
                     frequency: 440
@@ -44,7 +44,7 @@ application:
             slots: 
               - name: slot-two
                 type: trigger
-                synthdef: supriya.synthdefs:default
+                synthdef: supriya.assets.synthdefs:default
                 args:
                     amplitude: 1.0
                     pan: 0.0

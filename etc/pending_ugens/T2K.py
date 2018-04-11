@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.A2K import A2K
+from supriya.ugens.A2K import A2K
 
 
 class T2K(A2K):
@@ -6,8 +6,8 @@ class T2K(A2K):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> t_2_k = ugentools.T2K.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> t_2_k = supriya.ugens.T2K.ar(
         ...     source=source,
         ...     )
         >>> t_2_k
@@ -52,8 +52,8 @@ class T2K(A2K):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> t_2_k = ugentools.T2K.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> t_2_k = supriya.ugens.T2K.kr(
             ...     source=source,
             ...     )
             >>> t_2_k
@@ -61,8 +61,8 @@ class T2K(A2K):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             source=source,
@@ -78,8 +78,8 @@ class T2K(A2K):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> t_2_k = ugentools.T2K.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> t_2_k = supriya.ugens.T2K.ar(
             ...     source=source,
             ...     )
             >>> t_2_k.source

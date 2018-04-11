@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class ScopeOut2(UGen):
@@ -6,7 +6,7 @@ class ScopeOut2(UGen):
 
     ::
 
-        >>> scope_out_2 = ugentools.ScopeOut2.ar(
+        >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
         ...     input_array=input_array,
         ...     max_frames=4096,
         ...     scope_frames=scope_frames,
@@ -66,7 +66,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -77,8 +77,8 @@ class ScopeOut2(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             input_array=input_array,
@@ -101,7 +101,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.kr(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.kr(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -112,8 +112,8 @@ class ScopeOut2(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             input_array=input_array,
@@ -132,7 +132,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -152,7 +152,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -173,7 +173,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,
@@ -193,7 +193,7 @@ class ScopeOut2(UGen):
 
         ::
 
-            >>> scope_out_2 = ugentools.ScopeOut2.ar(
+            >>> scope_out_2 = supriya.ugens.ScopeOut2.ar(
             ...     input_array=input_array,
             ...     max_frames=4096,
             ...     scope_frames=scope_frames,

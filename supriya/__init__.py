@@ -3,6 +3,43 @@ pyximport.install()
 del(pyximport)
 
 
+import appdirs  # noqa
+import configparser  # noqa
+import pathlib  # noqa
+
+output_path = pathlib.Path(appdirs.user_cache_dir('supriya', 'supriya'))
+if not output_path.exists():
+    try:
+        output_path.mkdir(parents=True, exist_ok=True)
+    except IOError:
+        pass
+
+config = configparser.ConfigParser()
+config.read_dict({
+    'core': {
+        'editor': 'vim',
+        'scsynth': 'scsynth',
+        },
+    })
+
+config_path = pathlib.Path(appdirs.user_config_dir('supriya', 'supriya'))
+config_path = config_path / 'supriya.cfg'
+if not config_path.exists():
+    try:
+        config_path.parent.mkdir(parents=True, exist_ok=True)
+        with config_path.open('w') as file_pointer:
+            config.write(file_pointer, True)
+    except IOError:
+        pass
+
+with config_path.open() as file_pointer:
+    config.read_file(file_pointer)
+
+del appdirs
+del configparser
+del pathlib
+
+
 def import_structured_package(
     path,
     namespace,
@@ -60,10 +97,10 @@ def import_structured_package(
 
 from supriya import utils  # noqa
 from supriya import tools  # noqa
-from supriya.tools.miditools import Device  # noqa
-from supriya.tools.livetools import Application, Mixer  # noqa
-from supriya.tools.nonrealtimetools import Session  # noqa
-from supriya.tools.servertools import (  # noqa
+from supriya.midi import Device  # noqa
+from supriya.live import Application, Mixer  # noqa
+from supriya.nonrealtime import Session  # noqa
+from supriya.realtime import (  # noqa
     AddAction,
     Buffer,
     BufferGroup,
@@ -73,14 +110,14 @@ from supriya.tools.servertools import (  # noqa
     Server,
     Synth,
     )
-from supriya.tools.soundfiletools import (  # noqa
+from supriya.soundfiles import (  # noqa
     HeaderFormat,
     SampleFormat,
     SoundFile,
     play,
     render,
     )
-from supriya.tools.synthdeftools import (  # noqa
+from supriya.synthdefs import (  # noqa
     CalculationRate,
     DoneAction,
     Envelope,
@@ -91,30 +128,20 @@ from supriya.tools.synthdeftools import (  # noqa
     SynthDefBuilder,
     SynthDefFactory,
     )
-from supriya.tools.systemtools import (  # noqa
+from supriya.system import (  # noqa
     Assets,
     Bindable,
     Binding,
-    DirectoryChange,
     Enumeration,
-    Profiler,
-    RedirectedStreams,
-    SupriyaConfiguration,
     TestCase,
-    Timer,
     bind,
     )
-from supriya.tools.wrappertools import (  # noqa
+from supriya.soundfiles import (  # noqa
     Say,
     )
 from abjad.tools.topleveltools import (  # noqa
     graph,
     )
-from supriya import synthdefs  # noqa
 from supriya.tools import *  # noqa
-from supriya.tools import responsetools  # noqa
-
-__version__ = 0.1
-
-supriya_configuration = SupriyaConfiguration()
-del SupriyaConfiguration
+import supriya.commands  # noqa
+from supriya._version import __version__, __version_info__  # noqa

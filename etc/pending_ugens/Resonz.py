@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Filter import Filter
+from supriya.ugens.Filter import Filter
 
 
 class Resonz(Filter):
@@ -6,8 +6,8 @@ class Resonz(Filter):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> resonz = ugentools.Resonz.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> resonz = supriya.ugens.Resonz.ar(
         ...     bwr=1,
         ...     frequency=440,
         ...     source=source,
@@ -62,8 +62,8 @@ class Resonz(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> resonz = ugentools.Resonz.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> resonz = supriya.ugens.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,
@@ -73,8 +73,8 @@ class Resonz(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bwr=bwr,
@@ -97,8 +97,8 @@ class Resonz(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> resonz = ugentools.Resonz.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> resonz = supriya.ugens.Resonz.kr(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,
@@ -108,8 +108,8 @@ class Resonz(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bwr=bwr,
@@ -137,8 +137,8 @@ class Resonz(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> resonz = ugentools.Resonz.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> resonz = supriya.ugens.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,
@@ -158,8 +158,8 @@ class Resonz(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> resonz = ugentools.Resonz.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> resonz = supriya.ugens.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,
@@ -179,8 +179,8 @@ class Resonz(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> resonz = ugentools.Resonz.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> resonz = supriya.ugens.Resonz.ar(
             ...     bwr=1,
             ...     frequency=440,
             ...     source=source,

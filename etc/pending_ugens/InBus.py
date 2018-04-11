@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class InBus(UGen):
@@ -6,7 +6,7 @@ class InBus(UGen):
 
     ::
 
-        >>> in_bus = ugentools.InBus.ar(
+        >>> in_bus = supriya.ugens.InBus.ar(
         ...     bus=bus,
         ...     channel_count=channel_count,
         ...     clip=clip,
@@ -66,7 +66,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.ar(
+            >>> in_bus = supriya.ugens.InBus.ar(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,
@@ -77,8 +77,8 @@ class InBus(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bus=bus,
@@ -101,7 +101,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.kr(
+            >>> in_bus = supriya.ugens.InBus.kr(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,
@@ -112,8 +112,8 @@ class InBus(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             bus=bus,
@@ -134,7 +134,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.ar(
+            >>> in_bus = supriya.ugens.InBus.ar(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,
@@ -154,7 +154,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.ar(
+            >>> in_bus = supriya.ugens.InBus.ar(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,
@@ -174,7 +174,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.ar(
+            >>> in_bus = supriya.ugens.InBus.ar(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,
@@ -194,7 +194,7 @@ class InBus(UGen):
 
         ::
 
-            >>> in_bus = ugentools.InBus.ar(
+            >>> in_bus = supriya.ugens.InBus.ar(
             ...     bus=bus,
             ...     channel_count=channel_count,
             ...     clip=clip,

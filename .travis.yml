@@ -31,7 +31,7 @@ before_script:
 - killall scsynth
 
 script:
-- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya, time; server = supriya.Server().boot(); time.sleep(3); print(server); server.quit()'"
+- sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; python -c 'import supriya, time; server = supriya.Server(); server.debug_osc = True; server.boot(); time.sleep(3); print(server); server.quit()'"
 - sudo -E su $USER -c "source $VIRTUAL_ENV/bin/activate; py.test"
 
 notifications:

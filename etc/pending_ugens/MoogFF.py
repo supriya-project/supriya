@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.Filter import Filter
+from supriya.ugens.Filter import Filter
 
 
 class MoogFF(Filter):
@@ -6,8 +6,8 @@ class MoogFF(Filter):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> moog_ff = ugentools.MoogFF.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> moog_ff = supriya.ugens.MoogFF.ar(
         ...     frequency=100,
         ...     gain=2,
         ...     reset=0,
@@ -67,8 +67,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
@@ -79,8 +79,8 @@ class MoogFF(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -105,8 +105,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.kr(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
@@ -117,8 +117,8 @@ class MoogFF(Filter):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             frequency=frequency,
@@ -147,8 +147,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
@@ -169,8 +169,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
@@ -191,8 +191,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,
@@ -213,8 +213,8 @@ class MoogFF(Filter):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> moog_ff = ugentools.MoogFF.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> moog_ff = supriya.ugens.MoogFF.ar(
             ...     frequency=100,
             ...     gain=2,
             ...     reset=0,

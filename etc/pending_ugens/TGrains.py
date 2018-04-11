@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class TGrains(MultiOutUGen):
@@ -6,7 +6,7 @@ class TGrains(MultiOutUGen):
 
     ::
 
-        >>> tgrains = ugentools.TGrains.ar(
+        >>> tgrains = supriya.ugens.TGrains.ar(
         ...     amp=0.1,
         ...     buffer_id=0,
         ...     center_pos=0,
@@ -91,7 +91,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -107,8 +107,8 @@ class TGrains(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             amp=amp,
@@ -134,7 +134,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -160,7 +160,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -186,7 +186,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -212,7 +212,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -237,7 +237,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -263,7 +263,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -289,7 +289,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -315,7 +315,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,
@@ -341,7 +341,7 @@ class TGrains(MultiOutUGen):
 
         ::
 
-            >>> tgrains = ugentools.TGrains.ar(
+            >>> tgrains = supriya.ugens.TGrains.ar(
             ...     amp=0.1,
             ...     buffer_id=0,
             ...     center_pos=0,

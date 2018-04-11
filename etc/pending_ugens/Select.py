@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class Select(PureUGen):
@@ -6,7 +6,7 @@ class Select(PureUGen):
 
     ::
 
-        >>> select = ugentools.Select.ar(
+        >>> select = supriya.ugens.Select.ar(
         ...     array=array,
         ...     which=which,
         ...     )
@@ -56,7 +56,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -65,8 +65,8 @@ class Select(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             array=array,
@@ -85,7 +85,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.kr(
+            >>> select = supriya.ugens.Select.kr(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -94,8 +94,8 @@ class Select(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             array=array,
@@ -112,7 +112,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )
@@ -130,7 +130,7 @@ class Select(PureUGen):
 
         ::
 
-            >>> select = ugentools.Select.ar(
+            >>> select = supriya.ugens.Select.ar(
             ...     array=array,
             ...     which=which,
             ...     )

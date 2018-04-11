@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.MultiOutUGen import MultiOutUGen
+from supriya.ugens.MultiOutUGen import MultiOutUGen
 
 
 class StereoConvolution2L(MultiOutUGen):
@@ -6,8 +6,8 @@ class StereoConvolution2L(MultiOutUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
         ...     crossfade=1,
         ...     framesize=2048,
         ...     kernel_l=kernel_l,
@@ -77,8 +77,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -91,8 +91,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             crossfade=crossfade,
@@ -115,8 +115,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -139,8 +139,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -163,8 +163,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -186,8 +186,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -209,8 +209,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,
@@ -240,8 +240,8 @@ class StereoConvolution2L(MultiOutUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> stereo_convolution_2_l = ugentools.StereoConvolution2L.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> stereo_convolution_2_l = supriya.ugens.StereoConvolution2L.ar(
             ...     crossfade=1,
             ...     framesize=2048,
             ...     kernel_l=kernel_l,

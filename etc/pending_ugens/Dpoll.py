@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.DUGen import DUGen
+from supriya.ugens.DUGen import DUGen
 
 
 class Dpoll(DUGen):
@@ -6,8 +6,8 @@ class Dpoll(DUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> dpoll = ugentools.Dpoll.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> dpoll = supriya.ugens.Dpoll.ar(
         ...     label=label,
         ...     run=1,
         ...     source=source,
@@ -67,8 +67,8 @@ class Dpoll(DUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> dpoll = ugentools.Dpoll.new(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> dpoll = supriya.ugens.Dpoll.new(
             ...     label=label,
             ...     run=1,
             ...     source=source,
@@ -79,7 +79,7 @@ class Dpoll(DUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
+        import supriya.synthdefs
         calculation_rate = None
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
@@ -101,8 +101,8 @@ class Dpoll(DUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> dpoll = ugentools.Dpoll.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> dpoll = supriya.ugens.Dpoll.ar(
             ...     label=label,
             ...     run=1,
             ...     source=source,
@@ -122,8 +122,8 @@ class Dpoll(DUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> dpoll = ugentools.Dpoll.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> dpoll = supriya.ugens.Dpoll.ar(
             ...     label=label,
             ...     run=1,
             ...     source=source,
@@ -144,8 +144,8 @@ class Dpoll(DUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> dpoll = ugentools.Dpoll.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> dpoll = supriya.ugens.Dpoll.ar(
             ...     label=label,
             ...     run=1,
             ...     source=source,
@@ -173,8 +173,8 @@ class Dpoll(DUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> dpoll = ugentools.Dpoll.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> dpoll = supriya.ugens.Dpoll.ar(
             ...     label=label,
             ...     run=1,
             ...     source=source,

@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PV_ChainUGen import PV_ChainUGen
+from supriya.ugens.PV_ChainUGen import PV_ChainUGen
 
 
 class FFTTrigger(PV_ChainUGen):
@@ -6,7 +6,7 @@ class FFTTrigger(PV_ChainUGen):
 
     ::
 
-        >>> ffttrigger = ugentools.FFTTrigger.ar(
+        >>> ffttrigger = supriya.ugens.FFTTrigger.ar(
         ...     buffer_id=buffer_id,
         ...     hop=0.5,
         ...     polar=0,
@@ -61,7 +61,7 @@ class FFTTrigger(PV_ChainUGen):
 
         ::
 
-            >>> ffttrigger = ugentools.FFTTrigger.new(
+            >>> ffttrigger = supriya.ugens.FFTTrigger.new(
             ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
@@ -89,7 +89,7 @@ class FFTTrigger(PV_ChainUGen):
 
         ::
 
-            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            >>> ffttrigger = supriya.ugens.FFTTrigger.ar(
             ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
@@ -108,7 +108,7 @@ class FFTTrigger(PV_ChainUGen):
 
         ::
 
-            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            >>> ffttrigger = supriya.ugens.FFTTrigger.ar(
             ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,
@@ -128,7 +128,7 @@ class FFTTrigger(PV_ChainUGen):
 
         ::
 
-            >>> ffttrigger = ugentools.FFTTrigger.ar(
+            >>> ffttrigger = supriya.ugens.FFTTrigger.ar(
             ...     buffer_id=buffer_id,
             ...     hop=0.5,
             ...     polar=0,

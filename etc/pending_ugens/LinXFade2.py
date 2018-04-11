@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class LinXFade2(UGen):
@@ -6,7 +6,7 @@ class LinXFade2(UGen):
 
     ::
 
-        >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+        >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
         ...     in_a=in_a,
         ...     in_b=0,
         ...     level=1,
@@ -66,7 +66,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
@@ -77,8 +77,8 @@ class LinXFade2(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             in_a=in_a,
@@ -101,7 +101,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.kr(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.kr(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
@@ -112,8 +112,8 @@ class LinXFade2(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             in_a=in_a,
@@ -132,7 +132,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
@@ -152,7 +152,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
@@ -173,7 +173,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,
@@ -194,7 +194,7 @@ class LinXFade2(UGen):
 
         ::
 
-            >>> lin_xfade_2 = ugentools.LinXFade2.ar(
+            >>> lin_xfade_2 = supriya.ugens.LinXFade2.ar(
             ...     in_a=in_a,
             ...     in_b=0,
             ...     level=1,

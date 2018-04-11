@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.PureUGen import PureUGen
+from supriya.ugens.PureUGen import PureUGen
 
 
 class Index(PureUGen):
@@ -6,8 +6,8 @@ class Index(PureUGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> index = ugentools.Index.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> index = supriya.ugens.Index.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class Index(PureUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index = ugentools.Index.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index = supriya.ugens.Index.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -67,8 +67,8 @@ class Index(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -87,8 +87,8 @@ class Index(PureUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index = ugentools.Index.kr(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index = supriya.ugens.Index.kr(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -97,8 +97,8 @@ class Index(PureUGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -115,8 +115,8 @@ class Index(PureUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index = ugentools.Index.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index = supriya.ugens.Index.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -134,8 +134,8 @@ class Index(PureUGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> index = ugentools.Index.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> index = supriya.ugens.Index.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class HilbertFIR(UGen):
@@ -6,8 +6,8 @@ class HilbertFIR(UGen):
 
     ::
 
-        >>> source = ugentools.In.ar(bus=0)
-        >>> hilbert_fir = ugentools.HilbertFIR.ar(
+        >>> source = supriya.ugens.In.ar(bus=0)
+        >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
         ...     buffer_id=buffer_id,
         ...     source=source,
         ...     )
@@ -57,8 +57,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -67,8 +67,8 @@ class HilbertFIR(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             buffer_id=buffer_id,
@@ -85,8 +85,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )
@@ -104,8 +104,8 @@ class HilbertFIR(UGen):
 
         ::
 
-            >>> source = ugentools.In.ar(bus=0)
-            >>> hilbert_fir = ugentools.HilbertFIR.ar(
+            >>> source = supriya.ugens.In.ar(bus=0)
+            >>> hilbert_fir = supriya.ugens.HilbertFIR.ar(
             ...     buffer_id=buffer_id,
             ...     source=source,
             ...     )

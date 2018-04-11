@@ -1,0 +1,34 @@
+p.rubric.section-header {
+    font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+    font-size: 125%;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+p.rubric.class-header {
+    font-family: "Roboto Slab", "ff-tisa-web-pro", "Georgia", Arial, sans-serif;
+    font-size: 100%;
+    font-weight: 700;
+    margin-bottom: 24px !important;
+}
+
+.rst-content table.field-list td.field-body > a {
+    line-height: 24px;
+}
+
+.rst-content table.field-list td.field-body > p {
+    line-height: 24px;
+}
+
+.rst-content table.field-list td.field-body > p > a {
+    font-size: 90%;
+}
+
+.svg-container {
+    margin-bottom: 24px;
+}
+
+.svg-container > object {
+    max-width: 100%;
+    height: auto;
+}

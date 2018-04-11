@@ -1,4 +1,4 @@
-from supriya.tools.ugentools.UGen import UGen
+from supriya.ugens.UGen import UGen
 
 
 class DynKlang(UGen):
@@ -6,7 +6,7 @@ class DynKlang(UGen):
 
     ::
 
-        >>> dyn_klang = ugentools.DynKlang.ar(
+        >>> dyn_klang = supriya.ugens.DynKlang.ar(
         ...     freqoffset=0,
         ...     freqscale=1,
         ...     specifications_array_ref=specifications_array_ref,
@@ -61,7 +61,7 @@ class DynKlang(UGen):
 
         ::
 
-            >>> dyn_klang = ugentools.DynKlang.ar(
+            >>> dyn_klang = supriya.ugens.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -71,8 +71,8 @@ class DynKlang(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.AUDIO
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.AUDIO
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             freqoffset=freqoffset,
@@ -93,7 +93,7 @@ class DynKlang(UGen):
 
         ::
 
-            >>> dyn_klang = ugentools.DynKlang.kr(
+            >>> dyn_klang = supriya.ugens.DynKlang.kr(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -103,8 +103,8 @@ class DynKlang(UGen):
 
         Returns ugen graph.
         """
-        from supriya.tools import synthdeftools
-        calculation_rate = synthdeftools.CalculationRate.CONTROL
+        import supriya.synthdefs
+        calculation_rate = supriya.synthdefs.CalculationRate.CONTROL
         ugen = cls._new_expanded(
             calculation_rate=calculation_rate,
             freqoffset=freqoffset,
@@ -124,7 +124,7 @@ class DynKlang(UGen):
 
         ::
 
-            >>> dyn_klang = ugentools.DynKlang.ar(
+            >>> dyn_klang = supriya.ugens.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -144,7 +144,7 @@ class DynKlang(UGen):
 
         ::
 
-            >>> dyn_klang = ugentools.DynKlang.ar(
+            >>> dyn_klang = supriya.ugens.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
@@ -164,7 +164,7 @@ class DynKlang(UGen):
 
         ::
 
-            >>> dyn_klang = ugentools.DynKlang.ar(
+            >>> dyn_klang = supriya.ugens.DynKlang.ar(
             ...     freqoffset=0,
             ...     freqscale=1,
             ...     specifications_array_ref=specifications_array_ref,
