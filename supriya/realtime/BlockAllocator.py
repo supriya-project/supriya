@@ -62,13 +62,13 @@ class BlockAllocator(SupriyaObject):
         heap_minimum=0,
         ):
         import supriya.realtime
-        from supriya.tools import timetools
-        self._free_heap = timetools.TimespanCollection(
+        import supriya.time
+        self._free_heap = supriya.time.TimespanCollection(
             accelerated=True)
         self._heap_maximum = heap_maximum
         self._heap_minimum = heap_minimum
         self._lock = threading.Lock()
-        self._used_heap = timetools.TimespanCollection(
+        self._used_heap = supriya.time.TimespanCollection(
             accelerated=True)
         free_block = supriya.realtime.Block(
             start_offset=heap_minimum,

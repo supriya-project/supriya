@@ -9,7 +9,7 @@ from supriya.tools import requesttools
 import supriya.realtime
 from supriya.tools import soundfiletools
 from supriya.tools import synthdeftools
-from supriya.tools import timetools
+import supriya.time
 from queue import PriorityQueue
 from supriya.nonrealtime.SessionObject import SessionObject
 
@@ -121,9 +121,9 @@ class Session:
             output_bus_channel_count=output_bus_channel_count,
             )
         self._active_moments = []
-        self._buffers = timetools.TimespanCollection(accelerated=True)
+        self._buffers = supriya.time.TimespanCollection(accelerated=True)
         self._name = name
-        self._nodes = timetools.TimespanCollection(accelerated=True)
+        self._nodes = supriya.time.TimespanCollection(accelerated=True)
         self._offsets = []
         self._root_node = supriya.nonrealtime.RootNode(self)
         self._session_ids = {}

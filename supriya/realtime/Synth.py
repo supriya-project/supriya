@@ -15,7 +15,7 @@ class Synth(Node):
     ::
 
         >>> from supriya import synthdeftools
-        >>> from supriya import supriya.ugens
+        >>> import supriya.ugens
         >>> with synthdeftools.SynthDefBuilder(
         ...     amplitude=0.0,
         ...     frequency=440.0,

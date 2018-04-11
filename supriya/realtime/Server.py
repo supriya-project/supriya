@@ -450,7 +450,7 @@ class Server(SupriyaObject):
         ::
 
             >>> from supriya import synthdeftools
-            >>> from supriya import supriya.ugens
+            >>> import supriya.ugens
             >>> with synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,
@@ -520,7 +520,7 @@ class Server(SupriyaObject):
         ::
 
             >>> from supriya import synthdeftools
-            >>> from supriya import supriya.ugens
+            >>> import supriya.ugens
             >>> with synthdeftools.SynthDefBuilder(
             ...     amplitude=0.0,
             ...     frequency=440.0,

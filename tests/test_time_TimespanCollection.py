@@ -2,15 +2,9 @@ import itertools
 import pytest
 import random
 import uqbar.io
-from supriya import timetools
-from supriya import systemtools
-from supriya.tools.timetools import (
-    TimespanCollectionDriver,
-    TimespanCollectionDriverEx,
-    TimespanSimultaneity,
-    )
-
+import supriya.time
 from abjad import Timespan
+from supriya import systemtools
 
 
 #from supriya.tools.systemtools import SupriyaValueObject
@@ -91,19 +85,19 @@ class TestCase(systemtools.TestCase):
     def make_timespan_collection(self, populated=True, timespans=None):
         if populated and not timespans:
             timespans = self.make_timespans()
-        timespan_collection = timetools.TimespanCollection(
+        timespan_collection = supriya.time.TimespanCollection(
             timespans=timespans,
             accelerated=self.accelerated,
             )
         if self.accelerated:
             assert isinstance(
                 timespan_collection._driver,
-                TimespanCollectionDriverEx,
+                supriya.time.TimespanCollectionDriverEx,
                 )
         else:
             assert isinstance(
                 timespan_collection._driver,
-                TimespanCollectionDriver,
+                supriya.time.TimespanCollectionDriver,
                 )
         return timespan_collection
 
@@ -327,7 +321,7 @@ class TestCase(systemtools.TestCase):
                     range_=range_, timespans=timespans)
                 for offset in range(range_):
                     overlaps, starts, stops = fixtures[offset]
-                    expected = TimespanSimultaneity(
+                    expected = supriya.time.TimespanSimultaneity(
                         overlap_timespans=overlaps,
                         start_offset=offset,
                         start_timespans=starts,

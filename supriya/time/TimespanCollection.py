@@ -1,11 +1,11 @@
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
-from supriya.tools.timetools.TimespanCollectionDriver import (
+from supriya.time.TimespanCollectionDriver import (
     TimespanCollectionDriver,
     )
-from supriya.tools.timetools.TimespanCollectionDriverEx import (
+from supriya.time.TimespanCollectionDriverEx import (
     TimespanCollectionDriverEx,
     )
-from supriya.tools.timetools.TimespanSimultaneity import TimespanSimultaneity
+from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 
 
 class TimespanCollection(SupriyaObject):
@@ -15,7 +15,7 @@ class TimespanCollection(SupriyaObject):
     ::
 
         >>> from abjad import timespantools
-        >>> from supriya import timetools
+        >>> import supriya.time
         >>> timespans = (
         ...     timespantools.Timespan(0, 3),
         ...     timespantools.Timespan(1, 3),
@@ -23,7 +23,7 @@ class TimespanCollection(SupriyaObject):
         ...     timespantools.Timespan(2, 5),
         ...     timespantools.Timespan(6, 9),
         ...     )
-        >>> timespan_collection = timetools.TimespanCollection(timespans)
+        >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
     """
 
@@ -70,7 +70,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -100,7 +100,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -134,7 +134,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -165,7 +165,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -190,7 +190,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -213,7 +213,7 @@ class TimespanCollection(SupriyaObject):
         ::
 
             >>> from abjad import timespantools
-            >>> timespan_collection = timetools.TimespanCollection([
+            >>> timespan_collection = supriya.time.TimespanCollection([
             ...     timespantools.Timespan(0, 16),
             ...     timespantools.Timespan(5, 12),
             ...     timespantools.Timespan(-2, 8),
@@ -272,7 +272,7 @@ class TimespanCollection(SupriyaObject):
                 ...     timespantools.Timespan(2, 5),
                 ...     timespantools.Timespan(6, 9),
                 ...     )
-                >>> timespan_collection = timetools.TimespanCollection(timespans)
+                >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
             ::
 
@@ -296,7 +296,7 @@ class TimespanCollection(SupriyaObject):
                 ...     timespantools.Timespan(2, 5),
                 ...     timespantools.Timespan(6, 9),
                 ...     )
-                >>> timespan_collection = timetools.TimespanCollection(timespans)
+                >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
             ::
 
@@ -335,7 +335,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -378,7 +378,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -422,7 +422,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -462,7 +462,7 @@ class TimespanCollection(SupriyaObject):
         ::
 
             >>> from abjad import timespantools
-            >>> timespan_collection = timetools.TimespanCollection()
+            >>> timespan_collection = supriya.time.TimespanCollection()
             >>> timespan_collection.insert(timespantools.Timespan(1, 3))
             >>> timespan_collection.insert((
             ...     timespantools.Timespan(0, 4),
@@ -501,7 +501,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -563,7 +563,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 
@@ -623,7 +623,7 @@ class TimespanCollection(SupriyaObject):
             ...     timespantools.Timespan(2, 5),
             ...     timespantools.Timespan(6, 9),
             ...     )
-            >>> timespan_collection = timetools.TimespanCollection(timespans)
+            >>> timespan_collection = supriya.time.TimespanCollection(timespans)
 
         ::
 

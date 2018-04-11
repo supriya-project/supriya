@@ -1,4 +1,4 @@
-from supriya.tools.timetools.TimespanSimultaneity import TimespanSimultaneity
+from supriya.time.TimespanSimultaneity import TimespanSimultaneity
 from supriya.tools.systemtools.SupriyaObject import SupriyaObject
 
 
@@ -90,7 +90,7 @@ cdef class TimespanCollectionDriverEx:
     ::
 
         >>> from abjad import timespantools
-        >>> from supriya import timetools
+        >>> import supriya.time
         >>> timespans = (
         ...     timespantools.Timespan(0, 3),
         ...     timespantools.Timespan(1, 3),
@@ -98,7 +98,7 @@ cdef class TimespanCollectionDriverEx:
         ...     timespantools.Timespan(2, 5),
         ...     timespantools.Timespan(6, 9),
         ...     )
-        >>> timespan_collection = timetools.TimespanCollectionDriverEx(timespans)
+        >>> timespan_collection = supriya.time.TimespanCollectionDriverEx(timespans)
 
     """
 
