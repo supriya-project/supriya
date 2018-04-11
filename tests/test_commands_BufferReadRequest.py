@@ -1,7 +1,7 @@
 import unittest
 import supriya.nonrealtime
 from supriya.tools import requesttools
-from supriya.tools import wrappertools
+from supriya.tools import soundfiletools
 
 
 class TestCase(unittest.TestCase):
@@ -22,7 +22,7 @@ class TestCase(unittest.TestCase):
         assert osc_message.contents == (1, session, 0, 512, 0, 1)
 
     def test_Say(self):
-        say = wrappertools.Say('Some text.')
+        say = soundfiletools.Say('Some text.')
         request = requesttools.BufferReadRequest(
             buffer_id=1,
             file_path=say,
