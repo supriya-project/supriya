@@ -1,7 +1,7 @@
 import unittest
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 from nonrealtimetools_testbase import TestCase
@@ -62,7 +62,7 @@ class TestCase(TestCase):
             source = ugentools.DC.ar(1)
             ugentools.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             delta=1,
             duration=0,
             synthdef=source_synthdef,
@@ -87,7 +87,7 @@ class TestCase(TestCase):
             source = ugentools.DC.ar(1)
             ugentools.Out.ar(bus=0, source=source)
         source_synthdef = builder.build()
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             delta=1,
             duration=0,
             synthdef=source_synthdef,

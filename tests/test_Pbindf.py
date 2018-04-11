@@ -1,16 +1,16 @@
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pattern = patterntools.Pbindf(
-        patterntools.Pbind(
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
+    pattern = supriya.patterns.Pbindf(
+        supriya.patterns.Pbind(
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
             ),
-        amplitude=patterntools.Pseq([0.111, 0.333, 0.666, 1.0]),
-        pan=patterntools.Pseq([0., 0.5, 1.0, 0.5]),
+        amplitude=supriya.patterns.Pseq([0.111, 0.333, 0.666, 1.0]),
+        pan=supriya.patterns.Pseq([0., 0.5, 1.0, 0.5]),
         )
 
     def test___iter__(self):

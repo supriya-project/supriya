@@ -10,21 +10,21 @@ class Test(ProjectPackageScriptTestCase):
     module_contents = utils.normalize_string('''
     from supriya import (
         Session,
-        patterntools,
+        supriya.patterns,
         synthdefs,
     )
 
 
     material = Session(0, 2)
 
-    pattern = patterntools.Pbus(
-        patterntools.Pbind(
+    pattern = supriya.patterns.Pbus(
+        supriya.patterns.Pbind(
             synthdef=synthdefs.default,
-            amplitude=patterntools.Pwhite(),
-            delta=patterntools.Pwhite(0., 2.),
-            duration=patterntools.Pwhite(0.1, 0.5),
-            frequency=patterntools.Pwhite(minimum=55, maximum=1760),
-            pan=patterntools.Pwhite(-1.0, 1.0),
+            amplitude=supriya.patterns.Pwhite(),
+            delta=supriya.patterns.Pwhite(0., 2.),
+            duration=supriya.patterns.Pwhite(0.1, 0.5),
+            frequency=supriya.patterns.Pwhite(minimum=55, maximum=1760),
+            pan=supriya.patterns.Pwhite(-1.0, 1.0),
             )
         )
 

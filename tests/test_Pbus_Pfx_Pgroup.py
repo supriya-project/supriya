@@ -2,7 +2,7 @@ import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -15,10 +15,10 @@ class TestCase(TestCase):
         ugentools.Out.ar(bus=builder['out'], source=source)
     limiter_synthdef = builder.build()
 
-    pattern = patterntools.Pbind(
+    pattern = supriya.patterns.Pbind(
         amplitude=1.0,
         duration=1.0,
-        frequency=patterntools.Pseq([440, 660, 880], 1),
+        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
         synthdef=synthdefs.default,
         )
     pattern = pattern.with_group()

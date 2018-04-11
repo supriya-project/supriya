@@ -1,5 +1,5 @@
 import operator
-from supriya.tools.patterntools.Pattern import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class Pbinop(Pattern):
@@ -22,14 +22,14 @@ class Pbinop(Pattern):
     ### PRIVATE METHODS ###
 
     def _iterate(self, state=None):
-        from supriya.tools import patterntools
+        import supriya.patterns
         expr_one = self.expr_one
         if not isinstance(expr_one, Pattern):
-            expr_one = patterntools.Pseq([expr_one], None)
+            expr_one = supriya.patterns.Pseq([expr_one], None)
         expr_one = iter(expr_one)
         expr_two = self.expr_two
         if not isinstance(expr_two, Pattern):
-            expr_two = patterntools.Pseq([expr_two], None)
+            expr_two = supriya.patterns.Pseq([expr_two], None)
         expr_two = iter(expr_two)
         operator = self._string_to_operator()
         for one, two in zip(expr_one, expr_two):
@@ -63,10 +63,10 @@ class Pbinop(Pattern):
 
     @property
     def is_infinite(self):
-        from supriya.tools import patterntools
+        import supriya.patterns
         return (
-            isinstance(self.expr_one, patterntools.Pattern) and
-            isinstance(self.expr_two, patterntools.Pattern) and
+            isinstance(self.expr_one, supriya.patterns.Pattern) and
+            isinstance(self.expr_two, supriya.patterns.Pattern) and
             self.expr_one.is_infinite and
             self.expr_two.is_infinite
             )

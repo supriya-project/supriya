@@ -1,7 +1,7 @@
 from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -14,33 +14,33 @@ class TestCase(TestCase):
         ugentools.Out.ar(bus=builder['out'], source=source)
     limiter_synthdef = builder.build()
 
-    pattern_one = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern_one = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             duration=1,
-            frequency=patterntools.Pseq([1111, 1112, 1113], 1),
+            frequency=supriya.patterns.Pseq([1111, 1112, 1113], 1),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             duration=1,
-            frequency=patterntools.Pseq([2221, 2222, 2223], 1),
+            frequency=supriya.patterns.Pseq([2221, 2222, 2223], 1),
             ),
         ])
     pattern_one = pattern_one.with_group()
     pattern_one = pattern_one.with_effect(synthdef=limiter_synthdef)
 
-    pattern_two = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern_two = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             duration=1,
-            frequency=patterntools.Pseq([3331, 3332, 3333], 1),
+            frequency=supriya.patterns.Pseq([3331, 3332, 3333], 1),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             duration=1,
-            frequency=patterntools.Pseq([4441, 4442, 4443], 1),
+            frequency=supriya.patterns.Pseq([4441, 4442, 4443], 1),
             ),
         ])
     pattern_two = pattern_two.with_group()
     pattern_two = pattern_two.with_effect(synthdef=limiter_synthdef)
 
-    pattern = patterntools.Pgpar([
+    pattern = supriya.patterns.Pgpar([
         pattern_one,
         pattern_two,
         ])

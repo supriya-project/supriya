@@ -1,5 +1,5 @@
 from supriya import utils
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Pchain(EventPattern):
@@ -16,8 +16,8 @@ class Pchain(EventPattern):
     ### INITIALIZER ###
 
     def __init__(self, patterns):
-        from supriya.tools import patterntools
-        assert all(isinstance(_, patterntools.EventPattern) for _ in patterns)
+        import supriya.patterns
+        assert all(isinstance(_, supriya.patterns.EventPattern) for _ in patterns)
         assert patterns
         self._patterns = tuple(patterns)
 

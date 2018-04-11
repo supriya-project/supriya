@@ -3,29 +3,29 @@ import uqbar.strings
 
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 
 from patterntools_testbase import TestCase
 
 
 class TestCase(TestCase):
 
-    pbind_01 = patterntools.Pbind(
+    pbind_01 = supriya.patterns.Pbind(
         amplitude=1.0,
-        duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=patterntools.Pseq([440, 660, 880], 1),
+        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
         )
 
-    pbind_02 = patterntools.Pbind(
+    pbind_02 = supriya.patterns.Pbind(
         amplitude=1.0,
-        duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=patterntools.Pseq([[440, 550], [550, 660], [660, 770]]),
+        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+        frequency=supriya.patterns.Pseq([[440, 550], [550, 660], [660, 770]]),
         )
 
-    pbind_03 = patterntools.Pbind(
+    pbind_03 = supriya.patterns.Pbind(
         duration=1,
         delta=0.25,
-        frequency=patterntools.Pseq([220, 440, 330, 660], 2),
+        frequency=supriya.patterns.Pseq([220, 440, 330, 660], 2),
         )
 
     def test___iter___(self):
@@ -82,7 +82,7 @@ class TestCase(TestCase):
         assert deltas == [1.0, 2.0, 3.0, None]
 
     def test_manual_communicado_pbind_01(self):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             self.pbind_01,
             server=self.server,
             )
@@ -194,7 +194,7 @@ class TestCase(TestCase):
         assert deltas == [1.0, 2.0, 3.0, None]
 
     def test_manual_communicado_pbind_02(self):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             self.pbind_02,
             server=self.server,
             )

@@ -1,5 +1,5 @@
 from supriya import utils
-from supriya.tools.patterntools.Pattern import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class Pn(Pattern):

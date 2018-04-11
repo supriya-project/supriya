@@ -1,6 +1,6 @@
 import time
 from supriya.tools import livetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
@@ -26,10 +26,10 @@ class TestCase(systemtools.TestCase):
 
     def test_post_mixer_allocate(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             duration=1,
             delta=0.25,
-            value=patterntools.Pseq([0.25, 0.5, 1.0, 2.0], None),
+            value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
             )
         slot = self.mixer['track'].add_auto_pattern_slot(
             'auto',
@@ -80,10 +80,10 @@ class TestCase(systemtools.TestCase):
 
     def test_play(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             duration=1,
             delta=0.25,
-            value=patterntools.Pseq([0.25, 0.5, 1.0, 2.0], None),
+            value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
             )
         slot = self.mixer['track'].add_auto_pattern_slot(
             'auto',
@@ -142,10 +142,10 @@ class TestCase(systemtools.TestCase):
 
     def test_stop(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             duration=1,
             delta=0.25,
-            value=patterntools.Pseq([0.25, 0.5, 1.0, 2.0], None),
+            value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
             )
         slot = self.mixer['track'].add_auto_pattern_slot(
             'auto',

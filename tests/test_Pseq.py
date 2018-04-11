@@ -1,41 +1,41 @@
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pseq_01 = patterntools.Pseq(['A', 'B', 'C', 'D'])
+    pseq_01 = supriya.patterns.Pseq(['A', 'B', 'C', 'D'])
 
-    pseq_02 = patterntools.Pseq([
-        patterntools.Pseq(['A', 'B', 'C']),
-        patterntools.Pseq(['D', 'E', 'F']),
+    pseq_02 = supriya.patterns.Pseq([
+        supriya.patterns.Pseq(['A', 'B', 'C']),
+        supriya.patterns.Pseq(['D', 'E', 'F']),
         ])
 
-    pseq_03 = patterntools.Pseq([
-        patterntools.Pbind(
+    pseq_03 = supriya.patterns.Pseq([
+        supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-            frequency=patterntools.Pseq([440, 660, 880], 1),
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-            frequency=patterntools.Pseq([550, 770, 990], 1),
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([550, 770, 990], 1),
             ),
         ])
 
-    pseq_04 = patterntools.Pseq([
-        patterntools.Pbind(
+    pseq_04 = supriya.patterns.Pseq([
+        supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-            frequency=patterntools.Pseq([440, 660, 880], 1),
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
             ),
-        patterntools.Pbus(
-            patterntools.Pbind(
+        supriya.patterns.Pbus(
+            supriya.patterns.Pbind(
                 amplitude=1.0,
-                duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-                frequency=patterntools.Pseq([550, 770, 990], 1),
+                duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+                frequency=supriya.patterns.Pseq([550, 770, 990], 1),
                 ),
             ),
         ])

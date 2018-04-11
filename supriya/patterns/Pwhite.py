@@ -1,4 +1,4 @@
-from supriya.tools.patterntools.Pattern import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class Pwhite(Pattern):
@@ -48,13 +48,13 @@ class Pwhite(Pattern):
 
         ::
 
-            >>> pattern = patterntools.Pwhite(0.0, 1.0)
+            >>> pattern = supriya.patterns.Pwhite(0.0, 1.0)
             >>> pattern.arity
             1
 
         ::
 
-            >>> pattern = patterntools.Pwhite([0.0, 0.1], 2)
+            >>> pattern = supriya.patterns.Pwhite([0.0, 0.1], 2)
             >>> pattern.arity
             2
 

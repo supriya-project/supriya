@@ -1,78 +1,78 @@
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from patterntools_testbase import TestCase
 
 
 class TestCase(TestCase):
 
-    pattern_01 = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern_01 = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             delta=8,
-            duration=patterntools.Pseq([10], 4),
-            frequency=patterntools.Pseq([1001, 1002, 1003, 1004]),
+            duration=supriya.patterns.Pseq([10], 4),
+            frequency=supriya.patterns.Pseq([1001, 1002, 1003, 1004]),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             delta=10,
-            duration=patterntools.Pseq([10], 3),
-            frequency=patterntools.Pseq([2001, 2002, 2003]),
+            duration=supriya.patterns.Pseq([10], 3),
+            frequency=supriya.patterns.Pseq([2001, 2002, 2003]),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             delta=12,
-            duration=patterntools.Pseq([10], 3),
-            frequency=patterntools.Pseq([3001, 3002, 3003]),
+            duration=supriya.patterns.Pseq([10], 3),
+            frequency=supriya.patterns.Pseq([3001, 3002, 3003]),
             ),
         ])
 
     pattern_02 = pattern_01.with_bus()
 
-    pattern_03 = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern_03 = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             delta=10,
-            duration=patterntools.Pseq([10], 3),
-            frequency=patterntools.Pseq([2001, 2002, 2003]),
+            duration=supriya.patterns.Pseq([10], 3),
+            frequency=supriya.patterns.Pseq([2001, 2002, 2003]),
             ).with_group(),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             delta=12,
-            duration=patterntools.Pseq([10], 3),
-            frequency=patterntools.Pseq([3001, 3002, 3003]),
+            duration=supriya.patterns.Pseq([10], 3),
+            frequency=supriya.patterns.Pseq([3001, 3002, 3003]),
             ).with_group(),
         ])
 
-    pattern_04 = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern_04 = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             delta=10,
-            duration=patterntools.Pseq([10], None),
-            frequency=patterntools.Pseq([1001, 1002, 1003, 1004, 1005]),
+            duration=supriya.patterns.Pseq([10], None),
+            frequency=supriya.patterns.Pseq([1001, 1002, 1003, 1004, 1005]),
             ).with_group(),
         ])
 
-    pattern_05 = patterntools.Ppar([
-        patterntools.Pgpar([
+    pattern_05 = supriya.patterns.Ppar([
+        supriya.patterns.Pgpar([
             [
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     delta=10,
-                    duration=patterntools.Pseq([10], 3),
-                    frequency=patterntools.Pseq([1001, 1002, 1003]),
+                    duration=supriya.patterns.Pseq([10], 3),
+                    frequency=supriya.patterns.Pseq([1001, 1002, 1003]),
                     ),
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     delta=12,
-                    duration=patterntools.Pseq([10], 3),
-                    frequency=patterntools.Pseq([2001, 2002, 2003]),
+                    duration=supriya.patterns.Pseq([10], 3),
+                    frequency=supriya.patterns.Pseq([2001, 2002, 2003]),
                     ),
                 ],
             ]),
-        patterntools.Pgpar([
+        supriya.patterns.Pgpar([
             [
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     delta=10,
-                    duration=patterntools.Pseq([10], 3),
-                    frequency=patterntools.Pseq([3001, 3002, 3003]),
+                    duration=supriya.patterns.Pseq([10], 3),
+                    frequency=supriya.patterns.Pseq([3001, 3002, 3003]),
                     ),
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     delta=12,
-                    duration=patterntools.Pseq([10], 3),
-                    frequency=patterntools.Pseq([4001, 4002, 4003]),
+                    duration=supriya.patterns.Pseq([10], 3),
+                    frequency=supriya.patterns.Pseq([4001, 4002, 4003]),
                     ),
                 ],
             ]),

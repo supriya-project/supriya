@@ -3,7 +3,7 @@ import uuid
 import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import synthdefs
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 
 
@@ -11,7 +11,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         node_uuid = uuid.uuid4()
-        event = patterntools.SynthEvent(
+        event = supriya.patterns.SynthEvent(
             out=4,
             pan=0.25,
             synthdef=synthdefs.default,
@@ -57,7 +57,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_02(self):
         node_uuid = uuid.uuid4()
-        event = patterntools.SynthEvent(
+        event = supriya.patterns.SynthEvent(
             is_stop=True,
             uuid=node_uuid,
             )

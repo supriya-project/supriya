@@ -1,7 +1,7 @@
 from patterntools_testbase import TestCase
 from supriya import AddAction, synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import synthdeftools
 from supriya.tools import ugentools
 
@@ -27,14 +27,14 @@ class TestCase(TestCase):
     pink_synthdef = builder.build(name='pink')
 
     release_time = 9
-    pattern = patterntools.Ppar([
-        patterntools.Pbind(
+    pattern = supriya.patterns.Ppar([
+        supriya.patterns.Pbind(
             synthdef=sine_synthdef,
             add_action=AddAction.ADD_TO_HEAD,
             duration=40,
             delta=15,
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             synthdef=pink_synthdef,
             add_action=AddAction.ADD_TO_HEAD,
             duration=32,
@@ -43,7 +43,7 @@ class TestCase(TestCase):
         ])
     pattern = pattern.with_group(release_time=release_time)
     pattern = pattern.with_effect(limiter_synthdef, release_time=release_time)
-    pattern = patterntools.Pgpar([pattern], release_time=release_time)
+    pattern = supriya.patterns.Pgpar([pattern], release_time=release_time)
     pattern = pattern.with_bus(release_time=release_time, channel_count=1)
 
     def test_01(self):

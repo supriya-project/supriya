@@ -1,5 +1,5 @@
 import uuid
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Pfx(EventPattern):
@@ -37,14 +37,14 @@ class Pfx(EventPattern):
         return iter(self.pattern)
 
     def _setup_peripherals(self, initial_expr, state):
-        from supriya.tools import patterntools
-        start_synth_event = patterntools.SynthEvent(
+        import supriya.patterns
+        start_synth_event = supriya.patterns.SynthEvent(
             add_action='ADD_TO_TAIL',
             synthdef=self.synthdef,
             uuid=state['synth_uuid'],
             **self.settings
             )
-        stop_synth_event = patterntools.SynthEvent(
+        stop_synth_event = supriya.patterns.SynthEvent(
             uuid=state['synth_uuid'],
             is_stop=True,
             )
@@ -52,7 +52,7 @@ class Pfx(EventPattern):
         peripheral_stops = []
         delta = self._release_time or 0
         if delta:
-            peripheral_stops.append(patterntools.NullEvent(delta=delta))
+            peripheral_stops.append(supriya.patterns.NullEvent(delta=delta))
         peripheral_stops.append(stop_synth_event)
         return peripheral_starts, peripheral_stops
 

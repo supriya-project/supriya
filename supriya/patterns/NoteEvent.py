@@ -1,7 +1,7 @@
 import uuid
 from supriya.tools import requesttools
 from supriya.tools import servertools
-from supriya.tools.patterntools.Event import Event
+from supriya.patterns.Event import Event
 
 
 class NoteEvent(Event):
@@ -105,7 +105,7 @@ class NoteEvent(Event):
         uuids=None,
         ):
         from supriya import synthdefs
-        from supriya.tools import patterntools
+        import supriya.patterns
         synth_uuid = self.get('uuid') or uuid.uuid4()
         synthdef = self.get('synthdef', synthdefs.default)
         synthdef = synthdef or synthdefs.default
@@ -141,7 +141,7 @@ class NoteEvent(Event):
                     uuids,
                     )
             else:
-                stop_product = patterntools.EventProduct(
+                stop_product = supriya.patterns.EventProduct(
                     event=None,
                     index=index,
                     is_stop=True,
@@ -164,7 +164,7 @@ class NoteEvent(Event):
         timestamp,
         uuids,
         ):
-        from supriya.tools import patterntools
+        import supriya.patterns
         requests = []
         node_ids = uuids[synth_uuid]
         if first_visit:
@@ -198,7 +198,7 @@ class NoteEvent(Event):
                     **synth_kwargs
                     )
                 requests.append(request)
-        event_product = patterntools.EventProduct(
+        event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
             is_stop=False,
@@ -216,7 +216,7 @@ class NoteEvent(Event):
         timestamp,
         uuids,
         ):
-        from supriya.tools import patterntools
+        import supriya.patterns
         from supriya.tools import synthdeftools
         duration = self['duration']
         if duration is None:
@@ -241,7 +241,7 @@ class NoteEvent(Event):
                 node_ids=node_ids,
                 )
             requests.append(request)
-        event_product = patterntools.EventProduct(
+        event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
             is_stop=True,

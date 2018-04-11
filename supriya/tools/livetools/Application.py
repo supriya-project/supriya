@@ -3,7 +3,7 @@ import importlib
 import pathlib
 import re
 import traceback
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 from supriya.tools import systemtools
 
@@ -245,7 +245,7 @@ class Application:
         if slot_type in ('auto', 'trigger'):
             pattern = slot_spec.get('pattern')
             assert pattern is not None
-            pattern = patterntools.Pattern.from_dict(
+            pattern = supriya.patterns.Pattern.from_dict(
                 pattern,
                 namespaces=self._build_pattern_namespaces(slot),
                 )

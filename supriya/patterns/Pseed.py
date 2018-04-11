@@ -1,6 +1,6 @@
 import inspect
-from supriya.tools.patterntools.Pattern import Pattern
-from supriya.tools.patterntools.RandomNumberGenerator \
+from supriya.patterns.Pattern import Pattern
+from supriya.patterns.RandomNumberGenerator \
     import RandomNumberGenerator
 
 

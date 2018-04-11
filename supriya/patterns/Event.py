@@ -11,7 +11,7 @@ class Event(SupriyaValueObject):
 
     ::
 
-        >>> patterntools.NoteEvent(
+        >>> supriya.patterns.NoteEvent(
         ...     amplitude=0.9,
         ...     duration=10.5,
         ...     frequency=443,

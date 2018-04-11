@@ -1,6 +1,6 @@
 import types
 from supriya.tools import systemtools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 
 
@@ -15,11 +15,11 @@ class TestCase(systemtools.TestCase):
             )
 
     def test_iterate_inner_1(self):
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             duration=1.0,
-            frequency=patterntools.Pseq([111, 222, 333, 444, 555, 666]),
+            frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
             )
-        iterator = patterntools.RealtimeEventPlayer._iterate_inner(
+        iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
             pattern=pattern,
             server=self.pseudo_server,
             timestamp=0.0,
@@ -27,7 +27,7 @@ class TestCase(systemtools.TestCase):
             )
         event_products = list(iterator)
         assert all(
-            isinstance(_, patterntools.EventProduct)
+            isinstance(_, supriya.patterns.EventProduct)
             for _ in event_products
             )
         assert [_._get_sort_bundle() for _ in event_products] == [
@@ -46,12 +46,12 @@ class TestCase(systemtools.TestCase):
             ]
 
     def test_iterate_inner_2(self):
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             delta=0.25,
             duration=1.0,
-            frequency=patterntools.Pseq([111, 222, 333, 444, 555, 666]),
+            frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
             )
-        iterator = patterntools.RealtimeEventPlayer._iterate_inner(
+        iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
             pattern=pattern,
             server=self.pseudo_server,
             timestamp=0.0,
@@ -59,7 +59,7 @@ class TestCase(systemtools.TestCase):
             )
         event_products = list(iterator)
         assert all(
-            isinstance(_, patterntools.EventProduct)
+            isinstance(_, supriya.patterns.EventProduct)
             for _ in event_products
             )
         assert [_._get_sort_bundle() for _ in event_products] == [
@@ -78,11 +78,11 @@ class TestCase(systemtools.TestCase):
             ]
 
     def test_iterate_inner_3(self):
-        pattern = patterntools.Pbind(
-            duration=patterntools.Pseq([1.0, 2.0], None),
-            frequency=patterntools.Pseq([111, 222, 333, 444, 555, 666]),
+        pattern = supriya.patterns.Pbind(
+            duration=supriya.patterns.Pseq([1.0, 2.0], None),
+            frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
             )
-        iterator = patterntools.RealtimeEventPlayer._iterate_inner(
+        iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
             pattern=pattern,
             server=self.pseudo_server,
             timestamp=0.0,
@@ -90,7 +90,7 @@ class TestCase(systemtools.TestCase):
             )
         event_products = list(iterator)
         assert all(
-            isinstance(_, patterntools.EventProduct)
+            isinstance(_, supriya.patterns.EventProduct)
             for _ in event_products
             )
         assert [_._get_sort_bundle() for _ in event_products] == [
@@ -109,12 +109,12 @@ class TestCase(systemtools.TestCase):
             ]
 
     def test_iterate_inner_4(self):
-        pattern = patterntools.Pbind(
+        pattern = supriya.patterns.Pbind(
             delta=1.0,
-            duration=patterntools.Pseq([1.0, 2.0], None),
-            frequency=patterntools.Pseq([111, 222, 333, 444, 555, 666]),
+            duration=supriya.patterns.Pseq([1.0, 2.0], None),
+            frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
             )
-        iterator = patterntools.RealtimeEventPlayer._iterate_inner(
+        iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
             pattern=pattern,
             server=self.pseudo_server,
             timestamp=0.0,
@@ -122,7 +122,7 @@ class TestCase(systemtools.TestCase):
             )
         event_products = list(iterator)
         assert all(
-            isinstance(_, patterntools.EventProduct)
+            isinstance(_, supriya.patterns.EventProduct)
             for _ in event_products
             )
         assert [_._get_sort_bundle() for _ in event_products] == [
@@ -141,12 +141,12 @@ class TestCase(systemtools.TestCase):
             ]
 
     def test_iterate_inner_5(self):
-        pattern = patterntools.Pbind(
-            delta=patterntools.Pseq([1.0, 0.0], None),
+        pattern = supriya.patterns.Pbind(
+            delta=supriya.patterns.Pseq([1.0, 0.0], None),
             duration=2.0,
-            frequency=patterntools.Pseq([111, 222, 333, 444, 555, 666]),
+            frequency=supriya.patterns.Pseq([111, 222, 333, 444, 555, 666]),
             )
-        iterator = patterntools.RealtimeEventPlayer._iterate_inner(
+        iterator = supriya.patterns.RealtimeEventPlayer._iterate_inner(
             pattern=pattern,
             server=self.pseudo_server,
             timestamp=0.0,
@@ -154,7 +154,7 @@ class TestCase(systemtools.TestCase):
             )
         event_products = list(iterator)
         assert all(
-            isinstance(_, patterntools.EventProduct)
+            isinstance(_, supriya.patterns.EventProduct)
             for _ in event_products
             )
         assert [_._get_sort_bundle() for _ in event_products] == [

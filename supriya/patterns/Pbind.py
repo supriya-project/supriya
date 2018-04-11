@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Pbind(EventPattern):
@@ -8,9 +8,9 @@ class Pbind(EventPattern):
 
     ::
 
-        >>> pattern = patterntools.Pbind(
-        ...     pitch=patterntools.Pseq([0, 3, 7]),
-        ...     duration=patterntools.Pseq([0.5, 0.25, 0.25, 0.125]),
+        >>> pattern = supriya.patterns.Pbind(
+        ...     pitch=supriya.patterns.Pseq([0, 3, 7]),
+        ...     duration=supriya.patterns.Pseq([0.5, 0.25, 0.25, 0.125]),
         ...     foo=[1, 2],
         ...     bar=3,
         ...     )
@@ -47,12 +47,12 @@ class Pbind(EventPattern):
 
     ::
 
-        >>> pattern = patterntools.Pseq([
-        ...     patterntools.Pbind(
-        ...         pitch=patterntools.Pseq([1, 2, 3], 1),
+        >>> pattern = supriya.patterns.Pseq([
+        ...     supriya.patterns.Pbind(
+        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
         ...         ),
-        ...     patterntools.Pbind(
-        ...         pitch=patterntools.Pseq([4, 5, 6], 1),
+        ...     supriya.patterns.Pbind(
+        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
         ...         ),
         ...     ], 1)
 
@@ -98,11 +98,11 @@ class Pbind(EventPattern):
     ### INITIALIZER ###
 
     def __init__(self, synthdef=None, **patterns):
-        from supriya.tools import patterntools
+        import supriya.patterns
         from supriya.tools import synthdeftools
         assert isinstance(synthdef, (
             synthdeftools.SynthDef,
-            patterntools.Pattern,
+            supriya.patterns.Pattern,
             type(None),
             ))
         self._synthdef = synthdef
@@ -116,15 +116,15 @@ class Pbind(EventPattern):
     ### PRIVATE METHODS ###
 
     def _coerce_pattern_pairs(self, patterns):
-        from supriya.tools import patterntools
+        import supriya.patterns
         patterns = dict(patterns)
         for name, pattern in sorted(patterns.items()):
-            if not isinstance(pattern, patterntools.Pattern):
-                pattern = patterntools.Pseq([pattern], None)
+            if not isinstance(pattern, supriya.patterns.Pattern):
+                pattern = supriya.patterns.Pseq([pattern], None)
             patterns[name] = iter(pattern)
         synthdef = self.synthdef
-        if not isinstance(synthdef, patterntools.Pattern):
-            synthdef = patterntools.Pseq([synthdef], None)
+        if not isinstance(synthdef, supriya.patterns.Pattern):
+            synthdef = supriya.patterns.Pseq([synthdef], None)
         patterns['synthdef'] = iter(synthdef)
         return patterns
 
@@ -150,10 +150,10 @@ class Pbind(EventPattern):
 
     @property
     def is_infinite(self):
-        from supriya.tools import patterntools
+        import supriya.patterns
         for _, value in self._patterns:
             if (
-                isinstance(value, patterntools.Pattern) and
+                isinstance(value, supriya.patterns.Pattern) and
                 not value.is_infinite
                 ):
                 return False

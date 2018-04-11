@@ -2,7 +2,7 @@ import types
 import uuid
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 
 
@@ -10,7 +10,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         bus_uuid = uuid.uuid4()
-        event = patterntools.BusEvent(
+        event = supriya.patterns.BusEvent(
             calculation_rate='audio',
             channel_count=2,
             uuid=bus_uuid,
@@ -47,7 +47,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_02(self):
         bus_uuid = uuid.uuid4()
-        event = patterntools.BusEvent(
+        event = supriya.patterns.BusEvent(
             is_stop=True,
             uuid=bus_uuid,
             )

@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.patterntools.Pattern import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class Pseq(Pattern):
@@ -8,7 +8,7 @@ class Pseq(Pattern):
 
     ::
 
-        >>> pattern = patterntools.Pseq([1, 2, 3])
+        >>> pattern = supriya.patterns.Pseq([1, 2, 3])
         >>> for x in pattern:
         ...     x
         ...
@@ -18,15 +18,15 @@ class Pseq(Pattern):
 
     ::
 
-        >>> pattern = patterntools.Pseq([1, 10, 100], repetitions=2)
+        >>> pattern = supriya.patterns.Pseq([1, 10, 100], repetitions=2)
         >>> list(pattern)
         [1, 10, 100, 1, 10, 100]
 
     ::
 
-        >>> pattern = patterntools.Pseq([
-        ...     patterntools.Pseq([1, 2, 3], repetitions=1),
-        ...     patterntools.Pseq([4, 5, 6], repetitions=1),
+        >>> pattern = supriya.patterns.Pseq([
+        ...     supriya.patterns.Pseq([1, 2, 3], repetitions=1),
+        ...     supriya.patterns.Pseq([4, 5, 6], repetitions=1),
         ...     ], repetitions=2)
         >>> list(pattern)
         [1, 2, 3, 4, 5, 6, 1, 2, 3, 4, 5, 6]
@@ -80,21 +80,21 @@ class Pseq(Pattern):
 
         ::
 
-            >>> pattern = patterntools.Pseq([1, 2, 3])
+            >>> pattern = supriya.patterns.Pseq([1, 2, 3])
             >>> pattern.arity
             1
 
         ::
 
-            >>> pattern = patterntools.Pseq([[1, 2], 3, 4])
+            >>> pattern = supriya.patterns.Pseq([[1, 2], 3, 4])
             >>> pattern.arity
             2
 
         ::
 
-            >>> pattern = patterntools.Pseq([
-            ...     patterntools.Pseq([1, 2, 3]),
-            ...     patterntools.Pseq([[1, 2], 3, 4]),
+            >>> pattern = supriya.patterns.Pseq([
+            ...     supriya.patterns.Pseq([1, 2, 3]),
+            ...     supriya.patterns.Pseq([[1, 2], 3, 4]),
             ...     ])
             >>> pattern.arity
             2
@@ -105,11 +105,11 @@ class Pseq(Pattern):
 
     @property
     def is_infinite(self):
-        from supriya.tools import patterntools
+        import supriya.patterns
         if self.repetitions is None:
             return True
         for x in self.sequence:
-            if isinstance(x, patterntools.Pattern) and x.is_infinite:
+            if isinstance(x, supriya.patterns.Pattern) and x.is_infinite:
                 return True
         return False
 

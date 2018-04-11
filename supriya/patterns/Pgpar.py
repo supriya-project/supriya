@@ -1,6 +1,6 @@
 import uuid
 from supriya import utils
-from supriya.tools.patterntools.Ppar import Ppar
+from supriya.patterns.Ppar import Ppar
 
 
 class Pgpar(Ppar):
@@ -26,12 +26,12 @@ class Pgpar(Ppar):
     ### PRIVATE METHODS ###
 
     def _coerce_iterator_output(self, expr, state):
-        from supriya.tools import patterntools
+        import supriya.patterns
         iterator = expr.get('_iterator')
         iterators_to_group_uuids = state['iterators_to_group_uuids']
         kwargs = {'_iterator': None}
         if (
-            isinstance(expr, patterntools.NoteEvent) or
+            isinstance(expr, supriya.patterns.NoteEvent) or
             not expr.get('is_stop')
             ):
             if expr.get('target_node') is None:
@@ -40,18 +40,18 @@ class Pgpar(Ppar):
         return expr
 
     def _setup_peripherals(self, initial_expr, state):
-        from supriya.tools import patterntools
+        import supriya.patterns
         group_uuids = state.get('group_uuids')
         peripheral_starts, peripheral_stops = [], []
         delta = self._release_time or 0
         if delta:
-            peripheral_stops.append(patterntools.NullEvent(delta=delta))
+            peripheral_stops.append(supriya.patterns.NullEvent(delta=delta))
         for group_uuid in group_uuids:
-            start_group_event = patterntools.GroupEvent(
+            start_group_event = supriya.patterns.GroupEvent(
                 uuid=group_uuid,
                 add_action='ADD_TO_TAIL',
                 )
-            stop_group_event = patterntools.GroupEvent(
+            stop_group_event = supriya.patterns.GroupEvent(
                 uuid=group_uuid,
                 is_stop=True,
                 )

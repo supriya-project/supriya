@@ -1,14 +1,14 @@
 import types
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 
 
 class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
-        event = patterntools.NoteEvent(
+        event = supriya.patterns.NoteEvent(
             duration=1.0,
             delta=10.0,
             frequency=443,
@@ -63,7 +63,7 @@ class TestCase(TestCase):
             ''')
 
     def test__perform_realtime_02(self):
-        event = patterntools.NoteEvent(
+        event = supriya.patterns.NoteEvent(
             duration=1.0,
             delta=10.0,
             frequency=[443, 445, 447],

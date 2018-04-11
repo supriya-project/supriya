@@ -1,6 +1,6 @@
 import collections
 from supriya import utils
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Pbindf(EventPattern):
@@ -18,8 +18,8 @@ class Pbindf(EventPattern):
     ### INITIALIZER ###
 
     def __init__(self, event_pattern=None, **patterns):
-        from supriya.tools import patterntools
-        assert isinstance(event_pattern, patterntools.Pattern)
+        import supriya.patterns
+        assert isinstance(event_pattern, supriya.patterns.Pattern)
         self._event_pattern = event_pattern
         self._patterns = tuple(sorted(patterns.items()))
 
@@ -31,11 +31,11 @@ class Pbindf(EventPattern):
     ### PRIVATE METHODS ###
 
     def _coerce_pattern_pairs(self, patterns):
-        from supriya.tools import patterntools
+        import supriya.patterns
         patterns = dict(patterns)
         for name, pattern in sorted(patterns.items()):
-            if not isinstance(pattern, patterntools.Pattern):
-                pattern = patterntools.Pseq([pattern], None)
+            if not isinstance(pattern, supriya.patterns.Pattern):
+                pattern = supriya.patterns.Pseq([pattern], None)
             patterns[name] = iter(pattern)
         return patterns
 
@@ -74,12 +74,12 @@ class Pbindf(EventPattern):
 
     @property
     def is_infinite(self):
-        from supriya.tools import patterntools
+        import supriya.patterns
         if not self._event_pattern.is_infinite:
             return False
         for _, value in self._patterns:
             if (
-                isinstance(value, patterntools.Pattern) and
+                isinstance(value, supriya.patterns.Pattern) and
                 not value.is_infinite
                 ):
                 return False

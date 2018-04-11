@@ -1,4 +1,4 @@
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 from supriya.tools import systemtools
 from supriya.tools.livetools.PatternSlot import PatternSlot
@@ -36,7 +36,7 @@ class TriggerPatternSlot(PatternSlot):
     ### PUBLIC METHODS ###
 
     def set_pattern(self, pattern):
-        assert isinstance(pattern, patterntools.EventPattern)
+        assert isinstance(pattern, supriya.patterns.EventPattern)
         self._pattern = pattern
         self._iterator = iter(pattern)
 
@@ -54,7 +54,7 @@ class TriggerPatternSlot(PatternSlot):
                 event = next(self._iterator)
             except StopIteration:
                 return state
-            assert isinstance(event, patterntools.NoteEvent)
+            assert isinstance(event, supriya.patterns.NoteEvent)
             synthdef = (
                 self.synthdef or
                 event.get('synthdef') or

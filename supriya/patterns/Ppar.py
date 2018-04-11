@@ -1,7 +1,7 @@
 import collections
 from queue import PriorityQueue
 from supriya import utils
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Ppar(EventPattern):
@@ -25,14 +25,14 @@ class Ppar(EventPattern):
     ### INITIALIZER ###
 
     def __init__(self, patterns):
-        from supriya.tools import patterntools
+        import supriya.patterns
         patterns = list(patterns)
         for i, pattern_group in enumerate(patterns):
-            if isinstance(pattern_group, patterntools.EventPattern):
+            if isinstance(pattern_group, supriya.patterns.EventPattern):
                 pattern_group = [pattern_group]
             assert isinstance(pattern_group, collections.Sequence)
             pattern_group = tuple(pattern_group)
-            assert all(isinstance(_, patterntools.EventPattern)
+            assert all(isinstance(_, supriya.patterns.EventPattern)
                 for _ in pattern_group)
             patterns[i] = pattern_group
         assert patterns
@@ -41,8 +41,8 @@ class Ppar(EventPattern):
     ### PRIVATE METHODS ###
 
     def _apply_iterator_recursively(self, expr, iterator):
-        from supriya.tools import patterntools
-        if isinstance(expr, patterntools.CompositeEvent):
+        import supriya.patterns
+        if isinstance(expr, supriya.patterns.CompositeEvent):
             coerced_events = [
                 self._apply_iterator_recursively(child_event, iterator)
                 for child_event in expr.get('events') or ()
@@ -133,7 +133,7 @@ class Ppar(EventPattern):
             #    )
 
     def _process_nonrealtime_stop(self, state):
-        from supriya.tools import patterntools
+        import supriya.patterns
         if not state['has_stopped']:
             state['has_stopped'] = True
         self._debug('UNWINDING')
@@ -142,7 +142,7 @@ class Ppar(EventPattern):
         event_tuple = state['event_queue'].get()
         if event_tuple.iterator_index not in state['visited_iterators']:
             self._debug('    DISCARDING, UNVISITED', event_tuple)
-        elif not isinstance(event_tuple.event, patterntools.CompositeEvent):
+        elif not isinstance(event_tuple.event, supriya.patterns.CompositeEvent):
             self._debug('    DISCARDING, NON-COMPOSITE', event_tuple)
         elif not event_tuple.event.get('is_stop'):
             self._debug('    DISCARDING, NON-STOP', event_tuple)

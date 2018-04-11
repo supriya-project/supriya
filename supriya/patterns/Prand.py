@@ -1,5 +1,5 @@
-from supriya.tools.patterntools.Pattern import Pattern
-from supriya.tools.patterntools.Pseq import Pseq
+from supriya.patterns.Pattern import Pattern
+from supriya.patterns.Pseq import Pseq
 
 
 class Prand(Pseq):

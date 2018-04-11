@@ -1,5 +1,5 @@
 from supriya.tools import livetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 from supriya.tools import synthdeftools
 from supriya.tools import systemtools
@@ -25,8 +25,8 @@ class TestCase(systemtools.TestCase):
 
     def test_post_mixer_allocate(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
-            value=patterntools.Pseq([0.25, 0.5, 1.0, 2.0], None),
+        pattern = supriya.patterns.Pbind(
+            value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
             )
         slot = self.mixer['track'].add_trigger_pattern_slot(
             'trigger',
@@ -77,8 +77,8 @@ class TestCase(systemtools.TestCase):
 
     def test_trigger(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
-            value=patterntools.Pseq([0.25, 0.5, 1.0, 2.0], None),
+        pattern = supriya.patterns.Pbind(
+            value=supriya.patterns.Pseq([0.25, 0.5, 1.0, 2.0], None),
             )
         slot = self.mixer['track'].add_trigger_pattern_slot(
             'trigger',
@@ -140,8 +140,8 @@ class TestCase(systemtools.TestCase):
 
     def test_maximum_replicas(self):
         self.mixer.allocate()
-        pattern = patterntools.Pbind(
-            value=patterntools.Pseq([1, 2, 3, 4, 5], None),
+        pattern = supriya.patterns.Pbind(
+            value=supriya.patterns.Pseq([1, 2, 3, 4, 5], None),
             )
         slot = self.mixer['track'].add_trigger_pattern_slot(
             'trigger',

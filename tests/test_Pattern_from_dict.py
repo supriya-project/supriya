@@ -1,6 +1,6 @@
 import yaml
 import uqbar.strings
-from supriya import patterntools
+import supriya.patterns
 from supriya import systemtools
 from supriya import utils
 
@@ -13,7 +13,7 @@ class TestCase(systemtools.TestCase):
             type: Pwhite
         """)
         dict_ = yaml.load(string)
-        pattern = patterntools.Pattern.from_dict(dict_['pattern'])
+        pattern = supriya.patterns.Pattern.from_dict(dict_['pattern'])
         assert repr(pattern) == uqbar.strings.normalize("""
             Pwhite()
             """)
@@ -40,7 +40,7 @@ class TestCase(systemtools.TestCase):
                 pan=0.1,
                 )
             )
-        pattern = patterntools.Pattern.from_dict(
+        pattern = supriya.patterns.Pattern.from_dict(
             dict_['pattern'], namespaces=namespaces)
         assert repr(pattern) == uqbar.strings.normalize("""
             Pbind(
@@ -80,7 +80,7 @@ class TestCase(systemtools.TestCase):
                 birds=[1, 2, 3],
                 ),
             )
-        pattern = patterntools.Pattern.from_dict(
+        pattern = supriya.patterns.Pattern.from_dict(
             dict_['pattern'], namespaces=namespaces)
         assert repr(pattern) == uqbar.strings.normalize("""
             Pbind(
@@ -117,7 +117,7 @@ class TestCase(systemtools.TestCase):
                 pan=0.1,
                 )
             )
-        pattern = patterntools.Pattern.from_dict(
+        pattern = supriya.patterns.Pattern.from_dict(
             dict_['pattern'], namespaces=namespaces)
         assert repr(pattern) == uqbar.strings.normalize("""
             Pbind(

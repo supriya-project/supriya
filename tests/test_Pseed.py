@@ -1,5 +1,5 @@
 from supriya.tools import systemtools
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(systemtools.TestCase):
@@ -8,8 +8,8 @@ class TestCase(systemtools.TestCase):
         """
         Unseeded patterns share no state, use stdlib RNG.
         """
-        pattern_one = patterntools.Pwhite()
-        pattern_two = patterntools.Pwhite()
+        pattern_one = supriya.patterns.Pwhite()
+        pattern_two = supriya.patterns.Pwhite()
         iterator_a = iter(pattern_one)
         iterator_b = iter(pattern_one)
         iterator_c = iter(pattern_two)
@@ -29,8 +29,8 @@ class TestCase(systemtools.TestCase):
         """
         Seeded patterns share no state, but are deterministic.
         """
-        pattern_one = patterntools.Pwhite()
-        pattern_two = patterntools.Pseed(patterntools.Pwhite())
+        pattern_one = supriya.patterns.Pwhite()
+        pattern_two = supriya.patterns.Pseed(supriya.patterns.Pwhite())
         iterator_a = iter(pattern_one)
         iterator_b = iter(pattern_one)
         iterator_c = iter(pattern_two)
@@ -50,7 +50,7 @@ class TestCase(systemtools.TestCase):
         """
         Interleaving calls to seeded patterns is same as uninterleaved.
         """
-        pattern = patterntools.Pseed(patterntools.Pwhite())
+        pattern = supriya.patterns.Pseed(supriya.patterns.Pwhite())
         iterator_a = iter(pattern)
         iterator_b = iter(pattern)
         iterator_c = iter(pattern)
@@ -65,9 +65,9 @@ class TestCase(systemtools.TestCase):
         """
         Different seed values yield different results, but still deterministic.
         """
-        pattern_a = patterntools.Pseed(patterntools.Pwhite(), seed=0)
-        pattern_b = patterntools.Pseed(patterntools.Pwhite(), seed=1)
-        pattern_c = patterntools.Pseed(patterntools.Pwhite(), seed=2)
+        pattern_a = supriya.patterns.Pseed(supriya.patterns.Pwhite(), seed=0)
+        pattern_b = supriya.patterns.Pseed(supriya.patterns.Pwhite(), seed=1)
+        pattern_c = supriya.patterns.Pseed(supriya.patterns.Pwhite(), seed=2)
         iterator_a = iter(pattern_a)
         iterator_b = iter(pattern_b)
         iterator_c = iter(pattern_c)
@@ -93,12 +93,12 @@ class TestCase(systemtools.TestCase):
         The Pseed frame closest to the requesting frame determines which RNG
         is used during iteration.
         """
-        pattern_one = patterntools.Pseed(patterntools.Pwhite(), seed=3)
-        pattern_two = patterntools.Pwhite()
-        pattern_two = patterntools.Pseed(pattern_two, seed=3)
-        pattern_two = patterntools.Pseed(pattern_two, seed=2)
-        pattern_two = patterntools.Pseed(pattern_two, seed=1)
-        pattern_two = patterntools.Pseed(pattern_two, seed=0)
+        pattern_one = supriya.patterns.Pseed(supriya.patterns.Pwhite(), seed=3)
+        pattern_two = supriya.patterns.Pwhite()
+        pattern_two = supriya.patterns.Pseed(pattern_two, seed=3)
+        pattern_two = supriya.patterns.Pseed(pattern_two, seed=2)
+        pattern_two = supriya.patterns.Pseed(pattern_two, seed=1)
+        pattern_two = supriya.patterns.Pseed(pattern_two, seed=0)
         iterator_one = iter(pattern_one)
         iterator_two = iter(pattern_two)
         output_one = [next(iterator_one) for _ in range(10)]
@@ -109,12 +109,12 @@ class TestCase(systemtools.TestCase):
         """
         Pbind builds subgenerators deterministically.
         """
-        pattern = patterntools.Pseed(
-            pattern=patterntools.Pbind(
-                a=patterntools.Pwhite(),
-                b=patterntools.Pwhite(),
-                c=patterntools.Pwhite(),
-                d=patterntools.Pwhite(),
+        pattern = supriya.patterns.Pseed(
+            pattern=supriya.patterns.Pbind(
+                a=supriya.patterns.Pwhite(),
+                b=supriya.patterns.Pwhite(),
+                c=supriya.patterns.Pwhite(),
+                d=supriya.patterns.Pwhite(),
                 uuid=666,
                 ),
             seed=0,

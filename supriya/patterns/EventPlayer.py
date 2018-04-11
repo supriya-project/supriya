@@ -19,14 +19,14 @@ class EventPlayer(SupriyaObject):
         pattern,
         event_template=None,
         ):
-        from supriya.tools import patterntools
-        assert isinstance(pattern, patterntools.Pattern)
+        import supriya.patterns
+        assert isinstance(pattern, supriya.patterns.Pattern)
         self._pattern = pattern
         if event_template is None:
-            event_template = patterntools.NoteEvent()
-        elif issubclass(event_template, patterntools.Event):
+            event_template = supriya.patterns.NoteEvent()
+        elif issubclass(event_template, supriya.patterns.Event):
             event_template = event_template()
-        assert isinstance(event_template, patterntools.Event)
+        assert isinstance(event_template, supriya.patterns.Event)
         self._event_template = event_template
         self._cumulative_time = 0
         self._iterator = None

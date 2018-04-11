@@ -2,7 +2,7 @@ import types
 import uuid
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 
 
@@ -10,7 +10,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_01(self):
         node_uuid = uuid.uuid4()
-        event = patterntools.GroupEvent(
+        event = supriya.patterns.GroupEvent(
             uuid=node_uuid,
             )
         server = types.SimpleNamespace(
@@ -47,7 +47,7 @@ class TestCase(TestCase):
 
     def test__perform_realtime_02(self):
         node_uuid = uuid.uuid4()
-        event = patterntools.GroupEvent(
+        event = supriya.patterns.GroupEvent(
             is_stop=True,
             uuid=node_uuid,
             )

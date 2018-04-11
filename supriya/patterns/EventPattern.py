@@ -1,6 +1,6 @@
 import uuid
 from supriya import utils
-from supriya.tools.patterntools.Pattern import Pattern
+from supriya.patterns.Pattern import Pattern
 
 
 class EventPattern(Pattern):
@@ -12,9 +12,9 @@ class EventPattern(Pattern):
     ### SPECIAL METHODS ###
 
     def _coerce_iterator_output(self, expr, state=None):
-        from supriya.tools import patterntools
-        if not isinstance(expr, patterntools.Event):
-            expr = patterntools.NoteEvent(**expr)
+        import supriya.patterns
+        if not isinstance(expr, supriya.patterns.Event):
+            expr = supriya.patterns.NoteEvent(**expr)
         if expr.get('uuid') is None:
             expr = utils.new(expr, uuid=uuid.uuid4())
         return expr
@@ -22,9 +22,9 @@ class EventPattern(Pattern):
     ### PUBLIC METHODS ###
 
     def play(self, clock=None, server=None):
-        from supriya.tools import patterntools
+        import supriya.patterns
         from supriya.tools import servertools
-        event_player = patterntools.RealtimeEventPlayer(
+        event_player = supriya.patterns.RealtimeEventPlayer(
             self,
             clock=clock,
             server=server or servertools.Server.get_default_server(),
@@ -38,8 +38,8 @@ class EventPattern(Pattern):
         channel_count=None,
         release_time=0.25,
         ):
-        from supriya.tools import patterntools
-        return patterntools.Pbus(
+        import supriya.patterns
+        return supriya.patterns.Pbus(
             self,
             calculation_rate=calculation_rate,
             channel_count=channel_count,
@@ -52,8 +52,8 @@ class EventPattern(Pattern):
         release_time=0.25,
         **settings
         ):
-        from supriya.tools import patterntools
-        return patterntools.Pfx(
+        import supriya.patterns
+        return supriya.patterns.Pfx(
             self,
             synthdef=synthdef,
             release_time=release_time,
@@ -61,8 +61,8 @@ class EventPattern(Pattern):
             )
 
     def with_group(self, release_time=0.25):
-        from supriya.tools import patterntools
-        return patterntools.Pgroup(
+        import supriya.patterns
+        return supriya.patterns.Pgroup(
             self,
             release_time=release_time,
             )

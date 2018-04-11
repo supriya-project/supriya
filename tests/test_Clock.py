@@ -1,6 +1,6 @@
 import time
 import uuid
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import systemtools
 
 
@@ -32,7 +32,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(1.)
         assert [round(_ - now, 6) for _ in manifest] == [0., 0.1, 0.3, 0.6]
@@ -43,7 +43,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.25)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(1.)
         assert [round(_ - now, 6) for _ in manifest] == [0., 0.25, 0.5, 0.75]
@@ -54,7 +54,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event, 0.1)
         time.sleep(1.)
         assert [round(_ - now, 6) for _ in manifest] == [0.1, 0.2, 0.4, 0.7]
@@ -65,7 +65,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = time.time()
         clock.schedule(event, now + 0.25, absolute=True)
         time.sleep(1.)
@@ -78,7 +78,7 @@ class TestCase(systemtools.TestCase):
         manifest = []
         event_a = self.Event(manifest, delta=0.25)
         event_b = self.Event(manifest, delta=0.1)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event_a)
         clock.schedule(event_b, now + 0.1, absolute=True)
         time.sleep(1.)
@@ -90,7 +90,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.25)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(0.4)
         clock.reset()
@@ -102,7 +102,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.25)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(0.4)
         clock.cancel(event)
@@ -115,7 +115,7 @@ class TestCase(systemtools.TestCase):
         manifest = []
         registry_key = uuid.uuid4()
         event = self.Event(manifest, delta=0.25)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event, registry_key=registry_key)
         time.sleep(0.4)
         clock.cancel(registry_key)
@@ -128,7 +128,7 @@ class TestCase(systemtools.TestCase):
         manifest = []
         registry_key = uuid.uuid4()
         event = self.Event(manifest, delta=0.25)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event, registry_key=registry_key)
         time.sleep(0.4)
         clock.cancel(event)
@@ -142,7 +142,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.25, save_execution_time=True)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event, -0.1)
         time.sleep(1)
         assert [(round(x - now, 6), round(y - now, 3)) for x, y in manifest] == [
@@ -154,7 +154,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.25, save_execution_time=True)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = time.time()
         now = clock.schedule(event, now - 0.1, absolute=True)
         time.sleep(1)
@@ -168,7 +168,7 @@ class TestCase(systemtools.TestCase):
         manifest = []
         event_a = self.Event(manifest)
         event_b = self.Event(manifest)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event_a)
         now = clock.schedule(event_b)
         time.sleep(1.)
@@ -181,7 +181,7 @@ class TestCase(systemtools.TestCase):
         """
         manifest = []
         event = self.Event(manifest, delta=0.01, save_execution_time=True)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(0.1)
         assert [(round(x - now, 6), round(y - now, 6)) for x, y in manifest] == [
@@ -189,7 +189,7 @@ class TestCase(systemtools.TestCase):
             ]
         manifest = []
         event = self.Event(manifest, delta=0.001, save_execution_time=True)
-        clock = patterntools.Clock()
+        clock = supriya.patterns.Clock()
         now = clock.schedule(event)
         time.sleep(0.1)
         assert [(round(x - now, 6), round(y - now, 6)) for x, y in manifest] == [

@@ -1,6 +1,6 @@
 import uuid
 from supriya import utils
-from supriya.tools.patterntools.EventPattern import EventPattern
+from supriya.patterns.EventPattern import EventPattern
 
 
 class Pbus(EventPattern):
@@ -44,16 +44,16 @@ class Pbus(EventPattern):
 
     def _coerce_iterator_output(self, expr, state):
         from supriya import synthdefs
-        from supriya.tools import patterntools
+        import supriya.patterns
         expr = super(Pbus, self)._coerce_iterator_output(expr)
         if (
-            isinstance(expr, patterntools.NoteEvent) or
+            isinstance(expr, supriya.patterns.NoteEvent) or
             not expr.get('is_stop')
             ):
             kwargs = {}
             if expr.get('target_node') is None:
                 kwargs['target_node'] = state['group_uuid']
-            prototype = (patterntools.NoteEvent, patterntools.SynthEvent)
+            prototype = (supriya.patterns.NoteEvent, supriya.patterns.SynthEvent)
             if isinstance(expr, prototype):
                 synthdef = expr.get('synthdef') or synthdefs.default
                 parameter_names = synthdef.parameter_names
@@ -76,7 +76,7 @@ class Pbus(EventPattern):
 
     def _setup_peripherals(self, initial_expr, state):
         from supriya import synthdefs
-        from supriya.tools import patterntools
+        import supriya.patterns
         from supriya.tools import synthdeftools
         channel_count = self.channel_count
         if channel_count is None:
@@ -87,15 +87,15 @@ class Pbus(EventPattern):
         else:
             link_synthdef_name = 'system_link_control_{}'.format(channel_count)
         link_synthdef = getattr(synthdefs, link_synthdef_name)
-        start_bus_event = patterntools.BusEvent(
+        start_bus_event = supriya.patterns.BusEvent(
             calculation_rate=self.calculation_rate,
             channel_count=channel_count,
             uuid=state['bus_uuid'],
             )
-        start_group_event = patterntools.GroupEvent(
+        start_group_event = supriya.patterns.GroupEvent(
             uuid=state['group_uuid'],
             )
-        start_link_event = patterntools.SynthEvent(
+        start_link_event = supriya.patterns.SynthEvent(
             add_action='ADD_AFTER',
             amplitude=1.0,
             fade_time=self.release_time,
@@ -104,15 +104,15 @@ class Pbus(EventPattern):
             target_node=state['group_uuid'],
             uuid=state['link_uuid'],
             )
-        stop_link_event = patterntools.SynthEvent(
+        stop_link_event = supriya.patterns.SynthEvent(
             uuid=state['link_uuid'],
             is_stop=True,
             )
-        stop_group_event = patterntools.GroupEvent(
+        stop_group_event = supriya.patterns.GroupEvent(
             uuid=state['group_uuid'],
             is_stop=True,
             )
-        stop_bus_event = patterntools.BusEvent(
+        stop_bus_event = supriya.patterns.BusEvent(
             uuid=state['bus_uuid'],
             is_stop=True,
             )
@@ -124,7 +124,7 @@ class Pbus(EventPattern):
         peripheral_stops = [stop_link_event]
         delta = self._release_time or 0
         if delta:
-            peripheral_stops.append(patterntools.NullEvent(delta=delta))
+            peripheral_stops.append(supriya.patterns.NullEvent(delta=delta))
         peripheral_stops.extend([
             stop_group_event,
             stop_bus_event,

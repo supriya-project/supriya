@@ -2,21 +2,21 @@ import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pattern = patterntools.Pgpar([
-        patterntools.Pmono(
+    pattern = supriya.patterns.Pgpar([
+        supriya.patterns.Pmono(
             amplitude=1.0,
             duration=1.0,
-            frequency=patterntools.Pseq([440, 660, 880, 990], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880, 990], 1),
             ),
-        patterntools.Pbind(
+        supriya.patterns.Pbind(
             amplitude=1.0,
             duration=0.75,
-            frequency=patterntools.Pseq([222, 333, 444, 555], 1),
+            frequency=supriya.patterns.Pseq([222, 333, 444, 555], 1),
             ),
         ])
 

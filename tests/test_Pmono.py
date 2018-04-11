@@ -2,21 +2,21 @@ import time
 from patterntools_testbase import TestCase
 from supriya import synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pmono_01 = patterntools.Pmono(
+    pmono_01 = supriya.patterns.Pmono(
         amplitude=1.0,
-        duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=patterntools.Pseq([440, 660, 880], 1),
+        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+        frequency=supriya.patterns.Pseq([440, 660, 880], 1),
         )
 
-    pmono_02 = patterntools.Pmono(
+    pmono_02 = supriya.patterns.Pmono(
         amplitude=1.0,
-        duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-        frequency=patterntools.Pseq([[440, 550], [550, 660], [660, 770]]),
+        duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+        frequency=supriya.patterns.Pseq([[440, 550], [550, 660], [660, 770]]),
         )
 
     def test_manual_incommunicado_pmono_01(self):
@@ -31,7 +31,7 @@ class TestCase(TestCase):
         assert deltas == [1.0, 2.0, 3.0, None]
 
     def test_manual_communicado_pmono_01(self):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             self.pmono_01,
             server=self.server,
             )
@@ -113,7 +113,7 @@ class TestCase(TestCase):
         assert deltas == [1.0, 2.0, 3.0, None]
 
     def test_manual_communicado_pmono_02(self):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             self.pmono_02,
             server=self.server,
             )

@@ -39,8 +39,8 @@ class Pattern(SupriyaValueObject):
 
         ::
 
-            >>> pattern = patterntools.Pseq([1, 2, 3])
-            >>> expr = patterntools.Pseq([0, 10])
+            >>> pattern = supriya.patterns.Pseq([1, 2, 3])
+            >>> expr = supriya.patterns.Pseq([0, 10])
             >>> list(pattern + expr)
             [1, 12]
 
@@ -58,7 +58,7 @@ class Pattern(SupriyaValueObject):
 
         ::
 
-            >>> pattern = patterntools.Pseq([[1, [2, 3]], [[4, 5], 6, 7]])
+            >>> pattern = supriya.patterns.Pseq([[1, [2, 3]], [[4, 5], 6, 7]])
             >>> expr = [10, [100, 1000]]
             >>> for x in (pattern + expr):
             ...     x
@@ -67,47 +67,47 @@ class Pattern(SupriyaValueObject):
             [[14, 15], [106, 1006], 17]
 
         """
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(self, '+', expr)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(self, '+', expr)
 
     def __div__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(self, '/', expr)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(self, '/', expr)
 
     def __mul__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(self, '*', expr)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(self, '*', expr)
 
     def __pow__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(self, '**', expr)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(self, '**', expr)
 
     def __radd__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(expr, '+', self)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(expr, '+', self)
 
     def __rdiv__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(expr, '/', self)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(expr, '/', self)
 
     def __rmul__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(expr, '*', self)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(expr, '*', self)
 
     def __rpow__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(expr, '**', self)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(expr, '**', self)
 
     def __rsub__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(expr, '-', self)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(expr, '-', self)
 
     def __sub__(self, expr):
-        from supriya.tools import patterntools
-        return patterntools.Pbinop(self, '-', expr)
+        import supriya.patterns
+        return supriya.patterns.Pbinop(self, '-', expr)
 
     def __iter__(self):
-        from supriya.tools import patterntools
+        import supriya.patterns
         should_stop = self.PatternState.CONTINUE
         state = self._setup_state()
         iterator = self._iterate(state)
@@ -120,7 +120,7 @@ class Pattern(SupriyaValueObject):
         peripheral_starts, peripheral_stops = self._setup_peripherals(
             initial_expr, state)
         if peripheral_starts:
-            peripheral_starts = patterntools.CompositeEvent(
+            peripheral_starts = supriya.patterns.CompositeEvent(
                 delta=0.0,
                 events=peripheral_starts,
                 )
@@ -137,7 +137,7 @@ class Pattern(SupriyaValueObject):
                 except StopIteration:
                     break
         if peripheral_stops:
-            peripheral_stops = patterntools.CompositeEvent(
+            peripheral_stops = supriya.patterns.CompositeEvent(
                 delta=0.0,
                 events=peripheral_stops,
                 is_stop=True,
@@ -151,8 +151,8 @@ class Pattern(SupriyaValueObject):
         return expr
 
     def _coerce_iterator_output_recursively(self, expr, state=None):
-        from supriya.tools import patterntools
-        if isinstance(expr, patterntools.CompositeEvent):
+        import supriya.patterns
+        if isinstance(expr, supriya.patterns.CompositeEvent):
             coerced_events = [
                 self._coerce_iterator_output(child_event, state=state)
                 for child_event in expr.get('events') or ()
@@ -202,7 +202,7 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def _get_rng(cls):
-        from supriya.tools.patterntools import Pseed, RandomNumberGenerator
+        from supriya.tools.supriya.patterns import Pseed, RandomNumberGenerator
         pseed_file_path = Pseed._file_path
         identifier = None
         try:
@@ -265,10 +265,10 @@ class Pattern(SupriyaValueObject):
 
     @classmethod
     def from_dict(cls, dict_, namespaces=None):
-        from supriya.tools import patterntools
+        import supriya.patterns
         namespaces = namespaces or {}
         class_name = dict_['type']
-        class_ = getattr(patterntools, class_name)
+        class_ = getattr(supriya.patterns, class_name)
         kwargs = {}
         for key, value in dict_.items():
             if key == 'type':

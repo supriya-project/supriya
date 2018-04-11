@@ -1,4 +1,4 @@
-from supriya.tools.patterntools.Event import Event
+from supriya.patterns.Event import Event
 
 
 class NullEvent(Event):
@@ -44,8 +44,8 @@ class NullEvent(Event):
         timestamp=0,
         uuids=None,
         ):
-        from supriya.tools import patterntools
-        event_product = patterntools.EventProduct(
+        import supriya.patterns
+        event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
             is_stop=False,

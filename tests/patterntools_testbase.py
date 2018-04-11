@@ -1,6 +1,6 @@
 import types
 from supriya import synthdefs
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import servertools
 from supriya.tools import systemtools
 
@@ -34,7 +34,7 @@ class TestCase(systemtools.TestCase):
         super(TestCase, self).tearDown()
 
     def manual_incommunicado(self, pattern, timestamp=10):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             pattern,
             server=self.pseudo_server,
             )

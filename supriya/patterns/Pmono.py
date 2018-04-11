@@ -1,6 +1,6 @@
 import uuid
 from supriya import utils
-from supriya.tools.patterntools.Pbind import Pbind
+from supriya.patterns.Pbind import Pbind
 
 
 class Pmono(Pbind):
@@ -9,9 +9,9 @@ class Pmono(Pbind):
 
     ::
 
-        >>> pattern = patterntools.Pmono(
-        ...     pitch=patterntools.Pseq([0, 3, 7]),
-        ...     duration=patterntools.Pseq([0.5, 0.25, 0.25]),
+        >>> pattern = supriya.patterns.Pmono(
+        ...     pitch=supriya.patterns.Pseq([0, 3, 7]),
+        ...     duration=supriya.patterns.Pseq([0.5, 0.25, 0.25]),
         ...     )
 
     ::
@@ -42,12 +42,12 @@ class Pmono(Pbind):
 
     ::
 
-        >>> pattern = patterntools.Pseq([
-        ...     patterntools.Pmono(
-        ...         pitch=patterntools.Pseq([1, 2, 3], 1),
+        >>> pattern = supriya.patterns.Pseq([
+        ...     supriya.patterns.Pmono(
+        ...         pitch=supriya.patterns.Pseq([1, 2, 3], 1),
         ...         ),
-        ...     patterntools.Pmono(
-        ...         pitch=patterntools.Pseq([4, 5, 6], 1),
+        ...     supriya.patterns.Pmono(
+        ...         pitch=supriya.patterns.Pseq([4, 5, 6], 1),
         ...         ),
         ...     ], 1)
 

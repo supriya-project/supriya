@@ -1,21 +1,21 @@
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pattern = patterntools.Pchain([
-        patterntools.Pbind(
+    pattern = supriya.patterns.Pchain([
+        supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-            frequency=patterntools.Pseq([440, 660, 880], 1),
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
             ),
-        patterntools.Pbind(
-            amplitude=patterntools.Pseq([0.111, 0.333, 0.666, 1.0]),
+        supriya.patterns.Pbind(
+            amplitude=supriya.patterns.Pseq([0.111, 0.333, 0.666, 1.0]),
             ),
-        patterntools.Pbind(
-            pan=patterntools.Pseq([0., 0.5, 1.0, 0.5]),
+        supriya.patterns.Pbind(
+            pan=supriya.patterns.Pseq([0., 0.5, 1.0, 0.5]),
             ),
         ])
 

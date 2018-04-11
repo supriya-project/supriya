@@ -1,4 +1,4 @@
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import systemtools
 from supriya.tools.livetools.PatternSlot import PatternSlot
 
@@ -37,7 +37,7 @@ class AutoPatternSlot(PatternSlot):
             kwargs['target_node'] = self._group
             if self._synthdef is not None:
                 kwargs['synthdef'] = self._synthdef
-            pattern = patterntools.Pbindf(self._pattern, **kwargs)
+            pattern = supriya.patterns.Pbindf(self._pattern, **kwargs)
             self._event_player = pattern.play()
         elif not state:
             self._event_player.stop()
@@ -45,7 +45,7 @@ class AutoPatternSlot(PatternSlot):
         return state
 
     def set_pattern(self, pattern):
-        assert isinstance(pattern, patterntools.EventPattern)
+        assert isinstance(pattern, supriya.patterns.EventPattern)
         self._pattern = pattern
         if self._event_player is None:
             return

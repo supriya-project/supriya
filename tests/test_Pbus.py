@@ -3,26 +3,26 @@ import uqbar.strings
 from patterntools_testbase import TestCase
 from supriya import SynthDefBuilder, Parameter, synthdefs
 from supriya.tools import nonrealtimetools
-from supriya.tools import patterntools
+import supriya.patterns
 from supriya.tools import ugentools
 
 
 class TestCase(TestCase):
 
-    pbus_01 = patterntools.Pbus(
-        pattern=patterntools.Pbind(
+    pbus_01 = supriya.patterns.Pbus(
+        pattern=supriya.patterns.Pbind(
             amplitude=1.0,
-            duration=patterntools.Pseq([1.0, 2.0, 3.0], 1),
-            frequency=patterntools.Pseq([440, 660, 880], 1),
+            duration=supriya.patterns.Pseq([1.0, 2.0, 3.0], 1),
+            frequency=supriya.patterns.Pseq([440, 660, 880], 1),
             ),
         release_time=0.25,
         )
 
-    pbus_02 = patterntools.Pbus(
-        patterntools.Pmono(
+    pbus_02 = supriya.patterns.Pbus(
+        supriya.patterns.Pmono(
             amplitude=1.0,
             duration=0.75,
-            frequency=patterntools.Pseq([222, 333, 444], 1),
+            frequency=supriya.patterns.Pseq([222, 333, 444], 1),
             ),
         )
 
@@ -437,7 +437,7 @@ class TestCase(TestCase):
         assert deltas == [1.0, 2.0, 3.0, 0.25, None]
 
     def test_manual_communicado_pbind_01(self):
-        player = patterntools.RealtimeEventPlayer(
+        player = supriya.patterns.RealtimeEventPlayer(
             self.pbus_01,
             server=self.server,
             )
@@ -633,8 +633,8 @@ class TestCase(TestCase):
             ugentools.Line.kr(duration=2),
             ugentools.Out.ar(bus=builder['out'], source=ugentools.DC.ar(1))
         dc_synthdef = builder.build()
-        pattern = patterntools.Pbus(
-            patterntools.Pbind(
+        pattern = supriya.patterns.Pbus(
+            supriya.patterns.Pbind(
                 delta=1,
                 duration=1,
                 synthdef=dc_synthdef,

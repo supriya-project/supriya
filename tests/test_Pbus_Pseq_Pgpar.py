@@ -1,34 +1,34 @@
 import uqbar.strings
 from patterntools_testbase import TestCase
-from supriya.tools import patterntools
+import supriya.patterns
 
 
 class TestCase(TestCase):
 
-    pattern = patterntools.Pbus(
-        pattern=patterntools.Pseq([
-            patterntools.Pgpar([
-                patterntools.Pbind(
+    pattern = supriya.patterns.Pbus(
+        pattern=supriya.patterns.Pseq([
+            supriya.patterns.Pgpar([
+                supriya.patterns.Pbind(
                     amplitude=1.0,
-                    duration=patterntools.Pseq([1.0], 1),
-                    frequency=patterntools.Pseq([440], 1),
+                    duration=supriya.patterns.Pseq([1.0], 1),
+                    frequency=supriya.patterns.Pseq([440], 1),
                     ),
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     amplitude=0.75,
-                    duration=patterntools.Pseq([1.0], 1),
-                    frequency=patterntools.Pseq([880], 1),
+                    duration=supriya.patterns.Pseq([1.0], 1),
+                    frequency=supriya.patterns.Pseq([880], 1),
                     ),
                 ]),
-            patterntools.Pgpar([
-                patterntools.Pbind(
+            supriya.patterns.Pgpar([
+                supriya.patterns.Pbind(
                     amplitude=0.5,
-                    duration=patterntools.Pseq([2.0], 1),
-                    frequency=patterntools.Pseq([330], 1),
+                    duration=supriya.patterns.Pseq([2.0], 1),
+                    frequency=supriya.patterns.Pseq([330], 1),
                     ),
-                patterntools.Pbind(
+                supriya.patterns.Pbind(
                     amplitude=0.25,
-                    duration=patterntools.Pseq([2.0], 1),
-                    frequency=patterntools.Pseq([660], 1),
+                    duration=supriya.patterns.Pseq([2.0], 1),
+                    frequency=supriya.patterns.Pseq([660], 1),
                     ),
                 ]),
             ]),

@@ -55,12 +55,12 @@ class Group(Node):
         offset=None,
         seed=None,
         ):
-        from supriya.tools import patterntools
+        import supriya.patterns
 
-        assert isinstance(pattern, patterntools.Pattern)
+        assert isinstance(pattern, supriya.patterns.Pattern)
 
         if seed is not None:
-            pattern = patterntools.Pseed(
+            pattern = supriya.patterns.Pseed(
                 pattern=pattern,
                 seed=seed,
                 )
@@ -71,7 +71,7 @@ class Group(Node):
             duration = float(duration)
             assert duration
 
-        should_stop = patterntools.Pattern.PatternState.CONTINUE
+        should_stop = supriya.patterns.Pattern.PatternState.CONTINUE
         maximum_offset = offset + duration
         actual_stop_offset = offset
         iterator = iter(pattern)
@@ -87,7 +87,7 @@ class Group(Node):
 
         if (
             duration is not None and
-            isinstance(event, patterntools.NoteEvent) and
+            isinstance(event, supriya.patterns.NoteEvent) and
             self._get_stop_offset(offset, event) > maximum_offset
             ):
             return offset
@@ -119,14 +119,14 @@ class Group(Node):
             #print('[INSCRIBE]    START:', offset)
             if (
                 maximum_offset is not None and
-                isinstance(event, patterntools.NoteEvent)
+                isinstance(event, supriya.patterns.NoteEvent)
                 ):
                 if (
                     event.get('duration', 0) == 0 and
                     offset == maximum_offset
                     ):
                     # Current event is 0-duration and we're at our stop.
-                    should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
                     offset = actual_stop_offset
                     #print('[INSCRIBE]', 'STOPPING EXACT')
                     #print('[INSCRIBE]    STOP:', actual_stop_offset)
@@ -134,7 +134,7 @@ class Group(Node):
                     continue
                 elif self._get_stop_offset(offset, event) > maximum_offset:
                     # We would legitimately overshoot.
-                    should_stop = patterntools.Pattern.PatternState.NONREALTIME_STOP
+                    should_stop = supriya.patterns.Pattern.PatternState.NONREALTIME_STOP
                     offset = actual_stop_offset
                     #print('[INSCRIBE]', 'STOPPING OVERHANG')
                     #print('[INSCRIBE]    STOP:', actual_stop_offset)

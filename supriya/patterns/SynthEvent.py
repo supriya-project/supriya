@@ -1,7 +1,7 @@
 import uuid
 from supriya.tools import requesttools
 from supriya.tools import servertools
-from supriya.tools.patterntools.Event import Event
+from supriya.patterns.Event import Event
 
 
 class SynthEvent(Event):
@@ -95,7 +95,7 @@ class SynthEvent(Event):
         ):
         # TODO: Should this handle multichannel expansion?
         from supriya import synthdefs
-        from supriya.tools import patterntools
+        import supriya.patterns
         node_uuid = self.get('uuid') or uuid.uuid4()
         requests = []
         synthdef = self.get('synthdef') or synthdefs.default
@@ -131,7 +131,7 @@ class SynthEvent(Event):
                 node_ids=sorted(uuids[node_uuid]),
                 )
             requests.append(request)
-        event_product = patterntools.EventProduct(
+        event_product = supriya.patterns.EventProduct(
             event=self,
             index=index,
             is_stop=self.get('is_stop'),

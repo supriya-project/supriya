@@ -1,4 +1,4 @@
-from supriya.tools.patterntools.Event import Event
+from supriya.patterns.Event import Event
 
 
 class CompositeEvent(Event):

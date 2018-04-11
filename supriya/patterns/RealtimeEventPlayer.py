@@ -5,7 +5,7 @@ from supriya import utils
 from supriya.tools import requesttools
 from supriya.tools import servertools
 from supriya.tools import systemtools
-from supriya.tools.patterntools.EventPlayer import EventPlayer
+from supriya.patterns.EventPlayer import EventPlayer
 
 
 class RealtimeEventPlayer(EventPlayer):
@@ -29,14 +29,14 @@ class RealtimeEventPlayer(EventPlayer):
         event_template=None,
         clock=None,
         ):
-        from supriya.tools import patterntools
+        import supriya.patterns
         EventPlayer.__init__(
             self,
             pattern,
             event_template,
             )
-        clock = clock or patterntools.Clock.get_default_clock()
-        assert isinstance(clock, patterntools.Clock)
+        clock = clock or supriya.patterns.Clock.get_default_clock()
+        assert isinstance(clock, supriya.patterns.Clock)
         self._server = server or servertools.Server.get_default_server()
         self._clock = clock
         self._iterator = None
