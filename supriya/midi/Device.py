@@ -6,10 +6,10 @@ import rtmidi
 import threading
 import uqbar.containers
 from supriya.tools import systemtools
-from supriya.tools.miditools.LogicalView import LogicalView
-from supriya.tools.miditools.LogicalControl import LogicalControl
-from supriya.tools.miditools.LogicalControlMode import LogicalControlMode
-from supriya.tools.miditools.PhysicalControl import PhysicalControl
+from supriya.midi.LogicalView import LogicalView
+from supriya.midi.LogicalControl import LogicalControl
+from supriya.midi.LogicalControlMode import LogicalControlMode
+from supriya.midi.PhysicalControl import PhysicalControl
 
 
 logging.basicConfig(
@@ -83,7 +83,7 @@ class Device:
         has_led=None,
         mode=None,
         ):
-        from supriya.tools import miditools
+        import supriya.midi
         assert control_name not in self._physical_controls
         physical_control = PhysicalControl(
             self,
@@ -101,9 +101,9 @@ class Device:
         self._physical_controls_by_group.setdefault(
             group_name, []).append(physical_control)
         if message_type == 'note':
-            message_class = miditools.NoteOnMessage
+            message_class = supriya.midi.NoteOnMessage
         elif message_type == 'controller':
-            message_class = miditools.ControllerChangeMessage
+            message_class = supriya.midi.ControllerChangeMessage
         else:
             raise Exception
         key = (message_class, channel, message_value)
@@ -307,20 +307,20 @@ class Device:
         return templates
 
     def _process_physical_control(self, message, timestamp):
-        from supriya.tools import miditools
+        import supriya.midi
         if timestamp is None:
             message, timestamp = message
         status_byte, data = message[0], message[1:]
         message_type = status_byte >> 4
         channel = status_byte & 0x0f
         if message_type == 8:
-            message_class = miditools.NoteOnMessage
+            message_class = supriya.midi.NoteOnMessage
             message_number, value = data
         elif message_type == 9:
-            message_class = miditools.NoteOnMessage
+            message_class = supriya.midi.NoteOnMessage
             message_number, value = data[0], 0
         elif message_type == 11:
-            message_class = miditools.ControllerChangeMessage
+            message_class = supriya.midi.ControllerChangeMessage
             message_number, value = data
         else:
             raise Exception(message)

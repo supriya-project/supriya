@@ -97,7 +97,7 @@ def import_structured_package(
 
 from supriya import utils  # noqa
 from supriya import tools  # noqa
-from supriya.tools.miditools import Device  # noqa
+from supriya.midi import Device  # noqa
 from supriya.tools.livetools import Application, Mixer  # noqa
 from supriya.tools.nonrealtimetools import Session  # noqa
 from supriya.tools.servertools import (  # noqa

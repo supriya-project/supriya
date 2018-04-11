@@ -1,4 +1,4 @@
-from supriya.tools.miditools.MidiMessage import MidiMessage
+from supriya.midi.MidiMessage import MidiMessage
 
 
 class ControllerChangeMessage(MidiMessage):

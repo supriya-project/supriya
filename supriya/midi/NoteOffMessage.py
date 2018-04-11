@@ -1,7 +1,7 @@
-from supriya.tools.miditools.MidiMessage import MidiMessage
+from supriya.midi.MidiMessage import MidiMessage
 
 
-class NoteOnMessage(MidiMessage):
+class NoteOffMessage(MidiMessage):
 
     ### CLASS VARIABLES ###
 

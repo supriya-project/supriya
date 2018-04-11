@@ -182,7 +182,7 @@ class Application:
             self._buffer_names_to_file_paths[name] = file_paths
 
     def _setup_devices(self):
-        from supriya.tools import miditools
+        import supriya.midi
         self._devices = {}
         device_specs = self.manifest.get('devices') or []
         for device_spec in device_specs:
@@ -190,7 +190,7 @@ class Application:
             if name in self._devices:
                 raise ValueError(device_spec)
             manifest_path = self._lookup_file_paths(path)[0]
-            self._devices[name] = miditools.Device(
+            self._devices[name] = supriya.midi.Device(
                 manifest_path,
                 overrides=device_spec.get('overrides'),
                 )

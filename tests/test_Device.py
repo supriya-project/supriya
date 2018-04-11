@@ -1,6 +1,6 @@
 import unittest
+import supriya.midi
 from supriya import Bindable, bind
-from supriya.tools import miditools
 from supriya.tools import systemtools
 from unittest import mock
 
@@ -8,7 +8,7 @@ from unittest import mock
 class TestCase(systemtools.TestCase):
 
     def test___init___01(self):
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         self.compare_strings(
             device.root_view._debug(),
             """
@@ -78,10 +78,10 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test___init___02(self):
-        device_one = miditools.Device('Test')
+        device_one = supriya.midi.Device('Test')
         manifest = device_one._device_manifest.copy()
         manifest['device'].pop('logical_controls')
-        device_two = miditools.Device(manifest)
+        device_two = supriya.midi.Device(manifest)
         self.compare_strings(
             device_two.root_view._debug(),
             """
@@ -122,7 +122,7 @@ class TestCase(systemtools.TestCase):
             """)
 
     def test_process_physical_control_01(self):
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         message = [0x80, 0x01, 0x7F]
         physical_control, value = device._process_physical_control(message, 0.0)
         assert physical_control.boolean_polarity is None
@@ -130,7 +130,7 @@ class TestCase(systemtools.TestCase):
         assert value == 1.0
 
     def test_process_physical_control_02(self):
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         message = [0x81, 0x03, 0x00]
         physical_control, value = device._process_physical_control(message, 0.0)
         assert physical_control.boolean_polarity == [0, 127]
@@ -138,7 +138,7 @@ class TestCase(systemtools.TestCase):
         assert value == 1.0
 
     def test_mutex_01(self):
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         self.compare_strings(
             device.root_view._debug(only_visible=True),
             """
@@ -350,7 +350,7 @@ class TestCase(systemtools.TestCase):
                 return value
 
         class_ = TestClass()
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         control = device['clip_launch_1x1']
         bind(control, class_)
         control(1)
@@ -374,7 +374,7 @@ class TestCase(systemtools.TestCase):
                 return value
 
         class_ = TestClass()
-        device = miditools.Device('Test')
+        device = supriya.midi.Device('Test')
         control = device['clip_launch_1x1']
         bind(control, class_)
         control(1)

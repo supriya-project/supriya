@@ -1,5 +1,5 @@
 import collections
-from supriya.tools.miditools.LogicalControl import LogicalControl
+from supriya.midi.LogicalControl import LogicalControl
 
 
 class LogicalView:

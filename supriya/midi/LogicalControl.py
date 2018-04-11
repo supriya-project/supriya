@@ -1,5 +1,5 @@
 from supriya.tools import systemtools
-from supriya.tools.miditools.LogicalControlMode import LogicalControlMode
+from supriya.midi.LogicalControlMode import LogicalControlMode
 
 
 class LogicalControl:
