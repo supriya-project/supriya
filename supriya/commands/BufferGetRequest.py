@@ -80,12 +80,12 @@ class BufferGetRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.BufferSetResponse: {
+            supriya.commands.BufferSetResponse: {
                 'buffer_id': self.buffer_id,
                 },
-            responsetools.FailResponse: {
+            supriya.commands.FailResponse: {
                 'failed_command': '/b_get',
                 }
             }

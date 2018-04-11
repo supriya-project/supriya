@@ -47,8 +47,8 @@ class Poll(UGen):
 
             >>> server = Server().boot()
             >>> synth = Synth(synthdef).allocate()
-            >>> response_callback = responsetools.ResponseCallback(
-            ...     prototype=responsetools.TriggerResponse,
+            >>> response_callback = supriya.commands.ResponseCallback(
+            ...     prototype=supriya.commands.TriggerResponse,
             ...     procedure=lambda response: print(
             ...         'Poll value is: {}'.format(response.trigger_value)),
             ...     )

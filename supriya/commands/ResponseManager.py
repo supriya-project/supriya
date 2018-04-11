@@ -9,9 +9,9 @@ class ResponseManager(SupriyaObject):
 
     ::
 
+        >>> import supriya.commands
         >>> import supriya.osc
-        >>> from supriya import responsetools
-        >>> manager = responsetools.ResponseManager
+        >>> manager = supriya.commands.ResponseManager
 
     ::
 
@@ -139,24 +139,24 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_b_info(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         responses = []
         for group in ResponseManager.group_items(contents, 4):
-            response = responsetools.BufferInfoResponse(*group)
+            response = supriya.commands.BufferInfoResponse(*group)
             responses.append(response)
         responses = tuple(responses)
         return responses
 
     @staticmethod
     def handle_b_set(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         buffer_id, remainder = contents[0], contents[1:]
         items = []
         for group in ResponseManager.group_items(remainder, 2):
-            item = responsetools.BufferSetItem(*group)
+            item = supriya.commands.BufferSetItem(*group)
             items.append(item)
         items = tuple(items)
-        response = responsetools.BufferSetResponse(
+        response = supriya.commands.BufferSetResponse(
             buffer_id=buffer_id,
             items=items,
             )
@@ -164,21 +164,21 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_b_setn(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         buffer_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             starting_sample_index = remainder[0]
             sample_count = remainder[1]
             sample_values = tuple(remainder[2:2 + sample_count])
-            item = responsetools.BufferSetContiguousItem(
+            item = supriya.commands.BufferSetContiguousItem(
                 starting_sample_index=starting_sample_index,
                 sample_values=sample_values,
                 )
             items.append(item)
             remainder = remainder[2 + sample_count:]
         items = tuple(items)
-        response = responsetools.BufferSetContiguousResponse(
+        response = supriya.commands.BufferSetContiguousResponse(
             buffer_id=buffer_id,
             items=items,
             )
@@ -186,60 +186,60 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_c_set(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         items = []
         for group in ResponseManager.group_items(contents, 2):
-            item = responsetools.ControlBusSetItem(*group)
+            item = supriya.commands.ControlBusSetItem(*group)
             items.append(item)
-        response = responsetools.ControlBusSetResponse(
+        response = supriya.commands.ControlBusSetResponse(
             items=tuple(items),
             )
         return response
 
     @staticmethod
     def handle_c_setn(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         items = []
         while contents:
             starting_bus_id = contents[0]
             bus_count = contents[1]
             bus_values = tuple(contents[2:2 + bus_count])
-            item = responsetools.ControlBusSetContiguousItem(
+            item = supriya.commands.ControlBusSetContiguousItem(
                 starting_bus_id=starting_bus_id,
                 bus_values=bus_values,
                 )
             items.append(item)
             contents = contents[2 + bus_count:]
         items = tuple(items)
-        response = responsetools.ControlBusSetContiguousResponse(
+        response = supriya.commands.ControlBusSetContiguousResponse(
             items=items,
             )
         return response
 
     @staticmethod
     def handle_d_removed(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         synthdef_name = contents[0]
-        response = responsetools.SynthDefRemovedResponse(
+        response = supriya.commands.SynthDefRemovedResponse(
             synthdef_name=synthdef_name,
             )
         return response
 
     @staticmethod
     def handle_done(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         arguments = contents
-        response = responsetools.DoneResponse(action=tuple(arguments))
+        response = supriya.commands.DoneResponse(action=tuple(arguments))
         return response
 
     @staticmethod
     def handle_fail(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         failed_command = contents[0]
         failure_reason = contents[1:]
         if failure_reason:
             failure_reason = tuple(failure_reason)
-        response = responsetools.FailResponse(
+        response = supriya.commands.FailResponse(
             failed_command=failed_command,
             failure_reason=failure_reason,
             )
@@ -258,13 +258,13 @@ class ResponseManager(SupriyaObject):
                     for i in range(control_count):
                         control_name_or_index = contents.pop(0)
                         control_value = contents.pop(0)
-                        control = responsetools.QueryTreeControl(
+                        control = supriya.commands.QueryTreeControl(
                             control_name_or_index=control_name_or_index,
                             control_value=control_value,
                             )
                         controls.append(control)
                 controls = tuple(controls)
-                result = responsetools.QueryTreeSynth(
+                result = supriya.commands.QueryTreeSynth(
                     node_id=node_id,
                     synthdef_name=synthdef_name,
                     controls=controls,
@@ -274,16 +274,16 @@ class ResponseManager(SupriyaObject):
                 for i in range(child_count):
                     children.append(recurse(contents, control_flag))
                 children = tuple(children)
-                result = responsetools.QueryTreeGroup(
+                result = supriya.commands.QueryTreeGroup(
                     node_id=node_id,
                     children=children,
                     )
             return result
-        from supriya.tools import responsetools
+        import supriya.commands
         contents = list(contents)
         control_flag = bool(contents.pop(0))
         query_tree_group = recurse(contents, control_flag)
-        response = responsetools.QueryTreeResponse(
+        response = supriya.commands.QueryTreeResponse(
             node_id=query_tree_group.node_id,
             query_tree_group=query_tree_group,
             )
@@ -291,20 +291,20 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_n_info(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         arguments = (command,) + contents
-        response = responsetools.NodeInfoResponse(*arguments)
+        response = supriya.commands.NodeInfoResponse(*arguments)
         return response
 
     @staticmethod
     def handle_n_set(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         node_id, remainder = contents[0], contents[1:]
         items = []
         for group in ResponseManager.group_items(remainder, 2):
-            item = responsetools.NodeSetItem(*group)
+            item = supriya.commands.NodeSetItem(*group)
             items.append(item)
-        response = responsetools.NodeSetResponse(
+        response = supriya.commands.NodeSetResponse(
             node_id=node_id,
             items=tuple(items),
             )
@@ -312,21 +312,21 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_n_setn(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         node_id, remainder = contents[0], contents[1:]
         items = []
         while remainder:
             control_index_or_name = remainder[0]
             control_count = remainder[1]
             control_values = tuple(remainder[2:2 + control_count])
-            item = responsetools.NodeSetContiguousItem(
+            item = supriya.commands.NodeSetContiguousItem(
                 control_index_or_name=control_index_or_name,
                 control_values=control_values,
                 )
             items.append(item)
             remainder = remainder[2 + control_count:]
         items = tuple(items)
-        response = responsetools.NodeSetContiguousResponse(
+        response = supriya.commands.NodeSetContiguousResponse(
             node_id=node_id,
             items=items,
             )
@@ -334,7 +334,7 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_status_reply(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         arguments = contents[1:]
         (
             ugen_count,
@@ -346,7 +346,7 @@ class ResponseManager(SupriyaObject):
             target_sample_rate,
             actual_sample_rate,
             ) = arguments
-        response = responsetools.StatusResponse(
+        response = supriya.commands.StatusResponse(
             actual_sample_rate=actual_sample_rate,
             average_cpu_usage=average_cpu_usage,
             group_count=group_count,
@@ -360,16 +360,16 @@ class ResponseManager(SupriyaObject):
 
     @staticmethod
     def handle_synced(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         arguments = contents
-        response = responsetools.SyncedResponse(*arguments)
+        response = supriya.commands.SyncedResponse(*arguments)
         return response
 
     @staticmethod
     def handle_tr(command, contents):
-        from supriya.tools import responsetools
+        import supriya.commands
         arguments = contents
-        response = responsetools.TriggerResponse(*arguments)
+        response = supriya.commands.TriggerResponse(*arguments)
         return response
 
 

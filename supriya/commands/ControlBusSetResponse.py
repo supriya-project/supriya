@@ -1,13 +1,12 @@
 import collections
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
-class BufferSetContiguousResponse(Response, collections.Sequence):
+class ControlBusSetResponse(Response, collections.Sequence):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_buffer_id',
         '_items',
         )
 
@@ -16,14 +15,12 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
     def __init__(
         self,
         items=None,
-        buffer_id=None,
         osc_message=None,
         ):
         Response.__init__(
             self,
             osc_message=osc_message,
             )
-        self._buffer_id = buffer_id
         self._items = items
 
     ### SPECIAL METHODS ###
@@ -34,19 +31,7 @@ class BufferSetContiguousResponse(Response, collections.Sequence):
     def __len__(self):
         return len(self._items)
 
-    ### PUBLIC METHODS ###
-
-    def as_dict(self):
-        result = collections.OrderedDict()
-        for item in self:
-            result[item.starting_sample_index] = item.sample_values
-        return result
-
     ### PUBLIC PROPERTIES ###
-
-    @property
-    def buffer_id(self):
-        return self._buffer_id
 
     @property
     def items(self):

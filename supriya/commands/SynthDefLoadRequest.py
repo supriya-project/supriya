@@ -52,9 +52,9 @@ class SynthDefLoadRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.DoneResponse: {
+            supriya.commands.DoneResponse: {
                 'action': ('/d_load',),
                 },
             }

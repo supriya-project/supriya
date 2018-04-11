@@ -143,5 +143,5 @@ from abjad.tools.topleveltools import (  # noqa
     graph,
     )
 from supriya.tools import *  # noqa
-from supriya.tools import responsetools  # noqa
+import supriya.commands  # noqa
 from supriya._version import __version__, __version_info__  # noqa

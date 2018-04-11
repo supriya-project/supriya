@@ -1,19 +1,20 @@
-import collections
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
-class ControlBusSetResponse(Response, collections.Sequence):
+class NodeSetResponse(Response):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
         '_items',
+        '_node_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
+        node_id=None,
         items=None,
         osc_message=None,
         ):
@@ -22,17 +23,14 @@ class ControlBusSetResponse(Response, collections.Sequence):
             osc_message=osc_message,
             )
         self._items = items
-
-    ### SPECIAL METHODS ###
-
-    def __getitem__(self, item):
-        return self._items[item]
-
-    def __len__(self):
-        return len(self._items)
+        self._node_id = node_id
 
     ### PUBLIC PROPERTIES ###
 
     @property
     def items(self):
         return self._items
+
+    @property
+    def node_id(self):
+        return self._node_id

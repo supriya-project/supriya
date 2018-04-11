@@ -75,10 +75,10 @@ class BufferQueryRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         if 1 == len(self.buffer_ids):
             return {
-                responsetools.BufferInfoResponse: {
+                supriya.commands.BufferInfoResponse: {
                     'buffer_id': self.buffer_ids[0],
                     },
                 }

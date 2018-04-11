@@ -10,9 +10,9 @@ class ResponseDispatcher(Dispatcher):
     ### PRIVATE METHODS ###
 
     def _coerce_input(self, expr):
-        from supriya.tools import responsetools
-        if not isinstance(expr, responsetools.Response):
-            response = responsetools.ResponseManager.handle_message(expr)
+        import supriya.commands
+        if not isinstance(expr, supriya.commands.Response):
+            response = supriya.commands.ResponseManager.handle_message(expr)
         if not isinstance(response, tuple):
             response = (response,)
         return response
@@ -22,9 +22,9 @@ class ResponseDispatcher(Dispatcher):
     @property
     def callback_class(self):
         import supriya.commands
-        from supriya.tools import responsetools
+        import supriya.commands
         prototype = (
             supriya.commands.RequestCallback,
-            responsetools.ResponseCallback,
+            supriya.commands.ResponseCallback,
             )
         return prototype

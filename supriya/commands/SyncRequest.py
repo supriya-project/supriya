@@ -63,9 +63,9 @@ class SyncRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.SyncedResponse: {
+            supriya.commands.SyncedResponse: {
                 'sync_id': self.sync_id,
                 },
             }

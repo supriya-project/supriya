@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.ResponseCallback import ResponseCallback
+from supriya.commands.ResponseCallback import ResponseCallback
 
 
 class NodeResponseCallback(ResponseCallback):
@@ -12,16 +12,16 @@ class NodeResponseCallback(ResponseCallback):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
         ResponseCallback.__init__(
             self,
             #address_pattern='/n_(end|go|info|move|off|on|set|setn)',
             procedure=self.__call__,
             prototype=(
-                responsetools.NodeInfoResponse,
-                responsetools.NodeSetContiguousResponse,
-                responsetools.NodeSetResponse,
+                supriya.commands.NodeInfoResponse,
+                supriya.commands.NodeSetContiguousResponse,
+                supriya.commands.NodeSetResponse,
                 ),
             )
         assert isinstance(server, supriya.realtime.Server)

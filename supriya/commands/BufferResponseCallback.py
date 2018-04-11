@@ -1,7 +1,7 @@
-from supriya.tools.responsetools.ResponseCallback import ResponseCallback
+from supriya.commands.ResponseCallback import ResponseCallback
 
 
-class SynthDefResponseCallback(ResponseCallback):
+class BufferResponseCallback(ResponseCallback):
 
     ### CLASS VARIABLES ###
 
@@ -12,14 +12,16 @@ class SynthDefResponseCallback(ResponseCallback):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
         ResponseCallback.__init__(
             self,
-            #address_pattern='/d_removed',
+            #address_pattern='/b_(info|set|setn)',
             procedure=self.__call__,
             prototype=(
-                responsetools.SynthDefRemovedResponse,
+                supriya.commands.BufferInfoResponse,
+                supriya.commands.BufferSetResponse,
+                supriya.commands.BufferSetContiguousResponse,
                 ),
             )
         assert isinstance(server, supriya.realtime.Server)
@@ -28,11 +30,9 @@ class SynthDefResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        synthdef_name = response.synthdef_name
-        synthdef = self._server._synthdefs.get(synthdef_name)
-        if synthdef is None:
-            return
-        synthdef._handle_response(response)
+        buffer_id = response.buffer_id
+        buffer_proxy = self._server._get_buffer_proxy(buffer_id)
+        buffer_proxy._handle_response(response)
 
     ### PUBLIC PROPERTIES ###
 

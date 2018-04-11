@@ -19,12 +19,12 @@ class ResponseCallback(SupriyaObject):
         prototype=None,
         is_one_shot=False,
         ):
-        #from supriya.tools import responsetools
+        #import supriya.commands
         assert callable(procedure)
         if prototype is not None:
             if not isinstance(prototype, tuple):
                 prototype = (prototype,)
-            #prototype = responsetools.Response
+            #prototype = supriya.commands.Response
             #assert all(issubclass(x, prototype) for x in prototype)
         self._procedure = procedure
         self._prototype = prototype

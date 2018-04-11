@@ -50,7 +50,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
         id_mapping=None,
         ):
         import supriya.nonrealtime
-        from supriya.tools import responsetools
+        import supriya.commands
         assert isinstance(node, supriya.nonrealtime.Group)
         node_id = node.session_id
         children = []
@@ -64,7 +64,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                     id_mapping=id_mapping,
                     )
             elif isinstance(child, supriya.nonrealtime.Synth):
-                child = responsetools.QueryTreeSynth._from_nrt_synth(
+                child = supriya.commands.QueryTreeSynth._from_nrt_synth(
                     state,
                     child,
                     include_controls=include_controls,
@@ -106,7 +106,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
     @classmethod
     def from_group(cls, group, include_controls=False):
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
         assert isinstance(group, supriya.realtime.Group)
         node_id = group.node_id
@@ -118,7 +118,7 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
                     include_controls=include_controls,
                     )
             elif isinstance(child, supriya.realtime.Synth):
-                child = responsetools.QueryTreeSynth.from_synth(
+                child = supriya.commands.QueryTreeSynth.from_synth(
                     child,
                     include_controls=include_controls,
                     )
@@ -156,64 +156,64 @@ class QueryTreeGroup(SupriyaValueObject, collections.Sequence):
 
         ::
 
-            >>> query_tree_group = responsetools.QueryTreeGroup(
+            >>> query_tree_group = supriya.commands.QueryTreeGroup(
             ...     node_id=1002,
             ...     children=(
-            ...         responsetools.QueryTreeSynth(
+            ...         supriya.commands.QueryTreeSynth(
             ...             node_id=1105,
             ...             synthdef_name='dca557070c6b57164557041ac746fb3f',
             ...             controls=(
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='damping',
             ...                     control_value=0.06623425334692,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='duration',
             ...                     control_value=3.652155876159668,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='level',
             ...                     control_value=0.894767701625824,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='out',
             ...                     control_value=16.0,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='room_size',
             ...                     control_value=0.918643176555634,
             ...                     ),
             ...                 ),
             ...             ),
-            ...         responsetools.QueryTreeSynth(
+            ...         supriya.commands.QueryTreeSynth(
             ...             node_id=1098,
             ...             synthdef_name='cc754c63533fdcf412a44ef6adb1a8f0',
             ...             controls=(
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='duration',
             ...                     control_value=5.701356887817383,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='level',
             ...                     control_value=0.959683060646057,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='out',
             ...                     control_value=16.0,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='pitch_dispersion',
             ...                     control_value=0.040342573076487,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='pitch_shift',
             ...                     control_value=10.517594337463379,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='time_dispersion',
             ...                     control_value=0.666014134883881,
             ...                     ),
-            ...                 responsetools.QueryTreeControl(
+            ...                 supriya.commands.QueryTreeControl(
             ...                     control_name_or_index='window_size',
             ...                     control_value=1.014111995697021,
             ...                     ),

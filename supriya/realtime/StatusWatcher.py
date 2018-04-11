@@ -21,14 +21,14 @@ class StatusWatcher(threading.Thread):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        from supriya.tools import responsetools
+        import supriya.commands
         threading.Thread.__init__(self)
         self._attempts = 0
         self._server = server
-        self._response_callback = responsetools.ResponseCallback(
+        self._response_callback = supriya.commands.ResponseCallback(
             procedure=lambda message: self.__call__(message),
             prototype=(
-                responsetools.StatusResponse,
+                supriya.commands.StatusResponse,
                 ),
             )
         self.active = True

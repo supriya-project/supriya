@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.ResponseCallback import ResponseCallback
+from supriya.commands.ResponseCallback import ResponseCallback
 
 
 class ControlBusResponseCallback(ResponseCallback):
@@ -12,15 +12,15 @@ class ControlBusResponseCallback(ResponseCallback):
     ### INITIALIZER ###
 
     def __init__(self, server):
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
         ResponseCallback.__init__(
             self,
             #address_pattern='/c_(set|setn)',
             procedure=self.__call__,
             prototype=(
-                responsetools.ControlBusSetContiguousResponse,
-                responsetools.ControlBusSetResponse,
+                supriya.commands.ControlBusSetContiguousResponse,
+                supriya.commands.ControlBusSetResponse,
                 ),
             )
         assert isinstance(server, supriya.realtime.Server)
@@ -29,14 +29,14 @@ class ControlBusResponseCallback(ResponseCallback):
     ### SPECIAL METHODS ###
 
     def __call__(self, response):
-        from supriya.tools import responsetools
-        if isinstance(response, responsetools.ControlBusSetResponse):
+        import supriya.commands
+        if isinstance(response, supriya.commands.ControlBusSetResponse):
             for item in response:
                 bus_id = item.bus_id
                 bus_proxy = self._server._get_control_bus_proxy(bus_id)
                 bus_proxy._value = item.bus_value
         elif isinstance(response,
-            responsetools.ControlBusSetContiguousResponse):
+            supriya.commands.ControlBusSetContiguousResponse):
             for item in response:
                 starting_bus_id = item.starting_bus_id
                 for i, value in enumerate(item.bus_values):

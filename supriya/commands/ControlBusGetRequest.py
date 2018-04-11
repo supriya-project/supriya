@@ -69,9 +69,9 @@ class ControlBusGetRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.ControlBusSetResponse: None,
+            supriya.commands.ControlBusSetResponse: None,
             }
 
     @property

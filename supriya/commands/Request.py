@@ -111,8 +111,8 @@ class Request(SupriyaValueObject):
 
     @response.setter
     def response(self, response):
-        from supriya.tools import responsetools
-        assert isinstance(response, responsetools.Response)
+        import supriya.commands
+        assert isinstance(response, supriya.commands.Response)
         with self.condition:
             self._response = response
             self.condition.notify()

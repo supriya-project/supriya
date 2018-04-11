@@ -118,10 +118,10 @@ class SynthNewRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.NodeInfoResponse: {
-                'action': responsetools.NodeAction.NODE_CREATED,
+            supriya.commands.NodeInfoResponse: {
+                'action': supriya.commands.NodeAction.NODE_CREATED,
                 'node_id': self.node_id,
                 },
             }

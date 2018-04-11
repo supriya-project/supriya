@@ -594,8 +594,8 @@ class SynthDef(ServerObjectProxy):
         return flattened_ugens
 
     def _handle_response(self, response):
-        from supriya.tools import responsetools
-        if isinstance(response, responsetools.SynthDefRemovedResponse):
+        import supriya.commands
+        if isinstance(response, supriya.commands.SynthDefRemovedResponse):
             if self.actual_name in self._server._synthdefs:
                 self._server._synthdefs.pop(self.actual_name)
             self._server = None

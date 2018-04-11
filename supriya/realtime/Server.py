@@ -96,7 +96,7 @@ class Server(SupriyaObject):
         port=57751,
         ):
         import supriya.osc
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
 
         if hasattr(self, 'is_running') and self.is_running:
@@ -110,14 +110,14 @@ class Server(SupriyaObject):
         ### OSC MESSAGING ###
 
         self._latency = 0.1
-        self._response_dispatcher = responsetools.ResponseDispatcher()
+        self._response_dispatcher = supriya.commands.ResponseDispatcher()
         self._osc_dispatcher = supriya.osc.OscDispatcher()
         self._osc_controller = supriya.osc.OscController(server=self)
         for callback in (
-            responsetools.BufferResponseCallback(self),
-            responsetools.ControlBusResponseCallback(self),
-            responsetools.NodeResponseCallback(self),
-            responsetools.SynthDefResponseCallback(self),
+            supriya.commands.BufferResponseCallback(self),
+            supriya.commands.ControlBusResponseCallback(self),
+            supriya.commands.NodeResponseCallback(self),
+            supriya.commands.SynthDefResponseCallback(self),
             ):
             self.register_response_callback(callback)
 
@@ -493,8 +493,8 @@ class Server(SupriyaObject):
 
         Returns server query-tree group response.
         """
-        from supriya.tools import responsetools
-        query_tree_group = responsetools.QueryTreeGroup.from_group(
+        import supriya.commands
+        query_tree_group = supriya.commands.QueryTreeGroup.from_group(
             self.root_node,
             include_controls=include_controls,
             )

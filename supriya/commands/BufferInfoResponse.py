@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
 class BufferInfoResponse(Response):

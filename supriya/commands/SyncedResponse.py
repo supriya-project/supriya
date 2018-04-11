@@ -1,29 +1,29 @@
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
-class DoneResponse(Response):
+class SyncedResponse(Response):
 
     ### CLASS VARIABLES ###
 
     __slots__ = (
-        '_action',
+        '_sync_id',
         )
 
     ### INITIALIZER ###
 
     def __init__(
         self,
-        action=None,
+        sync_id=None,
         osc_message=None,
         ):
         Response.__init__(
             self,
             osc_message=osc_message,
             )
-        self._action = action
+        self._sync_id = sync_id
 
     ### PUBLIC PROPERTIES ###
 
     @property
-    def action(self):
-        return self._action
+    def sync_id(self):
+        return self._sync_id

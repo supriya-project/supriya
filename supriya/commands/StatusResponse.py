@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
 class StatusResponse(Response):
@@ -51,7 +51,7 @@ class StatusResponse(Response):
 
         ::
 
-            >>> status_response = responsetools.StatusResponse(
+            >>> status_response = supriya.commands.StatusResponse(
             ...     actual_sample_rate=44100.05692801021,
             ...     average_cpu_usage=8.151924133300781,
             ...     group_count=6,

@@ -882,7 +882,7 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set response.
         """
         import supriya.commands
-        from supriya.tools import responsetools
+        import supriya.commands
         if not self.is_allocated:
             raise Exception
         if isinstance(indices, int):
@@ -892,7 +892,7 @@ class Buffer(ServerObjectProxy):
             indices=indices,
             )
         response = request.communicate(server=self.server)
-        if isinstance(response, responsetools.FailResponse):
+        if isinstance(response, supriya.commands.FailResponse):
             raise IndexError('Index out of range.')
         return response
 
@@ -924,7 +924,7 @@ class Buffer(ServerObjectProxy):
         Returns buffer-set-contiguous response.
         """
         import supriya.commands
-        from supriya.tools import responsetools
+        import supriya.commands
         if not self.is_allocated:
             raise Exception
         request = supriya.commands.BufferGetContiguousRequest(
@@ -932,7 +932,7 @@ class Buffer(ServerObjectProxy):
             index_count_pairs=index_count_pairs,
             )
         response = request.communicate(server=self.server)
-        if isinstance(response, responsetools.FailResponse):
+        if isinstance(response, supriya.commands.FailResponse):
             raise IndexError('Index out of range.')
         return response
 

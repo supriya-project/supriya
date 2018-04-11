@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
 class NodeInfoResponse(Response):
@@ -30,12 +30,12 @@ class NodeInfoResponse(Response):
         tail_node_id=None,
         osc_message=None,
         ):
-        from supriya.tools import responsetools
+        import supriya.commands
         Response.__init__(
             self,
             osc_message=osc_message,
             )
-        self._action = responsetools.NodeAction.from_address(action)
+        self._action = supriya.commands.NodeAction.from_address(action)
         self._is_group = bool(is_group)
         self._head_node_id = self._coerce_node_id(head_node_id)
         self._next_node_id = self._coerce_node_id(next_node_id)

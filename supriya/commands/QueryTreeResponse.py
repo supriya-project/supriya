@@ -1,4 +1,4 @@
-from supriya.tools.responsetools.Response import Response
+from supriya.commands.Response import Response
 
 
 class QueryTreeResponse(Response):
@@ -38,116 +38,116 @@ class QueryTreeResponse(Response):
 
         ::
 
-            >>> query_tree_response = responsetools.QueryTreeResponse(
+            >>> query_tree_response = supriya.commands.QueryTreeResponse(
             ...     node_id=0,
-            ...     query_tree_group=responsetools.QueryTreeGroup(
+            ...     query_tree_group=supriya.commands.QueryTreeGroup(
             ...         node_id=0,
             ...         children=(
-            ...             responsetools.QueryTreeGroup(
+            ...             supriya.commands.QueryTreeGroup(
             ...                 node_id=1,
             ...                 children=(
-            ...                     responsetools.QueryTreeGroup(
+            ...                     supriya.commands.QueryTreeGroup(
             ...                         node_id=1002,
             ...                         children=(
-            ...                             responsetools.QueryTreeSynth(
+            ...                             supriya.commands.QueryTreeSynth(
             ...                                 node_id=1105,
             ...                                 synthdef_name='dca557070c6b57164557041ac746fb3f',
             ...                                 controls=(
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='damping',
             ...                                         control_value=0.06623425334692,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='duration',
             ...                                         control_value=3.652155876159668,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='level',
             ...                                         control_value=0.894767701625824,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='out',
             ...                                         control_value=16.0,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='room_size',
             ...                                         control_value=0.918643176555634,
             ...                                         ),
             ...                                     ),
             ...                                 ),
-            ...                             responsetools.QueryTreeSynth(
+            ...                             supriya.commands.QueryTreeSynth(
             ...                                 node_id=1098,
             ...                                 synthdef_name='cc754c63533fdcf412a44ef6adb1a8f0',
             ...                                 controls=(
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='duration',
             ...                                         control_value=5.701356887817383,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='level',
             ...                                         control_value=0.959683060646057,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='out',
             ...                                         control_value=16.0,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='pitch_dispersion',
             ...                                         control_value=0.040342573076487,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='pitch_shift',
             ...                                         control_value=10.517594337463379,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='time_dispersion',
             ...                                         control_value=0.666014134883881,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='window_size',
             ...                                         control_value=1.014111995697021,
             ...                                         ),
             ...                                     ),
             ...                                 ),
-            ...                             responsetools.QueryTreeSynth(
+            ...                             supriya.commands.QueryTreeSynth(
             ...                                 node_id=1096,
             ...                                 synthdef_name='5cb6fb104ee1dc44d6b300e13112d37a',
             ...                                 controls=(
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='duration',
             ...                                         control_value=5.892660140991211,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='level',
             ...                                         control_value=0.159362614154816,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='out',
             ...                                         control_value=16.0,
             ...                                         ),
             ...                                     ),
             ...                                 ),
-            ...                             responsetools.QueryTreeSynth(
+            ...                             supriya.commands.QueryTreeSynth(
             ...                                 node_id=1010,
             ...                                 synthdef_name='da0982184cc8fa54cf9d288a0fe1f6ca',
             ...                                 controls=(
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='out',
             ...                                         control_value=16.0,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='amplitude',
             ...                                         control_value=0.846831738948822,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='frequency',
             ...                                         control_value=1522.9603271484375,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='gate',
             ...                                         control_value=0.0,
             ...                                         ),
-            ...                                     responsetools.QueryTreeControl(
+            ...                                     supriya.commands.QueryTreeControl(
             ...                                         control_name_or_index='pan',
             ...                                         control_value=0.733410477638245,
             ...                                         ),
@@ -155,27 +155,27 @@ class QueryTreeResponse(Response):
             ...                                 ),
             ...                             ),
             ...                         ),
-            ...                     responsetools.QueryTreeSynth(
+            ...                     supriya.commands.QueryTreeSynth(
             ...                         node_id=1003,
             ...                         synthdef_name='454b69a7c505ddecc5b39762d291a5ec',
             ...                         controls=(
-            ...                             responsetools.QueryTreeControl(
+            ...                             supriya.commands.QueryTreeControl(
             ...                                 control_name_or_index='done_action',
             ...                                 control_value=2.0,
             ...                                 ),
-            ...                             responsetools.QueryTreeControl(
+            ...                             supriya.commands.QueryTreeControl(
             ...                                 control_name_or_index='fade_time',
             ...                                 control_value=0.019999999552965,
             ...                                 ),
-            ...                             responsetools.QueryTreeControl(
+            ...                             supriya.commands.QueryTreeControl(
             ...                                 control_name_or_index='gate',
             ...                                 control_value=1.0,
             ...                                 ),
-            ...                             responsetools.QueryTreeControl(
+            ...                             supriya.commands.QueryTreeControl(
             ...                                 control_name_or_index='in_',
             ...                                 control_value=16.0,
             ...                                 ),
-            ...                             responsetools.QueryTreeControl(
+            ...                             supriya.commands.QueryTreeControl(
             ...                                 control_name_or_index='out',
             ...                                 control_value=0.0,
             ...                                 ),
@@ -183,153 +183,153 @@ class QueryTreeResponse(Response):
             ...                         ),
             ...                     ),
             ...                 ),
-            ...             responsetools.QueryTreeSynth(
+            ...             supriya.commands.QueryTreeSynth(
             ...                 node_id=1000,
             ...                 synthdef_name='72696657e1216698c415e704ea8ab9a2',
             ...                 controls=(
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_clamp_time',
             ...                         control_value=0.009999999776483,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_postgain',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_pregain',
             ...                         control_value=6.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_relax_time',
             ...                         control_value=0.100000001490116,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_slope_above',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_slope_below',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_1_threshold',
             ...                         control_value=0.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_clamp_time',
             ...                         control_value=0.009999999776483,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_postgain',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_pregain',
             ...                         control_value=3.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_relax_time',
             ...                         control_value=0.100000001490116,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_slope_above',
             ...                         control_value=0.5,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_slope_below',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_2_threshold',
             ...                         control_value=-6.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_clamp_time',
             ...                         control_value=0.009999999776483,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_postgain',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_pregain',
             ...                         control_value=-3.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_relax_time',
             ...                         control_value=0.100000001490116,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_slope_above',
             ...                         control_value=0.25,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_slope_below',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_3_threshold',
             ...                         control_value=-12.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_clamp_time',
             ...                         control_value=0.009999999776483,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_postgain',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_pregain',
             ...                         control_value=-3.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_relax_time',
             ...                         control_value=0.100000001490116,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_slope_above',
             ...                         control_value=0.125,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_slope_below',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='band_4_threshold',
             ...                         control_value=-18.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='frequency_1',
             ...                         control_value=200.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='frequency_2',
             ...                         control_value=2000.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='frequency_3',
             ...                         control_value=5000.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='in_',
             ...                         control_value=0.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='out',
             ...                         control_value=0.0,
             ...                         ),
             ...                     ),
             ...                 ),
-            ...             responsetools.QueryTreeSynth(
+            ...             supriya.commands.QueryTreeSynth(
             ...                 node_id=1001,
             ...                 synthdef_name='c1aa521afab5b0c0ce3d744690951649',
             ...                 controls=(
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='level',
             ...                         control_value=1.0,
             ...                         ),
-            ...                     responsetools.QueryTreeControl(
+            ...                     supriya.commands.QueryTreeControl(
             ...                         control_name_or_index='out',
             ...                         control_value=0.0,
             ...                         ),

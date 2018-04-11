@@ -52,7 +52,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         id_mapping=None,
         ):
         import supriya.nonrealtime
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.synthdefs
         assert isinstance(node, supriya.nonrealtime.Synth)
         node_id = node.session_id
@@ -78,7 +78,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
                     value = float(value)
                 except Exception:
                     pass
-                control = responsetools.QueryTreeControl(
+                control = supriya.commands.QueryTreeControl(
                     control_name_or_index=name,
                     control_value=value,
                     )
@@ -121,7 +121,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
     @classmethod
     def from_synth(cls, synth, include_controls=False):
-        from supriya.tools import responsetools
+        import supriya.commands
         import supriya.realtime
         import supriya.synthdefs
         assert isinstance(synth, supriya.realtime.Synth)
@@ -132,7 +132,7 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
         controls = []
         if include_controls:
             for control in synth.controls:
-                control = responsetools.QueryTreeControl.from_control(control)
+                control = supriya.commands.QueryTreeControl.from_control(control)
                 controls.append(control)
         controls = tuple(controls)
         query_tree_synth = QueryTreeSynth(
@@ -148,15 +148,15 @@ class QueryTreeSynth(SupriyaValueObject, collections.Sequence):
 
         ::
 
-            >>> query_tree_synth = responsetools.QueryTreeSynth(
+            >>> query_tree_synth = supriya.commands.QueryTreeSynth(
             ...     node_id=1001,
             ...     synthdef_name='c1aa521afab5b0c0ce3d744690951649',
             ...     controls=(
-            ...         responsetools.QueryTreeControl(
+            ...         supriya.commands.QueryTreeControl(
             ...             control_name_or_index='level',
             ...             control_value=1.0,
             ...             ),
-            ...         responsetools.QueryTreeControl(
+            ...         supriya.commands.QueryTreeControl(
             ...             control_name_or_index='out',
             ...             control_value=0.0,
             ...             ),

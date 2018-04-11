@@ -1,5 +1,5 @@
 """
-Tools for object-modeling OSC requests made to ``scsynth``.
+Tools for object-modeling OSC responses received from ``scsynth``.
 """
 from supriya import import_structured_package
 

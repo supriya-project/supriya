@@ -60,16 +60,16 @@ class Node(ServerObjectProxy, UniqueTreeNode):
         return self._control_interface.as_dict()
 
     def _handle_response(self, response):
-        from supriya.tools import responsetools
-        if isinstance(response, responsetools.NodeInfoResponse):
-            if response.action == responsetools.NodeAction.NODE_REMOVED:
+        import supriya.commands
+        if isinstance(response, supriya.commands.NodeInfoResponse):
+            if response.action == supriya.commands.NodeAction.NODE_REMOVED:
                 self._set_parent(None)
                 self._unregister_with_local_server()
-            elif response.action == responsetools.NodeAction.NODE_ACTIVATED:
+            elif response.action == supriya.commands.NodeAction.NODE_ACTIVATED:
                 self._is_paused = False
-            elif response.action == responsetools.NodeAction.NODE_DEACTIVATED:
+            elif response.action == supriya.commands.NodeAction.NODE_DEACTIVATED:
                 self._is_paused = True
-            elif response.action == responsetools.NodeAction.NODE_MOVED:
+            elif response.action == supriya.commands.NodeAction.NODE_MOVED:
                 new_parent = self.server._nodes[response.parent_group_id]
                 if new_parent is self.parent:
                     new_index = 0

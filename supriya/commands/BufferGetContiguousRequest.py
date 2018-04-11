@@ -87,12 +87,12 @@ class BufferGetContiguousRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.BufferSetContiguousResponse: {
+            supriya.commands.BufferSetContiguousResponse: {
                 'buffer_id': self.buffer_id,
                 },
-            responsetools.FailResponse: {
+            supriya.commands.FailResponse: {
                 'failed_command': '/b_getn',
                 }
             }

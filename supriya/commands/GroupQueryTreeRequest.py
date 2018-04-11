@@ -78,9 +78,9 @@ class GroupQueryTreeRequest(Request):
 
     @property
     def response_specification(self):
-        from supriya.tools import responsetools
+        import supriya.commands
         return {
-            responsetools.QueryTreeResponse: None,
+            supriya.commands.QueryTreeResponse: None,
             }
 
     @property
