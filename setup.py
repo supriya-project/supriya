@@ -17,7 +17,6 @@ install_requires = [
     'sphinx_rtd_theme',
     'tornado',
     'tqdm',
-    'urwid',
     'uqbar',
     'wavefile',
     ]
