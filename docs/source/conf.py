@@ -2,7 +2,6 @@ import abjad
 import supriya
 import os
 import sphinx_rtd_theme
-import uqbar.apis
 from docutils import nodes
 
 
@@ -12,7 +11,6 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
-    #'supriya.docs.ext.abjadbook',
     'uqbar.sphinx.api',
     'uqbar.sphinx.inheritance',
     'uqbar.sphinx.style',
@@ -20,11 +18,11 @@ extensions = [
 
 uqbar_api_title = 'Supriya API'
 uqbar_api_source_paths = ['supriya']
-uqbar_api_root_documenter_class = uqbar.apis.SummarizingRootDocumenter
-uqbar_api_module_documenter_class = uqbar.apis.SummarizingModuleDocumenter
+uqbar_api_root_documenter_class = 'uqbar.apis.SummarizingRootDocumenter'
+uqbar_api_module_documenter_class = 'uqbar.apis.SummarizingModuleDocumenter'
 uqbar_api_member_documenter_classes = [
-    uqbar.apis.FunctionDocumenter,
-    uqbar.apis.SummarizingClassDocumenter,
+    'uqbar.apis.FunctionDocumenter',
+    'uqbar.apis.SummarizingClassDocumenter',
     ]
 
 doctest_path = [
