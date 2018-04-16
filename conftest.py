@@ -17,3 +17,9 @@ def server_shutdown():
     yield
     for server in supriya.Server._servers.values():
         server.quit()
+
+
+@pytest.fixture
+def server():
+    with supriya.Server().boot() as server:
+        yield server

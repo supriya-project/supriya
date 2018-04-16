@@ -39,9 +39,9 @@ class TestCase(unittest.TestCase):
             '\n'.join(str(_) for _ in expected_files),
             )
 
-    def compare_strings(self, expected, actual):
-        actual = self.normalize(self.ansi_escape.sub('', actual))
-        expected = self.normalize(self.ansi_escape.sub('', expected))
+    def compare_strings(cls, expected, actual):
+        actual = cls.normalize(cls.ansi_escape.sub('', actual))
+        expected = cls.normalize(cls.ansi_escape.sub('', expected))
         example = types.SimpleNamespace()
         example.want = expected
         output_checker = doctest.OutputChecker()
