@@ -3,7 +3,7 @@ import pathlib
 import shlex
 import subprocess
 import supriya
-from supriya import utils
+import uqbar.strings
 from supriya.system.SupriyaValueObject import SupriyaValueObject
 
 
@@ -85,7 +85,7 @@ class Say(SupriyaValueObject):
             md5.update(self.voice.encode())
         md5 = md5.hexdigest()
         file_path = '{}-{}.aiff'.format(
-            utils.to_dash_case(type(self).__name__), md5,
+            uqbar.strings.to_dash_case(type(self).__name__), md5,
             )
         return pathlib.Path(file_path)
 
