@@ -6,13 +6,13 @@ import supriya.system
 import supriya.ugens
 
 
+with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
+    source = supriya.ugens.DC.ar(source=builder['value'])
+    supriya.ugens.Out.ar(bus=builder['out'], source=source)
+dc_synthdef = builder.build('dc')
+
+
 class TestCase(supriya.system.TestCase):
-
-    with supriya.synthdefs.SynthDefBuilder(out=0, value=1) as builder:
-        source = supriya.ugens.DC.ar(source=builder['value'])
-        supriya.ugens.Out.ar(bus=builder['out'], source=source)
-
-    dc_synthdef = builder.build('dc')
 
     def setUp(self):
         self.server = supriya.realtime.Server().boot()
@@ -21,9 +21,9 @@ class TestCase(supriya.system.TestCase):
         self.mixer.add_track('bar')
         self.mixer.add_track('baz')
         self.mixer.allocate()
-        synth_a = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=1.0)
-        synth_b = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.5)
-        synth_c = supriya.realtime.Synth(synthdef=self.dc_synthdef, value=0.25)
+        synth_a = supriya.realtime.Synth(synthdef=dc_synthdef, value=1.0)
+        synth_b = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.5)
+        synth_c = supriya.realtime.Synth(synthdef=dc_synthdef, value=0.25)
         synth_a.allocate(
             target_node=self.mixer['foo'],
             out=int(self.mixer['foo'].output_bus_group),
