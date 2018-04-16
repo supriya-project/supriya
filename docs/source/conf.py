@@ -11,6 +11,7 @@ extensions = [
     'sphinx.ext.graphviz',
     'sphinx.ext.intersphinx',
     'sphinx.ext.viewcode',
+    #'abjad.docs.ext.abjadbook',
     'uqbar.sphinx.api',
     'uqbar.sphinx.inheritance',
     'uqbar.sphinx.style',
@@ -82,8 +83,11 @@ pygments_style = 'sphinx'
 html_theme = 'sphinx_rtd_theme'
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_theme_options = {
+    'collapse_navigation': True,
+    'navigation_depth': -1,
     'sticky_navigation': True,
-    'navigation_depth': 10,
+    'style_external_links': True,
+    'titles_only': True,
 }
 
 html_static_path = ['_static']
