@@ -1,13 +1,13 @@
 import os
 import uqbar.io
-from supriya import utils
+import uqbar.strings
 import supriya.cli
 from cli_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
 
-    module_contents = utils.normalize_string('''
+    module_contents = uqbar.strings.normalize('''
     import supriya.assets.synthdefs
     import supriya.patterns
     import supriya.nonrealtime

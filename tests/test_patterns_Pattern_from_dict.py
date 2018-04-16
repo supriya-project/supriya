@@ -1,14 +1,13 @@
-import yaml
-import uqbar.strings
 import supriya.patterns
 import supriya.system
-from supriya import utils
+import uqbar.strings
+import yaml
 
 
 class TestCase(supriya.system.TestCase):
 
     def test_01(self):
-        string = utils.normalize_string("""
+        string = uqbar.strings.normalize("""
         pattern:
             type: Pwhite
         """)
@@ -19,7 +18,7 @@ class TestCase(supriya.system.TestCase):
             """)
 
     def test_02(self):
-        string = utils.normalize_string("""
+        string = uqbar.strings.normalize("""
         pattern:
             type: Pbind
             frequency: $args.frequency
@@ -55,7 +54,7 @@ class TestCase(supriya.system.TestCase):
             """)
 
     def test_03(self):
-        string = utils.normalize_string("""
+        string = uqbar.strings.normalize("""
         pattern:
             type: Pbind
             frequency: $args.frequency
@@ -96,7 +95,7 @@ class TestCase(supriya.system.TestCase):
             """)
 
     def test_04(self):
-        string = utils.normalize_string("""
+        string = uqbar.strings.normalize("""
         pattern:
             type: Pbind
             frequency: $args.frequency

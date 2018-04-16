@@ -1,12 +1,12 @@
 import jinja2
 import pathlib
 import shutil
-import sys
-import uqbar.io
-from supriya import utils
 import supriya.cli
 import supriya.soundfiles
 import supriya.system
+import sys
+import uqbar.io
+import uqbar.strings
 
 
 class ProjectPackageScriptTestCase(supriya.system.TestCase):
@@ -23,7 +23,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
     synthdefs_path = inner_project_path.joinpath('synthdefs')
     tools_path = inner_project_path.joinpath('tools')
 
-    basic_session_template = jinja2.Template(utils.normalize_string('''
+    basic_session_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
 
@@ -50,7 +50,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             )
     '''))
 
-    session_factory_template = jinja2.Template(utils.normalize_string('''
+    session_factory_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
 
@@ -91,7 +91,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
     {{ output_section_singular }} = SessionFactory(project_settings)
     '''))
 
-    chained_session_template = jinja2.Template(utils.normalize_string('''
+    chained_session_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
@@ -177,7 +177,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                     raise RuntimeError('SystemExit')
         material_path = self.inner_project_path / 'materials' / material_name
         if definition_contents:
-            definition_contents = utils.normalize_string(definition_contents)
+            definition_contents = uqbar.strings.normalize(definition_contents)
             definition_file_path = material_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
@@ -230,7 +230,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                     raise RuntimeError('SystemExit')
         session_path = self.inner_project_path / 'sessions' / session_name
         if definition_contents:
-            definition_contents = utils.normalize_string(definition_contents)
+            definition_contents = uqbar.strings.normalize(definition_contents)
             definition_file_path = session_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)

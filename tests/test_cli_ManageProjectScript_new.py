@@ -1,6 +1,6 @@
 import os
 import uqbar.io
-from supriya import utils
+import uqbar.strings
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -29,12 +29,12 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/tools/__init__.py',
         ]
 
-    expected_readme_contents = utils.normalize_string('''
+    expected_readme_contents = uqbar.strings.normalize('''
     TEST PROJECT
     ############
     ''')
 
-    expected_project_settings_contents = utils.normalize_string('''
+    expected_project_settings_contents = uqbar.strings.normalize('''
     composer:
         email: josiah.oberholtzer@gmail.com
         github: josiah-wolf-oberholtzer

@@ -1,10 +1,10 @@
 import os
-import yaml
-import uqbar.io
-from unittest import mock
-from supriya import utils
 import supriya.cli
 import supriya.nonrealtime
+import uqbar.io
+import uqbar.strings
+import yaml
+from unittest import mock
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -65,7 +65,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(utils.normalize_string(r'''
+            file_pointer.write(uqbar.strings.normalize(r'''
             session = None
             '''))
         script = supriya.cli.ManageSessionScript()
@@ -91,7 +91,7 @@ class Test(ProjectPackageScriptTestCase):
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(utils.normalize_string(r'''
+            file_pointer.write(uqbar.strings.normalize(r'''
             class Foo:
                 def __render__(
                     self,

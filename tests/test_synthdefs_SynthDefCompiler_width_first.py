@@ -1,8 +1,8 @@
 import os
-import unittest
-from supriya import utils
 import supriya.synthdefs
 import supriya.ugens
+import unittest
+import uqbar.strings
 
 
 class Test(unittest.TestCase):
@@ -168,7 +168,7 @@ class Test(unittest.TestCase):
             'Out.ar()',
             )
 
-        assert str(py_synthdef) == utils.normalize_string('''
+        assert str(py_synthdef) == uqbar.strings.normalize('''
             synthdef:
                 name: PVCopyTest
                 ugens:
