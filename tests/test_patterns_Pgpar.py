@@ -125,7 +125,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_01(self):
-        events = self.setup_send(self.pattern, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pattern, iterations=1)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -161,7 +161,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_02(self):
-        events = self.setup_send(self.pattern, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pattern, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -206,7 +206,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_03(self):
-        events = self.setup_send(self.pattern, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pattern, iterations=3)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,

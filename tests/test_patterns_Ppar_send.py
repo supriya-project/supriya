@@ -1,3 +1,4 @@
+import pytest
 import uqbar.strings
 import supriya.patterns
 from patterns_testbase import TestCase
@@ -58,7 +59,7 @@ class TestCase(TestCase):
         ])
 
     def test_send_01(self):
-        events = self.setup_send(self.pattern_01, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=1)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -71,7 +72,7 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             ''')
-        events = self.setup_send(self.pattern_01, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -91,7 +92,7 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             ''')
-        events = self.setup_send(self.pattern_01, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=3)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -120,7 +121,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_02(self):
-        events = self.setup_send(self.pattern_02, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=1)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -133,7 +134,7 @@ class TestCase(TestCase):
                 uuid=UUID('A'),
                 )
             ''')
-        events = self.setup_send(self.pattern_02, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -154,7 +155,7 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             ''')
-        events = self.setup_send(self.pattern_02, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=3)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -183,7 +184,7 @@ class TestCase(TestCase):
                 uuid=UUID('B'),
                 )
             ''')
-        events = self.setup_send(self.pattern_02, iterations=4)
+        events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=4)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -219,7 +220,7 @@ class TestCase(TestCase):
                 uuid=UUID('C'),
                 )
             ''')
-        events = self.setup_send(self.pattern_02, iterations=5)
+        events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=5)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -264,7 +265,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_06(self):
-        events = self.setup_send(self.pattern_06, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=1)
         # This is odd, but in practice you wouldn't stop on this event.
         assert self.get_objects_as_string(
             events,
@@ -279,7 +280,7 @@ class TestCase(TestCase):
                     ),
                 )
             ''')
-        events = self.setup_send(self.pattern_06, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -312,7 +313,7 @@ class TestCase(TestCase):
                 is_stop=True,
                 )
             ''')
-        events = self.setup_send(self.pattern_06, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=3)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -352,7 +353,7 @@ class TestCase(TestCase):
                 is_stop=True,
                 )
             ''')
-        events = self.setup_send(self.pattern_06, iterations=4)
+        events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=4)
         # This is odd, but in practice you wouldn't stop on this event.
         assert self.get_objects_as_string(
             events,

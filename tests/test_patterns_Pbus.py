@@ -187,7 +187,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_01a(self):
-        events = self.setup_send(self.pbus_01, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pbus_01, iterations=1)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -238,7 +238,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_01b(self):
-        events = self.setup_send(self.pbus_01, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pbus_01, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -298,7 +298,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_02a(self):
-        events = self.setup_send(self.pbus_02, iterations=1)
+        events = pytest.helpers.setup_pattern_send(self.pbus_02, iterations=1)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -349,7 +349,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_02b(self):
-        events = self.setup_send(self.pbus_02, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pbus_02, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,

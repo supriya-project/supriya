@@ -1,9 +1,44 @@
 import pathlib
 import pytest
 import supriya
+import types
 
 
 pytest_plugins = ['helpers_namespace']
+
+
+### FIXTURES ###
+
+
+@pytest.fixture
+def pseudo_server():
+    return types.SimpleNamespace(
+        audio_bus_allocator=supriya.realtime.BlockAllocator(),
+        control_bus_allocator=supriya.realtime.BlockAllocator(),
+        node_id_allocator=supriya.realtime.NodeIdAllocator(),
+        )
+
+
+@pytest.fixture
+def server():
+    server = supriya.Server()
+    server.debug_osc = True
+    server.boot()
+    yield server
+    server.quit()
+    server.debug_osc = False
+
+
+@pytest.fixture(autouse=True)
+def server_shutdown():
+    for server in supriya.Server._servers.values():
+        server.quit()
+    yield
+    for server in supriya.Server._servers.values():
+        server.quit()
+
+
+### DATA ###
 
 
 test_directory_path = pathlib.Path(__file__).parent
@@ -55,6 +90,9 @@ class TestSessionFactory:
             synth['source'] = 1.0 * self.multiplier
         assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
         return session
+
+
+### HELPERS ###
 
 
 @pytest.helpers.register
@@ -248,20 +286,16 @@ def sample_soundfile(file_path):
         }
 
 
-@pytest.fixture(autouse=True)
-def server_shutdown():
-    for server in supriya.Server._servers.values():
-        server.quit()
-    yield
-    for server in supriya.Server._servers.values():
-        server.quit()
-
-
-@pytest.fixture
-def server():
-    server = supriya.Server()
-    server.debug_osc = True
-    server.boot()
-    yield server
-    server.quit()
-    server.debug_osc = False
+@pytest.helpers.register
+def setup_pattern_send(pattern, iterations):
+    events, iterator = [], iter(pattern)
+    for i in range(iterations):
+        event = next(iterator)
+        events.append(event)
+    try:
+        event = iterator.send(True)
+        events.append(event)
+        events.extend(iterator)
+    except StopIteration:
+        pass
+    return events

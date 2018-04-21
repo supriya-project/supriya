@@ -1,6 +1,7 @@
+import pytest
+import supriya.patterns
 import uqbar.strings
 from patterns_testbase import TestCase
-import supriya.patterns
 
 
 class TestCase(TestCase):
@@ -198,23 +199,23 @@ class TestCase(TestCase):
             ''')
 
     def test_send_01(self):
-        events = self.setup_send(self.pseq_01, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pseq_01, iterations=2)
         assert events == ['A', 'B']
 
     def test_send_02a(self):
-        events = self.setup_send(self.pseq_02, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pseq_02, iterations=2)
         assert events == ['A', 'B']
 
     def test_send_02b(self):
-        events = self.setup_send(self.pseq_02, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pseq_02, iterations=3)
         assert events == ['A', 'B', 'C']
 
     def test_send_02c(self):
-        events = self.setup_send(self.pseq_02, iterations=4)
+        events = pytest.helpers.setup_pattern_send(self.pseq_02, iterations=4)
         assert events == ['A', 'B', 'C', 'D']
 
     def test_send_03a(self):
-        events = self.setup_send(self.pseq_03, iterations=2)
+        events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=2)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -236,7 +237,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_03b(self):
-        events = self.setup_send(self.pseq_03, iterations=3)
+        events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=3)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -265,7 +266,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_03c(self):
-        events = self.setup_send(self.pseq_03, iterations=4)
+        events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=4)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -301,7 +302,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_04a(self):
-        events = self.setup_send(self.pseq_04, iterations=4)
+        events = pytest.helpers.setup_pattern_send(self.pseq_04, iterations=4)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
@@ -373,7 +374,7 @@ class TestCase(TestCase):
             ''')
 
     def test_send_04b(self):
-        events = self.setup_send(self.pseq_04, iterations=5)
+        events = pytest.helpers.setup_pattern_send(self.pseq_04, iterations=5)
         assert self.get_objects_as_string(
             events,
             replace_uuids=True,
