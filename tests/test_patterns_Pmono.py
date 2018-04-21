@@ -21,7 +21,7 @@ class TestCase(TestCase):
         )
 
     def test_manual_incommunicado_pmono_01(self):
-        lists, deltas = self.manual_incommunicado(self.pmono_01)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pmono_01)
         assert lists == [
             [10, [
                 ['/s_new', 'default', 1000, 0, 1,
@@ -95,7 +95,7 @@ class TestCase(TestCase):
         time.sleep(1)
 
     def test_manual_incommunicado_pmono_02(self):
-        lists, deltas = self.manual_incommunicado(self.pmono_02)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pmono_02)
         assert lists == [
             [10, [
                 ['/s_new', 'default', 1000, 0, 1,

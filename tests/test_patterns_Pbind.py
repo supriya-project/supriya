@@ -65,7 +65,7 @@ class TestCase(TestCase):
             iterator.send(True)
 
     def test_manual_incommunicado_pbind_01(self):
-        lists, deltas = self.manual_incommunicado(self.pbind_01)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pbind_01)
         assert lists == [
             [10, [
                 ['/s_new', 'default', 1000, 0, 1,
@@ -168,7 +168,7 @@ class TestCase(TestCase):
         time.sleep(6)
 
     def test_manual_incommunicado_pbind_02(self):
-        lists, deltas = self.manual_incommunicado(self.pbind_02)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pbind_02)
         assert lists == [
             [10, [
                 ['/s_new', 'default', 1000, 0, 1,
@@ -296,7 +296,7 @@ class TestCase(TestCase):
         time.sleep(6)
 
     def test_manual_incommunicado_pbind_03(self):
-        lists, deltas = self.manual_incommunicado(self.pbind_03)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pbind_03)
         assert deltas == [
             0.25, 0.25, 0.25, 0.25,
             0.25, 0.25, 0.25, 0.25,

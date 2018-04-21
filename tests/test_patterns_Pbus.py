@@ -410,7 +410,7 @@ class TestCase(TestCase):
             ''')
 
     def test_manual_incommunicado(self):
-        lists, deltas = self.manual_incommunicado(self.pbus_01)
+        lists, deltas = pytest.helpers.manual_incommunicado(self.pbus_01)
         assert lists == [
             [10, [
                 ['/g_new', 1000, 0, 1],

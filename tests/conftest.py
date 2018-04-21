@@ -276,6 +276,27 @@ def make_test_session_factory(
 
 
 @pytest.helpers.register
+def manual_incommunicado(pattern, timestamp=10):
+    pseudo_server = types.SimpleNamespace(
+        audio_bus_allocator=supriya.realtime.BlockAllocator(),
+        control_bus_allocator=supriya.realtime.BlockAllocator(),
+        node_id_allocator=supriya.realtime.NodeIdAllocator(),
+        )
+    player = supriya.patterns.RealtimeEventPlayer(
+        pattern,
+        server=pseudo_server,
+        )
+    lists, deltas, delta = [], [], True
+    while delta is not None:
+        bundle, delta = player(timestamp, timestamp, communicate=False)
+        if delta is not None:
+            timestamp += delta
+        lists.append(bundle.to_list(True))
+        deltas.append(delta)
+    return lists, deltas
+
+
+@pytest.helpers.register
 def sample_soundfile(file_path):
     soundfile = supriya.soundfiles.SoundFile(file_path)
     return {
