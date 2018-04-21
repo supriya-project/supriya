@@ -12,7 +12,7 @@ class TestCase(TestCase):
         with session.at(0):
             session.add_synth(
                 duration=1,
-                synthdef=self.build_basic_synthdef(),
+                synthdef=pytest.helpers.build_basic_synthdef(),
                 )
         exit_code, _ = session.render(self.output_file_path)
         pytest.helpers.assert_soundfile_ok(exit_code, 1., 44100, 8)
@@ -22,7 +22,7 @@ class TestCase(TestCase):
         with session.at(0):
             session.add_synth(
                 duration=300,
-                synthdef=self.build_basic_synthdef(),
+                synthdef=pytest.helpers.build_basic_synthdef(),
                 )
         exit_code, _ = session.render(
             self.output_file_path,
@@ -33,11 +33,11 @@ class TestCase(TestCase):
 
     def test_03(self):
         session = supriya.nonrealtime.Session()
-        synthdef = self.build_duration_synthdef()
+        synthdef = pytest.helpers.build_duration_synthdef()
         with session.at(0):
             session.add_synth(
                 duration=1,
-                synthdef=self.build_duration_synthdef(),
+                synthdef=pytest.helpers.build_duration_synthdef(),
                 )
         assert session.to_osc_bundles() == [
             supriya.osc.OscBundle(
@@ -70,7 +70,7 @@ class TestCase(TestCase):
         with session.at(0):
             session.add_synth(
                 duration=1,
-                synthdef=self.build_gate_synthdef(),
+                synthdef=pytest.helpers.build_gate_synthdef(),
                 )
         assert session.to_osc_bundles(duration=2) == [
             supriya.osc.OscBundle(

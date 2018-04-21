@@ -97,7 +97,7 @@ class TestCase(TestCase):
 
     def test_03(self):
         r'''Durated synths.'''
-        synthdef = self.build_duration_synthdef()
+        synthdef = pytest.helpers.build_duration_synthdef()
         session = supriya.nonrealtime.Session()
         with session.at(0):
             session.add_synth(duration=2, synthdef=synthdef)
@@ -191,7 +191,7 @@ class TestCase(TestCase):
 
     def test_05(self):
         session = supriya.nonrealtime.Session()
-        synthdef = self.build_basic_synthdef()
+        synthdef = pytest.helpers.build_basic_synthdef()
         with session.at(0):
             session.add_synth(
                 duration=0,

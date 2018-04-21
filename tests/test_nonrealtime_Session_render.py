@@ -15,7 +15,7 @@ class TestCase(TestCase):
         """
         No input, no output file path specified, no render path specified.
         """
-        session = self._make_session()
+        session = pytest.helpers.make_test_session()
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert pathlib.Path(supriya.output_path) in \
@@ -33,7 +33,7 @@ class TestCase(TestCase):
         """
         No input, no output file path specified, render path specified.
         """
-        session = self._make_session()
+        session = pytest.helpers.make_test_session()
         exit_code, output_file_path = session.render(
             render_directory_path=self.render_directory_path,
             )
@@ -54,7 +54,7 @@ class TestCase(TestCase):
         No input, no output file path specified, no render path specified,
         output already exists.
         """
-        session = self._make_session()
+        session = pytest.helpers.make_test_session()
         osc_path = pathlib.Path().joinpath(
             supriya.output_path,
             'session-7b3f85710f19667f73f745b8ac8080a0.osc',
@@ -158,8 +158,8 @@ class TestCase(TestCase):
         """
         No input.
         """
-        session = self._make_session()
-        synthdef = self._build_dc_synthdef(8)
+        session = pytest.helpers.make_test_session()
+        synthdef = pytest.helpers.build_dc_synthdef(8)
         assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
         assert session.to_lists() == [
             [0.0, [
@@ -197,7 +197,7 @@ class TestCase(TestCase):
         """
         path_one = self.output_directory_path / 'output-one.aiff'
         path_two = self.output_directory_path / 'output-two.aiff'
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         exit_code, _ = session_one.render(
             path_one,
             render_directory_path=self.render_directory_path,
@@ -205,7 +205,7 @@ class TestCase(TestCase):
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=path_one)
         session_two = supriya.nonrealtime.Session(input_=path_one)
-        synthdef = self._build_multiplier_synthdef(8)
+        synthdef = pytest.helpers.build_multiplier_synthdef(8)
         with session_two.at(0):
             session_two.add_synth(
                 synthdef=synthdef,
@@ -240,7 +240,7 @@ class TestCase(TestCase):
         """
         path_one = self.output_directory_path / 'output-one.aiff'
         path_two = self.output_directory_path / 'output-two.aiff'
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         exit_code, _ = session_one.render(
             path_one,
             render_directory_path=self.render_directory_path,
@@ -252,7 +252,7 @@ class TestCase(TestCase):
             input_bus_channel_count=2,
             output_bus_channel_count=4,
             )
-        synthdef = self._build_multiplier_synthdef(4)
+        synthdef = pytest.helpers.build_multiplier_synthdef(4)
         with session_two.at(0):
             session_two.add_synth(
                 synthdef=synthdef,
@@ -291,12 +291,12 @@ class TestCase(TestCase):
         """
         Session NRT input, matched channels.
         """
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         session_two = supriya.nonrealtime.Session(
             input_=session_one,
             name='outer-session',
             )
-        synthdef = self._build_multiplier_synthdef(8)
+        synthdef = pytest.helpers.build_multiplier_synthdef(8)
         with session_two.at(0):
             session_two.add_synth(
                 synthdef=synthdef,
@@ -338,7 +338,7 @@ class TestCase(TestCase):
         """
         path_one = self.output_directory_path / 'output-one.aiff'
         path_two = self.output_directory_path / 'output-two.aiff'
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         exit_code, _ = session_one.render(
             path_one,
             render_directory_path=self.render_directory_path,
@@ -346,7 +346,7 @@ class TestCase(TestCase):
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=path_one)
         session_two = supriya.nonrealtime.Session()
-        synthdef = self._build_diskin_synthdef(channel_count=8)
+        synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
         with session_two.at(0):
             buffer_ = session_two.cue_soundfile(
                 path_one,
@@ -396,9 +396,9 @@ class TestCase(TestCase):
         """
         Session DiskIn input.
         """
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         session_two = supriya.nonrealtime.Session(name='outer-session')
-        synthdef = self._build_diskin_synthdef(channel_count=8)
+        synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
         with session_two.at(0):
             buffer_ = session_two.cue_soundfile(
                 session_one,
@@ -445,11 +445,11 @@ class TestCase(TestCase):
         """
         Chained Session DiskIn input.
         """
-        session_one = self._make_session()
+        session_one = pytest.helpers.make_test_session()
         session_two = supriya.nonrealtime.Session(name='middle-session')
         session_three = supriya.nonrealtime.Session(name='outer-session')
-        diskin_synthdef = self._build_diskin_synthdef(channel_count=8)
-        multiplier_synthdef = self._build_multiplier_synthdef(channel_count=8)
+        diskin_synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
+        multiplier_synthdef = pytest.helpers.build_multiplier_synthdef(channel_count=8)
         with session_two.at(0):
             buffer_ = session_two.cue_soundfile(
                 session_one,
@@ -565,10 +565,10 @@ class TestCase(TestCase):
         """
         Fanned Session DiskIn input and NRT input.
         """
-        session_one = self._make_session(multiplier=0.25)
+        session_one = pytest.helpers.make_test_session(multiplier=0.25)
         session_two = supriya.nonrealtime.Session(name='middle-session')
         session_three = supriya.nonrealtime.Session(name='outer-session')
-        diskin_synthdef = self._build_diskin_synthdef(channel_count=8)
+        diskin_synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
         with session_two.at(0):
             buffer_one = session_two.cue_soundfile(
                 session_one,
@@ -609,7 +609,7 @@ class TestCase(TestCase):
                 )
         assert session_one.to_lists() == [
             [0.0, [
-                ['/d_recv', bytearray(self._build_dc_synthdef(8).compile())],
+                ['/d_recv', bytearray(pytest.helpers.build_dc_synthdef(8).compile())],
                 ['/s_new', 'b47278d408f17357f6b260ec30ea213d', 1000, 0, 0,
                     'source', 0]]],
             [2.0, [['/n_set', 1000, 'source', 0.0625]]],
@@ -724,7 +724,7 @@ class TestCase(TestCase):
         """
         say = supriya.soundfiles.Say('Some text.')
         session = supriya.nonrealtime.Session(1, 1, input_=say)
-        synthdef = self._build_multiplier_synthdef(1)
+        synthdef = pytest.helpers.build_multiplier_synthdef(1)
         with session.at(0):
             session.add_synth(
                 synthdef=synthdef,
@@ -757,7 +757,7 @@ class TestCase(TestCase):
         """
         say = supriya.soundfiles.Say('Some text.')
         session = supriya.nonrealtime.Session(0, 1)
-        synthdef = self._build_diskin_synthdef(channel_count=1)
+        synthdef = pytest.helpers.build_diskin_synthdef(channel_count=1)
         with session.at(0):
             buffer_ = session.cue_soundfile(
                 say,
@@ -797,8 +797,8 @@ class TestCase(TestCase):
         """
         Chained session and non-session inputs.
         """
-        multiplier_synthdef = self._build_multiplier_synthdef(1)
-        diskin_synthdef = self._build_diskin_synthdef(channel_count=1)
+        multiplier_synthdef = pytest.helpers.build_multiplier_synthdef(1)
+        diskin_synthdef = pytest.helpers.build_diskin_synthdef(channel_count=1)
         say = supriya.soundfiles.Say('Some text.')
         session_one = supriya.nonrealtime.Session(1, 1, input_=say)
         with session_one.at(0):
@@ -860,12 +860,12 @@ class TestCase(TestCase):
         """
         SessionFactory NRT input.
         """
-        session_factory = self._make_session_factory()
+        session_factory = pytest.helpers.make_test_session_factory()
         session = supriya.nonrealtime.Session(
             input_=session_factory,
             name='outer-session',
             )
-        synthdef = self._build_multiplier_synthdef(8)
+        synthdef = pytest.helpers.build_multiplier_synthdef(8)
         with session.at(0):
             session.add_synth(
                 synthdef=synthdef,
@@ -911,12 +911,12 @@ class TestCase(TestCase):
         """
         SessionFactory DiskIn input.
         """
-        session_factory = self._make_session_factory()
+        session_factory = pytest.helpers.make_test_session_factory()
         inner_session = session_factory.__session__()
         assert inner_session.input_bus_channel_count == 8
         assert inner_session.output_bus_channel_count == 8
         session = supriya.nonrealtime.Session(name='outer-session')
-        synthdef = self._build_diskin_synthdef(channel_count=8)
+        synthdef = pytest.helpers.build_diskin_synthdef(channel_count=8)
         with session.at(0):
             buffer_ = session.cue_soundfile(
                 session_factory,

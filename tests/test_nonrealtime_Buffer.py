@@ -1,3 +1,4 @@
+import pytest
 import supriya.nonrealtime
 import supriya.soundfiles
 from nonrealtime_testbase import TestCase
@@ -59,7 +60,7 @@ class TestCase(TestCase):
             ]
 
     def test_alloc_read_session(self):
-        input_session = self._make_session()
+        input_session = pytest.helpers.make_test_session()
         session = supriya.nonrealtime.Session()
         with session.at(0):
             session.add_buffer(
