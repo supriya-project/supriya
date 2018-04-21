@@ -22,11 +22,13 @@ def pseudo_server():
 @pytest.fixture
 def server():
     server = supriya.Server()
-    server.debug_osc = True
+    server.latency = 0.0
     server.boot()
+    supriya.assets.synthdefs.default.allocate(server)
+    server.debug_osc = True
     yield server
-    server.quit()
     server.debug_osc = False
+    server.quit()
 
 
 @pytest.fixture(autouse=True)
