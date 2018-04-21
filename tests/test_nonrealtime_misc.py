@@ -5,7 +5,7 @@ import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
 import uqbar.strings
-from patterns_testbase import TestCase
+from nonrealtime_testbase import TestCase
 from supriya.realtime import AddAction
 
 

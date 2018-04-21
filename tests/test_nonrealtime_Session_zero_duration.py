@@ -82,7 +82,7 @@ def test_pattern_without_gate():
         [10.0, [[0]]]]
 
 
-@pytest.skip('Awaiting implementation.')
+@pytest.mark.skip('Awaiting implementation.')
 def test_pattern_without_gate_with_bus():
     with supriya.synthdefs.SynthDefBuilder() as builder:
         source = supriya.ugens.DC.ar(1)

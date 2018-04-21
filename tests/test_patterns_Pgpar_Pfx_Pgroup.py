@@ -118,7 +118,7 @@ def test_nonrealtime():
     assert final_offset == 3.25
 
 
-def test_to_strings(self):
+def test_to_strings():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         session.inscribe(pattern)

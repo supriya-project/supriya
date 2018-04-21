@@ -190,7 +190,7 @@ def test_automatic_communicado_pmono_02(server):
     time.sleep(1)
 
 
-def test_nonrealtime_01(self):
+def test_nonrealtime_01():
     session = supriya.nonrealtime.Session()
     with session.at(10):
         session.inscribe(pmono_01)
