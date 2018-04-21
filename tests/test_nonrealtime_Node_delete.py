@@ -1,6 +1,7 @@
 import pytest
 import supriya.nonrealtime
 import supriya.assets.synthdefs
+import uqbar.strings
 from nonrealtime_testbase import TestCase
 
 
@@ -14,7 +15,7 @@ class TestCase(TestCase):
             group.add_synth(duration=20)
             session.add_group(duration=20)
         d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1003 group
@@ -36,7 +37,7 @@ class TestCase(TestCase):
                 ['/n_set', 1002, 'gate', 0],
                 [0]]]]
         group.delete()
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1003 group
@@ -66,7 +67,7 @@ class TestCase(TestCase):
             group.move_node(synth_b, 'ADD_TO_TAIL')
         with session.at(15):
             session.move_node(synth_a, 'ADD_TO_TAIL')
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 default
@@ -100,7 +101,7 @@ class TestCase(TestCase):
                 ['/n_set', 1002, 'gate', 0],
                 [0]]]]
         group.delete()
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1002 default
@@ -139,7 +140,7 @@ class TestCase(TestCase):
             subgroup.move_node(synth_b, 'ADD_TO_TAIL')
         with session.at(15):
             group.move_node(synth_a, 'ADD_TO_TAIL')
-        assert session.to_strings(True) == self.normalize('''
+        assert session.to_strings(True) == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1003 default
@@ -187,7 +188,7 @@ class TestCase(TestCase):
                 ['/n_set', 1003, 'gate', 0],
                 [0]]]]
         group.delete()
-        assert session.to_strings(True) == self.normalize('''
+        assert session.to_strings(True) == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1003 default

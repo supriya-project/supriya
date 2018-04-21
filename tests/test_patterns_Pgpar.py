@@ -23,7 +23,7 @@ class TestCase(TestCase):
 
     def test___iter__(self):
         events = list(self.pattern)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -126,7 +126,7 @@ class TestCase(TestCase):
 
     def test_send_01(self):
         events = pytest.helpers.setup_pattern_send(self.pattern, iterations=1)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -162,7 +162,7 @@ class TestCase(TestCase):
 
     def test_send_02(self):
         events = pytest.helpers.setup_pattern_send(self.pattern, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -207,7 +207,7 @@ class TestCase(TestCase):
 
     def test_send_03(self):
         events = pytest.helpers.setup_pattern_send(self.pattern, iterations=3)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

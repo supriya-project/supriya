@@ -1,4 +1,5 @@
 import supriya.nonrealtime
+import uqbar.strings
 from nonrealtime_testbase import TestCase
 
 
@@ -17,7 +18,7 @@ class TestCase(TestCase):
         with session.at(15):
             group_a.move_node(group_c)
         graphviz_graph = session.__graph__()
-        assert format(graphviz_graph, 'graphviz') == self.normalize('''
+        assert format(graphviz_graph, 'graphviz') == uqbar.strings.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

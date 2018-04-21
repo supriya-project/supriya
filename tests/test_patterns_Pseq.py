@@ -51,7 +51,7 @@ class TestCase(TestCase):
 
     def test___iter___03(self):
         events = list(self.pseq_03)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -101,7 +101,7 @@ class TestCase(TestCase):
 
     def test___iter___04(self):
         events = list(self.pseq_04)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -216,7 +216,7 @@ class TestCase(TestCase):
 
     def test_send_03a(self):
         events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -238,7 +238,7 @@ class TestCase(TestCase):
 
     def test_send_03b(self):
         events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=3)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -267,7 +267,7 @@ class TestCase(TestCase):
 
     def test_send_03c(self):
         events = pytest.helpers.setup_pattern_send(self.pseq_03, iterations=4)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -303,7 +303,7 @@ class TestCase(TestCase):
 
     def test_send_04a(self):
         events = pytest.helpers.setup_pattern_send(self.pseq_04, iterations=4)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -375,7 +375,7 @@ class TestCase(TestCase):
 
     def test_send_04b(self):
         events = pytest.helpers.setup_pattern_send(self.pseq_04, iterations=5)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

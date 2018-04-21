@@ -110,7 +110,7 @@ class TestCase(TestCase):
             [4.0, [['/n_set', 1001, 'gate', 0]]],
             [4.25, [['/n_free', 1000]]],
             [10.0, [[0]]]]
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
         0.0:
             NODE TREE 0 group
                 1000 group

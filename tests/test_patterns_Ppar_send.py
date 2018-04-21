@@ -60,7 +60,7 @@ class TestCase(TestCase):
 
     def test_send_01(self):
         events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=1)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -73,7 +73,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -93,7 +93,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_01, iterations=3)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -122,7 +122,7 @@ class TestCase(TestCase):
 
     def test_send_02(self):
         events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=1)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -135,7 +135,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -156,7 +156,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=3)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -185,7 +185,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=4)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -221,7 +221,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_02, iterations=5)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -267,7 +267,7 @@ class TestCase(TestCase):
     def test_send_06(self):
         events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=1)
         # This is odd, but in practice you wouldn't stop on this event.
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -281,7 +281,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -314,7 +314,7 @@ class TestCase(TestCase):
                 )
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=3)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -355,7 +355,7 @@ class TestCase(TestCase):
             ''')
         events = pytest.helpers.setup_pattern_send(self.pattern_06, iterations=4)
         # This is odd, but in practice you wouldn't stop on this event.
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

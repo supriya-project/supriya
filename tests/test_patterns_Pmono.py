@@ -3,6 +3,7 @@ import time
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
+import uqbar.strings
 from patterns_testbase import TestCase
 
 
@@ -38,7 +39,7 @@ class TestCase(TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
         ''')
@@ -46,7 +47,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 default
@@ -56,7 +57,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 default
@@ -66,7 +67,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 default
@@ -76,7 +77,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1000 default
@@ -85,7 +86,7 @@ class TestCase(TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
         ''')
@@ -120,7 +121,7 @@ class TestCase(TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
         ''')
@@ -128,7 +129,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 default
@@ -140,7 +141,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 default
@@ -152,7 +153,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 default
@@ -164,7 +165,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
                 1001 default
@@ -175,7 +176,7 @@ class TestCase(TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
         NODE TREE 0 group
             1 group
         ''')
@@ -230,14 +231,14 @@ class TestCase(TestCase):
     def test_manual_stop_pmono_01(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         player = self.pmono_01.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 default
@@ -246,14 +247,14 @@ class TestCase(TestCase):
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -261,14 +262,14 @@ class TestCase(TestCase):
     def test_manual_stop_pmono_02(self):
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         player = self.pmono_02.play(server=self.server)
         time.sleep(2)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1001 default
@@ -279,14 +280,14 @@ class TestCase(TestCase):
         player.stop()
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')

@@ -1,3 +1,4 @@
+import pytest
 import uqbar.strings
 import supriya.patterns
 from patterns_testbase import TestCase
@@ -99,7 +100,7 @@ class TestCase(TestCase):
 
     def test___iter___01(self):
         events = list(self.pattern_01)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -128,7 +129,7 @@ class TestCase(TestCase):
 
     def test___iter___02(self):
         events = list(self.pattern_02)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -173,7 +174,7 @@ class TestCase(TestCase):
 
     def test___iter___03(self):
         events = list(self.pattern_03)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -202,7 +203,7 @@ class TestCase(TestCase):
 
     def test___iter___04(self):
         events = list(self.pattern_04)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -280,7 +281,7 @@ class TestCase(TestCase):
 
     def test___iter___05(self):
         events = list(self.pattern_05)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -422,7 +423,7 @@ class TestCase(TestCase):
 
     def test___iter___06(self):
         events = list(self.pattern_06)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

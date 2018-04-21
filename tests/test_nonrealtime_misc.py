@@ -4,6 +4,7 @@ import supriya.nonrealtime
 import supriya.patterns
 import supriya.synthdefs
 import supriya.ugens
+import uqbar.strings
 from patterns_testbase import TestCase
 from supriya.realtime import AddAction
 
@@ -52,7 +53,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 1)
         with session.at(0):
             session.inscribe(self.pattern, duration=60)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group

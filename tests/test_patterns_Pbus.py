@@ -30,7 +30,7 @@ class TestCase(TestCase):
 
     def test___iter___01(self):
         events = list(self.pbus_01)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -108,7 +108,7 @@ class TestCase(TestCase):
 
     def test___iter___02(self):
         events = list(self.pbus_02)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -188,7 +188,7 @@ class TestCase(TestCase):
 
     def test_send_01a(self):
         events = pytest.helpers.setup_pattern_send(self.pbus_01, iterations=1)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -239,7 +239,7 @@ class TestCase(TestCase):
 
     def test_send_01b(self):
         events = pytest.helpers.setup_pattern_send(self.pbus_01, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -299,7 +299,7 @@ class TestCase(TestCase):
 
     def test_send_02a(self):
         events = pytest.helpers.setup_pattern_send(self.pbus_02, iterations=1)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -350,7 +350,7 @@ class TestCase(TestCase):
 
     def test_send_02b(self):
         events = pytest.helpers.setup_pattern_send(self.pbus_02, iterations=2)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -445,7 +445,7 @@ class TestCase(TestCase):
             )
         # Initial State
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')
@@ -453,7 +453,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -466,7 +466,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -480,7 +480,7 @@ class TestCase(TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -493,7 +493,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -507,7 +507,7 @@ class TestCase(TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -520,7 +520,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -530,7 +530,7 @@ class TestCase(TestCase):
         # Wait for termination
         time.sleep(0.5)
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
                     1000 group
@@ -539,7 +539,7 @@ class TestCase(TestCase):
         player(0, 0)
         self.server.sync()
         server_state = str(self.server.query_remote_nodes(include_controls=True))
-        assert server_state == self.normalize(r'''
+        assert server_state == uqbar.strings.normalize(r'''
             NODE TREE 0 group
                 1 group
         ''')

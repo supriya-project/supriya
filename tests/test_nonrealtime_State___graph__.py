@@ -1,4 +1,5 @@
 import supriya.nonrealtime
+import uqbar.strings
 from nonrealtime_testbase import TestCase
 
 
@@ -17,7 +18,7 @@ class TestCase(TestCase):
             group_b['pan'] = 0.25
             group_c['pan'] = 0.75
         graphviz_graph = session.states[0].__graph__(include_controls=False)
-        assert format(graphviz_graph, 'graphviz') == self.normalize('''
+        assert format(graphviz_graph, 'graphviz') == uqbar.strings.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,
@@ -132,7 +133,7 @@ class TestCase(TestCase):
             }
         ''')
         graphviz_graph = session.states[0].__graph__(include_controls=True)
-        assert format(graphviz_graph, 'graphviz') == self.normalize('''
+        assert format(graphviz_graph, 'graphviz') == uqbar.strings.normalize('''
             digraph G {
                 graph [bgcolor=transparent,
                     color=lightslategrey,

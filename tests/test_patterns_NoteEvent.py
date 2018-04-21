@@ -1,8 +1,9 @@
+import pytest
+import supriya.patterns
+import supriya.realtime
 import types
 import uqbar.strings
 from patterns_testbase import TestCase
-import supriya.patterns
-import supriya.realtime
 
 
 class TestCase(TestCase):
@@ -22,7 +23,7 @@ class TestCase(TestCase):
             uuids={},
             )
         assert event_products[0].uuid == event_products[1].uuid
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             event_products,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''
@@ -76,7 +77,7 @@ class TestCase(TestCase):
             timestamp=100.0,
             uuids={},
             )
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             event_products,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

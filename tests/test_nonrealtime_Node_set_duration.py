@@ -1,6 +1,7 @@
 import pytest
 import supriya.nonrealtime
 import supriya.assets.synthdefs
+import uqbar.strings
 from nonrealtime_testbase import TestCase
 
 
@@ -10,7 +11,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             node = session.add_group(duration=20)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -21,7 +22,7 @@ class TestCase(TestCase):
             [0.0, [['/g_new', 1000, 0, 0]]],
             [20.0, [['/n_free', 1000], [0]]]]
         node.set_duration(30)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -32,7 +33,7 @@ class TestCase(TestCase):
             [0.0, [['/g_new', 1000, 0, 0]]],
             [30.0, [['/n_free', 1000], [0]]]]
         node.set_duration(10)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -49,7 +50,7 @@ class TestCase(TestCase):
             group_one = session.add_group(duration=30)
             group_two = group_one.add_group(duration=20)
             group_three = group_two.add_group(duration=10)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -75,7 +76,7 @@ class TestCase(TestCase):
             [30.0, [['/n_free', 1000], [0]]]]
 
         group_three.set_duration(20)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -96,7 +97,7 @@ class TestCase(TestCase):
             [30.0, [['/n_free', 1000], [0]]]]
 
         group_three.set_duration(25)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -124,7 +125,7 @@ class TestCase(TestCase):
             [30.0, [['/n_free', 1000], [0]]]]
 
         group_three.set_duration(30)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -148,7 +149,7 @@ class TestCase(TestCase):
             [30.0, [['/n_free', 1000, 1002], [0]]]]
 
         group_three.set_duration(35)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -185,7 +186,7 @@ class TestCase(TestCase):
             group = session.add_group()
             synth = group.add_synth(add_action='ADD_AFTER')
             group.add_synth(duration=10)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -199,7 +200,7 @@ class TestCase(TestCase):
                 NODE TREE 0 group
             ''')
         synth.set_duration(15)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -216,7 +217,7 @@ class TestCase(TestCase):
                 NODE TREE 0 group
             ''')
         group.set_duration(15)
-        assert session.to_strings() == self.normalize('''
+        assert session.to_strings() == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group
                     1000 group
@@ -247,7 +248,7 @@ class TestCase(TestCase):
             inner_group.add_synth(duration=20)
             outer_group.add_group(duration=20)
             session.add_group(duration=20)
-        assert session.to_strings(include_timespans=True) == self.normalize('''
+        assert session.to_strings(include_timespans=True) == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group (timespan: [-inf, inf])
                     1004 group (timespan: [0.0, 20.0])
@@ -259,7 +260,7 @@ class TestCase(TestCase):
                 NODE TREE 0 group (timespan: [-inf, inf])
             ''')
         outer_group.set_duration(10, clip_children=True)
-        assert session.to_strings(include_timespans=True) == self.normalize('''
+        assert session.to_strings(include_timespans=True) == uqbar.strings.normalize('''
             0.0:
                 NODE TREE 0 group (timespan: [-inf, inf])
                     1004 group (timespan: [0.0, 20.0])

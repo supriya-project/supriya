@@ -1,6 +1,7 @@
+import pytest
+import supriya.patterns
 import uqbar.strings
 from patterns_testbase import TestCase
-import supriya.patterns
 
 
 class TestCase(TestCase):
@@ -21,7 +22,7 @@ class TestCase(TestCase):
 
     def test___iter__(self):
         events = list(self.pattern)
-        assert self.get_objects_as_string(
+        assert pytest.helpers.get_objects_as_string(
             events,
             replace_uuids=True,
         ) == uqbar.strings.normalize('''

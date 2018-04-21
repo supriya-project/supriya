@@ -1,5 +1,6 @@
 import pathlib
 import pytest
+import re
 import supriya
 import types
 
@@ -213,6 +214,26 @@ def build_multiplier_synthdef(channel_count=1):
             source=source * builder['multiplier'],
             )
     return builder.build()
+
+
+@pytest.helpers.register
+def get_objects_as_string(objects, replace_uuids=False):
+    pattern = re.compile(r"\bUUID\('(.*)'\)")
+    objects_string = '\n'.join(format(x) for x in objects)
+    if replace_uuids:
+        matches = []
+        search_offset = 0
+        while True:
+            match = pattern.search(objects_string, search_offset)
+            if not match:
+                break
+            group = match.groups()[0]
+            if group not in matches:
+                matches.append(group)
+            search_offset = match.end()
+        for i, match in enumerate(matches, 65):
+            objects_string = objects_string.replace(match, chr(i))
+    return objects_string
 
 
 @pytest.helpers.register
