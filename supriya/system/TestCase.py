@@ -55,24 +55,6 @@ class TestCase(unittest.TestCase):
             diff = output_checker.output_difference(example, actual, flags)
             raise Exception(diff)
 
-    def get_objects_as_string(self, objects, replace_uuids=False):
-        pattern = re.compile(r"\bUUID\('(.*)'\)")
-        objects_string = '\n'.join(format(x) for x in objects)
-        if replace_uuids:
-            matches = []
-            search_offset = 0
-            while True:
-                match = pattern.search(objects_string, search_offset)
-                if not match:
-                    break
-                group = match.groups()[0]
-                if group not in matches:
-                    matches.append(group)
-                search_offset = match.end()
-            for i, match in enumerate(matches, 65):
-                objects_string = objects_string.replace(match, chr(i))
-        return objects_string
-
     def normalize(self, string):
         return uqbar.strings.normalize(string)
 
