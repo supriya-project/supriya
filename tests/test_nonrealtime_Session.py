@@ -1,3 +1,4 @@
+import pytest
 import supriya.nonrealtime
 import supriya.osc
 import supriya.soundfiles

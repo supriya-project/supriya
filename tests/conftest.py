@@ -42,7 +42,7 @@ def build_d_recv_commands(synthdefs):
 
 
 @pytest.helpers.register
-def sample(file_path):
+def sample_soundfile(file_path):
     soundfile = supriya.soundfiles.SoundFile(file_path)
     return {
         0.0: [round(x, 6) for x in soundfile.at_percent(0)],
@@ -67,6 +67,7 @@ def server_shutdown():
 def server():
     server = supriya.Server()
     server.debug_osc = True
+    server.boot()
     yield server
     server.quit()
     server.debug_osc = False

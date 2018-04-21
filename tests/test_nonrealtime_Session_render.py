@@ -20,7 +20,7 @@ class TestCase(TestCase):
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert pathlib.Path(supriya.output_path) in \
             output_file_path.parents
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -40,7 +40,7 @@ class TestCase(TestCase):
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
         assert pathlib.Path(self.render_directory_path) in \
             output_file_path.parents
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -70,7 +70,7 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -91,7 +91,7 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -113,7 +113,7 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -135,7 +135,7 @@ class TestCase(TestCase):
 
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=output_file_path)
-        assert pytest.helpers.sample(output_file_path) == {
+        assert pytest.helpers.sample_soundfile(output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -177,7 +177,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -220,7 +220,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=path_two)
-        assert pytest.helpers.sample(path_two) == {
+        assert pytest.helpers.sample_soundfile(path_two) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
             0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
@@ -273,7 +273,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 4, file_path=path_two)
-        assert pytest.helpers.sample(path_two) == {
+        assert pytest.helpers.sample_soundfile(path_two) == {
             0.0: [0.0, 0.0, 0.0, 0.0],
             0.21: [-0.125, -0.125, -0.125, -0.125],
             0.41: [-0.25, -0.25, -0.25, -0.25],
@@ -317,7 +317,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
             0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
@@ -378,7 +378,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=path_two)
-        assert pytest.helpers.sample(path_two) == {
+        assert pytest.helpers.sample_soundfile(path_two) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -426,7 +426,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -527,7 +527,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=buffer_one_path)
-        assert pytest.helpers.sample(buffer_one_path) == {
+        assert pytest.helpers.sample_soundfile(buffer_one_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
@@ -536,7 +536,7 @@ class TestCase(TestCase):
             0.99: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0],
             }
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=buffer_two_path)
-        assert pytest.helpers.sample(buffer_two_path) == {
+        assert pytest.helpers.sample_soundfile(buffer_two_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
             0.41: [-0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5, -0.5],
@@ -545,7 +545,7 @@ class TestCase(TestCase):
             0.99: [-1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0, -1.0],
             }
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125],
             0.41: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -665,7 +665,7 @@ class TestCase(TestCase):
             build_render_yml=True,
             )
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=session_one_path)
-        assert pytest.helpers.sample(session_one_path) == {
+        assert pytest.helpers.sample_soundfile(session_one_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625, 0.0625],
             0.41: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125],
@@ -674,7 +674,7 @@ class TestCase(TestCase):
             0.99: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             }
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8, file_path=session_two_path)
-        assert pytest.helpers.sample(session_two_path) == {
+        assert pytest.helpers.sample_soundfile(session_two_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125],
             0.41: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
@@ -683,7 +683,7 @@ class TestCase(TestCase):
             0.99: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
             }
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875, 0.1875],
             0.41: [0.375, 0.375, 0.375, 0.375, 0.375, 0.375, 0.375, 0.375],
@@ -892,7 +892,7 @@ class TestCase(TestCase):
                 )
         assert spy.call_count == 1
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [-0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125, -0.125],
             0.41: [-0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25, -0.25],
@@ -950,7 +950,7 @@ class TestCase(TestCase):
                 )
         assert spy.call_count == 1
         pytest.helpers.assert_soundfile_ok(exit_code, 10., 44100, 8)
-        assert pytest.helpers.sample(self.output_file_path) == {
+        assert pytest.helpers.sample_soundfile(self.output_file_path) == {
             0.0: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0],
             0.21: [0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25, 0.25],
             0.41: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],

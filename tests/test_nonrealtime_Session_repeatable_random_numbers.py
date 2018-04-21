@@ -39,12 +39,12 @@ class TestCase(TestCase):
                 )
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        sampled_session = pytest.helpers.sample(output_file_path)
+        sampled_session = pytest.helpers.sample_soundfile(output_file_path)
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            assert pytest.helpers.sample(output_file_path) != sampled_session
+            assert pytest.helpers.sample_soundfile(output_file_path) != sampled_session
 
     def test_repeatable(self):
         session = supriya.nonrealtime.Session(0, 1)
@@ -55,12 +55,12 @@ class TestCase(TestCase):
                 )
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        sampled_session = pytest.helpers.sample(output_file_path)
+        sampled_session = pytest.helpers.sample_soundfile(output_file_path)
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            assert pytest.helpers.sample(output_file_path) == sampled_session
+            assert pytest.helpers.sample_soundfile(output_file_path) == sampled_session
 
     def test_maybe_repeatable_but_wasnt(self):
         """
@@ -74,12 +74,12 @@ class TestCase(TestCase):
                 )
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        sampled_session = pytest.helpers.sample(output_file_path)
+        sampled_session = pytest.helpers.sample_soundfile(output_file_path)
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            assert pytest.helpers.sample(output_file_path) != sampled_session
+            assert pytest.helpers.sample_soundfile(output_file_path) != sampled_session
 
     def test_maybe_repeatable_and_was(self):
         """
@@ -98,12 +98,12 @@ class TestCase(TestCase):
                 )
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        sampled_session = pytest.helpers.sample(output_file_path)
+        sampled_session = pytest.helpers.sample_soundfile(output_file_path)
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            assert pytest.helpers.sample(output_file_path) == sampled_session
+            assert pytest.helpers.sample_soundfile(output_file_path) == sampled_session
 
     def test_maybe_repeatable_and_almost_was(self):
         """
@@ -122,12 +122,12 @@ class TestCase(TestCase):
                 )
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        first_sampled_session = sorted(pytest.helpers.sample(output_file_path).items())
+        first_sampled_session = sorted(pytest.helpers.sample_soundfile(output_file_path).items())
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            sampled_session = sorted(pytest.helpers.sample(output_file_path).items())
+            sampled_session = sorted(pytest.helpers.sample_soundfile(output_file_path).items())
             assert first_sampled_session[0] != sampled_session[0]
             assert first_sampled_session[1:] == sampled_session[1:]
 
@@ -156,9 +156,9 @@ class TestCase(TestCase):
              [1.0, [['/n_free', 1000], [0]]]]
         exit_code, output_file_path = session.render()
         pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-        sampled_session = pytest.helpers.sample(output_file_path)
+        sampled_session = pytest.helpers.sample_soundfile(output_file_path)
         for _ in range(10):
             output_file_path.unlink()
             exit_code, output_file_path = session.render()
             pytest.helpers.assert_soundfile_ok(exit_code, 1, 44100, 1, file_path=output_file_path)
-            assert pytest.helpers.sample(output_file_path) == sampled_session
+            assert pytest.helpers.sample_soundfile(output_file_path) == sampled_session
