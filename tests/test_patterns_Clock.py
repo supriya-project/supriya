@@ -1,7 +1,6 @@
 import time
 import uuid
 import supriya.patterns
-import supriya.system
 
 
 class Event:

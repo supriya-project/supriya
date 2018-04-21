@@ -28,7 +28,7 @@ pbind_03 = supriya.patterns.Pbind(
     )
 
 
-def test___iter___(server):
+def test___iter___():
     events = list(pbind_01)
     assert pytest.helpers.get_objects_as_string(
         events,
@@ -58,14 +58,14 @@ def test___iter___(server):
         ''')
 
 
-def test_send(server):
+def test_send():
     iterator = iter(pbind_01)
     next(iterator)
     with pytest.raises(StopIteration):
         iterator.send(True)
 
 
-def test_manual_incommunicado_pbind_01(server):
+def test_manual_incommunicado_pbind_01():
     lists, deltas = pytest.helpers.manual_incommunicado(pbind_01)
     assert lists == [
         [10, [
@@ -167,11 +167,11 @@ def test_manual_communicado_pbind_01(server):
 
 
 def test_automatic_communicado_pbind_01(server):
-    pbind_01.play(server=server.server)
+    pbind_01.play(server=server)
     time.sleep(6)
 
 
-def test_manual_incommunicado_pbind_02(server):
+def test_manual_incommunicado_pbind_02():
     lists, deltas = pytest.helpers.manual_incommunicado(pbind_02)
     assert lists == [
         [10, [
@@ -298,11 +298,11 @@ def test_manual_communicado_pbind_02(server):
 
 
 def test_automatic_communicado_pbind_02(server):
-    pbind_02.play(server=server.server)
+    pbind_02.play(server=server)
     time.sleep(6)
 
 
-def test_manual_incommunicado_pbind_03(server):
+def test_manual_incommunicado_pbind_03():
     lists, deltas = pytest.helpers.manual_incommunicado(pbind_03)
     assert deltas == [
         0.25, 0.25, 0.25, 0.25,
@@ -344,7 +344,7 @@ def test_manual_incommunicado_pbind_03(server):
         [12.75, [['/n_set', 1007, 'gate', 0]]]]
 
 
-def test_nonrealtime_01a(server):
+def test_nonrealtime_01a():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         final_offset = session.inscribe(pbind_01)
@@ -369,7 +369,7 @@ def test_nonrealtime_01a(server):
     assert final_offset == 6.0
 
 
-def test_nonrealtime_01b(server):
+def test_nonrealtime_01b():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         final_offset = session.inscribe(pbind_01, duration=3)
@@ -387,7 +387,7 @@ def test_nonrealtime_01b(server):
     assert final_offset == 3.0
 
 
-def test_nonrealtime_01c(server):
+def test_nonrealtime_01c():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         final_offset = session.inscribe(pbind_01, duration=2)
@@ -403,7 +403,7 @@ def test_nonrealtime_01c(server):
     assert final_offset == 1.0
 
 
-def test_nonrealtime_02a(server):
+def test_nonrealtime_02a():
     session = supriya.nonrealtime.Session()
     with session.at(10):
         final_offset = session.inscribe(pbind_02)
@@ -436,7 +436,7 @@ def test_nonrealtime_02a(server):
     assert final_offset == 16.0
 
 
-def test_nonrealtime_03a(server):
+def test_nonrealtime_03a():
     session = supriya.nonrealtime.Session()
     with session.at(0):
         final_offset = session.inscribe(pbind_03)
@@ -485,7 +485,7 @@ def test_manual_stop_pbind_01(server):
         NODE TREE 0 group
             1 group
     ''')
-    player = pbind_01.play(server=server.server)
+    player = pbind_01.play(server=server)
     time.sleep(2.5)
     server_state = str(server.query_remote_nodes(include_controls=True))
     assert server_state == uqbar.strings.normalize(r'''
@@ -522,7 +522,7 @@ def test_manual_stop_pbind_02(server):
         NODE TREE 0 group
             1 group
     ''')
-    player = pbind_02.play(server=server.server)
+    player = pbind_02.play(server=server)
     time.sleep(2)
     server.sync()
     server_state = str(server.query_remote_nodes(include_controls=True))
