@@ -1,3 +1,4 @@
+import pytest
 import supriya.nonrealtime
 import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
@@ -18,7 +19,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -180,7 +181,7 @@ class TestCase(TestCase):
             30.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
                 *d_recv_commands,
@@ -273,7 +274,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -366,7 +367,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -395,7 +396,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -521,7 +522,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -550,7 +551,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -668,7 +669,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -695,7 +696,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -817,7 +818,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     ['/g_new', 1000, 0, 0]]],
@@ -844,7 +845,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 ['/g_new', 1000, 0, 0]]],
@@ -956,7 +957,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -980,7 +981,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -1090,7 +1091,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -1122,7 +1123,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -1262,7 +1263,7 @@ class TestCase(TestCase):
                 20.0:
                     NODE TREE 0 group
                 ''')
-            d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+            d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
             assert session.to_lists() == [
                 [0.0, [
                     *d_recv_commands,
@@ -1294,7 +1295,7 @@ class TestCase(TestCase):
             20.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

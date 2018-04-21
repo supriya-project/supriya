@@ -1,3 +1,4 @@
+import pytest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
@@ -82,7 +83,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 2)
         with session.at(0):
             final_offset = session.inscribe(self.pattern_01)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
@@ -129,7 +130,7 @@ class TestCase(TestCase):
         assert final_offset == 36.0
 
     def test_nonrealtime_01b(self):
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         for duration in (10.0, 11.0, 12.0):
@@ -159,7 +160,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 2)
         with session.at(0):
             final_offset = session.inscribe(self.pattern_02)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             ])
@@ -211,7 +212,7 @@ class TestCase(TestCase):
         assert final_offset == 36.25
 
     def test_nonrealtime_02b(self):
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             supriya.assets.synthdefs.system_link_audio_2,
             ])
@@ -248,7 +249,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 2)
         with session.at(0):
             final_offset = session.inscribe(self.pattern_03)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
@@ -289,7 +290,7 @@ class TestCase(TestCase):
                 self.pattern_04,
                 duration=29.0,
                 )
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
@@ -310,7 +311,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 2)
         with session.at(0):
             final_offset = session.inscribe(self.pattern_05)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [
@@ -373,7 +374,7 @@ class TestCase(TestCase):
                 self.pattern_05,
                 duration=25.0,
                 )
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.default,
             ])
         assert session.to_lists() == [

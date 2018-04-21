@@ -1,3 +1,4 @@
+import pytest
 import time
 import uqbar.strings
 
@@ -339,7 +340,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -363,7 +364,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01, duration=3)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -380,7 +381,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_01, duration=2)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -395,7 +396,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(10):
             final_offset = session.inscribe(self.pbind_02)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
                 *d_recv_commands,
@@ -427,7 +428,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbind_03)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

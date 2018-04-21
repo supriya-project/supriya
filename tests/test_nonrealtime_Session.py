@@ -14,7 +14,7 @@ class TestCase(TestCase):
                 synthdef=self.build_basic_synthdef(),
                 )
         exit_code, _ = session.render(self.output_file_path)
-        self.assert_ok(exit_code, 1., 44100, 8)
+        pytest.helpers.assert_soundfile_ok(exit_code, 1., 44100, 8)
 
     def test_02(self):
         session = supriya.nonrealtime.Session()
@@ -28,7 +28,7 @@ class TestCase(TestCase):
             sample_rate=48000,
             output_bus_channel_count=2,
             )
-        self.assert_ok(exit_code, 300., 48000, 2)
+        pytest.helpers.assert_soundfile_ok(exit_code, 300., 48000, 2)
 
     def test_03(self):
         session = supriya.nonrealtime.Session()
@@ -58,11 +58,11 @@ class TestCase(TestCase):
             self.output_file_path,
             output_bus_channel_count=1,
             )
-        self.assert_ok(exit_code, 1., 44100, 1)
+        pytest.helpers.assert_soundfile_ok(exit_code, 1., 44100, 1)
         soundfile = supriya.soundfiles.SoundFile(self.output_file_path)
         for i in range(1, 100):
-            value = float(i) / 100
-            assert self.round(soundfile.at_percent(value)[0]) == value
+            value = round(float(i) / 100, 2)
+            assert round(soundfile.at_percent(value)[0], 2) == value
 
     def test_04(self):
         session = supriya.nonrealtime.Session()

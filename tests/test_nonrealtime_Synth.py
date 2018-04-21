@@ -1,3 +1,4 @@
+import pytest
 import supriya.nonrealtime
 import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
@@ -21,7 +22,7 @@ class TestCase(TestCase):
                 pan=0.75,
                 out=8,
                 )
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -46,7 +47,7 @@ class TestCase(TestCase):
             synth['frequency'] = 442
         with session.at(13):
             synth['frequency'] = 443
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [10.0, [
                 *d_recv_commands,
@@ -105,7 +106,7 @@ class TestCase(TestCase):
             session.add_synth(synthdef=synthdef)
         with session.at(1):
             session.add_synth(duration=4, synthdef=synthdef)
-        d_recv_commands = self.build_d_recv_commands([synthdef])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([synthdef])
         assert session.to_lists(duration=3) == [
             [0.0, [
                 *d_recv_commands,
@@ -162,7 +163,7 @@ class TestCase(TestCase):
             group_b['frequency'] = 445
             synth_a['frequency'] = 446
             synth_b['frequency'] = 447
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists(duration=6) == [
             [0.0, [
                 *d_recv_commands,
@@ -196,7 +197,7 @@ class TestCase(TestCase):
                 duration=0,
                 synthdef=synthdef,
                 )
-        d_recv_commands = self.build_d_recv_commands([synthdef])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([synthdef])
         assert session.to_lists(duration=1) == [
             [0.0, [
                 *d_recv_commands,

@@ -1,9 +1,10 @@
-import uqbar.strings
+import pytest
 import supriya.nonrealtime
 import supriya.patterns
-from patterns_testbase import TestCase
 import supriya.synthdefs
 import supriya.ugens
+import uqbar.strings
+from patterns_testbase import TestCase
 
 
 class TestCase(TestCase):
@@ -160,7 +161,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pattern)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             self.limiter_synthdef,

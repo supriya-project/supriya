@@ -1,3 +1,4 @@
+import pytest
 import types
 import supriya.assets.synthdefs
 import supriya.patterns
@@ -18,15 +19,6 @@ class TestCase(supriya.system.TestCase):
         supriya.assets.synthdefs.default.allocate(self.server)
         self.server.debug_osc = True
         self.server.latency = 0.0
-
-    def build_d_recv_commands(self, synthdefs):
-        d_recv_commands = []
-        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
-        for synthdef in synthdefs:
-            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
-            compiled_synthdef = bytearray(compiled_synthdef)
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
-        return d_recv_commands
 
     def tearDown(self):
         self.server.debug_osc = False

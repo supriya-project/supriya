@@ -1,3 +1,4 @@
+import pytest
 import unittest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
@@ -16,7 +17,7 @@ class TestCase(TestCase):
         for i in range(4):
             with session.at(i):
                 group.add_synth(duration=0)
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists(duration=5) == [
             [0.0, [
                 *d_recv_commands,

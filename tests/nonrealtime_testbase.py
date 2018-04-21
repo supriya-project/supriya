@@ -1,5 +1,6 @@
 import os
 import pathlib
+import pytest
 import shutil
 import supriya.nonrealtime
 import supriya.realtime
@@ -82,22 +83,12 @@ class TestCase(supriya.system.TestCase):
     def tearDownClass(cls):
         os.chdir(cls.original_curdir)
 
-    def build_d_recv_commands(self, synthdefs):
-        d_recv_commands = []
-        synthdefs = sorted(synthdefs, key=lambda x: x.anonymous_name)
-        for synthdef in synthdefs:
-            compiled_synthdef = synthdef.compile(use_anonymous_name=True)
-            compiled_synthdef = bytearray(compiled_synthdef)
-            d_recv_commands.append(['/d_recv', compiled_synthdef])
-        return d_recv_commands
-
     def setUp(self):
         for path in [
             self.output_directory_path,
             self.render_directory_path,
             ]:
-            if not path.exists():
-                path.mkdir()
+            path.mkdir(parents=True, exist_ok=True)
 
     def tearDown(self):
         for path in [
@@ -142,25 +133,6 @@ class TestCase(supriya.system.TestCase):
                 )
         return builder.build()
 
-    def round(self, value):
-        return float('{:.2f}'.format(value))
-
-    def assert_ok(
-        self,
-        exit_code,
-        expected_duration,
-        expected_sample_rate,
-        expected_channel_count,
-        file_path=None,
-        ):
-        file_path = pathlib.Path(file_path or self.output_file_path)
-        assert file_path.exists(), file_path
-        assert exit_code == 0, exit_code
-        soundfile = supriya.soundfiles.SoundFile(file_path)
-        assert self.round(soundfile.seconds) == expected_duration, self.round(soundfile.seconds)
-        assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
-        assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
-
     def _make_session(
         self,
         input_=None,
@@ -192,7 +164,7 @@ class TestCase(supriya.system.TestCase):
         with session.at(8):
             synth['source'] = 1.0 * multiplier
         assert synthdef.anonymous_name == 'b47278d408f17357f6b260ec30ea213d'
-        d_recv_commands = self.build_d_recv_commands([synthdef])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([synthdef])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,
@@ -261,14 +233,3 @@ class TestCase(supriya.system.TestCase):
                 source=source * builder['multiplier'],
                 )
         return builder.build()
-
-    def _sample(self, file_path):
-        soundfile = supriya.soundfiles.SoundFile(file_path)
-        return {
-            0.0: [round(x, 6) for x in soundfile.at_percent(0)],
-            0.21: [round(x, 6) for x in soundfile.at_percent(0.21)],
-            0.41: [round(x, 6) for x in soundfile.at_percent(0.41)],
-            0.61: [round(x, 6) for x in soundfile.at_percent(0.61)],
-            0.81: [round(x, 6) for x in soundfile.at_percent(0.81)],
-            0.99: [round(x, 6) for x in soundfile.at_percent(0.99)],
-            }

@@ -1,7 +1,8 @@
-from patterns_testbase import TestCase
+import pytest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
+from patterns_testbase import TestCase
 
 
 class TestCase(TestCase):
@@ -62,7 +63,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(10):
             session.inscribe(self.pattern)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             ])

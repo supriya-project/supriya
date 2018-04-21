@@ -1,10 +1,11 @@
+import pytest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
-from patterns_testbase import TestCase
-from supriya.realtime import AddAction
 import supriya.synthdefs
 import supriya.ugens
+from patterns_testbase import TestCase
+from supriya.realtime import AddAction
 
 
 class TestCase(TestCase):
@@ -118,7 +119,7 @@ class TestCase(TestCase):
             64.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_1,
             self.sine_synthdef,
             self.pink_synthdef,

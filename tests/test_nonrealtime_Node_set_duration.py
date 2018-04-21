@@ -1,3 +1,4 @@
+import pytest
 import supriya.nonrealtime
 import supriya.assets.synthdefs
 from nonrealtime_testbase import TestCase
@@ -228,7 +229,7 @@ class TestCase(TestCase):
             15.0:
                 NODE TREE 0 group
             ''')
-        d_recv_commands = self.build_d_recv_commands([supriya.assets.synthdefs.default])
+        d_recv_commands = pytest.helpers.build_d_recv_commands([supriya.assets.synthdefs.default])
         assert session.to_lists() == [
             [0.0, [
                 *d_recv_commands,

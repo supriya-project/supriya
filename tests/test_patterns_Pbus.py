@@ -1,11 +1,12 @@
-import time
-import uqbar.strings
-from patterns_testbase import TestCase
-from supriya import SynthDefBuilder, Parameter
+import pytest
 import supriya.assets.synthdefs
 import supriya.nonrealtime
 import supriya.patterns
 import supriya.ugens
+import time
+import uqbar.strings
+from patterns_testbase import TestCase
+from supriya import SynthDefBuilder, Parameter
 
 
 class TestCase(TestCase):
@@ -547,7 +548,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             ])
@@ -579,7 +580,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01, duration=3)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             ])
@@ -607,7 +608,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session()
         with session.at(0):
             final_offset = session.inscribe(self.pbus_01, duration=2)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_2,
             supriya.assets.synthdefs.default,
             ])
@@ -645,7 +646,7 @@ class TestCase(TestCase):
         session = supriya.nonrealtime.Session(0, 1)
         with session.at(0):
             session.inscribe(pattern, duration=1)
-        d_recv_commands = self.build_d_recv_commands([
+        d_recv_commands = pytest.helpers.build_d_recv_commands([
             supriya.assets.synthdefs.system_link_audio_1,
             dc_synthdef,
             ])
