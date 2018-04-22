@@ -12,7 +12,7 @@ def test_01(paths):
             synthdef=pytest.helpers.build_basic_synthdef(),
             )
     exit_code, _ = session.render(paths.output_file_path)
-    pytest.helpers.assert_soundfile_ok(exit_code, 1., 44100, 8)
+    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 1., 44100, 8)
 
 
 def test_02(paths):
@@ -27,7 +27,7 @@ def test_02(paths):
         sample_rate=48000,
         output_bus_channel_count=2,
         )
-    pytest.helpers.assert_soundfile_ok(exit_code, 300., 48000, 2)
+    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 300., 48000, 2)
 
 
 def test_03(paths):
@@ -58,7 +58,7 @@ def test_03(paths):
         paths.output_file_path,
         output_bus_channel_count=1,
         )
-    pytest.helpers.assert_soundfile_ok(exit_code, 1., 44100, 1)
+    pytest.helpers.assert_soundfile_ok(paths.output_file_path, exit_code, 1., 44100, 1)
     soundfile = supriya.soundfiles.SoundFile(paths.output_file_path)
     for i in range(1, 100):
         value = round(float(i) / 100, 2)

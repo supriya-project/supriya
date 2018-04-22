@@ -133,23 +133,6 @@ class TestSessionFactory:
 
 @pytest.helpers.register
 def assert_soundfile_ok(
-    exit_code,
-    expected_duration,
-    expected_sample_rate,
-    expected_channel_count,
-    file_path=None,
-    ):
-    file_path = pathlib.Path(file_path or output_file_path)
-    assert file_path.exists(), file_path
-    assert exit_code == 0, exit_code
-    soundfile = supriya.soundfiles.SoundFile(file_path)
-    assert round(soundfile.seconds, 2) == expected_duration, round(soundfile.seconds, 2)
-    assert soundfile.sample_rate == expected_sample_rate, soundfile.sample_rate
-    assert soundfile.channel_count == expected_channel_count, soundfile.channel_count
-
-
-@pytest.helpers.register
-def assert_soundfile_ok_2(
     file_path,
     exit_code,
     expected_duration,
