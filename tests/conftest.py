@@ -77,13 +77,6 @@ def server_shutdown():
 ### DATA ###
 
 
-test_directory_path = pathlib.Path(__file__).parent
-output_directory_path = test_directory_path / 'output'
-render_directory_path = test_directory_path / 'render'
-output_file_path = output_directory_path / 'output.aiff'
-render_yml_file_path = output_directory_path / 'render.yml'
-
-
 class TestSessionFactory:
 
     def __init__(
