@@ -1,6 +1,8 @@
+import os
 import pathlib
 import pytest
 import re
+import shutil
 import supriya
 import types
 
@@ -9,6 +11,37 @@ pytest_plugins = ['helpers_namespace']
 
 
 ### FIXTURES ###
+
+
+@pytest.fixture
+def paths():
+    test_directory_path = pathlib.Path(__file__).parent
+    output_directory_path = test_directory_path / 'output'
+    render_directory_path = test_directory_path / 'render'
+    output_file_path = output_directory_path / 'output.aiff'
+    render_yml_file_path = output_directory_path / 'render.yml'
+    paths = types.SimpleNamespace(
+        test_directory_path=test_directory_path,
+        output_directory_path=output_directory_path,
+        render_directory_path=render_directory_path,
+        output_file_path=output_file_path,
+        render_yml_file_path=render_yml_file_path,
+        )
+    original_directory = pathlib.Path.cwd()
+    for path in [
+        output_directory_path,
+        render_directory_path,
+        ]:
+        path.mkdir(parents=True, exist_ok=True)
+    os.chdir(test_directory_path)
+    yield paths
+    os.chdir(original_directory)
+    for path in [
+        output_directory_path,
+        render_directory_path,
+        ]:
+        if path.exists():
+            shutil.rmtree(path)
 
 
 @pytest.fixture
