@@ -1,7 +1,7 @@
 import os
+import supriya.cli
 import uqbar.io
 import uqbar.strings
-import supriya.cli
 from cli_testbase import ProjectPackageScriptTestCase
 
 

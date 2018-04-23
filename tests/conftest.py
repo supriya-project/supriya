@@ -344,15 +344,15 @@ def manual_incommunicado(pattern, timestamp=10):
 
 
 @pytest.helpers.register
-def sample_soundfile(file_path):
+def sample_soundfile(file_path, rounding=6):
     soundfile = supriya.soundfiles.SoundFile(file_path)
     return {
-        0.0: [round(x, 6) for x in soundfile.at_percent(0)],
-        0.21: [round(x, 6) for x in soundfile.at_percent(0.21)],
-        0.41: [round(x, 6) for x in soundfile.at_percent(0.41)],
-        0.61: [round(x, 6) for x in soundfile.at_percent(0.61)],
-        0.81: [round(x, 6) for x in soundfile.at_percent(0.81)],
-        0.99: [round(x, 6) for x in soundfile.at_percent(0.99)],
+        0.0: [round(x, rounding) for x in soundfile.at_percent(0)],
+        0.21: [round(x, rounding) for x in soundfile.at_percent(0.21)],
+        0.41: [round(x, rounding) for x in soundfile.at_percent(0.41)],
+        0.61: [round(x, rounding) for x in soundfile.at_percent(0.61)],
+        0.81: [round(x, rounding) for x in soundfile.at_percent(0.81)],
+        0.99: [round(x, rounding) for x in soundfile.at_percent(0.99)],
         }
 
 

@@ -1,6 +1,7 @@
 import os
-import uqbar.io
+import pytest
 import supriya.cli
+import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -35,9 +36,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Copying session subpackage 'session_one' to 'session_two' ...
             Subpackage test_project/sessions/session_one/ does not exist!
@@ -52,9 +53,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Copying session subpackage 'session_one' to 'session_two' ...
             Subpackage test_project/sessions/session_two/ exists!

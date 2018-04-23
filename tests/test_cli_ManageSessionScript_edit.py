@@ -1,7 +1,7 @@
 import supriya
+import supriya.cli
 import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
-import supriya.cli
 from unittest import mock
 
 

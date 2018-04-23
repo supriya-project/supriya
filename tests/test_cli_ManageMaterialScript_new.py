@@ -1,6 +1,6 @@
 import os
-import uqbar.io
 import supriya.cli
+import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 

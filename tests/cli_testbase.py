@@ -1,5 +1,6 @@
 import jinja2
 import pathlib
+import pytest
 import shutil
 import supriya.cli
 import supriya.soundfiles
@@ -167,9 +168,9 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             command.insert(0, '-f')
         with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
             else:
                 try:
                     script(command)
@@ -198,9 +199,9 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             command.insert(0, '-f')
         with uqbar.io.DirectoryChange(str(self.test_path)):
             if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
             else:
                 try:
                     script(command)
@@ -220,9 +221,9 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             command.insert(0, '-f')
         with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
             else:
                 try:
                     script(command)
@@ -235,14 +236,3 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
         return session_path
-
-    def sample(self, file_path, rounding=6):
-        soundfile = supriya.soundfiles.SoundFile(file_path)
-        return {
-            0.0: [round(x, rounding) for x in soundfile.at_percent(0)],
-            0.21: [round(x, rounding) for x in soundfile.at_percent(0.21)],
-            0.41: [round(x, rounding) for x in soundfile.at_percent(0.41)],
-            0.61: [round(x, rounding) for x in soundfile.at_percent(0.61)],
-            0.81: [round(x, rounding) for x in soundfile.at_percent(0.81)],
-            0.99: [round(x, rounding) for x in soundfile.at_percent(0.99)],
-            }

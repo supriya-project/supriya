@@ -1,4 +1,5 @@
 import os
+import pytest
 import supriya.cli
 import supriya.nonrealtime
 import uqbar.io
@@ -20,9 +21,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_material' ...
             No matching materials.
@@ -43,9 +44,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -73,9 +74,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
             Render candidates: 'test_material' ...
             Rendering test_project/materials/test_material/
@@ -108,9 +109,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
@@ -140,9 +141,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
@@ -166,11 +167,11 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     with mock.patch(mock_path) as call_mock:
                         call_mock.return_value = 1
                         script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
@@ -195,11 +196,11 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     with mock.patch(mock_path) as call_mock:
                         call_mock.return_value = 0  # no output, but no error
                         script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_material' ...
         Rendering test_project/materials/test_material/
@@ -274,7 +275,7 @@ class Test(ProjectPackageScriptTestCase):
             'material_three',
             'render.aiff',
             ).exists()
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('material_one', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -284,7 +285,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('material_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -294,7 +295,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('material_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -355,7 +356,7 @@ class Test(ProjectPackageScriptTestCase):
             'material_three',
             'render.aiff',
             ).exists()
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('material_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -365,7 +366,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('material_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -428,7 +429,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py',
                 ]
             )
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.materials_path.joinpath('test_material', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -581,12 +582,12 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             }
 
-        material_three_render_sample = self.sample(
+        material_three_render_sample = pytest.helpers.sample_soundfile(
             str(material_three_path / 'render.aiff'),
             rounding=2,
             )
 
-        material_three_source_sample = self.sample(
+        material_three_source_sample = pytest.helpers.sample_soundfile(
             str(self.renders_path / '{}.aiff'.format(render_yml['render'])),
             rounding=2,
             )
