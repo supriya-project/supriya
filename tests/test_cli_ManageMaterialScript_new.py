@@ -16,9 +16,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_exists(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_cli_material('test_material', expect_error=True)
+            pytest.helpers.create_cli_material(self.test_path, 'test_material', expect_error=True)
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
                 Path exists: test_project/materials/test_material
@@ -26,9 +26,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_cli_material('test_material', force=True)
+            pytest.helpers.create_cli_material(self.test_path, 'test_material', force=True)
         self.compare_captured_output(r'''
             Creating material subpackage 'test_material' ...
                 Created test_project/materials/test_material/

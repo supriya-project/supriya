@@ -36,7 +36,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle missing definition.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_cli_material('test_material')
+        material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
         definition_path.unlink()
         script = supriya.cli.ManageMaterialScript()
@@ -63,7 +63,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle un-renderables.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_cli_material('test_material')
+        material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(uqbar.strings.normalize(r'''
@@ -89,7 +89,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on __call__().
         """
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_cli_material('test_material')
+        material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(uqbar.strings.normalize(r'''
@@ -132,7 +132,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on import.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_cli_material('test_material')
+        material_path = pytest.helpers.create_cli_material(self.test_path, 'test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
             file_pointer.write('\n\nfailure = 1 / 0\n')
@@ -159,7 +159,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_supercollider_error(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -188,7 +188,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_supercollider_no_output(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -217,9 +217,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_all_materials(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('material_one')
-        self.create_cli_material('material_two')
-        self.create_cli_material('material_three')
+        pytest.helpers.create_cli_material(self.test_path, 'material_one')
+        pytest.helpers.create_cli_material(self.test_path, 'material_two')
+        pytest.helpers.create_cli_material(self.test_path, 'material_three')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', '*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -308,9 +308,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_filtered_materials(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('material_one')
-        self.create_cli_material('material_two')
-        self.create_cli_material('material_three')
+        pytest.helpers.create_cli_material(self.test_path, 'material_one')
+        pytest.helpers.create_cli_material(self.test_path, 'material_two')
+        pytest.helpers.create_cli_material(self.test_path, 'material_three')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'material_t*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -379,7 +379,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_one_material(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -442,8 +442,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_chained(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('material_one')
-        self.create_cli_material(
+        pytest.helpers.create_cli_material(self.test_path, 'material_one')
+        pytest.helpers.create_cli_material(
+            self.test_path,
             'material_two',
             definition_contents=self.chained_session_template.render(
                 input_name='material_one',
@@ -452,7 +453,8 @@ class Test(ProjectPackageScriptTestCase):
                 multiplier=0.5,
                 ),
             )
-        material_three_path = self.create_cli_material(
+        material_three_path = pytest.helpers.create_cli_material(
+            self.test_path,
             'material_three',
             definition_contents=self.chained_session_template.render(
                 input_name='material_two',

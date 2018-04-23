@@ -8,20 +8,23 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_clean(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material(
+        pytest.helpers.create_cli_material(
+            self.test_path,
             'material_one',
             definition_contents=self.basic_session_template.render(
                 output_section_singular='material',
                 ),
             )
-        self.create_cli_material(
+        pytest.helpers.create_cli_material(
+            self.test_path,
             'material_two',
             definition_contents=self.basic_session_template.render(
                 multiplier=0.5,
                 output_section_singular='material',
                 ),
             )
-        self.create_cli_material(
+        pytest.helpers.create_cli_material(
+            self.test_path,
             'material_three',
             definition_contents=self.basic_session_template.render(
                 multiplier=0.25,

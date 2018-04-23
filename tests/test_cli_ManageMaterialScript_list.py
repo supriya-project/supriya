@@ -8,10 +8,10 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_list_materials(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('foo')
-        self.create_cli_material('bar')
-        self.create_cli_material('baz')
-        self.create_cli_material('quux')
+        pytest.helpers.create_cli_material(self.test_path, 'foo')
+        pytest.helpers.create_cli_material(self.test_path, 'bar')
+        pytest.helpers.create_cli_material(self.test_path, 'baz')
+        pytest.helpers.create_cli_material(self.test_path, 'quux')
         script = supriya.cli.ManageMaterialScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

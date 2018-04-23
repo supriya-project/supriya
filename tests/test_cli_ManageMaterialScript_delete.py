@@ -42,7 +42,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_material('test_material')
+        pytest.helpers.create_cli_material(self.test_path, 'test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--delete', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

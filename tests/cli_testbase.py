@@ -144,34 +144,3 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                 continue
             if path.startswith(self.package_name):
                 del(sys.modules[path])
-
-    ### UTILITY METHODS ###
-
-    def create_cli_material(
-        self,
-        material_name='test_material',
-        force=False,
-        expect_error=False,
-        definition_contents=None,
-        ):
-        script = supriya.cli.ManageMaterialScript()
-        command = ['--new', material_name]
-        if force:
-            command.insert(0, '-f')
-        with uqbar.io.DirectoryChange(str(self.inner_project_path)):
-            if expect_error:
-                with pytest.raises(SystemExit) as exception_info:
-                    script(command)
-                assert exception_info.value.code == 1
-            else:
-                try:
-                    script(command)
-                except SystemExit:
-                    raise RuntimeError('SystemExit')
-        material_path = self.inner_project_path / 'materials' / material_name
-        if definition_contents:
-            definition_contents = uqbar.strings.normalize(definition_contents)
-            definition_file_path = material_path / 'definition.py'
-            with open(str(definition_file_path), 'w') as file_pointer:
-                file_pointer.write(definition_contents)
-        return material_path
