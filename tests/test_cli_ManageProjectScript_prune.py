@@ -9,8 +9,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_prune(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_material('material_one')
-        self.create_material(
+        self.create_cli_material('material_one')
+        self.create_cli_material(
             'material_two',
             definition_contents=self.chained_session_template.render(
                 input_name='material_one',
@@ -19,7 +19,7 @@ class Test(ProjectPackageScriptTestCase):
                 multiplier=0.5,
                 ),
             )
-        self.create_material(
+        self.create_cli_material(
             'material_three',
             definition_contents=self.chained_session_template.render(
                 input_name='material_two',
@@ -28,7 +28,7 @@ class Test(ProjectPackageScriptTestCase):
                 multiplier=-1.0,
                 ),
             )
-        material_four_path = self.create_material(
+        material_four_path = self.create_cli_material(
             'material_four',
             definition_contents=self.chained_session_template.render(
                 input_name='material_two',

@@ -42,7 +42,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('test_session')
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--delete', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

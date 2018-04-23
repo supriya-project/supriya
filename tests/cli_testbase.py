@@ -147,7 +147,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
 
     ### UTILITY METHODS ###
 
-    def create_material(
+    def create_cli_material(
         self,
         material_name='test_material',
         force=False,
@@ -176,7 +176,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                 file_pointer.write(definition_contents)
         return material_path
 
-    def create_session(
+    def create_cli_session(
         self,
         session_name='test_session',
         force=False,

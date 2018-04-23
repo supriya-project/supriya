@@ -36,7 +36,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle missing definition.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_session('test_session')
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
         script = supriya.cli.ManageSessionScript()
@@ -63,7 +63,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle un-renderables.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_session('test_session')
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(uqbar.strings.normalize(r'''
@@ -89,7 +89,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on __call__().
         """
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_session('test_session')
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(uqbar.strings.normalize(r'''
@@ -132,7 +132,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle exceptions inside the Python module on import.
         """
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_session('test_session')
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
             file_pointer.write('\n\nfailure = 1 / 0\n')
@@ -159,7 +159,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_supercollider_error(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('test_session')
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -188,7 +188,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_supercollider_no_output(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('test_session')
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -217,9 +217,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_all_sessions(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('session_one')
-        self.create_session('session_two')
-        self.create_session('session_three')
+        self.create_cli_session('session_one')
+        self.create_cli_session('session_two')
+        self.create_cli_session('session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', '*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -308,9 +308,9 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_filtered_sessions(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('session_one')
-        self.create_session('session_two')
-        self.create_session('session_three')
+        self.create_cli_session('session_one')
+        self.create_cli_session('session_two')
+        self.create_cli_session('session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_t*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -379,7 +379,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_one_session(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('test_session')
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -442,8 +442,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success_chained(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_session('session_one')
-        self.create_session(
+        self.create_cli_session('session_one')
+        self.create_cli_session(
             'session_two',
             definition_contents=self.chained_session_template.render(
                 input_name='session_one',
@@ -452,7 +452,7 @@ class Test(ProjectPackageScriptTestCase):
                 multiplier=0.5,
                 ),
             )
-        session_three_path = self.create_session(
+        session_three_path = self.create_cli_session(
             'session_three',
             definition_contents=self.chained_session_template.render(
                 input_name='session_two',
@@ -607,7 +607,7 @@ class Test(ProjectPackageScriptTestCase):
         Handle session factories implemented with __session__().
         """
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_session('test_session')
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.session_factory_template.render(

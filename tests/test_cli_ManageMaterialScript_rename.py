@@ -44,8 +44,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_no_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_material('material_one')
-        self.create_material('material_two')
+        self.create_cli_material('material_one')
+        self.create_cli_material('material_two')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -61,8 +61,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_material('material_one')
-        self.create_material('material_two')
+        self.create_cli_material('material_one')
+        self.create_cli_material('material_two')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two', '-f']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -84,7 +84,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_material('material_one')
+        self.create_cli_material('material_one')
         script = supriya.cli.ManageMaterialScript()
         command = ['--rename', 'material_one', 'material_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

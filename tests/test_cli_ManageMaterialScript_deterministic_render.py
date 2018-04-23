@@ -33,7 +33,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_01(self):
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_material('test_material')
+        material_path = self.create_cli_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=0))
@@ -120,7 +120,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_02(self):
         pytest.helpers.create_cli_project(self.test_path)
-        material_path = self.create_material('test_material')
+        material_path = self.create_cli_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=None))
