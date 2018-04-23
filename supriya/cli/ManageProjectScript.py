@@ -3,7 +3,7 @@ import pathlib
 import sys
 import yaml
 import uqbar.io
-from supriya import utils
+import uqbar.strings
 from supriya.cli.ProjectPackageScript import ProjectPackageScript
 
 
@@ -47,7 +47,7 @@ class ManageProjectScript(ProjectPackageScript):
         force=False,
         ):
         print('Creating project package {!r}...'.format(title))
-        package_name = utils.to_snake_case(title)
+        package_name = uqbar.strings.to_snake_case(title)
         outer_target_path = pathlib.Path(package_name).absolute()
         if outer_target_path.exists() and not force:
             message = '    Directory {!s} already exists.'

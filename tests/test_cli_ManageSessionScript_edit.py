@@ -1,7 +1,8 @@
+import pytest
 import supriya
+import supriya.cli
 import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
-import supriya.cli
 from unittest import mock
 
 
@@ -10,8 +11,8 @@ class Test(ProjectPackageScriptTestCase):
     @mock.patch('supriya.cli.ProjectPackageScript._call_subprocess')
     def test_success(self, call_subprocess_mock):
         call_subprocess_mock.return_value = 0
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--edit', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

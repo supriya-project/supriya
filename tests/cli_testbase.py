@@ -1,12 +1,13 @@
 import jinja2
 import pathlib
+import pytest
 import shutil
-import sys
-import uqbar.io
-from supriya import utils
 import supriya.cli
 import supriya.soundfiles
 import supriya.system
+import sys
+import uqbar.io
+import uqbar.strings
 
 
 class ProjectPackageScriptTestCase(supriya.system.TestCase):
@@ -23,7 +24,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
     synthdefs_path = inner_project_path.joinpath('synthdefs')
     tools_path = inner_project_path.joinpath('tools')
 
-    basic_session_template = jinja2.Template(utils.normalize_string('''
+    basic_session_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
 
@@ -50,7 +51,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             )
     '''))
 
-    session_factory_template = jinja2.Template(utils.normalize_string('''
+    session_factory_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
 
@@ -91,7 +92,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
     {{ output_section_singular }} = SessionFactory(project_settings)
     '''))
 
-    chained_session_template = jinja2.Template(utils.normalize_string('''
+    chained_session_template = jinja2.Template(uqbar.strings.normalize('''
     import supriya
     from test_project import project_settings
     from test_project.{{ input_section_singular }}s.{{ input_name }}.definition \
@@ -138,14 +139,6 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
 
     def tearDown(self):
         super(ProjectPackageScriptTestCase, self).tearDown()
-#        for path in sorted(self.test_path.iterdir()):
-#            if path in self.directory_items:
-#                continue
-#            if path.is_file():
-#                path.unlink()
-#            else:
-#                shutil.rmtree(str(path))
-#        sys.path.remove(str(self.outer_project_path))
         for path, module in tuple(sys.modules.items()):
             if not path or not module:
                 continue
@@ -154,7 +147,7 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
 
     ### UTILITY METHODS ###
 
-    def create_material(
+    def create_cli_material(
         self,
         material_name='test_material',
         force=False,
@@ -167,9 +160,9 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             command.insert(0, '-f')
         with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
             else:
                 try:
                     script(command)
@@ -177,37 +170,13 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                     raise RuntimeError('SystemExit')
         material_path = self.inner_project_path / 'materials' / material_name
         if definition_contents:
-            definition_contents = utils.normalize_string(definition_contents)
+            definition_contents = uqbar.strings.normalize(definition_contents)
             definition_file_path = material_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
         return material_path
 
-    def create_project(self, force=False, expect_error=False):
-        script = supriya.cli.ManageProjectScript()
-        command = [
-            '--new',
-            'Test Project',
-            '--composer-name', 'Josiah Wolf Oberholtzer',
-            '--composer-email', 'josiah.oberholtzer@gmail.com',
-            '--composer-github', 'josiah-wolf-oberholtzer',
-            '--composer-website', 'www.josiahwolfoberholtzer.com',
-            '--composer-library', 'amazing_library',
-            ]
-        if force:
-            command.insert(0, '-f')
-        with uqbar.io.DirectoryChange(str(self.test_path)):
-            if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
-                    script(command)
-                assert context_manager.exception.code == 1
-            else:
-                try:
-                    script(command)
-                except SystemExit:
-                    raise RuntimeError('SystemExit')
-
-    def create_session(
+    def create_cli_session(
         self,
         session_name='test_session',
         force=False,
@@ -220,9 +189,9 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             command.insert(0, '-f')
         with uqbar.io.DirectoryChange(str(self.inner_project_path)):
             if expect_error:
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
             else:
                 try:
                     script(command)
@@ -230,19 +199,8 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
                     raise RuntimeError('SystemExit')
         session_path = self.inner_project_path / 'sessions' / session_name
         if definition_contents:
-            definition_contents = utils.normalize_string(definition_contents)
+            definition_contents = uqbar.strings.normalize(definition_contents)
             definition_file_path = session_path / 'definition.py'
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
         return session_path
-
-    def sample(self, file_path, rounding=6):
-        soundfile = supriya.soundfiles.SoundFile(file_path)
-        return {
-            0.0: [round(x, rounding) for x in soundfile.at_percent(0)],
-            0.21: [round(x, rounding) for x in soundfile.at_percent(0.21)],
-            0.41: [round(x, rounding) for x in soundfile.at_percent(0.41)],
-            0.61: [round(x, rounding) for x in soundfile.at_percent(0.61)],
-            0.81: [round(x, rounding) for x in soundfile.at_percent(0.81)],
-            0.99: [round(x, rounding) for x in soundfile.at_percent(0.99)],
-            }

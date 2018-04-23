@@ -1,5 +1,5 @@
 import enum
-from supriya import utils
+import uqbar.strings
 
 
 class Enumeration(enum.IntEnum):
@@ -66,7 +66,7 @@ class Enumeration(enum.IntEnum):
             return cls(expr)
         elif isinstance(expr, str):
             expr = expr.strip()
-            expr = utils.to_snake_case(expr)
+            expr = uqbar.strings.to_snake_case(expr)
             expr = expr.upper()
             try:
                 return cls[expr]

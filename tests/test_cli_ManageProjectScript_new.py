@@ -1,6 +1,7 @@
 import os
+import pytest
 import uqbar.io
-from supriya import utils
+import uqbar.strings
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -29,12 +30,12 @@ class Test(ProjectPackageScriptTestCase):
         'test_project/test_project/tools/__init__.py',
         ]
 
-    expected_readme_contents = utils.normalize_string('''
+    expected_readme_contents = uqbar.strings.normalize('''
     TEST PROJECT
     ############
     ''')
 
-    expected_project_settings_contents = utils.normalize_string('''
+    expected_project_settings_contents = uqbar.strings.normalize('''
     composer:
         email: josiah.oberholtzer@gmail.com
         github: josiah-wolf-oberholtzer
@@ -72,10 +73,10 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_exists(self):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_project()
+            pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_project(expect_error=True)
+            pytest.helpers.create_cli_project(self.test_path, expect_error=True)
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
             Creating project package 'Test Project'...
@@ -86,10 +87,10 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_force_replace(self):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_project()
+            pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_project(force=True)
+            pytest.helpers.create_cli_project(self.test_path, force=True)
         assert self.outer_project_path.exists()
         self.compare_captured_output(r'''
             Creating project package 'Test Project'...
@@ -100,7 +101,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success(self):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_project()
+            pytest.helpers.create_cli_project(self.test_path)
         assert self.outer_project_path.exists()
         self.compare_path_contents(
             self.outer_project_path,

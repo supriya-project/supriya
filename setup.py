@@ -9,14 +9,15 @@ install_requires = [
     'abjad == 2.21',
     'cython',
     'numpy',
-    'pytest-timeout >= 1.2.0',
     'pytest >= 3.0.0',
+    'pytest-helpers-namespace',
+    'pytest-timeout >= 1.2.0',
     'python-rtmidi',
     'sphinx >= 1.5.0',
     'sphinx_rtd_theme >= 0.3.0',
     'tornado',
     'tqdm',
-    'uqbar >= 0.2.7',
+    'uqbar >= 0.2.9',
     'wavefile',
     ]
 version = '.'.join(str(x) for x in sys.version_info[:3])

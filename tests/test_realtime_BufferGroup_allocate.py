@@ -1,98 +1,87 @@
 import supriya.realtime
-import supriya.system
 
 
-class Test(supriya.system.TestCase):
+def test_01(server):
 
-    def setUp(self):
-        super(supriya.system.TestCase, self).setUp()
-        self.server = supriya.realtime.Server().boot()
+    buffer_group_one = supriya.realtime.BufferGroup(buffer_count=4)
 
-    def tearDown(self):
-        self.server.quit()
-        super(supriya.system.TestCase, self).tearDown()
+    assert not buffer_group_one.is_allocated
+    assert buffer_group_one.buffer_id is None
+    assert buffer_group_one.server is None
+    assert len(buffer_group_one) == 4
+    for buffer_ in buffer_group_one:
+        assert not buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_one
+        assert buffer_.buffer_id is None
+        assert buffer_.frame_count == 0
+        assert buffer_.channel_count == 0
 
-    def test_01(self):
+    buffer_group_one.allocate(frame_count=512)
+    server.sync()
 
-        buffer_group_one = supriya.realtime.BufferGroup(buffer_count=4)
+    assert buffer_group_one.is_allocated
+    assert buffer_group_one.buffer_id is 0
+    assert buffer_group_one.server is server
+    assert len(buffer_group_one) == 4
+    for i, buffer_ in enumerate(buffer_group_one):
+        assert buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_one
+        assert buffer_.buffer_id == buffer_group_one.buffer_id + i
+        assert buffer_.frame_count == 512
+        assert buffer_.channel_count == 1
 
-        assert not buffer_group_one.is_allocated
-        assert buffer_group_one.buffer_id is None
-        assert buffer_group_one.server is None
-        assert len(buffer_group_one) == 4
-        for buffer_ in buffer_group_one:
-            assert not buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_one
-            assert buffer_.buffer_id is None
-            assert buffer_.frame_count == 0
-            assert buffer_.channel_count == 0
+    buffer_group_two = supriya.realtime.BufferGroup(buffer_count=4)
+    server.sync()
 
-        buffer_group_one.allocate(frame_count=512)
-        self.server.sync()
+    assert not buffer_group_two.is_allocated
+    assert buffer_group_two.buffer_id is None
+    assert buffer_group_two.server is None
+    assert len(buffer_group_two) == 4
+    for buffer_ in buffer_group_two:
+        assert not buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_two
+        assert buffer_.buffer_id is None
+        assert buffer_.frame_count == 0
+        assert buffer_.channel_count == 0
 
-        assert buffer_group_one.is_allocated
-        assert buffer_group_one.buffer_id is 0
-        assert buffer_group_one.server is self.server
-        assert len(buffer_group_one) == 4
-        for i, buffer_ in enumerate(buffer_group_one):
-            assert buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_one
-            assert buffer_.buffer_id == buffer_group_one.buffer_id + i
-            assert buffer_.frame_count == 512
-            assert buffer_.channel_count == 1
+    buffer_group_two.allocate(frame_count=1024, channel_count=2)
+    server.sync()
 
-        buffer_group_two = supriya.realtime.BufferGroup(buffer_count=4)
-        self.server.sync()
+    assert buffer_group_two.is_allocated
+    assert buffer_group_two.buffer_id is 4
+    assert buffer_group_two.server is server
+    assert len(buffer_group_two) == 4
+    for i, buffer_ in enumerate(buffer_group_two):
+        assert buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_two
+        assert buffer_.buffer_id is buffer_group_two.buffer_id + i
+        assert buffer_.frame_count == 1024
+        assert buffer_.channel_count == 2
 
-        assert not buffer_group_two.is_allocated
-        assert buffer_group_two.buffer_id is None
-        assert buffer_group_two.server is None
-        assert len(buffer_group_two) == 4
-        for buffer_ in buffer_group_two:
-            assert not buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_two
-            assert buffer_.buffer_id is None
-            assert buffer_.frame_count == 0
-            assert buffer_.channel_count == 0
+    buffer_group_one.free()
+    server.sync()
 
-        buffer_group_two.allocate(frame_count=1024, channel_count=2)
-        self.server.sync()
+    assert not buffer_group_one.is_allocated
+    assert buffer_group_one.buffer_id is None
+    assert buffer_group_one.server is None
+    assert len(buffer_group_one) == 4
+    for buffer_ in buffer_group_one:
+        assert not buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_one
+        assert buffer_.buffer_id is None
+        assert buffer_.frame_count == 0
+        assert buffer_.channel_count == 0
 
-        assert buffer_group_two.is_allocated
-        assert buffer_group_two.buffer_id is 4
-        assert buffer_group_two.server is self.server
-        assert len(buffer_group_two) == 4
-        for i, buffer_ in enumerate(buffer_group_two):
-            assert buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_two
-            assert buffer_.buffer_id is buffer_group_two.buffer_id + i
-            assert buffer_.frame_count == 1024
-            assert buffer_.channel_count == 2
+    buffer_group_two.free()
+    server.sync()
 
-        buffer_group_one.free()
-        self.server.sync()
-
-        assert not buffer_group_one.is_allocated
-        assert buffer_group_one.buffer_id is None
-        assert buffer_group_one.server is None
-        assert len(buffer_group_one) == 4
-        for buffer_ in buffer_group_one:
-            assert not buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_one
-            assert buffer_.buffer_id is None
-            assert buffer_.frame_count == 0
-            assert buffer_.channel_count == 0
-
-        buffer_group_two.free()
-        self.server.sync()
-
-        assert not buffer_group_two.is_allocated
-        assert buffer_group_two.buffer_id is None
-        assert buffer_group_two.server is None
-        assert len(buffer_group_two) == 4
-        for buffer_ in buffer_group_two:
-            assert not buffer_.is_allocated
-            assert buffer_.buffer_group is buffer_group_two
-            assert buffer_.buffer_id is None
-            assert buffer_.frame_count == 0
-            assert buffer_.channel_count == 0
+    assert not buffer_group_two.is_allocated
+    assert buffer_group_two.buffer_id is None
+    assert buffer_group_two.server is None
+    assert len(buffer_group_two) == 4
+    for buffer_ in buffer_group_two:
+        assert not buffer_.is_allocated
+        assert buffer_.buffer_group is buffer_group_two
+        assert buffer_.buffer_id is None
+        assert buffer_.frame_count == 0
+        assert buffer_.channel_count == 0
