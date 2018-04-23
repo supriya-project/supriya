@@ -1,4 +1,5 @@
 import os
+import pytest
 import supriya.cli
 import uqbar.io
 import uqbar.strings
@@ -31,7 +32,7 @@ class Test(ProjectPackageScriptTestCase):
     ''')
 
     def test_01(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
@@ -118,7 +119,7 @@ class Test(ProjectPackageScriptTestCase):
         assert len(osc_artifacts) == 1
 
     def test_02(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:

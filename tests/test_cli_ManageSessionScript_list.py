@@ -7,7 +7,7 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     def test_list_sessions(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('foo')
         self.create_session('bar')
         self.create_session('baz')
@@ -30,7 +30,7 @@ class Test(ProjectPackageScriptTestCase):
         ''')
 
     def test_list_sessions_no_sessions(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

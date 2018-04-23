@@ -5,6 +5,7 @@ import re
 import shutil
 import supriya
 import types
+import uqbar.io
 
 
 pytest_plugins = ['helpers_namespace']
@@ -240,6 +241,32 @@ def build_multiplier_synthdef(channel_count=1):
             source=source * builder['multiplier'],
             )
     return builder.build()
+
+
+@pytest.helpers.register
+def create_cli_project(path, force=False, expect_error=False):
+    script = supriya.cli.ManageProjectScript()
+    command = [
+        '--new',
+        'Test Project',
+        '--composer-name', 'Josiah Wolf Oberholtzer',
+        '--composer-email', 'josiah.oberholtzer@gmail.com',
+        '--composer-github', 'josiah-wolf-oberholtzer',
+        '--composer-website', 'www.josiahwolfoberholtzer.com',
+        '--composer-library', 'amazing_library',
+        ]
+    if force:
+        command.insert(0, '-f')
+    with uqbar.io.DirectoryChange(str(path)):
+        if expect_error:
+            with pytest.raises(SystemExit) as exception_info:
+                script(command)
+            assert exception_info.value.code == 1
+        else:
+            try:
+                script(command)
+            except SystemExit:
+                raise RuntimeError('SystemExit')
 
 
 @pytest.helpers.register

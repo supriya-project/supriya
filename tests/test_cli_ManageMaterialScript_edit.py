@@ -1,3 +1,4 @@
+import pytest
 import supriya.cli
 import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
@@ -9,7 +10,7 @@ class Test(ProjectPackageScriptTestCase):
     @mock.patch('supriya.cli.ProjectPackageScript._call_subprocess')
     def test_success(self, call_subprocess_mock):
         call_subprocess_mock.return_value = 0
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--edit', 'test_material']

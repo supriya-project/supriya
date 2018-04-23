@@ -26,7 +26,7 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_missing(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--delete', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -41,7 +41,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--delete', 'test_session']

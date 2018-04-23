@@ -1,3 +1,4 @@
+import pytest
 import shutil
 import supriya.cli
 import uqbar.io
@@ -7,7 +8,7 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     def test_prune(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('material_one')
         self.create_material(
             'material_two',

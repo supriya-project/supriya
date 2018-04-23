@@ -1,12 +1,13 @@
-import uqbar.io
+import pytest
 import supriya.cli
+import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
 
     def test_clean(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material(
             'material_one',
             definition_contents=self.basic_session_template.render(

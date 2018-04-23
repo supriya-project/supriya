@@ -7,7 +7,7 @@ from cli_testbase import ProjectPackageScriptTestCase
 class Test(ProjectPackageScriptTestCase):
 
     def test_list_materials(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('foo')
         self.create_material('bar')
         self.create_material('baz')
@@ -30,7 +30,7 @@ class Test(ProjectPackageScriptTestCase):
         ''')
 
     def test_list_materials_no_materials(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

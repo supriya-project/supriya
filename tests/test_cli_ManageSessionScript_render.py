@@ -15,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing session.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -35,7 +35,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing definition.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
@@ -62,7 +62,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle un-renderables.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
@@ -88,7 +88,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on __call__().
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
@@ -131,7 +131,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on import.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
@@ -158,7 +158,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_error(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
@@ -187,7 +187,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_no_output(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
@@ -216,7 +216,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success_all_sessions(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('session_one')
         self.create_session('session_two')
         self.create_session('session_three')
@@ -307,7 +307,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_filtered_sessions(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('session_one')
         self.create_session('session_two')
         self.create_session('session_three')
@@ -378,7 +378,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_one_session(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
@@ -441,7 +441,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_chained(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_session('session_one')
         self.create_session(
             'session_two',
@@ -606,7 +606,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle session factories implemented with __session__().
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         session_path = self.create_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:

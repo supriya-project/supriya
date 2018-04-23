@@ -1,4 +1,5 @@
 import os
+import pytest
 import supriya.cli
 import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
@@ -14,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_exists(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_material('test_material', expect_error=True)
@@ -24,7 +25,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_force_replace(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('test_material')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             self.create_material('test_material', force=True)
@@ -34,7 +35,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_internal_path(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--new', 'test_material']
         internal_path = self.assets_path
@@ -51,7 +52,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--new', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

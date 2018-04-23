@@ -15,7 +15,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing material.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -35,7 +35,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing definition.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         definition_path.unlink()
@@ -62,7 +62,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle un-renderables.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
@@ -88,7 +88,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on __call__().
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
@@ -131,7 +131,7 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on import.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         material_path = self.create_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
@@ -158,7 +158,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_error(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
@@ -187,7 +187,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_no_output(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
@@ -216,7 +216,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success_all_materials(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('material_one')
         self.create_material('material_two')
         self.create_material('material_three')
@@ -307,7 +307,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_filtered_materials(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('material_one')
         self.create_material('material_two')
         self.create_material('material_three')
@@ -378,7 +378,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_one_material(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('test_material')
         script = supriya.cli.ManageMaterialScript()
         command = ['--render', 'test_material']
@@ -441,7 +441,7 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_chained(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         self.create_material('material_one')
         self.create_material(
             'material_two',

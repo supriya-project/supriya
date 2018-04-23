@@ -139,14 +139,6 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
 
     def tearDown(self):
         super(ProjectPackageScriptTestCase, self).tearDown()
-#        for path in sorted(self.test_path.iterdir()):
-#            if path in self.directory_items:
-#                continue
-#            if path.is_file():
-#                path.unlink()
-#            else:
-#                shutil.rmtree(str(path))
-#        sys.path.remove(str(self.outer_project_path))
         for path, module in tuple(sys.modules.items()):
             if not path or not module:
                 continue
@@ -183,30 +175,6 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
         return material_path
-
-    def create_project(self, force=False, expect_error=False):
-        script = supriya.cli.ManageProjectScript()
-        command = [
-            '--new',
-            'Test Project',
-            '--composer-name', 'Josiah Wolf Oberholtzer',
-            '--composer-email', 'josiah.oberholtzer@gmail.com',
-            '--composer-github', 'josiah-wolf-oberholtzer',
-            '--composer-website', 'www.josiahwolfoberholtzer.com',
-            '--composer-library', 'amazing_library',
-            ]
-        if force:
-            command.insert(0, '-f')
-        with uqbar.io.DirectoryChange(str(self.test_path)):
-            if expect_error:
-                with pytest.raises(SystemExit) as exception_info:
-                    script(command)
-                assert exception_info.value.code == 1
-            else:
-                try:
-                    script(command)
-                except SystemExit:
-                    raise RuntimeError('SystemExit')
 
     def create_session(
         self,
