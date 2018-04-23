@@ -8,10 +8,10 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_list_sessions(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_session('foo')
-        self.create_cli_session('bar')
-        self.create_cli_session('baz')
-        self.create_cli_session('quux')
+        pytest.helpers.create_cli_session(self.test_path, 'foo')
+        pytest.helpers.create_cli_session(self.test_path, 'bar')
+        pytest.helpers.create_cli_session(self.test_path, 'baz')
+        pytest.helpers.create_cli_session(self.test_path, 'quux')
         script = supriya.cli.ManageSessionScript()
         command = ['--list']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

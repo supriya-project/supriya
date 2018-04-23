@@ -12,7 +12,7 @@ class Test(ProjectPackageScriptTestCase):
     def test_success(self, call_subprocess_mock):
         call_subprocess_mock.return_value = 0
         pytest.helpers.create_cli_project(self.test_path)
-        session_path = self.create_cli_session('test_session')
+        session_path = pytest.helpers.create_cli_session(self.test_path, 'test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--edit', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

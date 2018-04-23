@@ -175,32 +175,3 @@ class ProjectPackageScriptTestCase(supriya.system.TestCase):
             with open(str(definition_file_path), 'w') as file_pointer:
                 file_pointer.write(definition_contents)
         return material_path
-
-    def create_cli_session(
-        self,
-        session_name='test_session',
-        force=False,
-        expect_error=False,
-        definition_contents=None,
-        ):
-        script = supriya.cli.ManageSessionScript()
-        command = ['--new', session_name]
-        if force:
-            command.insert(0, '-f')
-        with uqbar.io.DirectoryChange(str(self.inner_project_path)):
-            if expect_error:
-                with pytest.raises(SystemExit) as exception_info:
-                    script(command)
-                assert exception_info.value.code == 1
-            else:
-                try:
-                    script(command)
-                except SystemExit:
-                    raise RuntimeError('SystemExit')
-        session_path = self.inner_project_path / 'sessions' / session_name
-        if definition_contents:
-            definition_contents = uqbar.strings.normalize(definition_contents)
-            definition_file_path = session_path / 'definition.py'
-            with open(str(definition_file_path), 'w') as file_pointer:
-                file_pointer.write(definition_contents)
-        return session_path

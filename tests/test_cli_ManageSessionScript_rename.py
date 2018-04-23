@@ -44,8 +44,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_no_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_session('session_one')
-        self.create_cli_session('session_two')
+        pytest.helpers.create_cli_session(self.test_path, 'session_one')
+        pytest.helpers.create_cli_session(self.test_path, 'session_two')
         script = supriya.cli.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -61,8 +61,8 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_force_replace(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_session('session_one')
-        self.create_cli_session('session_two')
+        pytest.helpers.create_cli_session(self.test_path, 'session_one')
+        pytest.helpers.create_cli_session(self.test_path, 'session_two')
         script = supriya.cli.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two', '-f']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -84,7 +84,7 @@ class Test(ProjectPackageScriptTestCase):
 
     def test_success(self):
         pytest.helpers.create_cli_project(self.test_path)
-        self.create_cli_session('session_one')
+        pytest.helpers.create_cli_session(self.test_path, 'session_one')
         script = supriya.cli.ManageSessionScript()
         command = ['--rename', 'session_one', 'session_two']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

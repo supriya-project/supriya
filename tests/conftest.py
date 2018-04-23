@@ -245,6 +245,7 @@ def build_multiplier_synthdef(channel_count=1):
 
 @pytest.helpers.register
 def create_cli_project(path, force=False, expect_error=False):
+    path = pathlib.Path(path)
     script = supriya.cli.ManageProjectScript()
     command = [
         '--new',
@@ -267,6 +268,39 @@ def create_cli_project(path, force=False, expect_error=False):
                 script(command)
             except SystemExit:
                 raise RuntimeError('SystemExit')
+
+
+@pytest.helpers.register
+def create_cli_session(
+    path,
+    session_name='test_session',
+    force=False,
+    expect_error=False,
+    definition_contents=None,
+    ):
+    path = pathlib.Path(path)
+    inner_project_path = path / 'test_project' / 'test_project'
+    script = supriya.cli.ManageSessionScript()
+    command = ['--new', session_name]
+    if force:
+        command.insert(0, '-f')
+    with uqbar.io.DirectoryChange(str(inner_project_path)):
+        if expect_error:
+            with pytest.raises(SystemExit) as exception_info:
+                script(command)
+            assert exception_info.value.code == 1
+        else:
+            try:
+                script(command)
+            except SystemExit:
+                raise RuntimeError('SystemExit')
+    session_path = inner_project_path / 'sessions' / session_name
+    if definition_contents:
+        definition_contents = uqbar.strings.normalize(definition_contents)
+        definition_file_path = session_path / 'definition.py'
+        with open(str(definition_file_path), 'w') as file_pointer:
+            file_pointer.write(definition_contents)
+    return session_path
 
 
 @pytest.helpers.register
