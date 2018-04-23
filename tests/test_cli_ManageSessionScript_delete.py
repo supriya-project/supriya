@@ -1,6 +1,7 @@
 import os
-import uqbar.io
+import pytest
 import supriya.cli
+import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -25,23 +26,23 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_missing(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--delete', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Deleting session subpackage 'test_session' ...
             Subpackage test_project/sessions/test_session/ does not exist!
         '''.replace('/', os.path.sep))
 
     def test_success(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--delete', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

@@ -1,13 +1,14 @@
 import os
-import uqbar.io
-from supriya import utils
+import pytest
 import supriya.cli
+import uqbar.io
+import uqbar.strings
 from cli_testbase import ProjectPackageScriptTestCase
 
 
 class Test(ProjectPackageScriptTestCase):
 
-    module_contents = utils.normalize_string('''
+    module_contents = uqbar.strings.normalize('''
     import supriya.assets.synthdefs
     import supriya.patterns
     import supriya.nonrealtime
@@ -31,8 +32,8 @@ class Test(ProjectPackageScriptTestCase):
     ''')
 
     def test_01(self):
-        self.create_project()
-        material_path = self.create_material('test_material')
+        pytest.helpers.create_cli_project(self.test_path)
+        material_path = self.create_cli_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=0))
@@ -118,8 +119,8 @@ class Test(ProjectPackageScriptTestCase):
         assert len(osc_artifacts) == 1
 
     def test_02(self):
-        self.create_project()
-        material_path = self.create_material('test_material')
+        pytest.helpers.create_cli_project(self.test_path)
+        material_path = self.create_cli_material('test_material')
         definition_path = material_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.module_contents.format(seed=None))

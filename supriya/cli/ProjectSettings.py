@@ -1,8 +1,8 @@
 import collections
 import copy
 import pathlib
+import uqbar.strings
 import yaml
-from supriya import utils
 
 
 class ProjectSettings(collections.Mapping):
@@ -19,7 +19,7 @@ class ProjectSettings(collections.Mapping):
         try:
             with open(str(yaml_path), 'r') as file_pointer:
                 self._settings = yaml.load(file_pointer.read())
-        except:
+        except Exception:
             self._settings = {}
 
     ### SPECIAL METHODS ###
@@ -39,7 +39,7 @@ class ProjectSettings(collections.Mapping):
 
     @classmethod
     def from_dummy_data(cls):
-        dummy_data = yaml.load(utils.normalize_string("""
+        dummy_data = yaml.load(uqbar.strings.normalize("""
         composer:
             email: josiah.oberholtzer@gmail.com
             github: josiah-wolf-oberholtzer

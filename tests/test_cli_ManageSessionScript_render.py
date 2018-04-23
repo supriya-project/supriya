@@ -1,10 +1,11 @@
 import os
-import yaml
-import uqbar.io
-from unittest import mock
-from supriya import utils
+import pytest
 import supriya.cli
 import supriya.nonrealtime
+import uqbar.io
+import uqbar.strings
+import yaml
+from unittest import mock
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -14,15 +15,15 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing session.
         """
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_session' ...
             No matching sessions.
@@ -34,8 +35,8 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle missing definition.
         """
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         definition_path.unlink()
         script = supriya.cli.ManageSessionScript()
@@ -43,9 +44,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -61,11 +62,11 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle un-renderables.
         """
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(utils.normalize_string(r'''
+            file_pointer.write(uqbar.strings.normalize(r'''
             session = None
             '''))
         script = supriya.cli.ManageSessionScript()
@@ -73,9 +74,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
             Render candidates: 'test_session' ...
             Rendering test_project/sessions/test_session/
@@ -87,11 +88,11 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on __call__().
         """
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
-            file_pointer.write(utils.normalize_string(r'''
+            file_pointer.write(uqbar.strings.normalize(r'''
             class Foo:
                 def __render__(
                     self,
@@ -108,9 +109,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_session' ...
         Rendering test_project/sessions/test_session/
@@ -130,8 +131,8 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle exceptions inside the Python module on import.
         """
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'a') as file_pointer:
             file_pointer.write('\n\nfailure = 1 / 0\n')
@@ -140,9 +141,9 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_session' ...
         Rendering test_project/sessions/test_session/
@@ -157,8 +158,8 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_error(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -166,11 +167,11 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     with mock.patch(mock_path) as call_mock:
                         call_mock.return_value = 1
                         script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_session' ...
         Rendering test_project/sessions/test_session/
@@ -186,8 +187,8 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_supercollider_no_output(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         mock_path = supriya.nonrealtime.SessionRenderer.__module__
@@ -195,11 +196,11 @@ class Test(ProjectPackageScriptTestCase):
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
             with uqbar.io.DirectoryChange(
                 str(self.inner_project_path)):
-                with self.assertRaises(SystemExit) as context_manager:
+                with pytest.raises(SystemExit) as exception_info:
                     with mock.patch(mock_path) as call_mock:
                         call_mock.return_value = 0  # no output, but no error
                         script(command)
-                assert context_manager.exception.code == 1
+                assert exception_info.value.code == 1
         self.compare_captured_output(r'''
         Render candidates: 'test_session' ...
         Rendering test_project/sessions/test_session/
@@ -215,10 +216,10 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success_all_sessions(self):
-        self.create_project()
-        self.create_session('session_one')
-        self.create_session('session_two')
-        self.create_session('session_three')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('session_one')
+        self.create_cli_session('session_two')
+        self.create_cli_session('session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', '*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -274,7 +275,7 @@ class Test(ProjectPackageScriptTestCase):
             'session_three',
             'render.aiff',
             ).exists()
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('session_one', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -284,7 +285,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('session_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -294,7 +295,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('session_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -306,10 +307,10 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_filtered_sessions(self):
-        self.create_project()
-        self.create_session('session_one')
-        self.create_session('session_two')
-        self.create_session('session_three')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('session_one')
+        self.create_cli_session('session_two')
+        self.create_cli_session('session_three')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'session_t*']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -355,7 +356,7 @@ class Test(ProjectPackageScriptTestCase):
             'session_three',
             'render.aiff',
             ).exists()
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('session_two', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -365,7 +366,7 @@ class Test(ProjectPackageScriptTestCase):
             0.81: [0.811111] * 8,
             0.99: [0.991361] * 8,
             }
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('session_three', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -377,8 +378,8 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_one_session(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         script = supriya.cli.ManageSessionScript()
         command = ['--render', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
@@ -428,7 +429,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py',
                 ]
             )
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('test_session', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,
@@ -440,9 +441,9 @@ class Test(ProjectPackageScriptTestCase):
             }
 
     def test_success_chained(self):
-        self.create_project()
-        self.create_session('session_one')
-        self.create_session(
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('session_one')
+        self.create_cli_session(
             'session_two',
             definition_contents=self.chained_session_template.render(
                 input_name='session_one',
@@ -451,7 +452,7 @@ class Test(ProjectPackageScriptTestCase):
                 multiplier=0.5,
                 ),
             )
-        session_three_path = self.create_session(
+        session_three_path = self.create_cli_session(
             'session_three',
             definition_contents=self.chained_session_template.render(
                 input_name='session_two',
@@ -581,12 +582,12 @@ class Test(ProjectPackageScriptTestCase):
                 ],
             }
 
-        session_three_render_sample = self.sample(
+        session_three_render_sample = pytest.helpers.sample_soundfile(
             str(session_three_path / 'render.aiff'),
             rounding=2,
             )
 
-        session_three_source_sample = self.sample(
+        session_three_source_sample = pytest.helpers.sample_soundfile(
             str(self.renders_path / '{}.aiff'.format(render_yml['render'])),
             rounding=2,
             )
@@ -605,8 +606,8 @@ class Test(ProjectPackageScriptTestCase):
         """
         Handle session factories implemented with __session__().
         """
-        self.create_project()
-        session_path = self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        session_path = self.create_cli_session('test_session')
         definition_path = session_path.joinpath('definition.py')
         with open(str(definition_path), 'w') as file_pointer:
             file_pointer.write(self.session_factory_template.render(
@@ -661,7 +662,7 @@ class Test(ProjectPackageScriptTestCase):
                 'test_project/test_project/tools/__init__.py',
                 ]
             )
-        assert self.sample(
+        assert pytest.helpers.sample_soundfile(
             str(self.sessions_path.joinpath('test_session', 'render.aiff'))
             ) == {
             0.0:  [2.3e-05] * 8,

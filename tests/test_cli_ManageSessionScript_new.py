@@ -1,6 +1,7 @@
 import os
-import uqbar.io
+import pytest
 import supriya.cli
+import uqbar.io
 from cli_testbase import ProjectPackageScriptTestCase
 
 
@@ -14,27 +15,27 @@ class Test(ProjectPackageScriptTestCase):
         ]
 
     def test_exists(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_session('test_session', expect_error=True)
+            self.create_cli_session('test_session', expect_error=True)
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
                 Path exists: test_project/sessions/test_session
         '''.replace('/', os.path.sep))
 
     def test_force_replace(self):
-        self.create_project()
-        self.create_session('test_session')
+        pytest.helpers.create_cli_project(self.test_path)
+        self.create_cli_session('test_session')
         with uqbar.io.RedirectedStreams(stdout=self.string_io):
-            self.create_session('test_session', force=True)
+            self.create_cli_session('test_session', force=True)
         self.compare_captured_output(r'''
             Creating session subpackage 'test_session' ...
                 Created test_project/sessions/test_session/
         '''.replace('/', os.path.sep))
 
     def test_internal_path(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--new', 'test_session']
         internal_path = self.assets_path
@@ -51,7 +52,7 @@ class Test(ProjectPackageScriptTestCase):
         '''.replace('/', os.path.sep))
 
     def test_success(self):
-        self.create_project()
+        pytest.helpers.create_cli_project(self.test_path)
         script = supriya.cli.ManageSessionScript()
         command = ['--new', 'test_session']
         with uqbar.io.RedirectedStreams(stdout=self.string_io):

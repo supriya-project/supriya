@@ -1,802 +1,704 @@
 import supriya.assets.synthdefs
 import supriya.realtime
-import supriya.system
-
-
-class Test(supriya.system.TestCase):
-
-    def setUp(self):
-        super(supriya.system.TestCase, self).setUp()
-        self.server = supriya.realtime.Server().boot()
-
-    def tearDown(self):
-        self.server.quit()
-        super(supriya.system.TestCase, self).tearDown()
-
-    def test_01(self):
-
-        group = supriya.realtime.Group().allocate()
-        assert len(group) == 0
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-            ''',
-            )
-
-        synth = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        assert synth.parent is None
-        assert not synth.is_allocated
-
-        group[:] = [synth]
-        assert len(group) == 1
-        assert synth.parent is group
-        assert synth in group
-        assert synth.is_allocated
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-            ''',
-            )
-
-        group[:] = []
-        assert len(group) == 0
-        assert synth.parent is None
-        assert synth not in group
-        assert not synth.is_allocated
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-            ''',
-            )
-
-    def test_02(self):
-
-        group = supriya.realtime.Group().allocate()
-        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-
-        group[:] = [synth_a, synth_b]
-        assert len(group) == 2
-        assert synth_a.parent is group
-        assert synth_b.parent is group
-        assert synth_a in group
-        assert synth_b in group
-        assert synth_a.is_allocated
-        assert synth_b.is_allocated
-        assert synth_a is group[0]
-        assert synth_b is group[1]
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                        1002 test
-            ''',
-            )
-
-        group[:] = [synth_b, synth_a]
-        assert len(group) == 2
-        assert synth_a.parent is group
-        assert synth_b.parent is group
-        assert synth_a in group
-        assert synth_b in group
-        assert synth_a.is_allocated
-        assert synth_b.is_allocated
-        assert synth_a is group[1]
-        assert synth_b is group[0]
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1002 test
-                        1001 test
-            ''',
-            )
-
-        group[:] = []
-        assert len(group) == 0
-        assert synth_a.parent is None
-        assert synth_b.parent is None
-        assert synth_a not in group
-        assert synth_b not in group
-        assert not synth_a.is_allocated
-        assert not synth_b.is_allocated
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-            ''',
-            )
-
-    def test_03(self):
-
-        group_a = supriya.realtime.Group()
-        group_a.allocate()
-
-        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        group_a.append(synth_a)
-
-        group_b = supriya.realtime.Group()
-        group_a.append(group_b)
-
-        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        group_b.append(synth_b)
-
-        synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        group_b.append(synth_c)
-
-        group_c = supriya.realtime.Group()
-        group_b.append(group_c)
-
-        synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
-        group_a.append(synth_d)
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                        1002 group
-                            1003 test
-                            1004 test
-                            1005 group
-                        1006 test
-            ''',
-            )
-
-        assert len(group_a) == 3
-        assert len(group_b) == 3
-        assert len(group_c) == 0
-
-        assert synth_a.parent is group_a
-        assert synth_b.parent is group_b
-        assert synth_c.parent is group_b
-        assert synth_d.parent is group_a
-        assert group_b.parent is group_a
-        assert group_c.parent is group_b
-
-        assert synth_a is group_a[0]
-        assert synth_b is group_b[0]
-        assert synth_c is group_b[1]
-        assert synth_d is group_a[2]
-        assert group_b is group_a[1]
-        assert group_c is group_b[2]
-
-        del(group_a[-1])
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                        1002 group
-                            1003 test
-                            1004 test
-                            1005 group
-            ''',
-            )
-
-        assert len(group_a) == 2
-        assert len(group_b) == 3
-        assert len(group_c) == 0
-
-        assert synth_a.parent is group_a
-        assert synth_b.parent is group_b
-        assert synth_c.parent is group_b
-        assert synth_d.parent is None
-        assert group_b.parent is group_a
-        assert group_c.parent is group_b
-
-        assert synth_a is group_a[0]
-        assert synth_b is group_b[0]
-        assert synth_c is group_b[1]
-        assert synth_d not in group_a
-        assert group_b is group_a[1]
-        assert group_c is group_b[2]
-
-        del(group_b[1])
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                        1002 group
-                            1003 test
-                            1005 group
-            ''',
-            )
-
-        assert len(group_a) == 2
-        assert len(group_b) == 2
-        assert len(group_c) == 0
-
-        assert synth_a.parent is group_a
-        assert synth_b.parent is group_b
-        assert synth_c.parent is None
-        assert synth_d.parent is None
-        assert group_b.parent is group_a
-        assert group_c.parent is group_b
-
-        assert synth_a is group_a[0]
-        assert synth_b is group_b[0]
-        assert synth_c not in group_b
-        assert synth_d not in group_a
-        assert group_b is group_a[1]
-        assert group_c is group_b[1]
-
-        del(group_a[0])
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1002 group
-                            1003 test
-                            1005 group
-            ''',
-            )
-
-        assert len(group_a) == 1
-        assert len(group_b) == 2
-        assert len(group_c) == 0
-
-        assert synth_a.parent is None
-        assert synth_b.parent is group_b
-        assert synth_c.parent is None
-        assert synth_d.parent is None
-        assert group_b.parent is group_a
-        assert group_c.parent is group_b
-
-        assert synth_a not in group_a
-        assert synth_b is group_b[0]
-        assert synth_c not in group_b
-        assert synth_d not in group_a
-        assert group_b is group_a[0]
-        assert group_c is group_b[1]
-
-        del(group_b[1])
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1002 group
-                            1003 test
-            ''',
-            )
-
-        assert len(group_a) == 1
-        assert len(group_b) == 1
-        assert len(group_c) == 0
-
-        assert synth_a.parent is None
-        assert synth_b.parent is group_b
-        assert synth_c.parent is None
-        assert synth_d.parent is None
-        assert group_b.parent is group_a
-        assert group_c.parent is None
-
-        assert synth_a not in group_a
-        assert synth_b is group_b[0]
-        assert synth_c not in group_b
-        assert synth_d not in group_a
-        assert group_b is group_a[0]
-        assert group_c not in group_b
-
-        del(group_a[0])
-
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-            ''',
-            )
-
-        assert len(group_a) == 0
-        assert len(group_b) == 1
-        assert len(group_c) == 0
-
-        assert synth_a.parent is None
-        assert synth_b.parent is group_b
-        assert synth_c.parent is None
-        assert synth_d.parent is None
-        assert group_b.parent is None
-        assert group_c.parent is None
-
-        assert synth_a not in group_a
-        assert synth_b is group_b[0]
-        assert synth_c not in group_b
-        assert synth_d not in group_a
-        assert group_b not in group_a
-        assert group_c not in group_b
-
-        assert not synth_b.is_allocated
-
-    def test_04(self):
-
-        group_a = supriya.realtime.Group(name='Group A').allocate()
-        group_b = supriya.realtime.Group(name='Group B').allocate()
-
-        synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth A')
-        synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth B')
-        synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth C')
-        synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth D')
-        synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth E')
-        synth_f = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth F')
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                    1000 group
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 0
-        assert len(group_b) == 0
-
-        group_a[:] = [synth_a, synth_b]
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                    1000 group
-                        1002 test
-                        1003 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 2
-        assert len(group_b) == 0
-
-        group_a[:] = [synth_b, synth_a]
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                    1000 group
-                        1003 test
-                        1002 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 2
-        assert len(group_b) == 0
-
-        group_a[:] = [synth_c, synth_d, synth_b, synth_a]
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                    1000 group
-                        1004 test
-                        1005 test
-                        1003 test
-                        1002 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 4
-        assert len(group_b) == 0
-
-        group_b[1:-1] = [synth_c, synth_b]
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
-                        1004 test
-                        1003 test
-                    1000 group
-                        1005 test
-                        1002 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 2
-        assert len(group_b) == 2
-
-        group_b[1:-1] = [synth_b, synth_c, synth_e]
-
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
+import uqbar.strings
+
+
+def test_01(server):
+
+    group = supriya.realtime.Group().allocate()
+    assert len(group) == 0
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+        ''')
+
+    synth = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    assert synth.parent is None
+    assert not synth.is_allocated
+
+    group[:] = [synth]
+    assert len(group) == 1
+    assert synth.parent is group
+    assert synth in group
+    assert synth.is_allocated
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+        ''')
+
+    group[:] = []
+    assert len(group) == 0
+    assert synth.parent is None
+    assert synth not in group
+    assert not synth.is_allocated
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+        ''')
+
+
+def test_02(server):
+
+    group = supriya.realtime.Group().allocate()
+    synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+
+    group[:] = [synth_a, synth_b]
+    assert len(group) == 2
+    assert synth_a.parent is group
+    assert synth_b.parent is group
+    assert synth_a in group
+    assert synth_b in group
+    assert synth_a.is_allocated
+    assert synth_b.is_allocated
+    assert synth_a is group[0]
+    assert synth_b is group[1]
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 test
+        ''')
+
+    group[:] = [synth_b, synth_a]
+    assert len(group) == 2
+    assert synth_a.parent is group
+    assert synth_b.parent is group
+    assert synth_a in group
+    assert synth_b in group
+    assert synth_a.is_allocated
+    assert synth_b.is_allocated
+    assert synth_a is group[1]
+    assert synth_b is group[0]
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 test
+                    1001 test
+        ''')
+
+    group[:] = []
+    assert len(group) == 0
+    assert synth_a.parent is None
+    assert synth_b.parent is None
+    assert synth_a not in group
+    assert synth_b not in group
+    assert not synth_a.is_allocated
+    assert not synth_b.is_allocated
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+        ''')
+
+
+def test_03(server):
+
+    group_a = supriya.realtime.Group()
+    group_a.allocate()
+
+    synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    group_a.append(synth_a)
+
+    group_b = supriya.realtime.Group()
+    group_a.append(group_b)
+
+    synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    group_b.append(synth_b)
+
+    synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    group_b.append(synth_c)
+
+    group_c = supriya.realtime.Group()
+    group_b.append(group_c)
+
+    synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test)
+    group_a.append(synth_d)
+
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 group
                         1003 test
                         1004 test
-                        1006 test
-                    1000 group
-                        1005 test
-                        1002 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 2
-        assert len(group_b) == 3
+                        1005 group
+                    1006 test
+        ''')
 
-        group_a[:] = [synth_c, synth_f]
+    assert len(group_a) == 3
+    assert len(group_b) == 3
+    assert len(group_c) == 0
 
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
+    assert synth_a.parent is group_a
+    assert synth_b.parent is group_b
+    assert synth_c.parent is group_b
+    assert synth_d.parent is group_a
+    assert group_b.parent is group_a
+    assert group_c.parent is group_b
+
+    assert synth_a is group_a[0]
+    assert synth_b is group_b[0]
+    assert synth_c is group_b[1]
+    assert synth_d is group_a[2]
+    assert group_b is group_a[1]
+    assert group_c is group_b[2]
+
+    del(group_a[-1])
+
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 group
                         1003 test
-                        1006 test
-                    1000 group
                         1004 test
-                        1007 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 2
-        assert len(group_b) == 2
+                        1005 group
+        ''')
 
-        group_a[:-1] = [synth_f]
+    assert len(group_a) == 2
+    assert len(group_b) == 3
+    assert len(group_c) == 0
 
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
+    assert synth_a.parent is group_a
+    assert synth_b.parent is group_b
+    assert synth_c.parent is group_b
+    assert synth_d.parent is None
+    assert group_b.parent is group_a
+    assert group_c.parent is group_b
+
+    assert synth_a is group_a[0]
+    assert synth_b is group_b[0]
+    assert synth_c is group_b[1]
+    assert synth_d not in group_a
+    assert group_b is group_a[1]
+    assert group_c is group_b[2]
+
+    del(group_b[1])
+
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 group
                         1003 test
-                        1006 test
-                    1000 group
-                        1007 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 1
-        assert len(group_b) == 2
+                        1005 group
+        ''')
 
-        group_b[len(group_b):] = [group_a]
+    assert len(group_a) == 2
+    assert len(group_b) == 2
+    assert len(group_c) == 0
 
-        local_state = str(self.server.query_local_nodes())
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1001 group
+    assert synth_a.parent is group_a
+    assert synth_b.parent is group_b
+    assert synth_c.parent is None
+    assert synth_d.parent is None
+    assert group_b.parent is group_a
+    assert group_c.parent is group_b
+
+    assert synth_a is group_a[0]
+    assert synth_b is group_b[0]
+    assert synth_c not in group_b
+    assert synth_d not in group_a
+    assert group_b is group_a[1]
+    assert group_c is group_b[1]
+
+    del(group_a[0])
+
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 group
                         1003 test
-                        1006 test
-                        1000 group
-                            1007 test
-            ''',
-            )
-        assert local_state == remote_state
-        assert len(group_a) == 1
-        assert len(group_b) == 3
+                        1005 group
+        ''')
 
-    def test_05(self):
+    assert len(group_a) == 1
+    assert len(group_b) == 2
+    assert len(group_c) == 0
 
-        group_a = supriya.realtime.Group(
-            name='Group A',
-            )
-        synth_a = supriya.realtime.Synth(
-            supriya.assets.synthdefs.test,
-            name='Synth A',
-            )
-        group_a.append(synth_a)
+    assert synth_a.parent is None
+    assert synth_b.parent is group_b
+    assert synth_c.parent is None
+    assert synth_d.parent is None
+    assert group_b.parent is group_a
+    assert group_c.parent is group_b
 
-        group_b = supriya.realtime.Group(
-            name='Group B',
-            )
-        group_a.append(group_b)
+    assert synth_a not in group_a
+    assert synth_b is group_b[0]
+    assert synth_c not in group_b
+    assert synth_d not in group_a
+    assert group_b is group_a[0]
+    assert group_c is group_b[1]
 
-        synth_b = supriya.realtime.Synth(
-            supriya.assets.synthdefs.test,
-            name='Synth B',
-            )
-        group_b.append(synth_b)
+    del(group_b[1])
 
-        synth_c = supriya.realtime.Synth(
-            supriya.assets.synthdefs.test,
-            name='Synth C',
-            )
-        group_b.append(synth_c)
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1002 group
+                        1003 test
+        ''')
 
-        group_c = supriya.realtime.Group(
-            name='Group C',
-            )
-        group_b.append(group_c)
+    assert len(group_a) == 1
+    assert len(group_b) == 1
+    assert len(group_c) == 0
 
-        synth_d = supriya.realtime.Synth(
-            supriya.assets.synthdefs.test,
-            name='Synth D',
-            )
-        group_a.append(synth_d)
+    assert synth_a.parent is None
+    assert synth_b.parent is group_b
+    assert synth_c.parent is None
+    assert synth_d.parent is None
+    assert group_b.parent is group_a
+    assert group_c.parent is None
 
-        synth_e = supriya.realtime.Synth(
-            supriya.assets.synthdefs.test,
-            name='Synth E',
-            )
+    assert synth_a not in group_a
+    assert synth_b is group_b[0]
+    assert synth_c not in group_b
+    assert synth_d not in group_a
+    assert group_b is group_a[0]
+    assert group_c not in group_b
 
-        group_a.allocate()
+    del(group_a[0])
 
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                        1002 group
-                            1003 test
-                            1004 test
-                            1005 group
-                        1006 test
-            ''',
-            )
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+        ''')
 
-        group_a_state = str(group_a)
-        self.compare_strings(
-            group_a_state,
-            '''
-            1000 group (Group A)
-                1001 test (Synth A)
-                    amplitude: 1.0, frequency: 440.0
-                1002 group (Group B)
-                    1003 test (Synth B)
-                        amplitude: 1.0, frequency: 440.0
-                    1004 test (Synth C)
-                        amplitude: 1.0, frequency: 440.0
-                    1005 group (Group C)
-                1006 test (Synth D)
-                    amplitude: 1.0, frequency: 440.0
-            ''',
-            ), group_a_state
+    assert len(group_a) == 0
+    assert len(group_b) == 1
+    assert len(group_c) == 0
 
-        assert group_a.node_id == 1000
-        assert synth_a.node_id == 1001
-        assert group_b.node_id == 1002
-        assert synth_b.node_id == 1003
-        assert synth_c.node_id == 1004
-        assert group_c.node_id == 1005
-        assert synth_d.node_id == 1006
-        assert synth_e.node_id is None
+    assert synth_a.parent is None
+    assert synth_b.parent is group_b
+    assert synth_c.parent is None
+    assert synth_d.parent is None
+    assert group_b.parent is None
+    assert group_c.parent is None
 
-        synth_e.allocate(
-            add_action=supriya.realtime.AddAction.REPLACE,
-            target_node=group_a,
-            )
+    assert synth_a not in group_a
+    assert synth_b is group_b[0]
+    assert synth_c not in group_b
+    assert synth_d not in group_a
+    assert group_b not in group_a
+    assert group_c not in group_b
 
-        remote_state = str(self.server.query_remote_nodes())
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
+    assert not synth_b.is_allocated
+
+
+def test_04(server):
+
+    group_a = supriya.realtime.Group(name='Group A').allocate()
+    group_b = supriya.realtime.Group(name='Group B').allocate()
+
+    synth_a = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth A')
+    synth_b = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth B')
+    synth_c = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth C')
+    synth_d = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth D')
+    synth_e = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth E')
+    synth_f = supriya.realtime.Synth(supriya.assets.synthdefs.test, name='Synth F')
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                1000 group
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 0
+    assert len(group_b) == 0
+
+    group_a[:] = [synth_a, synth_b]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                1000 group
+                    1002 test
+                    1003 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 2
+    assert len(group_b) == 0
+
+    group_a[:] = [synth_b, synth_a]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                1000 group
+                    1003 test
+                    1002 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 2
+    assert len(group_b) == 0
+
+    group_a[:] = [synth_c, synth_d, synth_b, synth_a]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                1000 group
+                    1004 test
+                    1005 test
+                    1003 test
+                    1002 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 4
+    assert len(group_b) == 0
+
+    group_b[1:-1] = [synth_c, synth_b]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                    1004 test
+                    1003 test
+                1000 group
+                    1005 test
+                    1002 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 2
+    assert len(group_b) == 2
+
+    group_b[1:-1] = [synth_b, synth_c, synth_e]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                    1003 test
+                    1004 test
+                    1006 test
+                1000 group
+                    1005 test
+                    1002 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 2
+    assert len(group_b) == 3
+
+    group_a[:] = [synth_c, synth_f]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                    1003 test
+                    1006 test
+                1000 group
+                    1004 test
                     1007 test
-            ''',
-            )
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 2
+    assert len(group_b) == 2
 
-        assert group_a.node_id is None
-        assert synth_a.node_id is None
-        assert group_b.node_id is None
-        assert synth_b.node_id is None
-        assert synth_c.node_id is None
-        assert group_c.node_id is None
-        assert synth_d.node_id is None
-        assert synth_e.node_id == 1007
+    group_a[:-1] = [synth_f]
 
-        group_a_state = str(group_a)
-        self.compare_strings(
-            group_a_state,
-            '''
-            ??? group (Group A)
-                ??? test (Synth A)
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                    1003 test
+                    1006 test
+                1000 group
+                    1007 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 1
+    assert len(group_b) == 2
+
+    group_b[len(group_b):] = [group_a]
+
+    local_state = str(server.query_local_nodes())
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1001 group
+                    1003 test
+                    1006 test
+                    1000 group
+                        1007 test
+        ''')
+    assert local_state == remote_state
+    assert len(group_a) == 1
+    assert len(group_b) == 3
+
+
+def test_05(server):
+
+    group_a = supriya.realtime.Group(
+        name='Group A',
+        )
+    synth_a = supriya.realtime.Synth(
+        supriya.assets.synthdefs.test,
+        name='Synth A',
+        )
+    group_a.append(synth_a)
+
+    group_b = supriya.realtime.Group(
+        name='Group B',
+        )
+    group_a.append(group_b)
+
+    synth_b = supriya.realtime.Synth(
+        supriya.assets.synthdefs.test,
+        name='Synth B',
+        )
+    group_b.append(synth_b)
+
+    synth_c = supriya.realtime.Synth(
+        supriya.assets.synthdefs.test,
+        name='Synth C',
+        )
+    group_b.append(synth_c)
+
+    group_c = supriya.realtime.Group(
+        name='Group C',
+        )
+    group_b.append(group_c)
+
+    synth_d = supriya.realtime.Synth(
+        supriya.assets.synthdefs.test,
+        name='Synth D',
+        )
+    group_a.append(synth_d)
+
+    synth_e = supriya.realtime.Synth(
+        supriya.assets.synthdefs.test,
+        name='Synth E',
+        )
+
+    group_a.allocate()
+
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                    1002 group
+                        1003 test
+                        1004 test
+                        1005 group
+                    1006 test
+        ''')
+
+    group_a_state = str(group_a)
+    assert group_a_state == uqbar.strings.normalize('''
+        1000 group (Group A)
+            1001 test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            1002 group (Group B)
+                1003 test (Synth B)
                     amplitude: 1.0, frequency: 440.0
-                ??? group (Group B)
-                    ??? test (Synth B)
-                        amplitude: 1.0, frequency: 440.0
-                    ??? test (Synth C)
-                        amplitude: 1.0, frequency: 440.0
-                    ??? group (Group C)
-                ??? test (Synth D)
+                1004 test (Synth C)
                     amplitude: 1.0, frequency: 440.0
-            ''',
-            ), group_a_state
+                1005 group (Group C)
+            1006 test (Synth D)
+                amplitude: 1.0, frequency: 440.0
+        ''')
 
-    def test_06(self):
+    assert group_a.node_id == 1000
+    assert synth_a.node_id == 1001
+    assert group_b.node_id == 1002
+    assert synth_b.node_id == 1003
+    assert synth_c.node_id == 1004
+    assert group_c.node_id == 1005
+    assert synth_d.node_id == 1006
+    assert synth_e.node_id is None
 
-        group = supriya.realtime.Group()
+    synth_e.allocate(
+        add_action=supriya.realtime.AddAction.REPLACE,
+        target_node=group_a,
+        )
 
-        synth_a = supriya.realtime.Synth(
-            name='Synth A',
-            synthdef=supriya.assets.synthdefs.test,
-            )
+    remote_state = str(server.query_remote_nodes())
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1007 test
+        ''')
 
-        synth_b = supriya.realtime.Synth(
-            name='Synth B',
-            synthdef=supriya.assets.synthdefs.test,
-            )
-        synth_b['amplitude'] = 0.5
-        synth_b['frequency'] = 443
+    assert group_a.node_id is None
+    assert synth_a.node_id is None
+    assert group_b.node_id is None
+    assert synth_b.node_id is None
+    assert synth_c.node_id is None
+    assert group_c.node_id is None
+    assert synth_d.node_id is None
+    assert synth_e.node_id == 1007
 
-        audio_bus = supriya.realtime.Bus(0, 'audio')
-        control_bus = supriya.realtime.Bus(1, 'control')
-
-        synth_c = supriya.realtime.Synth(
-            name='Synth C',
-            synthdef=supriya.assets.synthdefs.test,
-            )
-        synth_c['amplitude'] = audio_bus
-        synth_c['frequency'] = control_bus
-
-        group[:] = [synth_a, synth_b, synth_c]
-
-        group_state = str(group)
-        self.compare_strings(
-            group_state,
-            '''
-            ??? group
-                ??? test (Synth A)
-                    amplitude: 1.0, frequency: 440.0
+    group_a_state = str(group_a)
+    assert group_a_state == uqbar.strings.normalize('''
+        ??? group (Group A)
+            ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            ??? group (Group B)
                 ??? test (Synth B)
-                    amplitude: 0.5, frequency: 443.0
-                ??? test (Synth C)
-                    amplitude: a0, frequency: c1
-            ''',
-            ), group_state
-
-        group.allocate()
-
-        group_state = str(group)
-        self.compare_strings(
-            group_state,
-            '''
-            1000 group
-                1001 test (Synth A)
                     amplitude: 1.0, frequency: 440.0
-                1002 test (Synth B)
-                    amplitude: 0.5, frequency: 443.0
-                1003 test (Synth C)
-                    amplitude: a0, frequency: c1
-            ''',
-            ), group_state
-
-        remote_state = str(self.server.query_remote_nodes(True))
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                            amplitude: 1.0, frequency: 440.0
-                        1002 test
-                            amplitude: 0.5, frequency: 443.0
-                        1003 test
-                            amplitude: a0, frequency: c1
-            ''',
-            )
-
-        synth_b['amplitude', 'frequency'] = 0.75, 880
-        synth_c['amplitude', 'frequency'] = control_bus, audio_bus
-
-        remote_state = str(self.server.query_remote_nodes(True))
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1001 test
-                            amplitude: 1.0, frequency: 440.0
-                        1002 test
-                            amplitude: 0.75, frequency: 880.0
-                        1003 test
-                            amplitude: c1, frequency: a0
-            ''',
-            )
-
-        group[:] = [synth_c, synth_b, synth_a]
-
-        remote_state = str(self.server.query_remote_nodes(True))
-        self.compare_strings(
-            remote_state,
-            '''
-            NODE TREE 0 group
-                1 group
-                    1000 group
-                        1003 test
-                            amplitude: c1, frequency: a0
-                        1002 test
-                            amplitude: 0.75, frequency: 880.0
-                        1001 test
-                            amplitude: 1.0, frequency: 440.0
-            ''',
-            )
-
-        group.free()
-
-        group_state = str(group)
-        self.compare_strings(
-            group_state,
-            '''
-            ??? group
                 ??? test (Synth C)
-                    amplitude: c1, frequency: a0
-                ??? test (Synth B)
-                    amplitude: 0.75, frequency: 880.0
-                ??? test (Synth A)
                     amplitude: 1.0, frequency: 440.0
-            ''',
-            ), group_state
+                ??? group (Group C)
+            ??? test (Synth D)
+                amplitude: 1.0, frequency: 440.0
+        ''')
+
+
+def test_06(server):
+
+    group = supriya.realtime.Group()
+
+    synth_a = supriya.realtime.Synth(
+        name='Synth A',
+        synthdef=supriya.assets.synthdefs.test,
+        )
+
+    synth_b = supriya.realtime.Synth(
+        name='Synth B',
+        synthdef=supriya.assets.synthdefs.test,
+        )
+    synth_b['amplitude'] = 0.5
+    synth_b['frequency'] = 443
+
+    audio_bus = supriya.realtime.Bus(0, 'audio')
+    control_bus = supriya.realtime.Bus(1, 'control')
+
+    synth_c = supriya.realtime.Synth(
+        name='Synth C',
+        synthdef=supriya.assets.synthdefs.test,
+        )
+    synth_c['amplitude'] = audio_bus
+    synth_c['frequency'] = control_bus
+
+    group[:] = [synth_a, synth_b, synth_c]
+
+    group_state = str(group)
+    assert group_state == uqbar.strings.normalize('''
+        ??? group
+            ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            ??? test (Synth B)
+                amplitude: 0.5, frequency: 443.0
+            ??? test (Synth C)
+                amplitude: a0, frequency: c1
+        ''')
+
+    group.allocate()
+
+    group_state = str(group)
+    assert group_state == uqbar.strings.normalize('''
+        1000 group
+            1001 test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+            1002 test (Synth B)
+                amplitude: 0.5, frequency: 443.0
+            1003 test (Synth C)
+                amplitude: a0, frequency: c1
+        ''')
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+                    1002 test
+                        amplitude: 0.5, frequency: 443.0
+                    1003 test
+                        amplitude: a0, frequency: c1
+        ''')
+
+    synth_b['amplitude', 'frequency'] = 0.75, 880
+    synth_c['amplitude', 'frequency'] = control_bus, audio_bus
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+                    1002 test
+                        amplitude: 0.75, frequency: 880.0
+                    1003 test
+                        amplitude: c1, frequency: a0
+        ''')
+
+    group[:] = [synth_c, synth_b, synth_a]
+
+    remote_state = str(server.query_remote_nodes(True))
+    assert remote_state == uqbar.strings.normalize('''
+        NODE TREE 0 group
+            1 group
+                1000 group
+                    1003 test
+                        amplitude: c1, frequency: a0
+                    1002 test
+                        amplitude: 0.75, frequency: 880.0
+                    1001 test
+                        amplitude: 1.0, frequency: 440.0
+        ''')
+
+    group.free()
+
+    group_state = str(group)
+    assert group_state == uqbar.strings.normalize('''
+        ??? group
+            ??? test (Synth C)
+                amplitude: c1, frequency: a0
+            ??? test (Synth B)
+                amplitude: 0.75, frequency: 880.0
+            ??? test (Synth A)
+                amplitude: 1.0, frequency: 440.0
+        ''')

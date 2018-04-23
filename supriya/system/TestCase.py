@@ -3,8 +3,8 @@ import pathlib
 import re
 import types
 import unittest
+import uqbar.strings
 from io import StringIO
-from supriya import utils
 
 
 class TestCase(unittest.TestCase):
@@ -17,14 +17,14 @@ class TestCase(unittest.TestCase):
 
     def compare_captured_output(self, expected):
         actual = self.ansi_escape.sub('', self.string_io.getvalue())
-        actual = utils.normalize_string(actual)
-        expected = utils.normalize_string(expected)
+        actual = uqbar.strings.normalize(actual)
+        expected = uqbar.strings.normalize(expected)
         self.compare_strings(expected, actual)
 
     def compare_file_contents(self, path, expected_contents):
-        expected_contents = utils.normalize_string(expected_contents)
+        expected_contents = uqbar.strings.normalize(expected_contents)
         with open(str(path), 'r') as file_pointer:
-            actual_contents = utils.normalize_string(file_pointer.read())
+            actual_contents = uqbar.strings.normalize(file_pointer.read())
         self.compare_strings(expected_contents, actual_contents)
 
     def compare_path_contents(self, path_to_search, expected_files):
@@ -39,9 +39,9 @@ class TestCase(unittest.TestCase):
             '\n'.join(str(_) for _ in expected_files),
             )
 
-    def compare_strings(self, expected, actual):
-        actual = self.normalize(self.ansi_escape.sub('', actual))
-        expected = self.normalize(self.ansi_escape.sub('', expected))
+    def compare_strings(cls, expected, actual):
+        actual = cls.normalize(cls.ansi_escape.sub('', actual))
+        expected = cls.normalize(cls.ansi_escape.sub('', expected))
         example = types.SimpleNamespace()
         example.want = expected
         output_checker = doctest.OutputChecker()
@@ -55,26 +55,8 @@ class TestCase(unittest.TestCase):
             diff = output_checker.output_difference(example, actual, flags)
             raise Exception(diff)
 
-    def get_objects_as_string(self, objects, replace_uuids=False):
-        pattern = re.compile(r"\bUUID\('(.*)'\)")
-        objects_string = '\n'.join(format(x) for x in objects)
-        if replace_uuids:
-            matches = []
-            search_offset = 0
-            while True:
-                match = pattern.search(objects_string, search_offset)
-                if not match:
-                    break
-                group = match.groups()[0]
-                if group not in matches:
-                    matches.append(group)
-                search_offset = match.end()
-            for i, match in enumerate(matches, 65):
-                objects_string = objects_string.replace(match, chr(i))
-        return objects_string
-
     def normalize(self, string):
-        return utils.normalize_string(string)
+        return uqbar.strings.normalize(string)
 
     def reset_string_io(self):
         self.string_io.close()

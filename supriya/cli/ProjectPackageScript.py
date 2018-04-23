@@ -6,12 +6,12 @@ import pathlib
 import re
 import shutil
 import subprocess
+import supriya
 import sys
 import traceback
 import uqbar.cli
 import uqbar.io
-import supriya
-from supriya import utils
+import uqbar.strings
 
 
 class ProjectPackageScript(uqbar.cli.CLI):
@@ -214,7 +214,7 @@ class ProjectPackageScript(uqbar.cli.CLI):
 
     def _name_to_project_subdirectory_path(self, name, section, project_path):
         project_path = self._path_to_project_package_path(project_path)
-        name = utils.to_snake_case(name)
+        name = uqbar.strings.to_snake_case(name)
         path = project_path.joinpath(section, name)
         return path
 
