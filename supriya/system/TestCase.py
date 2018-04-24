@@ -1,31 +1,23 @@
-import doctest
-import pathlib
 import re
-import types
+import pytest
+import pathlib
 import unittest
-import uqbar.strings
 from io import StringIO
 
 
 class TestCase(unittest.TestCase):
 
-    ### CLASS VARIABLES ###
+    ### PUBLIC METHODS ###
 
     ansi_escape = re.compile(r'\x1b[^m]*m')
 
-    ### PUBLIC METHODS ###
-
     def compare_captured_output(self, expected):
-        actual = self.ansi_escape.sub('', self.string_io.getvalue())
-        actual = uqbar.strings.normalize(actual)
-        expected = uqbar.strings.normalize(expected)
-        self.compare_strings(expected, actual)
+        pytest.helpers.compare_strings(expected, self.string_io.getvalue())
 
     def compare_file_contents(self, path, expected_contents):
-        expected_contents = uqbar.strings.normalize(expected_contents)
-        with open(str(path), 'r') as file_pointer:
-            actual_contents = uqbar.strings.normalize(file_pointer.read())
-        self.compare_strings(expected_contents, actual_contents)
+        with pathlib.Path(path).open('r') as file_pointer:
+            actual_contents = file_pointer.read()
+        pytest.helpers.compare_strings(expected_contents, actual_contents)
 
     def compare_path_contents(self, path_to_search, expected_files):
         actual_files = sorted(
@@ -34,29 +26,10 @@ class TestCase(unittest.TestCase):
             if '__pycache__' not in path.parts and
             path.suffix != '.pyc'
             )
-        self.compare_strings(
+        pytest.helpers.compare_strings(
             '\n'.join(str(_) for _ in actual_files),
             '\n'.join(str(_) for _ in expected_files),
             )
-
-    def compare_strings(cls, expected, actual):
-        actual = cls.normalize(cls.ansi_escape.sub('', actual))
-        expected = cls.normalize(cls.ansi_escape.sub('', expected))
-        example = types.SimpleNamespace()
-        example.want = expected
-        output_checker = doctest.OutputChecker()
-        flags = (
-            doctest.NORMALIZE_WHITESPACE |
-            doctest.ELLIPSIS |
-            doctest.REPORT_NDIFF
-            )
-        success = output_checker.check_output(expected, actual, flags)
-        if not success:
-            diff = output_checker.output_difference(example, actual, flags)
-            raise Exception(diff)
-
-    def normalize(self, string):
-        return uqbar.strings.normalize(string)
 
     def reset_string_io(self):
         self.string_io.close()

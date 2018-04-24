@@ -1,3 +1,4 @@
+import doctest
 import os
 import pathlib
 import pytest
@@ -122,6 +123,9 @@ class TestSessionFactory:
         return session
 
 
+ansi_escape = re.compile(r'\x1b[^m]*m')
+
+
 ### HELPERS ###
 
 
@@ -241,6 +245,24 @@ def build_multiplier_synthdef(channel_count=1):
             source=source * builder['multiplier'],
             )
     return builder.build()
+
+
+@pytest.helpers.register
+def compare_strings(expected, actual):
+    actual = uqbar.strings.normalize(ansi_escape.sub('', actual))
+    expected = uqbar.strings.normalize(ansi_escape.sub('', expected))
+    example = types.SimpleNamespace()
+    example.want = expected
+    output_checker = doctest.OutputChecker()
+    flags = (
+        doctest.NORMALIZE_WHITESPACE |
+        doctest.ELLIPSIS |
+        doctest.REPORT_NDIFF
+        )
+    success = output_checker.check_output(expected, actual, flags)
+    if not success:
+        diff = output_checker.output_difference(example, actual, flags)
+        raise Exception(diff)
 
 
 @pytest.helpers.register
